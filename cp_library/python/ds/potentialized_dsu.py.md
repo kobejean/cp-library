@@ -48,7 +48,7 @@ data:
   isVerificationFile: false
   path: cp_library/python/ds/potentialized_dsu.py
   requiredBy: []
-  timestamp: '2024-08-13 18:31:01+09:00'
+  timestamp: '2024-08-13 18:47:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unionfind_with_potential.test.py
