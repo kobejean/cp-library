@@ -81,7 +81,7 @@ jobs:
     #     args: --debug
 
     - name: Run tests
-      _def:
+      env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
