@@ -1,11 +1,11 @@
 ---
 data:
   libraryCategories:
-  - name: cp_library/python/ds
+  - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/python/ds/potentialized_dsu.py
-      title: cp_library/python/ds/potentialized_dsu.py
+      path: cp_library/ds/potentialized_dsu.py
+      title: cp_library/ds/potentialized_dsu.py
   verificationCategories:
   - name: test
     pages:
