@@ -1,38 +1,43 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':x:'
-    path: cp_library/math/mod/matpow.py
-    title: cp_library/math/mod/matpow.py
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "def matmul(A, B, mod):\n    N1, N2, N3 = len(A),len(B),len(B[0])\n\
-    \    R = [[0]*N3 for _ in range(N1)]\n    for i in range(N1):\n        for j in\
-    \ range(N3):\n            for k in range(N2):\n                R[i][j] += A[i][k]*B[k][j]\
-    \ % mod\n                R[i][j] %= mod\n    return R\n\ndef matpow(A, K, mod):\n\
-    \    N = len(A)\n    R = [[int(i == j) for j in range(N)] for i in range(N)]\n\
-    \    An = [[aij for aij in ai] for ai in A]\n    while K > 0:\n        if K &\
-    \ 1:\n            R = matmul(R,An,mod)\n        An = matmul(An,An,mod)\n     \
-    \   K >>= 1\n    return R\n\ndef rint(shift=0, base=10):\n    return [int(x, base)\
-    \ + shift for x in input().split()]\n\nmod = 998244353\n\nN, K = rint()\nA = [rint()\
-    \ for _ in range(N)]\nB = matpow(A, K, mod)\nfor bi in B:\n    print(*bi) \n \
-    \   \n"
-  code: "from cp_library.math.mod.matpow import matpow\n\ndef rint(shift=0, base=10):\n\
-    \    return [int(x, base) + shift for x in input().split()]\n\nmod = 998244353\n\
-    \nN, K = rint()\nA = [rint() for _ in range(N)]\nB = matpow(A, K, mod)\nfor bi\
-    \ in B:\n    print(*bi) \n    "
-  dependsOn:
-  - cp_library/math/mod/matpow.py
+    PROBLEM: https://judge.yosupo.jp/problem/pow_of_matrix
+    links:
+    - https://judge.yosupo.jp/problem/pow_of_matrix
+  bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
+    \n\ndef mat_mul(A,B,mod):\n    assert len(A[0]) == len(B)\n    R = [[0]*len(B[0])\
+    \ for _ in range(len(A))] \n    for i,Ri in enumerate(R):\n        for k,Aik in\
+    \ enumerate(A[i]):\n            for j,Bkj in enumerate(B[k]):\n              \
+    \  Ri[j] = (Ri[j] + Aik*Bkj) % mod  \n    return R \n\ndef mat_id(N):\n    return\
+    \ [[int(i==j) for j in range(N)] for i in range(N)]\n\ndef mat_pow(A,K,mod):\n\
+    \    N = len(A)\n    ret = A if K & 1 else mat_id(N)\n    for i in range(1,K.bit_length()):\n\
+    \        A = mat_mul(A,A,mod) \n        if K >> i & 1:\n            ret = mat_mul(ret,A,mod)\
+    \ \n    return ret \n\nmod = 998244353\n\ndef rint(shift=0, base=10):\n    return\
+    \ [int(x, base) + shift for x in input().split()]\n\nN, K = rint()\nA = [rint()\
+    \ for _ in range(N)]\nB = mat_pow(A, K, mod)\n\nfor row in B:\n    print(*row)\n"
+  code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
+    \n\ndef mat_mul(A,B,mod):\n    assert len(A[0]) == len(B)\n    R = [[0]*len(B[0])\
+    \ for _ in range(len(A))] \n    for i,Ri in enumerate(R):\n        for k,Aik in\
+    \ enumerate(A[i]):\n            for j,Bkj in enumerate(B[k]):\n              \
+    \  Ri[j] = (Ri[j] + Aik*Bkj) % mod  \n    return R \n\ndef mat_id(N):\n    return\
+    \ [[int(i==j) for j in range(N)] for i in range(N)]\n\ndef mat_pow(A,K,mod):\n\
+    \    N = len(A)\n    ret = A if K & 1 else mat_id(N)\n    for i in range(1,K.bit_length()):\n\
+    \        A = mat_mul(A,A,mod) \n        if K >> i & 1:\n            ret = mat_mul(ret,A,mod)\
+    \ \n    return ret \n\nmod = 998244353\n\ndef rint(shift=0, base=10):\n    return\
+    \ [int(x, base) + shift for x in input().split()]\n\nN, K = rint()\nA = [rint()\
+    \ for _ in range(N)]\nB = mat_pow(A, K, mod)\n\nfor row in B:\n    print(*row)\n"
+  dependsOn: []
   isVerificationFile: true
   path: test/pow_of_matrix.test.py
   requiredBy: []
-  timestamp: '2024-08-14 00:25:50+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-08-14 06:21:59+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix.test.py
 layout: document

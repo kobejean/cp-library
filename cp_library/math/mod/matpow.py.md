@@ -2,40 +2,40 @@
 data:
   _extendedDependsOn:
   - icon: ':warning:'
+    path: cp_library/math/mod/matid.py
+    title: cp_library/math/mod/matid.py
+  - icon: ':warning:'
     path: cp_library/math/mod/matmul.py
     title: cp_library/math/mod/matmul.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/pow_of_matrix.test.py
-    title: test/pow_of_matrix.test.py
-  _isVerificationFailed: true
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "def matmul(A, B, mod):\n    N1, N2, N3 = len(A),len(B),len(B[0])\n\
-    \    R = [[0]*N3 for _ in range(N1)]\n    for i in range(N1):\n        for j in\
-    \ range(N3):\n            for k in range(N2):\n                R[i][j] += A[i][k]*B[k][j]\
-    \ % mod\n                R[i][j] %= mod\n    return R\n\ndef matpow(A, K, mod):\n\
-    \    N = len(A)\n    R = [[int(i == j) for j in range(N)] for i in range(N)]\n\
-    \    An = [[aij for aij in ai] for ai in A]\n    while K > 0:\n        if K &\
-    \ 1:\n            R = matmul(R,An,mod)\n        An = matmul(An,An,mod)\n     \
-    \   K >>= 1\n    return R\n"
-  code: "from cp_library.math.mod.matmul import matmul\n\ndef matpow(A, K, mod):\n\
-    \    N = len(A)\n    R = [[int(i == j) for j in range(N)] for i in range(N)]\n\
-    \    An = [[aij for aij in ai] for ai in A]\n    while K > 0:\n        if K &\
-    \ 1:\n            R = matmul(R,An,mod)\n        An = matmul(An,An,mod)\n     \
-    \   K >>= 1\n    return R"
+  bundledCode: "\ndef mat_mul(A,B,mod):\n    assert len(A[0]) == len(B)\n    R = [[0]*len(B[0])\
+    \ for _ in range(len(A))] \n    for i,Ri in enumerate(R):\n        for k,Aik in\
+    \ enumerate(A[i]):\n            for j,Bkj in enumerate(B[k]):\n              \
+    \  Ri[j] = (Ri[j] + Aik*Bkj) % mod  \n    return R \n\ndef mat_id(N):\n    return\
+    \ [[int(i==j) for j in range(N)] for i in range(N)]\n\ndef mat_pow(A,K,mod):\n\
+    \    N = len(A)\n    ret = A if K & 1 else mat_id(N)\n    for i in range(1,K.bit_length()):\n\
+    \        A = mat_mul(A,A,mod) \n        if K >> i & 1:\n            ret = mat_mul(ret,A,mod)\
+    \ \n    return ret \n"
+  code: "from cp_library.math.mod.matmul import mat_mul\nfrom cp_library.math.mod.matid\
+    \ import mat_id\n\ndef mat_pow(A,K,mod):\n    N = len(A)\n    ret = A if K & 1\
+    \ else mat_id(N)\n    for i in range(1,K.bit_length()):\n        A = mat_mul(A,A,mod)\
+    \ \n        if K >> i & 1:\n            ret = mat_mul(ret,A,mod) \n    return\
+    \ ret \n"
   dependsOn:
   - cp_library/math/mod/matmul.py
+  - cp_library/math/mod/matid.py
   isVerificationFile: false
   path: cp_library/math/mod/matpow.py
   requiredBy: []
-  timestamp: '2024-08-14 00:25:50+09:00'
-  verificationStatus: LIBRARY_ALL_WA
-  verifiedWith:
-  - test/pow_of_matrix.test.py
+  timestamp: '2024-08-14 06:21:59+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: cp_library/math/mod/matpow.py
 layout: document
 redirect_from:
