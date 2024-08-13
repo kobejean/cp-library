@@ -19,6 +19,13 @@ class PotentializedDSU:
             self.pot[y] = self.op(self.pot[y], self.pot[self.par[y]])
             self.par[y] = x
         return x
+    
+    def consistent(self, x: int, y: int, w) -> bool:
+        rx = self.leader(x)
+        ry = self.leader(y)
+        if rx == ry:
+            return self.op(self.pot[x], self.inv(self.pot[y])) == w
+        return True
 
     def merge(self, x: int, y: int, w) -> int:
         assert 0 <= x < self.n
@@ -26,7 +33,6 @@ class PotentializedDSU:
         rx = self.leader(x)
         ry = self.leader(y)
         if rx == ry:
-            assert self.op(self.pot[x], self.inv(self.pot[y])) == w
             return rx
         
         if self.par[rx] < self.par[ry]:

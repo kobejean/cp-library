@@ -1,4 +1,4 @@
-# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group
+# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential
 
 # You must see with eyes unclouded by hate.  See the good in  
 # that which is evil, and the evil in that which is good.     
@@ -16,28 +16,22 @@ def rint(shift=0, base=10):
 
 N, Q = rint()
 
-def matmul(x, y):
-    return [
-        (y[0] * x[0] + y[1] * x[2]) % mod,
-        (y[0] * x[1] + y[1] * x[3]) % mod,
-        (y[2] * x[0] + y[3] * x[2]) % mod,
-        (y[2] * x[1] + y[3] * x[3]) % mod,
-    ]
+def op(x,y):
+    return (x+y)%mod
 
-def matinv(x) -> list[int]:
-    return [x[3], -x[1] % mod, -x[2] % mod, x[0]]
+def inv(x):
+    return (-x)%mod
 
-e = [1, 0, 0, 1]
-pdsu = PotentializedDSU(matmul,matinv,e,N)
+pdsu = PotentializedDSU(op,inv,0,N)
 
 for _ in range(Q):
     t, *q = rint()
     if t:
         u, v = q
-        ans = pdsu.diff(u, v) if pdsu.same(u, v) else (-1,)
-        print(*ans)
+        ans = pdsu.diff(u, v) if pdsu.same(u, v) else -1
+        print(ans)
     else:
-        u, v, *w = q
-        print(int(pdsu.consistent(u,v, w)))
-        pdsu.merge(u, v, w)
+        u, v, x = q
+        print(int(pdsu.consistent(u,v,x)))
+        pdsu.merge(u, v, x)
             

@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["kobejean"]
 readme = "README.md"
-packages = [{include = "python", from="cp_library"}]
+packages = [{ include = "cp_library" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
