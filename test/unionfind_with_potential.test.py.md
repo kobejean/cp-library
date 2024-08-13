@@ -4,6 +4,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/potentialized_dsu.py
     title: cp_library/ds/potentialized_dsu.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/__init__.py
+    title: cp_library/math/__init__.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/mod/__init__.py
+    title: cp_library/math/mod/__init__.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -13,58 +19,63 @@ data:
     PROBLEM: https://judge.yosupo.jp/problem/unionfind_with_potential
     links:
     - https://judge.yosupo.jp/problem/unionfind_with_potential
-  bundledCode: "# File: cp_library/ds/potentialized_dsu.py\nclass PotentializedDSU:\n\
-    \n    def __init__(self, op, inv, e, v) -> None:\n        n = v if isinstance(v,\
-    \ int) else len(v)\n        self.n = n\n        self.par = [-1] * n\n        self.op\
-    \ = op\n        self.inv = inv\n        self.e = e\n        self.pot = [e] * n\
-    \ if isinstance(v, int) else v\n\n    def leader(self, x: int) -> int:\n     \
-    \   assert 0 <= x < self.n\n        path = []\n        while self.par[x] >= 0:\n\
-    \            path.append(x)\n            x = self.par[x]\n        for y in reversed(path):\n\
-    \            self.pot[y] = self.op(self.pot[y], self.pot[self.par[y]])\n     \
-    \       self.par[y] = x\n        return x\n\n    def consistent(self, x: int,\
-    \ y: int, w) -> bool:\n        rx = self.leader(x)\n        ry = self.leader(y)\n\
-    \        if rx == ry:\n            return self.op(self.pot[x], self.inv(self.pot[y]))\
-    \ == w\n        return True\n\n    def merge(self, x: int, y: int, w) -> int:\n\
-    \        assert 0 <= x < self.n\n        assert 0 <= y < self.n\n        rx =\
-    \ self.leader(x)\n        ry = self.leader(y)\n        if rx == ry:\n        \
-    \    return rx\n        if self.par[rx] < self.par[ry]:\n            (x, y, w,\
-    \ rx, ry) = (y, x, self.inv(w), ry, rx)\n        self.par[ry] += self.par[rx]\n\
-    \        self.par[rx] = ry\n        self.pot[rx] = self.op(self.op(self.inv(self.pot[x]),\
-    \ w), self.pot[y])\n        return ry\n\n    def same(self, x: int, y: int) ->\
-    \ bool:\n        assert 0 <= x < self.n\n        assert 0 <= y < self.n\n    \
-    \    return self.leader(x) == self.leader(y)\n\n    def size(self, x: int) ->\
-    \ int:\n        assert 0 <= x < self.n\n        return -self.par[self.leader(x)]\n\
-    \n    def groups(self):\n        leader_buf = [self.leader(i) for i in range(self.n)]\n\
-    \        result = [[] for _ in range(self.n)]\n        for i in range(self.n):\n\
-    \            result[leader_buf[i]].append(i)\n        return list(filter(lambda\
-    \ r: r, result))\n\n    def diff(self, x: int, y: int):\n        assert self.same(x,\
-    \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\n\n\n# File:\
-    \ test/unionfind_with_potential.test.py\nmod = 998244353\n\ndef rint(shift=0,\
-    \ base=10):\n    return [int(x, base) + shift for x in input().split()]\n(N, Q)\
-    \ = rint()\n\ndef op(x, y):\n    return (x + y) % mod\n\ndef inv(x):\n    return\
-    \ -x % mod\npdsu = PotentializedDSU(op, inv, 0, N)\nfor _ in range(Q):\n    (t,\
-    \ *q) = rint()\n    if t:\n        (u, v) = q\n        ans = pdsu.diff(u, v) if\
-    \ pdsu.same(u, v) else -1\n        print(ans)\n    else:\n        (u, v, x) =\
-    \ q\n        print(int(pdsu.consistent(u, v, x)))\n        pdsu.merge(u, v, x)"
+  bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential\n\
+    \nclass PotentializedDSU:\n\n    def __init__(self, op, inv, e, v) -> None:\n\
+    \        n = v if isinstance(v, int) else len(v)\n        self.n = n\n       \
+    \ self.par = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e\
+    \ = e\n        self.pot = [e] * n if isinstance(v, int) else v\n\n    def leader(self,\
+    \ x: int) -> int:\n        assert 0 <= x < self.n\n        path = []\n       \
+    \ while self.par[x] >= 0:\n            path.append(x)\n            x = self.par[x]\n\
+    \        for y in reversed(path):\n            self.pot[y] = self.op(self.pot[y],\
+    \ self.pot[self.par[y]])\n            self.par[y] = x\n        return x\n    \n\
+    \    def consistent(self, x: int, y: int, w) -> bool:\n        rx = self.leader(x)\n\
+    \        ry = self.leader(y)\n        if rx == ry:\n            return self.op(self.pot[x],\
+    \ self.inv(self.pot[y])) == w\n        return True\n\n    def merge(self, x: int,\
+    \ y: int, w) -> int:\n        assert 0 <= x < self.n\n        assert 0 <= y <\
+    \ self.n\n        rx = self.leader(x)\n        ry = self.leader(y)\n        if\
+    \ rx == ry:\n            return rx\n        \n        if self.par[rx] < self.par[ry]:\n\
+    \            x,y,w,rx,ry = y,x,self.inv(w),ry,rx\n            \n        self.par[ry]\
+    \ += self.par[rx]\n        self.par[rx] = ry\n        self.pot[rx] = self.op(\n\
+    \            self.op(self.inv(self.pot[x]), w), self.pot[y]\n        )\n     \
+    \   return ry\n\n    def same(self, x: int, y: int) -> bool:\n        assert 0\
+    \ <= x < self.n\n        assert 0 <= y < self.n\n        return self.leader(x)\
+    \ == self.leader(y)\n    \n    def size(self, x: int) -> int:\n        assert\
+    \ 0 <= x < self.n\n        return -self.par[self.leader(x)]\n    \n    def groups(self):\n\
+    \        leader_buf = [self.leader(i) for i in range(self.n)]\n\n        result\
+    \ = [[] for _ in range(self.n)]\n        for i in range(self.n):\n           \
+    \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
+    \n    def diff(self, x: int, y: int):\n        assert self.same(x, y)\n      \
+    \  return self.op(self.pot[x], self.inv(self.pot[y]))\n\ndef matmul(A, B, mod):\n\
+    \    N1, N2, N3 = len(A),len(B),len(B[0])\n    R = [[0]*N3 for _ in range(N1)]\n\
+    \    for i in range(N1):\n        for j in range(N3):\n            for k in range(N2):\n\
+    \                R[i][j] += A[i][k]*B[k][j] % mod\n                R[i][j] %=\
+    \ mod\n    return R\n\n\ndef matpow(A, K, mod):\n    N = len(A)\n    R = [[int(i\
+    \ == j) for j in range(N)] for i in range(N)]\n    An = [[aij for aij in ai] for\
+    \ ai in A]\n    while K > 0:\n        if K & 1:\n            R = matmul(R,An,mod)\n\
+    \        An = matmul(An,An,mod)\n        K >>= 1\n    return R\n\nmod = 998244353\n\
+    \ndef rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
+    \nN, Q = rint()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef inv(x):\n    return\
+    \ (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\nfor _ in range(Q):\n    t,\
+    \ *q = rint()\n    if t:\n        u, v = q\n        ans = pdsu.diff(u, v) if pdsu.same(u,\
+    \ v) else -1\n        print(ans)\n    else:\n        u, v, x = q\n        print(int(pdsu.consistent(u,v,x)))\n\
+    \        pdsu.merge(u, v, x)\n\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential\n\
-    \n# You must see with eyes unclouded by hate.  See the good in  \n# that which\
-    \ is evil, and the evil in that which is good.     \n# Pledge yourself to neither\
-    \ side, but vow instead to preserve\n# the balance that exists between the two.\
-    \ - Hayao Miyazaki   \n# ------------------------------------------------------------\n\
-    #                      Coded by: kobejean                     \n\nfrom cp_library.ds.potentialized_dsu\
-    \ import PotentializedDSU\n\nmod = 998244353\n\ndef rint(shift=0, base=10):\n\
-    \    return [int(x, base) + shift for x in input().split()]\n\nN, Q = rint()\n\
-    \ndef op(x,y):\n    return (x+y)%mod\n\ndef inv(x):\n    return (-x)%mod\n\npdsu\
-    \ = PotentializedDSU(op,inv,0,N)\n\nfor _ in range(Q):\n    t, *q = rint()\n \
-    \   if t:\n        u, v = q\n        ans = pdsu.diff(u, v) if pdsu.same(u, v)\
-    \ else -1\n        print(ans)\n    else:\n        u, v, x = q\n        print(int(pdsu.consistent(u,v,x)))\n\
-    \        pdsu.merge(u, v, x)\n            "
+    \nfrom cp_library.ds.potentialized_dsu import PotentializedDSU\nfrom cp_library.math.mod\
+    \ import *\nfrom cp_library.math import *\n\nmod = 998244353\n\ndef rint(shift=0,\
+    \ base=10):\n    return [int(x, base) + shift for x in input().split()]\n\nN,\
+    \ Q = rint()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef inv(x):\n    return\
+    \ (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\nfor _ in range(Q):\n    t,\
+    \ *q = rint()\n    if t:\n        u, v = q\n        ans = pdsu.diff(u, v) if pdsu.same(u,\
+    \ v) else -1\n        print(ans)\n    else:\n        u, v, x = q\n        print(int(pdsu.consistent(u,v,x)))\n\
+    \        pdsu.merge(u, v, x)\n\n"
   dependsOn:
+  - cp_library/math/mod/__init__.py
   - cp_library/ds/potentialized_dsu.py
+  - cp_library/math/__init__.py
   isVerificationFile: true
   path: test/unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2024-08-13 19:44:46+09:00'
+  timestamp: '2024-08-14 00:25:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind_with_potential.test.py
