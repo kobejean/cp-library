@@ -8,7 +8,7 @@ packages = [{ include = "cp_library" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-online-judge-verify-helper = "^5.6.0"
+online-judge-verify-helper = {git = "https://github.com/kobejean/verification-helper.git"}
 
 
 [build-system]

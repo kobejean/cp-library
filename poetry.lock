@@ -468,10 +468,9 @@ name = "online-judge-verify-helper"
 version = "5.6.0"
 description = ""
 optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "online_judge_verify_helper-5.6.0-py3-none-any.whl", hash = "sha256:215ae717dc7d038125ee23791340472eef366e760f3bddd0186dcdca69834b8d"},
-]
+python-versions = ">=3.8"
+files = []
+develop = false
 
 [package.dependencies]
 colorlog = "*"
@@ -482,7 +481,13 @@ setuptools = "*"
 toml = "*"
 
 [package.extras]
-dev = ["isort (==5.5.2)", "mypy (==0.782)", "pylint (==2.6.0)", "yapf (==0.30.0)"]
+dev = ["isort (==5.10.1)", "mypy (==0.941)", "pylint (==2.7.3)", "yapf (==0.30.0)"]
+
+[package.source]
+type = "git"
+url = "https://github.com/kobejean/verification-helper.git"
+reference = "HEAD"
+resolved_reference = "6d222603bdb92c014f0159b1c3626c68917632a4"
 
 [[package]]
 name = "pyyaml"
@@ -752,4 +757,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "d274cf21afdb071a85024edd92678a2b986655651ae310d5b46fbd0adc4fd19b"
+content-hash = "09b49c8ae25c73a0999d105ee6e46e3e38088b95aaa17f6a85ada8dd1e715855"

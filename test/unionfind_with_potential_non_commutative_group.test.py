@@ -7,7 +7,7 @@
 # ------------------------------------------------------------
 #                      Coded by: kobejean                     
 
-from cp_library.python.ds.potentialized_dsu import PotentializedDSU
+from cp_library.ds.potentialized_dsu import PotentializedDSU
 
 mod = 998244353
 
