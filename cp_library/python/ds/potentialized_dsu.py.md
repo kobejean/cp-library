@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/unionfind_with_potential.test.py
+    title: test/unionfind_with_potential.test.py
+  - icon: ':heavy_check_mark:'
     path: test/unionfind_with_potential_non_commutative_group.test.py
     title: test/unionfind_with_potential_non_commutative_group.test.py
   _isVerificationFailed: false
@@ -22,11 +25,13 @@ data:
     \ x: int) -> int:\n        assert 0 <= x < self.n\n        path = []\n       \
     \ while self.par[x] >= 0:\n            path.append(x)\n            x = self.par[x]\n\
     \        for y in reversed(path):\n            self.pot[y] = self.op(self.pot[y],\
-    \ self.pot[self.par[y]])\n            self.par[y] = x\n        return x\n\n  \
-    \  def merge(self, x: int, y: int, w) -> int:\n        assert 0 <= x < self.n\n\
-    \        assert 0 <= y < self.n\n        rx = self.leader(x)\n        ry = self.leader(y)\n\
-    \        if rx == ry:\n            assert self.op(self.pot[x], self.inv(self.pot[y]))\
-    \ == w\n            return rx\n        \n        if self.par[rx] < self.par[ry]:\n\
+    \ self.pot[self.par[y]])\n            self.par[y] = x\n        return x\n    \n\
+    \    def consistent(self, x: int, y: int, w) -> bool:\n        rx = self.leader(x)\n\
+    \        ry = self.leader(y)\n        if rx == ry:\n            return self.op(self.pot[x],\
+    \ self.inv(self.pot[y])) == w\n        return True\n\n    def merge(self, x: int,\
+    \ y: int, w) -> int:\n        assert 0 <= x < self.n\n        assert 0 <= y <\
+    \ self.n\n        rx = self.leader(x)\n        ry = self.leader(y)\n        if\
+    \ rx == ry:\n            return rx\n        \n        if self.par[rx] < self.par[ry]:\n\
     \            x,y,w,rx,ry = y,x,self.inv(w),ry,rx\n            \n        self.par[ry]\
     \ += self.par[rx]\n        self.par[rx] = ry\n        self.pot[rx] = self.op(\n\
     \            self.op(self.inv(self.pot[x]), w), self.pot[y]\n        )\n     \
@@ -43,9 +48,10 @@ data:
   isVerificationFile: false
   path: cp_library/python/ds/potentialized_dsu.py
   requiredBy: []
-  timestamp: '2024-08-13 17:42:14+09:00'
+  timestamp: '2024-08-13 18:31:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/unionfind_with_potential.test.py
   - test/unionfind_with_potential_non_commutative_group.test.py
 documentation_of: cp_library/python/ds/potentialized_dsu.py
 layout: document

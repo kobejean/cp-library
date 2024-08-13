@@ -10,6 +10,9 @@ data:
   - name: test
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/unionfind_with_potential.test.py
+      title: test/unionfind_with_potential.test.py
+    - icon: ':heavy_check_mark:'
       path: test/unionfind_with_potential_non_commutative_group.test.py
       title: test/unionfind_with_potential_non_commutative_group.test.py
 layout: toppage
