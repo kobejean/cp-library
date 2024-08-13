@@ -10,7 +10,10 @@ for test_file in test/*.test.py; do
 done
 
 oj-verify all
-
-for test_file in test/*.test.py; do
-    cat  ".verify-helper/cache/$test_file" > "$test_file"
-done
+if ls test/*.test.py 1> /dev/null 2>&1; then
+    for test_file in test/*.test.py; do
+        cat  ".verify-helper/cache/$test_file" > "$test_file"
+    done
+else
+    echo "No .test.py files found in the test/ directory."
+fi
