@@ -1,5 +1,6 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix
 
+
 def mat_mul(A,B,mod):
     assert len(A[0]) == len(B)
     R = [[0]*len(B[0]) for _ in range(len(A))] 
@@ -8,6 +9,7 @@ def mat_mul(A,B,mod):
             for j,Bkj in enumerate(B[k]):
                 Ri[j] = (Ri[j] + Aik*Bkj) % mod  
     return R 
+
 def mat_id(N):
     return [[int(i==j) for j in range(N)] for i in range(N)]
 
@@ -27,7 +29,7 @@ def rint(shift=0, base=10):
 
 N, K = rint()
 A = [rint() for _ in range(N)]
-B = mat_pow(A, K,mod)
+B = mat_pow(A, K, mod)
 
 for row in B:
     print(*row)

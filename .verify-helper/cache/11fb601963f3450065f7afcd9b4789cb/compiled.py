@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/pow_of_matrix.test.py'
-basedir = '/Users/kobejean/Developer/GitHub/cp-library'
+path = '/Users/kobejean/Developer/GitHub/cp-library/.verify-helper/cache/test/pow_of_matrix.test.py'
+basedir = '/Users/kobejean/Developer/GitHub/cp-library/.verify-helper/cache/test'
 
-# run test/pow_of_matrix.test.py
+# run pow_of_matrix.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 
