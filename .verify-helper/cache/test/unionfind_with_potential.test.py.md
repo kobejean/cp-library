@@ -3,9 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://judge.yosupo.jp/problem/unionfind_with_potential
     links:
@@ -80,8 +80,8 @@ data:
   isVerificationFile: true
   path: unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2024-08-14 03:33:20+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-08-14 06:01:40+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: unionfind_with_potential.test.py
 layout: document
