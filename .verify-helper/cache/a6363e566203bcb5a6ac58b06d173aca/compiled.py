@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/.verify-helper/cache/test/unionfind_with_potential_non_commutative_group.test.py'
-basedir = '/Users/kobejean/Developer/GitHub/cp-library/.verify-helper/cache/test'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/unionfind_with_potential_non_commutative_group.test.py'
+basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run unionfind_with_potential_non_commutative_group.test.py
+# run test/unionfind_with_potential_non_commutative_group.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 

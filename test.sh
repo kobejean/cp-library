@@ -24,7 +24,7 @@ mkdir -p .verify-helper/cache
 filename=$(basename "$test_file")
 
 # Run oj-bundle and redirect output to cache
-oj-bundle "$test_file" > ".verify-helper/cache/$filename"
+oj-bundle "$test_file" > ".verify-helper/cache/$test_file"
 
 # Run oj-verify on the cached file
-oj-verify run ".verify-helper/cache/$filename"
+oj-verify run ".verify-helper/cache/$test_file"
