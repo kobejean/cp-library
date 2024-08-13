@@ -1,13 +1,8 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential
 
-# You must see with eyes unclouded by hate.  See the good in  
-# that which is evil, and the evil in that which is good.     
-# Pledge yourself to neither side, but vow instead to preserve
-# the balance that exists between the two. - Hayao Miyazaki   
-# ------------------------------------------------------------
-#                      Coded by: kobejean                     
-
 from cp_library.ds.potentialized_dsu import PotentializedDSU
+from cp_library.math.mod import *
+from cp_library.math import *
 
 mod = 998244353
 
@@ -34,4 +29,4 @@ for _ in range(Q):
         u, v, x = q
         print(int(pdsu.consistent(u,v,x)))
         pdsu.merge(u, v, x)
-            
+
