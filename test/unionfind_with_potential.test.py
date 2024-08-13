@@ -1,8 +1,6 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential
 
 from cp_library.ds.potentialized_dsu import PotentializedDSU
-from cp_library.math.mod import *
-from cp_library.math import *
 
 mod = 998244353
 

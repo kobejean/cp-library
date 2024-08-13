@@ -1,13 +1,15 @@
+# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix
+
 from cp_library.math.mod.matpow import matpow
+
+mod = 998244353
 
 def rint(shift=0, base=10):
     return [int(x, base) + shift for x in input().split()]
 
-mod = 998244353
-
 N, K = rint()
 A = [rint() for _ in range(N)]
-B = matpow(A, K, mod)
-for bi in B:
-    print(*bi) 
-    
+B = matpow(A, K,mod)
+
+for row in B:
+    print(*row)

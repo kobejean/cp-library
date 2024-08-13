@@ -1,9 +1,11 @@
-def matmul(A, B, mod):
-    N1, N2, N3 = len(A),len(B),len(B[0])
-    R = [[0]*N3 for _ in range(N1)]
-    for i in range(N1):
-        for j in range(N3):
-            for k in range(N2):
-                R[i][j] += A[i][k]*B[k][j] % mod
-                R[i][j] %= mod
-    return R
+def matmul(A,B,mod):
+    assert len(A[0]) == len(B)
+    N = len(A)
+    M = len(B)
+    ret = [[0]*M for _ in range(N)] 
+    for i,reti in enumerate(ret):
+        for k,a_ik in enumerate(A[i]):
+            for j,b_kj in enumerate(B[k]):
+                reti[j] = (reti[j] + a_ik*b_kj) % mod  
+
+    return ret 
