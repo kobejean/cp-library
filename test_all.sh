@@ -12,6 +12,5 @@ done
 oj-verify all
 
 for test_file in test/*.test.py; do
-    rm "$test_file"
-    cp  ".verify-helper/cache/$test_file" "$test_file"
+    cat  ".verify-helper/cache/$test_file" > "$test_file"
 done
