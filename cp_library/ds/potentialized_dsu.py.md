@@ -2,10 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/unionfind_with_potential.test.py
+    title: test/unionfind_with_potential.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unionfind_with_potential_non_commutative_group.test.py
+    title: test/unionfind_with_potential_non_commutative_group.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "class PotentializedDSU:\n\n    def __init__(self, op, inv, e, v) ->\
@@ -64,9 +70,11 @@ data:
   isVerificationFile: false
   path: cp_library/ds/potentialized_dsu.py
   requiredBy: []
-  timestamp: '2024-08-14 06:36:35+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-08-14 14:27:18+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/unionfind_with_potential.test.py
+  - test/unionfind_with_potential_non_commutative_group.test.py
 documentation_of: cp_library/ds/potentialized_dsu.py
 layout: document
 redirect_from:

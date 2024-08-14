@@ -1,17 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/matid.py
     title: cp_library/math/mod/matid.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/matmul.py
     title: cp_library/math/mod/matmul.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/pow_of_matrix.test.py
+    title: test/pow_of_matrix.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\ndef mat_mul(A,B,mod):\n    assert len(A[0]) == len(B)\n    R = [[0]*len(B[0])\
@@ -33,9 +36,10 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/matpow.py
   requiredBy: []
-  timestamp: '2024-08-14 06:36:35+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-08-14 14:27:18+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/pow_of_matrix.test.py
 documentation_of: cp_library/math/mod/matpow.py
 layout: document
 redirect_from:
