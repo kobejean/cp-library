@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/matid.py
-    title: cp_library/math/mod/matid.py
+    path: cp_library/math/matid.py
+    title: cp_library/math/matid.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/matmul.py
     title: cp_library/math/mod/matmul.py
@@ -38,17 +38,17 @@ data:
   dependsOn:
   - cp_library/math/mod/matpow.py
   - cp_library/math/mod/matmul.py
-  - cp_library/math/mod/matid.py
+  - cp_library/math/matid.py
   isVerificationFile: true
-  path: test/pow_of_matrix.test.py
+  path: test/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2024-08-14 14:27:18+09:00'
+  timestamp: '2024-08-15 03:04:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/pow_of_matrix.test.py
+documentation_of: test/pow_of_matrix_matpow.test.py
 layout: document
 redirect_from:
-- /verify/test/pow_of_matrix.test.py
-- /verify/test/pow_of_matrix.test.py.html
-title: test/pow_of_matrix.test.py
+- /verify/test/pow_of_matrix_matpow.test.py
+- /verify/test/pow_of_matrix_matpow.test.py.html
+title: test/pow_of_matrix_matpow.test.py
 ---

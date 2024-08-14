@@ -70,7 +70,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/potentialized_dsu.py
   requiredBy: []
-  timestamp: '2024-08-14 14:27:18+09:00'
+  timestamp: '2024-08-15 03:04:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unionfind_with_potential.test.py
