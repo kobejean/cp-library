@@ -35,7 +35,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/matpow.py
   requiredBy: []
-  timestamp: '2024-08-15 03:04:47+09:00'
+  timestamp: '2024-08-17 16:57:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_mint.test.py

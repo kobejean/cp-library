@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/unionfind.test.py
+    title: test/unionfind.test.py
+  - icon: ':heavy_check_mark:'
     path: test/unionfind_with_potential.test.py
     title: test/unionfind_with_potential.test.py
   - icon: ':heavy_check_mark:'
@@ -70,9 +73,10 @@ data:
   isVerificationFile: false
   path: cp_library/ds/potentialized_dsu.py
   requiredBy: []
-  timestamp: '2024-08-15 03:04:47+09:00'
+  timestamp: '2024-08-17 16:57:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/unionfind.test.py
   - test/unionfind_with_potential.test.py
   - test/unionfind_with_potential_non_commutative_group.test.py
 documentation_of: cp_library/ds/potentialized_dsu.py

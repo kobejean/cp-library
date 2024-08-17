@@ -50,6 +50,9 @@ data:
       path: test/pow_of_matrix_modmat.test.py
       title: test/pow_of_matrix_modmat.test.py
     - icon: ':heavy_check_mark:'
+      path: test/unionfind.test.py
+      title: test/unionfind.test.py
+    - icon: ':heavy_check_mark:'
       path: test/unionfind_with_potential.test.py
       title: test/unionfind_with_potential.test.py
     - icon: ':heavy_check_mark:'

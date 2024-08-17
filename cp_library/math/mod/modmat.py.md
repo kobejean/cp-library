@@ -33,7 +33,7 @@ data:
     \ len(data[0])\n    \n    @classmethod\n    def identity(cls, N) -> 'ModMat':\
     \ return ModMat([[int(i==j) for j in range(N)] for i in range(N)])\n    \n   \
     \ @classmethod\n    def zeros(cls, R, C) -> 'ModMat': return ModMat([[0]*C for\
-    \ i in range(R)])\n\n    @cached_property\n    def inv(self) -> 'ModMat':\n  \
+    \ _ in range(R)])\n\n    @cached_property\n    def inv(self) -> 'ModMat':\n  \
     \      assert self.R != self.C\n        \n        N = self.R\n        A = [row[:]\
     \ for row in self.data]\n        I = [[int(i==j) for j in range(N)] for i in range(N)]\n\
     \        \n        for i in range(N):\n            if A[i][i] == 0:\n        \
@@ -76,13 +76,13 @@ data:
     \ key: Union[int, Tuple[int, int], slice, Tuple[slice, slice]]):\n        if isinstance(key,\
     \ int):\n            return self.data[key]\n        elif isinstance(key, tuple):\n\
     \            if len(key) == 2:\n                if all(isinstance(k, int) for\
-    \ k in key):\n                    return self.data[key[0]][key[1]]\n         \
-    \       elif all(isinstance(k, slice) for k in key):\n                    return\
-    \ ModMat([[self.data[i][j] for j in range(*key[1].indices(self.C))] \n       \
-    \                            for i in range(*key[0].indices(self.R))])\n     \
-    \       raise IndexError(\"Invalid index\")\n        elif isinstance(key, slice):\n\
-    \            return ModMat([row[:] for row in self.data[key]])\n        raise\
-    \ IndexError(\"Invalid index\")\n\n    def __setitem__(self, key: Union[Tuple[int,\
+    \ k in key):\n                    return mint(self.data[key[0]][key[1]])\n   \
+    \             elif all(isinstance(k, slice) for k in key):\n                 \
+    \   return ModMat([[self.data[i][j] for j in range(*key[1].indices(self.C))] \n\
+    \                                   for i in range(*key[0].indices(self.R))])\n\
+    \            raise IndexError(\"Invalid index\")\n        elif isinstance(key,\
+    \ slice):\n            return ModMat([row[:] for row in self.data[key]])\n   \
+    \     raise IndexError(\"Invalid index\")\n\n    def __setitem__(self, key: Union[Tuple[int,\
     \ int], slice, Tuple[slice, slice]], value):\n        if isinstance(key, tuple):\n\
     \            if len(key) == 2:\n                if all(isinstance(k, int) for\
     \ k in key):\n                    self.data[key[0]][key[1]] = value % mint.mod\n\
@@ -111,7 +111,7 @@ data:
     \        self.data, self.R, self.C = data, len(data), len(data[0])\n    \n   \
     \ @classmethod\n    def identity(cls, N) -> 'ModMat': return ModMat([[int(i==j)\
     \ for j in range(N)] for i in range(N)])\n    \n    @classmethod\n    def zeros(cls,\
-    \ R, C) -> 'ModMat': return ModMat([[0]*C for i in range(R)])\n\n    @cached_property\n\
+    \ R, C) -> 'ModMat': return ModMat([[0]*C for _ in range(R)])\n\n    @cached_property\n\
     \    def inv(self) -> 'ModMat':\n        assert self.R != self.C\n        \n \
     \       N = self.R\n        A = [row[:] for row in self.data]\n        I = [[int(i==j)\
     \ for j in range(N)] for i in range(N)]\n        \n        for i in range(N):\n\
@@ -154,13 +154,13 @@ data:
     \ key: Union[int, Tuple[int, int], slice, Tuple[slice, slice]]):\n        if isinstance(key,\
     \ int):\n            return self.data[key]\n        elif isinstance(key, tuple):\n\
     \            if len(key) == 2:\n                if all(isinstance(k, int) for\
-    \ k in key):\n                    return self.data[key[0]][key[1]]\n         \
-    \       elif all(isinstance(k, slice) for k in key):\n                    return\
-    \ ModMat([[self.data[i][j] for j in range(*key[1].indices(self.C))] \n       \
-    \                            for i in range(*key[0].indices(self.R))])\n     \
-    \       raise IndexError(\"Invalid index\")\n        elif isinstance(key, slice):\n\
-    \            return ModMat([row[:] for row in self.data[key]])\n        raise\
-    \ IndexError(\"Invalid index\")\n\n    def __setitem__(self, key: Union[Tuple[int,\
+    \ k in key):\n                    return mint(self.data[key[0]][key[1]])\n   \
+    \             elif all(isinstance(k, slice) for k in key):\n                 \
+    \   return ModMat([[self.data[i][j] for j in range(*key[1].indices(self.C))] \n\
+    \                                   for i in range(*key[0].indices(self.R))])\n\
+    \            raise IndexError(\"Invalid index\")\n        elif isinstance(key,\
+    \ slice):\n            return ModMat([row[:] for row in self.data[key]])\n   \
+    \     raise IndexError(\"Invalid index\")\n\n    def __setitem__(self, key: Union[Tuple[int,\
     \ int], slice, Tuple[slice, slice]], value):\n        if isinstance(key, tuple):\n\
     \            if len(key) == 2:\n                if all(isinstance(k, int) for\
     \ k in key):\n                    self.data[key[0]][key[1]] = value % mint.mod\n\
@@ -188,7 +188,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/modmat.py
   requiredBy: []
-  timestamp: '2024-08-15 03:04:47+09:00'
+  timestamp: '2024-08-17 16:57:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_modmat.test.py

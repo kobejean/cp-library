@@ -16,7 +16,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/matadd.py
   requiredBy: []
-  timestamp: '2024-08-15 03:04:47+09:00'
+  timestamp: '2024-08-17 16:57:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mod/matadd.py
