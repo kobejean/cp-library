@@ -12,7 +12,7 @@ class ModMat:
     def identity(cls, N) -> 'ModMat': return ModMat([[int(i==j) for j in range(N)] for i in range(N)])
     
     @classmethod
-    def zeros(cls, R, C) -> 'ModMat': return ModMat([[0]*C for i in range(R)])
+    def zeros(cls, R, C) -> 'ModMat': return ModMat([[0]*C for _ in range(R)])
 
     @cached_property
     def inv(self) -> 'ModMat':
@@ -96,7 +96,7 @@ class ModMat:
         elif isinstance(key, tuple):
             if len(key) == 2:
                 if all(isinstance(k, int) for k in key):
-                    return self.data[key[0]][key[1]]
+                    return mint(self.data[key[0]][key[1]])
                 elif all(isinstance(k, slice) for k in key):
                     return ModMat([[self.data[i][j] for j in range(*key[1].indices(self.C))] 
                                    for i in range(*key[0].indices(self.R))])
