@@ -4,14 +4,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/divcon/partition_pivot.py
     title: cp_library/alg/divcon/partition_pivot.py
+  _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/divcon/qselect.py
-    title: cp_library/alg/divcon/qselect.py
-  _extendedRequiredBy: []
+    path: cp_library/math/median.py
+    title: cp_library/math/median.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/arc122_b_insurance_median.test.py
     title: test/arc122_b_insurance_median.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/arc182_increment_decrement_again_qselect.test.py
+    title: test/arc182_increment_decrement_again_qselect.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -25,27 +28,28 @@ data:
     \ None: r = len(A)\n    while True:\n        if l == r-1: return A[k]\n      \
     \  pi = partition(A, l, r, random.randint(l, r-1))\n        if k == pi:\n    \
     \        return A[k]\n        elif k < pi:\n            r = pi\n        else:\n\
-    \            l = pi + 1\n\ndef median(A):\n    A = list(A)\n    n = len(A)\n \
-    \   m = n // 2\n    ret = kth_element(A, m)\n    if n % 2 == 0:\n        return\
-    \ (ret + kth_element(A, m-1)) / 2\n    return ret\n"
-  code: "from cp_library.alg.divcon.qselect import kth_element\n\ndef median(A):\n\
-    \    A = list(A)\n    n = len(A)\n    m = n // 2\n    ret = kth_element(A, m)\n\
-    \    if n % 2 == 0:\n        return (ret + kth_element(A, m-1)) / 2\n    return\
-    \ ret"
+    \            l = pi + 1\n"
+  code: "import random\nfrom cp_library.alg.divcon.partition_pivot import partition\n\
+    \ndef kth_element(A, k, l=0, r=None):\n    '''Find kth element in subarray [l,r)'''\n\
+    \    if r is None: r = len(A)\n    while True:\n        if l == r-1: return A[k]\n\
+    \        pi = partition(A, l, r, random.randint(l, r-1))\n        if k == pi:\n\
+    \            return A[k]\n        elif k < pi:\n            r = pi\n        else:\n\
+    \            l = pi + 1\n"
   dependsOn:
-  - cp_library/alg/divcon/qselect.py
   - cp_library/alg/divcon/partition_pivot.py
   isVerificationFile: false
-  path: cp_library/math/median.py
-  requiredBy: []
+  path: cp_library/alg/divcon/qselect.py
+  requiredBy:
+  - cp_library/math/median.py
   timestamp: '2024-08-18 20:50:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc122_b_insurance_median.test.py
-documentation_of: cp_library/math/median.py
+  - test/arc182_increment_decrement_again_qselect.test.py
+documentation_of: cp_library/alg/divcon/qselect.py
 layout: document
 redirect_from:
-- /library/cp_library/math/median.py
-- /library/cp_library/math/median.py.html
-title: cp_library/math/median.py
+- /library/cp_library/alg/divcon/qselect.py
+- /library/cp_library/alg/divcon/qselect.py.html
+title: cp_library/alg/divcon/qselect.py
 ---

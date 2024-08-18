@@ -1,14 +1,14 @@
 ---
 data:
   libraryCategories:
-  - name: cp_library/alg
+  - name: cp_library/alg/divcon
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/kthelement.py
-      title: cp_library/alg/kthelement.py
+      path: cp_library/alg/divcon/partition_pivot.py
+      title: cp_library/alg/divcon/partition_pivot.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/partition.py
-      title: cp_library/alg/partition.py
+      path: cp_library/alg/divcon/qselect.py
+      title: cp_library/alg/divcon/qselect.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
@@ -55,8 +55,8 @@ data:
       path: test/arc122_b_insurance_median.test.py
       title: test/arc122_b_insurance_median.test.py
     - icon: ':heavy_check_mark:'
-      path: test/arc182_increment_decrement_again_kthelement.test.py
-      title: test/arc182_increment_decrement_again_kthelement.test.py
+      path: test/arc182_increment_decrement_again_qselect.test.py
+      title: test/arc182_increment_decrement_again_qselect.test.py
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py
