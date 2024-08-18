@@ -1,8 +1,9 @@
 {
-"test/pow_of_matrix_matpow.test.py": "2024-08-18 15:24:28 +0900",
-"test/pow_of_matrix_mint.test.py": "2024-08-18 15:24:28 +0900",
-"test/pow_of_matrix_modmat.test.py": "2024-08-18 15:24:28 +0900",
-"test/unionfind.test.py": "2024-08-18 15:24:28 +0900",
-"test/unionfind_with_potential.test.py": "2024-08-18 15:24:28 +0900",
-"test/unionfind_with_potential_non_commutative_group.test.py": "2024-08-18 15:24:28 +0900"
+"test/arc122_b_insurance_median.test.py": "2024-08-18 15:35:34 +0900",
+"test/pow_of_matrix_matpow.test.py": "2024-08-18 15:35:34 +0900",
+"test/pow_of_matrix_mint.test.py": "2024-08-18 15:35:34 +0900",
+"test/pow_of_matrix_modmat.test.py": "2024-08-18 15:35:34 +0900",
+"test/unionfind.test.py": "2024-08-18 15:35:34 +0900",
+"test/unionfind_with_potential.test.py": "2024-08-18 15:35:34 +0900",
+"test/unionfind_with_potential_non_commutative_group.test.py": "2024-08-18 15:35:34 +0900"
 }
