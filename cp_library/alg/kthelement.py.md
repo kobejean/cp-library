@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
-    path: cp_library/divcon/partition.py
-    title: cp_library/divcon/partition.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/partition.py
+    title: cp_library/alg/partition.py
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/median.py
     title: cp_library/math/median.py
-  - icon: ':warning:'
-    path: test/arc122_b_insurance_median.text.py
-    title: test/arc122_b_insurance_median.text.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/arc122_b_insurance_median.test.py
+    title: test/arc122_b_insurance_median.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\ndef partition(A, l, r):\n    pivot = A[r]\n    i = l - 1\n    \n\
@@ -25,25 +25,25 @@ data:
     \        pi = partition(A, l, r)\n        \n        if k == pi:\n            return\
     \ A[k]\n        elif k < pi:\n            r = pi - 1\n        else:\n        \
     \    l = pi + 1\n"
-  code: "from cp_library.divcon.partition import partition\n\ndef kth_element(A, k,\
-    \ l=0, r=None):\n    if r is None:\n        r = len(A) - 1\n    \n    while True:\n\
+  code: "from cp_library.alg.partition import partition\n\ndef kth_element(A, k, l=0,\
+    \ r=None):\n    if r is None:\n        r = len(A) - 1\n    \n    while True:\n\
     \        if l == r: return A[k]\n        pi = partition(A, l, r)\n        \n \
     \       if k == pi:\n            return A[k]\n        elif k < pi:\n         \
     \   r = pi - 1\n        else:\n            l = pi + 1\n"
   dependsOn:
-  - cp_library/divcon/partition.py
+  - cp_library/alg/partition.py
   isVerificationFile: false
-  path: cp_library/divcon/kthelement.py
+  path: cp_library/alg/kthelement.py
   requiredBy:
-  - test/arc122_b_insurance_median.text.py
   - cp_library/math/median.py
-  timestamp: '2024-08-18 15:24:28+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: cp_library/divcon/kthelement.py
+  timestamp: '2024-08-18 15:35:34+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/arc122_b_insurance_median.test.py
+documentation_of: cp_library/alg/kthelement.py
 layout: document
 redirect_from:
-- /library/cp_library/divcon/kthelement.py
-- /library/cp_library/divcon/kthelement.py.html
-title: cp_library/divcon/kthelement.py
+- /library/cp_library/alg/kthelement.py
+- /library/cp_library/alg/kthelement.py.html
+title: cp_library/alg/kthelement.py
 ---

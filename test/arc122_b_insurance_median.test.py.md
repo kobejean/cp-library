@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
-    path: cp_library/divcon/kthelement.py
-    title: cp_library/divcon/kthelement.py
-  - icon: ':warning:'
-    path: cp_library/divcon/partition.py
-    title: cp_library/divcon/partition.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/kthelement.py
+    title: cp_library/alg/kthelement.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/partition.py
+    title: cp_library/alg/partition.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/median.py
     title: cp_library/math/median.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/arc122/tasks/arc122_b
     links:
@@ -46,18 +46,18 @@ data:
     x = Fraction(int(median(A)*2), 4)\nans = f(x)\nprint(f\"{ftod(ans):.20f}\")"
   dependsOn:
   - cp_library/math/median.py
-  - cp_library/divcon/kthelement.py
-  - cp_library/divcon/partition.py
-  isVerificationFile: false
-  path: test/arc122_b_insurance_median.text.py
+  - cp_library/alg/kthelement.py
+  - cp_library/alg/partition.py
+  isVerificationFile: true
+  path: test/arc122_b_insurance_median.test.py
   requiredBy: []
-  timestamp: '2024-08-18 15:24:28+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2024-08-18 15:35:34+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/arc122_b_insurance_median.text.py
+documentation_of: test/arc122_b_insurance_median.test.py
 layout: document
 redirect_from:
-- /library/test/arc122_b_insurance_median.text.py
-- /library/test/arc122_b_insurance_median.text.py.html
-title: test/arc122_b_insurance_median.text.py
+- /verify/test/arc122_b_insurance_median.test.py
+- /verify/test/arc122_b_insurance_median.test.py.html
+title: test/arc122_b_insurance_median.test.py
 ---

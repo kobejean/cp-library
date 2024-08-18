@@ -2,19 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/divcon/kthelement.py
-    title: cp_library/divcon/kthelement.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/kthelement.py
+    title: cp_library/alg/kthelement.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/median.py
     title: cp_library/math/median.py
-  - icon: ':warning:'
-    path: test/arc122_b_insurance_median.text.py
-    title: test/arc122_b_insurance_median.text.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/arc122_b_insurance_median.test.py
+    title: test/arc122_b_insurance_median.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\ndef partition(A, l, r):\n    pivot = A[r]\n    i = l - 1\n    \n\
@@ -27,18 +27,18 @@ data:
     \ i + 1\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/divcon/partition.py
+  path: cp_library/alg/partition.py
   requiredBy:
-  - test/arc122_b_insurance_median.text.py
+  - cp_library/alg/kthelement.py
   - cp_library/math/median.py
-  - cp_library/divcon/kthelement.py
-  timestamp: '2024-08-18 15:24:28+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: cp_library/divcon/partition.py
+  timestamp: '2024-08-18 15:35:34+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/arc122_b_insurance_median.test.py
+documentation_of: cp_library/alg/partition.py
 layout: document
 redirect_from:
-- /library/cp_library/divcon/partition.py
-- /library/cp_library/divcon/partition.py.html
-title: cp_library/divcon/partition.py
+- /library/cp_library/alg/partition.py
+- /library/cp_library/alg/partition.py.html
+title: cp_library/alg/partition.py
 ---

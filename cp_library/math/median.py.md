@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
-    path: cp_library/divcon/kthelement.py
-    title: cp_library/divcon/kthelement.py
-  - icon: ':warning:'
-    path: cp_library/divcon/partition.py
-    title: cp_library/divcon/partition.py
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: test/arc122_b_insurance_median.text.py
-    title: test/arc122_b_insurance_median.text.py
-  _extendedVerifiedWith: []
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/kthelement.py
+    title: cp_library/alg/kthelement.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/partition.py
+    title: cp_library/alg/partition.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/arc122_b_insurance_median.test.py
+    title: test/arc122_b_insurance_median.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\ndef partition(A, l, r):\n    pivot = A[r]\n    i = l - 1\n    \n\
@@ -27,20 +27,20 @@ data:
     \    l = pi + 1\n\ndef median(A):\n    A = list(A)\n    n = len(A)\n    m = n\
     \ // 2\n    ret = kth_element(A, m)\n    if n % 2 == 0:\n        return (ret +\
     \ kth_element(A, m-1)) / 2\n    return ret\n"
-  code: "from cp_library.divcon.kthelement import kth_element\n\ndef median(A):\n\
-    \    A = list(A)\n    n = len(A)\n    m = n // 2\n    ret = kth_element(A, m)\n\
-    \    if n % 2 == 0:\n        return (ret + kth_element(A, m-1)) / 2\n    return\
+  code: "from cp_library.alg.kthelement import kth_element\n\ndef median(A):\n   \
+    \ A = list(A)\n    n = len(A)\n    m = n // 2\n    ret = kth_element(A, m)\n \
+    \   if n % 2 == 0:\n        return (ret + kth_element(A, m-1)) / 2\n    return\
     \ ret"
   dependsOn:
-  - cp_library/divcon/kthelement.py
-  - cp_library/divcon/partition.py
+  - cp_library/alg/kthelement.py
+  - cp_library/alg/partition.py
   isVerificationFile: false
   path: cp_library/math/median.py
-  requiredBy:
-  - test/arc122_b_insurance_median.text.py
-  timestamp: '2024-08-18 15:24:28+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy: []
+  timestamp: '2024-08-18 15:35:34+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/arc122_b_insurance_median.test.py
 documentation_of: cp_library/math/median.py
 layout: document
 redirect_from:

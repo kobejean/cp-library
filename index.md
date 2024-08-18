@@ -1,14 +1,14 @@
 ---
 data:
   libraryCategories:
-  - name: cp_library/divcon
+  - name: cp_library/alg
     pages:
-    - icon: ':warning:'
-      path: cp_library/divcon/kthelement.py
-      title: cp_library/divcon/kthelement.py
-    - icon: ':warning:'
-      path: cp_library/divcon/partition.py
-      title: cp_library/divcon/partition.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/kthelement.py
+      title: cp_library/alg/kthelement.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/partition.py
+      title: cp_library/alg/partition.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
@@ -25,7 +25,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/matpow.py
       title: cp_library/math/matpow.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/median.py
       title: cp_library/math/median.py
   - name: cp_library/math/mod
@@ -48,14 +48,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat.py
       title: cp_library/math/mod/modmat.py
-  - name: test
-    pages:
-    - icon: ':warning:'
-      path: test/arc122_b_insurance_median.text.py
-      title: test/arc122_b_insurance_median.text.py
   verificationCategories:
   - name: test
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/arc122_b_insurance_median.test.py
+      title: test/arc122_b_insurance_median.test.py
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py
