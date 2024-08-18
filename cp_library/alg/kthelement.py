@@ -1,4 +1,4 @@
-from cp_library.divcon.partition import partition
+from cp_library.alg.partition import partition
 
 def kth_element(A, k, l=0, r=None):
     if r is None:

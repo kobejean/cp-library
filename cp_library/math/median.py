@@ -1,4 +1,4 @@
-from cp_library.divcon.kthelement import kth_element
+from cp_library.alg.kthelement import kth_element
 
 def median(A):
     A = list(A)
