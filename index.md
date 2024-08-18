@@ -1,6 +1,14 @@
 ---
 data:
   libraryCategories:
+  - name: cp_library/divcon
+    pages:
+    - icon: ':warning:'
+      path: cp_library/divcon/kthelement.py
+      title: cp_library/divcon/kthelement.py
+    - icon: ':warning:'
+      path: cp_library/divcon/partition.py
+      title: cp_library/divcon/partition.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
@@ -17,6 +25,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/matpow.py
       title: cp_library/math/matpow.py
+    - icon: ':warning:'
+      path: cp_library/math/median.py
+      title: cp_library/math/median.py
   - name: cp_library/math/mod
     pages:
     - icon: ':warning:'
@@ -37,6 +48,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat.py
       title: cp_library/math/mod/modmat.py
+  - name: test
+    pages:
+    - icon: ':warning:'
+      path: test/arc122_b_insurance_median.text.py
+      title: test/arc122_b_insurance_median.text.py
   verificationCategories:
   - name: test
     pages:
