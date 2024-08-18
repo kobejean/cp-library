@@ -1,5 +1,8 @@
+import random
 
 def partition(A, l, r):
+    pi = random.randint(l, r)
+    A[pi], A[r] = A[r], A[pi]
     pivot = A[r]
     i = l - 1
     
