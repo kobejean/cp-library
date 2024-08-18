@@ -55,6 +55,9 @@ data:
       path: test/arc122_b_insurance_median.test.py
       title: test/arc122_b_insurance_median.test.py
     - icon: ':heavy_check_mark:'
+      path: test/arc182_increment_decrement_again_kthelement.test.py
+      title: test/arc182_increment_decrement_again_kthelement.test.py
+    - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py
     - icon: ':heavy_check_mark:'
