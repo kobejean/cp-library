@@ -1,7 +1,6 @@
 from cp_library.alg.divcon.qselect import kth_element
 
 def median(A):
-    A = list(A)
     n = len(A)
     m = n // 2
     ret = kth_element(A, m)

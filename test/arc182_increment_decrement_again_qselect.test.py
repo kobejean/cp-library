@@ -1,5 +1,4 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d
-
 from cp_library.alg.divcon.qselect import kth_element
 
 def rint(shift=0, base=10):

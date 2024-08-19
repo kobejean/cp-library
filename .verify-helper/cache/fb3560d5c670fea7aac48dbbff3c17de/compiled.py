@@ -1,4 +1,4 @@
-#!/Users/kobejean/miniforge3/envs/atcoder/bin/pypy3
+#!/Users/kobejean/miniforge3/envs/atcoder/bin/pypy
 """This is a helper script to run the target Python code.
 
 We need this script to set PYTHONPATH portably. The env command, quoting something, etc. are not portable or difficult to implement.
