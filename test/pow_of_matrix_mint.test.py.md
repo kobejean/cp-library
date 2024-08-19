@@ -61,7 +61,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_mint.test.py
   requiredBy: []
-  timestamp: '2024-08-20 00:32:19+09:00'
+  timestamp: '2024-08-20 00:39:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_mint.test.py

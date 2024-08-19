@@ -11,13 +11,13 @@ data:
       title: cp_library/alg/divcon/qselect.py
   - name: cp_library/ds
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree.py
       title: cp_library/ds/kdtree.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu.py
       title: cp_library/ds/potentialized_dsu.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/segtree.py
       title: cp_library/ds/segtree.py
   - name: cp_library/math
@@ -54,14 +54,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat.py
       title: cp_library/math/mod/modmat.py
-  - name: test
-    pages:
-    - icon: ':warning:'
-      path: test/dsl_2_a_segtree.py
-      title: test/dsl_2_a_segtree.py
-    - icon: ':warning:'
-      path: test/dsl_2_c_kdtree.py
-      title: test/dsl_2_c_kdtree.py
   verificationCategories:
   - name: test
     pages:
@@ -71,6 +63,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/arc182_increment_decrement_again_qselect.test.py
       title: test/arc182_increment_decrement_again_qselect.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/dsl_2_a_segtree.test.py
+      title: test/dsl_2_a_segtree.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/dsl_2_c_kdtree.test.py
+      title: test/dsl_2_c_kdtree.test.py
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py

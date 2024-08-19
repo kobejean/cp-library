@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/segtree.py
     title: cp_library/ds/segtree.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A
     links:
@@ -67,16 +67,16 @@ data:
     \    if com:\n        print(seg.prod(x,y+1))\n    else:\n        seg.set(x,y)\n"
   dependsOn:
   - cp_library/ds/segtree.py
-  isVerificationFile: false
-  path: test/dsl_2_a_segtree.py
+  isVerificationFile: true
+  path: test/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2024-08-20 00:32:19+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2024-08-20 00:39:10+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/dsl_2_a_segtree.py
+documentation_of: test/dsl_2_a_segtree.test.py
 layout: document
 redirect_from:
-- /library/test/dsl_2_a_segtree.py
-- /library/test/dsl_2_a_segtree.py.html
-title: test/dsl_2_a_segtree.py
+- /verify/test/dsl_2_a_segtree.test.py
+- /verify/test/dsl_2_a_segtree.test.py.html
+title: test/dsl_2_a_segtree.test.py
 ---

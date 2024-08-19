@@ -27,7 +27,7 @@ data:
   path: cp_library/math/mod/matmul.py
   requiredBy:
   - cp_library/math/mod/matpow.py
-  timestamp: '2024-08-20 00:32:19+09:00'
+  timestamp: '2024-08-20 00:39:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py
