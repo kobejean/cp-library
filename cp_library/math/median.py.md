@@ -25,20 +25,19 @@ data:
     \ None: r = len(A)\n    while True:\n        if l == r-1: return A[k]\n      \
     \  pi = partition(A, l, r, random.randint(l, r-1))\n        if k == pi:\n    \
     \        return A[k]\n        elif k < pi:\n            r = pi\n        else:\n\
-    \            l = pi + 1\n\ndef median(A):\n    A = list(A)\n    n = len(A)\n \
-    \   m = n // 2\n    ret = kth_element(A, m)\n    if n % 2 == 0:\n        return\
-    \ (ret + kth_element(A, m-1)) / 2\n    return ret\n"
+    \            l = pi + 1\n\ndef median(A):\n    n = len(A)\n    m = n // 2\n  \
+    \  ret = kth_element(A, m)\n    if n % 2 == 0:\n        return (ret + kth_element(A,\
+    \ m-1)) / 2\n    return ret\n"
   code: "from cp_library.alg.divcon.qselect import kth_element\n\ndef median(A):\n\
-    \    A = list(A)\n    n = len(A)\n    m = n // 2\n    ret = kth_element(A, m)\n\
-    \    if n % 2 == 0:\n        return (ret + kth_element(A, m-1)) / 2\n    return\
-    \ ret"
+    \    n = len(A)\n    m = n // 2\n    ret = kth_element(A, m)\n    if n % 2 ==\
+    \ 0:\n        return (ret + kth_element(A, m-1)) / 2\n    return ret"
   dependsOn:
   - cp_library/alg/divcon/qselect.py
   - cp_library/alg/divcon/partition_pivot.py
   isVerificationFile: false
   path: cp_library/math/median.py
   requiredBy: []
-  timestamp: '2024-08-18 20:50:38+09:00'
+  timestamp: '2024-08-20 00:32:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc122_b_insurance_median.test.py

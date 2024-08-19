@@ -11,9 +11,15 @@ data:
       title: cp_library/alg/divcon/qselect.py
   - name: cp_library/ds
     pages:
+    - icon: ':warning:'
+      path: cp_library/ds/kdtree.py
+      title: cp_library/ds/kdtree.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu.py
       title: cp_library/ds/potentialized_dsu.py
+    - icon: ':warning:'
+      path: cp_library/ds/segtree.py
+      title: cp_library/ds/segtree.py
   - name: cp_library/math
     pages:
     - icon: ':heavy_check_mark:'
@@ -48,6 +54,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat.py
       title: cp_library/math/mod/modmat.py
+  - name: test
+    pages:
+    - icon: ':warning:'
+      path: test/dsl_2_a_segtree.py
+      title: test/dsl_2_a_segtree.py
+    - icon: ':warning:'
+      path: test/dsl_2_c_kdtree.py
+      title: test/dsl_2_c_kdtree.py
   verificationCategories:
   - name: test
     pages:

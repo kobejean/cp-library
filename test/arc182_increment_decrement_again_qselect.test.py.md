@@ -17,7 +17,7 @@ data:
     links:
     - https://atcoder.jp/contests/arc182/tasks/arc182_d
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d\n\
-    \nimport random\n\ndef partition(A, l, r, pi):\n    '''Partition subarray [l,r)'''\n\
+    import random\n\ndef partition(A, l, r, pi):\n    '''Partition subarray [l,r)'''\n\
     \    r -= 1\n    A[pi], A[r] = A[r], A[pi]\n    pi = l\n    for j in range(l,\
     \ r):\n        if A[j] <= A[r]:\n            A[pi], A[j] = A[j], A[pi]\n     \
     \       pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return pi\n\ndef kth_element(A,\
@@ -35,7 +35,7 @@ data:
     for i in range(median//M,median//M+2):\n    now=0\n    for j in range(N):\n  \
     \      now+=abs(A[j]+i*M-C[j])\n    ans=min(ans,now)\nprint(ans)\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d\n\
-    \nfrom cp_library.alg.divcon.qselect import kth_element\n\ndef rint(shift=0, base=10):\n\
+    from cp_library.alg.divcon.qselect import kth_element\n\ndef rint(shift=0, base=10):\n\
     \    return [int(x, base) + shift for x in input().split()]\n\nN, M = rint()\n\
     A = rint()\nB = rint()\n\nif M == 2:\n    print(0 if A == B else -1)\n    exit()\n\
     \ndef rel(x,y):\n    return max(-1,min(x-y,1))\n\nC = [B[0]]\n\nfor i in range(1,N):\n\
@@ -50,7 +50,7 @@ data:
   isVerificationFile: true
   path: test/arc182_increment_decrement_again_qselect.test.py
   requiredBy: []
-  timestamp: '2024-08-18 20:50:38+09:00'
+  timestamp: '2024-08-20 00:32:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc182_increment_decrement_again_qselect.test.py

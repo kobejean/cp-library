@@ -29,14 +29,14 @@ data:
     \ [l,r)'''\n    if r is None: r = len(A)\n    while True:\n        if l == r-1:\
     \ return A[k]\n        pi = partition(A, l, r, random.randint(l, r-1))\n     \
     \   if k == pi:\n            return A[k]\n        elif k < pi:\n            r\
-    \ = pi\n        else:\n            l = pi + 1\n\ndef median(A):\n    A = list(A)\n\
-    \    n = len(A)\n    m = n // 2\n    ret = kth_element(A, m)\n    if n % 2 ==\
-    \ 0:\n        return (ret + kth_element(A, m-1)) / 2\n    return ret\n\ndef rint(shift=0,\
-    \ base=10):\n    return [int(x, base) + shift for x in input().split()]\n\ndef\
-    \ ftod(fraction):\n    getcontext().prec = 50\n    return Decimal(fraction.numerator)\
-    \ / Decimal(fraction.denominator)\n\ndef f(x):\n    x = Fraction(x)\n    return\
-    \ x + mean(max(Fraction(0), a - 2*x) for a in A)\n\nN, = rint()\nA = rint()\n\
-    x = Fraction(int(median(A)*2), 4)\nans = f(x)\nprint(f\"{ftod(ans):.20f}\")\n"
+    \ = pi\n        else:\n            l = pi + 1\n\ndef median(A):\n    n = len(A)\n\
+    \    m = n // 2\n    ret = kth_element(A, m)\n    if n % 2 == 0:\n        return\
+    \ (ret + kth_element(A, m-1)) / 2\n    return ret\n\ndef rint(shift=0, base=10):\n\
+    \    return [int(x, base) + shift for x in input().split()]\n\ndef ftod(fraction):\n\
+    \    getcontext().prec = 50\n    return Decimal(fraction.numerator) / Decimal(fraction.denominator)\n\
+    \ndef f(x):\n    x = Fraction(x)\n    return x + mean(max(Fraction(0), a - 2*x)\
+    \ for a in A)\n\nN, = rint()\nA = rint()\nx = Fraction(int(median(A)*2), 4)\n\
+    ans = f(x)\nprint(f\"{ftod(ans):.20f}\")\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc122/tasks/arc122_b\n\
     \nfrom fractions import Fraction\nfrom decimal import Decimal, getcontext\nfrom\
     \ statistics import mean\nfrom cp_library.math.median import median\n\ndef rint(shift=0,\
@@ -52,7 +52,7 @@ data:
   isVerificationFile: true
   path: test/arc122_b_insurance_median.test.py
   requiredBy: []
-  timestamp: '2024-08-18 20:50:38+09:00'
+  timestamp: '2024-08-20 00:32:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc122_b_insurance_median.test.py
