@@ -21,23 +21,6 @@ class Trie:
             p.parent = parent
             p.last = c
         p.word = True
-
-    def bfs(self) -> List['Trie']:
-        output = []
-        queue = deque([self])
-        while queue:
-            p = queue.popleft()
-            output.append(p)
-            queue.extend(p.dic.values())
-        return output
-    
-    def get_word(self, p: 'Trie') -> str:
-        output = []
-        curr = p
-        while curr != self:
-            output.append(curr.last)
-            curr = curr.parent
-        return "".join(reversed(output))
     
     def find(self, prefix: str) -> 'Trie':
         node = self
@@ -50,3 +33,20 @@ class Trie:
     def search(self, word: str) -> bool:
         node = self.find(word)
         return node.word if node is not None else False
+
+    def bfs(self) -> List['Trie']:
+        output = []
+        queue = deque([self])
+        while queue:
+            p = queue.popleft()
+            output.append(p)
+            queue.extend(p.dic.values())
+        return output
+    
+    def prefix(self) -> str:
+        output = []
+        curr = self
+        while curr.parent is not None:
+            output.append(curr.last)
+            curr = curr.parent
+        return "".join(reversed(output))

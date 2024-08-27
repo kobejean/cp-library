@@ -38,6 +38,5 @@ class AhoCorasick(Trie):
             p = arr_bfs[i]
             p.failed.count += p.count
             if p.word:
-                word = self.get_word(p)
-                output[word] = p.count
+                output[p.prefix()] = p.count
         return output
