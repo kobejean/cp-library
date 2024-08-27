@@ -9,6 +9,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/qselect.py
       title: cp_library/alg/divcon/qselect.py
+  - name: cp_library/alg/tree
+    pages:
+    - icon: ':warning:'
+      path: cp_library/alg/tree/centroid.py
+      title: cp_library/alg/tree/centroid.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
@@ -54,6 +59,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat.py
       title: cp_library/math/mod/modmat.py
+  - name: cp_library/misc
+    pages:
+    - icon: ':warning:'
+      path: cp_library/misc/setrecursionlimit.py
+      title: cp_library/misc/setrecursionlimit.py
   verificationCategories:
   - name: test
     pages:
