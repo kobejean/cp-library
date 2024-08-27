@@ -48,15 +48,15 @@ data:
   - cp_library/alg/divcon/qselect.py
   - cp_library/alg/divcon/partition_pivot.py
   isVerificationFile: true
-  path: test/arc182_increment_decrement_again_qselect.test.py
+  path: test/arc182_d_increment_decrement_again_qselect.test.py
   requiredBy: []
-  timestamp: '2024-08-27 19:11:09+09:00'
+  timestamp: '2024-08-27 19:43:09+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/arc182_increment_decrement_again_qselect.test.py
+documentation_of: test/arc182_d_increment_decrement_again_qselect.test.py
 layout: document
 redirect_from:
-- /verify/test/arc182_increment_decrement_again_qselect.test.py
-- /verify/test/arc182_increment_decrement_again_qselect.test.py.html
-title: test/arc182_increment_decrement_again_qselect.test.py
+- /verify/test/arc182_d_increment_decrement_again_qselect.test.py
+- /verify/test/arc182_d_increment_decrement_again_qselect.test.py.html
+title: test/arc182_d_increment_decrement_again_qselect.test.py
 ---

@@ -17,6 +17,9 @@ data:
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/ahocorasick.py
+      title: cp_library/ds/ahocorasick.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree.py
       title: cp_library/ds/kdtree.py
     - icon: ':heavy_check_mark:'
@@ -25,6 +28,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/segtree.py
       title: cp_library/ds/segtree.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/trie.py
+      title: cp_library/ds/trie.py
   - name: cp_library/math
     pages:
     - icon: ':heavy_check_mark:'
@@ -68,11 +74,14 @@ data:
   - name: test
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/abc362_q_count_substring_query_ahocorasick.test.py
+      title: test/abc362_q_count_substring_query_ahocorasick.test.py
+    - icon: ':heavy_check_mark:'
       path: test/arc122_b_insurance_median.test.py
       title: test/arc122_b_insurance_median.test.py
     - icon: ':heavy_check_mark:'
-      path: test/arc182_increment_decrement_again_qselect.test.py
-      title: test/arc182_increment_decrement_again_qselect.test.py
+      path: test/arc182_d_increment_decrement_again_qselect.test.py
+      title: test/arc182_d_increment_decrement_again_qselect.test.py
     - icon: ':heavy_check_mark:'
       path: test/dsl_2_a_segtree.test.py
       title: test/dsl_2_a_segtree.test.py
