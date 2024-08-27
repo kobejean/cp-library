@@ -22,17 +22,17 @@ data:
     \ None:\n        p = self\n        for c in word:\n            if c not in p.dic:\
     \   \n                p.dic[c] = type(self)()\n            parent = p\n      \
     \      p = p.dic[c]\n            p.parent = parent\n            p.last = c\n \
-    \       p.word = True\n\n    def bfs(self) -> List['Trie']:\n        output =\
-    \ []\n        queue = deque([self])\n        while queue:\n            p = queue.popleft()\n\
-    \            output.append(p)\n            queue.extend(p.dic.values())\n    \
-    \    return output\n    \n    def get_word(self, p: 'Trie') -> str:\n        output\
-    \ = []\n        curr = p\n        while curr != self:\n            output.append(curr.last)\n\
-    \            curr = curr.parent\n        return \"\".join(reversed(output))\n\
-    \    \n    def find(self, prefix: str) -> 'Trie':\n        node = self\n     \
-    \   for char in prefix:\n            if char not in node.dic:\n              \
-    \  return None\n            node = node.dic[char]\n        return node\n    \n\
-    \    def search(self, word: str) -> bool:\n        node = self.find(word)\n  \
-    \      return node.word if node is not None else False\n\nclass AhoCorasick(Trie):\n\
+    \       p.word = True\n    \n    def find(self, prefix: str) -> 'Trie':\n    \
+    \    node = self\n        for char in prefix:\n            if char not in node.dic:\n\
+    \                return None\n            node = node.dic[char]\n        return\
+    \ node\n    \n    def search(self, word: str) -> bool:\n        node = self.find(word)\n\
+    \        return node.word if node is not None else False\n\n    def bfs(self)\
+    \ -> List['Trie']:\n        output = []\n        queue = deque([self])\n     \
+    \   while queue:\n            p = queue.popleft()\n            output.append(p)\n\
+    \            queue.extend(p.dic.values())\n        return output\n    \n    def\
+    \ prefix(self) -> str:\n        output = []\n        curr = self\n        while\
+    \ curr.parent is not None:\n            output.append(curr.last)\n           \
+    \ curr = curr.parent\n        return \"\".join(reversed(output))\n\nclass AhoCorasick(Trie):\n\
     \    __slots__ = 'failed',\n\n    def __init__(self):\n        super().__init__()\n\
     \        self.failed: Optional['AhoCorasick'] = None\n\n    def build_fail(self)\
     \ -> List['AhoCorasick']:\n        arr_bfs = self.bfs()\n        for p in arr_bfs:\n\
@@ -46,8 +46,8 @@ data:
     \ p != self and c not in p.dic:\n                p = p.failed\n            p =\
     \ p.dic.get(c, self)\n            p.count += 1\n\n        output = {}\n      \
     \  for i in range(len(arr_bfs) - 1, 0, -1):\n            p = arr_bfs[i]\n    \
-    \        p.failed.count += p.count\n            if p.word:\n                word\
-    \ = self.get_word(p)\n                output[word] = p.count\n        return output\n"
+    \        p.failed.count += p.count\n            if p.word:\n                output[p.prefix()]\
+    \ = p.count\n        return output\n"
   code: "from typing import Dict, List, Optional\nfrom cp_library.ds.trie import Trie\n\
     \nclass AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
     \        super().__init__()\n        self.failed: Optional['AhoCorasick'] = None\n\
@@ -63,14 +63,13 @@ data:
     \ = p.failed\n            p = p.dic.get(c, self)\n            p.count += 1\n\n\
     \        output = {}\n        for i in range(len(arr_bfs) - 1, 0, -1):\n     \
     \       p = arr_bfs[i]\n            p.failed.count += p.count\n            if\
-    \ p.word:\n                word = self.get_word(p)\n                output[word]\
-    \ = p.count\n        return output"
+    \ p.word:\n                output[p.prefix()] = p.count\n        return output"
   dependsOn:
   - cp_library/ds/trie.py
   isVerificationFile: false
   path: cp_library/ds/ahocorasick.py
   requiredBy: []
-  timestamp: '2024-08-27 19:43:09+09:00'
+  timestamp: '2024-08-28 02:08:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc362_q_count_substring_query_ahocorasick.test.py

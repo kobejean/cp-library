@@ -73,7 +73,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/potentialized_dsu.py
   requiredBy: []
-  timestamp: '2024-08-27 19:43:09+09:00'
+  timestamp: '2024-08-28 02:08:48+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unionfind.test.py
@@ -81,8 +81,20 @@ data:
   - test/unionfind_with_potential_non_commutative_group.test.py
 documentation_of: cp_library/ds/potentialized_dsu.py
 layout: document
-redirect_from:
-- /library/cp_library/ds/potentialized_dsu.py
-- /library/cp_library/ds/potentialized_dsu.py.html
-title: cp_library/ds/potentialized_dsu.py
+title: PotentializedDSU (generalized with groups)
 ---
+
+## Operations
+
+Works with group algebraic structures.
+
+```python
+def op(x,y):
+    return (x+y)%mod
+
+def inv(x):
+    return (-x)%mod
+
+pdsu = PotentializedDSU(op,inv,0,N)
+
+```

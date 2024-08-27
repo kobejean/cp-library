@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/potentialized_dsu.py
-    title: cp_library/ds/potentialized_dsu.py
+    title: PotentializedDSU (generalized with groups)
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -67,7 +67,7 @@ data:
   isVerificationFile: true
   path: test/unionfind_with_potential_non_commutative_group.test.py
   requiredBy: []
-  timestamp: '2024-08-27 19:43:09+09:00'
+  timestamp: '2024-08-28 02:08:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind_with_potential_non_commutative_group.test.py

@@ -2,13 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/alg/tree/centroid.py
-    title: cp_library/alg/tree/centroid.py
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: cp_library/alg/tree/centroid_recursive.py
+    title: cp_library/alg/tree/centroid_recursive.py
+  _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
+    title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: 'import sys
@@ -33,10 +36,11 @@ data:
   isVerificationFile: false
   path: cp_library/misc/setrecursionlimit.py
   requiredBy:
-  - cp_library/alg/tree/centroid.py
-  timestamp: '2024-08-27 19:43:09+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  - cp_library/alg/tree/centroid_recursive.py
+  timestamp: '2024-08-28 02:08:48+09:00'
+  verificationStatus: LIBRARY_ALL_WA
+  verifiedWith:
+  - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
 documentation_of: cp_library/misc/setrecursionlimit.py
 layout: document
 redirect_from:

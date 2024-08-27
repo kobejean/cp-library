@@ -11,9 +11,12 @@ data:
       title: cp_library/alg/divcon/qselect.py
   - name: cp_library/alg/tree
     pages:
-    - icon: ':warning:'
-      path: cp_library/alg/tree/centroid.py
-      title: cp_library/alg/tree/centroid.py
+    - icon: ':x:'
+      path: cp_library/alg/tree/centroid_iterative.py
+      title: cp_library/alg/tree/centroid_iterative.py
+    - icon: ':x:'
+      path: cp_library/alg/tree/centroid_recursive.py
+      title: cp_library/alg/tree/centroid_recursive.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
@@ -24,7 +27,7 @@ data:
       title: cp_library/ds/kdtree.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu.py
-      title: cp_library/ds/potentialized_dsu.py
+      title: PotentializedDSU (generalized with groups)
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/segtree.py
       title: cp_library/ds/segtree.py
@@ -67,7 +70,7 @@ data:
       title: cp_library/math/mod/modmat.py
   - name: cp_library/misc
     pages:
-    - icon: ':warning:'
+    - icon: ':x:'
       path: cp_library/misc/setrecursionlimit.py
       title: cp_library/misc/setrecursionlimit.py
   verificationCategories:
@@ -82,6 +85,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/arc182_d_increment_decrement_again_qselect.test.py
       title: test/arc182_d_increment_decrement_again_qselect.test.py
+    - icon: ':x:'
+      path: test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
+      title: test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
+    - icon: ':x:'
+      path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
+      title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
     - icon: ':heavy_check_mark:'
       path: test/dsl_2_a_segtree.test.py
       title: test/dsl_2_a_segtree.test.py
