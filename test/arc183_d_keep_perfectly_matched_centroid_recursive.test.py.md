@@ -4,7 +4,7 @@ data:
   - icon: ':x:'
     path: cp_library/alg/tree/centroid_recursive.py
     title: cp_library/alg/tree/centroid_recursive.py
-  - icon: ':x:'
+  - icon: ':question:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -79,7 +79,7 @@ data:
   isVerificationFile: true
   path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
   requiredBy: []
-  timestamp: '2024-08-29 01:33:12+09:00'
+  timestamp: '2024-08-29 07:36:44+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py

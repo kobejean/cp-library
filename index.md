@@ -9,6 +9,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/qselect.py
       title: cp_library/alg/divcon/qselect.py
+  - name: cp_library/alg/dp
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/dp/rerooting.py
+      title: cp_library/alg/dp/rerooting.py
   - name: cp_library/alg/tree
     pages:
     - icon: ':x:'
@@ -22,6 +27,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/ahocorasick.py
       title: cp_library/ds/ahocorasick.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/bidirectional_array.py
+      title: cp_library/ds/bidirectional_array.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree.py
       title: cp_library/ds/kdtree.py
@@ -91,7 +99,7 @@ data:
       title: cp_library/math/mod/subset_convolution.py
   - name: cp_library/misc
     pages:
-    - icon: ':x:'
+    - icon: ':question:'
       path: cp_library/misc/setrecursionlimit.py
       title: cp_library/misc/setrecursionlimit.py
   verificationCategories:
@@ -112,6 +120,9 @@ data:
     - icon: ':x:'
       path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
       title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/dp_v_subtree_rerooting.test.py
+      title: test/dp_v_subtree_rerooting.test.py
     - icon: ':heavy_check_mark:'
       path: test/dsl_2_a_segtree.test.py
       title: test/dsl_2_a_segtree.test.py

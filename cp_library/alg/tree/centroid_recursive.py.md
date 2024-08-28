@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -34,7 +34,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/centroid_recursive.py
   requiredBy: []
-  timestamp: '2024-08-29 01:33:12+09:00'
+  timestamp: '2024-08-29 07:36:44+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py

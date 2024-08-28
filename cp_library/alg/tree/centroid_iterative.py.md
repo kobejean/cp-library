@@ -37,7 +37,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/centroid_iterative.py
   requiredBy: []
-  timestamp: '2024-08-29 01:33:12+09:00'
+  timestamp: '2024-08-29 07:36:44+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py

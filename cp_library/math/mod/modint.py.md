@@ -51,7 +51,7 @@ data:
   path: cp_library/math/mod/modint.py
   requiredBy:
   - cp_library/math/mod/modmat.py
-  timestamp: '2024-08-29 01:33:12+09:00'
+  timestamp: '2024-08-29 07:36:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_modmat.test.py
