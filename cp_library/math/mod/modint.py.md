@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/pow_of_matrix_modmat.test.py
     title: test/pow_of_matrix_modmat.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/subset_convolution.test.py
+    title: test/subset_convolution.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -48,11 +51,12 @@ data:
   path: cp_library/math/mod/modint.py
   requiredBy:
   - cp_library/math/mod/modmat.py
-  timestamp: '2024-08-28 02:08:48+09:00'
+  timestamp: '2024-08-29 01:33:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_modmat.test.py
   - test/pow_of_matrix_mint.test.py
+  - test/subset_convolution.test.py
 documentation_of: cp_library/math/mod/modint.py
 layout: document
 redirect_from:

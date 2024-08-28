@@ -31,11 +31,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/segtree.py
       title: cp_library/ds/segtree.py
+    - icon: ':warning:'
+      path: cp_library/ds/slidingminmax.py
+      title: cp_library/ds/slidingminmax.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/trie.py
       title: cp_library/ds/trie.py
   - name: cp_library/math
     pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fzt.py
+      title: cp_library/math/fzt.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/ifzt.py
+      title: cp_library/math/ifzt.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/matid.py
       title: cp_library/math/matid.py
@@ -48,8 +57,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/median.py
       title: cp_library/math/median.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/subset_convolution.py
+      title: cp_library/math/subset_convolution.py
   - name: cp_library/math/mod
     pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/mod/fzt.py
+      title: cp_library/math/mod/fzt.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/mod/ifzt.py
+      title: cp_library/math/mod/ifzt.py
     - icon: ':warning:'
       path: cp_library/math/mod/matadd.py
       title: cp_library/math/mod/matadd.py
@@ -68,6 +86,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat.py
       title: cp_library/math/mod/modmat.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/mod/subset_convolution.py
+      title: cp_library/math/mod/subset_convolution.py
   - name: cp_library/misc
     pages:
     - icon: ':x:'
@@ -106,6 +127,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_modmat.test.py
       title: test/pow_of_matrix_modmat.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/subset_convolution.test.py
+      title: test/subset_convolution.test.py
     - icon: ':heavy_check_mark:'
       path: test/unionfind.test.py
       title: test/unionfind.test.py
