@@ -3,12 +3,18 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/dp/rerooting.py
-    title: cp_library/alg/dp/rerooting.py
+    path: cp_library/alg/dp/rerooting/iterative.py
+    title: cp_library/alg/dp/rerooting/iterative.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/rerooting/recursive.py
+    title: cp_library/alg/dp/rerooting/recursive.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting.test.py
-    title: test/dp_v_subtree_rerooting.test.py
+    path: test/dp_v_subtree_rerooting_iterative.test.py
+    title: test/dp_v_subtree_rerooting_iterative.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/dp_v_subtree_rerooting_recursive.test.py
+    title: test/dp_v_subtree_rerooting_recursive.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -36,11 +42,13 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bidirectional_array.py
   requiredBy:
-  - cp_library/alg/dp/rerooting.py
-  timestamp: '2024-08-29 07:36:44+09:00'
+  - cp_library/alg/dp/rerooting/iterative.py
+  - cp_library/alg/dp/rerooting/recursive.py
+  timestamp: '2024-08-29 17:40:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/dp_v_subtree_rerooting.test.py
+  - test/dp_v_subtree_rerooting_iterative.test.py
+  - test/dp_v_subtree_rerooting_recursive.test.py
 documentation_of: cp_library/ds/bidirectional_array.py
 layout: document
 redirect_from:

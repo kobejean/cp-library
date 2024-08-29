@@ -9,11 +9,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/qselect.py
       title: cp_library/alg/divcon/qselect.py
-  - name: cp_library/alg/dp
+  - name: cp_library/alg/dp/rerooting
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/dp/rerooting.py
-      title: cp_library/alg/dp/rerooting.py
+      path: cp_library/alg/dp/rerooting/iterative.py
+      title: cp_library/alg/dp/rerooting/iterative.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/dp/rerooting/recursive.py
+      title: cp_library/alg/dp/rerooting/recursive.py
   - name: cp_library/alg/tree
     pages:
     - icon: ':x:'
@@ -121,8 +124,11 @@ data:
       path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
       title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
     - icon: ':heavy_check_mark:'
-      path: test/dp_v_subtree_rerooting.test.py
-      title: test/dp_v_subtree_rerooting.test.py
+      path: test/dp_v_subtree_rerooting_iterative.test.py
+      title: test/dp_v_subtree_rerooting_iterative.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/dp_v_subtree_rerooting_recursive.test.py
+      title: test/dp_v_subtree_rerooting_recursive.test.py
     - icon: ':heavy_check_mark:'
       path: test/dsl_2_a_segtree.test.py
       title: test/dsl_2_a_segtree.test.py

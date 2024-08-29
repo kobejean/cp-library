@@ -27,7 +27,7 @@ data:
   path: cp_library/math/mod/fzt.py
   requiredBy:
   - cp_library/math/mod/subset_convolution.py
-  timestamp: '2024-08-29 07:36:44+09:00'
+  timestamp: '2024-08-29 17:40:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/subset_convolution.test.py

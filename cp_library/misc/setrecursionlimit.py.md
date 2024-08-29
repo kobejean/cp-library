@@ -3,8 +3,8 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/dp/rerooting.py
-    title: cp_library/alg/dp/rerooting.py
+    path: cp_library/alg/dp/rerooting/recursive.py
+    title: cp_library/alg/dp/rerooting/recursive.py
   - icon: ':x:'
     path: cp_library/alg/tree/centroid_recursive.py
     title: cp_library/alg/tree/centroid_recursive.py
@@ -13,8 +13,8 @@ data:
     path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
     title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
   - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting.test.py
-    title: test/dp_v_subtree_rerooting.test.py
+    path: test/dp_v_subtree_rerooting_recursive.test.py
+    title: test/dp_v_subtree_rerooting_recursive.test.py
   _isVerificationFailed: true
   _pathExtension: py
   _verificationStatusIcon: ':question:'
@@ -43,12 +43,12 @@ data:
   path: cp_library/misc/setrecursionlimit.py
   requiredBy:
   - cp_library/alg/tree/centroid_recursive.py
-  - cp_library/alg/dp/rerooting.py
-  timestamp: '2024-08-29 07:36:44+09:00'
+  - cp_library/alg/dp/rerooting/recursive.py
+  timestamp: '2024-08-29 17:40:10+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
-  - test/dp_v_subtree_rerooting.test.py
+  - test/dp_v_subtree_rerooting_recursive.test.py
 documentation_of: cp_library/misc/setrecursionlimit.py
 layout: document
 redirect_from:
