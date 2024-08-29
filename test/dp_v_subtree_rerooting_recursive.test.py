@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v
 
-from cp_library.alg.dp.rerooting.recursive import ReRootingDP
+from cp_library.alg.dp.rerooting_recursive_cls import ReRootingDP
 
 def rint(shift=0, base=10):
     return [int(x, base) + shift for x in input().split()]

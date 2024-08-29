@@ -1,7 +1,7 @@
 # verification-helper: IGNORE PROBLEM https://atcoder.jp/contests/arc183/tasks/arc183_d
 import heapq
 
-from cp_library.alg.tree.centroid_iterative import find_centroid
+from cp_library.alg.tree.find_centroid_iterative_fn import find_centroid
 
 def rint(shift=0, base=10):
     return [int(x, base) + shift for x in input().split()]

@@ -16,4 +16,3 @@ class BidirectionalArray:
     def out(self, l, r=None):
         r = l+1 if r is None else r
         return self.op(self.prefix[l], self.suffix[r])
-    

@@ -1,6 +1,6 @@
 ---
 title: PotentializedDSU (generalized with groups)
-documentation_of: cp_library/ds/potentialized_dsu.py
+documentation_of: cp_library/ds/potentialized_dsu_cls.py
 ---
 
 ## Operations

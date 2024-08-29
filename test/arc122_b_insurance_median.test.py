@@ -3,7 +3,7 @@
 from fractions import Fraction
 from decimal import Decimal, getcontext
 from statistics import mean
-from cp_library.math.median import median
+from cp_library.math.median_fn import median
 
 def rint(shift=0, base=10):
     return [int(x, base) + shift for x in input().split()]

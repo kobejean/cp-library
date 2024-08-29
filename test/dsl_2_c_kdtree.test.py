@@ -1,5 +1,5 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_C
-from cp_library.ds.kdtree import KDTree
+from cp_library.ds.kdtree_cls import KDTree
 
 def rint(shift=0, base=10):
     return [int(x, base) + shift for x in input().split()]

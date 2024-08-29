@@ -1,5 +1,5 @@
-from cp_library.math.matmul import mat_mul
-from cp_library.math.matid import mat_id
+from cp_library.math.mat_mul_fn import mat_mul
+from cp_library.math.mat_id_fn import mat_id
 
 def mat_pow(A,K):
     N = len(A)

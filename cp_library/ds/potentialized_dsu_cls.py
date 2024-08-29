@@ -1,3 +1,4 @@
+
 class PotentializedDSU:
 
     def __init__(self, op, inv, e, v) -> None:
@@ -66,4 +67,3 @@ class PotentializedDSU:
     def diff(self, x: int, y: int):
         assert self.same(x, y)
         return self.op(self.pot[x], self.inv(self.pot[y]))
-

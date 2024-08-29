@@ -1,5 +1,5 @@
 
-def fzt(A):
+def zeta_transform(A):
     N = len(A).bit_length()-1
 
     for i in range(N):

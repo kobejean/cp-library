@@ -1,7 +1,7 @@
 
 class mint(int):
     mod = None
-    def __new__(cls, x): return super().__new__(cls, x % cls.mod)
+    def __new__(cls, x=0): return super().__new__(cls, x % cls.mod)
     def __add__(self, other): return mint(super().__add__(other))
     def __radd__(self, other): return mint(super().__radd__(other))
     def __sub__(self, other): return mint(super().__sub__(other))

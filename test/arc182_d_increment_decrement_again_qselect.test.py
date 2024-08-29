@@ -1,5 +1,5 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d
-from cp_library.alg.divcon.qselect import kth_element
+from cp_library.alg.divcon.qselect_fn import qselect
 
 def rint(shift=0, base=10):
     return [int(x, base) + shift for x in input().split()]
@@ -23,7 +23,7 @@ for i in range(1,N):
         if rel(A[i-1],A[i]) == rel(C[-1],Ci) and abs(C[-1]-Ci)<M:
             C.append(Ci)
             break
-median = kth_element([c-a for a,c in zip(A,C)], N//2)
+median = qselect([c-a for a,c in zip(A,C)], N//2)
 ans = float('inf')
 for i in range(median//M,median//M+2):
     now=0

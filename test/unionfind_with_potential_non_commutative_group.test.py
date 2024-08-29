@@ -2,7 +2,7 @@
 
 mod = 998244353
 
-from cp_library.ds.potentialized_dsu import PotentializedDSU
+from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
 
 def rint(shift=0, base=10):
     return [int(x, base) + shift for x in input().split()]

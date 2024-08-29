@@ -1,7 +1,7 @@
 import random
-from cp_library.alg.divcon.partition_pivot import partition
+from cp_library.alg.divcon.partition_fn import partition
 
-def kth_element(A, k, l=0, r=None):
+def qselect(A, k, l=0, r=None):
     '''Find kth element in subarray [l,r)'''
     if r is None: r = len(A)
     while True:

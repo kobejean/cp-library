@@ -1,5 +1,5 @@
 from typing import Dict, List, Optional
-from cp_library.ds.trie import Trie
+from cp_library.ds.trie_cls import Trie
 
 class AhoCorasick(Trie):
     __slots__ = 'failed',

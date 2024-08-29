@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix
 
-from cp_library.math.mod.modint import mint
-from cp_library.math.mod.modmat import ModMat
+from cp_library.math.mod.mint_cls import mint
+from cp_library.math.mod.modmat_cls import ModMat
 
 mint.mod = 998244353
 

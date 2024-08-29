@@ -1,5 +1,5 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g
-from cp_library.ds.ahocorasick import AhoCorasick
+from cp_library.ds.ahocorasick_cls import AhoCorasick
 
 S = input()
 Q = int(input())

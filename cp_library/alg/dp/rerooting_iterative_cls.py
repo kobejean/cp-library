@@ -1,5 +1,5 @@
 from typing import Any, Callable, List, TypeVar, Generic
-from cp_library.ds.bidirectional_array import BidirectionalArray
+from cp_library.ds.bidirectional_array_cls import BidirectionalArray
 
 T = TypeVar('T')
 

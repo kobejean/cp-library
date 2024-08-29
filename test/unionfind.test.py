@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind
 
 from operator import add, neg
-from cp_library.ds.potentialized_dsu import PotentializedDSU
+from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
 
 mod = 998244353
 

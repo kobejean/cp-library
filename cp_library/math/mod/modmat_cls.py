@@ -1,6 +1,6 @@
 from functools import cached_property
-from cp_library.math.mod.modint import mint
 from typing import Union, List, Tuple
+from cp_library.math.mod.mint_cls import mint
 
 class ModMat:
     __slots__ = 'data', 'R', 'C'

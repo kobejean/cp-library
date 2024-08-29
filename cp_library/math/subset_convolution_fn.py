@@ -1,5 +1,5 @@
-from cp_library.math.fzt import fzt
-from cp_library.math.ifzt import ifzt
+from cp_library.math.zeta_transform_fn import zeta_transform
+from cp_library.math.mobius_transform_fn import mobius_transform
 
 def subset_convolution(A, B):
     N = max(len(A), len(B)).bit_length()
@@ -16,8 +16,8 @@ def subset_convolution(A, B):
         Brank[rank][mask] = B[mask]
 
     # Zeta transform for each rank
-    for Ar in Arank: fzt(Ar)
-    for Br in Brank: fzt(Br)
+    for Ar in Arank: zeta_transform(Ar)
+    for Br in Brank: zeta_transform(Br)
 
     # Convolution
     Crank = [[0 for _ in range(Z)] for _ in range(N)]
@@ -29,7 +29,7 @@ def subset_convolution(A, B):
                 Crank[k][mask] = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]
 
     # Möbius transform (inverse of Zeta transform)
-    for Cr in Crank: ifzt(Cr)
+    for Cr in Crank: mobius_transform(Cr)
         
     # Combine results
     C = [0] * Z
