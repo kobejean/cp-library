@@ -1,14 +1,17 @@
 import cp_library.misc.setrecursionlimit
+from typing import Any, Callable, List, TypeVar, Generic
 from cp_library.ds.bidirectional_array import BidirectionalArray
 
-class ReRootingDP:
-    def __init__(self, T, e, merge, add_node) -> None:
+T = TypeVar('T')
+
+class ReRootingDP(Generic[T]):
+    def __init__(self, T: List[List[int]], e: T, merge: Callable[[T, T], T], add_node: Callable[[int, T], T]) -> None:
         self.T = T
         self.e = e
         self.merge = merge
         self.add_node = add_node
 
-    def solve(self):
+    def solve(self) -> List[T]:
         dp = [[self.e]*len(adj) for adj in self.T]
         ans = [None for _ in range(len(self.T))]
         
