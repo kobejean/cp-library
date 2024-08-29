@@ -32,16 +32,16 @@ data:
   dependsOn:
   - cp_library/misc/setrecursionlimit.py
   isVerificationFile: false
-  path: cp_library/alg/tree/centroid_recursive.py
+  path: cp_library/alg/tree/find_centroid_recursive_fn.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
-documentation_of: cp_library/alg/tree/centroid_recursive.py
+documentation_of: cp_library/alg/tree/find_centroid_recursive_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/tree/centroid_recursive.py
-- /library/cp_library/alg/tree/centroid_recursive.py.html
-title: cp_library/alg/tree/centroid_recursive.py
+- /library/cp_library/alg/tree/find_centroid_recursive_fn.py
+- /library/cp_library/alg/tree/find_centroid_recursive_fn.py.html
+title: cp_library/alg/tree/find_centroid_recursive_fn.py
 ---

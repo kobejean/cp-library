@@ -4,102 +4,102 @@ data:
   - name: cp_library/alg/divcon
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/divcon/partition_pivot.py
-      title: cp_library/alg/divcon/partition_pivot.py
+      path: cp_library/alg/divcon/partition_fn.py
+      title: cp_library/alg/divcon/partition_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/divcon/qselect.py
-      title: cp_library/alg/divcon/qselect.py
-  - name: cp_library/alg/dp/rerooting
+      path: cp_library/alg/divcon/qselect_fn.py
+      title: cp_library/alg/divcon/qselect_fn.py
+  - name: cp_library/alg/dp
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/dp/rerooting/iterative.py
-      title: cp_library/alg/dp/rerooting/iterative.py
+      path: cp_library/alg/dp/rerooting_iterative_cls.py
+      title: cp_library/alg/dp/rerooting_iterative_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/dp/rerooting/recursive.py
-      title: cp_library/alg/dp/rerooting/recursive.py
+      path: cp_library/alg/dp/rerooting_recursive_cls.py
+      title: cp_library/alg/dp/rerooting_recursive_cls.py
   - name: cp_library/alg/tree
     pages:
     - icon: ':x:'
-      path: cp_library/alg/tree/centroid_iterative.py
-      title: cp_library/alg/tree/centroid_iterative.py
+      path: cp_library/alg/tree/find_centroid_iterative_fn.py
+      title: cp_library/alg/tree/find_centroid_iterative_fn.py
     - icon: ':x:'
-      path: cp_library/alg/tree/centroid_recursive.py
-      title: cp_library/alg/tree/centroid_recursive.py
+      path: cp_library/alg/tree/find_centroid_recursive_fn.py
+      title: cp_library/alg/tree/find_centroid_recursive_fn.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/ahocorasick.py
-      title: cp_library/ds/ahocorasick.py
+      path: cp_library/ds/ahocorasick_cls.py
+      title: cp_library/ds/ahocorasick_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/bidirectional_array.py
-      title: cp_library/ds/bidirectional_array.py
+      path: cp_library/ds/bidirectional_array_cls.py
+      title: cp_library/ds/bidirectional_array_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/kdtree.py
-      title: cp_library/ds/kdtree.py
+      path: cp_library/ds/kdtree_cls.py
+      title: cp_library/ds/kdtree_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/potentialized_dsu.py
+      path: cp_library/ds/potentialized_dsu_cls.py
       title: PotentializedDSU (generalized with groups)
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/segtree.py
-      title: cp_library/ds/segtree.py
+      path: cp_library/ds/segtree_cls.py
+      title: cp_library/ds/segtree_cls.py
     - icon: ':warning:'
-      path: cp_library/ds/slidingminmax.py
-      title: cp_library/ds/slidingminmax.py
+      path: cp_library/ds/slidingminmax_cls.py
+      title: cp_library/ds/slidingminmax_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/trie.py
-      title: cp_library/ds/trie.py
+      path: cp_library/ds/trie_cls.py
+      title: cp_library/ds/trie_cls.py
   - name: cp_library/math
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/fzt.py
-      title: cp_library/math/fzt.py
+      path: cp_library/math/mat_id_fn.py
+      title: cp_library/math/mat_id_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/ifzt.py
-      title: cp_library/math/ifzt.py
+      path: cp_library/math/mat_mul_fn.py
+      title: cp_library/math/mat_mul_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/matid.py
-      title: cp_library/math/matid.py
+      path: cp_library/math/mat_pow_fn.py
+      title: cp_library/math/mat_pow_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/matmul.py
-      title: cp_library/math/matmul.py
+      path: cp_library/math/median_fn.py
+      title: cp_library/math/median_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/matpow.py
-      title: cp_library/math/matpow.py
+      path: cp_library/math/mobius_transform_fn.py
+      title: cp_library/math/mobius_transform_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/median.py
-      title: cp_library/math/median.py
+      path: cp_library/math/subset_convolution_fn.py
+      title: cp_library/math/subset_convolution_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/subset_convolution.py
-      title: cp_library/math/subset_convolution.py
+      path: cp_library/math/zeta_transform_fn.py
+      title: cp_library/math/zeta_transform_fn.py
   - name: cp_library/math/mod
     pages:
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/fzt.py
-      title: cp_library/math/mod/fzt.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/ifzt.py
-      title: cp_library/math/mod/ifzt.py
     - icon: ':warning:'
-      path: cp_library/math/mod/matadd.py
-      title: cp_library/math/mod/matadd.py
+      path: cp_library/math/mod/mat_add_fn.py
+      title: cp_library/math/mod/mat_add_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/matmul.py
-      title: cp_library/math/mod/matmul.py
+      path: cp_library/math/mod/mat_mul_fn.py
+      title: cp_library/math/mod/mat_mul_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/matpow.py
-      title: cp_library/math/mod/matpow.py
+      path: cp_library/math/mod/mat_pow_fn.py
+      title: cp_library/math/mod/mat_pow_fn.py
     - icon: ':warning:'
-      path: cp_library/math/mod/matsub.py
-      title: cp_library/math/mod/matsub.py
+      path: cp_library/math/mod/mat_sub_fn.py
+      title: cp_library/math/mod/mat_sub_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/modint.py
-      title: cp_library/math/mod/modint.py
+      path: cp_library/math/mod/mint_cls.py
+      title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/modmat.py
-      title: cp_library/math/mod/modmat.py
+      path: cp_library/math/mod/mobius_transform_fn.py
+      title: cp_library/math/mod/mobius_transform_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/subset_convolution.py
-      title: cp_library/math/mod/subset_convolution.py
+      path: cp_library/math/mod/modmat_cls.py
+      title: cp_library/math/mod/modmat_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/mod/subset_convolution_fn.py
+      title: cp_library/math/mod/subset_convolution_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/mod/zeta_transform_fn.py
+      title: cp_library/math/mod/zeta_transform_fn.py
   - name: cp_library/misc
     pages:
     - icon: ':question:'
@@ -138,9 +138,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py
-    - icon: ':heavy_check_mark:'
-      path: test/pow_of_matrix_mint.test.py
-      title: test/pow_of_matrix_mint.test.py
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_modmat.test.py
       title: test/pow_of_matrix_modmat.test.py

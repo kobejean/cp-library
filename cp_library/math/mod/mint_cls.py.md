@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/modmat.py
-    title: cp_library/math/mod/modmat.py
+    path: cp_library/math/mod/modmat_cls.py
+    title: cp_library/math/mod/modmat_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/pow_of_matrix_mint.test.py
-    title: test/pow_of_matrix_mint.test.py
+    path: test/pow_of_matrix_matpow.test.py
+    title: test/pow_of_matrix_matpow.test.py
   - icon: ':heavy_check_mark:'
     path: test/pow_of_matrix_modmat.test.py
     title: test/pow_of_matrix_modmat.test.py
@@ -20,7 +20,7 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\nclass mint(int):\n    mod = None\n    def __new__(cls, x): return\
+  bundledCode: "\nclass mint(int):\n    mod = None\n    def __new__(cls, x=0): return\
     \ super().__new__(cls, x % cls.mod)\n    def __add__(self, other): return mint(super().__add__(other))\n\
     \    def __radd__(self, other): return mint(super().__radd__(other))\n    def\
     \ __sub__(self, other): return mint(super().__sub__(other))\n    def __rsub__(self,\
@@ -33,7 +33,7 @@ data:
     \ return mint(pow(self,other,self.mod))\n    def __rpow__(self, other): return\
     \ mint(pow(other,other,self.mod))\n    def __eq__(self, other): return super().__eq__(mint(other))\n\
     \    def __req__(self, other): return super().__eq__(mint(other))\n\n"
-  code: "\nclass mint(int):\n    mod = None\n    def __new__(cls, x): return super().__new__(cls,\
+  code: "\nclass mint(int):\n    mod = None\n    def __new__(cls, x=0): return super().__new__(cls,\
     \ x % cls.mod)\n    def __add__(self, other): return mint(super().__add__(other))\n\
     \    def __radd__(self, other): return mint(super().__radd__(other))\n    def\
     \ __sub__(self, other): return mint(super().__sub__(other))\n    def __rsub__(self,\
@@ -48,19 +48,19 @@ data:
     \    def __req__(self, other): return super().__eq__(mint(other))\n\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/mod/modint.py
+  path: cp_library/math/mod/mint_cls.py
   requiredBy:
-  - cp_library/math/mod/modmat.py
-  timestamp: '2024-08-29 17:40:10+09:00'
+  - cp_library/math/mod/modmat_cls.py
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/pow_of_matrix_matpow.test.py
   - test/pow_of_matrix_modmat.test.py
-  - test/pow_of_matrix_mint.test.py
   - test/subset_convolution.test.py
-documentation_of: cp_library/math/mod/modint.py
+documentation_of: cp_library/math/mod/mint_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/math/mod/modint.py
-- /library/cp_library/math/mod/modint.py.html
-title: cp_library/math/mod/modint.py
+- /library/cp_library/math/mod/mint_cls.py
+- /library/cp_library/math/mod/mint_cls.py.html
+title: cp_library/math/mod/mint_cls.py
 ---

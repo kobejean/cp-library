@@ -99,16 +99,16 @@ data:
     \ 1])"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/ds/segtree.py
+  path: cp_library/ds/segtree_cls.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dsl_2_a_segtree.test.py
-documentation_of: cp_library/ds/segtree.py
+documentation_of: cp_library/ds/segtree_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/segtree.py
-- /library/cp_library/ds/segtree.py.html
-title: cp_library/ds/segtree.py
+- /library/cp_library/ds/segtree_cls.py
+- /library/cp_library/ds/segtree_cls.py.html
+title: cp_library/ds/segtree_cls.py
 ---

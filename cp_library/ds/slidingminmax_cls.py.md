@@ -32,15 +32,15 @@ data:
     \ Any:\n        return self.maxq[0]\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/ds/slidingminmax.py
+  path: cp_library/ds/slidingminmax_cls.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: cp_library/ds/slidingminmax.py
+documentation_of: cp_library/ds/slidingminmax_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/slidingminmax.py
-- /library/cp_library/ds/slidingminmax.py.html
-title: cp_library/ds/slidingminmax.py
+- /library/cp_library/ds/slidingminmax_cls.py
+- /library/cp_library/ds/slidingminmax_cls.py.html
+title: cp_library/ds/slidingminmax_cls.py
 ---

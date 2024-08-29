@@ -2,16 +2,16 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/matid.py
-    title: cp_library/math/matid.py
+    path: cp_library/math/mat_id_fn.py
+    title: cp_library/math/mat_id_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/matmul.py
-    title: cp_library/math/matmul.py
+    path: cp_library/math/mat_mul_fn.py
+    title: cp_library/math/mat_mul_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/pow_of_matrix_mint.test.py
-    title: test/pow_of_matrix_mint.test.py
+    path: test/pow_of_matrix_matpow.test.py
+    title: test/pow_of_matrix_matpow.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -25,24 +25,24 @@ data:
     \    ret = A if K & 1 else mat_id(N)\n    for i in range(1,K.bit_length()):\n\
     \        A = mat_mul(A,A) \n        if K >> i & 1:\n            ret = mat_mul(ret,A)\
     \ \n    return ret \n"
-  code: "from cp_library.math.matmul import mat_mul\nfrom cp_library.math.matid import\
-    \ mat_id\n\ndef mat_pow(A,K):\n    N = len(A)\n    ret = A if K & 1 else mat_id(N)\n\
-    \    for i in range(1,K.bit_length()):\n        A = mat_mul(A,A) \n        if\
-    \ K >> i & 1:\n            ret = mat_mul(ret,A) \n    return ret \n"
+  code: "from cp_library.math.mat_mul_fn import mat_mul\nfrom cp_library.math.mat_id_fn\
+    \ import mat_id\n\ndef mat_pow(A,K):\n    N = len(A)\n    ret = A if K & 1 else\
+    \ mat_id(N)\n    for i in range(1,K.bit_length()):\n        A = mat_mul(A,A) \n\
+    \        if K >> i & 1:\n            ret = mat_mul(ret,A) \n    return ret \n"
   dependsOn:
-  - cp_library/math/matmul.py
-  - cp_library/math/matid.py
+  - cp_library/math/mat_mul_fn.py
+  - cp_library/math/mat_id_fn.py
   isVerificationFile: false
-  path: cp_library/math/matpow.py
+  path: cp_library/math/mat_pow_fn.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/pow_of_matrix_mint.test.py
-documentation_of: cp_library/math/matpow.py
+  - test/pow_of_matrix_matpow.test.py
+documentation_of: cp_library/math/mat_pow_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/matpow.py
-- /library/cp_library/math/matpow.py.html
-title: cp_library/math/matpow.py
+- /library/cp_library/math/mat_pow_fn.py
+- /library/cp_library/math/mat_pow_fn.py.html
+title: cp_library/math/mat_pow_fn.py
 ---

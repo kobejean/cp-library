@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/kdtree.py
-    title: cp_library/ds/kdtree.py
+    path: cp_library/ds/kdtree_cls.py
+    title: cp_library/ds/kdtree_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -53,17 +53,17 @@ data:
     \  sx,tx,sy,ty = rint()\n    tx += 1\n    ty += 1\n    ans = sorted(kdtree[sx:tx,sy:ty])\
     \ + ['']\n    print(*ans, sep='\\n')\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_C\n\
-    from cp_library.ds.kdtree import KDTree\n\ndef rint(shift=0, base=10):\n    return\
-    \ [int(x, base) + shift for x in input().split()]\n\nN, = rint()\npts = [rint()\
-    \ for _ in range(N)]\n\nkdtree = KDTree(pts)\n\nQ, = rint()\nfor _ in range(Q):\n\
-    \    sx,tx,sy,ty = rint()\n    tx += 1\n    ty += 1\n    ans = sorted(kdtree[sx:tx,sy:ty])\
+    from cp_library.ds.kdtree_cls import KDTree\n\ndef rint(shift=0, base=10):\n \
+    \   return [int(x, base) + shift for x in input().split()]\n\nN, = rint()\npts\
+    \ = [rint() for _ in range(N)]\n\nkdtree = KDTree(pts)\n\nQ, = rint()\nfor _ in\
+    \ range(Q):\n    sx,tx,sy,ty = rint()\n    tx += 1\n    ty += 1\n    ans = sorted(kdtree[sx:tx,sy:ty])\
     \ + ['']\n    print(*ans, sep='\\n')\n"
   dependsOn:
-  - cp_library/ds/kdtree.py
+  - cp_library/ds/kdtree_cls.py
   isVerificationFile: true
   path: test/dsl_2_c_kdtree.test.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dsl_2_c_kdtree.test.py

@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/segtree.py
-    title: cp_library/ds/segtree.py
+    path: cp_library/ds/segtree_cls.py
+    title: cp_library/ds/segtree_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -61,16 +61,16 @@ data:
     \ _ in range(Q):\n    com, x, y = rint()\n    if com:\n        print(seg.prod(x,y+1))\n\
     \    else:\n        seg.set(x,y)\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\n\
-    from cp_library.ds.segtree import SegTree\n\ndef rint(shift=0, base=10):\n   \
-    \ return [int(x, base) + shift for x in input().split()]\n\nN, Q = rint()\n\n\
-    seg = SegTree(min, 2147483647, N)\n\nfor _ in range(Q):\n    com, x, y = rint()\n\
+    from cp_library.ds.segtree_cls import SegTree\n\ndef rint(shift=0, base=10):\n\
+    \    return [int(x, base) + shift for x in input().split()]\n\nN, Q = rint()\n\
+    \nseg = SegTree(min, 2147483647, N)\n\nfor _ in range(Q):\n    com, x, y = rint()\n\
     \    if com:\n        print(seg.prod(x,y+1))\n    else:\n        seg.set(x,y)\n"
   dependsOn:
-  - cp_library/ds/segtree.py
+  - cp_library/ds/segtree_cls.py
   isVerificationFile: true
   path: test/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dsl_2_a_segtree.test.py

@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/ahocorasick.py
-    title: cp_library/ds/ahocorasick.py
+    path: cp_library/ds/ahocorasick_cls.py
+    title: cp_library/ds/ahocorasick_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/trie.py
-    title: cp_library/ds/trie.py
+    path: cp_library/ds/trie_cls.py
+    title: cp_library/ds/trie_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -54,17 +54,17 @@ data:
     \    T = input()\n    ac.add(T)\n    queries.append(T)\n\nfreq_dict = ac.count_freq(S)\n\
     for query in queries:\n    print(freq_dict.get(query, 0))\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
-    from cp_library.ds.ahocorasick import AhoCorasick\n\nS = input()\nQ = int(input())\n\
+    from cp_library.ds.ahocorasick_cls import AhoCorasick\n\nS = input()\nQ = int(input())\n\
     ac = AhoCorasick()\nqueries = []\nfor _ in range(Q):\n    T = input()\n    ac.add(T)\n\
     \    queries.append(T)\n\nfreq_dict = ac.count_freq(S)\nfor query in queries:\n\
     \    print(freq_dict.get(query, 0))"
   dependsOn:
-  - cp_library/ds/ahocorasick.py
-  - cp_library/ds/trie.py
+  - cp_library/ds/ahocorasick_cls.py
+  - cp_library/ds/trie_cls.py
   isVerificationFile: true
   path: test/abc362_q_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc362_q_count_substring_query_ahocorasick.test.py

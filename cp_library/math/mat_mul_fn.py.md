@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/matpow.py
-    title: cp_library/math/matpow.py
+    path: cp_library/math/mat_pow_fn.py
+    title: cp_library/math/mat_pow_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/pow_of_matrix_mint.test.py
-    title: test/pow_of_matrix_mint.test.py
+    path: test/pow_of_matrix_matpow.test.py
+    title: test/pow_of_matrix_matpow.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -24,17 +24,17 @@ data:
     \  Ri[j] = Bkj*Aik + Ri[j]  \n    return R \n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/matmul.py
+  path: cp_library/math/mat_mul_fn.py
   requiredBy:
-  - cp_library/math/matpow.py
-  timestamp: '2024-08-29 17:40:10+09:00'
+  - cp_library/math/mat_pow_fn.py
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/pow_of_matrix_mint.test.py
-documentation_of: cp_library/math/matmul.py
+  - test/pow_of_matrix_matpow.test.py
+documentation_of: cp_library/math/mat_mul_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/matmul.py
-- /library/cp_library/math/matmul.py.html
-title: cp_library/math/matmul.py
+- /library/cp_library/math/mat_mul_fn.py
+- /library/cp_library/math/mat_mul_fn.py.html
+title: cp_library/math/mat_mul_fn.py
 ---

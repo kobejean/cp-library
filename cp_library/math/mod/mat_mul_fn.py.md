@@ -3,8 +3,8 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/matpow.py
-    title: cp_library/math/mod/matpow.py
+    path: cp_library/math/mod/mat_pow_fn.py
+    title: cp_library/math/mod/mat_pow_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/pow_of_matrix_matpow.test.py
@@ -24,17 +24,17 @@ data:
     \  Ri[j] = (Ri[j] + Aik*Bkj) % mod  \n    return R \n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/mod/matmul.py
+  path: cp_library/math/mod/mat_mul_fn.py
   requiredBy:
-  - cp_library/math/mod/matpow.py
-  timestamp: '2024-08-29 17:40:10+09:00'
+  - cp_library/math/mod/mat_pow_fn.py
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py
-documentation_of: cp_library/math/mod/matmul.py
+documentation_of: cp_library/math/mod/mat_mul_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/mod/matmul.py
-- /library/cp_library/math/mod/matmul.py.html
-title: cp_library/math/mod/matmul.py
+- /library/cp_library/math/mod/mat_mul_fn.py
+- /library/cp_library/math/mod/mat_mul_fn.py.html
+title: cp_library/math/mod/mat_mul_fn.py
 ---

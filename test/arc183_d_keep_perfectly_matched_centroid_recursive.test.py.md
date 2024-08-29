@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':x:'
-    path: cp_library/alg/tree/centroid_recursive.py
-    title: cp_library/alg/tree/centroid_recursive.py
+    path: cp_library/alg/tree/find_centroid_recursive_fn.py
+    title: cp_library/alg/tree/find_centroid_recursive_fn.py
   - icon: ':question:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
@@ -49,7 +49,7 @@ data:
     \    u, v = rint(-1)\n    T[u].append(v)\n    T[v].append(u)\n\nfor op in solve():\n\
     \    print(op[0] + 1, op[1] + 1)\n"
   code: "# verification-helper: IGNORE PROBLEM https://atcoder.jp/contests/arc183/tasks/arc183_d\n\
-    import heapq\n\nfrom cp_library.alg.tree.centroid_recursive import find_centroid\n\
+    import heapq\n\nfrom cp_library.alg.tree.find_centroid_recursive_fn import find_centroid\n\
     \ndef rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
     \n\ndef solve():\n    size = [0] * N\n    centroid = find_centroid(T)\n    dfs_order\
     \ = [[] for _ in range(N)]\n    matched = (0, -1)\n    heap = []\n\n    def dfs(u,\
@@ -74,12 +74,12 @@ data:
     \    u, v = rint(-1)\n    T[u].append(v)\n    T[v].append(u)\n\nfor op in solve():\n\
     \    print(op[0] + 1, op[1] + 1)\n"
   dependsOn:
-  - cp_library/alg/tree/centroid_recursive.py
+  - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/misc/setrecursionlimit.py
   isVerificationFile: true
   path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py

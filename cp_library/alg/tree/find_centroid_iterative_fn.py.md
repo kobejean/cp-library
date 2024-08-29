@@ -35,16 +35,16 @@ data:
     \ cent"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/alg/tree/centroid_iterative.py
+  path: cp_library/alg/tree/find_centroid_iterative_fn.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
-documentation_of: cp_library/alg/tree/centroid_iterative.py
+documentation_of: cp_library/alg/tree/find_centroid_iterative_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/tree/centroid_iterative.py
-- /library/cp_library/alg/tree/centroid_iterative.py.html
-title: cp_library/alg/tree/centroid_iterative.py
+- /library/cp_library/alg/tree/find_centroid_iterative_fn.py
+- /library/cp_library/alg/tree/find_centroid_iterative_fn.py.html
+title: cp_library/alg/tree/find_centroid_iterative_fn.py
 ---

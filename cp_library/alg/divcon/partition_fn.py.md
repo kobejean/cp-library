@@ -3,11 +3,11 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/divcon/qselect.py
-    title: cp_library/alg/divcon/qselect.py
+    path: cp_library/alg/divcon/qselect_fn.py
+    title: cp_library/alg/divcon/qselect_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/median.py
-    title: cp_library/math/median.py
+    path: cp_library/math/median_fn.py
+    title: cp_library/math/median_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/arc122_b_insurance_median.test.py
@@ -30,19 +30,19 @@ data:
     \ pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return pi\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/alg/divcon/partition_pivot.py
+  path: cp_library/alg/divcon/partition_fn.py
   requiredBy:
-  - cp_library/alg/divcon/qselect.py
-  - cp_library/math/median.py
-  timestamp: '2024-08-29 17:40:10+09:00'
+  - cp_library/alg/divcon/qselect_fn.py
+  - cp_library/math/median_fn.py
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc182_d_increment_decrement_again_qselect.test.py
   - test/arc122_b_insurance_median.test.py
-documentation_of: cp_library/alg/divcon/partition_pivot.py
+documentation_of: cp_library/alg/divcon/partition_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/divcon/partition_pivot.py
-- /library/cp_library/alg/divcon/partition_pivot.py.html
-title: cp_library/alg/divcon/partition_pivot.py
+- /library/cp_library/alg/divcon/partition_fn.py
+- /library/cp_library/alg/divcon/partition_fn.py.html
+title: cp_library/alg/divcon/partition_fn.py
 ---

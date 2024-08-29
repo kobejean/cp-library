@@ -81,16 +81,16 @@ data:
     \ + 1))\n\n        return result"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/ds/kdtree.py
+  path: cp_library/ds/kdtree_cls.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dsl_2_c_kdtree.test.py
-documentation_of: cp_library/ds/kdtree.py
+documentation_of: cp_library/ds/kdtree_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/kdtree.py
-- /library/cp_library/ds/kdtree.py.html
-title: cp_library/ds/kdtree.py
+- /library/cp_library/ds/kdtree_cls.py
+- /library/cp_library/ds/kdtree_cls.py.html
+title: cp_library/ds/kdtree_cls.py
 ---

@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/potentialized_dsu.py
+    path: cp_library/ds/potentialized_dsu_cls.py
     title: PotentializedDSU (generalized with groups)
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
@@ -14,7 +14,7 @@ data:
     links:
     - https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group\n\
-    \nmod = 998244353\n\nclass PotentializedDSU:\n\n    def __init__(self, op, inv,\
+    \nmod = 998244353\n\n\nclass PotentializedDSU:\n\n    def __init__(self, op, inv,\
     \ e, v) -> None:\n        n = v if isinstance(v, int) else len(v)\n        self.n\
     \ = n\n        self.par = [-1] * n\n        self.op = op\n        self.inv = inv\n\
     \        self.e = e\n        self.pot = [e] * n if isinstance(v, int) else v\n\
@@ -39,7 +39,7 @@ data:
     \n        result = [[] for _ in range(self.n)]\n        for i in range(self.n):\n\
     \            result[leader_buf[i]].append(i)\n\n        return list(filter(lambda\
     \ r: r, result))\n\n    def diff(self, x: int, y: int):\n        assert self.same(x,\
-    \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\n\n\ndef rint(shift=0,\
+    \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\n\ndef rint(shift=0,\
     \ base=10):\n    return [int(x, base) + shift for x in input().split()]\n\nN,\
     \ Q = rint()\n\ndef matmul2(x, y):\n    return [\n        (y[0] * x[0] + y[1]\
     \ * x[2]) % mod,\n        (y[0] * x[1] + y[1] * x[3]) % mod,\n        (y[2] *\
@@ -51,7 +51,7 @@ data:
     \        u, v, *w = q\n        print(int(pdsu.consistent(u,v, w)))\n        pdsu.merge(u,\
     \ v, w)\n            \n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group\n\
-    \nmod = 998244353\n\nfrom cp_library.ds.potentialized_dsu import PotentializedDSU\n\
+    \nmod = 998244353\n\nfrom cp_library.ds.potentialized_dsu_cls import PotentializedDSU\n\
     \ndef rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
     \nN, Q = rint()\n\ndef matmul2(x, y):\n    return [\n        (y[0] * x[0] + y[1]\
     \ * x[2]) % mod,\n        (y[0] * x[1] + y[1] * x[3]) % mod,\n        (y[2] *\
@@ -63,11 +63,11 @@ data:
     \        u, v, *w = q\n        print(int(pdsu.consistent(u,v, w)))\n        pdsu.merge(u,\
     \ v, w)\n            "
   dependsOn:
-  - cp_library/ds/potentialized_dsu.py
+  - cp_library/ds/potentialized_dsu_cls.py
   isVerificationFile: true
   path: test/unionfind_with_potential_non_commutative_group.test.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind_with_potential_non_commutative_group.test.py

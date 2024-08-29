@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/modint.py
-    title: cp_library/math/mod/modint.py
+    path: cp_library/math/mod/mint_cls.py
+    title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/modmat.py
-    title: cp_library/math/mod/modmat.py
+    path: cp_library/math/mod/modmat_cls.py
+    title: cp_library/math/mod/modmat_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,7 +17,7 @@ data:
     links:
     - https://judge.yosupo.jp/problem/pow_of_matrix
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
-    \n\nclass mint(int):\n    mod = None\n    def __new__(cls, x): return super().__new__(cls,\
+    \n\nclass mint(int):\n    mod = None\n    def __new__(cls, x=0): return super().__new__(cls,\
     \ x % cls.mod)\n    def __add__(self, other): return mint(super().__add__(other))\n\
     \    def __radd__(self, other): return mint(super().__radd__(other))\n    def\
     \ __sub__(self, other): return mint(super().__sub__(other))\n    def __rsub__(self,\
@@ -110,17 +110,17 @@ data:
     \ base) + shift for x in input().split()]\n\n\nN, K = rint()\nA = ModMat([rint()\
     \ for _ in range(N)])\nB = A**K\nprint(B)\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
-    \nfrom cp_library.math.mod.modint import mint\nfrom cp_library.math.mod.modmat\
+    \nfrom cp_library.math.mod.mint_cls import mint\nfrom cp_library.math.mod.modmat_cls\
     \ import ModMat\n\nmint.mod = 998244353\n\ndef rint(shift=0, base=10):\n    return\
     \ [int(x, base) + shift for x in input().split()]\n\n\nN, K = rint()\nA = ModMat([rint()\
     \ for _ in range(N)])\nB = A**K\nprint(B)\n"
   dependsOn:
-  - cp_library/math/mod/modint.py
-  - cp_library/math/mod/modmat.py
+  - cp_library/math/mod/mint_cls.py
+  - cp_library/math/mod/modmat_cls.py
   isVerificationFile: true
   path: test/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_modmat.test.py

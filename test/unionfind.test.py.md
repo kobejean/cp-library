@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/potentialized_dsu.py
+    path: cp_library/ds/potentialized_dsu_cls.py
     title: PotentializedDSU (generalized with groups)
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
@@ -14,7 +14,7 @@ data:
     links:
     - https://judge.yosupo.jp/problem/unionfind
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind\n\
-    \nfrom operator import add, neg\nclass PotentializedDSU:\n\n    def __init__(self,\
+    \nfrom operator import add, neg\n\nclass PotentializedDSU:\n\n    def __init__(self,\
     \ op, inv, e, v) -> None:\n        n = v if isinstance(v, int) else len(v)\n \
     \       self.n = n\n        self.par = [-1] * n\n        self.op = op\n      \
     \  self.inv = inv\n        self.e = e\n        self.pot = [e] * n if isinstance(v,\
@@ -39,23 +39,23 @@ data:
     \n        result = [[] for _ in range(self.n)]\n        for i in range(self.n):\n\
     \            result[leader_buf[i]].append(i)\n\n        return list(filter(lambda\
     \ r: r, result))\n\n    def diff(self, x: int, y: int):\n        assert self.same(x,\
-    \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\n\n\nmod = 998244353\n\
+    \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\n\nmod = 998244353\n\
     \ndef rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
     \nN, Q = rint()\n\npdsu = PotentializedDSU(add,neg,0,N)\n\nfor _ in range(Q):\n\
     \    t, u, v = rint()\n    if t:\n        print(int(pdsu.same(u, v)))\n    else:\n\
     \        pdsu.merge(u, v, 0)\n\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind\n\
-    \nfrom operator import add, neg\nfrom cp_library.ds.potentialized_dsu import PotentializedDSU\n\
-    \nmod = 998244353\n\ndef rint(shift=0, base=10):\n    return [int(x, base) + shift\
-    \ for x in input().split()]\n\nN, Q = rint()\n\npdsu = PotentializedDSU(add,neg,0,N)\n\
+    \nfrom operator import add, neg\nfrom cp_library.ds.potentialized_dsu_cls import\
+    \ PotentializedDSU\n\nmod = 998244353\n\ndef rint(shift=0, base=10):\n    return\
+    \ [int(x, base) + shift for x in input().split()]\n\nN, Q = rint()\n\npdsu = PotentializedDSU(add,neg,0,N)\n\
     \nfor _ in range(Q):\n    t, u, v = rint()\n    if t:\n        print(int(pdsu.same(u,\
     \ v)))\n    else:\n        pdsu.merge(u, v, 0)\n\n"
   dependsOn:
-  - cp_library/ds/potentialized_dsu.py
+  - cp_library/ds/potentialized_dsu_cls.py
   isVerificationFile: true
   path: test/unionfind.test.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind.test.py

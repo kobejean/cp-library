@@ -14,15 +14,15 @@ data:
     \ for Ai,Bi in zip(A,B)]\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/mod/matadd.py
+  path: cp_library/math/mod/mat_add_fn.py
   requiredBy: []
-  timestamp: '2024-08-29 17:40:10+09:00'
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: cp_library/math/mod/matadd.py
+documentation_of: cp_library/math/mod/mat_add_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/mod/matadd.py
-- /library/cp_library/math/mod/matadd.py.html
-title: cp_library/math/mod/matadd.py
+- /library/cp_library/math/mod/mat_add_fn.py
+- /library/cp_library/math/mod/mat_add_fn.py.html
+title: cp_library/math/mod/mat_add_fn.py
 ---

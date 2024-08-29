@@ -3,11 +3,11 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/dp/rerooting/recursive.py
-    title: cp_library/alg/dp/rerooting/recursive.py
+    path: cp_library/alg/dp/rerooting_recursive_cls.py
+    title: cp_library/alg/dp/rerooting_recursive_cls.py
   - icon: ':x:'
-    path: cp_library/alg/tree/centroid_recursive.py
-    title: cp_library/alg/tree/centroid_recursive.py
+    path: cp_library/alg/tree/find_centroid_recursive_fn.py
+    title: cp_library/alg/tree/find_centroid_recursive_fn.py
   _extendedVerifiedWith:
   - icon: ':x:'
     path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
@@ -42,9 +42,9 @@ data:
   isVerificationFile: false
   path: cp_library/misc/setrecursionlimit.py
   requiredBy:
-  - cp_library/alg/tree/centroid_recursive.py
-  - cp_library/alg/dp/rerooting/recursive.py
-  timestamp: '2024-08-29 17:40:10+09:00'
+  - cp_library/alg/tree/find_centroid_recursive_fn.py
+  - cp_library/alg/dp/rerooting_recursive_cls.py
+  timestamp: '2024-08-29 20:41:25+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
