@@ -34,7 +34,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/slidingminmax_cls.py
   requiredBy: []
-  timestamp: '2024-08-29 20:41:25+09:00'
+  timestamp: '2024-08-30 21:29:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/slidingminmax_cls.py

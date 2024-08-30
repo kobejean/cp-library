@@ -65,7 +65,7 @@ data:
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_iterative.test.py
   requiredBy: []
-  timestamp: '2024-08-29 20:41:25+09:00'
+  timestamp: '2024-08-30 21:29:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_iterative.test.py

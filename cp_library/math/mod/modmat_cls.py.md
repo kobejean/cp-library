@@ -187,7 +187,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/modmat_cls.py
   requiredBy: []
-  timestamp: '2024-08-29 20:41:25+09:00'
+  timestamp: '2024-08-30 21:29:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_modmat.test.py

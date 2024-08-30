@@ -67,7 +67,7 @@ data:
   isVerificationFile: true
   path: test/unionfind_with_potential_non_commutative_group.test.py
   requiredBy: []
-  timestamp: '2024-08-29 20:41:25+09:00'
+  timestamp: '2024-08-30 21:29:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind_with_potential_non_commutative_group.test.py
