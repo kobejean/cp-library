@@ -34,6 +34,12 @@ data:
       path: cp_library/ds/bidirectional_array_cls.py
       title: cp_library/ds/bidirectional_array_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/cht_monotone_add_max_cls.py
+      title: cp_library/ds/cht_monotone_add_max_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/cht_monotone_add_min_cls.py
+      title: cp_library/ds/cht_monotone_add_min_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
     - icon: ':heavy_check_mark:'
@@ -129,6 +135,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/dp_v_subtree_rerooting_recursive.test.py
       title: test/dp_v_subtree_rerooting_recursive.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/dp_z_cht_monotone_add_max.test.py
+      title: test/dp_z_cht_monotone_add_max.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/dp_z_cht_monotone_add_min.test.py
+      title: test/dp_z_cht_monotone_add_min.test.py
     - icon: ':heavy_check_mark:'
       path: test/dsl_2_a_segtree.test.py
       title: test/dsl_2_a_segtree.test.py
