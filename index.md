@@ -14,7 +14,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/rerooting_iterative_cls.py
       title: cp_library/alg/dp/rerooting_iterative_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/dp/rerooting_recursive_cls.py
       title: cp_library/alg/dp/rerooting_recursive_cls.py
   - name: cp_library/alg/tree
@@ -25,12 +25,18 @@ data:
     - icon: ':x:'
       path: cp_library/alg/tree/find_centroid_recursive_fn.py
       title: cp_library/alg/tree/find_centroid_recursive_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/lca_table_iterative_cls.py
+      title: cp_library/alg/tree/lca_table_iterative_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/lca_table_recursive_cls.py
+      title: cp_library/alg/tree/lca_table_recursive_cls.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/ahocorasick_cls.py
       title: cp_library/ds/ahocorasick_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/ds/bidirectional_array_cls.py
       title: cp_library/ds/bidirectional_array_cls.py
     - icon: ':heavy_check_mark:'
@@ -39,6 +45,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/cht_monotone_add_min_cls.py
       title: cp_library/ds/cht_monotone_add_min_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/disjoint_sparse_table_cls.py
+      title: cp_library/ds/disjoint_sparse_table_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
@@ -51,6 +60,9 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/slidingminmax_cls.py
       title: cp_library/ds/slidingminmax_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/sparse_table_cls.py
+      title: cp_library/ds/sparse_table_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/trie_cls.py
       title: cp_library/ds/trie_cls.py
@@ -132,7 +144,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/dp_v_subtree_rerooting_iterative.test.py
       title: test/dp_v_subtree_rerooting_iterative.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/dp_v_subtree_rerooting_recursive.test.py
       title: test/dp_v_subtree_rerooting_recursive.test.py
     - icon: ':heavy_check_mark:'
@@ -147,6 +159,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/dsl_2_c_kdtree.test.py
       title: test/dsl_2_c_kdtree.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/grl_5_c_lca_table_iterative.test.py
+      title: test/grl_5_c_lca_table_iterative.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/grl_5_c_lca_table_recursive.test.py
+      title: test/grl_5_c_lca_table_recursive.test.py
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py
