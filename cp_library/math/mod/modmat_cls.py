@@ -1,4 +1,3 @@
-from functools import cached_property
 from typing import Union, List, Tuple
 from cp_library.math.mod.mint_cls import mint
 
@@ -14,7 +13,6 @@ class ModMat:
     @classmethod
     def zeros(cls, R, C) -> 'ModMat': return ModMat([[0]*C for _ in range(R)])
 
-    @cached_property
     def inv(self) -> 'ModMat':
         assert self.R != self.C
         
@@ -46,7 +44,6 @@ class ModMat:
         
         return ModMat(I)
     
-    @cached_property
     def T(self) -> 'ModMat': return ModMat(list(map(list,zip(*self.data))))
 
     def elem_wise(self, func, other):

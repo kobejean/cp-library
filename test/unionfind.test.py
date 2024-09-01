@@ -1,21 +1,16 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind
 
-from operator import add, neg
-from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
-
-mod = 998244353
-
-def rint(shift=0, base=10):
-    return [int(x, base) + shift for x in input().split()]
+from cp_library.io.rint_fn import rint
+from cp_library.ds.dsu_cls import DSU
 
 N, Q = rint()
 
-pdsu = PotentializedDSU(add,neg,0,N)
+dsu = DSU(N)
 
 for _ in range(Q):
     t, u, v = rint()
     if t:
-        print(int(pdsu.same(u, v)))
+        print(int(dsu.same(u, v)))
     else:
-        pdsu.merge(u, v, 0)
+        dsu.merge(u, v)
 

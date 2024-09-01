@@ -1,4 +1,3 @@
-from typing import Dict, List, Optional
 from cp_library.ds.trie_cls import Trie
 
 class AhoCorasick(Trie):
@@ -6,9 +5,9 @@ class AhoCorasick(Trie):
 
     def __init__(self):
         super().__init__()
-        self.failed: Optional['AhoCorasick'] = None
+        self.failed: 'AhoCorasick' = None
 
-    def build_fail(self) -> List['AhoCorasick']:
+    def build_fail(self):
         arr_bfs = self.bfs()
         for p in arr_bfs:
             curr = p.parent
@@ -24,7 +23,7 @@ class AhoCorasick(Trie):
         self.failed = self
         return arr_bfs
 
-    def count_freq(self, text: str) -> Dict[str, int]:
+    def count_freq(self, text: str) -> dict[str, int]:
         arr_bfs = self.build_fail()
         p = self
         for c in text:

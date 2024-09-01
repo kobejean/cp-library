@@ -9,7 +9,7 @@ T = []
 for _ in range(N):
     k, *adj = rint()
     T.append(adj)
-lca = LCATable(T, )
+lca = LCATable(T, 0)
 Q, = rint()
 for _ in range(Q):
     u, v = rint()

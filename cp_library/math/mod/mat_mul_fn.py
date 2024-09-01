@@ -5,5 +5,5 @@ def mat_mul(A,B,mod):
     for i,Ri in enumerate(R):
         for k,Aik in enumerate(A[i]):
             for j,Bkj in enumerate(B[k]):
-                Ri[j] = (Ri[j] + Aik*Bkj) % mod  
-    return R 
+                Ri[j] = (Ri[j] + Aik*Bkj) % mod
+    return R

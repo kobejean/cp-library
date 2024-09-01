@@ -1,5 +1,5 @@
 
-def partition(A, l, r, pi):
+def partition(A, l, r, pi) -> int:
     '''Partition subarray [l,r)'''
     r -= 1
     A[pi], A[r] = A[r], A[pi]
