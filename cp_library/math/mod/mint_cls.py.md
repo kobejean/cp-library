@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/math/mod/_modmat_cls.py
+    title: cp_library/math/mod/_modmat_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/modmat_cls.py
     title: cp_library/math/mod/modmat_cls.py
@@ -50,8 +53,9 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
+  - cp_library/math/mod/_modmat_cls.py
   - cp_library/math/mod/modmat_cls.py
-  timestamp: '2024-08-31 03:51:14+09:00'
+  timestamp: '2024-09-02 01:58:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

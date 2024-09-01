@@ -58,8 +58,8 @@ data:
     \    def mat_mul(A,B,mod):\n        assert len(A[0]) == len(B)\n        R = [[0]*len(B[0])\
     \ for _ in range(len(A))] \n        for i,Ri in enumerate(R):\n            for\
     \ k,Aik in enumerate(A[i]):\n                for j,Bkj in enumerate(B[k]):\n \
-    \                   Ri[j] = (Ri[j] + Aik*Bkj) % mod  \n        return R \n   \
-    \ \n    def mat_pow(A,K,mod):\n        N = len(A)\n        ret = A if K & 1 else\
+    \                   Ri[j] = (Ri[j] + Aik*Bkj) % mod\n        return R\n    \n\
+    \    def mat_pow(A,K,mod):\n        N = len(A)\n        ret = A if K & 1 else\
     \ mat_id(N)\n        for i in range(1,K.bit_length()):\n            A = mat_mul(A,A,mod)\
     \ \n            if K >> i & 1:\n                ret = mat_mul(ret,A,mod) \n  \
     \      return ret \n\n    A = [rint() for _ in range(N)]\n    B = mat_pow(A, K,\
@@ -82,7 +82,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2024-08-31 03:51:14+09:00'
+  timestamp: '2024-09-02 01:58:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_matpow.test.py

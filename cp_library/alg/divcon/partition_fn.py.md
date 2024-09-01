@@ -20,21 +20,21 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\ndef partition(A, l, r, pi):\n    '''Partition subarray [l,r)'''\n\
+  bundledCode: "\ndef partition(A, l, r, pi) -> int:\n    '''Partition subarray [l,r)'''\n\
     \    r -= 1\n    A[pi], A[r] = A[r], A[pi]\n    pi = l\n    for j in range(l,\
     \ r):\n        if A[j] <= A[r]:\n            A[pi], A[j] = A[j], A[pi]\n     \
     \       pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return pi\n"
-  code: "\ndef partition(A, l, r, pi):\n    '''Partition subarray [l,r)'''\n    r\
-    \ -= 1\n    A[pi], A[r] = A[r], A[pi]\n    pi = l\n    for j in range(l, r):\n\
-    \        if A[j] <= A[r]:\n            A[pi], A[j] = A[j], A[pi]\n           \
-    \ pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return pi\n"
+  code: "\ndef partition(A, l, r, pi) -> int:\n    '''Partition subarray [l,r)'''\n\
+    \    r -= 1\n    A[pi], A[r] = A[r], A[pi]\n    pi = l\n    for j in range(l,\
+    \ r):\n        if A[j] <= A[r]:\n            A[pi], A[j] = A[j], A[pi]\n     \
+    \       pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return pi\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/divcon/partition_fn.py
   requiredBy:
   - cp_library/alg/divcon/qselect_fn.py
   - cp_library/math/median_fn.py
-  timestamp: '2024-08-31 03:51:14+09:00'
+  timestamp: '2024-09-02 01:58:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc182_d_increment_decrement_again_qselect.test.py

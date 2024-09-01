@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/rerooting_recursive_cls.py
     title: cp_library/alg/dp/rerooting_recursive_cls.py
   - icon: ':x:'
@@ -15,7 +15,7 @@ data:
   - icon: ':x:'
     path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
     title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
@@ -51,7 +51,7 @@ data:
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  timestamp: '2024-08-31 03:51:14+09:00'
+  timestamp: '2024-09-02 01:58:23+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py

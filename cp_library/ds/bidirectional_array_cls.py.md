@@ -5,19 +5,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/rerooting_iterative_cls.py
     title: cp_library/alg/dp/rerooting_iterative_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/rerooting_recursive_cls.py
     title: cp_library/alg/dp/rerooting_recursive_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_iterative.test.py
     title: test/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\nclass BidirectionalArray:\n    def __init__(self, e, op, data):\n\
@@ -44,8 +44,8 @@ data:
   requiredBy:
   - cp_library/alg/dp/rerooting_iterative_cls.py
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  timestamp: '2024-08-31 03:51:14+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-09-02 01:58:23+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py

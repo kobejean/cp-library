@@ -17,7 +17,7 @@ data:
     links:
     - https://atcoder.jp/contests/abc362/tasks/abc362_g
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
-    from typing import Dict, List, Optional\nfrom collections import deque\n\nclass\
+    from collections import deque\nfrom typing import Dict, List, Optional\n\nclass\
     \ Trie:\n    __slots__ = 'dic', 'parent', 'last', 'count', 'word'\n\n    def __init__(self):\n\
     \        self.dic: Dict[str, Trie] = {}\n        self.parent: Optional[Trie] =\
     \ None\n        self.last: str = \"\"\n        self.count: int = 0\n        self.word:\
@@ -36,23 +36,23 @@ data:
     \        curr = self\n        while curr.parent is not None:\n            output.append(curr.last)\n\
     \            curr = curr.parent\n        return \"\".join(reversed(output))\n\n\
     class AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
-    \        super().__init__()\n        self.failed: Optional['AhoCorasick'] = None\n\
-    \n    def build_fail(self) -> List['AhoCorasick']:\n        arr_bfs = self.bfs()\n\
-    \        for p in arr_bfs:\n            curr = p.parent\n            if curr:\n\
-    \                c = p.last\n                while curr.failed:\n            \
-    \        if c in curr.failed.dic:\n                        p.failed = curr.failed.dic[c]\n\
-    \                        break\n                    curr = curr.failed\n     \
-    \           else:\n                    p.failed = self\n        self.failed =\
-    \ self\n        return arr_bfs\n\n    def count_freq(self, text: str) -> Dict[str,\
-    \ int]:\n        arr_bfs = self.build_fail()\n        p = self\n        for c\
-    \ in text:\n            while p != self and c not in p.dic:\n                p\
-    \ = p.failed\n            p = p.dic.get(c, self)\n            p.count += 1\n\n\
-    \        output = {}\n        for i in range(len(arr_bfs) - 1, 0, -1):\n     \
-    \       p = arr_bfs[i]\n            p.failed.count += p.count\n            if\
-    \ p.word:\n                output[p.prefix()] = p.count\n        return output\n\
-    \nS = input()\nQ = int(input())\nac = AhoCorasick()\nqueries = []\nfor _ in range(Q):\n\
-    \    T = input()\n    ac.add(T)\n    queries.append(T)\n\nfreq_dict = ac.count_freq(S)\n\
-    for query in queries:\n    print(freq_dict.get(query, 0))\n"
+    \        super().__init__()\n        self.failed: 'AhoCorasick' = None\n\n   \
+    \ def build_fail(self):\n        arr_bfs = self.bfs()\n        for p in arr_bfs:\n\
+    \            curr = p.parent\n            if curr:\n                c = p.last\n\
+    \                while curr.failed:\n                    if c in curr.failed.dic:\n\
+    \                        p.failed = curr.failed.dic[c]\n                     \
+    \   break\n                    curr = curr.failed\n                else:\n   \
+    \                 p.failed = self\n        self.failed = self\n        return\
+    \ arr_bfs\n\n    def count_freq(self, text: str) -> dict[str, int]:\n        arr_bfs\
+    \ = self.build_fail()\n        p = self\n        for c in text:\n            while\
+    \ p != self and c not in p.dic:\n                p = p.failed\n            p =\
+    \ p.dic.get(c, self)\n            p.count += 1\n\n        output = {}\n      \
+    \  for i in range(len(arr_bfs) - 1, 0, -1):\n            p = arr_bfs[i]\n    \
+    \        p.failed.count += p.count\n            if p.word:\n                output[p.prefix()]\
+    \ = p.count\n        return output\n\nS = input()\nQ = int(input())\nac = AhoCorasick()\n\
+    queries = []\nfor _ in range(Q):\n    T = input()\n    ac.add(T)\n    queries.append(T)\n\
+    \nfreq_dict = ac.count_freq(S)\nfor query in queries:\n    print(freq_dict.get(query,\
+    \ 0))\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
     from cp_library.ds.ahocorasick_cls import AhoCorasick\n\nS = input()\nQ = int(input())\n\
     ac = AhoCorasick()\nqueries = []\nfor _ in range(Q):\n    T = input()\n    ac.add(T)\n\
@@ -64,7 +64,7 @@ data:
   isVerificationFile: true
   path: test/abc362_q_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2024-08-31 03:51:14+09:00'
+  timestamp: '2024-09-02 01:58:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc362_q_count_substring_query_ahocorasick.test.py

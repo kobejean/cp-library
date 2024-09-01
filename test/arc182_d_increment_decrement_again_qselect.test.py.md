@@ -17,10 +17,10 @@ data:
     links:
     - https://atcoder.jp/contests/arc182/tasks/arc182_d
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d\n\
-    import random\n\ndef partition(A, l, r, pi):\n    '''Partition subarray [l,r)'''\n\
-    \    r -= 1\n    A[pi], A[r] = A[r], A[pi]\n    pi = l\n    for j in range(l,\
-    \ r):\n        if A[j] <= A[r]:\n            A[pi], A[j] = A[j], A[pi]\n     \
-    \       pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return pi\n\ndef qselect(A,\
+    import random\n\ndef partition(A, l, r, pi) -> int:\n    '''Partition subarray\
+    \ [l,r)'''\n    r -= 1\n    A[pi], A[r] = A[r], A[pi]\n    pi = l\n    for j in\
+    \ range(l, r):\n        if A[j] <= A[r]:\n            A[pi], A[j] = A[j], A[pi]\n\
+    \            pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return pi\n\ndef qselect(A,\
     \ k, l=0, r=None):\n    '''Find kth element in subarray [l,r)'''\n    if r is\
     \ None: r = len(A)\n    while True:\n        if l == r-1: return A[k]\n      \
     \  pi = partition(A, l, r, random.randint(l, r-1))\n        if k == pi:\n    \
@@ -50,7 +50,7 @@ data:
   isVerificationFile: true
   path: test/arc182_d_increment_decrement_again_qselect.test.py
   requiredBy: []
-  timestamp: '2024-08-31 03:51:14+09:00'
+  timestamp: '2024-09-02 01:58:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc182_d_increment_decrement_again_qselect.test.py

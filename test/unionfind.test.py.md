@@ -2,8 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/potentialized_dsu_cls.py
-    title: PotentializedDSU (generalized with groups)
+    path: cp_library/ds/dsu_cls.py
+    title: cp_library/ds/dsu_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/rint_fn.py
+    title: cp_library/io/rint_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,48 +17,37 @@ data:
     links:
     - https://judge.yosupo.jp/problem/unionfind
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind\n\
-    \nfrom operator import add, neg\n\nclass PotentializedDSU:\n\n    def __init__(self,\
-    \ op, inv, e, v) -> None:\n        n = v if isinstance(v, int) else len(v)\n \
-    \       self.n = n\n        self.par = [-1] * n\n        self.op = op\n      \
-    \  self.inv = inv\n        self.e = e\n        self.pot = [e] * n if isinstance(v,\
-    \ int) else v\n\n    def leader(self, x: int) -> int:\n        assert 0 <= x <\
-    \ self.n\n        path = []\n        while self.par[x] >= 0:\n            path.append(x)\n\
-    \            x = self.par[x]\n        for y in reversed(path):\n            self.pot[y]\
-    \ = self.op(self.pot[y], self.pot[self.par[y]])\n            self.par[y] = x\n\
-    \        return x\n    \n    def consistent(self, x: int, y: int, w) -> bool:\n\
-    \        rx = self.leader(x)\n        ry = self.leader(y)\n        if rx == ry:\n\
-    \            return self.op(self.pot[x], self.inv(self.pot[y])) == w\n       \
-    \ return True\n\n    def merge(self, x: int, y: int, w) -> int:\n        assert\
-    \ 0 <= x < self.n\n        assert 0 <= y < self.n\n        rx = self.leader(x)\n\
-    \        ry = self.leader(y)\n        if rx == ry:\n            return rx\n  \
-    \      \n        if self.par[rx] < self.par[ry]:\n            x,y,w,rx,ry = y,x,self.inv(w),ry,rx\n\
-    \            \n        self.par[ry] += self.par[rx]\n        self.par[rx] = ry\n\
-    \        self.pot[rx] = self.op(\n            self.op(self.inv(self.pot[x]), w),\
-    \ self.pot[y]\n        )\n        return ry\n\n    def same(self, x: int, y: int)\
-    \ -> bool:\n        assert 0 <= x < self.n\n        assert 0 <= y < self.n\n \
-    \       return self.leader(x) == self.leader(y)\n    \n    def size(self, x: int)\
-    \ -> int:\n        assert 0 <= x < self.n\n        return -self.par[self.leader(x)]\n\
-    \    \n    def groups(self):\n        leader_buf = [self.leader(i) for i in range(self.n)]\n\
-    \n        result = [[] for _ in range(self.n)]\n        for i in range(self.n):\n\
-    \            result[leader_buf[i]].append(i)\n\n        return list(filter(lambda\
-    \ r: r, result))\n\n    def diff(self, x: int, y: int):\n        assert self.same(x,\
-    \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\n\nmod = 998244353\n\
     \ndef rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
-    \nN, Q = rint()\n\npdsu = PotentializedDSU(add,neg,0,N)\n\nfor _ in range(Q):\n\
-    \    t, u, v = rint()\n    if t:\n        print(int(pdsu.same(u, v)))\n    else:\n\
-    \        pdsu.merge(u, v, 0)\n\n"
+    \nclass DSU:\n    def __init__(self, n) -> None:\n        self.n = n\n       \
+    \ self.par = [-1] * n\n\n    def merge(self, u, v) -> int:\n        assert 0 <=\
+    \ u < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u),\
+    \ self.leader(v)\n        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n\
+    \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
+    \ = x\n\n        return x\n\n    def same(self, u: int, v: int) -> bool:\n   \
+    \     assert 0 <= u < self.n\n        assert 0 <= v < self.n\n        return self.leader(u)\
+    \ == self.leader(v)\n\n    def leader(self, i) -> int:\n        assert 0 <= i\
+    \ < self.n\n\n        p = self.par[i]\n        while p >= 0:\n            if self.par[p]\
+    \ < 0:\n                return p\n            self.par[i], i, p = self.par[p],\
+    \ self.par[p], self.par[self.par[p]]\n\n        return i\n\n    def size(self,\
+    \ i) -> int:\n        assert 0 <= i < self.n\n        \n        return -self.par[self.leader(i)]\n\
+    \n    def groups(self) -> list[list[int]]:\n        leader_buf = [self.leader(i)\
+    \ for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n  \
+    \      for i in range(self.n):\n            result[leader_buf[i]].append(i)\n\n\
+    \        return list(filter(lambda r: r, result))\n\nN, Q = rint()\n\ndsu = DSU(N)\n\
+    \nfor _ in range(Q):\n    t, u, v = rint()\n    if t:\n        print(int(dsu.same(u,\
+    \ v)))\n    else:\n        dsu.merge(u, v)\n\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind\n\
-    \nfrom operator import add, neg\nfrom cp_library.ds.potentialized_dsu_cls import\
-    \ PotentializedDSU\n\nmod = 998244353\n\ndef rint(shift=0, base=10):\n    return\
-    \ [int(x, base) + shift for x in input().split()]\n\nN, Q = rint()\n\npdsu = PotentializedDSU(add,neg,0,N)\n\
-    \nfor _ in range(Q):\n    t, u, v = rint()\n    if t:\n        print(int(pdsu.same(u,\
-    \ v)))\n    else:\n        pdsu.merge(u, v, 0)\n\n"
+    \nfrom cp_library.io.rint_fn import rint\nfrom cp_library.ds.dsu_cls import DSU\n\
+    \nN, Q = rint()\n\ndsu = DSU(N)\n\nfor _ in range(Q):\n    t, u, v = rint()\n\
+    \    if t:\n        print(int(dsu.same(u, v)))\n    else:\n        dsu.merge(u,\
+    \ v)\n\n"
   dependsOn:
-  - cp_library/ds/potentialized_dsu_cls.py
+  - cp_library/io/rint_fn.py
+  - cp_library/ds/dsu_cls.py
   isVerificationFile: true
   path: test/unionfind.test.py
   requiredBy: []
-  timestamp: '2024-08-31 03:51:14+09:00'
+  timestamp: '2024-09-02 01:58:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind.test.py
