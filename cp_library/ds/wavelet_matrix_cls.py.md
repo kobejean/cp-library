@@ -134,7 +134,7 @@ data:
   path: cp_library/ds/wavelet_matrix_cls.py
   requiredBy:
   - cp_library/ds/_wavelet_matrix_test.py
-  timestamp: '2024-09-02 01:58:23+09:00'
+  timestamp: '2024-09-03 19:30:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/wavelet_matrix_cls.py

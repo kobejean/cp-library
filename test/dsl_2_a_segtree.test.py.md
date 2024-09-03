@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/segtree_cls.py
     title: cp_library/ds/segtree_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A
     links:
@@ -70,8 +70,8 @@ data:
   isVerificationFile: true
   path: test/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-09-03 19:30:15+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/dsl_2_a_segtree.test.py
 layout: document

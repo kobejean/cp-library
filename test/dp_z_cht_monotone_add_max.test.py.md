@@ -27,22 +27,22 @@ data:
     \ x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n            m2,\
     \ b2 = self.hull[i+1]\n            return (m1-m2)*x + (b1-b2)\n        return\
     \ eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\n\ndef rint(shift=0,\
-    \ base=10):\n    return [int(x, base) + shift for x in input().split()]\n\ninf\
-    \ = float('inf')\n\nN, C = rint()\nH = rint()\ndp = 0\ncht = CHTMonotoneAddMax()\n\
-    \nfor i in range(N-1):\n    m = 2*H[i]\n    b = -H[i]**2 + -dp\n    cht.insert(m,b)\n\
-    \    i+=1\n    dp = -cht.max(H[i]) + H[i]**2 + C\n\nprint(dp)\n"
+    \ base=10):\n    return [int(x, base) + shift for x in input().split()]\n\nN,\
+    \ C = rint()\nH = rint()\ndp = 0\ncht = CHTMonotoneAddMax()\n\nfor i in range(N-1):\n\
+    \    m = 2*H[i]\n    b = -H[i]**2 + -dp\n    cht.insert(m,b)\n    i+=1\n    dp\
+    \ = -cht.max(H[i]) + H[i]**2 + C\n\nprint(dp)\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z\n\
     \nfrom cp_library.ds.cht_monotone_add_max_cls import CHTMonotoneAddMax\n\ndef\
     \ rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
-    \ninf = float('inf')\n\nN, C = rint()\nH = rint()\ndp = 0\ncht = CHTMonotoneAddMax()\n\
-    \nfor i in range(N-1):\n    m = 2*H[i]\n    b = -H[i]**2 + -dp\n    cht.insert(m,b)\n\
-    \    i+=1\n    dp = -cht.max(H[i]) + H[i]**2 + C\n\nprint(dp)"
+    \nN, C = rint()\nH = rint()\ndp = 0\ncht = CHTMonotoneAddMax()\n\nfor i in range(N-1):\n\
+    \    m = 2*H[i]\n    b = -H[i]**2 + -dp\n    cht.insert(m,b)\n    i+=1\n    dp\
+    \ = -cht.max(H[i]) + H[i]**2 + C\n\nprint(dp)"
   dependsOn:
   - cp_library/ds/cht_monotone_add_max_cls.py
   isVerificationFile: true
   path: test/dp_z_cht_monotone_add_max.test.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
+  timestamp: '2024-09-03 19:30:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_z_cht_monotone_add_max.test.py

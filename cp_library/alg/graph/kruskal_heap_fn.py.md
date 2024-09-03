@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_2_a_kruskal_heap.test.py
     title: test/grl_2_a_kruskal_heap.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "from heapq import heapify, heappop\n\nclass DSU:\n    def __init__(self,\
@@ -30,13 +30,13 @@ data:
     \n    def groups(self) -> list[list[int]]:\n        leader_buf = [self.leader(i)\
     \ for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n  \
     \      for i in range(self.n):\n            result[leader_buf[i]].append(i)\n\n\
-    \        return list(filter(lambda r: r, result))\n\ndef kruskal(N, M, E):\n \
-    \   heapify(E)\n    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and\
-    \ need > 0:\n        edge = heappop(E)\n        _,u,v = edge\n        if not dsu.same(u,v):\n\
+    \        return list(filter(lambda r: r, result))\n\ndef kruskal(E, N):\n    heapify(E)\n\
+    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need > 0:\n \
+    \       edge = heappop(E)\n        _,u,v = edge\n        if not dsu.same(u,v):\n\
     \            dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
     \ 1\n    return MST\n"
   code: "from heapq import heapify, heappop\nfrom cp_library.ds.dsu_cls import DSU\n\
-    \ndef kruskal(N, M, E):\n    heapify(E)\n    dsu = DSU(N)\n    MST = []\n    need\
+    \ndef kruskal(E, N):\n    heapify(E)\n    dsu = DSU(N)\n    MST = []\n    need\
     \ = N-1\n    while E and need > 0:\n        edge = heappop(E)\n        _,u,v =\
     \ edge\n        if not dsu.same(u,v):\n            dsu.merge(u,v)\n          \
     \  MST.append(edge)\n            need -= 1\n    return MST\n"
@@ -45,8 +45,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_heap_fn.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-03 19:30:15+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/grl_2_a_kruskal_heap.test.py
 documentation_of: cp_library/alg/graph/kruskal_heap_fn.py

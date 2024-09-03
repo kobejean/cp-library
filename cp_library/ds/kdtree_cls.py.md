@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/dsl_2_c_kdtree.test.py
     title: test/dsl_2_c_kdtree.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "import typing\nimport random\n\nclass KDTreeNode:\n    __slots__ =\
@@ -83,8 +83,8 @@ data:
   isVerificationFile: false
   path: cp_library/ds/kdtree_cls.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-03 19:30:15+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/dsl_2_c_kdtree.test.py
 documentation_of: cp_library/ds/kdtree_cls.py

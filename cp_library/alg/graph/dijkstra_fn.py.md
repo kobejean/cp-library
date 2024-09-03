@@ -3,32 +3,32 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "import heapq\nfrom math import inf\n\ndef dijkstra(G, N, root) ->\
-    \ list[int]:\n    D = [inf for _ in range(N)]\n    D[root] = 0\n    queue = [(0,\
-    \ root)]\n    while queue:\n        d, v = heapq.heappop(queue)\n        if d\
-    \ > D[v]: continue\n\n        for w, u in G[v]:\n            nd = d + w\n    \
-    \        if nd < D[u]:\n                D[u] = nd\n                heapq.heappush(queue,\
-    \ (nd, u))\n    return D\n"
-  code: "import heapq\nfrom math import inf\n\ndef dijkstra(G, N, root) -> list[int]:\n\
-    \    D = [inf for _ in range(N)]\n    D[root] = 0\n    queue = [(0, root)]\n \
-    \   while queue:\n        d, v = heapq.heappop(queue)\n        if d > D[v]: continue\n\
+    \ list[int]:\n    D = [inf for _ in range(N)]\n    D[root] = 0\n    q = [(0, root)]\n\
+    \    while q:\n        d, v = heapq.heappop(q)\n        if d > D[v]: continue\n\
     \n        for w, u in G[v]:\n            nd = d + w\n            if nd < D[u]:\n\
-    \                D[u] = nd\n                heapq.heappush(queue, (nd, u))\n \
-    \   return D\n"
+    \                D[u] = nd\n                heapq.heappush(q, (nd, u))\n    return\
+    \ D\n"
+  code: "import heapq\nfrom math import inf\n\ndef dijkstra(G, N, root) -> list[int]:\n\
+    \    D = [inf for _ in range(N)]\n    D[root] = 0\n    q = [(0, root)]\n    while\
+    \ q:\n        d, v = heapq.heappop(q)\n        if d > D[v]: continue\n\n     \
+    \   for w, u in G[v]:\n            nd = d + w\n            if nd < D[u]:\n   \
+    \             D[u] = nd\n                heapq.heappush(q, (nd, u))\n    return\
+    \ D\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/dijkstra_fn.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-03 19:30:15+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/grl_1_a_dijkstra.test.py
 documentation_of: cp_library/alg/graph/dijkstra_fn.py

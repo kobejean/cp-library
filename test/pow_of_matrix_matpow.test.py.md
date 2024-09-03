@@ -82,7 +82,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
+  timestamp: '2024-09-03 19:30:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_matpow.test.py

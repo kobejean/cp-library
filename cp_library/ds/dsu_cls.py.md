@@ -2,25 +2,31 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: cp_library/alg/graph/edmonds_fn.py
+    title: cp_library/alg/graph/edmonds_fn.py
+  - icon: ':x:'
     path: cp_library/alg/graph/kruskal_heap_fn.py
     title: cp_library/alg/graph/kruskal_heap_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/kruskal_sort_fn.py
     title: cp_library/alg/graph/kruskal_sort_fn.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_2_a_kruskal_heap.test.py
     title: test/grl_2_a_kruskal_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_2_a_kruskal_sort.test.py
     title: test/grl_2_a_kruskal_sort.test.py
+  - icon: ':x:'
+    path: test/grl_2_b_edmonds_branching.test.py
+    title: test/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
     path: test/unionfind.test.py
     title: test/unionfind.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "\nclass DSU:\n    def __init__(self, n) -> None:\n        self.n =\
@@ -60,12 +66,14 @@ data:
   path: cp_library/ds/dsu_cls.py
   requiredBy:
   - cp_library/alg/graph/kruskal_sort_fn.py
+  - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/graph/kruskal_heap_fn.py
-  timestamp: '2024-09-02 01:58:23+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-03 19:30:15+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/unionfind.test.py
   - test/grl_2_a_kruskal_sort.test.py
+  - test/grl_2_b_edmonds_branching.test.py
   - test/grl_2_a_kruskal_heap.test.py
 documentation_of: cp_library/ds/dsu_cls.py
 layout: document

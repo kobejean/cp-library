@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "from typing import List\n\nfrom typing import Any, Callable, List\n\
@@ -60,8 +60,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_iterative_cls.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-03 19:30:15+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
 documentation_of: cp_library/alg/tree/lca_table_iterative_cls.py

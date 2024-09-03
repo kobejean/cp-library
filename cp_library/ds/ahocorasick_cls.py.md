@@ -69,7 +69,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/ahocorasick_cls.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
+  timestamp: '2024-09-03 19:30:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc362_q_count_substring_query_ahocorasick.test.py

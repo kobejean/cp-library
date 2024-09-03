@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/dsl_2_a_segtree.test.py
     title: test/dsl_2_a_segtree.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "import typing\n\nclass SegTree:\n    def __init__(self,\n        \
@@ -101,8 +101,8 @@ data:
   isVerificationFile: false
   path: cp_library/ds/segtree_cls.py
   requiredBy: []
-  timestamp: '2024-09-02 01:58:23+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-03 19:30:15+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/dsl_2_a_segtree.test.py
 documentation_of: cp_library/ds/segtree_cls.py
