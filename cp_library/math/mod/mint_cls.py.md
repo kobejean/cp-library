@@ -29,33 +29,33 @@ data:
     \ __sub__(self, other): return mint(super().__sub__(other))\n    def __rsub__(self,\
     \ other): return mint(super().__rsub__(other))\n    def __mul__(self, other):\
     \ return mint(super().__mul__(other))\n    def __rmul__(self, other): return mint(super().__rmul__(other))\n\
-    \    def __truediv__(self, other): return mint(super().__mul__(pow(other,-1,self.mod)))\n\
-    \    def __rtruediv__(self, other): return mint(int.__mul__(other,pow(self,-1,self.mod)))\n\
+    \    def __truediv__(self, other): return mint(super().__mul__(pow(int(other),-1,self.mod)))\n\
+    \    def __rtruediv__(self, other): return mint(int.__mul__(other,pow(int(self),-1,self.mod)))\n\
     \    def __mod__(self, other): return mint(super().__mod__(other))\n    def __rmod__(self,\
     \ other): return mint(super().__rmod__(other))\n    def __pow__(self, other):\
-    \ return mint(pow(self,other,self.mod))\n    def __rpow__(self, other): return\
-    \ mint(pow(other,other,self.mod))\n    def __eq__(self, other): return super().__eq__(mint(other))\n\
-    \    def __req__(self, other): return super().__eq__(mint(other))\n\n"
+    \ return mint(pow(int(self),int(other),self.mod))\n    def __rpow__(self, other):\
+    \ return mint(pow(int(other),int(other),self.mod))\n    def __eq__(self, other):\
+    \ return super().__eq__(mint(other))\n    def __req__(self, other): return super().__eq__(mint(other))\n"
   code: "\nclass mint(int):\n    mod = None\n    def __new__(cls, x=0): return super().__new__(cls,\
     \ x % cls.mod)\n    def __add__(self, other): return mint(super().__add__(other))\n\
     \    def __radd__(self, other): return mint(super().__radd__(other))\n    def\
     \ __sub__(self, other): return mint(super().__sub__(other))\n    def __rsub__(self,\
     \ other): return mint(super().__rsub__(other))\n    def __mul__(self, other):\
     \ return mint(super().__mul__(other))\n    def __rmul__(self, other): return mint(super().__rmul__(other))\n\
-    \    def __truediv__(self, other): return mint(super().__mul__(pow(other,-1,self.mod)))\n\
-    \    def __rtruediv__(self, other): return mint(int.__mul__(other,pow(self,-1,self.mod)))\n\
+    \    def __truediv__(self, other): return mint(super().__mul__(pow(int(other),-1,self.mod)))\n\
+    \    def __rtruediv__(self, other): return mint(int.__mul__(other,pow(int(self),-1,self.mod)))\n\
     \    def __mod__(self, other): return mint(super().__mod__(other))\n    def __rmod__(self,\
     \ other): return mint(super().__rmod__(other))\n    def __pow__(self, other):\
-    \ return mint(pow(self,other,self.mod))\n    def __rpow__(self, other): return\
-    \ mint(pow(other,other,self.mod))\n    def __eq__(self, other): return super().__eq__(mint(other))\n\
-    \    def __req__(self, other): return super().__eq__(mint(other))\n\n"
+    \ return mint(pow(int(self),int(other),self.mod))\n    def __rpow__(self, other):\
+    \ return mint(pow(int(other),int(other),self.mod))\n    def __eq__(self, other):\
+    \ return super().__eq__(mint(other))\n    def __req__(self, other): return super().__eq__(mint(other))"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
   - cp_library/math/mod/_modmat_cls.py
   - cp_library/math/mod/modmat_cls.py
-  timestamp: '2024-09-03 19:30:15+09:00'
+  timestamp: '2024-09-03 23:33:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

@@ -2,16 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
     title: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "from math import inf\n\ndef bellman_ford(G, N, root) -> list[int]:\n\
@@ -27,8 +27,8 @@ data:
   path: cp_library/alg/graph/bellman_ford_fn.py
   requiredBy:
   - cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-  timestamp: '2024-09-03 19:30:15+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-09-03 23:33:52+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py
 documentation_of: cp_library/alg/graph/bellman_ford_fn.py

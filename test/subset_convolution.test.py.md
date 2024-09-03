@@ -63,17 +63,17 @@ data:
     \ return mint(super().__sub__(other))\n        def __rsub__(self, other): return\
     \ mint(super().__rsub__(other))\n        def __mul__(self, other): return mint(super().__mul__(other))\n\
     \        def __rmul__(self, other): return mint(super().__rmul__(other))\n   \
-    \     def __truediv__(self, other): return mint(super().__mul__(pow(other,-1,self.mod)))\n\
-    \        def __rtruediv__(self, other): return mint(int.__mul__(other,pow(self,-1,self.mod)))\n\
+    \     def __truediv__(self, other): return mint(super().__mul__(pow(int(other),-1,self.mod)))\n\
+    \        def __rtruediv__(self, other): return mint(int.__mul__(other,pow(int(self),-1,self.mod)))\n\
     \        def __mod__(self, other): return mint(super().__mod__(other))\n     \
     \   def __rmod__(self, other): return mint(super().__rmod__(other))\n        def\
-    \ __pow__(self, other): return mint(pow(self,other,self.mod))\n        def __rpow__(self,\
-    \ other): return mint(pow(other,other,self.mod))\n        def __eq__(self, other):\
-    \ return super().__eq__(mint(other))\n        def __req__(self, other): return\
-    \ super().__eq__(mint(other))\n    \n    mint.mod = mod\n    \n    F = list(map(mint,\
-    \ F))\n    G = list(map(mint, G))\n    print(*subset_convolution(F, G))\nelse:\n\
-    \    \n    def zeta_transform(A, mod):\n        N = len(A).bit_length()-1\n  \
-    \  \n        for i in range(N):\n            bit = 1 << i\n            for mask\
+    \ __pow__(self, other): return mint(pow(int(self),int(other),self.mod))\n    \
+    \    def __rpow__(self, other): return mint(pow(int(other),int(other),self.mod))\n\
+    \        def __eq__(self, other): return super().__eq__(mint(other))\n       \
+    \ def __req__(self, other): return super().__eq__(mint(other))\n    mint.mod =\
+    \ mod\n    \n    F = list(map(mint, F))\n    G = list(map(mint, G))\n    print(*subset_convolution(F,\
+    \ G))\nelse:\n    \n    def zeta_transform(A, mod):\n        N = len(A).bit_length()-1\n\
+    \    \n        for i in range(N):\n            bit = 1 << i\n            for mask\
     \ in range(1 << N):\n                if mask & bit:\n                    A[mask]\
     \ = (A[mask] + A[mask ^ bit]) % mod\n    \n        return A\n    \n    def mobius_transform(A,\
     \ mod):\n        N = len(A).bit_length()-1\n    \n        for i in range(N):\n\
@@ -115,7 +115,7 @@ data:
   isVerificationFile: true
   path: test/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2024-09-03 19:30:15+09:00'
+  timestamp: '2024-09-03 23:33:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/subset_convolution.test.py

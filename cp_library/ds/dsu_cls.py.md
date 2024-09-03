@@ -2,31 +2,31 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edmonds_fn.py
     title: cp_library/alg/graph/edmonds_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/kruskal_heap_fn.py
     title: cp_library/alg/graph/kruskal_heap_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/kruskal_sort_fn.py
     title: cp_library/alg/graph/kruskal_sort_fn.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_2_a_kruskal_heap.test.py
     title: test/grl_2_a_kruskal_heap.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_2_a_kruskal_sort.test.py
     title: test/grl_2_a_kruskal_sort.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_2_b_edmonds_branching.test.py
     title: test/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
     path: test/unionfind.test.py
     title: test/unionfind.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\nclass DSU:\n    def __init__(self, n) -> None:\n        self.n =\
@@ -68,8 +68,8 @@ data:
   - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/graph/kruskal_heap_fn.py
-  timestamp: '2024-09-03 19:30:15+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-09-03 23:33:52+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unionfind.test.py
   - test/grl_2_a_kruskal_sort.test.py

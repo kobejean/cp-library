@@ -21,34 +21,34 @@ data:
     \ return mint(super().__sub__(other))\n    def __rsub__(self, other): return mint(super().__rsub__(other))\n\
     \    def __mul__(self, other): return mint(super().__mul__(other))\n    def __rmul__(self,\
     \ other): return mint(super().__rmul__(other))\n    def __truediv__(self, other):\
-    \ return mint(super().__mul__(pow(other,-1,self.mod)))\n    def __rtruediv__(self,\
-    \ other): return mint(int.__mul__(other,pow(self,-1,self.mod)))\n    def __mod__(self,\
-    \ other): return mint(super().__mod__(other))\n    def __rmod__(self, other):\
-    \ return mint(super().__rmod__(other))\n    def __pow__(self, other): return mint(pow(self,other,self.mod))\n\
-    \    def __rpow__(self, other): return mint(pow(other,other,self.mod))\n    def\
-    \ __eq__(self, other): return super().__eq__(mint(other))\n    def __req__(self,\
-    \ other): return super().__eq__(mint(other))\n\n\nclass ModMat:\n    __slots__\
-    \ = 'data', 'R', 'C'\n\n    def __init__(self, data: List[Union[int,mint]]):\n\
-    \        self.data, self.R, self.C = data, len(data), len(data[0])\n    \n   \
-    \ @classmethod\n    def identity(cls, N) -> 'ModMat': return ModMat([[int(i==j)\
-    \ for j in range(N)] for i in range(N)])\n    \n    @classmethod\n    def zeros(cls,\
-    \ R, C) -> 'ModMat': return ModMat([[0]*C for _ in range(R)])\n\n    def inv(self)\
-    \ -> 'ModMat':\n        assert self.R != self.C\n        \n        N = self.R\n\
-    \        A = [row[:] for row in self.data]\n        I = [[int(i==j) for j in range(N)]\
-    \ for i in range(N)]\n        \n        for i in range(N):\n            if A[i][i]\
-    \ == 0:\n                for j in range(i+1, N):\n                    if A[j][i]\
-    \ != 0:\n                        A[i], A[j] = A[j], A[i]\n                   \
-    \     I[i], I[j] = I[j], I[i]\n                        break\n               \
-    \ else:\n                    raise ValueError(\"Matrix is not invertible\")\n\
-    \            \n            inv = pow(A[i][i], -1, mint.mod)\n            for j\
-    \ in range(N):\n                A[i][j] = (A[i][j] * inv) % mint.mod\n       \
-    \         I[i][j] = (I[i][j] * inv) % mint.mod\n            \n            for\
-    \ j in range(N):\n                if i != j:\n                    factor = A[j][i]\n\
-    \                    for k in range(N):\n                        A[j][k] = (A[j][k]\
-    \ - factor * A[i][k]) % mint.mod\n                        I[j][k] = (I[j][k] -\
-    \ factor * I[i][k]) % mint.mod\n        \n        return ModMat(I)\n    \n   \
-    \ def T(self) -> 'ModMat': return ModMat(list(map(list,zip(*self.data))))\n\n\
-    \    def elem_wise(self, func, other):\n        if isinstance(other, ModMat):\n\
+    \ return mint(super().__mul__(pow(int(other),-1,self.mod)))\n    def __rtruediv__(self,\
+    \ other): return mint(int.__mul__(other,pow(int(self),-1,self.mod)))\n    def\
+    \ __mod__(self, other): return mint(super().__mod__(other))\n    def __rmod__(self,\
+    \ other): return mint(super().__rmod__(other))\n    def __pow__(self, other):\
+    \ return mint(pow(int(self),int(other),self.mod))\n    def __rpow__(self, other):\
+    \ return mint(pow(int(other),int(other),self.mod))\n    def __eq__(self, other):\
+    \ return super().__eq__(mint(other))\n    def __req__(self, other): return super().__eq__(mint(other))\n\
+    \nclass ModMat:\n    __slots__ = 'data', 'R', 'C'\n\n    def __init__(self, data:\
+    \ List[Union[int,mint]]):\n        self.data, self.R, self.C = data, len(data),\
+    \ len(data[0])\n    \n    @classmethod\n    def identity(cls, N) -> 'ModMat':\
+    \ return ModMat([[int(i==j) for j in range(N)] for i in range(N)])\n    \n   \
+    \ @classmethod\n    def zeros(cls, R, C) -> 'ModMat': return ModMat([[0]*C for\
+    \ _ in range(R)])\n\n    def inv(self) -> 'ModMat':\n        assert self.R !=\
+    \ self.C\n        \n        N = self.R\n        A = [row[:] for row in self.data]\n\
+    \        I = [[int(i==j) for j in range(N)] for i in range(N)]\n        \n   \
+    \     for i in range(N):\n            if A[i][i] == 0:\n                for j\
+    \ in range(i+1, N):\n                    if A[j][i] != 0:\n                  \
+    \      A[i], A[j] = A[j], A[i]\n                        I[i], I[j] = I[j], I[i]\n\
+    \                        break\n                else:\n                    raise\
+    \ ValueError(\"Matrix is not invertible\")\n            \n            inv = pow(A[i][i],\
+    \ -1, mint.mod)\n            for j in range(N):\n                A[i][j] = (A[i][j]\
+    \ * inv) % mint.mod\n                I[i][j] = (I[i][j] * inv) % mint.mod\n  \
+    \          \n            for j in range(N):\n                if i != j:\n    \
+    \                factor = A[j][i]\n                    for k in range(N):\n  \
+    \                      A[j][k] = (A[j][k] - factor * A[i][k]) % mint.mod\n   \
+    \                     I[j][k] = (I[j][k] - factor * I[i][k]) % mint.mod\n    \
+    \    \n        return ModMat(I)\n    \n    def T(self) -> 'ModMat': return ModMat(list(map(list,zip(*self.data))))\n\
+    \n    def elem_wise(self, func, other):\n        if isinstance(other, ModMat):\n\
     \            return ModMat([[func(a,b) for a,b in zip(Ai,Bi)] for Ai,Bi in zip(self.data,other.data)])\n\
     \        elif isinstance(other, int):\n            return ModMat([[func(a,other)\
     \ for a in Ai] for Ai in self.data])\n        else:\n            return NotImplemented\n\
@@ -186,7 +186,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/modmat_cls.py
   requiredBy: []
-  timestamp: '2024-09-03 19:30:15+09:00'
+  timestamp: '2024-09-03 23:33:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_modmat.test.py

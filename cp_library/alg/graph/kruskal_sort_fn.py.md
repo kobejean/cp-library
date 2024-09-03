@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_2_a_kruskal_sort.test.py
     title: test/grl_2_a_kruskal_sort.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\nclass DSU:\n    def __init__(self, n) -> None:\n        self.n =\
@@ -44,8 +44,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_sort_fn.py
   requiredBy: []
-  timestamp: '2024-09-03 19:30:15+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-09-03 23:33:52+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py
 documentation_of: cp_library/alg/graph/kruskal_sort_fn.py

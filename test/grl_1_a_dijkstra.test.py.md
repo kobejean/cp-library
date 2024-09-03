@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dijkstra_fn.py
     title: cp_library/alg/graph/dijkstra_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_graph_weighted_directed_fn.py
     title: cp_library/io/read_graph_weighted_directed_fn.py
   - icon: ':question:'
@@ -12,9 +12,9 @@ data:
     title: cp_library/io/rint_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A
     links:
@@ -55,8 +55,8 @@ data:
   isVerificationFile: true
   path: test/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-09-03 19:30:15+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-03 23:33:52+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_a_dijkstra.test.py
 layout: document

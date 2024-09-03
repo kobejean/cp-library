@@ -78,7 +78,7 @@ data:
   isVerificationFile: true
   path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
   requiredBy: []
-  timestamp: '2024-09-03 19:30:15+09:00'
+  timestamp: '2024-09-03 23:33:52+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
