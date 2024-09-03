@@ -1,3 +1,4 @@
+from itertools import accumulate
 
 class mint(int):
     mod = None
@@ -16,3 +17,18 @@ class mint(int):
     def __rpow__(self, other): return mint(pow(int(other),int(other),self.mod))
     def __eq__(self, other): return super().__eq__(mint(other))
     def __req__(self, other): return super().__eq__(mint(other))
+    @classmethod
+    def precomp(cls,N):
+        cls._fact = list(accumulate(range(1,N+1), cls.__mul__, initial=cls(1)))
+        cls._fact_inv = list(accumulate(range(N,0,-1), cls.__mul__, initial=1/cls._fact[N]))[::-1]
+    @classmethod
+    def comb(cls, N, K):
+        if N < K: return 0
+        return cls._fact[N]*cls._fact_inv[K]*cls._fact_inv[N - K]
+    @classmethod
+    def multinom(cls, N, *args):
+        res = cls(1)
+        for arg in args:
+            res *= cls.comb(N, arg)
+            N -= arg
+        return res
