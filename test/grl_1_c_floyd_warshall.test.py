@@ -1,5 +1,5 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C
-from cp_library.misc.inf_cnst import inf
+from math import inf
 from cp_library.io.rint_fn import rint
 from cp_library.io.read_graph_weighted_directed_fn import read_graph
 from cp_library.alg.graph.floyd_warshall_check_neg_cycle_fn import floyd_warshall

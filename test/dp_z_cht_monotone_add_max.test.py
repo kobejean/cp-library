@@ -5,8 +5,6 @@ from cp_library.ds.cht_monotone_add_max_cls import CHTMonotoneAddMax
 def rint(shift=0, base=10):
     return [int(x, base) + shift for x in input().split()]
 
-inf = float('inf')
-
 N, C = rint()
 H = rint()
 dp = 0

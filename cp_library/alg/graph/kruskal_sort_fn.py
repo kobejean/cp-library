@@ -1,6 +1,6 @@
 from cp_library.ds.dsu_cls import DSU
 
-def kruskal(N, M, E):
+def kruskal(E, N):
     E.sort(reverse=True)
     dsu = DSU(N)
     MST = []

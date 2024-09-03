@@ -1,4 +1,5 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d
+from math import inf
 from cp_library.alg.divcon.qselect_fn import qselect
 
 def rint(shift=0, base=10):
@@ -24,7 +25,7 @@ for i in range(1,N):
             C.append(Ci)
             break
 median = qselect([c-a for a,c in zip(A,C)], N//2)
-ans = float('inf')
+ans = inf
 for i in range(median//M,median//M+2):
     now=0
     for j in range(N):

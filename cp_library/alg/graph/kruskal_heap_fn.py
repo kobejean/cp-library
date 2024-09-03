@@ -1,7 +1,7 @@
 from heapq import heapify, heappop
 from cp_library.ds.dsu_cls import DSU
 
-def kruskal(N, M, E):
+def kruskal(E, N):
     heapify(E)
     dsu = DSU(N)
     MST = []

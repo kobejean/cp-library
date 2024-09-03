@@ -1,5 +1,5 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_B
-from cp_library.misc.inf_cnst import inf
+from math import inf
 from cp_library.io.rint_fn import rint
 from cp_library.io.read_graph_weighted_directed_fn import read_graph
 from cp_library.alg.graph.bellman_ford_neg_cyc_check_fn import bellman_ford

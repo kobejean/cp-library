@@ -1,1 +1,0 @@
-inf = float('inf')

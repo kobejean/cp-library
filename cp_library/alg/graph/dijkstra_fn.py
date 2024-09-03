@@ -4,14 +4,14 @@ from math import inf
 def dijkstra(G, N, root) -> list[int]:
     D = [inf for _ in range(N)]
     D[root] = 0
-    queue = [(0, root)]
-    while queue:
-        d, v = heapq.heappop(queue)
+    q = [(0, root)]
+    while q:
+        d, v = heapq.heappop(q)
         if d > D[v]: continue
 
         for w, u in G[v]:
             nd = d + w
             if nd < D[u]:
                 D[u] = nd
-                heapq.heappush(queue, (nd, u))
+                heapq.heappush(q, (nd, u))
     return D
