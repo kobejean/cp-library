@@ -53,14 +53,14 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
-  - cp_library/math/mod/_modmat_cls.py
   - cp_library/math/mod/modmat_cls.py
-  timestamp: '2024-09-03 23:33:52+09:00'
+  - cp_library/math/mod/_modmat_cls.py
+  timestamp: '2024-09-05 11:18:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py
-  - test/pow_of_matrix_modmat.test.py
   - test/subset_convolution.test.py
+  - test/pow_of_matrix_modmat.test.py
 documentation_of: cp_library/math/mod/mint_cls.py
 layout: document
 redirect_from:

@@ -65,15 +65,15 @@ data:
   isVerificationFile: false
   path: cp_library/ds/dsu_cls.py
   requiredBy:
-  - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/alg/graph/edmonds_fn.py
+  - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/alg/graph/kruskal_heap_fn.py
-  timestamp: '2024-09-03 23:33:52+09:00'
+  timestamp: '2024-09-05 11:18:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/unionfind.test.py
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
+  - test/unionfind.test.py
   - test/grl_2_a_kruskal_heap.test.py
 documentation_of: cp_library/ds/dsu_cls.py
 layout: document

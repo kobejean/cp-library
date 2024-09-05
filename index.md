@@ -136,7 +136,7 @@ data:
     - icon: ':warning:'
       path: cp_library/io/read_graph_weighted_fn.py
       title: cp_library/io/read_graph_weighted_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/rint_fn.py
       title: cp_library/io/rint_fn.py
   - name: cp_library/math
@@ -182,7 +182,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_comb_cls.py
       title: cp_library/math/mod/mint_comb_cls.py
     - icon: ':heavy_check_mark:'
@@ -202,6 +202,11 @@ data:
     - icon: ':question:'
       path: cp_library/misc/setrecursionlimit.py
       title: cp_library/misc/setrecursionlimit.py
+  - name: cp_library/vis
+    pages:
+    - icon: ':warning:'
+      path: cp_library/vis/plot_graph_weighted_fn.py
+      title: cp_library/vis/plot_graph_weighted_fn.py
   verificationCategories:
   - name: test
     pages:
@@ -211,7 +216,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/arc122_b_insurance_median.test.py
       title: test/arc122_b_insurance_median.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/arc168_c_swap_characters_mint_comb.test.py
       title: test/arc168_c_swap_characters_mint_comb.test.py
     - icon: ':heavy_check_mark:'

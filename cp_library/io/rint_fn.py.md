@@ -15,7 +15,7 @@ data:
     path: cp_library/io/read_graph_weighted_fn.py
     title: cp_library/io/read_graph_weighted_fn.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/arc168_c_swap_characters_mint_comb.test.py
     title: test/arc168_c_swap_characters_mint_comb.test.py
   - icon: ':heavy_check_mark:'
@@ -42,9 +42,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/unionfind.test.py
     title: test/unionfind.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "def rint(shift=0, base=10):\n    return [int(x, base) + shift for\
@@ -54,22 +54,22 @@ data:
   isVerificationFile: false
   path: cp_library/io/rint_fn.py
   requiredBy:
-  - cp_library/io/read_graph_weighted_fn.py
-  - cp_library/io/read_graph_fn.py
   - cp_library/io/read_graph_weighted_directed_fn.py
+  - cp_library/io/read_graph_weighted_fn.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-09-03 23:33:52+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  - cp_library/io/read_graph_fn.py
+  timestamp: '2024-09-05 11:18:10+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_a_dijkstra.test.py
-  - test/unionfind.test.py
-  - test/grl_3_a_tarjan_articulation_points.test.py
-  - test/grl_1_c_floyd_warshall.test.py
-  - test/arc168_c_swap_characters_mint_comb.test.py
-  - test/grl_1_b_bellman_ford.test.py
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
+  - test/unionfind.test.py
+  - test/grl_3_a_tarjan_articulation_points.test.py
+  - test/arc168_c_swap_characters_mint_comb.test.py
+  - test/grl_1_b_bellman_ford.test.py
   - test/grl_2_a_kruskal_heap.test.py
+  - test/grl_1_c_floyd_warshall.test.py
 documentation_of: cp_library/io/rint_fn.py
 layout: document
 redirect_from:

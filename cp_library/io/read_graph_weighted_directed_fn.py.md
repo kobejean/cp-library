@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/rint_fn.py
     title: cp_library/io/rint_fn.py
   _extendedRequiredBy: []
@@ -32,12 +32,12 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_graph_weighted_directed_fn.py
   requiredBy: []
-  timestamp: '2024-09-03 23:33:52+09:00'
+  timestamp: '2024-09-05 11:18:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_a_dijkstra.test.py
-  - test/grl_1_c_floyd_warshall.test.py
   - test/grl_1_b_bellman_ford.test.py
+  - test/grl_1_c_floyd_warshall.test.py
 documentation_of: cp_library/io/read_graph_weighted_directed_fn.py
 layout: document
 redirect_from:

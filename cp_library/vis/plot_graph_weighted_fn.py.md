@@ -1,0 +1,46 @@
+---
+data:
+  _extendedDependsOn: []
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
+  _pathExtension: py
+  _verificationStatusIcon: ':warning:'
+  attributes:
+    links: []
+  bundledCode: "\ndef plot_graph(G, N):\n    import networkx as nx\n    import matplotlib.pyplot\
+    \ as plt\n    # Create NetworkX graph\n    graph = nx.Graph()\n\n    # Add edges\
+    \ to the graph\n    for u in range(N):\n        for w, v in G[u]:\n          \
+    \  graph.add_edge(u, v, weight=w)\n\n    # Set up the plot\n    plt.figure(figsize=(12,\
+    \ 8))\n\n    # Create a layout for the graph\n    pos = nx.spring_layout(graph)\n\
+    \n    # Draw the graph\n    nx.draw_networkx_nodes(graph, pos, node_color='lightblue',\
+    \ node_size=500)\n    nx.draw_networkx_edges(graph, pos)\n    nx.draw_networkx_labels(graph,\
+    \ pos)\n\n    # Draw edge labels\n    edge_labels = nx.get_edge_attributes(graph,\
+    \ 'weight')\n    nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)\n\
+    \n    # Set title and display the plot\n    plt.title(\"Graph Visualization\"\
+    )\n    plt.axis('off')\n    plt.tight_layout()\n    plt.show()\n"
+  code: "\ndef plot_graph(G, N):\n    import networkx as nx\n    import matplotlib.pyplot\
+    \ as plt\n    # Create NetworkX graph\n    graph = nx.Graph()\n\n    # Add edges\
+    \ to the graph\n    for u in range(N):\n        for w, v in G[u]:\n          \
+    \  graph.add_edge(u, v, weight=w)\n\n    # Set up the plot\n    plt.figure(figsize=(12,\
+    \ 8))\n\n    # Create a layout for the graph\n    pos = nx.spring_layout(graph)\n\
+    \n    # Draw the graph\n    nx.draw_networkx_nodes(graph, pos, node_color='lightblue',\
+    \ node_size=500)\n    nx.draw_networkx_edges(graph, pos)\n    nx.draw_networkx_labels(graph,\
+    \ pos)\n\n    # Draw edge labels\n    edge_labels = nx.get_edge_attributes(graph,\
+    \ 'weight')\n    nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)\n\
+    \n    # Set title and display the plot\n    plt.title(\"Graph Visualization\"\
+    )\n    plt.axis('off')\n    plt.tight_layout()\n    plt.show()\n"
+  dependsOn: []
+  isVerificationFile: false
+  path: cp_library/vis/plot_graph_weighted_fn.py
+  requiredBy: []
+  timestamp: '2024-09-05 11:18:10+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: cp_library/vis/plot_graph_weighted_fn.py
+layout: document
+redirect_from:
+- /library/cp_library/vis/plot_graph_weighted_fn.py
+- /library/cp_library/vis/plot_graph_weighted_fn.py.html
+title: cp_library/vis/plot_graph_weighted_fn.py
+---

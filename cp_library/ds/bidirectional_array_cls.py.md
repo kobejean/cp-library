@@ -42,9 +42,9 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bidirectional_array_cls.py
   requiredBy:
-  - cp_library/alg/dp/rerooting_iterative_cls.py
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  timestamp: '2024-09-03 23:33:52+09:00'
+  - cp_library/alg/dp/rerooting_iterative_cls.py
+  timestamp: '2024-09-05 11:18:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py
