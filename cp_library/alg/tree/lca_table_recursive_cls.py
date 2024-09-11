@@ -23,7 +23,7 @@ class LCATable(SparseTable):
         dfs(root, -1, 0)
         super().__init__(min, list(zip(depths, euler_tour)))
 
-    def query(self, u, v) -> int:
+    def query(self, u, v) -> tuple[int,int]:
         l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
-        _, a = super().query(l, r)
-        return a
+        d, a = super().query(l, r)
+        return a, d

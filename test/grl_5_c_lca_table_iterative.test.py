@@ -13,4 +13,4 @@ lca = LCATable(T, 0)
 Q, = rint()
 for _ in range(Q):
     u, v = rint()
-    print(lca.query(u,v))
+    print(lca.query(u,v)[0])

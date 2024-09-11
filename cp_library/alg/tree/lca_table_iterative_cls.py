@@ -1,34 +1,32 @@
-from typing import List
-
 from cp_library.ds.sparse_table_cls import SparseTable
 
 class LCATable(SparseTable):
     def __init__(self, T, root = 0):
         self.start = [-1] * len(T)
-        euler_tour = []
-        depths = []
+        self.euler = []
+        self.depth = []
         
         # Iterative DFS
         stack = [(root, -1, 0)]
         while stack:
-            u, p, depth = stack.pop()
+            u, p, d = stack.pop()
             
             if self.start[u] == -1:  # start visit to this node
-                self.start[u] = len(euler_tour)
-                euler_tour.append(u)
-                depths.append(depth)
+                self.start[u] = len(self.euler)
+                self.euler.append(u)
+                self.depth.append(d)
                 
                 # Add children to stack in reverse order
                 for child in reversed(T[u]):
                     if child != p:
-                        stack.append((u, p, depth))  # Re-add parent for backtracking
-                        stack.append((child, u, depth + 1))
+                        stack.append((u, p, d))  # Re-add parent for backtracking
+                        stack.append((child, u, d + 1))
             else:  # Revisiting node (backtracking)
-                euler_tour.append(u)
-                depths.append(depth)
-        super().__init__(min, list(zip(depths, euler_tour)))
+                self.euler.append(u)
+                self.depth.append(d)
+        super().__init__(min, list(zip(self.depth, self.euler)))
 
-    def query(self, u, v) -> int:
+    def query(self, u, v) -> tuple[int,int]:
         l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
-        _, a = super().query(l, r)
-        return a
+        d, a = super().query(l, r)
+        return a, d
