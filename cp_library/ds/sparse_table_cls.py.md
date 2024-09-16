@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/alg/tree/auxiliary_tree_cls.py
+    title: cp_library/alg/tree/auxiliary_tree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
@@ -46,7 +49,8 @@ data:
   requiredBy:
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  timestamp: '2024-09-05 11:18:10+09:00'
+  - cp_library/alg/tree/auxiliary_tree_cls.py
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py

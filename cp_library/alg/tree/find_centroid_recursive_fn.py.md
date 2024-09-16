@@ -34,7 +34,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/find_centroid_recursive_fn.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py

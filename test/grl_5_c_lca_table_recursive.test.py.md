@@ -8,6 +8,9 @@ data:
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
   - icon: ':question:'
+    path: cp_library/io/read_int_fn.py
+    title: cp_library/io/read_int_fn.py
+  - icon: ':question:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -39,26 +42,26 @@ data:
     \   dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n     \
     \               depths.append(depth)\n        \n        dfs(root, -1, 0)\n   \
     \     super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
-    \ u, v) -> int:\n        l, r = min(self.start[u], self.start[v]), max(self.start[u],\
-    \ self.start[v])+1\n        _, a = super().query(l, r)\n        return a\n\ndef\
-    \ rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
-    \nN, = rint()\nT = []\nfor _ in range(N):\n    k, *adj = rint()\n    T.append(adj)\n\
-    lca = LCATable(T, 0)\nQ, = rint()\nfor _ in range(Q):\n    u, v = rint()\n   \
-    \ print(lca.query(u,v))\n"
+    \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
+    \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
+    \      return a, d\n\ndef read(shift=0, base=10):\n    return [int(s, base) +\
+    \ shift for s in  input().split()]\n\nN, = read()\nT = []\nfor _ in range(N):\n\
+    \    k, *adj = read()\n    T.append(adj)\nlca = LCATable(T, 0)\nQ, = read()\n\
+    for _ in range(Q):\n    u, v = read()\n    print(lca.query(u,v)[0])\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C\n\
-    from cp_library.alg.tree.lca_table_recursive_cls import LCATable\n\ndef rint(shift=0,\
-    \ base=10):\n    return [int(x, base) + shift for x in input().split()]\n\nN,\
-    \ = rint()\nT = []\nfor _ in range(N):\n    k, *adj = rint()\n    T.append(adj)\n\
-    lca = LCATable(T, 0)\nQ, = rint()\nfor _ in range(Q):\n    u, v = rint()\n   \
-    \ print(lca.query(u,v))"
+    from cp_library.alg.tree.lca_table_recursive_cls import LCATable\nfrom cp_library.io.read_int_fn\
+    \ import read\n\nN, = read()\nT = []\nfor _ in range(N):\n    k, *adj = read()\n\
+    \    T.append(adj)\nlca = LCATable(T, 0)\nQ, = read()\nfor _ in range(Q):\n  \
+    \  u, v = read()\n    print(lca.query(u,v)[0])"
   dependsOn:
   - cp_library/alg/tree/lca_table_recursive_cls.py
+  - cp_library/io/read_int_fn.py
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/sparse_table_cls.py
   isVerificationFile: true
   path: test/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_c_lca_table_recursive.test.py

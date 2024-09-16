@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_func_fn.py
+    title: cp_library/io/read_func_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mat_id_fn.py
     title: cp_library/math/mat_id_fn.py
   - icon: ':heavy_check_mark:'
@@ -29,51 +32,49 @@ data:
     links:
     - https://judge.yosupo.jp/problem/pow_of_matrix
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
-    \n\nmod = 998244353\n\ndef rint(shift=0, base=10):\n    return [int(x, base) +\
-    \ shift for x in input().split()]\n\nN, K = rint()\nif N < 10:\n    \n    def\
-    \ mat_mul(A,B):\n        assert len(A[0]) == len(B)\n        R = [[0]*len(B[0])\
-    \ for _ in range(len(A))] \n        for i,Ri in enumerate(R):\n            for\
-    \ k,Aik in enumerate(A[i]):\n                for j,Bkj in enumerate(B[k]):\n \
-    \                   Ri[j] = Bkj*Aik + Ri[j]  \n        return R \n    \n    def\
-    \ mat_id(N):\n        return [[int(i==j) for j in range(N)] for i in range(N)]\n\
-    \    \n    def mat_pow(A,K):\n        N = len(A)\n        ret = A if K & 1 else\
-    \ mat_id(N)\n        for i in range(1,K.bit_length()):\n            A = mat_mul(A,A)\
-    \ \n            if K >> i & 1:\n                ret = mat_mul(ret,A) \n      \
-    \  return ret \n    \n    class mint(int):\n        mod = None\n        def __new__(cls,\
-    \ x=0): return super().__new__(cls, x % cls.mod)\n        def __add__(self, other):\
-    \ return mint(super().__add__(other))\n        def __radd__(self, other): return\
-    \ mint(super().__radd__(other))\n        def __sub__(self, other): return mint(super().__sub__(other))\n\
-    \        def __rsub__(self, other): return mint(super().__rsub__(other))\n   \
-    \     def __mul__(self, other): return mint(super().__mul__(other))\n        def\
-    \ __rmul__(self, other): return mint(super().__rmul__(other))\n        def __truediv__(self,\
-    \ other): return mint(super().__mul__(pow(int(other),-1,self.mod)))\n        def\
-    \ __rtruediv__(self, other): return mint(int.__mul__(other,pow(int(self),-1,self.mod)))\n\
-    \        def __mod__(self, other): return mint(super().__mod__(other))\n     \
-    \   def __rmod__(self, other): return mint(super().__rmod__(other))\n        def\
-    \ __pow__(self, other): return mint(pow(int(self),int(other),self.mod))\n    \
-    \    def __rpow__(self, other): return mint(pow(int(other),int(other),self.mod))\n\
-    \        def __eq__(self, other): return super().__eq__(mint(other))\n       \
-    \ def __req__(self, other): return super().__eq__(mint(other))\n    mint.mod =\
-    \ 998244353\n\n    def rmint():\n        return [mint(int(x)) for x in input().split()]\n\
-    \n    A = [rmint() for _ in range(N)]\n    B = mat_pow(A, K)\n\nelse:\n    \n\
-    \    def mat_mul(A,B,mod):\n        assert len(A[0]) == len(B)\n        R = [[0]*len(B[0])\
-    \ for _ in range(len(A))] \n        for i,Ri in enumerate(R):\n            for\
-    \ k,Aik in enumerate(A[i]):\n                for j,Bkj in enumerate(B[k]):\n \
-    \                   Ri[j] = (Ri[j] + Aik*Bkj) % mod\n        return R\n    \n\
-    \    def mat_pow(A,K,mod):\n        N = len(A)\n        ret = A if K & 1 else\
-    \ mat_id(N)\n        for i in range(1,K.bit_length()):\n            A = mat_mul(A,A,mod)\
-    \ \n            if K >> i & 1:\n                ret = mat_mul(ret,A,mod) \n  \
-    \      return ret \n\n    A = [rint() for _ in range(N)]\n    B = mat_pow(A, K,\
-    \ mod)\n\nfor row in B:\n    print(*row)\n"
+    \n\ndef read(func=0, /):\n    if callable(func): return [func(s) for s in input().split()]\n\
+    \    return [int(s)+func for s in input().split()]\n\nmod = 998244353\n\n\nN,\
+    \ K = read()\nif N < 10:\n    def mat_pow(A,K):\n        N = len(A)\n        ret\
+    \ = A if K & 1 else mat_id(N)\n        for i in range(1,K.bit_length()):\n   \
+    \         A = mat_mul(A,A) \n            if K >> i & 1:\n                ret =\
+    \ mat_mul(ret,A) \n        return ret \n    \n    \n    def mat_mul(A,B):\n  \
+    \      assert len(A[0]) == len(B)\n        R = [[0]*len(B[0]) for _ in range(len(A))]\
+    \ \n        for i,Ri in enumerate(R):\n            for k,Aik in enumerate(A[i]):\n\
+    \                for j,Bkj in enumerate(B[k]):\n                    Ri[j] = Bkj*Aik\
+    \ + Ri[j]  \n        return R \n    \n    def mat_id(N):\n        return [[int(i==j)\
+    \ for j in range(N)] for i in range(N)]\n    \n    class mint(int):\n        mod\
+    \ = None\n        def __new__(cls, x=0): return super().__new__(cls, int(x) %\
+    \ cls.mod)\n        @classmethod\n        def wrap(cls, x): return super().__new__(cls,\
+    \ x % cls.mod)\n        @classmethod\n        def cast(cls, x): return super().__new__(cls,\
+    \ x)\n        def __add__(self, x): return mint.wrap(super().__add__(x))\n   \
+    \     def __radd__(self, x): return mint.wrap(super().__radd__(x))\n        def\
+    \ __sub__(self, x): return mint.wrap(super().__sub__(x))\n        def __rsub__(self,\
+    \ x): return mint.wrap(super().__rsub__(x))\n        def __mul__(self, x): return\
+    \ mint.wrap(super().__mul__(x))\n        def __rmul__(self, x): return mint.wrap(super().__rmul__(x))\n\
+    \        def __floordiv__(self, x): return mint.wrap(super().__mul__(pow(int(x),-1,self.mod)))\n\
+    \        def __rfloordiv__(self, x): return mint.wrap(int.__mul__(x,pow(int(self),-1,self.mod)))\n\
+    \        def __pow__(self, x): return mint.cast(pow(int(self),x,self.mod))\n \
+    \       def __eq__(self, x): return super().__eq__(mint.wrap(x))\n        def\
+    \ __req__(self, x): return super().__eq__(mint.wrap(x))\n    mint.mod = 998244353\n\
+    \n    A = [read(mint) for _ in range(N)]\n    B = mat_pow(A, K)\n\nelse:\n   \
+    \ def mat_pow(A,K,mod):\n        N = len(A)\n        ret = A if K & 1 else mat_id(N)\n\
+    \        for i in range(1,K.bit_length()):\n            A = mat_mul(A,A,mod) \n\
+    \            if K >> i & 1:\n                ret = mat_mul(ret,A,mod) \n     \
+    \   return ret \n    \n    \n    def mat_mul(A,B,mod):\n        assert len(A[0])\
+    \ == len(B)\n        R = [[0]*len(B[0]) for _ in range(len(A))] \n        for\
+    \ i,Ri in enumerate(R):\n            for k,Aik in enumerate(A[i]):\n         \
+    \       for j,Bkj in enumerate(B[k]):\n                    Ri[j] = (Ri[j] + Aik*Bkj)\
+    \ % mod\n        return R\n\n    A = [read() for _ in range(N)]\n    B = mat_pow(A,\
+    \ K, mod)\n\nfor row in B:\n    print(*row)\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
-    \n\nmod = 998244353\n\ndef rint(shift=0, base=10):\n    return [int(x, base) +\
-    \ shift for x in input().split()]\n\nN, K = rint()\nif N < 10:\n    from cp_library.math.mat_pow_fn\
-    \ import mat_pow\n    from cp_library.math.mod.mint_cls import mint\n    mint.mod\
-    \ = 998244353\n\n    def rmint():\n        return [mint(int(x)) for x in input().split()]\n\
-    \n    A = [rmint() for _ in range(N)]\n    B = mat_pow(A, K)\n\nelse:\n    from\
-    \ cp_library.math.mod.mat_pow_fn import mat_pow\n\n    A = [rint() for _ in range(N)]\n\
-    \    B = mat_pow(A, K, mod)\n\nfor row in B:\n    print(*row)\n"
+    \nfrom cp_library.io.read_func_fn import read\n\nmod = 998244353\n\n\nN, K = read()\n\
+    if N < 10:\n    from cp_library.math.mat_pow_fn import mat_pow\n    from cp_library.math.mod.mint_cls\
+    \ import mint\n    mint.mod = 998244353\n\n    A = [read(mint) for _ in range(N)]\n\
+    \    B = mat_pow(A, K)\n\nelse:\n    from cp_library.math.mod.mat_pow_fn import\
+    \ mat_pow\n\n    A = [read() for _ in range(N)]\n    B = mat_pow(A, K, mod)\n\n\
+    for row in B:\n    print(*row)\n"
   dependsOn:
+  - cp_library/io/read_func_fn.py
   - cp_library/math/mat_pow_fn.py
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/mod/mat_pow_fn.py
@@ -83,7 +84,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_matpow.test.py

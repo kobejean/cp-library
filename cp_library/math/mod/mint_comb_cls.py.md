@@ -12,52 +12,49 @@ data:
   attributes:
     links: []
   bundledCode: "from itertools import accumulate\n\nclass mint(int):\n    mod = None\n\
-    \    def __new__(cls, x=0): return super().__new__(cls, x % cls.mod)\n    def\
-    \ __add__(self, other): return mint(super().__add__(other))\n    def __radd__(self,\
-    \ other): return mint(super().__radd__(other))\n    def __sub__(self, other):\
-    \ return mint(super().__sub__(other))\n    def __rsub__(self, other): return mint(super().__rsub__(other))\n\
-    \    def __mul__(self, other): return mint(super().__mul__(other))\n    def __rmul__(self,\
-    \ other): return mint(super().__rmul__(other))\n    def __truediv__(self, other):\
-    \ return mint(super().__mul__(pow(int(other),-1,self.mod)))\n    def __rtruediv__(self,\
-    \ other): return mint(int.__mul__(other,pow(int(self),-1,self.mod)))\n    def\
-    \ __mod__(self, other): return mint(super().__mod__(other))\n    def __rmod__(self,\
-    \ other): return mint(super().__rmod__(other))\n    def __pow__(self, other):\
-    \ return mint(pow(int(self),int(other),self.mod))\n    def __rpow__(self, other):\
-    \ return mint(pow(int(other),int(other),self.mod))\n    def __eq__(self, other):\
-    \ return super().__eq__(mint(other))\n    def __req__(self, other): return super().__eq__(mint(other))\n\
-    \    @classmethod\n    def precomp(cls,N):\n        cls._fact = list(accumulate(range(1,N+1),\
-    \ cls.__mul__, initial=cls(1)))\n        cls._fact_inv = list(accumulate(range(N,0,-1),\
-    \ cls.__mul__, initial=1/cls._fact[N]))[::-1]\n    @classmethod\n    def comb(cls,\
-    \ N, K):\n        if N < K: return 0\n        return cls._fact[N]*cls._fact_inv[K]*cls._fact_inv[N\
-    \ - K]\n    @classmethod\n    def multinom(cls, N, *args):\n        res = cls(1)\n\
-    \        for arg in args:\n            res *= cls.comb(N, arg)\n            N\
-    \ -= arg\n        return res\n"
+    \    def __new__(cls, x=0): return super().__new__(cls, int(x) % cls.mod)\n  \
+    \  @classmethod\n    def wrap(cls, x): return super().__new__(cls, x % cls.mod)\n\
+    \    @classmethod\n    def cast(cls, x): return super().__new__(cls, x)\n    def\
+    \ __add__(self, x): return mint.wrap(super().__add__(x))\n    def __radd__(self,\
+    \ x): return mint.wrap(super().__radd__(x))\n    def __sub__(self, x): return\
+    \ mint.wrap(super().__sub__(x))\n    def __rsub__(self, x): return mint.wrap(super().__rsub__(x))\n\
+    \    def __mul__(self, x): return mint.wrap(super().__mul__(x))\n    def __rmul__(self,\
+    \ x): return mint.wrap(super().__rmul__(x))\n    def __floordiv__(self, x): return\
+    \ mint.wrap(super().__mul__(pow(int(x),-1,self.mod)))\n    def __rfloordiv__(self,\
+    \ x): return mint.wrap(int.__mul__(x,pow(int(self),-1,self.mod)))\n    def __pow__(self,\
+    \ x): return mint.cast(pow(int(self),x,self.mod))\n    def __eq__(self, x): return\
+    \ super().__eq__(mint.wrap(x))\n    def __req__(self, x): return super().__eq__(mint.wrap(x))\n\
+    \    @classmethod\n    def precomp(cls,n):\n        cls.F = list(accumulate(range(1,n+1),\
+    \ cls.__mul__, initial=cls(1)))\n        cls.Finv = list(accumulate(range(n,0,-1),\
+    \ cls.__mul__, initial=1//cls.F[n]))[::-1]\n    @classmethod\n    def comb(cls,\
+    \ n, k, /):\n        if n < k: return 0\n        return cls.F[n]*cls.Finv[k]*cls.Finv[n\
+    \ - k]\n    @classmethod\n    def multinom(cls, n, *K):\n        res = cls(1)\n\
+    \        for k in K:\n            res *= cls.comb(n, k)\n            n -= k\n\
+    \        return res\n"
   code: "from itertools import accumulate\n\nclass mint(int):\n    mod = None\n  \
-    \  def __new__(cls, x=0): return super().__new__(cls, x % cls.mod)\n    def __add__(self,\
-    \ other): return mint(super().__add__(other))\n    def __radd__(self, other):\
-    \ return mint(super().__radd__(other))\n    def __sub__(self, other): return mint(super().__sub__(other))\n\
-    \    def __rsub__(self, other): return mint(super().__rsub__(other))\n    def\
-    \ __mul__(self, other): return mint(super().__mul__(other))\n    def __rmul__(self,\
-    \ other): return mint(super().__rmul__(other))\n    def __truediv__(self, other):\
-    \ return mint(super().__mul__(pow(int(other),-1,self.mod)))\n    def __rtruediv__(self,\
-    \ other): return mint(int.__mul__(other,pow(int(self),-1,self.mod)))\n    def\
-    \ __mod__(self, other): return mint(super().__mod__(other))\n    def __rmod__(self,\
-    \ other): return mint(super().__rmod__(other))\n    def __pow__(self, other):\
-    \ return mint(pow(int(self),int(other),self.mod))\n    def __rpow__(self, other):\
-    \ return mint(pow(int(other),int(other),self.mod))\n    def __eq__(self, other):\
-    \ return super().__eq__(mint(other))\n    def __req__(self, other): return super().__eq__(mint(other))\n\
-    \    @classmethod\n    def precomp(cls,N):\n        cls._fact = list(accumulate(range(1,N+1),\
-    \ cls.__mul__, initial=cls(1)))\n        cls._fact_inv = list(accumulate(range(N,0,-1),\
-    \ cls.__mul__, initial=1/cls._fact[N]))[::-1]\n    @classmethod\n    def comb(cls,\
-    \ N, K):\n        if N < K: return 0\n        return cls._fact[N]*cls._fact_inv[K]*cls._fact_inv[N\
-    \ - K]\n    @classmethod\n    def multinom(cls, N, *args):\n        res = cls(1)\n\
-    \        for arg in args:\n            res *= cls.comb(N, arg)\n            N\
-    \ -= arg\n        return res"
+    \  def __new__(cls, x=0): return super().__new__(cls, int(x) % cls.mod)\n    @classmethod\n\
+    \    def wrap(cls, x): return super().__new__(cls, x % cls.mod)\n    @classmethod\n\
+    \    def cast(cls, x): return super().__new__(cls, x)\n    def __add__(self, x):\
+    \ return mint.wrap(super().__add__(x))\n    def __radd__(self, x): return mint.wrap(super().__radd__(x))\n\
+    \    def __sub__(self, x): return mint.wrap(super().__sub__(x))\n    def __rsub__(self,\
+    \ x): return mint.wrap(super().__rsub__(x))\n    def __mul__(self, x): return\
+    \ mint.wrap(super().__mul__(x))\n    def __rmul__(self, x): return mint.wrap(super().__rmul__(x))\n\
+    \    def __floordiv__(self, x): return mint.wrap(super().__mul__(pow(int(x),-1,self.mod)))\n\
+    \    def __rfloordiv__(self, x): return mint.wrap(int.__mul__(x,pow(int(self),-1,self.mod)))\n\
+    \    def __pow__(self, x): return mint.cast(pow(int(self),x,self.mod))\n    def\
+    \ __eq__(self, x): return super().__eq__(mint.wrap(x))\n    def __req__(self,\
+    \ x): return super().__eq__(mint.wrap(x))\n    @classmethod\n    def precomp(cls,n):\n\
+    \        cls.F = list(accumulate(range(1,n+1), cls.__mul__, initial=cls(1)))\n\
+    \        cls.Finv = list(accumulate(range(n,0,-1), cls.__mul__, initial=1//cls.F[n]))[::-1]\n\
+    \    @classmethod\n    def comb(cls, n, k, /):\n        if n < k: return 0\n \
+    \       return cls.F[n]*cls.Finv[k]*cls.Finv[n - k]\n    @classmethod\n    def\
+    \ multinom(cls, n, *K):\n        res = cls(1)\n        for k in K:\n         \
+    \   res *= cls.comb(n, k)\n            n -= k\n        return res\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/mod/mint_comb_cls.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc168_c_swap_characters_mint_comb.test.py

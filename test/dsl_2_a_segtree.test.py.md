@@ -4,6 +4,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/segtree_cls.py
     title: cp_library/ds/segtree_cls.py
+  - icon: ':question:'
+    path: cp_library/io/read_int_fn.py
+    title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -56,21 +59,22 @@ data:
     \             right -= 1\n                return right + 1 - self.size\n     \
     \       sm = self.op(self.d[right], sm)\n\n        return 0\n\n    def _update(self,\
     \ k: int) -> None:\n        self.d[k] = self.op(self.d[2 * k], self.d[2 * k +\
-    \ 1])\n\ndef rint(shift=0, base=10):\n    return [int(x, base) + shift for x in\
-    \ input().split()]\n\nN, Q = rint()\n\nseg = SegTree(min, 2147483647, N)\n\nfor\
-    \ _ in range(Q):\n    com, x, y = rint()\n    if com:\n        print(seg.prod(x,y+1))\n\
+    \ 1])\n\ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s in\
+    \  input().split()]\n\nN, Q = read()\n\nseg = SegTree(min, 2147483647, N)\n\n\
+    for _ in range(Q):\n    com, x, y = read()\n    if com:\n        print(seg.prod(x,y+1))\n\
     \    else:\n        seg.set(x,y)\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\n\
-    from cp_library.ds.segtree_cls import SegTree\n\ndef rint(shift=0, base=10):\n\
-    \    return [int(x, base) + shift for x in input().split()]\n\nN, Q = rint()\n\
-    \nseg = SegTree(min, 2147483647, N)\n\nfor _ in range(Q):\n    com, x, y = rint()\n\
-    \    if com:\n        print(seg.prod(x,y+1))\n    else:\n        seg.set(x,y)\n"
+    from cp_library.ds.segtree_cls import SegTree\nfrom cp_library.io.read_int_fn\
+    \ import read\n\nN, Q = read()\n\nseg = SegTree(min, 2147483647, N)\n\nfor _ in\
+    \ range(Q):\n    com, x, y = read()\n    if com:\n        print(seg.prod(x,y+1))\n\
+    \    else:\n        seg.set(x,y)\n"
   dependsOn:
   - cp_library/ds/segtree_cls.py
+  - cp_library/io/read_int_fn.py
   isVerificationFile: true
   path: test/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dsl_2_a_segtree.test.py

@@ -54,6 +54,12 @@ data:
       title: cp_library/alg/graph/tarjan_articulation_points_fn.py
   - name: cp_library/alg/tree
     pages:
+    - icon: ':warning:'
+      path: cp_library/alg/tree/auxiliary_tree_cls.py
+      title: cp_library/alg/tree/auxiliary_tree_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/tree/centroid_decomposition_cls.py
+      title: cp_library/alg/tree/centroid_decomposition_cls.py
     - icon: ':x:'
       path: cp_library/alg/tree/find_centroid_iterative_fn.py
       title: cp_library/alg/tree/find_centroid_iterative_fn.py
@@ -99,8 +105,11 @@ data:
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
     - icon: ':warning:'
-      path: cp_library/ds/heapq_extra_import.py
-      title: cp_library/ds/heapq_extra_import.py
+      path: cp_library/ds/heapq_max_import.py
+      title: cp_library/ds/heapq_max_import.py
+    - icon: ':warning:'
+      path: cp_library/ds/heapsiftdown_import.py
+      title: cp_library/ds/heapsiftdown_import.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
@@ -113,6 +122,9 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/slidingminmax_cls.py
       title: cp_library/ds/slidingminmax_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/sparse_dsu_cls.py
+      title: cp_library/ds/sparse_dsu_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/sparse_table_cls.py
       title: cp_library/ds/sparse_table_cls.py
@@ -128,6 +140,9 @@ data:
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/io/read_func_fn.py
+      title: cp_library/io/read_func_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_graph_fn.py
       title: cp_library/io/read_graph_fn.py
     - icon: ':heavy_check_mark:'
@@ -136,11 +151,23 @@ data:
     - icon: ':warning:'
       path: cp_library/io/read_graph_weighted_fn.py
       title: cp_library/io/read_graph_weighted_fn.py
+    - icon: ':question:'
+      path: cp_library/io/read_int_fn.py
+      title: cp_library/io/read_int_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/io/rint_fn.py
-      title: cp_library/io/rint_fn.py
+      path: cp_library/io/read_specs_fn.py
+      title: cp_library/io/read_specs_fn.py
+    - icon: ':question:'
+      path: cp_library/io/read_tree_fn.py
+      title: cp_library/io/read_tree_fn.py
   - name: cp_library/math
     pages:
+    - icon: ':warning:'
+      path: cp_library/math/arithmetic_series_fn.py
+      title: cp_library/math/arithmetic_series_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/geometic_series_fn.py
+      title: cp_library/math/geometic_series_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mat_id_fn.py
       title: cp_library/math/mat_id_fn.py
@@ -159,6 +186,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/subset_convolution_fn.py
       title: cp_library/math/subset_convolution_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/sum_of_naturals_fn.py
+      title: cp_library/math/sum_of_naturals_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/sum_of_squares_fn.py
+      title: cp_library/math/sum_of_squares_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/zeta_transform_fn.py
       title: cp_library/math/zeta_transform_fn.py

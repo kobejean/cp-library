@@ -101,7 +101,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/segtree_cls.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dsl_2_a_segtree.test.py

@@ -4,6 +4,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/potentialized_dsu_cls.py
     title: PotentializedDSU (generalized with groups)
+  - icon: ':question:'
+    path: cp_library/io/read_int_fn.py
+    title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -39,27 +42,28 @@ data:
     \ = [[] for _ in range(self.n)]\n        for i in range(self.n):\n           \
     \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
     \n    def diff(self, x: int, y: int):\n        assert self.same(x, y)\n      \
-    \  return self.op(self.pot[x], self.inv(self.pot[y]))\n\nmod = 998244353\n\ndef\
-    \ rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
-    \nN, Q = rint()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef inv(x):\n    return\
+    \  return self.op(self.pot[x], self.inv(self.pot[y]))\n\ndef read(shift=0, base=10):\n\
+    \    return [int(s, base) + shift for s in  input().split()]\n\nmod = 998244353\n\
+    N, Q = read()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef inv(x):\n    return\
     \ (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\nfor _ in range(Q):\n    t,\
-    \ *q = rint()\n    if t:\n        u, v = q\n        ans = pdsu.diff(u, v) if pdsu.same(u,\
+    \ *q = read()\n    if t:\n        u, v = q\n        ans = pdsu.diff(u, v) if pdsu.same(u,\
     \ v) else -1\n        print(ans)\n    else:\n        u, v, x = q\n        print(int(pdsu.consistent(u,v,x)))\n\
     \        pdsu.merge(u, v, x)\n\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential\n\
-    \nfrom cp_library.ds.potentialized_dsu_cls import PotentializedDSU\n\nmod = 998244353\n\
-    \ndef rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
-    \nN, Q = rint()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef inv(x):\n    return\
-    \ (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\nfor _ in range(Q):\n    t,\
-    \ *q = rint()\n    if t:\n        u, v = q\n        ans = pdsu.diff(u, v) if pdsu.same(u,\
-    \ v) else -1\n        print(ans)\n    else:\n        u, v, x = q\n        print(int(pdsu.consistent(u,v,x)))\n\
-    \        pdsu.merge(u, v, x)\n\n"
+    \nfrom cp_library.ds.potentialized_dsu_cls import PotentializedDSU\nfrom cp_library.io.read_int_fn\
+    \ import read\n\nmod = 998244353\nN, Q = read()\n\ndef op(x,y):\n    return (x+y)%mod\n\
+    \ndef inv(x):\n    return (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\n\
+    for _ in range(Q):\n    t, *q = read()\n    if t:\n        u, v = q\n        ans\
+    \ = pdsu.diff(u, v) if pdsu.same(u, v) else -1\n        print(ans)\n    else:\n\
+    \        u, v, x = q\n        print(int(pdsu.consistent(u,v,x)))\n        pdsu.merge(u,\
+    \ v, x)\n\n"
   dependsOn:
   - cp_library/ds/potentialized_dsu_cls.py
+  - cp_library/io/read_int_fn.py
   isVerificationFile: true
   path: test/unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind_with_potential.test.py

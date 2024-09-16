@@ -36,8 +36,9 @@ data:
     \              dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n\
     \                    depths.append(depth)\n        \n        dfs(root, -1, 0)\n\
     \        super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
-    \ u, v) -> int:\n        l, r = min(self.start[u], self.start[v]), max(self.start[u],\
-    \ self.start[v])+1\n        _, a = super().query(l, r)\n        return a\n"
+    \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
+    \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
+    \      return a, d\n"
   code: "from typing import List\n\nimport cp_library.misc.setrecursionlimit\nfrom\
     \ cp_library.ds.sparse_table_cls import SparseTable\n\nclass LCATable(SparseTable):\n\
     \    def __init__(self, T, root):\n        self.start = [-1] * len(T)\n      \
@@ -48,15 +49,16 @@ data:
     \   dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n     \
     \               depths.append(depth)\n        \n        dfs(root, -1, 0)\n   \
     \     super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
-    \ u, v) -> int:\n        l, r = min(self.start[u], self.start[v]), max(self.start[u],\
-    \ self.start[v])+1\n        _, a = super().query(l, r)\n        return a\n"
+    \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
+    \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
+    \      return a, d\n"
   dependsOn:
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/sparse_table_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_recursive_cls.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_recursive.test.py

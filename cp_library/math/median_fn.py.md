@@ -17,7 +17,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "import random\n\ndef partition(A, l, r, pi) -> int:\n    '''Partition\
+  bundledCode: "def median(A):\n    n = len(A)\n    m = n // 2\n    ret = qselect(A,\
+    \ m)\n    if n % 2 == 0:\n        return (ret + qselect(A, m-1)) / 2\n    return\
+    \ ret\n\nimport random\n\ndef partition(A, l, r, pi) -> int:\n    '''Partition\
     \ subarray [l,r)'''\n    r -= 1\n    A[pi], A[r] = A[r], A[pi]\n    pi = l\n \
     \   for j in range(l, r):\n        if A[j] <= A[r]:\n            A[pi], A[j] =\
     \ A[j], A[pi]\n            pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return\
@@ -25,19 +27,17 @@ data:
     \    if r is None: r = len(A)\n    while True:\n        if l == r-1: return A[k]\n\
     \        pi = partition(A, l, r, random.randint(l, r-1))\n        if k == pi:\n\
     \            return A[k]\n        elif k < pi:\n            r = pi\n        else:\n\
-    \            l = pi + 1\n\ndef median(A):\n    n = len(A)\n    m = n // 2\n  \
-    \  ret = qselect(A, m)\n    if n % 2 == 0:\n        return (ret + qselect(A, m-1))\
-    \ / 2\n    return ret\n"
-  code: "from cp_library.alg.divcon.qselect_fn import qselect\n\ndef median(A):\n\
-    \    n = len(A)\n    m = n // 2\n    ret = qselect(A, m)\n    if n % 2 == 0:\n\
-    \        return (ret + qselect(A, m-1)) / 2\n    return ret"
+    \            l = pi + 1\n"
+  code: "def median(A):\n    n = len(A)\n    m = n // 2\n    ret = qselect(A, m)\n\
+    \    if n % 2 == 0:\n        return (ret + qselect(A, m-1)) / 2\n    return ret\n\
+    \nfrom cp_library.alg.divcon.qselect_fn import qselect"
   dependsOn:
   - cp_library/alg/divcon/qselect_fn.py
   - cp_library/alg/divcon/partition_fn.py
   isVerificationFile: false
   path: cp_library/math/median_fn.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc122_b_insurance_median.test.py

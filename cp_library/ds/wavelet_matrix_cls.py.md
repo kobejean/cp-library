@@ -12,27 +12,26 @@ data:
   attributes:
     links: []
   bundledCode: "from bisect import bisect_left\nimport heapq\nfrom bitarray import\
-    \ bitarray\nfrom typing import Any, Iterable, List, Tuple\n\n\nclass WaveletMatrix:\n\
-    \n    class Level(bitarray):\n        def select(self, bit: int, k: int) -> int:\n\
-    \            def key(i):\n                return self.count(bit, 0, i+1)\n   \
-    \         index = bisect_left(range(len(self)), k+1, key=key)\n            return\
-    \ -1 if index >= len(self) else index\n\n    def __init__(self, data: List[int]):\n\
-    \        self.n = len(data)\n        self.height = max(data).bit_length()\n  \
-    \      self.rows = []\n        self.start = dict()\n\n        for h in range(self.height\
-    \ - 1, -1, -1):\n            bits = WaveletMatrix.Level(self.n)\n            left,\
-    \ right = [], []\n\n            for i, num in enumerate(data):\n             \
-    \   if num >> h & 1:\n                    bits[i] = 1\n                    right.append(num)\n\
-    \                else:\n                    bits[i] = 0\n                    left.append(num)\n\
-    \n            self.rows.append((h,bits))\n            data = left + right\n  \
-    \      \n        for i in range(self.n-1,-1,-1):\n            self.start[data[i]]\
-    \ = i \n    \n    def access(self, i: int) -> int:\n        if i < 0 or i >= self.n:\n\
-    \            raise IndexError(\"Index out of range\")\n\n        val = 0\n   \
-    \     for _, row in self.rows:\n            bit, val = row[i], (val << 1) | row[i]\n\
-    \            i = row.count(bit, 0, i) + row.count(0)*bit\n\n        return val\n\
-    \n    def count(self, val: int, i: int) -> int:\n        if i <= 0 or val not\
-    \ in self.start: return 0\n\n        for h, row in self.rows:\n            bit\
-    \ = val >> h & 1\n            i = row.count(bit, 0, i) + row.count(0)*bit\n\n\
-    \        return i - self.start[val]\n         \n    def select(self, val: int,\
+    \ bitarray\n\nclass WaveletMatrix:\n\n    class Level(bitarray):\n        def\
+    \ select(self, bit: int, k: int) -> int:\n            def key(i):\n          \
+    \      return self.count(bit, 0, i+1)\n            index = bisect_left(range(len(self)),\
+    \ k+1, key=key)\n            return -1 if index >= len(self) else index\n\n  \
+    \  def __init__(self, data: list[int]):\n        self.n = len(data)\n        self.height\
+    \ = max(data).bit_length()\n        self.rows = []\n        self.start = dict()\n\
+    \n        for h in range(self.height - 1, -1, -1):\n            bits = WaveletMatrix.Level(self.n)\n\
+    \            left, right = [], []\n\n            for i, num in enumerate(data):\n\
+    \                if num >> h & 1:\n                    bits[i] = 1\n         \
+    \           right.append(num)\n                else:\n                    bits[i]\
+    \ = 0\n                    left.append(num)\n\n            self.rows.append((h,bits))\n\
+    \            data = left + right\n        \n        for i in range(self.n-1,-1,-1):\n\
+    \            self.start[data[i]] = i \n    \n    def access(self, i: int) -> int:\n\
+    \        if i < 0 or i >= self.n:\n            raise IndexError(\"Index out of\
+    \ range\")\n\n        val = 0\n        for _, row in self.rows:\n            bit,\
+    \ val = row[i], (val << 1) | row[i]\n            i = row.count(bit, 0, i) + row.count(0)*bit\n\
+    \n        return val\n\n    def count(self, val: int, i: int) -> int:\n      \
+    \  if i <= 0 or val not in self.start: return 0\n\n        for h, row in self.rows:\n\
+    \            bit = val >> h & 1\n            i = row.count(bit, 0, i) + row.count(0)*bit\n\
+    \n        return i - self.start[val]\n         \n    def select(self, val: int,\
     \ k: int) -> int:\n        \"\"\"\n        Find the 0-indexed position of the\
     \ `k+1`-th occurance of `val`.\n        \"\"\"\n        if k < 0 or val not in\
     \ self.start:\n            return -1\n        \n        idx = self.start[val]+k\n\
@@ -49,7 +48,7 @@ data:
     \            r += cnt0l+cnt0lr  # add 0s in [l,N)\n            else:\n       \
     \         l = row.count(0, 0, l) # 0s in [0,l)\n                r = l+cnt0lr \
     \          # 0s in [0,r)\n            val = (val << 1) | bit\n        return val\n\
-    \n    def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:\n     \
+    \n    def topk(self, l: int, r: int, k: int) -> list[tuple[int, int]]:\n     \
     \   \"\"\"\n        Find the k most frequent elements in the range [l, r).\n \
     \       \n        :param l: start of the range (inclusive)\n        :param r:\
     \ end of the range (exclusive)\n        :param k: number of top elements to return\n\
@@ -71,13 +70,12 @@ data:
     \ len(result) < k:\n            _, _, val, count = heapq.heappop(heap)\n     \
     \       result.append((val, count))\n        \n        return result\n"
   code: "from bisect import bisect_left\nimport heapq\nfrom bitarray import bitarray\n\
-    from typing import Any, Iterable, List, Tuple\n\n\nclass WaveletMatrix:\n\n  \
-    \  class Level(bitarray):\n        def select(self, bit: int, k: int) -> int:\n\
-    \            def key(i):\n                return self.count(bit, 0, i+1)\n   \
-    \         index = bisect_left(range(len(self)), k+1, key=key)\n            return\
-    \ -1 if index >= len(self) else index\n\n    def __init__(self, data: List[int]):\n\
-    \        self.n = len(data)\n        self.height = max(data).bit_length()\n  \
-    \      self.rows = []\n        self.start = dict()\n\n        for h in range(self.height\
+    \nclass WaveletMatrix:\n\n    class Level(bitarray):\n        def select(self,\
+    \ bit: int, k: int) -> int:\n            def key(i):\n                return self.count(bit,\
+    \ 0, i+1)\n            index = bisect_left(range(len(self)), k+1, key=key)\n \
+    \           return -1 if index >= len(self) else index\n\n    def __init__(self,\
+    \ data: list[int]):\n        self.n = len(data)\n        self.height = max(data).bit_length()\n\
+    \        self.rows = []\n        self.start = dict()\n\n        for h in range(self.height\
     \ - 1, -1, -1):\n            bits = WaveletMatrix.Level(self.n)\n            left,\
     \ right = [], []\n\n            for i, num in enumerate(data):\n             \
     \   if num >> h & 1:\n                    bits[i] = 1\n                    right.append(num)\n\
@@ -108,7 +106,7 @@ data:
     \            r += cnt0l+cnt0lr  # add 0s in [l,N)\n            else:\n       \
     \         l = row.count(0, 0, l) # 0s in [0,l)\n                r = l+cnt0lr \
     \          # 0s in [0,r)\n            val = (val << 1) | bit\n        return val\n\
-    \n    def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:\n     \
+    \n    def topk(self, l: int, r: int, k: int) -> list[tuple[int, int]]:\n     \
     \   \"\"\"\n        Find the k most frequent elements in the range [l, r).\n \
     \       \n        :param l: start of the range (inclusive)\n        :param r:\
     \ end of the range (exclusive)\n        :param k: number of top elements to return\n\
@@ -134,7 +132,7 @@ data:
   path: cp_library/ds/wavelet_matrix_cls.py
   requiredBy:
   - cp_library/ds/_wavelet_matrix_test.py
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/wavelet_matrix_cls.py

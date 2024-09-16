@@ -17,22 +17,26 @@ data:
     links:
     - https://atcoder.jp/contests/abc362/tasks/abc362_g
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
-    from collections import deque\nfrom typing import Dict, List, Optional\n\nclass\
-    \ Trie:\n    __slots__ = 'dic', 'parent', 'last', 'count', 'word'\n\n    def __init__(self):\n\
-    \        self.dic: Dict[str, Trie] = {}\n        self.parent: Optional[Trie] =\
-    \ None\n        self.last: str = \"\"\n        self.count: int = 0\n        self.word:\
-    \ bool = False\n    \n    def add(self, word: str) -> None:\n        p = self\n\
-    \        for c in word:\n            if c not in p.dic:   \n                p.dic[c]\
-    \ = type(self)()\n            parent = p\n            p = p.dic[c]\n         \
-    \   p.parent = parent\n            p.last = c\n        p.word = True\n    \n \
-    \   def find(self, prefix: str) -> 'Trie':\n        node = self\n        for char\
-    \ in prefix:\n            if char not in node.dic:\n                return None\n\
-    \            node = node.dic[char]\n        return node\n    \n    def search(self,\
-    \ word: str) -> bool:\n        node = self.find(word)\n        return node.word\
-    \ if node is not None else False\n\n    def bfs(self) -> List['Trie']:\n     \
-    \   output = []\n        queue = deque([self])\n        while queue:\n       \
-    \     p = queue.popleft()\n            output.append(p)\n            queue.extend(p.dic.values())\n\
-    \        return output\n    \n    def prefix(self) -> str:\n        output = []\n\
+    \ndef solve():\n    S = input()\n    Q = int(input())\n    ac = AhoCorasick()\n\
+    \    queries = []\n    for _ in range(Q):\n        T = input()\n        ac.add(T)\n\
+    \        queries.append(T)\n\n    freq_dict = ac.count_freq(S)\n    return [freq_dict.get(query,\
+    \ 0) for query in queries]\n\nfrom collections import deque\nfrom typing import\
+    \ Dict, List, Optional\n\nclass Trie:\n    __slots__ = 'dic', 'parent', 'last',\
+    \ 'count', 'word'\n\n    def __init__(self):\n        self.dic: Dict[str, Trie]\
+    \ = {}\n        self.parent: Optional[Trie] = None\n        self.last: str = \"\
+    \"\n        self.count: int = 0\n        self.word: bool = False\n    \n    def\
+    \ add(self, word: str) -> None:\n        p = self\n        for c in word:\n  \
+    \          if c not in p.dic:   \n                p.dic[c] = type(self)()\n  \
+    \          parent = p\n            p = p.dic[c]\n            p.parent = parent\n\
+    \            p.last = c\n        p.word = True\n    \n    def find(self, prefix:\
+    \ str) -> 'Trie':\n        node = self\n        for char in prefix:\n        \
+    \    if char not in node.dic:\n                return None\n            node =\
+    \ node.dic[char]\n        return node\n    \n    def search(self, word: str) ->\
+    \ bool:\n        node = self.find(word)\n        return node.word if node is not\
+    \ None else False\n\n    def bfs(self) -> List['Trie']:\n        output = []\n\
+    \        queue = deque([self])\n        while queue:\n            p = queue.popleft()\n\
+    \            output.append(p)\n            queue.extend(p.dic.values())\n    \
+    \    return output\n    \n    def prefix(self) -> str:\n        output = []\n\
     \        curr = self\n        while curr.parent is not None:\n            output.append(curr.last)\n\
     \            curr = curr.parent\n        return \"\".join(reversed(output))\n\n\
     class AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
@@ -49,22 +53,20 @@ data:
     \ p.dic.get(c, self)\n            p.count += 1\n\n        output = {}\n      \
     \  for i in range(len(arr_bfs) - 1, 0, -1):\n            p = arr_bfs[i]\n    \
     \        p.failed.count += p.count\n            if p.word:\n                output[p.prefix()]\
-    \ = p.count\n        return output\n\nS = input()\nQ = int(input())\nac = AhoCorasick()\n\
-    queries = []\nfor _ in range(Q):\n    T = input()\n    ac.add(T)\n    queries.append(T)\n\
-    \nfreq_dict = ac.count_freq(S)\nfor query in queries:\n    print(freq_dict.get(query,\
-    \ 0))\n"
+    \ = p.count\n        return output\n\nprint(*solve(), sep='\\n')\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
-    from cp_library.ds.ahocorasick_cls import AhoCorasick\n\nS = input()\nQ = int(input())\n\
-    ac = AhoCorasick()\nqueries = []\nfor _ in range(Q):\n    T = input()\n    ac.add(T)\n\
-    \    queries.append(T)\n\nfreq_dict = ac.count_freq(S)\nfor query in queries:\n\
-    \    print(freq_dict.get(query, 0))"
+    \ndef solve():\n    S = input()\n    Q = int(input())\n    ac = AhoCorasick()\n\
+    \    queries = []\n    for _ in range(Q):\n        T = input()\n        ac.add(T)\n\
+    \        queries.append(T)\n\n    freq_dict = ac.count_freq(S)\n    return [freq_dict.get(query,\
+    \ 0) for query in queries]\n\nfrom cp_library.ds.ahocorasick_cls import AhoCorasick\n\
+    \nprint(*solve(), sep='\\n')"
   dependsOn:
   - cp_library/ds/ahocorasick_cls.py
   - cp_library/ds/trie_cls.py
   isVerificationFile: true
   path: test/abc362_q_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc362_q_count_substring_query_ahocorasick.test.py

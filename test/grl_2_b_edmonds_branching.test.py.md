@@ -13,9 +13,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/rint_fn.py
-    title: cp_library/io/rint_fn.py
+  - icon: ':question:'
+    path: cp_library/io/read_int_fn.py
+    title: cp_library/io/read_int_fn.py
   - icon: ':question:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
@@ -29,18 +29,18 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B\n\
-    def rint(shift=0, base=10):\n    return [int(x, base) + shift for x in input().split()]\n\
+    \ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s in  input().split()]\n\
     \ndef read_edges(M, i0=1):\n    E = []\n    for _ in range(M):\n        u,v,w\
-    \ = rint(-i0)\n        w += i0\n        E.append((w,u,v))\n    return E\nfrom\
+    \ = read(-i0)\n        w += i0\n        E.append((w,u,v))\n    return E\n\nfrom\
     \ functools import reduce\nfrom heapq import heapify\nfrom math import inf\nimport\
     \ sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\"\
-    )\n\nclass DSU:\n    def __init__(self, n) -> None:\n        self.n = n\n    \
-    \    self.par = [-1] * n\n\n    def merge(self, u, v) -> int:\n        assert\
-    \ 0 <= u < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u),\
-    \ self.leader(v)\n        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n\
-    \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
-    \ = x\n\n        return x\n\n    def same(self, u: int, v: int) -> bool:\n   \
-    \     assert 0 <= u < self.n\n        assert 0 <= v < self.n\n        return self.leader(u)\
+    )\n\nclass DSU:\n    def __init__(self, n):\n        self.n = n\n        self.par\
+    \ = [-1] * n\n\n    def merge(self, u, v):\n        assert 0 <= u < self.n\n \
+    \       assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
+    \        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n    \
+    \        x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
+    \ = x\n\n        return x\n\n    def same(self, u: int, v: int):\n        assert\
+    \ 0 <= u < self.n\n        assert 0 <= v < self.n\n        return self.leader(u)\
     \ == self.leader(v)\n\n    def leader(self, i) -> int:\n        assert 0 <= i\
     \ < self.n\n\n        p = self.par[i]\n        while p >= 0:\n            if self.par[p]\
     \ < 0:\n                return p\n            self.par[i], i, p = self.par[p],\
@@ -76,31 +76,29 @@ data:
     \ = contract(cyc)\n            MCA = rec(Gin)\n            for id in MCA:\n  \
     \              C.discard(kickout[id])\n            MCA.extend(C)\n           \
     \ return MCA\n        else:\n            return [edges[0][2] for edges in Gin\
-    \ if edges]\n\n    return [E[id] for id in rec(Gin)]\n\nN, M, root = rint()\n\
-    E = read_edges(M, 0)\nMCA = edmonds_branching(E, N, root)\n# print(MCA)\nans =\
-    \ sum(w for w,u,v in MCA)\nprint(ans)\n"
+    \ if edges]\n\n    return [E[id] for id in rec(Gin)]\n\nN, M, root = read()\n\
+    E = read_edges(M, 0)\nMCA = edmonds_branching(E, N, root)\nans = sum(w for w,u,v\
+    \ in MCA)\nprint(ans)\n"
   code: '# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B
 
-    from cp_library.io.rint_fn import rint
+    from cp_library.io.read_int_fn import read
 
     from cp_library.io.read_edges_weighted_fn import read_edges
 
     from cp_library.alg.graph.edmonds_fn import edmonds_branching
 
 
-    N, M, root = rint()
+    N, M, root = read()
 
     E = read_edges(M, 0)
 
     MCA = edmonds_branching(E, N, root)
 
-    # print(MCA)
-
     ans = sum(w for w,u,v in MCA)
 
     print(ans)'
   dependsOn:
-  - cp_library/io/rint_fn.py
+  - cp_library/io/read_int_fn.py
   - cp_library/io/read_edges_weighted_fn.py
   - cp_library/alg/graph/edmonds_fn.py
   - cp_library/misc/setrecursionlimit.py
@@ -109,7 +107,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_b_edmonds_branching.test.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_b_edmonds_branching.test.py

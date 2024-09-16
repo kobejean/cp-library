@@ -17,26 +17,26 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\ndef mat_mul(A,B,mod):\n    assert len(A[0]) == len(B)\n    R = [[0]*len(B[0])\
+  bundledCode: "def mat_pow(A,K,mod):\n    N = len(A)\n    ret = A if K & 1 else mat_id(N)\n\
+    \    for i in range(1,K.bit_length()):\n        A = mat_mul(A,A,mod) \n      \
+    \  if K >> i & 1:\n            ret = mat_mul(ret,A,mod) \n    return ret \n\n\n\
+    def mat_mul(A,B,mod):\n    assert len(A[0]) == len(B)\n    R = [[0]*len(B[0])\
     \ for _ in range(len(A))] \n    for i,Ri in enumerate(R):\n        for k,Aik in\
     \ enumerate(A[i]):\n            for j,Bkj in enumerate(B[k]):\n              \
     \  Ri[j] = (Ri[j] + Aik*Bkj) % mod\n    return R\n\ndef mat_id(N):\n    return\
-    \ [[int(i==j) for j in range(N)] for i in range(N)]\n\ndef mat_pow(A,K,mod):\n\
-    \    N = len(A)\n    ret = A if K & 1 else mat_id(N)\n    for i in range(1,K.bit_length()):\n\
-    \        A = mat_mul(A,A,mod) \n        if K >> i & 1:\n            ret = mat_mul(ret,A,mod)\
-    \ \n    return ret \n"
-  code: "from cp_library.math.mod.mat_mul_fn import mat_mul\nfrom cp_library.math.mat_id_fn\
-    \ import mat_id\n\ndef mat_pow(A,K,mod):\n    N = len(A)\n    ret = A if K & 1\
-    \ else mat_id(N)\n    for i in range(1,K.bit_length()):\n        A = mat_mul(A,A,mod)\
-    \ \n        if K >> i & 1:\n            ret = mat_mul(ret,A,mod) \n    return\
-    \ ret \n"
+    \ [[int(i==j) for j in range(N)] for i in range(N)]\n"
+  code: "def mat_pow(A,K,mod):\n    N = len(A)\n    ret = A if K & 1 else mat_id(N)\n\
+    \    for i in range(1,K.bit_length()):\n        A = mat_mul(A,A,mod) \n      \
+    \  if K >> i & 1:\n            ret = mat_mul(ret,A,mod) \n    return ret \n\n\
+    from cp_library.math.mod.mat_mul_fn import mat_mul\nfrom cp_library.math.mat_id_fn\
+    \ import mat_id"
   dependsOn:
   - cp_library/math/mod/mat_mul_fn.py
   - cp_library/math/mat_id_fn.py
   isVerificationFile: false
   path: cp_library/math/mod/mat_pow_fn.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

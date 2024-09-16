@@ -63,13 +63,13 @@ data:
     \  p.count += 1\n\n        output = {}\n        for i in range(len(arr_bfs) -\
     \ 1, 0, -1):\n            p = arr_bfs[i]\n            p.failed.count += p.count\n\
     \            if p.word:\n                output[p.prefix()] = p.count\n      \
-    \  return output"
+    \  return output\n"
   dependsOn:
   - cp_library/ds/trie_cls.py
   isVerificationFile: false
   path: cp_library/ds/ahocorasick_cls.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc362_q_count_substring_query_ahocorasick.test.py

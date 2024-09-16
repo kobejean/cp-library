@@ -8,6 +8,12 @@ data:
     path: cp_library/ds/bidirectional_array_cls.py
     title: cp_library/ds/bidirectional_array_cls.py
   - icon: ':question:'
+    path: cp_library/io/read_int_fn.py
+    title: cp_library/io/read_int_fn.py
+  - icon: ':question:'
+    path: cp_library/io/read_tree_fn.py
+    title: cp_library/io/read_tree_fn.py
+  - icon: ':question:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -53,26 +59,28 @@ data:
     \       if v != p:\n                    dp[v][self.T[v].index(u)] = self.add_edge(v,\
     \ u, self.add_node(u, ba.out(i)))\n                    dfs_down(v, u)\n      \
     \      ans[u] = ba.all()\n\n        dfs_up(0)\n        dfs_down(0)\n        return\
-    \ ans\n\ndef rint(shift=0, base=10):\n    return [int(x, base) + shift for x in\
-    \ input().split()]\n\nN, M = rint()\nT = [[] for _ in range(N)]\nfor _ in range(N-1):\n\
-    \    u,v = rint(-1)\n    T[u].append(v)\n    T[v].append(u)\n\ndef mul(a,b):\n\
-    \    return a*b%M\n\ndef add_node(v,res):\n    return (res+1)%M\n\nrr = ReRootingDP(T,\
-    \ 1, mul, add_node)\n\nprint(*rr.solve(), sep='\\n')\n"
+    \ ans\n\ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s in\
+    \  input().split()]\ndef read_tree(N, i0=1):\n    T = [[] for _ in range(N)]\n\
+    \    for _ in range(N-1):\n        u,v = read(-i0)\n        T[u].append(v)\n \
+    \       T[v].append(u)\n    return T\n\n\nN, M = read()\nT = read_tree(N)\n\n\
+    def mul(a,b):\n    return a*b%M\n\ndef add_node(v,res):\n    return (res+1)%M\n\
+    \nrr = ReRootingDP(T, 1, mul, add_node)\n\nprint(*rr.solve(), sep='\\n')\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
-    \nfrom cp_library.alg.dp.rerooting_recursive_cls import ReRootingDP\n\ndef rint(shift=0,\
-    \ base=10):\n    return [int(x, base) + shift for x in input().split()]\n\nN,\
-    \ M = rint()\nT = [[] for _ in range(N)]\nfor _ in range(N-1):\n    u,v = rint(-1)\n\
-    \    T[u].append(v)\n    T[v].append(u)\n\ndef mul(a,b):\n    return a*b%M\n\n\
-    def add_node(v,res):\n    return (res+1)%M\n\nrr = ReRootingDP(T, 1, mul, add_node)\n\
-    \nprint(*rr.solve(), sep='\\n')"
+    \nfrom cp_library.alg.dp.rerooting_recursive_cls import ReRootingDP\nfrom cp_library.io.read_int_fn\
+    \ import read\nfrom cp_library.io.read_tree_fn import read_tree\n\nN, M = read()\n\
+    T = read_tree(N)\n\ndef mul(a,b):\n    return a*b%M\n\ndef add_node(v,res):\n\
+    \    return (res+1)%M\n\nrr = ReRootingDP(T, 1, mul, add_node)\n\nprint(*rr.solve(),\
+    \ sep='\\n')"
   dependsOn:
   - cp_library/alg/dp/rerooting_recursive_cls.py
+  - cp_library/io/read_int_fn.py
+  - cp_library/io/read_tree_fn.py
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/bidirectional_array_cls.py
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_recursive.test.py
   requiredBy: []
-  timestamp: '2024-09-05 11:18:10+09:00'
+  timestamp: '2024-09-16 19:46:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_recursive.test.py
