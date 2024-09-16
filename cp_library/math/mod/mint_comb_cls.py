@@ -2,33 +2,34 @@ from itertools import accumulate
 
 class mint(int):
     mod = None
-    def __new__(cls, x=0): return super().__new__(cls, x % cls.mod)
-    def __add__(self, other): return mint(super().__add__(other))
-    def __radd__(self, other): return mint(super().__radd__(other))
-    def __sub__(self, other): return mint(super().__sub__(other))
-    def __rsub__(self, other): return mint(super().__rsub__(other))
-    def __mul__(self, other): return mint(super().__mul__(other))
-    def __rmul__(self, other): return mint(super().__rmul__(other))
-    def __truediv__(self, other): return mint(super().__mul__(pow(int(other),-1,self.mod)))
-    def __rtruediv__(self, other): return mint(int.__mul__(other,pow(int(self),-1,self.mod)))
-    def __mod__(self, other): return mint(super().__mod__(other))
-    def __rmod__(self, other): return mint(super().__rmod__(other))
-    def __pow__(self, other): return mint(pow(int(self),int(other),self.mod))
-    def __rpow__(self, other): return mint(pow(int(other),int(other),self.mod))
-    def __eq__(self, other): return super().__eq__(mint(other))
-    def __req__(self, other): return super().__eq__(mint(other))
+    def __new__(cls, x=0): return super().__new__(cls, int(x) % cls.mod)
     @classmethod
-    def precomp(cls,N):
-        cls._fact = list(accumulate(range(1,N+1), cls.__mul__, initial=cls(1)))
-        cls._fact_inv = list(accumulate(range(N,0,-1), cls.__mul__, initial=1/cls._fact[N]))[::-1]
+    def wrap(cls, x): return super().__new__(cls, x % cls.mod)
     @classmethod
-    def comb(cls, N, K):
-        if N < K: return 0
-        return cls._fact[N]*cls._fact_inv[K]*cls._fact_inv[N - K]
+    def cast(cls, x): return super().__new__(cls, x)
+    def __add__(self, x): return mint.wrap(super().__add__(x))
+    def __radd__(self, x): return mint.wrap(super().__radd__(x))
+    def __sub__(self, x): return mint.wrap(super().__sub__(x))
+    def __rsub__(self, x): return mint.wrap(super().__rsub__(x))
+    def __mul__(self, x): return mint.wrap(super().__mul__(x))
+    def __rmul__(self, x): return mint.wrap(super().__rmul__(x))
+    def __floordiv__(self, x): return mint.wrap(super().__mul__(pow(int(x),-1,self.mod)))
+    def __rfloordiv__(self, x): return mint.wrap(int.__mul__(x,pow(int(self),-1,self.mod)))
+    def __pow__(self, x): return mint.cast(pow(int(self),x,self.mod))
+    def __eq__(self, x): return super().__eq__(mint.wrap(x))
+    def __req__(self, x): return super().__eq__(mint.wrap(x))
     @classmethod
-    def multinom(cls, N, *args):
+    def precomp(cls,n):
+        cls.F = list(accumulate(range(1,n+1), cls.__mul__, initial=cls(1)))
+        cls.Finv = list(accumulate(range(n,0,-1), cls.__mul__, initial=1//cls.F[n]))[::-1]
+    @classmethod
+    def comb(cls, n, k, /):
+        if n < k: return 0
+        return cls.F[n]*cls.Finv[k]*cls.Finv[n - k]
+    @classmethod
+    def multinom(cls, n, *K):
         res = cls(1)
-        for arg in args:
-            res *= cls.comb(N, arg)
-            N -= arg
+        for k in K:
+            res *= cls.comb(n, k)
+            n -= k
         return res
