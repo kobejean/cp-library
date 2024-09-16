@@ -1,9 +1,9 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/arc168/tasks/arc168_c
 from cp_library.math.mod.mint_comb_cls import mint
 mint.mod = 998244353
-from cp_library.io.rint_fn import rint
+from cp_library.io.read_int_fn import read
 
-N, K = rint()
+N, K = read()
 mint.precomp(N)
 S = input()
 A, B, C = S.count('A'), S.count('B'), S.count('C')

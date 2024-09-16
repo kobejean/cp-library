@@ -1,8 +1,6 @@
-from typing import Any, List, Union
-from typing import Any, Callable, List, Union
 
 class BinaryIndexTree:
-    def __init__(self, e: Any, op: Callable[[Any, Any], Any], v: Union[int,List[Any]]):
+    def __init__(self, e, op, v: int|list):
         self.e, self.op = e, op
         if isinstance(v, int):
             self.data, self.size = [e]*v, v
@@ -16,7 +14,7 @@ class BinaryIndexTree:
             if r < self.size: 
                 self.data[r] = self.op(self.data[i], self.data[r])
 
-    def add(self, i: int, x: Any) -> None:
+    def add(self, i: int, x: object) -> None:
         assert 0 <= i <= self.size
         i += 1
         while i <= self.size:
@@ -31,10 +29,9 @@ class BinaryIndexTree:
     
 
 class BinaryIndexTreePURQ(BinaryIndexTree):
-    def __init__(self, e: Any, op: Callable[[Any, Any], Any],
-                 inv: Callable[[Any], Any], v: Union[int,List[Any]]):
+    def __init__(self, e, op, inv, v: int|list):
         self.inv = inv
         super().__init__(e, op, v)
 
-    def range_sum(self, l: int, r: int) -> Any:
+    def range_sum(self, l: int, r: int) -> object:
         return self.op(self.pref_sum(r), self.inv(self.pref_sum(l)))

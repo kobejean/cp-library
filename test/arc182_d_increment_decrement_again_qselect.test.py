@@ -1,13 +1,11 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d
 from math import inf
 from cp_library.alg.divcon.qselect_fn import qselect
+from cp_library.io.read_int_fn import read
 
-def rint(shift=0, base=10):
-    return [int(x, base) + shift for x in input().split()]
-
-N, M = rint()
-A = rint()
-B = rint()
+N, M = read()
+A = read()
+B = read()
 
 if M == 2:
     print(0 if A == B else -1)

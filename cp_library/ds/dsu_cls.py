@@ -1,10 +1,10 @@
 
 class DSU:
-    def __init__(self, n) -> None:
+    def __init__(self, n):
         self.n = n
         self.par = [-1] * n
 
-    def merge(self, u, v) -> int:
+    def merge(self, u, v):
         assert 0 <= u < self.n
         assert 0 <= v < self.n
 
@@ -19,7 +19,7 @@ class DSU:
 
         return x
 
-    def same(self, u: int, v: int) -> bool:
+    def same(self, u: int, v: int):
         assert 0 <= u < self.n
         assert 0 <= v < self.n
         return self.leader(u) == self.leader(v)

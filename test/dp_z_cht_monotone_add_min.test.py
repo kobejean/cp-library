@@ -1,11 +1,9 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z
 from cp_library.ds.cht_monotone_add_min_cls import CHTMonotoneAddMin
+from cp_library.io.read_int_fn import read
 
-def rint(shift=0, base=10):
-    return [int(x, base) + shift for x in input().split()]
-
-N, C = rint()
-H = rint()
+N, C = read()
+H = read()
 dp = 0
 cht = CHTMonotoneAddMin()
 

@@ -1,8 +1,6 @@
 from bisect import bisect_left
 import heapq
 from bitarray import bitarray
-from typing import Any, Iterable, List, Tuple
-
 
 class WaveletMatrix:
 
@@ -13,7 +11,7 @@ class WaveletMatrix:
             index = bisect_left(range(len(self)), k+1, key=key)
             return -1 if index >= len(self) else index
 
-    def __init__(self, data: List[int]):
+    def __init__(self, data: list[int]):
         self.n = len(data)
         self.height = max(data).bit_length()
         self.rows = []
@@ -95,7 +93,7 @@ class WaveletMatrix:
             val = (val << 1) | bit
         return val
 
-    def topk(self, l: int, r: int, k: int) -> List[Tuple[int, int]]:
+    def topk(self, l: int, r: int, k: int) -> list[tuple[int, int]]:
         """
         Find the k most frequent elements in the range [l, r).
         

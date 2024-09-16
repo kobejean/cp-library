@@ -1,7 +1,6 @@
-from typing import Any, List, Union
 
 class BinaryIndexTree:
-    def __init__(self, v: Union[int,List[Any]]):
+    def __init__(self, v: int|list):
         if isinstance(v, int):
             self.data, self.size = [0]*v, v
         else:
@@ -14,7 +13,7 @@ class BinaryIndexTree:
             if r < self.size: 
                 self.data[r] += self.data[i]
 
-    def add(self, i: int, x: Any) -> None:
+    def add(self, i: int, x: object) -> None:
         assert 0 <= i <= self.size
         i += 1
         while i <= self.size:
@@ -27,7 +26,7 @@ class BinaryIndexTree:
             s, i = s+self.data[i-1], i-(i&-i)
         return s
     
-    def range_sum(self, l: int, r: int) -> Any:
+    def range_sum(self, l: int, r: int):
         assert 0 <= l <= r <= self.size
         m = l&r if l.bit_length() == r.bit_length() else 0
         s = 0

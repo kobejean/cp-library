@@ -1,16 +1,11 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v
 
 from cp_library.alg.dp.rerooting_recursive_cls import ReRootingDP
+from cp_library.io.read_int_fn import read
+from cp_library.io.read_tree_fn import read_tree
 
-def rint(shift=0, base=10):
-    return [int(x, base) + shift for x in input().split()]
-
-N, M = rint()
-T = [[] for _ in range(N)]
-for _ in range(N-1):
-    u,v = rint(-1)
-    T[u].append(v)
-    T[v].append(u)
+N, M = read()
+T = read_tree(N)
 
 def mul(a,b):
     return a*b%M

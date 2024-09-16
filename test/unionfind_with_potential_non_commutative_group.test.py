@@ -1,13 +1,9 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group
+from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
+from cp_library.io.read_int_fn import read
 
 mod = 998244353
-
-from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
-
-def rint(shift=0, base=10):
-    return [int(x, base) + shift for x in input().split()]
-
-N, Q = rint()
+N, Q = read()
 
 def matmul2(x, y):
     return [
@@ -24,7 +20,7 @@ e = [1, 0, 0, 1]
 pdsu = PotentializedDSU(matmul2,matinv2,e,N)
 
 for _ in range(Q):
-    t, *q = rint()
+    t, *q = read()
     if t:
         u, v = q
         ans = pdsu.diff(u, v) if pdsu.same(u, v) else (-1,)

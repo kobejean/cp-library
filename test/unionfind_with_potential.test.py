@@ -1,13 +1,10 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential
 
 from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
+from cp_library.io.read_int_fn import read
 
 mod = 998244353
-
-def rint(shift=0, base=10):
-    return [int(x, base) + shift for x in input().split()]
-
-N, Q = rint()
+N, Q = read()
 
 def op(x,y):
     return (x+y)%mod
@@ -18,7 +15,7 @@ def inv(x):
 pdsu = PotentializedDSU(op,inv,0,N)
 
 for _ in range(Q):
-    t, *q = rint()
+    t, *q = read()
     if t:
         u, v = q
         ans = pdsu.diff(u, v) if pdsu.same(u, v) else -1

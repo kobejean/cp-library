@@ -1,4 +1,3 @@
-from cp_library.ds.bit_cls import BinaryIndexTree
 
 class BinaryIndexRange:
     def __init__(self, size: int):
@@ -29,3 +28,5 @@ class BinaryIndexRange:
         """Set the value at index i to x"""
         current_value = self.get(i)
         self.add(i, i+1, x - current_value)
+        
+from cp_library.ds.bit_cls import BinaryIndexTree

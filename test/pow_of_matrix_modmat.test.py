@@ -2,14 +2,11 @@
 
 from cp_library.math.mod.mint_cls import mint
 from cp_library.math.mod.modmat_cls import ModMat
+from cp_library.io.read_int_fn import read
 
 mint.mod = 998244353
 
-def rint(shift=0, base=10):
-    return [int(x, base) + shift for x in input().split()]
-
-
-N, K = rint()
-A = ModMat([rint() for _ in range(N)])
+N, K = read()
+A = ModMat([read() for _ in range(N)])
 B = A**K
 print(B)

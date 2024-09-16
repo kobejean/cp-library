@@ -1,6 +1,3 @@
-from cp_library.math.mat_mul_fn import mat_mul
-from cp_library.math.mat_id_fn import mat_id
-
 def mat_pow(A,K):
     N = len(A)
     ret = A if K & 1 else mat_id(N)
@@ -9,3 +6,6 @@ def mat_pow(A,K):
         if K >> i & 1:
             ret = mat_mul(ret,A) 
     return ret 
+
+from cp_library.math.mat_mul_fn import mat_mul
+from cp_library.math.mat_id_fn import mat_id

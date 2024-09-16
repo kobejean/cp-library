@@ -1,16 +1,14 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C
 from cp_library.alg.tree.lca_table_recursive_cls import LCATable
+from cp_library.io.read_int_fn import read
 
-def rint(shift=0, base=10):
-    return [int(x, base) + shift for x in input().split()]
-
-N, = rint()
+N, = read()
 T = []
 for _ in range(N):
-    k, *adj = rint()
+    k, *adj = read()
     T.append(adj)
 lca = LCATable(T, 0)
-Q, = rint()
+Q, = read()
 for _ in range(Q):
-    u, v = rint()
+    u, v = read()
     print(lca.query(u,v)[0])
