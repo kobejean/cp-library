@@ -1,14 +1,15 @@
+def read(*specs):
+    return [*parse(input().split(), *specs)]
 
-def read(*specs: tuple[type]):
-    S = input().split()
-    return [func(s) for func, s in io_specs(specs, S)]
-
-def io_specs(specs, S):
-    def shift(shift):
-        return lambda s: int(s) + shift
-    def spec_func(spec):
-        return shift(spec) if isinstance(spec, int) else spec
-    if len(specs) > 1:
-        return zip(map(spec_func, specs), S)
-    func = spec_func(specs[0] if specs else int)
-    return ((func, s) for s in S)
+def parse(strs, *specs):
+    def spec_def(spec):
+        match spec:
+            case int() as offset:
+                return lambda s: int(s) + offset
+            case func, *args if callable(func):
+                return lambda s: func(s,*args)
+            case func if callable(func):
+                return func
+    strs, funcs = iter(strs), map(spec_def, specs or (int,))
+    for func in funcs: yield func(next(strs))
+    yield from map(func, strs)
