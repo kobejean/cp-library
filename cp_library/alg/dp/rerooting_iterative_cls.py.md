@@ -14,10 +14,16 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "import typing\n\nclass BidirectionalArray:\n    def __init__(self,\
-    \ e, op, data):\n        self.size = len(data)\n        self.prefix = [e] + data.copy()\n\
-    \        self.suffix = data.copy() + [e]\n        self.e = e\n        self.op\
-    \ = op\n        for i in range(self.size):\n            self.prefix[i+1] = op(self.prefix[i],\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    import typing\n\n\nclass BidirectionalArray:\n    def __init__(self, e, op, data):\n\
+    \        self.size = len(data)\n        self.prefix = [e] + data.copy()\n    \
+    \    self.suffix = data.copy() + [e]\n        self.e = e\n        self.op = op\n\
+    \        for i in range(self.size):\n            self.prefix[i+1] = op(self.prefix[i],\
     \ self.prefix[i+1])\n        for i in range(self.size,0,-1):\n            self.suffix[i-1]\
     \ = op(self.suffix[i-1], self.suffix[i])\n    def left(self, l): return self.prefix[l]\n\
     \    def right(self, r): return self.suffix[r]\n    def all(self): return self.prefix[-1]\n\
@@ -53,14 +59,14 @@ data:
     \           if v != p:\n                            dp[v][parent_idx[v]] = self.add_edge(v,\
     \ u, self.add_node(u, ba.out(i)))\n                            stack.append((2,v,u))\n\
     \                    ans[u] = ba.all()\n        return ans\n"
-  code: "import typing\nfrom cp_library.ds.bidirectional_array_cls import BidirectionalArray\n\
-    \nclass ReRootingDP():\n    \"\"\" A class implementation of the Re-rooting Dynamic\
-    \ Programming technique. \"\"\"\n    \n    S = typing.TypeVar('S')\n    MergeOp\
-    \ = typing.Callable[[S, S], S]\n    AddNodeOp = typing.Callable[[int, S], S]\n\
-    \    AddEdgeOp = typing.Callable[[int, int, S], S]\n\n    def __init__(self, T:\
-    \ list[list[int]], e: S,\n                 merge: MergeOp, \n                \
-    \ add_node: AddNodeOp = lambda u,s:s, \n                 add_edge: AddEdgeOp =\
-    \ lambda u,v,s:s):\n        \"\"\"\n        T: list[list[int]] - Adjacency list\
+  code: "import cp_library.alg.dp.__init__\nimport typing\nfrom cp_library.ds.bidirectional_array_cls\
+    \ import BidirectionalArray\n\nclass ReRootingDP():\n    \"\"\" A class implementation\
+    \ of the Re-rooting Dynamic Programming technique. \"\"\"\n    \n    S = typing.TypeVar('S')\n\
+    \    MergeOp = typing.Callable[[S, S], S]\n    AddNodeOp = typing.Callable[[int,\
+    \ S], S]\n    AddEdgeOp = typing.Callable[[int, int, S], S]\n\n    def __init__(self,\
+    \ T: list[list[int]], e: S,\n                 merge: MergeOp, \n             \
+    \    add_node: AddNodeOp = lambda u,s:s, \n                 add_edge: AddEdgeOp\
+    \ = lambda u,v,s:s):\n        \"\"\"\n        T: list[list[int]] - Adjacency list\
     \ representation of the tree.\n        e: S - Identity element for the merge operation.\n\
     \        merge: (S,S) -> S - Function to merge two states.\n        add_node:\
     \ (int,S) -> S - Function to incorporate a node into the state.\n        add_edge:\
@@ -90,7 +96,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/rerooting_iterative_cls.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py

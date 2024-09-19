@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/segtree_cls.py
     title: cp_library/ds/segtree_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
@@ -17,15 +17,21 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\n\
-    import typing\n\nclass SegTree:\n    def __init__(self,\n                 op:\
-    \ typing.Callable[[typing.Any, typing.Any], typing.Any],\n                 e:\
-    \ typing.Any,\n                 v: typing.Union[int, typing.List[typing.Any]])\
-    \ -> None:\n        self.op = op\n        self.e = e\n\n        if isinstance(v,\
-    \ int):\n            v = [e] * v\n\n        self.n = len(v)\n        self.log\
-    \ = (self.n-1).bit_length()+1\n        self.size = 1 << self.log\n        self.d\
-    \ = [e] * (2 * self.size)\n\n        for i in range(self.n):\n            self.d[self.size\
-    \ + i] = v[i]\n        for i in range(self.size - 1, 0, -1):\n            self._update(i)\n\
-    \n    def set(self, p: int, x: typing.Any) -> None:\n        assert 0 <= p < self.n\n\
+    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\nimport\
+    \ typing\n\nclass SegTree:\n    def __init__(self,\n                 op: typing.Callable[[typing.Any,\
+    \ typing.Any], typing.Any],\n                 e: typing.Any,\n               \
+    \  v: typing.Union[int, typing.List[typing.Any]]) -> None:\n        self.op =\
+    \ op\n        self.e = e\n\n        if isinstance(v, int):\n            v = [e]\
+    \ * v\n\n        self.n = len(v)\n        self.log = (self.n-1).bit_length()+1\n\
+    \        self.size = 1 << self.log\n        self.d = [e] * (2 * self.size)\n\n\
+    \        for i in range(self.n):\n            self.d[self.size + i] = v[i]\n \
+    \       for i in range(self.size - 1, 0, -1):\n            self._update(i)\n\n\
+    \    def set(self, p: int, x: typing.Any) -> None:\n        assert 0 <= p < self.n\n\
     \n        p += self.size\n        self.d[p] = x\n        for i in range(1, self.log\
     \ + 1):\n            self._update(p >> i)\n\n    def get(self, p: int) -> typing.Any:\n\
     \        assert 0 <= p < self.n\n\n        return self.d[p + self.size]\n\n  \
@@ -59,8 +65,8 @@ data:
     \             right -= 1\n                return right + 1 - self.size\n     \
     \       sm = self.op(self.d[right], sm)\n\n        return 0\n\n    def _update(self,\
     \ k: int) -> None:\n        self.d[k] = self.op(self.d[2 * k], self.d[2 * k +\
-    \ 1])\n\ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s in\
-    \  input().split()]\n\nN, Q = read()\n\nseg = SegTree(min, 2147483647, N)\n\n\
+    \ 1])\n\n\ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s\
+    \ in input().split()]\n\nN, Q = read()\n\nseg = SegTree(min, 2147483647, N)\n\n\
     for _ in range(Q):\n    com, x, y = read()\n    if com:\n        print(seg.prod(x,y+1))\n\
     \    else:\n        seg.set(x,y)\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\n\
@@ -74,7 +80,7 @@ data:
   isVerificationFile: true
   path: test/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dsl_2_a_segtree.test.py

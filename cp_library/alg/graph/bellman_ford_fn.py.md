@@ -14,20 +14,26 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "from math import inf\n\ndef bellman_ford(G, N, root) -> list[int]:\n\
-    \    D = [inf]*N\n    D[root] = 0\n    for _ in range(N-1):\n        for u, edges\
-    \ in enumerate(G):\n            for w, v in edges:\n                D[v] = min(D[v],\
-    \ D[u] + w)\n    return D\n"
-  code: "from math import inf\n\ndef bellman_ford(G, N, root) -> list[int]:\n    D\
-    \ = [inf]*N\n    D[root] = 0\n    for _ in range(N-1):\n        for u, edges in\
-    \ enumerate(G):\n            for w, v in edges:\n                D[v] = min(D[v],\
-    \ D[u] + w)\n    return D\n"
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from math import inf\n\ndef bellman_ford(G, N, root) -> list[int]:\n    D = [inf]*N\n\
+    \    D[root] = 0\n    for _ in range(N-1):\n        for u, edges in enumerate(G):\n\
+    \            for w, v in edges:\n                D[v] = min(D[v], D[u] + w)\n\
+    \    return D\n"
+  code: "import cp_library.alg.graph.__init__\nfrom math import inf\n\ndef bellman_ford(G,\
+    \ N, root) -> list[int]:\n    D = [inf]*N\n    D[root] = 0\n    for _ in range(N-1):\n\
+    \        for u, edges in enumerate(G):\n            for w, v in edges:\n     \
+    \           D[v] = min(D[v], D[u] + w)\n    return D\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_fn.py
   requiredBy:
   - cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/potentialized_dsu_cls.py
     title: PotentializedDSU (generalized with groups)
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
@@ -17,10 +17,16 @@ data:
     links:
     - https://judge.yosupo.jp/problem/unionfind_with_potential
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential\n\
-    \n\nclass PotentializedDSU:\n\n    def __init__(self, op, inv, e, v) -> None:\n\
-    \        n = v if isinstance(v, int) else len(v)\n        self.n = n\n       \
-    \ self.par = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e\
-    \ = e\n        self.pot = [e] * n if isinstance(v, int) else v\n\n    def leader(self,\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\nclass\
+    \ PotentializedDSU:\n\n    def __init__(self, op, inv, e, v) -> None:\n      \
+    \  n = v if isinstance(v, int) else len(v)\n        self.n = n\n        self.par\
+    \ = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e = e\n\
+    \        self.pot = [e] * n if isinstance(v, int) else v\n\n    def leader(self,\
     \ x: int) -> int:\n        assert 0 <= x < self.n\n        path = []\n       \
     \ while self.par[x] >= 0:\n            path.append(x)\n            x = self.par[x]\n\
     \        for y in reversed(path):\n            self.pot[y] = self.op(self.pot[y],\
@@ -42,8 +48,8 @@ data:
     \ = [[] for _ in range(self.n)]\n        for i in range(self.n):\n           \
     \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
     \n    def diff(self, x: int, y: int):\n        assert self.same(x, y)\n      \
-    \  return self.op(self.pot[x], self.inv(self.pot[y]))\n\ndef read(shift=0, base=10):\n\
-    \    return [int(s, base) + shift for s in  input().split()]\n\nmod = 998244353\n\
+    \  return self.op(self.pot[x], self.inv(self.pot[y]))\n\n\ndef read(shift=0, base=10):\n\
+    \    return [int(s, base) + shift for s in input().split()]\n\nmod = 998244353\n\
     N, Q = read()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef inv(x):\n    return\
     \ (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\nfor _ in range(Q):\n    t,\
     \ *q = read()\n    if t:\n        u, v = q\n        ans = pdsu.diff(u, v) if pdsu.same(u,\
@@ -63,7 +69,7 @@ data:
   isVerificationFile: true
   path: test/unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind_with_potential.test.py

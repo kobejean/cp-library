@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/potentialized_dsu_cls.py
     title: PotentializedDSU (generalized with groups)
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
@@ -17,10 +17,16 @@ data:
     links:
     - https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group\n\
-    \nclass PotentializedDSU:\n\n    def __init__(self, op, inv, e, v) -> None:\n\
-    \        n = v if isinstance(v, int) else len(v)\n        self.n = n\n       \
-    \ self.par = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e\
-    \ = e\n        self.pot = [e] * n if isinstance(v, int) else v\n\n    def leader(self,\
+    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\nclass\
+    \ PotentializedDSU:\n\n    def __init__(self, op, inv, e, v) -> None:\n      \
+    \  n = v if isinstance(v, int) else len(v)\n        self.n = n\n        self.par\
+    \ = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e = e\n\
+    \        self.pot = [e] * n if isinstance(v, int) else v\n\n    def leader(self,\
     \ x: int) -> int:\n        assert 0 <= x < self.n\n        path = []\n       \
     \ while self.par[x] >= 0:\n            path.append(x)\n            x = self.par[x]\n\
     \        for y in reversed(path):\n            self.pot[y] = self.op(self.pot[y],\
@@ -42,8 +48,8 @@ data:
     \ = [[] for _ in range(self.n)]\n        for i in range(self.n):\n           \
     \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
     \n    def diff(self, x: int, y: int):\n        assert self.same(x, y)\n      \
-    \  return self.op(self.pot[x], self.inv(self.pot[y]))\n\ndef read(shift=0, base=10):\n\
-    \    return [int(s, base) + shift for s in  input().split()]\n\nmod = 998244353\n\
+    \  return self.op(self.pot[x], self.inv(self.pot[y]))\n\n\ndef read(shift=0, base=10):\n\
+    \    return [int(s, base) + shift for s in input().split()]\n\nmod = 998244353\n\
     N, Q = read()\n\ndef matmul2(x, y):\n    return [\n        (y[0] * x[0] + y[1]\
     \ * x[2]) % mod,\n        (y[0] * x[1] + y[1] * x[3]) % mod,\n        (y[2] *\
     \ x[0] + y[3] * x[2]) % mod,\n        (y[2] * x[1] + y[3] * x[3]) % mod,\n   \
@@ -70,7 +76,7 @@ data:
   isVerificationFile: true
   path: test/unionfind_with_potential_non_commutative_group.test.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind_with_potential_non_commutative_group.test.py

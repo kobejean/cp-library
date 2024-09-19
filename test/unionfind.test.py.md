@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
@@ -17,8 +17,14 @@ data:
     links:
     - https://judge.yosupo.jp/problem/unionfind
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind\n\
-    \n\ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s in  input().split()]\n\
-    \nclass DSU:\n    def __init__(self, n):\n        self.n = n\n        self.par\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\ndef\
+    \ read(shift=0, base=10):\n    return [int(s, base) + shift for s in input().split()]\n\
+    \n\nclass DSU:\n    def __init__(self, n):\n        self.n = n\n        self.par\
     \ = [-1] * n\n\n    def merge(self, u, v):\n        assert 0 <= u < self.n\n \
     \       assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
     \        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n    \
@@ -47,7 +53,7 @@ data:
   isVerificationFile: true
   path: test/unionfind.test.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind.test.py

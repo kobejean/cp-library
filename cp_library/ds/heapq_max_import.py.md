@@ -8,19 +8,25 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "from heapq import _heapify_max as heapify_max, _heappop_max as heappop_max,\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nfrom heapq import _heapify_max as heapify_max, _heappop_max as heappop_max,\
     \ _siftdown_max as heapsiftdown_max\n\ndef heappush_max(heap, item):\n    \"\"\
     \"Push item onto heap, maintaining the heap invariant.\"\"\"\n    heap.append(item)\n\
     \    heapsiftdown_max(heap, 0, len(heap)-1)\n"
-  code: "from heapq import _heapify_max as heapify_max, _heappop_max as heappop_max,\
-    \ _siftdown_max as heapsiftdown_max\n\ndef heappush_max(heap, item):\n    \"\"\
-    \"Push item onto heap, maintaining the heap invariant.\"\"\"\n    heap.append(item)\n\
-    \    heapsiftdown_max(heap, 0, len(heap)-1)"
+  code: "import cp_library.ds.__init__\n\nfrom heapq import _heapify_max as heapify_max,\
+    \ _heappop_max as heappop_max, _siftdown_max as heapsiftdown_max\n\ndef heappush_max(heap,\
+    \ item):\n    \"\"\"Push item onto heap, maintaining the heap invariant.\"\"\"\
+    \n    heap.append(item)\n    heapsiftdown_max(heap, 0, len(heap)-1)"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/heapq_max_import.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heapq_max_import.py

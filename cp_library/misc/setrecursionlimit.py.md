@@ -38,16 +38,18 @@ data:
   _verificationStatusIcon: ':question:'
   attributes:
     links: []
-  bundledCode: 'import sys
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
+    max_unroll_recursion=-1\")\n"
+  code: 'import cp_library.misc.__init__
 
-    sys.setrecursionlimit(10**6)
 
-    import pypyjit
-
-    pypyjit.set_param("max_unroll_recursion=-1")
-
-    '
-  code: 'import sys
+    import sys
 
     sys.setrecursionlimit(10**6)
 
@@ -61,18 +63,18 @@ data:
   path: cp_library/misc/setrecursionlimit.py
   requiredBy:
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  - cp_library/alg/tree/lca_table_recursive_cls.py
-  - cp_library/alg/tree/find_centroid_recursive_fn.py
-  - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/graph/tarjan_articulation_points_fn.py
-  timestamp: '2024-09-16 19:46:13+09:00'
+  - cp_library/alg/graph/edmonds_fn.py
+  - cp_library/alg/tree/find_centroid_recursive_fn.py
+  - cp_library/alg/tree/lca_table_recursive_cls.py
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
+  - test/dp_v_subtree_rerooting_recursive.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/grl_5_c_lca_table_recursive.test.py
   - test/grl_3_a_tarjan_articulation_points.test.py
-  - test/dp_v_subtree_rerooting_recursive.test.py
+  - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
 documentation_of: cp_library/misc/setrecursionlimit.py
 layout: document
 redirect_from:

@@ -28,6 +28,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dijkstra_fn.py
       title: cp_library/alg/graph/dijkstra_fn.py
+    - icon: ':question:'
+      path: cp_library/alg/graph/edge_list_type.py
+      title: cp_library/alg/graph/edge_list_type.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/edmonds_fn.py
       title: cp_library/alg/graph/edmonds_fn.py
@@ -43,6 +46,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/floyds_cycle_fn.py
       title: cp_library/alg/graph/floyds_cycle_fn.py
+    - icon: ':question:'
+      path: cp_library/alg/graph/graph_cls.py
+      title: cp_library/alg/graph/graph_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/kruskal_heap_fn.py
       title: cp_library/alg/graph/kruskal_heap_fn.py
@@ -113,6 +119,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/mutvec_cls.py
+      title: cp_library/ds/mutvec_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu_cls.py
       title: PotentializedDSU (generalized with groups)
@@ -132,16 +141,34 @@ data:
       path: cp_library/ds/trie_cls.py
       title: cp_library/ds/trie_cls.py
     - icon: ':warning:'
+      path: cp_library/ds/vec_cls.py
+      title: cp_library/ds/vec_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/vec_op_mixin.py
+      title: cp_library/ds/vec_op_mixin.py
+    - icon: ':warning:'
       path: cp_library/ds/wavelet_matrix_cls.py
       title: cp_library/ds/wavelet_matrix_cls.py
   - name: cp_library/io
     pages:
+    - icon: ':question:'
+      path: cp_library/io/parsable_cls.py
+      title: cp_library/io/parsable_cls.py
+    - icon: ':question:'
+      path: cp_library/io/parse_stream_fn.py
+      title: cp_library/io/parse_stream_fn.py
+    - icon: ':warning:'
+      path: cp_library/io/read_edges_fn.py
+      title: cp_library/io/read_edges_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
+    - icon: ':warning:'
+      path: cp_library/io/read_graph_directed_fn.py
+      title: cp_library/io/read_graph_directed_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_graph_fn.py
       title: cp_library/io/read_graph_fn.py
@@ -151,10 +178,10 @@ data:
     - icon: ':warning:'
       path: cp_library/io/read_graph_weighted_fn.py
       title: cp_library/io/read_graph_weighted_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_specs_fn.py
       title: cp_library/io/read_specs_fn.py
     - icon: ':question:'
@@ -165,6 +192,9 @@ data:
     - icon: ':warning:'
       path: cp_library/math/arithmetic_series_fn.py
       title: cp_library/math/arithmetic_series_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/extended_euclidean_fn.py
+      title: cp_library/math/extended_euclidean_fn.py
     - icon: ':warning:'
       path: cp_library/math/geometic_series_fn.py
       title: cp_library/math/geometic_series_fn.py

@@ -1,7 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':question:'
+    path: cp_library/io/parse_stream_fn.py
+    title: cp_library/io/parse_stream_fn.py
+  - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
@@ -35,14 +41,44 @@ data:
     links:
     - https://judge.yosupo.jp/problem/subset_convolution
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
-    \ndef read(*specs: tuple[type]):\n    S = input().split()\n    return [func(s)\
-    \ for func, s in io_specs(specs, S)]\n\ndef io_specs(specs, S):\n    def shift(shift):\n\
-    \        return lambda s: int(s) + shift\n    def spec_func(spec):\n        return\
-    \ shift(spec) if isinstance(spec, int) else spec\n    if len(specs) > 1:\n   \
-    \     return zip(map(spec_func, specs), S)\n    func = spec_func(specs[0] if specs\
-    \ else int)\n    return ((func, s) for s in S)\nmod = 998244353\n\nN, = read()\n\
-    if N < 10:\n    def subset_convolution(A, B, N):\n        Z = 1 << N\n    \n \
-    \       # Prepare arrays for rank (popcount) decomposition\n        Arank = [[0]*Z\
+    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\nimport\
+    \ sys\nfrom typing import Type, TypeVar\n\nT = TypeVar('T')\ndef read(spec: Type[T]|T=[int])\
+    \ -> T:\n    return parse_stream(sys.stdin, spec)\n\n\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom typing import Collection, Iterator,\
+    \ Type, TypeVar\n\n\nclass Parsable:\n    @classmethod\n    def parse(cls, parse_spec):\n\
+    \        return parse_spec(lambda s: cls(s))\n\nT = TypeVar('T')\ndef parse_stream(stream:\
+    \ Iterator[str], spec: Type[T]|T) -> T:\n\n    def parse_tuple(cls, specs):\n\
+    \        match specs:\n            case [spec, end] if end is ...: \n        \
+    \        return cls(parse_line(spec))\n            case specs:               \
+    \      \n                return cls(parse_spec(spec) for spec in specs)\n\n  \
+    \  def parse_collection(cls, specs) -> list:\n        match specs:\n         \
+    \   case [ ] | [_] | set():          \n                return cls(parse_line(*specs))\n\
+    \            case [spec, int() as n]: \n                return cls(parse_spec(spec)\
+    \ for _ in range(n))\n            case _:\n                raise NotImplementedError()\n\
+    \n    def parse_spec(spec):\n        if args := match_spec(spec, Parsable):\n\
+    \            cls, args = args\n            return cls.parse(parse_spec, *args)\n\
+    \        elif args := match_spec(spec, tuple):      \n            return parse_tuple(*args)\n\
+    \        elif args := match_spec(spec, Collection): \n            return parse_collection(*args)\n\
+    \        elif issubclass(cls := type(offset := spec), Number):         \n    \
+    \        return cls(next_token()) + offset\n        elif callable(cls := spec):\
+    \                  \n            return cls(next_token())\n        else:\n   \
+    \         raise NotImplementedError()\n\n    def next_token():\n        if not\
+    \ queue: queue.extend(next_line())\n        return queue.popleft()\n    \n   \
+    \ def parse_line(spec=int):\n        if not queue: queue.extend(next_line())\n\
+    \        while queue: yield parse_spec(spec)\n        \n    def next_line():\n\
+    \        return next(stream).rstrip().split()\n    \n    def match_spec(spec,\
+    \ types):\n        if issubclass(cls := type(specs := spec), types):\n       \
+    \     return cls, specs\n        elif (isinstance(spec, type) and \n         \
+    \    issubclass(cls := typing.get_origin(spec) or spec, types)):\n           \
+    \ return cls, (typing.get_args(spec) or tuple())\n        \n    queue = deque()\
+    \ \n    return parse_spec(spec)\nmod = 998244353\n\nN, = read()\nif N < 10:\n\
+    \    \n    \n    def subset_convolution(A, B, N):\n        Z = 1 << N\n    \n\
+    \        # Prepare arrays for rank (popcount) decomposition\n        Arank = [[0]*Z\
     \ for _ in range(N+1)]\n        Brank = [[0]*Z for _ in range(N+1)]\n    \n  \
     \      # Initialize rank arrays\n        for mask in range(Z):\n            rank\
     \ = mask.bit_count()\n            Arank[rank][mask] = A[mask]\n            Brank[rank][mask]\
@@ -62,22 +98,32 @@ data:
     \ bit]\n        return A\n    \n    def mobius_transform(A, N):\n        for i\
     \ in range(N):\n            bit = 1 << i\n            for mask in range(1 << N):\n\
     \                if mask & bit:\n                    A[mask] -= A[mask ^ bit]\n\
-    \        return A\n    \n    class mint(int):\n        mod = None\n        def\
-    \ __new__(cls, x=0): return super().__new__(cls, int(x) % cls.mod)\n        @classmethod\n\
-    \        def wrap(cls, x): return super().__new__(cls, x % cls.mod)\n        @classmethod\n\
-    \        def cast(cls, x): return super().__new__(cls, x)\n        def __add__(self,\
-    \ x): return mint.wrap(super().__add__(x))\n        def __radd__(self, x): return\
-    \ mint.wrap(super().__radd__(x))\n        def __sub__(self, x): return mint.wrap(super().__sub__(x))\n\
-    \        def __rsub__(self, x): return mint.wrap(super().__rsub__(x))\n      \
-    \  def __mul__(self, x): return mint.wrap(super().__mul__(x))\n        def __rmul__(self,\
-    \ x): return mint.wrap(super().__rmul__(x))\n        def __floordiv__(self, x):\
-    \ return mint.wrap(super().__mul__(pow(int(x),-1,self.mod)))\n        def __rfloordiv__(self,\
-    \ x): return mint.wrap(int.__mul__(x,pow(int(self),-1,self.mod)))\n        def\
-    \ __pow__(self, x): return mint.cast(pow(int(self),x,self.mod))\n        def __eq__(self,\
-    \ x): return super().__eq__(mint.wrap(x))\n        def __req__(self, x): return\
-    \ super().__eq__(mint.wrap(x))\n    mint.mod = mod\n    F = read(mint)\n    G\
-    \ = read(mint)\n    print(*subset_convolution(F, G, N))\nelse:\n    \n    def\
-    \ subset_convolution(A, B, N, mod):\n        Z = 1 << N\n    \n        # Prepare\
+    \        return A\n    \n    \n    class mint(int):\n        mod = zero = one\
+    \ = None\n    \n        def __new__(cls, *args, **kwargs):\n            match\
+    \ int(*args, **kwargs):\n                case 0: return cls.zero\n           \
+    \     case 1: return cls.one\n                case x: return cls.fix(x)\n    \n\
+    \        @classmethod\n        def set_mod(cls, mod):\n            cls.mod = mod\n\
+    \            cls.zero, cls.one = cls.cast(0), cls.fix(1)\n    \n        @classmethod\n\
+    \        def fix(cls, x): return cls.cast(x%cls.mod)\n    \n        @classmethod\n\
+    \        def cast(cls, x): return super().__new__(cls,x)\n    \n        @classmethod\n\
+    \        def mod_inv(cls, x):\n            a,b,s,t = int(x), cls.mod, 1, 0\n \
+    \           while b: a,b,s,t = b,a%b,t,s-a//b*t\n            if a == 1: return\
+    \ cls.fix(s)\n            raise ValueError(f\"{x} is not invertible\")\n     \
+    \   \n        @property\n        def inv(self): return mint.mod_inv(self)\n  \
+    \  \n        def __add__(self, x): return mint.fix(super().__add__(x))\n     \
+    \   def __radd__(self, x): return mint.fix(super().__radd__(x))\n        def __sub__(self,\
+    \ x): return mint.fix(super().__sub__(x))\n        def __rsub__(self, x): return\
+    \ mint.fix(super().__rsub__(x))\n        def __mul__(self, x): return mint.fix(super().__mul__(x))\n\
+    \        def __rmul__(self, x): return mint.fix(super().__rmul__(x))\n       \
+    \ def __floordiv__(self, x): return self * mint.mod_inv(x)\n        def __rfloordiv__(self,\
+    \ x): return self.inv * x\n        def __truediv__(self, x): return self * mint.mod_inv(x)\n\
+    \        def __rtruediv__(self, x): return self.inv * x\n        def __pow__(self,\
+    \ x): \n            return self.cast(super().__pow__(x, self.mod))\n        def\
+    \ __eq__(self, x): return super().__eq__(self-x, 0)\n        def __neg__(self):\
+    \ return mint.mod-self\n        def __pos__(self): return self\n        def __abs__(self):\
+    \ return self\n    \n    mint.set_mod(mod)\n    F = read(list[mint])\n    G =\
+    \ read(list[mint])\n    print(*subset_convolution(F, G, N))\nelse:\n    \n   \
+    \ def subset_convolution(A, B, N, mod):\n        Z = 1 << N\n    \n        # Prepare\
     \ arrays for rank (popcount) decomposition\n        Arank = [[0]*Z for _ in range(N+1)]\n\
     \        Brank = [[0]*Z for _ in range(N+1)]\n    \n        # Initialize rank\
     \ arrays\n        for mask in range(Z):\n            rank = mask.bit_count()\n\
@@ -98,29 +144,31 @@ data:
     \ % mod\n        return A\n    \n    def mobius_transform(A, N, mod):\n      \
     \  for i in range(N):\n            bit = 1 << i\n            for mask in range(1\
     \ << N):\n                if mask & bit:\n                    A[mask] = (A[mask]\
-    \ - A[mask ^ bit]) % mod\n        return A\n    \n    F = read()\n    G = read()\n\
-    \    print(*subset_convolution(F, G, N, mod))\n"
+    \ - A[mask ^ bit]) % mod\n        return A\n    \n    F = read(list[int])\n  \
+    \  G = read(list[int])\n    print(*subset_convolution(F, G, N, mod))\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
     from cp_library.io.read_specs_fn import read\nmod = 998244353\n\nN, = read()\n\
     if N < 10:\n    from cp_library.math.subset_convolution_fn import subset_convolution\n\
-    \    from cp_library.math.mod.mint_cls import mint\n    mint.mod = mod\n    F\
-    \ = read(mint)\n    G = read(mint)\n    print(*subset_convolution(F, G, N))\n\
-    else:\n    from cp_library.math.mod.subset_convolution_fn import subset_convolution\n\
-    \    \n    F = read()\n    G = read()\n    print(*subset_convolution(F, G, N,\
-    \ mod))"
+    \    from cp_library.math.mod.mint_cls import mint\n    mint.set_mod(mod)\n  \
+    \  F = read(list[mint])\n    G = read(list[mint])\n    print(*subset_convolution(F,\
+    \ G, N))\nelse:\n    from cp_library.math.mod.subset_convolution_fn import subset_convolution\n\
+    \    \n    F = read(list[int])\n    G = read(list[int])\n    print(*subset_convolution(F,\
+    \ G, N, mod))"
   dependsOn:
   - cp_library/io/read_specs_fn.py
   - cp_library/math/subset_convolution_fn.py
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/mod/subset_convolution_fn.py
+  - cp_library/io/parse_stream_fn.py
   - cp_library/math/zeta_transform_fn.py
   - cp_library/math/mobius_transform_fn.py
   - cp_library/math/mod/zeta_transform_fn.py
   - cp_library/math/mod/mobius_transform_fn.py
+  - cp_library/io/parsable_cls.py
   isVerificationFile: true
   path: test/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/subset_convolution.test.py

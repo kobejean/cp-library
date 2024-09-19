@@ -14,7 +14,13 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "import sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
     max_unroll_recursion=-1\")\n\ndef tarjan_articulation_points(G, N):\n    order\
     \ = [None] * N\n    low = [None] * N\n    parent = [-1] * N\n    ap = set()\n\
     \    time = 0\n\n    def dfs(u):\n        nonlocal time\n        children = 0\n\
@@ -42,7 +48,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/tarjan_articulation_points_fn.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_3_a_tarjan_articulation_points.test.py

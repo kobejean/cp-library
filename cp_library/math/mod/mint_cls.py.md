@@ -23,42 +23,65 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\nclass mint(int):\n    mod = None\n    def __new__(cls, x=0): return\
-    \ super().__new__(cls, int(x) % cls.mod)\n    @classmethod\n    def wrap(cls,\
-    \ x): return super().__new__(cls, x % cls.mod)\n    @classmethod\n    def cast(cls,\
-    \ x): return super().__new__(cls, x)\n    def __add__(self, x): return mint.wrap(super().__add__(x))\n\
-    \    def __radd__(self, x): return mint.wrap(super().__radd__(x))\n    def __sub__(self,\
-    \ x): return mint.wrap(super().__sub__(x))\n    def __rsub__(self, x): return\
-    \ mint.wrap(super().__rsub__(x))\n    def __mul__(self, x): return mint.wrap(super().__mul__(x))\n\
-    \    def __rmul__(self, x): return mint.wrap(super().__rmul__(x))\n    def __floordiv__(self,\
-    \ x): return mint.wrap(super().__mul__(pow(int(x),-1,self.mod)))\n    def __rfloordiv__(self,\
-    \ x): return mint.wrap(int.__mul__(x,pow(int(self),-1,self.mod)))\n    def __pow__(self,\
-    \ x): return mint.cast(pow(int(self),x,self.mod))\n    def __eq__(self, x): return\
-    \ super().__eq__(mint.wrap(x))\n    def __req__(self, x): return super().__eq__(mint.wrap(x))\n"
-  code: "\nclass mint(int):\n    mod = None\n    def __new__(cls, x=0): return super().__new__(cls,\
-    \ int(x) % cls.mod)\n    @classmethod\n    def wrap(cls, x): return super().__new__(cls,\
-    \ x % cls.mod)\n    @classmethod\n    def cast(cls, x): return super().__new__(cls,\
-    \ x)\n    def __add__(self, x): return mint.wrap(super().__add__(x))\n    def\
-    \ __radd__(self, x): return mint.wrap(super().__radd__(x))\n    def __sub__(self,\
-    \ x): return mint.wrap(super().__sub__(x))\n    def __rsub__(self, x): return\
-    \ mint.wrap(super().__rsub__(x))\n    def __mul__(self, x): return mint.wrap(super().__mul__(x))\n\
-    \    def __rmul__(self, x): return mint.wrap(super().__rmul__(x))\n    def __floordiv__(self,\
-    \ x): return mint.wrap(super().__mul__(pow(int(x),-1,self.mod)))\n    def __rfloordiv__(self,\
-    \ x): return mint.wrap(int.__mul__(x,pow(int(self),-1,self.mod)))\n    def __pow__(self,\
-    \ x): return mint.cast(pow(int(self),x,self.mod))\n    def __eq__(self, x): return\
-    \ super().__eq__(mint.wrap(x))\n    def __req__(self, x): return super().__eq__(mint.wrap(x))"
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nclass mint(int):\n    mod = zero = one = None\n\n    def __new__(cls, *args,\
+    \ **kwargs):\n        match int(*args, **kwargs):\n            case 0: return\
+    \ cls.zero\n            case 1: return cls.one\n            case x: return cls.fix(x)\n\
+    \n    @classmethod\n    def set_mod(cls, mod):\n        cls.mod = mod\n      \
+    \  cls.zero, cls.one = cls.cast(0), cls.fix(1)\n\n    @classmethod\n    def fix(cls,\
+    \ x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def cast(cls, x): return\
+    \ super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls, x):\n     \
+    \   a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
+    \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
+    \ invertible\")\n    \n    @property\n    def inv(self): return mint.mod_inv(self)\n\
+    \n    def __add__(self, x): return mint.fix(super().__add__(x))\n    def __radd__(self,\
+    \ x): return mint.fix(super().__radd__(x))\n    def __sub__(self, x): return mint.fix(super().__sub__(x))\n\
+    \    def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n    def __mul__(self,\
+    \ x): return mint.fix(super().__mul__(x))\n    def __rmul__(self, x): return mint.fix(super().__rmul__(x))\n\
+    \    def __floordiv__(self, x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self,\
+    \ x): return self.inv * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n\
+    \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
+    \ \n        return self.cast(super().__pow__(x, self.mod))\n    def __eq__(self,\
+    \ x): return super().__eq__(self-x, 0)\n    def __neg__(self): return mint.mod-self\n\
+    \    def __pos__(self): return self\n    def __abs__(self): return self\n\n"
+  code: "import cp_library.math.mod.__init__\n\nclass mint(int):\n    mod = zero =\
+    \ one = None\n\n    def __new__(cls, *args, **kwargs):\n        match int(*args,\
+    \ **kwargs):\n            case 0: return cls.zero\n            case 1: return\
+    \ cls.one\n            case x: return cls.fix(x)\n\n    @classmethod\n    def\
+    \ set_mod(cls, mod):\n        cls.mod = mod\n        cls.zero, cls.one = cls.cast(0),\
+    \ cls.fix(1)\n\n    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n\
+    \n    @classmethod\n    def cast(cls, x): return super().__new__(cls,x)\n\n  \
+    \  @classmethod\n    def mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod,\
+    \ 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n        if a == 1: return\
+    \ cls.fix(s)\n        raise ValueError(f\"{x} is not invertible\")\n    \n   \
+    \ @property\n    def inv(self): return mint.mod_inv(self)\n\n    def __add__(self,\
+    \ x): return mint.fix(super().__add__(x))\n    def __radd__(self, x): return mint.fix(super().__radd__(x))\n\
+    \    def __sub__(self, x): return mint.fix(super().__sub__(x))\n    def __rsub__(self,\
+    \ x): return mint.fix(super().__rsub__(x))\n    def __mul__(self, x): return mint.fix(super().__mul__(x))\n\
+    \    def __rmul__(self, x): return mint.fix(super().__rmul__(x))\n    def __floordiv__(self,\
+    \ x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv\
+    \ * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
+    \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
+    \ self.mod))\n    def __eq__(self, x): return super().__eq__(self-x, 0)\n    def\
+    \ __neg__(self): return mint.mod-self\n    def __pos__(self): return self\n  \
+    \  def __abs__(self): return self\n\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
-  - cp_library/math/mod/modmat_cls.py
   - cp_library/math/mod/_modmat_cls.py
-  timestamp: '2024-09-16 19:46:13+09:00'
+  - cp_library/math/mod/modmat_cls.py
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/pow_of_matrix_matpow.test.py
   - test/subset_convolution.test.py
   - test/pow_of_matrix_modmat.test.py
+  - test/pow_of_matrix_matpow.test.py
 documentation_of: cp_library/math/mod/mint_cls.py
 layout: document
 redirect_from:

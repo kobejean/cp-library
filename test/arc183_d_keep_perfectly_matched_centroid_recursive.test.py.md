@@ -1,12 +1,24 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: cp_library/alg/graph/edge_list_type.py
+    title: cp_library/alg/graph/edge_list_type.py
+  - icon: ':question:'
+    path: cp_library/alg/graph/graph_cls.py
+    title: cp_library/alg/graph/graph_cls.py
   - icon: ':x:'
     path: cp_library/alg/tree/find_centroid_recursive_fn.py
     title: cp_library/alg/tree/find_centroid_recursive_fn.py
   - icon: ':question:'
-    path: cp_library/io/read_int_fn.py
-    title: cp_library/io/read_int_fn.py
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':question:'
+    path: cp_library/io/parse_stream_fn.py
+    title: cp_library/io/parse_stream_fn.py
+  - icon: ':question:'
+    path: cp_library/io/read_specs_fn.py
+    title: cp_library/io/read_specs_fn.py
   - icon: ':question:'
     path: cp_library/io/read_tree_fn.py
     title: cp_library/io/read_tree_fn.py
@@ -43,18 +55,59 @@ data:
     \ leaf2))\n        else:\n            continue\n        if -matched[0] > 1:\n\
     \            heapq.heappush(heap, (matched[0] + 1, matched[1]))\n        matched\
     \ = (s + 1, v)\n\n    if matched[1] != -1:\n        ops.append((centroid, matched[1]))\n\
-    \n    return ops\n\n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\n\
-    pypyjit.set_param(\"max_unroll_recursion=-1\")\n\ndef find_centroid(T):\n    N\
-    \ = len(T)\n    size = [1] * N\n    half = N // 2\n\n    def dfs(u=0, p=None):\n\
-    \        is_cent = True\n        for v in T[u]:\n            if v == p: continue\n\
-    \            cent = dfs(v, u)\n            if cent != -1: return cent\n      \
-    \      if size[v] > half: is_cent = False\n            size[u] += size[v]\n  \
-    \      if N - size[u] > half:\n            is_cent = False\n        return u if\
-    \ is_cent else -1\n\n    return dfs()\ndef read_tree(N, i0=1):\n    T = [[] for\
-    \ _ in range(N)]\n    for _ in range(N-1):\n        u,v = read(-i0)\n        T[u].append(v)\n\
-    \        T[v].append(u)\n    return T\n\n\ndef read(shift=0, base=10):\n    return\
-    \ [int(s, base) + shift for s in  input().split()]\n\nfor op in solve():\n   \
-    \ print(op[0] + 1, op[1] + 1)\n"
+    \n    return ops\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
+    \        \n'''\n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
+    max_unroll_recursion=-1\")\n\ndef find_centroid(T):\n    N = len(T)\n    size\
+    \ = [1] * N\n    half = N // 2\n\n    def dfs(u=0, p=None):\n        is_cent =\
+    \ True\n        for v in T[u]:\n            if v == p: continue\n            cent\
+    \ = dfs(v, u)\n            if cent != -1: return cent\n            if size[v]\
+    \ > half: is_cent = False\n            size[u] += size[v]\n        if N - size[u]\
+    \ > half:\n            is_cent = False\n        return u if is_cent else -1\n\n\
+    \    return dfs()\n\n\nfrom typing import Type, TypeVar\n\nT = TypeVar('T')\n\
+    def read(spec: Type[T]|T=[int]) -> T:\n    return parse_stream(sys.stdin, spec)\n\
+    \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    from typing import Collection, Iterator, Type, TypeVar\n\n\nclass Parsable:\n\
+    \    @classmethod\n    def parse(cls, parse_spec):\n        return parse_spec(lambda\
+    \ s: cls(s))\n\nT = TypeVar('T')\ndef parse_stream(stream: Iterator[str], spec:\
+    \ Type[T]|T) -> T:\n\n    def parse_tuple(cls, specs):\n        match specs:\n\
+    \            case [spec, end] if end is ...: \n                return cls(parse_line(spec))\n\
+    \            case specs:                     \n                return cls(parse_spec(spec)\
+    \ for spec in specs)\n\n    def parse_collection(cls, specs) -> list:\n      \
+    \  match specs:\n            case [ ] | [_] | set():          \n             \
+    \   return cls(parse_line(*specs))\n            case [spec, int() as n]: \n  \
+    \              return cls(parse_spec(spec) for _ in range(n))\n            case\
+    \ _:\n                raise NotImplementedError()\n\n    def parse_spec(spec):\n\
+    \        if args := match_spec(spec, Parsable):\n            cls, args = args\n\
+    \            return cls.parse(parse_spec, *args)\n        elif args := match_spec(spec,\
+    \ tuple):      \n            return parse_tuple(*args)\n        elif args := match_spec(spec,\
+    \ Collection): \n            return parse_collection(*args)\n        elif issubclass(cls\
+    \ := type(offset := spec), Number):         \n            return cls(next_token())\
+    \ + offset\n        elif callable(cls := spec):                  \n          \
+    \  return cls(next_token())\n        else:\n            raise NotImplementedError()\n\
+    \n    def next_token():\n        if not queue: queue.extend(next_line())\n   \
+    \     return queue.popleft()\n    \n    def parse_line(spec=int):\n        if\
+    \ not queue: queue.extend(next_line())\n        while queue: yield parse_spec(spec)\n\
+    \        \n    def next_line():\n        return next(stream).rstrip().split()\n\
+    \    \n    def match_spec(spec, types):\n        if issubclass(cls := type(specs\
+    \ := spec), types):\n            return cls, specs\n        elif (isinstance(spec,\
+    \ type) and \n             issubclass(cls := typing.get_origin(spec) or spec,\
+    \ types)):\n            return cls, (typing.get_args(spec) or tuple())\n     \
+    \   \n    queue = deque() \n    return parse_spec(spec)\n\n\n\nfrom typing import\
+    \ TypeAlias, TypeVar\n\nM = TypeVar('M', int, None)\nI = TypeVar('I', int, None)\n\
+    EdgeList: TypeAlias = list[tuple[I,I], M]\n\nclass Graph(list, Parsable):\n  \
+    \  def __init__(self, N, edges: EdgeList=[]):\n        super().__init__(([] for\
+    \ _ in range(N)))\n        for u,v in edges:\n            self[u].append(v)\n\
+    \            self[v].append(u)\n\n    @classmethod\n    def parse(cls, parse_spec,\
+    \ N, M, I=-1):\n        return cls(N, parse_spec(EdgeList[I,M]))\n\n\ndef read_tree(N,\
+    \ i0=1):\n    T: Graph = [[] for _ in range(N)]\n    for _ in range(N-1):\n  \
+    \      u,v = read(tuple[-i0,-i0])\n        T[u].append(v)\n        T[v].append(u)\n\
+    \    return T\n\n\n# from cp_library.io.read_specs_fn import read\n# from cp_library.alg.graph.graph_cls\
+    \ import Graph\n\nfor op in solve():\n    print(op[0] + 1, op[1] + 1)\n"
   code: "# verification-helper: IGNORE PROBLEM https://atcoder.jp/contests/arc183/tasks/arc183_d\n\
     import heapq\n\ndef solve():\n    N, = read()\n    T = read_tree(N)\n    size\
     \ = [0] * N\n    centroid = find_centroid(T)\n    dfs_order = [[] for _ in range(N)]\n\
@@ -77,17 +130,21 @@ data:
     \            heapq.heappush(heap, (matched[0] + 1, matched[1]))\n        matched\
     \ = (s + 1, v)\n\n    if matched[1] != -1:\n        ops.append((centroid, matched[1]))\n\
     \n    return ops\n\nfrom cp_library.alg.tree.find_centroid_recursive_fn import\
-    \ find_centroid\nfrom cp_library.io.read_tree_fn import read_tree\nfrom cp_library.io.read_int_fn\
+    \ find_centroid\nfrom cp_library.io.read_tree_fn import read_tree\nfrom cp_library.io.read_specs_fn\
     \ import read\n\nfor op in solve():\n    print(op[0] + 1, op[1] + 1)\n"
   dependsOn:
   - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/io/read_tree_fn.py
-  - cp_library/io/read_int_fn.py
+  - cp_library/io/read_specs_fn.py
   - cp_library/misc/setrecursionlimit.py
+  - cp_library/alg/graph/graph_cls.py
+  - cp_library/io/parse_stream_fn.py
+  - cp_library/alg/graph/edge_list_type.py
+  - cp_library/io/parsable_cls.py
   isVerificationFile: true
   path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py

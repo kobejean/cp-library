@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/cht_monotone_add_max_cls.py
     title: cp_library/ds/cht_monotone_add_max_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
@@ -17,7 +17,13 @@ data:
     links:
     - https://atcoder.jp/contests/dp/tasks/dp_z
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z\n\
-    \nfrom bisect import bisect_left\n\nclass CHTMonotoneAddMax:\n    def __init__(self):\n\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\nfrom\
+    \ bisect import bisect_left\n\nclass CHTMonotoneAddMax:\n    def __init__(self):\n\
     \        self.hull = []\n\n    def insert(self, m: int, b: int) -> None:\n   \
     \     # Remove lines with greater or equal slopes (maintaining monotonicity)\n\
     \        while self.hull and self.hull[-1][0] >= m:\n            self.hull.pop()\n\
@@ -29,8 +35,8 @@ data:
     \        def eval(i):\n            m, b = self.hull[i]\n            return m *\
     \ x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n            m2,\
     \ b2 = self.hull[i+1]\n            return (m1-m2)*x + (b1-b2)\n        return\
-    \ eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\n\ndef read(shift=0,\
-    \ base=10):\n    return [int(s, base) + shift for s in  input().split()]\n\nN,\
+    \ eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\n\n\ndef read(shift=0,\
+    \ base=10):\n    return [int(s, base) + shift for s in input().split()]\n\nN,\
     \ C = read()\nH = read()\ndp = 0\ncht = CHTMonotoneAddMax()\n\nfor i in range(N-1):\n\
     \    m = 2*H[i]\n    b = -H[i]**2 + -dp\n    cht.insert(m,b)\n    i+=1\n    dp\
     \ = -cht.max(H[i]) + H[i]**2 + C\n\nprint(dp)\n"
@@ -45,7 +51,7 @@ data:
   isVerificationFile: true
   path: test/dp_z_cht_monotone_add_max.test.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_z_cht_monotone_add_max.test.py

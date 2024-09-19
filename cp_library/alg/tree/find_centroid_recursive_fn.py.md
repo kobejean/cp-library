@@ -14,7 +14,13 @@ data:
   _verificationStatusIcon: ':x:'
   attributes:
     links: []
-  bundledCode: "\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
+  bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
     max_unroll_recursion=-1\")\n\ndef find_centroid(T):\n    N = len(T)\n    size\
     \ = [1] * N\n    half = N // 2\n\n    def dfs(u=0, p=None):\n        is_cent =\
     \ True\n        for v in T[u]:\n            if v == p: continue\n            cent\
@@ -34,7 +40,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/find_centroid_recursive_fn.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py

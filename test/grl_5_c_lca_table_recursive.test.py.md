@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   - icon: ':question:'
@@ -23,8 +23,14 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C\n\
-    from typing import List\n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\n\
-    pypyjit.set_param(\"max_unroll_recursion=-1\")\nfrom typing import Any, Callable,\
+    from typing import List\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
+    \              \n'''\n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\n\
+    pypyjit.set_param(\"max_unroll_recursion=-1\")\n\n\nfrom typing import Any, Callable,\
     \ List\n\nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any],\
     \ Any], arr: List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
     \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
@@ -44,8 +50,8 @@ data:
     \     super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
     \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
     \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
-    \      return a, d\n\ndef read(shift=0, base=10):\n    return [int(s, base) +\
-    \ shift for s in  input().split()]\n\nN, = read()\nT = []\nfor _ in range(N):\n\
+    \      return a, d\n\n\ndef read(shift=0, base=10):\n    return [int(s, base)\
+    \ + shift for s in input().split()]\n\nN, = read()\nT = []\nfor _ in range(N):\n\
     \    k, *adj = read()\n    T.append(adj)\nlca = LCATable(T, 0)\nQ, = read()\n\
     for _ in range(Q):\n    u, v = read()\n    print(lca.query(u,v)[0])\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C\n\
@@ -61,7 +67,7 @@ data:
   isVerificationFile: true
   path: test/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_c_lca_table_recursive.test.py

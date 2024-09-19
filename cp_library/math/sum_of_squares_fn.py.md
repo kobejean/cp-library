@@ -8,13 +8,20 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "\ndef sum_of_squares(n):\n    return n * (n + 1) * (2*n+1) // 6\n"
-  code: "\ndef sum_of_squares(n):\n    return n * (n + 1) * (2*n+1) // 6\n"
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \ndef sum_of_squares(n):\n    return n * (n + 1) * (2*n+1) // 6\n"
+  code: "import cp_library.math.__init__\n\ndef sum_of_squares(n):\n    return n *\
+    \ (n + 1) * (2*n+1) // 6\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/sum_of_squares_fn.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sum_of_squares_fn.py

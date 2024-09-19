@@ -17,16 +17,22 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\ndef mat_id(N):\n    return [[int(i==j) for j in range(N)] for i\
-    \ in range(N)]\n"
-  code: "\ndef mat_id(N):\n    return [[int(i==j) for j in range(N)] for i in range(N)]\n"
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \ndef mat_id(N):\n    return [[int(i==j) for j in range(N)] for i in range(N)]\n"
+  code: "import cp_library.math.__init__\n\ndef mat_id(N):\n    return [[int(i==j)\
+    \ for j in range(N)] for i in range(N)]\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/mat_id_fn.py
   requiredBy:
-  - cp_library/math/mat_pow_fn.py
   - cp_library/math/mod/mat_pow_fn.py
-  timestamp: '2024-09-16 19:46:13+09:00'
+  - cp_library/math/mat_pow_fn.py
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

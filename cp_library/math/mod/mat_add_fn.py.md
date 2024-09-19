@@ -8,15 +8,21 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "\ndef mat_add(A, B, mod):\n    return [[(Ai[j] + Bi[j]) % mod for\
-    \ j in range(len(Ai))] for Ai,Bi in zip(A,B)]\n"
-  code: "\ndef mat_add(A, B, mod):\n    return [[(Ai[j] + Bi[j]) % mod for j in range(len(Ai))]\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \ndef mat_add(A, B, mod):\n    return [[(Ai[j] + Bi[j]) % mod for j in range(len(Ai))]\
     \ for Ai,Bi in zip(A,B)]\n"
+  code: "import cp_library.math.mod.__init__\n\ndef mat_add(A, B, mod):\n    return\
+    \ [[(Ai[j] + Bi[j]) % mod for j in range(len(Ai))] for Ai,Bi in zip(A,B)]\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/mod/mat_add_fn.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mod/mat_add_fn.py

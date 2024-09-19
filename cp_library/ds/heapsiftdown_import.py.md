@@ -8,15 +8,20 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "from heapq import _siftdown as heapsiftdown, _heapify_max as heapify_max\
-    \ \n"
-  code: "from heapq import _siftdown as heapsiftdown, _heapify_max as heapify_max\
-    \ \n"
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nfrom heapq import _siftdown as heapsiftdown, _heapify_max as heapify_max \n"
+  code: "import cp_library.ds.__init__\n\nfrom heapq import _siftdown as heapsiftdown,\
+    \ _heapify_max as heapify_max \n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/heapsiftdown_import.py
   requiredBy: []
-  timestamp: '2024-09-16 19:46:13+09:00'
+  timestamp: '2024-09-20 02:31:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heapsiftdown_import.py
