@@ -1,19 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
-    path: cp_library/alg/graph/edge_list_type.py
-    title: cp_library/alg/graph/edge_list_type.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parsable_cls.py
     title: cp_library/io/parsable_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parse_stream_fn.py
     title: cp_library/io/parse_stream_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -58,15 +55,14 @@ data:
     \ := spec), types):\n            return cls, specs\n        elif (isinstance(spec,\
     \ type) and \n             issubclass(cls := typing.get_origin(spec) or spec,\
     \ types)):\n            return cls, (typing.get_args(spec) or tuple())\n     \
-    \   \n    queue = deque() \n    return parse_spec(spec)\n\n\n\nfrom typing import\
-    \ TypeAlias, TypeVar\n\nM = TypeVar('M', int, None)\nI = TypeVar('I', int, None)\n\
-    EdgeList: TypeAlias = list[tuple[I,I], M]\n\nclass Graph(list, Parsable):\n  \
-    \  def __init__(self, N, edges: EdgeList=[]):\n        super().__init__(([] for\
-    \ _ in range(N)))\n        for u,v in edges:\n            self[u].append(v)\n\
+    \   \n    queue = deque() \n    return parse_spec(spec)\n\n\n\nclass Graph(list,\
+    \ Parsable):\n    def __init__(self, N, edges=[]):\n        super().__init__(([]\
+    \ for _ in range(N)))\n        for u,v in edges:\n            self[u].append(v)\n\
     \            self[v].append(u)\n\n    @classmethod\n    def parse(cls, parse_spec,\
-    \ N, M, I=-1):\n        return cls(N, parse_spec(EdgeList[I,M]))\n\n\ndef read_graph(n:\
-    \ int, m: int, i0=1):\n    G: Graph = [[] for _ in range(n)]\n    for _ in range(m):\n\
-    \        u,v = read(tuple[-i0,-i0])\n        G[u].append(v)\n    return G\n"
+    \ N, M, I=-1):\n        return cls(N, parse_spec(list[tuple[I,I], M]))\n\n\ndef\
+    \ read_graph(n: int, m: int, i0=1):\n    G: Graph = [[] for _ in range(n)]\n \
+    \   for _ in range(m):\n        u,v = read(tuple[-i0,-i0])\n        G[u].append(v)\n\
+    \    return G\n"
   code: "import cp_library.io.__init__\nfrom cp_library.io.read_specs_fn import read\n\
     from cp_library.alg.graph.graph_cls import Graph\n\n\ndef read_graph(n: int, m:\
     \ int, i0=1):\n    G: Graph = [[] for _ in range(n)]\n    for _ in range(m):\n\
@@ -75,12 +71,11 @@ data:
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/io/parse_stream_fn.py
-  - cp_library/alg/graph/edge_list_type.py
   - cp_library/io/parsable_cls.py
   isVerificationFile: false
   path: cp_library/io/read_graph_directed_fn.py
   requiredBy: []
-  timestamp: '2024-09-20 02:31:14+09:00'
+  timestamp: '2024-09-20 03:21:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/io/read_graph_directed_fn.py

@@ -2,18 +2,18 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/digraph_weighted_cls.py
+    title: cp_library/alg/graph/digraph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dijkstra_fn.py
     title: cp_library/alg/graph/dijkstra_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parsable_cls.py
     title: cp_library/io/parsable_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parse_stream_fn.py
     title: cp_library/io/parse_stream_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_graph_weighted_directed_fn.py
-    title: cp_library/io/read_graph_weighted_directed_fn.py
-  - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -61,44 +61,45 @@ data:
     \ := spec), types):\n            return cls, specs\n        elif (isinstance(spec,\
     \ type) and \n             issubclass(cls := typing.get_origin(spec) or spec,\
     \ types)):\n            return cls, (typing.get_args(spec) or tuple())\n     \
-    \   \n    queue = deque() \n    return parse_spec(spec)\n\n\ndef read_graph(n:\
-    \ int, m: int, i0=1):\n    G = [[] for _ in range(n)]\n    for _ in range(m):\n\
-    \        u,v,w = read(tuple[-i0,-i0,int])\n        G[u].append((w,v))\n    return\
-    \ G\n    \n\nimport heapq\n\ndef dijkstra(G, N, root) -> list[int]:\n    D = [inf\
-    \ for _ in range(N)]\n    D[root] = 0\n    q = [(0, root)]\n    while q:\n   \
-    \     d, v = heapq.heappop(q)\n        if d > D[v]: continue\n\n        for w,\
-    \ u in G[v]:\n            nd = d + w\n            if nd < D[u]:\n            \
-    \    D[u] = nd\n                heapq.heappush(q, (nd, u))\n    return D\n\nN,\
-    \ M, r = read()\nG = read_graph(N, M, 0)\nD = dijkstra(G, N, r)\nprint(*('INF'\
-    \ if d == inf else d for d in D), sep='\\n')\n"
+    \   \n    queue = deque() \n    return parse_spec(spec)\n\nimport heapq\n\ndef\
+    \ dijkstra(G, N, root) -> list[int]:\n    D = [inf for _ in range(N)]\n    D[root]\
+    \ = 0\n    q = [(0, root)]\n    while q:\n        d, v = heapq.heappop(q)\n  \
+    \      if d > D[v]: continue\n\n        for w, u in G[v]:\n            nd = d\
+    \ + w\n            if nd < D[u]:\n                D[u] = nd\n                heapq.heappush(q,\
+    \ (nd, u))\n    return D\n\n\nclass DiGraphWeighted(list, Parsable):\n    def\
+    \ __init__(self, N, edges=[]):\n        super().__init__(([] for _ in range(N)))\n\
+    \        for u,v,w in edges:\n            self[u].append((w,v))\n\n    @classmethod\n\
+    \    def parse(cls, parse_spec, N, M, I=-1):\n        return cls(N, parse_spec(list[tuple[I,I,int],\
+    \ M]))\n\nN, M, r = read()\nG = read(DiGraphWeighted[N, M, 0])\nD = dijkstra(G,\
+    \ N, r)\nprint(*('INF' if d == inf else d for d in D), sep='\\n')\n"
   code: '# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A
 
     from math import inf
-
-    from cp_library.io.read_graph_weighted_directed_fn import read_graph
 
     from cp_library.io.read_specs_fn import read
 
     from cp_library.alg.graph.dijkstra_fn import dijkstra
 
+    from cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted
+
 
     N, M, r = read()
 
-    G = read_graph(N, M, 0)
+    G = read(DiGraphWeighted[N, M, 0])
 
     D = dijkstra(G, N, r)
 
     print(*(''INF'' if d == inf else d for d in D), sep=''\n'')'
   dependsOn:
-  - cp_library/io/read_graph_weighted_directed_fn.py
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/dijkstra_fn.py
+  - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/io/parse_stream_fn.py
   - cp_library/io/parsable_cls.py
   isVerificationFile: true
   path: test/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-09-20 02:31:14+09:00'
+  timestamp: '2024-09-20 03:21:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_a_dijkstra.test.py

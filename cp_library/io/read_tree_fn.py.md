@@ -1,38 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
-    path: cp_library/alg/graph/edge_list_type.py
-    title: cp_library/alg/graph/edge_list_type.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parsable_cls.py
     title: cp_library/io/parsable_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parse_stream_fn.py
     title: cp_library/io/parse_stream_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
-    title: test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
-  - icon: ':x:'
-    path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
-    title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_iterative.test.py
     title: test/dp_v_subtree_rerooting_iterative.test.py
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -70,15 +61,13 @@ data:
     \ := spec), types):\n            return cls, specs\n        elif (isinstance(spec,\
     \ type) and \n             issubclass(cls := typing.get_origin(spec) or spec,\
     \ types)):\n            return cls, (typing.get_args(spec) or tuple())\n     \
-    \   \n    queue = deque() \n    return parse_spec(spec)\n\n\n\nfrom typing import\
-    \ TypeAlias, TypeVar\n\nM = TypeVar('M', int, None)\nI = TypeVar('I', int, None)\n\
-    EdgeList: TypeAlias = list[tuple[I,I], M]\n\nclass Graph(list, Parsable):\n  \
-    \  def __init__(self, N, edges: EdgeList=[]):\n        super().__init__(([] for\
-    \ _ in range(N)))\n        for u,v in edges:\n            self[u].append(v)\n\
+    \   \n    queue = deque() \n    return parse_spec(spec)\n\n\n\nclass Graph(list,\
+    \ Parsable):\n    def __init__(self, N, edges=[]):\n        super().__init__(([]\
+    \ for _ in range(N)))\n        for u,v in edges:\n            self[u].append(v)\n\
     \            self[v].append(u)\n\n    @classmethod\n    def parse(cls, parse_spec,\
-    \ N, M, I=-1):\n        return cls(N, parse_spec(EdgeList[I,M]))\n\n\ndef read_tree(N,\
-    \ i0=1):\n    T: Graph = [[] for _ in range(N)]\n    for _ in range(N-1):\n  \
-    \      u,v = read(tuple[-i0,-i0])\n        T[u].append(v)\n        T[v].append(u)\n\
+    \ N, M, I=-1):\n        return cls(N, parse_spec(list[tuple[I,I], M]))\n\n\ndef\
+    \ read_tree(N, i0=1):\n    T: Graph = [[] for _ in range(N)]\n    for _ in range(N-1):\n\
+    \        u,v = read(tuple[-i0,-i0])\n        T[u].append(v)\n        T[v].append(u)\n\
     \    return T\n\n\n# from cp_library.io.read_specs_fn import read\n# from cp_library.alg.graph.graph_cls\
     \ import Graph\n"
   code: "import cp_library.io.__init__\nfrom cp_library.io.read_specs_fn import read\n\
@@ -91,18 +80,15 @@ data:
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/io/parse_stream_fn.py
-  - cp_library/alg/graph/edge_list_type.py
   - cp_library/io/parsable_cls.py
   isVerificationFile: false
   path: cp_library/io/read_tree_fn.py
   requiredBy: []
-  timestamp: '2024-09-20 02:31:14+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-09-20 03:21:05+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
-  - test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
-  - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
 documentation_of: cp_library/io/read_tree_fn.py
 layout: document
 redirect_from:

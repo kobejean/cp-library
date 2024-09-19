@@ -1,17 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
-    title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
-  _isVerificationFailed: true
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -40,10 +37,9 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/find_centroid_recursive_fn.py
   requiredBy: []
-  timestamp: '2024-09-20 02:31:14+09:00'
-  verificationStatus: LIBRARY_ALL_WA
-  verifiedWith:
-  - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
+  timestamp: '2024-09-20 03:21:05+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: cp_library/alg/tree/find_centroid_recursive_fn.py
 layout: document
 redirect_from:

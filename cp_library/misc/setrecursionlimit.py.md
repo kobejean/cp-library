@@ -11,16 +11,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/tarjan_articulation_points_fn.py
     title: cp_library/alg/graph/tarjan_articulation_points_fn.py
-  - icon: ':x:'
+  - icon: ':warning:'
     path: cp_library/alg/tree/find_centroid_recursive_fn.py
     title: cp_library/alg/tree/find_centroid_recursive_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_recursive_cls.py
     title: cp_library/alg/tree/lca_table_recursive_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
-    title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
@@ -33,9 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_recursive.test.py
     title: test/grl_5_c_lca_table_recursive.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -67,14 +64,13 @@ data:
   - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  timestamp: '2024-09-20 02:31:14+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-09-20 03:21:05+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/grl_5_c_lca_table_recursive.test.py
   - test/grl_3_a_tarjan_articulation_points.test.py
-  - test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
 documentation_of: cp_library/misc/setrecursionlimit.py
 layout: document
 redirect_from:

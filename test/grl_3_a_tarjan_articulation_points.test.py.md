@@ -1,28 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
-    path: cp_library/alg/graph/edge_list_type.py
-    title: cp_library/alg/graph/edge_list_type.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/tarjan_articulation_points_fn.py
     title: cp_library/alg/graph/tarjan_articulation_points_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parsable_cls.py
     title: cp_library/io/parsable_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parse_stream_fn.py
     title: cp_library/io/parse_stream_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_graph_fn.py
     title: cp_library/io/read_graph_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -83,15 +80,13 @@ data:
     \     return cls, specs\n        elif (isinstance(spec, type) and \n         \
     \    issubclass(cls := typing.get_origin(spec) or spec, types)):\n           \
     \ return cls, (typing.get_args(spec) or tuple())\n        \n    queue = deque()\
-    \ \n    return parse_spec(spec)\n\n\n\nfrom typing import TypeAlias, TypeVar\n\
-    \nM = TypeVar('M', int, None)\nI = TypeVar('I', int, None)\nEdgeList: TypeAlias\
-    \ = list[tuple[I,I], M]\n\nclass Graph(list, Parsable):\n    def __init__(self,\
-    \ N, edges: EdgeList=[]):\n        super().__init__(([] for _ in range(N)))\n\
-    \        for u,v in edges:\n            self[u].append(v)\n            self[v].append(u)\n\
+    \ \n    return parse_spec(spec)\n\n\n\nclass Graph(list, Parsable):\n    def __init__(self,\
+    \ N, edges=[]):\n        super().__init__(([] for _ in range(N)))\n        for\
+    \ u,v in edges:\n            self[u].append(v)\n            self[v].append(u)\n\
     \n    @classmethod\n    def parse(cls, parse_spec, N, M, I=-1):\n        return\
-    \ cls(N, parse_spec(EdgeList[I,M]))\n\n\ndef read_graph(N: int, M: int, i0=-1):\n\
-    \    # G: Graph = [[] for _ in range(n)]\n    # for _ in range(m):\n    #    \
-    \ u,v = read(tuple[-i0,-i0])\n    #     G[u].append(v)\n    #     G[v].append(u)\n\
+    \ cls(N, parse_spec(list[tuple[I,I], M]))\n\n\ndef read_graph(N: int, M: int,\
+    \ i0=-1):\n    # G: Graph = [[] for _ in range(n)]\n    # for _ in range(m):\n\
+    \    #     u,v = read(tuple[-i0,-i0])\n    #     G[u].append(v)\n    #     G[v].append(u)\n\
     \    return read(Graph[N, M, i0])\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
     \ndef main():\n    N, M = read()\n    G = read_graph(N, M, 0)\n    ans = sorted(tarjan_articulation_points(G,\
@@ -106,12 +101,11 @@ data:
   - cp_library/misc/setrecursionlimit.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/io/parse_stream_fn.py
-  - cp_library/alg/graph/edge_list_type.py
   - cp_library/io/parsable_cls.py
   isVerificationFile: true
   path: test/grl_3_a_tarjan_articulation_points.test.py
   requiredBy: []
-  timestamp: '2024-09-20 02:31:14+09:00'
+  timestamp: '2024-09-20 03:21:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_tarjan_articulation_points.test.py

@@ -25,12 +25,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
       title: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/digraph_cls.py
+      title: cp_library/alg/graph/digraph_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/digraph_weighted_cls.py
+      title: cp_library/alg/graph/digraph_weighted_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dijkstra_fn.py
       title: cp_library/alg/graph/dijkstra_fn.py
-    - icon: ':question:'
-      path: cp_library/alg/graph/edge_list_type.py
-      title: cp_library/alg/graph/edge_list_type.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/edmonds_fn.py
       title: cp_library/alg/graph/edmonds_fn.py
@@ -46,9 +49,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/floyds_cycle_fn.py
       title: cp_library/alg/graph/floyds_cycle_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_cls.py
       title: cp_library/alg/graph/graph_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/graph_weighted_cls.py
+      title: cp_library/alg/graph/graph_weighted_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/kruskal_heap_fn.py
       title: cp_library/alg/graph/kruskal_heap_fn.py
@@ -66,10 +72,10 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/tree/centroid_decomposition_cls.py
       title: cp_library/alg/tree/centroid_decomposition_cls.py
-    - icon: ':x:'
+    - icon: ':warning:'
       path: cp_library/alg/tree/find_centroid_iterative_fn.py
       title: cp_library/alg/tree/find_centroid_iterative_fn.py
-    - icon: ':x:'
+    - icon: ':warning:'
       path: cp_library/alg/tree/find_centroid_recursive_fn.py
       title: cp_library/alg/tree/find_centroid_recursive_fn.py
     - icon: ':heavy_check_mark:'
@@ -149,12 +155,20 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/wavelet_matrix_cls.py
       title: cp_library/ds/wavelet_matrix_cls.py
+  - name: cp_library/io/legacy
+    pages:
+    - icon: ':warning:'
+      path: cp_library/io/legacy/parse_stream_fn.py
+      title: cp_library/io/legacy/parse_stream_fn.py
+    - icon: ':warning:'
+      path: cp_library/io/legacy/read_specs_fn.py
+      title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/io
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parsable_cls.py
       title: cp_library/io/parsable_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parse_stream_fn.py
       title: cp_library/io/parse_stream_fn.py
     - icon: ':warning:'
@@ -181,10 +195,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_specs_fn.py
       title: cp_library/io/read_specs_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_tree_fn.py
       title: cp_library/io/read_tree_fn.py
   - name: cp_library/math
@@ -262,7 +276,7 @@ data:
       title: cp_library/math/mod/zeta_transform_fn.py
   - name: cp_library/misc
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/misc/setrecursionlimit.py
       title: cp_library/misc/setrecursionlimit.py
   - name: cp_library/vis
@@ -285,12 +299,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/arc182_d_increment_decrement_again_qselect.test.py
       title: test/arc182_d_increment_decrement_again_qselect.test.py
-    - icon: ':x:'
-      path: test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
-      title: test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
-    - icon: ':x:'
-      path: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
-      title: test/arc183_d_keep_perfectly_matched_centroid_recursive.test.py
     - icon: ':heavy_check_mark:'
       path: test/dp_v_subtree_rerooting_iterative.test.py
       title: test/dp_v_subtree_rerooting_iterative.test.py

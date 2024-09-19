@@ -4,28 +4,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/rerooting_recursive_cls.py
     title: cp_library/alg/dp/rerooting_recursive_cls.py
-  - icon: ':question:'
-    path: cp_library/alg/graph/edge_list_type.py
-    title: cp_library/alg/graph/edge_list_type.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/bidirectional_array_cls.py
     title: cp_library/ds/bidirectional_array_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parsable_cls.py
     title: cp_library/io/parsable_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parse_stream_fn.py
     title: cp_library/io/parse_stream_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_tree_fn.py
     title: cp_library/io/read_tree_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -106,14 +103,12 @@ data:
     \     return cls, specs\n        elif (isinstance(spec, type) and \n         \
     \    issubclass(cls := typing.get_origin(spec) or spec, types)):\n           \
     \ return cls, (typing.get_args(spec) or tuple())\n        \n    queue = deque()\
-    \ \n    return parse_spec(spec)\n\n\nfrom typing import TypeAlias, TypeVar\n\n\
-    M = TypeVar('M', int, None)\nI = TypeVar('I', int, None)\nEdgeList: TypeAlias\
-    \ = list[tuple[I,I], M]\n\nclass Graph(list, Parsable):\n    def __init__(self,\
-    \ N, edges: EdgeList=[]):\n        super().__init__(([] for _ in range(N)))\n\
-    \        for u,v in edges:\n            self[u].append(v)\n            self[v].append(u)\n\
+    \ \n    return parse_spec(spec)\n\n\nclass Graph(list, Parsable):\n    def __init__(self,\
+    \ N, edges=[]):\n        super().__init__(([] for _ in range(N)))\n        for\
+    \ u,v in edges:\n            self[u].append(v)\n            self[v].append(u)\n\
     \n    @classmethod\n    def parse(cls, parse_spec, N, M, I=-1):\n        return\
-    \ cls(N, parse_spec(EdgeList[I,M]))\n\n\ndef read_tree(N, i0=1):\n    T: Graph\
-    \ = [[] for _ in range(N)]\n    for _ in range(N-1):\n        u,v = read(tuple[-i0,-i0])\n\
+    \ cls(N, parse_spec(list[tuple[I,I], M]))\n\n\ndef read_tree(N, i0=1):\n    T:\
+    \ Graph = [[] for _ in range(N)]\n    for _ in range(N-1):\n        u,v = read(tuple[-i0,-i0])\n\
     \        T[u].append(v)\n        T[v].append(u)\n    return T\n\n\n# from cp_library.io.read_specs_fn\
     \ import read\n# from cp_library.alg.graph.graph_cls import Graph\n\nN, M = read()\n\
     T = read_tree(N)\n\ndef mul(a,b):\n    return a*b%M\n\ndef add_node(v,res):\n\
@@ -133,12 +128,11 @@ data:
   - cp_library/ds/bidirectional_array_cls.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/io/parse_stream_fn.py
-  - cp_library/alg/graph/edge_list_type.py
   - cp_library/io/parsable_cls.py
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_recursive.test.py
   requiredBy: []
-  timestamp: '2024-09-20 02:31:14+09:00'
+  timestamp: '2024-09-20 03:21:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_recursive.test.py

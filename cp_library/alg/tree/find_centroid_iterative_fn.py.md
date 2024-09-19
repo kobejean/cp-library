@@ -2,13 +2,10 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
-    title: test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
-  _isVerificationFailed: true
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "\ndef find_centroid(T):\n    N = len(T)\n    size = [1] * N\n    stack\
@@ -51,10 +48,9 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/find_centroid_iterative_fn.py
   requiredBy: []
-  timestamp: '2024-09-20 02:31:14+09:00'
-  verificationStatus: LIBRARY_ALL_WA
-  verifiedWith:
-  - test/arc183_d_keep_perfectly_matched_centroid_iterative.test.py
+  timestamp: '2024-09-20 03:21:05+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: cp_library/alg/tree/find_centroid_iterative_fn.py
 layout: document
 redirect_from:
