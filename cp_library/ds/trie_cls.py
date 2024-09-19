@@ -1,3 +1,5 @@
+import cp_library.ds.__init__
+
 from collections import deque
 from typing import Dict, List, Optional
 

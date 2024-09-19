@@ -1,3 +1,4 @@
+import cp_library.math.mod.__init__
 from typing import Union, List, Tuple
 from cp_library.math.mod.mint_cls import mint
 

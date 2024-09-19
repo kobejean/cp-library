@@ -1,3 +1,4 @@
+import cp_library.alg.graph.__init__
 from functools import reduce
 from heapq import heapify
 from math import inf

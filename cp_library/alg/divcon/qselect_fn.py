@@ -1,3 +1,4 @@
+import cp_library.alg.divcon.__init__
 import random
 from cp_library.alg.divcon.partition_fn import partition
 

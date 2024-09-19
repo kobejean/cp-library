@@ -2,7 +2,7 @@
 from math import inf
 
 from cp_library.io.read_graph_weighted_directed_fn import read_graph
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_specs_fn import read
 from cp_library.alg.graph.bellman_ford_neg_cyc_check_fn import bellman_ford
 
 N, M, r = read()

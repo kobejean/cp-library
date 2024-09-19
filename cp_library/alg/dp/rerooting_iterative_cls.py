@@ -1,3 +1,4 @@
+import cp_library.alg.dp.__init__
 import typing
 from cp_library.ds.bidirectional_array_cls import BidirectionalArray
 

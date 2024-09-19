@@ -1,3 +1,4 @@
+import cp_library.alg.divcon.__init__
 
 def partition(A, l, r, pi) -> int:
     '''Partition subarray [l,r)'''

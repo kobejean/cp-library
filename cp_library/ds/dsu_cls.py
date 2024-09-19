@@ -1,3 +1,4 @@
+import cp_library.ds.__init__
 
 class DSU:
     def __init__(self, n):

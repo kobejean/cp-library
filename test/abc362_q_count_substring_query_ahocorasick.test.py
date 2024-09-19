@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g
 
-def solve():
+def main():
     S = input()
     Q = int(input())
     ac = AhoCorasick()
@@ -11,8 +11,10 @@ def solve():
         queries.append(T)
 
     freq_dict = ac.count_freq(S)
-    return [freq_dict.get(query, 0) for query in queries]
+    for query in queries:
+        print(freq_dict.get(query, 0))
 
 from cp_library.ds.ahocorasick_cls import AhoCorasick
 
-print(*solve(), sep='\n')
+if __name__ == '__main__':
+    main()

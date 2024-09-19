@@ -1,3 +1,4 @@
+import cp_library.ds.__init__
 
 class BinaryIndexRange:
     def __init__(self, size: int):

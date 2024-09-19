@@ -1,3 +1,5 @@
+import cp_library.math.__init__
+
 def extended_euclidean(a, b):
     match a, b:
         case 0,0: return 0, 1, 0

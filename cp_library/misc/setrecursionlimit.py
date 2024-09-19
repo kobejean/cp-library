@@ -1,3 +1,5 @@
+import cp_library.misc.__init__
+
 import sys
 sys.setrecursionlimit(10**6)
 import pypyjit

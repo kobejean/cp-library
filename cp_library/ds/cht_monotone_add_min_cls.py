@@ -1,3 +1,5 @@
+import cp_library.ds.__init__
+
 from bisect import bisect_left
 
 class CHTMonotoneAddMin:

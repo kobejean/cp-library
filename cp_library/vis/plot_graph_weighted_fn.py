@@ -1,3 +1,4 @@
+import cp_library.vis.__init__
 
 def plot_graph(G, N):
     import networkx as nx

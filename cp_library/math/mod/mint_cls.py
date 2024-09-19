@@ -1,22 +1,35 @@
+import cp_library.math.mod.__init__
+
 class mint(int):
-    mod, zero, one = None, 0, 1
-    def __new__(cls, *a, **k):
-        match int(*a, **k):
-            case 0: return mint.zero
-            case 1: return mint.one
-            case x: return mint.fix(x)
+    mod = zero = one = None
+
+    def __new__(cls, *args, **kwargs):
+        match int(*args, **kwargs):
+            case 0: return cls.zero
+            case 1: return cls.one
+            case x: return cls.fix(x)
+
     @classmethod
-    def fix(cls, x): return mint.cast(x%cls.mod)
+    def set_mod(cls, mod):
+        cls.mod = mod
+        cls.zero, cls.one = cls.cast(0), cls.fix(1)
+
+    @classmethod
+    def fix(cls, x): return cls.cast(x%cls.mod)
+
     @classmethod
     def cast(cls, x): return super().__new__(cls,x)
+
     @classmethod
     def mod_inv(cls, x):
         a,b,s,t = int(x), cls.mod, 1, 0
         while b: a,b,s,t = b,a%b,t,s-a//b*t
-        if a == 1: return mint.fix(s)
-        raise ValueError(f"{x} is not invertible modulo {cls.mod}")
+        if a == 1: return cls.fix(s)
+        raise ValueError(f"{x} is not invertible")
+    
     @property
     def inv(self): return mint.mod_inv(self)
+
     def __add__(self, x): return mint.fix(super().__add__(x))
     def __radd__(self, x): return mint.fix(super().__radd__(x))
     def __sub__(self, x): return mint.fix(super().__sub__(x))
@@ -27,10 +40,10 @@ class mint(int):
     def __rfloordiv__(self, x): return self.inv * x
     def __truediv__(self, x): return self * mint.mod_inv(x)
     def __rtruediv__(self, x): return self.inv * x
-    def __pow__(self, x): return mint.cast(super().__pow__(x, self.mod))
-    def __eq__(self, x): return super().__sub__(x) % self.mod == 0
-    def __neg__(self): return mint.cast(self.mod+super().__neg__())
+    def __pow__(self, x): 
+        return self.cast(super().__pow__(x, self.mod))
+    def __eq__(self, x): return super().__eq__(self-x, 0)
+    def __neg__(self): return mint.mod-self
     def __pos__(self): return self
     def __abs__(self): return self
-mint.zero, mint.one = mint.cast(0), mint.cast(1)
 

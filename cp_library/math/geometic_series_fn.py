@@ -1,3 +1,4 @@
+import cp_library.math.__init__
 
 def geometric_series(r, n, a=1):
     if r == 1:

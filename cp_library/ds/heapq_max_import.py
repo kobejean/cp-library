@@ -1,3 +1,5 @@
+import cp_library.ds.__init__
+
 from heapq import _heapify_max as heapify_max, _heappop_max as heappop_max, _siftdown_max as heapsiftdown_max
 
 def heappush_max(heap, item):

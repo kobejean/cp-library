@@ -1,12 +1,14 @@
+import cp_library.ds.__init__
+
 import operator
-import numbers
-import typing
+from numbers import Number
+from typing import Sequence
 
 class VecOpMixin:
     def elm_wise(self, other, op):
-        if isinstance(other, numbers.Real):
+        if isinstance(other, Number):
             return type(self)(op(x, other) for x in self)
-        if isinstance(other, typing.Sequence):
+        if isinstance(other, Sequence):
             return type(self)(op(x, y) for x, y in zip(self, other))
         raise ValueError("Operand must be a number or a tuple of the same length")
 

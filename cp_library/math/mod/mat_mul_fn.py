@@ -1,3 +1,4 @@
+import cp_library.math.mod.__init__
 
 def mat_mul(A,B,mod):
     assert len(A[0]) == len(B)

@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z
 from cp_library.ds.cht_monotone_add_min_cls import CHTMonotoneAddMin
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_specs_fn import read
 
 N, C = read()
 H = read()

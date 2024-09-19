@@ -1,3 +1,5 @@
+import cp_library.ds.__init__
+import cp_library.__init__
 
 class BidirectionalArray:
     def __init__(self, e, op, data):

@@ -1,3 +1,5 @@
+import cp_library.math.__init__
+
 def median(A):
     n = len(A)
     m = n // 2

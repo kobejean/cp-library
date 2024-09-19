@@ -1,3 +1,5 @@
+import cp_library.ds.__init__
+
 from typing import Any, Callable, List
 
 class SparseTable:

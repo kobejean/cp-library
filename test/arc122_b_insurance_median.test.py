@@ -10,12 +10,12 @@ def ftod(fraction):
     getcontext().prec = 50
     return Decimal(fraction.numerator) / Decimal(fraction.denominator)
 
-def f(x):
-    x = Fraction(x)
-    return x + mean(max(Fraction(0), a - 2*x) for a in A)
+def main():
+    N, = read()
+    A = read()
+    x = Fraction(int(median(A)*2), 4)
+    ans = x + mean(max(Fraction(0), a - 2*x) for a in A)
+    print(f"{ftod(ans):.20f}")
 
-N, = read()
-A = read()
-x = Fraction(int(median(A)*2), 4)
-ans = f(x)
-print(f"{ftod(ans):.20f}")
+if __name__ == '__main__':
+    main()

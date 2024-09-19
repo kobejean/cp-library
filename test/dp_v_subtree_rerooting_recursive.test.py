@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v
 
 from cp_library.alg.dp.rerooting_recursive_cls import ReRootingDP
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_specs_fn import read
 from cp_library.io.read_tree_fn import read_tree
 
 N, M = read()

@@ -1,3 +1,5 @@
+import cp_library.ds.__init__
+
 import typing
 import random
 

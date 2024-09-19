@@ -6,13 +6,13 @@ N, = read()
 if N < 10:
     from cp_library.math.subset_convolution_fn import subset_convolution
     from cp_library.math.mod.mint_cls import mint
-    mint.mod = mod
-    F = read(mint)
-    G = read(mint)
+    mint.set_mod(mod)
+    F = read(list[mint])
+    G = read(list[mint])
     print(*subset_convolution(F, G, N))
 else:
     from cp_library.math.mod.subset_convolution_fn import subset_convolution
     
-    F = read()
-    G = read()
+    F = read(list[int])
+    G = read(list[int])
     print(*subset_convolution(F, G, N, mod))

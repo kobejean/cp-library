@@ -1,3 +1,4 @@
+import cp_library.alg.graph.__init__
 from math import inf
 
 def bellman_ford(G, N, root) -> list[int]:

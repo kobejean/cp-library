@@ -1,3 +1,5 @@
+import cp_library.math.__init__
+
 def mat_pow(A,K):
     N = len(A)
     ret = A if K & 1 else mat_id(N)

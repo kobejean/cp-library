@@ -1,5 +1,7 @@
-import typing
+import cp_library.ds.__init__
+
 from cp_library.ds.vec_op_mixin import VecOpMixin
+import typing
 
 class vec(tuple, VecOpMixin):
     def __new__(cls, *args):

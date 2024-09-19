@@ -1,3 +1,4 @@
+import cp_library.ds.__init__
 from cp_library.ds.trie_cls import Trie
 
 class AhoCorasick(Trie):

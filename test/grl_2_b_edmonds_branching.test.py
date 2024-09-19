@@ -1,5 +1,5 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_specs_fn import read
 from cp_library.io.read_edges_weighted_fn import read_edges
 from cp_library.alg.graph.edmonds_fn import edmonds_branching
 

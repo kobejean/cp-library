@@ -62,7 +62,7 @@ def solve():
 
 from cp_library.alg.tree.find_centroid_iterative_fn import find_centroid
 from cp_library.io.read_tree_fn import read_tree
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_specs_fn import read
 
 for op in solve():
     print(op[0] + 1, op[1] + 1)

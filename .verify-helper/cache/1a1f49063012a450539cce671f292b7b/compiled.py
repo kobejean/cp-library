@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/output/test/abc362_q_count_substring_query_ahocorasick.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/abc362_q_count_substring_query_ahocorasick.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run output/test/abc362_q_count_substring_query_ahocorasick.test.py
+# run test/abc362_q_count_substring_query_ahocorasick.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 
