@@ -14,3 +14,7 @@ for _ in range(Q):
     ty += 1
     ans = sorted(kdtree[sx:tx,sy:ty]) + ['']
     print(*ans, sep='\n')
+def main():
+    ...
+if __name__ == '__main__':
+    main()

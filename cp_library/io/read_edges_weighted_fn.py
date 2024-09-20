@@ -1,5 +1,6 @@
 import cp_library.io.__init__
 from cp_library.io.read_specs_fn import read
+from cp_library.alg.graph.edge_list_weighted_cls import EdgeListWeighted
 
-def read_edges(M, i0=1):
-    return [(w,u,v) for u,v,w in read(list[tuple[-i0,-i0,int], M])]
+def read_edges(M, I=-1):
+    return read(EdgeListWeighted[M,I])

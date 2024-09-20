@@ -3,7 +3,7 @@ from cp_library.ds.cht_monotone_add_min_cls import CHTMonotoneAddMin
 from cp_library.io.read_specs_fn import read
 
 N, C = read()
-H = read()
+H = read([])
 dp = 0
 cht = CHTMonotoneAddMin()
 

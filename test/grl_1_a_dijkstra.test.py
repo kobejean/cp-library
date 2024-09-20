@@ -8,3 +8,7 @@ N, M, r = read()
 G = read(DiGraphWeighted[N, M, 0])
 D = dijkstra(G, N, r)
 print(*('INF' if d == inf else d for d in D), sep='\n')
+def main():
+    ...
+if __name__ == '__main__':
+    main()

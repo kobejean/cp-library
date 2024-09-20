@@ -22,9 +22,15 @@ class mint(int):
 
     @classmethod
     def mod_inv(cls, x):
-        a,b,s,t = int(x), cls.mod, 1, 0
-        while b: a,b,s,t = b,a%b,t,s-a//b*t
-        if a == 1: return cls.fix(s)
+        from cp_library.opt.lib_load import lib
+        if lib:
+            inv = lib.mod_inv(int(x), cls.mod)
+            if inv:
+                return cls.fix(inv)
+        else:
+            a,b,s,t = int(x), cls.mod, 1, 0
+            while b: a,b,s,t = b,a%b,t,s-a//b*t
+            if a == 1: return cls.fix(s)
         raise ValueError(f"{x} is not invertible")
     
     @property

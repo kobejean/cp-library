@@ -5,6 +5,8 @@ from typing import Type, TypeVar
 
 T = TypeVar('T')
 def read(spec: Type[T]|T=[int]) -> T:
-    return parse_stream(sys.stdin, spec)
+    stream = TokenStream(sys.stdin)
+    parser = Parser.compile(spec)
+    return parser(stream)
 
-from cp_library.io.old.parse_stream_fn import parse_stream
+from cp_library.io.parser_cls import Parser, TokenStream

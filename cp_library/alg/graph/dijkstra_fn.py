@@ -11,8 +11,7 @@ def dijkstra(G, N, root) -> list[int]:
         if d > D[v]: continue
 
         for w, u in G[v]:
-            nd = d + w
-            if nd < D[u]:
+            if (nd := d + w) < D[u]:
                 D[u] = nd
                 heapq.heappush(q, (nd, u))
     return D

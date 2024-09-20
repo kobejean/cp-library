@@ -1,13 +1,11 @@
 import cp_library.alg.__init__
 
-from cp_library.io.parsable_cls import Parsable
+from cp_library.alg.graph.edge_weighted_cls import EdgeWeighted
+from cp_library.alg.graph.digraph_cls import DiGraph
 
-class DiGraphWeighted(list, Parsable):
-    def __init__(self, N, edges=[]):
-        super().__init__(([] for _ in range(N)))
-        for u,v,w in edges:
-            self[u].append((w,v))
-
+class DiGraphWeighted(DiGraph[EdgeWeighted]):
     @classmethod
-    def parse(cls, parse_spec, N, M, I=-1):
-        return cls(N, parse_spec(list[tuple[I,I,int], M]))
+    def compile(cls, N: int, M: int, E: EdgeWeighted|int = EdgeWeighted[-1]):
+        if isinstance(E, int):
+            E = EdgeWeighted[E]
+        return super().compile(N, M, E)
