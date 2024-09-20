@@ -26,7 +26,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_func_fn.py
   requiredBy: []
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

@@ -25,7 +25,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
       title: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/digraph_cls.py
       title: cp_library/alg/graph/digraph_cls.py
     - icon: ':heavy_check_mark:'
@@ -34,6 +34,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dijkstra_fn.py
       title: cp_library/alg/graph/dijkstra_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/edge_cls.py
+      title: cp_library/alg/graph/edge_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/edge_list_cls.py
+      title: cp_library/alg/graph/edge_list_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/edge_list_weighted_cls.py
+      title: cp_library/alg/graph/edge_list_weighted_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/edge_weighted_cls.py
+      title: cp_library/alg/graph/edge_weighted_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/edmonds_fn.py
       title: cp_library/alg/graph/edmonds_fn.py
@@ -155,22 +167,20 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/wavelet_matrix_cls.py
       title: cp_library/ds/wavelet_matrix_cls.py
-  - name: cp_library/io/legacy
-    pages:
-    - icon: ':warning:'
-      path: cp_library/io/legacy/parse_stream_fn.py
-      title: cp_library/io/legacy/parse_stream_fn.py
-    - icon: ':warning:'
-      path: cp_library/io/legacy/read_specs_fn.py
-      title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/io
     pages:
+    - icon: ':warning:'
+      path: cp_library/io/_parser_cls.py
+      title: cp_library/io/_parser_cls.py
+    - icon: ':warning:'
+      path: cp_library/io/parse_stream_fn_better.py
+      title: cp_library/io/parse_stream_fn_better.py
+    - icon: ':warning:'
+      path: cp_library/io/parse_stream_fn_slow.py
+      title: cp_library/io/parse_stream_fn_slow.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/io/parsable_cls.py
-      title: cp_library/io/parsable_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/parse_stream_fn.py
-      title: cp_library/io/parse_stream_fn.py
+      path: cp_library/io/parser_cls.py
+      title: cp_library/io/parser_cls.py
     - icon: ':warning:'
       path: cp_library/io/read_edges_fn.py
       title: cp_library/io/read_edges_fn.py
@@ -180,18 +190,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
-    - icon: ':warning:'
-      path: cp_library/io/read_graph_directed_fn.py
-      title: cp_library/io/read_graph_directed_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/read_graph_fn.py
-      title: cp_library/io/read_graph_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/read_graph_weighted_directed_fn.py
-      title: cp_library/io/read_graph_weighted_directed_fn.py
-    - icon: ':warning:'
-      path: cp_library/io/read_graph_weighted_fn.py
-      title: cp_library/io/read_graph_weighted_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
@@ -201,6 +199,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_tree_fn.py
       title: cp_library/io/read_tree_fn.py
+  - name: cp_library/io/legacy
+    pages:
+    - icon: ':warning:'
+      path: cp_library/io/legacy/parse_stream_fn.py
+      title: cp_library/io/legacy/parse_stream_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/io/legacy/read_specs_fn.py
+      title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/math
     pages:
     - icon: ':warning:'
@@ -279,6 +285,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/misc/setrecursionlimit.py
       title: cp_library/misc/setrecursionlimit.py
+  - name: cp_library/opt
+    pages:
+    - icon: ':warning:'
+      path: cp_library/opt/compile.py
+      title: cp_library/opt/compile.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/opt/lib_load.py
+      title: cp_library/opt/lib_load.py
   - name: cp_library/vis
     pages:
     - icon: ':warning:'

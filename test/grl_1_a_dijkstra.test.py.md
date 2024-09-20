@@ -2,17 +2,23 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/digraph_cls.py
+    title: cp_library/alg/graph/digraph_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dijkstra_fn.py
     title: cp_library/alg/graph/dijkstra_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/parsable_cls.py
-    title: cp_library/io/parsable_cls.py
+    path: cp_library/alg/graph/edge_cls.py
+    title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/parse_stream_fn.py
-    title: cp_library/io/parse_stream_fn.py
+    path: cp_library/alg/graph/edge_weighted_cls.py
+    title: cp_library/alg/graph/edge_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parser_cls.py
+    title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
@@ -32,74 +38,96 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\nimport sys\nfrom typing import Type, TypeVar\n\nT = TypeVar('T')\n\
-    def read(spec: Type[T]|T=[int]) -> T:\n    return parse_stream(sys.stdin, spec)\n\
-    \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
-    from typing import Collection, Iterator, Type, TypeVar\n\n\nclass Parsable:\n\
-    \    @classmethod\n    def parse(cls, parse_spec):\n        return parse_spec(lambda\
-    \ s: cls(s))\n\nT = TypeVar('T')\ndef parse_stream(stream: Iterator[str], spec:\
-    \ Type[T]|T) -> T:\n\n    def parse_tuple(cls, specs):\n        match specs:\n\
-    \            case [spec, end] if end is ...: \n                return cls(parse_line(spec))\n\
-    \            case specs:                     \n                return cls(parse_spec(spec)\
-    \ for spec in specs)\n\n    def parse_collection(cls, specs) -> list:\n      \
-    \  match specs:\n            case [ ] | [_] | set():          \n             \
-    \   return cls(parse_line(*specs))\n            case [spec, int() as n]: \n  \
-    \              return cls(parse_spec(spec) for _ in range(n))\n            case\
-    \ _:\n                raise NotImplementedError()\n\n    def parse_spec(spec):\n\
-    \        if args := match_spec(spec, Parsable):\n            cls, args = args\n\
-    \            return cls.parse(parse_spec, *args)\n        elif args := match_spec(spec,\
-    \ tuple):      \n            return parse_tuple(*args)\n        elif args := match_spec(spec,\
-    \ Collection): \n            return parse_collection(*args)\n        elif issubclass(cls\
-    \ := type(offset := spec), Number):         \n            return cls(next_token())\
-    \ + offset\n        elif callable(cls := spec):                  \n          \
-    \  return cls(next_token())\n        else:\n            raise NotImplementedError()\n\
-    \n    def next_token():\n        if not queue: queue.extend(next_line())\n   \
-    \     return queue.popleft()\n    \n    def parse_line(spec=int):\n        if\
-    \ not queue: queue.extend(next_line())\n        while queue: yield parse_spec(spec)\n\
-    \        \n    def next_line():\n        return next(stream).rstrip().split()\n\
-    \    \n    def match_spec(spec, types):\n        if issubclass(cls := type(specs\
-    \ := spec), types):\n            return cls, specs\n        elif (isinstance(spec,\
-    \ type) and \n             issubclass(cls := typing.get_origin(spec) or spec,\
-    \ types)):\n            return cls, (typing.get_args(spec) or tuple())\n     \
-    \   \n    queue = deque() \n    return parse_spec(spec)\n\nimport heapq\n\ndef\
-    \ dijkstra(G, N, root) -> list[int]:\n    D = [inf for _ in range(N)]\n    D[root]\
-    \ = 0\n    q = [(0, root)]\n    while q:\n        d, v = heapq.heappop(q)\n  \
-    \      if d > D[v]: continue\n\n        for w, u in G[v]:\n            nd = d\
-    \ + w\n            if nd < D[u]:\n                D[u] = nd\n                heapq.heappush(q,\
-    \ (nd, u))\n    return D\n\n\nclass DiGraphWeighted(list, Parsable):\n    def\
-    \ __init__(self, N, edges=[]):\n        super().__init__(([] for _ in range(N)))\n\
-    \        for u,v,w in edges:\n            self[u].append((w,v))\n\n    @classmethod\n\
-    \    def parse(cls, parse_spec, N, M, I=-1):\n        return cls(N, parse_spec(list[tuple[I,I,int],\
-    \ M]))\n\nN, M, r = read()\nG = read(DiGraphWeighted[N, M, 0])\nD = dijkstra(G,\
-    \ N, r)\nprint(*('INF' if d == inf else d for d in D), sep='\\n')\n"
-  code: '# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A
-
-    from math import inf
-
-    from cp_library.io.read_specs_fn import read
-
-    from cp_library.alg.graph.dijkstra_fn import dijkstra
-
-    from cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted
-
-
-    N, M, r = read()
-
-    G = read(DiGraphWeighted[N, M, 0])
-
-    D = dijkstra(G, N, r)
-
-    print(*(''INF'' if d == inf else d for d in D), sep=''\n'')'
+    \        \n'''\n\nimport sys\nfrom typing import Iterator, Type, TypeVar, overload\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ typing import Callable, Collection, Iterator, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \    def __init__(self, stream = sys.stdin):\n        self.stream = stream\n \
+    \       self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \        while self.queue: yield\n        \n    def line(self):\n        assert\
+    \ not self.queue\n        return next(self.stream).rstrip().split()\n    \n  \
+    \      \nT = TypeVar('T')\nclass Parser:\n    def __init__(self, spec: type[T]|T):\n\
+    \        self.parse = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream)\
+    \ -> T:\n        return self.parse(ts)\n\n    @staticmethod\n    def compile(spec:\
+    \ type[T]|T=int) -> Callable[[TokenStream],T]:\n            \n        def compile_tuple(cls,\
+    \ specs):\n            match specs:\n                case [spec, end] if end is\
+    \ ...: \n                    fn = Parser.compile(spec) \n                    return\
+    \ lambda ts: cls(fn(ts) for _ in ts.wait())\n                case specs:\n   \
+    \                 fns = tuple(Parser.compile(spec) for spec in specs)        \
+    \       \n                    return lambda ts: cls(fn(ts) for fn in fns)\n\n\
+    \        def compile_collection(cls, specs) -> list:\n            match specs:\n\
+    \                case [ ] | [_] | set():   \n                    fn = Parser.compile(*specs)\
+    \       \n                    return lambda ts: cls(fn(ts) for _ in ts.wait())\n\
+    \                case [spec, int() as n]: \n                    fn = Parser.compile(spec)\n\
+    \                    return lambda ts: cls(fn(ts) for _ in range(n))\n       \
+    \         case _:\n                    raise NotImplementedError()\n        \n\
+    \        def match_spec(spec, types):\n            if issubclass(cls := type(specs\
+    \ := spec), types):\n                return cls, specs\n            elif (isinstance(spec,\
+    \ type) and \n                issubclass(cls := typing.get_origin(spec) or spec,\
+    \ types)):\n                return cls, (typing.get_args(spec) or tuple())\n \
+    \           \n        if args := match_spec(spec, Parsable):\n            cls,\
+    \ args = args\n            return cls.compile(*args)\n        elif issubclass(cls\
+    \ := type(offset := spec), Number):         \n            return lambda ts: cls(next(ts))\
+    \ + offset\n        elif args := match_spec(spec, tuple):      \n            return\
+    \ compile_tuple(*args)\n        elif args := match_spec(spec, Collection): \n\
+    \            return compile_collection(*args)\n        elif callable(cls := spec):\
+    \                  \n            return lambda ts: cls(next(ts))\n        else:\n\
+    \            raise NotImplementedError()\n        \nclass Parsable:\n    @classmethod\n\
+    \    def compile(cls):\n        return lambda ts: cls(next(ts))\n\nT = TypeVar('T')\n\
+    @overload\ndef read(spec: int|None) -> Iterator[int]: ...\n@overload\ndef read(spec:\
+    \ Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None):\n    match spec:\n   \
+    \     case None:\n            return map(int, input().split())\n        case int(i0):\n\
+    \            return (int(s)-i0 for s in input().split())\n        case _:\n  \
+    \          stream = TokenStream(sys.stdin)\n            parser = Parser(spec)\n\
+    \            return parser(stream)\n\nimport heapq\n\ndef dijkstra(G, N, root)\
+    \ -> list[int]:\n    D = [inf for _ in range(N)]\n    D[root] = 0\n    q = [(0,\
+    \ root)]\n    while q:\n        d, v = heapq.heappop(q)\n        if d > D[v]:\
+    \ continue\n\n        for w, u in G[v]:\n            if (nd := d + w) < D[u]:\n\
+    \                D[u] = nd\n                heapq.heappush(q, (nd, u))\n    return\
+    \ D\n\n\nfrom typing import TypeAlias\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n\
+    \    @property\n    def u(self) -> int: return self[0]\n    @property\n    def\
+    \ v(self) -> int: return self[1]\n    @property\n    def forw(self) -> H: return\
+    \ self[1]\n    @property\n    def back(self) -> H: return self[0]\n    @classmethod\n\
+    \    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n           \
+    \ return cls((int(s)-I for s in ts.line()))\n        return parse\n\nclass EdgeWeighted(Edge,\
+    \ Parsable):\n    H: TypeAlias = tuple[int,int]\n    @property\n    def w(self):\
+    \ return self[0]\n    @property\n    def u(self): return self[1]\n    @property\n\
+    \    def v(self): return self[2]\n    @property\n    def forw(self) -> H: return\
+    \ self[0], self[2]\n    @property\n    def back(self) -> H: return self[0], self[1]\n\
+    \    @classmethod\n    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n\
+    \            u,v,w = map(int,ts.line())\n            return cls((w,u-I,v-I))\n\
+    \        return parse\n\n\n\nN = TypeVar('N', bound=int)\nE = TypeVar('N', bound=Edge)\n\
+    class DiGraph(list[H], Parsable):\n    def __init__(G, N: N, edges: list[E]=[]):\n\
+    \        super().__init__([] for _ in range(N))\n        for edge in edges:\n\
+    \            G[edge.u].append(edge.forw)\n\n    @classmethod\n    def compile(cls,\
+    \ N: int, M: int, E: E|int = Edge[-1]):\n        if isinstance(E, int):\n    \
+    \        E = Edge[E]\n        edge = Parser.compile(E)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n   \
+    \     return parse\n\nclass DiGraphWeighted(DiGraph[EdgeWeighted]):\n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, E: EdgeWeighted|int = EdgeWeighted[-1]):\n\
+    \        if isinstance(E, int):\n            E = EdgeWeighted[E]\n        return\
+    \ super().compile(N, M, E)\n\nN, M, r = read()\nG = read(DiGraphWeighted[N, M,\
+    \ 0])\nD = dijkstra(G, N, r)\nprint(*('INF' if d == inf else d for d in D), sep='\\\
+    n')\ndef main():\n    ...\nif __name__ == '__main__':\n    main()\n"
+  code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A\n\
+    from math import inf\nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.alg.graph.dijkstra_fn\
+    \ import dijkstra\nfrom cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted\n\
+    \nN, M, r = read()\nG = read(DiGraphWeighted[N, M, 0])\nD = dijkstra(G, N, r)\n\
+    print(*('INF' if d == inf else d for d in D), sep='\\n')\ndef main():\n    ...\n\
+    if __name__ == '__main__':\n    main()"
   dependsOn:
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/dijkstra_fn.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  - cp_library/io/parse_stream_fn.py
-  - cp_library/io/parsable_cls.py
+  - cp_library/io/parser_cls.py
+  - cp_library/alg/graph/edge_weighted_cls.py
+  - cp_library/alg/graph/digraph_cls.py
+  - cp_library/alg/graph/edge_cls.py
   isVerificationFile: true
   path: test/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_a_dijkstra.test.py

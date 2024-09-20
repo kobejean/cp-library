@@ -63,7 +63,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bir_cls.py
   requiredBy: []
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/bir_cls.py

@@ -20,20 +20,19 @@ data:
     import heapq\nfrom math import inf\n\ndef dijkstra(G, N, root) -> list[int]:\n\
     \    D = [inf for _ in range(N)]\n    D[root] = 0\n    q = [(0, root)]\n    while\
     \ q:\n        d, v = heapq.heappop(q)\n        if d > D[v]: continue\n\n     \
-    \   for w, u in G[v]:\n            nd = d + w\n            if nd < D[u]:\n   \
-    \             D[u] = nd\n                heapq.heappush(q, (nd, u))\n    return\
-    \ D\n"
+    \   for w, u in G[v]:\n            if (nd := d + w) < D[u]:\n                D[u]\
+    \ = nd\n                heapq.heappush(q, (nd, u))\n    return D\n"
   code: "import cp_library.alg.graph.__init__\nimport heapq\nfrom math import inf\n\
     \ndef dijkstra(G, N, root) -> list[int]:\n    D = [inf for _ in range(N)]\n  \
     \  D[root] = 0\n    q = [(0, root)]\n    while q:\n        d, v = heapq.heappop(q)\n\
-    \        if d > D[v]: continue\n\n        for w, u in G[v]:\n            nd =\
-    \ d + w\n            if nd < D[u]:\n                D[u] = nd\n              \
-    \  heapq.heappush(q, (nd, u))\n    return D\n"
+    \        if d > D[v]: continue\n\n        for w, u in G[v]:\n            if (nd\
+    \ := d + w) < D[u]:\n                D[u] = nd\n                heapq.heappush(q,\
+    \ (nd, u))\n    return D\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/dijkstra_fn.py
   requiredBy: []
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_a_dijkstra.test.py

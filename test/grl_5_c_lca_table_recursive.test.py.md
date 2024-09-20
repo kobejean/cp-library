@@ -23,7 +23,10 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C\n\
-    from typing import List\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ndef main():\n    N, = read()\n    T = []\n    for _ in range(N):\n        k,\
+    \ *adj = read()\n        T.append(adj)\n    lca = LCATable(T, 0)\n    Q, = read()\n\
+    \    for _ in range(Q):\n        u, v = read()\n        print(lca.query(u,v)[0])\n\
+    \nfrom typing import List\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -51,14 +54,13 @@ data:
     \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
     \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
     \      return a, d\n\n\ndef read(shift=0, base=10):\n    return [int(s, base)\
-    \ + shift for s in input().split()]\n\nN, = read()\nT = []\nfor _ in range(N):\n\
-    \    k, *adj = read()\n    T.append(adj)\nlca = LCATable(T, 0)\nQ, = read()\n\
-    for _ in range(Q):\n    u, v = read()\n    print(lca.query(u,v)[0])\n"
+    \ + shift for s in input().split()]\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C\n\
-    from cp_library.alg.tree.lca_table_recursive_cls import LCATable\nfrom cp_library.io.read_int_fn\
-    \ import read\n\nN, = read()\nT = []\nfor _ in range(N):\n    k, *adj = read()\n\
-    \    T.append(adj)\nlca = LCATable(T, 0)\nQ, = read()\nfor _ in range(Q):\n  \
-    \  u, v = read()\n    print(lca.query(u,v)[0])"
+    \ndef main():\n    N, = read()\n    T = []\n    for _ in range(N):\n        k,\
+    \ *adj = read()\n        T.append(adj)\n    lca = LCATable(T, 0)\n    Q, = read()\n\
+    \    for _ in range(Q):\n        u, v = read()\n        print(lca.query(u,v)[0])\n\
+    \nfrom cp_library.alg.tree.lca_table_recursive_cls import LCATable\nfrom cp_library.io.read_int_fn\
+    \ import read\n\nif __name__ == '__main__':\n    main()"
   dependsOn:
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/io/read_int_fn.py
@@ -67,7 +69,7 @@ data:
   isVerificationFile: true
   path: test/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_c_lca_table_recursive.test.py

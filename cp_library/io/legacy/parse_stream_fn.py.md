@@ -1,9 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/parsable_cls.py
-    title: cp_library/io/parsable_cls.py
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -18,10 +15,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ typing import Collection, Iterator, Type, TypeVar\n\n\nclass Parsable:\n   \
-    \ @classmethod\n    def parse(cls, parse_spec):\n        return parse_spec(lambda\
-    \ s: cls(s))\n\nT = TypeVar('T')\ndef parse_stream(stream: Iterator[str], spec:\
-    \ Type[T]|T) -> T:\n\n    def parse_tuple(cls, specs):\n        if isinstance(specs,\
+    \ typing import Collection, Iterator, Type, TypeVar\n\nfrom cp_library.io.parsable_cls\
+    \ import Parsable\n\nT = TypeVar('T')\ndef parse_stream(stream: Iterator[str],\
+    \ spec: Type[T]|T) -> T:\n\n    def parse_tuple(cls, specs):\n        if isinstance(specs,\
     \ list) and len(specs) == 2 and specs[1] is ...:\n            return cls(parse_line(specs[0]))\n\
     \        else:\n            return cls(parse_spec(spec) for spec in specs)\n\n\
     \    def parse_collection(cls, specs) -> list:\n        if not specs or (isinstance(specs,\
@@ -74,12 +70,11 @@ data:
     \ type) and \n             issubclass(cls := typing.get_origin(spec) or spec,\
     \ types)):\n            return cls, (typing.get_args(spec) or tuple())\n     \
     \   \n    queue = deque() \n    return parse_spec(spec)\n"
-  dependsOn:
-  - cp_library/io/parsable_cls.py
+  dependsOn: []
   isVerificationFile: false
   path: cp_library/io/legacy/parse_stream_fn.py
   requiredBy: []
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/io/legacy/parse_stream_fn.py

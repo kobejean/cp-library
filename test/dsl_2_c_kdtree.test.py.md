@@ -60,20 +60,21 @@ data:
     \ [int(s, base) + shift for s in input().split()]\n\nN, = read()\npts = [read()\
     \ for _ in range(N)]\n\nkdtree = KDTree(pts)\n\nQ, = read()\nfor _ in range(Q):\n\
     \    sx,tx,sy,ty = read()\n    tx += 1\n    ty += 1\n    ans = sorted(kdtree[sx:tx,sy:ty])\
-    \ + ['']\n    print(*ans, sep='\\n')\n"
+    \ + ['']\n    print(*ans, sep='\\n')\ndef main():\n    ...\nif __name__ == '__main__':\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_C\n\
     from cp_library.ds.kdtree_cls import KDTree\nfrom cp_library.io.read_int_fn import\
     \ read\n\nN, = read()\npts = [read() for _ in range(N)]\n\nkdtree = KDTree(pts)\n\
     \nQ, = read()\nfor _ in range(Q):\n    sx,tx,sy,ty = read()\n    tx += 1\n   \
     \ ty += 1\n    ans = sorted(kdtree[sx:tx,sy:ty]) + ['']\n    print(*ans, sep='\\\
-    n')\n"
+    n')\ndef main():\n    ...\nif __name__ == '__main__':\n    main()"
   dependsOn:
   - cp_library/ds/kdtree_cls.py
   - cp_library/io/read_int_fn.py
   isVerificationFile: true
   path: test/dsl_2_c_kdtree.test.py
   requiredBy: []
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dsl_2_c_kdtree.test.py

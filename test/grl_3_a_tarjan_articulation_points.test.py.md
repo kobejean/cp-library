@@ -2,20 +2,17 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/edge_cls.py
+    title: cp_library/alg/graph/edge_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/tarjan_articulation_points_fn.py
     title: cp_library/alg/graph/tarjan_articulation_points_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/parsable_cls.py
-    title: cp_library/io/parsable_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/parse_stream_fn.py
-    title: cp_library/io/parse_stream_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_graph_fn.py
-    title: cp_library/io/read_graph_fn.py
+    path: cp_library/io/parser_cls.py
+    title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
@@ -32,7 +29,7 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
-    \ndef main():\n    N, M = read()\n    G = read_graph(N, M, 0)\n    ans = sorted(tarjan_articulation_points(G,\
+    \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    ans = sorted(tarjan_articulation_points(G,\
     \ N))\n    if ans:\n        print(*ans, sep='\\n')\n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -51,61 +48,80 @@ data:
     \                low[u] = min(low[u], order[v])\n\n        if parent[u] == -1\
     \ and children > 1:\n            ap.add(u)\n\n    for i in range(N):\n       \
     \ if order[i] is None:\n            dfs(i)\n\n    return ap\n\n\nfrom typing import\
-    \ Type, TypeVar\n\nT = TypeVar('T')\ndef read(spec: Type[T]|T=[int]) -> T:\n \
-    \   return parse_stream(sys.stdin, spec)\n\n\nimport typing\nfrom collections\
-    \ import deque\nfrom numbers import Number\nfrom typing import Collection, Iterator,\
-    \ Type, TypeVar\n\n\nclass Parsable:\n    @classmethod\n    def parse(cls, parse_spec):\n\
-    \        return parse_spec(lambda s: cls(s))\n\nT = TypeVar('T')\ndef parse_stream(stream:\
-    \ Iterator[str], spec: Type[T]|T) -> T:\n\n    def parse_tuple(cls, specs):\n\
-    \        match specs:\n            case [spec, end] if end is ...: \n        \
-    \        return cls(parse_line(spec))\n            case specs:               \
-    \      \n                return cls(parse_spec(spec) for spec in specs)\n\n  \
-    \  def parse_collection(cls, specs) -> list:\n        match specs:\n         \
-    \   case [ ] | [_] | set():          \n                return cls(parse_line(*specs))\n\
-    \            case [spec, int() as n]: \n                return cls(parse_spec(spec)\
-    \ for _ in range(n))\n            case _:\n                raise NotImplementedError()\n\
-    \n    def parse_spec(spec):\n        if args := match_spec(spec, Parsable):\n\
-    \            cls, args = args\n            return cls.parse(parse_spec, *args)\n\
-    \        elif args := match_spec(spec, tuple):      \n            return parse_tuple(*args)\n\
-    \        elif args := match_spec(spec, Collection): \n            return parse_collection(*args)\n\
-    \        elif issubclass(cls := type(offset := spec), Number):         \n    \
-    \        return cls(next_token()) + offset\n        elif callable(cls := spec):\
-    \                  \n            return cls(next_token())\n        else:\n   \
-    \         raise NotImplementedError()\n\n    def next_token():\n        if not\
-    \ queue: queue.extend(next_line())\n        return queue.popleft()\n    \n   \
-    \ def parse_line(spec=int):\n        if not queue: queue.extend(next_line())\n\
-    \        while queue: yield parse_spec(spec)\n        \n    def next_line():\n\
-    \        return next(stream).rstrip().split()\n    \n    def match_spec(spec,\
-    \ types):\n        if issubclass(cls := type(specs := spec), types):\n       \
-    \     return cls, specs\n        elif (isinstance(spec, type) and \n         \
-    \    issubclass(cls := typing.get_origin(spec) or spec, types)):\n           \
-    \ return cls, (typing.get_args(spec) or tuple())\n        \n    queue = deque()\
-    \ \n    return parse_spec(spec)\n\n\n\nclass Graph(list, Parsable):\n    def __init__(self,\
-    \ N, edges=[]):\n        super().__init__(([] for _ in range(N)))\n        for\
-    \ u,v in edges:\n            self[u].append(v)\n            self[v].append(u)\n\
-    \n    @classmethod\n    def parse(cls, parse_spec, N, M, I=-1):\n        return\
-    \ cls(N, parse_spec(list[tuple[I,I], M]))\n\n\ndef read_graph(N: int, M: int,\
-    \ i0=-1):\n    # G: Graph = [[] for _ in range(n)]\n    # for _ in range(m):\n\
-    \    #     u,v = read(tuple[-i0,-i0])\n    #     G[u].append(v)\n    #     G[v].append(u)\n\
-    \    return read(Graph[N, M, i0])\n\nif __name__ == '__main__':\n    main()\n"
+    \ TypeVar\nfrom typing import TypeAlias, TypeVar\n\n\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom typing import Callable, Collection,\
+    \ Iterator, TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream\
+    \ = sys.stdin):\n        self.stream = stream\n        self.queue = deque()\n\n\
+    \    def __next__(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
+    \        \n    def line(self):\n        assert not self.queue\n        return\
+    \ next(self.stream).rstrip().split()\n    \n        \nT = TypeVar('T')\nclass\
+    \ Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse = Parser.compile(spec)\n\
+    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
+    \n    @staticmethod\n    def compile(spec: type[T]|T=int) -> Callable[[TokenStream],T]:\n\
+    \            \n        def compile_tuple(cls, specs):\n            match specs:\n\
+    \                case [spec, end] if end is ...: \n                    fn = Parser.compile(spec)\
+    \ \n                    return lambda ts: cls(fn(ts) for _ in ts.wait())\n   \
+    \             case specs:\n                    fns = tuple(Parser.compile(spec)\
+    \ for spec in specs)               \n                    return lambda ts: cls(fn(ts)\
+    \ for fn in fns)\n\n        def compile_collection(cls, specs) -> list:\n    \
+    \        match specs:\n                case [ ] | [_] | set():   \n          \
+    \          fn = Parser.compile(*specs)       \n                    return lambda\
+    \ ts: cls(fn(ts) for _ in ts.wait())\n                case [spec, int() as n]:\
+    \ \n                    fn = Parser.compile(spec)\n                    return\
+    \ lambda ts: cls(fn(ts) for _ in range(n))\n                case _:\n        \
+    \            raise NotImplementedError()\n        \n        def match_spec(spec,\
+    \ types):\n            if issubclass(cls := type(specs := spec), types):\n   \
+    \             return cls, specs\n            elif (isinstance(spec, type) and\
+    \ \n                issubclass(cls := typing.get_origin(spec) or spec, types)):\n\
+    \                return cls, (typing.get_args(spec) or tuple())\n            \n\
+    \        if args := match_spec(spec, Parsable):\n            cls, args = args\n\
+    \            return cls.compile(*args)\n        elif issubclass(cls := type(offset\
+    \ := spec), Number):         \n            return lambda ts: cls(next(ts)) + offset\n\
+    \        elif args := match_spec(spec, tuple):      \n            return compile_tuple(*args)\n\
+    \        elif args := match_spec(spec, Collection): \n            return compile_collection(*args)\n\
+    \        elif callable(cls := spec):                  \n            return lambda\
+    \ ts: cls(next(ts))\n        else:\n            raise NotImplementedError()\n\
+    \        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        return\
+    \ lambda ts: cls(next(ts))\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n\
+    \    @property\n    def u(self) -> int: return self[0]\n    @property\n    def\
+    \ v(self) -> int: return self[1]\n    @property\n    def forw(self) -> H: return\
+    \ self[1]\n    @property\n    def back(self) -> H: return self[0]\n    @classmethod\n\
+    \    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n           \
+    \ return cls((int(s)-I for s in ts.line()))\n        return parse\n\n\n\nN = TypeVar('N',\
+    \ bound=int)\nE = TypeVar('E', bound=Edge)\nclass Graph(list[H], Parsable):\n\
+    \    def __init__(G, N: N, edges: list[E]=[]):\n        super().__init__([] for\
+    \ _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
+    \            G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls,\
+    \ N: int, M: int, E: E|int = Edge[-1]):\n        if isinstance(E, int):\n    \
+    \        E = Edge[E]\n        edge = Parser.compile(E)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n   \
+    \     return parse\n\nfrom typing import Iterator, Type, TypeVar, overload\n\n\
+    T = TypeVar('T')\n@overload\ndef read(spec: int|None) -> Iterator[int]: ...\n\
+    @overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None):\n\
+    \    match spec:\n        case None:\n            return map(int, input().split())\n\
+    \        case int(i0):\n            return (int(s)-i0 for s in input().split())\n\
+    \        case _:\n            stream = TokenStream(sys.stdin)\n            parser\
+    \ = Parser(spec)\n            return parser(stream)\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
-    \ndef main():\n    N, M = read()\n    G = read_graph(N, M, 0)\n    ans = sorted(tarjan_articulation_points(G,\
+    \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    ans = sorted(tarjan_articulation_points(G,\
     \ N))\n    if ans:\n        print(*ans, sep='\\n')\n\nfrom cp_library.alg.graph.tarjan_articulation_points_fn\
-    \ import tarjan_articulation_points\nfrom cp_library.io.read_graph_fn import read_graph\n\
-    from cp_library.io.read_specs_fn import read\n\nif __name__ == '__main__':\n \
-    \   main()"
+    \ import tarjan_articulation_points\nfrom cp_library.alg.graph.graph_cls import\
+    \ Graph\nfrom cp_library.io.read_specs_fn import read\n\nif __name__ == '__main__':\n\
+    \    main()"
   dependsOn:
   - cp_library/alg/graph/tarjan_articulation_points_fn.py
-  - cp_library/io/read_graph_fn.py
+  - cp_library/alg/graph/graph_cls.py
   - cp_library/io/read_specs_fn.py
   - cp_library/misc/setrecursionlimit.py
-  - cp_library/alg/graph/graph_cls.py
-  - cp_library/io/parse_stream_fn.py
-  - cp_library/io/parsable_cls.py
+  - cp_library/alg/graph/edge_cls.py
+  - cp_library/io/parser_cls.py
   isVerificationFile: true
   path: test/grl_3_a_tarjan_articulation_points.test.py
   requiredBy: []
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_tarjan_articulation_points.test.py

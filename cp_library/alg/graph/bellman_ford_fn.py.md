@@ -33,7 +33,7 @@ data:
   path: cp_library/alg/graph/bellman_ford_fn.py
   requiredBy:
   - cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-  timestamp: '2024-09-20 03:21:05+09:00'
+  timestamp: '2024-09-21 04:14:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py
