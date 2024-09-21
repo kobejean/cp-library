@@ -9,7 +9,7 @@ N = TypeVar('N', bound=int)
 E = TypeVar('N', bound=Edge)
 class DiGraph(list[H], Parsable):
     def __init__(G, N: N, edges: list[E]=[]):
-        super().__header__([] for _ in range(N))
+        super().__init__([] for _ in range(N))
         for edge in edges:
             G[edge.u].append(edge.forw)
 

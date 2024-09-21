@@ -5,7 +5,7 @@ class AhoCorasick(Trie):
     __slots__ = 'failed',
 
     def __init__(self):
-        super().__header__()
+        super().__init__()
         self.failed: 'AhoCorasick' = None
 
     def build_fail(self):

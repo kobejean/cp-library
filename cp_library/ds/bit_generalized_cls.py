@@ -32,7 +32,7 @@ class BinaryIndexTree:
 class BinaryIndexTreePURQ(BinaryIndexTree):
     def __init__(self, e, op, inv, v: int|list):
         self.inv = inv
-        super().__header__(e, op, v)
+        super().__init__(e, op, v)
 
     def range_sum(self, l: int, r: int) -> object:
         return self.op(self.pref_sum(r), self.inv(self.pref_sum(l)))

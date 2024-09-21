@@ -5,7 +5,7 @@ from typing import Any
 
 class SlidingMinMax(deque):
     def __init__(self):
-        super().__header__()
+        super().__init__()
         self.minq = deque()
         self.maxq = deque()
 
