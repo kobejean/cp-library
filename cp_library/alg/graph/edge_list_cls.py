@@ -1,4 +1,4 @@
-import cp_library.alg.__init__
+import cp_library.alg.__header__
 
 from typing import TypeVar
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream

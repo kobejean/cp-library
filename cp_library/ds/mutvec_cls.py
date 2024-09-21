@@ -1,4 +1,4 @@
-import cp_library.ds.__init__
+import cp_library.ds.__header__
 
 import operator
 import typing
@@ -8,9 +8,9 @@ from cp_library.ds.vec_op_mixin import VecOpMixin
 class mutvec(list, VecOpMixin):
     def __init__(self, *args):
         if len(args) == 1 and isinstance(args[0], typing.Iterable):
-            super().__init__(args[0])
+            super().__header__(args[0])
         else:
-            super().__init__(args)
+            super().__header__(args)
 
     def ielm_wise(self, other, op):
         if isinstance(other, numbers.Real):

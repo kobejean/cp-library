@@ -1,4 +1,4 @@
-import cp_library.io.__init__
+import cp_library.io.__header__
 
 import sys
 from typing import Iterator, Type, TypeVar, overload
@@ -17,5 +17,5 @@ def read(spec: Type[T]|T=None):
             return (int(s)-i0 for s in input().split())
         case _:
             stream = TokenStream(sys.stdin)
-            parser = Parser(spec)
+            parser: T = Parser.compile(spec)
             return parser(stream)

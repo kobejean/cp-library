@@ -1,4 +1,4 @@
-import cp_library.io.__init__
+import cp_library.io.__header__
 
 import sys
 from typing import Type, TypeVar

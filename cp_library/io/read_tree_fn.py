@@ -1,4 +1,4 @@
-import cp_library.io.__init__
+import cp_library.io.__header__
 from cp_library.io.read_specs_fn import read
 from cp_library.alg.graph.graph_cls import Graph
 

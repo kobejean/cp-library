@@ -1,4 +1,4 @@
-import cp_library.alg.graph.__init__
+import cp_library.alg.graph.__header__
 import heapq
 from math import inf
 

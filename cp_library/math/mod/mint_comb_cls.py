@@ -1,4 +1,4 @@
-import cp_library.math.mod.__init__
+import cp_library.math.mod.__header__
 from itertools import accumulate
 
 class mint(int):

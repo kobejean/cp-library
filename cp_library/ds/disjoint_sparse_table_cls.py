@@ -1,4 +1,4 @@
-import cp_library.ds.__init__
+import cp_library.ds.__header__
 
 class DisjointSparseTable:
     def __init__(self, op, arr: list):

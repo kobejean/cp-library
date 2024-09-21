@@ -1,4 +1,4 @@
-import cp_library.math.mod.__init__
+import cp_library.math.mod.__header__
 
 def mobius_transform(A, N, mod):
     for i in range(N):

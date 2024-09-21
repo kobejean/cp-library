@@ -73,7 +73,7 @@ class Parser:
         
 class LineParser(Parser):
     def __init__(self, fn, child):
-        super().__init__(fn,child)
+        super().__header__(fn,child)
         self.stride = inf
 
     def __call__(self, s):

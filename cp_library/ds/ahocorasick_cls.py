@@ -1,11 +1,11 @@
-import cp_library.ds.__init__
+import cp_library.ds.__header__
 from cp_library.ds.trie_cls import Trie
 
 class AhoCorasick(Trie):
     __slots__ = 'failed',
 
     def __init__(self):
-        super().__init__()
+        super().__header__()
         self.failed: 'AhoCorasick' = None
 
     def build_fail(self):

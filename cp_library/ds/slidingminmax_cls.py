@@ -1,11 +1,11 @@
-import cp_library.ds.__init__
+import cp_library.ds.__header__
 
 from collections import deque
 from typing import Any
 
 class SlidingMinMax(deque):
     def __init__(self):
-        super().__init__()
+        super().__header__()
         self.minq = deque()
         self.maxq = deque()
 

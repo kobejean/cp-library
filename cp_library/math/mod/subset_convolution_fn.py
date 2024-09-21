@@ -1,4 +1,4 @@
-import cp_library.math.mod.__init__
+import cp_library.math.mod.__header__
 
 def subset_convolution(A, B, N, mod):
     Z = 1 << N

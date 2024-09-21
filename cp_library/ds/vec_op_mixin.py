@@ -1,4 +1,4 @@
-import cp_library.ds.__init__
+import cp_library.ds.__header__
 
 import operator
 from numbers import Number

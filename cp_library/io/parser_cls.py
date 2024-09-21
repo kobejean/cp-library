@@ -1,10 +1,10 @@
-import cp_library.io.__init__
+import cp_library.io.__header__
 
 import sys
 import typing
 from collections import deque
 from numbers import Number
-from typing import Callable, Collection, Iterator, TypeVar
+from typing import Callable, Collection, Iterator, TypeAlias, TypeVar
 
 class TokenStream(Iterator):
     def __init__(self, stream = sys.stdin):
@@ -22,61 +22,100 @@ class TokenStream(Iterator):
     def line(self):
         assert not self.queue
         return next(self.stream).rstrip().split()
-    
         
 T = TypeVar('T')
+ParseFn: TypeAlias = Callable[[TokenStream],T]
 class Parser:
     def __init__(self, spec: type[T]|T):
         self.parse = Parser.compile(spec)
 
     def __call__(self, ts: TokenStream) -> T:
         return self.parse(ts)
-
+    
     @staticmethod
-    def compile(spec: type[T]|T=int) -> Callable[[TokenStream],T]:
-            
-        def compile_tuple(cls, specs):
-            match specs:
-                case [spec, end] if end is ...: 
-                    fn = Parser.compile(spec) 
-                    return lambda ts: cls(fn(ts) for _ in ts.wait())
-                case specs:
-                    fns = tuple(Parser.compile(spec) for spec in specs)               
-                    return lambda ts: cls(fn(ts) for fn in fns)
-
-        def compile_collection(cls, specs) -> list:
-            match specs:
-                case [ ] | [_] | set():   
-                    fn = Parser.compile(*specs)       
-                    return lambda ts: cls(fn(ts) for _ in ts.wait())
-                case [spec, int() as n]: 
-                    fn = Parser.compile(spec)
-                    return lambda ts: cls(fn(ts) for _ in range(n))
-                case _:
-                    raise NotImplementedError()
-        
-        def match_spec(spec, types):
-            if issubclass(cls := type(specs := spec), types):
-                return cls, specs
-            elif (isinstance(spec, type) and 
-                issubclass(cls := typing.get_origin(spec) or spec, types)):
-                return cls, (typing.get_args(spec) or tuple())
-            
-        if args := match_spec(spec, Parsable):
-            cls, args = args
+    def compile_type(cls: type[T], args = ()) -> T:
+        if issubclass(cls, Parsable):
             return cls.compile(*args)
-        elif issubclass(cls := type(offset := spec), Number):         
-            return lambda ts: cls(next(ts)) + offset
-        elif args := match_spec(spec, tuple):      
-            return compile_tuple(*args)
-        elif args := match_spec(spec, Collection): 
-            return compile_collection(*args)
-        elif callable(cls := spec):                  
-            return lambda ts: cls(next(ts))
+        elif issubclass(cls, (Number, str)):
+            def parse(ts: TokenStream):
+                return cls(next(ts))              
+            return parse
+        elif issubclass(cls, tuple):
+            return Parser.compile_tuple(cls, args)
+        elif issubclass(cls, Collection):
+            return Parser.compile_collection(cls, args)
+        elif callable(cls):
+            def parse(ts: TokenStream):
+                return cls(next(ts))              
+            return parse
         else:
             raise NotImplementedError()
+    
+    @staticmethod
+    def compile(spec: type[T]|T=int) -> ParseFn[T]:
+        if isinstance(spec, type):
+            cls = typing.get_origin(spec) or spec
+            args = typing.get_args(spec) or tuple()
+            return Parser.compile_type(cls, args)
+        elif isinstance(offset := spec, Number): 
+            cls = type(spec)  
+            def parse(ts: TokenStream):
+                return cls(next(ts)) + offset
+            return parse
+        elif isinstance(args := spec, tuple):      
+            return Parser.compile_tuple(type(spec), args)
+        elif isinstance(args := spec, Collection):  
+            return Parser.compile_collection(type(spec), args)
+        else:
+            raise NotImplementedError()
+    
+    @staticmethod
+    def compile_line(cls: T, spec=int) -> ParseFn[T]:
+        fn = Parser.compile(spec)
+        # @parse_stride(stride=inf)
+        def parse(ts: TokenStream):
+            return cls(fn(ts) for _ in ts.wait())
+        return parse
+
+    @staticmethod
+    def compile_repeat(cls: T, spec, N) -> ParseFn[T]:
+        fn = Parser.compile(spec)
+        # @parse_stride(stride=fn.stride*N)
+        def parse(ts: TokenStream):
+            return cls(fn(ts) for _ in range(N))
+        return parse
+
+    @staticmethod
+    def compile_children(cls: T, specs) -> ParseFn[T]:
+        fns = tuple(Parser.compile(spec) for spec in specs) 
+        # @parse_stride(stride=sum(fn.stride for fn in fns))
+        def parse(ts: TokenStream):
+            return cls(fn(ts) for fn in fns)  
+        return parse
+
+    @staticmethod
+    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:
+        match specs:
+            case [spec, end] if end is ...:
+                return Parser.compile_line(cls, spec)
+            case specs:   
+                return Parser.compile_children(cls, specs)
+    
+    @staticmethod
+    def compile_collection(cls, specs):
+        match specs:
+            case [ ] | [_] | set():
+                return Parser.compile_line(cls, *specs)
+            case [spec, int() as n]:
+                return Parser.compile_repeat(cls, spec, n)
+            case _:
+                raise NotImplementedError()
+
         
 class Parsable:
     @classmethod
     def compile(cls):
-        return lambda ts: cls(next(ts))
+        # @parse_stride(stride=1)
+        def parser(ts: TokenStream):
+            return cls(next(ts))
+        return parser

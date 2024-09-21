@@ -24,7 +24,7 @@ class LCATable(SparseTable):
             else:  # Revisiting node (backtracking)
                 self.euler.append(u)
                 self.depth.append(d)
-        super().__init__(min, list(zip(self.depth, self.euler)))
+        super().__header__(min, list(zip(self.depth, self.euler)))
 
     def query(self, u, v) -> tuple[int,int]:
         l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1

@@ -1,4 +1,4 @@
-import cp_library.ds.__init__
+import cp_library.ds.__header__
 
 from cp_library.ds.vec_op_mixin import VecOpMixin
 import typing

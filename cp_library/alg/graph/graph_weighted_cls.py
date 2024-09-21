@@ -1,4 +1,4 @@
-import cp_library.alg.__init__
+import cp_library.alg.__header__
 
 from cp_library.alg.graph.edge_weighted_cls import EdgeWeighted
 from cp_library.alg.graph.graph_cls import Graph
@@ -6,6 +6,5 @@ from cp_library.alg.graph.graph_cls import Graph
 class GraphWeighted(Graph[EdgeWeighted]):
     @classmethod
     def compile(cls, N: int, M: int, E: EdgeWeighted|int = EdgeWeighted[-1]):
-        if isinstance(E, int):
-            E = EdgeWeighted[E]
+        if isinstance(E, int): E = EdgeWeighted[E]
         return super().compile(N, M, E)

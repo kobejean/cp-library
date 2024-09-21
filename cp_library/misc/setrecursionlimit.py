@@ -1,4 +1,4 @@
-import cp_library.misc.__init__
+import cp_library.misc.__header__
 
 import sys
 sys.setrecursionlimit(10**6)

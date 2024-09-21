@@ -1,4 +1,4 @@
-import cp_library.io.__init__
+import cp_library.io.__header__
 
 def read(func=0, /):
     if callable(func): return [func(s) for s in input().split()]

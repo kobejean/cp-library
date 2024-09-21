@@ -21,7 +21,7 @@ class LCATable(SparseTable):
                     depths.append(depth)
         
         dfs(root, -1, 0)
-        super().__init__(min, list(zip(depths, euler_tour)))
+        super().__header__(min, list(zip(depths, euler_tour)))
 
     def query(self, u, v) -> tuple[int,int]:
         l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1

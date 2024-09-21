@@ -1,4 +1,4 @@
-import cp_library.math.__init__
+import cp_library.math.__header__
 
 def geometric_series(r, n, a=1):
     if r == 1:
