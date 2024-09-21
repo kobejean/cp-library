@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/cht_monotone_add_max_cls.py
     title: cp_library/ds/cht_monotone_add_max_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/dp_z_cht_monotone_add_max.test.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
+  timestamp: '2024-09-21 16:55:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_z_cht_monotone_add_max.test.py

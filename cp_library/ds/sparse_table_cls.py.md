@@ -5,22 +5,22 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/tree/auxiliary_tree_cls.py
     title: cp_library/alg/tree/auxiliary_tree_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_recursive_cls.py
     title: cp_library/alg/tree/lca_table_recursive_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_recursive.test.py
     title: test/grl_5_c_lca_table_recursive.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -56,8 +56,8 @@ data:
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
-  timestamp: '2024-09-21 16:44:49+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-09-21 16:55:32+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
   - test/grl_5_c_lca_table_recursive.test.py

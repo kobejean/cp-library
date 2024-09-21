@@ -96,7 +96,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/rerooting_iterative_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
+  timestamp: '2024-09-21 16:55:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py

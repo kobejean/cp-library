@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_recursive_cls.py
     title: cp_library/alg/tree/lca_table_recursive_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C
     links:
@@ -50,7 +50,7 @@ data:
     \       for child in T[u]:\n                if child != p:\n                 \
     \   dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n     \
     \               depths.append(depth)\n        \n        dfs(root, -1, 0)\n   \
-    \     super().__header__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
+    \     super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
     \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
     \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
     \      return a, d\n\n\ndef read(shift=0, base=10):\n    return [int(s, base)\
@@ -69,8 +69,8 @@ data:
   isVerificationFile: true
   path: test/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-21 16:55:32+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_c_lca_table_recursive.test.py
 layout: document

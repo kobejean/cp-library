@@ -40,7 +40,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/disjoint_sparse_table_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
+  timestamp: '2024-09-21 16:55:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/disjoint_sparse_table_cls.py

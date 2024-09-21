@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_cls.py
     title: cp_library/alg/graph/digraph_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
     title: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyd_warshall_directed_fn.py
     title: cp_library/alg/graph/floyd_warshall_directed_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyd_warshall_fn.py
     title: cp_library/alg/graph/floyd_warshall_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/legacy/read_specs_fn.py
     title: cp_library/io/legacy/read_specs_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C
     links:
@@ -113,8 +113,8 @@ data:
     \        def parse(ts: TokenStream):\n            u,v,w = map(int,ts.line())\n\
     \            return cls((w,u-I,v-I))\n        return parse\n\n\n\nN = TypeVar('N',\
     \ bound=int)\nE = TypeVar('N', bound=Edge)\nclass DiGraph(list[H], Parsable):\n\
-    \    def __init__(G, N: N, edges: list[E]=[]):\n        super().__header__([]\
-    \ for _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
+    \    def __init__(G, N: N, edges: list[E]=[]):\n        super().__init__([] for\
+    \ _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
     \n    @classmethod\n    def compile(cls, N: int, M: int, E: E|int = Edge[-1]):\n\
     \        if isinstance(E, int):\n            E = Edge[E]\n        edge = Parser.compile(E)\n\
     \        def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for\
@@ -158,8 +158,8 @@ data:
   isVerificationFile: true
   path: test/grl_1_c_floyd_warshall.test.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-21 16:55:32+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_c_floyd_warshall.test.py
 layout: document

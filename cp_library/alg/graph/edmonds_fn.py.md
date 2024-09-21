@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -106,7 +106,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/edmonds_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
+  timestamp: '2024-09-21 16:55:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_b_edmonds_branching.test.py

@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C
     links:
@@ -50,7 +50,7 @@ data:
     \                        stack.append((u, p, d))  # Re-add parent for backtracking\n\
     \                        stack.append((child, u, d + 1))\n            else:  #\
     \ Revisiting node (backtracking)\n                self.euler.append(u)\n     \
-    \           self.depth.append(d)\n        super().__header__(min, list(zip(self.depth,\
+    \           self.depth.append(d)\n        super().__init__(min, list(zip(self.depth,\
     \ self.euler)))\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r\
     \ = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n \
     \       d, a = super().query(l, r)\n        return a, d\n\n\ndef read(shift=0,\
@@ -69,8 +69,8 @@ data:
   isVerificationFile: true
   path: test/grl_5_c_lca_table_iterative.test.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-21 16:55:32+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_c_lca_table_iterative.test.py
 layout: document

@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/tarjan_articulation_points_fn.py
     title: cp_library/alg/graph/tarjan_articulation_points_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A
     links:
@@ -104,7 +104,7 @@ data:
     \    @classmethod\n    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n\
     \            return cls((int(s)-I for s in ts.line()))\n        return parse\n\
     \n\nN = TypeVar('N', bound=int)\nE = TypeVar('E', bound=Edge)\nclass Graph(list[H],\
-    \ Parsable):\n    def __init__(G, N: N, edges: list[E]=[]):\n        super().__header__([]\
+    \ Parsable):\n    def __init__(G, N: N, edges: list[E]=[]):\n        super().__init__([]\
     \ for _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
     \            G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls,\
     \ N: int, M: int, E: E|int = Edge[-1]):\n        if isinstance(E, int):\n    \
@@ -134,8 +134,8 @@ data:
   isVerificationFile: true
   path: test/grl_3_a_tarjan_articulation_points.test.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-21 16:55:32+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_tarjan_articulation_points.test.py
 layout: document

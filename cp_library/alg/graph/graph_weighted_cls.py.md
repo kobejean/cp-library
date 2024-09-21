@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -90,8 +90,8 @@ data:
     \        def parse(ts: TokenStream):\n            u,v,w = map(int,ts.line())\n\
     \            return cls((w,u-I,v-I))\n        return parse\n\n\n\nN = TypeVar('N',\
     \ bound=int)\nE = TypeVar('E', bound=Edge)\nclass Graph(list[H], Parsable):\n\
-    \    def __init__(G, N: N, edges: list[E]=[]):\n        super().__header__([]\
-    \ for _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
+    \    def __init__(G, N: N, edges: list[E]=[]):\n        super().__init__([] for\
+    \ _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
     \            G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls,\
     \ N: int, M: int, E: E|int = Edge[-1]):\n        if isinstance(E, int):\n    \
     \        E = Edge[E]\n        edge = Parser.compile(E)\n        def parse(ts:\
@@ -113,7 +113,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/graph_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
+  timestamp: '2024-09-21 16:55:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/graph_weighted_cls.py

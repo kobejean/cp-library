@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -36,8 +36,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-09-21 16:55:32+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py
 documentation_of: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py

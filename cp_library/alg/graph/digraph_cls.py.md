@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_c_floyd_warshall.test.py
     title: test/grl_1_c_floyd_warshall.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -89,7 +89,7 @@ data:
     \    @classmethod\n    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n\
     \            return cls((int(s)-I for s in ts.line()))\n        return parse\n\
     \n\nN = TypeVar('N', bound=int)\nE = TypeVar('N', bound=Edge)\nclass DiGraph(list[H],\
-    \ Parsable):\n    def __init__(G, N: N, edges: list[E]=[]):\n        super().__header__([]\
+    \ Parsable):\n    def __init__(G, N: N, edges: list[E]=[]):\n        super().__init__([]\
     \ for _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
     \n    @classmethod\n    def compile(cls, N: int, M: int, E: E|int = Edge[-1]):\n\
     \        if isinstance(E, int):\n            E = Edge[E]\n        edge = Parser.compile(E)\n\
@@ -99,7 +99,7 @@ data:
     \ import Parsable, Parser, TokenStream\nfrom cp_library.alg.graph.edge_cls import\
     \ Edge, H\n\n\nN = TypeVar('N', bound=int)\nE = TypeVar('N', bound=Edge)\nclass\
     \ DiGraph(list[H], Parsable):\n    def __init__(G, N: N, edges: list[E]=[]):\n\
-    \        super().__header__([] for _ in range(N))\n        for edge in edges:\n\
+    \        super().__init__([] for _ in range(N))\n        for edge in edges:\n\
     \            G[edge.u].append(edge.forw)\n\n    @classmethod\n    def compile(cls,\
     \ N: int, M: int, E: E|int = Edge[-1]):\n        if isinstance(E, int):\n    \
     \        E = Edge[E]\n        edge = Parser.compile(E)\n        def parse(ts:\
@@ -112,8 +112,8 @@ data:
   path: cp_library/alg/graph/digraph_cls.py
   requiredBy:
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2024-09-21 16:44:49+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-09-21 16:55:32+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py
   - test/grl_1_a_dijkstra.test.py

@@ -4,19 +4,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/rerooting_iterative_cls.py
     title: cp_library/alg/dp/rerooting_iterative_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/bidirectional_array_cls.py
     title: cp_library/ds/bidirectional_array_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
@@ -143,8 +143,8 @@ data:
     \    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n           \
     \ return cls((int(s)-I for s in ts.line()))\n        return parse\n\n\nN = TypeVar('N',\
     \ bound=int)\nE = TypeVar('E', bound=Edge)\nclass Graph(list[H], Parsable):\n\
-    \    def __init__(G, N: N, edges: list[E]=[]):\n        super().__header__([]\
-    \ for _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
+    \    def __init__(G, N: N, edges: list[E]=[]):\n        super().__init__([] for\
+    \ _ in range(N))\n        for edge in edges:\n            G[edge.u].append(edge.forw)\n\
     \            G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls,\
     \ N: int, M: int, E: E|int = Edge[-1]):\n        if isinstance(E, int):\n    \
     \        E = Edge[E]\n        edge = Parser.compile(E)\n        def parse(ts:\
@@ -172,7 +172,7 @@ data:
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_iterative.test.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
+  timestamp: '2024-09-21 16:55:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_iterative.test.py

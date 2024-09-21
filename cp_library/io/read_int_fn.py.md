@@ -21,10 +21,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/dsl_2_c_kdtree.test.py
     title: test/dsl_2_c_kdtree.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_recursive.test.py
     title: test/grl_5_c_lca_table_recursive.test.py
   - icon: ':heavy_check_mark:'
@@ -39,9 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/unionfind_with_potential_non_commutative_group.test.py
     title: test/unionfind_with_potential_non_commutative_group.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -57,8 +57,8 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-09-21 16:55:32+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unionfind.test.py
   - test/grl_5_c_lca_table_iterative.test.py

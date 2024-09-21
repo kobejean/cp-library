@@ -26,8 +26,8 @@ data:
     \        s = self.e\n        while i > 0:\n            s, i = self.op(s, self.data[i-1]),\
     \ i-(i&-i)\n        return s\n    \n\nclass BinaryIndexTreePURQ(BinaryIndexTree):\n\
     \    def __init__(self, e, op, inv, v: int|list):\n        self.inv = inv\n  \
-    \      super().__header__(e, op, v)\n\n    def range_sum(self, l: int, r: int)\
-    \ -> object:\n        return self.op(self.pref_sum(r), self.inv(self.pref_sum(l)))\n"
+    \      super().__init__(e, op, v)\n\n    def range_sum(self, l: int, r: int) ->\
+    \ object:\n        return self.op(self.pref_sum(r), self.inv(self.pref_sum(l)))\n"
   code: "import cp_library.ds.__header__\n\nclass BinaryIndexTree:\n    def __init__(self,\
     \ e, op, v: int|list):\n        self.e, self.op = e, op\n        if isinstance(v,\
     \ int):\n            self.data, self.size = [e]*v, v\n        else:\n        \
@@ -40,14 +40,14 @@ data:
     \ i: int):\n        assert 0 <= i <= self.size\n        s = self.e\n        while\
     \ i > 0:\n            s, i = self.op(s, self.data[i-1]), i-(i&-i)\n        return\
     \ s\n    \n\nclass BinaryIndexTreePURQ(BinaryIndexTree):\n    def __init__(self,\
-    \ e, op, inv, v: int|list):\n        self.inv = inv\n        super().__header__(e,\
+    \ e, op, inv, v: int|list):\n        self.inv = inv\n        super().__init__(e,\
     \ op, v)\n\n    def range_sum(self, l: int, r: int) -> object:\n        return\
     \ self.op(self.pref_sum(r), self.inv(self.pref_sum(l)))\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/bit_generalized_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 16:44:49+09:00'
+  timestamp: '2024-09-21 16:55:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/bit_generalized_cls.py
