@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/floyd_warshall_directed_fn.py
     title: cp_library/alg/graph/floyd_warshall_directed_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/floyd_warshall_fn.py
     title: cp_library/alg/graph/floyd_warshall_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_1_c_floyd_warshall.test.py
     title: test/grl_1_c_floyd_warshall.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "\ndef floyd_warshall(G, N, directed=True) -> tuple[bool, list[int]]:\n\
@@ -44,8 +44,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-21 16:44:49+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py
 documentation_of: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py

@@ -41,15 +41,15 @@ data:
     \ type) and \n             issubclass(cls := typing.get_origin(spec) or spec,\
     \ types)):\n            return cls, (typing.get_args(spec) or tuple())\n     \
     \   \n    queue = deque() \n    return parse_spec(spec)\n"
-  code: "import cp_library.io.__init__\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom typing import Collection, Iterator, Type, TypeVar\n\
-    \nfrom cp_library.io.parsable_cls import Parsable\n\nT = TypeVar('T')\ndef parse_stream(stream:\
-    \ Iterator[str], spec: Type[T]|T) -> T:\n\n    def parse_tuple(cls, specs):\n\
-    \        match specs:\n            case [spec, end] if end is ...: \n        \
-    \        return cls(parse_line(spec))\n            case specs:               \
-    \      \n                return cls(parse_spec(spec) for spec in specs)\n\n  \
-    \  def parse_collection(cls, specs) -> list:\n        match specs:\n         \
-    \   case [ ] | [_] | set():          \n                return cls(parse_line(*specs))\n\
+  code: "import cp_library.io.__header__\n\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom typing import Collection, Iterator,\
+    \ Type, TypeVar\n\nfrom cp_library.io.parsable_cls import Parsable\n\nT = TypeVar('T')\n\
+    def parse_stream(stream: Iterator[str], spec: Type[T]|T) -> T:\n\n    def parse_tuple(cls,\
+    \ specs):\n        match specs:\n            case [spec, end] if end is ...: \n\
+    \                return cls(parse_line(spec))\n            case specs:       \
+    \              \n                return cls(parse_spec(spec) for spec in specs)\n\
+    \n    def parse_collection(cls, specs) -> list:\n        match specs:\n      \
+    \      case [ ] | [_] | set():          \n                return cls(parse_line(*specs))\n\
     \            case [spec, int() as n]: \n                return cls(parse_spec(spec)\
     \ for _ in range(n))\n            case _:\n                raise NotImplementedError()\n\
     \n    def parse_spec(spec):\n        if args := match_spec(spec, Parsable):\n\
@@ -73,7 +73,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/parse_stream_fn_slow.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/io/parse_stream_fn_slow.py

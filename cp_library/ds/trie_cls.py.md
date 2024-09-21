@@ -2,16 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/ahocorasick_cls.py
     title: cp_library/ds/ahocorasick_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc362_q_count_substring_query_ahocorasick.test.py
     title: test/abc362_q_count_substring_query_ahocorasick.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -38,7 +38,7 @@ data:
     \        return output\n    \n    def prefix(self) -> str:\n        output = []\n\
     \        curr = self\n        while curr.parent is not None:\n            output.append(curr.last)\n\
     \            curr = curr.parent\n        return \"\".join(reversed(output))\n"
-  code: "import cp_library.ds.__init__\n\nfrom collections import deque\nfrom typing\
+  code: "import cp_library.ds.__header__\n\nfrom collections import deque\nfrom typing\
     \ import Dict, List, Optional\n\nclass Trie:\n    __slots__ = 'dic', 'parent',\
     \ 'last', 'count', 'word'\n\n    def __init__(self):\n        self.dic: Dict[str,\
     \ Trie] = {}\n        self.parent: Optional[Trie] = None\n        self.last: str\
@@ -62,8 +62,8 @@ data:
   path: cp_library/ds/trie_cls.py
   requiredBy:
   - cp_library/ds/ahocorasick_cls.py
-  timestamp: '2024-09-21 04:14:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-21 16:44:49+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc362_q_count_substring_query_ahocorasick.test.py
 documentation_of: cp_library/ds/trie_cls.py

@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/trie_cls.py
     title: cp_library/ds/trie_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc362_q_count_substring_query_ahocorasick.test.py
     title: test/abc362_q_count_substring_query_ahocorasick.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -39,8 +39,8 @@ data:
     \        curr = self\n        while curr.parent is not None:\n            output.append(curr.last)\n\
     \            curr = curr.parent\n        return \"\".join(reversed(output))\n\n\
     class AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
-    \        super().__init__()\n        self.failed: 'AhoCorasick' = None\n\n   \
-    \ def build_fail(self):\n        arr_bfs = self.bfs()\n        for p in arr_bfs:\n\
+    \        super().__header__()\n        self.failed: 'AhoCorasick' = None\n\n \
+    \   def build_fail(self):\n        arr_bfs = self.bfs()\n        for p in arr_bfs:\n\
     \            curr = p.parent\n            if curr:\n                c = p.last\n\
     \                while curr.failed:\n                    if c in curr.failed.dic:\n\
     \                        p.failed = curr.failed.dic[c]\n                     \
@@ -53,10 +53,10 @@ data:
     \  for i in range(len(arr_bfs) - 1, 0, -1):\n            p = arr_bfs[i]\n    \
     \        p.failed.count += p.count\n            if p.word:\n                output[p.prefix()]\
     \ = p.count\n        return output\n"
-  code: "import cp_library.ds.__init__\nfrom cp_library.ds.trie_cls import Trie\n\n\
-    class AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
-    \        super().__init__()\n        self.failed: 'AhoCorasick' = None\n\n   \
-    \ def build_fail(self):\n        arr_bfs = self.bfs()\n        for p in arr_bfs:\n\
+  code: "import cp_library.ds.__header__\nfrom cp_library.ds.trie_cls import Trie\n\
+    \nclass AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
+    \        super().__header__()\n        self.failed: 'AhoCorasick' = None\n\n \
+    \   def build_fail(self):\n        arr_bfs = self.bfs()\n        for p in arr_bfs:\n\
     \            curr = p.parent\n            if curr:\n                c = p.last\n\
     \                while curr.failed:\n                    if c in curr.failed.dic:\n\
     \                        p.failed = curr.failed.dic[c]\n                     \
@@ -74,8 +74,8 @@ data:
   isVerificationFile: false
   path: cp_library/ds/ahocorasick_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-21 16:44:49+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc362_q_count_substring_query_ahocorasick.test.py
 documentation_of: cp_library/ds/ahocorasick_cls.py

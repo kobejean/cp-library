@@ -25,7 +25,7 @@ data:
     \  r -= 1\n        if l == r: return self.st[0][l]\n        h = (l ^ r).bit_length()\
     \ - 1\n        return self.op(self.st[h][l], self.st[h][r])\n\n    def __repr__(self):\n\
     \        return '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n"
-  code: "import cp_library.ds.__init__\n\nclass DisjointSparseTable:\n    def __init__(self,\
+  code: "import cp_library.ds.__header__\n\nclass DisjointSparseTable:\n    def __init__(self,\
     \ op, arr: list):\n        self.n = len(arr)\n        self.log = (self.n-1).bit_length()\n\
     \        self.op = op\n        self.st = [arr]\n\n        for h in range(1, self.log):\n\
     \            row = arr.copy()\n            half = 1 << h\n            for m in\
@@ -40,7 +40,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/disjoint_sparse_table_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/disjoint_sparse_table_cls.py

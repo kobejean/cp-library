@@ -24,7 +24,7 @@ data:
     \ for _ in range(len(A))] \n    for i,Ri in enumerate(R):\n        for k,Aik in\
     \ enumerate(A[i]):\n            for j,Bkj in enumerate(B[k]):\n              \
     \  Ri[j] = (Ri[j] + Aik*Bkj) % mod\n    return R\n"
-  code: "import cp_library.math.mod.__init__\n\ndef mat_mul(A,B,mod):\n    assert\
+  code: "import cp_library.math.mod.__header__\n\ndef mat_mul(A,B,mod):\n    assert\
     \ len(A[0]) == len(B)\n    R = [[0]*len(B[0]) for _ in range(len(A))] \n    for\
     \ i,Ri in enumerate(R):\n        for k,Aik in enumerate(A[i]):\n            for\
     \ j,Bkj in enumerate(B[k]):\n                Ri[j] = (Ri[j] + Aik*Bkj) % mod\n\
@@ -34,7 +34,7 @@ data:
   path: cp_library/math/mod/mat_mul_fn.py
   requiredBy:
   - cp_library/math/mod/mat_pow_fn.py
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -22,7 +22,7 @@ data:
     \ q:\n        d, v = heapq.heappop(q)\n        if d > D[v]: continue\n\n     \
     \   for w, u in G[v]:\n            if (nd := d + w) < D[u]:\n                D[u]\
     \ = nd\n                heapq.heappush(q, (nd, u))\n    return D\n"
-  code: "import cp_library.alg.graph.__init__\nimport heapq\nfrom math import inf\n\
+  code: "import cp_library.alg.graph.__header__\nimport heapq\nfrom math import inf\n\
     \ndef dijkstra(G, N, root) -> list[int]:\n    D = [inf for _ in range(N)]\n  \
     \  D[root] = 0\n    q = [(0, root)]\n    while q:\n        d, v = heapq.heappop(q)\n\
     \        if d > D[v]: continue\n\n        for w, u in G[v]:\n            if (nd\
@@ -32,8 +32,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/dijkstra_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-21 16:44:49+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/grl_1_a_dijkstra.test.py
 documentation_of: cp_library/alg/graph/dijkstra_fn.py

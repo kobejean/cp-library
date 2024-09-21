@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/ahocorasick_cls.py
     title: cp_library/ds/ahocorasick_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/trie_cls.py
     title: cp_library/ds/trie_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc362/tasks/abc362_g
     links:
@@ -45,7 +45,7 @@ data:
     \ prefix(self) -> str:\n        output = []\n        curr = self\n        while\
     \ curr.parent is not None:\n            output.append(curr.last)\n           \
     \ curr = curr.parent\n        return \"\".join(reversed(output))\n\nclass AhoCorasick(Trie):\n\
-    \    __slots__ = 'failed',\n\n    def __init__(self):\n        super().__init__()\n\
+    \    __slots__ = 'failed',\n\n    def __init__(self):\n        super().__header__()\n\
     \        self.failed: 'AhoCorasick' = None\n\n    def build_fail(self):\n    \
     \    arr_bfs = self.bfs()\n        for p in arr_bfs:\n            curr = p.parent\n\
     \            if curr:\n                c = p.last\n                while curr.failed:\n\
@@ -72,8 +72,8 @@ data:
   isVerificationFile: true
   path: test/abc362_q_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-09-21 16:44:49+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/abc362_q_count_substring_query_ahocorasick.test.py
 layout: document

@@ -46,7 +46,7 @@ data:
     \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
     \n    def diff(self, x: int, y: int):\n        assert self.same(x, y)\n      \
     \  return self.op(self.pot[x], self.inv(self.pot[y]))\n"
-  code: "import cp_library.ds.__init__\n\nclass PotentializedDSU:\n\n    def __init__(self,\
+  code: "import cp_library.ds.__header__\n\nclass PotentializedDSU:\n\n    def __init__(self,\
     \ op, inv, e, v) -> None:\n        n = v if isinstance(v, int) else len(v)\n \
     \       self.n = n\n        self.par = [-1] * n\n        self.op = op\n      \
     \  self.inv = inv\n        self.e = e\n        self.pot = [e] * n if isinstance(v,\
@@ -76,7 +76,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/potentialized_dsu_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unionfind_with_potential_non_commutative_group.test.py

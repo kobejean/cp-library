@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -72,7 +72,7 @@ data:
     \              C.discard(kickout[id])\n            MCA.extend(C)\n           \
     \ return MCA\n        else:\n            return [edges[0][2] for edges in Gin\
     \ if edges]\n\n    return [E[id] for id in rec(Gin)]\n"
-  code: "import cp_library.alg.graph.__init__\nfrom functools import reduce\nfrom\
+  code: "import cp_library.alg.graph.__header__\nfrom functools import reduce\nfrom\
     \ heapq import heapify\nfrom math import inf\nimport cp_library.misc.setrecursionlimit\n\
     from cp_library.ds.dsu_cls import DSU\nfrom cp_library.alg.graph.floyds_cycle_fn\
     \ import floyds_cycle\n\ndef edmonds_branching(E, N, root) -> list[tuple[any,int,int]]:\n\
@@ -106,7 +106,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/edmonds_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_b_edmonds_branching.test.py

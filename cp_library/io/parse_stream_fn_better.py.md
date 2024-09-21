@@ -44,12 +44,12 @@ data:
     \ := typing.get_origin(spec) or spec, types)):\n            return cls, (typing.get_args(spec)\
     \ or tuple())\n        \n    queue = deque() \n    parse = compile(spec)\n   \
     \ return parse()\n"
-  code: "import cp_library.io.__init__\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom typing import Collection, Iterator, Type, TypeVar\n\
-    \nfrom cp_library.io.parsable_cls import Parsable\n\nT = TypeVar('T')\ndef parse_stream(stream:\
-    \ Iterator[str], spec: Type[T]|T) -> T:\n\n    def compile(spec=int):\n      \
-    \  if args := match_spec(spec, Parsable):\n            cls, args = args\n    \
-    \        return cls.compile(compile, *args)\n        elif args := match_spec(spec,\
+  code: "import cp_library.io.__header__\n\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom typing import Collection, Iterator,\
+    \ Type, TypeVar\n\nfrom cp_library.io.parsable_cls import Parsable\n\nT = TypeVar('T')\n\
+    def parse_stream(stream: Iterator[str], spec: Type[T]|T) -> T:\n\n    def compile(spec=int):\n\
+    \        if args := match_spec(spec, Parsable):\n            cls, args = args\n\
+    \            return cls.compile(compile, *args)\n        elif args := match_spec(spec,\
     \ tuple):      \n            return compile_tuple(*args)\n        elif args :=\
     \ match_spec(spec, Collection): \n            return compile_collection(*args)\n\
     \        elif issubclass(cls := type(offset := spec), Number):         \n    \
@@ -78,7 +78,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/parse_stream_fn_better.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/io/parse_stream_fn_better.py

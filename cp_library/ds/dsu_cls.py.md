@@ -51,7 +51,7 @@ data:
     \ for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n  \
     \      for i in range(self.n):\n            result[leader_buf[i]].append(i)\n\n\
     \        return list(filter(lambda r: r, result))\n"
-  code: "import cp_library.ds.__init__\n\nclass DSU:\n    def __init__(self, n):\n\
+  code: "import cp_library.ds.__header__\n\nclass DSU:\n    def __init__(self, n):\n\
     \        self.n = n\n        self.par = [-1] * n\n\n    def merge(self, u, v):\n\
     \        assert 0 <= u < self.n\n        assert 0 <= v < self.n\n\n        x,\
     \ y = self.leader(u), self.leader(v)\n        if x == y: return x\n\n        if\
@@ -75,7 +75,7 @@ data:
   - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/graph/kruskal_heap_fn.py
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py

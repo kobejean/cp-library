@@ -21,10 +21,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/dsl_2_c_kdtree.test.py
     title: test/dsl_2_c_kdtree.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_5_c_lca_table_recursive.test.py
     title: test/grl_5_c_lca_table_recursive.test.py
   - icon: ':heavy_check_mark:'
@@ -39,9 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/unionfind_with_potential_non_commutative_group.test.py
     title: test/unionfind_with_potential_non_commutative_group.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -51,14 +51,14 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s in input().split()]\n"
-  code: "import cp_library.io.__init__\n\ndef read(shift=0, base=10):\n    return\
+  code: "import cp_library.io.__header__\n\ndef read(shift=0, base=10):\n    return\
     \ [int(s, base) + shift for s in input().split()]\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-21 16:44:49+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/unionfind.test.py
   - test/grl_5_c_lca_table_iterative.test.py

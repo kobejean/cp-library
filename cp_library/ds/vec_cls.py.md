@@ -36,17 +36,17 @@ data:
     \        if len(args) == 1 and isinstance(args[0], typing.Iterable):\n       \
     \     return super().__new__(cls, args[0])\n        return super().__new__(cls,\
     \ args)\n"
-  code: "import cp_library.ds.__init__\n\nfrom cp_library.ds.vec_op_mixin import VecOpMixin\n\
-    import typing\n\nclass vec(tuple, VecOpMixin):\n    def __new__(cls, *args):\n\
-    \        if len(args) == 1 and isinstance(args[0], typing.Iterable):\n       \
-    \     return super().__new__(cls, args[0])\n        return super().__new__(cls,\
+  code: "import cp_library.ds.__header__\n\nfrom cp_library.ds.vec_op_mixin import\
+    \ VecOpMixin\nimport typing\n\nclass vec(tuple, VecOpMixin):\n    def __new__(cls,\
+    \ *args):\n        if len(args) == 1 and isinstance(args[0], typing.Iterable):\n\
+    \            return super().__new__(cls, args[0])\n        return super().__new__(cls,\
     \ args)\n"
   dependsOn:
   - cp_library/ds/vec_op_mixin.py
   isVerificationFile: false
   path: cp_library/ds/vec_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/vec_cls.py

@@ -35,7 +35,7 @@ data:
     \  pi = partition(A, l, r, random.randint(l, r-1))\n        if k == pi:\n    \
     \        return A[k]\n        elif k < pi:\n            r = pi\n        else:\n\
     \            l = pi + 1\n"
-  code: "import cp_library.alg.divcon.__init__\nimport random\nfrom cp_library.alg.divcon.partition_fn\
+  code: "import cp_library.alg.divcon.__header__\nimport random\nfrom cp_library.alg.divcon.partition_fn\
     \ import partition\n\ndef qselect(A, k, l=0, r=None):\n    '''Find kth element\
     \ in subarray [l,r)'''\n    if r is None: r = len(A)\n    while True:\n      \
     \  if l == r-1: return A[k]\n        pi = partition(A, l, r, random.randint(l,\
@@ -47,7 +47,7 @@ data:
   path: cp_library/alg/divcon/qselect_fn.py
   requiredBy:
   - cp_library/math/median_fn.py
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc182_d_increment_decrement_again_qselect.test.py

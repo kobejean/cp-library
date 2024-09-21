@@ -33,8 +33,8 @@ data:
     \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
     \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
     \nclass mutvec(list, VecOpMixin):\n    def __init__(self, *args):\n        if\
-    \ len(args) == 1 and isinstance(args[0], typing.Iterable):\n            super().__init__(args[0])\n\
-    \        else:\n            super().__init__(args)\n\n    def ielm_wise(self,\
+    \ len(args) == 1 and isinstance(args[0], typing.Iterable):\n            super().__header__(args[0])\n\
+    \        else:\n            super().__header__(args)\n\n    def ielm_wise(self,\
     \ other, op):\n        if isinstance(other, numbers.Real):\n            for i\
     \ in range(len(self)):\n                self[i] = op(self[i], other)\n       \
     \ elif isinstance(other, typing.Sequence) and len(self) == len(other):\n     \
@@ -46,27 +46,28 @@ data:
     \ operator.mul)\n    def __itruediv__(self, other): return self.ielm_wise(other,\
     \ operator.truediv)\n    def __ifloordiv__(self, other): return self.ielm_wise(other,\
     \ operator.floordiv)\n"
-  code: "import cp_library.ds.__init__\n\nimport operator\nimport typing\nimport numbers\n\
-    from cp_library.ds.vec_op_mixin import VecOpMixin\n\nclass mutvec(list, VecOpMixin):\n\
-    \    def __init__(self, *args):\n        if len(args) == 1 and isinstance(args[0],\
-    \ typing.Iterable):\n            super().__init__(args[0])\n        else:\n  \
-    \          super().__init__(args)\n\n    def ielm_wise(self, other, op):\n   \
-    \     if isinstance(other, numbers.Real):\n            for i in range(len(self)):\n\
-    \                self[i] = op(self[i], other)\n        elif isinstance(other,\
-    \ typing.Sequence) and len(self) == len(other):\n            for i in range(len(self)):\n\
-    \                self[i] = op(self[i], other[i])\n        else:\n            raise\
-    \ ValueError(\"Operand must be a number or a list of the same length\")\n    \
-    \    return self\n    \n    def __iadd__(self, other): return self.ielm_wise(other,\
-    \ operator.add)\n    def __isub__(self, other): return self.ielm_wise(other, operator.sub)\n\
-    \    def __imul__(self, other): return self.ielm_wise(other, operator.mul)\n \
-    \   def __itruediv__(self, other): return self.ielm_wise(other, operator.truediv)\n\
-    \    def __ifloordiv__(self, other): return self.ielm_wise(other, operator.floordiv)"
+  code: "import cp_library.ds.__header__\n\nimport operator\nimport typing\nimport\
+    \ numbers\nfrom cp_library.ds.vec_op_mixin import VecOpMixin\n\nclass mutvec(list,\
+    \ VecOpMixin):\n    def __init__(self, *args):\n        if len(args) == 1 and\
+    \ isinstance(args[0], typing.Iterable):\n            super().__header__(args[0])\n\
+    \        else:\n            super().__header__(args)\n\n    def ielm_wise(self,\
+    \ other, op):\n        if isinstance(other, numbers.Real):\n            for i\
+    \ in range(len(self)):\n                self[i] = op(self[i], other)\n       \
+    \ elif isinstance(other, typing.Sequence) and len(self) == len(other):\n     \
+    \       for i in range(len(self)):\n                self[i] = op(self[i], other[i])\n\
+    \        else:\n            raise ValueError(\"Operand must be a number or a list\
+    \ of the same length\")\n        return self\n    \n    def __iadd__(self, other):\
+    \ return self.ielm_wise(other, operator.add)\n    def __isub__(self, other): return\
+    \ self.ielm_wise(other, operator.sub)\n    def __imul__(self, other): return self.ielm_wise(other,\
+    \ operator.mul)\n    def __itruediv__(self, other): return self.ielm_wise(other,\
+    \ operator.truediv)\n    def __ifloordiv__(self, other): return self.ielm_wise(other,\
+    \ operator.floordiv)"
   dependsOn:
   - cp_library/ds/vec_op_mixin.py
   isVerificationFile: false
   path: cp_library/ds/mutvec_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/mutvec_cls.py

@@ -1,10 +1,7 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/ds/_wavelet_matrix_test.py
-    title: cp_library/ds/_wavelet_matrix_test.py
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
@@ -75,8 +72,8 @@ data:
     \n        dfs(l, r, 0, 0)\n        \n        result = []\n        while heap and\
     \ len(result) < k:\n            _, _, val, count = heapq.heappop(heap)\n     \
     \       result.append((val, count))\n        \n        return result\n"
-  code: "import cp_library.ds.__init__\n\nfrom bisect import bisect_left\nimport heapq\n\
-    from bitarray import bitarray\n\nclass WaveletMatrix:\n\n    class Level(bitarray):\n\
+  code: "import cp_library.ds.__header__\n\nfrom bisect import bisect_left\nimport\
+    \ heapq\nfrom bitarray import bitarray\n\nclass WaveletMatrix:\n\n    class Level(bitarray):\n\
     \        def select(self, bit: int, k: int) -> int:\n            def key(i):\n\
     \                return self.count(bit, 0, i+1)\n            index = bisect_left(range(len(self)),\
     \ k+1, key=key)\n            return -1 if index >= len(self) else index\n\n  \
@@ -136,9 +133,8 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/wavelet_matrix_cls.py
-  requiredBy:
-  - cp_library/ds/_wavelet_matrix_test.py
-  timestamp: '2024-09-21 04:14:27+09:00'
+  requiredBy: []
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/wavelet_matrix_cls.py

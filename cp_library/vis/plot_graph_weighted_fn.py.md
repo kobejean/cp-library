@@ -25,7 +25,7 @@ data:
     \ 'weight')\n    nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)\n\
     \n    # Set title and display the plot\n    plt.title(\"Graph Visualization\"\
     )\n    plt.axis('off')\n    plt.tight_layout()\n    plt.show()\n"
-  code: "import cp_library.vis.__init__\n\ndef plot_graph(G, N):\n    import networkx\
+  code: "import cp_library.vis.__header__\n\ndef plot_graph(G, N):\n    import networkx\
     \ as nx\n    import matplotlib.pyplot as plt\n    # Create NetworkX graph\n  \
     \  graph = nx.Graph()\n\n    # Add edges to the graph\n    for u in range(N):\n\
     \        for w, v in G[u]:\n            graph.add_edge(u, v, weight=w)\n\n   \
@@ -41,7 +41,7 @@ data:
   isVerificationFile: false
   path: cp_library/vis/plot_graph_weighted_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/vis/plot_graph_weighted_fn.py

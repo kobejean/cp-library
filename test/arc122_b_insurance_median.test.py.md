@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/divcon/qselect_fn.py
     title: cp_library/alg/divcon/qselect_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   - icon: ':heavy_check_mark:'
@@ -62,7 +62,7 @@ data:
   isVerificationFile: true
   path: test/arc122_b_insurance_median.test.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc122_b_insurance_median.test.py

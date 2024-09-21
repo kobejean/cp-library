@@ -45,13 +45,13 @@ data:
     \ - k]\n    \n    @classmethod\n    def multinom(cls, n, *K):\n        res = cls(1)\n\
     \        for k in K:\n            res *= cls.comb(n, k)\n            n -= k\n\
     \        return res\n"
-  code: "import cp_library.math.mod.__init__\nfrom itertools import accumulate\n\n\
-    class mint(int):\n    mod = zero = one = None\n\n    def __new__(cls, *args, **kwargs):\n\
-    \        match int(*args, **kwargs):\n            case 0: return cls.zero\n  \
-    \          case 1: return cls.one\n            case x: return cls.fix(x)\n\n \
-    \   @classmethod\n    def set_mod(cls, mod):\n        cls.mod = mod\n        cls.zero,\
-    \ cls.one = cls.cast(0), cls.fix(1)\n\n    @classmethod\n    def fix(cls, x):\
-    \ return cls.cast(x%cls.mod)\n\n    @classmethod\n    def cast(cls, x): return\
+  code: "import cp_library.math.mod.__header__\nfrom itertools import accumulate\n\
+    \nclass mint(int):\n    mod = zero = one = None\n\n    def __new__(cls, *args,\
+    \ **kwargs):\n        match int(*args, **kwargs):\n            case 0: return\
+    \ cls.zero\n            case 1: return cls.one\n            case x: return cls.fix(x)\n\
+    \n    @classmethod\n    def set_mod(cls, mod):\n        cls.mod = mod\n      \
+    \  cls.zero, cls.one = cls.cast(0), cls.fix(1)\n\n    @classmethod\n    def fix(cls,\
+    \ x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def cast(cls, x): return\
     \ super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls, x):\n     \
     \   a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
     \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
@@ -77,7 +77,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/mint_comb_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc168_c_swap_characters_mint_comb.test.py

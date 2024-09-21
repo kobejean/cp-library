@@ -19,14 +19,14 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef read(func=0, /):\n    if callable(func): return [func(s) for s in input().split()]\n\
     \    return [int(s)+func for s in input().split()]\n"
-  code: "import cp_library.io.__init__\n\ndef read(func=0, /):\n    if callable(func):\
+  code: "import cp_library.io.__header__\n\ndef read(func=0, /):\n    if callable(func):\
     \ return [func(s) for s in input().split()]\n    return [int(s)+func for s in\
     \ input().split()]\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/io/read_func_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

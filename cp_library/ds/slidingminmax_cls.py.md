@@ -15,7 +15,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \nfrom collections import deque\nfrom typing import Any\n\nclass SlidingMinMax(deque):\n\
-    \    def __init__(self):\n        super().__init__()\n        self.minq = deque()\n\
+    \    def __init__(self):\n        super().__header__()\n        self.minq = deque()\n\
     \        self.maxq = deque()\n\n    def append(self, x: Any) -> None:\n      \
     \  super().append(x)\n        while self.minq and x < self.minq[-1]:\n       \
     \     self.minq.pop()\n        self.minq.append(x)\n        while self.maxq and\
@@ -25,9 +25,9 @@ data:
     \            self.maxq.popleft()\n        return x\n\n    @property\n    def min(self)\
     \ -> Any:\n        return self.minq[0]\n\n    @property\n    def max(self) ->\
     \ Any:\n        return self.maxq[0]\n"
-  code: "import cp_library.ds.__init__\n\nfrom collections import deque\nfrom typing\
+  code: "import cp_library.ds.__header__\n\nfrom collections import deque\nfrom typing\
     \ import Any\n\nclass SlidingMinMax(deque):\n    def __init__(self):\n       \
-    \ super().__init__()\n        self.minq = deque()\n        self.maxq = deque()\n\
+    \ super().__header__()\n        self.minq = deque()\n        self.maxq = deque()\n\
     \n    def append(self, x: Any) -> None:\n        super().append(x)\n        while\
     \ self.minq and x < self.minq[-1]:\n            self.minq.pop()\n        self.minq.append(x)\n\
     \        while self.maxq and self.maxq[-1] < x:\n            self.maxq.pop()\n\
@@ -40,7 +40,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/slidingminmax_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/slidingminmax_cls.py

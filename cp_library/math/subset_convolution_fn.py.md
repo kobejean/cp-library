@@ -42,10 +42,10 @@ data:
     \    for i in range(N):\n        bit = 1 << i\n        for mask in range(1 <<\
     \ N):\n            if mask & bit:\n                A[mask] -= A[mask ^ bit]\n\
     \    return A\n"
-  code: "import cp_library.math.__init__\n\ndef subset_convolution(A, B, N):\n   \
-    \ Z = 1 << N\n\n    # Prepare arrays for rank (popcount) decomposition\n    Arank\
-    \ = [[0]*Z for _ in range(N+1)]\n    Brank = [[0]*Z for _ in range(N+1)]\n\n \
-    \   # Initialize rank arrays\n    for mask in range(Z):\n        rank = mask.bit_count()\n\
+  code: "import cp_library.math.__header__\n\ndef subset_convolution(A, B, N):\n \
+    \   Z = 1 << N\n\n    # Prepare arrays for rank (popcount) decomposition\n   \
+    \ Arank = [[0]*Z for _ in range(N+1)]\n    Brank = [[0]*Z for _ in range(N+1)]\n\
+    \n    # Initialize rank arrays\n    for mask in range(Z):\n        rank = mask.bit_count()\n\
     \        Arank[rank][mask] = A[mask]\n        Brank[rank][mask] = B[mask]\n\n\
     \    # Zeta transform for each rank\n    for Ar in Arank: zeta_transform(Ar, N)\n\
     \    for Br in Brank: zeta_transform(Br, N)\n\n    # Convolution\n    Crank =\
@@ -64,7 +64,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/subset_convolution_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/subset_convolution.test.py

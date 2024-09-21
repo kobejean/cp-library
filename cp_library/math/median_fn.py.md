@@ -34,9 +34,9 @@ data:
     \  pi = partition(A, l, r, random.randint(l, r-1))\n        if k == pi:\n    \
     \        return A[k]\n        elif k < pi:\n            r = pi\n        else:\n\
     \            l = pi + 1\n"
-  code: "import cp_library.math.__init__\n\ndef median(A):\n    n = len(A)\n    m\
-    \ = n // 2\n    ret = qselect(A, m)\n    if n % 2 == 0:\n        return (ret +\
-    \ qselect(A, m-1)) / 2\n    return ret\n\nfrom cp_library.alg.divcon.qselect_fn\
+  code: "import cp_library.math.__header__\n\ndef median(A):\n    n = len(A)\n   \
+    \ m = n // 2\n    ret = qselect(A, m)\n    if n % 2 == 0:\n        return (ret\
+    \ + qselect(A, m-1)) / 2\n    return ret\n\nfrom cp_library.alg.divcon.qselect_fn\
     \ import qselect"
   dependsOn:
   - cp_library/alg/divcon/qselect_fn.py
@@ -44,7 +44,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/median_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc122_b_insurance_median.test.py

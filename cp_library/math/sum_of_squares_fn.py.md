@@ -15,13 +15,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef sum_of_squares(n):\n    return n * (n + 1) * (2*n+1) // 6\n"
-  code: "import cp_library.math.__init__\n\ndef sum_of_squares(n):\n    return n *\
-    \ (n + 1) * (2*n+1) // 6\n"
+  code: "import cp_library.math.__header__\n\ndef sum_of_squares(n):\n    return n\
+    \ * (n + 1) * (2*n+1) // 6\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/sum_of_squares_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sum_of_squares_fn.py

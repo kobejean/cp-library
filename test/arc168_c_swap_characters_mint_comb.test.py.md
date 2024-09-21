@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   - icon: ':heavy_check_mark:'
@@ -17,18 +17,26 @@ data:
     links:
     - https://atcoder.jp/contests/arc168/tasks/arc168_c
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc168/tasks/arc168_c\n\
-    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    def main():\n    N, K = read()\n    mint.precomp(N)\n    S = input()\n    A, B,\
+    \ C = S.count('A'), S.count('B'), S.count('C')\n\n    # x A <-> B\n    # y B <->\
+    \ C\n    # z C <-> A\n    # w A -> B -> C -> A or A -> C -> B -> A \n\n    ans\
+    \ = mint()\n    for x in range(K+1):\n        for y in range(K-x+1):\n       \
+    \     for z in range(K-x-y+1):\n                for w in range(((K-x-y-z)//2+1)):\n\
+    \                    cnt =   mint.multinom(A,x,z+w) * \\\n                   \
+    \         mint.multinom(B,y,x+w) * \\\n                            mint.multinom(C,z,y+w)\n\
+    \                    if w > 0: cnt*=2\n                    ans += cnt\n    print(ans)\n\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\nfrom itertools\
-    \ import accumulate\n\nclass mint(int):\n    mod = zero = one = None\n\n    def\
-    \ __new__(cls, *args, **kwargs):\n        match int(*args, **kwargs):\n      \
-    \      case 0: return cls.zero\n            case 1: return cls.one\n         \
-    \   case x: return cls.fix(x)\n\n    @classmethod\n    def set_mod(cls, mod):\n\
-    \        cls.mod = mod\n        cls.zero, cls.one = cls.cast(0), cls.fix(1)\n\n\
-    \    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
+    \ itertools import accumulate\n\nclass mint(int):\n    mod = zero = one = None\n\
+    \n    def __new__(cls, *args, **kwargs):\n        match int(*args, **kwargs):\n\
+    \            case 0: return cls.zero\n            case 1: return cls.one\n   \
+    \         case x: return cls.fix(x)\n\n    @classmethod\n    def set_mod(cls,\
+    \ mod):\n        cls.mod = mod\n        cls.zero, cls.one = cls.cast(0), cls.fix(1)\n\
+    \n    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n\
     \    def cast(cls, x): return super().__new__(cls,x)\n\n    @classmethod\n   \
     \ def mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while\
     \ b: a,b,s,t = b,a%b,t,s-a//b*t\n        if a == 1: return cls.fix(s)\n      \
@@ -51,31 +59,27 @@ data:
     \ - k]\n    \n    @classmethod\n    def multinom(cls, n, *K):\n        res = cls(1)\n\
     \        for k in K:\n            res *= cls.comb(n, k)\n            n -= k\n\
     \        return res\nmint.set_mod(998244353)\n\n\ndef read(shift=0, base=10):\n\
-    \    return [int(s, base) + shift for s in input().split()]\n\nN, K = read()\n\
-    mint.precomp(N)\nS = input()\nA, B, C = S.count('A'), S.count('B'), S.count('C')\n\
-    \n# x A <-> B\n# y B <-> C\n# z C <-> A\n# w A -> B -> C -> A or A -> C -> B ->\
-    \ A \n\nans = mint()\nfor x in range(K+1):\n    for y in range(K-x+1):\n     \
-    \   for z in range(K-x-y+1):\n            for w in range(((K-x-y-z)//2+1)):\n\
-    \                cnt =   mint.multinom(A,x,z+w) * \\\n                       \
-    \ mint.multinom(B,y,x+w) * \\\n                        mint.multinom(C,z,y+w)\n\
-    \                if w > 0: cnt*=2\n                ans += cnt\nprint(ans)\n"
+    \    return [int(s, base) + shift for s in input().split()]\n\nif __name__ ==\
+    \ '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc168/tasks/arc168_c\n\
-    from cp_library.math.mod.mint_comb_cls import mint\nmint.set_mod(998244353)\n\
-    from cp_library.io.read_int_fn import read\n\nN, K = read()\nmint.precomp(N)\n\
-    S = input()\nA, B, C = S.count('A'), S.count('B'), S.count('C')\n\n# x A <-> B\n\
-    # y B <-> C\n# z C <-> A\n# w A -> B -> C -> A or A -> C -> B -> A \n\nans = mint()\n\
-    for x in range(K+1):\n    for y in range(K-x+1):\n        for z in range(K-x-y+1):\n\
-    \            for w in range(((K-x-y-z)//2+1)):\n                cnt =   mint.multinom(A,x,z+w)\
-    \ * \\\n                        mint.multinom(B,y,x+w) * \\\n                \
-    \        mint.multinom(C,z,y+w)\n                if w > 0: cnt*=2\n          \
-    \      ans += cnt\nprint(ans)\n"
+    def main():\n    N, K = read()\n    mint.precomp(N)\n    S = input()\n    A, B,\
+    \ C = S.count('A'), S.count('B'), S.count('C')\n\n    # x A <-> B\n    # y B <->\
+    \ C\n    # z C <-> A\n    # w A -> B -> C -> A or A -> C -> B -> A \n\n    ans\
+    \ = mint()\n    for x in range(K+1):\n        for y in range(K-x+1):\n       \
+    \     for z in range(K-x-y+1):\n                for w in range(((K-x-y-z)//2+1)):\n\
+    \                    cnt =   mint.multinom(A,x,z+w) * \\\n                   \
+    \         mint.multinom(B,y,x+w) * \\\n                            mint.multinom(C,z,y+w)\n\
+    \                    if w > 0: cnt*=2\n                    ans += cnt\n    print(ans)\n\
+    \nfrom cp_library.math.mod.mint_comb_cls import mint\nmint.set_mod(998244353)\n\
+    from cp_library.io.read_int_fn import read\n\nif __name__ == '__main__':\n   \
+    \ main()"
   dependsOn:
   - cp_library/math/mod/mint_comb_cls.py
   - cp_library/io/read_int_fn.py
   isVerificationFile: true
   path: test/arc168_c_swap_characters_mint_comb.test.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc168_c_swap_characters_mint_comb.test.py

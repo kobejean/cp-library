@@ -16,14 +16,14 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef geometric_series(r, n, a=1):\n    if r == 1:\n        return a * n\n   \
     \ else:\n        return a * (1 - r**n) // (1 - r)\n"
-  code: "import cp_library.math.__init__\n\ndef geometric_series(r, n, a=1):\n   \
-    \ if r == 1:\n        return a * n\n    else:\n        return a * (1 - r**n) //\
-    \ (1 - r)\n"
+  code: "import cp_library.math.__header__\n\ndef geometric_series(r, n, a=1):\n \
+    \   if r == 1:\n        return a * n\n    else:\n        return a * (1 - r**n)\
+    \ // (1 - r)\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/geometic_series_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/geometic_series_fn.py

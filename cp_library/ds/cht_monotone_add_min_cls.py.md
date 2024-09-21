@@ -30,7 +30,7 @@ data:
     \ x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n            m2,\
     \ b2 = self.hull[i+1]\n            return (m2-m1)*x + (b2-b1)\n        return\
     \ eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\n"
-  code: "import cp_library.ds.__init__\n\nfrom bisect import bisect_left\n\nclass\
+  code: "import cp_library.ds.__header__\n\nfrom bisect import bisect_left\n\nclass\
     \ CHTMonotoneAddMin:\n    def __init__(self):\n        self.hull = []\n\n    def\
     \ insert(self, m: int, b: int) -> None:\n        # Remove lines with greater or\
     \ equal slopes (maintaining monotonicity)\n        while self.hull and self.hull[-1][0]\
@@ -48,7 +48,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/cht_monotone_add_min_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_z_cht_monotone_add_min.test.py

@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -27,7 +27,7 @@ data:
     \ = min(D[v], D[u] + w)\n        return D\n    D = bellman_ford(G, N, root)\n\
     \    neg_cycle = any(D[u]+w<D[v] for u, edges in enumerate(G) for w,v in edges)\n\
     \    return neg_cycle, D\n"
-  code: "import cp_library.alg.graph.__init__\nfrom math import inf\n\ndef bellman_ford(G,\
+  code: "import cp_library.alg.graph.__header__\nfrom math import inf\n\ndef bellman_ford(G,\
     \ N, root) -> tuple[bool, list[int]]:\n    from cp_library.alg.graph.bellman_ford_fn\
     \ import bellman_ford\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
     \ for u, edges in enumerate(G) for w,v in edges)\n    return neg_cycle, D\n"
@@ -36,8 +36,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-21 16:44:49+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py
 documentation_of: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py

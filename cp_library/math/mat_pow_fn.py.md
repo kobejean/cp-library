@@ -31,9 +31,9 @@ data:
     \         for j,Bkj in enumerate(B[k]):\n                Ri[j] = Bkj*Aik + Ri[j]\
     \  \n    return R \n\ndef mat_id(N):\n    return [[int(i==j) for j in range(N)]\
     \ for i in range(N)]\n"
-  code: "import cp_library.math.__init__\n\ndef mat_pow(A,K):\n    N = len(A)\n  \
-    \  ret = A if K & 1 else mat_id(N)\n    for i in range(1,K.bit_length()):\n  \
-    \      A = mat_mul(A,A) \n        if K >> i & 1:\n            ret = mat_mul(ret,A)\
+  code: "import cp_library.math.__header__\n\ndef mat_pow(A,K):\n    N = len(A)\n\
+    \    ret = A if K & 1 else mat_id(N)\n    for i in range(1,K.bit_length()):\n\
+    \        A = mat_mul(A,A) \n        if K >> i & 1:\n            ret = mat_mul(ret,A)\
     \ \n    return ret \n\nfrom cp_library.math.mat_mul_fn import mat_mul\nfrom cp_library.math.mat_id_fn\
     \ import mat_id"
   dependsOn:
@@ -42,7 +42,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mat_pow_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

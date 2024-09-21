@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
   _extendedRequiredBy: []
@@ -41,7 +41,7 @@ data:
     \                        stack.append((u, p, d))  # Re-add parent for backtracking\n\
     \                        stack.append((child, u, d + 1))\n            else:  #\
     \ Revisiting node (backtracking)\n                self.euler.append(u)\n     \
-    \           self.depth.append(d)\n        super().__init__(min, list(zip(self.depth,\
+    \           self.depth.append(d)\n        super().__header__(min, list(zip(self.depth,\
     \ self.euler)))\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r\
     \ = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n \
     \       d, a = super().query(l, r)\n        return a, d\n\nclass AuxiliaryTree(LCATable):\n\
@@ -89,7 +89,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

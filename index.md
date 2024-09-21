@@ -19,22 +19,22 @@ data:
       title: cp_library/alg/dp/rerooting_recursive_cls.py
   - name: cp_library/alg/graph
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/bellman_ford_fn.py
       title: cp_library/alg/graph/bellman_ford_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
       title: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/digraph_cls.py
       title: cp_library/alg/graph/digraph_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/digraph_weighted_cls.py
       title: cp_library/alg/graph/digraph_weighted_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/dijkstra_fn.py
       title: cp_library/alg/graph/dijkstra_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/alg/graph/edge_cls.py
       title: cp_library/alg/graph/edge_cls.py
     - icon: ':heavy_check_mark:'
@@ -43,25 +43,25 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/edge_list_weighted_cls.py
       title: cp_library/alg/graph/edge_list_weighted_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/alg/graph/edge_weighted_cls.py
       title: cp_library/alg/graph/edge_weighted_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/edmonds_fn.py
       title: cp_library/alg/graph/edmonds_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
       title: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/floyd_warshall_directed_fn.py
       title: cp_library/alg/graph/floyd_warshall_directed_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/floyd_warshall_fn.py
       title: cp_library/alg/graph/floyd_warshall_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/floyds_cycle_fn.py
       title: cp_library/alg/graph/floyds_cycle_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/alg/graph/graph_cls.py
       title: cp_library/alg/graph/graph_cls.py
     - icon: ':warning:'
@@ -73,7 +73,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/kruskal_sort_fn.py
       title: cp_library/alg/graph/kruskal_sort_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/graph/tarjan_articulation_points_fn.py
       title: cp_library/alg/graph/tarjan_articulation_points_fn.py
   - name: cp_library/alg/tree
@@ -90,18 +90,15 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/tree/find_centroid_recursive_fn.py
       title: cp_library/alg/tree/find_centroid_recursive_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/tree/lca_table_iterative_cls.py
       title: cp_library/alg/tree/lca_table_iterative_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/tree/lca_table_recursive_cls.py
       title: cp_library/alg/tree/lca_table_recursive_cls.py
   - name: cp_library/ds
     pages:
-    - icon: ':warning:'
-      path: cp_library/ds/_wavelet_matrix_test.py
-      title: cp_library/ds/_wavelet_matrix_test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/ds/ahocorasick_cls.py
       title: cp_library/ds/ahocorasick_cls.py
     - icon: ':heavy_check_mark:'
@@ -152,10 +149,10 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/sparse_dsu_cls.py
       title: cp_library/ds/sparse_dsu_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/ds/sparse_table_cls.py
       title: cp_library/ds/sparse_table_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/ds/trie_cls.py
       title: cp_library/ds/trie_cls.py
     - icon: ':warning:'
@@ -167,46 +164,40 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/wavelet_matrix_cls.py
       title: cp_library/ds/wavelet_matrix_cls.py
-  - name: cp_library/io
+  - name: cp_library/io/legacy
     pages:
     - icon: ':warning:'
-      path: cp_library/io/_parser_cls.py
-      title: cp_library/io/_parser_cls.py
+      path: cp_library/io/legacy/parse_stream_fn.py
+      title: cp_library/io/legacy/parse_stream_fn.py
+    - icon: ':question:'
+      path: cp_library/io/legacy/read_specs_fn.py
+      title: cp_library/io/legacy/read_specs_fn.py
+  - name: cp_library/io
+    pages:
     - icon: ':warning:'
       path: cp_library/io/parse_stream_fn_better.py
       title: cp_library/io/parse_stream_fn_better.py
     - icon: ':warning:'
       path: cp_library/io/parse_stream_fn_slow.py
       title: cp_library/io/parse_stream_fn_slow.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
-    - icon: ':warning:'
-      path: cp_library/io/read_edges_fn.py
-      title: cp_library/io/read_edges_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_specs_fn.py
       title: cp_library/io/read_specs_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_tree_fn.py
       title: cp_library/io/read_tree_fn.py
-  - name: cp_library/io/legacy
-    pages:
-    - icon: ':warning:'
-      path: cp_library/io/legacy/parse_stream_fn.py
-      title: cp_library/io/legacy/parse_stream_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/legacy/read_specs_fn.py
-      title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/math
     pages:
     - icon: ':warning:'
@@ -248,9 +239,6 @@ data:
   - name: cp_library/math/mod
     pages:
     - icon: ':warning:'
-      path: cp_library/math/mod/_modmat_cls.py
-      title: cp_library/math/mod/_modmat_cls.py
-    - icon: ':warning:'
       path: cp_library/math/mod/mat_add_fn.py
       title: cp_library/math/mod/mat_add_fn.py
     - icon: ':heavy_check_mark:'
@@ -262,6 +250,9 @@ data:
     - icon: ':warning:'
       path: cp_library/math/mod/mat_sub_fn.py
       title: cp_library/math/mod/mat_sub_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/mod/mint998244353.py
+      title: cp_library/math/mod/mint998244353.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
@@ -282,7 +273,7 @@ data:
       title: cp_library/math/mod/zeta_transform_fn.py
   - name: cp_library/misc
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/misc/setrecursionlimit.py
       title: cp_library/misc/setrecursionlimit.py
   - name: cp_library/opt
@@ -290,7 +281,7 @@ data:
     - icon: ':warning:'
       path: cp_library/opt/compile.py
       title: cp_library/opt/compile.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/opt/lib_load.py
       title: cp_library/opt/lib_load.py
   - name: cp_library/vis
@@ -301,7 +292,7 @@ data:
   verificationCategories:
   - name: test
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/abc362_q_count_substring_query_ahocorasick.test.py
       title: test/abc362_q_count_substring_query_ahocorasick.test.py
     - icon: ':heavy_check_mark:'
@@ -331,13 +322,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/dsl_2_c_kdtree.test.py
       title: test/dsl_2_c_kdtree.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/grl_1_a_dijkstra.test.py
       title: test/grl_1_a_dijkstra.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/grl_1_b_bellman_ford.test.py
       title: test/grl_1_b_bellman_ford.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/grl_1_c_floyd_warshall.test.py
       title: test/grl_1_c_floyd_warshall.test.py
     - icon: ':heavy_check_mark:'
@@ -349,13 +340,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grl_2_b_edmonds_branching.test.py
       title: test/grl_2_b_edmonds_branching.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/grl_3_a_tarjan_articulation_points.test.py
       title: test/grl_3_a_tarjan_articulation_points.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/grl_5_c_lca_table_iterative.test.py
       title: test/grl_5_c_lca_table_iterative.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/grl_5_c_lca_table_recursive.test.py
       title: test/grl_5_c_lca_table_recursive.test.py
     - icon: ':heavy_check_mark:'

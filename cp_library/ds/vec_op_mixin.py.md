@@ -35,7 +35,7 @@ data:
     \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
     \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
     \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n"
-  code: "import cp_library.ds.__init__\n\nimport operator\nfrom numbers import Number\n\
+  code: "import cp_library.ds.__header__\n\nimport operator\nfrom numbers import Number\n\
     from typing import Sequence\n\nclass VecOpMixin:\n    def elm_wise(self, other,\
     \ op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
     \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
@@ -56,7 +56,7 @@ data:
   requiredBy:
   - cp_library/ds/mutvec_cls.py
   - cp_library/ds/vec_cls.py
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/vec_op_mixin.py

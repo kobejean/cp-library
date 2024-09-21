@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/bidirectional_array_cls.py
     title: cp_library/ds/bidirectional_array_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -57,7 +57,7 @@ data:
     \ u, self.add_node(u, ba.out(i)))\n                    dfs_down(v, u)\n      \
     \      ans[u] = ba.all()\n\n        dfs_up(0)\n        dfs_down(0)\n        return\
     \ ans\n"
-  code: "import cp_library.alg.dp.__init__\nimport cp_library.misc.setrecursionlimit\n\
+  code: "import cp_library.alg.dp.__header__\nimport cp_library.misc.setrecursionlimit\n\
     import typing\nfrom cp_library.ds.bidirectional_array_cls import BidirectionalArray\n\
     \nclass ReRootingDP():\n    \"\"\" A class implementation of the Re-rooting Dynamic\
     \ Programming technique. \"\"\"\n    S = typing.TypeVar('S')\n    MergeOp = typing.Callable[[S,\
@@ -89,7 +89,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/rerooting_recursive_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_recursive.test.py

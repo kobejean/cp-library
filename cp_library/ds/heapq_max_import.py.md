@@ -18,7 +18,7 @@ data:
     \ _siftdown_max as heapsiftdown_max\n\ndef heappush_max(heap, item):\n    \"\"\
     \"Push item onto heap, maintaining the heap invariant.\"\"\"\n    heap.append(item)\n\
     \    heapsiftdown_max(heap, 0, len(heap)-1)\n"
-  code: "import cp_library.ds.__init__\n\nfrom heapq import _heapify_max as heapify_max,\
+  code: "import cp_library.ds.__header__\n\nfrom heapq import _heapify_max as heapify_max,\
     \ _heappop_max as heappop_max, _siftdown_max as heapsiftdown_max\n\ndef heappush_max(heap,\
     \ item):\n    \"\"\"Push item onto heap, maintaining the heap invariant.\"\"\"\
     \n    heap.append(item)\n    heapsiftdown_max(heap, 0, len(heap)-1)"
@@ -26,7 +26,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heapq_max_import.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heapq_max_import.py

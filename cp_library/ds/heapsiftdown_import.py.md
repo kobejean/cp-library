@@ -15,13 +15,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \nfrom heapq import _siftdown as heapsiftdown, _heapify_max as heapify_max \n"
-  code: "import cp_library.ds.__init__\n\nfrom heapq import _siftdown as heapsiftdown,\
+  code: "import cp_library.ds.__header__\n\nfrom heapq import _siftdown as heapsiftdown,\
     \ _heapify_max as heapify_max \n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/heapsiftdown_import.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heapsiftdown_import.py

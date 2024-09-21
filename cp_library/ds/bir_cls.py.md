@@ -44,7 +44,7 @@ data:
     \ else 0\n        s = 0\n        while l > m:\n            s, l = s-self.data[l-1],\
     \ l-(l&-l)\n        while r > m:\n            s, r = s+self.data[r-1], r-(r&-r)\n\
     \        return s\n"
-  code: "import cp_library.ds.__init__\n\nclass BinaryIndexRange:\n    def __init__(self,\
+  code: "import cp_library.ds.__header__\n\nclass BinaryIndexRange:\n    def __init__(self,\
     \ size: int):\n        self.size = size\n        self.bit1 = BinaryIndexTree(size)\
     \  # For storing a[i] * i\n        self.bit2 = BinaryIndexTree(size)  # For storing\
     \ a[i]\n\n    def add(self, l, r, x) -> None:\n        \"\"\"Add x to all elements\
@@ -63,7 +63,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bir_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 04:14:27+09:00'
+  timestamp: '2024-09-21 16:44:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/bir_cls.py

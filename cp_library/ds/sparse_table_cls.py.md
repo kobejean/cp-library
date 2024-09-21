@@ -5,22 +5,22 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/tree/auxiliary_tree_cls.py
     title: cp_library/alg/tree/auxiliary_tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/lca_table_recursive_cls.py
     title: cp_library/alg/tree/lca_table_recursive_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grl_5_c_lca_table_recursive.test.py
     title: test/grl_5_c_lca_table_recursive.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -39,7 +39,7 @@ data:
     \ r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
     \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
     \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n"
-  code: "import cp_library.ds.__init__\n\nfrom typing import Any, Callable, List\n\
+  code: "import cp_library.ds.__header__\n\nfrom typing import Any, Callable, List\n\
     \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
     \ List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
     \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
@@ -56,8 +56,8 @@ data:
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
-  timestamp: '2024-09-21 04:14:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-21 16:44:49+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
   - test/grl_5_c_lca_table_recursive.test.py
