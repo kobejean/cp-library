@@ -23,20 +23,20 @@ data:
     from math import inf\n\ndef bellman_ford(G, N, root) -> tuple[bool, list[int]]:\n\
     \    \n    def bellman_ford(G, N, root) -> list[int]:\n        D = [inf]*N\n \
     \       D[root] = 0\n        for _ in range(N-1):\n            for u, edges in\
-    \ enumerate(G):\n                for w, v in edges:\n                    D[v]\
-    \ = min(D[v], D[u] + w)\n        return D\n    D = bellman_ford(G, N, root)\n\
-    \    neg_cycle = any(D[u]+w<D[v] for u, edges in enumerate(G) for w,v in edges)\n\
+    \ enumerate(G):\n                for v,w in edges:\n                    D[v] =\
+    \ min(D[v], D[u] + w)\n        return D\n    D = bellman_ford(G, N, root)\n  \
+    \  neg_cycle = any(D[u]+w<D[v] for u, edges in enumerate(G) for v,w in edges)\n\
     \    return neg_cycle, D\n"
   code: "import cp_library.alg.graph.__header__\nfrom math import inf\n\ndef bellman_ford(G,\
     \ N, root) -> tuple[bool, list[int]]:\n    from cp_library.alg.graph.bellman_ford_fn\
     \ import bellman_ford\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
-    \ for u, edges in enumerate(G) for w,v in edges)\n    return neg_cycle, D\n"
+    \ for u, edges in enumerate(G) for v,w in edges)\n    return neg_cycle, D\n"
   dependsOn:
   - cp_library/alg/graph/bellman_ford_fn.py
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 16:55:32+09:00'
+  timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py

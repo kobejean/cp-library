@@ -11,7 +11,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_recursive_cls.py
     title: cp_library/alg/tree/lca_table_recursive_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
+    title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
@@ -56,10 +62,12 @@ data:
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
-  timestamp: '2024-09-21 16:55:32+09:00'
+  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
+  timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
+  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/grl_5_c_lca_table_recursive.test.py
 documentation_of: cp_library/ds/sparse_table_cls.py
 layout: document

@@ -5,43 +5,31 @@ data:
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_cls.py
-    title: cp_library/alg/graph/edge_list_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_weighted_cls.py
-    title: cp_library/alg/graph/edge_weighted_cls.py
+    path: cp_library/alg/graph/graph_cls.py
+    title: cp_library/alg/graph/graph_cls.py
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_edges_weighted_fn.py
-    title: cp_library/io/read_edges_weighted_fn.py
+    path: cp_library/alg/tree/tree_weighted_cls.py
+    title: cp_library/alg/tree/tree_weighted_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_2_a_kruskal_heap.test.py
-    title: test/grl_2_a_kruskal_heap.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_2_a_kruskal_sort.test.py
-    title: test/grl_2_a_kruskal_sort.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_2_b_edmonds_branching.test.py
-    title: test/grl_2_b_edmonds_branching.test.py
+    path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import TypeVar\n\n\n\nimport sys\nimport typing\nfrom collections\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\nfrom typing import TypeVar\n\n\nimport sys\nimport typing\nfrom collections\
     \ import deque\nfrom numbers import Number\nfrom typing import Callable, Collection,\
     \ Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self,\
     \ stream = sys.stdin):\n        self.stream = stream\n        self.queue = deque()\n\
@@ -96,55 +84,35 @@ data:
     \ forw(self) -> H: return self[1]\n    @property\n    def back(self) -> H: return\
     \ self[0]\n    @classmethod\n    def compile(cls, I=1):\n        def parse(ts:\
     \ TokenStream):\n            return cls((int(s)+I for s in ts.line()))\n     \
-    \   return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
-    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
-    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
+    \   return parse\n\n\nclass Graph(list[H], Parsable):\n    def __init__(G, N:\
+    \ int, edges=[]):\n        super().__init__([] for _ in range(N))\n        G.E\
+    \ = list(edges)\n        for edge in G.E:\n            G[edge.u].append(edge.forw)\n\
+    \            G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls,\
+    \ N: int, M: int, E = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n\
     \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
-    \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
-    \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
-    \ set[E]):\n    pass\n\n\nclass EdgeWeighted(Edge, Parsable):\n    H: TypeAlias\
-    \ = tuple[int,int]\n    @property\n    def u(self): return self[0]\n    @property\n\
-    \    def v(self): return self[1]\n    @property\n    def w(self): return self[2]\n\
-    \    @property\n    def forw(self) -> H: return self[1], self[2]\n    @property\n\
-    \    def back(self) -> H: return self[0], self[2]\n\n    def __lt__(self, other:\
-    \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
-    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
-    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
-    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
-    \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
-    \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
-    \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
-    \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
-    \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
-    \    pass\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom typing import TypeVar\nfrom\
-    \ cp_library.alg.graph.edge_list_cls import EdgeCollection\nfrom cp_library.alg.graph.edge_weighted_cls\
-    \ import EdgeWeighted\n\nM = TypeVar('M', bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\n\
-    class EdgeCollectionWeighted(EdgeCollection):\n    @classmethod\n    def compile(cls,\
-    \ M: M, Ew: Ew = EdgeWeighted[-1]):\n        if isinstance(I := Ew, int):\n  \
-    \          Ew = EdgeWeighted[I]\n        return super().compile(M, Ew)\n\nclass\
-    \ EdgeListWeighted(EdgeCollectionWeighted, list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted,\
-    \ set[Ew]):\n    pass"
+    \       return cls(N, (edge(ts) for _ in range(M)))\n        return parse\n\n\
+    class Tree(Graph):\n    @classmethod\n    def compile(cls, N: int, E: type[Edge]|int\
+    \ = Edge[-1]):\n        return super().compile(N, N-1, E)\n"
+  code: "import cp_library.alg.tree.__header__\n\nfrom cp_library.alg.graph.edge_cls\
+    \ import Edge\nfrom cp_library.alg.graph.graph_cls import Graph\n\nclass Tree(Graph):\n\
+    \    @classmethod\n    def compile(cls, N: int, E: type[Edge]|int = Edge[-1]):\n\
+    \        return super().compile(N, N-1, E)"
   dependsOn:
-  - cp_library/alg/graph/edge_list_cls.py
-  - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_cls.py
+  - cp_library/io/parser_cls.py
   isVerificationFile: false
-  path: cp_library/alg/graph/edge_list_weighted_cls.py
+  path: cp_library/alg/tree/tree_cls.py
   requiredBy:
-  - cp_library/io/read_edges_weighted_fn.py
+  - cp_library/alg/tree/tree_weighted_cls.py
   timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/grl_2_a_kruskal_sort.test.py
-  - test/grl_2_b_edmonds_branching.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-  - test/grl_2_a_kruskal_heap.test.py
-documentation_of: cp_library/alg/graph/edge_list_weighted_cls.py
+  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+documentation_of: cp_library/alg/tree/tree_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/edge_list_weighted_cls.py
-- /library/cp_library/alg/graph/edge_list_weighted_cls.py.html
-title: cp_library/alg/graph/edge_list_weighted_cls.py
+- /library/cp_library/alg/tree/tree_cls.py
+- /library/cp_library/alg/tree/tree_cls.py.html
+title: cp_library/alg/tree/tree_cls.py
 ---

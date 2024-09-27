@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/potentialized_dsu_cls.py
     title: PotentializedDSU (generalized with groups)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://judge.yosupo.jp/problem/unionfind_with_potential
     links:
@@ -69,8 +69,8 @@ data:
   isVerificationFile: true
   path: test/unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2024-09-21 16:55:32+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-09-28 02:29:45+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/unionfind_with_potential.test.py
 layout: document

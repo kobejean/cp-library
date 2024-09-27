@@ -22,18 +22,18 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from math import inf\n\ndef bellman_ford(G, N, root) -> list[int]:\n    D = [inf]*N\n\
     \    D[root] = 0\n    for _ in range(N-1):\n        for u, edges in enumerate(G):\n\
-    \            for w, v in edges:\n                D[v] = min(D[v], D[u] + w)\n\
-    \    return D\n"
+    \            for v,w in edges:\n                D[v] = min(D[v], D[u] + w)\n \
+    \   return D\n"
   code: "import cp_library.alg.graph.__header__\nfrom math import inf\n\ndef bellman_ford(G,\
     \ N, root) -> list[int]:\n    D = [inf]*N\n    D[root] = 0\n    for _ in range(N-1):\n\
-    \        for u, edges in enumerate(G):\n            for w, v in edges:\n     \
-    \           D[v] = min(D[v], D[u] + w)\n    return D\n"
+    \        for u, edges in enumerate(G):\n            for v,w in edges:\n      \
+    \          D[v] = min(D[v], D[u] + w)\n    return D\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_fn.py
   requiredBy:
   - cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-  timestamp: '2024-09-21 16:55:32+09:00'
+  timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py

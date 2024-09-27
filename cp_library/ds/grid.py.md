@@ -1,54 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/cht_monotone_add_min_cls.py
-    title: cp_library/ds/cht_monotone_add_min_cls.py
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    PROBLEM: https://atcoder.jp/contests/dp/tasks/dp_z
-    links:
-    - https://atcoder.jp/contests/dp/tasks/dp_z
-  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z\n\
-    \ndef main():\n    N, C = read()\n    H = read([])\n    dp = 0\n    cht = CHTMonotoneAddMin()\n\
-    \n    for i in range(N-1):\n        m = -2*H[i]\n        b = H[i]**2 + dp\n  \
-    \      cht.insert(m,b)\n        i+=1\n        dp = cht.min(H[i]) + H[i]**2 + C\n\
-    \n    print(dp)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    links: []
+  bundledCode: "from math import prod\nfrom typing import Container, Iterable\n\n\
+    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\nfrom bisect import bisect_left\n\nclass CHTMonotoneAddMin:\n\
-    \    def __init__(self):\n        self.hull = []\n\n    def insert(self, m: int,\
-    \ b: int) -> None:\n        # Remove lines with greater or equal slopes (maintaining\
-    \ monotonicity)\n        while self.hull and self.hull[-1][0] <= m:\n        \
-    \    self.hull.pop()\n\n        def is_obsolete():\n            (m1, b1), (m2,\
-    \ b2) = self.hull[-2], self.hull[-1]\n            return (b - b1) * (m1 - m2)\
-    \ <= (b2 - b1) * (m1 - m)\n        \n        # Remove lines that are no longer\
-    \ part of the lower envelope\n        while len(self.hull) >= 2 and is_obsolete():\n\
-    \            self.hull.pop()\n        \n        self.hull.append((m, b))\n\n \
-    \   def min(self, x: int) -> int:\n        def eval(i):\n            m, b = self.hull[i]\n\
-    \            return m * x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n\
-    \            m2, b2 = self.hull[i+1]\n            return (m2-m1)*x + (b2-b1)\n\
-    \        return eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\n\n\n\
-    import sys\nfrom typing import Iterator, Type, TypeVar, overload\n\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom typing import\
-    \ Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
-    \    def __init__(self, stream = sys.stdin):\n        self.stream = stream\n \
-    \       self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\nimport\
+    \ sys\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    from typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass\
+    \ TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n      \
+    \  self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
     \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
@@ -92,36 +67,51 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> Iterator[int]:\
-    \ ...\n@overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None,\
-    \ char=False):\n    match spec, char:\n        case None, False:\n           \
-    \ return map(int, input().split())\n        case int(offset), False:\n       \
-    \     return (int(s)+offset for s in input().split())\n        case _, _:\n  \
-    \          if char:\n                stream = CharStream(sys.stdin)\n        \
-    \    else:\n                stream = TokenStream(sys.stdin)\n            parser:\
-    \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
-    \ '__main__':\n    main()\n"
-  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z\n\
-    \ndef main():\n    N, C = read()\n    H = read([])\n    dp = 0\n    cht = CHTMonotoneAddMin()\n\
-    \n    for i in range(N-1):\n        m = -2*H[i]\n        b = H[i]**2 + dp\n  \
-    \      cht.insert(m,b)\n        i+=1\n        dp = cht.min(H[i]) + H[i]**2 + C\n\
-    \n    print(dp)\n\nfrom cp_library.ds.cht_monotone_add_min_cls import CHTMonotoneAddMin\n\
-    from cp_library.io.read_specs_fn import read\n\nif __name__ == '__main__':\n \
-    \   main()"
+    \ parser\n\nclass grid2d(Parsable, Container):\n\n    def __init__(self, shape:\
+    \ tuple[int, int], data = 0):\n        self.shape = shape\n        self.size =\
+    \ prod(shape)\n        if isinstance(data, Iterable) and not isinstance(data,\
+    \ str):\n            self.data = list(elm for row in data for elm in row)\n  \
+    \      else:\n            self.data = [data] * (self.size)\n    \n    @classmethod\n\
+    \    def compile(cls, shape: tuple[int, int], T: type = int):\n        elm = Parser.compile(T)\n\
+    \        def parse(ts: TokenStream):\n            obj = cls.__new__(cls)\n   \
+    \         obj.shape = shape\n            obj.size = prod(shape)\n            obj.data\
+    \ = list(elm(ts) for _ in range(obj.size))\n            return obj\n        return\
+    \ parse\n    \n    def __contains__(self, x: object) -> bool:\n        return\
+    \ x in self.data\n    \n    def __getitem__(self, key: tuple[int, int]):\n   \
+    \     i, j = key\n        return self.data[i * self.shape[1] + j]\n    \n    def\
+    \ __setitem__(self, key: tuple[int, int], value):\n        i, j = key\n      \
+    \  self.data[i * self.shape[1] + j] = value\n    \n    def __repr__(self) -> str:\n\
+    \        (N, M), data = self.shape, self.data\n        return '\\n'.join(' '.join(str(data[j])\
+    \ for j in range(i,i+M)) for i in range(0,N*M,M))\n"
+  code: "from math import prod\nfrom typing import Container, Iterable\n\nfrom cp_library.io.parser_cls\
+    \ import Parsable, Parser, TokenStream\n\nclass grid2d(Parsable, Container):\n\
+    \n    def __init__(self, shape: tuple[int, int], data = 0):\n        self.shape\
+    \ = shape\n        self.size = prod(shape)\n        if isinstance(data, Iterable)\
+    \ and not isinstance(data, str):\n            self.data = list(elm for row in\
+    \ data for elm in row)\n        else:\n            self.data = [data] * (self.size)\n\
+    \    \n    @classmethod\n    def compile(cls, shape: tuple[int, int], T: type\
+    \ = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            obj = cls.__new__(cls)\n            obj.shape = shape\n         \
+    \   obj.size = prod(shape)\n            obj.data = list(elm(ts) for _ in range(obj.size))\n\
+    \            return obj\n        return parse\n    \n    def __contains__(self,\
+    \ x: object) -> bool:\n        return x in self.data\n    \n    def __getitem__(self,\
+    \ key: tuple[int, int]):\n        i, j = key\n        return self.data[i * self.shape[1]\
+    \ + j]\n    \n    def __setitem__(self, key: tuple[int, int], value):\n      \
+    \  i, j = key\n        self.data[i * self.shape[1] + j] = value\n    \n    def\
+    \ __repr__(self) -> str:\n        (N, M), data = self.shape, self.data\n     \
+    \   return '\\n'.join(' '.join(str(data[j]) for j in range(i,i+M)) for i in range(0,N*M,M))\n"
   dependsOn:
-  - cp_library/ds/cht_monotone_add_min_cls.py
-  - cp_library/io/read_specs_fn.py
   - cp_library/io/parser_cls.py
-  isVerificationFile: true
-  path: test/dp_z_cht_monotone_add_min.test.py
+  isVerificationFile: false
+  path: cp_library/ds/grid.py
   requiredBy: []
   timestamp: '2024-09-28 02:29:45+09:00'
-  verificationStatus: TEST_ACCEPTED
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: test/dp_z_cht_monotone_add_min.test.py
+documentation_of: cp_library/ds/grid.py
 layout: document
 redirect_from:
-- /verify/test/dp_z_cht_monotone_add_min.test.py
-- /verify/test/dp_z_cht_monotone_add_min.test.py.html
-title: test/dp_z_cht_monotone_add_min.test.py
+- /library/cp_library/ds/grid.py
+- /library/cp_library/ds/grid.py.html
+title: cp_library/ds/grid.py
 ---

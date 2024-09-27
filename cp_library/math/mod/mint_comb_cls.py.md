@@ -77,7 +77,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/mint_comb_cls.py
   requiredBy: []
-  timestamp: '2024-09-21 16:55:32+09:00'
+  timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc168_c_swap_characters_mint_comb.test.py

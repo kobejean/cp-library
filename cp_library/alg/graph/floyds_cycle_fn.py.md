@@ -14,22 +14,28 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\ndef floyds_cycle(F, root):\n    slow = fast = root\n    while F[fast]\
-    \ != -1 and F[F[fast]] != -1:\n        slow, fast = F[slow], F[F[fast]]\n    \
-    \    if slow == fast:\n            cyc = [slow]\n            while F[slow] !=\
-    \ cyc[0]:\n                slow = F[slow]\n                cyc.append(slow)\n\
-    \            return cyc\n    return None\n"
-  code: "\ndef floyds_cycle(F, root):\n    slow = fast = root\n    while F[fast] !=\
-    \ -1 and F[F[fast]] != -1:\n        slow, fast = F[slow], F[F[fast]]\n       \
-    \ if slow == fast:\n            cyc = [slow]\n            while F[slow] != cyc[0]:\n\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \ndef floyds_cycle(F, root):\n    slow = fast = root\n    while F[fast] != -1\
+    \ and F[F[fast]] != -1:\n        slow, fast = F[slow], F[F[fast]]\n        if\
+    \ slow == fast:\n            cyc = [slow]\n            while F[slow] != cyc[0]:\n\
     \                slow = F[slow]\n                cyc.append(slow)\n          \
     \  return cyc\n    return None\n"
+  code: "import cp_library.alg.graph.__header__\n\ndef floyds_cycle(F, root):\n  \
+    \  slow = fast = root\n    while F[fast] != -1 and F[F[fast]] != -1:\n       \
+    \ slow, fast = F[slow], F[F[fast]]\n        if slow == fast:\n            cyc\
+    \ = [slow]\n            while F[slow] != cyc[0]:\n                slow = F[slow]\n\
+    \                cyc.append(slow)\n            return cyc\n    return None\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/floyds_cycle_fn.py
   requiredBy:
   - cp_library/alg/graph/edmonds_fn.py
-  timestamp: '2024-09-21 16:55:32+09:00'
+  timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_b_edmonds_branching.test.py

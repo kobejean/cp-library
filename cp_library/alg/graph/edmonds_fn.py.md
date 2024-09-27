@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyds_cycle_fn.py
     title: cp_library/alg/graph/floyds_cycle_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
@@ -49,8 +49,8 @@ data:
     \        if slow == fast:\n            cyc = [slow]\n            while F[slow]\
     \ != cyc[0]:\n                slow = F[slow]\n                cyc.append(slow)\n\
     \            return cyc\n    return None\n\ndef edmonds_branching(E, N, root)\
-    \ -> list[tuple[any,int,int]]:\n    # obtain incoming edges\n    Gin = [[] for\
-    \ _ in range(N)]\n    for id,(w,u,v) in enumerate(E):\n        if v != root:\n\
+    \ -> list[tuple[int,int,any]]:\n    # obtain incoming edges\n    Gin = [[] for\
+    \ _ in range(N)]\n    for id,(u,v,w) in enumerate(E):\n        if v != root:\n\
     \            Gin[v].append([w,u,id])\n    \n\n    # heapify for fast access to\
     \ optimal edges\n    for v in range(N):\n        heapify(Gin[v])\n\n    groups\
     \ = DSU(N)\n    active = set(range(N))\n    active.discard(root)\n\n    def find_cycle(min_in):\n\
@@ -75,8 +75,8 @@ data:
   code: "import cp_library.alg.graph.__header__\nfrom functools import reduce\nfrom\
     \ heapq import heapify\nfrom math import inf\nimport cp_library.misc.setrecursionlimit\n\
     from cp_library.ds.dsu_cls import DSU\nfrom cp_library.alg.graph.floyds_cycle_fn\
-    \ import floyds_cycle\n\ndef edmonds_branching(E, N, root) -> list[tuple[any,int,int]]:\n\
-    \    # obtain incoming edges\n    Gin = [[] for _ in range(N)]\n    for id,(w,u,v)\
+    \ import floyds_cycle\n\ndef edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:\n\
+    \    # obtain incoming edges\n    Gin = [[] for _ in range(N)]\n    for id,(u,v,w)\
     \ in enumerate(E):\n        if v != root:\n            Gin[v].append([w,u,id])\n\
     \    \n\n    # heapify for fast access to optimal edges\n    for v in range(N):\n\
     \        heapify(Gin[v])\n\n    groups = DSU(N)\n    active = set(range(N))\n\
@@ -106,7 +106,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/edmonds_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 16:55:32+09:00'
+  timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_b_edmonds_branching.test.py

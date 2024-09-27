@@ -19,20 +19,20 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     import heapq\nfrom math import inf\n\ndef dijkstra(G, N, root) -> list[int]:\n\
     \    D = [inf for _ in range(N)]\n    D[root] = 0\n    q = [(0, root)]\n    while\
-    \ q:\n        d, v = heapq.heappop(q)\n        if d > D[v]: continue\n\n     \
-    \   for w, u in G[v]:\n            if (nd := d + w) < D[u]:\n                D[u]\
-    \ = nd\n                heapq.heappush(q, (nd, u))\n    return D\n"
+    \ q:\n        d, u = heapq.heappop(q)\n        if d > D[u]: continue\n\n     \
+    \   for v,w in G[u]:\n            if (nd := d + w) < D[v]:\n                D[v]\
+    \ = nd\n                heapq.heappush(q, (nd, v))\n    return D\n"
   code: "import cp_library.alg.graph.__header__\nimport heapq\nfrom math import inf\n\
     \ndef dijkstra(G, N, root) -> list[int]:\n    D = [inf for _ in range(N)]\n  \
-    \  D[root] = 0\n    q = [(0, root)]\n    while q:\n        d, v = heapq.heappop(q)\n\
-    \        if d > D[v]: continue\n\n        for w, u in G[v]:\n            if (nd\
-    \ := d + w) < D[u]:\n                D[u] = nd\n                heapq.heappush(q,\
-    \ (nd, u))\n    return D\n"
+    \  D[root] = 0\n    q = [(0, root)]\n    while q:\n        d, u = heapq.heappop(q)\n\
+    \        if d > D[u]: continue\n\n        for v,w in G[u]:\n            if (nd\
+    \ := d + w) < D[v]:\n                D[v] = nd\n                heapq.heappush(q,\
+    \ (nd, v))\n    return D\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/dijkstra_fn.py
   requiredBy: []
-  timestamp: '2024-09-21 16:55:32+09:00'
+  timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_a_dijkstra.test.py

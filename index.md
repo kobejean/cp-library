@@ -64,7 +64,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_cls.py
       title: cp_library/alg/graph/graph_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_weighted_cls.py
       title: cp_library/alg/graph/graph_weighted_cls.py
     - icon: ':heavy_check_mark:'
@@ -91,11 +91,23 @@ data:
       path: cp_library/alg/tree/find_centroid_recursive_fn.py
       title: cp_library/alg/tree/find_centroid_recursive_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/heavy_light_decomposition_cls.py
+      title: cp_library/alg/tree/heavy_light_decomposition_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_iterative_cls.py
       title: cp_library/alg/tree/lca_table_iterative_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_recursive_cls.py
       title: cp_library/alg/tree/lca_table_recursive_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
+      title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/tree_cls.py
+      title: cp_library/alg/tree/tree_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/tree_weighted_cls.py
+      title: cp_library/alg/tree/tree_weighted_cls.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
@@ -107,7 +119,7 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/bir_cls.py
       title: cp_library/ds/bir_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/bit_cls.py
       title: cp_library/ds/bit_cls.py
     - icon: ':warning:'
@@ -122,9 +134,12 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/disjoint_sparse_table_cls.py
       title: cp_library/ds/disjoint_sparse_table_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/grid.py
+      title: cp_library/ds/grid.py
     - icon: ':warning:'
       path: cp_library/ds/heapq_max_import.py
       title: cp_library/ds/heapq_max_import.py
@@ -137,7 +152,7 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/mutvec_cls.py
       title: cp_library/ds/mutvec_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/ds/potentialized_dsu_cls.py
       title: PotentializedDSU (generalized with groups)
     - icon: ':heavy_check_mark:'
@@ -171,13 +186,7 @@ data:
       title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/io
     pages:
-    - icon: ':warning:'
-      path: cp_library/io/parse_stream_fn_better.py
-      title: cp_library/io/parse_stream_fn_better.py
-    - icon: ':warning:'
-      path: cp_library/io/parse_stream_fn_slow.py
-      title: cp_library/io/parse_stream_fn_slow.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
@@ -186,10 +195,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_specs_fn.py
       title: cp_library/io/read_specs_fn.py
     - icon: ':heavy_check_mark:'
@@ -218,10 +227,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/median_fn.py
       title: cp_library/math/median_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/math/mobius_transform_fn.py
       title: cp_library/math/mobius_transform_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/math/subset_convolution_fn.py
       title: cp_library/math/subset_convolution_fn.py
     - icon: ':warning:'
@@ -230,7 +239,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/sum_of_squares_fn.py
       title: cp_library/math/sum_of_squares_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/math/zeta_transform_fn.py
       title: cp_library/math/zeta_transform_fn.py
   - name: cp_library/math/mod
@@ -247,22 +256,22 @@ data:
     - icon: ':warning:'
       path: cp_library/math/mod/mat_sub_fn.py
       title: cp_library/math/mod/mat_sub_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_comb_cls.py
       title: cp_library/math/mod/mint_comb_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/math/mod/mobius_transform_fn.py
       title: cp_library/math/mod/mobius_transform_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat_cls.py
       title: cp_library/math/mod/modmat_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/math/mod/subset_convolution_fn.py
       title: cp_library/math/mod/subset_convolution_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/math/mod/zeta_transform_fn.py
       title: cp_library/math/mod/zeta_transform_fn.py
   - name: cp_library/misc
@@ -283,9 +292,20 @@ data:
     - icon: ':warning:'
       path: cp_library/vis/plot_graph_weighted_fn.py
       title: cp_library/vis/plot_graph_weighted_fn.py
+  - name: .
+    pages:
+    - icon: ':warning:'
+      path: play.py
+      title: play.py
   verificationCategories:
   - name: test
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+      title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+      title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc362_q_count_substring_query_ahocorasick.test.py
       title: test/abc362_q_count_substring_query_ahocorasick.test.py
@@ -349,16 +369,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_modmat.test.py
       title: test/pow_of_matrix_modmat.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/subset_convolution.test.py
       title: test/subset_convolution.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/unionfind.test.py
       title: test/unionfind.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/unionfind_with_potential.test.py
       title: test/unionfind_with_potential.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/unionfind_with_potential_non_commutative_group.test.py
       title: test/unionfind_with_potential_non_commutative_group.test.py
 layout: toppage

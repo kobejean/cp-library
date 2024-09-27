@@ -19,16 +19,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyds_cycle_fn.py
     title: cp_library/alg/graph/floyds_cycle_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
@@ -45,94 +45,98 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B\n\
     \ndef main():\n    N, M, root = read((0, ...))\n    E = read_edges(M, 0)\n   \
-    \ MCA = edmonds_branching(E, N, root)\n    ans = sum(w for w,u,v in MCA)\n   \
-    \ print(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ MCA = edmonds_branching(E, N, root)\n    ans = sum(w for *_,w in MCA)\n    print(ans)\n\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\nimport sys\nfrom typing import Iterator, Type, TypeVar, overload\n\
-    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\nimport\
+    \ sys\nfrom typing import Iterator, Type, TypeVar, overload\n\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom typing import\
+    \ Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
     \    def __init__(self, stream = sys.stdin):\n        self.stream = stream\n \
     \       self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return next(self.stream).rstrip().split()\n        \n\
-    T = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\nclass Parser:\n\
-    \    def __init__(self, spec: type[T]|T):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[T], args = ()) -> T:\n\
-    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: type[T]|T=int) -> ParseFn[T]:\n        if isinstance(spec,\
-    \ type):\n            cls = typing.get_origin(spec) or spec\n            args\
-    \ = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
-    \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
-    \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
-    \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
-    \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        else:\n            raise\
-    \ NotImplementedError()\n    \n    @staticmethod\n    def compile_line(cls: T,\
-    \ spec=int) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        # @parse_stride(stride=inf)\n\
+    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
+    \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
+    \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
+    class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
+    \ Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> T:\n    \
+    \    return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
+    \ type[T], args = ()) -> T:\n        if issubclass(cls, Parsable):\n         \
+    \   return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
+    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
+    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ type[T]|T=int) -> ParseFn[T]:\n        if isinstance(spec, type):\n        \
+    \    cls = typing.get_origin(spec) or spec\n            args = typing.get_args(spec)\
+    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
+    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
+    \       def parse(ts: TokenStream):\n                return cls(next(ts)) + offset\n\
+    \            return parse\n        elif isinstance(args := spec, tuple):     \
+    \ \n            return Parser.compile_tuple(type(spec), args)\n        elif isinstance(args\
+    \ := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ args)\n        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
+    \    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n\
     \        def parse(ts: TokenStream):\n            return cls(fn(ts) for _ in ts.wait())\n\
     \        return parse\n\n    @staticmethod\n    def compile_repeat(cls: T, spec,\
-    \ N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        # @parse_stride(stride=fn.stride*N)\n\
-    \        def parse(ts: TokenStream):\n            return cls(fn(ts) for _ in range(N))\n\
-    \        return parse\n\n    @staticmethod\n    def compile_children(cls: T, specs)\
-    \ -> ParseFn[T]:\n        fns = tuple(Parser.compile(spec) for spec in specs)\
-    \ \n        # @parse_stride(stride=sum(fn.stride for fn in fns))\n        def\
-    \ parse(ts: TokenStream):\n            return cls(fn(ts) for fn in fns)  \n  \
-    \      return parse\n\n    @staticmethod\n    def compile_tuple(cls: type[T],\
-    \ specs) -> ParseFn[T]:\n        match specs:\n            case [spec, end] if\
-    \ end is ...:\n                return Parser.compile_line(cls, spec)\n       \
-    \     case specs:   \n                return Parser.compile_children(cls, specs)\n\
-    \    \n    @staticmethod\n    def compile_collection(cls, specs):\n        match\
-    \ specs:\n            case [ ] | [_] | set():\n                return Parser.compile_line(cls,\
-    \ *specs)\n            case [spec, int() as n]:\n                return Parser.compile_repeat(cls,\
+    \ N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(fn(ts) for _ in range(N))\n        return\
+    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
+    \        fns = tuple(Parser.compile(spec) for spec in specs)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(fn(ts) for fn in fns)  \n        return\
+    \ parse\n\n    @staticmethod\n    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:\n\
+    \        match specs:\n            case [spec, end] if end is ...:\n         \
+    \       return Parser.compile_line(cls, spec)\n            case specs:   \n  \
+    \              return Parser.compile_children(cls, specs)\n    \n    @staticmethod\n\
+    \    def compile_collection(cls, specs):\n        match specs:\n            case\
+    \ [ ] | [_] | set():\n                return Parser.compile_line(cls, *specs)\n\
+    \            case [spec, int() as n]:\n                return Parser.compile_repeat(cls,\
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
-    \ # @parse_stride(stride=1)\n        def parser(ts: TokenStream):\n          \
-    \  return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n@overload\n\
-    def read(spec: int|None) -> Iterator[int]: ...\n@overload\ndef read(spec: Type[T]|T)\
-    \ -> T: ...\ndef read(spec: Type[T]|T=None):\n    match spec:\n        case None:\n\
-    \            return map(int, input().split())\n        case int(i0):\n       \
-    \     return (int(s)-i0 for s in input().split())\n        case _:\n         \
-    \   stream = TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n\
-    \            return parser(stream)\n\n\n\n\nH = TypeVar('H')\nclass Edge(tuple,\
-    \ Parsable):\n    @property\n    def u(self) -> int: return self[0]\n    @property\n\
-    \    def v(self) -> int: return self[1]\n    @property\n    def forw(self) ->\
-    \ H: return self[1]\n    @property\n    def back(self) -> H: return self[0]\n\
-    \    @classmethod\n    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n\
-    \            return cls((int(s)-I for s in ts.line()))\n        return parse\n\
-    \nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n\
-    \    @classmethod\n    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I\
-    \ := E, int):\n            E = Edge[I]\n        edge = Parser.compile(E)\n   \
-    \     def parse(ts: TokenStream):\n            return cls(edge(ts) for _ in range(M))\n\
-    \        return parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\n\
-    class EdgeSet(EdgeCollection, set[E]):\n    pass\n\n\nclass EdgeWeighted(Edge,\
-    \ Parsable):\n    H: TypeAlias = tuple[int,int]\n    @property\n    def w(self):\
-    \ return self[0]\n    @property\n    def u(self): return self[1]\n    @property\n\
-    \    def v(self): return self[2]\n    @property\n    def forw(self) -> H: return\
-    \ self[0], self[2]\n    @property\n    def back(self) -> H: return self[0], self[1]\n\
-    \    @classmethod\n    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n\
-    \            u,v,w = map(int,ts.line())\n            return cls((w,u-I,v-I))\n\
-    \        return parse\n\nM = TypeVar('M', bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\n\
-    class EdgeCollectionWeighted(EdgeCollection):\n    @classmethod\n    def compile(cls,\
-    \ M: M, Ew: Ew = EdgeWeighted[-1]):\n        if isinstance(I := Ew, int):\n  \
-    \          Ew = EdgeWeighted[I]\n        return super().compile(M, Ew)\n\nclass\
-    \ EdgeListWeighted(EdgeCollectionWeighted, list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted,\
-    \ set[Ew]):\n    pass\n\ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n\
-    \nfrom functools import reduce\nfrom heapq import heapify\nfrom math import inf\n\
+    \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
+    \ parser\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> Iterator[int]:\
+    \ ...\n@overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None,\
+    \ char=False):\n    match spec, char:\n        case None, False:\n           \
+    \ return map(int, input().split())\n        case int(offset), False:\n       \
+    \     return (int(s)+offset for s in input().split())\n        case _, _:\n  \
+    \          if char:\n                stream = CharStream(sys.stdin)\n        \
+    \    else:\n                stream = TokenStream(sys.stdin)\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\n\n\nH = TypeVar('H')\n\
+    class Edge(tuple, Parsable):\n    @property\n    def u(self) -> int: return self[0]\n\
+    \    @property\n    def v(self) -> int: return self[1]\n    @property\n    def\
+    \ forw(self) -> H: return self[1]\n    @property\n    def back(self) -> H: return\
+    \ self[0]\n    @classmethod\n    def compile(cls, I=1):\n        def parse(ts:\
+    \ TokenStream):\n            return cls((int(s)+I for s in ts.line()))\n     \
+    \   return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
+    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
+    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
+    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
+    \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
+    \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
+    \ set[E]):\n    pass\n\n\nclass EdgeWeighted(Edge, Parsable):\n    H: TypeAlias\
+    \ = tuple[int,int]\n    @property\n    def u(self): return self[0]\n    @property\n\
+    \    def v(self): return self[1]\n    @property\n    def w(self): return self[2]\n\
+    \    @property\n    def forw(self) -> H: return self[1], self[2]\n    @property\n\
+    \    def back(self) -> H: return self[0], self[2]\n\n    def __lt__(self, other:\
+    \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
+    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
+    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
+    \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
+    \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
+    \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
+    \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
+    \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
+    \    pass\n\ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n\
+    from functools import reduce\nfrom heapq import heapify\nfrom math import inf\n\
     \n\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\"\
     )\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n = n\n        self.par\
     \ = [-1] * n\n\n    def merge(self, u, v):\n        assert 0 <= u < self.n\n \
@@ -154,8 +158,8 @@ data:
     \   slow, fast = F[slow], F[F[fast]]\n        if slow == fast:\n            cyc\
     \ = [slow]\n            while F[slow] != cyc[0]:\n                slow = F[slow]\n\
     \                cyc.append(slow)\n            return cyc\n    return None\n\n\
-    def edmonds_branching(E, N, root) -> list[tuple[any,int,int]]:\n    # obtain incoming\
-    \ edges\n    Gin = [[] for _ in range(N)]\n    for id,(w,u,v) in enumerate(E):\n\
+    def edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:\n    # obtain incoming\
+    \ edges\n    Gin = [[] for _ in range(N)]\n    for id,(u,v,w) in enumerate(E):\n\
     \        if v != root:\n            Gin[v].append([w,u,id])\n    \n\n    # heapify\
     \ for fast access to optimal edges\n    for v in range(N):\n        heapify(Gin[v])\n\
     \n    groups = DSU(N)\n    active = set(range(N))\n    active.discard(root)\n\n\
@@ -180,8 +184,8 @@ data:
     \    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B\n\
     \ndef main():\n    N, M, root = read((0, ...))\n    E = read_edges(M, 0)\n   \
-    \ MCA = edmonds_branching(E, N, root)\n    ans = sum(w for w,u,v in MCA)\n   \
-    \ print(ans)\n\nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.io.read_edges_weighted_fn\
+    \ MCA = edmonds_branching(E, N, root)\n    ans = sum(w for *_,w in MCA)\n    print(ans)\n\
+    \nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.io.read_edges_weighted_fn\
     \ import read_edges\nfrom cp_library.alg.graph.edmonds_fn import edmonds_branching\n\
     \nif __name__ == '__main__':\n    main()"
   dependsOn:
@@ -199,7 +203,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_b_edmonds_branching.test.py
   requiredBy: []
-  timestamp: '2024-09-21 16:55:32+09:00'
+  timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_b_edmonds_branching.test.py

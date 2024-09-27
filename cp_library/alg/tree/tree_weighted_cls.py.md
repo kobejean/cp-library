@@ -4,55 +4,41 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
-    path: cp_library/io/parser_cls.py
-    title: cp_library/io/parser_cls.py
-  _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
+    path: cp_library/alg/graph/edge_weighted_cls.py
+    title: cp_library/alg/graph/edge_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_cls.py
+    title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_cls.py
-    title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_tree_fn.py
-    title: cp_library/io/read_tree_fn.py
+  - icon: ':question:'
+    path: cp_library/io/parser_cls.py
+    title: cp_library/io/parser_cls.py
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
     title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_iterative.test.py
-    title: test/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_recursive.test.py
-    title: test/dp_v_subtree_rerooting_recursive.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_3_a_tarjan_articulation_points.test.py
-    title: test/grl_3_a_tarjan_articulation_points.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nimport sys\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\
-    \nclass TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n\
-    \        self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\n\nfrom typing import TypeAlias\n\n\nimport sys\nimport typing\nfrom\
+    \ collections import deque\nfrom numbers import Number\nfrom typing import Callable,\
+    \ Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n \
+    \   def __init__(self, stream = sys.stdin):\n        self.stream = stream\n  \
+    \      self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
     \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
@@ -101,45 +87,49 @@ data:
     \ return self[1]\n    @property\n    def forw(self) -> H: return self[1]\n   \
     \ @property\n    def back(self) -> H: return self[0]\n    @classmethod\n    def\
     \ compile(cls, I=1):\n        def parse(ts: TokenStream):\n            return\
-    \ cls((int(s)+I for s in ts.line()))\n        return parse\n\nclass Graph(list[H],\
-    \ Parsable):\n    def __init__(G, N: int, edges=[]):\n        super().__init__([]\
-    \ for _ in range(N))\n        G.E = list(edges)\n        for edge in G.E:\n  \
-    \          G[edge.u].append(edge.forw)\n            G[edge.v].append(edge.back)\n\
-    \n    @classmethod\n    def compile(cls, N: int, M: int, E = Edge[-1]):\n    \
-    \    if isinstance(E, int): E = Edge[E]\n        edge = Parser.compile(E)\n  \
-    \      def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _\
-    \ in range(M)))\n        return parse\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.io.parser_cls import\
-    \ Parsable, Parser, TokenStream\nfrom cp_library.alg.graph.edge_cls import Edge,\
-    \ H\n\nclass Graph(list[H], Parsable):\n    def __init__(G, N: int, edges=[]):\n\
-    \        super().__init__([] for _ in range(N))\n        G.E = list(edges)\n \
-    \       for edge in G.E:\n            G[edge.u].append(edge.forw)\n          \
-    \  G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ M: int, E = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n       \
-    \ edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n            return\
-    \ cls(N, (edge(ts) for _ in range(M)))\n        return parse"
+    \ cls((int(s)+I for s in ts.line()))\n        return parse\n\nclass EdgeWeighted(Edge,\
+    \ Parsable):\n    H: TypeAlias = tuple[int,int]\n    @property\n    def u(self):\
+    \ return self[0]\n    @property\n    def v(self): return self[1]\n    @property\n\
+    \    def w(self): return self[2]\n    @property\n    def forw(self) -> H: return\
+    \ self[1], self[2]\n    @property\n    def back(self) -> H: return self[0], self[2]\n\
+    \n    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
+    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
+    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
+    \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
+    \       return parse\n\n\n\nclass Graph(list[H], Parsable):\n    def __init__(G,\
+    \ N: int, edges=[]):\n        super().__init__([] for _ in range(N))\n       \
+    \ G.E = list(edges)\n        for edge in G.E:\n            G[edge.u].append(edge.forw)\n\
+    \            G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls,\
+    \ N: int, M: int, E = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n\
+    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
+    \       return cls(N, (edge(ts) for _ in range(M)))\n        return parse\n\n\
+    class Tree(Graph):\n    @classmethod\n    def compile(cls, N: int, E: type[Edge]|int\
+    \ = Edge[-1]):\n        return super().compile(N, N-1, E)\n\nclass TreeWeighted(Tree):\n\
+    \    @classmethod\n    def compile(cls, N: int, E: type[EdgeWeighted]|int = EdgeWeighted[-1]):\n\
+    \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
+    \ E)\n"
+  code: "import cp_library.alg.tree.__header__\n\nfrom cp_library.alg.graph.edge_weighted_cls\
+    \ import EdgeWeighted\nfrom cp_library.alg.tree.tree_cls import Tree\n\nclass\
+    \ TreeWeighted(Tree):\n    @classmethod\n    def compile(cls, N: int, E: type[EdgeWeighted]|int\
+    \ = EdgeWeighted[-1]):\n        if isinstance(E, int): E = EdgeWeighted[E]\n \
+    \       return super().compile(N, E)"
   dependsOn:
+  - cp_library/alg/graph/edge_weighted_cls.py
+  - cp_library/alg/tree/tree_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_cls.py
   isVerificationFile: false
-  path: cp_library/alg/graph/graph_cls.py
-  requiredBy:
-  - cp_library/io/read_tree_fn.py
-  - cp_library/alg/graph/graph_weighted_cls.py
-  - cp_library/alg/tree/tree_cls.py
-  - cp_library/alg/tree/tree_weighted_cls.py
+  path: cp_library/alg/tree/tree_weighted_cls.py
+  requiredBy: []
   timestamp: '2024-09-28 02:29:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - test/dp_v_subtree_rerooting_iterative.test.py
-  - test/dp_v_subtree_rerooting_recursive.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-  - test/grl_3_a_tarjan_articulation_points.test.py
-documentation_of: cp_library/alg/graph/graph_cls.py
+documentation_of: cp_library/alg/tree/tree_weighted_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/graph_cls.py
-- /library/cp_library/alg/graph/graph_cls.py.html
-title: cp_library/alg/graph/graph_cls.py
+- /library/cp_library/alg/tree/tree_weighted_cls.py
+- /library/cp_library/alg/tree/tree_weighted_cls.py.html
+title: cp_library/alg/tree/tree_weighted_cls.py
 ---
