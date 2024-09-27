@@ -21,12 +21,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_2_b_edmonds_branching.test.py
     title: test/grl_2_b_edmonds_branching.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/unionfind.test.py
     title: test/unionfind.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -75,8 +75,8 @@ data:
   - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/graph/kruskal_heap_fn.py
-  timestamp: '2024-09-28 03:27:29+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-09-28 04:04:21+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py
   - test/unionfind.test.py

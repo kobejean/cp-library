@@ -28,10 +28,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -223,7 +223,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-09-28 03:27:29+09:00'
+  timestamp: '2024-09-28 04:04:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mobius_transform_fn.py
     title: cp_library/math/mobius_transform_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mobius_transform_fn.py
     title: cp_library/math/mod/mobius_transform_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/subset_convolution_fn.py
     title: cp_library/math/mod/subset_convolution_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/zeta_transform_fn.py
     title: cp_library/math/mod/zeta_transform_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/subset_convolution_fn.py
     title: cp_library/math/subset_convolution_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/zeta_transform_fn.py
     title: cp_library/math/zeta_transform_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://judge.yosupo.jp/problem/subset_convolution
     links:
@@ -193,8 +193,8 @@ data:
   isVerificationFile: true
   path: test/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2024-09-28 03:27:29+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-28 04:04:21+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/subset_convolution.test.py
 layout: document

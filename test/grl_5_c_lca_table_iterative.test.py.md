@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
@@ -66,7 +66,7 @@ data:
   isVerificationFile: true
   path: test/grl_5_c_lca_table_iterative.test.py
   requiredBy: []
-  timestamp: '2024-09-28 03:27:29+09:00'
+  timestamp: '2024-09-28 04:04:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_c_lca_table_iterative.test.py

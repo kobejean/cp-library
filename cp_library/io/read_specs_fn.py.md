@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -42,12 +42,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_3_a_tarjan_articulation_points.test.py
     title: test/grl_3_a_tarjan_articulation_points.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -131,8 +131,8 @@ data:
   requiredBy:
   - cp_library/io/read_tree_fn.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-09-28 03:27:29+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-09-28 04:04:21+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -112,7 +112,7 @@ data:
   path: cp_library/alg/graph/digraph_cls.py
   requiredBy:
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2024-09-28 03:27:29+09:00'
+  timestamp: '2024-09-28 04:04:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py

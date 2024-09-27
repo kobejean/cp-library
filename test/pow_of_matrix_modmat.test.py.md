@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
@@ -137,7 +137,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2024-09-28 03:27:29+09:00'
+  timestamp: '2024-09-28 04:04:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_modmat.test.py

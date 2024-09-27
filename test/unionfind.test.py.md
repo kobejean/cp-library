@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://judge.yosupo.jp/problem/unionfind
     links:
@@ -53,8 +53,8 @@ data:
   isVerificationFile: true
   path: test/unionfind.test.py
   requiredBy: []
-  timestamp: '2024-09-28 03:27:29+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-28 04:04:21+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind.test.py
 layout: document

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -105,7 +105,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/grid.py
   requiredBy: []
-  timestamp: '2024-09-28 03:27:29+09:00'
+  timestamp: '2024-09-28 04:04:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/grid.py

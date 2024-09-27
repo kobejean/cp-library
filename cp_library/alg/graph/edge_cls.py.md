@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -163,7 +163,7 @@ data:
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-09-28 03:27:29+09:00'
+  timestamp: '2024-09-28 04:04:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py
