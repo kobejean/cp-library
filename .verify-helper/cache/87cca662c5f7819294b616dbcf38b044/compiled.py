@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/output/test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+# run output/test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 
