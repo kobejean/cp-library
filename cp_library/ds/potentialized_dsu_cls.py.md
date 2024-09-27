@@ -76,7 +76,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/potentialized_dsu_cls.py
   requiredBy: []
-  timestamp: '2024-09-28 02:29:45+09:00'
+  timestamp: '2024-09-28 03:27:29+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/unionfind_with_potential_non_commutative_group.test.py

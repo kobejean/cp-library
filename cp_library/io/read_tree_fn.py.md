@@ -120,7 +120,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_tree_fn.py
   requiredBy: []
-  timestamp: '2024-09-28 02:29:45+09:00'
+  timestamp: '2024-09-28 03:27:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py

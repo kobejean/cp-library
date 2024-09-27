@@ -57,7 +57,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2024-09-28 02:29:45+09:00'
+  timestamp: '2024-09-28 03:27:29+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/unionfind.test.py
