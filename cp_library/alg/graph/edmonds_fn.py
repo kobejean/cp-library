@@ -6,10 +6,10 @@ import cp_library.misc.setrecursionlimit
 from cp_library.ds.dsu_cls import DSU
 from cp_library.alg.graph.floyds_cycle_fn import floyds_cycle
 
-def edmonds_branching(E, N, root) -> list[tuple[any,int,int]]:
+def edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:
     # obtain incoming edges
     Gin = [[] for _ in range(N)]
-    for id,(w,u,v) in enumerate(E):
+    for id,(u,v,w) in enumerate(E):
         if v != root:
             Gin[v].append([w,u,id])
     

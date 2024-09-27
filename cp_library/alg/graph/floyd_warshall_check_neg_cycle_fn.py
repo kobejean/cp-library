@@ -1,3 +1,4 @@
+import cp_library.alg.graph.__header__
 
 def floyd_warshall(G, N, directed=True) -> tuple[bool, list[int]]:
     if directed:

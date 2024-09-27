@@ -10,10 +10,20 @@ class BinaryIndexTree:
     def build(self, data):
         self.data, self.size = data, len(data)
         for i in range(self.size):
-            r = i|(i+1)
-            if r < self.size: 
+            if (r := i|(i+1)) < self.size: 
                 self.data[r] += self.data[i]
 
+    def get(self, i: int):
+        assert 0 <= i < self.size
+        s = self.data[i]
+        z = i&(i+1)
+        for _ in range((i^z).bit_count()):
+            s, i = s-self.data[i-1], i-(i&-i)
+        return s
+    
+    def set(self, i: int, x: int):
+        self.add(i, x-self.get(i))
+        
     def add(self, i: int, x: object) -> None:
         assert 0 <= i <= self.size
         i += 1
@@ -23,16 +33,9 @@ class BinaryIndexTree:
     def pref_sum(self, i: int):
         assert 0 <= i <= self.size
         s = 0
-        while i > 0:
+        for _ in range(i.bit_count()):
             s, i = s+self.data[i-1], i-(i&-i)
         return s
     
     def range_sum(self, l: int, r: int):
-        assert 0 <= l <= r <= self.size
-        m = l&r if l.bit_length() == r.bit_length() else 0
-        s = 0
-        while l > m:
-            s, l = s-self.data[l-1], l-(l&-l)
-        while r > m:
-            s, r = s+self.data[r-1], r-(r&-r)
-        return s
+        return self.pref_sum(r) - self.pref_sum(l)

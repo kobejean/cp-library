@@ -1,4 +1,5 @@
-from typing import TypeAlias, TypeVar
+import cp_library.alg.graph.__header__
+from typing import TypeVar
 from cp_library.io.parser_cls import Parsable, TokenStream
 
 H = TypeVar('H')
@@ -14,5 +15,5 @@ class Edge(tuple, Parsable):
     @classmethod
     def compile(cls, I=1):
         def parse(ts: TokenStream):
-            return cls((int(s)-I for s in ts.line()))
+            return cls((int(s)+I for s in ts.line()))
         return parse

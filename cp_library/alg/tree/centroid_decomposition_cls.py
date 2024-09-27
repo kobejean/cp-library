@@ -1,3 +1,5 @@
+import cp_library.alg.tree.__header__
+
 class CentroidDecomposition():
     def __init__(self, tree):
         n = len(tree)

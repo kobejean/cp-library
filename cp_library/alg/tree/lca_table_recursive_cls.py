@@ -1,3 +1,4 @@
+import cp_library.alg.tree.__header__
 from typing import List
 
 import cp_library.misc.setrecursionlimit

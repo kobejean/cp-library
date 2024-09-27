@@ -7,11 +7,11 @@ def dijkstra(G, N, root) -> list[int]:
     D[root] = 0
     q = [(0, root)]
     while q:
-        d, v = heapq.heappop(q)
-        if d > D[v]: continue
+        d, u = heapq.heappop(q)
+        if d > D[u]: continue
 
-        for w, u in G[v]:
-            if (nd := d + w) < D[u]:
-                D[u] = nd
-                heapq.heappush(q, (nd, u))
+        for v,w in G[u]:
+            if (nd := d + w) < D[v]:
+                D[v] = nd
+                heapq.heappush(q, (nd, v))
     return D

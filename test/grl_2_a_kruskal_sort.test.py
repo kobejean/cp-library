@@ -4,7 +4,7 @@ def main():
     N, M = read((int,int))
     E = read(EdgeListWeighted[M,0])
     MST = kruskal(E, N)
-    ans = sum(w for w,u,v in MST)
+    ans = sum(w for *_,w in MST)
     print(ans)
 
 from cp_library.io.read_specs_fn import read

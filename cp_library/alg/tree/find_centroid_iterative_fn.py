@@ -1,3 +1,4 @@
+import cp_library.alg.tree.__header__
 
 def find_centroid(T):
     N = len(T)

@@ -4,7 +4,7 @@ def main():
     N, M, root = read((0, ...))
     E = read_edges(M, 0)
     MCA = edmonds_branching(E, N, root)
-    ans = sum(w for w,u,v in MCA)
+    ans = sum(w for *_,w in MCA)
     print(ans)
 
 from cp_library.io.read_specs_fn import read

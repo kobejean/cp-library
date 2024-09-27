@@ -1,3 +1,4 @@
+import cp_library.alg.graph.__header__
 import cp_library.misc.setrecursionlimit
 
 def tarjan_articulation_points(G, N):

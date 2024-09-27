@@ -1,4 +1,4 @@
-import cp_library.alg.__header__
+import cp_library.alg.graph.__header__
 
 from typing import TypeVar
 from cp_library.alg.graph.edge_list_cls import EdgeCollection

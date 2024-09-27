@@ -1,3 +1,4 @@
+import cp_library.alg.graph.__header__
 
 def floyds_cycle(F, root):
     slow = fast = root

@@ -22,6 +22,11 @@ class TokenStream(Iterator):
     def line(self):
         assert not self.queue
         return next(self.stream).rstrip().split()
+
+class CharStream(Iterator):
+    def line(self):
+        assert not self.queue
+        return next(self.stream).rstrip()
         
 T = TypeVar('T')
 ParseFn: TypeAlias = Callable[[TokenStream],T]
@@ -72,7 +77,6 @@ class Parser:
     @staticmethod
     def compile_line(cls: T, spec=int) -> ParseFn[T]:
         fn = Parser.compile(spec)
-        # @parse_stride(stride=inf)
         def parse(ts: TokenStream):
             return cls(fn(ts) for _ in ts.wait())
         return parse
@@ -80,15 +84,13 @@ class Parser:
     @staticmethod
     def compile_repeat(cls: T, spec, N) -> ParseFn[T]:
         fn = Parser.compile(spec)
-        # @parse_stride(stride=fn.stride*N)
         def parse(ts: TokenStream):
             return cls(fn(ts) for _ in range(N))
         return parse
 
     @staticmethod
     def compile_children(cls: T, specs) -> ParseFn[T]:
-        fns = tuple(Parser.compile(spec) for spec in specs) 
-        # @parse_stride(stride=sum(fn.stride for fn in fns))
+        fns = tuple(Parser.compile(spec) for spec in specs)
         def parse(ts: TokenStream):
             return cls(fn(ts) for fn in fns)  
         return parse
@@ -115,7 +117,6 @@ class Parser:
 class Parsable:
     @classmethod
     def compile(cls):
-        # @parse_stride(stride=1)
         def parser(ts: TokenStream):
             return cls(next(ts))
         return parser

@@ -1,3 +1,4 @@
+import cp_library.alg.tree.__header__
 from itertools import pairwise
 from cp_library.alg.tree.lca_table_iterative_cls import LCATable
 

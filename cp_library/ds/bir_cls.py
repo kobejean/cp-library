@@ -3,8 +3,8 @@ import cp_library.ds.__header__
 class BinaryIndexRange:
     def __init__(self, size: int):
         self.size = size
-        self.bit1 = BinaryIndexTree(size)  # For storing a[i] * i
-        self.bit2 = BinaryIndexTree(size)  # For storing a[i]
+        self.bit1 = BinaryIndexTree(size)
+        self.bit2 = BinaryIndexTree(size)
 
     def add(self, l, r, x) -> None:
         """Add x to all elements in range [l, r)"""
@@ -27,7 +27,6 @@ class BinaryIndexRange:
 
     def set(self, i, x):
         """Set the value at index i to x"""
-        current_value = self.get(i)
-        self.add(i, i+1, x - current_value)
+        self.add(i, i+1, x - self.get(i))
         
 from cp_library.ds.bit_cls import BinaryIndexTree

@@ -1,3 +1,4 @@
+import cp_library.alg.graph.__header__
 from math import inf
 
 def floyd_warshall(G, N) -> list[int]:
@@ -5,7 +6,7 @@ def floyd_warshall(G, N) -> list[int]:
 
     for u, edges in enumerate(G):
         D[u][u] = 0
-        for w,v in edges:
+        for v,w in edges:
             D[u][v] = min(D[u][v], w)
     
     for k, Dk in enumerate(D):
