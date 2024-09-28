@@ -94,6 +94,9 @@ data:
       path: cp_library/alg/tree/heavy_light_decomposition_cls.py
       title: cp_library/alg/tree/heavy_light_decomposition_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
+      title: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_iterative_cls.py
       title: cp_library/alg/tree/lca_table_iterative_cls.py
     - icon: ':heavy_check_mark:'
@@ -306,6 +309,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
       title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+      title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc362_q_count_substring_query_ahocorasick.test.py
       title: test/abc362_q_count_substring_query_ahocorasick.test.py

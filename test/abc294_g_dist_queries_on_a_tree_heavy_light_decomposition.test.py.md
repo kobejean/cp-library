@@ -11,8 +11,8 @@ data:
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/heavy_light_decomposition_cls.py
-    title: cp_library/alg/tree/heavy_light_decomposition_cls.py
+    path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
+    title: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
@@ -37,33 +37,23 @@ data:
     PROBLEM: https://atcoder.jp/contests/abc294/tasks/abc294_g
     links:
     - https://atcoder.jp/contests/abc294/tasks/abc294_g
-  bundledCode: "'''\n  You must see with eyes unclouded by hate.  See the good in\
-    \    \n  that which is evil, and the evil in that which is good.       \n  Pledge\
-    \ yourself to neither side, but vow instead to preserve  \n  the balance that\
-    \ exists between the two. - Hayao Miyazaki     \n\u257A\u2501\u2501\u2501\u2501\
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
+    \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
+    \    W = [hld.weights[i] for i in hld.order]\n    bit = BinaryIndexTree(W)\n\n\
+    \    Q = read(int)\n    for query in read(list[tuple[int, int, int], Q]):\n  \
+    \      match query:\n            case 1, i, w:\n                i -= 1  # Convert\
+    \ to 0-based index\n                u, v, _ = T.E[i]\n                # Find child\
+    \ node in edge (u, v)\n                if hld.par[u] == v:\n                 \
+    \   node = u\n                else:\n                    node = v\n          \
+    \      idx = hld[node]\n                bit.set(idx, w)\n            case 2, u,\
+    \ v:\n                u, v = u - 1, v - 1\n                ans = sum(bit.range_sum(l,r)\
+    \ for l,r in hld.path(u,v, True))\n                print(ans)\n\n'''\n\u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     Submitted by:\
-    \ kobejean                     \n'''\n# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
-    \n\n\ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld\
-    \ = HeavyLightDecomposition(T)\n    W = [hld.weights[i] for i in hld.order]\n\
-    \    bit = BinaryIndexTree(W)\n\n    Q = read(int)\n    for query in read(list[tuple[int,\
-    \ int, int], Q]):\n        match query:\n            case 1, i, w:\n         \
-    \       i -= 1  # Convert to 0-based index\n                u, v, _ = T.E[i]\n\
-    \                # Find child node in edge (u, v)\n                if hld.par[u]\
-    \ == v:\n                    node = u\n                else:\n               \
-    \     node = v\n                idx = hld.pos[node]\n                bit.set(idx,\
-    \ w)\n            case 2, u, v:\n                u, v = u - 1, v - 1\n       \
-    \         ans = sum(bit.range_sum(l,r) for l,r in hld.path(u,v, True))\n     \
-    \           print(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
-    \              \n'''\n\nclass BinaryIndexTree:\n    def __init__(self, v: int|list):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\nclass BinaryIndexTree:\n    def __init__(self, v: int|list):\n\
     \        if isinstance(v, int):\n            self.data, self.size = [0]*v, v\n\
     \        else:\n            self.build(v)\n\n    def build(self, data):\n    \
     \    self.data, self.size = data, len(data)\n        for i in range(self.size):\n\
@@ -152,38 +142,41 @@ data:
     \    def compile(cls, N: int, E: type[Edge]|int = Edge[-1]):\n        return super().compile(N,\
     \ N-1, E)\n\nclass TreeWeighted(Tree):\n    @classmethod\n    def compile(cls,\
     \ N: int, E: type[EdgeWeighted]|int = EdgeWeighted[-1]):\n        if isinstance(E,\
-    \ int): E = EdgeWeighted[E]\n        return super().compile(N, E)\n\nclass HeavyLightDecomposition:\n\
+    \ int): E = EdgeWeighted[E]\n        return super().compile(N, E)\n\nclass HLDWeighted:\n\
     \    def __init__(self, T, r=0):\n        N = len(T)\n        # build\n      \
-    \  size = [1]*N\n        pos = [0]*N\n        par = [-1]*N\n        heavy = [-1]*N\n\
-    \        head = [-1]*N\n        depth = [0]*N\n        weights = [0]*N\n     \
-    \   order = [0]*N\n        time = 0\n\n        stack = [(2,r,r), (0,r,-1)]\n \
-    \       while stack:\n            match stack.pop():\n                case 0,\
-    \ v, p: # dfs down\n                    par[v] = p\n                    stack.append((1,\
-    \ v, p))\n                    for c, w in T[v]:\n                        if c\
-    \ != p:\n                            depth[c] = depth[v] + 1 \n              \
-    \              weights[c] = w\n                            stack.append((0, c,\
-    \ v))\n\n                case 1, v, p: # dfs up\n                    l = -1\n\
-    \                    for c, w in T[v]:\n                        if c != p:\n \
-    \                           size[v] += size[c]\n                            if\
-    \ l == -1 or size[c] > size[l]:\n                                l = c\n     \
-    \               heavy[v] = l\n\n                case 2, v, h: # decompose\n  \
-    \                  head[v] = h\n                    pos[v] = time\n          \
-    \          order[time] = v\n                    p = par[v]\n                 \
-    \   time += 1\n                    l = heavy[v]\n                    for c, _\
-    \ in T[v]:\n                        if c != p and c != l:\n                  \
-    \          stack.append((2, c, c))\n\n                    if l != -1:\n      \
-    \                  stack.append((2, l, h))\n        self.N = N\n        self.T\
-    \ = T\n        self.size = size\n        self.pos = pos\n        self.par = par\n\
-    \        self.heavy = heavy\n        self.head = head\n        self.depth = depth\n\
-    \        self.weights = weights\n        self.order = order\n\n    def path(self,\
-    \ u, v, exclude_lca=False):\n        head, depth, par, pos = self.head, self.depth,\
-    \ self.par, self.pos\n        while head[u] != head[v]:\n            if depth[head[u]]\
-    \ < depth[head[v]]:\n                u,v = v,u\n            yield pos[head[u]],\
-    \ pos[u]+1\n            u = par[head[u]]\n\n        if depth[u] < depth[v]:\n\
-    \            u,v = v,u\n        l,r = pos[v], pos[u]+1\n        if exclude_lca:\n\
-    \            l += 1\n        yield l, r\n\n\nfrom typing import Iterator, Type,\
-    \ TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) ->\
-    \ Iterator[int]: ...\n@overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec:\
+    \  size = [1]*N\n        start = [0]*N\n        end = [0]*N\n        par = [-1]*N\n\
+    \        heavy = [-1]*N\n        head = [-1]*N\n        depth = [0]*N\n      \
+    \  weights = [0]*N\n        order = [0]*N\n        time = 0\n\n        stack =\
+    \ [(2,r,r), (0,r,-1)]\n        while stack:\n            match stack.pop():\n\
+    \                case 0, v, p: # dfs down\n                    par[v] = p\n  \
+    \                  stack.append((1, v, p))\n                    for c, w in T[v]:\n\
+    \                        if c != p:\n                            depth[c] = depth[v]\
+    \ + 1 \n                            weights[c] = w\n                         \
+    \   stack.append((0, c, v))\n\n                case 1, v, p: # dfs up\n      \
+    \              l = -1\n                    for c, w in T[v]:\n               \
+    \         if c != p:\n                            size[v] += size[c]\n       \
+    \                     if l == -1 or size[c] > size[l]:\n                     \
+    \           l = c\n                    heavy[v] = l\n\n                case 2,\
+    \ v, h: # decompose down\n                    head[v] = h\n                  \
+    \  start[v] = time\n                    order[time] = v\n                    p\
+    \ = par[v]\n                    time += 1\n                    l = heavy[v]\n\
+    \                    stack.append((3, v, h))\n                    \n         \
+    \           for c, _ in T[v]:\n                        if c != p and c != l:\n\
+    \                            stack.append((2, c, c))\n\n                    if\
+    \ l != -1:\n                        stack.append((2, l, h))\n                case\
+    \ 3, v, h: # decompose up\n                    end[v] = time\n        self.N =\
+    \ N\n        self.T = T\n        self.size = size\n        self.start = start\n\
+    \        self.end = end\n        self.par = par\n        self.heavy = heavy\n\
+    \        self.head = head\n        self.depth = depth\n        self.weights =\
+    \ weights\n        self.order = order\n\n    def __getitem__(self, key):\n   \
+    \     return self.start[key]\n    \n    def path(self, u, v, edge=False):\n  \
+    \      head, depth, par, start = self.head, self.depth, self.par, self.start\n\
+    \        while head[u] != head[v]:\n            if depth[head[u]] < depth[head[v]]:\n\
+    \                u,v = v,u\n            yield start[head[u]], start[u]+1\n   \
+    \         u = par[head[u]]\n\n        if depth[u] < depth[v]:\n            u,v\
+    \ = v,u\n\n        yield start[v]+edge, start[u]+1\n\n\nfrom typing import Iterator,\
+    \ Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None)\
+    \ -> Iterator[int]: ...\n@overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec:\
     \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
     \            return map(int, input().split())\n        case int(offset), False:\n\
     \            return (int(s)+offset for s in input().split())\n        case _,\
@@ -191,34 +184,25 @@ data:
     \           else:\n                stream = TokenStream(sys.stdin)\n         \
     \   parser: T = Parser.compile(spec)\n            return parser(stream)\n\nif\
     \ __name__ == \"__main__\":\n    main()\n"
-  code: "'''\n  You must see with eyes unclouded by hate.  See the good in    \n \
-    \ that which is evil, and the evil in that which is good.       \n  Pledge yourself\
-    \ to neither side, but vow instead to preserve  \n  the balance that exists between\
-    \ the two. - Hayao Miyazaki     \n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2578\n                     Submitted by: kobejean        \
-    \             \n'''\n# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
-    \n\n\ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld\
-    \ = HeavyLightDecomposition(T)\n    W = [hld.weights[i] for i in hld.order]\n\
-    \    bit = BinaryIndexTree(W)\n\n    Q = read(int)\n    for query in read(list[tuple[int,\
-    \ int, int], Q]):\n        match query:\n            case 1, i, w:\n         \
-    \       i -= 1  # Convert to 0-based index\n                u, v, _ = T.E[i]\n\
-    \                # Find child node in edge (u, v)\n                if hld.par[u]\
-    \ == v:\n                    node = u\n                else:\n               \
-    \     node = v\n                idx = hld.pos[node]\n                bit.set(idx,\
-    \ w)\n            case 2, u, v:\n                u, v = u - 1, v - 1\n       \
-    \         ans = sum(bit.range_sum(l,r) for l,r in hld.path(u,v, True))\n     \
-    \           print(ans)\n\nfrom cp_library.ds.bit_cls import BinaryIndexTree\n\
-    from cp_library.alg.tree.tree_weighted_cls import TreeWeighted\nfrom cp_library.alg.tree.heavy_light_decomposition_cls\
-    \ import HeavyLightDecomposition\nfrom cp_library.io.read_specs_fn import read\n\
-    \nif __name__ == \"__main__\":\n    main()"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
+    \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
+    \    W = [hld.weights[i] for i in hld.order]\n    bit = BinaryIndexTree(W)\n\n\
+    \    Q = read(int)\n    for query in read(list[tuple[int, int, int], Q]):\n  \
+    \      match query:\n            case 1, i, w:\n                i -= 1  # Convert\
+    \ to 0-based index\n                u, v, _ = T.E[i]\n                # Find child\
+    \ node in edge (u, v)\n                if hld.par[u] == v:\n                 \
+    \   node = u\n                else:\n                    node = v\n          \
+    \      idx = hld[node]\n                bit.set(idx, w)\n            case 2, u,\
+    \ v:\n                u, v = u - 1, v - 1\n                ans = sum(bit.range_sum(l,r)\
+    \ for l,r in hld.path(u,v, True))\n                print(ans)\n\nfrom cp_library.ds.bit_cls\
+    \ import BinaryIndexTree\nfrom cp_library.alg.tree.tree_weighted_cls import TreeWeighted\n\
+    from cp_library.alg.tree.heavy_light_decomposition_weighted_cls import HLDWeighted\n\
+    from cp_library.io.read_specs_fn import read\n\nif __name__ == \"__main__\":\n\
+    \    main()"
   dependsOn:
   - cp_library/ds/bit_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  - cp_library/alg/tree/heavy_light_decomposition_cls.py
+  - cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/alg/tree/tree_cls.py
@@ -228,7 +212,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-09-28 04:04:21+09:00'
+  timestamp: '2024-09-28 19:50:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

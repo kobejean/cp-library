@@ -28,6 +28,9 @@ data:
     path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_iterative.test.py
     title: test/dp_v_subtree_rerooting_iterative.test.py
   - icon: ':heavy_check_mark:'
@@ -128,12 +131,13 @@ data:
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-09-28 04:04:21+09:00'
+  timestamp: '2024-09-28 19:50:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
+  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/grl_3_a_tarjan_articulation_points.test.py
 documentation_of: cp_library/alg/graph/graph_cls.py
