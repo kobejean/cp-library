@@ -1,9 +1,20 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group
-from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
-from cp_library.io.read_int_fn import read
 
 mod = 998244353
-N, Q = read()
+
+def main():
+    N, Q = read()
+    pdsu = PotentializedDSU(matmul2,matinv2,e,N)
+    for _ in range(Q):
+        t, *q = read()
+        if t:
+            u, v = q
+            ans = pdsu.diff(u, v) if pdsu.same(u, v) else (-1,)
+            print(*ans)
+        else:
+            u, v, *w = q
+            print(int(pdsu.consistent(u,v, w)))
+            pdsu.merge(u, v, w)
 
 def matmul2(x, y):
     return [
@@ -17,16 +28,10 @@ def matinv2(x) -> list[int]:
     return [x[3], -x[1] % mod, -x[2] % mod, x[0]]
 
 e = [1, 0, 0, 1]
-pdsu = PotentializedDSU(matmul2,matinv2,e,N)
 
-for _ in range(Q):
-    t, *q = read()
-    if t:
-        u, v = q
-        ans = pdsu.diff(u, v) if pdsu.same(u, v) else (-1,)
-        print(*ans)
-    else:
-        u, v, *w = q
-        print(int(pdsu.consistent(u,v, w)))
-        pdsu.merge(u, v, w)
             
+from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
+from cp_library.io.read_int_fn import read
+
+if __name__ == "__main__":
+    main()

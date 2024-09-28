@@ -1,6 +1,6 @@
 import cp_library.alg.tree.__header__
 
-class HLD:
+class HLDWeighted:
     def __init__(self, T, r=0):
         N = len(T)
         # build
@@ -11,6 +11,7 @@ class HLD:
         heavy = [-1]*N
         head = [-1]*N
         depth = [0]*N
+        weights = [0]*N
         order = [0]*N
         time = 0
 
@@ -20,14 +21,15 @@ class HLD:
                 case 0, v, p: # dfs down
                     par[v] = p
                     stack.append((1, v, p))
-                    for c in T[v]:
+                    for c, w in T[v]:
                         if c != p:
                             depth[c] = depth[v] + 1 
+                            weights[c] = w
                             stack.append((0, c, v))
 
                 case 1, v, p: # dfs up
                     l = -1
-                    for c in T[v]:
+                    for c, w in T[v]:
                         if c != p:
                             size[v] += size[c]
                             if l == -1 or size[c] > size[l]:
@@ -43,7 +45,7 @@ class HLD:
                     l = heavy[v]
                     stack.append((3, v, h))
                     
-                    for c in T[v]:
+                    for c, _ in T[v]:
                         if c != p and c != l:
                             stack.append((2, c, c))
 
@@ -60,11 +62,12 @@ class HLD:
         self.heavy = heavy
         self.head = head
         self.depth = depth
+        self.weights = weights
         self.order = order
 
     def __getitem__(self, key):
         return self.start[key]
-
+    
     def path(self, u, v, edge=False):
         head, depth, par, start = self.head, self.depth, self.par, self.start
         while head[u] != head[v]:
@@ -77,3 +80,4 @@ class HLD:
             u,v = v,u
 
         yield start[v]+edge, start[u]+1
+
