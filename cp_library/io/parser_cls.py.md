@@ -220,7 +220,7 @@ data:
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/ds/grid.py
-  timestamp: '2024-09-28 19:50:41+09:00'
+  timestamp: '2024-10-02 18:48:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py

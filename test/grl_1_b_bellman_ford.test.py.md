@@ -124,12 +124,12 @@ data:
     \        return parse\n\nclass DiGraphWeighted(DiGraph[EdgeWeighted]):\n    @classmethod\n\
     \    def compile(cls, N: int, M: int, E: EdgeWeighted|int = EdgeWeighted[-1]):\n\
     \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
-    \ M, E)\n\nfrom typing import Iterator, Type, TypeVar, overload\n\nT = TypeVar('T')\n\
-    @overload\ndef read(spec: int|None) -> Iterator[int]: ...\n@overload\ndef read(spec:\
-    \ Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match\
-    \ spec, char:\n        case None, False:\n            return map(int, input().split())\n\
-    \        case int(offset), False:\n            return (int(s)+offset for s in\
-    \ input().split())\n        case _, _:\n            if char:\n               \
+    \ M, E)\n\nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\n\
+    def read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T)\
+    \ -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n\
+    \        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
     \ stream = CharStream(sys.stdin)\n            else:\n                stream =\
     \ TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n     \
     \       return parser(stream)\n\nif __name__ == '__main__':\n    main()\n"
@@ -153,7 +153,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_b_bellman_ford.test.py
   requiredBy: []
-  timestamp: '2024-09-28 19:50:41+09:00'
+  timestamp: '2024-10-02 18:48:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_b_bellman_ford.test.py

@@ -20,19 +20,23 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef zeta_transform(A, N):\n    for i in range(N):\n        bit = 1 << i\n  \
-    \      for mask in range(1 << N):\n            if mask & bit:\n              \
-    \  A[mask] += A[mask ^ bit]\n    return A\n"
-  code: "import cp_library.math.__header__\n\ndef zeta_transform(A, N):\n    for i\
-    \ in range(N):\n        bit = 1 << i\n        for mask in range(1 << N):\n   \
-    \         if mask & bit:\n                A[mask] += A[mask ^ bit]\n    return\
-    \ A\n"
+    \ndef zeta_transform(A, N, block=5):\n    for i in range(min(block,N)):\n    \
+    \    for mask in range(bit := 1<<i, 1<<N):\n            if mask & bit:\n     \
+    \           A[mask] += A[mask ^ bit]\n    for i in range(block,N):\n        for\
+    \ base in range(bit := 1<<i, 1<<N, bit << 1):\n            for mask in range(base,\
+    \ base+bit):\n                A[mask] += A[mask ^ bit]\n    return A\n"
+  code: "import cp_library.math.__header__\n\ndef zeta_transform(A, N, block=5):\n\
+    \    for i in range(min(block,N)):\n        for mask in range(bit := 1<<i, 1<<N):\n\
+    \            if mask & bit:\n                A[mask] += A[mask ^ bit]\n    for\
+    \ i in range(block,N):\n        for base in range(bit := 1<<i, 1<<N, bit << 1):\n\
+    \            for mask in range(base, base+bit):\n                A[mask] += A[mask\
+    \ ^ bit]\n    return A\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/zeta_transform_fn.py
   requiredBy:
   - cp_library/math/subset_convolution_fn.py
-  timestamp: '2024-09-28 19:50:41+09:00'
+  timestamp: '2024-10-02 18:48:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/subset_convolution.test.py

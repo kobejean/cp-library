@@ -37,11 +37,16 @@ data:
     \    for Cr in Crank: mobius_transform(Cr, N, mod)\n        \n    # Combine results\n\
     \    C = [0] * Z\n    for mask in range(Z):\n        rank = mask.bit_count()\n\
     \        C[mask] = Crank[rank][mask]\n\n    return C\n\n\ndef zeta_transform(A,\
-    \ N, mod):\n    for i in range(N):\n        bit = 1 << i\n        for mask in\
-    \ range(1 << N):\n            if mask & bit:\n                A[mask] = (A[mask]\
-    \ + A[mask ^ bit]) % mod\n    return A\n\ndef mobius_transform(A, N, mod):\n \
-    \   for i in range(N):\n        bit = 1 << i\n        for mask in range(1 << N):\n\
-    \            if mask & bit:\n                A[mask] = (A[mask] - A[mask ^ bit])\
+    \ N, mod, block=5):\n    for i in range(min(block,N)):\n        for mask in range(bit\
+    \ := 1<<i, 1<<N):\n            if mask & bit:\n                A[mask] = (A[mask]\
+    \ + A[mask ^ bit]) % mod\n    for i in range(block,N):\n        for base in range(bit\
+    \ := 1<<i, 1<<N, bit << 1):\n            for mask in range(base, base+bit):\n\
+    \                A[mask] = (A[mask] + A[mask ^ bit]) % mod\n    return A\n\ndef\
+    \ mobius_transform(A, N, mod, block=5):\n    for i in range(min(block,N)):\n \
+    \       for mask in range(bit := 1<<i, 1<<N):\n            if mask & bit:\n  \
+    \              A[mask] = (A[mask] - A[mask ^ bit]) % mod\n    for i in range(block,N):\n\
+    \        for base in range(bit := 1<<i, 1<<N, bit << 1):\n            for mask\
+    \ in range(base, base+bit):\n                A[mask] = (A[mask] - A[mask ^ bit])\
     \ % mod\n    return A\n"
   code: "import cp_library.math.mod.__header__\n\ndef subset_convolution(A, B, N,\
     \ mod):\n    Z = 1 << N\n\n    # Prepare arrays for rank (popcount) decomposition\n\
@@ -65,7 +70,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/subset_convolution_fn.py
   requiredBy: []
-  timestamp: '2024-09-28 19:50:41+09:00'
+  timestamp: '2024-10-02 18:48:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/subset_convolution.test.py

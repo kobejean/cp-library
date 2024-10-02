@@ -108,7 +108,7 @@ data:
   path: cp_library/alg/tree/tree_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-09-28 19:50:41+09:00'
+  timestamp: '2024-10-02 18:48:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

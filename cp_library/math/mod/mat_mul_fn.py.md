@@ -34,7 +34,7 @@ data:
   path: cp_library/math/mod/mat_mul_fn.py
   requiredBy:
   - cp_library/math/mod/mat_pow_fn.py
-  timestamp: '2024-09-28 19:50:41+09:00'
+  timestamp: '2024-10-02 18:48:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

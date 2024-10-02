@@ -42,11 +42,11 @@ data:
     \            return m * x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n\
     \            m2, b2 = self.hull[i+1]\n            return (m2-m1)*x + (b2-b1)\n\
     \        return eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\n\n\n\
-    import sys\nfrom typing import Iterator, Type, TypeVar, overload\n\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom typing import\
-    \ Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
-    \    def __init__(self, stream = sys.stdin):\n        self.stream = stream\n \
-    \       self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    import sys\nfrom typing import Type, TypeVar, overload\n\nimport typing\nfrom\
+    \ collections import deque\nfrom numbers import Number\nfrom typing import Callable,\
+    \ Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n \
+    \   def __init__(self, stream = sys.stdin):\n        self.stream = stream\n  \
+    \      self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
@@ -92,13 +92,13 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> Iterator[int]:\
+    \ parser\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]:\
     \ ...\n@overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None,\
     \ char=False):\n    match spec, char:\n        case None, False:\n           \
-    \ return map(int, input().split())\n        case int(offset), False:\n       \
-    \     return (int(s)+offset for s in input().split())\n        case _, _:\n  \
-    \          if char:\n                stream = CharStream(sys.stdin)\n        \
-    \    else:\n                stream = TokenStream(sys.stdin)\n            parser:\
+    \ return list(map(int, input().split()))\n        case int(offset), False:\n \
+    \           return [int(s)+offset for s in input().split()]\n        case _, _:\n\
+    \            if char:\n                stream = CharStream(sys.stdin)\n      \
+    \      else:\n                stream = TokenStream(sys.stdin)\n            parser:\
     \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
     \ '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z\n\
@@ -115,7 +115,7 @@ data:
   isVerificationFile: true
   path: test/dp_z_cht_monotone_add_min.test.py
   requiredBy: []
-  timestamp: '2024-09-28 19:50:41+09:00'
+  timestamp: '2024-10-02 18:48:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_z_cht_monotone_add_min.test.py

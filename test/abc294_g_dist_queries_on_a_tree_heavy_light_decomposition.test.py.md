@@ -174,15 +174,15 @@ data:
     \        while head[u] != head[v]:\n            if depth[head[u]] < depth[head[v]]:\n\
     \                u,v = v,u\n            yield start[head[u]], start[u]+1\n   \
     \         u = par[head[u]]\n\n        if depth[u] < depth[v]:\n            u,v\
-    \ = v,u\n\n        yield start[v]+edge, start[u]+1\n\n\nfrom typing import Iterator,\
-    \ Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None)\
-    \ -> Iterator[int]: ...\n@overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec:\
+    \ = v,u\n\n        yield start[v]+edge, start[u]+1\n\n\nfrom typing import Type,\
+    \ TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec:\
     \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
-    \            return map(int, input().split())\n        case int(offset), False:\n\
-    \            return (int(s)+offset for s in input().split())\n        case _,\
-    \ _:\n            if char:\n                stream = CharStream(sys.stdin)\n \
-    \           else:\n                stream = TokenStream(sys.stdin)\n         \
-    \   parser: T = Parser.compile(spec)\n            return parser(stream)\n\nif\
+    \            return list(map(int, input().split()))\n        case int(offset),\
+    \ False:\n            return [int(s)+offset for s in input().split()]\n      \
+    \  case _, _:\n            if char:\n                stream = CharStream(sys.stdin)\n\
+    \            else:\n                stream = TokenStream(sys.stdin)\n        \
+    \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\nif\
     \ __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
@@ -212,7 +212,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-09-28 19:50:41+09:00'
+  timestamp: '2024-10-02 18:48:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
