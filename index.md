@@ -300,7 +300,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/table/mobius_cls.py
       title: cp_library/math/table/mobius_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/table/pow_cls.py
       title: cp_library/math/table/pow_cls.py
     - icon: ':warning:'
@@ -315,7 +315,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/table/sieve_proto.py
       title: cp_library/math/table/sieve_proto.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/table/unique_factors_cls.py
       title: cp_library/math/table/unique_factors_cls.py
   - name: cp_library/misc
@@ -350,7 +350,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
       title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc304_f_mobius_inv.test.py
       title: test/abc304_f_mobius_inv.test.py
     - icon: ':heavy_check_mark:'

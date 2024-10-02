@@ -144,7 +144,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-10-02 18:48:37+09:00'
+  timestamp: '2024-10-02 19:58:00+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_a_dijkstra.test.py

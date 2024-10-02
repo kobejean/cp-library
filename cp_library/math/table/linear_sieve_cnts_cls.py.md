@@ -74,7 +74,7 @@ data:
   path: cp_library/math/table/linear_sieve_cnts_cls.py
   requiredBy:
   - cp_library/math/table/sieve_benchmarks.py
-  timestamp: '2024-10-02 18:48:37+09:00'
+  timestamp: '2024-10-02 19:58:00+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/linear_sieve_cnts_cls.py

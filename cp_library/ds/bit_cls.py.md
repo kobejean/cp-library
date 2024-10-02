@@ -61,7 +61,7 @@ data:
   path: cp_library/ds/bit_cls.py
   requiredBy:
   - cp_library/ds/bir_cls.py
-  timestamp: '2024-10-02 18:48:37+09:00'
+  timestamp: '2024-10-02 19:58:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

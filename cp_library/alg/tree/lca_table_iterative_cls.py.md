@@ -66,7 +66,7 @@ data:
   path: cp_library/alg/tree/lca_table_iterative_cls.py
   requiredBy:
   - cp_library/alg/tree/auxiliary_tree_cls.py
-  timestamp: '2024-10-02 18:48:37+09:00'
+  timestamp: '2024-10-02 19:58:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
