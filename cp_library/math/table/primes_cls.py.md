@@ -17,6 +17,9 @@ data:
   - icon: ':warning:'
     path: cp_library/math/table/sieve_proto.py
     title: cp_library/math/table/sieve_proto.py
+  - icon: ':warning:'
+    path: cp_library/math/table/totient_cls.py
+    title: cp_library/math/table/totient_cls.py
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
@@ -48,9 +51,10 @@ data:
   - cp_library/math/table/sieve_benchmarks.py
   - cp_library/math/table/sieve_proto.py
   - cp_library/math/table/linear_sieve_cnts_cls.py
+  - cp_library/math/table/totient_cls.py
   - cp_library/math/table/sieve_cls.py
   - cp_library/math/table/linear_sieve_cls.py
-  timestamp: '2024-10-02 19:58:00+09:00'
+  timestamp: '2024-10-04 19:59:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/primes_cls.py

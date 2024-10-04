@@ -22,6 +22,9 @@ data:
     path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
+    path: test/agc038_b_sliding_min_max.test.py
+    title: test/agc038_b_sliding_min_max.test.py
+  - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_iterative.test.py
     title: test/dp_v_subtree_rerooting_iterative.test.py
   - icon: ':heavy_check_mark:'
@@ -134,7 +137,7 @@ data:
   requiredBy:
   - cp_library/io/read_tree_fn.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-10-02 19:58:00+09:00'
+  timestamp: '2024-10-04 19:59:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py
@@ -143,6 +146,7 @@ data:
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/agc038_b_sliding_min_max.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/dp_z_cht_monotone_add_min.test.py

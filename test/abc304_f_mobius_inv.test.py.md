@@ -32,14 +32,18 @@ data:
     \   while N > 1:\n            if N % d == 0:\n                P.append(d)\n  \
     \              N //= d\n                while N % d == 0:\n                  \
     \  N //= d\n            d += 1\n            if d * d > N:\n                if\
-    \ N > 1: P.append(N)\n                break\n    \n    def mobius_inv(P, F, inclusive=True):\n\
-    \        D = P.N\n        # codivisors of square free divisors\n        C = [D]*(1<<len(P))\n\
-    \        f = F(D) if inclusive else 0\n        for i,p in enumerate(P):\n    \
-    \        for mask in range(bit := 1<<i, bit<<1):\n                C[mask] = C[mask^bit]\
-    \ // p\n                Fn = F(C[mask])\n                f = f-Fn if mask.bit_count()&1\
-    \ else f+Fn\n        return f if inclusive else -f\nfrom itertools import accumulate\n\
-    \nclass Pow(list):\n    def __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n\
-    \        if mod is None:\n            for i in range(N):\n                self[i+1]\
+    \ N > 1: P.append(N)\n                break\n    \nclass UniqueFactors(list[int]):\n\
+    \    def __init__(P, N: int):\n        super().__init__()\n        P.N = N\n \
+    \       d = 2\n        while N > 1:\n            if N % d == 0:\n            \
+    \    P.append(d)\n                N //= d\n                while N % d == 0:\n\
+    \                    N //= d\n            d += 1\n            if d * d > N:\n\
+    \                if N > 1: P.append(N)\n                break\n    \n    def mobius_inv(P,\
+    \ F, full=True):\n        C, f = [P.N]*(1<<len(P)), F(P.N) if full else 0\n  \
+    \      for i,p in enumerate(P):\n            l = 2*(b := 1<<i)-1\n           \
+    \ for m in range(b, b << 1):\n                C[m], f = (c := C[l^m]//p), F(c)-f\n\
+    \        return -f if full else f\nfrom itertools import accumulate\n\nclass Pow(list):\n\
+    \    def __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n \
+    \       if mod is None:\n            for i in range(N):\n                self[i+1]\
     \ = self[i]*K\n        else:\n            for i in range(N):\n               \
     \ self[i+1] = self[i]*K % mod\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc304/tasks/abc304_f\n\
@@ -56,7 +60,7 @@ data:
   isVerificationFile: true
   path: test/abc304_f_mobius_inv.test.py
   requiredBy: []
-  timestamp: '2024-10-02 19:58:00+09:00'
+  timestamp: '2024-10-04 19:59:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc304_f_mobius_inv.test.py

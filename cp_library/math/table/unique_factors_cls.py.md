@@ -22,29 +22,35 @@ data:
     \ 0:\n                P.append(d)\n                N //= d\n                while\
     \ N % d == 0:\n                    N //= d\n            d += 1\n            if\
     \ d * d > N:\n                if N > 1: P.append(N)\n                break\n \
-    \   \n    def mobius_inv(P, F, inclusive=True):\n        D = P.N\n        # codivisors\
-    \ of square free divisors\n        C = [D]*(1<<len(P))\n        f = F(D) if inclusive\
-    \ else 0\n        for i,p in enumerate(P):\n            for mask in range(bit\
-    \ := 1<<i, bit<<1):\n                C[mask] = C[mask^bit] // p\n            \
-    \    Fn = F(C[mask])\n                f = f-Fn if mask.bit_count()&1 else f+Fn\n\
-    \        return f if inclusive else -f\n"
+    \   \nclass UniqueFactors(list[int]):\n    def __init__(P, N: int):\n        super().__init__()\n\
+    \        P.N = N\n        d = 2\n        while N > 1:\n            if N % d ==\
+    \ 0:\n                P.append(d)\n                N //= d\n                while\
+    \ N % d == 0:\n                    N //= d\n            d += 1\n            if\
+    \ d * d > N:\n                if N > 1: P.append(N)\n                break\n \
+    \   \n    def mobius_inv(P, F, full=True):\n        C, f = [P.N]*(1<<len(P)),\
+    \ F(P.N) if full else 0\n        for i,p in enumerate(P):\n            l = 2*(b\
+    \ := 1<<i)-1\n            for m in range(b, b << 1):\n                C[m], f\
+    \ = (c := C[l^m]//p), F(c)-f\n        return -f if full else f\n"
   code: "import cp_library.math.table.__header__\n\nclass UniqueFactors(list[int]):\n\
     \    def __init__(P, N: int):\n        super().__init__()\n        P.N = N\n \
     \       d = 2\n        while N > 1:\n            if N % d == 0:\n            \
     \    P.append(d)\n                N //= d\n                while N % d == 0:\n\
     \                    N //= d\n            d += 1\n            if d * d > N:\n\
+    \                if N > 1: P.append(N)\n                break\n    \nclass UniqueFactors(list[int]):\n\
+    \    def __init__(P, N: int):\n        super().__init__()\n        P.N = N\n \
+    \       d = 2\n        while N > 1:\n            if N % d == 0:\n            \
+    \    P.append(d)\n                N //= d\n                while N % d == 0:\n\
+    \                    N //= d\n            d += 1\n            if d * d > N:\n\
     \                if N > 1: P.append(N)\n                break\n    \n    def mobius_inv(P,\
-    \ F, inclusive=True):\n        D = P.N\n        # codivisors of square free divisors\n\
-    \        C = [D]*(1<<len(P))\n        f = F(D) if inclusive else 0\n        for\
-    \ i,p in enumerate(P):\n            for mask in range(bit := 1<<i, bit<<1):\n\
-    \                C[mask] = C[mask^bit] // p\n                Fn = F(C[mask])\n\
-    \                f = f-Fn if mask.bit_count()&1 else f+Fn\n        return f if\
-    \ inclusive else -f"
+    \ F, full=True):\n        C, f = [P.N]*(1<<len(P)), F(P.N) if full else 0\n  \
+    \      for i,p in enumerate(P):\n            l = 2*(b := 1<<i)-1\n           \
+    \ for m in range(b, b << 1):\n                C[m], f = (c := C[l^m]//p), F(c)-f\n\
+    \        return -f if full else f"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/table/unique_factors_cls.py
   requiredBy: []
-  timestamp: '2024-10-02 19:58:00+09:00'
+  timestamp: '2024-10-04 19:59:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc304_f_mobius_inv.test.py

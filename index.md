@@ -161,7 +161,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/segtree_cls.py
       title: cp_library/ds/segtree_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/slidingminmax_cls.py
       title: cp_library/ds/slidingminmax_cls.py
     - icon: ':warning:'
@@ -315,6 +315,9 @@ data:
     - icon: ':warning:'
       path: cp_library/math/table/sieve_proto.py
       title: cp_library/math/table/sieve_proto.py
+    - icon: ':warning:'
+      path: cp_library/math/table/totient_cls.py
+      title: cp_library/math/table/totient_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/table/unique_factors_cls.py
       title: cp_library/math/table/unique_factors_cls.py
@@ -339,6 +342,9 @@ data:
   - name: .
     pages:
     - icon: ':warning:'
+      path: main-bundled.py
+      title: main-bundled.py
+    - icon: ':warning:'
       path: play.py
       title: play.py
   verificationCategories:
@@ -359,6 +365,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc362_q_count_substring_query_ahocorasick.test.py
       title: test/abc362_q_count_substring_query_ahocorasick.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/agc038_b_sliding_min_max.test.py
+      title: test/agc038_b_sliding_min_max.test.py
     - icon: ':heavy_check_mark:'
       path: test/arc122_b_insurance_median.test.py
       title: test/arc122_b_insurance_median.test.py

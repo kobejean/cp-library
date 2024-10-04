@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/cht_monotone_add_min_cls.py
-    title: cp_library/ds/cht_monotone_add_min_cls.py
+    path: cp_library/ds/slidingminmax_cls.py
+    title: cp_library/ds/slidingminmax_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -16,37 +16,45 @@ data:
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    PROBLEM: https://atcoder.jp/contests/dp/tasks/dp_z
+    PROBLEM: https://atcoder.jp/contests/agc038/tasks/agc038_b
     links:
-    - https://atcoder.jp/contests/dp/tasks/dp_z
-  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z\n\
-    \ndef main():\n    N, C = read()\n    H = read([])\n    dp = 0\n    cht = CHTMonotoneAddMin()\n\
-    \n    for i in range(N-1):\n        m = -2*H[i]\n        b = H[i]**2 + dp\n  \
-    \      cht.insert(m,b)\n        i+=1\n        dp = cht.min(H[i]) + H[i]**2 + C\n\
-    \n    print(dp)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    - https://atcoder.jp/contests/agc038/tasks/agc038_b
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/agc038/tasks/agc038_b\n\
+    \ndef main():\n    N, K = read(tuple[int,int])\n    P = read(list[int])\n    win\
+    \ = SlidingMinMax(maxlen=K+1)\n    for i in range(K):\n        win.append(P[i])\n\
+    \    ans = 1 - (unchanged := len(win.minq) == K)\n    for i in range(K,N):\n \
+    \       p = win.popleft()\n        win.append(P[i])\n        unchanged |= len(win.minq)\
+    \ == K\n        if len(win.minq) != K and (p > win.min or P[i] < win.max):\n \
+    \           ans += 1\n        \n    ans += unchanged\n    print(ans)\n    \n'''\n\
+    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\nfrom bisect import bisect_left\n\nclass CHTMonotoneAddMin:\n\
-    \    def __init__(self):\n        self.hull = []\n\n    def insert(self, m: int,\
-    \ b: int) -> None:\n        # Remove lines with greater or equal slopes (maintaining\
-    \ monotonicity)\n        while self.hull and self.hull[-1][0] <= m:\n        \
-    \    self.hull.pop()\n\n        def is_obsolete():\n            (m1, b1), (m2,\
-    \ b2) = self.hull[-2], self.hull[-1]\n            return (b - b1) * (m1 - m2)\
-    \ <= (b2 - b1) * (m1 - m)\n        \n        # Remove lines that are no longer\
-    \ part of the lower envelope\n        while len(self.hull) >= 2 and is_obsolete():\n\
-    \            self.hull.pop()\n        \n        self.hull.append((m, b))\n\n \
-    \   def min(self, x: int) -> int:\n        def eval(i):\n            m, b = self.hull[i]\n\
-    \            return m * x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n\
-    \            m2, b2 = self.hull[i+1]\n            return (m2-m1)*x + (b2-b1)\n\
-    \        return eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\n\n\n\
-    import sys\nfrom typing import Type, TypeVar, overload\n\nimport typing\nfrom\
-    \ collections import deque\nfrom numbers import Number\nfrom typing import Callable,\
-    \ Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n \
-    \   def __init__(self, stream = sys.stdin):\n        self.stream = stream\n  \
-    \      self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\nfrom collections\
+    \ import deque\nfrom typing import Any, Iterable\n\nclass SlidingMinMax(deque):\n\
+    \    def __init__(self, *, maxlen = None):\n        super().__init__(maxlen=maxlen)\n\
+    \        self.minq = deque(maxlen=maxlen)\n        self.maxq = deque(maxlen=maxlen)\n\
+    \n    def append(self, x: Any) -> None:\n        super().append(x)\n        while\
+    \ self.minq and x < self.minq[-1]:\n            self.minq.pop()\n        self.minq.append(x)\n\
+    \        while self.maxq and self.maxq[-1] < x:\n            self.maxq.pop()\n\
+    \        self.maxq.append(x)\n    \n    def appendleft(self, x: Any) -> None:\n\
+    \        raise NotImplementedError()\n    \n    def extend(self, iterable: Iterable)\
+    \ -> None:\n        super().extend(iterable)\n        for x in iterable:\n   \
+    \         while self.minq and x < self.minq[-1]:\n                self.minq.pop()\n\
+    \            self.minq.append(x)\n            while self.maxq and self.maxq[-1]\
+    \ < x:\n                self.maxq.pop()\n            self.maxq.append(x)\n\n \
+    \   def extendleft(self, iterable: Iterable) -> None:\n        raise NotImplementedError()\n\
+    \n    def popleft(self) -> Any:\n        x = super().popleft()\n        if x ==\
+    \ self.minq[0]:\n            self.minq.popleft()\n        if x == self.maxq[0]:\n\
+    \            self.maxq.popleft()\n        return x\n    \n    def pop(self) ->\
+    \ Any:\n        raise NotImplementedError()\n\n    @property\n    def min(self)\
+    \ -> Any:\n        return self.minq[0]\n\n    @property\n    def max(self) ->\
+    \ Any:\n        return self.maxq[0]\n\n\nimport sys\nfrom typing import Type,\
+    \ TypeVar, overload\n\nimport typing\nfrom numbers import Number\nfrom typing\
+    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \    def __init__(self, stream = sys.stdin):\n        self.stream = stream\n \
+    \       self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
@@ -100,28 +108,30 @@ data:
     \            if char:\n                stream = CharStream(sys.stdin)\n      \
     \      else:\n                stream = TokenStream(sys.stdin)\n            parser:\
     \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
-    \ '__main__':\n    main()\n"
-  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z\n\
-    \ndef main():\n    N, C = read()\n    H = read([])\n    dp = 0\n    cht = CHTMonotoneAddMin()\n\
-    \n    for i in range(N-1):\n        m = -2*H[i]\n        b = H[i]**2 + dp\n  \
-    \      cht.insert(m,b)\n        i+=1\n        dp = cht.min(H[i]) + H[i]**2 + C\n\
-    \n    print(dp)\n\nfrom cp_library.ds.cht_monotone_add_min_cls import CHTMonotoneAddMin\n\
-    from cp_library.io.read_specs_fn import read\n\nif __name__ == '__main__':\n \
-    \   main()"
+    \ \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/agc038/tasks/agc038_b\n\
+    \ndef main():\n    N, K = read(tuple[int,int])\n    P = read(list[int])\n    win\
+    \ = SlidingMinMax(maxlen=K+1)\n    for i in range(K):\n        win.append(P[i])\n\
+    \    ans = 1 - (unchanged := len(win.minq) == K)\n    for i in range(K,N):\n \
+    \       p = win.popleft()\n        win.append(P[i])\n        unchanged |= len(win.minq)\
+    \ == K\n        if len(win.minq) != K and (p > win.min or P[i] < win.max):\n \
+    \           ans += 1\n        \n    ans += unchanged\n    print(ans)\n    \nfrom\
+    \ cp_library.ds.slidingminmax_cls import SlidingMinMax\nfrom cp_library.io.read_specs_fn\
+    \ import read\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/ds/cht_monotone_add_min_cls.py
+  - cp_library/ds/slidingminmax_cls.py
   - cp_library/io/read_specs_fn.py
   - cp_library/io/parser_cls.py
   isVerificationFile: true
-  path: test/dp_z_cht_monotone_add_min.test.py
+  path: test/agc038_b_sliding_min_max.test.py
   requiredBy: []
   timestamp: '2024-10-04 19:59:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/dp_z_cht_monotone_add_min.test.py
+documentation_of: test/agc038_b_sliding_min_max.test.py
 layout: document
 redirect_from:
-- /verify/test/dp_z_cht_monotone_add_min.test.py
-- /verify/test/dp_z_cht_monotone_add_min.test.py.html
-title: test/dp_z_cht_monotone_add_min.test.py
+- /verify/test/agc038_b_sliding_min_max.test.py
+- /verify/test/agc038_b_sliding_min_max.test.py.html
+title: test/agc038_b_sliding_min_max.test.py
 ---

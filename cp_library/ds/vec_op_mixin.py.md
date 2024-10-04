@@ -56,7 +56,7 @@ data:
   requiredBy:
   - cp_library/ds/mutvec_cls.py
   - cp_library/ds/vec_cls.py
-  timestamp: '2024-10-02 19:58:00+09:00'
+  timestamp: '2024-10-04 19:59:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/vec_op_mixin.py

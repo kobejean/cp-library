@@ -116,7 +116,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/graph_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-10-02 19:58:00+09:00'
+  timestamp: '2024-10-04 19:59:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
