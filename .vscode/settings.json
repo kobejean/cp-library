@@ -1,5 +1,5 @@
 {
     "python.defaultInterpreterPath": "~/miniforge3/envs/atcoder",
-    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoImportCompletions": false,
     "python.analysis.include": ["/Users/kobejean/miniforge3/envs/atcoder/lib/pypy3.10/site-packages"]
 }
