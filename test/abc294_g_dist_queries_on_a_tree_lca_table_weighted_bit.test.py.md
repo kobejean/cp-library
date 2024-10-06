@@ -14,8 +14,8 @@ data:
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_cls.py
-    title: cp_library/alg/graph/graph_cls.py
+    path: cp_library/alg/graph/graph_proto.py
+    title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
@@ -110,49 +110,44 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n    @property\n  \
-    \  def u(self) -> int: return self[0]\n    @property\n    def v(self) -> int:\
-    \ return self[1]\n    @property\n    def forw(self) -> H: return self[1]\n   \
-    \ @property\n    def back(self) -> H: return self[0]\n    @classmethod\n    def\
-    \ compile(cls, I=1):\n        def parse(ts: TokenStream):\n            return\
-    \ cls((int(s)+I for s in ts.line()))\n        return parse\n\nE = TypeVar('E',\
+    \ parser\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
+    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
+    \           return cls((int(u)+I,int(v)+I))\n        return parse\n\nE = TypeVar('E',\
     \ bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n\
     \    @classmethod\n    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I\
     \ := E, int):\n            E = Edge[I]\n        edge = Parser.compile(E)\n   \
     \     def parse(ts: TokenStream):\n            return cls(edge(ts) for _ in range(M))\n\
     \        return parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\n\
-    class EdgeSet(EdgeCollection, set[E]):\n    pass\n\n\nclass EdgeWeighted(Edge,\
-    \ Parsable):\n    H: TypeAlias = tuple[int,int]\n    @property\n    def u(self):\
-    \ return self[0]\n    @property\n    def v(self): return self[1]\n    @property\n\
-    \    def w(self): return self[2]\n    @property\n    def forw(self) -> H: return\
-    \ self[1], self[2]\n    @property\n    def back(self) -> H: return self[0], self[2]\n\
-    \n    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
-    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
-    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
-    \       return parse\n\nM = TypeVar('M', bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\n\
-    class EdgeCollectionWeighted(EdgeCollection):\n    @classmethod\n    def compile(cls,\
-    \ M: M, Ew: Ew = EdgeWeighted[-1]):\n        if isinstance(I := Ew, int):\n  \
-    \          Ew = EdgeWeighted[I]\n        return super().compile(M, Ew)\n\nclass\
-    \ EdgeListWeighted(EdgeCollectionWeighted, list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted,\
-    \ set[Ew]):\n    pass\n\n\n\nclass Graph(list[H], Parsable):\n    def __init__(G,\
-    \ N: int, edges=[]):\n        super().__init__([] for _ in range(N))\n       \
-    \ G.E = list(edges)\n        for edge in G.E:\n            G[edge.u].append(edge.forw)\n\
-    \            G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, E = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n\
-    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
-    \       return cls(N, (edge(ts) for _ in range(M)))\n        return parse\n\n\
-    class GraphWeighted(Graph):\n    @classmethod\n    def compile(cls, N: int, M:\
-    \ int, E: EdgeWeighted|int = EdgeWeighted[-1]):\n        if isinstance(E, int):\
-    \ E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n\n\n\nfrom typing\
-    \ import Any, Callable, List\n\nclass SparseTable:\n    def __init__(self, op:\
-    \ Callable[[Any, Any], Any], arr: List[Any]):\n        self.n = len(arr)\n   \
-    \     self.log = self.n.bit_length()\n        self.op = op\n        self.st =\
-    \ [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n        self.st[0] =\
-    \ arr[:]\n        \n        for i in range(self.log-1):\n            row, d =\
-    \ self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n         \
-    \       self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self, l: int,\
-    \ r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
+    class EdgeSet(EdgeCollection, set[E]):\n    pass\n\n\nfrom functools import total_ordering\
+    \ \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def __lt__(self, other:\
+    \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
+    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
+    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
+    \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
+    \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
+    \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
+    \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
+    \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
+    \    pass\n\nfrom typing import Iterable\n\nclass GraphProtocol(list, Parsable):\n\
+    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n\n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
+    \        def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for\
+    \ _ in range(M)))\n        return parse\nfrom operator import itemgetter\n\nclass\
+    \ GraphWeighted(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n    \
+    \    super().__init__([] for _ in range(N))\n        G.E = list(edges)\n     \
+    \   for u,v,*w in G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n\
+    \    \n    def neighbors(G, v: int):\n        return map(itemgetter(0), G[v])\n\
+    \    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
+    \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
+    \ M, E)\n\n\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
+    \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
+    \    self.n = len(arr)\n        self.log = self.n.bit_length()\n        self.op\
+    \ = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n\
+    \        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
+    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
+    \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
+    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
     \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
     \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n\nclass LCATableWeighted(SparseTable):\n\
     \    def __init__(self, T, root = 0):\n        self.start = [-1] * len(T)\n  \
@@ -216,14 +211,14 @@ data:
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/graph_cls.py
+  - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/sparse_table_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

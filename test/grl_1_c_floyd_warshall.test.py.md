@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/digraph_cls.py
-    title: cp_library/alg/graph/digraph_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
   - icon: ':heavy_check_mark:'
@@ -22,6 +19,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyd_warshall_fn.py
     title: cp_library/alg/graph/floyd_warshall_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_proto.py
+    title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/legacy/read_specs_fn.py
     title: cp_library/io/legacy/read_specs_fn.py
@@ -99,46 +99,41 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\n\n\n\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n    @property\n\
-    \    def u(self) -> int: return self[0]\n    @property\n    def v(self) -> int:\
-    \ return self[1]\n    @property\n    def forw(self) -> H: return self[1]\n   \
-    \ @property\n    def back(self) -> H: return self[0]\n    @classmethod\n    def\
-    \ compile(cls, I=1):\n        def parse(ts: TokenStream):\n            return\
-    \ cls((int(s)+I for s in ts.line()))\n        return parse\n\nclass EdgeWeighted(Edge,\
-    \ Parsable):\n    H: TypeAlias = tuple[int,int]\n    @property\n    def u(self):\
-    \ return self[0]\n    @property\n    def v(self): return self[1]\n    @property\n\
-    \    def w(self): return self[2]\n    @property\n    def forw(self) -> H: return\
-    \ self[1], self[2]\n    @property\n    def back(self) -> H: return self[0], self[2]\n\
-    \n    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
-    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
+    \ parser\n\n\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
+    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
+    \           return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools\
+    \ import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def\
+    \ __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n \
+    \       b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
     \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
     \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
-    \       return parse\n\n\n\nN = TypeVar('N', bound=int)\nE = TypeVar('N', bound=Edge)\n\
-    class DiGraph(list[H], Parsable):\n    def __init__(G, N: N, edges: list[E]=[]):\n\
-    \        super().__init__([] for _ in range(N))\n        G.E = list(edges)\n \
-    \       for edge in G.E:\n            G[edge.u].append(edge.forw)\n\n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, E: E|int = Edge[-1]):\n        if isinstance(E,\
-    \ int):\n            E = Edge[E]\n        edge = Parser.compile(E)\n        def\
-    \ parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n\
-    \        return parse\n\nclass DiGraphWeighted(DiGraph[EdgeWeighted]):\n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, E: EdgeWeighted|int = EdgeWeighted[-1]):\n\
-    \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
-    \ M, E)\n\ndef floyd_warshall(G, N, directed=True) -> tuple[bool, list[int]]:\n\
-    \    if directed:\n        \n        def floyd_warshall(G, N) -> list[int]:\n\
-    \            D = [[inf]*N for _ in range(N)]\n        \n            for u, edges\
-    \ in enumerate(G):\n                D[u][u] = 0\n                for v,w in edges:\n\
-    \                    D[u][v] = min(D[u][v], w)\n            \n            for\
-    \ k, Dk in enumerate(D):\n                for Di in D:\n                    for\
-    \ j in range(N):\n                        Di[j] = min(Di[j], Di[k]+Dk[j])\n  \
-    \          return D\n    else:\n        \n        def floyd_warshall(G, N) ->\
-    \ list[int]:\n            D = [[inf]*N for _ in range(N)]\n        \n        \
-    \    for u, edges in enumerate(G):\n                D[u][u] = 0\n            \
-    \    for v,w in edges:\n                    D[u][v] = min(D[u][v], w)\n      \
-    \      \n            for k, Dk in enumerate(D):\n                for i, Di in\
-    \ enumerate(D):\n                    for j in range(i):\n                    \
-    \    Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])\n            return D\n    D =\
-    \ floyd_warshall(G, N)\n    return any(D[i][i] < 0 for i in range(N)), D\n\nif\
-    \ __name__ == '__main__':\n    main()\n"
+    \       return parse\nfrom typing import Iterable\n\nclass GraphProtocol(list,\
+    \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
+    \ G[v]\n\n    @classmethod\n    def compile(cls, N: int, M: int, E):\n       \
+    \ edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n            return\
+    \ cls(N, (edge(ts) for _ in range(M)))\n        return parse\n\nfrom operator\
+    \ import itemgetter\n\nclass DiGraphWeighted(GraphProtocol):\n    def __init__(G,\
+    \ N, E: list = []):\n        super().__init__([] for _ in range(N))\n        G.E\
+    \ = list(E)\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n   \
+    \ \n    def neighbors(G, v: int) -> Iterable[int]:\n        return map(itemgetter(0),\
+    \ G[v])\n    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int\
+    \ = EdgeWeighted[-1]):\n        if isinstance(E, int): E = EdgeWeighted[E]\n \
+    \       return super().compile(N, M, E)\n\ndef floyd_warshall(G, N, directed=True)\
+    \ -> tuple[bool, list[int]]:\n    if directed:\n        \n        def floyd_warshall(G,\
+    \ N) -> list[int]:\n            D = [[inf]*N for _ in range(N)]\n        \n  \
+    \          for u, edges in enumerate(G):\n                D[u][u] = 0\n      \
+    \          for v,w in edges:\n                    D[u][v] = min(D[u][v], w)\n\
+    \            \n            for k, Dk in enumerate(D):\n                for Di\
+    \ in D:\n                    for j in range(N):\n                        Di[j]\
+    \ = min(Di[j], Di[k]+Dk[j])\n            return D\n    else:\n        \n     \
+    \   def floyd_warshall(G, N) -> list[int]:\n            D = [[inf]*N for _ in\
+    \ range(N)]\n        \n            for u, edges in enumerate(G):\n           \
+    \     D[u][u] = 0\n                for v,w in edges:\n                    D[u][v]\
+    \ = min(D[u][v], w)\n            \n            for k, Dk in enumerate(D):\n  \
+    \              for i, Di in enumerate(D):\n                    for j in range(i):\n\
+    \                        Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])\n         \
+    \   return D\n    D = floyd_warshall(G, N)\n    return any(D[i][i] < 0 for i in\
+    \ range(N)), D\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C\n\
     from math import inf\n\ndef main():\n    N, M = read((int,int))\n    G = read(DiGraphWeighted[N,M,0])\n\
     \    neg_cycle, D = floyd_warshall(G, N)\n\n    if neg_cycle:\n        print(\"\
@@ -153,14 +148,14 @@ data:
   - cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/digraph_cls.py
+  - cp_library/alg/graph/graph_proto.py
   - cp_library/alg/graph/floyd_warshall_directed_fn.py
   - cp_library/alg/graph/floyd_warshall_fn.py
   - cp_library/alg/graph/edge_cls.py
   isVerificationFile: true
   path: test/grl_1_c_floyd_warshall.test.py
   requiredBy: []
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_c_floyd_warshall.test.py

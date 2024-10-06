@@ -8,6 +8,9 @@ data:
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_proto.py
+    title: cp_library/alg/graph/graph_proto.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/tarjan_articulation_points_fn.py
     title: cp_library/alg/graph/tarjan_articulation_points_fn.py
   - icon: ':heavy_check_mark:'
@@ -97,27 +100,27 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n    @property\n  \
-    \  def u(self) -> int: return self[0]\n    @property\n    def v(self) -> int:\
-    \ return self[1]\n    @property\n    def forw(self) -> H: return self[1]\n   \
-    \ @property\n    def back(self) -> H: return self[0]\n    @classmethod\n    def\
-    \ compile(cls, I=1):\n        def parse(ts: TokenStream):\n            return\
-    \ cls((int(s)+I for s in ts.line()))\n        return parse\n\nclass Graph(list[H],\
-    \ Parsable):\n    def __init__(G, N: int, edges=[]):\n        super().__init__([]\
-    \ for _ in range(N))\n        G.E = list(edges)\n        for edge in G.E:\n  \
-    \          G[edge.u].append(edge.forw)\n            G[edge.v].append(edge.back)\n\
-    \n    @classmethod\n    def compile(cls, N: int, M: int, E = Edge[-1]):\n    \
-    \    if isinstance(E, int): E = Edge[E]\n        edge = Parser.compile(E)\n  \
-    \      def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _\
-    \ in range(M)))\n        return parse\n\nfrom typing import Type, TypeVar, overload\n\
-    \nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\n\
-    def read(spec: Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream(sys.stdin)\n            else:\n               \
-    \ stream = TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n\
-    \            return parser(stream)\n\nif __name__ == '__main__':\n    main()\n"
+    \ parser\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
+    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
+    \           return cls((int(u)+I,int(v)+I))\n        return parse\nfrom typing\
+    \ import Iterable\n\nclass GraphProtocol(list, Parsable):\n\n    def neighbors(G,\
+    \ v: int) -> Iterable[int]:\n        return G[v]\n\n    @classmethod\n    def\
+    \ compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n       \
+    \ def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n\
+    \        return parse\n\nclass Graph(GraphProtocol):\n    def __init__(G, N: int,\
+    \ edges=[]):\n        super().__init__([] for _ in range(N))\n        G.E = list(edges)\n\
+    \        for u,v in G.E:\n            G[u].append(v)\n            G[v].append(u)\n\
+    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
+    \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
+    \ M, E)\n\nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\n\
+    def read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T)\
+    \ -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n\
+    \        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream(sys.stdin)\n            else:\n                stream =\
+    \ TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n     \
+    \       return parser(stream)\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
     \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    ans = sorted(tarjan_articulation_points(G,\
     \ N))\n    if ans:\n        print(*ans, sep='\\n')\n\nfrom cp_library.alg.graph.tarjan_articulation_points_fn\
@@ -129,12 +132,13 @@ data:
   - cp_library/alg/graph/graph_cls.py
   - cp_library/io/read_specs_fn.py
   - cp_library/misc/setrecursionlimit.py
-  - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_proto.py
+  - cp_library/io/parser_cls.py
   isVerificationFile: true
   path: test/grl_3_a_tarjan_articulation_points.test.py
   requiredBy: []
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_tarjan_articulation_points.test.py

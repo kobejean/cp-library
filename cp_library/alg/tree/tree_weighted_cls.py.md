@@ -8,11 +8,11 @@ data:
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_cls.py
-    title: cp_library/alg/graph/graph_cls.py
+    path: cp_library/alg/graph/graph_proto.py
+    title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_cls.py
-    title: cp_library/alg/tree/tree_cls.py
+    path: cp_library/alg/graph/graph_weighted_cls.py
+    title: cp_library/alg/graph/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -32,13 +32,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\nfrom typing import TypeAlias\n\n\nimport sys\nimport typing\nfrom\
-    \ collections import deque\nfrom numbers import Number\nfrom typing import Callable,\
-    \ Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n \
-    \   def __init__(self, stream = sys.stdin):\n        self.stream = stream\n  \
-    \      self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \  \n'''\n\n\n\nimport sys\nimport typing\nfrom collections import deque\nfrom\
+    \ numbers import Number\nfrom typing import Callable, Collection, Iterator, TypeAlias,\
+    \ TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n\
+    \        self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
     \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
@@ -82,47 +81,43 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n    @property\n  \
-    \  def u(self) -> int: return self[0]\n    @property\n    def v(self) -> int:\
-    \ return self[1]\n    @property\n    def forw(self) -> H: return self[1]\n   \
-    \ @property\n    def back(self) -> H: return self[0]\n    @classmethod\n    def\
-    \ compile(cls, I=1):\n        def parse(ts: TokenStream):\n            return\
-    \ cls((int(s)+I for s in ts.line()))\n        return parse\n\nclass EdgeWeighted(Edge,\
-    \ Parsable):\n    H: TypeAlias = tuple[int,int]\n    @property\n    def u(self):\
-    \ return self[0]\n    @property\n    def v(self): return self[1]\n    @property\n\
-    \    def w(self): return self[2]\n    @property\n    def forw(self) -> H: return\
-    \ self[1], self[2]\n    @property\n    def back(self) -> H: return self[0], self[2]\n\
-    \n    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
-    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
+    \ parser\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
+    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
+    \           return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools\
+    \ import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def\
+    \ __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n \
+    \       b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
     \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
     \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
-    \       return parse\n\n\n\nclass Graph(list[H], Parsable):\n    def __init__(G,\
-    \ N: int, edges=[]):\n        super().__init__([] for _ in range(N))\n       \
-    \ G.E = list(edges)\n        for edge in G.E:\n            G[edge.u].append(edge.forw)\n\
-    \            G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, E = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n\
-    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
-    \       return cls(N, (edge(ts) for _ in range(M)))\n        return parse\n\n\
-    class Tree(Graph):\n    @classmethod\n    def compile(cls, N: int, E: type[Edge]|int\
-    \ = Edge[-1]):\n        return super().compile(N, N-1, E)\n\nclass TreeWeighted(Tree):\n\
-    \    @classmethod\n    def compile(cls, N: int, E: type[EdgeWeighted]|int = EdgeWeighted[-1]):\n\
+    \       return parse\n\nfrom typing import Iterable\n\nclass GraphProtocol(list,\
+    \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
+    \ G[v]\n\n    @classmethod\n    def compile(cls, N: int, M: int, E):\n       \
+    \ edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n            return\
+    \ cls(N, (edge(ts) for _ in range(M)))\n        return parse\nfrom operator import\
+    \ itemgetter\n\nclass GraphWeighted(GraphProtocol):\n    def __init__(G, N: int,\
+    \ edges=[]):\n        super().__init__([] for _ in range(N))\n        G.E = list(edges)\n\
+    \        for u,v,*w in G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n\
+    \    \n    def neighbors(G, v: int):\n        return map(itemgetter(0), G[v])\n\
+    \    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
     \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
-    \ E)\n"
+    \ M, E)\n\nclass TreeWeighted(GraphWeighted):\n    @classmethod\n    def compile(cls,\
+    \ N: int, E: type|int = EdgeWeighted[-1]):\n        return super().compile(N,\
+    \ N-1, E)\n"
   code: "import cp_library.alg.tree.__header__\n\nfrom cp_library.alg.graph.edge_weighted_cls\
-    \ import EdgeWeighted\nfrom cp_library.alg.tree.tree_cls import Tree\n\nclass\
-    \ TreeWeighted(Tree):\n    @classmethod\n    def compile(cls, N: int, E: type[EdgeWeighted]|int\
-    \ = EdgeWeighted[-1]):\n        if isinstance(E, int): E = EdgeWeighted[E]\n \
-    \       return super().compile(N, E)"
+    \ import EdgeWeighted\nfrom cp_library.alg.graph.graph_weighted_cls import GraphWeighted\n\
+    \nclass TreeWeighted(GraphWeighted):\n    @classmethod\n    def compile(cls, N:\
+    \ int, E: type|int = EdgeWeighted[-1]):\n        return super().compile(N, N-1,\
+    \ E)"
   dependsOn:
   - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/tree/tree_cls.py
+  - cp_library/alg/graph/graph_weighted_cls.py
+  - cp_library/alg/graph/graph_proto.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
-  - cp_library/alg/graph/graph_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

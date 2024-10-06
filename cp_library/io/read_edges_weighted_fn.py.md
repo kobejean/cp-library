@@ -92,27 +92,21 @@ data:
     \           return [int(s)+offset for s in input().split()]\n        case _, _:\n\
     \            if char:\n                stream = CharStream(sys.stdin)\n      \
     \      else:\n                stream = TokenStream(sys.stdin)\n            parser:\
-    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\n\n\nH = TypeVar('H')\n\
-    class Edge(tuple, Parsable):\n    @property\n    def u(self) -> int: return self[0]\n\
-    \    @property\n    def v(self) -> int: return self[1]\n    @property\n    def\
-    \ forw(self) -> H: return self[1]\n    @property\n    def back(self) -> H: return\
-    \ self[0]\n    @classmethod\n    def compile(cls, I=1):\n        def parse(ts:\
-    \ TokenStream):\n            return cls((int(s)+I for s in ts.line()))\n     \
-    \   return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\n\n\nclass Edge(tuple,\
+    \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
+    \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
+    \        return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
     \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
     \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
     \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
     \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
     \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
-    \ set[E]):\n    pass\n\n\nclass EdgeWeighted(Edge, Parsable):\n    H: TypeAlias\
-    \ = tuple[int,int]\n    @property\n    def u(self): return self[0]\n    @property\n\
-    \    def v(self): return self[1]\n    @property\n    def w(self): return self[2]\n\
-    \    @property\n    def forw(self) -> H: return self[1], self[2]\n    @property\n\
-    \    def back(self) -> H: return self[0], self[2]\n\n    def __lt__(self, other:\
-    \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
-    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
-    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
-    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
+    \ set[E]):\n    pass\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
+    class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
+    \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
+    \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
+    \   def parse(ts: TokenStream):\n            u,v,w = ts.line()\n            return\
+    \ cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
     \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
     \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
     \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
@@ -132,7 +126,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_edges_weighted_fn.py
   requiredBy: []
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_b_edmonds_branching.test.py

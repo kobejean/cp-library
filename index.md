@@ -25,7 +25,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
       title: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/alg/graph/digraph_cls.py
       title: cp_library/alg/graph/digraph_cls.py
     - icon: ':heavy_check_mark:'
@@ -64,6 +64,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_cls.py
       title: cp_library/alg/graph/graph_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/graph_proto.py
+      title: cp_library/alg/graph/graph_proto.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_weighted_cls.py
       title: cp_library/alg/graph/graph_weighted_cls.py

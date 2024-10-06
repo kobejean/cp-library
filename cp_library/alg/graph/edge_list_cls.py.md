@@ -87,13 +87,10 @@ data:
     \             return Parser.compile_repeat(cls, spec, n)\n            case _:\n\
     \                raise NotImplementedError()\n\n        \nclass Parsable:\n  \
     \  @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
-    \            return cls(next(ts))\n        return parser\n\nH = TypeVar('H')\n\
-    class Edge(tuple, Parsable):\n    @property\n    def u(self) -> int: return self[0]\n\
-    \    @property\n    def v(self) -> int: return self[1]\n    @property\n    def\
-    \ forw(self) -> H: return self[1]\n    @property\n    def back(self) -> H: return\
-    \ self[0]\n    @classmethod\n    def compile(cls, I=1):\n        def parse(ts:\
-    \ TokenStream):\n            return cls((int(s)+I for s in ts.line()))\n     \
-    \   return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
+    \            return cls(next(ts))\n        return parser\n\nclass Edge(tuple,\
+    \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
+    \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
+    \        return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
     \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
     \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
     \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
@@ -117,7 +114,7 @@ data:
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py

@@ -100,34 +100,29 @@ data:
     \ input().split()]\n        case _, _:\n            if char:\n               \
     \ stream = CharStream(sys.stdin)\n            else:\n                stream =\
     \ TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n     \
-    \       return parser(stream)\n\n\n\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n\
-    \    @property\n    def u(self) -> int: return self[0]\n    @property\n    def\
-    \ v(self) -> int: return self[1]\n    @property\n    def forw(self) -> H: return\
-    \ self[1]\n    @property\n    def back(self) -> H: return self[0]\n    @classmethod\n\
-    \    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n           \
-    \ return cls((int(s)+I for s in ts.line()))\n        return parse\n\nE = TypeVar('E',\
-    \ bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n\
-    \    @classmethod\n    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I\
-    \ := E, int):\n            E = Edge[I]\n        edge = Parser.compile(E)\n   \
-    \     def parse(ts: TokenStream):\n            return cls(edge(ts) for _ in range(M))\n\
-    \        return parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\n\
-    class EdgeSet(EdgeCollection, set[E]):\n    pass\n\n\nclass EdgeWeighted(Edge,\
-    \ Parsable):\n    H: TypeAlias = tuple[int,int]\n    @property\n    def u(self):\
-    \ return self[0]\n    @property\n    def v(self): return self[1]\n    @property\n\
-    \    def w(self): return self[2]\n    @property\n    def forw(self) -> H: return\
-    \ self[1], self[2]\n    @property\n    def back(self) -> H: return self[0], self[2]\n\
-    \n    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
-    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
+    \       return parser(stream)\n\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
     \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
-    \       return parse\n\nM = TypeVar('M', bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\n\
-    class EdgeCollectionWeighted(EdgeCollection):\n    @classmethod\n    def compile(cls,\
-    \ M: M, Ew: Ew = EdgeWeighted[-1]):\n        if isinstance(I := Ew, int):\n  \
-    \          Ew = EdgeWeighted[I]\n        return super().compile(M, Ew)\n\nclass\
-    \ EdgeListWeighted(EdgeCollectionWeighted, list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted,\
-    \ set[Ew]):\n    pass\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n\
-    \ = n\n        self.par = [-1] * n\n\n    def merge(self, u, v):\n        assert\
-    \ 0 <= u < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u),\
+    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
+    \ parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass\
+    \ EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M, E: E\
+    \ = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
+    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
+    \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
+    \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
+    \ set[E]):\n    pass\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
+    class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
+    \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
+    \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
+    \   def parse(ts: TokenStream):\n            u,v,w = ts.line()\n            return\
+    \ cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
+    \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
+    \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
+    \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
+    \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
+    \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
+    \    pass\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n = n\n  \
+    \      self.par = [-1] * n\n\n    def merge(self, u, v):\n        assert 0 <=\
+    \ u < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u),\
     \ self.leader(v)\n        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n\
     \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
     \ = x\n\n        return x\n\n    def same(self, u: int, v: int):\n        assert\
@@ -163,7 +158,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_a_kruskal_sort.test.py
   requiredBy: []
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_a_kruskal_sort.test.py

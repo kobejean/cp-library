@@ -5,28 +5,19 @@ data:
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_proto.py
+    title: cp_library/alg/graph/graph_proto.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_cls.py
-    title: cp_library/alg/tree/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_tree_fn.py
     title: cp_library/io/read_tree_fn.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
@@ -99,46 +90,41 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n    @property\n  \
-    \  def u(self) -> int: return self[0]\n    @property\n    def v(self) -> int:\
-    \ return self[1]\n    @property\n    def forw(self) -> H: return self[1]\n   \
-    \ @property\n    def back(self) -> H: return self[0]\n    @classmethod\n    def\
-    \ compile(cls, I=1):\n        def parse(ts: TokenStream):\n            return\
-    \ cls((int(s)+I for s in ts.line()))\n        return parse\n\nclass Graph(list[H],\
-    \ Parsable):\n    def __init__(G, N: int, edges=[]):\n        super().__init__([]\
-    \ for _ in range(N))\n        G.E = list(edges)\n        for edge in G.E:\n  \
-    \          G[edge.u].append(edge.forw)\n            G[edge.v].append(edge.back)\n\
-    \n    @classmethod\n    def compile(cls, N: int, M: int, E = Edge[-1]):\n    \
-    \    if isinstance(E, int): E = Edge[E]\n        edge = Parser.compile(E)\n  \
-    \      def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _\
-    \ in range(M)))\n        return parse\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.io.parser_cls import\
-    \ Parsable, Parser, TokenStream\nfrom cp_library.alg.graph.edge_cls import Edge,\
-    \ H\n\nclass Graph(list[H], Parsable):\n    def __init__(G, N: int, edges=[]):\n\
-    \        super().__init__([] for _ in range(N))\n        G.E = list(edges)\n \
-    \       for edge in G.E:\n            G[edge.u].append(edge.forw)\n          \
-    \  G[edge.v].append(edge.back)\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ M: int, E = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n       \
-    \ edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n            return\
-    \ cls(N, (edge(ts) for _ in range(M)))\n        return parse"
+    \ parser\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
+    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
+    \           return cls((int(u)+I,int(v)+I))\n        return parse\nfrom typing\
+    \ import Iterable\n\nclass GraphProtocol(list, Parsable):\n\n    def neighbors(G,\
+    \ v: int) -> Iterable[int]:\n        return G[v]\n\n    @classmethod\n    def\
+    \ compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n       \
+    \ def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n\
+    \        return parse\n\nclass Graph(GraphProtocol):\n    def __init__(G, N: int,\
+    \ edges=[]):\n        super().__init__([] for _ in range(N))\n        G.E = list(edges)\n\
+    \        for u,v in G.E:\n            G[u].append(v)\n            G[v].append(u)\n\
+    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
+    \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
+    \ M, E)\n"
+  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.edge_cls\
+    \ import Edge\nfrom cp_library.alg.graph.graph_proto import GraphProtocol\n\n\
+    class Graph(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n        super().__init__([]\
+    \ for _ in range(N))\n        G.E = list(edges)\n        for u,v in G.E:\n   \
+    \         G[u].append(v)\n            G[v].append(u)\n\n    @classmethod\n   \
+    \ def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n        if isinstance(E,\
+    \ int): E = Edge[E]\n        return super().compile(N, M, E)"
   dependsOn:
-  - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_proto.py
+  - cp_library/io/parser_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/graph_cls.py
   requiredBy:
   - cp_library/io/read_tree_fn.py
-  - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/tree/tree_cls.py
-  - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/grl_3_a_tarjan_articulation_points.test.py
 documentation_of: cp_library/alg/graph/graph_cls.py
 layout: document

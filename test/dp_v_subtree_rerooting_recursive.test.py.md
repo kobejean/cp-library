@@ -11,6 +11,9 @@ data:
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_proto.py
+    title: cp_library/alg/graph/graph_proto.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/bidirectional_array_cls.py
     title: cp_library/ds/bidirectional_array_cls.py
   - icon: ':heavy_check_mark:'
@@ -134,20 +137,20 @@ data:
     \ input().split()]\n        case _, _:\n            if char:\n               \
     \ stream = CharStream(sys.stdin)\n            else:\n                stream =\
     \ TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n     \
-    \       return parser(stream)\n\n\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n\
-    \    @property\n    def u(self) -> int: return self[0]\n    @property\n    def\
-    \ v(self) -> int: return self[1]\n    @property\n    def forw(self) -> H: return\
-    \ self[1]\n    @property\n    def back(self) -> H: return self[0]\n    @classmethod\n\
-    \    def compile(cls, I=1):\n        def parse(ts: TokenStream):\n           \
-    \ return cls((int(s)+I for s in ts.line()))\n        return parse\n\nclass Graph(list[H],\
-    \ Parsable):\n    def __init__(G, N: int, edges=[]):\n        super().__init__([]\
-    \ for _ in range(N))\n        G.E = list(edges)\n        for edge in G.E:\n  \
-    \          G[edge.u].append(edge.forw)\n            G[edge.v].append(edge.back)\n\
-    \n    @classmethod\n    def compile(cls, N: int, M: int, E = Edge[-1]):\n    \
-    \    if isinstance(E, int): E = Edge[E]\n        edge = Parser.compile(E)\n  \
-    \      def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _\
-    \ in range(M)))\n        return parse\n\n\ndef read_tree(N, i0=1):\n    T: Graph\
-    \ = [[] for _ in range(N)]\n    for _ in range(N-1):\n        u,v = read(tuple[-i0,-i0])\n\
+    \       return parser(stream)\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
+    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
+    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
+    \ parse\nfrom typing import Iterable\n\nclass GraphProtocol(list, Parsable):\n\
+    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n\n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
+    \        def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for\
+    \ _ in range(M)))\n        return parse\n\nclass Graph(GraphProtocol):\n    def\
+    \ __init__(G, N: int, edges=[]):\n        super().__init__([] for _ in range(N))\n\
+    \        G.E = list(edges)\n        for u,v in G.E:\n            G[u].append(v)\n\
+    \            G[v].append(u)\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ M: int, E: type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n\
+    \        return super().compile(N, M, E)\n\n\ndef read_tree(N, i0=1):\n    T:\
+    \ Graph = [[] for _ in range(N)]\n    for _ in range(N-1):\n        u,v = read(tuple[-i0,-i0])\n\
     \        T[u].append(v)\n        T[v].append(u)\n    return T\n\n\n# from cp_library.io.read_specs_fn\
     \ import read\n# from cp_library.alg.graph.graph_cls import Graph\n\nif __name__\
     \ == '__main__':\n    main()\n"
@@ -167,10 +170,11 @@ data:
   - cp_library/alg/graph/graph_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_proto.py
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_recursive.test.py
   requiredBy: []
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_recursive.test.py

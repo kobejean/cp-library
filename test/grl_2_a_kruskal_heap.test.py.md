@@ -114,32 +114,26 @@ data:
     \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need > 0:\n \
     \       edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n\
     \            dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
-    \ 1\n    return MST\n\n\n\nH = TypeVar('H')\nclass Edge(tuple, Parsable):\n  \
-    \  @property\n    def u(self) -> int: return self[0]\n    @property\n    def v(self)\
-    \ -> int: return self[1]\n    @property\n    def forw(self) -> H: return self[1]\n\
-    \    @property\n    def back(self) -> H: return self[0]\n    @classmethod\n  \
-    \  def compile(cls, I=1):\n        def parse(ts: TokenStream):\n            return\
-    \ cls((int(s)+I for s in ts.line()))\n        return parse\n\nE = TypeVar('E',\
-    \ bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n\
+    \ 1\n    return MST\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n  \
+    \  def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n            u,v\
+    \ = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return parse\n\
+    \nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n\
     \    @classmethod\n    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I\
     \ := E, int):\n            E = Edge[I]\n        edge = Parser.compile(E)\n   \
     \     def parse(ts: TokenStream):\n            return cls(edge(ts) for _ in range(M))\n\
     \        return parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\n\
-    class EdgeSet(EdgeCollection, set[E]):\n    pass\n\n\nclass EdgeWeighted(Edge,\
-    \ Parsable):\n    H: TypeAlias = tuple[int,int]\n    @property\n    def u(self):\
-    \ return self[0]\n    @property\n    def v(self): return self[1]\n    @property\n\
-    \    def w(self): return self[2]\n    @property\n    def forw(self) -> H: return\
-    \ self[1], self[2]\n    @property\n    def back(self) -> H: return self[0], self[2]\n\
-    \n    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
-    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
-    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
-    \       return parse\n\nM = TypeVar('M', bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\n\
-    class EdgeCollectionWeighted(EdgeCollection):\n    @classmethod\n    def compile(cls,\
-    \ M: M, Ew: Ew = EdgeWeighted[-1]):\n        if isinstance(I := Ew, int):\n  \
-    \          Ew = EdgeWeighted[I]\n        return super().compile(M, Ew)\n\nclass\
-    \ EdgeListWeighted(EdgeCollectionWeighted, list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted,\
-    \ set[Ew]):\n    pass\n\nif __name__ == '__main__':\n    main()\n"
+    class EdgeSet(EdgeCollection, set[E]):\n    pass\n\n\nfrom functools import total_ordering\
+    \ \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def __lt__(self, other:\
+    \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
+    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
+    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
+    \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
+    \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
+    \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
+    \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
+    \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
+    \    pass\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A\n\
     \ndef main():\n    N, M = read()\n    E = read(EdgeListWeighted[M,0])\n    MST\
     \ = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    print(ans)\n\nfrom cp_library.io.legacy.read_specs_fn\
@@ -158,7 +152,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2024-10-04 19:59:43+09:00'
+  timestamp: '2024-10-06 18:38:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_a_kruskal_heap.test.py
