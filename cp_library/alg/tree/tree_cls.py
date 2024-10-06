@@ -5,5 +5,5 @@ from cp_library.alg.graph.graph_cls import Graph
 
 class Tree(Graph):
     @classmethod
-    def compile(cls, N: int, E: type[Edge]|int = Edge[-1]):
+    def compile(cls, N: int, E: type|int = Edge[-1]):
         return super().compile(N, N-1, E)

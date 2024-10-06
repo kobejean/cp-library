@@ -1,10 +1,9 @@
 import cp_library.alg.tree.__header__
 
 from cp_library.alg.graph.edge_weighted_cls import EdgeWeighted
-from cp_library.alg.tree.tree_cls import Tree
+from cp_library.alg.graph.graph_weighted_cls import GraphWeighted
 
-class TreeWeighted(Tree):
+class TreeWeighted(GraphWeighted):
     @classmethod
-    def compile(cls, N: int, E: type[EdgeWeighted]|int = EdgeWeighted[-1]):
-        if isinstance(E, int): E = EdgeWeighted[E]
-        return super().compile(N, E)
+    def compile(cls, N: int, E: type|int = EdgeWeighted[-1]):
+        return super().compile(N, N-1, E)
