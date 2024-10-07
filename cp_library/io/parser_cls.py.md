@@ -30,6 +30,9 @@ data:
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_proto.py
+    title: cp_library/alg/graph/graph_weighted_proto.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':heavy_check_mark:'
@@ -219,6 +222,7 @@ data:
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_cls.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
+  - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/edge_cls.py
@@ -227,7 +231,7 @@ data:
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/ds/grid.py
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py

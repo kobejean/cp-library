@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_specs_fn.py
   requiredBy: []
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py

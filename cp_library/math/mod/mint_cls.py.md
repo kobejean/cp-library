@@ -72,7 +72,7 @@ data:
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
   - cp_library/math/mod/modmat_cls.py
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/subset_convolution.test.py

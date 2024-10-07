@@ -11,6 +11,9 @@ data:
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_proto.py
+    title: cp_library/alg/graph/graph_weighted_proto.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -96,33 +99,42 @@ data:
     \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
     \ G[v]\n\n    @classmethod\n    def compile(cls, N: int, M: int, E):\n       \
     \ edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n            return\
-    \ cls(N, (edge(ts) for _ in range(M)))\n        return parse\nfrom operator import\
-    \ itemgetter\n\nclass GraphWeighted(GraphProtocol):\n    def __init__(G, N: int,\
-    \ edges=[]):\n        super().__init__([] for _ in range(N))\n        G.E = list(edges)\n\
-    \        for u,v,*w in G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n\
-    \    \n    def neighbors(G, v: int):\n        return map(itemgetter(0), G[v])\n\
-    \    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
+    \ cls(N, (edge(ts) for _ in range(M)))\n        return parse\nimport heapq\nfrom\
+    \ math import inf\n\nclass GraphWeightedProtocol(GraphProtocol):\n\n    def dijkstra(G,\
+    \ s):\n        dists = [inf for _ in range(G.N)]\n        dists[s] = 0\n     \
+    \   queue = [(0, s)]\n\n        while queue:\n            d, v = heapq.heappop(queue)\n\
+    \            if d > dists[v]: continue\n\n            for u, w in G[v]:\n    \
+    \            nd = d + w\n                if nd < dists[u]:\n                 \
+    \   dists[u] = nd\n                    heapq.heappush(queue, (nd, u))\n\n    \
+    \    return dists\nfrom operator import itemgetter\n\nclass GraphWeighted(GraphWeightedProtocol):\n\
+    \    def __init__(G, N: int, edges=[]):\n        super().__init__([] for _ in\
+    \ range(N))\n        G.N = N\n        G.E = list(edges)\n        for u,v,*w in\
+    \ G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n   \
+    \ \n    def neighbors(G, v: int):\n        return map(itemgetter(0), G[v])\n \
+    \   \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
     \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
     \ M, E)\n"
   code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.edge_weighted_cls\
-    \ import EdgeWeighted\nfrom cp_library.alg.graph.graph_proto import GraphProtocol\n\
-    from operator import itemgetter\n\nclass GraphWeighted(GraphProtocol):\n    def\
-    \ __init__(G, N: int, edges=[]):\n        super().__init__([] for _ in range(N))\n\
-    \        G.E = list(edges)\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n\
-    \            G[v].append((u,*w))\n    \n    def neighbors(G, v: int):\n      \
-    \  return map(itemgetter(0), G[v])\n    \n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, E: type|int = EdgeWeighted[-1]):\n        if isinstance(E, int):\
-    \ E = EdgeWeighted[E]\n        return super().compile(N, M, E)"
+    \ import EdgeWeighted\nfrom cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol\n\
+    from operator import itemgetter\n\nclass GraphWeighted(GraphWeightedProtocol):\n\
+    \    def __init__(G, N: int, edges=[]):\n        super().__init__([] for _ in\
+    \ range(N))\n        G.N = N\n        G.E = list(edges)\n        for u,v,*w in\
+    \ G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n   \
+    \ \n    def neighbors(G, v: int):\n        return map(itemgetter(0), G[v])\n \
+    \   \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
+    \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
+    \ M, E)\n"
   dependsOn:
   - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/graph_proto.py
+  - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_proto.py
   isVerificationFile: false
   path: cp_library/alg/graph/graph_weighted_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

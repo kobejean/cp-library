@@ -136,7 +136,7 @@ data:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_sort.test.py

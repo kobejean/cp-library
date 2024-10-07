@@ -20,6 +20,9 @@ data:
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_proto.py
+    title: cp_library/alg/graph/graph_weighted_proto.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - icon: ':heavy_check_mark:'
@@ -133,12 +136,19 @@ data:
     \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n\n    @classmethod\n\
     \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
     \        def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for\
-    \ _ in range(M)))\n        return parse\nfrom operator import itemgetter\n\nclass\
-    \ GraphWeighted(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n    \
-    \    super().__init__([] for _ in range(N))\n        G.E = list(edges)\n     \
-    \   for u,v,*w in G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n\
-    \    \n    def neighbors(G, v: int):\n        return map(itemgetter(0), G[v])\n\
-    \    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
+    \ _ in range(M)))\n        return parse\nimport heapq\nfrom math import inf\n\n\
+    class GraphWeightedProtocol(GraphProtocol):\n\n    def dijkstra(G, s):\n     \
+    \   dists = [inf for _ in range(G.N)]\n        dists[s] = 0\n        queue = [(0,\
+    \ s)]\n\n        while queue:\n            d, v = heapq.heappop(queue)\n     \
+    \       if d > dists[v]: continue\n\n            for u, w in G[v]:\n         \
+    \       nd = d + w\n                if nd < dists[u]:\n                    dists[u]\
+    \ = nd\n                    heapq.heappush(queue, (nd, u))\n\n        return dists\n\
+    from operator import itemgetter\n\nclass GraphWeighted(GraphWeightedProtocol):\n\
+    \    def __init__(G, N: int, edges=[]):\n        super().__init__([] for _ in\
+    \ range(N))\n        G.N = N\n        G.E = list(edges)\n        for u,v,*w in\
+    \ G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n   \
+    \ \n    def neighbors(G, v: int):\n        return map(itemgetter(0), G[v])\n \
+    \   \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
     \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
     \ M, E)\n\n\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
     \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
@@ -211,14 +221,15 @@ data:
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/graph_proto.py
+  - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/ds/sparse_table_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_proto.py
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

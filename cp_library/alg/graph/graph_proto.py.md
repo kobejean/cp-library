@@ -18,6 +18,9 @@ data:
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_proto.py
+    title: cp_library/alg/graph/graph_weighted_proto.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':heavy_check_mark:'
@@ -133,11 +136,12 @@ data:
   - cp_library/io/read_tree_fn.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_cls.py
+  - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

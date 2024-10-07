@@ -17,6 +17,9 @@ data:
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_proto.py
+    title: cp_library/alg/graph/graph_weighted_proto.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -114,14 +117,20 @@ data:
     \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
     \ G[v]\n\n    @classmethod\n    def compile(cls, N: int, M: int, E):\n       \
     \ edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n            return\
-    \ cls(N, (edge(ts) for _ in range(M)))\n        return parse\n\nfrom operator\
-    \ import itemgetter\n\nclass DiGraphWeighted(GraphProtocol):\n    def __init__(G,\
-    \ N, E: list = []):\n        super().__init__([] for _ in range(N))\n        G.E\
-    \ = list(E)\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n   \
-    \ \n    def neighbors(G, v: int) -> Iterable[int]:\n        return map(itemgetter(0),\
-    \ G[v])\n    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int\
-    \ = EdgeWeighted[-1]):\n        if isinstance(E, int): E = EdgeWeighted[E]\n \
-    \       return super().compile(N, M, E)\n\nif __name__ == '__main__':\n    main()\n"
+    \ cls(N, (edge(ts) for _ in range(M)))\n        return parse\n\nclass GraphWeightedProtocol(GraphProtocol):\n\
+    \n    def dijkstra(G, s):\n        dists = [inf for _ in range(G.N)]\n       \
+    \ dists[s] = 0\n        queue = [(0, s)]\n\n        while queue:\n           \
+    \ d, v = heapq.heappop(queue)\n            if d > dists[v]: continue\n\n     \
+    \       for u, w in G[v]:\n                nd = d + w\n                if nd <\
+    \ dists[u]:\n                    dists[u] = nd\n                    heapq.heappush(queue,\
+    \ (nd, u))\n\n        return dists\n\nfrom operator import itemgetter\n\nclass\
+    \ DiGraphWeighted(GraphWeightedProtocol):\n    def __init__(G, N, E: list = []):\n\
+    \        super().__init__([] for _ in range(N))\n        G.E = list(E)\n     \
+    \   for u,v,*w in G.E:\n            G[u].append((v,*w))\n    \n    def neighbors(G,\
+    \ v: int) -> Iterable[int]:\n        return map(itemgetter(0), G[v])\n    \n \
+    \   @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
+    \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
+    \ M, E)\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A\n\
     \nfrom math import inf\n\ndef main():\n    N, M, r = read()\n    G = read(DiGraphWeighted[N,\
     \ M, 0])\n    D = dijkstra(G, N, r)\n    print(*('INF' if d == inf else d for\
@@ -134,12 +143,13 @@ data:
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/graph_proto.py
+  - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_proto.py
   isVerificationFile: true
   path: test/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_a_dijkstra.test.py

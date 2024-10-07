@@ -138,7 +138,7 @@ data:
   isVerificationFile: true
   path: test/grl_3_a_tarjan_articulation_points.test.py
   requiredBy: []
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_tarjan_articulation_points.test.py

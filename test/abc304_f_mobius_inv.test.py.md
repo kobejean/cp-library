@@ -60,7 +60,7 @@ data:
   isVerificationFile: true
   path: test/abc304_f_mobius_inv.test.py
   requiredBy: []
-  timestamp: '2024-10-06 18:38:39+09:00'
+  timestamp: '2024-10-07 10:08:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc304_f_mobius_inv.test.py

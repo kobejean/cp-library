@@ -71,6 +71,9 @@ data:
       path: cp_library/alg/graph/graph_weighted_cls.py
       title: cp_library/alg/graph/graph_weighted_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/graph_weighted_proto.py
+      title: cp_library/alg/graph/graph_weighted_proto.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/kruskal_heap_fn.py
       title: cp_library/alg/graph/kruskal_heap_fn.py
     - icon: ':heavy_check_mark:'
