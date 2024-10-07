@@ -1,12 +1,12 @@
 import cp_library.alg.__header__
 
 from cp_library.alg.graph.edge_weighted_cls import EdgeWeighted
-from cp_library.alg.graph.graph_proto import GraphProtocol
+from cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol
 
 from typing import Iterable
 from operator import itemgetter
 
-class DiGraphWeighted(GraphProtocol):
+class DiGraphWeighted(GraphWeightedProtocol):
     def __init__(G, N, E: list = []):
         super().__init__([] for _ in range(N))
         G.E = list(E)

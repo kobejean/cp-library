@@ -1,12 +1,13 @@
 import cp_library.alg.graph.__header__
 
 from cp_library.alg.graph.edge_weighted_cls import EdgeWeighted
-from cp_library.alg.graph.graph_proto import GraphProtocol
+from cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol
 from operator import itemgetter
 
-class GraphWeighted(GraphProtocol):
+class GraphWeighted(GraphWeightedProtocol):
     def __init__(G, N: int, edges=[]):
         super().__init__([] for _ in range(N))
+        G.N = N
         G.E = list(edges)
         for u,v,*w in G.E:
             G[u].append((v,*w))
