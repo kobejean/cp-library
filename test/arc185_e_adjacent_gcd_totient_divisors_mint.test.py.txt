@@ -1,0 +1,28 @@
+# verification-helper: PROBLEM https://atcoder.jp/contests/arc185/tasks/arc185_e
+
+def main():
+    mint.set_mod(mod := 998244353)
+    N = read(int)
+    A = read(list[int, N])
+
+    Amax = max(A)
+    phi = Totient(Amax)
+    S = [0]*(Amax+1)
+
+    pow2 = 1
+    ans = mint.zero
+    for i in range(N):
+        for d in Divisors(A[i]):
+            ans += phi[d] * S[d]
+            S[d] += pow2
+        print(ans)
+        pow2 = pow2*2%mod
+        ans *= 2
+    
+from cp_library.io.read_specs_fn import read
+from cp_library.math.table.divisors_cls import Divisors
+from cp_library.math.table.totient_cls import Totient
+from cp_library.math.mod.mint_comb_cls import mint
+
+if __name__ == "__main__":
+    main()

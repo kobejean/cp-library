@@ -1,0 +1,31 @@
+# verification-helper: PROBLEM https://atcoder.jp/contests/arc185/tasks/arc185_c
+
+def solve():
+    N, X = read(tuple[int,int])
+    A = read(list[int])
+    F = [0]*(X+1)
+    for a in A:
+        F[a] += 1
+    ntt = NTT()
+    G = ntt.convolution(F, F)
+    G = [(g if n&1 else g-F[n//2]) // 2 for n,g in enumerate(G)]
+    for s in range(N):
+        cnt = G[X-A[s]] - F[max(0,X-2*A[s])] + (X == 3*A[s])
+        if cnt:
+            for t in range(s+1,N):
+                Au = max(0,X - A[s] - A[t])
+                if F[Au]:
+                    for u in range(t+1,N):
+                        if A[u] == Au:
+                            return s+1,t+1,u+1
+
+    return -1,
+
+def main():
+    print(*solve())
+
+
+from cp_library.io.read_specs_fn import read
+from cp_library.math.ntt_cls import NTT
+if __name__ == "__main__":
+    main()

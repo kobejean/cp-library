@@ -8,7 +8,7 @@ def kruskal(E, N):
     dsu = DSU(N)
     MST = []
     need = N-1
-    while E and need > 0:
+    while E and need:
         edge = heappop(E)
         u,v,_ = edge
         if not dsu.same(u,v):

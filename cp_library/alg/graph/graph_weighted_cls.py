@@ -2,19 +2,22 @@ import cp_library.alg.graph.__header__
 
 from cp_library.alg.graph.edge_weighted_cls import EdgeWeighted
 from cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol
-from operator import itemgetter
 
 class GraphWeighted(GraphWeightedProtocol):
     def __init__(G, N: int, edges=[]):
         super().__init__([] for _ in range(N))
-        G.N = N
         G.E = list(edges)
+        G.N, G.M = N, len(G.E)
         for u,v,*w in G.E:
             G[u].append((v,*w))
             G[v].append((u,*w))
     
-    def neighbors(G, v: int):
-        return map(itemgetter(0), G[v])
+    def edge_ids(G) -> list[list[int]]:
+        Eid = [[] for _ in range(G.N)]
+        for e,(u,v,*w) in enumerate(G.E):
+            Eid[u].append(e)
+            Eid[v].append(e)
+        return Eid
     
     @classmethod
     def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):

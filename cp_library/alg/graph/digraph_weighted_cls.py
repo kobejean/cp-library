@@ -10,8 +10,15 @@ class DiGraphWeighted(GraphWeightedProtocol):
     def __init__(G, N, E: list = []):
         super().__init__([] for _ in range(N))
         G.E = list(E)
+        G.N, G.M = N, len(G.E)
         for u,v,*w in G.E:
             G[u].append((v,*w))
+    
+    def edge_ids(G) -> list[list[int]]:
+        Eid = [[] for _ in range(G.N)]
+        for e,(u,v,*w) in enumerate(G.E):
+            Eid[u].append(e)
+        return Eid
     
     def neighbors(G, v: int) -> Iterable[int]:
         return map(itemgetter(0), G[v])
