@@ -5,46 +5,36 @@ data:
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_cls.py
+    title: cp_library/alg/graph/graph_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_cls.py
-    title: cp_library/alg/tree/tree_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_tree_fn.py
-    title: cp_library/io/read_tree_fn.py
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_iterative.test.py
-    title: test/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_recursive.test.py
-    title: test/dp_v_subtree_rerooting_recursive.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_3_a_find_articulation_points.test.py
-    title: test/grl_3_a_find_articulation_points.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_3_a_tarjan_articulation_points.test.py
-    title: test/grl_3_a_tarjan_articulation_points.test.py
+    path: cp_library/io/read_specs_fn.py
+    title: cp_library/io/read_specs_fn.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A
+    links:
+    - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A
+  bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
+    \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    \n    for i,is_ap\
+    \ in enumerate(G.articulation_points()):\n        if is_ap:\n            print(i)\n\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nimport sys\nimport typing\nfrom collections import deque\nfrom numbers import\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
+    \nimport sys\nimport typing\nfrom collections import deque\nfrom numbers import\
     \ Number\nfrom typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\
     \nclass TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n\
     \        self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
@@ -158,38 +148,36 @@ data:
     \ in enumerate(G.E):\n            Eid[u].append(e)\n            Eid[v].append(e)\n\
     \        return Eid\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
     \ E: type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n     \
-    \   return super().compile(N, M, E)\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.edge_cls\
-    \ import Edge\nfrom cp_library.alg.graph.graph_proto import GraphProtocol\n\n\
-    class Graph(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n        super().__init__([]\
-    \ for _ in range(N))\n        G.E = list(edges)\n        G.N, G.M = N, len(G.E)\n\
-    \        for u,v in G.E:\n            G[u].append(v)\n            G[v].append(u)\n\
-    \n    def edge_ids(G) -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n\
-    \        for e,(u,v) in enumerate(G.E):\n            Eid[u].append(e)\n      \
-    \      Eid[v].append(e)\n        return Eid\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, E: type|int = Edge[-1]):\n        if isinstance(E, int): E =\
-    \ Edge[E]\n        return super().compile(N, M, E)"
+    \   return super().compile(N, M, E)\n\nfrom typing import Type, TypeVar, overload\n\
+    \nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\n\
+    def read(spec: Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
+    \    match spec, char:\n        case None, False:\n            return list(map(int,\
+    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
+    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
+    \          stream = CharStream(sys.stdin)\n            else:\n               \
+    \ stream = TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n\
+    \            return parser(stream)\n\nif __name__ == '__main__':\n    main()\n"
+  code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
+    \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    \n    for i,is_ap\
+    \ in enumerate(G.articulation_points()):\n        if is_ap:\n            print(i)\n\
+    \nfrom cp_library.alg.graph.graph_cls import Graph\nfrom cp_library.io.read_specs_fn\
+    \ import read\n\nif __name__ == '__main__':\n    main()"
   dependsOn:
+  - cp_library/alg/graph/graph_cls.py
+  - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/io/parser_cls.py
-  isVerificationFile: false
-  path: cp_library/alg/graph/graph_cls.py
-  requiredBy:
-  - cp_library/io/read_tree_fn.py
-  - cp_library/alg/tree/tree_cls.py
+  isVerificationFile: true
+  path: test/grl_3_a_find_articulation_points.test.py
+  requiredBy: []
   timestamp: '2024-10-23 00:17:22+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/grl_3_a_tarjan_articulation_points.test.py
-  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - test/grl_3_a_find_articulation_points.test.py
-  - test/dp_v_subtree_rerooting_recursive.test.py
-  - test/dp_v_subtree_rerooting_iterative.test.py
-documentation_of: cp_library/alg/graph/graph_cls.py
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/grl_3_a_find_articulation_points.test.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/graph_cls.py
-- /library/cp_library/alg/graph/graph_cls.py.html
-title: cp_library/alg/graph/graph_cls.py
+- /verify/test/grl_3_a_find_articulation_points.test.py
+- /verify/test/grl_3_a_find_articulation_points.test.py.html
+title: test/grl_3_a_find_articulation_points.test.py
 ---

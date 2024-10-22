@@ -68,7 +68,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/subset_convolution_fn.py
   requiredBy: []
-  timestamp: '2024-10-07 10:08:27+09:00'
+  timestamp: '2024-10-23 00:17:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/subset_convolution.test.py

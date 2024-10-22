@@ -37,21 +37,21 @@ data:
     \n        result = [[] for _ in range(self.n)]\n        for i in range(self.n):\n\
     \            result[leader_buf[i]].append(i)\n\n        return list(filter(lambda\
     \ r: r, result))\n\ndef kruskal(E, N):\n    heapify(E)\n    dsu = DSU(N)\n   \
-    \ MST = []\n    need = N-1\n    while E and need > 0:\n        edge = heappop(E)\n\
+    \ MST = []\n    need = N-1\n    while E and need:\n        edge = heappop(E)\n\
     \        u,v,_ = edge\n        if not dsu.same(u,v):\n            dsu.merge(u,v)\n\
     \            MST.append(edge)\n            need -= 1\n    return MST\n"
   code: "import cp_library.alg.graph.__header__\n\nfrom heapq import heapify, heappop\n\
     from cp_library.ds.dsu_cls import DSU\n\ndef kruskal(E, N):\n    heapify(E)\n\
-    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need > 0:\n \
-    \       edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n\
-    \            dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
+    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need:\n     \
+    \   edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n \
+    \           dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
     \ 1\n    return MST\n"
   dependsOn:
   - cp_library/ds/dsu_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_heap_fn.py
   requiredBy: []
-  timestamp: '2024-10-07 10:08:27+09:00'
+  timestamp: '2024-10-23 00:17:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_heap.test.py

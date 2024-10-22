@@ -111,9 +111,9 @@ data:
     \ for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n  \
     \      for i in range(self.n):\n            result[leader_buf[i]].append(i)\n\n\
     \        return list(filter(lambda r: r, result))\n\ndef kruskal(E, N):\n    heapify(E)\n\
-    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need > 0:\n \
-    \       edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n\
-    \            dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
+    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need:\n     \
+    \   edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n \
+    \           dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
     \ 1\n    return MST\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n  \
     \  def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n            u,v\
     \ = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return parse\n\
@@ -152,7 +152,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2024-10-07 10:08:27+09:00'
+  timestamp: '2024-10-23 00:17:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_a_kruskal_heap.test.py

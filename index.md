@@ -26,6 +26,9 @@ data:
       path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
       title: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
     - icon: ':warning:'
+      path: cp_library/alg/graph/bfs.py
+      title: cp_library/alg/graph/bfs.py
+    - icon: ':warning:'
       path: cp_library/alg/graph/digraph_cls.py
       title: cp_library/alg/graph/digraph_cls.py
     - icon: ':heavy_check_mark:'
@@ -152,15 +155,9 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/heapq_max_import.py
       title: cp_library/ds/heapq_max_import.py
-    - icon: ':warning:'
-      path: cp_library/ds/heapsiftdown_import.py
-      title: cp_library/ds/heapsiftdown_import.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/mutvec_cls.py
-      title: cp_library/ds/mutvec_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu_cls.py
       title: PotentializedDSU (generalized with groups)
@@ -179,12 +176,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/trie_cls.py
       title: cp_library/ds/trie_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/vec_cls.py
-      title: cp_library/ds/vec_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/vec_op_mixin.py
-      title: cp_library/ds/vec_op_mixin.py
     - icon: ':warning:'
       path: cp_library/ds/wavelet_matrix_cls.py
       title: cp_library/ds/wavelet_matrix_cls.py
@@ -219,11 +210,20 @@ data:
       path: cp_library/math/arithmetic_series_fn.py
       title: cp_library/math/arithmetic_series_fn.py
     - icon: ':warning:'
+      path: cp_library/math/elm_wise_in_place_mixin.py
+      title: cp_library/math/elm_wise_in_place_mixin.py
+    - icon: ':warning:'
+      path: cp_library/math/elm_wise_mixin.py
+      title: cp_library/math/elm_wise_mixin.py
+    - icon: ':warning:'
       path: cp_library/math/extended_euclidean_fn.py
       title: cp_library/math/extended_euclidean_fn.py
     - icon: ':warning:'
       path: cp_library/math/geometic_series_fn.py
       title: cp_library/math/geometic_series_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/mat_cls.py
+      title: cp_library/math/mat_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mat_id_fn.py
       title: cp_library/math/mat_id_fn.py
@@ -239,6 +239,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mobius_transform_fn.py
       title: cp_library/math/mobius_transform_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/mutvec_cls.py
+      title: cp_library/math/mutvec_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/ntt_cls.py
+      title: cp_library/math/ntt_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/subset_convolution_fn.py
       title: cp_library/math/subset_convolution_fn.py
@@ -248,6 +254,9 @@ data:
     - icon: ':warning:'
       path: cp_library/math/sum_of_squares_fn.py
       title: cp_library/math/sum_of_squares_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/vec_cls.py
+      title: cp_library/math/vec_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/zeta_transform_fn.py
       title: cp_library/math/zeta_transform_fn.py
@@ -419,6 +428,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grl_2_b_edmonds_branching.test.py
       title: test/grl_2_b_edmonds_branching.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/grl_3_a_find_articulation_points.test.py
+      title: test/grl_3_a_find_articulation_points.test.py
     - icon: ':heavy_check_mark:'
       path: test/grl_3_a_tarjan_articulation_points.test.py
       title: test/grl_3_a_tarjan_articulation_points.test.py

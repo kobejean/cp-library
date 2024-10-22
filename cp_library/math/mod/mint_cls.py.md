@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/math/mat_cls.py
+    title: cp_library/math/mat_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/modmat_cls.py
     title: cp_library/math/mod/modmat_cls.py
@@ -72,12 +75,13 @@ data:
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
   - cp_library/math/mod/modmat_cls.py
-  timestamp: '2024-10-07 10:08:27+09:00'
+  - cp_library/math/mat_cls.py
+  timestamp: '2024-10-23 00:17:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/subset_convolution.test.py
   - test/pow_of_matrix_modmat.test.py
   - test/pow_of_matrix_matpow.test.py
+  - test/subset_convolution.test.py
 documentation_of: cp_library/math/mod/mint_cls.py
 layout: document
 redirect_from:

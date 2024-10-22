@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':warning:'
-    path: cp_library/ds/vec_op_mixin.py
-    title: cp_library/ds/vec_op_mixin.py
+    path: cp_library/math/elm_wise_mixin.py
+    title: cp_library/math/elm_wise_mixin.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -18,7 +18,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \n\nimport operator\nfrom numbers import Number\nfrom typing import Sequence\n\
-    \nclass VecOpMixin:\n    def elm_wise(self, other, op):\n        if isinstance(other,\
+    \nclass ElmWiseMixin:\n    def elm_wise(self, other, op):\n        if isinstance(other,\
     \ Number):\n            return type(self)(op(x, other) for x in self)\n      \
     \  if isinstance(other, Sequence):\n            return type(self)(op(x, y) for\
     \ x, y in zip(self, other))\n        raise ValueError(\"Operand must be a number\
@@ -32,27 +32,28 @@ data:
     \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
     \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
     \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
-    import typing\n\nclass vec(tuple, VecOpMixin):\n    def __new__(cls, *args):\n\
-    \        if len(args) == 1 and isinstance(args[0], typing.Iterable):\n       \
-    \     return super().__new__(cls, args[0])\n        return super().__new__(cls,\
+    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\nfrom\
+    \ typing import Iterable\n\nclass Vec(tuple, ElmWiseMixin):\n    def __new__(cls,\
+    \ *args):\n        if len(args) == 1 and isinstance(args[0], Iterable):\n    \
+    \        return super().__new__(cls, args[0])\n        return super().__new__(cls,\
     \ args)\n"
-  code: "import cp_library.ds.__header__\n\nfrom cp_library.ds.vec_op_mixin import\
-    \ VecOpMixin\nimport typing\n\nclass vec(tuple, VecOpMixin):\n    def __new__(cls,\
-    \ *args):\n        if len(args) == 1 and isinstance(args[0], typing.Iterable):\n\
-    \            return super().__new__(cls, args[0])\n        return super().__new__(cls,\
-    \ args)\n"
+  code: "import cp_library.math.__header__\n\nfrom cp_library.math.elm_wise_mixin\
+    \ import ElmWiseMixin\nfrom typing import Iterable\n\nclass Vec(tuple, ElmWiseMixin):\n\
+    \    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ Iterable):\n            return super().__new__(cls, args[0])\n        return\
+    \ super().__new__(cls, args)\n"
   dependsOn:
-  - cp_library/ds/vec_op_mixin.py
+  - cp_library/math/elm_wise_mixin.py
   isVerificationFile: false
-  path: cp_library/ds/vec_cls.py
+  path: cp_library/math/vec_cls.py
   requiredBy: []
-  timestamp: '2024-10-07 10:08:27+09:00'
+  timestamp: '2024-10-23 00:17:22+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: cp_library/ds/vec_cls.py
+documentation_of: cp_library/math/vec_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/vec_cls.py
-- /library/cp_library/ds/vec_cls.py.html
-title: cp_library/ds/vec_cls.py
+- /library/cp_library/math/vec_cls.py
+- /library/cp_library/math/vec_cls.py.html
+title: cp_library/math/vec_cls.py
 ---

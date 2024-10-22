@@ -3,15 +3,42 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/digraph_weighted_cls.py
+    title: cp_library/alg/graph/digraph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edmonds_fn.py
     title: cp_library/alg/graph/edmonds_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_cls.py
+    title: cp_library/alg/graph/graph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_proto.py
+    title: cp_library/alg/graph/graph_weighted_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/kruskal_heap_fn.py
     title: cp_library/alg/graph/kruskal_heap_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/kruskal_sort_fn.py
     title: cp_library/alg/graph/kruskal_sort_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/tree_weighted_cls.py
+    title: cp_library/alg/tree/tree_weighted_cls.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_a_dijkstra.test.py
+    title: test/grl_1_a_dijkstra.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_b_bellman_ford.test.py
+    title: test/grl_1_b_bellman_ford.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_c_floyd_warshall.test.py
+    title: test/grl_1_c_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_2_a_kruskal_heap.test.py
     title: test/grl_2_a_kruskal_heap.test.py
@@ -72,16 +99,25 @@ data:
   isVerificationFile: false
   path: cp_library/ds/dsu_cls.py
   requiredBy:
+  - cp_library/alg/graph/kruskal_heap_fn.py
+  - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/alg/graph/edmonds_fn.py
-  - cp_library/alg/graph/kruskal_heap_fn.py
-  timestamp: '2024-10-07 10:08:27+09:00'
+  - cp_library/alg/graph/graph_weighted_cls.py
+  - cp_library/alg/graph/digraph_weighted_cls.py
+  - cp_library/alg/tree/tree_weighted_cls.py
+  timestamp: '2024-10-23 00:17:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/grl_2_a_kruskal_sort.test.py
-  - test/unionfind.test.py
-  - test/grl_2_b_edmonds_branching.test.py
+  - test/grl_1_b_bellman_ford.test.py
   - test/grl_2_a_kruskal_heap.test.py
+  - test/grl_2_a_kruskal_sort.test.py
+  - test/grl_2_b_edmonds_branching.test.py
+  - test/unionfind.test.py
+  - test/grl_1_c_floyd_warshall.test.py
+  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - test/grl_1_a_dijkstra.test.py
 documentation_of: cp_library/ds/dsu_cls.py
 layout: document
 redirect_from:

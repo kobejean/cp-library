@@ -59,16 +59,16 @@ data:
   isVerificationFile: false
   path: cp_library/ds/sparse_table_cls.py
   requiredBy:
-  - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
+  - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2024-10-07 10:08:27+09:00'
+  timestamp: '2024-10-23 00:17:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/grl_5_c_lca_table_recursive.test.py
+  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/ds/sparse_table_cls.py
 layout: document
 redirect_from:
