@@ -23,7 +23,7 @@ class TokenStream(Iterator):
         assert not self.queue
         return next(self.stream).rstrip().split()
 
-class CharStream(Iterator):
+class CharStream(TokenStream):
     def line(self):
         assert not self.queue
         return next(self.stream).rstrip()
