@@ -57,7 +57,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2024-10-24 07:41:37+09:00'
+  timestamp: '2024-10-24 08:20:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unionfind_with_potential_non_commutative_group.test.py

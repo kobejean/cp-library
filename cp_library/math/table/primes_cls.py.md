@@ -54,7 +54,7 @@ data:
   - cp_library/math/table/sieve_benchmarks.py
   - cp_library/math/table/linear_sieve_cnts_cls.py
   - cp_library/math/table/linear_sieve_cls.py
-  timestamp: '2024-10-24 07:41:37+09:00'
+  timestamp: '2024-10-24 08:20:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/primes_cls.py

@@ -137,7 +137,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2024-10-24 07:41:37+09:00'
+  timestamp: '2024-10-24 08:20:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_modmat.test.py

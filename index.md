@@ -186,7 +186,7 @@ data:
       title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/io
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
@@ -198,7 +198,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_specs_fn.py
       title: cp_library/io/read_specs_fn.py
     - icon: ':heavy_check_mark:'
@@ -212,7 +212,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/elm_wise_in_place_mixin.py
       title: cp_library/math/elm_wise_in_place_mixin.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/elm_wise_mixin.py
       title: cp_library/math/elm_wise_mixin.py
     - icon: ':warning:'
@@ -254,13 +254,13 @@ data:
     - icon: ':warning:'
       path: cp_library/math/sum_of_squares_fn.py
       title: cp_library/math/sum_of_squares_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/vec2_cls.py
       title: cp_library/math/vec2_cls.py
     - icon: ':warning:'
       path: cp_library/math/vec3_cls.py
       title: cp_library/math/vec3_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/vec_cls.py
       title: cp_library/math/vec_cls.py
     - icon: ':heavy_check_mark:'
@@ -371,7 +371,7 @@ data:
   verificationCategories:
   - name: test
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc274_e_vec2.test.py
       title: test/abc274_e_vec2.test.py
     - icon: ':heavy_check_mark:'

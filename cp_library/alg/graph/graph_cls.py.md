@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -178,7 +178,7 @@ data:
   requiredBy:
   - cp_library/io/read_tree_fn.py
   - cp_library/alg/tree/tree_cls.py
-  timestamp: '2024-10-24 07:41:37+09:00'
+  timestamp: '2024-10-24 08:20:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_3_a_tarjan_articulation_points.test.py

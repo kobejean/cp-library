@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/vec_cls.py
     title: cp_library/math/vec_cls.py
   _extendedRequiredBy: []
@@ -126,7 +126,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/vec3_cls.py
   requiredBy: []
-  timestamp: '2024-10-24 07:41:37+09:00'
+  timestamp: '2024-10-24 08:20:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/vec3_cls.py
