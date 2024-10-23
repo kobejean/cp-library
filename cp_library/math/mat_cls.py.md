@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':warning:'
     path: cp_library/math/elm_wise_in_place_mixin.py
     title: cp_library/math/elm_wise_in_place_mixin.py
-  - icon: ':warning:'
+  - icon: ':x:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
   - icon: ':heavy_check_mark:'
@@ -37,7 +37,7 @@ data:
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
+    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
     \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
     class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
@@ -177,10 +177,15 @@ data:
     \    # def identity(cls, N):\n    #     R = cls(N, N, mint.zero)\n    #     for\
     \ i in range(N):\n    #         R[i,i] = mint.one\n    #     return R\n    \n\
     \    @classmethod\n    def compile(cls, N: int, M: int, T: type = int):\n    \
-    \    return super().compile(N, M, T)\n    \n\n\n\nclass MutVec(list, ElmWiseInPlaceMixin):\n\
-    \n    def __init__(self, *args):\n        if len(args) == 1 and isinstance(args[0],\
-    \ Iterable):\n            super().__init__(args[0])\n        else:\n         \
-    \   super().__init__(args)\n    \n"
+    \    return super().compile(N, M, T)\n    \n\n\n\nclass MutVec(list, ElmWiseInPlaceMixin,\
+    \ Parsable):\n\n    def __init__(self, *args):\n        if len(args) == 1 and\
+    \ isinstance(args[0], Iterable):\n            super().__init__(args[0])\n    \
+    \    else:\n            super().__init__(args)\n    \n\n    @classmethod\n   \
+    \ def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
+    \        if N is None:\n            def parse(ts: TokenStream):\n            \
+    \    return cls(elm(ts) for _ in ts.wait())\n        else:\n            def parse(ts:\
+    \ TokenStream):\n                return cls(elm(ts) for _ in range(N))\n     \
+    \   return parse\n"
   code: "import cp_library.math.__header__\n\nfrom typing import Iterable, Container,\
     \ Sequence\nfrom numbers import Number\nfrom cp_library.io.parser_cls import Parsable,\
     \ Parser, TokenStream\nfrom cp_library.math.elm_wise_in_place_mixin import ElmWiseInPlaceMixin\n\
@@ -246,7 +251,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mat_cls.py
   requiredBy: []
-  timestamp: '2024-10-23 00:17:22+09:00'
+  timestamp: '2024-10-24 07:41:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mat_cls.py

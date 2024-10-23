@@ -7,13 +7,10 @@ data:
   - icon: ':x:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
-  _extendedRequiredBy:
   - icon: ':x:'
-    path: cp_library/math/vec2_cls.py
-    title: cp_library/math/vec2_cls.py
-  - icon: ':warning:'
-    path: cp_library/math/vec3_cls.py
-    title: cp_library/math/vec3_cls.py
+    path: cp_library/math/vec_cls.py
+    title: cp_library/math/vec_cls.py
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':x:'
     path: test/abc274_e_vec2.test.py
@@ -78,7 +75,7 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nimport operator\nfrom typing import Sequence\n\nclass ElmWiseMixin:\n\
+    \ parser\n\n\nimport operator\nfrom typing import Sequence\n\nclass ElmWiseMixin:\n\
     \    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n \
     \           return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
     \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
@@ -103,35 +100,41 @@ data:
     \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
     \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
     \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  \n"
+    \  \nfrom math import sqrt\n\nclass Vec2(Vec):\n\n    def elm_wise(self, other,\
+    \ op):\n        if isinstance(other, Number):\n            return Vec2(op(self[0],\
+    \ other), op(self[1], other))\n        if isinstance(other, Sequence):\n     \
+    \       return Vec2(op(self[0], other[0]), op(self[1], other[1]))\n        raise\
+    \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
+    \   def dist(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
+    \        return sqrt(dx*dx+dy*dy)\n    \n    @classmethod\n    def compile(cls,\
+    \ T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls(elm(ts), elm(ts))\n        return parse\n\n"
   code: "import cp_library.math.__header__\n\nfrom cp_library.io.parser_cls import\
-    \ Parsable, Parser, TokenStream\nfrom cp_library.math.elm_wise_mixin import ElmWiseMixin\n\
-    from typing import Iterable \nfrom math import hypot\n\nclass Vec(tuple, ElmWiseMixin,\
-    \ Parsable):\n    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
-    \ Iterable):\n            return super().__new__(cls, args[0])\n        return\
-    \ super().__new__(cls, args)\n\n    def dist(v1: 'Vec', v2: 'Vec'):\n        diff\
-    \ = v2-v1\n        return hypot(*diff)\n\n    @classmethod\n    def compile(cls,\
-    \ T: type = int, N = None):\n        elm = Parser.compile(T)\n        if N is\
-    \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
-    \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
-    \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  "
+    \ Parser, TokenStream\nfrom cp_library.math.vec_cls import Vec\nfrom numbers import\
+    \ Number\nfrom typing import Sequence\nfrom math import sqrt\n\nclass Vec2(Vec):\n\
+    \n    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n\
+    \            return Vec2(op(self[0], other), op(self[1], other))\n        if isinstance(other,\
+    \ Sequence):\n            return Vec2(op(self[0], other[0]), op(self[1], other[1]))\n\
+    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
+    )\n\n    def dist(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
+    \        return sqrt(dx*dx+dy*dy)\n    \n    @classmethod\n    def compile(cls,\
+    \ T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls(elm(ts), elm(ts))\n        return parse\n\n"
   dependsOn:
   - cp_library/io/parser_cls.py
+  - cp_library/math/vec_cls.py
   - cp_library/math/elm_wise_mixin.py
   isVerificationFile: false
-  path: cp_library/math/vec_cls.py
-  requiredBy:
-  - cp_library/math/vec2_cls.py
-  - cp_library/math/vec3_cls.py
+  path: cp_library/math/vec2_cls.py
+  requiredBy: []
   timestamp: '2024-10-24 07:41:37+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc274_e_vec2.test.py
-documentation_of: cp_library/math/vec_cls.py
+documentation_of: cp_library/math/vec2_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/math/vec_cls.py
-- /library/cp_library/math/vec_cls.py.html
-title: cp_library/math/vec_cls.py
+- /library/cp_library/math/vec2_cls.py
+- /library/cp_library/math/vec2_cls.py.html
+title: cp_library/math/vec2_cls.py
 ---

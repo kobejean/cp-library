@@ -106,7 +106,7 @@ data:
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-10-23 00:17:22+09:00'
+  timestamp: '2024-10-24 07:41:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py

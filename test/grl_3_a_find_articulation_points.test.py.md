@@ -10,10 +10,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -41,7 +41,7 @@ data:
     \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
+    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
     \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
     class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
@@ -150,13 +150,14 @@ data:
     \ E: type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n     \
     \   return super().compile(N, M, E)\n\nfrom typing import Type, TypeVar, overload\n\
     \nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\n\
-    def read(spec: Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream(sys.stdin)\n            else:\n               \
-    \ stream = TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n\
-    \            return parser(stream)\n\nif __name__ == '__main__':\n    main()\n"
+    def read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None,\
+    \ char=False):\n    match spec, char:\n        case None, False:\n           \
+    \ return list(map(int, input().split()))\n        case int(offset), False:\n \
+    \           return [int(s)+offset for s in input().split()]\n        case _, _:\n\
+    \            if char:\n                stream = CharStream(sys.stdin)\n      \
+    \      else:\n                stream = TokenStream(sys.stdin)\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
+    \ '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
     \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    \n    for i,is_ap\
     \ in enumerate(G.articulation_points()):\n        if is_ap:\n            print(i)\n\
@@ -171,7 +172,7 @@ data:
   isVerificationFile: true
   path: test/grl_3_a_find_articulation_points.test.py
   requiredBy: []
-  timestamp: '2024-10-23 00:17:22+09:00'
+  timestamp: '2024-10-24 07:41:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_find_articulation_points.test.py

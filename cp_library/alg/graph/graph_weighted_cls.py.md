@@ -16,7 +16,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -48,7 +48,7 @@ data:
     \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
+    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
     \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
     class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
@@ -220,7 +220,7 @@ data:
   path: cp_library/alg/graph/graph_weighted_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-10-23 00:17:22+09:00'
+  timestamp: '2024-10-24 07:41:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

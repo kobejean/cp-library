@@ -13,10 +13,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -43,7 +43,7 @@ data:
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
+    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
     \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
     class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
@@ -86,21 +86,21 @@ data:
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
     \ parser\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Type[T]|T) -> T: ...\ndef read(spec: Type[T]|T=None,\
-    \ char=False):\n    match spec, char:\n        case None, False:\n           \
-    \ return list(map(int, input().split()))\n        case int(offset), False:\n \
-    \           return [int(s)+offset for s in input().split()]\n        case _, _:\n\
-    \            if char:\n                stream = CharStream(sys.stdin)\n      \
-    \      else:\n                stream = TokenStream(sys.stdin)\n            parser:\
-    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\n\n\nclass Edge(tuple,\
-    \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
-    \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
-    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
-    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
-    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
-    \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
-    \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
+    \ ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec:\
+    \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
+    \            return list(map(int, input().split()))\n        case int(offset),\
+    \ False:\n            return [int(s)+offset for s in input().split()]\n      \
+    \  case _, _:\n            if char:\n                stream = CharStream(sys.stdin)\n\
+    \            else:\n                stream = TokenStream(sys.stdin)\n        \
+    \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\n\n\
+    \n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n\
+    \        def parse(ts: TokenStream):\n            u,v = ts.line()\n          \
+    \  return cls((int(u)+I,int(v)+I))\n        return parse\n\nE = TypeVar('E', bound=Edge)\n\
+    M = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n    @classmethod\n\
+    \    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I := E, int):\n\
+    \            E = Edge[I]\n        edge = Parser.compile(E)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(edge(ts) for _ in range(M))\n        return\
+    \ parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
     \ set[E]):\n    pass\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
     class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
     \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
@@ -126,7 +126,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_edges_weighted_fn.py
   requiredBy: []
-  timestamp: '2024-10-23 00:17:22+09:00'
+  timestamp: '2024-10-24 07:41:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_b_edmonds_branching.test.py

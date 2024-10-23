@@ -16,7 +16,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -48,7 +48,7 @@ data:
     \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(Iterator):\n\
+    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
     \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
     class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
@@ -221,7 +221,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/digraph_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-10-23 00:17:22+09:00'
+  timestamp: '2024-10-24 07:41:37+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py

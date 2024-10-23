@@ -11,13 +11,22 @@ data:
   - icon: ':warning:'
     path: cp_library/math/mutvec_cls.py
     title: cp_library/math/mutvec_cls.py
+  - icon: ':x:'
+    path: cp_library/math/vec2_cls.py
+    title: cp_library/math/vec2_cls.py
   - icon: ':warning:'
+    path: cp_library/math/vec3_cls.py
+    title: cp_library/math/vec3_cls.py
+  - icon: ':x:'
     path: cp_library/math/vec_cls.py
     title: cp_library/math/vec_cls.py
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/abc274_e_vec2.test.py
+    title: test/abc274_e_vec2.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -64,11 +73,14 @@ data:
   requiredBy:
   - cp_library/math/mutvec_cls.py
   - cp_library/math/mat_cls.py
+  - cp_library/math/vec2_cls.py
   - cp_library/math/elm_wise_in_place_mixin.py
   - cp_library/math/vec_cls.py
-  timestamp: '2024-10-23 00:17:22+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  - cp_library/math/vec3_cls.py
+  timestamp: '2024-10-24 07:41:37+09:00'
+  verificationStatus: LIBRARY_ALL_WA
+  verifiedWith:
+  - test/abc274_e_vec2.test.py
 documentation_of: cp_library/math/elm_wise_mixin.py
 layout: document
 redirect_from:

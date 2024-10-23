@@ -4,40 +4,58 @@ data:
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
+  - icon: ':question:'
+    path: cp_library/io/read_specs_fn.py
+    title: cp_library/io/read_specs_fn.py
   - icon: ':x:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
-  _extendedRequiredBy:
   - icon: ':x:'
     path: cp_library/math/vec2_cls.py
     title: cp_library/math/vec2_cls.py
-  - icon: ':warning:'
-    path: cp_library/math/vec3_cls.py
-    title: cp_library/math/vec3_cls.py
-  _extendedVerifiedWith:
   - icon: ':x:'
-    path: test/abc274_e_vec2.test.py
-    title: test/abc274_e_vec2.test.py
+    path: cp_library/math/vec_cls.py
+    title: cp_library/math/vec_cls.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: true
   _pathExtension: py
   _verificationStatusIcon: ':x:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    ERROR: 1e-6
+    PROBLEM: https://atcoder.jp/contests/abc274/tasks/abc274_e
+    links:
+    - https://atcoder.jp/contests/abc274/tasks/abc274_e
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc274/tasks/abc274_e\n\
+    # verification-helper: ERROR 1e-6\nfrom math import inf\n\ndef main():\n    N,\
+    \ M = read(tuple[int, ...])\n    XY = read(list[Vec2, N])\n    PQ = read(list[Vec2,\
+    \ M])\n    pts = PQ+XY\n    o = Vec2(0,0)\n    Tmask = (1 << M) -1\n    Y = N+M\n\
+    \    Z = 1 << Y\n    O = [o.dist(v) for v in pts]\n    F = [1/(1 << mask.bit_count())\
+    \ for mask in range(1 << M)]\n    \n    dp = [[inf]*Y for _ in range(Z)]\n   \
+    \ for y in range(Y):\n        mask = 1 << y\n        dp[mask][y] = O[y]\n    \
+    \    \n    for mask in range(1,Z):\n        factor = F[mask&Tmask]\n        for\
+    \ y in range(Y):\n            nmask = mask | 1 << y\n            if mask == nmask:\
+    \ continue\n            nc = dp[nmask][y]\n            for l in range(Y):\n  \
+    \              nc = min(nc, dp[mask][l] + pts[l].dist(pts[y]) * factor)\n    \
+    \        dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inf\n    for\
+    \ tmask in range(1<<M):\n        mask = full ^ tmask\n        factor = F[mask&Tmask]\n\
+    \        for l in range(Y):\n            nc = dp[mask][l] + O[l] * factor\n  \
+    \          ans = min(ans, nc)\n    print(f'{ans:0.10f}')\n\n'''\n\u257A\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nimport sys\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\
-    \nclass TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n\
-    \        self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n\
-    \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\n\n\nimport sys\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom typing import Callable, Collection,\
+    \ Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self,\
+    \ stream = sys.stdin):\n        self.stream = stream\n        self.queue = deque()\n\
+    \n    def __next__(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
+    \        \n    def line(self):\n        assert not self.queue\n        return\
+    \ next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n    def\
+    \ line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
     \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
     class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
     \ Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> T:\n    \
@@ -78,7 +96,7 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nimport operator\nfrom typing import Sequence\n\nclass ElmWiseMixin:\n\
+    \ parser\n\n\nimport operator\nfrom typing import Sequence\n\nclass ElmWiseMixin:\n\
     \    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n \
     \           return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
     \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
@@ -103,35 +121,57 @@ data:
     \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
     \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
     \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  \n"
-  code: "import cp_library.math.__header__\n\nfrom cp_library.io.parser_cls import\
-    \ Parsable, Parser, TokenStream\nfrom cp_library.math.elm_wise_mixin import ElmWiseMixin\n\
-    from typing import Iterable \nfrom math import hypot\n\nclass Vec(tuple, ElmWiseMixin,\
-    \ Parsable):\n    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
-    \ Iterable):\n            return super().__new__(cls, args[0])\n        return\
-    \ super().__new__(cls, args)\n\n    def dist(v1: 'Vec', v2: 'Vec'):\n        diff\
-    \ = v2-v1\n        return hypot(*diff)\n\n    @classmethod\n    def compile(cls,\
-    \ T: type = int, N = None):\n        elm = Parser.compile(T)\n        if N is\
-    \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
-    \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
-    \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  "
+    \  \nfrom math import sqrt\n\nclass Vec2(Vec):\n\n    def elm_wise(self, other,\
+    \ op):\n        if isinstance(other, Number):\n            return Vec2(op(self[0],\
+    \ other), op(self[1], other))\n        if isinstance(other, Sequence):\n     \
+    \       return Vec2(op(self[0], other[0]), op(self[1], other[1]))\n        raise\
+    \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
+    \   def dist(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
+    \        return sqrt(dx*dx+dy*dy)\n    \n    @classmethod\n    def compile(cls,\
+    \ T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls(elm(ts), elm(ts))\n        return parse\n\n\nfrom typing\
+    \ import Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read(spec:\
+    \ int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False)\
+    \ -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n\
+    \        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream(sys.stdin)\n            else:\n                stream =\
+    \ TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n     \
+    \       return parser(stream)\n\nif __name__ == \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc274/tasks/abc274_e\n\
+    # verification-helper: ERROR 1e-6\nfrom math import inf\n\ndef main():\n    N,\
+    \ M = read(tuple[int, ...])\n    XY = read(list[Vec2, N])\n    PQ = read(list[Vec2,\
+    \ M])\n    pts = PQ+XY\n    o = Vec2(0,0)\n    Tmask = (1 << M) -1\n    Y = N+M\n\
+    \    Z = 1 << Y\n    O = [o.dist(v) for v in pts]\n    F = [1/(1 << mask.bit_count())\
+    \ for mask in range(1 << M)]\n    \n    dp = [[inf]*Y for _ in range(Z)]\n   \
+    \ for y in range(Y):\n        mask = 1 << y\n        dp[mask][y] = O[y]\n    \
+    \    \n    for mask in range(1,Z):\n        factor = F[mask&Tmask]\n        for\
+    \ y in range(Y):\n            nmask = mask | 1 << y\n            if mask == nmask:\
+    \ continue\n            nc = dp[nmask][y]\n            for l in range(Y):\n  \
+    \              nc = min(nc, dp[mask][l] + pts[l].dist(pts[y]) * factor)\n    \
+    \        dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inf\n    for\
+    \ tmask in range(1<<M):\n        mask = full ^ tmask\n        factor = F[mask&Tmask]\n\
+    \        for l in range(Y):\n            nc = dp[mask][l] + O[l] * factor\n  \
+    \          ans = min(ans, nc)\n    print(f'{ans:0.10f}')\n\nfrom cp_library.math.vec2_cls\
+    \ import Vec2\nfrom cp_library.io.read_specs_fn import read\n\nif __name__ ==\
+    \ \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/io/parser_cls.py
-  - cp_library/math/elm_wise_mixin.py
-  isVerificationFile: false
-  path: cp_library/math/vec_cls.py
-  requiredBy:
   - cp_library/math/vec2_cls.py
-  - cp_library/math/vec3_cls.py
+  - cp_library/io/read_specs_fn.py
+  - cp_library/io/parser_cls.py
+  - cp_library/math/vec_cls.py
+  - cp_library/math/elm_wise_mixin.py
+  isVerificationFile: true
+  path: test/abc274_e_vec2.test.py
+  requiredBy: []
   timestamp: '2024-10-24 07:41:37+09:00'
-  verificationStatus: LIBRARY_ALL_WA
-  verifiedWith:
-  - test/abc274_e_vec2.test.py
-documentation_of: cp_library/math/vec_cls.py
+  verificationStatus: TEST_WRONG_ANSWER
+  verifiedWith: []
+documentation_of: test/abc274_e_vec2.test.py
 layout: document
 redirect_from:
-- /library/cp_library/math/vec_cls.py
-- /library/cp_library/math/vec_cls.py.html
-title: cp_library/math/vec_cls.py
+- /verify/test/abc274_e_vec2.test.py
+- /verify/test/abc274_e_vec2.test.py.html
+title: test/abc274_e_vec2.test.py
 ---

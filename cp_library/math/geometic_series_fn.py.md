@@ -23,7 +23,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/geometic_series_fn.py
   requiredBy: []
-  timestamp: '2024-10-23 00:17:22+09:00'
+  timestamp: '2024-10-24 07:41:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/geometic_series_fn.py
