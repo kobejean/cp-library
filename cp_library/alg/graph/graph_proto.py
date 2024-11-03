@@ -1,7 +1,7 @@
 import cp_library.alg.graph.__header__
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
-from typing import Iterable
+from typing import Iterable, overload
 from collections import deque
 from math import inf
 
@@ -11,8 +11,14 @@ class GraphProtocol(list, Parsable):
         return G[v]
     
     def edge_ids(G) -> list[list[int]]: ...
-    
-    def bfs(G, s = 0, g = None) -> list[int]:
+
+
+    @overload
+    def bfs(G, s: int = 0) -> list[int]: ...
+    @overload
+    def bfs(G, s: int, g: int) -> int: ...
+
+    def bfs(G, s = 0, g = None):
         D = [inf for _ in range(G.N)]
         D[s] = 0
         q = deque([s])

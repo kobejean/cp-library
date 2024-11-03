@@ -1,3 +1,4 @@
+from collections.abc import Iterator
 from math import inf
 from typing import Iterable
 from cp_library.io.parser_cls import TokenStream
@@ -11,7 +12,7 @@ class GridGraph(GraphProtocol):
         G.S = S
         G.dirs = [(-1,0),(0,1),(1,0),(0,-1)]
         G.wall = '#'
-
+    
     def neighbors(G, v: int) -> Iterable[int]:
         H, W = G.H, G.W
         i,j = divmod(v, W)
@@ -22,6 +23,15 @@ class GridGraph(GraphProtocol):
             if 0 <= ni < H and 0 <= nj < W and G.S[u] != G.wall:
                 adj.append(u)
         return adj
+    
+    def __len__(G) -> int:
+        return G.N
+    
+    def __getitem__(G, v):
+        return G.neighbors(v)
+    
+    def __iter__(G) -> Iterator:
+        return (G.neighbors(v) for v in range(G.N))
     
     @classmethod
     def compile(cls, H: int, W: int):
