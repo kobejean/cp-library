@@ -31,6 +31,9 @@ data:
     path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc375_g_find_bridges.test.py
+    title: test/abc375_g_find_bridges.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
@@ -136,9 +139,10 @@ data:
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-10-24 08:20:31+09:00'
+  timestamp: '2024-11-03 23:06:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/abc375_g_find_bridges.test.py
   - test/grl_1_b_bellman_ford.test.py
   - test/grl_2_a_kruskal_heap.test.py
   - test/grl_2_a_kruskal_sort.test.py

@@ -77,6 +77,9 @@ data:
       path: cp_library/alg/graph/graph_weighted_proto.py
       title: cp_library/alg/graph/graph_weighted_proto.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/grid_graph_cls.py
+      title: cp_library/alg/graph/grid_graph_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/kruskal_heap_fn.py
       title: cp_library/alg/graph/kruskal_heap_fn.py
     - icon: ':heavy_check_mark:'
@@ -372,6 +375,9 @@ data:
   - name: test
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/abc184_e_grid_graph.test.py
+      title: test/abc184_e_grid_graph.test.py
+    - icon: ':heavy_check_mark:'
       path: test/abc274_e_vec2.test.py
       title: test/abc274_e_vec2.test.py
     - icon: ':heavy_check_mark:'
@@ -389,6 +395,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc362_q_count_substring_query_ahocorasick.test.py
       title: test/abc362_q_count_substring_query_ahocorasick.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc375_g_find_bridges.test.py
+      title: test/abc375_g_find_bridges.test.py
     - icon: ':heavy_check_mark:'
       path: test/agc038_b_sliding_min_max.test.py
       title: test/agc038_b_sliding_min_max.test.py

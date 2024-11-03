@@ -42,7 +42,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/mat_pow_fn.py
   requiredBy: []
-  timestamp: '2024-10-24 08:20:31+09:00'
+  timestamp: '2024-11-03 23:06:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_matpow.test.py

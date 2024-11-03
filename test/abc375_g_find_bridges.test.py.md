@@ -11,6 +11,9 @@ data:
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_cls.py
+    title: cp_library/alg/graph/graph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
   - icon: ':heavy_check_mark:'
@@ -19,34 +22,37 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_specs_fn.py
+    title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/grl_1_a_dijkstra.test.py
-    title: test/grl_1_a_dijkstra.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_1_b_bellman_ford.test.py
-    title: test/grl_1_b_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_1_c_floyd_warshall.test.py
-    title: test/grl_1_c_floyd_warshall.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    PROBLEM: https://atcoder.jp/contests/abc375/tasks/abc375_g
+    links:
+    - https://atcoder.jp/contests/abc375/tasks/abc375_g
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc375/tasks/abc375_g\n\
+    \ndef main():\n    N, M = read(tuple[int, int])\n    G = read(GraphWeighted[N,M])\n\
+    \    S = G.dijkstra(0)\n    T = G.dijkstra(N-1)\n    D = [w+min(S[u]+T[v], S[v]+T[u])\
+    \ for u,v,w in G.E]\n    Dmin = S[-1]\n\n    H = GraphWeighted(N, [(*G.E[i], i)\
+    \ for i,d in enumerate(D) if Dmin == d])\n\n    ans = [False]*M\n    for e in\
+    \ H.bridges():\n        *_,i = H.E[e]\n        ans[i] = True\n\n    for i in range(M):\n\
+    \        print(\"Yes\" if ans[i] else \"No\")\n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\n\nimport sys\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom typing import Callable, Collection, Iterator, TypeAlias,\
-    \ TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n\
-    \        self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\nimport sys\nfrom typing import Type, TypeVar, overload\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \    def __init__(self, stream = sys.stdin):\n        self.stream = stream\n \
+    \       self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
     \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n\
     \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
@@ -90,61 +96,69 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
-    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
-    \           return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools\
-    \ import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def\
-    \ __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n \
-    \       b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
-    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
-    \       return parse\n\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
-    from math import inf\n\n\nfrom typing import Iterable\n\nclass GraphProtocol(list,\
-    \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
-    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n    \n    def bfs(G,\
-    \ s = 0, g = None) -> list[int]:\n        D = [inf for _ in range(G.N)]\n    \
-    \    D[s] = 0\n        q = deque([s])\n        while q:\n            nd = D[u\
-    \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
-    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
-    \                    q.append(v)\n        return D if g is None else inf\n   \
-    \ \n    \n    def find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n\
-    \        vis = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]:\
-    \ return None\n        vis[s] = 1\n        stack = [(True, s)]\n        while\
-    \ stack:\n            forw, v = stack.pop()\n            if forw:\n          \
-    \      stack.append((False, v))\n                vis[v] = 1\n                for\
-    \ u in G.neighbors(v):\n                    if vis[u] == 1 and u != par[v]:\n\
-    \                        # Cycle detected\n                        cyc = [u]\n\
-    \                        vis[u] = 2\n                        while v != u:\n \
-    \                           cyc.append(v)\n                            vis[v]\
-    \ = 2\n                            v = par[v]\n                        return\
-    \ cyc\n                    elif vis[u] == 0:\n                        par[u] =\
-    \ v\n                        stack.append((True, u))\n            else:\n    \
-    \            vis[v] = 2\n        return None\n    \n    def bridges(G):\n    \
-    \    tin = [-1] * G.N\n        low = [-1] * G.N\n        par = [-1] * G.N\n  \
-    \      vis = [0] * G.N\n        in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n\
-    \        time = 0\n        bridges = []\n        stack = list(range(G.N))\n  \
-    \      while stack:\n            v = stack.pop()\n            p = par[v]\n   \
-    \         match vis[v]:\n                case 0:\n                    vis[v] =\
-    \ 1\n                    tin[v] = low[v] = time\n                    time += 1\n\
-    \                    stack.append(v)\n                    for i, child in enumerate(G.neighbors(v)):\n\
-    \                        if child == p:\n                            continue\n\
-    \                        match vis[child]:\n                            case 0:\n\
-    \                                # Tree edge - recurse\n                     \
-    \           par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
-    \                                stack.append(child)\n                       \
-    \     case 1:\n                                # Back edge - update low-link value\n\
-    \                                low[v] = min(low[v], tin[child])\n          \
-    \      case 1:\n                    vis[v] = 2\n                    if p != -1:\n\
-    \                        low[p] = min(low[p], low[v])\n                      \
-    \  if low[v] > tin[p]:\n                            bridges.append(in_edge[v])\n\
-    \                \n        return bridges\n\n    def articulation_points(G):\n\
-    \        N = G.N\n        order = [-1] * N\n        low = [-1] * N\n        par\
-    \ = [-1] * N\n        vis = [0] * G.N\n        children = [0] * G.N\n        ap\
-    \ = [False] * N\n        time = 0\n        stack = list(range(N))\n\n        while\
-    \ stack:\n            v = stack.pop()\n            p = par[v]\n            if\
-    \ vis[v] == 0:\n                vis[v] = 1\n                order[v] = low[v]\
-    \ = time\n                time += 1\n            \n                stack.append(v)\n\
-    \                for child in G[v]:\n                    if order[child] == -1:\n\
+    \ parser\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec:\
+    \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
+    \            return list(map(int, input().split()))\n        case int(offset),\
+    \ False:\n            return [int(s)+offset for s in input().split()]\n      \
+    \  case _, _:\n            if char:\n                stream = CharStream(sys.stdin)\n\
+    \            else:\n                stream = TokenStream(sys.stdin)\n        \
+    \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\n\n\
+    \n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n\
+    \        def parse(ts: TokenStream):\n            u,v = ts.line()\n          \
+    \  return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools import\
+    \ total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def __lt__(self,\
+    \ other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
+    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
+    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nfrom heapq\
+    \ import heapify, heappop, heappush\nimport operator\nfrom math import inf\n\n\
+    \nfrom typing import Iterable\n\nclass GraphProtocol(list, Parsable):\n\n    def\
+    \ neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G)\
+    \ -> list[list[int]]: ...\n    \n    def bfs(G, s = 0, g = None) -> list[int]:\n\
+    \        D = [inf for _ in range(G.N)]\n        D[s] = 0\n        q = deque([s])\n\
+    \        while q:\n            nd = D[u := q.popleft()]+1\n            if u ==\
+    \ g: return D[u]\n            for v in G.neighbors(u):\n                if nd\
+    \ < D[v]:\n                    D[v] = nd\n                    q.append(v)\n  \
+    \      return D if g is None else inf\n    \n    \n    def find_cycle(G, s = 0,\
+    \ vis = None, par = None):\n        N = G.N\n        vis = vis or [0] * N\n  \
+    \      par = par or [-1] * N\n        if vis[s]: return None\n        vis[s] =\
+    \ 1\n        stack = [(True, s)]\n        while stack:\n            forw, v =\
+    \ stack.pop()\n            if forw:\n                stack.append((False, v))\n\
+    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
+    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
+    \ detected\n                        cyc = [u]\n                        vis[u]\
+    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
+    \                            vis[v] = 2\n                            v = par[v]\n\
+    \                        return cyc\n                    elif vis[u] == 0:\n \
+    \                       par[u] = v\n                        stack.append((True,\
+    \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
+    \  \n    def bridges(G):\n        tin = [-1] * G.N\n        low = [-1] * G.N\n\
+    \        par = [-1] * G.N\n        vis = [0] * G.N\n        in_edge = [-1] * G.N\n\
+    \n        Eid = G.edge_ids()\n        time = 0\n        bridges = []\n       \
+    \ stack = list(range(G.N))\n        while stack:\n            v = stack.pop()\n\
+    \            p = par[v]\n            match vis[v]:\n                case 0:\n\
+    \                    vis[v] = 1\n                    tin[v] = low[v] = time\n\
+    \                    time += 1\n                    stack.append(v)\n        \
+    \            for i, child in enumerate(G.neighbors(v)):\n                    \
+    \    if child == p:\n                            continue\n                  \
+    \      match vis[child]:\n                            case 0:\n              \
+    \                  # Tree edge - recurse\n                                par[child]\
+    \ = v\n                                in_edge[child] = Eid[v][i]\n          \
+    \                      stack.append(child)\n                            case 1:\n\
+    \                                # Back edge - update low-link value\n       \
+    \                         low[v] = min(low[v], tin[child])\n                case\
+    \ 1:\n                    vis[v] = 2\n                    if p != -1:\n      \
+    \                  low[p] = min(low[p], low[v])\n                        if low[v]\
+    \ > tin[p]:\n                            bridges.append(in_edge[v])\n        \
+    \        \n        return bridges\n\n    def articulation_points(G):\n       \
+    \ N = G.N\n        order = [-1] * N\n        low = [-1] * N\n        par = [-1]\
+    \ * N\n        vis = [0] * G.N\n        children = [0] * G.N\n        ap = [False]\
+    \ * N\n        time = 0\n        stack = list(range(N))\n\n        while stack:\n\
+    \            v = stack.pop()\n            p = par[v]\n            if vis[v] ==\
+    \ 0:\n                vis[v] = 1\n                order[v] = low[v] = time\n \
+    \               time += 1\n            \n                stack.append(v)\n   \
+    \             for child in G[v]:\n                    if order[child] == -1:\n\
     \                        par[child] = v\n                        stack.append(child)\n\
     \                    elif child != p:\n                        low[v] = min(low[v],\
     \ order[child])\n                if p != -1:\n                    children[p]\
@@ -190,48 +204,44 @@ data:
     \n    def groups(self) -> list[list[int]]:\n        leader_buf = [self.leader(i)\
     \ for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n  \
     \      for i in range(self.n):\n            result[leader_buf[i]].append(i)\n\n\
-    \        return list(filter(lambda r: r, result))\n\nfrom operator import itemgetter\n\
-    \nclass DiGraphWeighted(GraphWeightedProtocol):\n    def __init__(G, N, E: list\
-    \ = []):\n        super().__init__([] for _ in range(N))\n        G.E = list(E)\n\
-    \        G.N, G.M = N, len(G.E)\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n\
+    \        return list(filter(lambda r: r, result))\n\nclass GraphWeighted(GraphWeightedProtocol):\n\
+    \    def __init__(G, N: int, edges=[]):\n        super().__init__([] for _ in\
+    \ range(N))\n        G.E = list(edges)\n        G.N, G.M = N, len(G.E)\n     \
+    \   for u,v,*w in G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n\
     \    \n    def edge_ids(G) -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n\
     \        for e,(u,v,*w) in enumerate(G.E):\n            Eid[u].append(e)\n   \
-    \     return Eid\n    \n    def neighbors(G, v: int) -> Iterable[int]:\n     \
-    \   return map(itemgetter(0), G[v])\n    \n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, E: type|int = EdgeWeighted[-1]):\n        if isinstance(E, int):\
-    \ E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n"
-  code: "import cp_library.alg.__header__\n\nfrom cp_library.alg.graph.edge_weighted_cls\
-    \ import EdgeWeighted\nfrom cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol\n\
-    \nfrom typing import Iterable\nfrom operator import itemgetter\n\nclass DiGraphWeighted(GraphWeightedProtocol):\n\
-    \    def __init__(G, N, E: list = []):\n        super().__init__([] for _ in range(N))\n\
-    \        G.E = list(E)\n        G.N, G.M = N, len(G.E)\n        for u,v,*w in\
-    \ G.E:\n            G[u].append((v,*w))\n    \n    def edge_ids(G) -> list[list[int]]:\n\
-    \        Eid = [[] for _ in range(G.N)]\n        for e,(u,v,*w) in enumerate(G.E):\n\
-    \            Eid[u].append(e)\n        return Eid\n    \n    def neighbors(G,\
-    \ v: int) -> Iterable[int]:\n        return map(itemgetter(0), G[v])\n    \n \
-    \   @classmethod\n    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n\
-    \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
-    \ M, E)\n"
+    \         Eid[v].append(e)\n        return Eid\n    \n    @classmethod\n    def\
+    \ compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n        if isinstance(E,\
+    \ int): E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n\nif __name__\
+    \ == \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc375/tasks/abc375_g\n\
+    \ndef main():\n    N, M = read(tuple[int, int])\n    G = read(GraphWeighted[N,M])\n\
+    \    S = G.dijkstra(0)\n    T = G.dijkstra(N-1)\n    D = [w+min(S[u]+T[v], S[v]+T[u])\
+    \ for u,v,w in G.E]\n    Dmin = S[-1]\n\n    H = GraphWeighted(N, [(*G.E[i], i)\
+    \ for i,d in enumerate(D) if Dmin == d])\n\n    ans = [False]*M\n    for e in\
+    \ H.bridges():\n        *_,i = H.E[e]\n        ans[i] = True\n\n    for i in range(M):\n\
+    \        print(\"Yes\" if ans[i] else \"No\")\n\nfrom cp_library.io.read_specs_fn\
+    \ import read\nfrom cp_library.alg.graph.graph_weighted_cls import GraphWeighted\n\
+    \nif __name__ == \"__main__\":\n    main()"
   dependsOn:
+  - cp_library/io/read_specs_fn.py
+  - cp_library/alg/graph/graph_weighted_cls.py
+  - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
-  - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/dsu_cls.py
-  isVerificationFile: false
-  path: cp_library/alg/graph/digraph_weighted_cls.py
+  isVerificationFile: true
+  path: test/abc375_g_find_bridges.test.py
   requiredBy: []
   timestamp: '2024-11-03 23:06:27+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/grl_1_b_bellman_ford.test.py
-  - test/grl_1_c_floyd_warshall.test.py
-  - test/grl_1_a_dijkstra.test.py
-documentation_of: cp_library/alg/graph/digraph_weighted_cls.py
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/abc375_g_find_bridges.test.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/digraph_weighted_cls.py
-- /library/cp_library/alg/graph/digraph_weighted_cls.py.html
-title: cp_library/alg/graph/digraph_weighted_cls.py
+- /verify/test/abc375_g_find_bridges.test.py
+- /verify/test/abc375_g_find_bridges.test.py.html
+title: test/abc375_g_find_bridges.test.py
 ---

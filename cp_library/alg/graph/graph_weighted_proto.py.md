@@ -28,6 +28,9 @@ data:
     path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc375_g_find_bridges.test.py
+    title: test/abc375_g_find_bridges.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
@@ -99,49 +102,50 @@ data:
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
     \ parser\n\nfrom typing import Iterable\n\nclass GraphProtocol(list, Parsable):\n\
     \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
-    \    def edge_ids(G) -> list[list[int]]: ...\n    \n    def bfs(G, s = 0) -> list[int]:\n\
-    \        D = [inf for _ in range(G.N)]\n        D[s] = 0\n        q = deque([s])\n\
-    \        while q:\n            nd = D[u := q.popleft()]+1\n            for v in\
-    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
-    \                    q.append(v)\n        return D\n    \n    def find_cycle(G,\
-    \ s = 0, vis = None, par = None):\n        N = G.N\n        vis = vis or [0] *\
-    \ N\n        par = par or [-1] * N\n        if vis[s]: return None\n        vis[s]\
-    \ = 1\n        stack = [(True, s)]\n        while stack:\n            forw, v\
-    \ = stack.pop()\n            if forw:\n                stack.append((False, v))\n\
-    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
-    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
-    \ detected\n                        cyc = [u]\n                        vis[u]\
-    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
-    \                            vis[v] = 2\n                            v = par[v]\n\
-    \                        return cyc\n                    elif vis[u] == 0:\n \
-    \                       par[u] = v\n                        stack.append((True,\
-    \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
-    \  \n    def bridges(G):\n        tin = [-1] * G.N\n        low = [-1] * G.N\n\
-    \        par = [-1] * G.N\n        vis = [0] * G.N\n        in_edge = [-1] * G.N\n\
-    \n        Eid = G.edge_ids()\n        time = 0\n        bridges = []\n       \
-    \ stack = list(range(G.N))\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            match vis[v]:\n                case 0:\n\
-    \                    vis[v] = 1\n                    tin[v] = low[v] = time\n\
-    \                    time += 1\n                    stack.append(v)\n        \
-    \            for i, child in enumerate(G.neighbors(v)):\n                    \
-    \    if child == p:\n                            continue\n                  \
-    \      match vis[child]:\n                            case 0:\n              \
-    \                  # Tree edge - recurse\n                                par[child]\
-    \ = v\n                                in_edge[child] = Eid[v][i]\n          \
-    \                      stack.append(child)\n                            case 1:\n\
-    \                                # Back edge - update low-link value\n       \
-    \                         low[v] = min(low[v], tin[child])\n                case\
-    \ 1:\n                    vis[v] = 2\n                    if p != -1:\n      \
-    \                  low[p] = min(low[p], low[v])\n                        if low[v]\
-    \ > tin[p]:\n                            bridges.append(in_edge[v])\n        \
-    \        \n        return bridges\n\n    def articulation_points(G):\n       \
-    \ N = G.N\n        order = [-1] * N\n        low = [-1] * N\n        par = [-1]\
-    \ * N\n        vis = [0] * G.N\n        children = [0] * G.N\n        ap = [False]\
-    \ * N\n        time = 0\n        stack = list(range(N))\n\n        while stack:\n\
-    \            v = stack.pop()\n            p = par[v]\n            if vis[v] ==\
-    \ 0:\n                vis[v] = 1\n                order[v] = low[v] = time\n \
-    \               time += 1\n            \n                stack.append(v)\n   \
-    \             for child in G[v]:\n                    if order[child] == -1:\n\
+    \    def edge_ids(G) -> list[list[int]]: ...\n    \n    def bfs(G, s = 0, g =\
+    \ None) -> list[int]:\n        D = [inf for _ in range(G.N)]\n        D[s] = 0\n\
+    \        q = deque([s])\n        while q:\n            nd = D[u := q.popleft()]+1\n\
+    \            if u == g: return D[u]\n            for v in G.neighbors(u):\n  \
+    \              if nd < D[v]:\n                    D[v] = nd\n                \
+    \    q.append(v)\n        return D if g is None else inf\n    \n    \n    def\
+    \ find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n        vis\
+    \ = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]: return None\n\
+    \        vis[s] = 1\n        stack = [(True, s)]\n        while stack:\n     \
+    \       forw, v = stack.pop()\n            if forw:\n                stack.append((False,\
+    \ v))\n                vis[v] = 1\n                for u in G.neighbors(v):\n\
+    \                    if vis[u] == 1 and u != par[v]:\n                       \
+    \ # Cycle detected\n                        cyc = [u]\n                      \
+    \  vis[u] = 2\n                        while v != u:\n                       \
+    \     cyc.append(v)\n                            vis[v] = 2\n                \
+    \            v = par[v]\n                        return cyc\n                \
+    \    elif vis[u] == 0:\n                        par[u] = v\n                 \
+    \       stack.append((True, u))\n            else:\n                vis[v] = 2\n\
+    \        return None\n    \n    def bridges(G):\n        tin = [-1] * G.N\n  \
+    \      low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n \
+    \       in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
+    \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
+    \            v = stack.pop()\n            p = par[v]\n            match vis[v]:\n\
+    \                case 0:\n                    vis[v] = 1\n                   \
+    \ tin[v] = low[v] = time\n                    time += 1\n                    stack.append(v)\n\
+    \                    for i, child in enumerate(G.neighbors(v)):\n            \
+    \            if child == p:\n                            continue\n          \
+    \              match vis[child]:\n                            case 0:\n      \
+    \                          # Tree edge - recurse\n                           \
+    \     par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
+    \                                stack.append(child)\n                       \
+    \     case 1:\n                                # Back edge - update low-link value\n\
+    \                                low[v] = min(low[v], tin[child])\n          \
+    \      case 1:\n                    vis[v] = 2\n                    if p != -1:\n\
+    \                        low[p] = min(low[p], low[v])\n                      \
+    \  if low[v] > tin[p]:\n                            bridges.append(in_edge[v])\n\
+    \                \n        return bridges\n\n    def articulation_points(G):\n\
+    \        N = G.N\n        order = [-1] * N\n        low = [-1] * N\n        par\
+    \ = [-1] * N\n        vis = [0] * G.N\n        children = [0] * G.N\n        ap\
+    \ = [False] * N\n        time = 0\n        stack = list(range(N))\n\n        while\
+    \ stack:\n            v = stack.pop()\n            p = par[v]\n            if\
+    \ vis[v] == 0:\n                vis[v] = 1\n                order[v] = low[v]\
+    \ = time\n                time += 1\n            \n                stack.append(v)\n\
+    \                for child in G[v]:\n                    if order[child] == -1:\n\
     \                        par[child] = v\n                        stack.append(child)\n\
     \                    elif child != p:\n                        low[v] = min(low[v],\
     \ order[child])\n                if p != -1:\n                    children[p]\
@@ -153,30 +157,30 @@ data:
     \ def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n\
     \        return parse\n    \n\nclass GraphWeightedProtocol(GraphProtocol):\n\n\
     \    def neighbors(G, v: int):\n        return map(operator.itemgetter(0), G[v])\n\
-    \    \n    def dijkstra(G, s = 0):\n        D = [inf for _ in range(G.N)]\n  \
-    \      D[s] = 0\n        q = [(0, s)]\n        while q:\n            d, v = heappop(q)\n\
-    \            if d > D[v]: continue\n            for u, w, *_ in G[v]:\n      \
-    \          if (nd := d + w) < D[u]:\n                    D[u] = nd\n         \
-    \           heappush(q, (nd, u))\n        return D\n    \n    def kruskal(G):\n\
-    \        E, N = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST\
-    \ = []\n        need = N-1\n        while E and need:\n            edge = heappop(E)\n\
-    \            u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n            if u\
+    \    \n    def dijkstra(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
+    \        D[s] = 0\n        q = [(0, s)]\n        while q:\n            d, v =\
+    \ heappop(q)\n            if d > D[v]: continue\n            if v == g: return\
+    \ d\n            for u, w, *_ in G[v]:\n                if (nd := d + w) < D[u]:\n\
+    \                    D[u] = nd\n                    heappush(q, (nd, u))\n   \
+    \     return D if g is None else inf\n    \n    def kruskal(G):\n        E, N\
+    \ = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST = []\n   \
+    \     need = N-1\n        while E and need:\n            edge = heappop(E)\n \
+    \           u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n            if u\
     \ != v:\n                MST.append(edge)\n                need -= 1\n       \
     \ cls = type(G)\n        return cls(N, MST)\n    \n    def bellman_ford(G, s =\
     \ 0) -> list[int]:\n        D = [inf]*G.N\n        D[s] = 0\n        for _ in\
     \ range(G.N-1):\n            for u, edges in enumerate(G):\n                for\
     \ v,w,*_ in edges:\n                    D[v] = min(D[v], D[u] + w)\n        return\
-    \ D\n    \n    def floyd_warshall(G) -> list[int]:\n        N = G.N\n        D\
-    \ = [[inf]*N for _ in range(N)]\n\n        for u, edges in enumerate(G):\n   \
-    \         D[u][u] = 0\n            for v,w,*_ in edges:\n                D[u][v]\
-    \ = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n          \
-    \  for i, Di in enumerate(D):\n                for j in range(i):\n          \
-    \          Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n\n\n\
-    \nclass DSU:\n    def __init__(self, n):\n        self.n = n\n        self.par\
-    \ = [-1] * n\n\n    def merge(self, u, v):\n        assert 0 <= u < self.n\n \
-    \       assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
-    \        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n    \
-    \        x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
+    \ D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N\
+    \ for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n            D[u][u]\
+    \ = 0\n            for v,w in edges:\n                D[u][v] = min(D[u][v], w)\n\
+    \        \n        for k, Dk in enumerate(D):\n            for Di in D:\n    \
+    \            for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n\
+    \ = n\n        self.par = [-1] * n\n\n    def merge(self, u, v):\n        assert\
+    \ 0 <= u < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u),\
+    \ self.leader(v)\n        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n\
+    \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
     \ = x\n\n        return x\n\n    def same(self, u: int, v: int):\n        assert\
     \ 0 <= u < self.n\n        assert 0 <= v < self.n\n        return self.leader(u)\
     \ == self.leader(v)\n\n    def leader(self, i) -> int:\n        assert 0 <= i\
@@ -192,26 +196,26 @@ data:
     \ heappush\nimport operator\nfrom math import inf\n\nfrom cp_library.alg.graph.graph_proto\
     \ import GraphProtocol\n\nclass GraphWeightedProtocol(GraphProtocol):\n\n    def\
     \ neighbors(G, v: int):\n        return map(operator.itemgetter(0), G[v])\n  \
-    \  \n    def dijkstra(G, s = 0):\n        D = [inf for _ in range(G.N)]\n    \
-    \    D[s] = 0\n        q = [(0, s)]\n        while q:\n            d, v = heappop(q)\n\
-    \            if d > D[v]: continue\n            for u, w, *_ in G[v]:\n      \
-    \          if (nd := d + w) < D[u]:\n                    D[u] = nd\n         \
-    \           heappush(q, (nd, u))\n        return D\n    \n    def kruskal(G):\n\
-    \        E, N = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST\
-    \ = []\n        need = N-1\n        while E and need:\n            edge = heappop(E)\n\
-    \            u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n            if u\
+    \  \n    def dijkstra(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
+    \        D[s] = 0\n        q = [(0, s)]\n        while q:\n            d, v =\
+    \ heappop(q)\n            if d > D[v]: continue\n            if v == g: return\
+    \ d\n            for u, w, *_ in G[v]:\n                if (nd := d + w) < D[u]:\n\
+    \                    D[u] = nd\n                    heappush(q, (nd, u))\n   \
+    \     return D if g is None else inf\n    \n    def kruskal(G):\n        E, N\
+    \ = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST = []\n   \
+    \     need = N-1\n        while E and need:\n            edge = heappop(E)\n \
+    \           u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n            if u\
     \ != v:\n                MST.append(edge)\n                need -= 1\n       \
     \ cls = type(G)\n        return cls(N, MST)\n    \n    def bellman_ford(G, s =\
     \ 0) -> list[int]:\n        D = [inf]*G.N\n        D[s] = 0\n        for _ in\
     \ range(G.N-1):\n            for u, edges in enumerate(G):\n                for\
     \ v,w,*_ in edges:\n                    D[v] = min(D[v], D[u] + w)\n        return\
-    \ D\n    \n    def floyd_warshall(G) -> list[int]:\n        N = G.N\n        D\
-    \ = [[inf]*N for _ in range(N)]\n\n        for u, edges in enumerate(G):\n   \
-    \         D[u][u] = 0\n            for v,w,*_ in edges:\n                D[u][v]\
-    \ = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n          \
-    \  for i, Di in enumerate(D):\n                for j in range(i):\n          \
-    \          Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n\nfrom\
-    \ cp_library.ds.dsu_cls import DSU"
+    \ D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N\
+    \ for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n            D[u][u]\
+    \ = 0\n            for v,w in edges:\n                D[u][v] = min(D[u][v], w)\n\
+    \        \n        for k, Dk in enumerate(D):\n            for Di in D:\n    \
+    \            for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n\nfrom cp_library.ds.dsu_cls import DSU"
   dependsOn:
   - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/dsu_cls.py
@@ -222,9 +226,10 @@ data:
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-10-24 08:20:31+09:00'
+  timestamp: '2024-11-03 23:06:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/abc375_g_find_bridges.test.py
   - test/grl_1_b_bellman_ford.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

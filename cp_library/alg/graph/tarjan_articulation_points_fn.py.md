@@ -48,7 +48,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/tarjan_articulation_points_fn.py
   requiredBy: []
-  timestamp: '2024-10-24 08:20:31+09:00'
+  timestamp: '2024-11-03 23:06:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_3_a_tarjan_articulation_points.test.py

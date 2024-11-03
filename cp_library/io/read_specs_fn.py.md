@@ -13,6 +13,9 @@ data:
     title: cp_library/io/read_tree_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/abc184_e_grid_graph.test.py
+    title: test/abc184_e_grid_graph.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc274_e_vec2.test.py
     title: test/abc274_e_vec2.test.py
   - icon: ':heavy_check_mark:'
@@ -24,6 +27,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc375_g_find_bridges.test.py
+    title: test/abc375_g_find_bridges.test.py
   - icon: ':heavy_check_mark:'
     path: test/agc038_b_sliding_min_max.test.py
     title: test/agc038_b_sliding_min_max.test.py
@@ -143,10 +149,12 @@ data:
   requiredBy:
   - cp_library/io/read_tree_fn.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-10-24 08:20:31+09:00'
+  timestamp: '2024-11-03 23:06:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/abc375_g_find_bridges.test.py
   - test/grl_1_b_bellman_ford.test.py
+  - test/abc184_e_grid_graph.test.py
   - test/agc038_b_sliding_min_max.test.py
   - test/grl_3_a_tarjan_articulation_points.test.py
   - test/grl_2_a_kruskal_sort.test.py

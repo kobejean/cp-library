@@ -135,11 +135,12 @@ data:
     \ operator\nfrom math import inf\n\n\nfrom typing import Iterable\n\nclass GraphProtocol(list,\
     \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
     \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n    \n    def bfs(G,\
-    \ s = 0) -> list[int]:\n        D = [inf for _ in range(G.N)]\n        D[s] =\
-    \ 0\n        q = deque([s])\n        while q:\n            nd = D[u := q.popleft()]+1\n\
-    \            for v in G.neighbors(u):\n                if nd < D[v]:\n       \
-    \             D[v] = nd\n                    q.append(v)\n        return D\n \
-    \   \n    def find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n\
+    \ s = 0, g = None) -> list[int]:\n        D = [inf for _ in range(G.N)]\n    \
+    \    D[s] = 0\n        q = deque([s])\n        while q:\n            nd = D[u\
+    \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
+    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
+    \                    q.append(v)\n        return D if g is None else inf\n   \
+    \ \n    \n    def find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n\
     \        vis = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]:\
     \ return None\n        vis[s] = 1\n        stack = [(True, s)]\n        while\
     \ stack:\n            forw, v = stack.pop()\n            if forw:\n          \
@@ -188,30 +189,30 @@ data:
     \ def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n\
     \        return parse\n    \n\nclass GraphWeightedProtocol(GraphProtocol):\n\n\
     \    def neighbors(G, v: int):\n        return map(operator.itemgetter(0), G[v])\n\
-    \    \n    def dijkstra(G, s = 0):\n        D = [inf for _ in range(G.N)]\n  \
-    \      D[s] = 0\n        q = [(0, s)]\n        while q:\n            d, v = heappop(q)\n\
-    \            if d > D[v]: continue\n            for u, w, *_ in G[v]:\n      \
-    \          if (nd := d + w) < D[u]:\n                    D[u] = nd\n         \
-    \           heappush(q, (nd, u))\n        return D\n    \n    def kruskal(G):\n\
-    \        E, N = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST\
-    \ = []\n        need = N-1\n        while E and need:\n            edge = heappop(E)\n\
-    \            u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n            if u\
+    \    \n    def dijkstra(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
+    \        D[s] = 0\n        q = [(0, s)]\n        while q:\n            d, v =\
+    \ heappop(q)\n            if d > D[v]: continue\n            if v == g: return\
+    \ d\n            for u, w, *_ in G[v]:\n                if (nd := d + w) < D[u]:\n\
+    \                    D[u] = nd\n                    heappush(q, (nd, u))\n   \
+    \     return D if g is None else inf\n    \n    def kruskal(G):\n        E, N\
+    \ = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST = []\n   \
+    \     need = N-1\n        while E and need:\n            edge = heappop(E)\n \
+    \           u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n            if u\
     \ != v:\n                MST.append(edge)\n                need -= 1\n       \
     \ cls = type(G)\n        return cls(N, MST)\n    \n    def bellman_ford(G, s =\
     \ 0) -> list[int]:\n        D = [inf]*G.N\n        D[s] = 0\n        for _ in\
     \ range(G.N-1):\n            for u, edges in enumerate(G):\n                for\
     \ v,w,*_ in edges:\n                    D[v] = min(D[v], D[u] + w)\n        return\
-    \ D\n    \n    def floyd_warshall(G) -> list[int]:\n        N = G.N\n        D\
-    \ = [[inf]*N for _ in range(N)]\n\n        for u, edges in enumerate(G):\n   \
-    \         D[u][u] = 0\n            for v,w,*_ in edges:\n                D[u][v]\
-    \ = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n          \
-    \  for i, Di in enumerate(D):\n                for j in range(i):\n          \
-    \          Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n\n\n\
-    class DSU:\n    def __init__(self, n):\n        self.n = n\n        self.par =\
-    \ [-1] * n\n\n    def merge(self, u, v):\n        assert 0 <= u < self.n\n   \
-    \     assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
-    \        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n    \
-    \        x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
+    \ D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N\
+    \ for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n            D[u][u]\
+    \ = 0\n            for v,w in edges:\n                D[u][v] = min(D[u][v], w)\n\
+    \        \n        for k, Dk in enumerate(D):\n            for Di in D:\n    \
+    \            for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n\
+    \ = n\n        self.par = [-1] * n\n\n    def merge(self, u, v):\n        assert\
+    \ 0 <= u < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u),\
+    \ self.leader(v)\n        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n\
+    \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
     \ = x\n\n        return x\n\n    def same(self, u: int, v: int):\n        assert\
     \ 0 <= u < self.n\n        assert 0 <= v < self.n\n        return self.leader(u)\
     \ == self.leader(v)\n\n    def leader(self, i) -> int:\n        assert 0 <= i\
@@ -304,7 +305,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-10-24 08:20:31+09:00'
+  timestamp: '2024-11-03 23:06:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

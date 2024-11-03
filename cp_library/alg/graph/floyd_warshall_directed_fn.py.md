@@ -20,23 +20,23 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from math import inf\n\ndef floyd_warshall(G, N) -> list[int]:\n    D = [[inf]*N\
-    \ for _ in range(N)]\n\n    for u, edges in enumerate(G):\n        D[u][u] = 0\n\
-    \        for v,w in edges:\n            D[u][v] = min(D[u][v], w)\n    \n    for\
-    \ k, Dk in enumerate(D):\n        for Di in D:\n            for j in range(N):\n\
+    from math import inf\n\ndef floyd_warshall(G, N) -> list[list[int]]:\n    D =\
+    \ [[inf]*N for _ in range(N)]\n\n    for u, edges in enumerate(G):\n        D[u][u]\
+    \ = 0\n        for v,w in edges:\n            D[u][v] = min(D[u][v], w)\n    \n\
+    \    for k, Dk in enumerate(D):\n        for Di in D:\n            for j in range(N):\n\
     \                Di[j] = min(Di[j], Di[k]+Dk[j])\n    return D\n"
   code: "import cp_library.alg.graph.__header__\nfrom math import inf\n\ndef floyd_warshall(G,\
-    \ N) -> list[int]:\n    D = [[inf]*N for _ in range(N)]\n\n    for u, edges in\
-    \ enumerate(G):\n        D[u][u] = 0\n        for v,w in edges:\n            D[u][v]\
-    \ = min(D[u][v], w)\n    \n    for k, Dk in enumerate(D):\n        for Di in D:\n\
-    \            for j in range(N):\n                Di[j] = min(Di[j], Di[k]+Dk[j])\n\
-    \    return D"
+    \ N) -> list[list[int]]:\n    D = [[inf]*N for _ in range(N)]\n\n    for u, edges\
+    \ in enumerate(G):\n        D[u][u] = 0\n        for v,w in edges:\n         \
+    \   D[u][v] = min(D[u][v], w)\n    \n    for k, Dk in enumerate(D):\n        for\
+    \ Di in D:\n            for j in range(N):\n                Di[j] = min(Di[j],\
+    \ Di[k]+Dk[j])\n    return D"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/floyd_warshall_directed_fn.py
   requiredBy:
   - cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
-  timestamp: '2024-10-24 08:20:31+09:00'
+  timestamp: '2024-11-03 23:06:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py
