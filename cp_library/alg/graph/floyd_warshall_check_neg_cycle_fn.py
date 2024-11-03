@@ -1,6 +1,6 @@
 import cp_library.alg.graph.__header__
 
-def floyd_warshall(G, N, directed=True) -> tuple[bool, list[int]]:
+def floyd_warshall(G, N, directed=True):
     if directed:
         from cp_library.alg.graph.floyd_warshall_directed_fn import floyd_warshall
     else:

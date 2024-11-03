@@ -12,17 +12,19 @@ class GraphProtocol(list, Parsable):
     
     def edge_ids(G) -> list[list[int]]: ...
     
-    def bfs(G, s = 0) -> list[int]:
+    def bfs(G, s = 0, g = None) -> list[int]:
         D = [inf for _ in range(G.N)]
         D[s] = 0
         q = deque([s])
         while q:
             nd = D[u := q.popleft()]+1
+            if u == g: return D[u]
             for v in G.neighbors(u):
                 if nd < D[v]:
                     D[v] = nd
                     q.append(v)
-        return D
+        return D if g is None else inf
+    
     
     def find_cycle(G, s = 0, vis = None, par = None):
         N = G.N

@@ -11,18 +11,19 @@ class GraphWeightedProtocol(GraphProtocol):
     def neighbors(G, v: int):
         return map(operator.itemgetter(0), G[v])
     
-    def dijkstra(G, s = 0):
+    def dijkstra(G, s = 0, g = None):
         D = [inf for _ in range(G.N)]
         D[s] = 0
         q = [(0, s)]
         while q:
             d, v = heappop(q)
             if d > D[v]: continue
+            if v == g: return d
             for u, w, *_ in G[v]:
                 if (nd := d + w) < D[u]:
                     D[u] = nd
                     heappush(q, (nd, u))
-        return D
+        return D if g is None else inf
     
     def kruskal(G):
         E, N = G.E, G.N
@@ -49,20 +50,18 @@ class GraphWeightedProtocol(GraphProtocol):
                     D[v] = min(D[v], D[u] + w)
         return D
     
-    def floyd_warshall(G) -> list[int]:
-        N = G.N
-        D = [[inf]*N for _ in range(N)]
+    def floyd_warshall(G) -> list[list[int]]:
+        D = [[inf]*G.N for _ in range(G.N)]
 
         for u, edges in enumerate(G):
             D[u][u] = 0
-            for v,w,*_ in edges:
+            for v,w in edges:
                 D[u][v] = min(D[u][v], w)
         
         for k, Dk in enumerate(D):
-            for i, Di in enumerate(D):
-                for j in range(i):
-                    Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])
+            for Di in D:
+                for j in range(G.N):
+                    Di[j] = min(Di[j], Di[k]+Dk[j])
         return D
-
 
 from cp_library.ds.dsu_cls import DSU

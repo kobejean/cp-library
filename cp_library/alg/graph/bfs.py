@@ -5,13 +5,14 @@ from math import inf
 
 def bfs(G, s = 0) -> list[int]:
     N = len(G)
-    D = [inf for _ in range(N)]
+    D = [inf] * N
     D[s] = 0
     q = deque([s])
     while q:
-        nd = D[u := q.popleft()]+1
-        for v in G[u]:
-            if nd < D[v]:
-                D[v] = nd
-                q.append(v)
+        v = q.popleft()
+        nd = D[v]+1
+        for c in G[v]:
+            if nd < D[c]:
+                D[c] = nd
+                q.append(c)
     return D
