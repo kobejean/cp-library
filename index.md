@@ -25,9 +25,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
       title: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-    - icon: ':warning:'
-      path: cp_library/alg/graph/bfs.py
-      title: cp_library/alg/graph/bfs.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/bfs_fn.py
+      title: cp_library/alg/graph/bfs_fn.py
     - icon: ':warning:'
       path: cp_library/alg/graph/digraph_cls.py
       title: cp_library/alg/graph/digraph_cls.py
@@ -377,6 +377,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc184_e_grid_graph.test.py
       title: test/abc184_e_grid_graph.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc184_e_grid_graph_bfs_fn.test.py
+      title: test/abc184_e_grid_graph_bfs_fn.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc274_e_vec2.test.py
       title: test/abc274_e_vec2.test.py

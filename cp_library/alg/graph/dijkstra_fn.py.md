@@ -17,22 +17,28 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import heapq\nfrom math import inf\n\ndef dijkstra(G, N, root) -> list[int]:\n\
-    \    D = [inf for _ in range(N)]\n    D[root] = 0\n    q = [(0, root)]\n    while\
-    \ q:\n        d, u = heapq.heappop(q)\n        if d > D[u]: continue\n\n     \
-    \   for v,w in G[u]:\n            if (nd := d + w) < D[v]:\n                D[v]\
-    \ = nd\n                heapq.heappush(q, (nd, v))\n    return D\n"
-  code: "import cp_library.alg.graph.__header__\nimport heapq\nfrom math import inf\n\
-    \ndef dijkstra(G, N, root) -> list[int]:\n    D = [inf for _ in range(N)]\n  \
-    \  D[root] = 0\n    q = [(0, root)]\n    while q:\n        d, u = heapq.heappop(q)\n\
-    \        if d > D[u]: continue\n\n        for v,w in G[u]:\n            if (nd\
-    \ := d + w) < D[v]:\n                D[v] = nd\n                heapq.heappush(q,\
-    \ (nd, v))\n    return D\n"
+    \nfrom heapq import heappop, heappush\nfrom typing import overload\nfrom math\
+    \ import inf\n\n@overload\ndef dijkstra(G, s: int = 0) -> list[int]: ...\n@overload\n\
+    def dijkstra(G, s: int, g: int) -> int: ...\ndef dijkstra(G, s = 0, g: int|None\
+    \ = None):\n    N = len(G)\n    D = [inf for _ in range(N)]\n    D[s] = 0\n  \
+    \  q = [(0, s)]\n    while q:\n        d, v = heappop(q)\n        if d > D[v]:\
+    \ continue\n        if v == g: return d\n        for u, w, *_ in G[v]:\n     \
+    \       if (nd := d + w) < D[u]:\n                D[u] = nd\n                heappush(q,\
+    \ (nd, u))\n    return D if g is None else inf\n"
+  code: "import cp_library.alg.graph.__header__\n\nfrom heapq import heappop, heappush\n\
+    from typing import overload\nfrom math import inf\n\n@overload\ndef dijkstra(G,\
+    \ s: int = 0) -> list[int]: ...\n@overload\ndef dijkstra(G, s: int, g: int) ->\
+    \ int: ...\ndef dijkstra(G, s = 0, g: int|None = None):\n    N = len(G)\n    D\
+    \ = [inf for _ in range(N)]\n    D[s] = 0\n    q = [(0, s)]\n    while q:\n  \
+    \      d, v = heappop(q)\n        if d > D[v]: continue\n        if v == g: return\
+    \ d\n        for u, w, *_ in G[v]:\n            if (nd := d + w) < D[u]:\n   \
+    \             D[u] = nd\n                heappush(q, (nd, u))\n    return D if\
+    \ g is None else inf"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/dijkstra_fn.py
   requiredBy: []
-  timestamp: '2024-11-03 23:06:27+09:00'
+  timestamp: '2024-11-03 23:46:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_a_dijkstra.test.py

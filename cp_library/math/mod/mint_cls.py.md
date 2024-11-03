@@ -76,7 +76,7 @@ data:
   requiredBy:
   - cp_library/math/mod/modmat_cls.py
   - cp_library/math/mat_cls.py
-  timestamp: '2024-11-03 23:06:27+09:00'
+  timestamp: '2024-11-03 23:46:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_modmat.test.py

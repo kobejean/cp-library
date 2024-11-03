@@ -76,6 +76,9 @@ data:
     path: test/abc184_e_grid_graph.test.py
     title: test/abc184_e_grid_graph.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc184_e_grid_graph_bfs_fn.test.py
+    title: test/abc184_e_grid_graph_bfs_fn.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc274_e_vec2.test.py
     title: test/abc274_e_vec2.test.py
   - icon: ':heavy_check_mark:'
@@ -268,7 +271,7 @@ data:
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-03 23:06:27+09:00'
+  timestamp: '2024-11-03 23:46:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py
@@ -280,6 +283,7 @@ data:
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/abc184_e_grid_graph_bfs_fn.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc274_e_vec2.test.py
   - test/grl_3_a_find_articulation_points.test.py

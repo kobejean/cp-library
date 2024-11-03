@@ -39,16 +39,16 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A\n\
     \nfrom math import inf\n\ndef main():\n    N, M, r = read()\n    G = read(DiGraphWeighted[N,\
-    \ M, 0])\n    D = dijkstra(G, N, r)\n    print(*('INF' if d == inf else d for\
-    \ d in D), sep='\\n')\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ M, 0])\n    D = dijkstra(G, r)\n    print(*('INF' if d == inf else d for d in\
+    \ D), sep='\\n')\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
-    \              \n'''\n\nimport sys\nfrom typing import Type, TypeVar, overload\n\
-    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
+    \        \n'''\n\nimport sys\nfrom typing import Type, TypeVar, overload\n\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom typing\
+    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
     \    def __init__(self, stream = sys.stdin):\n        self.stream = stream\n \
     \       self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
@@ -103,52 +103,56 @@ data:
     \ False:\n            return [int(s)+offset for s in input().split()]\n      \
     \  case _, _:\n            if char:\n                stream = CharStream(sys.stdin)\n\
     \            else:\n                stream = TokenStream(sys.stdin)\n        \
-    \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\nimport\
-    \ heapq\n\ndef dijkstra(G, N, root) -> list[int]:\n    D = [inf for _ in range(N)]\n\
-    \    D[root] = 0\n    q = [(0, root)]\n    while q:\n        d, u = heapq.heappop(q)\n\
-    \        if d > D[u]: continue\n\n        for v,w in G[u]:\n            if (nd\
-    \ := d + w) < D[v]:\n                D[v] = nd\n                heapq.heappush(q,\
-    \ (nd, v))\n    return D\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
-    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
-    \ parse\n\nfrom functools import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n\
-    \    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
-    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
+    \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\n\n\
+    from heapq import heappop, heappush\n\n@overload\ndef dijkstra(G, s: int = 0)\
+    \ -> list[int]: ...\n@overload\ndef dijkstra(G, s: int, g: int) -> int: ...\n\
+    def dijkstra(G, s = 0, g: int|None = None):\n    N = len(G)\n    D = [inf for\
+    \ _ in range(N)]\n    D[s] = 0\n    q = [(0, s)]\n    while q:\n        d, v =\
+    \ heappop(q)\n        if d > D[v]: continue\n        if v == g: return d\n   \
+    \     for u, w, *_ in G[v]:\n            if (nd := d + w) < D[u]:\n          \
+    \      D[u] = nd\n                heappush(q, (nd, u))\n    return D if g is None\
+    \ else inf\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
+    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
+    \           return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools\
+    \ import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def\
+    \ __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n \
+    \       b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
     \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
     \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
     \       return parse\n\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
-    \n\nfrom typing import Iterable\n\nclass GraphProtocol(list, Parsable):\n\n  \
-    \  def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n   \
-    \ def edge_ids(G) -> list[list[int]]: ...\n    \n    def bfs(G, s = 0, g = None)\
-    \ -> list[int]:\n        D = [inf for _ in range(G.N)]\n        D[s] = 0\n   \
-    \     q = deque([s])\n        while q:\n            nd = D[u := q.popleft()]+1\n\
-    \            if u == g: return D[u]\n            for v in G.neighbors(u):\n  \
-    \              if nd < D[v]:\n                    D[v] = nd\n                \
-    \    q.append(v)\n        return D if g is None else inf\n    \n    \n    def\
-    \ find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n        vis\
-    \ = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]: return None\n\
-    \        vis[s] = 1\n        stack = [(True, s)]\n        while stack:\n     \
-    \       forw, v = stack.pop()\n            if forw:\n                stack.append((False,\
-    \ v))\n                vis[v] = 1\n                for u in G.neighbors(v):\n\
-    \                    if vis[u] == 1 and u != par[v]:\n                       \
-    \ # Cycle detected\n                        cyc = [u]\n                      \
-    \  vis[u] = 2\n                        while v != u:\n                       \
-    \     cyc.append(v)\n                            vis[v] = 2\n                \
-    \            v = par[v]\n                        return cyc\n                \
-    \    elif vis[u] == 0:\n                        par[u] = v\n                 \
-    \       stack.append((True, u))\n            else:\n                vis[v] = 2\n\
-    \        return None\n    \n    def bridges(G):\n        tin = [-1] * G.N\n  \
-    \      low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n \
-    \       in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
-    \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
-    \            v = stack.pop()\n            p = par[v]\n            match vis[v]:\n\
-    \                case 0:\n                    vis[v] = 1\n                   \
-    \ tin[v] = low[v] = time\n                    time += 1\n                    stack.append(v)\n\
-    \                    for i, child in enumerate(G.neighbors(v)):\n            \
-    \            if child == p:\n                            continue\n          \
-    \              match vis[child]:\n                            case 0:\n      \
-    \                          # Tree edge - recurse\n                           \
-    \     par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
+    \n\nfrom typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n\
+    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
+    \    def edge_ids(G) -> list[list[int]]: ...\n\n\n    @overload\n    def bfs(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: int, g: int)\
+    \ -> int: ...\n\n    def bfs(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
+    \        D[s] = 0\n        q = deque([s])\n        while q:\n            nd =\
+    \ D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for v\
+    \ in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    q.append(v)\n        return D if g is None else inf\n\
+    \    \n    \n    def find_cycle(G, s = 0, vis = None, par = None):\n        N\
+    \ = G.N\n        vis = vis or [0] * N\n        par = par or [-1] * N\n       \
+    \ if vis[s]: return None\n        vis[s] = 1\n        stack = [(True, s)]\n  \
+    \      while stack:\n            forw, v = stack.pop()\n            if forw:\n\
+    \                stack.append((False, v))\n                vis[v] = 1\n      \
+    \          for u in G.neighbors(v):\n                    if vis[u] == 1 and u\
+    \ != par[v]:\n                        # Cycle detected\n                     \
+    \   cyc = [u]\n                        vis[u] = 2\n                        while\
+    \ v != u:\n                            cyc.append(v)\n                       \
+    \     vis[v] = 2\n                            v = par[v]\n                   \
+    \     return cyc\n                    elif vis[u] == 0:\n                    \
+    \    par[u] = v\n                        stack.append((True, u))\n           \
+    \ else:\n                vis[v] = 2\n        return None\n    \n    def bridges(G):\n\
+    \        tin = [-1] * G.N\n        low = [-1] * G.N\n        par = [-1] * G.N\n\
+    \        vis = [0] * G.N\n        in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n\
+    \        time = 0\n        bridges = []\n        stack = list(range(G.N))\n  \
+    \      while stack:\n            v = stack.pop()\n            p = par[v]\n   \
+    \         match vis[v]:\n                case 0:\n                    vis[v] =\
+    \ 1\n                    tin[v] = low[v] = time\n                    time += 1\n\
+    \                    stack.append(v)\n                    for i, child in enumerate(G.neighbors(v)):\n\
+    \                        if child == p:\n                            continue\n\
+    \                        match vis[child]:\n                            case 0:\n\
+    \                                # Tree edge - recurse\n                     \
+    \           par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
     \                                stack.append(child)\n                       \
     \     case 1:\n                                # Back edge - update low-link value\n\
     \                                low[v] = min(low[v], tin[child])\n          \
@@ -221,8 +225,8 @@ data:
     \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A\n\
     \nfrom math import inf\n\ndef main():\n    N, M, r = read()\n    G = read(DiGraphWeighted[N,\
-    \ M, 0])\n    D = dijkstra(G, N, r)\n    print(*('INF' if d == inf else d for\
-    \ d in D), sep='\\n')\n\nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.alg.graph.dijkstra_fn\
+    \ M, 0])\n    D = dijkstra(G, r)\n    print(*('INF' if d == inf else d for d in\
+    \ D), sep='\\n')\n\nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.alg.graph.dijkstra_fn\
     \ import dijkstra\nfrom cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted\n\
     \nif __name__ == '__main__':\n    main()"
   dependsOn:
@@ -238,7 +242,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-11-03 23:06:27+09:00'
+  timestamp: '2024-11-03 23:46:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_a_dijkstra.test.py

@@ -37,6 +37,9 @@ data:
     path: test/abc184_e_grid_graph.test.py
     title: test/abc184_e_grid_graph.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc184_e_grid_graph_bfs_fn.test.py
+    title: test/abc184_e_grid_graph_bfs_fn.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
     title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
@@ -129,52 +132,54 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\nfrom typing import Iterable\nfrom math import inf\n\nclass GraphProtocol(list,\
-    \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
-    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n    \n    def bfs(G,\
-    \ s = 0, g = None) -> list[int]:\n        D = [inf for _ in range(G.N)]\n    \
-    \    D[s] = 0\n        q = deque([s])\n        while q:\n            nd = D[u\
-    \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
-    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
-    \                    q.append(v)\n        return D if g is None else inf\n   \
-    \ \n    \n    def find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n\
-    \        vis = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]:\
-    \ return None\n        vis[s] = 1\n        stack = [(True, s)]\n        while\
-    \ stack:\n            forw, v = stack.pop()\n            if forw:\n          \
-    \      stack.append((False, v))\n                vis[v] = 1\n                for\
-    \ u in G.neighbors(v):\n                    if vis[u] == 1 and u != par[v]:\n\
-    \                        # Cycle detected\n                        cyc = [u]\n\
-    \                        vis[u] = 2\n                        while v != u:\n \
-    \                           cyc.append(v)\n                            vis[v]\
-    \ = 2\n                            v = par[v]\n                        return\
-    \ cyc\n                    elif vis[u] == 0:\n                        par[u] =\
-    \ v\n                        stack.append((True, u))\n            else:\n    \
-    \            vis[v] = 2\n        return None\n    \n    def bridges(G):\n    \
-    \    tin = [-1] * G.N\n        low = [-1] * G.N\n        par = [-1] * G.N\n  \
-    \      vis = [0] * G.N\n        in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n\
-    \        time = 0\n        bridges = []\n        stack = list(range(G.N))\n  \
-    \      while stack:\n            v = stack.pop()\n            p = par[v]\n   \
-    \         match vis[v]:\n                case 0:\n                    vis[v] =\
-    \ 1\n                    tin[v] = low[v] = time\n                    time += 1\n\
-    \                    stack.append(v)\n                    for i, child in enumerate(G.neighbors(v)):\n\
-    \                        if child == p:\n                            continue\n\
-    \                        match vis[child]:\n                            case 0:\n\
-    \                                # Tree edge - recurse\n                     \
-    \           par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
-    \                                stack.append(child)\n                       \
-    \     case 1:\n                                # Back edge - update low-link value\n\
-    \                                low[v] = min(low[v], tin[child])\n          \
-    \      case 1:\n                    vis[v] = 2\n                    if p != -1:\n\
-    \                        low[p] = min(low[p], low[v])\n                      \
-    \  if low[v] > tin[p]:\n                            bridges.append(in_edge[v])\n\
-    \                \n        return bridges\n\n    def articulation_points(G):\n\
-    \        N = G.N\n        order = [-1] * N\n        low = [-1] * N\n        par\
-    \ = [-1] * N\n        vis = [0] * G.N\n        children = [0] * G.N\n        ap\
-    \ = [False] * N\n        time = 0\n        stack = list(range(N))\n\n        while\
-    \ stack:\n            v = stack.pop()\n            p = par[v]\n            if\
-    \ vis[v] == 0:\n                vis[v] = 1\n                order[v] = low[v]\
-    \ = time\n                time += 1\n            \n                stack.append(v)\n\
-    \                for child in G[v]:\n                    if order[child] == -1:\n\
+    \ parser\n\nfrom typing import Iterable, overload\nfrom math import inf\n\nclass\
+    \ GraphProtocol(list, Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
+    \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n\n\
+    \    @overload\n    def bfs(G, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def bfs(G, s: int, g: int) -> int: ...\n\n    def bfs(G, s = 0, g = None):\n\
+    \        D = [inf for _ in range(G.N)]\n        D[s] = 0\n        q = deque([s])\n\
+    \        while q:\n            nd = D[u := q.popleft()]+1\n            if u ==\
+    \ g: return D[u]\n            for v in G.neighbors(u):\n                if nd\
+    \ < D[v]:\n                    D[v] = nd\n                    q.append(v)\n  \
+    \      return D if g is None else inf\n    \n    \n    def find_cycle(G, s = 0,\
+    \ vis = None, par = None):\n        N = G.N\n        vis = vis or [0] * N\n  \
+    \      par = par or [-1] * N\n        if vis[s]: return None\n        vis[s] =\
+    \ 1\n        stack = [(True, s)]\n        while stack:\n            forw, v =\
+    \ stack.pop()\n            if forw:\n                stack.append((False, v))\n\
+    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
+    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
+    \ detected\n                        cyc = [u]\n                        vis[u]\
+    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
+    \                            vis[v] = 2\n                            v = par[v]\n\
+    \                        return cyc\n                    elif vis[u] == 0:\n \
+    \                       par[u] = v\n                        stack.append((True,\
+    \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
+    \  \n    def bridges(G):\n        tin = [-1] * G.N\n        low = [-1] * G.N\n\
+    \        par = [-1] * G.N\n        vis = [0] * G.N\n        in_edge = [-1] * G.N\n\
+    \n        Eid = G.edge_ids()\n        time = 0\n        bridges = []\n       \
+    \ stack = list(range(G.N))\n        while stack:\n            v = stack.pop()\n\
+    \            p = par[v]\n            match vis[v]:\n                case 0:\n\
+    \                    vis[v] = 1\n                    tin[v] = low[v] = time\n\
+    \                    time += 1\n                    stack.append(v)\n        \
+    \            for i, child in enumerate(G.neighbors(v)):\n                    \
+    \    if child == p:\n                            continue\n                  \
+    \      match vis[child]:\n                            case 0:\n              \
+    \                  # Tree edge - recurse\n                                par[child]\
+    \ = v\n                                in_edge[child] = Eid[v][i]\n          \
+    \                      stack.append(child)\n                            case 1:\n\
+    \                                # Back edge - update low-link value\n       \
+    \                         low[v] = min(low[v], tin[child])\n                case\
+    \ 1:\n                    vis[v] = 2\n                    if p != -1:\n      \
+    \                  low[p] = min(low[p], low[v])\n                        if low[v]\
+    \ > tin[p]:\n                            bridges.append(in_edge[v])\n        \
+    \        \n        return bridges\n\n    def articulation_points(G):\n       \
+    \ N = G.N\n        order = [-1] * N\n        low = [-1] * N\n        par = [-1]\
+    \ * N\n        vis = [0] * G.N\n        children = [0] * G.N\n        ap = [False]\
+    \ * N\n        time = 0\n        stack = list(range(N))\n\n        while stack:\n\
+    \            v = stack.pop()\n            p = par[v]\n            if vis[v] ==\
+    \ 0:\n                vis[v] = 1\n                order[v] = low[v] = time\n \
+    \               time += 1\n            \n                stack.append(v)\n   \
+    \             for child in G[v]:\n                    if order[child] == -1:\n\
     \                        par[child] = v\n                        stack.append(child)\n\
     \                    elif child != p:\n                        low[v] = min(low[v],\
     \ order[child])\n                if p != -1:\n                    children[p]\
@@ -186,53 +191,55 @@ data:
     \ def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n\
     \        return parse\n    \n"
   code: "import cp_library.alg.graph.__header__\nfrom cp_library.io.parser_cls import\
-    \ Parsable, Parser, TokenStream\n\nfrom typing import Iterable\nfrom collections\
-    \ import deque\nfrom math import inf\n\nclass GraphProtocol(list, Parsable):\n\
-    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
-    \    def edge_ids(G) -> list[list[int]]: ...\n    \n    def bfs(G, s = 0, g =\
-    \ None) -> list[int]:\n        D = [inf for _ in range(G.N)]\n        D[s] = 0\n\
-    \        q = deque([s])\n        while q:\n            nd = D[u := q.popleft()]+1\n\
-    \            if u == g: return D[u]\n            for v in G.neighbors(u):\n  \
-    \              if nd < D[v]:\n                    D[v] = nd\n                \
-    \    q.append(v)\n        return D if g is None else inf\n    \n    \n    def\
-    \ find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n        vis\
-    \ = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]: return None\n\
-    \        vis[s] = 1\n        stack = [(True, s)]\n        while stack:\n     \
-    \       forw, v = stack.pop()\n            if forw:\n                stack.append((False,\
-    \ v))\n                vis[v] = 1\n                for u in G.neighbors(v):\n\
-    \                    if vis[u] == 1 and u != par[v]:\n                       \
-    \ # Cycle detected\n                        cyc = [u]\n                      \
-    \  vis[u] = 2\n                        while v != u:\n                       \
-    \     cyc.append(v)\n                            vis[v] = 2\n                \
-    \            v = par[v]\n                        return cyc\n                \
-    \    elif vis[u] == 0:\n                        par[u] = v\n                 \
-    \       stack.append((True, u))\n            else:\n                vis[v] = 2\n\
-    \        return None\n    \n    def bridges(G):\n        tin = [-1] * G.N\n  \
-    \      low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n \
-    \       in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
-    \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
-    \            v = stack.pop()\n            p = par[v]\n            match vis[v]:\n\
-    \                case 0:\n                    vis[v] = 1\n                   \
-    \ tin[v] = low[v] = time\n                    time += 1\n                    stack.append(v)\n\
-    \                    for i, child in enumerate(G.neighbors(v)):\n            \
-    \            if child == p:\n                            continue\n          \
-    \              match vis[child]:\n                            case 0:\n      \
-    \                          # Tree edge - recurse\n                           \
-    \     par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
-    \                                stack.append(child)\n                       \
-    \     case 1:\n                                # Back edge - update low-link value\n\
-    \                                low[v] = min(low[v], tin[child])\n          \
-    \      case 1:\n                    vis[v] = 2\n                    if p != -1:\n\
-    \                        low[p] = min(low[p], low[v])\n                      \
-    \  if low[v] > tin[p]:\n                            bridges.append(in_edge[v])\n\
-    \                \n        return bridges\n\n    def articulation_points(G):\n\
-    \        N = G.N\n        order = [-1] * N\n        low = [-1] * N\n        par\
-    \ = [-1] * N\n        vis = [0] * G.N\n        children = [0] * G.N\n        ap\
-    \ = [False] * N\n        time = 0\n        stack = list(range(N))\n\n        while\
-    \ stack:\n            v = stack.pop()\n            p = par[v]\n            if\
-    \ vis[v] == 0:\n                vis[v] = 1\n                order[v] = low[v]\
-    \ = time\n                time += 1\n            \n                stack.append(v)\n\
-    \                for child in G[v]:\n                    if order[child] == -1:\n\
+    \ Parsable, Parser, TokenStream\n\nfrom typing import Iterable, overload\nfrom\
+    \ collections import deque\nfrom math import inf\n\nclass GraphProtocol(list,\
+    \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
+    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n\n    @overload\n\
+    \    def bfs(G, s: int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
+    \ int, g: int) -> int: ...\n\n    def bfs(G, s = 0, g = None):\n        D = [inf\
+    \ for _ in range(G.N)]\n        D[s] = 0\n        q = deque([s])\n        while\
+    \ q:\n            nd = D[u := q.popleft()]+1\n            if u == g: return D[u]\n\
+    \            for v in G.neighbors(u):\n                if nd < D[v]:\n       \
+    \             D[v] = nd\n                    q.append(v)\n        return D if\
+    \ g is None else inf\n    \n    \n    def find_cycle(G, s = 0, vis = None, par\
+    \ = None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
+    \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
+    \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
+    \         if forw:\n                stack.append((False, v))\n               \
+    \ vis[v] = 1\n                for u in G.neighbors(v):\n                    if\
+    \ vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n   \
+    \                     cyc = [u]\n                        vis[u] = 2\n        \
+    \                while v != u:\n                            cyc.append(v)\n  \
+    \                          vis[v] = 2\n                            v = par[v]\n\
+    \                        return cyc\n                    elif vis[u] == 0:\n \
+    \                       par[u] = v\n                        stack.append((True,\
+    \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
+    \  \n    def bridges(G):\n        tin = [-1] * G.N\n        low = [-1] * G.N\n\
+    \        par = [-1] * G.N\n        vis = [0] * G.N\n        in_edge = [-1] * G.N\n\
+    \n        Eid = G.edge_ids()\n        time = 0\n        bridges = []\n       \
+    \ stack = list(range(G.N))\n        while stack:\n            v = stack.pop()\n\
+    \            p = par[v]\n            match vis[v]:\n                case 0:\n\
+    \                    vis[v] = 1\n                    tin[v] = low[v] = time\n\
+    \                    time += 1\n                    stack.append(v)\n        \
+    \            for i, child in enumerate(G.neighbors(v)):\n                    \
+    \    if child == p:\n                            continue\n                  \
+    \      match vis[child]:\n                            case 0:\n              \
+    \                  # Tree edge - recurse\n                                par[child]\
+    \ = v\n                                in_edge[child] = Eid[v][i]\n          \
+    \                      stack.append(child)\n                            case 1:\n\
+    \                                # Back edge - update low-link value\n       \
+    \                         low[v] = min(low[v], tin[child])\n                case\
+    \ 1:\n                    vis[v] = 2\n                    if p != -1:\n      \
+    \                  low[p] = min(low[p], low[v])\n                        if low[v]\
+    \ > tin[p]:\n                            bridges.append(in_edge[v])\n        \
+    \        \n        return bridges\n\n    def articulation_points(G):\n       \
+    \ N = G.N\n        order = [-1] * N\n        low = [-1] * N\n        par = [-1]\
+    \ * N\n        vis = [0] * G.N\n        children = [0] * G.N\n        ap = [False]\
+    \ * N\n        time = 0\n        stack = list(range(N))\n\n        while stack:\n\
+    \            v = stack.pop()\n            p = par[v]\n            if vis[v] ==\
+    \ 0:\n                vis[v] = 1\n                order[v] = low[v] = time\n \
+    \               time += 1\n            \n                stack.append(v)\n   \
+    \             for child in G[v]:\n                    if order[child] == -1:\n\
     \                        par[child] = v\n                        stack.append(child)\n\
     \                    elif child != p:\n                        low[v] = min(low[v],\
     \ order[child])\n                if p != -1:\n                    children[p]\
@@ -257,7 +264,7 @@ data:
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-03 23:06:27+09:00'
+  timestamp: '2024-11-03 23:46:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py
@@ -265,6 +272,7 @@ data:
   - test/abc184_e_grid_graph.test.py
   - test/grl_3_a_tarjan_articulation_points.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/abc184_e_grid_graph_bfs_fn.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/grl_3_a_find_articulation_points.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
