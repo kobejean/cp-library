@@ -46,9 +46,9 @@ data:
     \    def __floordiv__(self, x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self,\
     \ x): return self.inv * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n\
     \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
-    \ \n        return self.cast(super().__pow__(x, self.mod))\n    def __eq__(self,\
-    \ x): return super().__eq__(self-x, 0)\n    def __neg__(self): return mint.mod-self\n\
-    \    def __pos__(self): return self\n    def __abs__(self): return self\n\n"
+    \ \n        return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self):\
+    \ return mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self):\
+    \ return self\n\n"
   code: "import cp_library.math.mod.__header__\n\nclass mint(int):\n    mod = zero\
     \ = one = None\n\n    def __new__(cls, *args, **kwargs):\n        match int(*args,\
     \ **kwargs):\n            case 0: return cls.zero\n            case 1: return\
@@ -67,16 +67,15 @@ data:
     \ x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv\
     \ * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
     \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
-    \ self.mod))\n    def __eq__(self, x): return super().__eq__(self-x, 0)\n    def\
-    \ __neg__(self): return mint.mod-self\n    def __pos__(self): return self\n  \
-    \  def __abs__(self): return self\n\n"
+    \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
+    \ return self\n    def __abs__(self): return self\n\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
   - cp_library/math/mod/modmat_cls.py
   - cp_library/math/mat_cls.py
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_modmat.test.py

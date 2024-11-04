@@ -53,8 +53,11 @@ data:
     \     super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
     \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
     \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
-    \      return a, d\n\n\ndef read(shift=0, base=10):\n    return [int(s, base)\
-    \ + shift for s in input().split()]\n\nif __name__ == '__main__':\n    main()\n"
+    \      return a, d\n\n    def distance(self, u, v) -> int:\n        l, r = min(self.start[u],\
+    \ self.start[v]), max(self.start[u], self.start[v])+1\n        d, _ = super().query(l,\
+    \ r)\n        return self.depth[l] + self.depth[r] - 2*d\n\n\ndef read(shift=0,\
+    \ base=10):\n    return [int(s, base) + shift for s in input().split()]\n\nif\
+    \ __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C\n\
     \ndef main():\n    N, = read()\n    T = []\n    for _ in range(N):\n        k,\
     \ *adj = read()\n        T.append(adj)\n    lca = LCATable(T, 0)\n    Q, = read()\n\
@@ -69,7 +72,7 @@ data:
   isVerificationFile: true
   path: test/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_c_lca_table_recursive.test.py

@@ -78,15 +78,26 @@ data:
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
     \ parser\n\n\nfrom typing import Iterable, overload\n\nclass GraphProtocol(list,\
     \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
-    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n\n    @overload\n\
-    \    def bfs(G, s: int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
-    \ int, g: int) -> int: ...\n\n    def bfs(G, s = 0, g = None):\n        D = [inf\
-    \ for _ in range(G.N)]\n        D[s] = 0\n        q = deque([s])\n        while\
-    \ q:\n            nd = D[u := q.popleft()]+1\n            if u == g: return D[u]\n\
-    \            for v in G.neighbors(u):\n                if nd < D[v]:\n       \
-    \             D[v] = nd\n                    q.append(v)\n        return D if\
-    \ g is None else inf\n    \n    \n    def find_cycle(G, s = 0, vis = None, par\
-    \ = None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
+    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n \
+    \   def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        match s,\
+    \ g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.bfs(s)\n            case\
+    \ s, g:\n                return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s:\
+    \ int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: int, g: int) ->\
+    \ int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
+    \        D[s] = 0\n        q = deque([s])\n        while q:\n            nd =\
+    \ D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for v\
+    \ in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
+    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
+    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
+    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
+    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
+    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
+    \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
     \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
     \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
     \         if forw:\n                stack.append((False, v))\n               \
@@ -167,7 +178,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/grid_graph_cls.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc184_e_grid_graph.test.py

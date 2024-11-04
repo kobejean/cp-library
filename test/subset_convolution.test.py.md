@@ -149,9 +149,8 @@ data:
     \ __rfloordiv__(self, x): return self.inv * x\n        def __truediv__(self, x):\
     \ return self * mint.mod_inv(x)\n        def __rtruediv__(self, x): return self.inv\
     \ * x\n        def __pow__(self, x): \n            return self.cast(super().__pow__(x,\
-    \ self.mod))\n        def __eq__(self, x): return super().__eq__(self-x, 0)\n\
-    \        def __neg__(self): return mint.mod-self\n        def __pos__(self): return\
-    \ self\n        def __abs__(self): return self\n    \n    mint.set_mod(mod)\n\
+    \ self.mod))\n        def __neg__(self): return mint.mod-self\n        def __pos__(self):\
+    \ return self\n        def __abs__(self): return self\n    \n    mint.set_mod(mod)\n\
     \    F = read(list[mint])\n    G = read(list[mint])\n    print(*subset_convolution(F,\
     \ G, N))\nelse:\n    \n    \n    def subset_convolution(A, B, N, mod):\n     \
     \   Z = 1 << N\n    \n        # Prepare arrays for rank (popcount) decomposition\n\
@@ -203,7 +202,7 @@ data:
   isVerificationFile: true
   path: test/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/subset_convolution.test.py

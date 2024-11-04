@@ -135,18 +135,29 @@ data:
     \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
     \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
     \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
-    \    pass\n\n\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
-    from math import inf\n\n\nfrom typing import Iterable, overload\n\nclass GraphProtocol(list,\
-    \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
-    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n\n    @overload\n\
-    \    def bfs(G, s: int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
-    \ int, g: int) -> int: ...\n\n    def bfs(G, s = 0, g = None):\n        D = [inf\
-    \ for _ in range(G.N)]\n        D[s] = 0\n        q = deque([s])\n        while\
-    \ q:\n            nd = D[u := q.popleft()]+1\n            if u == g: return D[u]\n\
-    \            for v in G.neighbors(u):\n                if nd < D[v]:\n       \
-    \             D[v] = nd\n                    q.append(v)\n        return D if\
-    \ g is None else inf\n    \n    \n    def find_cycle(G, s = 0, vis = None, par\
-    \ = None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
+    \    pass\n\n\nfrom typing import overload\nfrom heapq import heapify, heappop,\
+    \ heappush\nimport operator\nfrom math import inf\n\n\nfrom typing import Iterable,\
+    \ overload\n\nclass GraphProtocol(list, Parsable):\n\n    def neighbors(G, v:\
+    \ int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]:\
+    \ ...\n\n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.bfs(s)\n            case\
+    \ s, g:\n                return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s:\
+    \ int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: int, g: int) ->\
+    \ int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
+    \        D[s] = 0\n        q = deque([s])\n        while q:\n            nd =\
+    \ D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for v\
+    \ in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
+    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
+    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
+    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
+    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
+    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
+    \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
     \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
     \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
     \         if forw:\n                stack.append((False, v))\n               \
@@ -195,27 +206,33 @@ data:
     \ def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n\
     \        return parse\n    \n\nclass GraphWeightedProtocol(GraphProtocol):\n\n\
     \    def neighbors(G, v: int):\n        return map(operator.itemgetter(0), G[v])\n\
-    \    \n    def dijkstra(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
-    \        D[s] = 0\n        q = [(0, s)]\n        while q:\n            d, v =\
-    \ heappop(q)\n            if d > D[v]: continue\n            if v == g: return\
-    \ d\n            for u, w, *_ in G[v]:\n                if (nd := d + w) < D[u]:\n\
-    \                    D[u] = nd\n                    heappush(q, (nd, u))\n   \
-    \     return D if g is None else inf\n    \n    def kruskal(G):\n        E, N\
-    \ = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST = []\n   \
-    \     need = N-1\n        while E and need:\n            edge = heappop(E)\n \
-    \           u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n            if u\
-    \ != v:\n                MST.append(edge)\n                need -= 1\n       \
-    \ cls = type(G)\n        return cls(N, MST)\n    \n    def bellman_ford(G, s =\
-    \ 0) -> list[int]:\n        D = [inf]*G.N\n        D[s] = 0\n        for _ in\
-    \ range(G.N-1):\n            for u, edges in enumerate(G):\n                for\
-    \ v,w,*_ in edges:\n                    D[v] = min(D[v], D[u] + w)\n        return\
-    \ D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N\
-    \ for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n            D[u][u]\
-    \ = 0\n            for v,w in edges:\n                D[u][v] = min(D[u][v], w)\n\
-    \        \n        for k, Dk in enumerate(D):\n            for Di in D:\n    \
-    \            for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
-    \        return D\n\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n\
-    \ = n\n        self.par = [-1] * n\n\n    def merge(self, u, v):\n        assert\
+    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.dijkstra(s)\n           \
+    \ case s, g:\n                return G.dijkstra(s, g)\n    \n    def dijkstra(G,\
+    \ s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n        D[s] = 0\n\
+    \        q = [(0, s)]\n        while q:\n            d, v = heappop(q)\n     \
+    \       if d > D[v]: continue\n            if v == g: return d\n            for\
+    \ u, w, *_ in G[v]:\n                if (nd := d + w) < D[u]:\n              \
+    \      D[u] = nd\n                    heappush(q, (nd, u))\n        return D if\
+    \ g is None else inf\n    \n    def kruskal(G):\n        E, N = G.E, G.N\n   \
+    \     heapify(E)\n        dsu = DSU(N)\n        MST = []\n        need = N-1\n\
+    \        while E and need:\n            edge = heappop(E)\n            u,v,*_\
+    \ = edge\n            u,v = dsu.merge(u,v)\n            if u != v:\n         \
+    \       MST.append(edge)\n                need -= 1\n        cls = type(G)\n \
+    \       return cls(N, MST)\n    \n    def bellman_ford(G, s = 0) -> list[int]:\n\
+    \        D = [inf]*G.N\n        D[s] = 0\n        for _ in range(G.N-1):\n   \
+    \         for u, edges in enumerate(G):\n                for v,w,*_ in edges:\n\
+    \                    D[v] = min(D[v], D[u] + w)\n        return D\n    \n    def\
+    \ floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for _ in range(G.N)]\n\
+    \n        for u, edges in enumerate(G):\n            D[u][u] = 0\n           \
+    \ for v,w in edges:\n                D[u][v] = min(D[u][v], w)\n        \n   \
+    \     for k, Dk in enumerate(D):\n            for Di in D:\n                for\
+    \ j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n    \
+    \    return D\n\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n =\
+    \ n\n        self.par = [-1] * n\n\n    def merge(self, u, v):\n        assert\
     \ 0 <= u < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u),\
     \ self.leader(v)\n        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n\
     \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
@@ -247,44 +264,49 @@ data:
     \         self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self, l: int,\
     \ r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
     \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
-    \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n\nclass LCATableWeighted(SparseTable):\n\
-    \    def __init__(self, T, root = 0):\n        self.start = [-1] * len(T)\n  \
-    \      self.end = [-1] * len(T)\n        self.euler = []\n        self.depth =\
-    \ []\n        self.weights = []\n        \n        # Iterative DFS\n        stack\
-    \ = [(root, -1, 0, 0)]\n        while stack:\n            u, p, d, w = stack.pop()\n\
-    \            \n            if self.start[u] == -1:\n                self.start[u]\
-    \ = len(self.euler)\n                for v, nw in reversed(T[u]):\n          \
-    \          if v != p:\n                        stack.append((u, p, d, -nw))\n\
-    \                        stack.append((v, u, d+1, nw))\n\n            self.euler.append(u)\n\
-    \            self.depth.append(d)\n            self.weights.append(w)\n      \
-    \      self.end[u] = len(self.euler)\n        super().__init__(min, list(zip(self.depth,\
+    \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\nfrom itertools\
+    \ import accumulate\n\nclass LCATableWeighted(SparseTable):\n    def __init__(self,\
+    \ T, root = 0):\n        self.start = [-1] * len(T)\n        self.end = [-1] *\
+    \ len(T)\n        self.euler = []\n        self.depth = []\n        self.weights\
+    \ = []\n        self.weighted_depth = None\n        \n        # Iterative DFS\n\
+    \        stack = [(root, -1, 0, 0)]\n        while stack:\n            u, p, d,\
+    \ w = stack.pop()\n            \n            if self.start[u] == -1:\n       \
+    \         self.start[u] = len(self.euler)\n                for v, nw in reversed(T[u]):\n\
+    \                    if v != p:\n                        stack.append((u, p, d,\
+    \ -nw))\n                        stack.append((v, u, d+1, nw))\n\n           \
+    \ self.euler.append(u)\n            self.depth.append(d)\n            self.weights.append(w)\n\
+    \            self.end[u] = len(self.euler)\n        super().__init__(min, list(zip(self.depth,\
     \ self.euler)))\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r\
     \ = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n \
-    \       d, a = super().query(l, r)\n        return a, d\n\nclass BinaryIndexTree:\n\
-    \    def __init__(self, v: int|list):\n        if isinstance(v, int):\n      \
-    \      self.data, self.size = [0]*v, v\n        else:\n            self.build(v)\n\
-    \n    def build(self, data):\n        self.data, self.size = data, len(data)\n\
-    \        for i in range(self.size):\n            if (r := i|(i+1)) < self.size:\
-    \ \n                self.data[r] += self.data[i]\n\n    def get(self, i: int):\n\
-    \        assert 0 <= i < self.size\n        s = self.data[i]\n        z = i&(i+1)\n\
-    \        for _ in range((i^z).bit_count()):\n            s, i = s-self.data[i-1],\
-    \ i-(i&-i)\n        return s\n    \n    def set(self, i: int, x: int):\n     \
-    \   self.add(i, x-self.get(i))\n        \n    def add(self, i: int, x: object)\
-    \ -> None:\n        assert 0 <= i <= self.size\n        i += 1\n        while\
-    \ i <= self.size:\n            self.data[i-1], i = self.data[i-1] + x, i+(i&-i)\n\
-    \n    def pref_sum(self, i: int):\n        assert 0 <= i <= self.size\n      \
-    \  s = 0\n        for _ in range(i.bit_count()):\n            s, i = s+self.data[i-1],\
-    \ i-(i&-i)\n        return s\n    \n    def range_sum(self, l: int, r: int):\n\
-    \        return self.pref_sum(r) - self.pref_sum(l)\n\nfrom typing import Type,\
-    \ TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) ->\
-    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
-    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
-    \ None, False:\n            return list(map(int, input().split()))\n        case\
-    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
-    \        case _, _:\n            if char:\n                stream = CharStream(sys.stdin)\n\
-    \            else:\n                stream = TokenStream(sys.stdin)\n        \
-    \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\nif\
-    \ __name__ == \"__main__\":\n    main()\n"
+    \       d, a = super().query(l, r)\n        return a, d\n\n    def distance(self,\
+    \ u, v) -> int:\n        if self.weighted_depth is None:\n            self.weighted_depth\
+    \ = list(accumulate(self.weights))\n        l, r = min(self.start[u], self.start[v]),\
+    \ max(self.start[u], self.start[v])+1\n        _, a = super().query(l, r)\n  \
+    \      m = self.start[a]\n        return self.weighted_depth[l] + self.weighted_depth[r]\
+    \ - 2*self.weighted_depth[m]\n\nclass BinaryIndexTree:\n    def __init__(self,\
+    \ v: int|list):\n        if isinstance(v, int):\n            self.data, self.size\
+    \ = [0]*v, v\n        else:\n            self.build(v)\n\n    def build(self,\
+    \ data):\n        self.data, self.size = data, len(data)\n        for i in range(self.size):\n\
+    \            if (r := i|(i+1)) < self.size: \n                self.data[r] +=\
+    \ self.data[i]\n\n    def get(self, i: int):\n        assert 0 <= i < self.size\n\
+    \        s = self.data[i]\n        z = i&(i+1)\n        for _ in range((i^z).bit_count()):\n\
+    \            s, i = s-self.data[i-1], i-(i&-i)\n        return s\n    \n    def\
+    \ set(self, i: int, x: int):\n        self.add(i, x-self.get(i))\n        \n \
+    \   def add(self, i: int, x: object) -> None:\n        assert 0 <= i <= self.size\n\
+    \        i += 1\n        while i <= self.size:\n            self.data[i-1], i\
+    \ = self.data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n        assert\
+    \ 0 <= i <= self.size\n        s = 0\n        for _ in range(i.bit_count()):\n\
+    \            s, i = s+self.data[i-1], i-(i&-i)\n        return s\n    \n    def\
+    \ range_sum(self, l: int, r: int):\n        return self.pref_sum(r) - self.pref_sum(l)\n\
+    \nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\n\
+    def read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T,\
+    \ char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match\
+    \ spec, char:\n        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream(sys.stdin)\n            else:\n                stream =\
+    \ TokenStream(sys.stdin)\n            parser: T = Parser.compile(spec)\n     \
+    \       return parser(stream)\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    E = read(EdgeListWeighted[N-1])\n    T =\
     \ GraphWeighted(N, E)\n    lca = LCATableWeighted(T)\n    bit = BinaryIndexTree(lca.weights)\n\
@@ -318,7 +340,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

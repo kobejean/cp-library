@@ -70,6 +70,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_proto.py
       title: cp_library/alg/graph/graph_proto.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/graph_set_cls.py
+      title: cp_library/alg/graph/graph_set_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_weighted_cls.py
       title: cp_library/alg/graph/graph_weighted_cls.py
@@ -121,8 +124,17 @@ data:
       path: cp_library/alg/tree/tree_cls.py
       title: cp_library/alg/tree/tree_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/tree_proto.py
+      title: cp_library/alg/tree/tree_proto.py
+    - icon: ':warning:'
+      path: cp_library/alg/tree/tree_set_cls.py
+      title: cp_library/alg/tree/tree_set_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_weighted_cls.py
       title: cp_library/alg/tree/tree_weighted_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/tree_weighted_proto.py
+      title: cp_library/alg/tree/tree_weighted_proto.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
@@ -251,6 +263,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/subset_convolution_fn.py
       title: cp_library/math/subset_convolution_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/subset_sum_fn.py
+      title: cp_library/math/subset_sum_fn.py
     - icon: ':warning:'
       path: cp_library/math/sum_of_naturals_fn.py
       title: cp_library/math/sum_of_naturals_fn.py
@@ -381,6 +396,9 @@ data:
       path: test/abc184_e_grid_graph_bfs_fn.test.py
       title: test/abc184_e_grid_graph_bfs_fn.test.py
     - icon: ':heavy_check_mark:'
+      path: test/abc184_f_subset_sum_fn.test.py
+      title: test/abc184_f_subset_sum_fn.test.py
+    - icon: ':heavy_check_mark:'
       path: test/abc274_e_vec2.test.py
       title: test/abc274_e_vec2.test.py
     - icon: ':heavy_check_mark:'
@@ -395,6 +413,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
       title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc361_e_tree_diameter.test.py
+      title: test/abc361_e_tree_diameter.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc362_q_count_substring_query_ahocorasick.test.py
       title: test/abc362_q_count_substring_query_ahocorasick.test.py

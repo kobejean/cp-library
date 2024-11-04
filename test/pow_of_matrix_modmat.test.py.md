@@ -45,11 +45,10 @@ data:
     \ self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv * x\n\
     \    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
     \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
-    \ self.mod))\n    def __eq__(self, x): return super().__eq__(self-x, 0)\n    def\
-    \ __neg__(self): return mint.mod-self\n    def __pos__(self): return self\n  \
-    \  def __abs__(self): return self\n\nfrom typing import Union, List, Tuple\n\n\
-    class ModMat:\n    __slots__ = 'data', 'R', 'C'\n\n    def __init__(self, data:\
-    \ List[Union[int,mint]]):\n        self.data, self.R, self.C = data, len(data),\
+    \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
+    \ return self\n    def __abs__(self): return self\n\nfrom typing import Union,\
+    \ List, Tuple\n\nclass ModMat:\n    __slots__ = 'data', 'R', 'C'\n\n    def __init__(self,\
+    \ data: List[Union[int,mint]]):\n        self.data, self.R, self.C = data, len(data),\
     \ len(data[0])\n    \n    @classmethod\n    def identity(cls, N) -> 'ModMat':\
     \ return ModMat([[int(i==j) for j in range(N)] for i in range(N)])\n    \n   \
     \ @classmethod\n    def zeros(cls, R, C) -> 'ModMat': return ModMat([[0]*C for\
@@ -137,7 +136,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_modmat.test.py

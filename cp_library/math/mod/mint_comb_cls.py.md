@@ -35,16 +35,15 @@ data:
     \ self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv * x\n\
     \    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
     \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
-    \ self.mod))\n    def __eq__(self, x): return super().__eq__(self-x, 0)\n    def\
-    \ __neg__(self): return mint.mod-self\n    def __pos__(self): return self\n  \
-    \  def __abs__(self): return self\n\n    @classmethod\n    def precomp(cls,n):\n\
-    \        cls.fac = list(accumulate(\n            range(1,n+1), cls.__mul__, initial=cls(1)))\n\
-    \        cls.finv = list(accumulate(\n            range(n,0,-1), cls.__mul__,\
-    \ initial=cls.fac[n].inv))[::-1]\n        \n    @classmethod\n    def comb(cls,\
-    \ n, k, /):\n        if n < k: return 0\n        return cls.fac[n]*cls.finv[k]*cls.finv[n\
-    \ - k]\n    \n    @classmethod\n    def multinom(cls, n, *K):\n        res = cls(1)\n\
-    \        for k in K:\n            res *= cls.comb(n, k)\n            n -= k\n\
-    \        return res\n"
+    \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
+    \ return self\n    def __abs__(self): return self\n\n    @classmethod\n    def\
+    \ precomp(cls,n):\n        cls.fac = list(accumulate(\n            range(1,n+1),\
+    \ cls.__mul__, initial=cls(1)))\n        cls.finv = list(accumulate(\n       \
+    \     range(n,0,-1), cls.__mul__, initial=cls.fac[n].inv))[::-1]\n        \n \
+    \   @classmethod\n    def comb(cls, n, k, /):\n        if n < k: return 0\n  \
+    \      return cls.fac[n]*cls.finv[k]*cls.finv[n - k]\n    \n    @classmethod\n\
+    \    def multinom(cls, n, *K):\n        res = cls(1)\n        for k in K:\n  \
+    \          res *= cls.comb(n, k)\n            n -= k\n        return res\n"
   code: "import cp_library.math.mod.__header__\nfrom itertools import accumulate\n\
     \nclass mint(int):\n    mod = zero = one = None\n\n    def __new__(cls, *args,\
     \ **kwargs):\n        match int(*args, **kwargs):\n            case 0: return\
@@ -63,21 +62,21 @@ data:
     \    def __floordiv__(self, x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self,\
     \ x): return self.inv * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n\
     \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
-    \ \n        return self.cast(super().__pow__(x, self.mod))\n    def __eq__(self,\
-    \ x): return super().__eq__(self-x, 0)\n    def __neg__(self): return mint.mod-self\n\
-    \    def __pos__(self): return self\n    def __abs__(self): return self\n\n  \
-    \  @classmethod\n    def precomp(cls,n):\n        cls.fac = list(accumulate(\n\
-    \            range(1,n+1), cls.__mul__, initial=cls(1)))\n        cls.finv = list(accumulate(\n\
-    \            range(n,0,-1), cls.__mul__, initial=cls.fac[n].inv))[::-1]\n    \
-    \    \n    @classmethod\n    def comb(cls, n, k, /):\n        if n < k: return\
-    \ 0\n        return cls.fac[n]*cls.finv[k]*cls.finv[n - k]\n    \n    @classmethod\n\
-    \    def multinom(cls, n, *K):\n        res = cls(1)\n        for k in K:\n  \
-    \          res *= cls.comb(n, k)\n            n -= k\n        return res\n"
+    \ \n        return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self):\
+    \ return mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self):\
+    \ return self\n\n    @classmethod\n    def precomp(cls,n):\n        cls.fac =\
+    \ list(accumulate(\n            range(1,n+1), cls.__mul__, initial=cls(1)))\n\
+    \        cls.finv = list(accumulate(\n            range(n,0,-1), cls.__mul__,\
+    \ initial=cls.fac[n].inv))[::-1]\n        \n    @classmethod\n    def comb(cls,\
+    \ n, k, /):\n        if n < k: return 0\n        return cls.fac[n]*cls.finv[k]*cls.finv[n\
+    \ - k]\n    \n    @classmethod\n    def multinom(cls, n, *K):\n        res = cls(1)\n\
+    \        for k in K:\n            res *= cls.comb(n, k)\n            n -= k\n\
+    \        return res\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/mod/mint_comb_cls.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc168_c_swap_characters_mint_comb.test.py

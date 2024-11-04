@@ -90,9 +90,8 @@ data:
     \ self.inv * x\n            def __truediv__(self, x): return self * mint.mod_inv(x)\n\
     \            def __rtruediv__(self, x): return self.inv * x\n            def __pow__(self,\
     \ x): \n                return self.cast(super().__pow__(x, self.mod))\n     \
-    \       def __eq__(self, x): return super().__eq__(self-x, 0)\n            def\
-    \ __neg__(self): return mint.mod-self\n            def __pos__(self): return self\n\
-    \            def __abs__(self): return self\n        \n        mint.set_mod(998244353)\n\
+    \       def __neg__(self): return mint.mod-self\n            def __pos__(self):\
+    \ return self\n            def __abs__(self): return self\n        \n        mint.set_mod(998244353)\n\
     \n        A = [read(mint) for _ in range(N)]\n        B = mat_pow(A, K)\n    else:\n\
     \        '''\n        \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -151,7 +150,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_matpow.test.py

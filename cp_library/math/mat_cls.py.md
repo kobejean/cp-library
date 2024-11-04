@@ -159,29 +159,28 @@ data:
     \ x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv\
     \ * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
     \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
-    \ self.mod))\n    def __eq__(self, x): return super().__eq__(self-x, 0)\n    def\
-    \ __neg__(self): return mint.mod-self\n    def __pos__(self): return self\n  \
-    \  def __abs__(self): return self\n\n\nclass ModMat(Mat):\n\n    # def __init__(self,\
-    \ N: int, M: int, data = None):\n    #     super().__init__(N, M, data or mint.zero)\n\
-    \n    # def __matmul__(A,B):\n    #     assert A.M == len(B), f\"Dimension mismatch\
-    \ {A.M = } {len(B) = }\"\n    #     cls = type(A)\n    #     R = cls(A.N,A.M)\n\
-    \    #     Br = super(cls.__bases__[0], B).__getitem__\n    #     for Ri,Ai in\
-    \ zip(R,A):\n    #         for k,Aik in enumerate(Ai):\n    #             for\
-    \ j,Bkj in enumerate(Br(k)):\n    #                 Ri[j] = Bkj*Aik + Ri[j] \n\
-    \n    #     return R\n    \n    # def __pow__(A,K):\n    #     A = Mat(A.N, A.M,\
-    \ ((int(elm) for elm in row) for row in A))\n    #     R = A if K & 1 else Mat.identity(A.N)\n\
-    \    #     for i in range(1,K.bit_length()):\n    #         A = A @ A\n    # \
-    \        A %= mint.mod\n    #         if K >> i & 1:\n    #             R = R\
-    \ @ A\n    #             R %= mint.mod\n    #     R = Mat(R.N, R.M, ((mint(elm)\
-    \ for elm in row) for row in R))\n    #     return R \n    \n    # @classmethod\n\
-    \    # def identity(cls, N):\n    #     R = cls(N, N, mint.zero)\n    #     for\
-    \ i in range(N):\n    #         R[i,i] = mint.one\n    #     return R\n    \n\
-    \    @classmethod\n    def compile(cls, N: int, M: int, T: type = int):\n    \
-    \    return super().compile(N, M, T)\n    \n\n\n\nclass MutVec(list, ElmWiseInPlaceMixin,\
-    \ Parsable):\n\n    def __init__(self, *args):\n        if len(args) == 1 and\
-    \ isinstance(args[0], Iterable):\n            super().__init__(args[0])\n    \
-    \    else:\n            super().__init__(args)\n    \n\n    @classmethod\n   \
-    \ def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
+    \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
+    \ return self\n    def __abs__(self): return self\n\n\nclass ModMat(Mat):\n\n\
+    \    # def __init__(self, N: int, M: int, data = None):\n    #     super().__init__(N,\
+    \ M, data or mint.zero)\n\n    # def __matmul__(A,B):\n    #     assert A.M ==\
+    \ len(B), f\"Dimension mismatch {A.M = } {len(B) = }\"\n    #     cls = type(A)\n\
+    \    #     R = cls(A.N,A.M)\n    #     Br = super(cls.__bases__[0], B).__getitem__\n\
+    \    #     for Ri,Ai in zip(R,A):\n    #         for k,Aik in enumerate(Ai):\n\
+    \    #             for j,Bkj in enumerate(Br(k)):\n    #                 Ri[j]\
+    \ = Bkj*Aik + Ri[j] \n\n    #     return R\n    \n    # def __pow__(A,K):\n  \
+    \  #     A = Mat(A.N, A.M, ((int(elm) for elm in row) for row in A))\n    #  \
+    \   R = A if K & 1 else Mat.identity(A.N)\n    #     for i in range(1,K.bit_length()):\n\
+    \    #         A = A @ A\n    #         A %= mint.mod\n    #         if K >> i\
+    \ & 1:\n    #             R = R @ A\n    #             R %= mint.mod\n    #  \
+    \   R = Mat(R.N, R.M, ((mint(elm) for elm in row) for row in R))\n    #     return\
+    \ R \n    \n    # @classmethod\n    # def identity(cls, N):\n    #     R = cls(N,\
+    \ N, mint.zero)\n    #     for i in range(N):\n    #         R[i,i] = mint.one\n\
+    \    #     return R\n    \n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \ T: type = int):\n        return super().compile(N, M, T)\n    \n\n\n\nclass\
+    \ MutVec(list, ElmWiseInPlaceMixin, Parsable):\n\n    def __init__(self, *args):\n\
+    \        if len(args) == 1 and isinstance(args[0], Iterable):\n            super().__init__(args[0])\n\
+    \        else:\n            super().__init__(args)\n    \n\n    @classmethod\n\
+    \    def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
     \        if N is None:\n            def parse(ts: TokenStream):\n            \
     \    return cls(elm(ts) for _ in ts.wait())\n        else:\n            def parse(ts:\
     \ TokenStream):\n                return cls(elm(ts) for _ in range(N))\n     \
@@ -251,7 +250,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mat_cls.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mat_cls.py

@@ -58,7 +58,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/centroid_decomposition_cls.py
   requiredBy: []
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/centroid_decomposition_cls.py

@@ -14,6 +14,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/graph_set_cls.py
+    title: cp_library/alg/graph/graph_set_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
@@ -27,8 +30,17 @@ data:
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/tree_proto.py
+    title: cp_library/alg/tree/tree_proto.py
+  - icon: ':warning:'
+    path: cp_library/alg/tree/tree_set_cls.py
+    title: cp_library/alg/tree/tree_set_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/tree_weighted_proto.py
+    title: cp_library/alg/tree/tree_weighted_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_tree_fn.py
     title: cp_library/io/read_tree_fn.py
@@ -48,6 +60,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc361_e_tree_diameter.test.py
+    title: test/abc361_e_tree_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc375_g_find_bridges.test.py
     title: test/abc375_g_find_bridges.test.py
@@ -134,23 +149,34 @@ data:
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
     \ parser\n\nfrom typing import Iterable, overload\nfrom math import inf\n\nclass\
     \ GraphProtocol(list, Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
-    \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n\n\
-    \    @overload\n    def bfs(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def bfs(G, s: int, g: int) -> int: ...\n\n    def bfs(G, s = 0, g = None):\n\
-    \        D = [inf for _ in range(G.N)]\n        D[s] = 0\n        q = deque([s])\n\
-    \        while q:\n            nd = D[u := q.popleft()]+1\n            if u ==\
-    \ g: return D[u]\n            for v in G.neighbors(u):\n                if nd\
-    \ < D[v]:\n                    D[v] = nd\n                    q.append(v)\n  \
-    \      return D if g is None else inf\n    \n    \n    def find_cycle(G, s = 0,\
-    \ vis = None, par = None):\n        N = G.N\n        vis = vis or [0] * N\n  \
-    \      par = par or [-1] * N\n        if vis[s]: return None\n        vis[s] =\
-    \ 1\n        stack = [(True, s)]\n        while stack:\n            forw, v =\
-    \ stack.pop()\n            if forw:\n                stack.append((False, v))\n\
-    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
-    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
-    \ detected\n                        cyc = [u]\n                        vis[u]\
-    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
-    \                            vis[v] = 2\n                            v = par[v]\n\
+    \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n  \
+    \  @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n   \
+    \ def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.bfs(s)\n            case\
+    \ s, g:\n                return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s:\
+    \ int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: int, g: int) ->\
+    \ int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
+    \        D[s] = 0\n        q = deque([s])\n        while q:\n            nd =\
+    \ D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for v\
+    \ in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
+    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
+    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
+    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
+    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
+    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
+    \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
+    \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
+    \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
+    \         if forw:\n                stack.append((False, v))\n               \
+    \ vis[v] = 1\n                for u in G.neighbors(v):\n                    if\
+    \ vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n   \
+    \                     cyc = [u]\n                        vis[u] = 2\n        \
+    \                while v != u:\n                            cyc.append(v)\n  \
+    \                          vis[v] = 2\n                            v = par[v]\n\
     \                        return cyc\n                    elif vis[u] == 0:\n \
     \                       par[u] = v\n                        stack.append((True,\
     \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
@@ -194,15 +220,26 @@ data:
     \ Parsable, Parser, TokenStream\n\nfrom typing import Iterable, overload\nfrom\
     \ collections import deque\nfrom math import inf\n\nclass GraphProtocol(list,\
     \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
-    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n\n    @overload\n\
-    \    def bfs(G, s: int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
-    \ int, g: int) -> int: ...\n\n    def bfs(G, s = 0, g = None):\n        D = [inf\
-    \ for _ in range(G.N)]\n        D[s] = 0\n        q = deque([s])\n        while\
-    \ q:\n            nd = D[u := q.popleft()]+1\n            if u == g: return D[u]\n\
-    \            for v in G.neighbors(u):\n                if nd < D[v]:\n       \
-    \             D[v] = nd\n                    q.append(v)\n        return D if\
-    \ g is None else inf\n    \n    \n    def find_cycle(G, s = 0, vis = None, par\
-    \ = None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
+    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n \
+    \   def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        match s,\
+    \ g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.bfs(s)\n            case\
+    \ s, g:\n                return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s:\
+    \ int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: int, g: int) ->\
+    \ int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
+    \        D[s] = 0\n        q = deque([s])\n        while q:\n            nd =\
+    \ D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for v\
+    \ in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
+    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
+    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
+    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
+    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
+    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
+    \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
     \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
     \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
     \         if forw:\n                stack.append((False, v))\n               \
@@ -262,9 +299,13 @@ data:
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
+  - cp_library/alg/graph/graph_set_cls.py
+  - cp_library/alg/tree/tree_set_cls.py
+  - cp_library/alg/tree/tree_weighted_proto.py
+  - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-03 23:46:02+09:00'
+  timestamp: '2024-11-04 17:54:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py
@@ -274,6 +315,7 @@ data:
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc184_e_grid_graph_bfs_fn.test.py
   - test/grl_1_c_floyd_warshall.test.py
+  - test/abc361_e_tree_diameter.test.py
   - test/grl_3_a_find_articulation_points.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
