@@ -1,5 +1,6 @@
 import cp_library.alg.tree.__header__
 from cp_library.ds.sparse_table_cls import SparseTable
+from cp_library.ds.bit_cls import BinaryIndexTree
 
 class LCATable(SparseTable):
     def __init__(self, T, root = 0):
@@ -30,3 +31,9 @@ class LCATable(SparseTable):
         l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
         d, a = super().query(l, r)
         return a, d
+    
+    def distance(self, u, v) -> int:
+        l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
+        d, _ = super().query(l, r)
+        return self.depth[l] + self.depth[r] - 2*d
+        

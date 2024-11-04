@@ -42,7 +42,6 @@ class mint(int):
     def __rtruediv__(self, x): return self.inv * x
     def __pow__(self, x): 
         return self.cast(super().__pow__(x, self.mod))
-    def __eq__(self, x): return super().__eq__(self-x, 0)
     def __neg__(self): return mint.mod-self
     def __pos__(self): return self
     def __abs__(self): return self

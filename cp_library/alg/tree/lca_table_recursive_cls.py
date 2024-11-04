@@ -28,3 +28,8 @@ class LCATable(SparseTable):
         l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
         d, a = super().query(l, r)
         return a, d
+
+    def distance(self, u, v) -> int:
+        l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
+        d, _ = super().query(l, r)
+        return self.depth[l] + self.depth[r] - 2*d

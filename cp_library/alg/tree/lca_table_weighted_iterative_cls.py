@@ -1,5 +1,6 @@
 import cp_library.alg.tree.__header__
 from cp_library.ds.sparse_table_cls import SparseTable
+from itertools import accumulate
 
 class LCATableWeighted(SparseTable):
     def __init__(self, T, root = 0):
@@ -8,6 +9,7 @@ class LCATableWeighted(SparseTable):
         self.euler = []
         self.depth = []
         self.weights = []
+        self.weighted_depth = None
         
         # Iterative DFS
         stack = [(root, -1, 0, 0)]
@@ -31,3 +33,11 @@ class LCATableWeighted(SparseTable):
         l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
         d, a = super().query(l, r)
         return a, d
+
+    def distance(self, u, v) -> int:
+        if self.weighted_depth is None:
+            self.weighted_depth = list(accumulate(self.weights))
+        l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
+        _, a = super().query(l, r)
+        m = self.start[a]
+        return self.weighted_depth[l] + self.weighted_depth[r] - 2*self.weighted_depth[m]

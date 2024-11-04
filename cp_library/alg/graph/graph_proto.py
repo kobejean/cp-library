@@ -12,12 +12,25 @@ class GraphProtocol(list, Parsable):
     
     def edge_ids(G) -> list[list[int]]: ...
 
+    @overload
+    def distance(G) -> list[list[int]]: ...
+    @overload
+    def distance(G, s: int = 0) -> list[int]: ...
+    @overload
+    def distance(G, s: int, g: int) -> int: ...
+    def distance(G, s = None, g = None):
+        match s, g:
+            case None, None:
+                return G.floyd_warshall()
+            case s, None:
+                return G.bfs(s)
+            case s, g:
+                return G.bfs(s, g)
 
     @overload
     def bfs(G, s: int = 0) -> list[int]: ...
     @overload
     def bfs(G, s: int, g: int) -> int: ...
-
     def bfs(G, s = 0, g = None):
         D = [inf for _ in range(G.N)]
         D[s] = 0
@@ -29,7 +42,22 @@ class GraphProtocol(list, Parsable):
                 if nd < D[v]:
                     D[v] = nd
                     q.append(v)
-        return D if g is None else inf
+        return D if g is None else inf    
+    
+    
+    def floyd_warshall(G) -> list[list[int]]:
+        D = [[inf]*G.N for _ in range(G.N)]
+
+        for u in G:
+            D[u][u] = 0
+            for v in G.neighbors(u):
+                D[u][v] = 1
+        
+        for k, Dk in enumerate(D):
+            for Di in D:
+                for j in range(G.N):
+                    Di[j] = min(Di[j], Di[k]+Dk[j])
+        return D
     
     
     def find_cycle(G, s = 0, vis = None, par = None):

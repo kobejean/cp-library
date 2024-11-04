@@ -1,5 +1,6 @@
 import cp_library.alg.graph.__header__
 
+from typing import overload
 from heapq import heapify, heappop, heappush
 import operator
 from math import inf
@@ -10,6 +11,21 @@ class GraphWeightedProtocol(GraphProtocol):
 
     def neighbors(G, v: int):
         return map(operator.itemgetter(0), G[v])
+    
+    @overload
+    def distance(G) -> list[list[int]]: ...
+    @overload
+    def distance(G, s: int = 0) -> list[int]: ...
+    @overload
+    def distance(G, s: int, g: int) -> int: ...
+    def distance(G, s = None, g = None):
+        match s, g:
+            case None, None:
+                return G.floyd_warshall()
+            case s, None:
+                return G.dijkstra(s)
+            case s, g:
+                return G.dijkstra(s, g)
     
     def dijkstra(G, s = 0, g = None):
         D = [inf for _ in range(G.N)]
