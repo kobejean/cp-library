@@ -1,20 +1,4 @@
 import cp_library.math.table.__header__
-
-class UniqueFactors(list[int]):
-    def __init__(P, N: int):
-        super().__init__()
-        P.N = N
-        d = 2
-        while N > 1:
-            if N % d == 0:
-                P.append(d)
-                N //= d
-                while N % d == 0:
-                    N //= d
-            d += 1
-            if d * d > N:
-                if N > 1: P.append(N)
-                break
     
 class UniqueFactors(list[int]):
     def __init__(P, N: int):
@@ -39,3 +23,10 @@ class UniqueFactors(list[int]):
             for m in range(b, b << 1):
                 C[m], f = (c := C[l^m]//p), F(c)-f
         return -f if full else f
+    
+    def totient(P):
+        N = P.N
+        phi = 1
+        for p in P:
+            phi *= N - N//p
+        return phi

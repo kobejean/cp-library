@@ -47,7 +47,7 @@ class TreeProtocol(GraphProtocol):
         while stack:
             u = stack.pop()
             if u == g: return D[u]
-            state[v] = False
+            state[u] = False
             for v in T[u]:
                 if state[v]:
                     D[v] = D[u]+1
