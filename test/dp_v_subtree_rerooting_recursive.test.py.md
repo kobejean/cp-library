@@ -241,7 +241,7 @@ data:
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_recursive.test.py
   requiredBy: []
-  timestamp: '2024-11-04 21:00:10+09:00'
+  timestamp: '2024-11-04 22:12:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_recursive.test.py

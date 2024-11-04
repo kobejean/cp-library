@@ -44,7 +44,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heapq_max_import.py
   requiredBy: []
-  timestamp: '2024-11-04 21:00:10+09:00'
+  timestamp: '2024-11-04 22:12:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heapq_max_import.py

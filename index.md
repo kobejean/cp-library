@@ -230,9 +230,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/elm_wise_mixin.py
       title: cp_library/math/elm_wise_mixin.py
-    - icon: ':warning:'
-      path: cp_library/math/extended_euclidean_fn.py
-      title: cp_library/math/extended_euclidean_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/ext_gcd_fn.py
+      title: cp_library/math/ext_gcd_fn.py
     - icon: ':warning:'
       path: cp_library/math/geometic_series_fn.py
       title: cp_library/math/geometic_series_fn.py
@@ -398,6 +398,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc184_f_subset_sum_fn.test.py
       title: test/abc184_f_subset_sum_fn.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc186_e_gcd_ex.test.py
+      title: test/abc186_e_gcd_ex.test.py
     - icon: ':x:'
       path: test/abc245_f_digraph.test.py
       title: test/abc245_f_digraph.test.py

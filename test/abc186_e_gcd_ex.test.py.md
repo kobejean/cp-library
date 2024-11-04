@@ -4,28 +4,38 @@ data:
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
+  - icon: ':question:'
+    path: cp_library/io/read_specs_fn.py
+    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/ext_gcd_fn.py
+    title: cp_library/math/ext_gcd_fn.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/grl_1_c_floyd_warshall.test.py
-    title: test/grl_1_c_floyd_warshall.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_2_a_kruskal_heap.test.py
-    title: test/grl_2_a_kruskal_heap.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    PROBLEM: https://atcoder.jp/contests/abc186/tasks/abc186_e
+    links:
+    - https://atcoder.jp/contests/abc186/tasks/abc186_e
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc186/tasks/abc186_e\n\
+    \ndef solve():\n    N, S, K = read(tuple[int, ...])\n    # (S + ans*K) % N ==\
+    \ 0\n    \n    # K*x + N*y = gcd(K,N)\n    x, _, g = ext_gcd(K, N)\n    if S %\
+    \ g: return -1\n    N //= g\n    S //= g\n    return (N-S)*x%N\n    \n    \ndef\
+    \ main():\n    T = read(int)\n    for _ in range(T):\n        ans = solve()\n\
+    \        print(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport sys\nfrom typing import Type, TypeVar\n\nT = TypeVar('T')\ndef read(spec:\
-    \ Type[T]|T=[int]) -> T:\n    stream = TokenStream(sys.stdin)\n    parser = Parser.compile(spec)\n\
-    \    return parser(stream)\n\n\nimport typing\nfrom collections import deque\n\
+    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
+    \        \n'''\n\ndef ext_gcd(a, b):\n    match a, b:\n        case 0,0: return\
+    \ 0, 1, 0\n        case _,0: return 1, 0, a\n        case 0,_: return 0, 1, b\n\
+    \        case _,_:\n            x,y,r,s = 1,0,0,1\n            while b:\n    \
+    \            q, c = divmod(a,b)\n                a, b, r, s, x, y = b, c, x -\
+    \ q*r, y - q*s, r, s\n            return x, y, a\n\n\nimport sys\nfrom typing\
+    \ import Type, TypeVar, overload\n\nimport typing\nfrom collections import deque\n\
     from numbers import Number\nfrom typing import Callable, Collection, Iterator,\
     \ TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream\
     \ = sys.stdin):\n        self.stream = stream\n        self.queue = deque()\n\n\
@@ -75,25 +85,36 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n"
-  code: "import cp_library.io.__header__\n\nimport sys\nfrom typing import Type, TypeVar\n\
-    \nT = TypeVar('T')\ndef read(spec: Type[T]|T=[int]) -> T:\n    stream = TokenStream(sys.stdin)\n\
-    \    parser = Parser.compile(spec)\n    return parser(stream)\n\nfrom cp_library.io.parser_cls\
-    \ import Parser, TokenStream"
+    \ parser\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec:\
+    \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
+    \            return list(map(int, input().split()))\n        case int(offset),\
+    \ False:\n            return [int(s)+offset for s in input().split()]\n      \
+    \  case _, _:\n            if char:\n                stream = CharStream(sys.stdin)\n\
+    \            else:\n                stream = TokenStream(sys.stdin)\n        \
+    \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\nif\
+    \ __name__ == \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc186/tasks/abc186_e\n\
+    \ndef solve():\n    N, S, K = read(tuple[int, ...])\n    # (S + ans*K) % N ==\
+    \ 0\n    \n    # K*x + N*y = gcd(K,N)\n    x, _, g = ext_gcd(K, N)\n    if S %\
+    \ g: return -1\n    N //= g\n    S //= g\n    return (N-S)*x%N\n    \n    \ndef\
+    \ main():\n    T = read(int)\n    for _ in range(T):\n        ans = solve()\n\
+    \        print(ans)\n\nfrom cp_library.math.ext_gcd_fn import ext_gcd\nfrom cp_library.io.read_specs_fn\
+    \ import read\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
+  - cp_library/math/ext_gcd_fn.py
+  - cp_library/io/read_specs_fn.py
   - cp_library/io/parser_cls.py
-  isVerificationFile: false
-  path: cp_library/io/legacy/read_specs_fn.py
+  isVerificationFile: true
+  path: test/abc186_e_gcd_ex.test.py
   requiredBy: []
   timestamp: '2024-11-04 22:12:43+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/grl_2_a_kruskal_heap.test.py
-  - test/grl_1_c_floyd_warshall.test.py
-documentation_of: cp_library/io/legacy/read_specs_fn.py
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/abc186_e_gcd_ex.test.py
 layout: document
 redirect_from:
-- /library/cp_library/io/legacy/read_specs_fn.py
-- /library/cp_library/io/legacy/read_specs_fn.py.html
-title: cp_library/io/legacy/read_specs_fn.py
+- /verify/test/abc186_e_gcd_ex.test.py
+- /verify/test/abc186_e_gcd_ex.test.py.html
+title: test/abc186_e_gcd_ex.test.py
 ---

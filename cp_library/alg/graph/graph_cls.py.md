@@ -192,7 +192,7 @@ data:
   requiredBy:
   - cp_library/io/read_tree_fn.py
   - cp_library/alg/tree/tree_cls.py
-  timestamp: '2024-11-04 21:00:10+09:00'
+  timestamp: '2024-11-04 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_3_a_tarjan_articulation_points.test.py
