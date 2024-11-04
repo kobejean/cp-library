@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
@@ -165,7 +165,7 @@ data:
   isVerificationFile: true
   path: test/abc274_e_vec2.test.py
   requiredBy: []
-  timestamp: '2024-11-04 17:54:46+09:00'
+  timestamp: '2024-11-04 21:00:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc274_e_vec2.test.py

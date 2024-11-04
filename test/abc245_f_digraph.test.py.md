@@ -1,6 +1,9 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':x:'
+    path: cp_library/alg/graph/digraph_cls.py
+    title: cp_library/alg/graph/digraph_cls.py
   - icon: ':question:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
@@ -10,26 +13,38 @@ data:
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/alg/tree/tree_set_cls.py
-    title: cp_library/alg/tree/tree_set_cls.py
+  - icon: ':question:'
+    path: cp_library/io/read_specs_fn.py
+    title: cp_library/io/read_specs_fn.py
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':x:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    PROBLEM: https://atcoder.jp/contests/abc184/tasks/abc245_f
+    links:
+    - https://atcoder.jp/contests/abc184/tasks/abc245_f
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc245_f\n\
+    \ndef main():\n    N, M = read(tuple[int,int])\n    G = read(DiGraph[N,M])\n \
+    \   ans = sum(label_cycles(G))\n    print(ans)\n\ndef label_cycles(G):\n    state\
+    \ = [0 for _ in range(G.N)]\n    stack = list(range(G.N))\n    cyc = [False]*G.N\n\
+    \n    while stack:\n        u = stack.pop()\n        match state[u]:\n       \
+    \     case 0:\n                stack.append(u)\n                for v in G[u]:\n\
+    \                    match state[v]:\n                        case 0:\n      \
+    \                      stack.append(v)\n                        case 1:\n    \
+    \                        cyc[v] = True\n            case 1:\n                cyc[u]\
+    \ = any(cyc[v] for v in G[u])\n        state[u] += 1\n    return cyc\n\n\n'''\n\
+    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nimport sys\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\
-    \nclass TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n\
-    \        self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\n\n\nimport\
+    \ sys\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    from typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass\
+    \ TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n      \
+    \  self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
     \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
@@ -146,35 +161,51 @@ data:
     \ != -1 and low[v] >= order[p]\n\n        return ap\n\n    @classmethod\n    def\
     \ compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n       \
     \ def parse(ts: TokenStream):\n            return cls(N, (edge(ts) for _ in range(M)))\n\
-    \        return parse\n    \n\nclass Graph(GraphProtocol):\n    def __init__(G,\
-    \ N: int, edges=[]):\n        super().__init__(set() for _ in range(N))\n    \
-    \    G.E = list(edges)\n        G.N, G.M = N, len(G.E)\n        for u,v in G.E:\n\
-    \            G[u].add(v)\n            G[v].add(u)\n\n    @classmethod\n    def\
-    \ compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n        if isinstance(E,\
-    \ int): E = Edge[E]\n        return super().compile(N, M, E)\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.edge_cls\
-    \ import Edge\nfrom cp_library.alg.graph.graph_proto import GraphProtocol\n\n\
-    class Graph(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n        super().__init__(set()\
-    \ for _ in range(N))\n        G.E = list(edges)\n        G.N, G.M = N, len(G.E)\n\
-    \        for u,v in G.E:\n            G[u].add(v)\n            G[v].add(u)\n\n\
-    \    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
-    \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
-    \ M, E)"
+    \        return parse\n    \n\nclass DiGraph(GraphProtocol):\n    def __init__(G,\
+    \ N: int, E=[]):\n        super().__init__([] for _ in range(N))\n        G.E\
+    \ = list(E)\n        G.N, G.M = N, len(G.E)\n        for u,v in G.E:\n       \
+    \     G[u].append(v)\n\n    def edge_ids(G) -> list[list[int]]:\n        Eid =\
+    \ [[] for _ in range(G.N)]\n        for e,(u,v) in enumerate(G.E):\n         \
+    \   Eid[u].append(e)\n        return Eid\n    \n    @classmethod\n    def compile(cls,\
+    \ N: int, M: int, E: type|int = Edge[-1]):\n        if isinstance(E, int): E =\
+    \ Edge[E]\n        return super().compile(N, M, E)\n\nfrom typing import Type,\
+    \ TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream(sys.stdin)\n\
+    \            else:\n                stream = TokenStream(sys.stdin)\n        \
+    \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\nif\
+    \ __name__ == \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc245_f\n\
+    \ndef main():\n    N, M = read(tuple[int,int])\n    G = read(DiGraph[N,M])\n \
+    \   ans = sum(label_cycles(G))\n    print(ans)\n\ndef label_cycles(G):\n    state\
+    \ = [0 for _ in range(G.N)]\n    stack = list(range(G.N))\n    cyc = [False]*G.N\n\
+    \n    while stack:\n        u = stack.pop()\n        match state[u]:\n       \
+    \     case 0:\n                stack.append(u)\n                for v in G[u]:\n\
+    \                    match state[v]:\n                        case 0:\n      \
+    \                      stack.append(v)\n                        case 1:\n    \
+    \                        cyc[v] = True\n            case 1:\n                cyc[u]\
+    \ = any(cyc[v] for v in G[u])\n        state[u] += 1\n    return cyc\n\n\nfrom\
+    \ cp_library.alg.graph.digraph_cls import DiGraph\nfrom cp_library.io.read_specs_fn\
+    \ import read\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
+  - cp_library/alg/graph/digraph_cls.py
+  - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/io/parser_cls.py
-  isVerificationFile: false
-  path: cp_library/alg/graph/graph_set_cls.py
-  requiredBy:
-  - cp_library/alg/tree/tree_set_cls.py
+  isVerificationFile: true
+  path: test/abc245_f_digraph.test.py
+  requiredBy: []
   timestamp: '2024-11-04 21:00:10+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: cp_library/alg/graph/graph_set_cls.py
+documentation_of: test/abc245_f_digraph.test.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/graph_set_cls.py
-- /library/cp_library/alg/graph/graph_set_cls.py.html
-title: cp_library/alg/graph/graph_set_cls.py
+- /verify/test/abc245_f_digraph.test.py
+- /verify/test/abc245_f_digraph.test.py.html
+title: test/abc245_f_digraph.test.py
 ---

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -225,7 +225,7 @@ data:
     \ 0, g = None):\n        D = [inf for _ in range(T.N)]\n        D[s] = 0\n   \
     \     state = [True for _ in range(T.N)]\n        stack = [s]\n\n        while\
     \ stack:\n            u = stack.pop()\n            if u == g: return D[u]\n  \
-    \          state[v] = False\n            for v in T[u]:\n                if state[v]:\n\
+    \          state[u] = False\n            for v in T[u]:\n                if state[v]:\n\
     \                    D[v] = D[u]+1\n                    stack.append(v)\n    \
     \    return D if g is None else inf \n\n\n    \n"
   code: "import cp_library.alg.tree.__header__\n\nfrom typing import overload, Literal\n\
@@ -247,7 +247,7 @@ data:
     \ 0, g = None):\n        D = [inf for _ in range(T.N)]\n        D[s] = 0\n   \
     \     state = [True for _ in range(T.N)]\n        stack = [s]\n\n        while\
     \ stack:\n            u = stack.pop()\n            if u == g: return D[u]\n  \
-    \          state[v] = False\n            for v in T[u]:\n                if state[v]:\n\
+    \          state[u] = False\n            for v in T[u]:\n                if state[v]:\n\
     \                    D[v] = D[u]+1\n                    stack.append(v)\n    \
     \    return D if g is None else inf \n\n\n    "
   dependsOn:
@@ -263,7 +263,7 @@ data:
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-04 17:54:46+09:00'
+  timestamp: '2024-11-04 21:00:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py

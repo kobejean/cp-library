@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
@@ -28,10 +28,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -274,7 +274,7 @@ data:
     \ 0, g = None):\n        D = [inf for _ in range(T.N)]\n        D[s] = 0\n   \
     \     state = [True for _ in range(T.N)]\n        stack = [s]\n\n        while\
     \ stack:\n            u = stack.pop()\n            if u == g: return D[u]\n  \
-    \          state[v] = False\n            for v in T[u]:\n                if state[v]:\n\
+    \          state[u] = False\n            for v in T[u]:\n                if state[v]:\n\
     \                    D[v] = D[u]+1\n                    stack.append(v)\n    \
     \    return D if g is None else inf \n\n\n    \n\nclass Tree(Graph, TreeProtocol):\n\
     \    @classmethod\n    def compile(cls, N: int, E: type|int = Edge[-1]):\n   \
@@ -316,7 +316,7 @@ data:
   isVerificationFile: true
   path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-11-04 17:54:46+09:00'
+  timestamp: '2024-11-04 21:00:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
