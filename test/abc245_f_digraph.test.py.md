@@ -1,31 +1,31 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_cls.py
     title: cp_library/alg/graph/digraph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    PROBLEM: https://atcoder.jp/contests/abc184/tasks/abc245_f
+    PROBLEM: https://atcoder.jp/contests/abc245/tasks/abc245_f
     links:
-    - https://atcoder.jp/contests/abc184/tasks/abc245_f
-  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc245_f\n\
+    - https://atcoder.jp/contests/abc245/tasks/abc245_f
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc245/tasks/abc245_f\n\
     \ndef main():\n    N, M = read(tuple[int,int])\n    G = read(DiGraph[N,M])\n \
     \   ans = sum(label_cycles(G))\n    print(ans)\n\ndef label_cycles(G):\n    state\
     \ = [0 for _ in range(G.N)]\n    stack = list(range(G.N))\n    cyc = [False]*G.N\n\
@@ -178,7 +178,7 @@ data:
     \            else:\n                stream = TokenStream(sys.stdin)\n        \
     \    parser: T = Parser.compile(spec)\n            return parser(stream)\n\nif\
     \ __name__ == \"__main__\":\n    main()\n"
-  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc245_f\n\
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc245/tasks/abc245_f\n\
     \ndef main():\n    N, M = read(tuple[int,int])\n    G = read(DiGraph[N,M])\n \
     \   ans = sum(label_cycles(G))\n    print(ans)\n\ndef label_cycles(G):\n    state\
     \ = [0 for _ in range(G.N)]\n    stack = list(range(G.N))\n    cyc = [False]*G.N\n\
@@ -199,8 +199,8 @@ data:
   isVerificationFile: true
   path: test/abc245_f_digraph.test.py
   requiredBy: []
-  timestamp: '2024-11-04 22:12:43+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-11-05 04:28:32+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc245_f_digraph.test.py
 layout: document

@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc245_f_digraph.test.py
     title: test/abc245_f_digraph.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -171,8 +171,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/digraph_cls.py
   requiredBy: []
-  timestamp: '2024-11-04 22:12:43+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-11-05 04:28:32+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc245_f_digraph.test.py
 documentation_of: cp_library/alg/graph/digraph_cls.py

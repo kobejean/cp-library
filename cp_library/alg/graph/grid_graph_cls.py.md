@@ -1,13 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/grid_direction_graph_cls.py
+    title: cp_library/alg/graph/grid_direction_graph_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/abc184_e_grid_graph.test.py
@@ -15,22 +18,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc184_e_grid_graph_bfs_fn.test.py
     title: test/abc184_e_grid_graph_bfs_fn.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc246_e_grid_direction_graph.test.py
+    title: test/abc246_e_grid_direction_graph.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "from collections.abc import Iterator\nfrom math import inf\nfrom typing\
-    \ import Iterable\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\nimport sys\nimport typing\nfrom collections import deque\nfrom\
-    \ numbers import Number\nfrom typing import Callable, Collection, Iterator, TypeAlias,\
-    \ TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n\
-    \        self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nfrom collections.abc import Iterator\nfrom typing import Iterable\n\n\nimport\
+    \ sys\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    from typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass\
+    \ TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n      \
+    \  self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
     \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
@@ -76,13 +82,13 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\n\nfrom typing import Iterable, overload\n\nclass GraphProtocol(list,\
-    \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
-    \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n \
-    \   def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
-    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
-    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        match s,\
-    \ g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \ parser\n\nfrom typing import Iterable, overload\nfrom math import inf\n\nclass\
+    \ GraphProtocol(list, Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
+    \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n  \
+    \  @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n   \
+    \ def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
     \            case s, None:\n                return G.bfs(s)\n            case\
     \ s, g:\n                return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s:\
     \ int = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: int, g: int) ->\
@@ -151,25 +157,31 @@ data:
     \        i,j = divmod(v, W)\n        adj = []\n        for di,dj in G.dirs:\n\
     \            ni,nj = i+di,j+dj\n            u = ni*W+nj\n            if 0 <= ni\
     \ < H and 0 <= nj < W and G.S[u] != G.wall:\n                adj.append(u)\n \
-    \       return adj\n    \n    def __len__(G) -> int:\n        return G.N\n   \
-    \ \n    def __getitem__(G, v):\n        return G.neighbors(v)\n    \n    def __iter__(G)\
-    \ -> Iterator:\n        return (G.neighbors(v) for v in range(G.N))\n    \n  \
-    \  @classmethod\n    def compile(cls, H: int, W: int):\n        def parse(ts:\
+    \       return adj\n    \n    def vertex(G, key: tuple[int,int] | int):\n    \
+    \    match key:\n            case i, j: return i*G.W+j\n            case v: return\
+    \ v\n\n    def is_valid(G, i, j, v):\n        return 0 <= i < G.H and 0 <= j <\
+    \ G.W and G.S[v] != G.wall\n    \n    def __len__(G) -> int:\n        return G.N\n\
+    \    \n    def __getitem__(G, v: int):\n        return G.neighbors(v)\n    \n\
+    \    def __iter__(G) -> Iterator:\n        return iter(G[v] for v in range(G.N))\n\
+    \    \n    @classmethod\n    def compile(cls, H: int, W: int):\n        def parse(ts:\
     \ TokenStream):\n            S = ''.join(next(ts.stream).rstrip() for _ in range(H))\n\
     \            return cls(H, W, S)\n        return parse\n"
-  code: "from collections.abc import Iterator\nfrom math import inf\nfrom typing import\
-    \ Iterable\nfrom cp_library.io.parser_cls import TokenStream\nfrom cp_library.alg.graph.graph_proto\
-    \ import GraphProtocol\n\nclass GridGraph(GraphProtocol):\n    def __init__(G,\
-    \ H, W, S=[]):\n        G.N = W*H\n        G.W = W\n        G.H = H\n        G.S\
-    \ = S\n        G.dirs = [(-1,0),(0,1),(1,0),(0,-1)]\n        G.wall = '#'\n  \
-    \  \n    def neighbors(G, v: int) -> Iterable[int]:\n        H, W = G.H, G.W\n\
-    \        i,j = divmod(v, W)\n        adj = []\n        for di,dj in G.dirs:\n\
-    \            ni,nj = i+di,j+dj\n            u = ni*W+nj\n            if 0 <= ni\
-    \ < H and 0 <= nj < W and G.S[u] != G.wall:\n                adj.append(u)\n \
-    \       return adj\n    \n    def __len__(G) -> int:\n        return G.N\n   \
-    \ \n    def __getitem__(G, v):\n        return G.neighbors(v)\n    \n    def __iter__(G)\
-    \ -> Iterator:\n        return (G.neighbors(v) for v in range(G.N))\n    \n  \
-    \  @classmethod\n    def compile(cls, H: int, W: int):\n        def parse(ts:\
+  code: "import cp_library.alg.graph.__header__\n\nfrom collections.abc import Iterator\n\
+    from typing import Iterable\nfrom cp_library.io.parser_cls import TokenStream\n\
+    from cp_library.alg.graph.graph_proto import GraphProtocol\n\nclass GridGraph(GraphProtocol):\n\
+    \    def __init__(G, H, W, S=[]):\n        G.N = W*H\n        G.W = W\n      \
+    \  G.H = H\n        G.S = S\n        G.dirs = [(-1,0),(0,1),(1,0),(0,-1)]\n  \
+    \      G.wall = '#'\n    \n    def neighbors(G, v: int) -> Iterable[int]:\n  \
+    \      H, W = G.H, G.W\n        i,j = divmod(v, W)\n        adj = []\n       \
+    \ for di,dj in G.dirs:\n            ni,nj = i+di,j+dj\n            u = ni*W+nj\n\
+    \            if 0 <= ni < H and 0 <= nj < W and G.S[u] != G.wall:\n          \
+    \      adj.append(u)\n        return adj\n    \n    def vertex(G, key: tuple[int,int]\
+    \ | int):\n        match key:\n            case i, j: return i*G.W+j\n       \
+    \     case v: return v\n\n    def is_valid(G, i, j, v):\n        return 0 <= i\
+    \ < G.H and 0 <= j < G.W and G.S[v] != G.wall\n    \n    def __len__(G) -> int:\n\
+    \        return G.N\n    \n    def __getitem__(G, v: int):\n        return G.neighbors(v)\n\
+    \    \n    def __iter__(G) -> Iterator:\n        return iter(G[v] for v in range(G.N))\n\
+    \    \n    @classmethod\n    def compile(cls, H: int, W: int):\n        def parse(ts:\
     \ TokenStream):\n            S = ''.join(next(ts.stream).rstrip() for _ in range(H))\n\
     \            return cls(H, W, S)\n        return parse"
   dependsOn:
@@ -177,12 +189,14 @@ data:
   - cp_library/alg/graph/graph_proto.py
   isVerificationFile: false
   path: cp_library/alg/graph/grid_graph_cls.py
-  requiredBy: []
-  timestamp: '2024-11-04 22:12:43+09:00'
+  requiredBy:
+  - cp_library/alg/graph/grid_direction_graph_cls.py
+  timestamp: '2024-11-05 04:28:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc184_e_grid_graph.test.py
   - test/abc184_e_grid_graph_bfs_fn.test.py
+  - test/abc246_e_grid_direction_graph.test.py
 documentation_of: cp_library/alg/graph/grid_graph_cls.py
 layout: document
 redirect_from:

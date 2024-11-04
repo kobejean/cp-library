@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/grid_graph_cls.py
     title: cp_library/alg/graph/grid_graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -26,22 +26,23 @@ data:
     from math import inf\nfrom typing import Iterable\n\ndef main():\n    H, W = read(tuple[int,\
     \ ...])\n    G = read(TeleportGraph[H,W])\n    s = g = None\n    for v,c in enumerate(G.S):\n\
     \        match c:\n            case 'S': s = v\n            case 'G': g = v\n\n\
-    \    ans = G.bfs(s, g)\n    print(ans if ans != inf else -1)\n    \nfrom collections.abc\
-    \ import Iterator\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \    ans = G.bfs(s, g)\n    print(ans if ans != inf else -1)\n    \n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\nimport sys\nimport typing\nfrom collections import deque\nfrom\
-    \ numbers import Number\nfrom typing import Callable, Collection, Iterator, TypeAlias,\
-    \ TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream = sys.stdin):\n\
-    \        self.stream = stream\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n\
-    \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \    https://kobejean.github.io/cp-library               \n'''\n\nfrom collections.abc\
+    \ import Iterator\n\n\nimport sys\nimport typing\nfrom collections import deque\n\
+    from numbers import Number\nfrom typing import Callable, Collection, Iterator,\
+    \ TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream\
+    \ = sys.stdin):\n        self.stream = stream\n        self.queue = deque()\n\n\
+    \    def __next__(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
+    \        \n    def line(self):\n        assert not self.queue\n        return\
+    \ next(self.stream).rstrip().split()\n\nclass CharStream(TokenStream):\n    def\
+    \ line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
     \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
     class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
     \ Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> T:\n    \
@@ -82,7 +83,7 @@ data:
     \ spec, n)\n            case _:\n                raise NotImplementedError()\n\
     \n        \nclass Parsable:\n    @classmethod\n    def compile(cls):\n       \
     \ def parser(ts: TokenStream):\n            return cls(next(ts))\n        return\
-    \ parser\n\n\nfrom typing import Iterable, overload\n\nclass GraphProtocol(list,\
+    \ parser\n\nfrom typing import Iterable, overload\n\nclass GraphProtocol(list,\
     \ Parsable):\n\n    def neighbors(G, v: int) -> Iterable[int]:\n        return\
     \ G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n \
     \   def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
@@ -157,10 +158,13 @@ data:
     \        i,j = divmod(v, W)\n        adj = []\n        for di,dj in G.dirs:\n\
     \            ni,nj = i+di,j+dj\n            u = ni*W+nj\n            if 0 <= ni\
     \ < H and 0 <= nj < W and G.S[u] != G.wall:\n                adj.append(u)\n \
-    \       return adj\n    \n    def __len__(G) -> int:\n        return G.N\n   \
-    \ \n    def __getitem__(G, v):\n        return G.neighbors(v)\n    \n    def __iter__(G)\
-    \ -> Iterator:\n        return (G.neighbors(v) for v in range(G.N))\n    \n  \
-    \  @classmethod\n    def compile(cls, H: int, W: int):\n        def parse(ts:\
+    \       return adj\n    \n    def vertex(G, key: tuple[int,int] | int):\n    \
+    \    match key:\n            case i, j: return i*G.W+j\n            case v: return\
+    \ v\n\n    def is_valid(G, i, j, v):\n        return 0 <= i < G.H and 0 <= j <\
+    \ G.W and G.S[v] != G.wall\n    \n    def __len__(G) -> int:\n        return G.N\n\
+    \    \n    def __getitem__(G, v: int):\n        return G.neighbors(v)\n    \n\
+    \    def __iter__(G) -> Iterator:\n        return iter(G[v] for v in range(G.N))\n\
+    \    \n    @classmethod\n    def compile(cls, H: int, W: int):\n        def parse(ts:\
     \ TokenStream):\n            S = ''.join(next(ts.stream).rstrip() for _ in range(H))\n\
     \            return cls(H, W, S)\n        return parse\n\nclass TeleportGraph(GridGraph):\n\
     \    def __init__(G, H, W, S=[]):\n        super().__init__(H, W, S)\n       \
@@ -203,7 +207,7 @@ data:
   isVerificationFile: true
   path: test/abc184_e_grid_graph.test.py
   requiredBy: []
-  timestamp: '2024-11-04 22:12:43+09:00'
+  timestamp: '2024-11-05 04:28:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc184_e_grid_graph.test.py

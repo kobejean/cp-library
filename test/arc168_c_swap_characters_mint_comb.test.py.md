@@ -78,7 +78,7 @@ data:
   isVerificationFile: true
   path: test/arc168_c_swap_characters_mint_comb.test.py
   requiredBy: []
-  timestamp: '2024-11-04 22:12:43+09:00'
+  timestamp: '2024-11-05 04:28:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc168_c_swap_characters_mint_comb.test.py

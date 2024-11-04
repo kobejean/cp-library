@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/slidingminmax_cls.py
     title: cp_library/ds/slidingminmax_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -125,7 +125,7 @@ data:
   isVerificationFile: true
   path: test/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2024-11-04 22:12:43+09:00'
+  timestamp: '2024-11-05 04:28:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/agc038_b_sliding_min_max.test.py

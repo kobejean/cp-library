@@ -76,7 +76,7 @@ data:
   path: cp_library/math/table/sieve_cls.py
   requiredBy:
   - cp_library/math/table/sieve_benchmarks.py
-  timestamp: '2024-11-04 22:12:43+09:00'
+  timestamp: '2024-11-05 04:28:32+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/sieve_cls.py

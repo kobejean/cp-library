@@ -12,6 +12,9 @@ data:
   - name: cp_library/alg/dp
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/dp/dp2d_cls.py
+      title: cp_library/alg/dp/dp2d_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/rerooting_iterative_cls.py
       title: cp_library/alg/dp/rerooting_iterative_cls.py
     - icon: ':heavy_check_mark:'
@@ -28,7 +31,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bfs_fn.py
       title: cp_library/alg/graph/bfs_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/digraph_cls.py
       title: cp_library/alg/graph/digraph_cls.py
     - icon: ':heavy_check_mark:'
@@ -37,7 +40,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dijkstra_fn.py
       title: cp_library/alg/graph/dijkstra_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/edge_cls.py
       title: cp_library/alg/graph/edge_cls.py
     - icon: ':heavy_check_mark:'
@@ -65,9 +68,12 @@ data:
       path: cp_library/alg/graph/floyds_cycle_fn.py
       title: cp_library/alg/graph/floyds_cycle_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/functional_graph_cls.py
+      title: cp_library/alg/graph/functional_graph_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_cls.py
       title: cp_library/alg/graph/graph_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_proto.py
       title: cp_library/alg/graph/graph_proto.py
     - icon: ':warning:'
@@ -80,6 +86,9 @@ data:
       path: cp_library/alg/graph/graph_weighted_proto.py
       title: cp_library/alg/graph/graph_weighted_proto.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/grid_direction_graph_cls.py
+      title: cp_library/alg/graph/grid_direction_graph_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/grid_graph_cls.py
       title: cp_library/alg/graph/grid_graph_cls.py
     - icon: ':heavy_check_mark:'
@@ -88,6 +97,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/kruskal_sort_fn.py
       title: cp_library/alg/graph/kruskal_sort_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/partial_functional_graph_cls.py
+      title: cp_library/alg/graph/partial_functional_graph_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/permutation_cls.py
+      title: cp_library/alg/graph/permutation_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/tarjan_articulation_points_fn.py
       title: cp_library/alg/graph/tarjan_articulation_points_fn.py
@@ -201,7 +216,7 @@ data:
       title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/io
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
@@ -213,7 +228,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_specs_fn.py
       title: cp_library/io/read_specs_fn.py
     - icon: ':heavy_check_mark:'
@@ -390,6 +405,9 @@ data:
   - name: test
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/abc175_d_permutation.test.py
+      title: test/abc175_d_permutation.test.py
+    - icon: ':heavy_check_mark:'
       path: test/abc184_e_grid_graph.test.py
       title: test/abc184_e_grid_graph.test.py
     - icon: ':heavy_check_mark:'
@@ -399,11 +417,17 @@ data:
       path: test/abc184_f_subset_sum_fn.test.py
       title: test/abc184_f_subset_sum_fn.test.py
     - icon: ':heavy_check_mark:'
+      path: test/abc185_e_dp2d.test.py
+      title: test/abc185_e_dp2d.test.py
+    - icon: ':heavy_check_mark:'
       path: test/abc186_e_gcd_ex.test.py
       title: test/abc186_e_gcd_ex.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc245_f_digraph.test.py
       title: test/abc245_f_digraph.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc246_e_grid_direction_graph.test.py
+      title: test/abc246_e_grid_direction_graph.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc274_e_vec2.test.py
       title: test/abc274_e_vec2.test.py
