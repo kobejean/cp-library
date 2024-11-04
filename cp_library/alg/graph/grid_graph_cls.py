@@ -1,5 +1,6 @@
+import cp_library.alg.graph.__header__
+
 from collections.abc import Iterator
-from math import inf
 from typing import Iterable
 from cp_library.io.parser_cls import TokenStream
 from cp_library.alg.graph.graph_proto import GraphProtocol
@@ -24,14 +25,22 @@ class GridGraph(GraphProtocol):
                 adj.append(u)
         return adj
     
+    def vertex(G, key: tuple[int,int] | int):
+        match key:
+            case i, j: return i*G.W+j
+            case v: return v
+
+    def is_valid(G, i, j, v):
+        return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall
+    
     def __len__(G) -> int:
         return G.N
     
-    def __getitem__(G, v):
+    def __getitem__(G, v: int):
         return G.neighbors(v)
     
     def __iter__(G) -> Iterator:
-        return (G.neighbors(v) for v in range(G.N))
+        return iter(G[v] for v in range(G.N))
     
     @classmethod
     def compile(cls, H: int, W: int):

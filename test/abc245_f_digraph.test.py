@@ -1,4 +1,4 @@
-# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc245_f
+# verification-helper: PROBLEM https://atcoder.jp/contests/abc245/tasks/abc245_f
 
 def main():
     N, M = read(tuple[int,int])
