@@ -24,17 +24,19 @@ class BinaryIndexTree:
     def set(self, i: int, x: int):
         self.add(i, x-self.get(i))
         
-    def add(self, i: int, x: object) -> None:
+    def add(self, i: int, x: int) -> None:
         assert 0 <= i <= self.size
         i += 1
-        while i <= self.size:
-            self.data[i-1], i = self.data[i-1] + x, i+(i&-i)
+        data, size = self.data, self.size
+        while i <= size:
+            data[i-1], i = data[i-1] + x, i+(i&-i)
 
     def pref_sum(self, i: int):
         assert 0 <= i <= self.size
         s = 0
+        data = self.data
         for _ in range(i.bit_count()):
-            s, i = s+self.data[i-1], i-(i&-i)
+            s, i = s+data[i-1], i-(i&-i)
         return s
     
     def range_sum(self, l: int, r: int):

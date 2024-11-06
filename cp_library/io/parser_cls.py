@@ -4,6 +4,7 @@ import sys
 import typing
 from collections import deque
 from numbers import Number
+from types import GenericAlias 
 from typing import Callable, Collection, Iterator, TypeAlias, TypeVar
 
 class TokenStream(Iterator):
@@ -58,7 +59,7 @@ class Parser:
     
     @staticmethod
     def compile(spec: type[T]|T=int) -> ParseFn[T]:
-        if isinstance(spec, type):
+        if isinstance(spec, (type, GenericAlias)):
             cls = typing.get_origin(spec) or spec
             args = typing.get_args(spec) or tuple()
             return Parser.compile_type(cls, args)

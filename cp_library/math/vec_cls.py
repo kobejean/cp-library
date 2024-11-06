@@ -5,7 +5,7 @@ from cp_library.math.elm_wise_mixin import ElmWiseMixin
 from typing import Iterable 
 from math import hypot
 
-class Vec(tuple, ElmWiseMixin, Parsable):
+class Vec(ElmWiseMixin, tuple, Parsable):
     def __new__(cls, *args):
         if len(args) == 1 and isinstance(args[0], Iterable):
             return super().__new__(cls, args[0])

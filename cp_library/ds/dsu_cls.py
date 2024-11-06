@@ -5,12 +5,12 @@ class DSU:
         self.n = n
         self.par = [-1] * n
 
-    def merge(self, u, v):
+    def merge(self, u, v, src = False):
         assert 0 <= u < self.n
         assert 0 <= v < self.n
 
         x, y = self.leader(u), self.leader(v)
-        if x == y: return x
+        if x == y: return (x,y) if src else x
 
         if -self.par[x] < -self.par[y]:
             x, y = y, x
@@ -18,7 +18,7 @@ class DSU:
         self.par[x] += self.par[y]
         self.par[y] = x
 
-        return x
+        return (x,y) if src else x
 
     def same(self, u: int, v: int):
         assert 0 <= u < self.n
