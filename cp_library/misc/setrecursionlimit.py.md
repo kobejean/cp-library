@@ -8,9 +8,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edmonds_fn.py
     title: cp_library/alg/graph/edmonds_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/tarjan_articulation_points_fn.py
-    title: cp_library/alg/graph/tarjan_articulation_points_fn.py
   - icon: ':warning:'
     path: cp_library/alg/tree/find_centroid_recursive_fn.py
     title: cp_library/alg/tree/find_centroid_recursive_fn.py
@@ -24,9 +21,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_2_b_edmonds_branching.test.py
     title: test/grl_2_b_edmonds_branching.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_3_a_tarjan_articulation_points.test.py
-    title: test/grl_3_a_tarjan_articulation_points.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_recursive.test.py
     title: test/grl_5_c_lca_table_recursive.test.py
@@ -60,15 +54,13 @@ data:
   path: cp_library/misc/setrecursionlimit.py
   requiredBy:
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  - cp_library/alg/graph/tarjan_articulation_points_fn.py
   - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  timestamp: '2024-11-05 04:28:32+09:00'
+  timestamp: '2024-11-15 01:34:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_recursive.test.py
-  - test/grl_3_a_tarjan_articulation_points.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
 documentation_of: cp_library/misc/setrecursionlimit.py

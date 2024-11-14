@@ -25,23 +25,24 @@ data:
     \n             https://kobejean.github.io/cp-library               \n'''\n\ndef\
     \ read(shift=0, base=10):\n    return [int(s, base) + shift for s in input().split()]\n\
     \n\nclass DSU:\n    def __init__(self, n):\n        self.n = n\n        self.par\
-    \ = [-1] * n\n\n    def merge(self, u, v):\n        assert 0 <= u < self.n\n \
-    \       assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
-    \        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n    \
-    \        x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
-    \ = x\n\n        return x\n\n    def same(self, u: int, v: int):\n        assert\
-    \ 0 <= u < self.n\n        assert 0 <= v < self.n\n        return self.leader(u)\
-    \ == self.leader(v)\n\n    def leader(self, i) -> int:\n        assert 0 <= i\
-    \ < self.n\n\n        p = self.par[i]\n        while p >= 0:\n            if self.par[p]\
-    \ < 0:\n                return p\n            self.par[i], i, p = self.par[p],\
-    \ self.par[p], self.par[self.par[p]]\n\n        return i\n\n    def size(self,\
-    \ i) -> int:\n        assert 0 <= i < self.n\n        \n        return -self.par[self.leader(i)]\n\
-    \n    def groups(self) -> list[list[int]]:\n        leader_buf = [self.leader(i)\
-    \ for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n  \
-    \      for i in range(self.n):\n            result[leader_buf[i]].append(i)\n\n\
-    \        return list(filter(lambda r: r, result))\n\nN, Q = read()\n\ndsu = DSU(N)\n\
-    \nfor _ in range(Q):\n    t, u, v = read()\n    if t:\n        print(int(dsu.same(u,\
-    \ v)))\n    else:\n        dsu.merge(u, v)\n\n"
+    \ = [-1] * n\n\n    def merge(self, u, v, src = False):\n        assert 0 <= u\
+    \ < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
+    \        if x == y: return (x,y) if src else x\n\n        if -self.par[x] < -self.par[y]:\n\
+    \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
+    \ = x\n\n        return (x,y) if src else x\n\n    def same(self, u: int, v: int):\n\
+    \        assert 0 <= u < self.n\n        assert 0 <= v < self.n\n        return\
+    \ self.leader(u) == self.leader(v)\n\n    def leader(self, i) -> int:\n      \
+    \  assert 0 <= i < self.n\n\n        p = self.par[i]\n        while p >= 0:\n\
+    \            if self.par[p] < 0:\n                return p\n            self.par[i],\
+    \ i, p = self.par[p], self.par[p], self.par[self.par[p]]\n\n        return i\n\
+    \n    def size(self, i) -> int:\n        assert 0 <= i < self.n\n        \n  \
+    \      return -self.par[self.leader(i)]\n\n    def groups(self) -> list[list[int]]:\n\
+    \        leader_buf = [self.leader(i) for i in range(self.n)]\n\n        result\
+    \ = [[] for _ in range(self.n)]\n        for i in range(self.n):\n           \
+    \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
+    \nN, Q = read()\n\ndsu = DSU(N)\n\nfor _ in range(Q):\n    t, u, v = read()\n\
+    \    if t:\n        print(int(dsu.same(u, v)))\n    else:\n        dsu.merge(u,\
+    \ v)\n\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind\n\
     \nfrom cp_library.io.read_int_fn import read\nfrom cp_library.ds.dsu_cls import\
     \ DSU\n\nN, Q = read()\n\ndsu = DSU(N)\n\nfor _ in range(Q):\n    t, u, v = read()\n\
@@ -53,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/unionfind.test.py
   requiredBy: []
-  timestamp: '2024-11-05 04:28:32+09:00'
+  timestamp: '2024-11-15 01:34:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind.test.py

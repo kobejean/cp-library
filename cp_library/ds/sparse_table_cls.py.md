@@ -17,6 +17,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/tree/tree_fast_cls.py
+    title: cp_library/alg/tree/tree_fast_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
@@ -42,6 +45,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/dp_v_subtree_rerooting_iterative.test.py
+    title: test/dp_v_subtree_rerooting_iterative.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/dp_v_subtree_rerooting_recursive.test.py
+    title: test/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
@@ -87,12 +96,13 @@ data:
   - cp_library/alg/tree/tree_set_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
+  - cp_library/alg/tree/tree_fast_cls.py
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2024-11-05 04:28:32+09:00'
+  timestamp: '2024-11-15 01:34:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
@@ -101,6 +111,8 @@ data:
   - test/abc361_e_tree_diameter.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - test/dp_v_subtree_rerooting_recursive.test.py
+  - test/dp_v_subtree_rerooting_iterative.test.py
 documentation_of: cp_library/ds/sparse_table_cls.py
 layout: document
 redirect_from:

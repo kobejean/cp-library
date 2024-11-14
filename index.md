@@ -1,6 +1,20 @@
 ---
 data:
   libraryCategories:
+  - name: .
+    pages:
+    - icon: ':warning:'
+      path: bundled.py
+      title: bundled.py
+    - icon: ':warning:'
+      path: main-bundled.py
+      title: main-bundled.py
+    - icon: ':warning:'
+      path: play.py
+      title: play.py
+    - icon: ':warning:'
+      path: token.py
+      title: token.py
   - name: cp_library/alg/divcon
     pages:
     - icon: ':heavy_check_mark:'
@@ -14,6 +28,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/dp2d_cls.py
       title: cp_library/alg/dp/dp2d_cls.py
+    - icon: ':x:'
+      path: cp_library/alg/dp/mo_cls.py
+      title: cp_library/alg/dp/mo_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/rerooting_iterative_cls.py
       title: cp_library/alg/dp/rerooting_iterative_cls.py
@@ -23,6 +40,9 @@ data:
   - name: cp_library/alg/graph
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/articulation_points_fn.py
+      title: cp_library/alg/graph/articulation_points_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bellman_ford_fn.py
       title: cp_library/alg/graph/bellman_ford_fn.py
     - icon: ':heavy_check_mark:'
@@ -31,6 +51,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bfs_fn.py
       title: cp_library/alg/graph/bfs_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/dfs_events_fn.py
+      title: cp_library/alg/graph/dfs_events_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/dfs_options_cls.py
+      title: cp_library/alg/graph/dfs_options_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/digraph_cls.py
       title: cp_library/alg/graph/digraph_cls.py
@@ -55,6 +81,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/edmonds_fn.py
       title: cp_library/alg/graph/edmonds_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/find_cycle_fn.py
+      title: cp_library/alg/graph/find_cycle_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
       title: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
@@ -85,27 +114,33 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_weighted_proto.py
       title: cp_library/alg/graph/graph_weighted_proto.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/alg/graph/grid_direction_graph_cls.py
       title: cp_library/alg/graph/grid_direction_graph_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/alg/graph/grid_graph_cls.py
       title: cp_library/alg/graph/grid_graph_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/grid_graph_proto.py
+      title: cp_library/alg/graph/grid_graph_proto.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/kruskal_heap_fn.py
       title: cp_library/alg/graph/kruskal_heap_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/kruskal_sort_fn.py
       title: cp_library/alg/graph/kruskal_sort_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
+      title: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/lazy_grid_graph_cls.py
+      title: cp_library/alg/graph/lazy_grid_graph_cls.py
     - icon: ':warning:'
       path: cp_library/alg/graph/partial_functional_graph_cls.py
       title: cp_library/alg/graph/partial_functional_graph_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/permutation_cls.py
       title: cp_library/alg/graph/permutation_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/tarjan_articulation_points_fn.py
-      title: cp_library/alg/graph/tarjan_articulation_points_fn.py
   - name: cp_library/alg/tree
     pages:
     - icon: ':warning:'
@@ -138,6 +173,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_cls.py
       title: cp_library/alg/tree/tree_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/tree/tree_fast_cls.py
+      title: cp_library/alg/tree/tree_fast_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_proto.py
       title: cp_library/alg/tree/tree_proto.py
@@ -179,6 +217,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
+    - icon: ':question:'
+      path: cp_library/ds/elist_fn.py
+      title: cp_library/ds/elist_fn.py
     - icon: ':warning:'
       path: cp_library/ds/grid.py
       title: cp_library/ds/grid.py
@@ -191,6 +232,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu_cls.py
       title: PotentializedDSU (generalized with groups)
+    - icon: ':x:'
+      path: cp_library/ds/queries_cls.py
+      title: cp_library/ds/queries_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/segtree_cls.py
       title: cp_library/ds/segtree_cls.py
@@ -216,7 +260,7 @@ data:
       title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/io
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
@@ -228,12 +272,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_specs_fn.py
       title: cp_library/io/read_specs_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/read_tree_fn.py
-      title: cp_library/io/read_tree_fn.py
   - name: cp_library/math
     pages:
     - icon: ':warning:'
@@ -288,11 +329,11 @@ data:
       path: cp_library/math/sum_of_squares_fn.py
       title: cp_library/math/sum_of_squares_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/vec2_cls.py
-      title: cp_library/math/vec2_cls.py
+      path: cp_library/math/vec2d_cls.py
+      title: cp_library/math/vec2d_cls.py
     - icon: ':warning:'
-      path: cp_library/math/vec3_cls.py
-      title: cp_library/math/vec3_cls.py
+      path: cp_library/math/vec3d_cls.py
+      title: cp_library/math/vec3d_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/vec_cls.py
       title: cp_library/math/vec_cls.py
@@ -393,14 +434,6 @@ data:
     - icon: ':warning:'
       path: cp_library/vis/plot_graph_weighted_fn.py
       title: cp_library/vis/plot_graph_weighted_fn.py
-  - name: .
-    pages:
-    - icon: ':warning:'
-      path: main-bundled.py
-      title: main-bundled.py
-    - icon: ':warning:'
-      path: play.py
-      title: play.py
   verificationCategories:
   - name: test
     pages:
@@ -423,14 +456,23 @@ data:
       path: test/abc186_e_gcd_ex.test.py
       title: test/abc186_e_gcd_ex.test.py
     - icon: ':heavy_check_mark:'
+      path: test/abc189_e_vec2d.test.py
+      title: test/abc189_e_vec2d.test.py
+    - icon: ':heavy_check_mark:'
       path: test/abc245_f_digraph.test.py
       title: test/abc245_f_digraph.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc246_e_grid_direction_graph.test.py
       title: test/abc246_e_grid_direction_graph.test.py
+    - icon: ':x:'
+      path: test/abc261_g_mo.test.py
+      title: test/abc261_g_mo.test.py
+    - icon: ':x:'
+      path: test/abc261_g_queries_mo.test.py
+      title: test/abc261_g_queries_mo.test.py
     - icon: ':heavy_check_mark:'
-      path: test/abc274_e_vec2.test.py
-      title: test/abc274_e_vec2.test.py
+      path: test/abc274_e_vec2d.test.py
+      title: test/abc274_e_vec2d.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
       title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
@@ -501,11 +543,11 @@ data:
       path: test/grl_2_b_edmonds_branching.test.py
       title: test/grl_2_b_edmonds_branching.test.py
     - icon: ':heavy_check_mark:'
-      path: test/grl_3_a_find_articulation_points.test.py
-      title: test/grl_3_a_find_articulation_points.test.py
+      path: test/grl_3_a_articulation_points_fn.test.py
+      title: test/grl_3_a_articulation_points_fn.test.py
     - icon: ':heavy_check_mark:'
-      path: test/grl_3_a_tarjan_articulation_points.test.py
-      title: test/grl_3_a_tarjan_articulation_points.test.py
+      path: test/grl_3_a_graph_articulation_points.test.py
+      title: test/grl_3_a_graph_articulation_points.test.py
     - icon: ':heavy_check_mark:'
       path: test/grl_5_c_lca_table_iterative.test.py
       title: test/grl_5_c_lca_table_iterative.test.py

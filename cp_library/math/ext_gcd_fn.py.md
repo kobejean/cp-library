@@ -31,7 +31,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/ext_gcd_fn.py
   requiredBy: []
-  timestamp: '2024-11-05 04:28:32+09:00'
+  timestamp: '2024-11-15 01:34:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc186_e_gcd_ex.test.py

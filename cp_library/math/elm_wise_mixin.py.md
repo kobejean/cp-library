@@ -12,18 +12,21 @@ data:
     path: cp_library/math/mutvec_cls.py
     title: cp_library/math/mutvec_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec2_cls.py
-    title: cp_library/math/vec2_cls.py
+    path: cp_library/math/vec2d_cls.py
+    title: cp_library/math/vec2d_cls.py
   - icon: ':warning:'
-    path: cp_library/math/vec3_cls.py
-    title: cp_library/math/vec3_cls.py
+    path: cp_library/math/vec3d_cls.py
+    title: cp_library/math/vec3d_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/vec_cls.py
     title: cp_library/math/vec_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc274_e_vec2.test.py
-    title: test/abc274_e_vec2.test.py
+    path: test/abc189_e_vec2d.test.py
+    title: test/abc189_e_vec2d.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc274_e_vec2d.test.py
+    title: test/abc274_e_vec2d.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -73,14 +76,15 @@ data:
   requiredBy:
   - cp_library/math/mutvec_cls.py
   - cp_library/math/mat_cls.py
-  - cp_library/math/vec2_cls.py
+  - cp_library/math/vec2d_cls.py
   - cp_library/math/elm_wise_in_place_mixin.py
+  - cp_library/math/vec3d_cls.py
   - cp_library/math/vec_cls.py
-  - cp_library/math/vec3_cls.py
-  timestamp: '2024-11-05 04:28:32+09:00'
+  timestamp: '2024-11-15 01:34:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc274_e_vec2.test.py
+  - test/abc189_e_vec2d.test.py
+  - test/abc274_e_vec2d.test.py
 documentation_of: cp_library/math/elm_wise_mixin.py
 layout: document
 redirect_from:
