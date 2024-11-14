@@ -8,9 +8,7 @@ from operator import itemgetter
 
 class DiGraphWeighted(GraphWeightedProtocol):
     def __init__(G, N, E: list = []):
-        super().__init__([] for _ in range(N))
-        G.E = list(E)
-        G.N, G.M = N, len(G.E)
+        super().__init__(N, E, ([] for _ in range(N)))
         for u,v,*w in G.E:
             G[u].append((v,*w))
     

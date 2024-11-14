@@ -4,10 +4,9 @@ from cp_library.alg.graph.edge_weighted_cls import EdgeWeighted
 from cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol
 
 class GraphWeighted(GraphWeightedProtocol):
-    def __init__(G, N: int, edges=[]):
-        super().__init__([] for _ in range(N))
-        G.E = list(edges)
-        G.N, G.M = N, len(G.E)
+    def __init__(G, N: int, E=[]):
+        super().__init__(N, E, ([] for _ in range(N)))
+        G.E = E
         for u,v,*w in G.E:
             G[u].append((v,*w))
             G[v].append((u,*w))

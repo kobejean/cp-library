@@ -14,9 +14,9 @@ def main():
     ans = G.bfs(s, g)
     print(ans if ans != inf else -1)
     
-from cp_library.alg.graph.grid_graph_cls import GridGraph
+from cp_library.alg.graph.lazy_grid_graph_cls import LazyGridGraph
 
-class TeleportGraph(GridGraph):
+class TeleportGraph(LazyGridGraph):
     def __init__(G, H, W, S=[]):
         super().__init__(H, W, S)
         G.group = group = [set() for _ in range(26)]

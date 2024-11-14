@@ -1,0 +1,164 @@
+# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v
+
+
+def main():
+    N, M = read(tuple[int, ...])
+    T = read(Tree[N])
+    deg = T.deg
+    adj = T.adj
+    start = T.start
+    end = T.end
+
+    def merge(a,b):
+        return a*b%M
+
+    def add_node(v,res):
+        return (res+1)%M
+    
+    e = 1
+    dpc = [e]*N
+    suf = [e]*N
+    ans = [e]*N
+
+    order, par = dfs_topdown(T, 0, True)
+    cur = end.copy()
+    # print(start)
+    # print(adj)
+    # print(par)
+
+    def up():
+        # up
+        for u, v in order[:0:-1]:
+            dpc[v] = add_node(u, ans[v])
+            ans[u] = merge(ans[u], dpc[v])
+            ans[v] = e
+            if (nc := cur[u]-1) > start[u]:
+                suf[nc] = merge(suf[cur[u]], dpc[v])
+                cur[u] = nc
+        ans[0] = e
+    def down():
+        # down        
+        for p, u in order:
+            pre = ans[u]
+            for idx in range(start[u]+(p!=-1), end[u]):
+                v = adj[idx]
+                ans[v] = add_node(v, merge(suf[idx], pre))
+                pre = merge(pre, dpc[v])
+            ans[u] = pre
+    up()
+    down()
+
+    # print(*ans, sep='\n')
+    write_int(ans, sep='\n')
+
+
+from cp_library.ds.elist_fn import elist
+
+def dfs_topdown(T, s: int|list[int]|None = None, connect_roots = False):
+    '''Returns list of (u,v) representing u->v edges in order of top down discovery'''
+    stack: list[int] = elist(T.N)
+    vis = [False]*T.N
+    edges: list[tuple[int,int]] = elist(T.N)
+    adj = T.adj
+    par = [-1]*T.N
+
+    for s in T.starts(s):
+        if vis[s]: continue
+        if connect_roots:
+            edges.append((-1,s))
+        vis[s] = True
+        stack.append(s)
+        while stack:
+            u = stack.pop()
+            start = T.start[u] 
+            end = T.end[u]
+            for idx in range(start, end):
+                v = adj[idx]
+                if vis[v]:
+                    adj[idx], adj[start] = adj[start], adj[idx]
+                    if idx != start:
+                        par[adj[idx]] = idx
+                    continue
+                vis[v] = True
+                par[v] = idx
+                edges.append((u,v))
+                stack.append(v)
+    return edges, par
+
+from array import array
+from math import ceil, log10
+import os
+
+def write_int(numbers, sep=' '):
+    if not numbers:
+        os.write(1, b'\n')
+        return
+    
+    # Ensure we're working with an array type
+    arr = numbers if isinstance(numbers, array) else array('i', numbers)
+    
+    # Pre-compute separator byte
+    sep_byte = sep.encode('ascii')[0]
+    
+    # JIT-friendly max computation without abs() calls in loop
+    max_val = arr[0]
+    min_val = arr[0]
+    for num in arr:
+        if num > max_val:
+            max_val = num
+        if num < min_val:
+            min_val = num
+    
+    # Use positive values for size calculation
+    extreme = max(max_val if max_val > 0 else -max_val,
+                 -min_val if min_val < 0 else min_val,
+                 1)
+    
+    chars_per_num = ceil(log10(extreme)) + 2
+    buffer_size = len(arr) * chars_per_num + 1
+    buffer = bytearray(buffer_size)
+    pos = 0
+    
+    # Process numbers directly without chunking for better JIT optimization
+    for num in arr:
+        # Direct string conversion without format()
+        if num < 0:
+            buffer[pos] = ord('-')
+            pos += 1
+            num = -num
+        
+        # Convert number to string manually
+        if num == 0:
+            buffer[pos] = ord('0')
+            pos += 1
+        else:
+            # Calculate digits needed
+            temp = num
+            digits = 0
+            while temp > 0:
+                digits += 1
+                temp //= 10
+            
+            # Write digits from right to left
+            start_pos = pos + digits - 1
+            temp = num
+            while temp > 0:
+                buffer[start_pos] = ord('0') + (temp % 10)
+                start_pos -= 1
+                temp //= 10
+            pos += digits
+        
+        buffer[pos] = sep_byte
+        pos += 1
+    
+    # Replace last separator with newline
+    buffer[pos-1] = ord('\n')
+    
+    # Write buffer
+    os.write(1, memoryview(buffer)[:pos])
+
+from cp_library.alg.tree.tree_fast_cls import Tree
+from cp_library.io.read_specs_fn import read
+
+if __name__ == '__main__':
+    main()

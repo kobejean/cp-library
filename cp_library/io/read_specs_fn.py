@@ -17,8 +17,8 @@ def read(spec: Type[T]|T=None, char=False):
             return [int(s)+offset for s in input().split()]
         case _, _:
             if char:
-                stream = CharStream(sys.stdin)
+                stream = CharStream()
             else:
-                stream = TokenStream(sys.stdin)
+                stream = TokenStream()
             parser: T = Parser.compile(spec)
             return parser(stream)

@@ -3,11 +3,12 @@
 def main():
     N, M = read()
     G = read(Graph[N,M,0])
-    ans = sorted(tarjan_articulation_points(G, N))
+    ap = articulation_points(G)
+    ans = [v for v,b in enumerate(ap) if b]
     if ans:
         print(*ans, sep='\n')
 
-from cp_library.alg.graph.tarjan_articulation_points_fn import tarjan_articulation_points
+from cp_library.alg.graph.articulation_points_fn import articulation_points
 from cp_library.alg.graph.graph_cls import Graph
 from cp_library.io.read_specs_fn import read
 

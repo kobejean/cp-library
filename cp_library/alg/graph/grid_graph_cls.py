@@ -1,50 +1,14 @@
 import cp_library.alg.graph.__header__
+from cp_library.alg.graph.grid_graph_proto import GridGraphProtocol
 
-from collections.abc import Iterator
-from typing import Iterable
-from cp_library.io.parser_cls import TokenStream
-from cp_library.alg.graph.graph_proto import GraphProtocol
-
-class GridGraph(GraphProtocol):
-    def __init__(G, H, W, S=[]):
-        G.N = W*H
-        G.W = W
-        G.H = H
-        G.S = S
-        G.dirs = [(-1,0),(0,1),(1,0),(0,-1)]
-        G.wall = '#'
-    
-    def neighbors(G, v: int) -> Iterable[int]:
-        H, W = G.H, G.W
-        i,j = divmod(v, W)
-        adj = []
-        for di,dj in G.dirs:
-            ni,nj = i+di,j+dj
-            u = ni*W+nj
-            if 0 <= ni < H and 0 <= nj < W and G.S[u] != G.wall:
-                adj.append(u)
-        return adj
-    
-    def vertex(G, key: tuple[int,int] | int):
-        match key:
-            case i, j: return i*G.W+j
-            case v: return v
-
-    def is_valid(G, i, j, v):
-        return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall
-    
-    def __len__(G) -> int:
-        return G.N
-    
-    def __getitem__(G, v: int):
-        return G.neighbors(v)
-    
-    def __iter__(G) -> Iterator:
-        return iter(G[v] for v in range(G.N))
-    
-    @classmethod
-    def compile(cls, H: int, W: int):
-        def parse(ts: TokenStream):
-            S = ''.join(next(ts.stream).rstrip() for _ in range(H))
-            return cls(H, W, S)
-        return parse
+class GridGraph(GridGraphProtocol):
+    def __init__(G, H, W, S=[], dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):
+        super().__init__(H, W, S, dirs, wall,
+            (tuple(v 
+                for di,dj in dirs
+                    if (0 <= (ni:=i+di) < H 
+                        and 0 <= (nj:=j+dj) < W  
+                        and S[v:=ni*W+nj] != wall)
+            ) if S[i*W+j] != wall else tuple()
+            for i in range(H) for j in range(W))
+        )

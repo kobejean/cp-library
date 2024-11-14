@@ -1,5 +1,12 @@
 {
-    "python.defaultInterpreterPath": "~/miniforge3/envs/atcoder",
-    "python.analysis.autoImportCompletions": false,
-    "python.analysis.include": ["/Users/kobejean/miniforge3/envs/atcoder/lib/pypy3.10/site-packages"]
+    "python.defaultInterpreterPath": "~/miniforge3/envs/atcoder/bin/pypy",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.include": [
+        "/Users/kobejean/miniforge3/envs/atcoder/lib/pypy3.10/site-packages",
+        "${workspaceFolder}/**",
+    ],
+    "python.analysis.exclude": [
+        "${workspaceFolder}/test/**",
+    ],
+    "editor.detectIndentation": false
 }

@@ -1,6 +1,6 @@
 import cp_library.alg.graph.__header__
 
-from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
 class FunctionalGraph(list[int], Parsable):
     def __init__(F, successors):
@@ -38,6 +38,4 @@ class FunctionalGraph(list[int], Parsable):
 
     @classmethod
     def compile(cls, N: int, shift = -1):
-        def parse(ts: TokenStream):
-            return cls(int(next(ts))+shift for _ in range(N))
-        return parse
+        return Parser.compile_n_ints(cls, N, shift)

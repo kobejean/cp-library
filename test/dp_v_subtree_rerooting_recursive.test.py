@@ -2,7 +2,7 @@
 
 def main():
     N, M = read()
-    T = read_tree(N)
+    T = read(Tree[N])
 
     def mul(a,b):
         return a*b%M
@@ -16,7 +16,7 @@ def main():
 
 from cp_library.alg.dp.rerooting_recursive_cls import ReRootingDP
 from cp_library.io.read_specs_fn import read
-from cp_library.io.read_tree_fn import read_tree
+from cp_library.alg.tree.tree_cls import Tree
 
 if __name__ == '__main__':
     main()

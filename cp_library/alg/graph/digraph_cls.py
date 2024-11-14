@@ -4,10 +4,8 @@ from cp_library.alg.graph.edge_cls import Edge
 from cp_library.alg.graph.graph_proto import GraphProtocol
 
 class DiGraph(GraphProtocol):
-    def __init__(G, N: int, E=[]):
-        super().__init__([] for _ in range(N))
-        G.E = list(E)
-        G.N, G.M = N, len(G.E)
+    def __init__(G, N: int, E: list[Edge]=[]):
+        super().__init__(N, E, ([] for _ in range(N)))
         for u,v in G.E:
             G[u].append(v)
 

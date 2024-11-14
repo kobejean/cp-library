@@ -21,13 +21,13 @@ def main():
 from collections import deque
 from math import inf
 from typing import Iterable
-from cp_library.alg.graph.grid_direction_graph_cls import GridDirectionGraph
+from cp_library.alg.graph.lazy_grid_direction_graph_cls import LazyGridDirectionGraph
 from cp_library.io.read_specs_fn import read
 
-class BishopBoard(GridDirectionGraph):
+class BishopBoard(LazyGridDirectionGraph):
     def __init__(G, H, W, S=...):
-        super().__init__(H, W, S)
-        G.dirs = [(1,1),(1,-1),(-1,1),(-1,-1)]
+        dirs = [(1,1),(1,-1),(-1,1),(-1,-1)]
+        super().__init__(H, W, S, dirs)
     
     def free_move(G, v: int, dir: int) -> Iterable[int]:
         if dir < 0: return v
