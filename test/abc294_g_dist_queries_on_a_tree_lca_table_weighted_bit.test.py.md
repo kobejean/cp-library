@@ -34,16 +34,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -475,15 +475,15 @@ data:
     \ self.data\n        for _ in range(i.bit_count()):\n            s, i = s+data[i-1],\
     \ i-(i&-i)\n        return s\n    \n    def range_sum(self, l: int, r: int):\n\
     \        return self.pref_sum(r) - self.pref_sum(l)\n\nfrom typing import Type,\
-    \ TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) ->\
-    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
-    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
-    \ None, False:\n            return list(map(int, input().split()))\n        case\
-    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
-    \        case _, _:\n            if char:\n                stream = CharStream()\n\
-    \            else:\n                stream = TokenStream()\n            parser:\
-    \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
-    \ \"__main__\":\n    main()\n"
+    \ TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n\
+    @overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
+    \    match spec, char:\n        case None, False:\n            return list(map(int,\
+    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
+    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
+    \          stream = CharStream()\n            else:\n                stream =\
+    \ TokenStream()\n            parser: T = Parser.compile(spec)\n            return\
+    \ parser(stream)\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    E = read(EdgeListWeighted[N-1])\n    T =\
     \ GraphWeighted(N, E)\n    lca = LCATableWeighted(T)\n    bit = BinaryIndexTree(lca.weights)\n\
@@ -519,7 +519,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

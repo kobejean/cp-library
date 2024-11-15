@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
@@ -146,27 +146,28 @@ data:
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
     \            return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n\
-    @overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream()\n            else:\n                stream =\
-    \ TokenStream()\n            parser: T = Parser.compile(spec)\n            return\
-    \ parser(stream)\nmod = 998244353\n\nN, = read()\nif N < 10:\n    \n    \n   \
-    \ def subset_convolution(A, B, N):\n        Z = 1 << N\n    \n        # Prepare\
-    \ arrays for rank (popcount) decomposition\n        Arank = [[0]*Z for _ in range(N+1)]\n\
-    \        Brank = [[0]*Z for _ in range(N+1)]\n    \n        # Initialize rank\
-    \ arrays\n        for mask in range(Z):\n            rank = mask.bit_count()\n\
-    \            Arank[rank][mask] = A[mask]\n            Brank[rank][mask] = B[mask]\n\
-    \    \n        # Zeta transform for each rank\n        for Ar in Arank: zeta_transform(Ar,\
-    \ N)\n        for Br in Brank: zeta_transform(Br, N)\n    \n        # Convolution\n\
-    \        Crank = [[0 for _ in range(Z)] for _ in range(N+1)]\n        for mask\
-    \ in range(Z):\n            L = mask.bit_count()+1\n            for i in range(L):\n\
-    \                for j in range(min(L, N+1-i)):\n                    k = i+j\n\
-    \                    Crank[k][mask] = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]\n\
-    \    \n        # M\xF6bius transform (inverse of Zeta transform)\n        for\
-    \ Cr in Crank: mobius_transform(Cr, N)\n            \n        # Combine results\n\
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\nmod = 998244353\n\
+    \nN, = read()\nif N < 10:\n    \n    \n    def subset_convolution(A, B, N):\n\
+    \        Z = 1 << N\n    \n        # Prepare arrays for rank (popcount) decomposition\n\
+    \        Arank = [[0]*Z for _ in range(N+1)]\n        Brank = [[0]*Z for _ in\
+    \ range(N+1)]\n    \n        # Initialize rank arrays\n        for mask in range(Z):\n\
+    \            rank = mask.bit_count()\n            Arank[rank][mask] = A[mask]\n\
+    \            Brank[rank][mask] = B[mask]\n    \n        # Zeta transform for each\
+    \ rank\n        for Ar in Arank: zeta_transform(Ar, N)\n        for Br in Brank:\
+    \ zeta_transform(Br, N)\n    \n        # Convolution\n        Crank = [[0 for\
+    \ _ in range(Z)] for _ in range(N+1)]\n        for mask in range(Z):\n       \
+    \     L = mask.bit_count()+1\n            for i in range(L):\n               \
+    \ for j in range(min(L, N+1-i)):\n                    k = i+j\n              \
+    \      Crank[k][mask] = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]\n   \
+    \ \n        # M\xF6bius transform (inverse of Zeta transform)\n        for Cr\
+    \ in Crank: mobius_transform(Cr, N)\n            \n        # Combine results\n\
     \        C = [0] * Z\n        for mask in range(Z):\n            rank = mask.bit_count()\n\
     \            C[mask] = Crank[rank][mask]\n    \n        return C\n    \n    \n\
     \    \n    def zeta_transform(A, N, block=5):\n        for i in range(min(block,N)):\n\
@@ -253,7 +254,7 @@ data:
   isVerificationFile: true
   path: test/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/subset_convolution.test.py

@@ -28,7 +28,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/dp2d_cls.py
       title: cp_library/alg/dp/dp2d_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/mo_cls.py
       title: cp_library/alg/dp/mo_cls.py
     - icon: ':heavy_check_mark:'
@@ -217,7 +217,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/elist_fn.py
       title: cp_library/ds/elist_fn.py
     - icon: ':warning:'
@@ -232,7 +232,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu_cls.py
       title: PotentializedDSU (generalized with groups)
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/queries_cls.py
       title: cp_library/ds/queries_cls.py
     - icon: ':heavy_check_mark:'
@@ -260,7 +260,7 @@ data:
       title: cp_library/io/legacy/read_specs_fn.py
   - name: cp_library/io
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
@@ -272,7 +272,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_specs_fn.py
       title: cp_library/io/read_specs_fn.py
   - name: cp_library/math
@@ -464,10 +464,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc246_e_grid_direction_graph.test.py
       title: test/abc246_e_grid_direction_graph.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc261_g_mo.test.py
       title: test/abc261_g_mo.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc261_g_queries_mo.test.py
       title: test/abc261_g_queries_mo.test.py
     - icon: ':heavy_check_mark:'

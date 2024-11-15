@@ -16,13 +16,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -357,27 +357,28 @@ data:
     \                if (0 <= (ni:=i+di) < H \n                    and 0 <= (nj:=j+dj)\
     \ < W  \n                    and S[v:=ni*W+nj] != wall)\n        ) if S[u] !=\
     \ wall else tuple()\n\nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n\
-    @overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream()\n            else:\n                stream =\
-    \ TokenStream()\n            parser: T = Parser.compile(spec)\n            return\
-    \ parser(stream)\n\nclass BishopBoard(LazyGridDirectionGraph):\n    def __init__(G,\
-    \ H, W, S=...):\n        dirs = [(1,1),(1,-1),(-1,1),(-1,-1)]\n        super().__init__(H,\
-    \ W, S, dirs)\n    \n    def free_move(G, v: int, dir: int) -> Iterable[int]:\n\
-    \        if dir < 0: return v\n        H, W = G.H, G.W\n        i,j = divmod(v,\
-    \ W)\n        di,dj = G.dirs[dir]\n        ni,nj = i+di,j+dj\n        if G.is_valid(ni,\
-    \ nj, u := ni*W+nj):\n            return u\n        return v\n    \n    def bfs(G,\
-    \ s = 0, g = None):\n        D = [[inf]*4 for _ in range(G.N)]\n        D[s] =\
-    \ [0]*4\n        q = deque([(s,-1)])\n        while q:\n            u, dir = q.popleft()\n\
-    \            if u == g: return D[u][dir]\n            \n            nd = D[u][dir]\n\
-    \            if nd < D[v := G.free_move(u,dir)][dir]:\n                D[v][dir]\
-    \ = nd\n                q.appendleft((v,dir))\n            nd += 1\n         \
-    \   for v, ndir in G[u]:\n                if nd < D[v][ndir]:\n              \
-    \      D[v][ndir] = nd\n                    q.append((v,ndir))\n\n        return\
-    \ D if g is None else inf    \n\nif __name__ == \"__main__\":\n    main()\n"
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\nclass BishopBoard(LazyGridDirectionGraph):\n\
+    \    def __init__(G, H, W, S=...):\n        dirs = [(1,1),(1,-1),(-1,1),(-1,-1)]\n\
+    \        super().__init__(H, W, S, dirs)\n    \n    def free_move(G, v: int, dir:\
+    \ int) -> Iterable[int]:\n        if dir < 0: return v\n        H, W = G.H, G.W\n\
+    \        i,j = divmod(v, W)\n        di,dj = G.dirs[dir]\n        ni,nj = i+di,j+dj\n\
+    \        if G.is_valid(ni, nj, u := ni*W+nj):\n            return u\n        return\
+    \ v\n    \n    def bfs(G, s = 0, g = None):\n        D = [[inf]*4 for _ in range(G.N)]\n\
+    \        D[s] = [0]*4\n        q = deque([(s,-1)])\n        while q:\n       \
+    \     u, dir = q.popleft()\n            if u == g: return D[u][dir]\n        \
+    \    \n            nd = D[u][dir]\n            if nd < D[v := G.free_move(u,dir)][dir]:\n\
+    \                D[v][dir] = nd\n                q.appendleft((v,dir))\n     \
+    \       nd += 1\n            for v, ndir in G[u]:\n                if nd < D[v][ndir]:\n\
+    \                    D[v][ndir] = nd\n                    q.append((v,ndir))\n\
+    \n        return D if g is None else inf    \n\nif __name__ == \"__main__\":\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc246/tasks/abc246_e\n\
     \ndef solve():\n    N = read(int)\n    Ax, Ay = read(tuple[-1, ...])\n    Bx,\
     \ By = read(tuple[-1, ...])\n    G = read(BishopBoard[N,N])\n    \n    if (Ax+Ay)&1\
@@ -412,7 +413,7 @@ data:
   isVerificationFile: true
   path: test/abc246_e_grid_direction_graph.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc246_e_grid_direction_graph.test.py

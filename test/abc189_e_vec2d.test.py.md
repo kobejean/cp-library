@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
@@ -148,26 +148,26 @@ data:
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
     \            return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n\
-    @overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream()\n            else:\n                stream =\
-    \ TokenStream()\n            parser: T = Parser.compile(spec)\n            return\
-    \ parser(stream)\n\n\n\n\nimport operator\nfrom typing import Sequence\n\nclass\
-    \ ElmWiseMixin:\n    def elm_wise(self, other, op):\n        if isinstance(other,\
-    \ Number):\n            return type(self)(op(x, other) for x in self)\n      \
-    \  if isinstance(other, Sequence):\n            return type(self)(op(x, y) for\
-    \ x, y in zip(self, other))\n        raise ValueError(\"Operand must be a number\
-    \ or a tuple of the same length\")\n\n    def __add__(self, other): return self.elm_wise(other,\
-    \ operator.add)\n    def __radd__(self, other): return self.elm_wise(other, operator.add)\n\
-    \    def __sub__(self, other): return self.elm_wise(other, operator.sub)\n   \
-    \ def __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
-    \    def __mul__(self, other): return self.elm_wise(other, operator.mul)\n   \
-    \ def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n    def\
-    \ __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n  \
-    \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\n\n\nimport\
+    \ operator\nfrom typing import Sequence\n\nclass ElmWiseMixin:\n    def elm_wise(self,\
+    \ other, op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
+    \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
+    \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
+    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
+    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
+    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
+    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
+    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
+    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
+    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
+    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
     \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
     \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
     \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\nfrom\
@@ -221,7 +221,7 @@ data:
   isVerificationFile: true
   path: test/abc189_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc189_e_vec2d.test.py

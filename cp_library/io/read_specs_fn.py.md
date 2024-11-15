@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -36,10 +36,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc246_e_grid_direction_graph.test.py
     title: test/abc246_e_grid_direction_graph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc261_g_mo.test.py
     title: test/abc261_g_mo.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc261_g_queries_mo.test.py
     title: test/abc261_g_queries_mo.test.py
   - icon: ':heavy_check_mark:'
@@ -93,9 +93,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -206,32 +206,32 @@ data:
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
     \            return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n\
-    @overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream()\n            else:\n                stream =\
-    \ TokenStream()\n            parser: T = Parser.compile(spec)\n            return\
-    \ parser(stream)\n"
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n"
   code: "import cp_library.io.__header__\n\nimport sys\nfrom typing import Type, TypeVar,\
     \ overload\nfrom cp_library.io.parser_cls import Parser, TokenStream, CharStream\n\
-    \nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\n\
-    def read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None,\
-    \ char=False):\n    match spec, char:\n        case None, False:\n           \
-    \ return list(map(int, input().split()))\n        case int(offset), False:\n \
-    \           return [int(s)+offset for s in input().split()]\n        case _, _:\n\
-    \            if char:\n                stream = CharStream()\n            else:\n\
-    \                stream = TokenStream()\n            parser: T = Parser.compile(spec)\n\
-    \            return parser(stream)\n"
+    \nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False)\
+    \ -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n\
+    \        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream()\n            else:\n                stream = TokenStream()\n\
+    \            parser: T = Parser.compile(spec)\n            return parser(stream)\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   isVerificationFile: false
   path: cp_library/io/read_specs_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-15 01:34:01+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-11-16 03:24:02+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_mo.test.py
   - test/abc184_f_subset_sum_fn.test.py

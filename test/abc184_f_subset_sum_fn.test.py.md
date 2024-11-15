@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
@@ -136,17 +136,17 @@ data:
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
     \            return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n\
-    @overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream()\n            else:\n                stream =\
-    \ TokenStream()\n            parser: T = Parser.compile(spec)\n            return\
-    \ parser(stream)\n\n\ndef subset_sum(A):\n    dp = [0]*(1 << len(A))\n    for\
-    \ i,a in enumerate(A):\n        for mask in range(bit := 1 << i):\n          \
-    \  dp[mask^bit] = dp[mask] + a\n    return dp\n\nif __name__ == \"__main__\":\n\
-    \    main()\n"
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\ndef subset_sum(A):\n\
+    \    dp = [0]*(1 << len(A))\n    for i,a in enumerate(A):\n        for mask in\
+    \ range(bit := 1 << i):\n            dp[mask^bit] = dp[mask] + a\n    return dp\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc184_f\n\
     \n\nfrom bisect import bisect_left\n\ndef solve(N, T, A):\n    if N <= 5:\n  \
     \      A = sorted(subset_sum(A))\n        return max_lim(A, T)\n    else:\n  \
@@ -165,7 +165,7 @@ data:
   isVerificationFile: true
   path: test/abc184_f_subset_sum_fn.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc184_f_subset_sum_fn.test.py

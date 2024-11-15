@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/dp2d_cls.py
     title: cp_library/alg/dp/dp2d_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -133,20 +133,21 @@ data:
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
     \            return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n\
-    @overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream()\n            else:\n                stream =\
-    \ TokenStream()\n            parser: T = Parser.compile(spec)\n            return\
-    \ parser(stream)\n\nfrom typing import TypeVar, Generic, Container\nfrom dataclasses\
-    \ import dataclass\nfrom math import inf\n\nT = TypeVar('T')\n\n@dataclass\nclass\
-    \ Transition2D(Generic[T]):\n    di: int\n    dj: int\n    \n    def __call__(self,\
-    \ i: int, j: int, src: T, dest: T) -> T:\n        \"\"\"Override this to implement\
-    \ transition logic\"\"\"\n        return src  # Default no-op\n    \n    @classmethod\n\
-    \    def make(cls, func):\n        class Transition(cls):\n            def __call__(self,\
-    \ i: int, j: int, src: T, dest: T) -> T:\n                return func(i,j,src,dest)\n\
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\nfrom typing import\
+    \ TypeVar, Generic, Container\nfrom dataclasses import dataclass\nfrom math import\
+    \ inf\n\nT = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[T]):\n   \
+    \ di: int\n    dj: int\n    \n    def __call__(self, i: int, j: int, src: T, dest:\
+    \ T) -> T:\n        \"\"\"Override this to implement transition logic\"\"\"\n\
+    \        return src  # Default no-op\n    \n    @classmethod\n    def make(cls,\
+    \ func):\n        class Transition(cls):\n            def __call__(self, i: int,\
+    \ j: int, src: T, dest: T) -> T:\n                return func(i,j,src,dest)\n\
     \        return Transition\n    \nT = TypeVar('T')\nclass DynamicProgramming2D(Generic[T],\
     \ Parsable, Container):\n    def __init__(self, rows: int, cols: int, default:\
     \ T = inf):\n        self.rows = rows\n        self.cols = cols\n        self.table\
@@ -189,7 +190,7 @@ data:
   isVerificationFile: true
   path: test/abc185_e_dp2d.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc185_e_dp2d.test.py

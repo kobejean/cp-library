@@ -13,13 +13,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -356,14 +356,15 @@ data:
     \                G.group[i] = None\n                adj.update(super().neighbors(v))\n\
     \                return adj\n            case _: return super().neighbors(v)\n\
     \    \n\n\nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\n\
-    def read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T,\
-    \ char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match\
-    \ spec, char:\n        case None, False:\n            return list(map(int, input().split()))\n\
-    \        case int(offset), False:\n            return [int(s)+offset for s in\
-    \ input().split()]\n        case _, _:\n            if char:\n               \
-    \ stream = CharStream()\n            else:\n                stream = TokenStream()\n\
-    \            parser: T = Parser.compile(spec)\n            return parser(stream)\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    def read() -> list[int]: ...\n@overload\ndef read(spec: int|None) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec:\
+    \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
+    \            return list(map(int, input().split()))\n        case int(offset),\
+    \ False:\n            return [int(s)+offset for s in input().split()]\n      \
+    \  case _, _:\n            if char:\n                stream = CharStream()\n \
+    \           else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
+    \ \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc184_e\n\
     from math import inf\nfrom typing import Iterable\n\ndef main():\n    H, W = read(tuple[int,\
     \ ...])\n    G = read(TeleportGraph[H,W])\n    s = g = None\n    for v,c in enumerate(G.S):\n\
@@ -390,7 +391,7 @@ data:
   isVerificationFile: true
   path: test/abc184_e_grid_graph.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc184_e_grid_graph.test.py

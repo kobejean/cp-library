@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/mo_cls.py
     title: cp_library/alg/dp/mo_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc293/tasks/abc293_g
     links:
@@ -151,21 +151,22 @@ data:
     \        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n    \
     \        return cls((query(ts) for _ in range(Q)), N)\n        return parse\n\n\
     \nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\n\
-    def read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T,\
-    \ char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match\
-    \ spec, char:\n        case None, False:\n            return list(map(int, input().split()))\n\
-    \        case int(offset), False:\n            return [int(s)+offset for s in\
-    \ input().split()]\n        case _, _:\n            if char:\n               \
-    \ stream = CharStream()\n            else:\n                stream = TokenStream()\n\
-    \            parser: T = Parser.compile(spec)\n            return parser(stream)\n\
-    \nclass TripletQueries(Mo):\n    cnt = [0]*200001      \n    pairs = [0]*200001\
-    \    \n    triples = 0\n    A: list[int] = None\n\n    def add(self, i):\n   \
-    \     v = self.A[i]\n        self.triples += self.pairs[v]    \n        self.pairs[v]\
-    \ += self.cnt[v]     \n        self.cnt[v] += 1 \n    \n    def remove(self, i):\n\
-    \        v = self.A[i]\n        self.cnt[v] -= 1 \n        self.pairs[v] -= self.cnt[v]\
-    \     \n        self.triples -= self.pairs[v]   \n\n    def answer(self, i, l,\
-    \ r):\n        return self.triples \n    \n    def solve(self, A):\n        self.A\
-    \ = A\n        return super().solve()\n\nif __name__ == \"__main__\":\n    main()\n"
+    def read() -> list[int]: ...\n@overload\ndef read(spec: int|None) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec:\
+    \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
+    \            return list(map(int, input().split()))\n        case int(offset),\
+    \ False:\n            return [int(s)+offset for s in input().split()]\n      \
+    \  case _, _:\n            if char:\n                stream = CharStream()\n \
+    \           else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\nclass TripletQueries(Mo):\n\
+    \    cnt = [0]*200001      \n    pairs = [0]*200001    \n    triples = 0\n   \
+    \ A: list[int] = None\n\n    def add(self, i):\n        v = self.A[i]\n      \
+    \  self.triples += self.pairs[v]    \n        self.pairs[v] += self.cnt[v]   \
+    \  \n        self.cnt[v] += 1 \n    \n    def remove(self, i):\n        v = self.A[i]\n\
+    \        self.cnt[v] -= 1 \n        self.pairs[v] -= self.cnt[v]     \n      \
+    \  self.triples -= self.pairs[v]   \n\n    def answer(self, i, l, r):\n      \
+    \  return self.triples \n    \n    def solve(self, A):\n        self.A = A\n \
+    \       return super().solve()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
     \n\ndef main():\n    N, Q = read(tuple[int, ...])\n    A = read(list[int])\n \
     \   mo = read(TripletQueries[Q, N])\n    \n    print(*mo.solve(A), sep='\\n')\n\
@@ -185,8 +186,8 @@ data:
   isVerificationFile: true
   path: test/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-11-16 03:24:02+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc261_g_mo.test.py
 layout: document

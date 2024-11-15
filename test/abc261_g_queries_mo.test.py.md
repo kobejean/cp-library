@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/queries_cls.py
     title: cp_library/ds/queries_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc293/tasks/abc293_g
     links:
@@ -206,15 +206,15 @@ data:
     \ int, N: int, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
     \        def parse(ts: TokenStream):\n            return cls([query(ts) for _\
     \ in range(Q)], N)\n        return parse\n\nfrom typing import Type, TypeVar,\
-    \ overload\n\nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec:\
-    \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
-    \            return list(map(int, input().split()))\n        case int(offset),\
-    \ False:\n            return [int(s)+offset for s in input().split()]\n      \
-    \  case _, _:\n            if char:\n                stream = CharStream()\n \
-    \           else:\n                stream = TokenStream()\n            parser:\
-    \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
-    \ \"__main__\":\n    main()\n"
+    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
+    def read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T,\
+    \ char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match\
+    \ spec, char:\n        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream()\n            else:\n                stream = TokenStream()\n\
+    \            parser: T = Parser.compile(spec)\n            return parser(stream)\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
     \n\ndef main():\n    N, Q = read()\n    A = read()\n    queries = read(QueriesMoOps[Q,\
     \ N])\n    \n    # State for counting triples\n    cnt = [0]*200001        \n\
@@ -238,8 +238,8 @@ data:
   isVerificationFile: true
   path: test/abc261_g_queries_mo.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-11-16 03:24:02+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc261_g_queries_mo.test.py
 layout: document

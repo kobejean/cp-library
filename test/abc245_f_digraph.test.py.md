@@ -13,13 +13,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -344,14 +344,15 @@ data:
     \  return Eid\n    \n    @classmethod\n    def compile(cls, N: int, M: int, E:\
     \ type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n        return\
     \ super().compile(N, M, E)\n\nfrom typing import Type, TypeVar, overload\n\nT\
-    \ = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\n\
-    def read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None,\
-    \ char=False):\n    match spec, char:\n        case None, False:\n           \
-    \ return list(map(int, input().split()))\n        case int(offset), False:\n \
-    \           return [int(s)+offset for s in input().split()]\n        case _, _:\n\
-    \            if char:\n                stream = CharStream()\n            else:\n\
-    \                stream = TokenStream()\n            parser: T = Parser.compile(spec)\n\
-    \            return parser(stream)\n\nif __name__ == \"__main__\":\n    main()\n"
+    \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False)\
+    \ -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n\
+    \        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream()\n            else:\n                stream = TokenStream()\n\
+    \            parser: T = Parser.compile(spec)\n            return parser(stream)\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc245/tasks/abc245_f\n\
     \ndef main():\n    N, M = read(tuple[int,int])\n    G = read(DiGraph[N,M])\n \
     \   ans = sum(label_cycles(G))\n    print(ans)\n\ndef label_cycles(G):\n    state\
@@ -375,7 +376,7 @@ data:
   isVerificationFile: true
   path: test/abc245_f_digraph.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc245_f_digraph.test.py

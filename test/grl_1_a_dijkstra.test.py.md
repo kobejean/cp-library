@@ -25,13 +25,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -155,38 +155,39 @@ data:
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
     \            return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n\
-    @overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n\
-    \    match spec, char:\n        case None, False:\n            return list(map(int,\
-    \ input().split()))\n        case int(offset), False:\n            return [int(s)+offset\
-    \ for s in input().split()]\n        case _, _:\n            if char:\n      \
-    \          stream = CharStream()\n            else:\n                stream =\
-    \ TokenStream()\n            parser: T = Parser.compile(spec)\n            return\
-    \ parser(stream)\n\n\nfrom heapq import heappop, heappush\n\n@overload\ndef dijkstra(G,\
-    \ s: int = 0) -> list[int]: ...\n@overload\ndef dijkstra(G, s: int, g: int) ->\
-    \ int: ...\ndef dijkstra(G, s = 0, g: int|None = None):\n    N = len(G)\n    D\
-    \ = [inf for _ in range(N)]\n    D[s] = 0\n    q = [(0, s)]\n    while q:\n  \
-    \      d, v = heappop(q)\n        if d > D[v]: continue\n        if v == g: return\
-    \ d\n        for u, w, *_ in G[v]:\n            if (nd := d + w) < D[u]:\n   \
-    \             D[u] = nd\n                heappush(q, (nd, u))\n    return D if\
-    \ g is None else inf\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n \
-    \   def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n           \
-    \ u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
-    \ parse\n\nfrom functools import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n\
-    \    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
-    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
-    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
-    \       return parse\n\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
-    \n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
-    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
-    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
-    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
-    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
-    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
-    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
-    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
-    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\nfrom heapq\
+    \ import heappop, heappush\n\n@overload\ndef dijkstra(G, s: int = 0) -> list[int]:\
+    \ ...\n@overload\ndef dijkstra(G, s: int, g: int) -> int: ...\ndef dijkstra(G,\
+    \ s = 0, g: int|None = None):\n    N = len(G)\n    D = [inf for _ in range(N)]\n\
+    \    D[s] = 0\n    q = [(0, s)]\n    while q:\n        d, v = heappop(q)\n   \
+    \     if d > D[v]: continue\n        if v == g: return d\n        for u, w, *_\
+    \ in G[v]:\n            if (nd := d + w) < D[u]:\n                D[u] = nd\n\
+    \                heappush(q, (nd, u))\n    return D if g is None else inf\n\n\n\
+    \nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n\
+    \        def parse(ts: TokenStream):\n            u,v = ts.line()\n          \
+    \  return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools import\
+    \ total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def __lt__(self,\
+    \ other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
+    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
+    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nfrom heapq\
+    \ import heapify, heappop, heappush\nimport operator\n\n\nfrom enum import auto,\
+    \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
+    \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
+    \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
+    \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
+    \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
+    \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
+    \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
+    \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \ntry:\n    from\
     \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
     \ return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n\
@@ -437,7 +438,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_a_dijkstra.test.py

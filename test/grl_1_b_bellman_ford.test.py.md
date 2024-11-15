@@ -28,13 +28,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -411,14 +411,15 @@ data:
     \ G[v])\n    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int\
     \ = EdgeWeighted[-1]):\n        if isinstance(E, int): E = EdgeWeighted[E]\n \
     \       return super().compile(N, M, E)\n\nfrom typing import Type, TypeVar, overload\n\
-    \nT = TypeVar('T')\n@overload\ndef read(spec: int|None) -> list[int]: ...\n@overload\n\
-    def read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec: Type[T]|T=None,\
-    \ char=False):\n    match spec, char:\n        case None, False:\n           \
-    \ return list(map(int, input().split()))\n        case int(offset), False:\n \
-    \           return [int(s)+offset for s in input().split()]\n        case _, _:\n\
-    \            if char:\n                stream = CharStream()\n            else:\n\
-    \                stream = TokenStream()\n            parser: T = Parser.compile(spec)\n\
-    \            return parser(stream)\n\nif __name__ == '__main__':\n    main()\n"
+    \nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False)\
+    \ -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n\
+    \        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream()\n            else:\n                stream = TokenStream()\n\
+    \            parser: T = Parser.compile(spec)\n            return parser(stream)\n\
+    \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_B\n\
     from math import inf\n\ndef main():\n    N, M, r = read()\n    G = read(DiGraphWeighted[N,\
     \ M, 0])\n\n    neg_cycle, D = bellman_ford(G, N, r)\n\n    if neg_cycle:\n  \
@@ -443,7 +444,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_b_bellman_ford.test.py
   requiredBy: []
-  timestamp: '2024-11-15 01:34:01+09:00'
+  timestamp: '2024-11-16 03:24:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_b_bellman_ford.test.py
