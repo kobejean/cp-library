@@ -9,6 +9,7 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    
     steps:
     - name: Configure swap space
       run: |
@@ -18,12 +19,7 @@ jobs:
         sudo mkswap /swapfile
         sudo swapon /swapfile
         sudo swapon --show
-    
-    container:
-      image: ubuntu:latest
-      options: --memory=6g --memory-swap=8g
-      
-    steps:
+
     - uses: actions/checkout@v3
 
     - name: Set up Python
