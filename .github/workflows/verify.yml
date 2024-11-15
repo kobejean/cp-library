@@ -9,9 +9,20 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    steps:
+    - name: Configure swap space
+      run: |
+        sudo swapoff -a
+        sudo fallocate -l 8G /swapfile
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
+        sudo swapon --show
+    
     container:
-      options: --memory=4g  # Increase as needed
-
+      image: ubuntu:latest
+      options: --memory=6g --memory-swap=8g
+      
     steps:
     - uses: actions/checkout@v3
 
