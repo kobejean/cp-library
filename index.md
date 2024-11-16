@@ -1,20 +1,6 @@
 ---
 data:
   libraryCategories:
-  - name: .
-    pages:
-    - icon: ':warning:'
-      path: bundled.py
-      title: bundled.py
-    - icon: ':warning:'
-      path: main-bundled.py
-      title: main-bundled.py
-    - icon: ':warning:'
-      path: play.py
-      title: play.py
-    - icon: ':warning:'
-      path: token.py
-      title: token.py
   - name: cp_library/alg/divcon
     pages:
     - icon: ':heavy_check_mark:'

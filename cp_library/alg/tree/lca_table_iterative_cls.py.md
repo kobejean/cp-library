@@ -134,7 +134,7 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-16 11:24:00+09:00'
+  timestamp: '2024-11-16 11:51:16+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py

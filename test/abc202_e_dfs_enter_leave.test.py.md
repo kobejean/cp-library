@@ -478,7 +478,7 @@ data:
   isVerificationFile: true
   path: test/abc202_e_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2024-11-16 11:26:19+09:00'
+  timestamp: '2024-11-16 11:51:16+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/abc202_e_dfs_enter_leave.test.py

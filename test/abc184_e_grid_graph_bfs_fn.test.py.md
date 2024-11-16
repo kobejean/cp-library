@@ -404,7 +404,7 @@ data:
   isVerificationFile: true
   path: test/abc184_e_grid_graph_bfs_fn.test.py
   requiredBy: []
-  timestamp: '2024-11-16 11:26:19+09:00'
+  timestamp: '2024-11-16 11:51:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc184_e_grid_graph_bfs_fn.test.py
