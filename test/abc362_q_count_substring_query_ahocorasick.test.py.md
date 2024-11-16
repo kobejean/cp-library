@@ -72,7 +72,7 @@ data:
   isVerificationFile: true
   path: test/abc362_q_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc362_q_count_substring_query_ahocorasick.test.py

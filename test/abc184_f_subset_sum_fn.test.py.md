@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
@@ -165,7 +165,7 @@ data:
   isVerificationFile: true
   path: test/abc184_f_subset_sum_fn.test.py
   requiredBy: []
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc184_f_subset_sum_fn.test.py

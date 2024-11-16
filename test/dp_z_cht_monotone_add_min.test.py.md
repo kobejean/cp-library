@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/cht_monotone_add_min_cls.py
     title: cp_library/ds/cht_monotone_add_min_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
@@ -167,7 +167,7 @@ data:
   isVerificationFile: true
   path: test/dp_z_cht_monotone_add_min.test.py
   requiredBy: []
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_z_cht_monotone_add_min.test.py

@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':warning:'
@@ -44,13 +44,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':warning:'
     path: cp_library/alg/tree/tree_fast_cls.py
     title: cp_library/alg/tree/tree_fast_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
   - icon: ':warning:'
@@ -69,7 +69,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc184_e_grid_graph_bfs_fn.test.py
     title: test/abc184_e_grid_graph_bfs_fn.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc202_e_dfs_enter_leave.test.py
     title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
@@ -114,9 +114,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_3_a_graph_articulation_points.test.py
     title: test/grl_3_a_graph_articulation_points.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -620,8 +620,8 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-16 11:51:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-11-16 19:58:23+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py
   - test/abc202_e_dfs_enter_leave.test.py

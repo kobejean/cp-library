@@ -227,7 +227,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/ntt_cls.py
   requiredBy: []
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/ntt_cls.py

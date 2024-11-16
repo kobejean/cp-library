@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/functional_graph_cls.py
     title: cp_library/alg/graph/functional_graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -151,7 +151,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/permutation_cls.py
   requiredBy: []
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc175_d_permutation.test.py

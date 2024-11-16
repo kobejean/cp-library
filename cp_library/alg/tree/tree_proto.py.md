@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':warning:'
@@ -39,7 +39,7 @@ data:
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc202_e_dfs_enter_leave.test.py
     title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
@@ -57,9 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\n\nfrom typing import overload, Literal\nfrom functools import cached_property\n\
@@ -485,8 +485,8 @@ data:
   - cp_library/alg/tree/tree_fast_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-16 11:51:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-11-16 19:58:23+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc202_e_dfs_enter_leave.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py

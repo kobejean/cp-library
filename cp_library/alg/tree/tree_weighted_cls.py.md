@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
@@ -19,31 +19,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -544,7 +544,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc361_e_tree_diameter.test.py

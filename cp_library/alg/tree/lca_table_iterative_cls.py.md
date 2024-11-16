@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
   _extendedRequiredBy:
   - icon: ':warning:'
     path: cp_library/alg/tree/auxiliary_tree_cls.py
     title: cp_library/alg/tree/auxiliary_tree_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':warning:'
     path: cp_library/alg/tree/tree_fast_cls.py
     title: cp_library/alg/tree/tree_fast_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
   - icon: ':warning:'
@@ -30,7 +30,7 @@ data:
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc202_e_dfs_enter_leave.test.py
     title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
@@ -51,9 +51,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -134,8 +134,8 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-16 11:51:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-11-16 19:58:23+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
   - test/abc202_e_dfs_enter_leave.test.py

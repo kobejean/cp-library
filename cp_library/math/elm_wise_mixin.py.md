@@ -80,7 +80,7 @@ data:
   - cp_library/math/elm_wise_in_place_mixin.py
   - cp_library/math/vec3d_cls.py
   - cp_library/math/vec_cls.py
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc189_e_vec2d.test.py

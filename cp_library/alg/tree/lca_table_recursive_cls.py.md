@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
   - icon: ':heavy_check_mark:'
@@ -68,7 +68,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_recursive_cls.py
   requiredBy: []
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_recursive.test.py

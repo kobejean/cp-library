@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':warning:'
@@ -182,7 +182,7 @@ data:
   path: cp_library/math/mutvec_cls.py
   requiredBy:
   - cp_library/math/mat_cls.py
-  timestamp: '2024-11-16 11:51:16+09:00'
+  timestamp: '2024-11-16 19:58:23+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mutvec_cls.py
