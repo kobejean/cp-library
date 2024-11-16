@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -30,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc189_e_vec2d.test.py
     title: test/abc189_e_vec2d.test.py
+  - icon: ':x:'
+    path: test/abc202_e_dfs_enter_leave.test.py
+    title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc245_f_digraph.test.py
     title: test/abc245_f_digraph.test.py
@@ -93,9 +96,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -185,10 +188,10 @@ data:
     \ args)\n        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
     \    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n\
     \        def parse(ts: TokenStream):\n            return cls(fn(ts) for _ in ts.wait())\n\
-    \        return parse\n    \n    @staticmethod\n    def compile_n_ints(cls: T,\
-    \ N, shift = int) -> ParseFn[T]:\n        shift = shift if isinstance(shift, int)\
-    \ else 0\n        def parse(ts: TokenStream):\n            return cls(ts.n_ints(N,\
-    \ shift))\n        return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \        return parse\n    \n    # @staticmethod\n    # def compile_n_ints(cls:\
+    \ T, N, shift = int) -> ParseFn[T]:\n    #     shift = shift if isinstance(shift,\
+    \ int) else 0\n    #     def parse(ts: TokenStream):\n    #         return cls(ts.n_ints(N,\
+    \ shift))\n    #     return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
     \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
     \ TokenStream):\n            return cls(fn(ts) for _ in range(N))\n        return\
     \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
@@ -200,8 +203,8 @@ data:
     \              return Parser.compile_children(cls, specs)\n    \n    @staticmethod\n\
     \    def compile_collection(cls, specs):\n        match specs:\n            case\
     \ [ ] | [_] | set():\n                return Parser.compile_line(cls, *specs)\n\
-    \            case [spec, int() as N]:\n                if issubclass(spec, int)\
-    \ or isinstance(spec, int):\n                    return Parser.compile_n_ints(cls,\
+    \            case [spec, int() as N]:\n                # if issubclass(spec, int)\
+    \ or isinstance(spec, int):\n                #     return Parser.compile_n_ints(cls,\
     \ N, spec)\n                return Parser.compile_repeat(cls, spec, N)\n     \
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
@@ -230,12 +233,13 @@ data:
   path: cp_library/io/read_specs_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-16 03:24:02+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-11-16 11:24:00+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/abc261_g_mo.test.py
   - test/abc184_f_subset_sum_fn.test.py
   - test/abc375_g_find_bridges.test.py
+  - test/abc202_e_dfs_enter_leave.test.py
   - test/grl_1_b_bellman_ford.test.py
   - test/abc184_e_grid_graph.test.py
   - test/agc038_b_sliding_min_max.test.py

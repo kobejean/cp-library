@@ -1,9 +1,6 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/dp/rerooting_iterative_cls.py
-    title: cp_library/alg/dp/rerooting_iterative_cls.py
   - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
@@ -25,9 +22,6 @@ data:
   - icon: ':question:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/bidirectional_array_cls.py
-    title: cp_library/ds/bidirectional_array_cls.py
   - icon: ':question:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
@@ -45,95 +39,74 @@ data:
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
-    PROBLEM: https://atcoder.jp/contests/dp/tasks/dp_v
+    PROBLEM: https://atcoder.jp/contests/abc202/tasks/abc202_e
     links:
-    - https://atcoder.jp/contests/dp/tasks/dp_v
-  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
-    \ndef main():\n    N, M = read()\n    T = read(Tree[N])\n\n    def mul(a,b):\n\
-    \        return a*b%M\n\n    def add_node(v,res):\n        return (res+1)%M\n\n\
-    \    rr = ReRootingDP(T, 1, mul, add_node)\n\n    print(*rr.solve(), sep='\\n')\n\
-    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    - https://atcoder.jp/contests/abc202/tasks/abc202_e
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc202/tasks/abc202_e\n\
+    \n\nfrom bisect import bisect_left\n\ndef main():\n    N = read(int)\n    P =\
+    \ read(list[-1])\n    E = []\n    for u,p in enumerate(P, start=1):\n        E.append((p,u))\n\
+    \n    cnt = [[] for _ in range(N)]\n\n    G = Tree(N, E)\n    depth = [0]*(N+1)\n\
+    \    for p,u in G.dfs_topdown():\n        depth[u] = depth[p]+1\n    time = 0\n\
+    \    tin = [0]*N\n    tout = [0]*N\n    \n    for event in G.dfs_enter_leave(0):\n\
+    \        match event:\n            case DFSEvent.ENTER, u:\n                tin[u]\
+    \ = time\n                cnt[depth[u]].append(time)\n                time +=\
+    \ 1\n            case DFSEvent.LEAVE, u:\n                tout[u] = time\n   \
+    \             time += 1\n    Q = read(int)\n    for u,d in read(list[tuple[-1,int],Q]):\n\
+    \        ans = bisect_left(cnt[d], tout[u]) - bisect_left(cnt[d], tin[u])\n  \
+    \      print(ans)\n\n    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\nimport\
-    \ typing\n\n\nclass BidirectionalArray:\n    def __init__(self, e, op, data):\n\
-    \        self.size = len(data)\n        self.prefix = [e] + data.copy()\n    \
-    \    self.suffix = data.copy() + [e]\n        self.e = e\n        self.op = op\n\
-    \        for i in range(self.size):\n            self.prefix[i+1] = op(self.prefix[i],\
-    \ self.prefix[i+1])\n        for i in range(self.size,0,-1):\n            self.suffix[i-1]\
-    \ = op(self.suffix[i-1], self.suffix[i])\n    def left(self, l): return self.prefix[l]\n\
-    \    def right(self, r): return self.suffix[r]\n    def all(self): return self.prefix[-1]\n\
-    \    def out(self, l, r=None):\n        r = l+1 if r is None else r\n        return\
-    \ self.op(self.prefix[l], self.suffix[r])\n\nclass ReRootingDP():\n    \"\"\"\
-    \ A class implementation of the Re-rooting Dynamic Programming technique. \"\"\
-    \"\n    \n    S = typing.TypeVar('S')\n    MergeOp = typing.Callable[[S, S], S]\n\
-    \    AddNodeOp = typing.Callable[[int, S], S]\n    AddEdgeOp = typing.Callable[[int,\
-    \ int, S], S]\n\n    def __init__(self, T: list[list[int]], e: S,\n          \
-    \       merge: MergeOp, \n                 add_node: AddNodeOp = lambda u,s:s,\
-    \ \n                 add_edge: AddEdgeOp = lambda u,v,s:s):\n        \"\"\"\n\
-    \        T: list[list[int]] - Adjacency list representation of the tree.\n   \
-    \     e: S - Identity element for the merge operation.\n        merge: (S,S) ->\
-    \ S - Function to merge two states.\n        add_node: (int,S) -> S - Function\
-    \ to incorporate a node into the state.\n        add_edge: (int,int,S) -> S -\
-    \ Function to incorporate an edge into the state.\n        \"\"\"\n        self.T\
-    \ = T\n        self.e = e\n        self.merge = merge\n        self.add_node =\
-    \ add_node\n        self.add_edge = add_edge\n\n    def solve(self) -> list[S]:\n\
-    \        dp = [[self.e]*len(adj) for adj in self.T]\n        ans = [self.e for\
-    \ _ in range(len(self.T))]\n        parent_idx = [None for _ in range(len(self.T))]\n\
-    \        child_idx = [None for _ in range(len(self.T))]\n        stack = [(2,0,None),(0,0,None)]\n\
-    \        while stack:\n            phase, u, p = stack.pop()\n            match\
-    \ phase:\n                case 0:  # Visit children\n                    if p\
-    \ is not None:\n                        stack.append((1,u,p))\n              \
-    \      for i,v in enumerate(self.T[u]):\n                        if v != p:\n\
-    \                            stack.append((0,v,u))\n                         \
-    \   child_idx[v] = i\n                        else:\n                        \
-    \    parent_idx[u] = i\n                case 1:  # Upward updates\n          \
-    \          val = dp[p][child_idx[u]] = self.add_edge(p, u, self.add_node(u, ans[u]))\n\
-    \                    ans[p] = self.merge(ans[p], val)\n                case 2:\
-    \  # Downward updates\n                    ba = BidirectionalArray(self.e, self.merge,\
-    \ dp[u])\n                    for i,v in enumerate(self.T[u]):\n             \
-    \           if v != p:\n                            dp[v][parent_idx[v]] = self.add_edge(v,\
-    \ u, self.add_node(u, ba.out(i)))\n                            stack.append((2,v,u))\n\
-    \                    ans[u] = ba.all()\n        return ans\n\n\n\nfrom io import\
-    \ TextIOBase\n\n\nimport sys\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self,\
-    \ stream: TextIOBase = sys.stdin):\n        self.queue = deque()\n        self.stream\
-    \ = stream\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
-    \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
-    \        \n    def line(self):\n        assert not self.queue\n        return\
-    \ sys.stdin.readline().split()\n\n    def n_uints(self, n: int, shift = 0, max_digits:\
-    \ int = 20):\n        # sync buffers\n        tokens: list[str] = []\n       \
-    \ while (lim := sys.stdin.buffer.tell() - sys.stdin.tell()) and len(tokens) <\
-    \ n:\n            residual_str: str = sys.stdin.readline(lim)\n            tokens.extend(residual_str.split())\n\
-    \        \n        result = [0] * n\n        pos = 0\n        \n        # Process\
-    \ residual string and check for partial token\n        partial = None\n      \
-    \  if tokens:\n            if not residual_str[-1].isspace():\n              \
-    \  partial = tokens.pop()\n            for pos, token in enumerate(tokens):\n\
-    \                result[pos] = int(token)+shift\n            pos += 1\n      \
-    \  # Process remaining data token by token\n        stdin_buffer = sys.stdin.buffer\n\
-    \        num = int(partial) if partial else 0\n        have_digit = partial is\
-    \ not None\n\n        original_chunk_size = sys.stdin._CHUNK_SIZE\n        sys.stdin._CHUNK_SIZE\
-    \ = max(original_chunk_size, max_digits * (n - pos))\n        \n        while\
-    \ pos < n:\n            byte = stdin_buffer.read(1)\n\n            match byte[0]:\n\
-    \                case 10 | 32:\n                    if have_digit:\n         \
-    \               result[pos] = num+shift\n                        pos += 1\n  \
-    \                      num = 0\n                        have_digit = False\n \
-    \               case char:  # digit\n                    num = (num * 10) + (char\
-    \ - 48)\n                    have_digit = True\n\n        if have_digit:\n   \
-    \         result[pos] = num+shift\n            pos += 1\n\n        sys.stdin._CHUNK_SIZE\
-    \ = original_chunk_size \n        if pos < n:\n            raise EOFError(f\"\
-    Only found {pos} numbers, expected {n}\")\n            \n        return result\n\
-    \    \n    def n_ints(self, n: int, shift = 0, max_digits: int = 20):\n      \
-    \  # sync buffers\n        tokens: list[str] = []\n        while (lim := sys.stdin.buffer.tell()\
-    \ - sys.stdin.tell()) and len(tokens) < n:\n            residual_str: str = sys.stdin.readline(lim)\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
+    \              \n'''\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
+    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
+    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
+    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
+    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
+    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
+    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
+    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
+    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
+    \    \n\n\nfrom io import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass\
+    \ TokenStream(Iterator):\n    def __init__(self, stream: TextIOBase = sys.stdin):\n\
+    \        self.queue = deque()\n        self.stream = stream\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \        while self.queue: yield\n        \n    def line(self):\n        assert\
+    \ not self.queue\n        return sys.stdin.readline().split()\n\n    def n_uints(self,\
+    \ n: int, shift = 0, max_digits: int = 20):\n        # sync buffers\n        tokens:\
+    \ list[str] = []\n        while (lim := sys.stdin.buffer.tell() - sys.stdin.tell())\
+    \ and len(tokens) < n:\n            residual_str: str = sys.stdin.readline(lim)\n\
+    \            tokens.extend(residual_str.split())\n        \n        result = [0]\
+    \ * n\n        pos = 0\n        \n        # Process residual string and check\
+    \ for partial token\n        partial = None\n        if tokens:\n            if\
+    \ not residual_str[-1].isspace():\n                partial = tokens.pop()\n  \
+    \          for pos, token in enumerate(tokens):\n                result[pos] =\
+    \ int(token)+shift\n            pos += 1\n        # Process remaining data token\
+    \ by token\n        stdin_buffer = sys.stdin.buffer\n        num = int(partial)\
+    \ if partial else 0\n        have_digit = partial is not None\n\n        original_chunk_size\
+    \ = sys.stdin._CHUNK_SIZE\n        sys.stdin._CHUNK_SIZE = max(original_chunk_size,\
+    \ max_digits * (n - pos))\n        \n        while pos < n:\n            byte\
+    \ = stdin_buffer.read(1)\n\n            match byte[0]:\n                case 10\
+    \ | 32:\n                    if have_digit:\n                        result[pos]\
+    \ = num+shift\n                        pos += 1\n                        num =\
+    \ 0\n                        have_digit = False\n                case char:  #\
+    \ digit\n                    num = (num * 10) + (char - 48)\n                \
+    \    have_digit = True\n\n        if have_digit:\n            result[pos] = num+shift\n\
+    \            pos += 1\n\n        sys.stdin._CHUNK_SIZE = original_chunk_size \n\
+    \        if pos < n:\n            raise EOFError(f\"Only found {pos} numbers,\
+    \ expected {n}\")\n            \n        return result\n    \n    def n_ints(self,\
+    \ n: int, shift = 0, max_digits: int = 20):\n        # sync buffers\n        tokens:\
+    \ list[str] = []\n        while (lim := sys.stdin.buffer.tell() - sys.stdin.tell())\
+    \ and len(tokens) < n:\n            residual_str: str = sys.stdin.readline(lim)\n\
     \            tokens.extend(residual_str.split())\n        \n        result = [0]\
     \ * n\n        pos = 0\n        \n        # Process residual string and check\
     \ for partial token\n        partial = None\n        if tokens:\n            if\
@@ -204,103 +177,94 @@ data:
     \            return cls(next(ts))\n        return parser\n\nclass Edge(tuple,\
     \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
     \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
-    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
-    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
-    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
-    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
-    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
-    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
-    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
-    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n\
-    from typing import Iterable, overload\nfrom math import inf\n\nclass GraphProtocol(list,\
-    \ Parsable):\n    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n\
-    \        G.N = N\n        if E is not None:\n            G.M, G.E = len(E), E\n\
-    \        if adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
-    \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
-    \ list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        match s, g:\n            case None, None:\n            \
-    \    return G.floyd_warshall()\n            case s, None:\n                return\
-    \ G.bfs(s)\n            case s, g:\n                return G.bfs(s, g)\n\n   \
-    \ @overload\n    def bfs(G, s: int|list = 0) -> list[int]: ...\n    @overload\n\
-    \    def bfs(G, s: int|list, g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n\
-    \        D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s,\
-    \ int) else s)\n        for u in q: D[u] = 0\n        while q:\n            nd\
-    \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
-    \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
-    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
-    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
-    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
-    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
-    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
-    \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
-    \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
-    \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
-    \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
-    \         if forw:\n                stack.append((False, v))\n               \
-    \ vis[v] = 1\n                for u in G.neighbors(v):\n                    if\
-    \ vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n   \
-    \                     cyc = [u]\n                        vis[u] = 2\n        \
-    \                while v != u:\n                            cyc.append(v)\n  \
-    \                          vis[v] = 2\n                            v = par[v]\n\
-    \                        return cyc\n                    elif vis[u] == 0:\n \
-    \                       par[u] = v\n                        stack.append((True,\
-    \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
-    \  \n    def bridges(G):\n        tin = [-1] * G.N\n        low = [-1] * G.N\n\
-    \        par = [-1] * G.N\n        vis = [0] * G.N\n        in_edge = [-1] * G.N\n\
-    \n        Eid = G.edge_ids()\n        time = 0\n        bridges = []\n       \
-    \ stack = list(range(G.N))\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            match vis[v]:\n                case 0:\n\
-    \                    vis[v] = 1\n                    tin[v] = low[v] = time\n\
-    \                    time += 1\n                    stack.append(v)\n        \
-    \            for i, child in enumerate(G.neighbors(v)):\n                    \
-    \    if child == p:\n                            continue\n                  \
-    \      match vis[child]:\n                            case 0:\n              \
-    \                  # Tree edge - recurse\n                                par[child]\
-    \ = v\n                                in_edge[child] = Eid[v][i]\n          \
-    \                      stack.append(child)\n                            case 1:\n\
-    \                                # Back edge - update low-link value\n       \
-    \                         low[v] = min(low[v], tin[child])\n                case\
-    \ 1:\n                    vis[v] = 2\n                    if p != -1:\n      \
-    \                  low[p] = min(low[p], low[v])\n                        if low[v]\
-    \ > tin[p]:\n                            bridges.append(in_edge[v])\n        \
-    \        \n        return bridges\n\n    def articulation_points(G):\n       \
-    \ \"\"\"\n        Find articulation points in an undirected graph using DFS events.\n\
-    \        Returns a boolean list that is True for indices where the vertex is an\
-    \ articulation point.\n        \"\"\"\n        N = G.N\n        order = [-1] *\
-    \ N\n        low = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n\
-    \        children = [0] * N\n        ap = [False] * N\n        time = 0\n    \
-    \    stack = list(range(N))\n\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            if state[v] == 0:\n                state[v]\
-    \ = 1\n                order[v] = low[v] = time\n                time += 1\n \
-    \           \n                stack.append(v)\n                for child in G[v]:\n\
-    \                    if order[child] == -1:\n                        par[child]\
-    \ = v\n                        stack.append(child)\n                    elif child\
-    \ != p:\n                        low[v] = min(low[v], order[child])\n        \
-    \        if p != -1:\n                    children[p] += 1\n            elif state[v]\
-    \ == 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
-    \ > 1\n                if p != -1:\n                    low[p] = min(low[p], low[v])\n\
-    \                    ap[p] |= par[p] != -1 and low[v] >= order[p]\n\n        return\
-    \ ap\n    \n    def dfs_events(G, flags: DFSFlags, s: int|list|None = None, max_depth:\
-    \ int|None = None):\n        match flags:\n            case DFSFlags.INTERVAL:\n\
-    \                if max_depth is None:\n                    return G.dfs_enter_leave(s)\n\
-    \            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth\
-    \ is None:\n                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS\
-    \ in flags)\n                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n\
-    \            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth\
-    \ is None:\n                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS\
-    \ in flags)\n                    return [(DFSEvent.UP, p, u) for p,u in edges]\n\
-    \            case flags if flags & DFSFlags.BACKTRACK:\n                return\
-    \ G.dfs_backtrack(flags, s, max_depth)\n        state = [0] * G.N\n        child\
-    \ = [0] * G.N\n        stack = [0] * G.N\n        if flags & DFSFlags.RETURN_PARENTS:\n\
-    \            parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n\
-    \            depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
+    \        return parse\n\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n\
+    \    def newlist_hint(hint):\n        return []\n    \ndef elist(est_len: int)\
+    \ -> list:\n    return newlist_hint(est_len)\nfrom typing import Iterable, overload\n\
+    from math import inf\n\nclass GraphProtocol(list, Parsable):\n    def __init__(G,\
+    \ N: int, E: list = None, adj: Iterable = None):\n        G.N = N\n        if\
+    \ E is not None:\n            G.M, G.E = len(E), E\n        if adj is not None:\n\
+    \            super().__init__(adj)\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
+    \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n  \
+    \  @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n   \
+    \ def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.bfs(s)\n            case\
+    \ s, g:\n                return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s:\
+    \ int|list = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: int|list,\
+    \ g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inf for\
+    \ _ in range(G.N)]\n        q = deque([s] if isinstance(s, int) else s)\n    \
+    \    for u in q: D[u] = 0\n        while q:\n            nd = D[u := q.popleft()]+1\n\
+    \            if u == g: return D[u]\n            for v in G.neighbors(u):\n  \
+    \              if nd < D[v]:\n                    D[v] = nd\n                \
+    \    q.append(v)\n        return D if g is None else inf    \n    \n    \n   \
+    \ def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for _ in range(G.N)]\n\
+    \n        for u in G:\n            D[u][u] = 0\n            for v in G.neighbors(u):\n\
+    \                D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n \
+    \           for Di in D:\n                for j in range(G.N):\n             \
+    \       Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    \n    def\
+    \ find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n        vis\
+    \ = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]: return None\n\
+    \        vis[s] = 1\n        stack = [(True, s)]\n        while stack:\n     \
+    \       forw, v = stack.pop()\n            if forw:\n                stack.append((False,\
+    \ v))\n                vis[v] = 1\n                for u in G.neighbors(v):\n\
+    \                    if vis[u] == 1 and u != par[v]:\n                       \
+    \ # Cycle detected\n                        cyc = [u]\n                      \
+    \  vis[u] = 2\n                        while v != u:\n                       \
+    \     cyc.append(v)\n                            vis[v] = 2\n                \
+    \            v = par[v]\n                        return cyc\n                \
+    \    elif vis[u] == 0:\n                        par[u] = v\n                 \
+    \       stack.append((True, u))\n            else:\n                vis[v] = 2\n\
+    \        return None\n    \n    def bridges(G):\n        tin = [-1] * G.N\n  \
+    \      low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n \
+    \       in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
+    \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
+    \            v = stack.pop()\n            p = par[v]\n            match vis[v]:\n\
+    \                case 0:\n                    vis[v] = 1\n                   \
+    \ tin[v] = low[v] = time\n                    time += 1\n                    stack.append(v)\n\
+    \                    for i, child in enumerate(G.neighbors(v)):\n            \
+    \            if child == p:\n                            continue\n          \
+    \              match vis[child]:\n                            case 0:\n      \
+    \                          # Tree edge - recurse\n                           \
+    \     par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
+    \                                stack.append(child)\n                       \
+    \     case 1:\n                                # Back edge - update low-link value\n\
+    \                                low[v] = min(low[v], tin[child])\n          \
+    \      case 1:\n                    vis[v] = 2\n                    if p != -1:\n\
+    \                        low[p] = min(low[p], low[v])\n                      \
+    \  if low[v] > tin[p]:\n                            bridges.append(in_edge[v])\n\
+    \                \n        return bridges\n\n    def articulation_points(G):\n\
+    \        \"\"\"\n        Find articulation points in an undirected graph using\
+    \ DFS events.\n        Returns a boolean list that is True for indices where the\
+    \ vertex is an articulation point.\n        \"\"\"\n        N = G.N\n        order\
+    \ = [-1] * N\n        low = [-1] * N\n        par = [-1] * N\n        state =\
+    \ [0] * N\n        children = [0] * N\n        ap = [False] * N\n        time\
+    \ = 0\n        stack = list(range(N))\n\n        while stack:\n            v =\
+    \ stack.pop()\n            p = par[v]\n            if state[v] == 0:\n       \
+    \         state[v] = 1\n                order[v] = low[v] = time\n           \
+    \     time += 1\n            \n                stack.append(v)\n             \
+    \   for child in G[v]:\n                    if order[child] == -1:\n         \
+    \               par[child] = v\n                        stack.append(child)\n\
+    \                    elif child != p:\n                        low[v] = min(low[v],\
+    \ order[child])\n                if p != -1:\n                    children[p]\
+    \ += 1\n            elif state[v] == 1:\n                state[v] = 2\n      \
+    \          ap[v] |= p == -1 and children[v] > 1\n                if p != -1:\n\
+    \                    low[p] = min(low[p], low[v])\n                    ap[p] |=\
+    \ par[p] != -1 and low[v] >= order[p]\n\n        return ap\n    \n    def dfs_events(G,\
+    \ flags: DFSFlags, s: int|list|None = None, max_depth: int|None = None):\n   \
+    \     match flags:\n            case DFSFlags.INTERVAL:\n                if max_depth\
+    \ is None:\n                    return G.dfs_enter_leave(s)\n            case\
+    \ DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth is None:\n   \
+    \                 edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)\n\
+    \                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n       \
+    \     case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth is None:\n\
+    \                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)\n\
+    \                    return [(DFSEvent.UP, p, u) for p,u in edges]\n         \
+    \   case flags if flags & DFSFlags.BACKTRACK:\n                return G.dfs_backtrack(flags,\
+    \ s, max_depth)\n        state = [0] * G.N\n        child = [0] * G.N\n      \
+    \  stack = [0] * G.N\n        if flags & DFSFlags.RETURN_PARENTS:\n          \
+    \  parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n        \
+    \    depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
     \            stack[depth := 0] = s\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
     \ in flags:\n                events.append((DFSEvent.DOWN,-1,s))\n           \
     \ while depth != -1:\n                u = stack[depth]\n                \n   \
@@ -400,7 +364,7 @@ data:
     \        return Eid\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
     \ E: type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n     \
     \   return super().compile(N, M, E)\n\nfrom typing import overload, Literal\n\
-    from functools import cached_property\n\nfrom typing import Any, Callable, List\n\
+    from functools import cached_property\n\n\nfrom typing import Any, Callable, List\n\
     \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
     \ List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
     \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
@@ -483,39 +447,44 @@ data:
     \        case _, _:\n            if char:\n                stream = CharStream()\n\
     \            else:\n                stream = TokenStream()\n            parser:\
     \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
-    \ '__main__':\n    main()\n"
-  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
-    \ndef main():\n    N, M = read()\n    T = read(Tree[N])\n\n    def mul(a,b):\n\
-    \        return a*b%M\n\n    def add_node(v,res):\n        return (res+1)%M\n\n\
-    \    rr = ReRootingDP(T, 1, mul, add_node)\n\n    print(*rr.solve(), sep='\\n')\n\
-    \nfrom cp_library.alg.dp.rerooting_iterative_cls import ReRootingDP\nfrom cp_library.alg.tree.tree_cls\
-    \ import Tree\nfrom cp_library.io.read_specs_fn import read\n\nif __name__ ==\
-    \ '__main__':\n    main()"
+    \ \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc202/tasks/abc202_e\n\
+    \n\nfrom bisect import bisect_left\n\ndef main():\n    N = read(int)\n    P =\
+    \ read(list[-1])\n    E = []\n    for u,p in enumerate(P, start=1):\n        E.append((p,u))\n\
+    \n    cnt = [[] for _ in range(N)]\n\n    G = Tree(N, E)\n    depth = [0]*(N+1)\n\
+    \    for p,u in G.dfs_topdown():\n        depth[u] = depth[p]+1\n    time = 0\n\
+    \    tin = [0]*N\n    tout = [0]*N\n    \n    for event in G.dfs_enter_leave(0):\n\
+    \        match event:\n            case DFSEvent.ENTER, u:\n                tin[u]\
+    \ = time\n                cnt[depth[u]].append(time)\n                time +=\
+    \ 1\n            case DFSEvent.LEAVE, u:\n                tout[u] = time\n   \
+    \             time += 1\n    Q = read(int)\n    for u,d in read(list[tuple[-1,int],Q]):\n\
+    \        ans = bisect_left(cnt[d], tout[u]) - bisect_left(cnt[d], tin[u])\n  \
+    \      print(ans)\n\n    \nfrom cp_library.alg.graph.dfs_options_cls import DFSEvent\n\
+    from cp_library.alg.tree.tree_cls import Tree\nfrom cp_library.io.read_specs_fn\
+    \ import read\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/alg/dp/rerooting_iterative_cls.py
+  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/io/read_specs_fn.py
-  - cp_library/ds/bidirectional_array_cls.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/tree/tree_proto.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/graph_proto.py
-  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/sparse_table_cls.py
   - cp_library/ds/bit_cls.py
   isVerificationFile: true
-  path: test/dp_v_subtree_rerooting_iterative.test.py
+  path: test/abc202_e_dfs_enter_leave.test.py
   requiredBy: []
   timestamp: '2024-11-16 11:26:19+09:00'
-  verificationStatus: TEST_ACCEPTED
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: test/dp_v_subtree_rerooting_iterative.test.py
+documentation_of: test/abc202_e_dfs_enter_leave.test.py
 layout: document
 redirect_from:
-- /verify/test/dp_v_subtree_rerooting_iterative.test.py
-- /verify/test/dp_v_subtree_rerooting_iterative.test.py.html
-title: test/dp_v_subtree_rerooting_iterative.test.py
+- /verify/test/abc202_e_dfs_enter_leave.test.py
+- /verify/test/abc202_e_dfs_enter_leave.test.py.html
+title: test/abc202_e_dfs_enter_leave.test.py
 ---

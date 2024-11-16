@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':warning:'
@@ -39,6 +39,9 @@ data:
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
   _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/abc202_e_dfs_enter_leave.test.py
+    title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
     title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
@@ -54,9 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "\n\nfrom typing import overload, Literal\nfrom functools import cached_property\n\
@@ -157,10 +160,10 @@ data:
     \ args)\n        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
     \    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n\
     \        def parse(ts: TokenStream):\n            return cls(fn(ts) for _ in ts.wait())\n\
-    \        return parse\n    \n    @staticmethod\n    def compile_n_ints(cls: T,\
-    \ N, shift = int) -> ParseFn[T]:\n        shift = shift if isinstance(shift, int)\
-    \ else 0\n        def parse(ts: TokenStream):\n            return cls(ts.n_ints(N,\
-    \ shift))\n        return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \        return parse\n    \n    # @staticmethod\n    # def compile_n_ints(cls:\
+    \ T, N, shift = int) -> ParseFn[T]:\n    #     shift = shift if isinstance(shift,\
+    \ int) else 0\n    #     def parse(ts: TokenStream):\n    #         return cls(ts.n_ints(N,\
+    \ shift))\n    #     return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
     \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
     \ TokenStream):\n            return cls(fn(ts) for _ in range(N))\n        return\
     \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
@@ -172,8 +175,8 @@ data:
     \              return Parser.compile_children(cls, specs)\n    \n    @staticmethod\n\
     \    def compile_collection(cls, specs):\n        match specs:\n            case\
     \ [ ] | [_] | set():\n                return Parser.compile_line(cls, *specs)\n\
-    \            case [spec, int() as N]:\n                if issubclass(spec, int)\
-    \ or isinstance(spec, int):\n                    return Parser.compile_n_ints(cls,\
+    \            case [spec, int() as N]:\n                # if issubclass(spec, int)\
+    \ or isinstance(spec, int):\n                #     return Parser.compile_n_ints(cls,\
     \ N, spec)\n                return Parser.compile_repeat(cls, spec, N)\n     \
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
@@ -254,24 +257,25 @@ data:
     \ ap\n    \n    def dfs_events(G, flags: DFSFlags, s: int|list|None = None, max_depth:\
     \ int|None = None):\n        match flags:\n            case DFSFlags.INTERVAL:\n\
     \                if max_depth is None:\n                    return G.dfs_enter_leave(s)\n\
-    \            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                edges = G.dfs_topdown(s,\
-    \ DFSFlags.CONNECT_ROOTS in flags)\n                return [(DFSEvent.DOWN, p,\
-    \ u) for p,u in edges]\n            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n    \
-    \            edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)\n    \
-    \            return [(DFSEvent.UP, p, u) for p,u in edges]\n            case flags\
-    \ if flags & DFSFlags.BACKTRACK:\n                return G.dfs_backtrack(s)\n\
-    \        state = [0] * G.N\n        child = [0] * G.N\n        stack = [0] * G.N\n\
-    \        if flags & DFSFlags.RETURN_PARENTS:\n            parents = [-1] * G.N\n\
-    \        if flags & DFSFlags.RETURN_DEPTHS:\n            depths = [-1] * G.N\n\
-    \n        events = []\n        for s in G.starts(s):\n            stack[depth\
-    \ := 0] = s\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS) in flags:\n\
-    \                events.append((DFSEvent.DOWN,-1,s))\n            while depth\
-    \ != -1:\n                u = stack[depth]\n                \n               \
-    \ if not state[u]:\n                    state[u] = 1\n                    if flags\
-    \ & DFSFlags.ENTER:\n                        events.append((DFSEvent.ENTER, u))\n\
-    \                    if flags & DFSFlags.RETURN_DEPTHS:\n                    \
-    \    depths[u] = depth\n                \n                if (c := child[u]) <\
-    \ len(G[u]):\n                    child[u] += 1\n                    match state[v\
+    \            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth\
+    \ is None:\n                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS\
+    \ in flags)\n                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n\
+    \            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth\
+    \ is None:\n                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS\
+    \ in flags)\n                    return [(DFSEvent.UP, p, u) for p,u in edges]\n\
+    \            case flags if flags & DFSFlags.BACKTRACK:\n                return\
+    \ G.dfs_backtrack(flags, s, max_depth)\n        state = [0] * G.N\n        child\
+    \ = [0] * G.N\n        stack = [0] * G.N\n        if flags & DFSFlags.RETURN_PARENTS:\n\
+    \            parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n\
+    \            depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
+    \            stack[depth := 0] = s\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
+    \ in flags:\n                events.append((DFSEvent.DOWN,-1,s))\n           \
+    \ while depth != -1:\n                u = stack[depth]\n                \n   \
+    \             if not state[u]:\n                    state[u] = 1\n           \
+    \         if flags & DFSFlags.ENTER:\n                        events.append((DFSEvent.ENTER,\
+    \ u))\n                    if flags & DFSFlags.RETURN_DEPTHS:\n              \
+    \          depths[u] = depth\n                \n                if (c := child[u])\
+    \ < len(G[u]):\n                    child[u] += 1\n                    match state[v\
     \ := G[u][c]]:\n                        case 0:  # Unvisited\n               \
     \             if max_depth is None or depth <= max_depth:\n                  \
     \              if flags & DFSFlags.DOWN:\n                                   \
@@ -315,50 +319,52 @@ data:
     \   child[depth] = 0\n                    depth -= 1\n                    if depth\
     \ and DFSFlags.UP in flags:\n                        events.append((DFSEvent.UP,\
     \ stack[depth], u))\n            if DFSFlags.UP|DFSFlags.CONNECT_ROOTS in flags:\n\
-    \                events.append((DFSEvent.UP,-1,s))\n        return events\n  \
-    \  \n    def dfs_enter_leave(G, s: int|list[int]|None = None):\n        stack:\
-    \ list[int] = [0]*(G.N+1)\n        state = [0]*G.N\n        events: list[tuple[DFSEvent,\
-    \ int]] = []\n\n        for s in G.starts(s):\n            if state[s]: continue\n\
-    \            state[s] = True\n            stack[idx := 1] = s\n            while\
-    \ idx:\n                u = stack[idx], idx\n                if state[u] == 1:\n\
-    \                    events.append((DFSEvent.ENTER,u))\n                    for\
-    \ v in G[u]:\n                        if state[v]: continue\n                \
-    \        state[v] = 1\n                        stack[idx := idx+1] = v\n     \
-    \           else:\n                    events.append((DFSEvent.LEAVE,u))\n   \
-    \                 idx -= 1\n\n        return events\n    \n    def dfs_topdown(G,\
+    \                events.append((DFSEvent.UP,-1,s))\n        return events\n\n\
+    \    def dfs_enter_leave(G, s: int|list|None = None):\n        state = [True]\
+    \ * G.N\n        child: list[int] = elist(G.N)\n        stack: list[int] = elist(G.N)\n\
+    \n        events = []\n        for s in G.starts(s):\n            stack.append(s)\n\
+    \            child.append(0)\n            \n            while stack:\n       \
+    \         u = stack[-1]\n                \n                if state[u]:\n    \
+    \                state[u] = False\n                    events.append((DFSEvent.ENTER,\
+    \ u))\n\n                \n                if (c := child[-1]) < len(G[u]):\n\
+    \                    child[-1] += 1\n                    if state[v := G[u][c]]:\n\
+    \                        stack.append(v)\n                        child.append(0)\n\
+    \                else:\n                    stack.pop()\n                    child.pop()\n\
+    \                    events.append((DFSEvent.LEAVE, u))\n\n        return events\n\
+    \    \n    def dfs_topdown(G, s: int|list[int]|None = None, connect_roots = False):\n\
+    \        '''Returns list of (u,v) representing u->v edges in order of top down\
+    \ discovery'''\n        stack: list[int] = elist(G.N)\n        vis = [False]*G.N\n\
+    \        edges: list[tuple[int,int]] = elist(G.N)\n\n        for s in G.starts(s):\n\
+    \            if vis[s]: continue\n            if connect_roots:\n            \
+    \    edges.append((-1,s))\n            vis[s] = True\n            stack.append(s)\n\
+    \            while stack:\n                u = stack.pop()\n                for\
+    \ v in G[u]:\n                    if vis[v]: continue\n                    vis[v]\
+    \ = True\n                    edges.append((u,v))\n                    stack.append(v)\n\
+    \        return edges\n\n    def dfs_topdown_indexed(G, s: int|list[int]|None\
+    \ = None, connect_roots = False):\n        '''Returns list of (u,v) representing\
+    \ u->v edges in order of top down discovery'''\n        stack = [0] * G.N\n  \
+    \      vis: list[bool] = [False]*G.N\n        edges: list[tuple[int,int,int]]\
+    \ = []\n\n        for r,s in enumerate(G.starts(s)):\n            if vis[s]: continue\n\
+    \            if connect_roots:\n                edges.append((r,-1,s))\n     \
+    \       vis[s] = True\n            stack[idx := 0] = s\n            while idx\
+    \ != -1:\n                u, idx = stack[idx], idx-1\n                for c,v\
+    \ in enumerate(G[u]):\n                    if vis[v]: continue\n             \
+    \       vis[v] = True\n                    edges.append((c,u,v))\n           \
+    \         stack[idx := idx+1] = v \n\n        return edges\n    \n    def dfs_bottomup(G,\
     \ s: int|list[int]|None = None, connect_roots = False):\n        '''Returns list\
-    \ of (u,v) representing u->v edges in order of top down discovery'''\n       \
-    \ stack: list[int] = elist(G.N)\n        vis = [False]*G.N\n        edges: list[tuple[int,int]]\
-    \ = elist(G.N)\n\n        for s in G.starts(s):\n            if vis[s]: continue\n\
-    \            if connect_roots:\n                edges.append((-1,s))\n       \
-    \     vis[s] = True\n            stack.append(s)\n            while stack:\n \
-    \               u = stack.pop()\n                for v in G[u]:\n            \
-    \        if vis[v]: continue\n                    vis[v] = True\n            \
-    \        edges.append((u,v))\n                    stack.append(v)\n        return\
-    \ edges\n\n    def dfs_topdown_indexed(G, s: int|list[int]|None = None, connect_roots\
-    \ = False):\n        '''Returns list of (u,v) representing u->v edges in order\
-    \ of top down discovery'''\n        stack = [0] * G.N\n        vis: list[bool]\
-    \ = [False]*G.N\n        edges: list[tuple[int,int,int]] = []\n\n        for r,s\
-    \ in enumerate(G.starts(s)):\n            if vis[s]: continue\n            if\
-    \ connect_roots:\n                edges.append((r,-1,s))\n            vis[s] =\
-    \ True\n            stack[idx := 0] = s\n            while idx != -1:\n      \
-    \          u, idx = stack[idx], idx-1\n                for c,v in enumerate(G[u]):\n\
-    \                    if vis[v]: continue\n                    vis[v] = True\n\
-    \                    edges.append((c,u,v))\n                    stack[idx := idx+1]\
-    \ = v \n\n        return edges\n    \n    def dfs_bottomup(G, s: int|list[int]|None\
-    \ = None, connect_roots = False):\n        '''Returns list of (p,u) representing\
-    \ p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s, connect_roots)\n\
-    \        edges.reverse()\n        return edges\n    \n    def starts(G, v: int|list[int]|None)\
-    \ -> Iterable:\n        match v:\n            case int(v): return (v,)\n     \
-    \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
-    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    \n\n\nfrom typing import Any, Callable,\
-    \ List\n\nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any],\
-    \ Any], arr: List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
-    \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
-    \ range(self.log)]\n        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
-    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
+    \ of (p,u) representing p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s,\
+    \ connect_roots)\n        edges.reverse()\n        return edges\n    \n    def\
+    \ starts(G, v: int|list[int]|None) -> Iterable:\n        match v:\n          \
+    \  case int(v): return (v,)\n            case None: return range(G.N)\n      \
+    \      case V: return V\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \ E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
+    \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
+    \    \n\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n    def\
+    \ __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n        self.n\
+    \ = len(arr)\n        self.log = self.n.bit_length()\n        self.op = op\n \
+    \       self.st = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n    \
+    \    self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n    \
+    \        row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
     \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
     \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
     \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
@@ -479,9 +485,10 @@ data:
   - cp_library/alg/tree/tree_fast_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-16 03:24:02+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-11-16 11:26:19+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/abc202_e_dfs_enter_leave.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc361_e_tree_diameter.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

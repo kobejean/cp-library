@@ -8,10 +8,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':warning:'
@@ -38,13 +38,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':warning:'
     path: cp_library/alg/tree/tree_fast_cls.py
     title: cp_library/alg/tree/tree_fast_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
   - icon: ':warning:'
@@ -66,6 +66,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc184_e_grid_graph_bfs_fn.test.py
     title: test/abc184_e_grid_graph_bfs_fn.test.py
+  - icon: ':x:'
+    path: test/abc202_e_dfs_enter_leave.test.py
+    title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc245_f_digraph.test.py
     title: test/abc245_f_digraph.test.py
@@ -111,9 +114,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_3_a_graph_articulation_points.test.py
     title: test/grl_3_a_graph_articulation_points.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
@@ -143,10 +146,11 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-16 03:24:02+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-11-16 11:24:00+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/abc375_g_find_bridges.test.py
+  - test/abc202_e_dfs_enter_leave.test.py
   - test/grl_1_b_bellman_ford.test.py
   - test/abc184_e_grid_graph.test.py
   - test/abc261_g_queries_mo.test.py

@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/functional_graph_cls.py
     title: cp_library/alg/graph/functional_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -104,10 +104,10 @@ data:
     \ args)\n        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
     \    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n\
     \        def parse(ts: TokenStream):\n            return cls(fn(ts) for _ in ts.wait())\n\
-    \        return parse\n    \n    @staticmethod\n    def compile_n_ints(cls: T,\
-    \ N, shift = int) -> ParseFn[T]:\n        shift = shift if isinstance(shift, int)\
-    \ else 0\n        def parse(ts: TokenStream):\n            return cls(ts.n_ints(N,\
-    \ shift))\n        return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \        return parse\n    \n    # @staticmethod\n    # def compile_n_ints(cls:\
+    \ T, N, shift = int) -> ParseFn[T]:\n    #     shift = shift if isinstance(shift,\
+    \ int) else 0\n    #     def parse(ts: TokenStream):\n    #         return cls(ts.n_ints(N,\
+    \ shift))\n    #     return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
     \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
     \ TokenStream):\n            return cls(fn(ts) for _ in range(N))\n        return\
     \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
@@ -119,8 +119,8 @@ data:
     \              return Parser.compile_children(cls, specs)\n    \n    @staticmethod\n\
     \    def compile_collection(cls, specs):\n        match specs:\n            case\
     \ [ ] | [_] | set():\n                return Parser.compile_line(cls, *specs)\n\
-    \            case [spec, int() as N]:\n                if issubclass(spec, int)\
-    \ or isinstance(spec, int):\n                    return Parser.compile_n_ints(cls,\
+    \            case [spec, int() as N]:\n                # if issubclass(spec, int)\
+    \ or isinstance(spec, int):\n                #     return Parser.compile_n_ints(cls,\
     \ N, spec)\n                return Parser.compile_repeat(cls, spec, N)\n     \
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
@@ -137,8 +137,8 @@ data:
     \            vis[slow] = True\n            while P[slow] != cyc[0]:\n        \
     \        slow = P[slow]\n                cyc.append(slow)\n                vis[slow]\
     \ = True\n            cycs.append(cyc)\n        return cycs\n\n    @classmethod\n\
-    \    def compile(cls, N: int, shift = -1):\n        return Parser.compile_n_ints(cls,\
-    \ N, shift)\n\nclass Permutation(FunctionalGraph):\n\n    def inv(P):\n      \
+    \    def compile(cls, N: int, shift = -1):\n        return Parser.compile_repeat(cls,\
+    \ shift, N)\n\nclass Permutation(FunctionalGraph):\n\n    def inv(P):\n      \
     \  Pinv = [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p] = i\n\
     \        return type(P)(Pinv)\n"
   code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.functional_graph_cls\
@@ -151,7 +151,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/permutation_cls.py
   requiredBy: []
-  timestamp: '2024-11-16 03:24:02+09:00'
+  timestamp: '2024-11-16 11:24:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc175_d_permutation.test.py
