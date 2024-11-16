@@ -38,4 +38,4 @@ class FunctionalGraph(list[int], Parsable):
 
     @classmethod
     def compile(cls, N: int, shift = -1):
-        return Parser.compile_n_ints(cls, N, shift)
+        return Parser.compile_repeat(cls, shift, N)

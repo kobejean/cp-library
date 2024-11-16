@@ -291,27 +291,34 @@ class GraphProtocol(list, Parsable):
             if DFSFlags.UP|DFSFlags.CONNECT_ROOTS in flags:
                 events.append((DFSEvent.UP,-1,s))
         return events
-    
-    def dfs_enter_leave(G, s: int|list[int]|None = None):
-        stack: list[int] = [0]*(G.N+1)
-        state = [0]*G.N
-        events: list[tuple[DFSEvent, int]] = []
 
+    def dfs_enter_leave(G, s: int|list|None = None):
+        state = [True] * G.N
+        child: list[int] = elist(G.N)
+        stack: list[int] = elist(G.N)
+
+        events = []
         for s in G.starts(s):
-            if state[s]: continue
-            state[s] = True
-            stack[idx := 1] = s
-            while idx:
-                u = stack[idx], idx
-                if state[u] == 1:
-                    events.append((DFSEvent.ENTER,u))
-                    for v in G[u]:
-                        if state[v]: continue
-                        state[v] = 1
-                        stack[idx := idx+1] = v
+            stack.append(s)
+            child.append(0)
+            
+            while stack:
+                u = stack[-1]
+                
+                if state[u]:
+                    state[u] = False
+                    events.append((DFSEvent.ENTER, u))
+
+                
+                if (c := child[-1]) < len(G[u]):
+                    child[-1] += 1
+                    if state[v := G[u][c]]:
+                        stack.append(v)
+                        child.append(0)
                 else:
-                    events.append((DFSEvent.LEAVE,u))
-                    idx -= 1
+                    stack.pop()
+                    child.pop()
+                    events.append((DFSEvent.LEAVE, u))
 
         return events
     

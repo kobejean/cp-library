@@ -187,12 +187,12 @@ class Parser:
             return cls(fn(ts) for _ in ts.wait())
         return parse
     
-    @staticmethod
-    def compile_n_ints(cls: T, N, shift = int) -> ParseFn[T]:
-        shift = shift if isinstance(shift, int) else 0
-        def parse(ts: TokenStream):
-            return cls(ts.n_ints(N, shift))
-        return parse
+    # @staticmethod
+    # def compile_n_ints(cls: T, N, shift = int) -> ParseFn[T]:
+    #     shift = shift if isinstance(shift, int) else 0
+    #     def parse(ts: TokenStream):
+    #         return cls(ts.n_ints(N, shift))
+    #     return parse
 
     @staticmethod
     def compile_repeat(cls: T, spec, N) -> ParseFn[T]:
@@ -222,8 +222,8 @@ class Parser:
             case [ ] | [_] | set():
                 return Parser.compile_line(cls, *specs)
             case [spec, int() as N]:
-                if issubclass(spec, int) or isinstance(spec, int):
-                    return Parser.compile_n_ints(cls, N, spec)
+                # if issubclass(spec, int) or isinstance(spec, int):
+                #     return Parser.compile_n_ints(cls, N, spec)
                 return Parser.compile_repeat(cls, spec, N)
             case _:
                 raise NotImplementedError()
