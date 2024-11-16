@@ -184,13 +184,15 @@ class GraphProtocol(list, Parsable):
                 if max_depth is None:
                     return G.dfs_enter_leave(s)
             case DFSFlags.DOWN|DFSFlags.TOPDOWN:
-                edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
-                return [(DFSEvent.DOWN, p, u) for p,u in edges]
+                if max_depth is None:
+                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
+                    return [(DFSEvent.DOWN, p, u) for p,u in edges]
             case DFSFlags.UP|DFSFlags.BOTTOMUP:
-                edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)
-                return [(DFSEvent.UP, p, u) for p,u in edges]
+                if max_depth is None:
+                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)
+                    return [(DFSEvent.UP, p, u) for p,u in edges]
             case flags if flags & DFSFlags.BACKTRACK:
-                return G.dfs_backtrack(s)
+                return G.dfs_backtrack(flags, s, max_depth)
         state = [0] * G.N
         child = [0] * G.N
         stack = [0] * G.N
