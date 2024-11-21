@@ -259,7 +259,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_cls.py
   requiredBy: []
-  timestamp: '2024-11-16 19:58:23+09:00'
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_queries_mo.test.py

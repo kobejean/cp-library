@@ -374,7 +374,7 @@ data:
   requiredBy:
   - cp_library/alg/tree/tree_fast_cls.py
   - cp_library/alg/tree/tree_cls.py
-  timestamp: '2024-11-16 19:58:23+09:00'
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc202_e_dfs_enter_leave.test.py

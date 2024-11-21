@@ -5,6 +5,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/articulation_points_fn.py
     title: cp_library/alg/graph/articulation_points_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/dag_cls.py
+    title: cp_library/alg/graph/dag_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_events_fn.py
     title: cp_library/alg/graph/dfs_events_fn.py
@@ -150,6 +153,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/dfs_options_cls.py
   requiredBy:
+  - cp_library/alg/graph/dag_cls.py
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/dfs_events_fn.py
   - cp_library/alg/graph/grid_graph_proto.py
@@ -170,7 +174,7 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-16 19:58:23+09:00'
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py

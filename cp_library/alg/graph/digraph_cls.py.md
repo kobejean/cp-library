@@ -16,7 +16,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/alg/graph/dag_cls.py
+    title: cp_library/alg/graph/dag_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/abc245_f_digraph.test.py
@@ -348,8 +351,9 @@ data:
   - cp_library/ds/elist_fn.py
   isVerificationFile: false
   path: cp_library/alg/graph/digraph_cls.py
-  requiredBy: []
-  timestamp: '2024-11-16 19:58:23+09:00'
+  requiredBy:
+  - cp_library/alg/graph/dag_cls.py
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc245_f_digraph.test.py

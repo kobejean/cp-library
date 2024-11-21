@@ -5,6 +5,9 @@ data:
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/digraph_cls.py
+    title: cp_library/alg/graph/digraph_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
@@ -16,10 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/alg/tree/tree_set_cls.py
-    title: cp_library/alg/tree/tree_set_cls.py
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
@@ -32,40 +32,40 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom io import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
-    \    def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
-    \ deque()\n        self.stream = stream\n\n    def __next__(self):\n        if\
-    \ not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return sys.stdin.readline().split()\n\n    def n_uints(self,\
-    \ n: int, shift = 0, max_digits: int = 20):\n        # sync buffers\n        tokens:\
-    \ list[str] = []\n        while (lim := sys.stdin.buffer.tell() - sys.stdin.tell())\
-    \ and len(tokens) < n:\n            residual_str: str = sys.stdin.readline(lim)\n\
-    \            tokens.extend(residual_str.split())\n        \n        result = [0]\
-    \ * n\n        pos = 0\n        \n        # Process residual string and check\
-    \ for partial token\n        partial = None\n        if tokens:\n            if\
-    \ not residual_str[-1].isspace():\n                partial = tokens.pop()\n  \
-    \          for pos, token in enumerate(tokens):\n                result[pos] =\
-    \ int(token)+shift\n            pos += 1\n        # Process remaining data token\
-    \ by token\n        stdin_buffer = sys.stdin.buffer\n        num = int(partial)\
-    \ if partial else 0\n        have_digit = partial is not None\n\n        original_chunk_size\
-    \ = sys.stdin._CHUNK_SIZE\n        sys.stdin._CHUNK_SIZE = max(original_chunk_size,\
-    \ max_digits * (n - pos))\n        \n        while pos < n:\n            byte\
-    \ = stdin_buffer.read(1)\n\n            match byte[0]:\n                case 10\
-    \ | 32:\n                    if have_digit:\n                        result[pos]\
-    \ = num+shift\n                        pos += 1\n                        num =\
-    \ 0\n                        have_digit = False\n                case char:  #\
-    \ digit\n                    num = (num * 10) + (char - 48)\n                \
-    \    have_digit = True\n\n        if have_digit:\n            result[pos] = num+shift\n\
-    \            pos += 1\n\n        sys.stdin._CHUNK_SIZE = original_chunk_size \n\
-    \        if pos < n:\n            raise EOFError(f\"Only found {pos} numbers,\
-    \ expected {n}\")\n            \n        return result\n    \n    def n_ints(self,\
-    \ n: int, shift = 0, max_digits: int = 20):\n        # sync buffers\n        tokens:\
-    \ list[str] = []\n        while (lim := sys.stdin.buffer.tell() - sys.stdin.tell())\
-    \ and len(tokens) < n:\n            residual_str: str = sys.stdin.readline(lim)\n\
+    \nfrom typing import Iterable\nfrom io import TextIOBase\n\n\nimport sys\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeAlias,\
+    \ TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream: TextIOBase\
+    \ = sys.stdin):\n        self.queue = deque()\n        self.stream = stream\n\n\
+    \    def __next__(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
+    \        \n    def line(self):\n        assert not self.queue\n        return\
+    \ sys.stdin.readline().split()\n\n    def n_uints(self, n: int, shift = 0, max_digits:\
+    \ int = 20):\n        # sync buffers\n        tokens: list[str] = []\n       \
+    \ while (lim := sys.stdin.buffer.tell() - sys.stdin.tell()) and len(tokens) <\
+    \ n:\n            residual_str: str = sys.stdin.readline(lim)\n            tokens.extend(residual_str.split())\n\
+    \        \n        result = [0] * n\n        pos = 0\n        \n        # Process\
+    \ residual string and check for partial token\n        partial = None\n      \
+    \  if tokens:\n            if not residual_str[-1].isspace():\n              \
+    \  partial = tokens.pop()\n            for pos, token in enumerate(tokens):\n\
+    \                result[pos] = int(token)+shift\n            pos += 1\n      \
+    \  # Process remaining data token by token\n        stdin_buffer = sys.stdin.buffer\n\
+    \        num = int(partial) if partial else 0\n        have_digit = partial is\
+    \ not None\n\n        original_chunk_size = sys.stdin._CHUNK_SIZE\n        sys.stdin._CHUNK_SIZE\
+    \ = max(original_chunk_size, max_digits * (n - pos))\n        \n        while\
+    \ pos < n:\n            byte = stdin_buffer.read(1)\n\n            match byte[0]:\n\
+    \                case 10 | 32:\n                    if have_digit:\n         \
+    \               result[pos] = num+shift\n                        pos += 1\n  \
+    \                      num = 0\n                        have_digit = False\n \
+    \               case char:  # digit\n                    num = (num * 10) + (char\
+    \ - 48)\n                    have_digit = True\n\n        if have_digit:\n   \
+    \         result[pos] = num+shift\n            pos += 1\n\n        sys.stdin._CHUNK_SIZE\
+    \ = original_chunk_size \n        if pos < n:\n            raise EOFError(f\"\
+    Only found {pos} numbers, expected {n}\")\n            \n        return result\n\
+    \    \n    def n_ints(self, n: int, shift = 0, max_digits: int = 20):\n      \
+    \  # sync buffers\n        tokens: list[str] = []\n        while (lim := sys.stdin.buffer.tell()\
+    \ - sys.stdin.tell()) and len(tokens) < n:\n            residual_str: str = sys.stdin.readline(lim)\n\
     \            tokens.extend(residual_str.split())\n        \n        result = [0]\
     \ * n\n        pos = 0\n        \n        # Process residual string and check\
     \ for partial token\n        partial = None\n        if tokens:\n            if\
@@ -136,7 +136,7 @@ data:
     \            return cls(next(ts))\n        return parser\n\nclass Edge(tuple,\
     \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
     \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
+    \        return parse\n\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
     \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
     \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
     \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
@@ -324,37 +324,44 @@ data:
     \      case V: return V\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
     \ E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
     \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
-    \    \n\nclass Graph(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n\
-    \        super().__init__(set() for _ in range(N))\n        G.E = list(edges)\n\
-    \        G.N, G.M = N, len(G.E)\n        for u,v in G.E:\n            G[u].add(v)\n\
-    \            G[v].add(u)\n\n    @classmethod\n    def compile(cls, N: int, M:\
-    \ int, E: type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n\
-    \        return super().compile(N, M, E)\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.edge_cls\
-    \ import Edge\nfrom cp_library.alg.graph.graph_proto import GraphProtocol\n\n\
-    class Graph(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n        super().__init__(set()\
-    \ for _ in range(N))\n        G.E = list(edges)\n        G.N, G.M = N, len(G.E)\n\
-    \        for u,v in G.E:\n            G[u].add(v)\n            G[v].add(u)\n\n\
-    \    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
-    \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
-    \ M, E)"
+    \    \n\nclass DiGraph(GraphProtocol):\n    def __init__(G, N: int, E: list[Edge]=[]):\n\
+    \        super().__init__(N, E, ([] for _ in range(N)))\n        for u,v in G.E:\n\
+    \            G[u].append(v)\n\n    def edge_ids(G) -> list[list[int]]:\n     \
+    \   Eid = [[] for _ in range(G.N)]\n        for e,(u,v) in enumerate(G.E):\n \
+    \           Eid[u].append(e)\n        return Eid\n    \n    @classmethod\n   \
+    \ def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n        if isinstance(E,\
+    \ int): E = Edge[E]\n        return super().compile(N, M, E)\n\nclass DAG(DiGraph):\n\
+    \    def __init__(G, N: int, E: list[Edge]=[]):\n        super().__init__(N, E)\n\
+    \        deg_in = [0]*N\n        for _,v in G.E:\n            deg_in[v] += 1\n\
+    \        G.deg_in = deg_in\n\n    def starts(G, v: int|list[int]|None) -> Iterable:\n\
+    \        match v:\n            case int(v): return (v,)\n            case None:\
+    \ return (v for v in range(G.N) if G.deg_in[v] == 0)\n            case V: return\
+    \ V\n"
+  code: "import cp_library.alg.graph.__header__\n\nfrom typing import Iterable\nfrom\
+    \ cp_library.alg.graph.edge_cls import Edge\nfrom cp_library.alg.graph.digraph_cls\
+    \ import DiGraph\n\nclass DAG(DiGraph):\n    def __init__(G, N: int, E: list[Edge]=[]):\n\
+    \        super().__init__(N, E)\n        deg_in = [0]*N\n        for _,v in G.E:\n\
+    \            deg_in[v] += 1\n        G.deg_in = deg_in\n\n    def starts(G, v:\
+    \ int|list[int]|None) -> Iterable:\n        match v:\n            case int(v):\
+    \ return (v,)\n            case None: return (v for v in range(G.N) if G.deg_in[v]\
+    \ == 0)\n            case V: return V"
   dependsOn:
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/digraph_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/elist_fn.py
   isVerificationFile: false
-  path: cp_library/alg/graph/graph_set_cls.py
-  requiredBy:
-  - cp_library/alg/tree/tree_set_cls.py
+  path: cp_library/alg/graph/dag_cls.py
+  requiredBy: []
   timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: cp_library/alg/graph/graph_set_cls.py
+documentation_of: cp_library/alg/graph/dag_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/graph_set_cls.py
-- /library/cp_library/alg/graph/graph_set_cls.py.html
-title: cp_library/alg/graph/graph_set_cls.py
+- /library/cp_library/alg/graph/dag_cls.py
+- /library/cp_library/alg/graph/dag_cls.py.html
+title: cp_library/alg/graph/dag_cls.py
 ---

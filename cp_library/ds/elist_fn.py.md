@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/alg/graph/dag_cls.py
+    title: cp_library/alg/graph/dag_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_cls.py
     title: cp_library/alg/graph/digraph_cls.py
@@ -128,6 +131,7 @@ data:
   path: cp_library/ds/elist_fn.py
   requiredBy:
   - cp_library/ds/queries_cls.py
+  - cp_library/alg/graph/dag_cls.py
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/grid_graph_proto.py
   - cp_library/alg/graph/graph_proto.py
@@ -146,7 +150,7 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-16 19:58:23+09:00'
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py

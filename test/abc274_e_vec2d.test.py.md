@@ -177,13 +177,15 @@ data:
     \ other), op(self[1], other))\n        if isinstance(other, Sequence):\n     \
     \       return Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n        raise\
     \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
-    \   def dist(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
-    \        return sqrt(dx*dx+dy*dy)\n    \n    def rot90(vec):\n        x,y = vec\n\
-    \        return Vec2D(-y,x)\n    \n    def rot180(vec):\n        x,y = vec\n \
-    \       return Vec2D(-x,-y)\n    \n    def rot270(vec):\n        x,y = vec\n \
-    \       return Vec2D(y,-x)\n    \n    def flip_x(vec):\n        x,y = vec\n  \
-    \      return Vec2D(-x,y)\n    \n    def flip_y(vec):\n        x,y = vec\n   \
-    \     return Vec2D(x,-y)\n    \n    @classmethod\n    def compile(cls, T: type\
+    \   def distance(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
+    \        return sqrt(dx*dx+dy*dy)\n    \n    def magnitude(vec: 'Vec'):\n    \
+    \    x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def norm(vec: 'Vec'):\n\
+    \        return vec / vec.magnitude()\n    \n    def rot90(vec):\n        x,y\
+    \ = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n        x,y =\
+    \ vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n        x,y =\
+    \ vec\n        return Vec2D(y,-x)\n    \n    def flip_x(vec):\n        x,y = vec\n\
+    \        return Vec2D(-x,y)\n    \n    def flip_y(vec):\n        x,y = vec\n \
+    \       return Vec2D(x,-y)\n    \n    @classmethod\n    def compile(cls, T: type\
     \ = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
     \            return cls(elm(ts), elm(ts))\n        return parse\n\n\nfrom typing\
     \ import Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\ndef read() ->\
@@ -221,7 +223,7 @@ data:
   isVerificationFile: true
   path: test/abc274_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2024-11-16 19:58:23+09:00'
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc274_e_vec2d.test.py

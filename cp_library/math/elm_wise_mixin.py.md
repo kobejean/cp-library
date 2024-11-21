@@ -22,6 +22,9 @@ data:
     title: cp_library/math/vec_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/abc151_f_fbisect_left.test.py
+    title: test/abc151_f_fbisect_left.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc189_e_vec2d.test.py
     title: test/abc189_e_vec2d.test.py
   - icon: ':heavy_check_mark:'
@@ -80,9 +83,10 @@ data:
   - cp_library/math/elm_wise_in_place_mixin.py
   - cp_library/math/vec3d_cls.py
   - cp_library/math/vec_cls.py
-  timestamp: '2024-11-16 19:58:23+09:00'
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/abc151_f_fbisect_left.test.py
   - test/abc189_e_vec2d.test.py
   - test/abc274_e_vec2d.test.py
 documentation_of: cp_library/math/elm_wise_mixin.py

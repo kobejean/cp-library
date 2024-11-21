@@ -2,117 +2,61 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/divcon/fbisect_fn.py
+    title: cp_library/alg/divcon/fbisect_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/alg/graph/dag_cls.py
-    title: cp_library/alg/graph/dag_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/digraph_cls.py
-    title: cp_library/alg/graph/digraph_cls.py
+    path: cp_library/io/read_specs_fn.py
+    title: cp_library/io/read_specs_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/digraph_weighted_cls.py
-    title: cp_library/alg/graph/digraph_weighted_cls.py
+    path: cp_library/math/elm_wise_mixin.py
+    title: cp_library/math/elm_wise_mixin.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_cls.py
-    title: cp_library/alg/graph/edge_list_cls.py
+    path: cp_library/math/vec2d_cls.py
+    title: cp_library/math/vec2d_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_weighted_cls.py
-    title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_weighted_cls.py
-    title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_cls.py
-    title: cp_library/alg/graph/graph_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/graph_set_cls.py
-    title: cp_library/alg/graph/graph_set_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_cls.py
-    title: cp_library/alg/tree/tree_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/tree/tree_fast_cls.py
-    title: cp_library/alg/tree/tree_fast_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/tree/tree_set_cls.py
-    title: cp_library/alg/tree/tree_set_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_cls.py
-    title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_edges_weighted_fn.py
-    title: cp_library/io/read_edges_weighted_fn.py
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/abc202_e_dfs_enter_leave.test.py
-    title: test/abc202_e_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc245_f_digraph.test.py
-    title: test/abc245_f_digraph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc361_e_tree_diameter.test.py
-    title: test/abc361_e_tree_diameter.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc375_g_find_bridges.test.py
-    title: test/abc375_g_find_bridges.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_iterative.test.py
-    title: test/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_recursive.test.py
-    title: test/dp_v_subtree_rerooting_recursive.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_1_a_dijkstra.test.py
-    title: test/grl_1_a_dijkstra.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_1_b_bellman_ford.test.py
-    title: test/grl_1_b_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_1_c_floyd_warshall.test.py
-    title: test/grl_1_c_floyd_warshall.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_2_a_kruskal_heap.test.py
-    title: test/grl_2_a_kruskal_heap.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_2_a_kruskal_sort.test.py
-    title: test/grl_2_a_kruskal_sort.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_2_b_edmonds_branching.test.py
-    title: test/grl_2_b_edmonds_branching.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_3_a_articulation_points_fn.test.py
-    title: test/grl_3_a_articulation_points_fn.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/grl_3_a_graph_articulation_points.test.py
-    title: test/grl_3_a_graph_articulation_points.test.py
+    path: cp_library/math/vec_cls.py
+    title: cp_library/math/vec_cls.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    ERROR: 1e-6
+    PROBLEM: https://atcoder.jp/contests/abc151/tasks/abc151_f
+    links:
+    - https://atcoder.jp/contests/abc151/tasks/abc151_f
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc151/tasks/abc151_f\n\
+    # verification-helper: ERROR 1e-6\n\nfrom math import sqrt\n\ndef main():\n  \
+    \  N = read(int)\n    points = read(list[Vec2D[float], N])\n\n    def candidates(r)\
+    \ -> list[Vec2D[float]]:\n        r2 = 2*r\n        intersections = []\n     \
+    \   for i in range(N):\n            for j in range(i):\n                if i ==\
+    \ j: continue\n                diff = points[j] - points[i]\n                if\
+    \ (d := diff.magnitude()) <= r2:\n                    diff /= d\n            \
+    \        d /= 2.0\n                    diff = diff.rot90() * sqrt(r*r - d*d)\n\
+    \                    mid = (points[i]+points[j])/2.0\n                    intersections.append(mid-diff)\n\
+    \                    intersections.append(mid+diff)\n\n        return intersections\n\
+    \n    def f(r):\n        for candidate in candidates(r):\n            if all(candidate.distance(point)\
+    \ <= r+1e-9 for point in points):\n                return True\n        return\
+    \ False\n    \n    ans = fbisect_left(f, 2000.0)\n    print(f'{ans:0.18f}')\n\n\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from io import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\ndef\
+    \ fbisect_left(key, hi, x = True, lo = 0.0, tol=1e-9):\n    while hi - lo > tol:\
+    \            \n        mid = (lo + hi) / 2\n        if key(mid) >= x:\n      \
+    \      hi = mid\n        else:\n            lo = mid\n            \n    return\
+    \ lo\n\ndef fbisect_right(key, hi, x=False, lo=0.0, tol=1e-9):\n    while hi -\
+    \ lo > tol:\n        mid = (lo + hi) / 2\n        if key(mid) > x:\n         \
+    \   hi = mid\n        else:\n            lo = mid\n    return hi\n\n\nfrom io\
+    \ import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections import deque\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
     \    def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
     \ deque()\n        self.stream = stream\n\n    def __next__(self):\n        if\
     \ not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
@@ -211,57 +155,89 @@ data:
     \ N, spec)\n                return Parser.compile_repeat(cls, spec, N)\n     \
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
-    \            return cls(next(ts))\n        return parser\n\nclass Edge(tuple,\
-    \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
-    \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n"
-  code: "import cp_library.alg.graph.__header__\nfrom cp_library.io.parser_cls import\
-    \ Parsable, TokenStream\n\nclass Edge(tuple, Parsable):\n    @classmethod\n  \
-    \  def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n            u,v\
-    \ = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return parse"
+    \            return cls(next(ts))\n        return parser\n\n\nimport operator\n\
+    from typing import Sequence\n\nclass ElmWiseMixin:\n    def elm_wise(self, other,\
+    \ op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
+    \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
+    \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
+    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
+    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
+    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
+    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
+    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
+    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
+    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
+    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
+    \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
+    \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
+    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\nfrom\
+    \ typing import Iterable \nfrom math import hypot\n\nclass Vec(ElmWiseMixin, tuple,\
+    \ Parsable):\n    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ Iterable):\n            return super().__new__(cls, args[0])\n        return\
+    \ super().__new__(cls, args)\n\n    def dist(v1: 'Vec', v2: 'Vec'):\n        diff\
+    \ = v2-v1\n        return hypot(*diff)\n\n    @classmethod\n    def compile(cls,\
+    \ T: type = int, N = None):\n        elm = Parser.compile(T)\n        if N is\
+    \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
+    \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
+    \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
+    \  \n\nclass Vec2D(Vec):\n\n    def elm_wise(self, other, op):\n        if isinstance(other,\
+    \ Number):\n            return Vec2D(op(self[0], other), op(self[1], other))\n\
+    \        if isinstance(other, Sequence):\n            return Vec2D(op(self[0],\
+    \ other[0]), op(self[1], other[1]))\n        raise ValueError(\"Operand must be\
+    \ a number or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2:\
+    \ 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
+    \    \n    def magnitude(vec: 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n\
+    \    \n    def norm(vec: 'Vec'):\n        return vec / vec.magnitude()\n    \n\
+    \    def rot90(vec):\n        x,y = vec\n        return Vec2D(-y,x)\n    \n  \
+    \  def rot180(vec):\n        x,y = vec\n        return Vec2D(-x,-y)\n    \n  \
+    \  def rot270(vec):\n        x,y = vec\n        return Vec2D(y,-x)\n    \n   \
+    \ def flip_x(vec):\n        x,y = vec\n        return Vec2D(-x,y)\n    \n    def\
+    \ flip_y(vec):\n        x,y = vec\n        return Vec2D(x,-y)\n    \n    @classmethod\n\
+    \    def compile(cls, T: type = int):\n        elm = Parser.compile(T)\n     \
+    \   def parse(ts: TokenStream):\n            return cls(elm(ts), elm(ts))\n  \
+    \      return parse\n\n\nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n\
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
+    \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
+    \ \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc151/tasks/abc151_f\n\
+    # verification-helper: ERROR 1e-6\n\nfrom math import sqrt\n\ndef main():\n  \
+    \  N = read(int)\n    points = read(list[Vec2D[float], N])\n\n    def candidates(r)\
+    \ -> list[Vec2D[float]]:\n        r2 = 2*r\n        intersections = []\n     \
+    \   for i in range(N):\n            for j in range(i):\n                if i ==\
+    \ j: continue\n                diff = points[j] - points[i]\n                if\
+    \ (d := diff.magnitude()) <= r2:\n                    diff /= d\n            \
+    \        d /= 2.0\n                    diff = diff.rot90() * sqrt(r*r - d*d)\n\
+    \                    mid = (points[i]+points[j])/2.0\n                    intersections.append(mid-diff)\n\
+    \                    intersections.append(mid+diff)\n\n        return intersections\n\
+    \n    def f(r):\n        for candidate in candidates(r):\n            if all(candidate.distance(point)\
+    \ <= r+1e-9 for point in points):\n                return True\n        return\
+    \ False\n    \n    ans = fbisect_left(f, 2000.0)\n    print(f'{ans:0.18f}')\n\n\
+    \nfrom cp_library.alg.divcon.fbisect_fn import fbisect_left\nfrom cp_library.math.vec2d_cls\
+    \ import Vec2D\nfrom cp_library.io.read_specs_fn import read\n\nif __name__ ==\
+    \ \"__main__\":\n    main()"
   dependsOn:
+  - cp_library/alg/divcon/fbisect_fn.py
+  - cp_library/math/vec2d_cls.py
+  - cp_library/io/read_specs_fn.py
   - cp_library/io/parser_cls.py
-  isVerificationFile: false
-  path: cp_library/alg/graph/edge_cls.py
-  requiredBy:
-  - cp_library/io/read_edges_weighted_fn.py
-  - cp_library/alg/graph/dag_cls.py
-  - cp_library/alg/graph/graph_cls.py
-  - cp_library/alg/graph/digraph_cls.py
-  - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/edge_list_weighted_cls.py
-  - cp_library/alg/graph/graph_weighted_cls.py
-  - cp_library/alg/graph/edge_list_cls.py
-  - cp_library/alg/graph/digraph_weighted_cls.py
-  - cp_library/alg/graph/graph_set_cls.py
-  - cp_library/alg/tree/tree_set_cls.py
-  - cp_library/alg/tree/tree_fast_cls.py
-  - cp_library/alg/tree/tree_cls.py
-  - cp_library/alg/tree/tree_weighted_cls.py
+  - cp_library/math/vec_cls.py
+  - cp_library/math/elm_wise_mixin.py
+  isVerificationFile: true
+  path: test/abc151_f_fbisect_left.test.py
+  requiredBy: []
   timestamp: '2024-11-22 04:31:33+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/abc375_g_find_bridges.test.py
-  - test/abc202_e_dfs_enter_leave.test.py
-  - test/grl_1_b_bellman_ford.test.py
-  - test/grl_2_a_kruskal_heap.test.py
-  - test/grl_2_a_kruskal_sort.test.py
-  - test/grl_2_b_edmonds_branching.test.py
-  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - test/grl_1_c_floyd_warshall.test.py
-  - test/abc361_e_tree_diameter.test.py
-  - test/grl_3_a_articulation_points_fn.test.py
-  - test/abc245_f_digraph.test.py
-  - test/grl_3_a_graph_articulation_points.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - test/grl_1_a_dijkstra.test.py
-  - test/dp_v_subtree_rerooting_recursive.test.py
-  - test/dp_v_subtree_rerooting_iterative.test.py
-documentation_of: cp_library/alg/graph/edge_cls.py
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/abc151_f_fbisect_left.test.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/edge_cls.py
-- /library/cp_library/alg/graph/edge_cls.py.html
-title: cp_library/alg/graph/edge_cls.py
+- /verify/test/abc151_f_fbisect_left.test.py
+- /verify/test/abc151_f_fbisect_left.test.py.html
+title: test/abc151_f_fbisect_left.test.py
 ---

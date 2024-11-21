@@ -10,6 +10,9 @@ data:
     title: cp_library/io/read_edges_weighted_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/abc151_f_fbisect_left.test.py
+    title: test/abc151_f_fbisect_left.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc175_d_permutation.test.py
     title: test/abc175_d_permutation.test.py
   - icon: ':heavy_check_mark:'
@@ -233,7 +236,7 @@ data:
   path: cp_library/io/read_specs_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-16 19:58:23+09:00'
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_mo.test.py
@@ -247,6 +250,7 @@ data:
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/abc175_d_permutation.test.py
+  - test/abc151_f_fbisect_left.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc186_e_gcd_ex.test.py
   - test/abc184_e_grid_graph_bfs_fn.test.py

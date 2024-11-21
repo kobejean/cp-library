@@ -211,7 +211,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_a_kruskal_sort.test.py
   requiredBy: []
-  timestamp: '2024-11-16 19:58:23+09:00'
+  timestamp: '2024-11-22 04:31:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_a_kruskal_sort.test.py

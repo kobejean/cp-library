@@ -4,6 +4,9 @@ data:
   - name: cp_library/alg/divcon
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/divcon/fbisect_fn.py
+      title: cp_library/alg/divcon/fbisect_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/partition_fn.py
       title: cp_library/alg/divcon/partition_fn.py
     - icon: ':heavy_check_mark:'
@@ -37,6 +40,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bfs_fn.py
       title: cp_library/alg/graph/bfs_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/dag_cls.py
+      title: cp_library/alg/graph/dag_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dfs_events_fn.py
       title: cp_library/alg/graph/dfs_events_fn.py
@@ -423,6 +429,9 @@ data:
   verificationCategories:
   - name: test
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/abc151_f_fbisect_left.test.py
+      title: test/abc151_f_fbisect_left.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc175_d_permutation.test.py
       title: test/abc175_d_permutation.test.py
