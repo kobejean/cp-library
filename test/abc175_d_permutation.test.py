@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc175/tasks/abc175_d
 
-from itertools import accumulate
+
 from math import inf
 
 
@@ -14,7 +14,7 @@ def main():
         L = len(cyc)
         A = [C[u] for u in cyc]
         loop = sum(A)
-        A = list(accumulate(A*3))
+        A = presum(A*3)
         m, k = divmod(K, L)
         if m:
             k += L
@@ -25,6 +25,7 @@ def main():
 
     print(ans)
     
+from cp_library.alg.iter.presum_fn import presum
 from cp_library.alg.graph.permutation_cls import Permutation
 from cp_library.io.read_specs_fn import read
 

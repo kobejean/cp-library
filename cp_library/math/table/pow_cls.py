@@ -1,4 +1,3 @@
-from itertools import accumulate
 import cp_library.math.table.__header__
 
 class Pow(list):

@@ -344,28 +344,6 @@ class GraphProtocol(list, Parsable):
                     edges.append((u,v))
                     stack.append(v)
         return edges
-
-    def dfs_topdown_indexed(G, s: int|list[int]|None = None, connect_roots = False):
-        '''Returns list of (u,v) representing u->v edges in order of top down discovery'''
-        stack = [0] * G.N
-        vis: list[bool] = [False]*G.N
-        edges: list[tuple[int,int,int]] = []
-
-        for r,s in enumerate(G.starts(s)):
-            if vis[s]: continue
-            if connect_roots:
-                edges.append((r,-1,s))
-            vis[s] = True
-            stack[idx := 0] = s
-            while idx != -1:
-                u, idx = stack[idx], idx-1
-                for c,v in enumerate(G[u]):
-                    if vis[v]: continue
-                    vis[v] = True
-                    edges.append((c,u,v))
-                    stack[idx := idx+1] = v 
-
-        return edges
     
     def dfs_bottomup(G, s: int|list[int]|None = None, connect_roots = False):
         '''Returns list of (p,u) representing p->u edges in bottom up order'''

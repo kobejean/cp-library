@@ -1,6 +1,6 @@
 import cp_library.alg.tree.__header__
+from cp_library.alg.iter.presum_fn import presum
 from cp_library.ds.sparse_table_cls import SparseTable
-from itertools import accumulate
 
 class LCATableWeighted(SparseTable):
     def __init__(self, T, root = 0):
@@ -36,7 +36,7 @@ class LCATableWeighted(SparseTable):
 
     def distance(self, u, v) -> int:
         if self.weighted_depth is None:
-            self.weighted_depth = list(accumulate(self.weights))
+            self.weighted_depth = presum(self.weights)
         l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1
         _, a = super().query(l, r)
         m = self.start[a]

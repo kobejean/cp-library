@@ -26,7 +26,7 @@ def main():
                 range_add(0,l,cnt)
                 range_add(r,N,cnt)
         bit.set(hld[v],1)
-    ans = list(accumulate(ans))
+    ans = presum(ans)
     ans = [ans[i] for i in hld.start]
     print(*ans)
 
@@ -34,6 +34,7 @@ from cp_library.alg.tree.heavy_light_decomposition_cls import HLD
 from cp_library.alg.tree.tree_cls import Tree
 from cp_library.ds.bit_cls import BinaryIndexTree
 from cp_library.io.read_specs_fn import read
+from cp_library.alg.iter.presum_fn import presum
 
 if __name__ == "__main__":
     main()

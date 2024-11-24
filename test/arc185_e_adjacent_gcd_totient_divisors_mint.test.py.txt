@@ -22,7 +22,7 @@ def main():
 from cp_library.io.read_specs_fn import read
 from cp_library.math.table.divisors_cls import Divisors
 from cp_library.math.table.totient_cls import Totient
-from cp_library.math.mod.mint_comb_cls import mint
+from cp_library.math.mod.mint_cls import mint
 
 if __name__ == "__main__":
     main()

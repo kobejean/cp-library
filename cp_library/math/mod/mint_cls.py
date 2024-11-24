@@ -1,18 +1,21 @@
 import cp_library.math.mod.__header__
 
 class mint(int):
-    mod = zero = one = None
+    mod = zero = one = two = None
 
     def __new__(cls, *args, **kwargs):
         match int(*args, **kwargs):
             case 0: return cls.zero
             case 1: return cls.one
+            case 2: return cls.two
             case x: return cls.fix(x)
 
     @classmethod
     def set_mod(cls, mod):
         cls.mod = mod
-        cls.zero, cls.one = cls.cast(0), cls.fix(1)
+        cls.zero = cls.cast(0)
+        cls.one = cls.fix(1)
+        cls.two = cls.fix(2)
 
     @classmethod
     def fix(cls, x): return cls.cast(x%cls.mod)
