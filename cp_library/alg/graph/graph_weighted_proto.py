@@ -43,6 +43,40 @@ class GraphWeightedProtocol(GraphProtocol):
                     heappush(q, (nd, u))
         return D if g is None else inf
     
+    def shortest_path(G, s: int, g: int) -> list[int]:
+        if s == g:
+            return []
+            
+        D = [inf] * G.N
+        D[s] = 0
+        par = [-1] * G.N
+        par_edge = [-1] * G.N
+        Eid = G.edge_ids()
+        q = [(0, s)]
+        
+        while q:
+            d, v = heappop(q)
+            if d > D[v]: continue
+            if v == g: break
+                
+            for (u, w, *_), eid in zip(G[v], Eid[v]):
+                if (nd := d + w) < D[u]:
+                    D[u] = nd
+                    par[u] = v
+                    par_edge[u] = eid
+                    heappush(q, (nd, u))
+        
+        if D[g] == inf:
+            return None
+            
+        path = []
+        current = g
+        while current != s:
+            path.append(par_edge[current])
+            current = par[current]
+            
+        return path[::-1]
+    
     def kruskal(G):
         E, N = G.E, G.N
         heapify(E)

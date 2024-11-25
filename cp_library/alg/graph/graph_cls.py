@@ -21,3 +21,19 @@ class Graph(GraphProtocol):
     def compile(cls, N: int, M: int, E: type|int = Edge[-1]):
         if isinstance(E, int): E = Edge[E]
         return super().compile(N, M, E)
+from collections import deque
+
+class Graph(GraphProtocol):
+    def __init__(G, N: int, E: list[Edge]=[]):
+        super().__init__(N, E, ([] for _ in range(N)))
+        for u,v in G.E:
+            G[u].append(v)
+            G[v].append(u)
+
+    def edge_ids(G) -> list[list[int]]:
+        Eid = [[] for _ in range(G.N)]
+        for e,(u,v) in enumerate(G.E):
+            Eid[u].append(e)
+            Eid[v].append(e)
+        return Eid
+    

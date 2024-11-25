@@ -49,13 +49,44 @@ class GraphProtocol(list, Parsable):
                 if nd < D[v]:
                     D[v] = nd
                     q.append(v)
-        return D if g is None else inf    
-    
-    
+        return D if g is None else inf 
+
+    def shortest_path(G, s: int, g: int) -> list[int]:
+        if s == g: return []
+            
+        par = [-1] * G.N
+        par_edge = [-1] * G.N
+        Eid = G.edge_ids()
+        D = [inf] * G.N
+        D[s] = 0
+        q = deque([s])
+        
+        while q:
+            nd = D[u := q.popleft()] + 1
+            if u == g: break
+                
+            for v, eid in zip(G[u], Eid[u]):
+                if nd < D[v]:
+                    D[v] = nd
+                    par[v] = u
+                    par_edge[v] = eid
+                    q.append(v)
+        
+        if D[g] == inf:
+            return None
+            
+        path = []
+        current = g
+        while current != s:
+            path.append(par_edge[current])
+            current = par[current]
+            
+        return path[::-1]
+        
     def floyd_warshall(G) -> list[list[int]]:
         D = [[inf]*G.N for _ in range(G.N)]
 
-        for u in G:
+        for u in range(G.N):
             D[u][u] = 0
             for v in G.neighbors(u):
                 D[u][v] = 1
