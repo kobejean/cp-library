@@ -29,7 +29,7 @@ class QueriesGrouped(Queries):
             def wrap_key(row):
                 _, *query = row
                 return key(query)
-        rows = list((i,*query) for i,query in enumerate(queries))
+        rows = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)
         groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]
         groups.sort()
         self.key = key
