@@ -20,19 +20,29 @@ jobs:
         sudo mkswap /swapfile
         sudo swapon /swapfile
         sudo swapon --show
-        
-        # Set vm.swappiness to a higher value
         sudo sysctl vm.swappiness=80
 
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 1  # Shallow clone for faster checkout
+        fetch-depth: 1
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: 'pypy3.10'
-        cache: 'pip'  # Enable pip caching
+
+    - name: Create cache directories
+      run: |
+        mkdir -p ~/.cache/pip
+        chmod -R 777 ~/.cache/pip
+
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
 
     - name: Configure Python memory limits
       run: |
@@ -54,12 +64,16 @@ jobs:
         YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
         DROPBOX_TOKEN: ${{ secrets.DROPBOX_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
-        # Add memory-related environment variables
         MALLOC_ARENA_MAX: "2"
         PYTHONMALLOC: "malloc"
       run: |
-        # Clean up any unnecessary processes and clear cache
         sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'
         
-        # Run verification with reduced parallel jobs
+        # Add debug information
+        echo "Available memory before tests:"
+        free -h
+        
         git pull && oj-verify all --tle 10 --timeout 6000 --jobs 1
+        
+        echo "Available memory after tests:"
+        free -h
