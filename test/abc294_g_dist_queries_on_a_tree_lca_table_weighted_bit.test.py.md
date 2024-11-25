@@ -227,11 +227,22 @@ data:
     \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
     \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
     \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
-    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
-    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
-    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
-    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \ \n\n    def shortest_path(G, s: int, g: int) -> list[int]:\n        if s ==\
+    \ g: return []\n            \n        par = [-1] * G.N\n        par_edge = [-1]\
+    \ * G.N\n        Eid = G.edge_ids()\n        D = [inf] * G.N\n        D[s] = 0\n\
+    \        q = deque([s])\n        \n        while q:\n            nd = D[u := q.popleft()]\
+    \ + 1\n            if u == g: break\n                \n            for v, eid\
+    \ in zip(G[u], Eid[u]):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    par[v] = u\n                    par_edge[v] = eid\n\
+    \                    q.append(v)\n        \n        if D[g] == inf:\n        \
+    \    return None\n            \n        path = []\n        current = g\n     \
+    \   while current != s:\n            path.append(par_edge[current])\n        \
+    \    current = par[current]\n            \n        return path[::-1]\n       \
+    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
+    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
+    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
+    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
+    \  for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
     \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
     \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
     \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
@@ -387,36 +398,47 @@ data:
     \       if d > D[v]: continue\n            if v == g: return d\n            for\
     \ u, w, *_ in G[v]:\n                if (nd := d + w) < D[u]:\n              \
     \      D[u] = nd\n                    heappush(q, (nd, u))\n        return D if\
-    \ g is None else inf\n    \n    def kruskal(G):\n        E, N = G.E, G.N\n   \
-    \     heapify(E)\n        dsu = DSU(N)\n        MST = []\n        need = N-1\n\
-    \        while E and need:\n            edge = heappop(E)\n            u,v,*_\
-    \ = edge\n            u,v = dsu.merge(u,v)\n            if u != v:\n         \
-    \       MST.append(edge)\n                need -= 1\n        cls = type(G)\n \
-    \       return cls(N, MST)\n    \n    def bellman_ford(G, s = 0) -> list[int]:\n\
-    \        D = [inf]*G.N\n        D[s] = 0\n        for _ in range(G.N-1):\n   \
-    \         for u, edges in enumerate(G):\n                for v,w,*_ in edges:\n\
-    \                    D[v] = min(D[v], D[u] + w)\n        return D\n    \n    def\
-    \ floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for _ in range(G.N)]\n\
-    \n        for u, edges in enumerate(G):\n            D[u][u] = 0\n           \
-    \ for v,w in edges:\n                D[u][v] = min(D[u][v], w)\n        \n   \
-    \     for k, Dk in enumerate(D):\n            for Di in D:\n                for\
-    \ j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n    \
-    \    return D\n    \n    def dfs_events(G, flags: DFSFlags, s: int|list|None =\
-    \ None, max_depth: int|None = None):\n        match flags:\n            case DFSFlags.INTERVAL:\n\
-    \                if max_depth is None:\n                    return G.dfs_enter_leave(s)\n\
-    \            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth\
-    \ is None:\n                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS\
-    \ in flags)\n                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n\
-    \            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth\
-    \ is None:\n                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS\
-    \ in flags)\n                    return [(DFSEvent.UP, p, u) for p,u in edges]\n\
-    \            case flags if flags & DFSFlags.BACKTRACK:\n                return\
-    \ G.dfs_backtrack(flags, s, max_depth)\n        state = [0] * G.N\n        child\
-    \ = elist(G.N)\n        weights = elist(G.N)\n        stack = elist(G.N)\n   \
-    \     if flags & DFSFlags.RETURN_PARENTS:\n            parents = [-1] * G.N\n\
-    \        if flags & DFSFlags.RETURN_DEPTHS:\n            depths = [-1] * G.N\n\
-    \n        events = []\n        for s in G.starts(s):\n            stack.append(s)\n\
-    \            child.append(0)\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
+    \ g is None else inf\n    \n    def shortest_path(G, s: int, g: int) -> list[int]:\n\
+    \        if s == g:\n            return []\n            \n        D = [inf] *\
+    \ G.N\n        D[s] = 0\n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n\
+    \        Eid = G.edge_ids()\n        q = [(0, s)]\n        \n        while q:\n\
+    \            d, v = heappop(q)\n            if d > D[v]: continue\n          \
+    \  if v == g: break\n                \n            for (u, w, *_), eid in zip(G[v],\
+    \ Eid[v]):\n                if (nd := d + w) < D[u]:\n                    D[u]\
+    \ = nd\n                    par[u] = v\n                    par_edge[u] = eid\n\
+    \                    heappush(q, (nd, u))\n        \n        if D[g] == inf:\n\
+    \            return None\n            \n        path = []\n        current = g\n\
+    \        while current != s:\n            path.append(par_edge[current])\n   \
+    \         current = par[current]\n            \n        return path[::-1]\n  \
+    \  \n    def kruskal(G):\n        E, N = G.E, G.N\n        heapify(E)\n      \
+    \  dsu = DSU(N)\n        MST = []\n        need = N-1\n        while E and need:\n\
+    \            edge = heappop(E)\n            u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n\
+    \            if u != v:\n                MST.append(edge)\n                need\
+    \ -= 1\n        cls = type(G)\n        return cls(N, MST)\n    \n    def bellman_ford(G,\
+    \ s = 0) -> list[int]:\n        D = [inf]*G.N\n        D[s] = 0\n        for _\
+    \ in range(G.N-1):\n            for u, edges in enumerate(G):\n              \
+    \  for v,w,*_ in edges:\n                    D[v] = min(D[v], D[u] + w)\n    \
+    \    return D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D\
+    \ = [[inf]*G.N for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n\
+    \            D[u][u] = 0\n            for v,w in edges:\n                D[u][v]\
+    \ = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n          \
+    \  for Di in D:\n                for j in range(G.N):\n                    Di[j]\
+    \ = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def dfs_events(G, flags:\
+    \ DFSFlags, s: int|list|None = None, max_depth: int|None = None):\n        match\
+    \ flags:\n            case DFSFlags.INTERVAL:\n                if max_depth is\
+    \ None:\n                    return G.dfs_enter_leave(s)\n            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n\
+    \                if max_depth is None:\n                    edges = G.dfs_topdown(s,\
+    \ DFSFlags.CONNECT_ROOTS in flags)\n                    return [(DFSEvent.DOWN,\
+    \ p, u) for p,u in edges]\n            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n \
+    \               if max_depth is None:\n                    edges = G.dfs_bottomup(s,\
+    \ DFSFlags.CONNECT_ROOTS in flags)\n                    return [(DFSEvent.UP,\
+    \ p, u) for p,u in edges]\n            case flags if flags & DFSFlags.BACKTRACK:\n\
+    \                return G.dfs_backtrack(flags, s, max_depth)\n        state =\
+    \ [0] * G.N\n        child = elist(G.N)\n        weights = elist(G.N)\n      \
+    \  stack = elist(G.N)\n        if flags & DFSFlags.RETURN_PARENTS:\n         \
+    \   parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n       \
+    \     depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
+    \            stack.append(s)\n            child.append(0)\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
     \ in flags:\n                events.append((DFSEvent.DOWN,-1,s,-1))\n        \
     \    while stack:\n                u = stack[-1]\n                \n         \
     \       if not state[u]:\n                    state[u] = 1\n                 \
@@ -598,7 +620,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

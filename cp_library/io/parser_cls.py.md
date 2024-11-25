@@ -145,8 +145,20 @@ data:
     path: test/abc202_e_dfs_enter_leave.test.py
     title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc203_e_queries_grouped.test.py
+    title: test/abc203_e_queries_grouped.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc203_e_sort_groups.test.py
+    title: test/abc203_e_sort_groups.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc206_e_mobius_table.test.py
     title: test/abc206_e_mobius_table.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc218_f_shortest_path.test.py
+    title: test/abc218_f_shortest_path.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc218_f_shortest_path_weighted.test.py
+    title: test/abc218_f_shortest_path_weighted.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc245_f_digraph.test.py
     title: test/abc245_f_digraph.test.py
@@ -473,7 +485,7 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_mo.test.py
@@ -491,11 +503,14 @@ data:
   - test/abc151_f_fbisect_left.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc186_e_gcd_ex.test.py
+  - test/abc203_e_queries_grouped.test.py
   - test/abc184_e_grid_graph_bfs_fn.test.py
+  - test/abc203_e_sort_groups.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc361_e_tree_diameter.test.py
   - test/abc246_e_grid_direction_graph.test.py
   - test/grl_3_a_articulation_points_fn.test.py
+  - test/abc218_f_shortest_path_weighted.test.py
   - test/abc189_e_vec2d.test.py
   - test/abc245_f_digraph.test.py
   - test/abc274_e_vec2d.test.py
@@ -509,6 +524,7 @@ data:
   - test/grl_1_a_dijkstra.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/dp_v_subtree_rerooting_iterative.test.py
+  - test/abc218_f_shortest_path.test.py
 documentation_of: cp_library/io/parser_cls.py
 layout: document
 redirect_from:

@@ -5,17 +5,23 @@ data:
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/digraph_cls.py
+    title: cp_library/alg/graph/digraph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/digraph_weighted_cls.py
+    title: cp_library/alg/graph/digraph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/edge_list_cls.py
+    title: cp_library/alg/graph/edge_list_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
@@ -37,28 +43,29 @@ data:
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    PROBLEM: https://atcoder.jp/contests/abc375/tasks/abc375_g
+    PROBLEM: https://atcoder.jp/contests/abc218/tasks/abc218_f
     links:
-    - https://atcoder.jp/contests/abc375/tasks/abc375_g
-  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc375/tasks/abc375_g\n\
-    \ndef main():\n    N, M = read(tuple[int, int])\n    G = read(GraphWeighted[N,M])\n\
-    \    S = G.dijkstra(0)\n    T = G.dijkstra(N-1)\n    D = [w+min(S[u]+T[v], S[v]+T[u])\
-    \ for u,v,w in G.E]\n    Dmin = S[-1]\n\n    H = GraphWeighted(N, [(*G.E[i], i)\
-    \ for i,d in enumerate(D) if Dmin == d])\n\n    ans = [False]*M\n    for e in\
-    \ H.bridges():\n        *_,i = H.E[e]\n        ans[i] = True\n\n    for i in range(M):\n\
-    \        print(\"Yes\" if ans[i] else \"No\")\n\n'''\n\u257A\u2501\u2501\u2501\
+    - https://atcoder.jp/contests/abc218/tasks/abc218_f
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc218/tasks/abc218_f\n\
+    \nfrom math import inf\n\n\ndef main():\n    N, M = read(tuple[int, ...])\n  \
+    \  E = read(EdgeList[M])\n    EW = [(u,v,1) for u,v in E]\n    G = DiGraphWeighted(N,EW)\n\
+    \    path = G.shortest_path(0,N-1)\n    if path is None:\n        shortest = -1\n\
+    \    else:\n        path = set(path)\n        shortest = len(path)\n    for e\
+    \ in range(M):\n        if path is not None and e in path:\n            G2 = DiGraph(N,\
+    \ E[:e]+E[e+1:])\n            ans = G2.distance(0,N-1)\n        else:\n      \
+    \      ans = shortest\n        print(ans if ans != inf else -1)\n\n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nimport sys\nfrom typing import Type, TypeVar, overload\n\
-    from io import TextIOBase\n\nimport typing\nfrom collections import deque\nfrom\
-    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n \
-    \   def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
-    \ deque()\n        self.stream = stream\n\n    def __next__(self):\n        if\
-    \ not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \    https://kobejean.github.io/cp-library               \n'''\n\nfrom typing\
+    \ import TypeVar\nfrom io import TextIOBase\n\n\nimport sys\nimport typing\nfrom\
+    \ collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\n\
+    class TokenStream(Iterator):\n    def __init__(self, stream: TextIOBase = sys.stdin):\n\
+    \        self.queue = deque()\n        self.stream = stream\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
     \ not self.queue\n        return sys.stdin.readline().split()\n\n    def n_uints(self,\
@@ -154,18 +161,16 @@ data:
     \ N, spec)\n                return Parser.compile_repeat(cls, spec, N)\n     \
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
-    \            return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n\
-    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
-    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
-    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
-    \ None, False:\n            return list(map(int, input().split()))\n        case\
-    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
-    \        case _, _:\n            if char:\n                stream = CharStream()\n\
-    \            else:\n                stream = TokenStream()\n            parser:\
-    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\n\n\nclass Edge(tuple,\
+    \            return cls(next(ts))\n        return parser\n\nclass Edge(tuple,\
     \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
     \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\nfrom functools import total_ordering \n\n@total_ordering\n\
+    \        return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
+    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
+    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
+    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
+    \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
+    \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
+    \ set[E]):\n    pass\n\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
     class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
     \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
     \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
@@ -182,9 +187,9 @@ data:
     \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
     \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
     \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nfrom heapq\
-    \ import heapify, heappop, heappush\nimport operator\nfrom math import inf\n\n\
-    from typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nfrom typing\
+    \ import overload\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
+    \nfrom typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n\
     \    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
     \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
     \ adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
@@ -496,45 +501,65 @@ data:
     \        leader_buf = [self.leader(i) for i in range(self.n)]\n\n        result\
     \ = [[] for _ in range(self.n)]\n        for i in range(self.n):\n           \
     \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
-    \nclass GraphWeighted(GraphWeightedProtocol):\n    def __init__(G, N: int, E=[]):\n\
-    \        super().__init__(N, E, ([] for _ in range(N)))\n        G.E = E\n   \
-    \     for u,v,*w in G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n\
+    \nfrom operator import itemgetter\n\nclass DiGraphWeighted(GraphWeightedProtocol):\n\
+    \    def __init__(G, N, E: list = []):\n        super().__init__(N, E, ([] for\
+    \ _ in range(N)))\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n\
     \    \n    def edge_ids(G) -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n\
     \        for e,(u,v,*w) in enumerate(G.E):\n            Eid[u].append(e)\n   \
-    \         Eid[v].append(e)\n        return Eid\n    \n    @classmethod\n    def\
-    \ compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n        if isinstance(E,\
-    \ int): E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n\nif __name__\
-    \ == \"__main__\":\n    main()\n"
-  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc375/tasks/abc375_g\n\
-    \ndef main():\n    N, M = read(tuple[int, int])\n    G = read(GraphWeighted[N,M])\n\
-    \    S = G.dijkstra(0)\n    T = G.dijkstra(N-1)\n    D = [w+min(S[u]+T[v], S[v]+T[u])\
-    \ for u,v,w in G.E]\n    Dmin = S[-1]\n\n    H = GraphWeighted(N, [(*G.E[i], i)\
-    \ for i,d in enumerate(D) if Dmin == d])\n\n    ans = [False]*M\n    for e in\
-    \ H.bridges():\n        *_,i = H.E[e]\n        ans[i] = True\n\n    for i in range(M):\n\
-    \        print(\"Yes\" if ans[i] else \"No\")\n\nfrom cp_library.io.read_specs_fn\
-    \ import read\nfrom cp_library.alg.graph.graph_weighted_cls import GraphWeighted\n\
-    \nif __name__ == \"__main__\":\n    main()"
+    \     return Eid\n    \n    def neighbors(G, v: int) -> Iterable[int]:\n     \
+    \   return map(itemgetter(0), G[v])\n    \n    @classmethod\n    def compile(cls,\
+    \ N: int, M: int, E: type|int = EdgeWeighted[-1]):\n        if isinstance(E, int):\
+    \ E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n\n\nclass DiGraph(GraphProtocol):\n\
+    \    def __init__(G, N: int, E: list[Edge]=[]):\n        super().__init__(N, E,\
+    \ ([] for _ in range(N)))\n        for u,v in G.E:\n            G[u].append(v)\n\
+    \n    def edge_ids(G) -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n\
+    \        for e,(u,v) in enumerate(G.E):\n            Eid[u].append(e)\n      \
+    \  return Eid\n    \n    @classmethod\n    def compile(cls, N: int, M: int, E:\
+    \ type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n        return\
+    \ super().compile(N, M, E)\n\nfrom typing import Type, TypeVar, overload\n\nT\
+    \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False)\
+    \ -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n\
+    \        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream()\n            else:\n                stream = TokenStream()\n\
+    \            parser: T = Parser.compile(spec)\n            return parser(stream)\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc218/tasks/abc218_f\n\
+    \nfrom math import inf\n\n\ndef main():\n    N, M = read(tuple[int, ...])\n  \
+    \  E = read(EdgeList[M])\n    EW = [(u,v,1) for u,v in E]\n    G = DiGraphWeighted(N,EW)\n\
+    \    path = G.shortest_path(0,N-1)\n    if path is None:\n        shortest = -1\n\
+    \    else:\n        path = set(path)\n        shortest = len(path)\n    for e\
+    \ in range(M):\n        if path is not None and e in path:\n            G2 = DiGraph(N,\
+    \ E[:e]+E[e+1:])\n            ans = G2.distance(0,N-1)\n        else:\n      \
+    \      ans = shortest\n        print(ans if ans != inf else -1)\n\nfrom cp_library.alg.graph.edge_list_cls\
+    \ import EdgeList\nfrom cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted\n\
+    from cp_library.alg.graph.digraph_cls import DiGraph\nfrom cp_library.io.read_specs_fn\
+    \ import read\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
+  - cp_library/alg/graph/edge_list_cls.py
+  - cp_library/alg/graph/digraph_weighted_cls.py
+  - cp_library/alg/graph/digraph_cls.py
   - cp_library/io/read_specs_fn.py
-  - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
-  - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/elist_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
-  - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/dsu_cls.py
   isVerificationFile: true
-  path: test/abc375_g_find_bridges.test.py
+  path: test/abc218_f_shortest_path_weighted.test.py
   requiredBy: []
   timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/abc375_g_find_bridges.test.py
+documentation_of: test/abc218_f_shortest_path_weighted.test.py
 layout: document
 redirect_from:
-- /verify/test/abc375_g_find_bridges.test.py
-- /verify/test/abc375_g_find_bridges.test.py.html
-title: test/abc375_g_find_bridges.test.py
+- /verify/test/abc218_f_shortest_path_weighted.test.py
+- /verify/test/abc218_f_shortest_path_weighted.test.py.html
+title: test/abc218_f_shortest_path_weighted.test.py
 ---

@@ -163,7 +163,7 @@ data:
   isVerificationFile: true
   path: test/abc206_e_mobius_table.test.py
   requiredBy: []
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc206_e_mobius_table.test.py

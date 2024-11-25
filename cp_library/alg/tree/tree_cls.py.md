@@ -190,11 +190,22 @@ data:
     \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
     \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
     \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
-    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
-    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
-    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
-    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \ \n\n    def shortest_path(G, s: int, g: int) -> list[int]:\n        if s ==\
+    \ g: return []\n            \n        par = [-1] * G.N\n        par_edge = [-1]\
+    \ * G.N\n        Eid = G.edge_ids()\n        D = [inf] * G.N\n        D[s] = 0\n\
+    \        q = deque([s])\n        \n        while q:\n            nd = D[u := q.popleft()]\
+    \ + 1\n            if u == g: break\n                \n            for v, eid\
+    \ in zip(G[u], Eid[u]):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    par[v] = u\n                    par_edge[v] = eid\n\
+    \                    q.append(v)\n        \n        if D[g] == inf:\n        \
+    \    return None\n            \n        path = []\n        current = g\n     \
+    \   while current != s:\n            path.append(par_edge[current])\n        \
+    \    current = par[current]\n            \n        return path[::-1]\n       \
+    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
+    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
+    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
+    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
+    \  for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
     \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
     \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
     \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
@@ -345,15 +356,15 @@ data:
     \           Eid[u].append(e)\n            Eid[v].append(e)\n        return Eid\n\
     \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
     \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
-    \ M, E)\n\nfrom typing import overload, Literal\nfrom functools import cached_property\n\
-    \n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n    def __init__(self,\
-    \ op: Callable[[Any, Any], Any], arr: List[Any]):\n        self.n = len(arr)\n\
-    \        self.log = self.n.bit_length()\n        self.op = op\n        self.st\
-    \ = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n        self.st[0]\
-    \ = arr[:]\n        \n        for i in range(self.log-1):\n            row, d\
-    \ = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n       \
-    \         self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self, l: int,\
-    \ r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
+    \ M, E)\n\n    \n\nfrom typing import overload, Literal\nfrom functools import\
+    \ cached_property\n\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
+    \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
+    \    self.n = len(arr)\n        self.log = self.n.bit_length()\n        self.op\
+    \ = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n\
+    \        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
+    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
+    \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
+    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
     \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
     \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n\nclass BinaryIndexTree:\n\
     \    def __init__(self, v: int|list):\n        if isinstance(v, int):\n      \
@@ -440,7 +451,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_cls.py
   requiredBy: []
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc202_e_dfs_enter_leave.test.py

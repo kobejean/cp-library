@@ -16,6 +16,9 @@ data:
     title: cp_library/io/read_edges_weighted_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/abc218_f_shortest_path_weighted.test.py
+    title: test/abc218_f_shortest_path_weighted.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
@@ -166,12 +169,13 @@ data:
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_heap.test.py
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
+  - test/abc218_f_shortest_path_weighted.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/graph/edge_list_cls.py
 layout: document

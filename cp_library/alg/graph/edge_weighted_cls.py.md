@@ -25,6 +25,9 @@ data:
     title: cp_library/io/read_edges_weighted_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/abc218_f_shortest_path_weighted.test.py
+    title: test/abc218_f_shortest_path_weighted.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
     title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
@@ -194,7 +197,7 @@ data:
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py
@@ -204,6 +207,7 @@ data:
   - test/grl_2_b_edmonds_branching.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc361_e_tree_diameter.test.py
+  - test/abc218_f_shortest_path_weighted.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   - test/grl_1_a_dijkstra.test.py

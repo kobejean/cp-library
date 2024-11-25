@@ -5,23 +5,14 @@ data:
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/digraph_cls.py
+    title: cp_library/alg/graph/digraph_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_weighted_cls.py
-    title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_proto.py
-    title: cp_library/alg/graph/graph_weighted_proto.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/dsu_cls.py
-    title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
@@ -37,26 +28,26 @@ data:
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    PROBLEM: https://atcoder.jp/contests/abc375/tasks/abc375_g
+    PROBLEM: https://atcoder.jp/contests/abc218/tasks/abc218_f
     links:
-    - https://atcoder.jp/contests/abc375/tasks/abc375_g
-  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc375/tasks/abc375_g\n\
-    \ndef main():\n    N, M = read(tuple[int, int])\n    G = read(GraphWeighted[N,M])\n\
-    \    S = G.dijkstra(0)\n    T = G.dijkstra(N-1)\n    D = [w+min(S[u]+T[v], S[v]+T[u])\
-    \ for u,v,w in G.E]\n    Dmin = S[-1]\n\n    H = GraphWeighted(N, [(*G.E[i], i)\
-    \ for i,d in enumerate(D) if Dmin == d])\n\n    ans = [False]*M\n    for e in\
-    \ H.bridges():\n        *_,i = H.E[e]\n        ans[i] = True\n\n    for i in range(M):\n\
-    \        print(\"Yes\" if ans[i] else \"No\")\n\n'''\n\u257A\u2501\u2501\u2501\
+    - https://atcoder.jp/contests/abc218/tasks/abc218_f
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc218/tasks/abc218_f\n\
+    \nfrom math import inf\n\ndef main():\n    N, M = read(tuple[int, ...])\n    G\
+    \ = read(DiGraph[N,M])\n    path = G.shortest_path(0,N-1)\n    if path is None:\n\
+    \        shortest = -1\n    else:\n        path = set(path)\n        shortest\
+    \ = len(path)\n    for e in range(M):\n        if path is not None and e in path:\n\
+    \            G2 = DiGraph(N, G.E[:e]+G.E[e+1:])\n            ans = G2.distance(0,N-1)\n\
+    \        else:\n            ans = shortest\n        print(ans if ans != inf else\
+    \ -1)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nimport sys\nfrom typing import Type, TypeVar, overload\n\
-    from io import TextIOBase\n\nimport typing\nfrom collections import deque\nfrom\
-    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n \
-    \   def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nfrom io import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \    def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
     \ deque()\n        self.stream = stream\n\n    def __next__(self):\n        if\
     \ not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
@@ -154,36 +145,21 @@ data:
     \ N, spec)\n                return Parser.compile_repeat(cls, spec, N)\n     \
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
-    \            return cls(next(ts))\n        return parser\n\nT = TypeVar('T')\n\
-    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
-    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
-    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
-    \ None, False:\n            return list(map(int, input().split()))\n        case\
-    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
-    \        case _, _:\n            if char:\n                stream = CharStream()\n\
-    \            else:\n                stream = TokenStream()\n            parser:\
-    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\n\n\nclass Edge(tuple,\
+    \            return cls(next(ts))\n        return parser\n\nclass Edge(tuple,\
     \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
     \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\nfrom functools import total_ordering \n\n@total_ordering\n\
-    class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
-    \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
-    \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
-    \   def parse(ts: TokenStream):\n            u,v,w = ts.line()\n            return\
-    \ cls((int(u)+I, int(v)+I, int(w)))\n        return parse\ntry:\n    from __pypy__\
-    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
-    \    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n\n\
-    from enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
-    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
-    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
-    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
-    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
-    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
-    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
-    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
-    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nfrom heapq\
-    \ import heapify, heappop, heappush\nimport operator\nfrom math import inf\n\n\
+    \        return parse\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
+    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
+    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
+    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
+    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
+    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
+    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
+    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
+    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
+    \    \ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n\
     from typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n\
     \    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
     \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
@@ -360,181 +336,50 @@ data:
     \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
     \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
     \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    \n\nclass GraphWeightedProtocol(GraphProtocol):\n\
-    \n    def neighbors(G, v: int):\n        return map(operator.itemgetter(0), G[v])\n\
-    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
-    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
-    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
-    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
-    \            case s, None:\n                return G.dijkstra(s)\n           \
-    \ case s, g:\n                return G.dijkstra(s, g)\n    \n    def dijkstra(G,\
-    \ s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n        D[s] = 0\n\
-    \        q = [(0, s)]\n        while q:\n            d, v = heappop(q)\n     \
-    \       if d > D[v]: continue\n            if v == g: return d\n            for\
-    \ u, w, *_ in G[v]:\n                if (nd := d + w) < D[u]:\n              \
-    \      D[u] = nd\n                    heappush(q, (nd, u))\n        return D if\
-    \ g is None else inf\n    \n    def shortest_path(G, s: int, g: int) -> list[int]:\n\
-    \        if s == g:\n            return []\n            \n        D = [inf] *\
-    \ G.N\n        D[s] = 0\n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n\
-    \        Eid = G.edge_ids()\n        q = [(0, s)]\n        \n        while q:\n\
-    \            d, v = heappop(q)\n            if d > D[v]: continue\n          \
-    \  if v == g: break\n                \n            for (u, w, *_), eid in zip(G[v],\
-    \ Eid[v]):\n                if (nd := d + w) < D[u]:\n                    D[u]\
-    \ = nd\n                    par[u] = v\n                    par_edge[u] = eid\n\
-    \                    heappush(q, (nd, u))\n        \n        if D[g] == inf:\n\
-    \            return None\n            \n        path = []\n        current = g\n\
-    \        while current != s:\n            path.append(par_edge[current])\n   \
-    \         current = par[current]\n            \n        return path[::-1]\n  \
-    \  \n    def kruskal(G):\n        E, N = G.E, G.N\n        heapify(E)\n      \
-    \  dsu = DSU(N)\n        MST = []\n        need = N-1\n        while E and need:\n\
-    \            edge = heappop(E)\n            u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n\
-    \            if u != v:\n                MST.append(edge)\n                need\
-    \ -= 1\n        cls = type(G)\n        return cls(N, MST)\n    \n    def bellman_ford(G,\
-    \ s = 0) -> list[int]:\n        D = [inf]*G.N\n        D[s] = 0\n        for _\
-    \ in range(G.N-1):\n            for u, edges in enumerate(G):\n              \
-    \  for v,w,*_ in edges:\n                    D[v] = min(D[v], D[u] + w)\n    \
-    \    return D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D\
-    \ = [[inf]*G.N for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n\
-    \            D[u][u] = 0\n            for v,w in edges:\n                D[u][v]\
-    \ = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n          \
-    \  for Di in D:\n                for j in range(G.N):\n                    Di[j]\
-    \ = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def dfs_events(G, flags:\
-    \ DFSFlags, s: int|list|None = None, max_depth: int|None = None):\n        match\
-    \ flags:\n            case DFSFlags.INTERVAL:\n                if max_depth is\
-    \ None:\n                    return G.dfs_enter_leave(s)\n            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n\
-    \                if max_depth is None:\n                    edges = G.dfs_topdown(s,\
-    \ DFSFlags.CONNECT_ROOTS in flags)\n                    return [(DFSEvent.DOWN,\
-    \ p, u) for p,u in edges]\n            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n \
-    \               if max_depth is None:\n                    edges = G.dfs_bottomup(s,\
-    \ DFSFlags.CONNECT_ROOTS in flags)\n                    return [(DFSEvent.UP,\
-    \ p, u) for p,u in edges]\n            case flags if flags & DFSFlags.BACKTRACK:\n\
-    \                return G.dfs_backtrack(flags, s, max_depth)\n        state =\
-    \ [0] * G.N\n        child = elist(G.N)\n        weights = elist(G.N)\n      \
-    \  stack = elist(G.N)\n        if flags & DFSFlags.RETURN_PARENTS:\n         \
-    \   parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n       \
-    \     depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
-    \            stack.append(s)\n            child.append(0)\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
-    \ in flags:\n                events.append((DFSEvent.DOWN,-1,s,-1))\n        \
-    \    while stack:\n                u = stack[-1]\n                \n         \
-    \       if not state[u]:\n                    state[u] = 1\n                 \
-    \   if flags & DFSFlags.ENTER:\n                        events.append((DFSEvent.ENTER,\
-    \ u))\n                    if flags & DFSFlags.RETURN_DEPTHS:\n              \
-    \          depths[u] = len(stack)-1\n                \n                if (c :=\
-    \ child[-1]) < len(G[u]):\n                    child[-1] += 1\n              \
-    \      v, w = G[u][c]\n                    match state[v]:\n                 \
-    \       case 0:  # Unvisited\n                            if max_depth is None\
-    \ or len(stack)-1 <= max_depth:\n                                if flags & DFSFlags.DOWN:\n\
-    \                                    events.append((DFSEvent.DOWN, u, v, w))\n\
-    \                                stack.append(v)\n                           \
-    \     weights.append(w)\n                                child.append(0)\n   \
-    \                             if flags & DFSFlags.RETURN_PARENTS:\n          \
-    \                          parents[v] = u\n                        case 1:  #\
-    \ In progress\n                            if flags & DFSFlags.BACK:\n       \
-    \                         events.append((DFSEvent.BACK, u, v, w))\n          \
-    \              case 2:  # Completed\n                            if flags & DFSFlags.CROSS:\n\
-    \                                events.append((DFSEvent.CROSS, u, v, w))\n  \
-    \              else:\n                    stack.pop()\n                    child.pop()\n\
-    \                    state[u] = 0 if DFSFlags.BACKTRACK in flags else 2\n    \
-    \                if flags & DFSFlags.LEAVE:\n                        events.append((DFSEvent.LEAVE,\
-    \ u))\n                    if stack and flags & DFSFlags.UP:\n               \
-    \         pw = weights.pop()\n                        events.append((DFSEvent.UP,\
-    \ stack[-1], u, pw))\n            if (DFSFlags.UP|DFSFlags.CONNECT_ROOTS) in flags:\n\
-    \                events.append((DFSEvent.UP,-1,s,-1))\n        ret = tuple((events,))\
-    \ if DFSFlags.RETURN_ALL & flags else events\n        if DFSFlags.RETURN_PARENTS\
-    \ in flags:\n            ret += (parents,)\n        if DFSFlags.RETURN_DEPTHS\
-    \ in flags:\n            ret += (depths,)\n        return ret\n\n    def dfs_backtrack(G,\
-    \ flags: DFSFlags, s: int|list = None, max_depth: int|None = None):\n        stack_depth\
-    \ = (max_depth+1 if max_depth is not None else G.N)\n        stack = elist(stack_depth)\n\
-    \        child = elist(stack_depth)\n        weights = elist(stack_depth)\n  \
-    \      state = [0]*G.N\n        events: list[tuple[DFSEvent, int]|tuple[DFSEvent,\
-    \ int, int]] = []\n\n        for s in G.starts(s):\n            if state[s]: continue\n\
-    \            state[s] = 1\n            stack.append(s)\n            child.append(0)\n\
-    \            if DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS in flags:\n             \
-    \   events.append((DFSEvent.DOWN,-1,s,-1))\n            while stack:\n       \
-    \         u = stack[-1]\n                if state[u] == 1:\n                 \
-    \   state[u] = 2\n                    if DFSFlags.ENTER in flags:\n          \
-    \              events.append((DFSEvent.ENTER,u))\n                    if max_depth\
-    \ is not None and len(stack) > max_depth:\n                        child[-1] =\
-    \ len(G[u])\n                        if DFSFlags.MAXDEPTH in flags:\n        \
-    \                    events.append((DFSEvent.MAXDEPTH,u))\n\n                if\
-    \ (c := child[-1]) < len(G[u]):\n                    child[-1] += 1\n        \
-    \            v, w = G[u][c]\n                    if state[v]:\n              \
-    \          if DFSFlags.BACK in flags:\n                            events.append((DFSEvent.BACK,u,v,w))\n\
-    \                        continue\n                    state[v] = 1\n        \
-    \            if DFSFlags.DOWN in flags:\n                        events.append((DFSEvent.DOWN,u,v,w))\n\
-    \                    stack.append(v)\n                    child.append(0)\n  \
-    \                  weights.append(w)\n                else:\n                \
-    \    state[u] = 0\n                    if DFSFlags.LEAVE in flags:\n         \
-    \               events.append((DFSEvent.LEAVE,u))\n                    stack.pop()\n\
-    \                    child.pop()\n                    if stack and DFSFlags.UP\
-    \ in flags:\n                        pw = weights.pop()\n                    \
-    \    events.append((DFSEvent.UP, stack[-1], u, pw))\n                    \n  \
-    \          if DFSFlags.UP|DFSFlags.CONNECT_ROOTS in flags:\n                events.append((DFSEvent.UP,-1,s,-1))\n\
-    \        return events\n    \n    def dfs_topdown(G, s: int|list[int]|None = None,\
-    \ connect_roots = False):\n        '''Returns list of (u,v) representing u->v\
-    \ edges in order of top down discovery'''\n        stack: list[int] = elist(G.N)\n\
-    \        vis = [False]*G.N\n        edges: list[tuple[int,int]] = elist(G.N)\n\
-    \n        for s in G.starts(s):\n            if vis[s]: continue\n           \
-    \ if connect_roots:\n                edges.append((-1,s,-1))\n            vis[s]\
-    \ = True\n            stack.append(s)\n            while stack:\n            \
-    \    u = stack.pop()\n                for v,w in G[u]:\n                    if\
-    \ vis[v]: continue\n                    vis[v] = True\n                    edges.append((u,v,w))\n\
-    \                    stack.append(v)\n        return edges\n\n\n\nclass DSU:\n\
-    \    def __init__(self, n):\n        self.n = n\n        self.par = [-1] * n\n\
-    \n    def merge(self, u, v, src = False):\n        assert 0 <= u < self.n\n  \
-    \      assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
-    \        if x == y: return (x,y) if src else x\n\n        if -self.par[x] < -self.par[y]:\n\
-    \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
-    \ = x\n\n        return (x,y) if src else x\n\n    def same(self, u: int, v: int):\n\
-    \        assert 0 <= u < self.n\n        assert 0 <= v < self.n\n        return\
-    \ self.leader(u) == self.leader(v)\n\n    def leader(self, i) -> int:\n      \
-    \  assert 0 <= i < self.n\n\n        p = self.par[i]\n        while p >= 0:\n\
-    \            if self.par[p] < 0:\n                return p\n            self.par[i],\
-    \ i, p = self.par[p], self.par[p], self.par[self.par[p]]\n\n        return i\n\
-    \n    def size(self, i) -> int:\n        assert 0 <= i < self.n\n        \n  \
-    \      return -self.par[self.leader(i)]\n\n    def groups(self) -> list[list[int]]:\n\
-    \        leader_buf = [self.leader(i) for i in range(self.n)]\n\n        result\
-    \ = [[] for _ in range(self.n)]\n        for i in range(self.n):\n           \
-    \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
-    \nclass GraphWeighted(GraphWeightedProtocol):\n    def __init__(G, N: int, E=[]):\n\
-    \        super().__init__(N, E, ([] for _ in range(N)))\n        G.E = E\n   \
-    \     for u,v,*w in G.E:\n            G[u].append((v,*w))\n            G[v].append((u,*w))\n\
-    \    \n    def edge_ids(G) -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n\
-    \        for e,(u,v,*w) in enumerate(G.E):\n            Eid[u].append(e)\n   \
-    \         Eid[v].append(e)\n        return Eid\n    \n    @classmethod\n    def\
-    \ compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n        if isinstance(E,\
-    \ int): E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n\nif __name__\
-    \ == \"__main__\":\n    main()\n"
-  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc375/tasks/abc375_g\n\
-    \ndef main():\n    N, M = read(tuple[int, int])\n    G = read(GraphWeighted[N,M])\n\
-    \    S = G.dijkstra(0)\n    T = G.dijkstra(N-1)\n    D = [w+min(S[u]+T[v], S[v]+T[u])\
-    \ for u,v,w in G.E]\n    Dmin = S[-1]\n\n    H = GraphWeighted(N, [(*G.E[i], i)\
-    \ for i,d in enumerate(D) if Dmin == d])\n\n    ans = [False]*M\n    for e in\
-    \ H.bridges():\n        *_,i = H.E[e]\n        ans[i] = True\n\n    for i in range(M):\n\
-    \        print(\"Yes\" if ans[i] else \"No\")\n\nfrom cp_library.io.read_specs_fn\
-    \ import read\nfrom cp_library.alg.graph.graph_weighted_cls import GraphWeighted\n\
-    \nif __name__ == \"__main__\":\n    main()"
+    \ _ in range(M)])\n        return parse\n    \n\nclass DiGraph(GraphProtocol):\n\
+    \    def __init__(G, N: int, E: list[Edge]=[]):\n        super().__init__(N, E,\
+    \ ([] for _ in range(N)))\n        for u,v in G.E:\n            G[u].append(v)\n\
+    \n    def edge_ids(G) -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n\
+    \        for e,(u,v) in enumerate(G.E):\n            Eid[u].append(e)\n      \
+    \  return Eid\n    \n    @classmethod\n    def compile(cls, N: int, M: int, E:\
+    \ type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n        return\
+    \ super().compile(N, M, E)\n\nfrom typing import Type, TypeVar, overload\n\nT\
+    \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ int|None) -> list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False)\
+    \ -> T: ...\ndef read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n\
+    \        case None, False:\n            return list(map(int, input().split()))\n\
+    \        case int(offset), False:\n            return [int(s)+offset for s in\
+    \ input().split()]\n        case _, _:\n            if char:\n               \
+    \ stream = CharStream()\n            else:\n                stream = TokenStream()\n\
+    \            parser: T = Parser.compile(spec)\n            return parser(stream)\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc218/tasks/abc218_f\n\
+    \nfrom math import inf\n\ndef main():\n    N, M = read(tuple[int, ...])\n    G\
+    \ = read(DiGraph[N,M])\n    path = G.shortest_path(0,N-1)\n    if path is None:\n\
+    \        shortest = -1\n    else:\n        path = set(path)\n        shortest\
+    \ = len(path)\n    for e in range(M):\n        if path is not None and e in path:\n\
+    \            G2 = DiGraph(N, G.E[:e]+G.E[e+1:])\n            ans = G2.distance(0,N-1)\n\
+    \        else:\n            ans = shortest\n        print(ans if ans != inf else\
+    \ -1)\n\nfrom cp_library.alg.graph.digraph_cls import DiGraph\nfrom cp_library.io.read_specs_fn\
+    \ import read\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
+  - cp_library/alg/graph/digraph_cls.py
   - cp_library/io/read_specs_fn.py
-  - cp_library/alg/graph/graph_weighted_cls.py
-  - cp_library/io/parser_cls.py
-  - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/edge_cls.py
-  - cp_library/ds/elist_fn.py
-  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/graph_proto.py
-  - cp_library/ds/dsu_cls.py
+  - cp_library/io/parser_cls.py
+  - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/ds/elist_fn.py
   isVerificationFile: true
-  path: test/abc375_g_find_bridges.test.py
+  path: test/abc218_f_shortest_path.test.py
   requiredBy: []
   timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/abc375_g_find_bridges.test.py
+documentation_of: test/abc218_f_shortest_path.test.py
 layout: document
 redirect_from:
-- /verify/test/abc375_g_find_bridges.test.py
-- /verify/test/abc375_g_find_bridges.test.py.html
-title: test/abc375_g_find_bridges.test.py
+- /verify/test/abc218_f_shortest_path.test.py
+- /verify/test/abc218_f_shortest_path.test.py.html
+title: test/abc218_f_shortest_path.test.py
 ---

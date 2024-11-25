@@ -22,6 +22,12 @@ data:
     title: cp_library/alg/graph/dag_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/abc218_f_shortest_path.test.py
+    title: test/abc218_f_shortest_path.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc218_f_shortest_path_weighted.test.py
+    title: test/abc218_f_shortest_path_weighted.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc245_f_digraph.test.py
     title: test/abc245_f_digraph.test.py
   _isVerificationFailed: false
@@ -169,11 +175,22 @@ data:
     \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
     \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
     \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
-    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
-    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
-    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
-    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \ \n\n    def shortest_path(G, s: int, g: int) -> list[int]:\n        if s ==\
+    \ g: return []\n            \n        par = [-1] * G.N\n        par_edge = [-1]\
+    \ * G.N\n        Eid = G.edge_ids()\n        D = [inf] * G.N\n        D[s] = 0\n\
+    \        q = deque([s])\n        \n        while q:\n            nd = D[u := q.popleft()]\
+    \ + 1\n            if u == g: break\n                \n            for v, eid\
+    \ in zip(G[u], Eid[u]):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    par[v] = u\n                    par_edge[v] = eid\n\
+    \                    q.append(v)\n        \n        if D[g] == inf:\n        \
+    \    return None\n            \n        path = []\n        current = g\n     \
+    \   while current != s:\n            path.append(par_edge[current])\n        \
+    \    current = par[current]\n            \n        return path[::-1]\n       \
+    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
+    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
+    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
+    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
+    \  for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
     \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
     \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
     \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
@@ -343,10 +360,12 @@ data:
   path: cp_library/alg/graph/digraph_cls.py
   requiredBy:
   - cp_library/alg/graph/dag_cls.py
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/abc218_f_shortest_path_weighted.test.py
   - test/abc245_f_digraph.test.py
+  - test/abc218_f_shortest_path.test.py
 documentation_of: cp_library/alg/graph/digraph_cls.py
 layout: document
 redirect_from:

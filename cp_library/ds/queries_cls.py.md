@@ -10,6 +10,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/abc203_e_queries_grouped.test.py
+    title: test/abc203_e_queries_grouped.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc261_g_queries_mo.test.py
     title: test/abc261_g_queries_mo.test.py
   _isVerificationFailed: false
@@ -137,13 +140,13 @@ data:
     \ isinstance(key, int):\n            group_idx = key+1\n            def wrap_key(row):\n\
     \                return row[group_idx]\n        else:\n            def wrap_key(row):\n\
     \                _, *query = row\n                return key(query)\n        rows\
-    \ = list((i,*query) for i,query in enumerate(queries))\n        groups = [(k,\
-    \ list(g)) for k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n\
-    \        self.key = key\n        \n        list.__init__(self, groups)\n     \
-    \       \n\n    @classmethod\n    def compile(cls, Q: int, key = 0, T: type =\
-    \ tuple[int, ...]):\n        query = Parser.compile(T)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((query(ts) for _ in range(Q)), key)\n\
-    \        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
+    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
+    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
+    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
+    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
+    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
+    \  def parse(ts: TokenStream):\n            return cls((query(ts) for _ in range(Q)),\
+    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
     \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
     \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
     \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
@@ -202,18 +205,18 @@ data:
     \ key = 0):\n        if isinstance(key, int):\n            group_idx = key+1\n\
     \            def wrap_key(row):\n                return row[group_idx]\n     \
     \   else:\n            def wrap_key(row):\n                _, *query = row\n \
-    \               return key(query)\n        rows = list((i,*query) for i,query\
-    \ in enumerate(queries))\n        groups = [(k, list(g)) for k, g in groupby(rows,\
-    \ key = wrap_key)]\n        groups.sort()\n        self.key = key\n        \n\
-    \        list.__init__(self, groups)\n            \n\n    @classmethod\n    def\
-    \ compile(cls, Q: int, key = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
-    \ in range(Q)), key)\n        return parse\n\nclass QueriesRange(Queries):\n \
-    \   '''QueriesRange[Q: int, N: int, key = 0, T: type = tuple[-1, int]]'''\n  \
-    \  def __init__(self, queries, N: int, key = 0):\n        if isinstance(key, int):\n\
-    \            group_idx = key+1\n            def wrap_key(row):\n             \
-    \   return row[group_idx]\n        else:\n            def wrap_key(row):\n   \
-    \             _, *query = row\n                return key(query)\n        rows\
+    \               return key(query)\n        rows = sorted(((i,*query) for i,query\
+    \ in enumerate(queries)), key = wrap_key)\n        groups = [(k, list(g)) for\
+    \ k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n        self.key\
+    \ = key\n        \n        list.__init__(self, groups)\n            \n\n    @classmethod\n\
+    \    def compile(cls, Q: int, key = 0, T: type = tuple[int, ...]):\n        query\
+    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            return\
+    \ cls((query(ts) for _ in range(Q)), key)\n        return parse\n\nclass QueriesRange(Queries):\n\
+    \    '''QueriesRange[Q: int, N: int, key = 0, T: type = tuple[-1, int]]'''\n \
+    \   def __init__(self, queries, N: int, key = 0):\n        if isinstance(key,\
+    \ int):\n            group_idx = key+1\n            def wrap_key(row):\n     \
+    \           return row[group_idx]\n        else:\n            def wrap_key(row):\n\
+    \                _, *query = row\n                return key(query)\n        rows\
     \ = list((i,*query) for i,query in enumerate(queries))\n        \n        groups\
     \ = [(k,[]) for k in range(N)]\n        for k, group in groupby(rows, key = wrap_key):\n\
     \            groups[k][1].extend(group)\n        self.key = key\n        \n  \
@@ -259,10 +262,11 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_cls.py
   requiredBy: []
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_queries_mo.test.py
+  - test/abc203_e_queries_grouped.test.py
 documentation_of: cp_library/ds/queries_cls.py
 layout: document
 redirect_from:

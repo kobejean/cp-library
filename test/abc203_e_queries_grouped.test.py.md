@@ -2,17 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_cls.py
-    title: cp_library/alg/graph/edge_cls.py
+    path: cp_library/ds/elist_fn.py
+    title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_cls.py
-    title: cp_library/alg/graph/edge_list_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_weighted_cls.py
-    title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_weighted_cls.py
-    title: cp_library/alg/graph/edge_weighted_cls.py
+    path: cp_library/ds/queries_cls.py
+    title: cp_library/ds/queries_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -20,22 +14,32 @@ data:
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/grl_2_b_edmonds_branching.test.py
-    title: test/grl_2_b_edmonds_branching.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    PROBLEM: https://atcoder.jp/contests/abc203/tasks/abc203_e
+    links:
+    - https://atcoder.jp/contests/abc203/tasks/abc203_e
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
+    \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
+    \    XY = read(QueriesGrouped[M])\n    \n    # currently reacable columns\n  \
+    \  S = { N }\n    for _,group in XY:\n        add = elist(len(group))\n      \
+    \  for _,_,y in group:\n            if (y-1) in S or (y+1) in S:\n           \
+    \     # we can reach pawn on this column\n                add.append(y)\n    \
+    \    for _,_,y in group:\n            # pawn blocks y column\n            S.discard(y)\n\
+    \            # we'll add it back in the next loop if reachable\n        for y\
+    \ in add:\n            S.add(y)\n\n    ans = len(S)\n    print(ans)\n\ntry:\n\
+    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n\
+    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport sys\nfrom typing import Type, TypeVar, overload\nfrom io import TextIOBase\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\nimport\
+    \ sys\nfrom typing import Type, TypeVar, overload\nfrom io import TextIOBase\n\
     \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n    def __init__(self, stream:\
@@ -144,48 +148,96 @@ data:
     \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
     \        case _, _:\n            if char:\n                stream = CharStream()\n\
     \            else:\n                stream = TokenStream()\n            parser:\
-    \ T = Parser.compile(spec)\n            return parser(stream)\n\n\n\n\nclass Edge(tuple,\
-    \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
-    \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
-    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
-    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
-    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
-    \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
-    \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
-    \ set[E]):\n    pass\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
-    class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
-    \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
-    \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
-    \   def parse(ts: TokenStream):\n            u,v,w = ts.line()\n            return\
-    \ cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
-    \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
-    \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
-    \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
-    \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
-    \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
-    \    pass\n\ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n"
-  code: "import cp_library.io.__header__\nfrom cp_library.io.read_specs_fn import\
-    \ read\nfrom cp_library.alg.graph.edge_list_weighted_cls import EdgeListWeighted\n\
-    \ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n"
+    \ T = Parser.compile(spec)\n            return parser(stream)\nfrom enum import\
+    \ IntEnum, auto\nfrom itertools import chain, groupby\n\nfrom typing import Iterable,\
+    \ Sequence\n\nclass Queries(list, Parsable):\n    def __init__(self, data: Iterable\
+    \ = []):\n        super().__init__((i,*query) for i,query in enumerate(data))\n\
+    \n    def append(self, query) -> None:\n        return super().append((len(self),\
+    \ *query))\n\n    @classmethod\n    def compile(cls, N: int, T: type = tuple[int,\
+    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls(query(ts) for _ in range(N))\n        return parse\n\n\
+    class QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int, key = 0, T: type\
+    \ = tuple[int, ...]]'''\n    def __init__(self, queries, key = 0):\n        if\
+    \ isinstance(key, int):\n            group_idx = key+1\n            def wrap_key(row):\n\
+    \                return row[group_idx]\n        else:\n            def wrap_key(row):\n\
+    \                _, *query = row\n                return key(query)\n        rows\
+    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
+    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
+    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
+    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
+    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
+    \  def parse(ts: TokenStream):\n            return cls((query(ts) for _ in range(Q)),\
+    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
+    \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
+    \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
+    \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
+    \        else:\n            def wrap_key(row):\n                _, *query = row\n\
+    \                return key(query)\n        rows = list((i,*query) for i,query\
+    \ in enumerate(queries))\n        \n        groups = [(k,[]) for k in range(N)]\n\
+    \        for k, group in groupby(rows, key = wrap_key):\n            groups[k][1].extend(group)\n\
+    \        self.key = key\n        \n        list.__init__(self, groups)\n\n   \
+    \ @classmethod\n    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1,\
+    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls((query(ts) for _ in range(Q)), N, key)\n        return\
+    \ parse\n\n\nclass MoOp(IntEnum):\n    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n\
+    \    REMOVE_LEFT = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER = auto()\n  \
+    \  \nfrom math import isqrt\n\n\nclass QueriesMoOps(list[tuple],Parsable):\n \
+    \   \"\"\"\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int, int]]\n    Orders\
+    \ queries using Mo's algorithm and generates a sequence of operations to process\
+    \ them efficiently.\n    Each operation is either moving pointers or answering\
+    \ a query.\n    \n    Uses half-interval convention: [left, right)\n    Block\
+    \ size is automatically set to sqrt(N) for optimal complexity.\n    \"\"\"\n \
+    \   \n    def encode(self, i, l, r):\n        return (((r << self.nbits) + l)\
+    \ << self.qbits) + i\n    \n    def decode(self, bits):\n        r = bits >> self.qbits\
+    \ >> self.nbits\n        l = bits >> self.qbits & self.nmask\n        i = bits\
+    \ & self.qmask\n        return i, l, r\n\n    def __init__(self, queries: list[tuple[int,\
+    \ int]], N: int):\n        Q = len(queries)\n        self.qbits = Q.bit_length()\n\
+    \        self.nbits = N.bit_length()\n        self.qmask = (1 << self.qbits)-1\n\
+    \        self.nmask = (1 << self.nbits)-1\n\n        # Initialize with original\
+    \ queries and their indices\n        B = isqrt(N)\n        K = (N+B-1)//B\n  \
+    \      buckets = [elist(64) for _ in range(K)]\n        for i, (l, r) in enumerate(queries):\n\
+    \            buckets[l//B].append(self.encode(i, l, r))\n        for i, bucket\
+    \ in enumerate(buckets):\n            bucket.sort(reverse=i&1)\n        \n   \
+    \     \n        # Generate sequence of operations\n        ops = elist(3*Q)\n\n\
+    \        nl = nr = 0\n        \n        for bucket in buckets:\n            for\
+    \ code in bucket:\n                i, l, r = self.decode(code)\n             \
+    \   if l < nl:\n                    ops.append((MoOp.ADD_LEFT, nl-1, l-1, -1))\n\
+    \                elif l > nl:\n                    ops.append((MoOp.REMOVE_LEFT,\
+    \ nl, l, 1))\n\n                if r > nr:\n                    ops.append((MoOp.ADD_RIGHT,\
+    \ nr, r, 1))\n                elif r < nr:\n                    ops.append((MoOp.REMOVE_RIGHT,\
+    \ nr-1, r-1, -1))\n                \n                ops.append((MoOp.ANSWER,\
+    \ i, l, r))\n                \n                nl, nr = l, r\n        super().__init__(ops)\n\
+    \        self.queries = queries\n\n\n    @classmethod\n    def compile(cls, Q:\
+    \ int, N: int, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
+    \        def parse(ts: TokenStream):\n            return cls([query(ts) for _\
+    \ in range(Q)], N)\n        return parse\n\nif __name__ == \"__main__\":\n   \
+    \ main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
+    \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
+    \    XY = read(QueriesGrouped[M])\n    \n    # currently reacable columns\n  \
+    \  S = { N }\n    for _,group in XY:\n        add = elist(len(group))\n      \
+    \  for _,_,y in group:\n            if (y-1) in S or (y+1) in S:\n           \
+    \     # we can reach pawn on this column\n                add.append(y)\n    \
+    \    for _,_,y in group:\n            # pawn blocks y column\n            S.discard(y)\n\
+    \            # we'll add it back in the next loop if reachable\n        for y\
+    \ in add:\n            S.add(y)\n\n    ans = len(S)\n    print(ans)\n\nfrom cp_library.ds.elist_fn\
+    \ import elist\nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.ds.queries_cls\
+    \ import QueriesGrouped\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
+  - cp_library/ds/elist_fn.py
   - cp_library/io/read_specs_fn.py
-  - cp_library/alg/graph/edge_list_weighted_cls.py
+  - cp_library/ds/queries_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/alg/graph/edge_list_cls.py
-  - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/edge_cls.py
-  isVerificationFile: false
-  path: cp_library/io/read_edges_weighted_fn.py
+  isVerificationFile: true
+  path: test/abc203_e_queries_grouped.test.py
   requiredBy: []
   timestamp: '2024-11-25 18:54:05+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/grl_2_b_edmonds_branching.test.py
-documentation_of: cp_library/io/read_edges_weighted_fn.py
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/abc203_e_queries_grouped.test.py
 layout: document
 redirect_from:
-- /library/cp_library/io/read_edges_weighted_fn.py
-- /library/cp_library/io/read_edges_weighted_fn.py.html
-title: cp_library/io/read_edges_weighted_fn.py
+- /verify/test/abc203_e_queries_grouped.test.py
+- /verify/test/abc203_e_queries_grouped.test.py.html
+title: test/abc203_e_queries_grouped.test.py
 ---

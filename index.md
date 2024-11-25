@@ -138,6 +138,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/presum_fn.py
       title: cp_library/alg/iter/presum_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/sort_groups_fn.py
+      title: cp_library/alg/iter/sort_groups_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/sufsum_fn.py
       title: cp_library/alg/iter/sufsum_fn.py
@@ -465,8 +468,20 @@ data:
       path: test/abc202_e_dfs_enter_leave.test.py
       title: test/abc202_e_dfs_enter_leave.test.py
     - icon: ':heavy_check_mark:'
+      path: test/abc203_e_queries_grouped.test.py
+      title: test/abc203_e_queries_grouped.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc203_e_sort_groups.test.py
+      title: test/abc203_e_sort_groups.test.py
+    - icon: ':heavy_check_mark:'
       path: test/abc206_e_mobius_table.test.py
       title: test/abc206_e_mobius_table.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc218_f_shortest_path.test.py
+      title: test/abc218_f_shortest_path.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc218_f_shortest_path_weighted.test.py
+      title: test/abc218_f_shortest_path_weighted.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc245_f_digraph.test.py
       title: test/abc245_f_digraph.test.py

@@ -154,13 +154,13 @@ data:
     \ isinstance(key, int):\n            group_idx = key+1\n            def wrap_key(row):\n\
     \                return row[group_idx]\n        else:\n            def wrap_key(row):\n\
     \                _, *query = row\n                return key(query)\n        rows\
-    \ = list((i,*query) for i,query in enumerate(queries))\n        groups = [(k,\
-    \ list(g)) for k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n\
-    \        self.key = key\n        \n        list.__init__(self, groups)\n     \
-    \       \n\n    @classmethod\n    def compile(cls, Q: int, key = 0, T: type =\
-    \ tuple[int, ...]):\n        query = Parser.compile(T)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((query(ts) for _ in range(Q)), key)\n\
-    \        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
+    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
+    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
+    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
+    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
+    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
+    \  def parse(ts: TokenStream):\n            return cls((query(ts) for _ in range(Q)),\
+    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
     \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
     \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
     \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
@@ -238,7 +238,7 @@ data:
   isVerificationFile: true
   path: test/abc261_g_queries_mo.test.py
   requiredBy: []
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc261_g_queries_mo.test.py

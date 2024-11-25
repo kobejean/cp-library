@@ -174,11 +174,22 @@ data:
     \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
     \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
     \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \    \n    \n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D =\
-    \ [[inf]*G.N for _ in range(G.N)]\n\n        for u in G:\n            D[u][u]\
-    \ = 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n   \
-    \     \n        for k, Dk in enumerate(D):\n            for Di in D:\n       \
-    \         for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \ \n\n    def shortest_path(G, s: int, g: int) -> list[int]:\n        if s ==\
+    \ g: return []\n            \n        par = [-1] * G.N\n        par_edge = [-1]\
+    \ * G.N\n        Eid = G.edge_ids()\n        D = [inf] * G.N\n        D[s] = 0\n\
+    \        q = deque([s])\n        \n        while q:\n            nd = D[u := q.popleft()]\
+    \ + 1\n            if u == g: break\n                \n            for v, eid\
+    \ in zip(G[u], Eid[u]):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    par[v] = u\n                    par_edge[v] = eid\n\
+    \                    q.append(v)\n        \n        if D[g] == inf:\n        \
+    \    return None\n            \n        path = []\n        current = g\n     \
+    \   while current != s:\n            path.append(par_edge[current])\n        \
+    \    current = par[current]\n            \n        return path[::-1]\n       \
+    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
+    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
+    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
+    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
+    \  for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
     \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
     \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
     \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
@@ -329,14 +340,14 @@ data:
     \           Eid[u].append(e)\n            Eid[v].append(e)\n        return Eid\n\
     \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
     \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
-    \ M, E)\n\nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int|None) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\ndef read(spec:\
-    \ Type[T]|T=None, char=False):\n    match spec, char:\n        case None, False:\n\
-    \            return list(map(int, input().split()))\n        case int(offset),\
-    \ False:\n            return [int(s)+offset for s in input().split()]\n      \
-    \  case _, _:\n            if char:\n                stream = CharStream()\n \
-    \           else:\n                stream = TokenStream()\n            parser:\
+    \ M, E)\n\n    \n\nfrom typing import Type, TypeVar, overload\n\nT = TypeVar('T')\n\
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int|None) ->\
+    \ list[int]: ...\n@overload\ndef read(spec: Type[T]|T, char=False) -> T: ...\n\
+    def read(spec: Type[T]|T=None, char=False):\n    match spec, char:\n        case\
+    \ None, False:\n            return list(map(int, input().split()))\n        case\
+    \ int(offset), False:\n            return [int(s)+offset for s in input().split()]\n\
+    \        case _, _:\n            if char:\n                stream = CharStream()\n\
+    \            else:\n                stream = TokenStream()\n            parser:\
     \ T = Parser.compile(spec)\n            return parser(stream)\n\nif __name__ ==\
     \ '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
@@ -355,7 +366,7 @@ data:
   isVerificationFile: true
   path: test/grl_3_a_graph_articulation_points.test.py
   requiredBy: []
-  timestamp: '2024-11-25 13:28:18+09:00'
+  timestamp: '2024-11-25 18:54:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_graph_articulation_points.test.py
