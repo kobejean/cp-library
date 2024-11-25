@@ -251,7 +251,7 @@ data:
   path: cp_library/io/read_specs_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-25 18:54:05+09:00'
+  timestamp: '2024-11-25 19:30:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_mo.test.py

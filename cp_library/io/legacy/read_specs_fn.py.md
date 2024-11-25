@@ -136,7 +136,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_specs_fn.py
   requiredBy: []
-  timestamp: '2024-11-25 18:54:05+09:00'
+  timestamp: '2024-11-25 19:30:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_heap.test.py
