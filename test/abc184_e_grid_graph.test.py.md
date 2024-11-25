@@ -313,43 +313,32 @@ data:
     \            while stack:\n                u = stack.pop()\n                for\
     \ v in G[u]:\n                    if vis[v]: continue\n                    vis[v]\
     \ = True\n                    edges.append((u,v))\n                    stack.append(v)\n\
-    \        return edges\n\n    def dfs_topdown_indexed(G, s: int|list[int]|None\
-    \ = None, connect_roots = False):\n        '''Returns list of (u,v) representing\
-    \ u->v edges in order of top down discovery'''\n        stack = [0] * G.N\n  \
-    \      vis: list[bool] = [False]*G.N\n        edges: list[tuple[int,int,int]]\
-    \ = []\n\n        for r,s in enumerate(G.starts(s)):\n            if vis[s]: continue\n\
-    \            if connect_roots:\n                edges.append((r,-1,s))\n     \
-    \       vis[s] = True\n            stack[idx := 0] = s\n            while idx\
-    \ != -1:\n                u, idx = stack[idx], idx-1\n                for c,v\
-    \ in enumerate(G[u]):\n                    if vis[v]: continue\n             \
-    \       vis[v] = True\n                    edges.append((c,u,v))\n           \
-    \         stack[idx := idx+1] = v \n\n        return edges\n    \n    def dfs_bottomup(G,\
-    \ s: int|list[int]|None = None, connect_roots = False):\n        '''Returns list\
-    \ of (p,u) representing p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s,\
-    \ connect_roots)\n        edges.reverse()\n        return edges\n    \n    def\
-    \ starts(G, v: int|list[int]|None) -> Iterable:\n        match v:\n          \
-    \  case int(v): return (v,)\n            case None: return range(G.N)\n      \
-    \      case V: return V\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
-    \ E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
-    \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
-    \    \n\nclass GridGraphProtocol(GraphProtocol):\n\n    def __init__(G, H, W,\
-    \ S=str, dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#', adj = None):\n      \
-    \  super().__init__(W*H, None, adj)\n        G.W = W\n        G.H = H\n      \
-    \  G.S = S\n        G.dirs = dirs\n        G.wall = wall\n\n    def vertex(G,\
-    \ key: tuple[int,int] | int):\n        match key:\n            case i, j: return\
-    \ i*G.W+j\n            case v: return v\n\n    def is_valid(G, i, j, v):\n   \
-    \     return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall\n    \n    @classmethod\n\
-    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
-    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
-    \          return cls(H, W, S, *args)\n        return parse\n\nclass LazyGridGraph(GridGraphProtocol):\n\
-    \n    def neighbors(G, u: int) -> Iterable[int]:\n        S, wall, dirs, H, W\
-    \ = G.S, G.wall, G.dirs, G.H, G.W\n        i,j = divmod(u, W)\n        return\
-    \ tuple(v\n            for di,dj in dirs\n                if (0 <= (ni:=i+di)\
-    \ < H \n                    and 0 <= (nj:=j+dj) < W  \n                    and\
-    \ S[v:=ni*W+nj] != wall)\n        ) if S[u] != wall else tuple()\n    \n    def\
-    \ __len__(G) -> int:\n        return G.N\n    \n    def __getitem__(G, v: int):\n\
-    \        return G.neighbors(v)\n    \n    def __iter__(G) -> Iterator:\n     \
-    \   return iter(G[v] for v in range(G.N))\n    \n\nclass TeleportGraph(LazyGridGraph):\n\
+    \        return edges\n    \n    def dfs_bottomup(G, s: int|list[int]|None = None,\
+    \ connect_roots = False):\n        '''Returns list of (p,u) representing p->u\
+    \ edges in bottom up order'''\n        edges = G.dfs_topdown(s, connect_roots)\n\
+    \        edges.reverse()\n        return edges\n    \n    def starts(G, v: int|list[int]|None)\
+    \ -> Iterable:\n        match v:\n            case int(v): return (v,)\n     \
+    \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
+    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
+    \ _ in range(M)])\n        return parse\n    \n\nclass GridGraphProtocol(GraphProtocol):\n\
+    \n    def __init__(G, H, W, S=str, dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall =\
+    \ '#', adj = None):\n        super().__init__(W*H, None, adj)\n        G.W = W\n\
+    \        G.H = H\n        G.S = S\n        G.dirs = dirs\n        G.wall = wall\n\
+    \n    def vertex(G, key: tuple[int,int] | int):\n        match key:\n        \
+    \    case i, j: return i*G.W+j\n            case v: return v\n\n    def is_valid(G,\
+    \ i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall\n\
+    \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
+    \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
+    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
+    \nclass LazyGridGraph(GridGraphProtocol):\n\n    def neighbors(G, u: int) -> Iterable[int]:\n\
+    \        S, wall, dirs, H, W = G.S, G.wall, G.dirs, G.H, G.W\n        i,j = divmod(u,\
+    \ W)\n        return tuple(v\n            for di,dj in dirs\n                if\
+    \ (0 <= (ni:=i+di) < H \n                    and 0 <= (nj:=j+dj) < W  \n     \
+    \               and S[v:=ni*W+nj] != wall)\n        ) if S[u] != wall else tuple()\n\
+    \    \n    def __len__(G) -> int:\n        return G.N\n    \n    def __getitem__(G,\
+    \ v: int):\n        return G.neighbors(v)\n    \n    def __iter__(G) -> Iterator:\n\
+    \        return iter(G[v] for v in range(G.N))\n    \n\nclass TeleportGraph(LazyGridGraph):\n\
     \    def __init__(G, H, W, S=[]):\n        super().__init__(H, W, S)\n       \
     \ G.group = group = [set() for _ in range(26)]\n        for u,c in enumerate(S):\n\
     \            match c:\n                case '.'|'#'|'S'|'G': ...\n           \
@@ -394,7 +383,7 @@ data:
   isVerificationFile: true
   path: test/abc184_e_grid_graph.test.py
   requiredBy: []
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc184_e_grid_graph.test.py

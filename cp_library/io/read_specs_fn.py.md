@@ -37,6 +37,9 @@ data:
     path: test/abc202_e_dfs_enter_leave.test.py
     title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc206_e_mobius_table.test.py
+    title: test/abc206_e_mobius_table.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc245_f_digraph.test.py
     title: test/abc245_f_digraph.test.py
   - icon: ':heavy_check_mark:'
@@ -236,7 +239,7 @@ data:
   path: cp_library/io/read_specs_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_mo.test.py
@@ -263,6 +266,7 @@ data:
   - test/grl_3_a_graph_articulation_points.test.py
   - test/abc185_e_dp2d.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+  - test/abc206_e_mobius_table.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   - test/subset_convolution.test.py
   - test/dp_z_cht_monotone_add_min.test.py

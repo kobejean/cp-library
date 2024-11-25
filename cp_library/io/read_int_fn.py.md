@@ -7,8 +7,8 @@ data:
     path: test/arc122_b_insurance_median.test.py
     title: test/arc122_b_insurance_median.test.py
   - icon: ':heavy_check_mark:'
-    path: test/arc168_c_swap_characters_mint_comb.test.py
-    title: test/arc168_c_swap_characters_mint_comb.test.py
+    path: test/arc168_c_swap_characters_combinatoric.test.py
+    title: test/arc168_c_swap_characters_combinatoric.test.py
   - icon: ':heavy_check_mark:'
     path: test/arc182_d_increment_decrement_again_qselect.test.py
     title: test/arc182_d_increment_decrement_again_qselect.test.py
@@ -57,14 +57,14 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unionfind_with_potential_non_commutative_group.test.py
   - test/arc182_d_increment_decrement_again_qselect.test.py
   - test/grl_5_c_lca_table_iterative.test.py
   - test/grl_5_c_lca_table_recursive.test.py
-  - test/arc168_c_swap_characters_mint_comb.test.py
+  - test/arc168_c_swap_characters_combinatoric.test.py
   - test/arc122_b_insurance_median.test.py
   - test/pow_of_matrix_modmat.test.py
   - test/dsl_2_c_kdtree.test.py

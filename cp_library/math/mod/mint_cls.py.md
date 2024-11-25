@@ -8,7 +8,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/modmat_cls.py
     title: cp_library/math/mod/modmat_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/table/combinatorics_cls.py
+    title: cp_library/math/table/combinatorics_cls.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/arc168_c_swap_characters_combinatoric.test.py
+    title: test/arc168_c_swap_characters_combinatoric.test.py
   - icon: ':heavy_check_mark:'
     path: test/pow_of_matrix_matpow.test.py
     title: test/pow_of_matrix_matpow.test.py
@@ -29,14 +35,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nclass mint(int):\n    mod = zero = one = None\n\n    def __new__(cls, *args,\
-    \ **kwargs):\n        match int(*args, **kwargs):\n            case 0: return\
-    \ cls.zero\n            case 1: return cls.one\n            case x: return cls.fix(x)\n\
-    \n    @classmethod\n    def set_mod(cls, mod):\n        cls.mod = mod\n      \
-    \  cls.zero, cls.one = cls.cast(0), cls.fix(1)\n\n    @classmethod\n    def fix(cls,\
-    \ x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def cast(cls, x): return\
-    \ super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls, x):\n     \
-    \   a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
+    \nclass mint(int):\n    mod = zero = one = two = None\n\n    def __new__(cls,\
+    \ *args, **kwargs):\n        match int(*args, **kwargs):\n            case 0:\
+    \ return cls.zero\n            case 1: return cls.one\n            case 2: return\
+    \ cls.two\n            case x: return cls.fix(x)\n\n    @classmethod\n    def\
+    \ set_mod(cls, mod):\n        cls.mod = mod\n        cls.zero = cls.cast(0)\n\
+    \        cls.one = cls.fix(1)\n        cls.two = cls.fix(2)\n\n    @classmethod\n\
+    \    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def\
+    \ cast(cls, x): return super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls,\
+    \ x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
     \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
     \ invertible\")\n    \n    @property\n    def inv(self): return mint.mod_inv(self)\n\
     \n    def __add__(self, x): return mint.fix(super().__add__(x))\n    def __radd__(self,\
@@ -50,11 +57,12 @@ data:
     \ return mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self):\
     \ return self\n\n"
   code: "import cp_library.math.mod.__header__\n\nclass mint(int):\n    mod = zero\
-    \ = one = None\n\n    def __new__(cls, *args, **kwargs):\n        match int(*args,\
-    \ **kwargs):\n            case 0: return cls.zero\n            case 1: return\
-    \ cls.one\n            case x: return cls.fix(x)\n\n    @classmethod\n    def\
-    \ set_mod(cls, mod):\n        cls.mod = mod\n        cls.zero, cls.one = cls.cast(0),\
-    \ cls.fix(1)\n\n    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n\
+    \ = one = two = None\n\n    def __new__(cls, *args, **kwargs):\n        match\
+    \ int(*args, **kwargs):\n            case 0: return cls.zero\n            case\
+    \ 1: return cls.one\n            case 2: return cls.two\n            case x: return\
+    \ cls.fix(x)\n\n    @classmethod\n    def set_mod(cls, mod):\n        cls.mod\
+    \ = mod\n        cls.zero = cls.cast(0)\n        cls.one = cls.fix(1)\n      \
+    \  cls.two = cls.fix(2)\n\n    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n\
     \n    @classmethod\n    def cast(cls, x): return super().__new__(cls,x)\n\n  \
     \  @classmethod\n    def mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod,\
     \ 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n        if a == 1: return\
@@ -75,9 +83,11 @@ data:
   requiredBy:
   - cp_library/math/mod/modmat_cls.py
   - cp_library/math/mat_cls.py
-  timestamp: '2024-11-22 04:31:33+09:00'
+  - cp_library/math/table/combinatorics_cls.py
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/arc168_c_swap_characters_combinatoric.test.py
   - test/pow_of_matrix_modmat.test.py
   - test/pow_of_matrix_matpow.test.py
   - test/subset_convolution.test.py

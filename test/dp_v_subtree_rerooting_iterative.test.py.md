@@ -373,41 +373,31 @@ data:
     \            while stack:\n                u = stack.pop()\n                for\
     \ v in G[u]:\n                    if vis[v]: continue\n                    vis[v]\
     \ = True\n                    edges.append((u,v))\n                    stack.append(v)\n\
-    \        return edges\n\n    def dfs_topdown_indexed(G, s: int|list[int]|None\
-    \ = None, connect_roots = False):\n        '''Returns list of (u,v) representing\
-    \ u->v edges in order of top down discovery'''\n        stack = [0] * G.N\n  \
-    \      vis: list[bool] = [False]*G.N\n        edges: list[tuple[int,int,int]]\
-    \ = []\n\n        for r,s in enumerate(G.starts(s)):\n            if vis[s]: continue\n\
-    \            if connect_roots:\n                edges.append((r,-1,s))\n     \
-    \       vis[s] = True\n            stack[idx := 0] = s\n            while idx\
-    \ != -1:\n                u, idx = stack[idx], idx-1\n                for c,v\
-    \ in enumerate(G[u]):\n                    if vis[v]: continue\n             \
-    \       vis[v] = True\n                    edges.append((c,u,v))\n           \
-    \         stack[idx := idx+1] = v \n\n        return edges\n    \n    def dfs_bottomup(G,\
-    \ s: int|list[int]|None = None, connect_roots = False):\n        '''Returns list\
-    \ of (p,u) representing p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s,\
-    \ connect_roots)\n        edges.reverse()\n        return edges\n    \n    def\
-    \ starts(G, v: int|list[int]|None) -> Iterable:\n        match v:\n          \
-    \  case int(v): return (v,)\n            case None: return range(G.N)\n      \
-    \      case V: return V\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
-    \ E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
-    \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
-    \    \n\nclass Graph(GraphProtocol):\n    def __init__(G, N: int, E: list[Edge]=[]):\n\
-    \        super().__init__(N, E, ([] for _ in range(N)))\n        for u,v in G.E:\n\
-    \            G[u].append(v)\n            G[v].append(u)\n\n    def edge_ids(G)\
-    \ -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n        for e,(u,v)\
-    \ in enumerate(G.E):\n            Eid[u].append(e)\n            Eid[v].append(e)\n\
-    \        return Eid\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
-    \ E: type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n     \
-    \   return super().compile(N, M, E)\n\nfrom typing import overload, Literal\n\
-    from functools import cached_property\n\nfrom typing import Any, Callable, List\n\
-    \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
-    \ List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
-    \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
-    \ range(self.log)]\n        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
-    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
-    \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
-    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
+    \        return edges\n    \n    def dfs_bottomup(G, s: int|list[int]|None = None,\
+    \ connect_roots = False):\n        '''Returns list of (p,u) representing p->u\
+    \ edges in bottom up order'''\n        edges = G.dfs_topdown(s, connect_roots)\n\
+    \        edges.reverse()\n        return edges\n    \n    def starts(G, v: int|list[int]|None)\
+    \ -> Iterable:\n        match v:\n            case int(v): return (v,)\n     \
+    \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
+    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
+    \ _ in range(M)])\n        return parse\n    \n\nclass Graph(GraphProtocol):\n\
+    \    def __init__(G, N: int, E: list[Edge]=[]):\n        super().__init__(N, E,\
+    \ ([] for _ in range(N)))\n        for u,v in G.E:\n            G[u].append(v)\n\
+    \            G[v].append(u)\n\n    def edge_ids(G) -> list[list[int]]:\n     \
+    \   Eid = [[] for _ in range(G.N)]\n        for e,(u,v) in enumerate(G.E):\n \
+    \           Eid[u].append(e)\n            Eid[v].append(e)\n        return Eid\n\
+    \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
+    \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
+    \ M, E)\n\nfrom typing import overload, Literal\nfrom functools import cached_property\n\
+    \nfrom typing import Any, Callable, List\n\nclass SparseTable:\n    def __init__(self,\
+    \ op: Callable[[Any, Any], Any], arr: List[Any]):\n        self.n = len(arr)\n\
+    \        self.log = self.n.bit_length()\n        self.op = op\n        self.st\
+    \ = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n        self.st[0]\
+    \ = arr[:]\n        \n        for i in range(self.log-1):\n            row, d\
+    \ = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n       \
+    \         self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self, l: int,\
+    \ r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
     \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
     \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n\nclass BinaryIndexTree:\n\
     \    def __init__(self, v: int|list):\n        if isinstance(v, int):\n      \
@@ -509,7 +499,7 @@ data:
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_iterative.test.py
   requiredBy: []
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_iterative.test.py

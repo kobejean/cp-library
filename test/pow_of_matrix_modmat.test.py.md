@@ -27,11 +27,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nclass mint(int):\n    mod = zero = one = None\n\n   \
-    \ def __new__(cls, *args, **kwargs):\n        match int(*args, **kwargs):\n  \
-    \          case 0: return cls.zero\n            case 1: return cls.one\n     \
-    \       case x: return cls.fix(x)\n\n    @classmethod\n    def set_mod(cls, mod):\n\
-    \        cls.mod = mod\n        cls.zero, cls.one = cls.cast(0), cls.fix(1)\n\n\
+    \               \n'''\n\nclass mint(int):\n    mod = zero = one = two = None\n\
+    \n    def __new__(cls, *args, **kwargs):\n        match int(*args, **kwargs):\n\
+    \            case 0: return cls.zero\n            case 1: return cls.one\n   \
+    \         case 2: return cls.two\n            case x: return cls.fix(x)\n\n  \
+    \  @classmethod\n    def set_mod(cls, mod):\n        cls.mod = mod\n        cls.zero\
+    \ = cls.cast(0)\n        cls.one = cls.fix(1)\n        cls.two = cls.fix(2)\n\n\
     \    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n\
     \    def cast(cls, x): return super().__new__(cls,x)\n\n    @classmethod\n   \
     \ def mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while\
@@ -136,7 +137,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_modmat.test.py

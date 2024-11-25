@@ -11,26 +11,25 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "from itertools import accumulate\n'''\n\u257A\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nclass Pow(list):\n    def __init__(self,K,N,mod=None):\n\
-    \        super().__init__([1]*(N+1))\n        if mod is None:\n            for\
-    \ i in range(N):\n                self[i+1] = self[i]*K\n        else:\n     \
-    \       for i in range(N):\n                self[i+1] = self[i]*K % mod\n"
-  code: "from itertools import accumulate\nimport cp_library.math.table.__header__\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \nclass Pow(list):\n    def __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n\
     \        if mod is None:\n            for i in range(N):\n                self[i+1]\
     \ = self[i]*K\n        else:\n            for i in range(N):\n               \
-    \ self[i+1] = self[i]*K % mod"
+    \ self[i+1] = self[i]*K % mod\n"
+  code: "import cp_library.math.table.__header__\n\nclass Pow(list):\n    def __init__(self,K,N,mod=None):\n\
+    \        super().__init__([1]*(N+1))\n        if mod is None:\n            for\
+    \ i in range(N):\n                self[i+1] = self[i]*K\n        else:\n     \
+    \       for i in range(N):\n                self[i+1] = self[i]*K % mod"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/table/pow_cls.py
   requiredBy: []
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc304_f_mobius_inv.test.py

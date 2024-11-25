@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/abc206_e_mobius_table.test.py
+    title: test/abc206_e_mobius_table.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -14,24 +17,21 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nclass Mobius(list[int]):\n    def __init__(mob, N):\n        super().__init__([1]*(N+1))\n\
-    \        for i in range(2, N+1):\n            if mob[i] == 1: \n             \
-    \   i2 = i*i\n                for j in range(i, N+1, i): \n                  \
-    \  if j % i2 == 0: \n                        mob[j] = 0\n                    else:\
-    \ \n                        mob[j] *= -1\n"
+    \nclass Mobius(list[int]):\n    def __init__(mu, N):\n        super().__init__([0]*(N+1))\n\
+    \        mu[1] = 1\n        for i in range(1, N+1):\n            for j in range(i<<1,\
+    \ N+1, i):\n                mu[j] -= mu[i]\n"
   code: "import cp_library.math.table.__header__\n\nclass Mobius(list[int]):\n   \
-    \ def __init__(mob, N):\n        super().__init__([1]*(N+1))\n        for i in\
-    \ range(2, N+1):\n            if mob[i] == 1: \n                i2 = i*i\n   \
-    \             for j in range(i, N+1, i): \n                    if j % i2 == 0:\
-    \ \n                        mob[j] = 0\n                    else: \n         \
-    \               mob[j] *= -1"
+    \ def __init__(mu, N):\n        super().__init__([0]*(N+1))\n        mu[1] = 1\n\
+    \        for i in range(1, N+1):\n            for j in range(i<<1, N+1, i):\n\
+    \                mu[j] -= mu[i]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/table/mobius_cls.py
   requiredBy: []
-  timestamp: '2024-11-22 04:31:33+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-11-25 13:28:18+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/abc206_e_mobius_table.test.py
 documentation_of: cp_library/math/table/mobius_cls.py
 layout: document
 redirect_from:

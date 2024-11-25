@@ -8,6 +8,9 @@ data:
     path: cp_library/alg/graph/permutation_cls.py
     title: cp_library/alg/graph/permutation_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/presum_fn.py
+    title: cp_library/alg/iter/presum_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -23,25 +26,28 @@ data:
     links:
     - https://atcoder.jp/contests/abc175/tasks/abc175_d
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc175/tasks/abc175_d\n\
-    \nfrom itertools import accumulate\nfrom math import inf\n\n\ndef main():\n  \
-    \  N, K = read(tuple[int, ...])\n    P = read(Permutation[N])\n    C = read(list[int,\
-    \ N])\n\n    ans = -inf\n    for cyc in P.cycles():\n        L = len(cyc)\n  \
-    \      A = [C[u] for u in cyc]\n        loop = sum(A)\n        A = list(accumulate(A*3))\n\
-    \        m, k = divmod(K, L)\n        if m:\n            k += L\n            m\
-    \ -= 1\n        rem = max(A[i+j+1] - A[i] for i in range(L) for j in range(k))\n\
-    \        cost = max(m*loop + rem, rem)\n        ans = max(ans, cost)\n\n    print(ans)\n\
-    \    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \n\nfrom math import inf\n\n\ndef main():\n    N, K = read(tuple[int, ...])\n\
+    \    P = read(Permutation[N])\n    C = read(list[int, N])\n\n    ans = -inf\n\
+    \    for cyc in P.cycles():\n        L = len(cyc)\n        A = [C[u] for u in\
+    \ cyc]\n        loop = sum(A)\n        A = presum(A*3)\n        m, k = divmod(K,\
+    \ L)\n        if m:\n            k += L\n            m -= 1\n        rem = max(A[i+j+1]\
+    \ - A[i] for i in range(L) for j in range(k))\n        cost = max(m*loop + rem,\
+    \ rem)\n        ans = max(ans, cost)\n\n    print(ans)\n    \n\nfrom itertools\
+    \ import accumulate\nfrom typing import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\n\
+    def presum(iter: Iterable[T], func: Callable[[T,T],T] = None, initial: T = None)\
+    \ -> list[T]:\n    return list(accumulate(iter, func, initial=initial))\n'''\n\
+    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nfrom io import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections\
-    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass\
-    \ TokenStream(Iterator):\n    def __init__(self, stream: TextIOBase = sys.stdin):\n\
-    \        self.queue = deque()\n        self.stream = stream\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\n\nfrom\
+    \ io import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \    def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
+    \ deque()\n        self.stream = stream\n\n    def __next__(self):\n        if\
+    \ not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
     \ not self.queue\n        return sys.stdin.readline().split()\n\n    def n_uints(self,\
@@ -164,16 +170,18 @@ data:
     \            parser: T = Parser.compile(spec)\n            return parser(stream)\n\
     \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc175/tasks/abc175_d\n\
-    \nfrom itertools import accumulate\nfrom math import inf\n\n\ndef main():\n  \
-    \  N, K = read(tuple[int, ...])\n    P = read(Permutation[N])\n    C = read(list[int,\
-    \ N])\n\n    ans = -inf\n    for cyc in P.cycles():\n        L = len(cyc)\n  \
-    \      A = [C[u] for u in cyc]\n        loop = sum(A)\n        A = list(accumulate(A*3))\n\
-    \        m, k = divmod(K, L)\n        if m:\n            k += L\n            m\
-    \ -= 1\n        rem = max(A[i+j+1] - A[i] for i in range(L) for j in range(k))\n\
-    \        cost = max(m*loop + rem, rem)\n        ans = max(ans, cost)\n\n    print(ans)\n\
-    \    \nfrom cp_library.alg.graph.permutation_cls import Permutation\nfrom cp_library.io.read_specs_fn\
-    \ import read\n\nif __name__ == \"__main__\":\n    main()"
+    \n\nfrom math import inf\n\n\ndef main():\n    N, K = read(tuple[int, ...])\n\
+    \    P = read(Permutation[N])\n    C = read(list[int, N])\n\n    ans = -inf\n\
+    \    for cyc in P.cycles():\n        L = len(cyc)\n        A = [C[u] for u in\
+    \ cyc]\n        loop = sum(A)\n        A = presum(A*3)\n        m, k = divmod(K,\
+    \ L)\n        if m:\n            k += L\n            m -= 1\n        rem = max(A[i+j+1]\
+    \ - A[i] for i in range(L) for j in range(k))\n        cost = max(m*loop + rem,\
+    \ rem)\n        ans = max(ans, cost)\n\n    print(ans)\n    \nfrom cp_library.alg.iter.presum_fn\
+    \ import presum\nfrom cp_library.alg.graph.permutation_cls import Permutation\n\
+    from cp_library.io.read_specs_fn import read\n\nif __name__ == \"__main__\":\n\
+    \    main()"
   dependsOn:
+  - cp_library/alg/iter/presum_fn.py
   - cp_library/alg/graph/permutation_cls.py
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/graph/functional_graph_cls.py
@@ -181,7 +189,7 @@ data:
   isVerificationFile: true
   path: test/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc175_d_permutation.test.py

@@ -305,31 +305,21 @@ data:
     \            while stack:\n                u = stack.pop()\n                for\
     \ v in G[u]:\n                    if vis[v]: continue\n                    vis[v]\
     \ = True\n                    edges.append((u,v))\n                    stack.append(v)\n\
-    \        return edges\n\n    def dfs_topdown_indexed(G, s: int|list[int]|None\
-    \ = None, connect_roots = False):\n        '''Returns list of (u,v) representing\
-    \ u->v edges in order of top down discovery'''\n        stack = [0] * G.N\n  \
-    \      vis: list[bool] = [False]*G.N\n        edges: list[tuple[int,int,int]]\
-    \ = []\n\n        for r,s in enumerate(G.starts(s)):\n            if vis[s]: continue\n\
-    \            if connect_roots:\n                edges.append((r,-1,s))\n     \
-    \       vis[s] = True\n            stack[idx := 0] = s\n            while idx\
-    \ != -1:\n                u, idx = stack[idx], idx-1\n                for c,v\
-    \ in enumerate(G[u]):\n                    if vis[v]: continue\n             \
-    \       vis[v] = True\n                    edges.append((c,u,v))\n           \
-    \         stack[idx := idx+1] = v \n\n        return edges\n    \n    def dfs_bottomup(G,\
-    \ s: int|list[int]|None = None, connect_roots = False):\n        '''Returns list\
-    \ of (p,u) representing p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s,\
-    \ connect_roots)\n        edges.reverse()\n        return edges\n    \n    def\
-    \ starts(G, v: int|list[int]|None) -> Iterable:\n        match v:\n          \
-    \  case int(v): return (v,)\n            case None: return range(G.N)\n      \
-    \      case V: return V\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
-    \ E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
-    \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
-    \    \n\nclass Graph(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n\
-    \        super().__init__(set() for _ in range(N))\n        G.E = list(edges)\n\
-    \        G.N, G.M = N, len(G.E)\n        for u,v in G.E:\n            G[u].add(v)\n\
-    \            G[v].add(u)\n\n    @classmethod\n    def compile(cls, N: int, M:\
-    \ int, E: type|int = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n\
-    \        return super().compile(N, M, E)\n"
+    \        return edges\n    \n    def dfs_bottomup(G, s: int|list[int]|None = None,\
+    \ connect_roots = False):\n        '''Returns list of (p,u) representing p->u\
+    \ edges in bottom up order'''\n        edges = G.dfs_topdown(s, connect_roots)\n\
+    \        edges.reverse()\n        return edges\n    \n    def starts(G, v: int|list[int]|None)\
+    \ -> Iterable:\n        match v:\n            case int(v): return (v,)\n     \
+    \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
+    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
+    \ _ in range(M)])\n        return parse\n    \n\nclass Graph(GraphProtocol):\n\
+    \    def __init__(G, N: int, edges=[]):\n        super().__init__(set() for _\
+    \ in range(N))\n        G.E = list(edges)\n        G.N, G.M = N, len(G.E)\n  \
+    \      for u,v in G.E:\n            G[u].add(v)\n            G[v].add(u)\n\n \
+    \   @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
+    \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
+    \ M, E)\n"
   code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.edge_cls\
     \ import Edge\nfrom cp_library.alg.graph.graph_proto import GraphProtocol\n\n\
     class Graph(GraphProtocol):\n    def __init__(G, N: int, edges=[]):\n        super().__init__(set()\
@@ -348,7 +338,7 @@ data:
   path: cp_library/alg/graph/graph_set_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_set_cls.py
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/graph_set_cls.py

@@ -133,6 +133,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/permutation_cls.py
       title: cp_library/alg/graph/permutation_cls.py
+  - name: cp_library/alg/iter
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/presum_fn.py
+      title: cp_library/alg/iter/presum_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/sufsum_fn.py
+      title: cp_library/alg/iter/sufsum_fn.py
   - name: cp_library/alg/tree
     pages:
     - icon: ':warning:'
@@ -350,9 +358,6 @@ data:
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/mint_comb_cls.py
-      title: cp_library/math/mod/mint_comb_cls.py
-    - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mobius_transform_fn.py
       title: cp_library/math/mod/mobius_transform_fn.py
     - icon: ':heavy_check_mark:'
@@ -366,6 +371,9 @@ data:
       title: cp_library/math/mod/zeta_transform_fn.py
   - name: cp_library/math/table
     pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/table/combinatorics_cls.py
+      title: cp_library/math/table/combinatorics_cls.py
     - icon: ':warning:'
       path: cp_library/math/table/divisors_cls.py
       title: cp_library/math/table/divisors_cls.py
@@ -384,7 +392,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/table/linear_sieve_cnts_cls.py
       title: cp_library/math/table/linear_sieve_cnts_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/table/mobius_cls.py
       title: cp_library/math/table/mobius_cls.py
     - icon: ':heavy_check_mark:'
@@ -457,6 +465,9 @@ data:
       path: test/abc202_e_dfs_enter_leave.test.py
       title: test/abc202_e_dfs_enter_leave.test.py
     - icon: ':heavy_check_mark:'
+      path: test/abc206_e_mobius_table.test.py
+      title: test/abc206_e_mobius_table.test.py
+    - icon: ':heavy_check_mark:'
       path: test/abc245_f_digraph.test.py
       title: test/abc245_f_digraph.test.py
     - icon: ':heavy_check_mark:'
@@ -499,8 +510,8 @@ data:
       path: test/arc122_b_insurance_median.test.py
       title: test/arc122_b_insurance_median.test.py
     - icon: ':heavy_check_mark:'
-      path: test/arc168_c_swap_characters_mint_comb.test.py
-      title: test/arc168_c_swap_characters_mint_comb.test.py
+      path: test/arc168_c_swap_characters_combinatoric.test.py
+      title: test/arc168_c_swap_characters_combinatoric.test.py
     - icon: ':heavy_check_mark:'
       path: test/arc182_d_increment_decrement_again_qselect.test.py
       title: test/arc182_d_increment_decrement_again_qselect.test.py

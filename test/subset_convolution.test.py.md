@@ -181,44 +181,46 @@ data:
     \ ^ bit]\n        for i in range(block,N):\n            for base in range(bit\
     \ := 1<<i, 1<<N, bit << 1):\n                for mask in range(base, base+bit):\n\
     \                    A[mask] -= A[mask ^ bit]\n        return A\n    \n    \n\
-    \    class mint(int):\n        mod = zero = one = None\n    \n        def __new__(cls,\
-    \ *args, **kwargs):\n            match int(*args, **kwargs):\n               \
-    \ case 0: return cls.zero\n                case 1: return cls.one\n          \
-    \      case x: return cls.fix(x)\n    \n        @classmethod\n        def set_mod(cls,\
-    \ mod):\n            cls.mod = mod\n            cls.zero, cls.one = cls.cast(0),\
-    \ cls.fix(1)\n    \n        @classmethod\n        def fix(cls, x): return cls.cast(x%cls.mod)\n\
-    \    \n        @classmethod\n        def cast(cls, x): return super().__new__(cls,x)\n\
-    \    \n        @classmethod\n        def mod_inv(cls, x):\n            a,b,s,t\
-    \ = int(x), cls.mod, 1, 0\n            while b: a,b,s,t = b,a%b,t,s-a//b*t\n \
-    \           if a == 1: return cls.fix(s)\n            raise ValueError(f\"{x}\
-    \ is not invertible\")\n        \n        @property\n        def inv(self): return\
-    \ mint.mod_inv(self)\n    \n        def __add__(self, x): return mint.fix(super().__add__(x))\n\
-    \        def __radd__(self, x): return mint.fix(super().__radd__(x))\n       \
-    \ def __sub__(self, x): return mint.fix(super().__sub__(x))\n        def __rsub__(self,\
-    \ x): return mint.fix(super().__rsub__(x))\n        def __mul__(self, x): return\
-    \ mint.fix(super().__mul__(x))\n        def __rmul__(self, x): return mint.fix(super().__rmul__(x))\n\
-    \        def __floordiv__(self, x): return self * mint.mod_inv(x)\n        def\
-    \ __rfloordiv__(self, x): return self.inv * x\n        def __truediv__(self, x):\
-    \ return self * mint.mod_inv(x)\n        def __rtruediv__(self, x): return self.inv\
-    \ * x\n        def __pow__(self, x): \n            return self.cast(super().__pow__(x,\
-    \ self.mod))\n        def __neg__(self): return mint.mod-self\n        def __pos__(self):\
-    \ return self\n        def __abs__(self): return self\n    \n    mint.set_mod(mod)\n\
-    \    F = read(list[mint])\n    G = read(list[mint])\n    print(*subset_convolution(F,\
-    \ G, N))\nelse:\n    \n    \n    def subset_convolution(A, B, N, mod):\n     \
-    \   Z = 1 << N\n    \n        # Prepare arrays for rank (popcount) decomposition\n\
-    \        Arank = [[0]*Z for _ in range(N+1)]\n        Brank = [[0]*Z for _ in\
-    \ range(N+1)]\n    \n        # Initialize rank arrays\n        for mask in range(Z):\n\
-    \            rank = mask.bit_count()\n            Arank[rank][mask] = A[mask]\n\
-    \            Brank[rank][mask] = B[mask]\n    \n        # Zeta transform for each\
-    \ rank\n        for Ar in Arank: zeta_transform(Ar, N, mod)\n        for Br in\
-    \ Brank: zeta_transform(Br, N, mod)\n    \n        # Convolution\n        Crank\
-    \ = [[0]*Z for _ in range(N+1)]\n        for mask in range(Z):\n            L\
-    \ = mask.bit_count()+1\n            for i in range(L):\n                for j\
-    \ in range(min(L, N+1-i)):\n                    k = i+j\n                    Crank[k][mask]\
-    \ = (Crank[k][mask] + Arank[i][mask] * Brank[j][mask]) % mod\n    \n        #\
-    \ M\xF6bius transform (inverse of Zeta transform)\n        for Cr in Crank: mobius_transform(Cr,\
-    \ N, mod)\n            \n        # Combine results\n        C = [0] * Z\n    \
-    \    for mask in range(Z):\n            rank = mask.bit_count()\n            C[mask]\
+    \    class mint(int):\n        mod = zero = one = two = None\n    \n        def\
+    \ __new__(cls, *args, **kwargs):\n            match int(*args, **kwargs):\n  \
+    \              case 0: return cls.zero\n                case 1: return cls.one\n\
+    \                case 2: return cls.two\n                case x: return cls.fix(x)\n\
+    \    \n        @classmethod\n        def set_mod(cls, mod):\n            cls.mod\
+    \ = mod\n            cls.zero = cls.cast(0)\n            cls.one = cls.fix(1)\n\
+    \            cls.two = cls.fix(2)\n    \n        @classmethod\n        def fix(cls,\
+    \ x): return cls.cast(x%cls.mod)\n    \n        @classmethod\n        def cast(cls,\
+    \ x): return super().__new__(cls,x)\n    \n        @classmethod\n        def mod_inv(cls,\
+    \ x):\n            a,b,s,t = int(x), cls.mod, 1, 0\n            while b: a,b,s,t\
+    \ = b,a%b,t,s-a//b*t\n            if a == 1: return cls.fix(s)\n            raise\
+    \ ValueError(f\"{x} is not invertible\")\n        \n        @property\n      \
+    \  def inv(self): return mint.mod_inv(self)\n    \n        def __add__(self, x):\
+    \ return mint.fix(super().__add__(x))\n        def __radd__(self, x): return mint.fix(super().__radd__(x))\n\
+    \        def __sub__(self, x): return mint.fix(super().__sub__(x))\n        def\
+    \ __rsub__(self, x): return mint.fix(super().__rsub__(x))\n        def __mul__(self,\
+    \ x): return mint.fix(super().__mul__(x))\n        def __rmul__(self, x): return\
+    \ mint.fix(super().__rmul__(x))\n        def __floordiv__(self, x): return self\
+    \ * mint.mod_inv(x)\n        def __rfloordiv__(self, x): return self.inv * x\n\
+    \        def __truediv__(self, x): return self * mint.mod_inv(x)\n        def\
+    \ __rtruediv__(self, x): return self.inv * x\n        def __pow__(self, x): \n\
+    \            return self.cast(super().__pow__(x, self.mod))\n        def __neg__(self):\
+    \ return mint.mod-self\n        def __pos__(self): return self\n        def __abs__(self):\
+    \ return self\n    \n    mint.set_mod(mod)\n    F = read(list[mint])\n    G =\
+    \ read(list[mint])\n    print(*subset_convolution(F, G, N))\nelse:\n    \n   \
+    \ \n    def subset_convolution(A, B, N, mod):\n        Z = 1 << N\n    \n    \
+    \    # Prepare arrays for rank (popcount) decomposition\n        Arank = [[0]*Z\
+    \ for _ in range(N+1)]\n        Brank = [[0]*Z for _ in range(N+1)]\n    \n  \
+    \      # Initialize rank arrays\n        for mask in range(Z):\n            rank\
+    \ = mask.bit_count()\n            Arank[rank][mask] = A[mask]\n            Brank[rank][mask]\
+    \ = B[mask]\n    \n        # Zeta transform for each rank\n        for Ar in Arank:\
+    \ zeta_transform(Ar, N, mod)\n        for Br in Brank: zeta_transform(Br, N, mod)\n\
+    \    \n        # Convolution\n        Crank = [[0]*Z for _ in range(N+1)]\n  \
+    \      for mask in range(Z):\n            L = mask.bit_count()+1\n           \
+    \ for i in range(L):\n                for j in range(min(L, N+1-i)):\n       \
+    \             k = i+j\n                    Crank[k][mask] = (Crank[k][mask] +\
+    \ Arank[i][mask] * Brank[j][mask]) % mod\n    \n        # M\xF6bius transform\
+    \ (inverse of Zeta transform)\n        for Cr in Crank: mobius_transform(Cr, N,\
+    \ mod)\n            \n        # Combine results\n        C = [0] * Z\n       \
+    \ for mask in range(Z):\n            rank = mask.bit_count()\n            C[mask]\
     \ = Crank[rank][mask]\n    \n        return C\n    \n    \n    \n    def zeta_transform(A,\
     \ N, mod, block=5):\n        for i in range(min(block,N)):\n            for mask\
     \ in range(bit := 1<<i, 1<<N):\n                if mask & bit:\n             \
@@ -254,7 +256,7 @@ data:
   isVerificationFile: true
   path: test/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2024-11-22 04:31:33+09:00'
+  timestamp: '2024-11-25 13:28:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/subset_convolution.test.py
