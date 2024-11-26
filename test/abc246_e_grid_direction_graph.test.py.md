@@ -157,11 +157,11 @@ data:
     \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
     \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
     \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \ntry:\n    from\
-    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
-    \ return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n\
-    from typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n\
-    \    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
+    \ typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n \
+    \   def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
     \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
     \ adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
     \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
@@ -416,7 +416,7 @@ data:
   isVerificationFile: true
   path: test/abc246_e_grid_direction_graph.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc246_e_grid_direction_graph.test.py

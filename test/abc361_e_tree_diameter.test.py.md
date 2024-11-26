@@ -191,9 +191,8 @@ data:
     \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
     \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
     \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
-    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\ntry:\n \
-    \   from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n\
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\n\nfrom heapq\
+    \ import heapify, heappop, heappush\nimport operator\nfrom math import inf\n\n\
     \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
     \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
     \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
@@ -203,10 +202,11 @@ data:
     \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
     \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
     \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nfrom heapq\
-    \ import heapify, heappop, heappush\nimport operator\nfrom math import inf\n\n\
-    from typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n\
-    \    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
+    \ typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n \
+    \   def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
     \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
     \ adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
     \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
@@ -408,33 +408,33 @@ data:
     \         current = par[current]\n            \n        return path[::-1]\n  \
     \  \n    def kruskal(G):\n        E, N = G.E, G.N\n        heapify(E)\n      \
     \  dsu = DSU(N)\n        MST = []\n        need = N-1\n        while E and need:\n\
-    \            edge = heappop(E)\n            u,v,*_ = edge\n            u,v = dsu.merge(u,v)\n\
+    \            edge = heappop(E)\n            u,v,*_ = edge\n            u,v = dsu.merge(u,v,True)\n\
     \            if u != v:\n                MST.append(edge)\n                need\
-    \ -= 1\n        cls = type(G)\n        return cls(N, MST)\n    \n    def bellman_ford(G,\
-    \ s = 0) -> list[int]:\n        D = [inf]*G.N\n        D[s] = 0\n        for _\
-    \ in range(G.N-1):\n            for u, edges in enumerate(G):\n              \
-    \  for v,w,*_ in edges:\n                    D[v] = min(D[v], D[u] + w)\n    \
-    \    return D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        D\
-    \ = [[inf]*G.N for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n\
-    \            D[u][u] = 0\n            for v,w in edges:\n                D[u][v]\
-    \ = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n          \
-    \  for Di in D:\n                for j in range(G.N):\n                    Di[j]\
-    \ = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def dfs_events(G, flags:\
-    \ DFSFlags, s: int|list|None = None, max_depth: int|None = None):\n        match\
-    \ flags:\n            case DFSFlags.INTERVAL:\n                if max_depth is\
-    \ None:\n                    return G.dfs_enter_leave(s)\n            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n\
-    \                if max_depth is None:\n                    edges = G.dfs_topdown(s,\
-    \ DFSFlags.CONNECT_ROOTS in flags)\n                    return [(DFSEvent.DOWN,\
-    \ p, u) for p,u in edges]\n            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n \
-    \               if max_depth is None:\n                    edges = G.dfs_bottomup(s,\
-    \ DFSFlags.CONNECT_ROOTS in flags)\n                    return [(DFSEvent.UP,\
-    \ p, u) for p,u in edges]\n            case flags if flags & DFSFlags.BACKTRACK:\n\
-    \                return G.dfs_backtrack(flags, s, max_depth)\n        state =\
-    \ [0] * G.N\n        child = elist(G.N)\n        weights = elist(G.N)\n      \
-    \  stack = elist(G.N)\n        if flags & DFSFlags.RETURN_PARENTS:\n         \
-    \   parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n       \
-    \     depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
-    \            stack.append(s)\n            child.append(0)\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
+    \ -= 1\n        return MST\n    \n    def bellman_ford(G, s = 0) -> list[int]:\n\
+    \        D = [inf]*G.N\n        D[s] = 0\n        for _ in range(G.N-1):\n   \
+    \         for u, edges in enumerate(G):\n                for v,w,*_ in edges:\n\
+    \                    D[v] = min(D[v], D[u] + w)\n        return D\n    \n    def\
+    \ floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for _ in range(G.N)]\n\
+    \n        for u, edges in enumerate(G):\n            D[u][u] = 0\n           \
+    \ for v,w in edges:\n                D[u][v] = min(D[u][v], w)\n        \n   \
+    \     for k, Dk in enumerate(D):\n            for Di in D:\n                for\
+    \ j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n    \
+    \    return D\n    \n    def dfs_events(G, flags: DFSFlags, s: int|list|None =\
+    \ None, max_depth: int|None = None):\n        match flags:\n            case DFSFlags.INTERVAL:\n\
+    \                if max_depth is None:\n                    return G.dfs_enter_leave(s)\n\
+    \            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth\
+    \ is None:\n                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS\
+    \ in flags)\n                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n\
+    \            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth\
+    \ is None:\n                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS\
+    \ in flags)\n                    return [(DFSEvent.UP, p, u) for p,u in edges]\n\
+    \            case flags if flags & DFSFlags.BACKTRACK:\n                return\
+    \ G.dfs_backtrack(flags, s, max_depth)\n        state = [0] * G.N\n        child\
+    \ = elist(G.N)\n        weights = elist(G.N)\n        stack = elist(G.N)\n   \
+    \     if flags & DFSFlags.RETURN_PARENTS:\n            parents = [-1] * G.N\n\
+    \        if flags & DFSFlags.RETURN_DEPTHS:\n            depths = [-1] * G.N\n\
+    \n        events = []\n        for s in G.starts(s):\n            stack.append(s)\n\
+    \            child.append(0)\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
     \ in flags:\n                events.append((DFSEvent.DOWN,-1,s,-1))\n        \
     \    while stack:\n                u = stack[-1]\n                \n         \
     \       if not state[u]:\n                    state[u] = 1\n                 \
@@ -500,10 +500,10 @@ data:
     \ = True\n            stack.append(s)\n            while stack:\n            \
     \    u = stack.pop()\n                for v,w in G[u]:\n                    if\
     \ vis[v]: continue\n                    vis[v] = True\n                    edges.append((u,v,w))\n\
-    \                    stack.append(v)\n        return edges\n\n\n\nclass DSU:\n\
-    \    def __init__(self, n):\n        self.n = n\n        self.par = [-1] * n\n\
-    \n    def merge(self, u, v, src = False):\n        assert 0 <= u < self.n\n  \
-    \      assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
+    \                    stack.append(v)\n        return edges\n\n\nclass DSU:\n \
+    \   def __init__(self, n):\n        self.n = n\n        self.par = [-1] * n\n\n\
+    \    def merge(self, u, v, src = False):\n        assert 0 <= u < self.n\n   \
+    \     assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
     \        if x == y: return (x,y) if src else x\n\n        if -self.par[x] < -self.par[y]:\n\
     \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
     \ = x\n\n        return (x,y) if src else x\n\n    def same(self, u: int, v: int):\n\
@@ -599,24 +599,29 @@ data:
     \            events.append((DFSEvent.LEAVE, u))\n                if p != -1 and\
     \ DFSFlags.UP in opts:\n                    events.append((DFSEvent.UP, u, p))\n\
     \        return events\n\nfrom itertools import accumulate\n\nT = TypeVar('T')\n\
-    def presum(iter: Iterable[T], func: Callable[[T,T],T] = None, initial: T = None)\
-    \ -> list[T]:\n    return list(accumulate(iter, func, initial=initial))\n\nclass\
-    \ LCATableWeighted(SparseTable):\n    def __init__(self, T, root = 0):\n     \
-    \   self.start = [-1] * len(T)\n        self.end = [-1] * len(T)\n        self.euler\
-    \ = []\n        self.depth = []\n        self.weights = []\n        self.weighted_depth\
-    \ = None\n        \n        # Iterative DFS\n        stack = [(root, -1, 0, 0)]\n\
-    \        while stack:\n            u, p, d, w = stack.pop()\n            \n  \
-    \          if self.start[u] == -1:\n                self.start[u] = len(self.euler)\n\
-    \                for v, nw in reversed(T[u]):\n                    if v != p:\n\
-    \                        stack.append((u, p, d, -nw))\n                      \
-    \  stack.append((v, u, d+1, nw))\n\n            self.euler.append(u)\n       \
-    \     self.depth.append(d)\n            self.weights.append(w)\n            self.end[u]\
-    \ = len(self.euler)\n        super().__init__(min, list(zip(self.depth, self.euler)))\n\
-    \n    def query(self, u, v) -> tuple[int,int]:\n        l, r = min(self.start[u],\
-    \ self.start[v]), max(self.start[u], self.start[v])+1\n        d, a = super().query(l,\
-    \ r)\n        return a, d\n\n    def distance(self, u, v) -> int:\n        if\
-    \ self.weighted_depth is None:\n            self.weighted_depth = presum(self.weights)\n\
-    \        l, r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n\
+    def presum(iter: Iterable[T], func: Callable[[T,T],T] = None, initial: T = None,\
+    \ step = 1) -> list[T]:\n    match step:\n        case 1:\n            return\
+    \ list(accumulate(iter, func, initial=initial))\n        case step:\n        \
+    \    assert step >= 2\n            if func is None:\n                func = operator.add\n\
+    \            A = list(iter)\n            if initial is not None:\n           \
+    \     A = [initial] + A\n            for i in range(step,len(A)):\n          \
+    \      A[i] = func(A[i], A[i-step])\n            return A\n\nclass LCATableWeighted(SparseTable):\n\
+    \    def __init__(self, T, root = 0):\n        self.start = [-1] * len(T)\n  \
+    \      self.end = [-1] * len(T)\n        self.euler = []\n        self.depth =\
+    \ []\n        self.weights = []\n        self.weighted_depth = None\n        \n\
+    \        # Iterative DFS\n        stack = [(root, -1, 0, 0)]\n        while stack:\n\
+    \            u, p, d, w = stack.pop()\n            \n            if self.start[u]\
+    \ == -1:\n                self.start[u] = len(self.euler)\n                for\
+    \ v, nw in reversed(T[u]):\n                    if v != p:\n                 \
+    \       stack.append((u, p, d, -nw))\n                        stack.append((v,\
+    \ u, d+1, nw))\n\n            self.euler.append(u)\n            self.depth.append(d)\n\
+    \            self.weights.append(w)\n            self.end[u] = len(self.euler)\n\
+    \        super().__init__(min, list(zip(self.depth, self.euler)))\n\n    def query(self,\
+    \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
+    \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
+    \      return a, d\n\n    def distance(self, u, v) -> int:\n        if self.weighted_depth\
+    \ is None:\n            self.weighted_depth = presum(self.weights)\n        l,\
+    \ r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n\
     \        _, a = super().query(l, r)\n        m = self.start[a]\n        return\
     \ self.weighted_depth[l] + self.weighted_depth[r] - 2*self.weighted_depth[m]\n\
     \nclass TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):\n\n    @cached_property\n\
@@ -648,9 +653,9 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - cp_library/alg/graph/edge_cls.py
-  - cp_library/ds/elist_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/graph_proto.py
+  - cp_library/ds/elist_fn.py
   - cp_library/ds/dsu_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/iter/presum_fn.py
@@ -659,7 +664,7 @@ data:
   isVerificationFile: true
   path: test/abc361_e_tree_diameter.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc361_e_tree_diameter.test.py

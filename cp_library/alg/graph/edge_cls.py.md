@@ -85,11 +85,20 @@ data:
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_1_a_graph_distance.test.py
+    title: test/grl_1_a_graph_distance.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_1_b_graph_bellman_ford.test.py
+    title: test/grl_1_b_graph_bellman_ford.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_c_floyd_warshall.test.py
     title: test/grl_1_c_floyd_warshall.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_a_graph_kruskal.test.py
+    title: test/grl_2_a_graph_kruskal.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_2_a_kruskal_heap.test.py
     title: test/grl_2_a_kruskal_heap.test.py
@@ -244,15 +253,17 @@ data:
   - cp_library/alg/tree/tree_fast_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py
   - test/abc202_e_dfs_enter_leave.test.py
   - test/grl_1_b_bellman_ford.test.py
+  - test/grl_1_a_graph_distance.test.py
   - test/grl_2_a_kruskal_heap.test.py
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
+  - test/grl_1_b_graph_bellman_ford.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc361_e_tree_diameter.test.py
@@ -260,6 +271,7 @@ data:
   - test/abc218_f_shortest_path_weighted.test.py
   - test/abc245_f_digraph.test.py
   - test/grl_3_a_graph_articulation_points.test.py
+  - test/grl_2_a_graph_kruskal.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   - test/grl_1_a_dijkstra.test.py

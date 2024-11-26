@@ -177,9 +177,9 @@ data:
     \            return cls(next(ts))\n        return parser\n\nclass Edge(tuple,\
     \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
     \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n\
-    \    def newlist_hint(hint):\n        return []\n    \ndef elist(est_len: int)\
-    \ -> list:\n    return newlist_hint(est_len)\nfrom typing import Iterable, overload\n\
+    \        return parse\n\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \nfrom typing import Iterable, overload\n\
     from math import inf\n\nclass GraphProtocol(list, Parsable):\n    def __init__(G,\
     \ N: int, E: list = None, adj: Iterable = None):\n        G.N = N\n        if\
     \ E is not None:\n            G.M, G.E = len(E), E\n        if adj is not None:\n\
@@ -365,7 +365,7 @@ data:
     \n    @classmethod\n    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):\n\
     \        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
     \ M, E)\n\n    \n\nfrom typing import overload, Literal\nfrom functools import\
-    \ cached_property\n\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
+    \ cached_property\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
     \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
     \    self.n = len(arr)\n        self.log = self.n.bit_length()\n        self.op\
     \ = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n\
@@ -479,7 +479,7 @@ data:
   isVerificationFile: true
   path: test/abc202_e_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc202_e_dfs_enter_leave.test.py

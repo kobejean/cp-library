@@ -10,6 +10,9 @@ data:
     path: test/grl_1_c_floyd_warshall.test.py
     title: test/grl_1_c_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_2_a_graph_kruskal.test.py
+    title: test/grl_2_a_graph_kruskal.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_2_a_kruskal_heap.test.py
     title: test/grl_2_a_kruskal_heap.test.py
   _isVerificationFailed: false
@@ -136,11 +139,12 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_specs_fn.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_heap.test.py
   - test/grl_1_c_floyd_warshall.test.py
+  - test/grl_2_a_graph_kruskal.test.py
 documentation_of: cp_library/io/legacy/read_specs_fn.py
 layout: document
 redirect_from:

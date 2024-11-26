@@ -161,42 +161,42 @@ data:
     \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
     \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n\
-    from typing import Iterable, overload\nfrom math import inf\n\nclass GraphProtocol(list,\
-    \ Parsable):\n    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n\
-    \        G.N = N\n        if E is not None:\n            G.M, G.E = len(E), E\n\
-    \        if adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
-    \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
-    \ list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        match s, g:\n            case None, None:\n            \
-    \    return G.floyd_warshall()\n            case s, None:\n                return\
-    \ G.bfs(s)\n            case s, g:\n                return G.bfs(s, g)\n\n   \
-    \ @overload\n    def bfs(G, s: int|list = 0) -> list[int]: ...\n    @overload\n\
-    \    def bfs(G, s: int|list, g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n\
-    \        D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s,\
-    \ int) else s)\n        for u in q: D[u] = 0\n        while q:\n            nd\
-    \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
-    \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
-    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \ \n\n    def shortest_path(G, s: int, g: int) -> list[int]:\n        if s ==\
-    \ g: return []\n            \n        par = [-1] * G.N\n        par_edge = [-1]\
-    \ * G.N\n        Eid = G.edge_ids()\n        D = [inf] * G.N\n        D[s] = 0\n\
-    \        q = deque([s])\n        \n        while q:\n            nd = D[u := q.popleft()]\
-    \ + 1\n            if u == g: break\n                \n            for v, eid\
-    \ in zip(G[u], Eid[u]):\n                if nd < D[v]:\n                    D[v]\
-    \ = nd\n                    par[v] = u\n                    par_edge[v] = eid\n\
-    \                    q.append(v)\n        \n        if D[g] == inf:\n        \
-    \    return None\n            \n        path = []\n        current = g\n     \
-    \   while current != s:\n            path.append(par_edge[current])\n        \
-    \    current = par[current]\n            \n        return path[::-1]\n       \
-    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
-    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
-    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
-    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
-    \  for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
+    \ = newlist_hint\n    \nfrom typing import Iterable, overload\nfrom math import\
+    \ inf\n\nclass GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E:\
+    \ list = None, adj: Iterable = None):\n        G.N = N\n        if E is not None:\n\
+    \            G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
+    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
+    \    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n    def distance(G)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
+    \ distance(G, s = None, g = None):\n        match s, g:\n            case None,\
+    \ None:\n                return G.floyd_warshall()\n            case s, None:\n\
+    \                return G.bfs(s)\n            case s, g:\n                return\
+    \ G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: int|list = 0) -> list[int]:\
+    \ ...\n    @overload\n    def bfs(G, s: int|list, g: int) -> int: ...\n    def\
+    \ bfs(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n        q =\
+    \ deque([s] if isinstance(s, int) else s)\n        for u in q: D[u] = 0\n    \
+    \    while q:\n            nd = D[u := q.popleft()]+1\n            if u == g:\
+    \ return D[u]\n            for v in G.neighbors(u):\n                if nd < D[v]:\n\
+    \                    D[v] = nd\n                    q.append(v)\n        return\
+    \ D if g is None else inf \n\n    def shortest_path(G, s: int, g: int) -> list[int]:\n\
+    \        if s == g: return []\n            \n        par = [-1] * G.N\n      \
+    \  par_edge = [-1] * G.N\n        Eid = G.edge_ids()\n        D = [inf] * G.N\n\
+    \        D[s] = 0\n        q = deque([s])\n        \n        while q:\n      \
+    \      nd = D[u := q.popleft()] + 1\n            if u == g: break\n          \
+    \      \n            for v, eid in zip(G[u], Eid[u]):\n                if nd <\
+    \ D[v]:\n                    D[v] = nd\n                    par[v] = u\n     \
+    \               par_edge[v] = eid\n                    q.append(v)\n        \n\
+    \        if D[g] == inf:\n            return None\n            \n        path\
+    \ = []\n        current = g\n        while current != s:\n            path.append(par_edge[current])\n\
+    \            current = par[current]\n            \n        return path[::-1]\n\
+    \        \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N\
+    \ for _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] =\
+    \ 0\n            for v in G.neighbors(u):\n                D[u][v] = 1\n     \
+    \   \n        for k, Dk in enumerate(D):\n            for Di in D:\n         \
+    \       for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
     \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
     \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
     \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
@@ -379,7 +379,7 @@ data:
   isVerificationFile: true
   path: test/abc245_f_digraph.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc245_f_digraph.test.py

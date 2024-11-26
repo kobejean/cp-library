@@ -62,6 +62,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/queries_cls.py
     title: cp_library/ds/queries_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/minplus_conv_fn.py
+    title: cp_library/math/minplus_conv_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/abc184_e_grid_graph.test.py
@@ -100,6 +103,9 @@ data:
     path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc325_f_minplus_conv_inplace.test.py
+    title: test/abc325_f_minplus_conv_inplace.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
@@ -118,30 +124,51 @@ data:
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_1_a_graph_distance.test.py
+    title: test/grl_1_a_graph_distance.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_1_b_graph_bellman_ford.test.py
+    title: test/grl_1_b_graph_bellman_ford.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_c_floyd_warshall.test.py
     title: test/grl_1_c_floyd_warshall.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_a_graph_kruskal.test.py
+    title: test/grl_2_a_graph_kruskal.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_3_a_articulation_points_fn.test.py
     title: test/grl_3_a_articulation_points_fn.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_3_a_graph_articulation_points.test.py
     title: test/grl_3_a_graph_articulation_points.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/min_plus_convolution_convex_arbitrary.test.py
+    title: test/min_plus_convolution_convex_arbitrary.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\n"
-  code: "try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\n    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)"
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n"
+  code: "import cp_library.ds.__header__\n\ndef elist(est_len: int) -> list: ...\n\
+    try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    "
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/elist_fn.py
   requiredBy:
+  - cp_library/math/minplus_conv_fn.py
   - cp_library/ds/queries_cls.py
   - cp_library/alg/graph/dag_cls.py
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
@@ -162,14 +189,18 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc375_g_find_bridges.test.py
   - test/abc202_e_dfs_enter_leave.test.py
   - test/grl_1_b_bellman_ford.test.py
   - test/abc184_e_grid_graph.test.py
+  - test/min_plus_convolution_convex_arbitrary.test.py
+  - test/grl_1_a_graph_distance.test.py
+  - test/abc325_f_minplus_conv_inplace.test.py
   - test/abc261_g_queries_mo.test.py
+  - test/grl_1_b_graph_bellman_ford.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc203_e_queries_grouped.test.py
   - test/abc184_e_grid_graph_bfs_fn.test.py
@@ -181,6 +212,7 @@ data:
   - test/abc218_f_shortest_path_weighted.test.py
   - test/abc245_f_digraph.test.py
   - test/grl_3_a_graph_articulation_points.test.py
+  - test/grl_2_a_graph_kruskal.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   - test/grl_1_a_dijkstra.test.py

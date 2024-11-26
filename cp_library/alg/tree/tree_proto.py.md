@@ -180,9 +180,9 @@ data:
     \ N, spec)\n                return Parser.compile_repeat(cls, spec, N)\n     \
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
-    \            return cls(next(ts))\n        return parser\ntry:\n    from __pypy__\
-    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
-    \    \ndef elist(est_len: int) -> list:\n    return newlist_hint(est_len)\nfrom\
+    \            return cls(next(ts))\n        return parser\n\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
     \ typing import Iterable, overload\n\nclass GraphProtocol(list, Parsable):\n \
     \   def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
     \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
@@ -359,7 +359,7 @@ data:
     \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
     \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
     \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    \n\n\nfrom typing import Any, Callable,\
+    \ _ in range(M)])\n        return parse\n    \n\nfrom typing import Any, Callable,\
     \ List\n\nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any],\
     \ Any], arr: List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
     \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
@@ -485,7 +485,7 @@ data:
   - cp_library/alg/tree/tree_fast_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc202_e_dfs_enter_leave.test.py

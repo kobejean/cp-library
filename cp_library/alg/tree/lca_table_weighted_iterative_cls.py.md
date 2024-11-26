@@ -29,16 +29,21 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\n\nfrom itertools import accumulate\nfrom typing import Callable,\
-    \ Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T]\
-    \ = None, initial: T = None) -> list[T]:\n    return list(accumulate(iter, func,\
-    \ initial=initial))\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "\n\nimport operator\nfrom itertools import accumulate\nfrom typing\
+    \ import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T],\
+    \ func: Callable[[T,T],T] = None, initial: T = None, step = 1) -> list[T]:\n \
+    \   match step:\n        case 1:\n            return list(accumulate(iter, func,\
+    \ initial=initial))\n        case step:\n            assert step >= 2\n      \
+    \      if func is None:\n                func = operator.add\n            A =\
+    \ list(iter)\n            if initial is not None:\n                A = [initial]\
+    \ + A\n            for i in range(step,len(A)):\n                A[i] = func(A[i],\
+    \ A[i-step])\n            return A\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
+    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
     \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
     \    self.n = len(arr)\n        self.log = self.n.bit_length()\n        self.op\
     \ = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n\
@@ -94,7 +99,7 @@ data:
   requiredBy:
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc361_e_tree_diameter.test.py

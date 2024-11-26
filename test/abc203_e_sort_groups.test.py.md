@@ -31,19 +31,19 @@ data:
     \              add.append(y)\n        for _,y in group:\n            # pawn blocks\
     \ y column\n            S.discard(y)\n            # we'll add it back in the next\
     \ loop if reachable\n        for y in add:\n            S.add(y)\n\n    ans =\
-    \ len(S)\n    print(ans)\n\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n\
-    \    def newlist_hint(hint):\n        return []\n    \ndef elist(est_len: int)\
-    \ -> list:\n    return newlist_hint(est_len)\n'''\n\u257A\u2501\u2501\u2501\u2501\
+    \ len(S)\n    print(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nimport sys\nfrom typing import Type, TypeVar, overload\n\
-    from io import TextIOBase\n\nimport typing\nfrom collections import deque\nfrom\
-    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n \
-    \   def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
+    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
+    \              \n'''\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\n\nimport sys\nfrom typing import Type, TypeVar,\
+    \ overload\nfrom io import TextIOBase\n\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
+    \    def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
     \ deque()\n        self.stream = stream\n\n    def __next__(self):\n        if\
     \ not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
@@ -174,7 +174,7 @@ data:
   isVerificationFile: true
   path: test/abc203_e_sort_groups.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc203_e_sort_groups.test.py

@@ -174,9 +174,9 @@ data:
     \            return cls((query(ts) for _ in range(Q)), N, key)\n        return\
     \ parse\n\n\nclass MoOp(IntEnum):\n    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n\
     \    REMOVE_LEFT = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER = auto()\n  \
-    \  \nfrom math import isqrt\n\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n\
-    \    def newlist_hint(hint):\n        return []\n    \ndef elist(est_len: int)\
-    \ -> list:\n    return newlist_hint(est_len)\n\nclass QueriesMoOps(list[tuple],Parsable):\n\
+    \  \nfrom math import isqrt\n\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
+    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\nclass QueriesMoOps(list[tuple],Parsable):\n\
     \    \"\"\"\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int, int]]\n   \
     \ Orders queries using Mo's algorithm and generates a sequence of operations to\
     \ process them efficiently.\n    Each operation is either moving pointers or answering\
@@ -238,7 +238,7 @@ data:
   isVerificationFile: true
   path: test/abc261_g_queries_mo.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc261_g_queries_mo.test.py

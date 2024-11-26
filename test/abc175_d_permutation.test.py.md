@@ -32,20 +32,25 @@ data:
     \ cyc]\n        loop = sum(A)\n        A = presum(A*3)\n        m, k = divmod(K,\
     \ L)\n        if m:\n            k += L\n            m -= 1\n        rem = max(A[i+j+1]\
     \ - A[i] for i in range(L) for j in range(k))\n        cost = max(m*loop + rem,\
-    \ rem)\n        ans = max(ans, cost)\n\n    print(ans)\n    \n\nfrom itertools\
-    \ import accumulate\nfrom typing import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\n\
-    def presum(iter: Iterable[T], func: Callable[[T,T],T] = None, initial: T = None)\
-    \ -> list[T]:\n    return list(accumulate(iter, func, initial=initial))\n'''\n\
-    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ rem)\n        ans = max(ans, cost)\n\n    print(ans)\n    \n\nimport operator\n\
+    from itertools import accumulate\nfrom typing import Callable, Iterable, TypeVar\n\
+    \nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T] = None,\
+    \ initial: T = None, step = 1) -> list[T]:\n    match step:\n        case 1:\n\
+    \            return list(accumulate(iter, func, initial=initial))\n        case\
+    \ step:\n            assert step >= 2\n            if func is None:\n        \
+    \        func = operator.add\n            A = list(iter)\n            if initial\
+    \ is not None:\n                A = [initial] + A\n            for i in range(step,len(A)):\n\
+    \                A[i] = func(A[i], A[i-step])\n            return A\n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\n\n\nfrom\
-    \ io import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
-    \    def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \    https://kobejean.github.io/cp-library               \n'''\n\n\nfrom io import\
+    \ TextIOBase\n\n\nimport sys\nimport typing\nfrom collections import deque\nfrom\
+    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n \
+    \   def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
     \ deque()\n        self.stream = stream\n\n    def __next__(self):\n        if\
     \ not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
@@ -189,7 +194,7 @@ data:
   isVerificationFile: true
   path: test/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc175_d_permutation.test.py

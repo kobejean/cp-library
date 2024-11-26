@@ -210,9 +210,9 @@ data:
     \            return cls(next(ts))\n        return parser\n\nclass Edge(tuple,\
     \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
     \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n\
-    \    def newlist_hint(hint):\n        return []\n    \ndef elist(est_len: int)\
-    \ -> list:\n    return newlist_hint(est_len)\nfrom typing import Iterable, overload\n\
+    \        return parse\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \nfrom typing import Iterable, overload\n\
     \nclass GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E: list =\
     \ None, adj: Iterable = None):\n        G.N = N\n        if E is not None:\n \
     \           G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
@@ -425,7 +425,7 @@ data:
   isVerificationFile: true
   path: test/grl_3_a_articulation_points_fn.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_articulation_points_fn.test.py

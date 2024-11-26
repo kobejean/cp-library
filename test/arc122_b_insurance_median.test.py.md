@@ -62,7 +62,7 @@ data:
   isVerificationFile: true
   path: test/arc122_b_insurance_median.test.py
   requiredBy: []
-  timestamp: '2024-11-25 19:30:19+09:00'
+  timestamp: '2024-11-26 17:57:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc122_b_insurance_median.test.py
