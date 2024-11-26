@@ -1,5 +1,3 @@
-from cp_library.ds.elist_fn import elist
-from cp_library.alg.graph.dfs_options_cls import DFSEvent, DFSFlags
 import cp_library.alg.graph.__header__
 
 from typing import overload
@@ -7,7 +5,9 @@ from heapq import heapify, heappop, heappush
 import operator
 from math import inf
 
+from cp_library.alg.graph.dfs_options_cls import DFSEvent, DFSFlags
 from cp_library.alg.graph.graph_proto import GraphProtocol
+from cp_library.ds.elist_fn import elist
 
 class GraphWeightedProtocol(GraphProtocol):
 
@@ -86,12 +86,11 @@ class GraphWeightedProtocol(GraphProtocol):
         while E and need:
             edge = heappop(E)
             u,v,*_ = edge
-            u,v = dsu.merge(u,v)
+            u,v = dsu.merge(u,v,True)
             if u != v:
                 MST.append(edge)
                 need -= 1
-        cls = type(G)
-        return cls(N, MST)
+        return MST
     
     def bellman_ford(G, s = 0) -> list[int]:
         D = [inf]*G.N
