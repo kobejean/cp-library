@@ -408,9 +408,6 @@ data:
       path: cp_library/math/table/primes_cls.py
       title: cp_library/math/table/primes_cls.py
     - icon: ':warning:'
-      path: cp_library/math/table/sieve_benchmarks.py
-      title: cp_library/math/table/sieve_benchmarks.py
-    - icon: ':warning:'
       path: cp_library/math/table/sieve_cls.py
       title: cp_library/math/table/sieve_cls.py
     - icon: ':warning:'

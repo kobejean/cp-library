@@ -26,72 +26,25 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom io import TextIOBase\n\n\nimport sys\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass TokenStream(Iterator):\n\
-    \    def __init__(self, stream: TextIOBase = sys.stdin):\n        self.queue =\
-    \ deque()\n        self.stream = stream\n\n    def __next__(self):\n        if\
-    \ not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \nfrom typing import Iterable\n\n\nimport sys\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeAlias, TypeVar\n\nclass\
+    \ TokenStream(Iterator):\n    stream = sys.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        assert\
-    \ not self.queue\n        return sys.stdin.readline().split()\n\n    def n_uints(self,\
-    \ n: int, shift = 0, max_digits: int = 20):\n        # sync buffers\n        tokens:\
-    \ list[str] = []\n        while (lim := sys.stdin.buffer.tell() - sys.stdin.tell())\
-    \ and len(tokens) < n:\n            residual_str: str = sys.stdin.readline(lim)\n\
-    \            tokens.extend(residual_str.split())\n        \n        result = [0]\
-    \ * n\n        pos = 0\n        \n        # Process residual string and check\
-    \ for partial token\n        partial = None\n        if tokens:\n            if\
-    \ not residual_str[-1].isspace():\n                partial = tokens.pop()\n  \
-    \          for pos, token in enumerate(tokens):\n                result[pos] =\
-    \ int(token)+shift\n            pos += 1\n        # Process remaining data token\
-    \ by token\n        stdin_buffer = sys.stdin.buffer\n        num = int(partial)\
-    \ if partial else 0\n        have_digit = partial is not None\n\n        original_chunk_size\
-    \ = sys.stdin._CHUNK_SIZE\n        sys.stdin._CHUNK_SIZE = max(original_chunk_size,\
-    \ max_digits * (n - pos))\n        \n        while pos < n:\n            byte\
-    \ = stdin_buffer.read(1)\n\n            match byte[0]:\n                case 10\
-    \ | 32:\n                    if have_digit:\n                        result[pos]\
-    \ = num+shift\n                        pos += 1\n                        num =\
-    \ 0\n                        have_digit = False\n                case char:  #\
-    \ digit\n                    num = (num * 10) + (char - 48)\n                \
-    \    have_digit = True\n\n        if have_digit:\n            result[pos] = num+shift\n\
-    \            pos += 1\n\n        sys.stdin._CHUNK_SIZE = original_chunk_size \n\
-    \        if pos < n:\n            raise EOFError(f\"Only found {pos} numbers,\
-    \ expected {n}\")\n            \n        return result\n    \n    def n_ints(self,\
-    \ n: int, shift = 0, max_digits: int = 20):\n        # sync buffers\n        tokens:\
-    \ list[str] = []\n        while (lim := sys.stdin.buffer.tell() - sys.stdin.tell())\
-    \ and len(tokens) < n:\n            residual_str: str = sys.stdin.readline(lim)\n\
-    \            tokens.extend(residual_str.split())\n        \n        result = [0]\
-    \ * n\n        pos = 0\n        \n        # Process residual string and check\
-    \ for partial token\n        partial = None\n        if tokens:\n            if\
-    \ not residual_str[-1].isspace():\n                partial = tokens.pop()\n  \
-    \          for pos, token in enumerate(tokens):\n                result[pos] =\
-    \ int(token)+shift\n            pos += 1\n        # Process remaining data token\
-    \ by token\n        stdin_buffer = sys.stdin.buffer\n        num = abs(int(partial))\
-    \ if partial else 0\n        is_negative = partial and partial.startswith('-')\n\
-    \        have_digit = partial is not None\n\n        original_chunk_size = sys.stdin._CHUNK_SIZE\n\
-    \        sys.stdin._CHUNK_SIZE = max(original_chunk_size, max_digits * (n - pos))\n\
-    \        \n        while pos < n:\n            byte = stdin_buffer.read(1)\n\n\
-    \            match byte[0]:\n                case 10 | 32:\n                 \
-    \   if have_digit:\n                        result[pos] = -num+shift if is_negative\
-    \ else num+shift\n                        pos += 1\n                        num\
-    \ = 0\n                        is_negative = False\n                        have_digit\
-    \ = False\n                case 45:  # minus sign\n                    is_negative\
-    \ = True\n                case char:  # digit\n                    num = (num\
-    \ * 10) + (char - 48)\n                    have_digit = True\n\n        if have_digit:\n\
-    \            result[pos] = -num+shift if is_negative else num+shift\n        \
-    \    pos += 1\n\n        sys.stdin._CHUNK_SIZE = original_chunk_size \n      \
-    \  if pos < n:\n            raise EOFError(f\"Only found {pos} numbers, expected\
-    \ {n}\")\n            \n        return result\n\nclass CharStream(TokenStream):\n\
-    \    def line(self):\n        assert not self.queue\n        return next(self.stream).rstrip()\n\
-    \        \nT = TypeVar('T')\nParseFn: TypeAlias = Callable[[TokenStream],T]\n\
-    class Parser:\n    def __init__(self, spec: type[T]|T):\n        self.parse =\
-    \ Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> T:\n    \
-    \    return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
-    \ type[T], args = ()) -> T:\n        if issubclass(cls, Parsable):\n         \
-    \   return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
-    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
-    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ not self.queue\n        return TokenStream.stream.readline().split()\n\nclass\
+    \ CharStream(TokenStream):\n    def line(self):\n        assert not self.queue\n\
+    \        return next(TokenStream.stream).rstrip()\n        \nT = TypeVar('T')\n\
+    ParseFn: TypeAlias = Callable[[TokenStream],T]\nclass Parser:\n    def __init__(self,\
+    \ spec: type[T]|T):\n        self.parse = Parser.compile(spec)\n\n    def __call__(self,\
+    \ ts: TokenStream) -> T:\n        return self.parse(ts)\n    \n    @staticmethod\n\
+    \    def compile_type(cls: type[T], args = ()) -> T:\n        if issubclass(cls,\
+    \ Parsable):\n            return cls.compile(*args)\n        elif issubclass(cls,\
+    \ (Number, str)):\n            def parse(ts: TokenStream):\n                return\
+    \ cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
     \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
     \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
     \      return cls(next(ts))              \n            return parse\n        else:\n\
@@ -128,52 +81,56 @@ data:
     \       case _:\n                raise NotImplementedError()\n\n        \nclass\
     \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\n\
     \            return cls(next(ts))\n        return parser\n\nimport operator\n\
-    from typing import Sequence\n\n\nclass ElmWiseMixin:\n    def elm_wise(self, other,\
-    \ op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
-    \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
-    \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
-    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
-    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
-    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
-    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
-    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
-    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
-    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
-    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
+    from typing import Sequence\nfrom math import hypot\n\n\nclass ElmWiseMixin:\n\
+    \    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n \
+    \           return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
+    \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
+    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
+    )\n\n    def __add__(self, other): return self.elm_wise(other, operator.add)\n\
+    \    def __radd__(self, other): return self.elm_wise(other, operator.add)\n  \
+    \  def __sub__(self, other): return self.elm_wise(other, operator.sub)\n    def\
+    \ __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
+    \    def __mul__(self, other): return self.elm_wise(other, operator.mul)\n   \
+    \ def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n    def\
+    \ __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n  \
+    \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
     \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
     \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
-    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\nclass\
-    \ ElmWiseInPlaceMixin(ElmWiseMixin):\n    def ielm_wise(self, other, op):\n  \
-    \      if isinstance(other, Number):\n            for i in range(len(self)):\n\
-    \                self[i] = op(self[i], other)\n        elif isinstance(other,\
-    \ Sequence) and len(self) == len(other):\n            for i in range(len(self)):\n\
-    \                self[i] = op(self[i], other[i])\n        else:\n            raise\
-    \ ValueError(\"Operand must be a number or a list of the same length\")\n    \
-    \    return self\n    \n    def __iadd__(self, other): return self.ielm_wise(other,\
-    \ operator.add)\n    def __isub__(self, other): return self.ielm_wise(other, operator.sub)\n\
-    \    def __imul__(self, other): return self.ielm_wise(other, operator.mul)\n \
-    \   def __itruediv__(self, other): return self.ielm_wise(other, operator.truediv)\n\
-    \    def __ifloordiv__(self, other): return self.ielm_wise(other, operator.floordiv)\n\
-    \    def __imod__(self, other): return self.ielm_wise(other, operator.mod)\nfrom\
-    \ typing import Iterable\n\nclass MutVec(list, ElmWiseInPlaceMixin, Parsable):\n\
+    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
+    \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
+    \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
+    \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
+    \  return vec / vec.magnitude()\n\nclass ElmWiseInPlaceMixin(ElmWiseMixin):\n\
+    \    def ielm_wise(self, other, op):\n        if isinstance(other, Number):\n\
+    \            for i in range(len(self)):\n                self[i] = op(self[i],\
+    \ other)\n        elif isinstance(other, Sequence) and len(self) == len(other):\n\
+    \            for i in range(len(self)):\n                self[i] = op(self[i],\
+    \ other[i])\n        else:\n            raise ValueError(\"Operand must be a number\
+    \ or a list of the same length\")\n        return self\n    \n    def __iadd__(self,\
+    \ other): return self.ielm_wise(other, operator.add)\n    def __isub__(self, other):\
+    \ return self.ielm_wise(other, operator.sub)\n    def __imul__(self, other): return\
+    \ self.ielm_wise(other, operator.mul)\n    def __itruediv__(self, other): return\
+    \ self.ielm_wise(other, operator.truediv)\n    def __ifloordiv__(self, other):\
+    \ return self.ielm_wise(other, operator.floordiv)\n    def __imod__(self, other):\
+    \ return self.ielm_wise(other, operator.mod)\n\nclass MutVec(list, ElmWiseInPlaceMixin,\
+    \ Parsable):\n\n    def __init__(self, *args):\n        if len(args) == 1 and\
+    \ isinstance(args[0], Iterable):\n            super().__init__(args[0])\n    \
+    \    else:\n            super().__init__(args)\n    \n\n    @classmethod\n   \
+    \ def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
+    \        if N is None:\n            def parse(ts: TokenStream):\n            \
+    \    return cls(elm(ts) for _ in ts.wait())\n        else:\n            def parse(ts:\
+    \ TokenStream):\n                return cls(elm(ts) for _ in range(N))\n     \
+    \   return parse\n"
+  code: "import cp_library.math.__header__\n\nfrom typing import Iterable\nfrom cp_library.io.parser_cls\
+    \ import Parsable, Parser, TokenStream\nfrom cp_library.math.elm_wise_in_place_mixin\
+    \ import ElmWiseInPlaceMixin\n\nclass MutVec(list, ElmWiseInPlaceMixin, Parsable):\n\
     \n    def __init__(self, *args):\n        if len(args) == 1 and isinstance(args[0],\
     \ Iterable):\n            super().__init__(args[0])\n        else:\n         \
     \   super().__init__(args)\n    \n\n    @classmethod\n    def compile(cls, T:\
     \ type = int, N = None):\n        elm = Parser.compile(T)\n        if N is None:\n\
     \            def parse(ts: TokenStream):\n                return cls(elm(ts) for\
     \ _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n  \
-    \              return cls(elm(ts) for _ in range(N))\n        return parse\n"
-  code: "import cp_library.math.__header__\n\nfrom cp_library.io.parser_cls import\
-    \ Parsable, Parser, TokenStream\nfrom cp_library.math.elm_wise_in_place_mixin\
-    \ import ElmWiseInPlaceMixin\nfrom typing import Iterable\n\nclass MutVec(list,\
-    \ ElmWiseInPlaceMixin, Parsable):\n\n    def __init__(self, *args):\n        if\
-    \ len(args) == 1 and isinstance(args[0], Iterable):\n            super().__init__(args[0])\n\
-    \        else:\n            super().__init__(args)\n    \n\n    @classmethod\n\
-    \    def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
-    \        if N is None:\n            def parse(ts: TokenStream):\n            \
-    \    return cls(elm(ts) for _ in ts.wait())\n        else:\n            def parse(ts:\
-    \ TokenStream):\n                return cls(elm(ts) for _ in range(N))\n     \
-    \   return parse"
+    \              return cls(elm(ts) for _ in range(N))\n        return parse"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/math/elm_wise_in_place_mixin.py
@@ -182,7 +139,7 @@ data:
   path: cp_library/math/mutvec_cls.py
   requiredBy:
   - cp_library/math/mat_cls.py
-  timestamp: '2024-11-26 17:57:18+09:00'
+  timestamp: '2024-11-26 21:56:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mutvec_cls.py

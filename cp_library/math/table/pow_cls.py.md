@@ -17,19 +17,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nclass Pow(list):\n    def __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n\
+    \nclass Pow(list[int]):\n    def __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n\
     \        if mod is None:\n            for i in range(N):\n                self[i+1]\
     \ = self[i]*K\n        else:\n            for i in range(N):\n               \
     \ self[i+1] = self[i]*K % mod\n"
-  code: "import cp_library.math.table.__header__\n\nclass Pow(list):\n    def __init__(self,K,N,mod=None):\n\
-    \        super().__init__([1]*(N+1))\n        if mod is None:\n            for\
-    \ i in range(N):\n                self[i+1] = self[i]*K\n        else:\n     \
-    \       for i in range(N):\n                self[i+1] = self[i]*K % mod"
+  code: "import cp_library.math.table.__header__\n\nclass Pow(list[int]):\n    def\
+    \ __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n        if\
+    \ mod is None:\n            for i in range(N):\n                self[i+1] = self[i]*K\n\
+    \        else:\n            for i in range(N):\n                self[i+1] = self[i]*K\
+    \ % mod"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/table/pow_cls.py
   requiredBy: []
-  timestamp: '2024-11-26 17:57:18+09:00'
+  timestamp: '2024-11-26 21:56:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc304_f_mobius_inv.test.py

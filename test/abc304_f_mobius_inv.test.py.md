@@ -37,7 +37,7 @@ data:
     \            l = 2*(b := 1<<i)-1\n            for m in range(b, b << 1):\n   \
     \             C[m], f = (c := C[l^m]//p), F(c)-f\n        return -f if full else\
     \ f\n    \n    def totient(P):\n        N = P.N\n        phi = 1\n        for\
-    \ p in P:\n            phi *= N - N//p\n        return phi\n\nclass Pow(list):\n\
+    \ p in P:\n            phi *= N - N//p\n        return phi\n\nclass Pow(list[int]):\n\
     \    def __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n \
     \       if mod is None:\n            for i in range(N):\n                self[i+1]\
     \ = self[i]*K\n        else:\n            for i in range(N):\n               \
@@ -56,7 +56,7 @@ data:
   isVerificationFile: true
   path: test/abc304_f_mobius_inv.test.py
   requiredBy: []
-  timestamp: '2024-11-26 17:57:18+09:00'
+  timestamp: '2024-11-26 21:56:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc304_f_mobius_inv.test.py

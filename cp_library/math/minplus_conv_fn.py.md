@@ -23,7 +23,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Callable\n\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
+    from typing import Callable\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
     \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
     \        return []\nelist = newlist_hint\n    \n\ndef monotone_minima(N: int,\
     \ M: int, func: Callable[[int,int,int],bool]):\n    min_cols = [0] * N\n    stack:\
@@ -40,7 +40,7 @@ data:
     \ j in enumerate(cols)]\n\ndef minplus_conv_inplace(A: list[int], B: list[int]):\n\
     \    N, M = len(A), len(B)\n    for i in range(N-1,-1,-1):\n        A[i] = min(B[j]\
     \ + A[i-j] for j in range(min(M,i+1)))   \n"
-  code: "import cp_library.math.__header__\nfrom typing import Callable\n\nfrom cp_library.ds.elist_fn\
+  code: "import cp_library.math.__header__\nfrom typing import Callable\nfrom cp_library.ds.elist_fn\
     \ import elist\n\ndef monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):\n\
     \    min_cols = [0] * N\n    stack: list[tuple[int, ...]] = elist(N.bit_length()\
     \ << 2)\n    stack.append((0, N, 0, M))\n\n    while stack:\n        li, ri, lj,\
@@ -60,7 +60,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/minplus_conv_fn.py
   requiredBy: []
-  timestamp: '2024-11-26 17:57:18+09:00'
+  timestamp: '2024-11-26 21:56:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/min_plus_convolution_convex_arbitrary.test.py

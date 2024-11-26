@@ -8,23 +8,23 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "class FactorCounts(list):\n    def __init__(self, N: int):\n     \
-    \   pairs = []\n        d = 2\n        while d*d<=N:\n            while N % d\
-    \ == 0:\n                match pairs:\n                    case [*_, (f,cnt)]\
+  bundledCode: "class FactorCounts(list[tuple[int,int]]):\n    def __init__(self,\
+    \ N: int):\n        pairs = []\n        d = 2\n        while d*d<=N:\n       \
+    \     while N % d == 0:\n                match pairs:\n                    case\
+    \ [*_, (f,cnt)] if f == d:\n                        pairs[-1] = (f,cnt+1)\n  \
+    \                  case _:\n                        pairs.append((d, 1))\n   \
+    \             N //= d\n            d += 1\n        super().__init__(pairs)\n"
+  code: "class FactorCounts(list[tuple[int,int]]):\n    def __init__(self, N: int):\n\
+    \        pairs = []\n        d = 2\n        while d*d<=N:\n            while N\
+    \ % d == 0:\n                match pairs:\n                    case [*_, (f,cnt)]\
     \ if f == d:\n                        pairs[-1] = (f,cnt+1)\n                \
     \    case _:\n                        pairs.append((d, 1))\n                N\
-    \ //= d\n            d += 1\n        super().__init__(pairs)\n"
-  code: "class FactorCounts(list):\n    def __init__(self, N: int):\n        pairs\
-    \ = []\n        d = 2\n        while d*d<=N:\n            while N % d == 0:\n\
-    \                match pairs:\n                    case [*_, (f,cnt)] if f ==\
-    \ d:\n                        pairs[-1] = (f,cnt+1)\n                    case\
-    \ _:\n                        pairs.append((d, 1))\n                N //= d\n\
-    \            d += 1\n        super().__init__(pairs)"
+    \ //= d\n            d += 1\n        super().__init__(pairs)"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/table/factor_cnts_cls.py
   requiredBy: []
-  timestamp: '2024-11-26 17:57:18+09:00'
+  timestamp: '2024-11-26 21:56:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/factor_cnts_cls.py
