@@ -1,6 +1,6 @@
 import cp_library.math.table.__header__
 
-class Primes(list):
+class Primes(list[int]):
     def __init__(primes, N: int):
         super().__init__()
         spf = [0] * (N + 1)
@@ -14,3 +14,4 @@ class Primes(list):
                 if p > spf[i] or i * p > N:
                     break
                 spf[i * p] = p
+        primes.spf = spf

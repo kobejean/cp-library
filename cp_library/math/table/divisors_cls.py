@@ -1,6 +1,6 @@
 import cp_library.math.table.__header__
 
-class Divisors(list):
+class Divisors(list[int]):
     def __init__(D, N):
         super().__init__()
         C = []

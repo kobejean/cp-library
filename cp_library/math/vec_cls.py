@@ -11,10 +11,6 @@ class Vec(ElmWiseMixin, tuple, Parsable):
             return super().__new__(cls, args[0])
         return super().__new__(cls, args)
 
-    def dist(v1: 'Vec', v2: 'Vec'):
-        diff = v2-v1
-        return hypot(*diff)
-
     @classmethod
     def compile(cls, T: type = int, N = None):
         elm = Parser.compile(T)

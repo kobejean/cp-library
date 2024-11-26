@@ -11,7 +11,7 @@ def main():
     Tmask = (1 << M) -1
     Y = N+M
     Z = 1 << Y
-    O = [o.dist(v) for v in pts]
+    O = [o.distance(v) for v in pts]
     F = [1/(1 << mask.bit_count()) for mask in range(1 << M)]
     
     dp = [[inf]*Y for _ in range(Z)]
@@ -26,7 +26,7 @@ def main():
             if mask == nmask: continue
             nc = dp[nmask][y]
             for l in range(Y):
-                nc = min(nc, dp[mask][l] + pts[l].dist(pts[y]) * factor)
+                nc = min(nc, dp[mask][l] + pts[l].distance(pts[y]) * factor)
             dp[nmask][y] = nc
             
     full = Z-1

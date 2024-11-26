@@ -5,7 +5,7 @@ from typing import Type, TypeVar
 
 T = TypeVar('T')
 def read(spec: Type[T]|T=[int]) -> T:
-    stream = TokenStream(sys.stdin)
+    stream = TokenStream()
     parser = Parser.compile(spec)
     return parser(stream)
 

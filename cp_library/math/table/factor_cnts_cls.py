@@ -1,4 +1,4 @@
-class FactorCounts(list):
+class FactorCounts(list[tuple[int,int]]):
     def __init__(self, N: int):
         pairs = []
         d = 2

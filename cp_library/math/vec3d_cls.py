@@ -15,9 +15,13 @@ class Vec3D(Vec):
             return Vec3D(op(self[0], other[0]), op(self[1], other[1]), op(self[2], other[2]))
         raise ValueError("Operand must be a number or a tuple of the same length")
 
-    def dist(v1: 'Vec', v2: 'Vec'):
-        dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1], v2[2]-v1[2]
+    def distance(v1: 'Vec', v2: 'Vec'):
+        dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]
         return sqrt(dx*dx+dy*dy+dz*dz)
+    
+    def magnitude(vec: 'Vec'):
+        x, y, z = vec
+        return sqrt(x*x+y*y+z*z)
     
     @classmethod
     def compile(cls, T: type = int):

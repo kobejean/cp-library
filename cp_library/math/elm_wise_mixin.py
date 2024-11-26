@@ -1,3 +1,4 @@
+from math import hypot
 import cp_library.math.__header__
 
 import operator
@@ -23,3 +24,13 @@ class ElmWiseMixin:
     def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)
     def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))
     def __mod__(self, other): return self.elm_wise(other, operator.mod)
+
+    def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):
+        diff = other-self
+        return hypot(*diff)
+    
+    def magnitude(vec: 'ElmWiseMixin'):
+        return hypot(*vec)
+    
+    def norm(vec: 'ElmWiseMixin'):
+        return vec / vec.magnitude()

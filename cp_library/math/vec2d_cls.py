@@ -23,9 +23,6 @@ class Vec2D(Vec):
         x, y = vec
         return sqrt(x*x+y*y)
     
-    def norm(vec: 'Vec'):
-        return vec / vec.magnitude()
-    
     def rot90(vec):
         x,y = vec
         return Vec2D(-y,x)

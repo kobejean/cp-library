@@ -1,8 +1,8 @@
 import cp_library.math.__header__
 
+from typing import Iterable
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 from cp_library.math.elm_wise_in_place_mixin import ElmWiseInPlaceMixin
-from typing import Iterable
 
 class MutVec(list, ElmWiseInPlaceMixin, Parsable):
 

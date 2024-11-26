@@ -1,3 +1,4 @@
+from io import TextIOBase
 import cp_library.io.__header__
 
 import sys
@@ -24,6 +25,110 @@ class TokenStream(Iterator):
     def line(self):
         assert not self.queue
         return TokenStream.stream.readline().split()
+
+    def n_uints(self, n: int, shift = 0, max_digits: int = 20):
+        # sync buffers
+        tokens: list[str] = []
+        while (lim := TokenStream.stream.buffer.tell() - TokenStream.stream.tell()) and len(tokens) < n:
+            residual_str: str = TokenStream.stream.readline(lim)
+            tokens.extend(residual_str.split())
+        
+        result = [0] * n
+        pos = 0
+        
+        # Process residual string and check for partial token
+        partial = None
+        if tokens:
+            if not residual_str[-1].isspace():
+                partial = tokens.pop()
+            for pos, token in enumerate(tokens):
+                result[pos] = int(token)+shift
+            pos += 1
+        # Process remaining data token by token
+        stdin_buffer = TokenStream.stream.buffer
+        num = int(partial) if partial else 0
+        have_digit = partial is not None
+
+        original_chunk_size = TokenStream.stream._CHUNK_SIZE
+        TokenStream.stream._CHUNK_SIZE = max(original_chunk_size, max_digits * (n - pos))
+        
+        while pos < n:
+            byte = stdin_buffer.read(1)
+
+            match byte[0]:
+                case 10 | 32:
+                    if have_digit:
+                        result[pos] = num+shift
+                        pos += 1
+                        num = 0
+                        have_digit = False
+                case char:  # digit
+                    num = (num * 10) + (char - 48)
+                    have_digit = True
+
+        if have_digit:
+            result[pos] = num+shift
+            pos += 1
+
+        TokenStream.stream._CHUNK_SIZE = original_chunk_size 
+        if pos < n:
+            raise EOFError(f"Only found {pos} numbers, expected {n}")
+            
+        return result
+    
+    def n_ints(self, n: int, shift = 0, max_digits: int = 20):
+        # sync buffers
+        tokens: list[str] = []
+        while (lim := TokenStream.stream.buffer.tell() - TokenStream.stream.tell()) and len(tokens) < n:
+            residual_str: str = TokenStream.stream.readline(lim)
+            tokens.extend(residual_str.split())
+        
+        result = [0] * n
+        pos = 0
+        
+        # Process residual string and check for partial token
+        partial = None
+        if tokens:
+            if not residual_str[-1].isspace():
+                partial = tokens.pop()
+            for pos, token in enumerate(tokens):
+                result[pos] = int(token)+shift
+            pos += 1
+        # Process remaining data token by token
+        stdin_buffer = TokenStream.stream.buffer
+        num = abs(int(partial)) if partial else 0
+        is_negative = partial and partial.startswith('-')
+        have_digit = partial is not None
+
+        original_chunk_size = TokenStream.stream._CHUNK_SIZE
+        TokenStream.stream._CHUNK_SIZE = max(original_chunk_size, max_digits * (n - pos))
+        
+        while pos < n:
+            byte = stdin_buffer.read(1)
+
+            match byte[0]:
+                case 10 | 32:
+                    if have_digit:
+                        result[pos] = -num+shift if is_negative else num+shift
+                        pos += 1
+                        num = 0
+                        is_negative = False
+                        have_digit = False
+                case 45:  # minus sign
+                    is_negative = True
+                case char:  # digit
+                    num = (num * 10) + (char - 48)
+                    have_digit = True
+
+        if have_digit:
+            result[pos] = -num+shift if is_negative else num+shift
+            pos += 1
+
+        TokenStream.stream._CHUNK_SIZE = original_chunk_size 
+        if pos < n:
+            raise EOFError(f"Only found {pos} numbers, expected {n}")
+            
+        return result
 
 class CharStream(TokenStream):
     def line(self):

@@ -1,6 +1,6 @@
 import cp_library.math.table.__header__
 
-class Pow(list):
+class Pow(list[int]):
     def __init__(self,K,N,mod=None):
         super().__init__([1]*(N+1))
         if mod is None:

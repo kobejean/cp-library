@@ -1,6 +1,5 @@
 import cp_library.math.__header__
 from typing import Callable
-
 from cp_library.ds.elist_fn import elist
 
 def monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):
