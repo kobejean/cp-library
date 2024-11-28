@@ -13,9 +13,6 @@ data:
   - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
-  - icon: ':question:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -121,7 +118,7 @@ data:
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
     \ T = Parser.compile(spec)\n    return parser(stream)\n\nfrom typing import TypeVar,\
-    \ Generic, Container\nfrom dataclasses import dataclass\n\n\ninft = sys.maxsize\n\
+    \ Generic, Container\nfrom dataclasses import dataclass\nfrom math import inf\n\
     \nT = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[T]):\n    di: int\n\
     \    dj: int\n    \n    def __call__(self, i: int, j: int, src: T, dest: T) ->\
     \ T:\n        \"\"\"Override this to implement transition logic\"\"\"\n      \
@@ -129,7 +126,7 @@ data:
     \        class Transition(cls):\n            def __call__(self, i: int, j: int,\
     \ src: T, dest: T) -> T:\n                return func(i,j,src,dest)\n        return\
     \ Transition\n    \nT = TypeVar('T')\nclass DynamicProgramming2D(Generic[T], Parsable,\
-    \ Container):\n    def __init__(self, rows: int, cols: int, default: T = inft):\n\
+    \ Container):\n    def __init__(self, rows: int, cols: int, default: T = inf):\n\
     \        self.rows = rows\n        self.cols = cols\n        self.table = default\
     \ if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
     \    \n    def __getitem__(self, pos: tuple[int, int]) -> T:\n        i, j = pos\n\
@@ -167,12 +164,11 @@ data:
   - cp_library/io/read_specs_fn.py
   - cp_library/alg/dp/dp2d_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/math/inft_cnst.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc185_e_dp2d.test.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc185_e_dp2d.test.py

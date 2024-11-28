@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_weighted_cls.py
     title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':heavy_check_mark:'
@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyds_cycle_fn.py
     title: cp_library/alg/graph/floyds_cycle_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':question:'
@@ -34,9 +34,6 @@ data:
   - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
-  - icon: ':question:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
   - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
@@ -162,11 +159,11 @@ data:
     \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
     \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
     \    pass\n\ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n\
-    from functools import reduce\nfrom heapq import heapify\n\n\ninft = sys.maxsize\n\
-    \n\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\"\
-    )\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n = n\n        self.par\
-    \ = [-1] * n\n\n    def merge(self, u, v, src = False):\n        assert 0 <= u\
-    \ < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
+    from functools import reduce\nfrom heapq import heapify\n\n\nsys.setrecursionlimit(10**6)\n\
+    import pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\")\n\n\nclass DSU:\n\
+    \    def __init__(self, n):\n        self.n = n\n        self.par = [-1] * n\n\
+    \n    def merge(self, u, v, src = False):\n        assert 0 <= u < self.n\n  \
+    \      assert 0 <= v < self.n\n\n        x, y = self.leader(u), self.leader(v)\n\
     \        if x == y: return (x,y) if src else x\n\n        if -self.par[x] < -self.par[y]:\n\
     \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
     \ = x\n\n        return (x,y) if src else x\n\n    def same(self, u: int, v: int):\n\
@@ -219,7 +216,6 @@ data:
   - cp_library/io/read_edges_weighted_fn.py
   - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
-  - cp_library/math/inft_cnst.py
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/dsu_cls.py
   - cp_library/alg/graph/floyds_cycle_fn.py
@@ -231,7 +227,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_b_edmonds_branching.test.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_b_edmonds_branching.test.py

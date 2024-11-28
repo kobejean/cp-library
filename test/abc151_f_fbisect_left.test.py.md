@@ -210,7 +210,7 @@ data:
   isVerificationFile: true
   path: test/abc151_f_fbisect_left.test.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc151_f_fbisect_left.test.py

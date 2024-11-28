@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/fast_graph_cls.py
     title: cp_library/alg/graph/fast/fast_graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
@@ -13,7 +13,7 @@ data:
   - icon: ':question:'
     path: cp_library/ds/heap_proto.py
     title: cp_library/ds/heap_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/priority_queue_cls.py
     title: cp_library/ds/priority_queue_cls.py
   - icon: ':question:'
@@ -28,7 +28,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
@@ -224,7 +224,7 @@ data:
   isVerificationFile: true
   path: test/shortest_path_static_graph_weighted.test.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/shortest_path_static_graph_weighted.test.py

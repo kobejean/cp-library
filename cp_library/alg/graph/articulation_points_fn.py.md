@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_events_fn.py
     title: cp_library/alg/graph/dfs_events_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
@@ -113,7 +113,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/articulation_points_fn.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_3_a_articulation_points_fn.test.py

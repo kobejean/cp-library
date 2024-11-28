@@ -14,10 +14,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_cls.py
     title: cp_library/alg/graph/digraph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
@@ -26,7 +26,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_weighted_cls.py
     title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':heavy_check_mark:'
@@ -41,7 +41,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':warning:'
@@ -50,7 +50,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
   - icon: ':warning:'
@@ -107,7 +107,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/queries_cls.py
     title: cp_library/ds/queries_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/legacy/read_specs_fn.py
     title: cp_library/io/legacy/read_specs_fn.py
   - icon: ':question:'
@@ -237,13 +237,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_1_a_graph_distance.test.py
     title: test/grl_1_a_graph_distance.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_graph_bellman_ford.test.py
     title: test/grl_1_b_graph_bellman_ford.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_c_floyd_warshall.test.py
     title: test/grl_1_c_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
@@ -388,7 +388,7 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/abc261_g_mo.test.py

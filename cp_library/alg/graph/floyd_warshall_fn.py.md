@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
     title: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_c_floyd_warshall.test.py
     title: test/grl_1_c_floyd_warshall.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -27,14 +27,16 @@ data:
     \    D = [[inft]*N for _ in range(N)]\n\n    for u, edges in enumerate(G):\n \
     \       D[u][u] = 0\n        for v,w in edges:\n            D[u][v] = min(D[u][v],\
     \ w)\n    \n    for k, Dk in enumerate(D):\n        for i, Di in enumerate(D):\n\
-    \            for j in range(i):\n                Di[j] = D[j][i] = min(Di[j],\
+    \            if Di[k] == inft: continue\n            for j in range(i):\n    \
+    \            if Dk[j] == inft: continue\n                Di[j] = D[j][i] = min(Di[j],\
     \ Di[k]+Dk[j])\n    return D\n"
   code: "import cp_library.alg.graph.__header__\nfrom cp_library.math.inft_cnst import\
     \ inft\n\ndef floyd_warshall(G, N) -> list[list[int]]:\n    D = [[inft]*N for\
     \ _ in range(N)]\n\n    for u, edges in enumerate(G):\n        D[u][u] = 0\n \
     \       for v,w in edges:\n            D[u][v] = min(D[u][v], w)\n    \n    for\
-    \ k, Dk in enumerate(D):\n        for i, Di in enumerate(D):\n            for\
-    \ j in range(i):\n                Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])\n\
+    \ k, Dk in enumerate(D):\n        for i, Di in enumerate(D):\n            if Di[k]\
+    \ == inft: continue\n            for j in range(i):\n                if Dk[j]\
+    \ == inft: continue\n                Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])\n\
     \    return D"
   dependsOn:
   - cp_library/math/inft_cnst.py
@@ -42,8 +44,8 @@ data:
   path: cp_library/alg/graph/floyd_warshall_fn.py
   requiredBy:
   - cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
-  timestamp: '2024-11-28 18:07:28+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-11-28 19:02:10+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py
 documentation_of: cp_library/alg/graph/floyd_warshall_fn.py

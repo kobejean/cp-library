@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   - icon: ':heavy_check_mark:'
@@ -207,7 +207,7 @@ data:
   isVerificationFile: true
   path: test/abc274_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc274_e_vec2d.test.py

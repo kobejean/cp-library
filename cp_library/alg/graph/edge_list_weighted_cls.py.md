@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_cls.py
     title: cp_library/alg/graph/edge_list_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':question:'
@@ -158,7 +158,7 @@ data:
   path: cp_library/alg/graph/edge_list_weighted_cls.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_heap.test.py

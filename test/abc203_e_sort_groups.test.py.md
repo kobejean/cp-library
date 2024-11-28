@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/sort_groups_fn.py
     title: cp_library/alg/iter/sort_groups_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':question:'
@@ -152,7 +152,7 @@ data:
   isVerificationFile: true
   path: test/abc203_e_sort_groups.test.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc203_e_sort_groups.test.py

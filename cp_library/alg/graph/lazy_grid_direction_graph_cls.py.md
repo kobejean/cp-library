@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':question:'
@@ -22,7 +22,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
@@ -167,69 +167,71 @@ data:
     \        D = [[inft]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
     \            D[u][u] = 0\n            for v in G.neighbors(u):\n             \
     \   D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n            for\
-    \ Di in D:\n                for j in range(G.N):\n                    Di[j] =\
-    \ min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    \n    def find_cycle(G,\
-    \ s = 0, vis = None, par = None):\n        N = G.N\n        vis = vis or [0] *\
-    \ N\n        par = par or [-1] * N\n        if vis[s]: return None\n        vis[s]\
-    \ = 1\n        stack = [(True, s)]\n        while stack:\n            forw, v\
-    \ = stack.pop()\n            if forw:\n                stack.append((False, v))\n\
-    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
-    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
-    \ detected\n                        cyc = [u]\n                        vis[u]\
-    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
-    \                            vis[v] = 2\n                            v = par[v]\n\
-    \                        return cyc\n                    elif vis[u] == 0:\n \
-    \                       par[u] = v\n                        stack.append((True,\
-    \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
-    \  \n    def bridges(G):\n        tin = [-1] * G.N\n        low = [-1] * G.N\n\
-    \        par = [-1] * G.N\n        vis = [0] * G.N\n        in_edge = [-1] * G.N\n\
-    \n        Eid = G.edge_ids()\n        time = 0\n        bridges = []\n       \
-    \ stack = list(range(G.N))\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            match vis[v]:\n                case 0:\n\
-    \                    vis[v] = 1\n                    tin[v] = low[v] = time\n\
-    \                    time += 1\n                    stack.append(v)\n        \
-    \            for i, child in enumerate(G.neighbors(v)):\n                    \
-    \    if child == p:\n                            continue\n                  \
-    \      match vis[child]:\n                            case 0:\n              \
-    \                  # Tree edge - recurse\n                                par[child]\
-    \ = v\n                                in_edge[child] = Eid[v][i]\n          \
-    \                      stack.append(child)\n                            case 1:\n\
-    \                                # Back edge - update low-link value\n       \
-    \                         low[v] = min(low[v], tin[child])\n                case\
-    \ 1:\n                    vis[v] = 2\n                    if p != -1:\n      \
-    \                  low[p] = min(low[p], low[v])\n                        if low[v]\
-    \ > tin[p]:\n                            bridges.append(in_edge[v])\n        \
-    \        \n        return bridges\n\n    def articulation_points(G):\n       \
-    \ \"\"\"\n        Find articulation points in an undirected graph using DFS events.\n\
-    \        Returns a boolean list that is True for indices where the vertex is an\
-    \ articulation point.\n        \"\"\"\n        N = G.N\n        order = [-1] *\
-    \ N\n        low = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n\
-    \        children = [0] * N\n        ap = [False] * N\n        time = 0\n    \
-    \    stack = list(range(N))\n\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            if state[v] == 0:\n                state[v]\
-    \ = 1\n                order[v] = low[v] = time\n                time += 1\n \
-    \           \n                stack.append(v)\n                for child in G[v]:\n\
-    \                    if order[child] == -1:\n                        par[child]\
-    \ = v\n                        stack.append(child)\n                    elif child\
-    \ != p:\n                        low[v] = min(low[v], order[child])\n        \
-    \        if p != -1:\n                    children[p] += 1\n            elif state[v]\
-    \ == 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
-    \ > 1\n                if p != -1:\n                    low[p] = min(low[p], low[v])\n\
-    \                    ap[p] |= par[p] != -1 and low[v] >= order[p]\n\n        return\
-    \ ap\n    \n    def dfs_events(G, flags: DFSFlags, s: int|list|None = None, max_depth:\
-    \ int|None = None):\n        match flags:\n            case DFSFlags.INTERVAL:\n\
-    \                if max_depth is None:\n                    return G.dfs_enter_leave(s)\n\
-    \            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth\
-    \ is None:\n                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS\
-    \ in flags)\n                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n\
-    \            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth\
-    \ is None:\n                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS\
-    \ in flags)\n                    return [(DFSEvent.UP, p, u) for p,u in edges]\n\
-    \            case flags if flags & DFSFlags.BACKTRACK:\n                return\
-    \ G.dfs_backtrack(flags, s, max_depth)\n        state = [0] * G.N\n        child\
-    \ = [0] * G.N\n        stack = [0] * G.N\n        if flags & DFSFlags.RETURN_PARENTS:\n\
-    \            parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n\
-    \            depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
+    \ Di in D:\n                if Di[k] == inft: continue\n                for j\
+    \ in range(G.N):\n                    if Dk[j] == inft: continue\n           \
+    \         Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    \n    def\
+    \ find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n        vis\
+    \ = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]: return None\n\
+    \        vis[s] = 1\n        stack = [(True, s)]\n        while stack:\n     \
+    \       forw, v = stack.pop()\n            if forw:\n                stack.append((False,\
+    \ v))\n                vis[v] = 1\n                for u in G.neighbors(v):\n\
+    \                    if vis[u] == 1 and u != par[v]:\n                       \
+    \ # Cycle detected\n                        cyc = [u]\n                      \
+    \  vis[u] = 2\n                        while v != u:\n                       \
+    \     cyc.append(v)\n                            vis[v] = 2\n                \
+    \            v = par[v]\n                        return cyc\n                \
+    \    elif vis[u] == 0:\n                        par[u] = v\n                 \
+    \       stack.append((True, u))\n            else:\n                vis[v] = 2\n\
+    \        return None\n    \n    def bridges(G):\n        tin = [-1] * G.N\n  \
+    \      low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n \
+    \       in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
+    \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
+    \            v = stack.pop()\n            p = par[v]\n            match vis[v]:\n\
+    \                case 0:\n                    vis[v] = 1\n                   \
+    \ tin[v] = low[v] = time\n                    time += 1\n                    stack.append(v)\n\
+    \                    for i, child in enumerate(G.neighbors(v)):\n            \
+    \            if child == p:\n                            continue\n          \
+    \              match vis[child]:\n                            case 0:\n      \
+    \                          # Tree edge - recurse\n                           \
+    \     par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
+    \                                stack.append(child)\n                       \
+    \     case 1:\n                                # Back edge - update low-link value\n\
+    \                                low[v] = min(low[v], tin[child])\n          \
+    \      case 1:\n                    vis[v] = 2\n                    if p != -1:\n\
+    \                        low[p] = min(low[p], low[v])\n                      \
+    \  if low[v] > tin[p]:\n                            bridges.append(in_edge[v])\n\
+    \                \n        return bridges\n\n    def articulation_points(G):\n\
+    \        \"\"\"\n        Find articulation points in an undirected graph using\
+    \ DFS events.\n        Returns a boolean list that is True for indices where the\
+    \ vertex is an articulation point.\n        \"\"\"\n        N = G.N\n        order\
+    \ = [-1] * N\n        low = [-1] * N\n        par = [-1] * N\n        state =\
+    \ [0] * N\n        children = [0] * N\n        ap = [False] * N\n        time\
+    \ = 0\n        stack = list(range(N))\n\n        while stack:\n            v =\
+    \ stack.pop()\n            p = par[v]\n            if state[v] == 0:\n       \
+    \         state[v] = 1\n                order[v] = low[v] = time\n           \
+    \     time += 1\n            \n                stack.append(v)\n             \
+    \   for child in G[v]:\n                    if order[child] == -1:\n         \
+    \               par[child] = v\n                        stack.append(child)\n\
+    \                    elif child != p:\n                        low[v] = min(low[v],\
+    \ order[child])\n                if p != -1:\n                    children[p]\
+    \ += 1\n            elif state[v] == 1:\n                state[v] = 2\n      \
+    \          ap[v] |= p == -1 and children[v] > 1\n                if p != -1:\n\
+    \                    low[p] = min(low[p], low[v])\n                    ap[p] |=\
+    \ par[p] != -1 and low[v] >= order[p]\n\n        return ap\n    \n    def dfs_events(G,\
+    \ flags: DFSFlags, s: int|list|None = None, max_depth: int|None = None):\n   \
+    \     match flags:\n            case DFSFlags.INTERVAL:\n                if max_depth\
+    \ is None:\n                    return G.dfs_enter_leave(s)\n            case\
+    \ DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth is None:\n   \
+    \                 edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)\n\
+    \                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n       \
+    \     case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth is None:\n\
+    \                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)\n\
+    \                    return [(DFSEvent.UP, p, u) for p,u in edges]\n         \
+    \   case flags if flags & DFSFlags.BACKTRACK:\n                return G.dfs_backtrack(flags,\
+    \ s, max_depth)\n        state = [0] * G.N\n        child = [0] * G.N\n      \
+    \  stack = [0] * G.N\n        if flags & DFSFlags.RETURN_PARENTS:\n          \
+    \  parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n        \
+    \    depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
     \            stack[depth := 0] = s\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
     \ in flags:\n                events.append((DFSEvent.DOWN,-1,s))\n           \
     \ while depth != -1:\n                u = stack[depth]\n                \n   \
@@ -354,7 +356,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc246_e_grid_direction_graph.test.py

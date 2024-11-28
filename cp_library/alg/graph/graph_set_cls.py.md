@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':question:'
@@ -19,7 +19,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
@@ -166,17 +166,18 @@ data:
     \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
     \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
     \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
-    \  for j in range(G.N):\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
-    \        return D\n    \n    \n    def find_cycle(G, s = 0, vis = None, par =\
-    \ None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par or\
-    \ [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
-    \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
-    \         if forw:\n                stack.append((False, v))\n               \
-    \ vis[v] = 1\n                for u in G.neighbors(v):\n                    if\
-    \ vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n   \
-    \                     cyc = [u]\n                        vis[u] = 2\n        \
-    \                while v != u:\n                            cyc.append(v)\n  \
-    \                          vis[v] = 2\n                            v = par[v]\n\
+    \  if Di[k] == inft: continue\n                for j in range(G.N):\n        \
+    \            if Dk[j] == inft: continue\n                    Di[j] = min(Di[j],\
+    \ Di[k]+Dk[j])\n        return D\n    \n    \n    def find_cycle(G, s = 0, vis\
+    \ = None, par = None):\n        N = G.N\n        vis = vis or [0] * N\n      \
+    \  par = par or [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n\
+    \        stack = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n\
+    \            if forw:\n                stack.append((False, v))\n            \
+    \    vis[v] = 1\n                for u in G.neighbors(v):\n                  \
+    \  if vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n\
+    \                        cyc = [u]\n                        vis[u] = 2\n     \
+    \                   while v != u:\n                            cyc.append(v)\n\
+    \                            vis[v] = 2\n                            v = par[v]\n\
     \                        return cyc\n                    elif vis[u] == 0:\n \
     \                       par[u] = v\n                        stack.append((True,\
     \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
@@ -336,7 +337,7 @@ data:
   path: cp_library/alg/graph/graph_set_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_set_cls.py
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/graph_set_cls.py

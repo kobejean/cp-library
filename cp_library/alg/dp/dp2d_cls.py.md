@@ -7,9 +7,6 @@ data:
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -102,7 +99,32 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\nfrom\
-    \ dataclasses import dataclass\n\n\ninft = sys.maxsize\n\nT = TypeVar('T')\n\n\
+    \ dataclasses import dataclass\nfrom math import inf\n\nT = TypeVar('T')\n\n@dataclass\n\
+    class Transition2D(Generic[T]):\n    di: int\n    dj: int\n    \n    def __call__(self,\
+    \ i: int, j: int, src: T, dest: T) -> T:\n        \"\"\"Override this to implement\
+    \ transition logic\"\"\"\n        return src  # Default no-op\n    \n    @classmethod\n\
+    \    def make(cls, func):\n        class Transition(cls):\n            def __call__(self,\
+    \ i: int, j: int, src: T, dest: T) -> T:\n                return func(i,j,src,dest)\n\
+    \        return Transition\n    \nT = TypeVar('T')\nclass DynamicProgramming2D(Generic[T],\
+    \ Parsable, Container):\n    def __init__(self, rows: int, cols: int, default:\
+    \ T = inf):\n        self.rows = rows\n        self.cols = cols\n        self.table\
+    \ = default if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
+    \    \n    def __getitem__(self, pos: tuple[int, int]) -> T:\n        i, j = pos\n\
+    \        return self.table[i][j]\n    \n    def __setitem__(self, pos: tuple[int,\
+    \ int], value: T) -> None:\n        i, j = pos\n        self.table[i][j] = value\n\
+    \n    def __contains__(self, x: object) -> bool:\n        return any(x in row\
+    \ for row in self.table)\n    \n    \n    def solve(self, transitions: list[Transition2D[T]])\
+    \ -> None:\n        for i in range(self.rows):\n            for j in range(self.cols):\n\
+    \                curr_val = self.table[i][j]\n                for trans in transitions:\n\
+    \                    ni, nj = i + trans.di, j + trans.dj\n                   \
+    \ if 0 <= ni < self.rows and 0 <= nj < self.cols:\n                        self.table[ni][nj]\
+    \ = trans(i, j, curr_val, self.table[ni][nj])\n    \n    @classmethod\n    def\
+    \ compile(cls, N, M, T = int):\n        table = Parser.compile(list[list[T,M],N])\n\
+    \        def parse(ts: TokenStream):\n            return cls(N, M, table(ts))\n\
+    \        return parse\n"
+  code: "import cp_library.alg.dp.__header__\nfrom typing import TypeVar, Generic,\
+    \ Container\nfrom cp_library.io.parser_cls import Parsable, Parser, TokenStream\n\
+    from dataclasses import dataclass\nfrom math import inf\n\nT = TypeVar('T')\n\n\
     @dataclass\nclass Transition2D(Generic[T]):\n    di: int\n    dj: int\n    \n\
     \    def __call__(self, i: int, j: int, src: T, dest: T) -> T:\n        \"\"\"\
     Override this to implement transition logic\"\"\"\n        return src  # Default\
@@ -110,8 +132,8 @@ data:
     \            def __call__(self, i: int, j: int, src: T, dest: T) -> T:\n     \
     \           return func(i,j,src,dest)\n        return Transition\n    \nT = TypeVar('T')\n\
     class DynamicProgramming2D(Generic[T], Parsable, Container):\n    def __init__(self,\
-    \ rows: int, cols: int, default: T = inft):\n        self.rows = rows\n      \
-    \  self.cols = cols\n        self.table = default if isinstance(default, list)\
+    \ rows: int, cols: int, default: T = inf):\n        self.rows = rows\n       \
+    \ self.cols = cols\n        self.table = default if isinstance(default, list)\
     \ else [[default] * cols for _ in range(rows)]\n    \n    def __getitem__(self,\
     \ pos: tuple[int, int]) -> T:\n        i, j = pos\n        return self.table[i][j]\n\
     \    \n    def __setitem__(self, pos: tuple[int, int], value: T) -> None:\n  \
@@ -125,41 +147,14 @@ data:
     \ = trans(i, j, curr_val, self.table[ni][nj])\n    \n    @classmethod\n    def\
     \ compile(cls, N, M, T = int):\n        table = Parser.compile(list[list[T,M],N])\n\
     \        def parse(ts: TokenStream):\n            return cls(N, M, table(ts))\n\
-    \        return parse\n"
-  code: "import cp_library.alg.dp.__header__\nfrom typing import TypeVar, Generic,\
-    \ Container\nfrom cp_library.io.parser_cls import Parsable, Parser, TokenStream\n\
-    from dataclasses import dataclass\nfrom cp_library.math.inft_cnst import inft\n\
-    \nT = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[T]):\n    di: int\n\
-    \    dj: int\n    \n    def __call__(self, i: int, j: int, src: T, dest: T) ->\
-    \ T:\n        \"\"\"Override this to implement transition logic\"\"\"\n      \
-    \  return src  # Default no-op\n    \n    @classmethod\n    def make(cls, func):\n\
-    \        class Transition(cls):\n            def __call__(self, i: int, j: int,\
-    \ src: T, dest: T) -> T:\n                return func(i,j,src,dest)\n        return\
-    \ Transition\n    \nT = TypeVar('T')\nclass DynamicProgramming2D(Generic[T], Parsable,\
-    \ Container):\n    def __init__(self, rows: int, cols: int, default: T = inft):\n\
-    \        self.rows = rows\n        self.cols = cols\n        self.table = default\
-    \ if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
-    \    \n    def __getitem__(self, pos: tuple[int, int]) -> T:\n        i, j = pos\n\
-    \        return self.table[i][j]\n    \n    def __setitem__(self, pos: tuple[int,\
-    \ int], value: T) -> None:\n        i, j = pos\n        self.table[i][j] = value\n\
-    \n    def __contains__(self, x: object) -> bool:\n        return any(x in row\
-    \ for row in self.table)\n    \n    \n    def solve(self, transitions: list[Transition2D[T]])\
-    \ -> None:\n        for i in range(self.rows):\n            for j in range(self.cols):\n\
-    \                curr_val = self.table[i][j]\n                for trans in transitions:\n\
-    \                    ni, nj = i + trans.di, j + trans.dj\n                   \
-    \ if 0 <= ni < self.rows and 0 <= nj < self.cols:\n                        self.table[ni][nj]\
-    \ = trans(i, j, curr_val, self.table[ni][nj])\n    \n    @classmethod\n    def\
-    \ compile(cls, N, M, T = int):\n        table = Parser.compile(list[list[T,M],N])\n\
-    \        def parse(ts: TokenStream):\n            return cls(N, M, table(ts))\n\
     \        return parse"
   dependsOn:
   - cp_library/io/parser_cls.py
-  - cp_library/math/inft_cnst.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/dp/dp2d_cls.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc185_e_dp2d.test.py

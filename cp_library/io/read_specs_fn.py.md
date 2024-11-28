@@ -111,10 +111,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_1_a_graph_distance.test.py
     title: test/grl_1_a_graph_distance.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_graph_bellman_ford.test.py
     title: test/grl_1_b_graph_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
@@ -256,7 +256,7 @@ data:
   path: cp_library/io/read_specs_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/abc261_g_mo.test.py

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':question:'
@@ -13,7 +13,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/read_specs_fn.py
     title: cp_library/io/read_specs_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   - icon: ':heavy_check_mark:'
@@ -161,7 +161,7 @@ data:
   isVerificationFile: true
   path: test/abc325_f_minplus_conv_inplace.test.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc325_f_minplus_conv_inplace.test.py

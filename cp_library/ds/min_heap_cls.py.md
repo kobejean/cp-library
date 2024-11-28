@@ -56,7 +56,7 @@ data:
   requiredBy:
   - cp_library/ds/max_k_heap_cls.py
   - cp_library/alg/graph/shortest_path_fn.py
-  timestamp: '2024-11-28 18:07:28+09:00'
+  timestamp: '2024-11-28 19:02:10+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/shortest_path_min_heap.test.py

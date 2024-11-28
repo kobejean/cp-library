@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -26,22 +26,24 @@ data:
     \nimport sys\n\ninft = sys.maxsize\n\ndef bellman_ford(G, N, root) -> tuple[bool,\
     \ list[int]]:\n    \n    def bellman_ford(G, N, root) -> list[int]:\n        D\
     \ = [inft]*N\n        D[root] = 0\n        for _ in range(N-1):\n            for\
-    \ u, edges in enumerate(G):\n                for v,w in edges:\n             \
-    \       D[v] = min(D[v], D[u] + w)\n        return D\n    D = bellman_ford(G,\
-    \ N, root)\n    neg_cycle = any(D[u]+w<D[v] for u, edges in enumerate(G) for v,w\
-    \ in edges)\n    return neg_cycle, D\n"
+    \ u, edges in enumerate(G):\n                if D[u] == inft: continue\n     \
+    \           for v,w in edges:\n                    D[v] = min(D[v], D[u] + w)\n\
+    \        return D\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
+    \ for u, edges in enumerate(G) for v,w in edges if D[u] != inft)\n    return neg_cycle,\
+    \ D\n"
   code: "import cp_library.alg.graph.__header__\nfrom cp_library.math.inft_cnst import\
     \ inft\n\ndef bellman_ford(G, N, root) -> tuple[bool, list[int]]:\n    from cp_library.alg.graph.bellman_ford_fn\
     \ import bellman_ford\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
-    \ for u, edges in enumerate(G) for v,w in edges)\n    return neg_cycle, D\n"
+    \ for u, edges in enumerate(G) for v,w in edges if D[u] != inft)\n    return neg_cycle,\
+    \ D\n"
   dependsOn:
   - cp_library/math/inft_cnst.py
   - cp_library/alg/graph/bellman_ford_fn.py
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   requiredBy: []
-  timestamp: '2024-11-28 18:07:28+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-11-28 19:02:10+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py
 documentation_of: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
