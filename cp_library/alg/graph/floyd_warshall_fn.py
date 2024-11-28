@@ -11,6 +11,8 @@ def floyd_warshall(G, N) -> list[list[int]]:
     
     for k, Dk in enumerate(D):
         for i, Di in enumerate(D):
+            if Di[k] == inft: continue
             for j in range(i):
+                if Dk[j] == inft: continue
                 Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])
     return D

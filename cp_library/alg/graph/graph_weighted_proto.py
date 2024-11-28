@@ -100,6 +100,7 @@ class GraphWeightedProtocol(GraphProtocol):
         D[s] = 0
         for _ in range(G.N-1):
             for u, edges in enumerate(G):
+                if D[u] == inft: continue
                 for v,w,*_ in edges:
                     D[v] = min(D[v], D[u] + w)
         return D
@@ -114,7 +115,9 @@ class GraphWeightedProtocol(GraphProtocol):
         
         for k, Dk in enumerate(D):
             for Di in D:
+                if Di[k] == inft: continue
                 for j in range(G.N):
+                    if Dk[j] == inft: continue
                     Di[j] = min(Di[j], Di[k]+Dk[j])
         return D
     

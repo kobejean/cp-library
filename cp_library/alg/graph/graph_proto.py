@@ -101,7 +101,9 @@ class GraphProtocol(list, Parsable):
         
         for k, Dk in enumerate(D):
             for Di in D:
+                if Di[k] == inft: continue
                 for j in range(G.N):
+                    if Dk[j] == inft: continue
                     Di[j] = min(Di[j], Di[k]+Dk[j])
         return D
     

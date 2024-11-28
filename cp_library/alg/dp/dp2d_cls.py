@@ -2,7 +2,7 @@ import cp_library.alg.dp.__header__
 from typing import TypeVar, Generic, Container
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 from dataclasses import dataclass
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 T = TypeVar('T')
 
@@ -24,7 +24,7 @@ class Transition2D(Generic[T]):
     
 T = TypeVar('T')
 class DynamicProgramming2D(Generic[T], Parsable, Container):
-    def __init__(self, rows: int, cols: int, default: T = inft):
+    def __init__(self, rows: int, cols: int, default: T = inf):
         self.rows = rows
         self.cols = cols
         self.table = default if isinstance(default, list) else [[default] * cols for _ in range(rows)]

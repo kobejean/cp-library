@@ -1,7 +1,6 @@
 import cp_library.alg.graph.__header__
 from functools import reduce
 from heapq import heapify
-from cp_library.math.inft_cnst import inft
 import cp_library.misc.setrecursionlimit
 from cp_library.ds.dsu_cls import DSU
 from cp_library.alg.graph.floyds_cycle_fn import floyds_cycle

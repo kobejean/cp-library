@@ -6,7 +6,7 @@ def main():
     G = read(DiGraphWeighted[N, M, 0])
 
     D = G.bellman_ford(r)
-    neg_cycle = any(D[u]+w<D[v] for u, edges in enumerate(G) for v,w in edges)
+    neg_cycle = any(D[u]+w<D[v] for u, edges in enumerate(G) for v,w in edges if D[u] != inft)
 
     if neg_cycle:
         print("NEGATIVE CYCLE")
