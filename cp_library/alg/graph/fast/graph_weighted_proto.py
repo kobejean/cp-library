@@ -104,9 +104,8 @@ class GraphWeightedProtocol(GraphProtocol):
             if u != v:
                 MST[need := need-1] = e
         return None if need else MST
-
-        
-    def bellman_ford(G, s = 0) -> list[int]:
+   
+    def bellman_ford(G, s: int = 0) -> list[int]:
         N, M = G.N, G.M
         Ua, Va, Wa = G.Ua, G.Va, G.Wa
         D = [inft]*N
@@ -117,6 +116,13 @@ class GraphWeightedProtocol(GraphProtocol):
                 if D[u] == inft: continue
                 D[v] = min(D[v], D[u] + w)
         return D
+    
+    def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:
+        from cp_library.alg.graph.bellman_ford_fn import bellman_ford
+        D = G.bellman_ford(s)
+        M, U, V, W = G.M, G.U, G.V, G.W
+        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inft)
+        return neg_cycle, D
     
     def floyd_warshall(G) -> list[list[int]]:
         N, M = G.N, G.M

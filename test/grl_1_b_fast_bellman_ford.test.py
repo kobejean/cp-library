@@ -5,7 +5,7 @@ def main():
     N, M, r = read()
     G = read(DiGraphWeighted[N, M, 0])
 
-    neg_cycle, D = bellman_ford(G, N, r)
+    neg_cycle, D = G.bellman_ford_neg_cyc_check(r)
 
     if neg_cycle:
         write("NEGATIVE CYCLE")
