@@ -4,7 +4,7 @@ from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
 from cp_library.ds.elist_fn import elist
 from typing import Iterable, overload
 from collections import deque
-from math import inf
+from cp_library.math.inft_cnst import inft
 
 class GraphProtocol(list, Parsable):
     def __init__(G, N: int, E: list = None, adj: Iterable = None):
@@ -39,7 +39,7 @@ class GraphProtocol(list, Parsable):
     @overload
     def bfs(G, s: int|list, g: int) -> int: ...
     def bfs(G, s = 0, g = None):
-        D = [inf for _ in range(G.N)]
+        D = [inft for _ in range(G.N)]
         q = deque([s] if isinstance(s, int) else s)
         for u in q: D[u] = 0
         while q:
@@ -49,16 +49,21 @@ class GraphProtocol(list, Parsable):
                 if nd < D[v]:
                     D[v] = nd
                     q.append(v)
-        return D if g is None else inf 
+        return D if g is None else inft 
 
-    def shortest_path(G, s: int, g: int) -> list[int]:
-        if s == g: return []
+    @overload
+    def shortest_path(G, s: int, g: int) -> list[int]|None: ...
+    @overload
+    def shortest_path(G, s: int, g: int, distances = True) -> tuple[list[int]|None,list[int]]: ...
+    def shortest_path(G, s: int, g: int, distances = False) -> list[int]:
+        D = [inft] * G.N
+        D[s] = 0
+        if s == g:
+            return ([], D) if distances else []
             
         par = [-1] * G.N
         par_edge = [-1] * G.N
         Eid = G.edge_ids()
-        D = [inf] * G.N
-        D[s] = 0
         q = deque([s])
         
         while q:
@@ -72,8 +77,8 @@ class GraphProtocol(list, Parsable):
                     par_edge[v] = eid
                     q.append(v)
         
-        if D[g] == inf:
-            return None
+        if D[g] == inft:
+            return (None, D) if distances else None
             
         path = []
         current = g
@@ -81,10 +86,13 @@ class GraphProtocol(list, Parsable):
             path.append(par_edge[current])
             current = par[current]
             
-        return path[::-1]
+        return (path[::-1], D) if distances else path[::-1]
+            
+     
+            
         
     def floyd_warshall(G) -> list[list[int]]:
-        D = [[inf]*G.N for _ in range(G.N)]
+        D = [[inft]*G.N for _ in range(G.N)]
 
         for u in range(G.N):
             D[u][u] = 0

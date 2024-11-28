@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc325/tasks/abc325_f
 
-from math import inf
+from cp_library.math.inft_cnst import inft
 
 def main():
     N = read(int)
@@ -11,8 +11,8 @@ def main():
     for i in range(N):
         DK2 = [(max(0,D[i]-dk1*L1) + L2-1) // L2 for dk1 in range(K1+1)]
         minplus_conv_inplace(dp, DK2)
-    ans = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inf)
-    print(ans if ans != inf else -1)
+    ans = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inft)
+    print(ans if ans != inft else -1)
     
 
 from cp_library.io.read_specs_fn import read

@@ -1,6 +1,6 @@
 import cp_library.alg.graph.__header__
 from cp_library.alg.graph.dfs_events_fn import DFSEvent, DFSFlags, dfs_events
-from math import inf
+from cp_library.math.inft_cnst import inft
 
 def articulation_points(G, s: int|list|None = None):
     """
@@ -10,7 +10,7 @@ def articulation_points(G, s: int|list|None = None):
     N = G.N
     if s is None:
         s = range(N)
-    low = [inf] * N
+    low = [inft] * N
     disc = [-1] * N
     children = [0] * N
     ap = [False] * N

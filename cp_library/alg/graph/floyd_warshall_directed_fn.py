@@ -1,8 +1,8 @@
 import cp_library.alg.graph.__header__
-from math import inf
+from cp_library.math.inft_cnst import inft
 
 def floyd_warshall(G, N) -> list[list[int]]:
-    D = [[inf]*N for _ in range(N)]
+    D = [[inft]*N for _ in range(N)]
 
     for u, edges in enumerate(G):
         D[u][u] = 0

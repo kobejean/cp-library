@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc218/tasks/abc218_f
 
-from math import inf
+from cp_library.math.inft_cnst import inft
 
 def main():
     N, M = read(tuple[int, ...])
@@ -17,7 +17,7 @@ def main():
             ans = G2.distance(0,N-1)
         else:
             ans = shortest
-        print(ans if ans != inf else -1)
+        print(ans if ans != inft else -1)
 
 from cp_library.alg.graph.digraph_cls import DiGraph
 from cp_library.io.read_specs_fn import read

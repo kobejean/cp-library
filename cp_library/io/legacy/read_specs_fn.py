@@ -1,10 +1,10 @@
 import cp_library.io.__header__
 
 import sys
-from typing import Type, TypeVar
+from typing import Type, TypeVar, Union
 
 T = TypeVar('T')
-def read(spec: Type[T]|T=[int]) -> T:
+def read(spec: Union[Type[T],T]=[int]) -> T:
     stream = TokenStream()
     parser = Parser.compile(spec)
     return parser(stream)

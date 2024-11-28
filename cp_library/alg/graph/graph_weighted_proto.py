@@ -3,11 +3,9 @@ import cp_library.alg.graph.__header__
 from typing import overload
 from heapq import heapify, heappop, heappush
 import operator
-from math import inf
 
 from cp_library.alg.graph.dfs_options_cls import DFSEvent, DFSFlags
 from cp_library.alg.graph.graph_proto import GraphProtocol
-from cp_library.ds.elist_fn import elist
 
 class GraphWeightedProtocol(GraphProtocol):
 
@@ -30,7 +28,7 @@ class GraphWeightedProtocol(GraphProtocol):
                 return G.dijkstra(s, g)
     
     def dijkstra(G, s = 0, g = None):
-        D = [inf for _ in range(G.N)]
+        D = [inft for _ in range(G.N)]
         D[s] = 0
         q = [(0, s)]
         while q:
@@ -41,18 +39,23 @@ class GraphWeightedProtocol(GraphProtocol):
                 if (nd := d + w) < D[u]:
                     D[u] = nd
                     heappush(q, (nd, u))
-        return D if g is None else inf
+        return D if g is None else inft
     
-    def shortest_path(G, s: int, g: int) -> list[int]:
-        if s == g:
-            return []
-            
-        D = [inf] * G.N
+    @overload
+    def shortest_path(G, s: int, g: int) -> list[int]|None: ...
+    @overload
+    def shortest_path(G, s: int, g: int, distances = True) -> tuple[list[int]|None,list[int]]: ...
+    def shortest_path(G, s: int, g: int, distances = False):
+        D = [inft] * G.N
         D[s] = 0
+        if s == g:
+            return ([], D) if distances else []
+            
         par = [-1] * G.N
         par_edge = [-1] * G.N
         Eid = G.edge_ids()
         q = [(0, s)]
+        que = PriorityQueue(G.N)
         
         while q:
             d, v = heappop(q)
@@ -66,8 +69,8 @@ class GraphWeightedProtocol(GraphProtocol):
                     par_edge[u] = eid
                     heappush(q, (nd, u))
         
-        if D[g] == inf:
-            return None
+        if D[g] == inft:
+            return (None, D) if distances else None
             
         path = []
         current = g
@@ -75,7 +78,7 @@ class GraphWeightedProtocol(GraphProtocol):
             path.append(par_edge[current])
             current = par[current]
             
-        return path[::-1]
+        return (path[::-1], D) if distances else path[::-1]
     
     def kruskal(G):
         E, N = G.E, G.N
@@ -93,7 +96,7 @@ class GraphWeightedProtocol(GraphProtocol):
         return MST
     
     def bellman_ford(G, s = 0) -> list[int]:
-        D = [inf]*G.N
+        D = [inft]*G.N
         D[s] = 0
         for _ in range(G.N-1):
             for u, edges in enumerate(G):
@@ -102,7 +105,7 @@ class GraphWeightedProtocol(GraphProtocol):
         return D
     
     def floyd_warshall(G) -> list[list[int]]:
-        D = [[inf]*G.N for _ in range(G.N)]
+        D = [[inft]*G.N for _ in range(G.N)]
 
         for u, edges in enumerate(G):
             D[u][u] = 0
@@ -267,3 +270,6 @@ class GraphWeightedProtocol(GraphProtocol):
         return edges
 
 from cp_library.ds.dsu_cls import DSU
+from cp_library.ds.priority_queue_cls import PriorityQueue
+from cp_library.ds.elist_fn import elist
+from cp_library.math.inft_cnst import inft

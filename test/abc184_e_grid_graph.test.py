@@ -1,5 +1,5 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc184_e
-from math import inf
+from cp_library.math.inft_cnst import inft
 from typing import Iterable
 
 def main():
@@ -12,7 +12,7 @@ def main():
             case 'G': g = v
 
     ans = G.bfs(s, g)
-    print(ans if ans != inf else -1)
+    print(ans if ans != inft else -1)
     
 from cp_library.alg.graph.lazy_grid_graph_cls import LazyGridGraph
 
