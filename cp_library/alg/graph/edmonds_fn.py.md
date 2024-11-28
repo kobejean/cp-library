@@ -4,9 +4,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyds_cycle_fn.py
     title: cp_library/alg/graph/floyds_cycle_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
+  - icon: ':question:'
+    path: cp_library/math/inft_cnst.py
+    title: cp_library/math/inft_cnst.py
   - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
@@ -26,8 +29,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from functools import reduce\nfrom heapq import heapify\nfrom math import inf\n\
-    \n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
+    from functools import reduce\nfrom heapq import heapify\n\nimport sys\n\ninft\
+    \ = sys.maxsize\n\n\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
     max_unroll_recursion=-1\")\n\n\nclass DSU:\n    def __init__(self, n):\n     \
     \   self.n = n\n        self.par = [-1] * n\n\n    def merge(self, u, v, src =\
     \ False):\n        assert 0 <= u < self.n\n        assert 0 <= v < self.n\n\n\
@@ -73,7 +76,7 @@ data:
     \ return MCA\n        else:\n            return [edges[0][2] for edges in Gin\
     \ if edges]\n\n    return [E[id] for id in rec(Gin)]\n"
   code: "import cp_library.alg.graph.__header__\nfrom functools import reduce\nfrom\
-    \ heapq import heapify\nfrom math import inf\nimport cp_library.misc.setrecursionlimit\n\
+    \ heapq import heapify\nfrom cp_library.math.inft_cnst import inft\nimport cp_library.misc.setrecursionlimit\n\
     from cp_library.ds.dsu_cls import DSU\nfrom cp_library.alg.graph.floyds_cycle_fn\
     \ import floyds_cycle\n\ndef edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:\n\
     \    # obtain incoming edges\n    Gin = [[] for _ in range(N)]\n    for id,(u,v,w)\
@@ -100,13 +103,14 @@ data:
     \  return [edges[0][2] for edges in Gin if edges]\n\n    return [E[id] for id\
     \ in rec(Gin)]\n"
   dependsOn:
+  - cp_library/math/inft_cnst.py
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/dsu_cls.py
   - cp_library/alg/graph/floyds_cycle_fn.py
   isVerificationFile: false
   path: cp_library/alg/graph/edmonds_fn.py
   requiredBy: []
-  timestamp: '2024-11-26 21:56:46+09:00'
+  timestamp: '2024-11-28 18:07:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_b_edmonds_branching.test.py

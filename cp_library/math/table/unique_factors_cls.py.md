@@ -44,7 +44,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/unique_factors_cls.py
   requiredBy: []
-  timestamp: '2024-11-26 21:56:46+09:00'
+  timestamp: '2024-11-28 18:07:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc304_f_mobius_inv.test.py

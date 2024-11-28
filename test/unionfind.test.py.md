@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
@@ -54,7 +54,7 @@ data:
   isVerificationFile: true
   path: test/unionfind.test.py
   requiredBy: []
-  timestamp: '2024-11-26 21:56:46+09:00'
+  timestamp: '2024-11-28 18:07:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind.test.py

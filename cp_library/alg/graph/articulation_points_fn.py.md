@@ -4,9 +4,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_events_fn.py
     title: cp_library/alg/graph/dfs_events_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
+  - icon: ':question:'
+    path: cp_library/math/inft_cnst.py
+    title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -68,46 +71,49 @@ data:
     \ u))\n        if DFSFlags.UP|DFSFlags.CONNECT_ROOTS in flags:\n            events.append((DFSEvent.UP,-1,s))\n\
     \    ret = tuple((events,)) if DFSFlags.RETURN_ALL & flags else events\n    if\
     \ DFSFlags.RETURN_PARENTS in flags:\n        ret += (parents,)\n    if DFSFlags.RETURN_DEPTHS\
-    \ in flags:\n        ret += (depths,)\n    return ret\nfrom math import inf\n\n\
-    def articulation_points(G, s: int|list|None = None):\n    \"\"\"\n    Find articulation\
-    \ points in an undirected graph using DFS events.\n    Returns a boolean list\
-    \ that is True for indices where the vertex is an articulation point.\n    \"\"\
-    \"\n    N = G.N\n    if s is None:\n        s = range(N)\n    low = [inf] * N\n\
-    \    disc = [-1] * N\n    children = [0] * N\n    ap = [False] * N\n    time =\
-    \ 0\n    \n    flags = DFSFlags.DOWN | DFSFlags.BACK | DFSFlags.UP | DFSFlags.RETURN_PARENTS\n\
-    \    events, parent = dfs_events(G, flags, s)\n    for event in events:\n    \
-    \    match event:\n            case DFSEvent.DOWN, u, v:\n                children[u]\
-    \ += 1\n                disc[v] = low[v] = time\n                time += 1\n \
-    \           case DFSEvent.BACK, u, v:\n                if v != parent[u]:\n  \
-    \                  low[u] = min(low[u], disc[v])\n            case DFSEvent.UP,\
-    \ p, u:\n                if parent[p] != -1:\n                    low[p] = min(low[p],\
-    \ low[u])\n                    ap[p] |= low[u] >= disc[p]\n                else:\n\
-    \                    # root case\n                    ap[p] |= children[p] > 1\n\
-    \                    \n    return ap\n"
+    \ in flags:\n        ret += (depths,)\n    return ret\n\nimport sys\n\ninft =\
+    \ sys.maxsize\n\ndef articulation_points(G, s: int|list|None = None):\n    \"\"\
+    \"\n    Find articulation points in an undirected graph using DFS events.\n  \
+    \  Returns a boolean list that is True for indices where the vertex is an articulation\
+    \ point.\n    \"\"\"\n    N = G.N\n    if s is None:\n        s = range(N)\n \
+    \   low = [inft] * N\n    disc = [-1] * N\n    children = [0] * N\n    ap = [False]\
+    \ * N\n    time = 0\n    \n    flags = DFSFlags.DOWN | DFSFlags.BACK | DFSFlags.UP\
+    \ | DFSFlags.RETURN_PARENTS\n    events, parent = dfs_events(G, flags, s)\n  \
+    \  for event in events:\n        match event:\n            case DFSEvent.DOWN,\
+    \ u, v:\n                children[u] += 1\n                disc[v] = low[v] =\
+    \ time\n                time += 1\n            case DFSEvent.BACK, u, v:\n   \
+    \             if v != parent[u]:\n                    low[u] = min(low[u], disc[v])\n\
+    \            case DFSEvent.UP, p, u:\n                if parent[p] != -1:\n  \
+    \                  low[p] = min(low[p], low[u])\n                    ap[p] |=\
+    \ low[u] >= disc[p]\n                else:\n                    # root case\n\
+    \                    ap[p] |= children[p] > 1\n                    \n    return\
+    \ ap\n"
   code: "import cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.dfs_events_fn\
-    \ import DFSEvent, DFSFlags, dfs_events\nfrom math import inf\n\ndef articulation_points(G,\
-    \ s: int|list|None = None):\n    \"\"\"\n    Find articulation points in an undirected\
-    \ graph using DFS events.\n    Returns a boolean list that is True for indices\
-    \ where the vertex is an articulation point.\n    \"\"\"\n    N = G.N\n    if\
-    \ s is None:\n        s = range(N)\n    low = [inf] * N\n    disc = [-1] * N\n\
-    \    children = [0] * N\n    ap = [False] * N\n    time = 0\n    \n    flags =\
-    \ DFSFlags.DOWN | DFSFlags.BACK | DFSFlags.UP | DFSFlags.RETURN_PARENTS\n    events,\
-    \ parent = dfs_events(G, flags, s)\n    for event in events:\n        match event:\n\
-    \            case DFSEvent.DOWN, u, v:\n                children[u] += 1\n   \
-    \             disc[v] = low[v] = time\n                time += 1\n           \
-    \ case DFSEvent.BACK, u, v:\n                if v != parent[u]:\n            \
-    \        low[u] = min(low[u], disc[v])\n            case DFSEvent.UP, p, u:\n\
-    \                if parent[p] != -1:\n                    low[p] = min(low[p],\
-    \ low[u])\n                    ap[p] |= low[u] >= disc[p]\n                else:\n\
-    \                    # root case\n                    ap[p] |= children[p] > 1\n\
-    \                    \n    return ap"
+    \ import DFSEvent, DFSFlags, dfs_events\nfrom cp_library.math.inft_cnst import\
+    \ inft\n\ndef articulation_points(G, s: int|list|None = None):\n    \"\"\"\n \
+    \   Find articulation points in an undirected graph using DFS events.\n    Returns\
+    \ a boolean list that is True for indices where the vertex is an articulation\
+    \ point.\n    \"\"\"\n    N = G.N\n    if s is None:\n        s = range(N)\n \
+    \   low = [inft] * N\n    disc = [-1] * N\n    children = [0] * N\n    ap = [False]\
+    \ * N\n    time = 0\n    \n    flags = DFSFlags.DOWN | DFSFlags.BACK | DFSFlags.UP\
+    \ | DFSFlags.RETURN_PARENTS\n    events, parent = dfs_events(G, flags, s)\n  \
+    \  for event in events:\n        match event:\n            case DFSEvent.DOWN,\
+    \ u, v:\n                children[u] += 1\n                disc[v] = low[v] =\
+    \ time\n                time += 1\n            case DFSEvent.BACK, u, v:\n   \
+    \             if v != parent[u]:\n                    low[u] = min(low[u], disc[v])\n\
+    \            case DFSEvent.UP, p, u:\n                if parent[p] != -1:\n  \
+    \                  low[p] = min(low[p], low[u])\n                    ap[p] |=\
+    \ low[u] >= disc[p]\n                else:\n                    # root case\n\
+    \                    ap[p] |= children[p] > 1\n                    \n    return\
+    \ ap"
   dependsOn:
   - cp_library/alg/graph/dfs_events_fn.py
+  - cp_library/math/inft_cnst.py
   - cp_library/alg/graph/dfs_options_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/articulation_points_fn.py
   requiredBy: []
-  timestamp: '2024-11-26 21:56:46+09:00'
+  timestamp: '2024-11-28 18:07:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_3_a_articulation_points_fn.test.py
