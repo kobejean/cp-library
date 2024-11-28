@@ -3,80 +3,29 @@ import cp_library.alg.graph.fast.__header__
 from typing import Sequence
 from cp_library.io.parser_cls import Parsable, TokenStream
 from cp_library.ds.fill_fn import fill_i32, fill_u32, fill_u64
+from cp_library.alg.graph.fast.graph_weighted_proto import GraphWeightedProtocol
 
-class DiGraphWeighted(Sequence, Parsable):
+class DiGraphWeighted(GraphWeightedProtocol):
     def __init__(G, N: int, U: list, V: list, W: list):
         M = len(U)
-        deg, Ei, adj, Wadj = fill_u32(N), fill_u32(M), fill_u32(M), [0]*M
+        deg, Ea, Ua, Va, Wa = fill_u32(N), fill_u32(M), fill_u32(M), fill_u32(M), [0]*M
 
         for u in U:
             deg[u] += 1
             
-
-        L, idx = fill_u32(N), 0
+        La, idx = fill_u32(N), 0
         for u in range(N): 
-            L[u], idx = idx, idx + deg[u]
-        R = L[:]
+            La[u], idx = idx, idx + deg[u]
+        Ra = La[:]
 
         # place edge data using R to track
         for e in range(M):
-            i = R[u := U[e]]
-            adj[i], Wadj[i], Ei[i] = V[e], W[e], e
-            R[u] += 1
-        G.N, G.M, G.L, G.R, G.adj, G.Wadj, G.Ei = N, M, L, R, adj, Wadj, Ei
-        G.U, G.V, G.W = U, V, W
+            i = Ra[u := U[e]]
+            Ua[i], Va[i], Wa[i], Ea[i] = U[e], V[e], W[e], e
+            Ra[u] += 1
 
-    def __len__(G) -> int:
-        return G.N
-    
-    def __getitem__(G, v):
-        l,r = G.L[v],G.R[v]
-        return zip(G.adj[l:r], G.W[l:r])
-
-    def dijkstra(G, s: int, t: int = None):
-        N, L, R, adj, Wadj, Ei = G.N, G.L, G.R, G.adj, G.Wadj, G.Ei
-        G.down = down = fill_i32(N, -1)
-        G.par = par = fill_i32(N, -1)
-        G.D = D = fill_u64(N, inft)
-        D[s] = 0
-            
-        que = PriorityQueue(N)
-        que.push(s, 0)
-        
-        while que:
-            v, d = que.pop()
-            if v == t: break
-            if d > D[v]: continue
-            for i in range(L[v], R[v]):
-                c, w = adj[i], Wadj[i], 
-                if (nd := d + w) < D[c]:
-                    D[c], par[c], down[c] = nd, v, Ei[i]
-                    que.push(c, nd)
-        return D
-        
-    def shortest_path(G, s: int, t: int):
-        D = G.dijkstra(s, t)
-        if D[t] == inft: return None
-        par = G.par
-            
-        path = fill_u32(0)
-        path.append(t)
-        v = t
-        while v != s:
-            path.append(v := par[v])
-        return path[::-1]
-    
-    def shortest_path_edge_ids(G, s: int, t: int):
-        D = G.dijkstra(s, t)
-        if D[t] == inft: return None
-        par, down = G.par, G.down
-            
-        path = elist(G.N)
-        v = t
-        while v != s:
-            path.append(down[v])
-            v = par[v] 
-        return path[::-1]
+        G.N, G.M, G.U, G.V, G.W = N, M, U, V, W
+        G.La, G.Ra, G.Ua, G.Va, G.Wa, G.Ea = La, Ra, Ua, Va, Wa, Ea
 
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
