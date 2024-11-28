@@ -18,8 +18,10 @@ def main():
         B = mat_pow(A, K, mod)
 
     for row in B:
-        print(*row)
+        write(*row)
 
 from cp_library.io.read_func_fn import read
+from cp_library.io.write_fn import write
+
 if __name__ == '__main__':
     main()

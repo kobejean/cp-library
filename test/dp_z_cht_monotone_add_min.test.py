@@ -13,10 +13,11 @@ def main():
         i+=1
         dp = cht.min(H[i]) + H[i]**2 + C
 
-    print(dp)
+    write(dp)
 
 from cp_library.ds.cht_monotone_add_min_cls import CHTMonotoneAddMin
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == '__main__':
     main()

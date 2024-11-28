@@ -4,7 +4,7 @@ def main():
     N, M = read(tuple[int,int])
     G = read(DiGraph[N,M])
     ans = sum(label_cycles(G))
-    print(ans)
+    write(ans)
 
 def label_cycles(G):
     state = [0 for _ in range(G.N)]
@@ -29,7 +29,8 @@ def label_cycles(G):
 
 
 from cp_library.alg.graph.digraph_cls import DiGraph
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

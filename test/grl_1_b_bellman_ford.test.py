@@ -8,13 +8,14 @@ def main():
     neg_cycle, D = bellman_ford(G, N, r)
 
     if neg_cycle:
-        print("NEGATIVE CYCLE")
+        write("NEGATIVE CYCLE")
     else:
-        print(*('INF' if d == inft else d for d in D), sep='\n')
+        write(*('INF' if d == inft else d for d in D), sep='\n')
 
 from cp_library.alg.graph.bellman_ford_neg_cyc_check_fn import bellman_ford
 from cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == '__main__':
     main()

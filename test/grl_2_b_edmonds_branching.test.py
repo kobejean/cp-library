@@ -5,9 +5,10 @@ def main():
     E = read_edges(M, 0)
     MCA = edmonds_branching(E, N, root)
     ans = sum(w for *_,w in MCA)
-    print(ans)
+    write(ans)
 
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.io.read_edges_weighted_fn import read_edges
 from cp_library.alg.graph.edmonds_fn import edmonds_branching
 

@@ -21,10 +21,11 @@ def main():
             S.add(y)
 
     ans = len(S)
-    print(ans)
+    write(ans)
 
 from cp_library.ds.elist_fn import elist
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.ds.queries_cls import QueriesGrouped
 
 if __name__ == "__main__":

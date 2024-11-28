@@ -1,8 +1,8 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g
 
 def main():
-    S = input()
-    Q = int(input())
+    S = read(str)
+    Q = read(int)
     ac = AhoCorasick()
     queries = []
     for _ in range(Q):
@@ -12,8 +12,10 @@ def main():
 
     freq_dict = ac.count_freq(S)
     for query in queries:
-        print(freq_dict.get(query, 0))
+        write(freq_dict.get(query, 0))
 
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.ds.ahocorasick_cls import AhoCorasick
 
 if __name__ == '__main__':

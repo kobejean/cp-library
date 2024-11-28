@@ -30,53 +30,55 @@ class GraphWeightedProtocol(GraphProtocol):
     def dijkstra(G, s = 0, g = None):
         D = [inft for _ in range(G.N)]
         D[s] = 0
-        q = [(0, s)]
-        while q:
-            d, v = heappop(q)
-            if d > D[v]: continue
+        que = PriorityQueue(G.N)
+        que.push(s, 0)
+        while que:
+            v, d = que.pop()
             if v == g: return d
-            for u, w, *_ in G[v]:
-                if (nd := d + w) < D[u]:
-                    D[u] = nd
-                    heappush(q, (nd, u))
+            if d > D[v]: continue
+            for c, w, *_ in G[v]:
+                if (nd := d + w) < D[c]:
+                    D[c] = nd
+                    que.push(c, nd)
         return D if g is None else inft
     
     @overload
-    def shortest_path(G, s: int, g: int) -> list[int]|None: ...
+    def shortest_path(G, s: int, t: int) -> list[int]|None: ...
     @overload
-    def shortest_path(G, s: int, g: int, distances = True) -> tuple[list[int]|None,list[int]]: ...
-    def shortest_path(G, s: int, g: int, distances = False):
+    def shortest_path(G, s: int, t: int, distances = True) -> tuple[list[int]|None,list[int]]: ...
+    def shortest_path(G, s: int, t: int, distances = False):
         D = [inft] * G.N
         D[s] = 0
-        if s == g:
+        if s == t:
             return ([], D) if distances else []
             
         par = [-1] * G.N
-        par_edge = [-1] * G.N
+        down = [-1] * G.N
         Eid = G.edge_ids()
-        q = [(0, s)]
         que = PriorityQueue(G.N)
+        que.push(s, 0)
         
-        while q:
-            d, v = heappop(q)
+        while que:
+            v, d = que.pop()
+            if v == t: break
             if d > D[v]: continue
-            if v == g: break
                 
-            for (u, w, *_), eid in zip(G[v], Eid[v]):
-                if (nd := d + w) < D[u]:
-                    D[u] = nd
-                    par[u] = v
-                    par_edge[u] = eid
-                    heappush(q, (nd, u))
+            for i in range(len(G[v])):
+                c, w, *_ = G[v][i]
+                if (nd := d + w) < D[c]:
+                    D[c] = nd
+                    par[c] = v
+                    down[c] = Eid[v][i]
+                    que.push(c, nd)
         
-        if D[g] == inft:
+        if D[t] == inft:
             return (None, D) if distances else None
             
         path = []
-        current = g
-        while current != s:
-            path.append(par_edge[current])
-            current = par[current]
+        v = t
+        while v != s:
+            path.append(down[v])
+            v = par[v]
             
         return (path[::-1], D) if distances else path[::-1]
     

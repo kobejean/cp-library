@@ -24,12 +24,13 @@ def main():
             case 2, u, v:
                 u, v = u - 1, v - 1
                 ans = sum(bit.range_sum(l,r) for l,r in hld.path(u,v, True))
-                print(ans)
+                write(ans)
 
 from cp_library.ds.bit_cls import BinaryIndexTree
 from cp_library.alg.tree.tree_weighted_cls import TreeWeighted
 from cp_library.alg.tree.heavy_light_decomposition_weighted_cls import HLDWeighted
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

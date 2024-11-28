@@ -31,12 +31,13 @@ def main():
         return False
     
     ans = fbisect_left(f, 2000.0)
-    print(f'{ans:0.18f}')
+    write(f'{ans:0.18f}')
 
 
 from cp_library.alg.divcon.fbisect_fn import fbisect_left
 from cp_library.math.vec2d_cls import Vec2D
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

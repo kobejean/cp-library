@@ -6,10 +6,11 @@ def main():
     
     for i,is_ap in enumerate(G.articulation_points()):
         if is_ap:
-            print(i)
+            write(i)
 
 from cp_library.alg.graph.graph_cls import Graph
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == '__main__':
     main()

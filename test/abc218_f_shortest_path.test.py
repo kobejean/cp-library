@@ -17,10 +17,11 @@ def main():
             ans = G2.distance(0,N-1)
         else:
             ans = shortest
-        print(ans if ans != inft else -1)
+        write(ans if ans != inft else -1)
 
 from cp_library.alg.graph.digraph_cls import DiGraph
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

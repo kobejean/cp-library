@@ -28,10 +28,11 @@ def main():
             case (MoOp.ANSWER, i, _, _):
                 ans[i] = triples >> 1
     
-    print(*ans, sep='\n')
+    write(*ans, sep='\n')
 
 from cp_library.ds.queries_cls import QueriesMoOps, MoOp
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

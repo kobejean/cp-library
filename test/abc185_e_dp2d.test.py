@@ -15,10 +15,11 @@ def main():
     ]
     
     dp.solve(transitions)
-    print(dp[N,M])
+    write(dp[N,M])
     
 
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.alg.dp.dp2d_cls import DynamicProgramming2D, Transition2D
 
 from dataclasses import dataclass

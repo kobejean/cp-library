@@ -14,7 +14,7 @@ def solve():
 
 
 def main():
-    print(solve())
+    write(solve())
 
     
 
@@ -22,7 +22,8 @@ from collections import deque
 from cp_library.math.inft_cnst import inft
 from typing import Iterable
 from cp_library.alg.graph.lazy_grid_direction_graph_cls import LazyGridDirectionGraph
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 class BishopBoard(LazyGridDirectionGraph):
     def __init__(G, H, W, S=...):

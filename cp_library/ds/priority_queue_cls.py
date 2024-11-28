@@ -1,24 +1,26 @@
 import cp_library.ds.__header__
 
-from typing import Iterable
 from collections import UserList
-from typing import Iterable
 from heapq import heapify, heappop, heappush, heappushpop, heapreplace
 from cp_library.ds.heap_proto import HeapProtocol
 
 class PriorityQueue(HeapProtocol[int], UserList[int]):
     
-    def __init__(self, N: int, ids: Iterable[int] = None, priorities: Iterable[int] = None, /):
+    def __init__(self, N: int, ids: list[int] = None, priorities: list[int] = None, /):
         self.shift = N.bit_length()
         self.mask = (1 << self.shift)-1
         if ids is None:
             super().__init__()
         elif priorities is None:
+            heapify(ids)
             self.data = ids
-            heapify(self.data)
         else:
-            self.data = [self.encode(id, priority) for id, priority in zip(ids, priorities)]
-            heapify(self.data)
+            M = len(ids)
+            data = [0]*M
+            for i in range(M):
+                data[i] = self.encode(ids[i], priorities[i]) 
+            heapify(data)
+            self.data = data
 
     def encode(self, id, priority):
         return priority << self.shift | id

@@ -6,10 +6,11 @@ def main():
     A = read(list[int])
     mo = read(TripletQueries[Q, N])
     
-    print(*mo.solve(A), sep='\n')
+    write(*mo.solve(A), sep='\n')
 
 from cp_library.alg.dp.mo_cls import Mo
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 class TripletQueries(Mo):
     cnt = [0]*200001      

@@ -5,9 +5,10 @@ def main():
     A = read(list[int])
     B = read(list[int])
     C = minplus_conv_arb_cnvx(B,A)
-    print(*C)
+    write(*C)
     
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.math.minplus_conv_fn import minplus_conv_arb_cnvx
 
 if __name__ == "__main__":

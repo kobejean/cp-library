@@ -25,10 +25,11 @@ def main():
                 case 2:
                     if y < 0:
                         S.push(-y)
-    print(S.ans)
+    write(S.ans)
                 
 
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.alg.iter.rev_enumerate_fn import rev_enumerate
 from cp_library.ds.max_k_heap_cls import MaxKHeap
 

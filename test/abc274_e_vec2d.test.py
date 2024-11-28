@@ -37,10 +37,11 @@ def main():
         for l in range(Y):
             nc = dp[mask][l] + O[l] * factor
             ans = min(ans, nc)
-    print(f'{ans:0.10f}')
+    write(f'{ans:0.10f}')
 
 from cp_library.math.vec2d_cls import Vec2D
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

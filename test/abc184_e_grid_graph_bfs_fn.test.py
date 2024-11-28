@@ -12,7 +12,7 @@ def main():
             case 'G': g = v
 
     ans = bfs(G, s, g)
-    print(ans if ans != inft else -1)
+    write(ans if ans != inft else -1)
     
 from cp_library.alg.graph.lazy_grid_graph_cls import LazyGridGraph
 from cp_library.alg.graph.bfs_fn import bfs
@@ -36,7 +36,8 @@ class TeleportGraph(LazyGridGraph):
             case _: return super().neighbors(v)
     
 
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

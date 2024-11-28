@@ -2,6 +2,7 @@
 
 from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
 from cp_library.io.read_int_fn import read
+from cp_library.io.write_fn import write
 
 mod = 998244353
 N, Q = read()
@@ -19,9 +20,9 @@ for _ in range(Q):
     if t:
         u, v = q
         ans = pdsu.diff(u, v) if pdsu.same(u, v) else -1
-        print(ans)
+        write(ans)
     else:
         u, v, x = q
-        print(int(pdsu.consistent(u,v,x)))
+        write(int(pdsu.consistent(u,v,x)))
         pdsu.merge(u, v, x)
 

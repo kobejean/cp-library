@@ -25,14 +25,15 @@ def main():
                 ans = bit.pref_sum(lca.end[u]) + \
                     bit.pref_sum(lca.end[v]) - \
                     2*bit.pref_sum(lca.end[a])
-                print(ans)
+                write(ans)
         
 
 from cp_library.alg.graph.edge_list_weighted_cls import EdgeListWeighted
 from cp_library.alg.graph.graph_weighted_cls import GraphWeighted
 from cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted
 from cp_library.ds.bit_cls import BinaryIndexTree
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

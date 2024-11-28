@@ -28,12 +28,13 @@ def main():
         bit.set(hld[v],1)
     ans = presum(ans)
     ans = [ans[i] for i in hld.start]
-    print(*ans)
+    write(*ans)
 
 from cp_library.alg.tree.heavy_light_decomposition_cls import HLD
 from cp_library.alg.tree.tree_cls import Tree
 from cp_library.ds.bit_cls import BinaryIndexTree
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.alg.iter.presum_fn import presum
 
 if __name__ == "__main__":

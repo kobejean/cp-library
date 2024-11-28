@@ -15,11 +15,12 @@ def main():
         for d in Divisors(A[i]):
             ans += phi[d] * S[d]
             S[d] += pow2
-        print(ans)
+        write(ans)
         pow2 = pow2*2%mod
         ans *= 2
     
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.math.table.divisors_cls import Divisors
 from cp_library.math.table.totient_cls import Totient
 from cp_library.math.mod.mint_cls import mint

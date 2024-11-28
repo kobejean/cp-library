@@ -3,8 +3,6 @@
 from fractions import Fraction
 from decimal import Decimal, getcontext
 from statistics import mean
-from cp_library.math.median_fn import median
-from cp_library.io.read_int_fn import read
 
 def ftod(fraction):
     getcontext().prec = 50
@@ -15,7 +13,11 @@ def main():
     A = read()
     x = Fraction(int(median(A)*2), 4)
     ans = x + mean(max(Fraction(0), a - 2*x) for a in A)
-    print(f"{ftod(ans):.20f}")
+    write(f"{ftod(ans):.20f}")
+
+from cp_library.math.median_fn import median
+from cp_library.io.read_int_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == '__main__':
     main()

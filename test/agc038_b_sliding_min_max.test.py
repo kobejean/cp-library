@@ -15,10 +15,11 @@ def main():
             ans += 1
         
     ans += unchanged
-    print(ans)
+    write(ans)
     
 from cp_library.ds.slidingminmax_cls import SlidingMinMax
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

@@ -21,11 +21,12 @@ def main():
     for x in range(max(2,L),R+1):
         ans -= 2*(R//x-1)
 
-    print(ans)
+    write(ans)
 
 
 from cp_library.math.table.mobius_cls import Mobius
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

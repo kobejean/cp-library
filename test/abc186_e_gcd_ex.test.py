@@ -16,10 +16,11 @@ def main():
     T = read(int)
     for _ in range(T):
         ans = solve()
-        print(ans)
+        write(ans)
 
 from cp_library.math.ext_gcd_fn import ext_gcd
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

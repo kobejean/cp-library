@@ -27,10 +27,11 @@ def main():
     N, T = read(tuple[int, ...])
     A = sorted(read(list[int, N]))
     ans = solve(N, T, A)
-    print(ans)
+    write(ans)
     
 
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.math.subset_sum_fn import subset_sum
 
 if __name__ == "__main__":

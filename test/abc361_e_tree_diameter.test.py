@@ -6,10 +6,11 @@ def main():
     diam, s, g = T.diameter(True)
     assert diam == T.distance(s, g)
     ans = sum(2*w for _, _, w in T.E) - diam
-    print(ans)
+    write(ans)
     
 
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.alg.tree.tree_weighted_cls import TreeWeighted
 
 if __name__ == '__main__':

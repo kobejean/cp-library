@@ -1,7 +1,4 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d
-from cp_library.math.inft_cnst import inft
-from cp_library.alg.divcon.qselect_fn import qselect
-from cp_library.io.read_int_fn import read
 
 def main():
     N, M = read()
@@ -9,7 +6,7 @@ def main():
     B = read()
 
     if M == 2:
-        print(0 if A == B else -1)
+        write(0 if A == B else -1)
         exit()
 
     def rel(x,y):
@@ -30,7 +27,12 @@ def main():
         for j in range(N):
             now+=abs(A[j]+i*M-C[j])
         ans=min(ans,now)
-    print(ans)
+    write(ans)
+
+from cp_library.math.inft_cnst import inft
+from cp_library.alg.divcon.qselect_fn import qselect
+from cp_library.io.read_int_fn import read
+from cp_library.io.write_fn import write
     
 if __name__ == '__main__':
     main()

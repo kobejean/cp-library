@@ -6,11 +6,12 @@ def main():
     ap = articulation_points(G)
     ans = [v for v,b in enumerate(ap) if b]
     if ans:
-        print(*ans, sep='\n')
+        write(*ans, sep='\n')
 
 from cp_library.alg.graph.articulation_points_fn import articulation_points
 from cp_library.alg.graph.graph_cls import Graph
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == '__main__':
     main()

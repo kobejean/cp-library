@@ -2,8 +2,8 @@
 
 mod = 998244353
 def main():
-    N = int(input())
-    S = input()
+    N = read(int)
+    S = read(str)
 
     work = [i for i in range(N) if S[i] == '.']
     P = UniqueFactors(N)
@@ -15,8 +15,10 @@ def main():
         return pow2[sum(schedule)]
     
     fn = P.mobius_inv(F, False) % mod
-    print(fn)
+    write(fn)
 
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 from cp_library.math.table.unique_factors_cls import UniqueFactors
 from cp_library.math.table.pow_cls import Pow
 

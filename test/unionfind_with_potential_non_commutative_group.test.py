@@ -10,10 +10,10 @@ def main():
         if t:
             u, v = q
             ans = pdsu.diff(u, v) if pdsu.same(u, v) else (-1,)
-            print(*ans)
+            write(*ans)
         else:
             u, v, *w = q
-            print(int(pdsu.consistent(u,v, w)))
+            write(int(pdsu.consistent(u,v, w)))
             pdsu.merge(u, v, w)
 
 def matmul2(x, y):
@@ -32,6 +32,7 @@ e = [1, 0, 0, 1]
             
 from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
 from cp_library.io.read_int_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

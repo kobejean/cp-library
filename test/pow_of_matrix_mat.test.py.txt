@@ -5,11 +5,12 @@ def main():
     N, K = read(tuple[int, ...])
     A = read(ModMat[N,N])
     B = A**K
-    print(B)
+    write(B)
 
 from cp_library.math.mod.mint_cls import mint
 from cp_library.math.mat_cls import ModMat
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == '__main__':
     main()

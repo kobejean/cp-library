@@ -23,11 +23,12 @@ def main():
         cost = max(m*loop + rem, rem)
         ans = max(ans, cost)
 
-    print(ans)
+    write(ans)
     
 from cp_library.alg.iter.presum_fn import presum
 from cp_library.alg.graph.permutation_cls import Permutation
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == "__main__":
     main()

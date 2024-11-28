@@ -21,11 +21,12 @@ def main():
                             table.multinomial(C,z,y+w)
                     if w > 0: cnt*=2
                     ans += cnt
-    print(ans)
+    write(ans)
 
 from cp_library.math.mod.mint_cls import mint
 from cp_library.math.table.combinatorics_cls import Combinatorics
 from cp_library.io.read_int_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == '__main__':
     main()

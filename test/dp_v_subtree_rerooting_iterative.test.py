@@ -12,11 +12,12 @@ def main():
 
     rr = ReRootingDP(T, 1, mul, add_node)
 
-    print(*rr.solve(), sep='\n')
+    write(*rr.solve(), sep='\n')
 
 from cp_library.alg.dp.rerooting_iterative_cls import ReRootingDP
 from cp_library.alg.tree.tree_cls import Tree
-from cp_library.io.read_specs_fn import read
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
 
 if __name__ == '__main__':
     main()
