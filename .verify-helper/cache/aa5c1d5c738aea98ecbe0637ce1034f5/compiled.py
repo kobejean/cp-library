@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/minimum_spanning_tree_kruskal_heap.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/minimum_spanning_tree_kruskal.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/minimum_spanning_tree_kruskal_heap.test.py
+# run test/minimum_spanning_tree_kruskal.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 

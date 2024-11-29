@@ -1,14 +1,17 @@
 import cp_library.math.mod.__header__
 
 class mint(int):
-    mod = zero = one = two = None
+    mod: int
+    zero: 'mint'
+    one: 'mint'
+    two: 'mint'
+    cache: list['mint']
 
     def __new__(cls, *args, **kwargs):
-        match int(*args, **kwargs):
-            case 0: return cls.zero
-            case 1: return cls.one
-            case 2: return cls.two
-            case x: return cls.fix(x)
+        if (x := int(*args, **kwargs)) <= 2:
+            return cls.cache[x]
+        else:
+            return cls.fix(x)
 
     @classmethod
     def set_mod(cls, mod):
@@ -16,6 +19,7 @@ class mint(int):
         cls.zero = cls.cast(0)
         cls.one = cls.fix(1)
         cls.two = cls.fix(2)
+        cls.cache = [cls.zero, cls.one, cls.two]
 
     @classmethod
     def fix(cls, x): return cls.cast(x%cls.mod)
@@ -28,7 +32,7 @@ class mint(int):
         a,b,s,t = int(x), cls.mod, 1, 0
         while b: a,b,s,t = b,a%b,t,s-a//b*t
         if a == 1: return cls.fix(s)
-        raise ValueError(f"{x} is not invertible")
+        raise ValueError(f"{x} is not invertible in mod {cls.mod}")
     
     @property
     def inv(self): return mint.mod_inv(self)

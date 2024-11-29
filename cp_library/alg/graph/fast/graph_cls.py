@@ -1,10 +1,10 @@
 import cp_library.alg.graph.fast.__header__
-from cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase
+from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 
-class GraphWeighted(GraphWeightedBase):
-    def __init__(G, N: int, U: list[int], V: list[int], W: list[int]):
+class Graph(GraphBase):
+    def __init__(G, N: int, U: list[int], V: list[int]):
         M2 = (M := len(U)) << 1
-        deg, Ea, Ua, Va, Wa = fill_u32(N), fill_u32(M2), fill_u32(M2), fill_u32(M2), [0]*M2
+        deg, Ea, Ua, Va = fill_u32(N), fill_u32(M2), fill_u32(M2), fill_u32(M2)
         
         for u in U:
             deg[u] += 1
@@ -18,13 +18,13 @@ class GraphWeighted(GraphWeightedBase):
 
         # place edge data using R to track
         for e in range(M):
-            u, v, w = U[e], V[e], W[e]
+            u, v = U[e], V[e]
             i, j = Ra[u], Ra[v]
-            Ua[i], Va[i], Wa[i], Ea[i] = u, v, w, e
+            Ua[i], Va[i], Ea[i] = u, v, e
             Ra[u] += 1
-            Ua[j], Va[j], Wa[j], Ea[j] = v, u, w, M+e
+            Ua[j], Va[j], Ea[j] = v, u, M+e
             Ra[v] += 1
 
-        super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)
+        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)
 
 from cp_library.ds.fill_fn import fill_u32

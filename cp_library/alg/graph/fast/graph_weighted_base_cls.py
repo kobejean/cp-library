@@ -2,15 +2,23 @@ from math import inf
 import cp_library.alg.graph.__header__
 
 from typing import overload
-from heapq import heapify, heappop, heappush
-import operator
-from typing import Sequence
 from cp_library.io.parser_cls import Parsable, TokenStream
 from cp_library.alg.iter.argsort_fn import argsort
 from cp_library.alg.graph.dfs_options_cls import DFSEvent, DFSFlags
-from cp_library.alg.graph.fast.graph_proto import GraphProtocol
+from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 
-class GraphWeightedProtocol(GraphProtocol):
+class GraphWeightedBase(GraphBase):
+    def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int], 
+                 deg: list[int], La: list[int], Ra: list[int],
+                 Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int]):
+        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)
+        self.W = W
+        self.Wa = Wa
+        """Va[i] lists weights to edges from u for La[u] <= i < Ra[u]."""
+
+    def __getitem__(G, v):
+        l,r = G.La[v],G.Ra[v]
+        return zip(G.Va[l:r], G.Wa[l:r])
     
     @overload
     def distance(G) -> list[list[int]]: ...
@@ -25,24 +33,15 @@ class GraphWeightedProtocol(GraphProtocol):
             case s, None:
                 return G.dijkstra(s)
             case s, g:
-                return G.dijkstra(s, g)    
-
-    def __len__(G) -> int:
-        return G.N
-    
-    def __getitem__(G, v):
-        l,r = G.La[v],G.Ra[v]
-        return zip(G.Va[l:r], G.Wa[l:r])
+                return G.dijkstra(s, g)
 
     def dijkstra(G, s: int, t: int = None):
-        N, La, Ra, Va, Wa, Ea = G.N, G.La, G.Ra, G.Va, G.Wa, G.Ea
-        G.down = down = fill_i32(N, -1)
-        G.par = par = fill_i32(N, -1)
+        N, La, Ra, Va, Wa = G.N, G.La, G.Ra, G.Va, G.Wa
+        G.back = back = fill_i32(N, -1)
         G.D = D = fill_u64(N, inft)
         D[s] = 0
             
-        que = PriorityQueue(N)
-        que.push(s, 0)
+        que = PriorityQueue(N, G.starts(s))
         
         while que:
             u, d = que.pop()
@@ -51,33 +50,35 @@ class GraphWeightedProtocol(GraphProtocol):
             for i in range(La[u], Ra[u]):
                 v, w = Va[i], Wa[i], 
                 if (nd := d + w) < D[v]:
-                    D[v], par[v], down[v] = nd, u, Ea[i]
+                    D[v], back[v] = nd, i
                     que.push(v, nd)
         return D
 
     def shortest_path(G, s: int, t: int):
         D = G.dijkstra(s, t)
         if D[t] == inft: return None
-        par = G.par
+
+        Ua, back = G.Ua, G.back
             
-        path = fill_u32(0)
-        path.append(t)
+        vertices = fill_u32(0)
+        vertices.append(t)
         v = t
         while v != s:
-            path.append(v := par[v])
-        return path[::-1]
+            vertices.append(v := Ua[back[v]])
+        return vertices[::-1]
     
     def shortest_path_edge_ids(G, s: int, t: int):
         D = G.dijkstra(s, t)
         if D[t] == inft: return None
-        par, down = G.par, G.down
+
+        Ea, back = G.Ea, G.back
             
-        path = elist(G.N)
+        edges = fill_u32(0)
+        edges.append(t)
         v = t
         while v != s:
-            path.append(down[v])
-            v = par[v] 
-        return path[::-1]
+            edges.append(v := Ea[back[v]])
+        return edges[::-1]
 
     def kruskal(G):
         N, U, V, W = G.N, G.U, G.V, G.W 
@@ -106,12 +107,11 @@ class GraphWeightedProtocol(GraphProtocol):
         return None if need else MST
    
     def bellman_ford(G, s: int = 0) -> list[int]:
-        N, M = G.N, G.M
-        Ua, Va, Wa = G.Ua, G.Va, G.Wa
+        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa
         D = [inft]*N
         D[s] = 0
         for _ in range(N-1):
-            for i in range(M):
+            for i in range(len(Ua)):
                 u,v,w = Ua[i], Va[i], Wa[i]
                 if D[u] == inft: continue
                 D[v] = min(D[v], D[u] + w)
@@ -125,14 +125,13 @@ class GraphWeightedProtocol(GraphProtocol):
         return neg_cycle, D
     
     def floyd_warshall(G) -> list[list[int]]:
-        N, M = G.N, G.M
-        Ua, Va, Wa = G.Ua, G.Va, G.Wa
+        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa
         D = [[inft]*N for _ in range(N)]
 
         for u in range(N):
             D[u][u] = 0
 
-        for i in range(M):
+        for i in range(len(Ua)):
             u,v,w = Ua[i], Va[i], Wa[i]
             D[u][v] = min(D[u][v], w)
         
@@ -148,6 +147,17 @@ class GraphWeightedProtocol(GraphProtocol):
         D = G.floyd_warshall()
         return any(D[i][i] < 0 for i in range(G.N)), D
     
+    @classmethod
+    def compile(cls, N: int, M: int, shift: int = -1):
+        def parse(ts: TokenStream):
+            U, V, W = fill_u32(M), fill_u32(M), [0]*M
+            stream = ts.stream
+            for i in range(M):
+                u, v, W[i] = map(int, stream.readline().split())
+                U[i], V[i] = u+shift, v+shift
+            return cls(N, U, V, W)
+        return parse
+
 from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.elist_fn import elist
 from cp_library.ds.fill_fn import fill_i32, fill_u32, fill_u64
