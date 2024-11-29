@@ -24,7 +24,7 @@ jobs:
         # Configure swap
         sudo swapoff -a
         sudo rm -f /swapfile
-        sudo fallocate -l 8G /swapfile
+        sudo fallocate -l 12G /swapfile
         sudo chmod 600 /swapfile
         sudo mkswap /swapfile
         sudo swapon /swapfile
@@ -38,14 +38,11 @@ jobs:
         df -h
 
     - uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
 
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: 'pypy3.10'
-        cache: 'pip'
 
     - name: Install dependencies
       run: |
@@ -62,22 +59,10 @@ jobs:
         YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
         DROPBOX_TOKEN: ${{ secrets.DROPBOX_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
-        MALLOC_ARENA_MAX: "2"
-        PYTHONMALLOC: "malloc"
-        # Add memory limiting environment variables
-        NODE_OPTIONS: "--max-old-space-size=4096"
-        GRADLE_OPTS: "-Xmx4g"
       run: |
         # Clear system caches
         sudo sh -c 'sync; echo 3 > /proc/sys/vm/drop_caches'
         
-        # Monitor resources during test execution
-        free -h
-        df -h
-        
         # Run tests with reduced parallelism and increased timeouts
         git pull && oj-verify all --tle 15 --timeout 7200 --jobs 1
-        
-        # Show final resource state
-        free -h
-        df -h
+  
