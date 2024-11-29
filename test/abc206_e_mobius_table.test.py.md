@@ -1,15 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/mobius_cls.py
     title: cp_library/math/table/mobius_cls.py
@@ -29,7 +32,7 @@ data:
     \ += mu[d]*div*div\n    ans -= coprime \n\n    # exclude non-coprime pairs where\
     \ x == y\n    ans -= cnt if L > 1 else cnt-1 \n\n    # exclude when one number\
     \ is a multiple of the other\n    # and not equal\n    for x in range(max(2,L),R+1):\n\
-    \        ans -= 2*(R//x-1)\n\n    print(ans)\n\n\n'''\n\u257A\u2501\u2501\u2501\
+    \        ans -= 2*(R//x-1)\n\n    write(ans)\n\n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -121,8 +124,13 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
-    :\n    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc206/tasks/abc206_e\n\
     \ndef main():\n    L, R = read(tuple[int,...])\n    cnt = R-L+1\n\n    ans = cnt*cnt\
     \ # all pairs\n    # exclude coprime pairs\n    mu = Mobius(R)\n    coprime =\
@@ -130,18 +138,19 @@ data:
     \ += mu[d]*div*div\n    ans -= coprime \n\n    # exclude non-coprime pairs where\
     \ x == y\n    ans -= cnt if L > 1 else cnt-1 \n\n    # exclude when one number\
     \ is a multiple of the other\n    # and not equal\n    for x in range(max(2,L),R+1):\n\
-    \        ans -= 2*(R//x-1)\n\n    print(ans)\n\n\nfrom cp_library.math.table.mobius_cls\
-    \ import Mobius\nfrom cp_library.io.read_specs_fn import read\n\nif __name__ ==\
-    \ \"__main__\":\n    main()"
+    \        ans -= 2*(R//x-1)\n\n    write(ans)\n\n\nfrom cp_library.math.table.mobius_cls\
+    \ import Mobius\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/math/table/mobius_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc206_e_mobius_table.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc206_e_mobius_table.test.py

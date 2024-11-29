@@ -1,15 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/subset_sum_fn.py
     title: cp_library/math/subset_sum_fn.py
@@ -30,7 +33,7 @@ data:
     \   ans = max(ans, max_lim(C, T-b)+b)\n        return ans\n    \ndef max_lim(X,\
     \ lim):\n    pi = bisect_left(X, lim+1)-1\n    if 0 <= pi < len(X):\n        return\
     \ X[pi]\n    return 0\n\ndef main():\n    N, T = read(tuple[int, ...])\n    A\
-    \ = sorted(read(list[int, N]))\n    ans = solve(N, T, A)\n    print(ans)\n   \
+    \ = sorted(read(list[int, N]))\n    ans = solve(N, T, A)\n    write(ans)\n   \
     \ \n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -120,10 +123,16 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\n\ndef subset_sum(A):\n\
-    \    dp = [0]*(1 << len(A))\n    for i,a in enumerate(A):\n        for mask in\
-    \ range(bit := 1 << i):\n            dp[mask^bit] = dp[mask] + a\n    return dp\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\n\ndef subset_sum(A):\n    dp = [0]*(1 << len(A))\n  \
+    \  for i,a in enumerate(A):\n        for mask in range(bit := 1 << i):\n     \
+    \       dp[mask^bit] = dp[mask] + a\n    return dp\n\nif __name__ == \"__main__\"\
+    :\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc184_f\n\
     \n\nfrom bisect import bisect_left\n\ndef solve(N, T, A):\n    if N <= 5:\n  \
     \      A = sorted(subset_sum(A))\n        return max_lim(A, T)\n    else:\n  \
@@ -132,18 +141,20 @@ data:
     \   ans = max(ans, max_lim(C, T-b)+b)\n        return ans\n    \ndef max_lim(X,\
     \ lim):\n    pi = bisect_left(X, lim+1)-1\n    if 0 <= pi < len(X):\n        return\
     \ X[pi]\n    return 0\n\ndef main():\n    N, T = read(tuple[int, ...])\n    A\
-    \ = sorted(read(list[int, N]))\n    ans = solve(N, T, A)\n    print(ans)\n   \
-    \ \n\nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.math.subset_sum_fn\
-    \ import subset_sum\n\nif __name__ == \"__main__\":\n    main()"
+    \ = sorted(read(list[int, N]))\n    ans = solve(N, T, A)\n    write(ans)\n   \
+    \ \n\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import\
+    \ write\nfrom cp_library.math.subset_sum_fn import subset_sum\n\nif __name__ ==\
+    \ \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/math/subset_sum_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc184_f_subset_sum_fn.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc184_f_subset_sum_fn.test.py

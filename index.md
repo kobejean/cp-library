@@ -139,17 +139,26 @@ data:
   - name: cp_library/alg/graph/fast
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/fast/fast_graph_cls.py
-      title: cp_library/alg/graph/fast/fast_graph_cls.py
-    - icon: ':warning:'
-      path: cp_library/alg/graph/fast/static_graph_cls.py
-      title: cp_library/alg/graph/fast/static_graph_cls.py
+      path: cp_library/alg/graph/fast/digraph_weighted_cls.py
+      title: cp_library/alg/graph/fast/digraph_weighted_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/graph_proto.py
+      title: cp_library/alg/graph/fast/graph_proto.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/graph_weighted_cls.py
+      title: cp_library/alg/graph/fast/graph_weighted_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/graph_weighted_proto.py
+      title: cp_library/alg/graph/fast/graph_weighted_proto.py
   - name: cp_library/alg/iter
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/argsort_fn.py
+      title: cp_library/alg/iter/argsort_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/presum_fn.py
       title: cp_library/alg/iter/presum_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/rev_enumerate_fn.py
       title: cp_library/alg/iter/rev_enumerate_fn.py
     - icon: ':heavy_check_mark:'
@@ -243,28 +252,28 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/grid.py
       title: cp_library/ds/grid.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap_proto.py
       title: cp_library/ds/heap_proto.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heapq_max_import.py
       title: cp_library/ds/heapq_max_import.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/k_heap_mixin.py
       title: cp_library/ds/k_heap_mixin.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/max_heap_cls.py
       title: cp_library/ds/max_heap_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/max_k_heap_cls.py
       title: cp_library/ds/max_k_heap_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/min_heap_cls.py
       title: cp_library/ds/min_heap_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/min_k_heap_cls.py
       title: cp_library/ds/min_k_heap_cls.py
     - icon: ':heavy_check_mark:'
@@ -296,32 +305,32 @@ data:
       title: cp_library/ds/wavelet_matrix_cls.py
   - name: cp_library/io
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/io/read_fn.py
+      title: cp_library/io/read_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
-      path: cp_library/io/read_specs_fn.py
-      title: cp_library/io/read_specs_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/legacy
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/io/legacy/read_specs_fn.py
-      title: cp_library/io/legacy/read_specs_fn.py
+      path: cp_library/io/legacy/read_fn.py
+      title: cp_library/io/legacy/read_fn.py
   - name: cp_library/math
     pages:
     - icon: ':warning:'
@@ -535,10 +544,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc246_e_grid_direction_graph.test.py
       title: test/abc246_e_grid_direction_graph.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc249_f_max_k_heap.test.py
       title: test/abc249_f_max_k_heap.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc249_f_min_k_heap.test.py
       title: test/abc249_f_min_k_heap.test.py
     - icon: ':heavy_check_mark:'
@@ -608,14 +617,23 @@ data:
       path: test/grl_1_a_dijkstra.test.py
       title: test/grl_1_a_dijkstra.test.py
     - icon: ':heavy_check_mark:'
+      path: test/grl_1_a_fast_dijkstra.test.py
+      title: test/grl_1_a_fast_dijkstra.test.py
+    - icon: ':heavy_check_mark:'
       path: test/grl_1_a_graph_distance.test.py
       title: test/grl_1_a_graph_distance.test.py
     - icon: ':heavy_check_mark:'
       path: test/grl_1_b_bellman_ford.test.py
       title: test/grl_1_b_bellman_ford.test.py
     - icon: ':heavy_check_mark:'
+      path: test/grl_1_b_fast_bellman_ford.test.py
+      title: test/grl_1_b_fast_bellman_ford.test.py
+    - icon: ':heavy_check_mark:'
       path: test/grl_1_b_graph_bellman_ford.test.py
       title: test/grl_1_b_graph_bellman_ford.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/grl_1_c_fast_floyd_warshall.test.py
+      title: test/grl_1_c_fast_floyd_warshall.test.py
     - icon: ':heavy_check_mark:'
       path: test/grl_1_c_floyd_warshall.test.py
       title: test/grl_1_c_floyd_warshall.test.py
@@ -646,6 +664,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/min_plus_convolution_convex_arbitrary.test.py
       title: test/min_plus_convolution_convex_arbitrary.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/minimum_spanning_tree_kruskal.test.py
+      title: test/minimum_spanning_tree_kruskal.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/minimum_spanning_tree_kruskal_heap.test.py
+      title: test/minimum_spanning_tree_kruskal_heap.test.py
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py

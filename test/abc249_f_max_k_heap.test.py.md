@@ -1,35 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/rev_enumerate_fn.py
     title: cp_library/alg/iter/rev_enumerate_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap_proto.py
     title: cp_library/ds/heap_proto.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/k_heap_mixin.py
     title: cp_library/ds/k_heap_mixin.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/max_k_heap_cls.py
     title: cp_library/ds/max_k_heap_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/min_heap_cls.py
     title: cp_library/ds/min_heap_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc249/tasks/abc249_f
     links:
@@ -43,7 +46,7 @@ data:
     \            match t:\n                case 1:\n                    S.K -= 1\n\
     \                    S.added(-diff[i])\n                    if S.K == 0: break\n\
     \                case 2:\n                    if y < 0:\n                    \
-    \    S.push(-y)\n    print(S.ans)\n                \n\n'''\n\u257A\u2501\u2501\
+    \    S.push(-y)\n    write(S.ans)\n                \n\n'''\n\u257A\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -132,26 +135,32 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nfrom typing import Reversible\n\
-    \ndef rev_enumerate(A: Reversible, start: int = 0):\n    A = list(enumerate(A,\
-    \ start))\n    return A[::-1]\n\nfrom typing import Iterable, TypeVar\n\nfrom\
-    \ collections import UserList\nfrom heapq import heapify, heappop, heappush, heappushpop,\
-    \ heapreplace\nfrom typing import Generic, TypeVar\n\nT = TypeVar('T')\nclass\
-    \ HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n    def push(self, item:\
-    \ T): ...\n    def pushpop(self, item: T) -> T: ...\n    def replace(self, item:\
-    \ T) -> T: ...\n\nT = TypeVar('T')\nclass MinHeap(HeapProtocol[T], UserList[T]):\n\
-    \    \n    def __init__(self, iterable: Iterable = None):\n        super().__init__(iterable)\n\
-    \        heapify(self.data)\n    \n    def pop(self):\n        return heappop(self.data)\n\
-    \    \n    def push(self, item: T):\n        heappush(self.data, item)\n\n   \
-    \ def pushpop(self, item: T):\n        return heappushpop(self.data, item)\n \
-    \   \n    def replace(self, item: T):\n        return heapreplace(self.data, item)\n\
-    \n\nT = TypeVar('T')\nclass KHeapMixin(HeapProtocol[T], Parsable):\n    \"\"\"\
-    KHeapMixin[K: int, T: type, N: int|None]\"\"\"\n    def __init__(heap, K: int):\n\
-    \        heap.K = K\n\n    def added(heap, item: T): ...\n\n    def removed(heap,\
-    \ item: T): ...\n    \n    def pop(heap):\n        item = super().pop()\n    \
-    \    heap.removed(item)\n        return item\n    \n    def push(heap, item: T):\n\
-    \        if len(heap) < heap._K:\n            heap.added(item)\n            super().push(item)\n\
-    \        elif heap._K:\n            assert len(heap) == heap._K, f'{len(heap)=}\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nfrom typing import Reversible\n\ndef rev_enumerate(A:\
+    \ Reversible, start: int = 0):\n    A = list(enumerate(A, start))\n    return\
+    \ A[::-1]\n\nfrom typing import Iterable, TypeVar\n\nfrom collections import UserList\n\
+    from heapq import heapify, heappop, heappush, heappushpop, heapreplace\nfrom typing\
+    \ import Generic, TypeVar\n\nT = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n\
+    \    def pop(self) -> T: ...\n    def push(self, item: T): ...\n    def pushpop(self,\
+    \ item: T) -> T: ...\n    def replace(self, item: T) -> T: ...\n\nT = TypeVar('T')\n\
+    class MinHeap(HeapProtocol[T], UserList[T]):\n    \n    def __init__(self, iterable:\
+    \ Iterable = None):\n        super().__init__(iterable)\n        heapify(self.data)\n\
+    \    \n    def pop(self):\n        return heappop(self.data)\n    \n    def push(self,\
+    \ item: T):\n        heappush(self.data, item)\n\n    def pushpop(self, item:\
+    \ T):\n        return heappushpop(self.data, item)\n    \n    def replace(self,\
+    \ item: T):\n        return heapreplace(self.data, item)\n\n\nT = TypeVar('T')\n\
+    class KHeapMixin(HeapProtocol[T], Parsable):\n    \"\"\"KHeapMixin[K: int, T:\
+    \ type, N: int|None]\"\"\"\n    def __init__(heap, K: int):\n        heap.K =\
+    \ K\n\n    def added(heap, item: T): ...\n\n    def removed(heap, item: T): ...\n\
+    \    \n    def pop(heap):\n        item = super().pop()\n        heap.removed(item)\n\
+    \        return item\n    \n    def push(heap, item: T):\n        if len(heap)\
+    \ < heap._K:\n            heap.added(item)\n            super().push(item)\n \
+    \       elif heap._K:\n            assert len(heap) == heap._K, f'{len(heap)=}\
     \ {heap._K}'\n            heap.pushpop(item)\n    \n    def pushpop(heap, item:\
     \ T):\n        if item != (remove := super().pushpop(item)):\n            heap.removed(remove)\n\
     \            heap.added(item)\n            return remove\n        else:\n    \
@@ -182,28 +191,29 @@ data:
     \            match t:\n                case 1:\n                    S.K -= 1\n\
     \                    S.added(-diff[i])\n                    if S.K == 0: break\n\
     \                case 2:\n                    if y < 0:\n                    \
-    \    S.push(-y)\n    print(S.ans)\n                \n\nfrom cp_library.io.read_specs_fn\
-    \ import read\nfrom cp_library.alg.iter.rev_enumerate_fn import rev_enumerate\n\
-    from cp_library.ds.max_k_heap_cls import MaxKHeap\n\nclass BadOps(MaxKHeap[int]):\n\
-    \    def __init__(self, K: int, x: int):\n        super().__init__(K)\n      \
-    \  self.x = x\n        self.ans = x\n\n    def added(self, y):\n        self.x\
-    \ += y\n        self.ans = max(self.ans, self.x)\n    \n    def removed(self,\
-    \ y):\n        self.x -= y\n        self.ans = max(self.ans, self.x)\n\nif __name__\
-    \ == \"__main__\":\n    main()"
+    \    S.push(-y)\n    write(S.ans)\n                \n\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\nfrom cp_library.alg.iter.rev_enumerate_fn\
+    \ import rev_enumerate\nfrom cp_library.ds.max_k_heap_cls import MaxKHeap\n\n\
+    class BadOps(MaxKHeap[int]):\n    def __init__(self, K: int, x: int):\n      \
+    \  super().__init__(K)\n        self.x = x\n        self.ans = x\n\n    def added(self,\
+    \ y):\n        self.x += y\n        self.ans = max(self.ans, self.x)\n    \n \
+    \   def removed(self, y):\n        self.x -= y\n        self.ans = max(self.ans,\
+    \ self.x)\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/alg/iter/rev_enumerate_fn.py
   - cp_library/ds/max_k_heap_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
   - cp_library/ds/min_heap_cls.py
   - cp_library/ds/k_heap_mixin.py
   - cp_library/ds/heap_proto.py
-  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc249_f_max_k_heap.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-11-29 11:58:58+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc249_f_max_k_heap.test.py
 layout: document

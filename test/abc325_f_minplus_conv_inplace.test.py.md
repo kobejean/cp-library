@@ -4,15 +4,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
@@ -40,7 +43,7 @@ data:
     \    dp = [0]*(K1+1)\n    for i in range(N):\n        DK2 = [(max(0,D[i]-dk1*L1)\
     \ + L2-1) // L2 for dk1 in range(K1+1)]\n        minplus_conv_inplace(dp, DK2)\n\
     \    ans = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inft)\n\
-    \    print(ans if ans != inft else -1)\n    \n\n\n\nfrom typing import Type, TypeVar,\
+    \    write(ans if ans != inft else -1)\n    \n\n\n\nfrom typing import Type, TypeVar,\
     \ Union, overload\n\nimport typing\nfrom collections import deque\nfrom numbers\
     \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
@@ -124,22 +127,27 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    def monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):\n   \
-    \ min_cols = [0] * N\n    stack: list[tuple[int, ...]] = elist(N.bit_length()\
-    \ << 2)\n    stack.append((0, N, 0, M))\n\n    while stack:\n        li, ri, lj,\
-    \ rj = stack.pop()\n        if li == ri: continue\n        mi = li + ri >> 1\n\
-    \        min_j = lj\n        for j in range(lj + 1, rj):\n            if func(mi,\
-    \ min_j, j):\n                min_j = j\n        min_cols[mi] = min_j\n      \
-    \  stack.append((li, mi, lj, min_j + 1))\n        stack.append((mi + 1, ri, min_j,\
-    \ rj))\n\n    return min_cols\n\ndef minplus_conv_arb_cnvx(arb: list[int], cnvx:\
-    \ list[int]) -> list[int]:\n    N, M = len(cnvx), len(arb)\n    \n    def cmp(i,\
-    \ j, k):\n        return i >= k and (i-j >= N or (cnvx[i-j] + arb[j] >= cnvx[i-k]\
-    \ + arb[k]))\n    \n    cols = monotone_minima(N+M-1, M, cmp)\n    return [arb[j]\
-    \ + cnvx[i-j] for i, j in enumerate(cols)]\n\ndef minplus_conv_inplace(A: list[int],\
-    \ B: list[int]):\n    N, M = len(A), len(B)\n    for i in range(N-1,-1,-1):\n\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \n\ndef monotone_minima(N: int, M: int,\
+    \ func: Callable[[int,int,int],bool]):\n    min_cols = [0] * N\n    stack: list[tuple[int,\
+    \ ...]] = elist(N.bit_length() << 2)\n    stack.append((0, N, 0, M))\n\n    while\
+    \ stack:\n        li, ri, lj, rj = stack.pop()\n        if li == ri: continue\n\
+    \        mi = li + ri >> 1\n        min_j = lj\n        for j in range(lj + 1,\
+    \ rj):\n            if func(mi, min_j, j):\n                min_j = j\n      \
+    \  min_cols[mi] = min_j\n        stack.append((li, mi, lj, min_j + 1))\n     \
+    \   stack.append((mi + 1, ri, min_j, rj))\n\n    return min_cols\n\ndef minplus_conv_arb_cnvx(arb:\
+    \ list[int], cnvx: list[int]) -> list[int]:\n    N, M = len(cnvx), len(arb)\n\
+    \    \n    def cmp(i, j, k):\n        return i >= k and (i-j >= N or (cnvx[i-j]\
+    \ + arb[j] >= cnvx[i-k] + arb[k]))\n    \n    cols = monotone_minima(N+M-1, M,\
+    \ cmp)\n    return [arb[j] + cnvx[i-j] for i, j in enumerate(cols)]\n\ndef minplus_conv_inplace(A:\
+    \ list[int], B: list[int]):\n    N, M = len(A), len(B)\n    for i in range(N-1,-1,-1):\n\
     \        A[i] = min(B[j] + A[i-j] for j in range(min(M,i+1)))   \n\nif __name__\
     \ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc325/tasks/abc325_f\n\
@@ -148,20 +156,21 @@ data:
     \ read(tuple[int, ...])\n    dp = [0]*(K1+1)\n    for i in range(N):\n       \
     \ DK2 = [(max(0,D[i]-dk1*L1) + L2-1) // L2 for dk1 in range(K1+1)]\n        minplus_conv_inplace(dp,\
     \ DK2)\n    ans = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inft)\n\
-    \    print(ans if ans != inft else -1)\n    \n\nfrom cp_library.io.read_specs_fn\
-    \ import read\nfrom cp_library.math.minplus_conv_fn import minplus_conv_inplace\n\
-    \nif __name__ == \"__main__\":\n    main()"
+    \    write(ans if ans != inft else -1)\n    \n\nfrom cp_library.io.read_fn import\
+    \ read\nfrom cp_library.io.write_fn import write\nfrom cp_library.math.minplus_conv_fn\
+    \ import minplus_conv_inplace\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/math/inft_cnst.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/math/minplus_conv_fn.py
   - cp_library/io/parser_cls.py
-  - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/ds/elist_fn.py
   isVerificationFile: true
   path: test/abc325_f_minplus_conv_inplace.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc325_f_minplus_conv_inplace.test.py

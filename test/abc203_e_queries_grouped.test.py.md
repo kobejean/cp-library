@@ -7,15 +7,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/queries_cls.py
     title: cp_library/ds/queries_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -33,7 +36,7 @@ data:
     \     # we can reach pawn on this column\n                add.append(y)\n    \
     \    for _,_,y in group:\n            # pawn blocks y column\n            S.discard(y)\n\
     \            # we'll add it back in the next loop if reachable\n        for y\
-    \ in add:\n            S.add(y)\n\n    ans = len(S)\n    print(ans)\n\n'''\n\u257A\
+    \ in add:\n            S.add(y)\n\n    ans = len(S)\n    write(ans)\n\n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -125,43 +128,48 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\nfrom enum import IntEnum,\
-    \ auto\nfrom itertools import chain, groupby\n\nfrom typing import Iterable, Sequence\n\
-    \nclass Queries(list, Parsable):\n    def __init__(self, data: Iterable = []):\n\
-    \        super().__init__((i,*query) for i,query in enumerate(data))\n\n    def\
-    \ append(self, query) -> None:\n        return super().append((len(self), *query))\n\
-    \n    @classmethod\n    def compile(cls, N: int, T: type = tuple[int, int]):\n\
-    \        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n    \
-    \        return cls(query(ts) for _ in range(N))\n        return parse\n\nclass\
-    \ QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int, key = 0, T: type = tuple[int,\
-    \ ...]]'''\n    def __init__(self, queries, key = 0):\n        if isinstance(key,\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\nfrom enum import IntEnum, auto\nfrom itertools import chain,\
+    \ groupby\n\nfrom typing import Iterable, Sequence\n\nclass Queries(list, Parsable):\n\
+    \    def __init__(self, data: Iterable = []):\n        super().__init__((i,*query)\
+    \ for i,query in enumerate(data))\n\n    def append(self, query) -> None:\n  \
+    \      return super().append((len(self), *query))\n\n    @classmethod\n    def\
+    \ compile(cls, N: int, T: type = tuple[int, int]):\n        query = Parser.compile(T)\n\
+    \        def parse(ts: TokenStream):\n            return cls(query(ts) for _ in\
+    \ range(N))\n        return parse\n\nclass QueriesGrouped(Queries):\n    '''QueriesGrouped[Q:\
+    \ int, key = 0, T: type = tuple[int, ...]]'''\n    def __init__(self, queries,\
+    \ key = 0):\n        if isinstance(key, int):\n            group_idx = key+1\n\
+    \            def wrap_key(row):\n                return row[group_idx]\n     \
+    \   else:\n            def wrap_key(row):\n                _, *query = row\n \
+    \               return key(query)\n        rows = sorted(((i,*query) for i,query\
+    \ in enumerate(queries)), key = wrap_key)\n        groups = [(k, list(g)) for\
+    \ k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n        self.key\
+    \ = key\n        \n        list.__init__(self, groups)\n            \n\n    @classmethod\n\
+    \    def compile(cls, Q: int, key = 0, T: type = tuple[int, ...]):\n        query\
+    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            return\
+    \ cls((query(ts) for _ in range(Q)), key)\n        return parse\n\nclass QueriesRange(Queries):\n\
+    \    '''QueriesRange[Q: int, N: int, key = 0, T: type = tuple[-1, int]]'''\n \
+    \   def __init__(self, queries, N: int, key = 0):\n        if isinstance(key,\
     \ int):\n            group_idx = key+1\n            def wrap_key(row):\n     \
     \           return row[group_idx]\n        else:\n            def wrap_key(row):\n\
     \                _, *query = row\n                return key(query)\n        rows\
-    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
-    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
-    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
-    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
-    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
-    \  def parse(ts: TokenStream):\n            return cls((query(ts) for _ in range(Q)),\
-    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
-    \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
-    \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
-    \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
-    \        else:\n            def wrap_key(row):\n                _, *query = row\n\
-    \                return key(query)\n        rows = list((i,*query) for i,query\
-    \ in enumerate(queries))\n        \n        groups = [(k,[]) for k in range(N)]\n\
-    \        for k, group in groupby(rows, key = wrap_key):\n            groups[k][1].extend(group)\n\
-    \        self.key = key\n        \n        list.__init__(self, groups)\n\n   \
-    \ @classmethod\n    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1,\
-    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
-    \            return cls((query(ts) for _ in range(Q)), N, key)\n        return\
-    \ parse\n\n\nclass MoOp(IntEnum):\n    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n\
-    \    REMOVE_LEFT = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER = auto()\n  \
-    \  \nfrom math import isqrt\n\n\nclass QueriesMoOps(list[tuple],Parsable):\n \
-    \   \"\"\"\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int, int]]\n    Orders\
-    \ queries using Mo's algorithm and generates a sequence of operations to process\
-    \ them efficiently.\n    Each operation is either moving pointers or answering\
+    \ = list((i,*query) for i,query in enumerate(queries))\n        \n        groups\
+    \ = [(k,[]) for k in range(N)]\n        for k, group in groupby(rows, key = wrap_key):\n\
+    \            groups[k][1].extend(group)\n        self.key = key\n        \n  \
+    \      list.__init__(self, groups)\n\n    @classmethod\n    def compile(cls, Q:\
+    \ int, N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
+    \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
+    \ in range(Q)), N, key)\n        return parse\n\n\nclass MoOp(IntEnum):\n    ADD_LEFT\
+    \ = auto()\n    ADD_RIGHT = auto()\n    REMOVE_LEFT = auto()\n    REMOVE_RIGHT\
+    \ = auto()\n    ANSWER = auto()\n    \nfrom math import isqrt\n\n\nclass QueriesMoOps(list[tuple],Parsable):\n\
+    \    \"\"\"\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int, int]]\n   \
+    \ Orders queries using Mo's algorithm and generates a sequence of operations to\
+    \ process them efficiently.\n    Each operation is either moving pointers or answering\
     \ a query.\n    \n    Uses half-interval convention: [left, right)\n    Block\
     \ size is automatically set to sqrt(N) for optimal complexity.\n    \"\"\"\n \
     \   \n    def encode(self, i, l, r):\n        return (((r << self.nbits) + l)\
@@ -197,19 +205,21 @@ data:
     \     # we can reach pawn on this column\n                add.append(y)\n    \
     \    for _,_,y in group:\n            # pawn blocks y column\n            S.discard(y)\n\
     \            # we'll add it back in the next loop if reachable\n        for y\
-    \ in add:\n            S.add(y)\n\n    ans = len(S)\n    print(ans)\n\nfrom cp_library.ds.elist_fn\
-    \ import elist\nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.ds.queries_cls\
-    \ import QueriesGrouped\n\nif __name__ == \"__main__\":\n    main()"
+    \ in add:\n            S.add(y)\n\n    ans = len(S)\n    write(ans)\n\nfrom cp_library.ds.elist_fn\
+    \ import elist\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\nfrom cp_library.ds.queries_cls import QueriesGrouped\n\nif __name__\
+    \ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/ds/elist_fn.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/ds/queries_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc203_e_queries_grouped.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc203_e_queries_grouped.test.py

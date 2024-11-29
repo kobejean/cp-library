@@ -16,15 +16,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
@@ -39,7 +42,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
     \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    \n    for i,is_ap\
-    \ in enumerate(G.articulation_points()):\n        if is_ap:\n            print(i)\n\
+    \ in enumerate(G.articulation_points()):\n        if is_ap:\n            write(i)\n\
     \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -333,27 +336,34 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == '__main__':\n\
-    \    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
     \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    \n    for i,is_ap\
-    \ in enumerate(G.articulation_points()):\n        if is_ap:\n            print(i)\n\
-    \nfrom cp_library.alg.graph.graph_cls import Graph\nfrom cp_library.io.read_specs_fn\
-    \ import read\n\nif __name__ == '__main__':\n    main()"
+    \ in enumerate(G.articulation_points()):\n        if is_ap:\n            write(i)\n\
+    \nfrom cp_library.alg.graph.graph_cls import Graph\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n\
+    \    main()"
   dependsOn:
   - cp_library/alg/graph/graph_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/math/inft_cnst.py
-  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/grl_3_a_graph_articulation_points.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_3_a_graph_articulation_points.test.py

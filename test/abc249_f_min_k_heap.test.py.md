@@ -1,38 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/rev_enumerate_fn.py
     title: cp_library/alg/iter/rev_enumerate_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap_proto.py
     title: cp_library/ds/heap_proto.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heapq_max_import.py
     title: cp_library/ds/heapq_max_import.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/k_heap_mixin.py
     title: cp_library/ds/k_heap_mixin.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/max_heap_cls.py
     title: cp_library/ds/max_heap_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/min_k_heap_cls.py
     title: cp_library/ds/min_k_heap_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc249/tasks/abc249_f
     links:
@@ -46,7 +49,7 @@ data:
     \            match t:\n                case 1:\n                    S.K -= 1\n\
     \                    S.added(diff[i])\n                    if S.K == 0: break\n\
     \                case 2:\n                    if y < 0:\n                    \
-    \    S.push(y)\n    print(S.ans)\n                \n\n'''\n\u257A\u2501\u2501\u2501\
+    \    S.push(y)\n    write(S.ans)\n                \n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -135,37 +138,43 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nfrom typing import Reversible\n\
-    \ndef rev_enumerate(A: Reversible, start: int = 0):\n    A = list(enumerate(A,\
-    \ start))\n    return A[::-1]\n\nfrom typing import Iterable, TypeVar\n\nfrom\
-    \ collections import UserList\nT = TypeVar('T')\ndef heappop_max(heap: list[T],\
-    \ /) -> T: ...\ndef heapsiftdown_max(heap: list[T], root: int, pos: int): ...\n\
-    def heapsiftup_max(heap: list[T], pos: int): ...\ndef heapsiftdown(heap: list[T],\
-    \ root: int, pos: int): ...\ndef heapsiftup(heap: list[T], pos: int): ...\n\n\
-    from heapq import (\n    _heapify_max as heapify_max, \n    _heappop_max as heappop_max,\
-    \ \n    _siftdown_max as heapsiftdown_max,\n    _siftup_max as heapsiftup_max,\n\
-    \    _siftdown as heapsiftdown,\n    _siftup as heapsiftup\n)\n\ndef heappush_max(heap:\
-    \ list[T], item: T):\n    \"\"\"Push item onto heap, maintaining the heap invariant.\"\
-    \"\"\n    heap.append(item)\n    heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef\
-    \ heapreplace_max(heap: list[T], item: T) -> T:\n    \"\"\"Pop and return the\
-    \ current largest value, and add the new item.\n\n    This is more efficient than\
-    \ heappop_max() followed by heappush_max(), and can be\n    more appropriate when\
-    \ using a fixed-size heap.  Note that the value\n    returned may be larger than\
-    \ item!  That constrains reasonable uses of\n    this routine unless written as\
-    \ part of a conditional replacement:\n\n        if item > heap[0]:\n         \
-    \   item = heapreplace_max(heap, item)\n    \"\"\"\n    returnitem = heap[0]\n\
-    \    heap[0] = item\n    heapsiftup_max(heap, 0)\n    return returnitem\n\ndef\
-    \ heapushpop_max(heap: list[T], item: T) -> T:\n    \"\"\"Fast version of a heappush_max\
-    \ followed by a heappop_max.\"\"\"\n    if heap and heap[0] > item:\n        item,\
-    \ heap[0] = heap[0], item\n        heapsiftup_max(heap, 0)\n    return item\n\n\
-    from typing import Generic, TypeVar\n\nT = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n\
-    \    def pop(self) -> T: ...\n    def push(self, item: T): ...\n    def pushpop(self,\
-    \ item: T) -> T: ...\n    def replace(self, item: T) -> T: ...\n\nT = TypeVar('T')\n\
-    class MaxHeap(HeapProtocol[T], UserList[T]):\n    \n    def __init__(self, iterable:\
-    \ Iterable[T] = None):\n        super().__init__(iterable)\n        heapify_max(self.data)\n\
-    \    \n    def pop(self):\n        return heappop_max(self.data)\n    \n    def\
-    \ push(self, item: T):\n        heappush_max(self.data, item)\n\n    def pushpop(self,\
-    \ item: T):\n        return heapushpop_max(self.data, item)\n    \n    def replace(self,\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nfrom typing import Reversible\n\ndef rev_enumerate(A:\
+    \ Reversible, start: int = 0):\n    A = list(enumerate(A, start))\n    return\
+    \ A[::-1]\n\nfrom typing import Iterable, TypeVar\n\nfrom collections import UserList\n\
+    T = TypeVar('T')\ndef heappop_max(heap: list[T], /) -> T: ...\ndef heapsiftdown_max(heap:\
+    \ list[T], root: int, pos: int): ...\ndef heapsiftup_max(heap: list[T], pos: int):\
+    \ ...\ndef heapsiftdown(heap: list[T], root: int, pos: int): ...\ndef heapsiftup(heap:\
+    \ list[T], pos: int): ...\n\nfrom heapq import (\n    _heapify_max as heapify_max,\
+    \ \n    _heappop_max as heappop_max, \n    _siftdown_max as heapsiftdown_max,\n\
+    \    _siftup_max as heapsiftup_max,\n    _siftdown as heapsiftdown,\n    _siftup\
+    \ as heapsiftup\n)\n\ndef heappush_max(heap: list[T], item: T):\n    \"\"\"Push\
+    \ item onto heap, maintaining the heap invariant.\"\"\"\n    heap.append(item)\n\
+    \    heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list[T],\
+    \ item: T) -> T:\n    \"\"\"Pop and return the current largest value, and add\
+    \ the new item.\n\n    This is more efficient than heappop_max() followed by heappush_max(),\
+    \ and can be\n    more appropriate when using a fixed-size heap.  Note that the\
+    \ value\n    returned may be larger than item!  That constrains reasonable uses\
+    \ of\n    this routine unless written as part of a conditional replacement:\n\n\
+    \        if item > heap[0]:\n            item = heapreplace_max(heap, item)\n\
+    \    \"\"\"\n    returnitem = heap[0]\n    heap[0] = item\n    heapsiftup_max(heap,\
+    \ 0)\n    return returnitem\n\ndef heapushpop_max(heap: list[T], item: T) -> T:\n\
+    \    \"\"\"Fast version of a heappush_max followed by a heappop_max.\"\"\"\n \
+    \   if heap and heap[0] > item:\n        item, heap[0] = heap[0], item\n     \
+    \   heapsiftup_max(heap, 0)\n    return item\n\nfrom typing import Generic, TypeVar\n\
+    \nT = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
+    \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
+    \    def replace(self, item: T) -> T: ...\n\nT = TypeVar('T')\nclass MaxHeap(HeapProtocol[T],\
+    \ UserList[T]):\n    \n    def __init__(self, iterable: Iterable[T] = None):\n\
+    \        super().__init__(iterable)\n        heapify_max(self.data)\n    \n  \
+    \  def pop(self):\n        return heappop_max(self.data)\n    \n    def push(self,\
+    \ item: T):\n        heappush_max(self.data, item)\n\n    def pushpop(self, item:\
+    \ T):\n        return heapushpop_max(self.data, item)\n    \n    def replace(self,\
     \ item: T):\n        return heapreplace_max(self.data, item)\n\n\n\nT = TypeVar('T')\n\
     class KHeapMixin(HeapProtocol[T], Parsable):\n    \"\"\"KHeapMixin[K: int, T:\
     \ type, N: int|None]\"\"\"\n    def __init__(heap, K: int):\n        heap.K =\
@@ -204,29 +213,30 @@ data:
     \            match t:\n                case 1:\n                    S.K -= 1\n\
     \                    S.added(diff[i])\n                    if S.K == 0: break\n\
     \                case 2:\n                    if y < 0:\n                    \
-    \    S.push(y)\n    print(S.ans)\n                \n\nfrom cp_library.io.read_specs_fn\
-    \ import read\nfrom cp_library.alg.iter.rev_enumerate_fn import rev_enumerate\n\
-    from cp_library.ds.min_k_heap_cls import MinKHeap\n\nclass BadOps(MinKHeap[int]):\n\
-    \    def __init__(self, K: int, x: int):\n        super().__init__(K)\n      \
-    \  self.x = x\n        self.ans = x\n\n    def added(self, y):\n        self.x\
-    \ -= y\n        self.ans = max(self.ans, self.x)\n    \n    def removed(self,\
-    \ y):\n        self.x += y\n        self.ans = max(self.ans, self.x)\n\nif __name__\
-    \ == \"__main__\":\n    main()"
+    \    S.push(y)\n    write(S.ans)\n                \n\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\nfrom cp_library.alg.iter.rev_enumerate_fn\
+    \ import rev_enumerate\nfrom cp_library.ds.min_k_heap_cls import MinKHeap\n\n\
+    class BadOps(MinKHeap[int]):\n    def __init__(self, K: int, x: int):\n      \
+    \  super().__init__(K)\n        self.x = x\n        self.ans = x\n\n    def added(self,\
+    \ y):\n        self.x -= y\n        self.ans = max(self.ans, self.x)\n    \n \
+    \   def removed(self, y):\n        self.x += y\n        self.ans = max(self.ans,\
+    \ self.x)\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/alg/iter/rev_enumerate_fn.py
   - cp_library/ds/min_k_heap_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
   - cp_library/ds/max_heap_cls.py
   - cp_library/ds/k_heap_mixin.py
   - cp_library/ds/heapq_max_import.py
   - cp_library/ds/heap_proto.py
-  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc249_f_min_k_heap.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-11-29 11:58:58+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc249_f_min_k_heap.test.py
 layout: document

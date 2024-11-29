@@ -4,15 +4,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/slidingminmax_cls.py
     title: cp_library/ds/slidingminmax_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -28,7 +31,7 @@ data:
     \    ans = 1 - (unchanged := len(win.minq) == K)\n    for i in range(K,N):\n \
     \       p = win.popleft()\n        win.append(P[i])\n        unchanged |= len(win.minq)\
     \ == K\n        if len(win.minq) != K and (p > win.min or P[i] < win.max):\n \
-    \           ans += 1\n        \n    ans += unchanged\n    print(ans)\n    \n'''\n\
+    \           ans += 1\n        \n    ans += unchanged\n    write(ans)\n    \n'''\n\
     \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -136,26 +139,33 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
-    :\n    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/agc038/tasks/agc038_b\n\
     \ndef main():\n    N, K = read(tuple[int,int])\n    P = read(list[int])\n    win\
     \ = SlidingMinMax(maxlen=K+1)\n    for i in range(K):\n        win.append(P[i])\n\
     \    ans = 1 - (unchanged := len(win.minq) == K)\n    for i in range(K,N):\n \
     \       p = win.popleft()\n        win.append(P[i])\n        unchanged |= len(win.minq)\
     \ == K\n        if len(win.minq) != K and (p > win.min or P[i] < win.max):\n \
-    \           ans += 1\n        \n    ans += unchanged\n    print(ans)\n    \nfrom\
-    \ cp_library.ds.slidingminmax_cls import SlidingMinMax\nfrom cp_library.io.read_specs_fn\
-    \ import read\n\nif __name__ == \"__main__\":\n    main()"
+    \           ans += 1\n        \n    ans += unchanged\n    write(ans)\n    \nfrom\
+    \ cp_library.ds.slidingminmax_cls import SlidingMinMax\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    :\n    main()"
   dependsOn:
   - cp_library/ds/slidingminmax_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/agc038_b_sliding_min_max.test.py

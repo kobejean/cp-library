@@ -1,15 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
@@ -52,7 +55,7 @@ data:
     \            dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inft\n\
     \    for tmask in range(1<<M):\n        mask = full ^ tmask\n        factor =\
     \ F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l] + O[l]\
-    \ * factor\n            ans = min(ans, nc)\n    print(f'{ans:0.10f}')\n\n\n\n\n\
+    \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\n\n\n\n\
     import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -178,7 +181,13 @@ data:
     \ isinstance(offset := spec, int):\n            return [int(s)+offset for s in\
     \ TokenStream.stream.readline().split()]\n        else:\n            stream =\
     \ TokenStream()\n    else:\n        stream = CharStream()\n    parser: T = Parser.compile(spec)\n\
-    \    return parser(stream)\n\nif __name__ == \"__main__\":\n    main()\n"
+    \    return parser(stream)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the\
+    \ values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc274/tasks/abc274_e\n\
     # verification-helper: ERROR 1e-6\nfrom cp_library.math.inft_cnst import inft\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    XY = read(list[Vec2D, N])\n\
@@ -193,21 +202,23 @@ data:
     \ * factor)\n            dp[nmask][y] = nc\n            \n    full = Z-1\n   \
     \ ans = inft\n    for tmask in range(1<<M):\n        mask = full ^ tmask\n   \
     \     factor = F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l]\
-    \ + O[l] * factor\n            ans = min(ans, nc)\n    print(f'{ans:0.10f}')\n\
-    \nfrom cp_library.math.vec2d_cls import Vec2D\nfrom cp_library.io.read_specs_fn\
-    \ import read\n\nif __name__ == \"__main__\":\n    main()"
+    \ + O[l] * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\
+    \nfrom cp_library.math.vec2d_cls import Vec2D\nfrom cp_library.io.read_fn import\
+    \ read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    :\n    main()"
   dependsOn:
   - cp_library/math/inft_cnst.py
   - cp_library/math/vec2d_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/math/vec_cls.py
-  - cp_library/math/elm_wise_mixin.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/math/elm_wise_mixin.py
   isVerificationFile: true
   path: test/abc274_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc274_e_vec2d.test.py

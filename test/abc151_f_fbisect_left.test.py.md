@@ -4,15 +4,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/divcon/fbisect_fn.py
     title: cp_library/alg/divcon/fbisect_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
@@ -44,7 +47,7 @@ data:
     \                    intersections.append(mid+diff)\n\n        return intersections\n\
     \n    def f(r):\n        for candidate in candidates(r):\n            if all(candidate.distance(point)\
     \ <= r+1e-9 for point in points):\n                return True\n        return\
-    \ False\n    \n    ans = fbisect_left(f, 2000.0)\n    print(f'{ans:0.18f}')\n\n\
+    \ False\n    \n    ans = fbisect_left(f, 2000.0)\n    write(f'{ans:0.18f}')\n\n\
     \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -181,8 +184,13 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
-    :\n    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc151/tasks/abc151_f\n\
     # verification-helper: ERROR 1e-6\n\nfrom math import sqrt\n\ndef main():\n  \
     \  N = read(int)\n    points = read(list[Vec2D[float], N])\n\n    def candidates(r)\
@@ -195,22 +203,23 @@ data:
     \                    intersections.append(mid+diff)\n\n        return intersections\n\
     \n    def f(r):\n        for candidate in candidates(r):\n            if all(candidate.distance(point)\
     \ <= r+1e-9 for point in points):\n                return True\n        return\
-    \ False\n    \n    ans = fbisect_left(f, 2000.0)\n    print(f'{ans:0.18f}')\n\n\
+    \ False\n    \n    ans = fbisect_left(f, 2000.0)\n    write(f'{ans:0.18f}')\n\n\
     \nfrom cp_library.alg.divcon.fbisect_fn import fbisect_left\nfrom cp_library.math.vec2d_cls\
-    \ import Vec2D\nfrom cp_library.io.read_specs_fn import read\n\nif __name__ ==\
-    \ \"__main__\":\n    main()"
+    \ import Vec2D\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/alg/divcon/fbisect_fn.py
   - cp_library/math/vec2d_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/math/vec_cls.py
-  - cp_library/math/elm_wise_mixin.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/math/elm_wise_mixin.py
   isVerificationFile: true
   path: test/abc151_f_fbisect_left.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc151_f_fbisect_left.test.py

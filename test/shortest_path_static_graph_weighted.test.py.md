@@ -2,29 +2,47 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/fast_graph_cls.py
-    title: cp_library/alg/graph/fast/fast_graph_cls.py
+    path: cp_library/alg/graph/bellman_ford_fn.py
+    title: cp_library/alg/graph/bellman_ford_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/dfs_options_cls.py
+    title: cp_library/alg/graph/dfs_options_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/digraph_weighted_cls.py
+    title: cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/graph_proto.py
+    title: cp_library/alg/graph/fast/graph_proto.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/graph_weighted_proto.py
+    title: cp_library/alg/graph/fast/graph_weighted_proto.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/argsort_fn.py
+    title: cp_library/alg/iter/argsort_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/dsu_cls.py
+    title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap_proto.py
     title: cp_library/ds/heap_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/priority_queue_cls.py
     title: cp_library/ds/priority_queue_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
@@ -41,7 +59,7 @@ data:
     links:
     - https://judge.yosupo.jp/problem/shortest_path
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/shortest_path\n\
-    \ndef main():\n    N, M, s, t = read(tuple[int, ...])\n    G = read(StaticDiGraphWeighted[N,M,0])\n\
+    \ndef main():\n    N, M, s, t = read(tuple[int, ...])\n    G = read(DiGraphWeighted[N,M,0])\n\
     \    path = G.shortest_path(s, t)\n    if path is None:\n        write(\"-1\"\
     )\n    else:\n        X, Y = G.D[t], len(path)-1\n        write(X, Y)\n      \
     \  for i in range(Y):\n            write(path[i],path[i+1])\n    \n'''\n\u257A\
@@ -131,100 +149,189 @@ data:
     \ (elm,)) * N\n\ndef fill_u32(N: int, elm: int = 0):\n    return array('I', (elm,))\
     \ * N\n\ndef fill_i64(N: int, elm: int = 0):\n    return array('q', (elm,)) *\
     \ N\n\ndef fill_u64(N: int, elm: int = 0):\n    return array('Q', (elm,)) * N\n\
-    \ndef argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift := N.bit_length()))\
-    \ - 1\n    indices = [0]*N\n    for i in range(N):\n        indices[i] = A[i]\
-    \ << shift | i\n    indices.sort()\n    for i in range(N):\n        indices[i]\
-    \ &= mask\n    return indices\n\n\nclass StaticDiGraphWeighted(Sequence, Parsable):\n\
+    from math import inf\n\nfrom typing import overload\nfrom heapq import heapify,\
+    \ heappop, heappush\nimport operator\n\n\ndef argsort(A: list[int]):\n    N =\
+    \ len(A)\n    mask = (1 << (shift := N.bit_length())) - 1\n    indices = [0]*N\n\
+    \    for i in range(N):\n        indices[i] = A[i] << shift | i\n    indices.sort()\n\
+    \    for i in range(N):\n        indices[i] &= mask\n    return indices\n\nfrom\
+    \ enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER =\
+    \ auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
+    \ typing import Iterable, Sequence, overload\n\n\ninft = sys.maxsize\n\nclass\
+    \ GraphProtocol(Sequence, Parsable):\n\n    # @overload\n    # def distance(G)\
+    \ -> list[list[int]]: ...\n    # @overload\n    # def distance(G, s: int = 0)\
+    \ -> list[int]: ...\n    # @overload\n    # def distance(G, s: int, g: int) ->\
+    \ int: ...\n    # def distance(G, s = None, g = None):\n    #     match s, g:\n\
+    \    #         case None, None:\n    #             return G.floyd_warshall()\n\
+    \    #         case s, None:\n    #             return G.bfs(s)\n    #       \
+    \  case s, g:\n    #             return G.bfs(s, g)\n\n    # @overload\n    #\
+    \ def bfs(G, s: int|list = 0) -> list[int]: ...\n    # @overload\n    # def bfs(G,\
+    \ s: int|list, g: int) -> int: ...\n    # def bfs(G, s = 0, g = None):\n    #\
+    \     D = [inft for _ in range(G.N)]\n    #     q = deque([s] if isinstance(s,\
+    \ int) else s)\n    #     for u in q: D[u] = 0\n    #     while q:\n    #    \
+    \     nd = D[u := q.popleft()]+1\n    #         if u == g: return D[u]\n    #\
+    \         for v in G.neighbors(u):\n    #             if nd < D[v]:\n    #   \
+    \              D[v] = nd\n    #                 q.append(v)\n    #     return\
+    \ D if g is None else inft \n\n\n    def starts(G, v: int|list[int]|None) -> Iterable:\n\
+    \        match v:\n            case int(v): return (v,)\n            case None:\
+    \ return range(G.N)\n            case V: return V\n\nclass GraphWeightedProtocol(GraphProtocol):\n\
+    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.dijkstra(s)\n           \
+    \ case s, g:\n                return G.dijkstra(s, g)    \n\n    def __len__(G)\
+    \ -> int:\n        return G.N\n    \n    def __getitem__(G, v):\n        l,r =\
+    \ G.La[v],G.Ra[v]\n        return zip(G.Va[l:r], G.Wa[l:r])\n\n    def dijkstra(G,\
+    \ s: int, t: int = None):\n        N, La, Ra, Va, Wa, Ea = G.N, G.La, G.Ra, G.Va,\
+    \ G.Wa, G.Ea\n        G.down = down = fill_i32(N, -1)\n        G.par = par = fill_i32(N,\
+    \ -1)\n        G.D = D = fill_u64(N, inft)\n        D[s] = 0\n            \n \
+    \       que = PriorityQueue(N)\n        que.push(s, 0)\n        \n        while\
+    \ que:\n            u, d = que.pop()\n            if u == t: break\n         \
+    \   if d > D[u]: continue\n            for i in range(La[u], Ra[u]):\n       \
+    \         v, w = Va[i], Wa[i], \n                if (nd := d + w) < D[v]:\n  \
+    \                  D[v], par[v], down[v] = nd, u, Ea[i]\n                    que.push(v,\
+    \ nd)\n        return D\n\n    def shortest_path(G, s: int, t: int):\n       \
+    \ D = G.dijkstra(s, t)\n        if D[t] == inft: return None\n        par = G.par\n\
+    \            \n        path = fill_u32(0)\n        path.append(t)\n        v =\
+    \ t\n        while v != s:\n            path.append(v := par[v])\n        return\
+    \ path[::-1]\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n     \
+    \   D = G.dijkstra(s, t)\n        if D[t] == inft: return None\n        par, down\
+    \ = G.par, G.down\n            \n        path = elist(G.N)\n        v = t\n  \
+    \      while v != s:\n            path.append(down[v])\n            v = par[v]\
+    \ \n        return path[::-1]\n\n    def kruskal(G):\n        N, U, V, W = G.N,\
+    \ G.U, G.V, G.W \n        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need\
+    \ = N-1\n        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
+    \            if u != v:\n                need -= 1\n                MST[need]\
+    \ = e\n                if not need: break\n        return None if need else MST\n\
+    \    \n    def kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W\
+    \ \n        que = PriorityQueue(M, list(range(M)), W)\n        dsu = DSU(N)\n\
+    \        MST = [0]*(N-1)\n        need = N-1\n        while que and need:\n  \
+    \          e, _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n  \
+    \          if u != v:\n                MST[need := need-1] = e\n        return\
+    \ None if need else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n\
+    \        N, M = G.N, G.M\n        Ua, Va, Wa = G.Ua, G.Va, G.Wa\n        D = [inft]*N\n\
+    \        D[s] = 0\n        for _ in range(N-1):\n            for i in range(M):\n\
+    \                u,v,w = Ua[i], Va[i], Wa[i]\n                if D[u] == inft:\
+    \ continue\n                D[v] = min(D[v], D[u] + w)\n        return D\n   \
+    \ \n    def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:\n\
+    \        \n        def bellman_ford(G, N, root) -> list[int]:\n            D =\
+    \ [inft]*N\n            D[root] = 0\n            for _ in range(N-1):\n      \
+    \          for u, edges in enumerate(G):\n                    if D[u] == inft:\
+    \ continue\n                    for v,w in edges:\n                        D[v]\
+    \ = min(D[v], D[u] + w)\n            return D\n        D = G.bellman_ford(s)\n\
+    \        M, U, V, W = G.M, G.U, G.V, G.W\n        neg_cycle = any(D[U[i]]+W[i]<D[V[i]]\
+    \ for i in range(M) if D[U[i]] < inft)\n        return neg_cycle, D\n    \n  \
+    \  def floyd_warshall(G) -> list[list[int]]:\n        N, M = G.N, G.M\n      \
+    \  Ua, Va, Wa = G.Ua, G.Va, G.Wa\n        D = [[inft]*N for _ in range(N)]\n\n\
+    \        for u in range(N):\n            D[u][u] = 0\n\n        for i in range(M):\n\
+    \            u,v,w = Ua[i], Va[i], Wa[i]\n            D[u][v] = min(D[u][v], w)\n\
+    \        \n        for k, Dk in enumerate(D):\n            for Di in D:\n    \
+    \            if Di[k] == inft: continue\n                for j in range(N):\n\
+    \                    if Dk[j] == inft: continue\n                    Di[j] = min(Di[j],\
+    \ Di[k]+Dk[j])\n        return D\n        \n    def floyd_warshall_neg_cyc_check(G):\n\
+    \        D = G.floyd_warshall()\n        return any(D[i][i] < 0 for i in range(G.N)),\
+    \ D\n    \n\nclass DSU:\n    def __init__(self, N):\n        self.N = N\n    \
+    \    self.par = [-1] * N\n\n    def merge(self, u, v, src = False):\n        assert\
+    \ 0 <= u < self.N\n        assert 0 <= v < self.N\n\n        x, y = self.leader(u),\
+    \ self.leader(v)\n        if x == y: return (x,y) if src else x\n\n        if\
+    \ self.par[x] > self.par[y]:\n            x, y = y, x\n\n        self.par[x] +=\
+    \ self.par[y]\n        self.par[y] = x\n\n        return (x,y) if src else x\n\
+    \n    def same(self, u: int, v: int):\n        assert 0 <= u < self.N\n      \
+    \  assert 0 <= v < self.N\n        return self.leader(u) == self.leader(v)\n\n\
+    \    def leader(self, i) -> int:\n        assert 0 <= i < self.N\n        par\
+    \ = self.par\n        p = par[i]\n        while p >= 0:\n            if par[p]\
+    \ < 0:\n                return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n\
+    \n        return i\n\n    def size(self, i) -> int:\n        assert 0 <= i < self.N\n\
+    \        \n        return -self.par[self.leader(i)]\n\n    def groups(self) ->\
+    \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
+    \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
+    \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
+    \ if r]\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
+    \ heappush, heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\n\
+    T = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
+    \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
+    \    def replace(self, item: T) -> T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
+    \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
+    \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
+    \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            super().__init__()\n\
+    \        elif priorities is None:\n            heapify(ids)\n            self.data\
+    \ = ids\n        else:\n            M = len(ids)\n            data = [0]*M\n \
+    \           for i in range(M):\n                data[i] = self.encode(ids[i],\
+    \ priorities[i]) \n            heapify(data)\n            self.data = data\n\n\
+    \    def encode(self, id, priority):\n        return priority << self.shift |\
+    \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
+    \ encoded >> self.shift\n    \n    def pop(self):\n        return self.decode(heappop(self.data))\n\
+    \    \n    def push(self, id: int, priority: int):\n        heappush(self.data,\
+    \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
+    \        return self.decode(heappushpop(self.data, self.encode(id, priority)))\n\
+    \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
+    \ self.encode(id, priority)))\n\n\nclass DiGraphWeighted(GraphWeightedProtocol):\n\
     \    def __init__(G, N: int, U: list, V: list, W: list):\n        M = len(U)\n\
-    \        deg, Ei, adj, Wadj = fill_u32(N), fill_u32(M), fill_u32(M), [0]*M\n\n\
-    \        for u in U:\n            deg[u] += 1\n            \n\n        L, idx\
-    \ = fill_u32(N), 0\n        for u in range(N): \n            L[u], idx = idx,\
-    \ idx + deg[u]\n        R = L[:]\n\n        # place edge data using R to track\n\
-    \        for e in range(M):\n            i = R[u := U[e]]\n            adj[i],\
-    \ Wadj[i], Ei[i] = V[e], W[e], e\n            R[u] += 1\n        G.N, G.M, G.L,\
-    \ G.R, G.adj, G.Wadj, G.Ei = N, M, L, R, adj, Wadj, Ei\n        G.U, G.V, G.W\
-    \ = U, V, W\n\n    def __len__(G) -> int:\n        return G.N\n    \n    def __getitem__(G,\
-    \ v):\n        l,r = G.L[v],G.R[v]\n        return zip(G.adj[l:r], G.W[l:r])\n\
-    \n    def dijkstra(G, s: int, t: int = None):\n        N, L, R, adj, Wadj, Ei\
-    \ = G.N, G.L, G.R, G.adj, G.Wadj, G.Ei\n        G.down = down = fill_i32(N, -1)\n\
-    \        G.par = par = fill_i32(N, -1)\n        G.D = D = fill_u64(N, inft)\n\
-    \        D[s] = 0\n            \n        que = PriorityQueue(N)\n        que.push(s,\
-    \ 0)\n        \n        while que:\n            v, d = que.pop()\n           \
-    \ if v == t: break\n            if d > D[v]: continue\n            for i in range(L[v],\
-    \ R[v]):\n                c, w = adj[i], Wadj[i], \n                if (nd :=\
-    \ d + w) < D[c]:\n                    D[c], par[c], down[c] = nd, v, Ei[i]\n \
-    \                   que.push(c, nd)\n        return D\n        \n    def shortest_path(G,\
-    \ s: int, t: int):\n        D = G.dijkstra(s, t)\n        if D[t] == inft: return\
-    \ None\n        par = G.par\n            \n        path = fill_u32(0)\n      \
-    \  path.append(t)\n        v = t\n        while v != s:\n            path.append(v\
-    \ := par[v])\n        return path[::-1]\n    \n    def shortest_path_edge_ids(G,\
-    \ s: int, t: int):\n        D = G.dijkstra(s, t)\n        if D[t] == inft: return\
-    \ None\n        par, down = G.par, G.down\n            \n        path = elist(G.N)\n\
-    \        v = t\n        while v != s:\n            path.append(down[v])\n    \
-    \        v = par[v] \n        return path[::-1]\n\n    @classmethod\n    def compile(cls,\
+    \        deg, Ea, Ua, Va, Wa = fill_u32(N), fill_u32(M), fill_u32(M), fill_u32(M),\
+    \ [0]*M\n\n        for u in U:\n            deg[u] += 1\n            \n      \
+    \  La, idx = fill_u32(N), 0\n        for u in range(N): \n            La[u], idx\
+    \ = idx, idx + deg[u]\n        Ra = La[:]\n\n        # place edge data using R\
+    \ to track\n        for e in range(M):\n            i = Ra[u := U[e]]\n      \
+    \      Ua[i], Va[i], Wa[i], Ea[i] = U[e], V[e], W[e], e\n            Ra[u] +=\
+    \ 1\n\n        G.N, G.M, G.U, G.V, G.W = N, M, U, V, W\n        G.La, G.Ra, G.Ua,\
+    \ G.Va, G.Wa, G.Ea = La, Ra, Ua, Va, Wa, Ea\n\n    @classmethod\n    def compile(cls,\
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V, W = fill_u32(M), fill_u32(M), [0]*M\n            stream = ts.stream\n\
     \            for i in range(M):\n                u, v, W[i] = map(int, stream.readline().split())\n\
     \                U[i], V[i] = u-shift, v-shift\n            return cls(N, U, V,\
-    \ W)\n        return parse\n    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
-    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nfrom typing import Iterable\n\
-    from collections import UserList\nfrom heapq import heapify, heappop, heappush,\
-    \ heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\nT = TypeVar('T')\n\
-    class HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n    def push(self,\
-    \ item: T): ...\n    def pushpop(self, item: T) -> T: ...\n    def replace(self,\
-    \ item: T) -> T: ...\n\nclass PriorityQueue(HeapProtocol[int], UserList[int]):\n\
-    \    \n    def __init__(self, N: int, ids: Iterable[int] = None, priorities: Iterable[int]\
-    \ = None, /):\n        self.shift = N.bit_length()\n        self.mask = (1 <<\
-    \ self.shift)-1\n        if ids is None:\n            super().__init__()\n   \
-    \     elif priorities is None:\n            self.data = ids\n            heapify(self.data)\n\
-    \        else:\n            self.data = [self.encode(id, priority) for id, priority\
-    \ in zip(ids, priorities)]\n            heapify(self.data)\n\n    def encode(self,\
-    \ id, priority):\n        return priority << self.shift | id\n    \n    def decode(self,\
-    \ encoded):\n        return self.mask & encoded, encoded >> self.shift\n    \n\
-    \    def pop(self):\n        return self.decode(heappop(self.data))\n    \n  \
-    \  def push(self, id: int, priority: int):\n        heappush(self.data, self.encode(id,\
-    \ priority))\n\n    def pushpop(self, id: int, priority: int):\n        return\
-    \ self.decode(heappushpop(self.data, self.encode(id, priority)))\n    \n    def\
-    \ replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
-    \ self.encode(id, priority)))\n\n\n\ninft = sys.maxsize\n\nfrom typing import\
-    \ Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() ->\
-    \ list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
-    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
-    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
-    \   return list(map(int, TokenStream.stream.readline().split()))\n        elif\
-    \ isinstance(offset := spec, int):\n            return [int(s)+offset for s in\
-    \ TokenStream.stream.readline().split()]\n        else:\n            stream =\
-    \ TokenStream()\n    else:\n        stream = CharStream()\n    parser: T = Parser.compile(spec)\n\
-    \    return parser(stream)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the\
-    \ values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ W)\n        return parse\n    \n\nfrom typing import Type, TypeVar, Union, overload\n\
+    \nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
+    \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
+    \ char:\n        if spec is None:\n            return list(map(int, TokenStream.stream.readline().split()))\n\
+    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
+    \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
+    \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/shortest_path\n\
-    \ndef main():\n    N, M, s, t = read(tuple[int, ...])\n    G = read(StaticDiGraphWeighted[N,M,0])\n\
+    \ndef main():\n    N, M, s, t = read(tuple[int, ...])\n    G = read(DiGraphWeighted[N,M,0])\n\
     \    path = G.shortest_path(s, t)\n    if path is None:\n        write(\"-1\"\
     )\n    else:\n        X, Y = G.D[t], len(path)-1\n        write(X, Y)\n      \
-    \  for i in range(Y):\n            write(path[i],path[i+1])\n    \nfrom cp_library.alg.graph.fast.fast_graph_cls\
-    \ import StaticDiGraphWeighted\nfrom cp_library.io.read_specs_fn import read\n\
-    from cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n    main()\n"
+    \  for i in range(Y):\n            write(path[i],path[i+1])\n    \nfrom cp_library.alg.graph.fast.digraph_weighted_cls\
+    \ import DiGraphWeighted\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
-  - cp_library/alg/graph/fast/fast_graph_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/ds/fill_fn.py
+  - cp_library/alg/graph/fast/graph_weighted_proto.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/priority_queue_cls.py
   - cp_library/math/inft_cnst.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/alg/iter/argsort_fn.py
+  - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/alg/graph/fast/graph_proto.py
+  - cp_library/alg/graph/bellman_ford_fn.py
+  - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap_proto.py
   isVerificationFile: true
   path: test/shortest_path_static_graph_weighted.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/shortest_path_static_graph_weighted.test.py

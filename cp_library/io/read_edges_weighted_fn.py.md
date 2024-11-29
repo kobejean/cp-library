@@ -13,15 +13,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -142,11 +142,11 @@ data:
     \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
     \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
     \    pass\n\ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n"
-  code: "import cp_library.io.__header__\nfrom cp_library.io.read_specs_fn import\
-    \ read\nfrom cp_library.alg.graph.edge_list_weighted_cls import EdgeListWeighted\n\
-    \ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n"
+  code: "import cp_library.io.__header__\nfrom cp_library.io.read_fn import read\n\
+    from cp_library.alg.graph.edge_list_weighted_cls import EdgeListWeighted\n\ndef\
+    \ read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n"
   dependsOn:
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/edge_list_cls.py
@@ -156,7 +156,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_edges_weighted_fn.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_b_edmonds_branching.test.py

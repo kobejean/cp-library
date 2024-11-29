@@ -1,15 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
@@ -42,12 +45,12 @@ data:
     \                dx = dx.flip_y()\n                dy = dy.flip_y()\n        states.append((dx,dy,origin))\n\
     \        \n    Q = read(int)\n    for _ in range(Q):\n        A, B = read(tuple[int,-1])\n\
     \        x,y = pts[B]\n        dx,dy,origin = states[A]\n        ans = x*dx+y*dy\
-    \ + origin\n        print(*ans)\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\
+    \ + origin\n        write(*ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\n\nfrom typing import Type, TypeVar, Union, overload\nimport\
     \ sys\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
     from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
@@ -131,20 +134,25 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\n\n\nfrom math import\
-    \ hypot\n\nimport operator\nfrom typing import Sequence\n\nclass ElmWiseMixin:\n\
-    \    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n \
-    \           return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
-    \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
-    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
-    )\n\n    def __add__(self, other): return self.elm_wise(other, operator.add)\n\
-    \    def __radd__(self, other): return self.elm_wise(other, operator.add)\n  \
-    \  def __sub__(self, other): return self.elm_wise(other, operator.sub)\n    def\
-    \ __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
-    \    def __mul__(self, other): return self.elm_wise(other, operator.mul)\n   \
-    \ def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n    def\
-    \ __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n  \
-    \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\n\n\nfrom math import hypot\n\nimport operator\nfrom typing\
+    \ import Sequence\n\nclass ElmWiseMixin:\n    def elm_wise(self, other, op):\n\
+    \        if isinstance(other, Number):\n            return type(self)(op(x, other)\
+    \ for x in self)\n        if isinstance(other, Sequence):\n            return\
+    \ type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
+    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
+    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
+    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
+    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
+    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
+    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
+    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
+    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
     \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
     \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
     \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
@@ -189,20 +197,21 @@ data:
     \                dx = dx.flip_y()\n                dy = dy.flip_y()\n        states.append((dx,dy,origin))\n\
     \        \n    Q = read(int)\n    for _ in range(Q):\n        A, B = read(tuple[int,-1])\n\
     \        x,y = pts[B]\n        dx,dy,origin = states[A]\n        ans = x*dx+y*dy\
-    \ + origin\n        print(*ans)\n\n\nfrom cp_library.io.read_specs_fn import read\n\
-    from cp_library.math.vec2d_cls import Vec2D\n\nif __name__ == \"__main__\":\n\
-    \    main()"
+    \ + origin\n        write(*ans)\n\nfrom cp_library.io.read_fn import read\nfrom\
+    \ cp_library.io.write_fn import write\nfrom cp_library.math.vec2d_cls import Vec2D\n\
+    \nif __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/math/vec2d_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
   - cp_library/math/vec_cls.py
   - cp_library/math/elm_wise_mixin.py
-  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc189_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc189_e_vec2d.test.py

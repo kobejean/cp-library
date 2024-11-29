@@ -4,15 +4,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/minplus_conv_fn.py
     title: cp_library/math/minplus_conv_fn.py
@@ -27,7 +30,7 @@ data:
     - https://judge.yosupo.jp/problem/min_plus_convolution_convex_arbitrary
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/min_plus_convolution_convex_arbitrary\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    A = read(list[int])\n   \
-    \ B = read(list[int])\n    C = minplus_conv_arb_cnvx(B,A)\n    print(*C)\n   \
+    \ B = read(list[int])\n    C = minplus_conv_arb_cnvx(B,A)\n    write(*C)\n   \
     \ \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -117,39 +120,46 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    def monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):\n   \
-    \ min_cols = [0] * N\n    stack: list[tuple[int, ...]] = elist(N.bit_length()\
-    \ << 2)\n    stack.append((0, N, 0, M))\n\n    while stack:\n        li, ri, lj,\
-    \ rj = stack.pop()\n        if li == ri: continue\n        mi = li + ri >> 1\n\
-    \        min_j = lj\n        for j in range(lj + 1, rj):\n            if func(mi,\
-    \ min_j, j):\n                min_j = j\n        min_cols[mi] = min_j\n      \
-    \  stack.append((li, mi, lj, min_j + 1))\n        stack.append((mi + 1, ri, min_j,\
-    \ rj))\n\n    return min_cols\n\ndef minplus_conv_arb_cnvx(arb: list[int], cnvx:\
-    \ list[int]) -> list[int]:\n    N, M = len(cnvx), len(arb)\n    \n    def cmp(i,\
-    \ j, k):\n        return i >= k and (i-j >= N or (cnvx[i-j] + arb[j] >= cnvx[i-k]\
-    \ + arb[k]))\n    \n    cols = monotone_minima(N+M-1, M, cmp)\n    return [arb[j]\
-    \ + cnvx[i-j] for i, j in enumerate(cols)]\n\ndef minplus_conv_inplace(A: list[int],\
-    \ B: list[int]):\n    N, M = len(A), len(B)\n    for i in range(N-1,-1,-1):\n\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \n\ndef monotone_minima(N: int, M: int,\
+    \ func: Callable[[int,int,int],bool]):\n    min_cols = [0] * N\n    stack: list[tuple[int,\
+    \ ...]] = elist(N.bit_length() << 2)\n    stack.append((0, N, 0, M))\n\n    while\
+    \ stack:\n        li, ri, lj, rj = stack.pop()\n        if li == ri: continue\n\
+    \        mi = li + ri >> 1\n        min_j = lj\n        for j in range(lj + 1,\
+    \ rj):\n            if func(mi, min_j, j):\n                min_j = j\n      \
+    \  min_cols[mi] = min_j\n        stack.append((li, mi, lj, min_j + 1))\n     \
+    \   stack.append((mi + 1, ri, min_j, rj))\n\n    return min_cols\n\ndef minplus_conv_arb_cnvx(arb:\
+    \ list[int], cnvx: list[int]) -> list[int]:\n    N, M = len(cnvx), len(arb)\n\
+    \    \n    def cmp(i, j, k):\n        return i >= k and (i-j >= N or (cnvx[i-j]\
+    \ + arb[j] >= cnvx[i-k] + arb[k]))\n    \n    cols = monotone_minima(N+M-1, M,\
+    \ cmp)\n    return [arb[j] + cnvx[i-j] for i, j in enumerate(cols)]\n\ndef minplus_conv_inplace(A:\
+    \ list[int], B: list[int]):\n    N, M = len(A), len(B)\n    for i in range(N-1,-1,-1):\n\
     \        A[i] = min(B[j] + A[i-j] for j in range(min(M,i+1)))   \n\nif __name__\
     \ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/min_plus_convolution_convex_arbitrary\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    A = read(list[int])\n   \
-    \ B = read(list[int])\n    C = minplus_conv_arb_cnvx(B,A)\n    print(*C)\n   \
-    \ \nfrom cp_library.io.read_specs_fn import read\nfrom cp_library.math.minplus_conv_fn\
-    \ import minplus_conv_arb_cnvx\n\nif __name__ == \"__main__\":\n    main()"
+    \ B = read(list[int])\n    C = minplus_conv_arb_cnvx(B,A)\n    write(*C)\n   \
+    \ \nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import\
+    \ write\nfrom cp_library.math.minplus_conv_fn import minplus_conv_arb_cnvx\n\n\
+    if __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/math/minplus_conv_fn.py
   - cp_library/io/parser_cls.py
-  - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/ds/elist_fn.py
   isVerificationFile: true
   path: test/min_plus_convolution_convex_arbitrary.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/min_plus_convolution_convex_arbitrary.test.py

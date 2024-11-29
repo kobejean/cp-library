@@ -4,15 +4,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/dp2d_cls.py
     title: cp_library/alg/dp/dp2d_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -27,7 +30,7 @@ data:
     \   B = read(list[int,M])\n    \n    dp = DynamicProgramming2D(N+1, M+1)\n   \
     \ dp[0,0] = 0\n    \n    transitions = [\n        Match(1,1,A,B),    # match/mismatch\n\
     \        Edit(0,1),         # insert\n        Edit(1,0),         # delete\n  \
-    \  ]\n    \n    dp.solve(transitions)\n    print(dp[N,M])\n    \n\n'''\n\u257A\
+    \  ]\n    \n    dp.solve(transitions)\n    write(dp[N,M])\n    \n\n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -117,18 +120,23 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nfrom typing import TypeVar,\
-    \ Generic, Container\nfrom dataclasses import dataclass\nfrom math import inf\n\
-    \nT = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[T]):\n    di: int\n\
-    \    dj: int\n    \n    def __call__(self, i: int, j: int, src: T, dest: T) ->\
-    \ T:\n        \"\"\"Override this to implement transition logic\"\"\"\n      \
-    \  return src  # Default no-op\n    \n    @classmethod\n    def make(cls, func):\n\
-    \        class Transition(cls):\n            def __call__(self, i: int, j: int,\
-    \ src: T, dest: T) -> T:\n                return func(i,j,src,dest)\n        return\
-    \ Transition\n    \nT = TypeVar('T')\nclass DynamicProgramming2D(Generic[T], Parsable,\
-    \ Container):\n    def __init__(self, rows: int, cols: int, default: T = inf):\n\
-    \        self.rows = rows\n        self.cols = cols\n        self.table = default\
-    \ if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nfrom typing import TypeVar, Generic, Container\nfrom\
+    \ dataclasses import dataclass\nfrom math import inf\n\nT = TypeVar('T')\n\n@dataclass\n\
+    class Transition2D(Generic[T]):\n    di: int\n    dj: int\n    \n    def __call__(self,\
+    \ i: int, j: int, src: T, dest: T) -> T:\n        \"\"\"Override this to implement\
+    \ transition logic\"\"\"\n        return src  # Default no-op\n    \n    @classmethod\n\
+    \    def make(cls, func):\n        class Transition(cls):\n            def __call__(self,\
+    \ i: int, j: int, src: T, dest: T) -> T:\n                return func(i,j,src,dest)\n\
+    \        return Transition\n    \nT = TypeVar('T')\nclass DynamicProgramming2D(Generic[T],\
+    \ Parsable, Container):\n    def __init__(self, rows: int, cols: int, default:\
+    \ T = inf):\n        self.rows = rows\n        self.cols = cols\n        self.table\
+    \ = default if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
     \    \n    def __getitem__(self, pos: tuple[int, int]) -> T:\n        i, j = pos\n\
     \        return self.table[i][j]\n    \n    def __setitem__(self, pos: tuple[int,\
     \ int], value: T) -> None:\n        i, j = pos\n        self.table[i][j] = value\n\
@@ -152,23 +160,25 @@ data:
     \   B = read(list[int,M])\n    \n    dp = DynamicProgramming2D(N+1, M+1)\n   \
     \ dp[0,0] = 0\n    \n    transitions = [\n        Match(1,1,A,B),    # match/mismatch\n\
     \        Edit(0,1),         # insert\n        Edit(1,0),         # delete\n  \
-    \  ]\n    \n    dp.solve(transitions)\n    print(dp[N,M])\n    \n\nfrom cp_library.io.read_specs_fn\
-    \ import read\nfrom cp_library.alg.dp.dp2d_cls import DynamicProgramming2D, Transition2D\n\
-    \nfrom dataclasses import dataclass\n\n@dataclass\nclass Match(Transition2D[int]):\n\
-    \    A: list[int]\n    B: list[int]\n\n    def __call__(self, i: int, j: int,\
-    \ src_val: int, dest_val: int) -> int:\n        return min(dest_val, src_val +\
-    \ (self.A[i] != self.B[j]))\n\nclass Edit(Transition2D[int]):\n    def __call__(self,\
-    \ i: int, j: int, src_val: int, dest_val: int) -> int:\n        return min(dest_val,\
-    \ src_val + 1)\n    \nif __name__ == \"__main__\":\n    main()"
+    \  ]\n    \n    dp.solve(transitions)\n    write(dp[N,M])\n    \n\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\nfrom cp_library.alg.dp.dp2d_cls\
+    \ import DynamicProgramming2D, Transition2D\n\nfrom dataclasses import dataclass\n\
+    \n@dataclass\nclass Match(Transition2D[int]):\n    A: list[int]\n    B: list[int]\n\
+    \n    def __call__(self, i: int, j: int, src_val: int, dest_val: int) -> int:\n\
+    \        return min(dest_val, src_val + (self.A[i] != self.B[j]))\n\nclass Edit(Transition2D[int]):\n\
+    \    def __call__(self, i: int, j: int, src_val: int, dest_val: int) -> int:\n\
+    \        return min(dest_val, src_val + 1)\n    \nif __name__ == \"__main__\"\
+    :\n    main()"
   dependsOn:
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/alg/dp/dp2d_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc185_e_dp2d.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc185_e_dp2d.test.py

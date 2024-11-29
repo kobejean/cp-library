@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -60,10 +60,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc246_e_grid_direction_graph.test.py
     title: test/abc246_e_grid_direction_graph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc249_f_max_k_heap.test.py
     title: test/abc249_f_max_k_heap.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc249_f_min_k_heap.test.py
     title: test/abc249_f_min_k_heap.test.py
   - icon: ':heavy_check_mark:'
@@ -82,6 +82,9 @@ data:
     path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc304_f_mobius_inv.test.py
+    title: test/abc304_f_mobius_inv.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc325_f_minplus_conv_inplace.test.py
     title: test/abc325_f_minplus_conv_inplace.test.py
   - icon: ':heavy_check_mark:'
@@ -90,6 +93,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc362_q_count_substring_query_ahocorasick.test.py
+    title: test/abc362_q_count_substring_query_ahocorasick.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc375_g_find_bridges.test.py
     title: test/abc375_g_find_bridges.test.py
@@ -109,11 +115,17 @@ data:
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_1_a_fast_dijkstra.test.py
+    title: test/grl_1_a_fast_dijkstra.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_a_graph_distance.test.py
     title: test/grl_1_a_graph_distance.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_b_fast_bellman_ford.test.py
+    title: test/grl_1_b_fast_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_1_b_graph_bellman_ford.test.py
     title: test/grl_1_b_graph_bellman_ford.test.py
@@ -133,6 +145,12 @@ data:
     path: test/min_plus_convolution_convex_arbitrary.test.py
     title: test/min_plus_convolution_convex_arbitrary.test.py
   - icon: ':heavy_check_mark:'
+    path: test/minimum_spanning_tree_kruskal.test.py
+    title: test/minimum_spanning_tree_kruskal.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/minimum_spanning_tree_kruskal_heap.test.py
+    title: test/minimum_spanning_tree_kruskal_heap.test.py
+  - icon: ':heavy_check_mark:'
     path: test/shortest_path_graph_weighted.test.py
     title: test/shortest_path_graph_weighted.test.py
   - icon: ':heavy_check_mark:'
@@ -144,9 +162,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -253,11 +271,11 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
-  path: cp_library/io/read_specs_fn.py
+  path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-28 19:02:10+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-11-29 11:58:58+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_mo.test.py
   - test/abc184_f_subset_sum_fn.test.py
@@ -267,10 +285,12 @@ data:
   - test/grl_1_b_bellman_ford.test.py
   - test/abc184_e_grid_graph.test.py
   - test/min_plus_convolution_convex_arbitrary.test.py
+  - test/abc304_f_mobius_inv.test.py
   - test/grl_1_a_graph_distance.test.py
   - test/agc038_b_sliding_min_max.test.py
   - test/abc325_f_minplus_conv_inplace.test.py
   - test/abc261_g_queries_mo.test.py
+  - test/grl_1_b_fast_bellman_ford.test.py
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/abc175_d_permutation.test.py
@@ -283,6 +303,7 @@ data:
   - test/abc184_e_grid_graph_bfs_fn.test.py
   - test/shortest_path_graph_weighted.test.py
   - test/abc203_e_sort_groups.test.py
+  - test/abc362_q_count_substring_query_ahocorasick.test.py
   - test/abc249_f_max_k_heap.test.py
   - test/abc361_e_tree_diameter.test.py
   - test/abc246_e_grid_direction_graph.test.py
@@ -293,20 +314,23 @@ data:
   - test/abc245_f_digraph.test.py
   - test/abc274_e_vec2d.test.py
   - test/grl_3_a_graph_articulation_points.test.py
+  - test/grl_1_a_fast_dijkstra.test.py
   - test/abc185_e_dp2d.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/abc206_e_mobius_table.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - test/minimum_spanning_tree_kruskal_heap.test.py
   - test/subset_convolution.test.py
+  - test/minimum_spanning_tree_kruskal.test.py
   - test/dp_z_cht_monotone_add_min.test.py
   - test/grl_1_a_dijkstra.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/abc218_f_shortest_path.test.py
-documentation_of: cp_library/io/read_specs_fn.py
+documentation_of: cp_library/io/read_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/io/read_specs_fn.py
-- /library/cp_library/io/read_specs_fn.py.html
-title: cp_library/io/read_specs_fn.py
+- /library/cp_library/io/read_fn.py
+- /library/cp_library/io/read_fn.py.html
+title: cp_library/io/read_fn.py
 ---

@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_1_b_bellman_ford.test.py
     title: test/grl_1_b_bellman_ford.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_b_fast_bellman_ford.test.py
+    title: test/grl_1_b_fast_bellman_ford.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -42,10 +45,11 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py
+  - test/grl_1_b_fast_bellman_ford.test.py
 documentation_of: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
 layout: document
 redirect_from:

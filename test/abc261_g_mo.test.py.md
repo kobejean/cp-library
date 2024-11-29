@@ -4,15 +4,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/mo_cls.py
     title: cp_library/alg/dp/mo_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -24,7 +27,7 @@ data:
     - https://atcoder.jp/contests/abc293/tasks/abc293_g
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
     \n\ndef main():\n    N, Q = read(tuple[int, ...])\n    A = read(list[int])\n \
-    \   mo = read(TripletQueries[Q, N])\n    \n    print(*mo.solve(A), sep='\\n')\n\
+    \   mo = read(TripletQueries[Q, N])\n    \n    write(*mo.solve(A), sep='\\n')\n\
     \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -135,36 +138,44 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nclass TripletQueries(Mo):\n\
-    \    cnt = [0]*200001      \n    pairs = [0]*200001    \n    triples = 0\n   \
-    \ A: list[int] = None\n\n    def add(self, i):\n        v = self.A[i]\n      \
-    \  self.triples += self.pairs[v]    \n        self.pairs[v] += self.cnt[v]   \
-    \  \n        self.cnt[v] += 1 \n    \n    def remove(self, i):\n        v = self.A[i]\n\
-    \        self.cnt[v] -= 1 \n        self.pairs[v] -= self.cnt[v]     \n      \
-    \  self.triples -= self.pairs[v]   \n\n    def answer(self, i, l, r):\n      \
-    \  return self.triples \n    \n    def solve(self, A):\n        self.A = A\n \
-    \       return super().solve()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nclass TripletQueries(Mo):\n    cnt = [0]*200001     \
+    \ \n    pairs = [0]*200001    \n    triples = 0\n    A: list[int] = None\n\n \
+    \   def add(self, i):\n        v = self.A[i]\n        self.triples += self.pairs[v]\
+    \    \n        self.pairs[v] += self.cnt[v]     \n        self.cnt[v] += 1 \n\
+    \    \n    def remove(self, i):\n        v = self.A[i]\n        self.cnt[v] -=\
+    \ 1 \n        self.pairs[v] -= self.cnt[v]     \n        self.triples -= self.pairs[v]\
+    \   \n\n    def answer(self, i, l, r):\n        return self.triples \n    \n \
+    \   def solve(self, A):\n        self.A = A\n        return super().solve()\n\n\
+    if __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
     \n\ndef main():\n    N, Q = read(tuple[int, ...])\n    A = read(list[int])\n \
-    \   mo = read(TripletQueries[Q, N])\n    \n    print(*mo.solve(A), sep='\\n')\n\
-    \nfrom cp_library.alg.dp.mo_cls import Mo\nfrom cp_library.io.read_specs_fn import\
-    \ read\n\nclass TripletQueries(Mo):\n    cnt = [0]*200001      \n    pairs = [0]*200001\
-    \    \n    triples = 0\n    A: list[int] = None\n\n    def add(self, i):\n   \
-    \     v = self.A[i]\n        self.triples += self.pairs[v]    \n        self.pairs[v]\
-    \ += self.cnt[v]     \n        self.cnt[v] += 1 \n    \n    def remove(self, i):\n\
-    \        v = self.A[i]\n        self.cnt[v] -= 1 \n        self.pairs[v] -= self.cnt[v]\
-    \     \n        self.triples -= self.pairs[v]   \n\n    def answer(self, i, l,\
-    \ r):\n        return self.triples \n    \n    def solve(self, A):\n        self.A\
-    \ = A\n        return super().solve()\n\nif __name__ == \"__main__\":\n    main()"
+    \   mo = read(TripletQueries[Q, N])\n    \n    write(*mo.solve(A), sep='\\n')\n\
+    \nfrom cp_library.alg.dp.mo_cls import Mo\nfrom cp_library.io.read_fn import read\n\
+    from cp_library.io.write_fn import write\n\nclass TripletQueries(Mo):\n    cnt\
+    \ = [0]*200001      \n    pairs = [0]*200001    \n    triples = 0\n    A: list[int]\
+    \ = None\n\n    def add(self, i):\n        v = self.A[i]\n        self.triples\
+    \ += self.pairs[v]    \n        self.pairs[v] += self.cnt[v]     \n        self.cnt[v]\
+    \ += 1 \n    \n    def remove(self, i):\n        v = self.A[i]\n        self.cnt[v]\
+    \ -= 1 \n        self.pairs[v] -= self.cnt[v]     \n        self.triples -= self.pairs[v]\
+    \   \n\n    def answer(self, i, l, r):\n        return self.triples \n    \n \
+    \   def solve(self, A):\n        self.A = A\n        return super().solve()\n\n\
+    if __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/alg/dp/mo_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc261_g_mo.test.py

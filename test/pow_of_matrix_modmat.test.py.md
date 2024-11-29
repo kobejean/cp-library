@@ -2,8 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/fast_io_cls.py
+    title: cp_library/io/fast_io_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
@@ -21,7 +27,7 @@ data:
     - https://judge.yosupo.jp/problem/pow_of_matrix
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
     \ndef main():\n    mint.set_mod(998244353)\n    N, K = read()\n    A = ModMat([read()\
-    \ for _ in range(N)])\n    B = A**K\n    print(B)\n\n'''\n\u257A\u2501\u2501\u2501\
+    \ for _ in range(N)])\n    B = A**K\n    write(B)\n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -124,20 +130,52 @@ data:
     \           self.R = len(self.data)\n            if self.R == 0:\n           \
     \     self.C = 0\n        else:\n            raise IndexError(\"Invalid index\"\
     )\n\n    \n\n\ndef read(shift=0, base=10):\n    return [int(s, base) + shift for\
-    \ s in input().split()]\n\nif __name__ == '__main__':\n    main()\n"
+    \ s in input().split()]\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\
+    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
+    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
+    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
+    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
+    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
     \ndef main():\n    mint.set_mod(998244353)\n    N, K = read()\n    A = ModMat([read()\
-    \ for _ in range(N)])\n    B = A**K\n    print(B)\n\nfrom cp_library.math.mod.mint_cls\
+    \ for _ in range(N)])\n    B = A**K\n    write(B)\n\nfrom cp_library.math.mod.mint_cls\
     \ import mint\nfrom cp_library.math.mod.modmat_cls import ModMat\nfrom cp_library.io.read_int_fn\
-    \ import read\n\nif __name__ == '__main__':\n    main()\n"
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/mod/modmat_cls.py
   - cp_library/io/read_int_fn.py
+  - cp_library/io/write_fn.py
+  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_modmat.test.py

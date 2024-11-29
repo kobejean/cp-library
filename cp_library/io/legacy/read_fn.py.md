@@ -1,14 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_c_fast_floyd_warshall.test.py
+    title: test/grl_1_c_fast_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_1_c_floyd_warshall.test.py
     title: test/grl_1_c_floyd_warshall.test.py
@@ -115,18 +118,19 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
-  path: cp_library/io/legacy/read_specs_fn.py
+  path: cp_library/io/legacy/read_fn.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/grl_1_c_fast_floyd_warshall.test.py
   - test/grl_2_a_kruskal_heap.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/grl_2_a_graph_kruskal.test.py
-documentation_of: cp_library/io/legacy/read_specs_fn.py
+documentation_of: cp_library/io/legacy/read_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/io/legacy/read_specs_fn.py
-- /library/cp_library/io/legacy/read_specs_fn.py.html
-title: cp_library/io/legacy/read_specs_fn.py
+- /library/cp_library/io/legacy/read_fn.py
+- /library/cp_library/io/legacy/read_fn.py.html
+title: cp_library/io/legacy/read_fn.py
 ---

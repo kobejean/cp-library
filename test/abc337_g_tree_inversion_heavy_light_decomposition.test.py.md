@@ -37,15 +37,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
@@ -67,7 +70,7 @@ data:
     \                range_add(l,r,cnt)\n            else:\n                l,r =\
     \ hld.start[c], hld.end[c]\n                cnt = bit.range_sum(l,r)\n       \
     \         range_add(0,l,cnt)\n                range_add(r,N,cnt)\n        bit.set(hld[v],1)\n\
-    \    ans = presum(ans)\n    ans = [ans[i] for i in hld.start]\n    print(*ans)\n\
+    \    ans = presum(ans)\n    ans = [ans[i] for i in hld.start]\n    write(*ans)\n\
     \n\n\nclass HLD:\n    def __init__(self, T, r=0):\n        N = len(T)\n      \
     \  # build\n        size = [1]*N\n        start = [0]*N\n        end = [0]*N\n\
     \        par = [-1]*N\n        heavy = [-1]*N\n        head = [-1]*N\n       \
@@ -467,15 +470,20 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nimport operator\n\nT\
-    \ = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T] = None,\
-    \ initial: T = None, step = 1) -> list[T]:\n    match step:\n        case 1:\n\
-    \            return list(accumulate(iter, func, initial=initial))\n        case\
-    \ step:\n            assert step >= 2\n            if func is None:\n        \
-    \        func = operator.add\n            A = list(iter)\n            if initial\
-    \ is not None:\n                A = [initial] + A\n            for i in range(step,len(A)):\n\
-    \                A[i] = func(A[i], A[i-step])\n            return A\n\nif __name__\
-    \ == \"__main__\":\n    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nimport operator\n\nT = TypeVar('T')\ndef presum(iter:\
+    \ Iterable[T], func: Callable[[T,T],T] = None, initial: T = None, step = 1) ->\
+    \ list[T]:\n    match step:\n        case 1:\n            return list(accumulate(iter,\
+    \ func, initial=initial))\n        case step:\n            assert step >= 2\n\
+    \            if func is None:\n                func = operator.add\n         \
+    \   A = list(iter)\n            if initial is not None:\n                A = [initial]\
+    \ + A\n            for i in range(step,len(A)):\n                A[i] = func(A[i],\
+    \ A[i-step])\n            return A\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc337/tasks/abc337_g\n\
     \nfrom itertools import accumulate\n\ndef main():\n    N = read(int)\n    T =\
     \ read(Tree[N])\n\n    hld = HLD(T)\n    bit = BinaryIndexTree(N)\n    ans = [0]*(N+1)\n\
@@ -485,32 +493,33 @@ data:
     \                range_add(l,r,cnt)\n            else:\n                l,r =\
     \ hld.start[c], hld.end[c]\n                cnt = bit.range_sum(l,r)\n       \
     \         range_add(0,l,cnt)\n                range_add(r,N,cnt)\n        bit.set(hld[v],1)\n\
-    \    ans = presum(ans)\n    ans = [ans[i] for i in hld.start]\n    print(*ans)\n\
+    \    ans = presum(ans)\n    ans = [ans[i] for i in hld.start]\n    write(*ans)\n\
     \nfrom cp_library.alg.tree.heavy_light_decomposition_cls import HLD\nfrom cp_library.alg.tree.tree_cls\
-    \ import Tree\nfrom cp_library.ds.bit_cls import BinaryIndexTree\nfrom cp_library.io.read_specs_fn\
-    \ import read\nfrom cp_library.alg.iter.presum_fn import presum\n\nif __name__\
-    \ == \"__main__\":\n    main()"
+    \ import Tree\nfrom cp_library.ds.bit_cls import BinaryIndexTree\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\nfrom cp_library.alg.iter.presum_fn\
+    \ import presum\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/alg/tree/heavy_light_decomposition_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/ds/bit_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/alg/iter/presum_fn.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/tree/tree_proto.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/math/inft_cnst.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/sparse_table_cls.py
-  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py

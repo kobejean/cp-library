@@ -19,15 +19,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -39,7 +42,7 @@ data:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A\n\
     \ndef main():\n    N, M = read((int,int))\n    E = read(EdgeListWeighted[M,0])\n\
-    \    MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    print(ans)\n\n\
+    \    MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    write(ans)\n\n\
     '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -129,12 +132,18 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\n\n\n\nclass Edge(tuple,\
-    \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
-    \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
-    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
-    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
+    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
+    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
+    \ parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass\
+    \ EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M, E: E\
+    \ = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
     \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
     \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
     \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
@@ -149,47 +158,49 @@ data:
     \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
     \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
     \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
-    \    pass\n\n\nclass DSU:\n    def __init__(self, n):\n        self.n = n\n  \
-    \      self.par = [-1] * n\n\n    def merge(self, u, v, src = False):\n      \
-    \  assert 0 <= u < self.n\n        assert 0 <= v < self.n\n\n        x, y = self.leader(u),\
+    \    pass\n\n\nclass DSU:\n    def __init__(self, N):\n        self.N = N\n  \
+    \      self.par = [-1] * N\n\n    def merge(self, u, v, src = False):\n      \
+    \  assert 0 <= u < self.N\n        assert 0 <= v < self.N\n\n        x, y = self.leader(u),\
     \ self.leader(v)\n        if x == y: return (x,y) if src else x\n\n        if\
-    \ -self.par[x] < -self.par[y]:\n            x, y = y, x\n\n        self.par[x]\
-    \ += self.par[y]\n        self.par[y] = x\n\n        return (x,y) if src else\
-    \ x\n\n    def same(self, u: int, v: int):\n        assert 0 <= u < self.n\n \
-    \       assert 0 <= v < self.n\n        return self.leader(u) == self.leader(v)\n\
-    \n    def leader(self, i) -> int:\n        assert 0 <= i < self.n\n\n        p\
-    \ = self.par[i]\n        while p >= 0:\n            if self.par[p] < 0:\n    \
-    \            return p\n            self.par[i], i, p = self.par[p], self.par[p],\
-    \ self.par[self.par[p]]\n\n        return i\n\n    def size(self, i) -> int:\n\
-    \        assert 0 <= i < self.n\n        \n        return -self.par[self.leader(i)]\n\
-    \n    def groups(self) -> list[list[int]]:\n        leader_buf = [self.leader(i)\
-    \ for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n  \
-    \      for i in range(self.n):\n            result[leader_buf[i]].append(i)\n\n\
-    \        return list(filter(lambda r: r, result))\n\ndef kruskal(E, N):\n    E.sort(reverse=True)\n\
-    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need > 0:\n \
-    \       edge = E.pop()\n        u,v,_ = edge\n        if not dsu.same(u,v):\n\
-    \            dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
-    \ 1\n    return MST\n\nif __name__ == '__main__':\n    main()\n"
+    \ self.par[x] > self.par[y]:\n            x, y = y, x\n\n        self.par[x] +=\
+    \ self.par[y]\n        self.par[y] = x\n\n        return (x,y) if src else x\n\
+    \n    def same(self, u: int, v: int):\n        assert 0 <= u < self.N\n      \
+    \  assert 0 <= v < self.N\n        return self.leader(u) == self.leader(v)\n\n\
+    \    def leader(self, i) -> int:\n        assert 0 <= i < self.N\n        par\
+    \ = self.par\n        p = par[i]\n        while p >= 0:\n            if par[p]\
+    \ < 0:\n                return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n\
+    \n        return i\n\n    def size(self, i) -> int:\n        assert 0 <= i < self.N\n\
+    \        \n        return -self.par[self.leader(i)]\n\n    def groups(self) ->\
+    \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
+    \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
+    \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
+    \ if r]\n\ndef kruskal(E, N):\n    E.sort(reverse=True)\n    dsu = DSU(N)\n  \
+    \  MST = []\n    need = N-1\n    while E and need > 0:\n        edge = E.pop()\n\
+    \        u,v,_ = edge\n        if not dsu.same(u,v):\n            dsu.merge(u,v)\n\
+    \            MST.append(edge)\n            need -= 1\n    return MST\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A\n\
     \ndef main():\n    N, M = read((int,int))\n    E = read(EdgeListWeighted[M,0])\n\
-    \    MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    print(ans)\n\n\
-    from cp_library.io.read_specs_fn import read\nfrom cp_library.alg.graph.edge_list_weighted_cls\
-    \ import EdgeListWeighted\nfrom cp_library.alg.graph.kruskal_sort_fn import kruskal\n\
-    \nif __name__ == '__main__':\n    main()"
+    \    MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    write(ans)\n\n\
+    from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
+    from cp_library.alg.graph.edge_list_weighted_cls import EdgeListWeighted\nfrom\
+    \ cp_library.alg.graph.kruskal_sort_fn import kruskal\n\nif __name__ == '__main__':\n\
+    \    main()"
   dependsOn:
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/ds/dsu_cls.py
   - cp_library/alg/graph/edge_cls.py
-  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/grl_2_a_kruskal_sort.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_a_kruskal_sort.test.py

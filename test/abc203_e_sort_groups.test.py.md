@@ -7,15 +7,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -34,7 +37,7 @@ data:
     \              add.append(y)\n        for _,y in group:\n            # pawn blocks\
     \ y column\n            S.discard(y)\n            # we'll add it back in the next\
     \ loop if reachable\n        for y in add:\n            S.add(y)\n\n    ans =\
-    \ len(S)\n    print(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ len(S)\n    write(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -126,11 +129,16 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nfrom itertools import\
-    \ groupby\nfrom operator import itemgetter\n\ndef sort_groups(A, key=None):\n\
-    \    if isinstance(key,int):\n        key = itemgetter(key)\n    A.sort(key=key)\n\
-    \    return sorted((k,list(g)) for k,g in groupby(A, key=key))\n    \nif __name__\
-    \ == \"__main__\":\n    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nfrom itertools import groupby\nfrom operator import itemgetter\n\
+    \ndef sort_groups(A, key=None):\n    if isinstance(key,int):\n        key = itemgetter(key)\n\
+    \    A.sort(key=key)\n    return sorted((k,list(g)) for k,g in groupby(A, key=key))\n\
+    \    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
     \    XY = read(list[tuple[int, ...], M])\n    XY = sort_groups(XY, 0)\n    \n\
@@ -140,19 +148,20 @@ data:
     \              add.append(y)\n        for _,y in group:\n            # pawn blocks\
     \ y column\n            S.discard(y)\n            # we'll add it back in the next\
     \ loop if reachable\n        for y in add:\n            S.add(y)\n\n    ans =\
-    \ len(S)\n    print(ans)\n\nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.io.read_specs_fn\
-    \ import read\nfrom cp_library.alg.iter.sort_groups_fn import sort_groups\nif\
-    \ __name__ == \"__main__\":\n    main()"
+    \ len(S)\n    write(ans)\n\nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\nfrom cp_library.alg.iter.sort_groups_fn\
+    \ import sort_groups\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/ds/elist_fn.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/alg/iter/sort_groups_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc203_e_sort_groups.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc203_e_sort_groups.test.py

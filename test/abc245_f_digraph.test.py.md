@@ -16,15 +16,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
-    path: cp_library/io/read_specs_fn.py
-    title: cp_library/io/read_specs_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
@@ -39,7 +42,7 @@ data:
     - https://atcoder.jp/contests/abc245/tasks/abc245_f
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc245/tasks/abc245_f\n\
     \ndef main():\n    N, M = read(tuple[int,int])\n    G = read(DiGraph[N,M])\n \
-    \   ans = sum(label_cycles(G))\n    print(ans)\n\ndef label_cycles(G):\n    state\
+    \   ans = sum(label_cycles(G))\n    write(ans)\n\ndef label_cycles(G):\n    state\
     \ = [0 for _ in range(G.N)]\n    stack = list(range(G.N))\n    cyc = [False]*G.N\n\
     \n    while stack:\n        u = stack.pop()\n        match state[u]:\n       \
     \     case 0:\n                stack.append(u)\n                for v in G[u]:\n\
@@ -339,11 +342,16 @@ data:
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
     \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
-    :\n    main()\n"
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc245/tasks/abc245_f\n\
     \ndef main():\n    N, M = read(tuple[int,int])\n    G = read(DiGraph[N,M])\n \
-    \   ans = sum(label_cycles(G))\n    print(ans)\n\ndef label_cycles(G):\n    state\
+    \   ans = sum(label_cycles(G))\n    write(ans)\n\ndef label_cycles(G):\n    state\
     \ = [0 for _ in range(G.N)]\n    stack = list(range(G.N))\n    cyc = [False]*G.N\n\
     \n    while stack:\n        u = stack.pop()\n        match state[u]:\n       \
     \     case 0:\n                stack.append(u)\n                for v in G[u]:\n\
@@ -351,22 +359,24 @@ data:
     \                      stack.append(v)\n                        case 1:\n    \
     \                        cyc[v] = True\n            case 1:\n                cyc[u]\
     \ = any(cyc[v] for v in G[u])\n        state[u] += 1\n    return cyc\n\n\nfrom\
-    \ cp_library.alg.graph.digraph_cls import DiGraph\nfrom cp_library.io.read_specs_fn\
-    \ import read\n\nif __name__ == \"__main__\":\n    main()"
+    \ cp_library.alg.graph.digraph_cls import DiGraph\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    :\n    main()"
   dependsOn:
   - cp_library/alg/graph/digraph_cls.py
-  - cp_library/io/read_specs_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/math/inft_cnst.py
-  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/abc245_f_digraph.test.py
   requiredBy: []
-  timestamp: '2024-11-28 19:02:10+09:00'
+  timestamp: '2024-11-29 11:58:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc245_f_digraph.test.py
