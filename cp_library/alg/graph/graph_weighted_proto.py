@@ -275,6 +275,6 @@ class GraphWeightedProtocol(GraphProtocol):
         return edges
 
 from cp_library.ds.dsu_cls import DSU
-from cp_library.ds.priority_queue_cls import PriorityQueue
+from cp_library.ds.heap.priority_queue_cls import PriorityQueue
 from cp_library.ds.elist_fn import elist
 from cp_library.math.inft_cnst import inft

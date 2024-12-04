@@ -1,8 +1,8 @@
 import cp_library.ds.__header__
 from collections import UserList
 from typing import Iterable, TypeVar
-from cp_library.ds.heapq_max_import import heapify_max, heappop_max, heappush_max, heapreplace_max, heapushpop_max
-from cp_library.ds.heap_proto import HeapProtocol
+from cp_library.ds.heap.heapq_max_import import heapify_max, heappop_max, heappush_max, heapreplace_max, heapushpop_max
+from cp_library.ds.heap.heap_proto import HeapProtocol
 
 T = TypeVar('T')
 class MaxHeap(HeapProtocol[T], UserList[T]):

@@ -342,6 +342,7 @@ class GraphProtocol(list, Parsable):
 
         events = []
         for s in G.starts(s):
+            if not state[s]: continue
             stack.append(s)
             child.append(0)
             
@@ -391,6 +392,26 @@ class GraphProtocol(list, Parsable):
         edges = G.dfs_topdown(s, connect_roots)
         edges.reverse()
         return edges
+
+    def is_bipartite(G):
+        N = G.N
+        que = deque()
+        color = [-1]*N
+                
+        for s in range(N):
+            if color[s] >= 0:
+                continue
+            color[s] = 1
+            que.append(s)
+            while que:
+                u = que.popleft()
+                for v in G[u]:
+                    if color[v] == -1:
+                        color[v] = 1 - color[u]
+                        que.append(v)
+                    elif color[v] == color[u]:
+                        return False
+        return True
     
     def starts(G, v: int|list[int]|None) -> Iterable:
         match v:

@@ -2,7 +2,7 @@ import cp_library.ds.__header__
 from collections import UserList
 from typing import Iterable, TypeVar
 from heapq import heapify, heappop, heappush, heappushpop, heapreplace
-from cp_library.ds.heap_proto import HeapProtocol
+from cp_library.ds.heap.heap_proto import HeapProtocol
 
 T = TypeVar('T')
 class MinHeap(HeapProtocol[T], UserList[T]):

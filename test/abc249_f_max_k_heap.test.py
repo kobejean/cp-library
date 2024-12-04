@@ -31,7 +31,7 @@ def main():
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.alg.iter.rev_enumerate_fn import rev_enumerate
-from cp_library.ds.max_k_heap_cls import MaxKHeap
+from cp_library.ds.heap.max_k_heap_cls import MaxKHeap
 
 class BadOps(MaxKHeap[int]):
     def __init__(self, K: int, x: int):

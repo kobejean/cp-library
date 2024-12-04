@@ -115,6 +115,59 @@ class GraphBase(Sequence, Parsable):
                     stack.append(v)
         return order
     
+    def dfs_enter_leave(G, s: Union[int,list[int],None] = None):
+        '''Returns lists U and V representing U[i] -> V[i] edges in order of top down discovery'''
+        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va
+        vis = [False]*N
+        I = La[:]
+        stack: list[int] = elist(N)
+        order: list[int] = elist(2*N)
+        G.par = par = [-1]*N
+        events: list[DFSEvent] = elist(2*N)
+
+        for s in G.starts(s):
+            if vis[s]: continue
+            vis[s] = True
+            stack.append(s)
+            order.append(s)
+            events.append(DFSEvent.ENTER)
+            while stack:
+                u = stack[-1]
+                if (i := I[u]) < Ra[u]:
+                    I[u] += 1
+                    v = Va[i]
+                    if vis[v]: continue
+                    par[v] = u
+                    vis[v] = True
+                    order.append(v)
+                    events.append(DFSEvent.ENTER)
+                    stack.append(v)
+                else:
+                    stack.pop()
+                    order.append(u)
+                    events.append(DFSEvent.LEAVE)
+        return events, order
+    
+    def is_bipartite(G):
+        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va
+        que = deque()
+        color = [-1]*N
+                
+        for s in range(N):
+            if color[s] >= 0:
+                continue
+            color[s] = 1
+            que.append(s)
+            while que:
+                u = que.popleft()
+                for i in range(La[u], Ra[u]):
+                    if color[v := Va[i]] == -1:
+                        color[v] = 1 - color[u]
+                        que.append(v)
+                    elif color[v] == color[u]:
+                        return False
+        return True
+    
     def starts(G, s: Union[int,list[int],None]) -> list[int]:
         match s:
             case int(s): return [s]

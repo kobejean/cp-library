@@ -37,7 +37,7 @@ def heapreplace_max(heap: list[T], item: T) -> T:
     heapsiftup_max(heap, 0)
     return returnitem
 
-def heapushpop_max(heap: list[T], item: T) -> T:
+def heappushpop_max(heap: list[T], item: T) -> T:
     """Fast version of a heappush_max followed by a heappop_max."""
     if heap and heap[0] > item:
         item, heap[0] = heap[0], item

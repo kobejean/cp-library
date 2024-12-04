@@ -13,9 +13,11 @@ def read(spec: Union[Type[T],T], char=False) -> T: ...
 def read(spec: Union[Type[T],T] = None, char=False):
     if not char:
         if spec is None:
-            return list(map(int, TokenStream.stream.readline().split()))
+            return map(int, TokenStream.stream.readline().split())
         elif isinstance(offset := spec, int):
             return [int(s)+offset for s in TokenStream.stream.readline().split()]
+        elif spec is int:
+            return int(TokenStream.stream.readline())
         else:
             stream = TokenStream()
     else:

@@ -1,5 +1,5 @@
 from cp_library.math.inft_cnst import inft
-from cp_library.ds.min_heap_cls import MinHeap
+from cp_library.ds.heap.min_heap_cls import MinHeap
 
 def shortest_path(G, s: int, g: int) -> tuple[list[int]|None,list[int]]:
     D = [inft] * G.N

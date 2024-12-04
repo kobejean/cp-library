@@ -1,8 +1,8 @@
 import cp_library.ds.__header__
 from typing import Iterable, TypeVar
 
-from cp_library.ds.min_heap_cls import MinHeap
-from cp_library.ds.k_heap_mixin import KHeapMixin
+from cp_library.ds.heap.min_heap_cls import MinHeap
+from cp_library.ds.heap.k_heap_mixin import KHeapMixin
 
 T = TypeVar('T')
 class MaxKHeap(KHeapMixin[T], MinHeap[T]):

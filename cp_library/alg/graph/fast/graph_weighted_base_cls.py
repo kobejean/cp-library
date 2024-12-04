@@ -161,5 +161,5 @@ class GraphWeightedBase(GraphBase):
 from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.elist_fn import elist
 from cp_library.ds.fill_fn import fill_i32, fill_u32, fill_u64
-from cp_library.ds.priority_queue_cls import PriorityQueue
+from cp_library.ds.heap.priority_queue_cls import PriorityQueue
 from cp_library.math.inft_cnst import inft

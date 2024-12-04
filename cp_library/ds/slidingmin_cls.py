@@ -3,11 +3,10 @@ import cp_library.ds.__header__
 from collections import deque
 from typing import Any, Iterable
 
-class SlidingMinMax(deque):
+class SlidingMin(deque):
     def __init__(self, *, maxlen = None):
         super().__init__(maxlen=maxlen+1)
         self.minq = deque()
-        self.maxq = deque()
 
     @property
     def maxlen(self):
@@ -17,9 +16,6 @@ class SlidingMinMax(deque):
         while self.minq and x < self.minq[-1]:
             self.minq.pop()
         self.minq.append(x)
-        while self.maxq and self.maxq[-1] < x:
-            self.maxq.pop()
-        self.maxq.append(x)
         super().append(x)
         if len(self) > self.maxlen:
             self.popleft()
@@ -38,8 +34,6 @@ class SlidingMinMax(deque):
         x = super().popleft()
         if x == self.minq[0]:
             self.minq.popleft()
-        if x == self.maxq[0]:
-            self.maxq.popleft()
         return x
     
     def pop(self) -> Any:
@@ -48,7 +42,3 @@ class SlidingMinMax(deque):
     @property
     def min(self) -> Any:
         return self.minq[0]
-
-    @property
-    def max(self) -> Any:
-        return self.maxq[0]

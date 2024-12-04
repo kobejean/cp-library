@@ -2,7 +2,7 @@ import cp_library.ds.__header__
 from typing import Iterable, TypeVar
 
 from cp_library.io.parser_cls import Parser, Parsable, TokenStream
-from cp_library.ds.heap_proto import HeapProtocol
+from cp_library.ds.heap.heap_proto import HeapProtocol
 
 T = TypeVar('T')
 class KHeapMixin(HeapProtocol[T], Parsable):

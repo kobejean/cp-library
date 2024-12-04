@@ -29,23 +29,22 @@ class PotentializedDSU:
             return self.op(self.pot[x], self.inv(self.pot[y])) == w
         return True
 
-    def merge(self, x: int, y: int, w) -> int:
+    def merge(self, x: int, y: int, w) -> tuple[int, int]:
         assert 0 <= x < self.n
         assert 0 <= y < self.n
         rx = self.leader(x)
         ry = self.leader(y)
-        if rx == ry:
-            return rx
-        
-        if self.par[rx] < self.par[ry]:
-            x,y,w,rx,ry = y,x,self.inv(w),ry,rx
-            
-        self.par[ry] += self.par[rx]
-        self.par[rx] = ry
-        self.pot[rx] = self.op(
-            self.op(self.inv(self.pot[x]), w), self.pot[y]
-        )
-        return ry
+        if rx != ry:
+            par = self.par
+            if par[rx] < par[ry]:
+                x,y,w,rx,ry = y,x,self.inv(w),ry,rx
+                
+            par[ry] += par[rx]
+            par[rx] = ry
+            self.pot[rx] = self.op(
+                self.op(self.inv(self.pot[x]), w), self.pot[y]
+            )
+        return ry, rx
 
     def same(self, x: int, y: int) -> bool:
         assert 0 <= x < self.n

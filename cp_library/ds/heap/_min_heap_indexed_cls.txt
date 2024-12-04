@@ -3,8 +3,8 @@ from collections import UserList
 from cp_library.math.inft_cnst import inft
 from typing import Generic, Iterable, Sequence, SupportsIndex, TypeVar
 from heapq import heapify, heappop
-from cp_library.ds.heapq_max_import import heapsiftup, heapsiftdown
-from cp_library.ds.heap_proto import HeapProtocol
+from cp_library.ds.heap.heapq_max_import import heapsiftup, heapsiftdown
+from cp_library.ds.heap.heap_proto import HeapProtocol
 from cp_library.ds.elist_fn import elist
 
 
