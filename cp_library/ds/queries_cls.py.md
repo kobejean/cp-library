@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -15,12 +15,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc203_e_queries_grouped.test.py
     title: test/abc203_e_queries_grouped.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc261_g_queries_mo.test.py
     title: test/abc261_g_queries_mo.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "from enum import IntEnum, auto\nfrom itertools import chain, groupby\n\
@@ -239,8 +239,8 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_cls.py
   requiredBy: []
-  timestamp: '2024-12-05 01:48:11+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-12-05 05:25:23+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_queries_mo.test.py
   - test/abc203_e_queries_grouped.test.py

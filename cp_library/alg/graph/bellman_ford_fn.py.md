@@ -73,7 +73,7 @@ data:
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
   - cp_library/alg/graph/fast/tree_weighted_base_cls.py
-  timestamp: '2024-12-05 01:48:11+09:00'
+  timestamp: '2024-12-05 05:25:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_fast_floyd_warshall.test.py

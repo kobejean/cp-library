@@ -79,7 +79,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-05 01:48:11+09:00'
+  timestamp: '2024-12-05 05:25:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

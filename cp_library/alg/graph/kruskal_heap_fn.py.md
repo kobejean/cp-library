@@ -52,7 +52,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_heap_fn.py
   requiredBy: []
-  timestamp: '2024-12-05 01:48:11+09:00'
+  timestamp: '2024-12-05 05:25:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_kruskal_heap.test.py

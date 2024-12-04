@@ -256,7 +256,7 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-05 01:48:11+09:00'
+  timestamp: '2024-12-05 05:25:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_fast_floyd_warshall.test.py

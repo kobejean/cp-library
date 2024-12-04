@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/queries_cls.py
     title: cp_library/ds/queries_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc293/tasks/abc293_g
     links:
     - https://atcoder.jp/contests/abc293/tasks/abc293_g
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
-    \n\ndef main():\n    N, Q = read()\n    A = read()\n    queries = read(QueriesMoOps[Q,\
+    \n\ndef main():\n    N, Q = read()\n    A = read(list[int])\n    queries = read(QueriesMoOps[Q,\
     \ N])\n    \n    # State for counting triples\n    cnt = [0]*200001        \n\
     \    triples = 0           \n    ans = [0]*Q\n    \n    for op in queries:\n \
     \       match op:\n            case (MoOp.ADD_RIGHT | MoOp.ADD_LEFT, start, stop,\
@@ -202,7 +202,7 @@ data:
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
-    \n\ndef main():\n    N, Q = read()\n    A = read()\n    queries = read(QueriesMoOps[Q,\
+    \n\ndef main():\n    N, Q = read()\n    A = read(list[int])\n    queries = read(QueriesMoOps[Q,\
     \ N])\n    \n    # State for counting triples\n    cnt = [0]*200001        \n\
     \    triples = 0           \n    ans = [0]*Q\n    \n    for op in queries:\n \
     \       match op:\n            case (MoOp.ADD_RIGHT | MoOp.ADD_LEFT, start, stop,\
@@ -226,8 +226,8 @@ data:
   isVerificationFile: true
   path: test/abc261_g_queries_mo.test.py
   requiredBy: []
-  timestamp: '2024-12-05 01:48:11+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-12-05 05:25:23+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc261_g_queries_mo.test.py
 layout: document

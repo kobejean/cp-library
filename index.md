@@ -179,7 +179,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/presum_fn.py
       title: cp_library/alg/iter/presum_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/rev_enumerate_fn.py
       title: cp_library/alg/iter/rev_enumerate_fn.py
     - icon: ':warning:'
@@ -270,7 +270,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/elist_fn.py
       title: cp_library/ds/elist_fn.py
     - icon: ':heavy_check_mark:'
@@ -285,7 +285,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu_cls.py
       title: PotentializedDSU (generalized with groups)
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/queries_cls.py
       title: cp_library/ds/queries_cls.py
     - icon: ':heavy_check_mark:'
@@ -314,16 +314,16 @@ data:
       title: cp_library/ds/wavelet_matrix_cls.py
   - name: cp_library/ds/heap
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/heap_proto.py
       title: cp_library/ds/heap/heap_proto.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/heapq_max_import.py
       title: cp_library/ds/heap/heapq_max_import.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/k_heap_mixin.py
       title: cp_library/ds/heap/k_heap_mixin.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/max_heap_cls.py
       title: cp_library/ds/heap/max_heap_cls.py
     - icon: ':heavy_check_mark:'
@@ -335,7 +335,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/min_heap_cls.py
       title: cp_library/ds/heap/min_heap_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/min_k_heap_cls.py
       title: cp_library/ds/heap/min_k_heap_cls.py
     - icon: ':warning:'
@@ -346,16 +346,16 @@ data:
       title: cp_library/ds/heap/priority_queue_cls.py
   - name: cp_library/io
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
     - icon: ':heavy_check_mark:'
@@ -364,7 +364,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/legacy
@@ -596,13 +596,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc249_f_max_k_heap.test.py
       title: test/abc249_f_max_k_heap.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc249_f_min_k_heap.test.py
       title: test/abc249_f_min_k_heap.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc261_g_mo.test.py
       title: test/abc261_g_mo.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/abc261_g_queries_mo.test.py
       title: test/abc261_g_queries_mo.test.py
     - icon: ':heavy_check_mark:'

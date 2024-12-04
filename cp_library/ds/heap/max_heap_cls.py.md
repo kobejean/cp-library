@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heapq_max_import.py
     title: cp_library/ds/heap/heapq_max_import.py
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/min_k_heap_cls.py
     title: cp_library/ds/heap/min_k_heap_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc249_f_min_k_heap.test.py
     title: test/abc249_f_min_k_heap.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -54,16 +54,16 @@ data:
     \ Iterable[T] = None):\n        super().__init__(iterable)\n        heapify_max(self.data)\n\
     \    \n    def pop(self):\n        return heappop_max(self.data)\n    \n    def\
     \ push(self, item: T):\n        heappush_max(self.data, item)\n\n    def pushpop(self,\
-    \ item: T):\n        return heapushpop_max(self.data, item)\n    \n    def replace(self,\
+    \ item: T):\n        return heappushpop_max(self.data, item)\n    \n    def replace(self,\
     \ item: T):\n        return heapreplace_max(self.data, item)\n\n"
   code: "import cp_library.ds.__header__\nfrom collections import UserList\nfrom typing\
     \ import Iterable, TypeVar\nfrom cp_library.ds.heap.heapq_max_import import heapify_max,\
-    \ heappop_max, heappush_max, heapreplace_max, heapushpop_max\nfrom cp_library.ds.heap.heap_proto\
+    \ heappop_max, heappush_max, heapreplace_max, heappushpop_max\nfrom cp_library.ds.heap.heap_proto\
     \ import HeapProtocol\n\nT = TypeVar('T')\nclass MaxHeap(HeapProtocol[T], UserList[T]):\n\
     \    \n    def __init__(self, iterable: Iterable[T] = None):\n        super().__init__(iterable)\n\
     \        heapify_max(self.data)\n    \n    def pop(self):\n        return heappop_max(self.data)\n\
     \    \n    def push(self, item: T):\n        heappush_max(self.data, item)\n\n\
-    \    def pushpop(self, item: T):\n        return heapushpop_max(self.data, item)\n\
+    \    def pushpop(self, item: T):\n        return heappushpop_max(self.data, item)\n\
     \    \n    def replace(self, item: T):\n        return heapreplace_max(self.data,\
     \ item)\n\n"
   dependsOn:
@@ -73,8 +73,8 @@ data:
   path: cp_library/ds/heap/max_heap_cls.py
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
-  timestamp: '2024-12-05 01:48:11+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-12-05 05:25:23+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_min_k_heap.test.py
 documentation_of: cp_library/ds/heap/max_heap_cls.py
