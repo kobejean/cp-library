@@ -10,16 +10,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -41,10 +41,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\nimport\
-    \ sys\n\ninft = sys.maxsize\n\n\ndef main():\n    N, K = read(tuple[int, ...])\n\
-    \    P = read(Permutation[N])\n    C = read(list[int, N])\n\n    ans = -inft\n\
-    \    for cyc in P.cycles():\n        L = len(cyc)\n        A = [C[u] for u in\
-    \ cyc]\n        loop = sum(A)\n        A = presum(A*3)\n        m, k = divmod(K,\
+    \ sys\ninft: int\n\ninft = sys.maxsize\n\n\ndef main():\n    N, K = read(tuple[int,\
+    \ ...])\n    P = read(Permutation[N])\n    C = read(list[int, N])\n\n    ans =\
+    \ -inft\n    for cyc in P.cycles():\n        L = len(cyc)\n        A = [C[u] for\
+    \ u in cyc]\n        loop = sum(A)\n        A = presum(A*3)\n        m, k = divmod(K,\
     \ L)\n        if m:\n            k += L\n            m -= 1\n        rem = max(A[i+j+1]\
     \ - A[i] for i in range(L) for j in range(k))\n        cost = max(m*loop + rem,\
     \ rem)\n        ans = max(ans, cost)\n\n    write(ans)\n    \n\nimport operator\n\
@@ -151,8 +151,9 @@ data:
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None,\
     \ char=False):\n    if not char:\n        if spec is None:\n            return\
-    \ list(map(int, TokenStream.stream.readline().split()))\n        elif isinstance(offset\
+    \ map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
     \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
     \        else:\n            stream = TokenStream()\n    else:\n        stream\
     \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
     \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
@@ -184,7 +185,7 @@ data:
   isVerificationFile: true
   path: test/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc175_d_permutation.test.py

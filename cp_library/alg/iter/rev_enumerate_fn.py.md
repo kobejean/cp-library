@@ -6,12 +6,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc249_f_max_k_heap.test.py
     title: test/abc249_f_max_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc249_f_min_k_heap.test.py
     title: test/abc249_f_min_k_heap.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "\nfrom typing import Reversible\n\ndef rev_enumerate(A: Reversible,\
@@ -23,8 +23,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/rev_enumerate_fn.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-05 01:48:11+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/abc249_f_min_k_heap.test.py
   - test/abc249_f_max_k_heap.test.py

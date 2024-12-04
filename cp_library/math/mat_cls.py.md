@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':warning:'
@@ -173,18 +173,19 @@ data:
     \            obj.N, obj.M = N, M\n            obj.size = size\n            obj.data\
     \ = list(elm(ts) for _ in range(obj.size))\n            return obj\n        return\
     \ parse\n    \n    def __repr__(self) -> str:\n        return '\\n'.join(' '.join(str(elm)\
-    \ for elm in row) for row in self)\n\n\n\n\nclass mint(int):\n    mod = zero =\
-    \ one = two = None\n\n    def __new__(cls, *args, **kwargs):\n        match int(*args,\
-    \ **kwargs):\n            case 0: return cls.zero\n            case 1: return\
-    \ cls.one\n            case 2: return cls.two\n            case x: return cls.fix(x)\n\
+    \ for elm in row) for row in self)\n\n\n\n\nclass mint(int):\n    mod: int\n \
+    \   zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\n\
+    \    def __new__(cls, *args, **kwargs):\n        if (x := int(*args, **kwargs))\
+    \ <= 2:\n            return cls.cache[x]\n        else:\n            return cls.fix(x)\n\
     \n    @classmethod\n    def set_mod(cls, mod):\n        cls.mod = mod\n      \
     \  cls.zero = cls.cast(0)\n        cls.one = cls.fix(1)\n        cls.two = cls.fix(2)\n\
-    \n    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n\
-    \    def cast(cls, x): return super().__new__(cls,x)\n\n    @classmethod\n   \
-    \ def mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while\
-    \ b: a,b,s,t = b,a%b,t,s-a//b*t\n        if a == 1: return cls.fix(s)\n      \
-    \  raise ValueError(f\"{x} is not invertible\")\n    \n    @property\n    def\
-    \ inv(self): return mint.mod_inv(self)\n\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
+    \        cls.cache = [cls.zero, cls.one, cls.two]\n\n    @classmethod\n    def\
+    \ fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def cast(cls,\
+    \ x): return super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls,\
+    \ x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
+    \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
+    \ invertible in mod {cls.mod}\")\n    \n    @property\n    def inv(self): return\
+    \ mint.mod_inv(self)\n\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
     \    def __radd__(self, x): return mint.fix(super().__radd__(x))\n    def __sub__(self,\
     \ x): return mint.fix(super().__sub__(x))\n    def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n\
     \    def __mul__(self, x): return mint.fix(super().__mul__(x))\n    def __rmul__(self,\
@@ -284,7 +285,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mat_cls.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mat_cls.py

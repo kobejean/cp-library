@@ -26,12 +26,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport sys\n\ninft = sys.maxsize\n\ndef bellman_ford(G, N, root) -> tuple[bool,\
-    \ list[int]]:\n    \n    def bellman_ford(G, N, root) -> list[int]:\n        D\
-    \ = [inft]*N\n        D[root] = 0\n        for _ in range(N-1):\n            for\
-    \ u, edges in enumerate(G):\n                if D[u] == inft: continue\n     \
-    \           for v,w in edges:\n                    D[v] = min(D[v], D[u] + w)\n\
-    \        return D\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
+    \nimport sys\ninft: int\n\ninft = sys.maxsize\n\ndef bellman_ford(G, N, root)\
+    \ -> tuple[bool, list[int]]:\n    \n    def bellman_ford(G, N, root) -> list[int]:\n\
+    \        D = [inft]*N\n        D[root] = 0\n        for _ in range(N-1):\n   \
+    \         for u, edges in enumerate(G):\n                if D[u] == inft: continue\n\
+    \                for v,w in edges:\n                    D[v] = min(D[v], D[u]\
+    \ + w)\n        return D\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
     \ for u, edges in enumerate(G) for v,w in edges if D[u] != inft)\n    return neg_cycle,\
     \ D\n"
   code: "import cp_library.alg.graph.__header__\nfrom cp_library.math.inft_cnst import\
@@ -45,7 +45,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_b_bellman_ford.test.py

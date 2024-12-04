@@ -11,18 +11,36 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/digraph_cls.py
+    title: cp_library/alg/graph/fast/digraph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_weighted_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_proto.py
-    title: cp_library/alg/graph/fast/graph_proto.py
+    path: cp_library/alg/graph/fast/graph_base_cls.py
+    title: cp_library/alg/graph/fast/graph_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/graph_cls.py
+    title: cp_library/alg/graph/fast/graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
+    title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_proto.py
-    title: cp_library/alg/graph/fast/graph_weighted_proto.py
+    path: cp_library/alg/graph/fast/tree_base_cls.py
+    title: cp_library/alg/graph/fast/tree_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/tree_cls.py
+    title: cp_library/alg/graph/fast/tree_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/tree_weighted_base_cls.py
+    title: cp_library/alg/graph/fast/tree_weighted_base_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/tree_weighted_cls.py
+    title: cp_library/alg/graph/fast/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
@@ -71,7 +89,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/queries_cls.py
     title: cp_library/ds/queries_cls.py
   - icon: ':heavy_check_mark:'
@@ -105,7 +123,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc246_e_grid_direction_graph.test.py
     title: test/abc246_e_grid_direction_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc261_g_queries_mo.test.py
     title: test/abc261_g_queries_mo.test.py
   - icon: ':heavy_check_mark:'
@@ -126,6 +144,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc375_g_find_bridges.test.py
     title: test/abc375_g_find_bridges.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/dp_v_subtree_dfs_discovery.test.py
+    title: test/dp_v_subtree_dfs_discovery.test.py
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_iterative.test.py
     title: test/dp_v_subtree_rerooting_iterative.test.py
@@ -175,17 +196,17 @@ data:
     path: test/minimum_spanning_tree_kruskal_heap.test.py
     title: test/minimum_spanning_tree_kruskal_heap.test.py
   - icon: ':heavy_check_mark:'
+    path: test/shortest_path_fast_graph.test.py
+    title: test/shortest_path_fast_graph.test.py
+  - icon: ':heavy_check_mark:'
     path: test/shortest_path_graph_weighted.test.py
     title: test/shortest_path_graph_weighted.test.py
   - icon: ':heavy_check_mark:'
     path: test/shortest_path_min_heap.test.py
     title: test/shortest_path_min_heap.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/shortest_path_static_graph_weighted.test.py
-    title: test/shortest_path_static_graph_weighted.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -208,10 +229,16 @@ data:
   - cp_library/ds/queries_cls.py
   - cp_library/alg/graph/dag_cls.py
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  - cp_library/alg/graph/fast/graph_proto.py
-  - cp_library/alg/graph/fast/graph_weighted_proto.py
+  - cp_library/alg/graph/fast/graph_cls.py
+  - cp_library/alg/graph/fast/digraph_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/alg/graph/fast/tree_cls.py
+  - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/alg/graph/fast/tree_base_cls.py
+  - cp_library/alg/graph/fast/tree_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/alg/graph/fast/tree_weighted_base_cls.py
   - cp_library/alg/graph/grid_graph_proto.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/alg/graph/graph_weighted_proto.py
@@ -229,11 +256,13 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-29 11:58:58+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-05 01:48:11+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/grl_1_c_fast_floyd_warshall.test.py
+  - test/shortest_path_fast_graph.test.py
   - test/abc375_g_find_bridges.test.py
+  - test/dp_v_subtree_dfs_discovery.test.py
   - test/shortest_path_min_heap.test.py
   - test/abc202_e_dfs_enter_leave.test.py
   - test/grl_1_b_bellman_ford.test.py
@@ -254,7 +283,6 @@ data:
   - test/abc246_e_grid_direction_graph.test.py
   - test/grl_3_a_articulation_points_fn.test.py
   - test/abc218_f_shortest_path_weighted.test.py
-  - test/shortest_path_static_graph_weighted.test.py
   - test/abc245_f_digraph.test.py
   - test/grl_3_a_graph_articulation_points.test.py
   - test/grl_1_a_fast_dijkstra.test.py

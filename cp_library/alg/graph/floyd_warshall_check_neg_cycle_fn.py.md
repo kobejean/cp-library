@@ -27,24 +27,25 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef floyd_warshall(G, N, directed=True):\n    if directed:\n        \n     \
-    \   import sys\n        \n        inft = sys.maxsize\n        \n        def floyd_warshall(G,\
-    \ N) -> list[list[int]]:\n            D = [[inft]*N for _ in range(N)]\n     \
-    \   \n            for u, edges in enumerate(G):\n                D[u][u] = 0\n\
-    \                for v,w in edges:\n                    D[u][v] = min(D[u][v],\
-    \ w)\n            \n            for k, Dk in enumerate(D):\n                for\
-    \ Di in D:\n                    if Di[k] == inft: continue\n                 \
-    \   for j in range(N):\n                        if Dk[j] == inft: continue\n \
-    \                       Di[j] = min(Di[j], Di[k]+Dk[j])\n            return D\n\
-    \    else:\n        \n        import sys\n        \n        inft = sys.maxsize\n\
-    \        \n        def floyd_warshall(G, N) -> list[list[int]]:\n            D\
-    \ = [[inft]*N for _ in range(N)]\n        \n            for u, edges in enumerate(G):\n\
-    \                D[u][u] = 0\n                for v,w in edges:\n            \
-    \        D[u][v] = min(D[u][v], w)\n            \n            for k, Dk in enumerate(D):\n\
-    \                for i, Di in enumerate(D):\n                    if Di[k] == inft:\
-    \ continue\n                    for j in range(i):\n                        if\
-    \ Dk[j] == inft: continue\n                        Di[j] = D[j][i] = min(Di[j],\
-    \ Di[k]+Dk[j])\n            return D\n    D = floyd_warshall(G, N)\n    return\
-    \ any(D[i][i] < 0 for i in range(N)), D\n"
+    \   import sys\n        inft: int\n        \n        inft = sys.maxsize\n    \
+    \    \n        def floyd_warshall(G, N) -> list[list[int]]:\n            D = [[inft]*N\
+    \ for _ in range(N)]\n        \n            for u, edges in enumerate(G):\n  \
+    \              D[u][u] = 0\n                for v,w in edges:\n              \
+    \      D[u][v] = min(D[u][v], w)\n            \n            for k, Dk in enumerate(D):\n\
+    \                for Di in D:\n                    if Di[k] == inft: continue\n\
+    \                    for j in range(N):\n                        if Dk[j] == inft:\
+    \ continue\n                        Di[j] = min(Di[j], Di[k]+Dk[j])\n        \
+    \    return D\n    else:\n        \n        import sys\n        inft: int\n  \
+    \      \n        inft = sys.maxsize\n        \n        def floyd_warshall(G, N)\
+    \ -> list[list[int]]:\n            D = [[inft]*N for _ in range(N)]\n        \n\
+    \            for u, edges in enumerate(G):\n                D[u][u] = 0\n    \
+    \            for v,w in edges:\n                    D[u][v] = min(D[u][v], w)\n\
+    \            \n            for k, Dk in enumerate(D):\n                for i,\
+    \ Di in enumerate(D):\n                    if Di[k] == inft: continue\n      \
+    \              for j in range(i):\n                        if Dk[j] == inft: continue\n\
+    \                        Di[j] = D[j][i] = min(Di[j], Di[k]+Dk[j])\n         \
+    \   return D\n    D = floyd_warshall(G, N)\n    return any(D[i][i] < 0 for i in\
+    \ range(N)), D\n"
   code: "import cp_library.alg.graph.__header__\n\ndef floyd_warshall(G, N, directed=True):\n\
     \    if directed:\n        from cp_library.alg.graph.floyd_warshall_directed_fn\
     \ import floyd_warshall\n    else:\n        from cp_library.alg.graph.floyd_warshall_fn\
@@ -57,7 +58,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py

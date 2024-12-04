@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/rev_enumerate_fn.py
     title: cp_library/alg/iter/rev_enumerate_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap_proto.py
-    title: cp_library/ds/heap_proto.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heapq_max_import.py
-    title: cp_library/ds/heapq_max_import.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/k_heap_mixin.py
-    title: cp_library/ds/k_heap_mixin.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/max_heap_cls.py
-    title: cp_library/ds/max_heap_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/min_k_heap_cls.py
-    title: cp_library/ds/min_k_heap_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
+    path: cp_library/ds/heap/heap_proto.py
+    title: cp_library/ds/heap/heap_proto.py
+  - icon: ':question:'
+    path: cp_library/ds/heap/heapq_max_import.py
+    title: cp_library/ds/heap/heapq_max_import.py
+  - icon: ':question:'
+    path: cp_library/ds/heap/k_heap_mixin.py
+    title: cp_library/ds/heap/k_heap_mixin.py
+  - icon: ':x:'
+    path: cp_library/ds/heap/max_heap_cls.py
+    title: cp_library/ds/heap/max_heap_cls.py
+  - icon: ':x:'
+    path: cp_library/ds/heap/min_k_heap_cls.py
+    title: cp_library/ds/heap/min_k_heap_cls.py
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc249/tasks/abc249_f
     links:
@@ -134,10 +134,11 @@ data:
     \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
     \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
     \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return list(map(int, TokenStream.stream.readline().split()))\n\
+    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
-    \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
     \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
     \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
     \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
@@ -163,18 +164,18 @@ data:
     \ of\n    this routine unless written as part of a conditional replacement:\n\n\
     \        if item > heap[0]:\n            item = heapreplace_max(heap, item)\n\
     \    \"\"\"\n    returnitem = heap[0]\n    heap[0] = item\n    heapsiftup_max(heap,\
-    \ 0)\n    return returnitem\n\ndef heapushpop_max(heap: list[T], item: T) -> T:\n\
-    \    \"\"\"Fast version of a heappush_max followed by a heappop_max.\"\"\"\n \
-    \   if heap and heap[0] > item:\n        item, heap[0] = heap[0], item\n     \
-    \   heapsiftup_max(heap, 0)\n    return item\n\nfrom typing import Generic, TypeVar\n\
-    \nT = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
-    \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
-    \    def replace(self, item: T) -> T: ...\n\nT = TypeVar('T')\nclass MaxHeap(HeapProtocol[T],\
-    \ UserList[T]):\n    \n    def __init__(self, iterable: Iterable[T] = None):\n\
-    \        super().__init__(iterable)\n        heapify_max(self.data)\n    \n  \
-    \  def pop(self):\n        return heappop_max(self.data)\n    \n    def push(self,\
-    \ item: T):\n        heappush_max(self.data, item)\n\n    def pushpop(self, item:\
-    \ T):\n        return heapushpop_max(self.data, item)\n    \n    def replace(self,\
+    \ 0)\n    return returnitem\n\ndef heappushpop_max(heap: list[T], item: T) ->\
+    \ T:\n    \"\"\"Fast version of a heappush_max followed by a heappop_max.\"\"\"\
+    \n    if heap and heap[0] > item:\n        item, heap[0] = heap[0], item\n   \
+    \     heapsiftup_max(heap, 0)\n    return item\n\nfrom typing import Generic,\
+    \ TypeVar\n\nT = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self)\
+    \ -> T: ...\n    def push(self, item: T): ...\n    def pushpop(self, item: T)\
+    \ -> T: ...\n    def replace(self, item: T) -> T: ...\n\nT = TypeVar('T')\nclass\
+    \ MaxHeap(HeapProtocol[T], UserList[T]):\n    \n    def __init__(self, iterable:\
+    \ Iterable[T] = None):\n        super().__init__(iterable)\n        heapify_max(self.data)\n\
+    \    \n    def pop(self):\n        return heappop_max(self.data)\n    \n    def\
+    \ push(self, item: T):\n        heappush_max(self.data, item)\n\n    def pushpop(self,\
+    \ item: T):\n        return heapushpop_max(self.data, item)\n    \n    def replace(self,\
     \ item: T):\n        return heapreplace_max(self.data, item)\n\n\n\nT = TypeVar('T')\n\
     class KHeapMixin(HeapProtocol[T], Parsable):\n    \"\"\"KHeapMixin[K: int, T:\
     \ type, N: int|None]\"\"\"\n    def __init__(heap, K: int):\n        heap.K =\
@@ -215,28 +216,28 @@ data:
     \                case 2:\n                    if y < 0:\n                    \
     \    S.push(y)\n    write(S.ans)\n                \n\nfrom cp_library.io.read_fn\
     \ import read\nfrom cp_library.io.write_fn import write\nfrom cp_library.alg.iter.rev_enumerate_fn\
-    \ import rev_enumerate\nfrom cp_library.ds.min_k_heap_cls import MinKHeap\n\n\
-    class BadOps(MinKHeap[int]):\n    def __init__(self, K: int, x: int):\n      \
-    \  super().__init__(K)\n        self.x = x\n        self.ans = x\n\n    def added(self,\
-    \ y):\n        self.x -= y\n        self.ans = max(self.ans, self.x)\n    \n \
-    \   def removed(self, y):\n        self.x += y\n        self.ans = max(self.ans,\
+    \ import rev_enumerate\nfrom cp_library.ds.heap.min_k_heap_cls import MinKHeap\n\
+    \nclass BadOps(MinKHeap[int]):\n    def __init__(self, K: int, x: int):\n    \
+    \    super().__init__(K)\n        self.x = x\n        self.ans = x\n\n    def\
+    \ added(self, y):\n        self.x -= y\n        self.ans = max(self.ans, self.x)\n\
+    \    \n    def removed(self, y):\n        self.x += y\n        self.ans = max(self.ans,\
     \ self.x)\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/alg/iter/rev_enumerate_fn.py
-  - cp_library/ds/min_k_heap_cls.py
+  - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
-  - cp_library/ds/max_heap_cls.py
-  - cp_library/ds/k_heap_mixin.py
-  - cp_library/ds/heapq_max_import.py
-  - cp_library/ds/heap_proto.py
+  - cp_library/ds/heap/max_heap_cls.py
+  - cp_library/ds/heap/k_heap_mixin.py
+  - cp_library/ds/heap/heapq_max_import.py
+  - cp_library/ds/heap/heap_proto.py
   isVerificationFile: true
   path: test/abc249_f_min_k_heap.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-12-05 01:48:11+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/abc249_f_min_k_heap.test.py
 layout: document

@@ -4,16 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/cht_monotone_add_min_cls.py
     title: cp_library/ds/cht_monotone_add_min_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -127,10 +127,11 @@ data:
     \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
     \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
     \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return list(map(int, TokenStream.stream.readline().split()))\n\
+    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
-    \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
     \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
     \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
     \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
@@ -154,7 +155,7 @@ data:
   isVerificationFile: true
   path: test/dp_z_cht_monotone_add_min.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_z_cht_monotone_add_min.test.py

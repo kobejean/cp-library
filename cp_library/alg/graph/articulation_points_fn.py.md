@@ -71,10 +71,10 @@ data:
     \ u))\n        if DFSFlags.UP|DFSFlags.CONNECT_ROOTS in flags:\n            events.append((DFSEvent.UP,-1,s))\n\
     \    ret = tuple((events,)) if DFSFlags.RETURN_ALL & flags else events\n    if\
     \ DFSFlags.RETURN_PARENTS in flags:\n        ret += (parents,)\n    if DFSFlags.RETURN_DEPTHS\
-    \ in flags:\n        ret += (depths,)\n    return ret\n\nimport sys\n\ninft =\
-    \ sys.maxsize\n\ndef articulation_points(G, s: int|list|None = None):\n    \"\"\
-    \"\n    Find articulation points in an undirected graph using DFS events.\n  \
-    \  Returns a boolean list that is True for indices where the vertex is an articulation\
+    \ in flags:\n        ret += (depths,)\n    return ret\n\nimport sys\ninft: int\n\
+    \ninft = sys.maxsize\n\ndef articulation_points(G, s: int|list|None = None):\n\
+    \    \"\"\"\n    Find articulation points in an undirected graph using DFS events.\n\
+    \    Returns a boolean list that is True for indices where the vertex is an articulation\
     \ point.\n    \"\"\"\n    N = G.N\n    if s is None:\n        s = range(N)\n \
     \   low = [inft] * N\n    disc = [-1] * N\n    children = [0] * N\n    ap = [False]\
     \ * N\n    time = 0\n    \n    flags = DFSFlags.DOWN | DFSFlags.BACK | DFSFlags.UP\
@@ -113,7 +113,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/articulation_points_fn.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_3_a_articulation_points_fn.test.py

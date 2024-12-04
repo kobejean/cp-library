@@ -10,13 +10,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/grid_graph_proto.py
     title: cp_library/alg/graph/grid_graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -135,33 +135,33 @@ data:
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\ndef elist(est_len:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
     \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ typing import Iterable, overload\n\n\ninft = sys.maxsize\n\nclass GraphProtocol(list,\
-    \ Parsable):\n    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n\
-    \        G.N = N\n        if E is not None:\n            G.M, G.E = len(E), E\n\
-    \        if adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
-    \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
-    \ list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        match s, g:\n            case None, None:\n            \
-    \    return G.floyd_warshall()\n            case s, None:\n                return\
-    \ G.bfs(s)\n            case s, g:\n                return G.bfs(s, g)\n\n   \
-    \ @overload\n    def bfs(G, s: int|list = 0) -> list[int]: ...\n    @overload\n\
-    \    def bfs(G, s: int|list, g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n\
-    \        D = [inft for _ in range(G.N)]\n        q = deque([s] if isinstance(s,\
-    \ int) else s)\n        for u in q: D[u] = 0\n        while q:\n            nd\
-    \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
-    \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
-    \ = nd\n                    q.append(v)\n        return D if g is None else inft\
-    \ \n\n    @overload\n    def shortest_path(G, s: int, g: int) -> list[int]|None:\
-    \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
-    \ -> tuple[list[int]|None,list[int]]: ...\n    def shortest_path(G, s: int, g:\
-    \ int, distances = False) -> list[int]:\n        D = [inft] * G.N\n        D[s]\
-    \ = 0\n        if s == g:\n            return ([], D) if distances else []\n \
-    \           \n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n      \
-    \  Eid = G.edge_ids()\n        q = deque([s])\n        \n        while q:\n  \
-    \          nd = D[u := q.popleft()] + 1\n            if u == g: break\n      \
-    \          \n            for v, eid in zip(G[u], Eid[u]):\n                if\
+    \ typing import Iterable, overload\n\ninft: int\n\ninft = sys.maxsize\n\nclass\
+    \ GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E: list = None,\
+    \ adj: Iterable = None):\n        G.N = N\n        if E is not None:\n       \
+    \     G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
+    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
+    \    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n    def distance(G)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
+    \ distance(G, s = None, g = None):\n        match s, g:\n            case None,\
+    \ None:\n                return G.floyd_warshall()\n            case s, None:\n\
+    \                return G.bfs(s)\n            case s, g:\n                return\
+    \ G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: int|list = 0) -> list[int]:\
+    \ ...\n    @overload\n    def bfs(G, s: int|list, g: int) -> int: ...\n    def\
+    \ bfs(G, s = 0, g = None):\n        D = [inft for _ in range(G.N)]\n        q\
+    \ = deque([s] if isinstance(s, int) else s)\n        for u in q: D[u] = 0\n  \
+    \      while q:\n            nd = D[u := q.popleft()]+1\n            if u == g:\
+    \ return D[u]\n            for v in G.neighbors(u):\n                if nd < D[v]:\n\
+    \                    D[v] = nd\n                    q.append(v)\n        return\
+    \ D if g is None else inft \n\n    @overload\n    def shortest_path(G, s: int,\
+    \ g: int) -> list[int]|None: ...\n    @overload\n    def shortest_path(G, s: int,\
+    \ g: int, distances = True) -> tuple[list[int]|None,list[int]]: ...\n    def shortest_path(G,\
+    \ s: int, g: int, distances = False) -> list[int]:\n        D = [inft] * G.N\n\
+    \        D[s] = 0\n        if s == g:\n            return ([], D) if distances\
+    \ else []\n            \n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n\
+    \        Eid = G.edge_ids()\n        q = deque([s])\n        \n        while q:\n\
+    \            nd = D[u := q.popleft()] + 1\n            if u == g: break\n    \
+    \            \n            for v, eid in zip(G[u], Eid[u]):\n                if\
     \ nd < D[v]:\n                    D[v] = nd\n                    par[v] = u\n\
     \                    par_edge[v] = eid\n                    q.append(v)\n    \
     \    \n        if D[g] == inft:\n            return (None, D) if distances else\
@@ -291,50 +291,58 @@ data:
     \                events.append((DFSEvent.UP,-1,s))\n        return events\n\n\
     \    def dfs_enter_leave(G, s: int|list|None = None):\n        state = [True]\
     \ * G.N\n        child: list[int] = elist(G.N)\n        stack: list[int] = elist(G.N)\n\
-    \n        events = []\n        for s in G.starts(s):\n            stack.append(s)\n\
-    \            child.append(0)\n            \n            while stack:\n       \
-    \         u = stack[-1]\n                \n                if state[u]:\n    \
-    \                state[u] = False\n                    events.append((DFSEvent.ENTER,\
-    \ u))\n\n                \n                if (c := child[-1]) < len(G[u]):\n\
-    \                    child[-1] += 1\n                    if state[v := G[u][c]]:\n\
-    \                        stack.append(v)\n                        child.append(0)\n\
-    \                else:\n                    stack.pop()\n                    child.pop()\n\
-    \                    events.append((DFSEvent.LEAVE, u))\n\n        return events\n\
-    \    \n    def dfs_topdown(G, s: int|list[int]|None = None, connect_roots = False):\n\
-    \        '''Returns list of (u,v) representing u->v edges in order of top down\
-    \ discovery'''\n        stack: list[int] = elist(G.N)\n        vis = [False]*G.N\n\
-    \        edges: list[tuple[int,int]] = elist(G.N)\n\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if connect_roots:\n            \
-    \    edges.append((-1,s))\n            vis[s] = True\n            stack.append(s)\n\
-    \            while stack:\n                u = stack.pop()\n                for\
-    \ v in G[u]:\n                    if vis[v]: continue\n                    vis[v]\
-    \ = True\n                    edges.append((u,v))\n                    stack.append(v)\n\
-    \        return edges\n    \n    def dfs_bottomup(G, s: int|list[int]|None = None,\
-    \ connect_roots = False):\n        '''Returns list of (p,u) representing p->u\
-    \ edges in bottom up order'''\n        edges = G.dfs_topdown(s, connect_roots)\n\
-    \        edges.reverse()\n        return edges\n    \n    def starts(G, v: int|list[int]|None)\
-    \ -> Iterable:\n        match v:\n            case int(v): return (v,)\n     \
-    \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
-    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    \n\nclass GridGraphProtocol(GraphProtocol):\n\
-    \n    def __init__(G, H, W, S=str, dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall =\
-    \ '#', adj = None):\n        super().__init__(W*H, None, adj)\n        G.W = W\n\
-    \        G.H = H\n        G.S = S\n        G.dirs = dirs\n        G.wall = wall\n\
-    \n    def vertex(G, key: tuple[int,int] | int):\n        match key:\n        \
-    \    case i, j: return i*G.W+j\n            case v: return v\n\n    def is_valid(G,\
-    \ i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall\n\
-    \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
-    \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
-    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
-    \nclass LazyGridGraph(GridGraphProtocol):\n\n    def neighbors(G, u: int) -> Iterable[int]:\n\
-    \        S, wall, dirs, H, W = G.S, G.wall, G.dirs, G.H, G.W\n        i,j = divmod(u,\
-    \ W)\n        return tuple(v\n            for di,dj in dirs\n                if\
-    \ (0 <= (ni:=i+di) < H \n                    and 0 <= (nj:=j+dj) < W  \n     \
-    \               and S[v:=ni*W+nj] != wall)\n        ) if S[u] != wall else tuple()\n\
-    \    \n    def __len__(G) -> int:\n        return G.N\n    \n    def __getitem__(G,\
-    \ v: int):\n        return G.neighbors(v)\n    \n    def __iter__(G) -> Iterator:\n\
-    \        return iter(G[v] for v in range(G.N))\n    \n"
+    \n        events = []\n        for s in G.starts(s):\n            if not state[s]:\
+    \ continue\n            stack.append(s)\n            child.append(0)\n       \
+    \     \n            while stack:\n                u = stack[-1]\n            \
+    \    \n                if state[u]:\n                    state[u] = False\n  \
+    \                  events.append((DFSEvent.ENTER, u))\n\n                \n  \
+    \              if (c := child[-1]) < len(G[u]):\n                    child[-1]\
+    \ += 1\n                    if state[v := G[u][c]]:\n                        stack.append(v)\n\
+    \                        child.append(0)\n                else:\n            \
+    \        stack.pop()\n                    child.pop()\n                    events.append((DFSEvent.LEAVE,\
+    \ u))\n\n        return events\n    \n    def dfs_topdown(G, s: int|list[int]|None\
+    \ = None, connect_roots = False):\n        '''Returns list of (u,v) representing\
+    \ u->v edges in order of top down discovery'''\n        stack: list[int] = elist(G.N)\n\
+    \        vis = [False]*G.N\n        edges: list[tuple[int,int]] = elist(G.N)\n\
+    \n        for s in G.starts(s):\n            if vis[s]: continue\n           \
+    \ if connect_roots:\n                edges.append((-1,s))\n            vis[s]\
+    \ = True\n            stack.append(s)\n            while stack:\n            \
+    \    u = stack.pop()\n                for v in G[u]:\n                    if vis[v]:\
+    \ continue\n                    vis[v] = True\n                    edges.append((u,v))\n\
+    \                    stack.append(v)\n        return edges\n    \n    def dfs_bottomup(G,\
+    \ s: int|list[int]|None = None, connect_roots = False):\n        '''Returns list\
+    \ of (p,u) representing p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s,\
+    \ connect_roots)\n        edges.reverse()\n        return edges\n\n    def is_bipartite(G):\n\
+    \        N = G.N\n        que = deque()\n        color = [-1]*N\n            \
+    \    \n        for s in range(N):\n            if color[s] >= 0:\n           \
+    \     continue\n            color[s] = 1\n            que.append(s)\n        \
+    \    while que:\n                u = que.popleft()\n                for v in G[u]:\n\
+    \                    if color[v] == -1:\n                        color[v] = 1\
+    \ - color[u]\n                        que.append(v)\n                    elif\
+    \ color[v] == color[u]:\n                        return False\n        return\
+    \ True\n    \n    def starts(G, v: int|list[int]|None) -> Iterable:\n        match\
+    \ v:\n            case int(v): return (v,)\n            case None: return range(G.N)\n\
+    \            case V: return V\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ M: int, E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
+    \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
+    \    \n\nclass GridGraphProtocol(GraphProtocol):\n\n    def __init__(G, H, W,\
+    \ S=str, dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#', adj = None):\n      \
+    \  super().__init__(W*H, None, adj)\n        G.W = W\n        G.H = H\n      \
+    \  G.S = S\n        G.dirs = dirs\n        G.wall = wall\n\n    def vertex(G,\
+    \ key: tuple[int,int] | int):\n        match key:\n            case i, j: return\
+    \ i*G.W+j\n            case v: return v\n\n    def is_valid(G, i, j, v):\n   \
+    \     return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall\n    \n    @classmethod\n\
+    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
+    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
+    \          return cls(H, W, S, *args)\n        return parse\n\nclass LazyGridGraph(GridGraphProtocol):\n\
+    \n    def neighbors(G, u: int) -> Iterable[int]:\n        S, wall, dirs, H, W\
+    \ = G.S, G.wall, G.dirs, G.H, G.W\n        i,j = divmod(u, W)\n        return\
+    \ tuple(v\n            for di,dj in dirs\n                if (0 <= (ni:=i+di)\
+    \ < H \n                    and 0 <= (nj:=j+dj) < W  \n                    and\
+    \ S[v:=ni*W+nj] != wall)\n        ) if S[u] != wall else tuple()\n    \n    def\
+    \ __len__(G) -> int:\n        return G.N\n    \n    def __getitem__(G, v: int):\n\
+    \        return G.neighbors(v)\n    \n    def __iter__(G) -> Iterator:\n     \
+    \   return iter(G[v] for v in range(G.N))\n    \n"
   code: "import cp_library.alg.graph.__header__\n\nfrom collections.abc import Iterator\n\
     from typing import Iterable\nfrom cp_library.alg.graph.grid_graph_proto import\
     \ GridGraphProtocol\n\nclass LazyGridGraph(GridGraphProtocol):\n\n    def neighbors(G,\
@@ -358,7 +366,7 @@ data:
   path: cp_library/alg/graph/lazy_grid_graph_cls.py
   requiredBy:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc184_e_grid_graph.test.py

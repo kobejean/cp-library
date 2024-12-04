@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: cp_library/ds/heap/heap_proto.py
+    title: cp_library/ds/heap/heap_proto.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap_proto.py
-    title: cp_library/ds/heap_proto.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/min_heap_cls.py
-    title: cp_library/ds/min_heap_cls.py
+    path: cp_library/ds/heap/min_heap_cls.py
+    title: cp_library/ds/heap/min_heap_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
@@ -23,12 +23,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import sys\n\ninft = sys.maxsize\n\nfrom collections import UserList\nfrom typing\
-    \ import Iterable, TypeVar\nfrom heapq import heapify, heappop, heappush, heappushpop,\
-    \ heapreplace\nfrom typing import Generic, TypeVar\n\nT = TypeVar('T')\nclass\
-    \ HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n    def push(self, item:\
-    \ T): ...\n    def pushpop(self, item: T) -> T: ...\n    def replace(self, item:\
-    \ T) -> T: ...\n\nT = TypeVar('T')\nclass MinHeap(HeapProtocol[T], UserList[T]):\n\
+    import sys\ninft: int\n\ninft = sys.maxsize\n\nfrom collections import UserList\n\
+    from typing import Iterable, TypeVar\nfrom heapq import heapify, heappop, heappush,\
+    \ heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\nT = TypeVar('T')\n\
+    class HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n    def push(self,\
+    \ item: T): ...\n    def pushpop(self, item: T) -> T: ...\n    def replace(self,\
+    \ item: T) -> T: ...\n\nT = TypeVar('T')\nclass MinHeap(HeapProtocol[T], UserList[T]):\n\
     \    \n    def __init__(self, iterable: Iterable = None):\n        super().__init__(iterable)\n\
     \        heapify(self.data)\n    \n    def pop(self):\n        return heappop(self.data)\n\
     \    \n    def push(self, item: T):\n        heappush(self.data, item)\n\n   \
@@ -45,7 +45,7 @@ data:
     \ None, D\n        \n    path = []\n    current = g\n    while current != s:\n\
     \        path.append(par_edge[current])\n        current = par[current]\n    \
     \    \n    return path[::-1], D\n\n\n"
-  code: "from cp_library.math.inft_cnst import inft\nfrom cp_library.ds.min_heap_cls\
+  code: "from cp_library.math.inft_cnst import inft\nfrom cp_library.ds.heap.min_heap_cls\
     \ import MinHeap\n\ndef shortest_path(G, s: int, g: int) -> tuple[list[int]|None,list[int]]:\n\
     \    D = [inft] * G.N\n    D[s] = 0\n    if s == g:\n        return [], D\n  \
     \  par = [-1] * G.N\n    par_edge = [-1] * G.N\n    Eid = G.edge_ids()\n    heap\
@@ -59,12 +59,12 @@ data:
     \    \n    return path[::-1], D\n\n\n"
   dependsOn:
   - cp_library/math/inft_cnst.py
-  - cp_library/ds/min_heap_cls.py
-  - cp_library/ds/heap_proto.py
+  - cp_library/ds/heap/min_heap_cls.py
+  - cp_library/ds/heap/heap_proto.py
   isVerificationFile: false
   path: cp_library/alg/graph/shortest_path_fn.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/shortest_path_fn.py

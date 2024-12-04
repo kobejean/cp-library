@@ -28,25 +28,28 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
+  - icon: ':question:'
+    path: cp_library/ds/heap/heap_proto.py
+    title: cp_library/ds/heap/heap_proto.py
+  - icon: ':question:'
+    path: cp_library/ds/heap/heapq_max_import.py
+    title: cp_library/ds/heap/heapq_max_import.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap_proto.py
-    title: cp_library/ds/heap_proto.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/priority_queue_cls.py
-    title: cp_library/ds/priority_queue_cls.py
-  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/priority_queue_cls.py
+    title: cp_library/ds/heap/priority_queue_cls.py
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -68,15 +71,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\nimport sys\n\
-    \ninft = sys.maxsize\n\ndef main():\n    N, M, r = read()\n    G = read(DiGraphWeighted[N,\
-    \ M, 0])\n\n    neg_cycle, D = bellman_ford(G, N, r)\n\n    if neg_cycle:\n  \
-    \      write(\"NEGATIVE CYCLE\")\n    else:\n        write(*('INF' if d == inft\
-    \ else d for d in D), sep='\\n')\n\n\n\ndef bellman_ford(G, N, root) -> tuple[bool,\
-    \ list[int]]:\n    \n    def bellman_ford(G, N, root) -> list[int]:\n        D\
-    \ = [inft]*N\n        D[root] = 0\n        for _ in range(N-1):\n            for\
-    \ u, edges in enumerate(G):\n                if D[u] == inft: continue\n     \
-    \           for v,w in edges:\n                    D[v] = min(D[v], D[u] + w)\n\
-    \        return D\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
+    inft: int\n\ninft = sys.maxsize\n\ndef main():\n    N, M, r = read()\n    G =\
+    \ read(DiGraphWeighted[N, M, 0])\n\n    neg_cycle, D = bellman_ford(G, N, r)\n\
+    \n    if neg_cycle:\n        write(\"NEGATIVE CYCLE\")\n    else:\n        write(*('INF'\
+    \ if d == inft else d for d in D), sep='\\n')\n\n\n\ndef bellman_ford(G, N, root)\
+    \ -> tuple[bool, list[int]]:\n    \n    def bellman_ford(G, N, root) -> list[int]:\n\
+    \        D = [inft]*N\n        D[root] = 0\n        for _ in range(N-1):\n   \
+    \         for u, edges in enumerate(G):\n                if D[u] == inft: continue\n\
+    \                for v,w in edges:\n                    D[v] = min(D[v], D[u]\
+    \ + w)\n        return D\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
     \ for u, edges in enumerate(G) for v,w in edges if D[u] != inft)\n    return neg_cycle,\
     \ D\n\n\n\n\nimport typing\nfrom collections import deque\nfrom numbers import\
     \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
@@ -331,38 +334,46 @@ data:
     \                events.append((DFSEvent.UP,-1,s))\n        return events\n\n\
     \    def dfs_enter_leave(G, s: int|list|None = None):\n        state = [True]\
     \ * G.N\n        child: list[int] = elist(G.N)\n        stack: list[int] = elist(G.N)\n\
-    \n        events = []\n        for s in G.starts(s):\n            stack.append(s)\n\
-    \            child.append(0)\n            \n            while stack:\n       \
-    \         u = stack[-1]\n                \n                if state[u]:\n    \
-    \                state[u] = False\n                    events.append((DFSEvent.ENTER,\
-    \ u))\n\n                \n                if (c := child[-1]) < len(G[u]):\n\
-    \                    child[-1] += 1\n                    if state[v := G[u][c]]:\n\
-    \                        stack.append(v)\n                        child.append(0)\n\
-    \                else:\n                    stack.pop()\n                    child.pop()\n\
-    \                    events.append((DFSEvent.LEAVE, u))\n\n        return events\n\
-    \    \n    def dfs_topdown(G, s: int|list[int]|None = None, connect_roots = False):\n\
-    \        '''Returns list of (u,v) representing u->v edges in order of top down\
-    \ discovery'''\n        stack: list[int] = elist(G.N)\n        vis = [False]*G.N\n\
-    \        edges: list[tuple[int,int]] = elist(G.N)\n\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if connect_roots:\n            \
-    \    edges.append((-1,s))\n            vis[s] = True\n            stack.append(s)\n\
-    \            while stack:\n                u = stack.pop()\n                for\
-    \ v in G[u]:\n                    if vis[v]: continue\n                    vis[v]\
-    \ = True\n                    edges.append((u,v))\n                    stack.append(v)\n\
-    \        return edges\n    \n    def dfs_bottomup(G, s: int|list[int]|None = None,\
-    \ connect_roots = False):\n        '''Returns list of (p,u) representing p->u\
-    \ edges in bottom up order'''\n        edges = G.dfs_topdown(s, connect_roots)\n\
-    \        edges.reverse()\n        return edges\n    \n    def starts(G, v: int|list[int]|None)\
-    \ -> Iterable:\n        match v:\n            case int(v): return (v,)\n     \
-    \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
-    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    \n\nclass GraphWeightedProtocol(GraphProtocol):\n\
-    \n    def neighbors(G, v: int):\n        return map(operator.itemgetter(0), G[v])\n\
-    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
-    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
-    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
-    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \n        events = []\n        for s in G.starts(s):\n            if not state[s]:\
+    \ continue\n            stack.append(s)\n            child.append(0)\n       \
+    \     \n            while stack:\n                u = stack[-1]\n            \
+    \    \n                if state[u]:\n                    state[u] = False\n  \
+    \                  events.append((DFSEvent.ENTER, u))\n\n                \n  \
+    \              if (c := child[-1]) < len(G[u]):\n                    child[-1]\
+    \ += 1\n                    if state[v := G[u][c]]:\n                        stack.append(v)\n\
+    \                        child.append(0)\n                else:\n            \
+    \        stack.pop()\n                    child.pop()\n                    events.append((DFSEvent.LEAVE,\
+    \ u))\n\n        return events\n    \n    def dfs_topdown(G, s: int|list[int]|None\
+    \ = None, connect_roots = False):\n        '''Returns list of (u,v) representing\
+    \ u->v edges in order of top down discovery'''\n        stack: list[int] = elist(G.N)\n\
+    \        vis = [False]*G.N\n        edges: list[tuple[int,int]] = elist(G.N)\n\
+    \n        for s in G.starts(s):\n            if vis[s]: continue\n           \
+    \ if connect_roots:\n                edges.append((-1,s))\n            vis[s]\
+    \ = True\n            stack.append(s)\n            while stack:\n            \
+    \    u = stack.pop()\n                for v in G[u]:\n                    if vis[v]:\
+    \ continue\n                    vis[v] = True\n                    edges.append((u,v))\n\
+    \                    stack.append(v)\n        return edges\n    \n    def dfs_bottomup(G,\
+    \ s: int|list[int]|None = None, connect_roots = False):\n        '''Returns list\
+    \ of (p,u) representing p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s,\
+    \ connect_roots)\n        edges.reverse()\n        return edges\n\n    def is_bipartite(G):\n\
+    \        N = G.N\n        que = deque()\n        color = [-1]*N\n            \
+    \    \n        for s in range(N):\n            if color[s] >= 0:\n           \
+    \     continue\n            color[s] = 1\n            que.append(s)\n        \
+    \    while que:\n                u = que.popleft()\n                for v in G[u]:\n\
+    \                    if color[v] == -1:\n                        color[v] = 1\
+    \ - color[u]\n                        que.append(v)\n                    elif\
+    \ color[v] == color[u]:\n                        return False\n        return\
+    \ True\n    \n    def starts(G, v: int|list[int]|None) -> Iterable:\n        match\
+    \ v:\n            case int(v): return (v,)\n            case None: return range(G.N)\n\
+    \            case V: return V\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ M: int, E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
+    \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
+    \    \n\nclass GraphWeightedProtocol(GraphProtocol):\n\n    def neighbors(G, v:\
+    \ int):\n        return map(operator.itemgetter(0), G[v])\n    \n    @overload\n\
+    \    def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        match s,\
+    \ g:\n            case None, None:\n                return G.floyd_warshall()\n\
     \            case s, None:\n                return G.dijkstra(s)\n           \
     \ case s, g:\n                return G.dijkstra(s, g)\n    \n    def dijkstra(G,\
     \ s = 0, g = None):\n        D = [inft for _ in range(G.N)]\n        D[s] = 0\n\
@@ -517,7 +528,43 @@ data:
     \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
     \        return self.decode(heappushpop(self.data, self.encode(id, priority)))\n\
     \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
-    \ self.encode(id, priority)))\n\n\nfrom operator import itemgetter\n\nclass DiGraphWeighted(GraphWeightedProtocol):\n\
+    \ self.encode(id, priority)))\n\nT = TypeVar('T')\ndef heappop_max(heap: list[T],\
+    \ /) -> T: ...\ndef heapsiftdown_max(heap: list[T], root: int, pos: int): ...\n\
+    def heapsiftup_max(heap: list[T], pos: int): ...\ndef heapsiftdown(heap: list[T],\
+    \ root: int, pos: int): ...\ndef heapsiftup(heap: list[T], pos: int): ...\n\n\
+    from heapq import (\n    _heapify_max as heapify_max, \n    _heappop_max as heappop_max,\
+    \ \n    _siftdown_max as heapsiftdown_max,\n    _siftup_max as heapsiftup_max,\n\
+    \    _siftdown as heapsiftdown,\n    _siftup as heapsiftup\n)\n\ndef heappush_max(heap:\
+    \ list[T], item: T):\n    \"\"\"Push item onto heap, maintaining the heap invariant.\"\
+    \"\"\n    heap.append(item)\n    heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef\
+    \ heapreplace_max(heap: list[T], item: T) -> T:\n    \"\"\"Pop and return the\
+    \ current largest value, and add the new item.\n\n    This is more efficient than\
+    \ heappop_max() followed by heappush_max(), and can be\n    more appropriate when\
+    \ using a fixed-size heap.  Note that the value\n    returned may be larger than\
+    \ item!  That constrains reasonable uses of\n    this routine unless written as\
+    \ part of a conditional replacement:\n\n        if item > heap[0]:\n         \
+    \   item = heapreplace_max(heap, item)\n    \"\"\"\n    returnitem = heap[0]\n\
+    \    heap[0] = item\n    heapsiftup_max(heap, 0)\n    return returnitem\n\ndef\
+    \ heappushpop_max(heap: list[T], item: T) -> T:\n    \"\"\"Fast version of a heappush_max\
+    \ followed by a heappop_max.\"\"\"\n    if heap and heap[0] > item:\n        item,\
+    \ heap[0] = heap[0], item\n        heapsiftup_max(heap, 0)\n    return item\n\n\
+    \nclass MaxPriorityQueue(HeapProtocol[int], UserList[int]):\n    \n    def __init__(self,\
+    \ N: int, ids: list[int] = None, priorities: list[int] = None, /):\n        self.shift\
+    \ = N.bit_length()\n        self.mask = (1 << self.shift)-1\n        if ids is\
+    \ None:\n            super().__init__()\n        elif priorities is None:\n  \
+    \          heapify_max(ids)\n            self.data = ids\n        else:\n    \
+    \        M = len(ids)\n            data = [0]*M\n            for i in range(M):\n\
+    \                data[i] = self.encode(ids[i], priorities[i]) \n            heapify_max(data)\n\
+    \            self.data = data\n\n    def encode(self, id, priority):\n       \
+    \ return priority << self.shift | id\n    \n    def decode(self, encoded):\n \
+    \       return self.mask & encoded, encoded >> self.shift\n    \n    def pop(self):\n\
+    \        return self.decode(heappop_max(self.data))\n    \n    def push(self,\
+    \ id: int, priority: int):\n        heappush_max(self.data, self.encode(id, priority))\n\
+    \n    def pushpop(self, id: int, priority: int):\n        return self.decode(heappushpop_max(self.data,\
+    \ self.encode(id, priority)))\n    \n    def replace(self, id: int, priority:\
+    \ int):\n        return self.decode(heapreplace_max(self.data, self.encode(id,\
+    \ priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n\
+    \nfrom operator import itemgetter\n\nclass DiGraphWeighted(GraphWeightedProtocol):\n\
     \    def __init__(G, N, E: list = []):\n        super().__init__(N, E, ([] for\
     \ _ in range(N)))\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n\
     \    \n    def edge_ids(G) -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n\
@@ -530,17 +577,17 @@ data:
     \ -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
     def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
     \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
-    \   return list(map(int, TokenStream.stream.readline().split()))\n        elif\
-    \ isinstance(offset := spec, int):\n            return [int(s)+offset for s in\
-    \ TokenStream.stream.readline().split()]\n        else:\n            stream =\
-    \ TokenStream()\n    else:\n        stream = CharStream()\n    parser: T = Parser.compile(spec)\n\
-    \    return parser(stream)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the\
-    \ values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_B\n\
     from cp_library.math.inft_cnst import inft\n\ndef main():\n    N, M, r = read()\n\
     \    G = read(DiGraphWeighted[N, M, 0])\n\n    neg_cycle, D = bellman_ford(G,\
@@ -564,13 +611,14 @@ data:
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/dsu_cls.py
-  - cp_library/ds/priority_queue_cls.py
+  - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/elist_fn.py
-  - cp_library/ds/heap_proto.py
+  - cp_library/ds/heap/heap_proto.py
+  - cp_library/ds/heap/heapq_max_import.py
   isVerificationFile: true
   path: test/grl_1_b_bellman_ford.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_b_bellman_ford.test.py

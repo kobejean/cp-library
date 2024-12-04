@@ -13,16 +13,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -75,10 +75,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\nimport sys\n\
-    \ninft = sys.maxsize\nfrom collections import deque\n\n\nfrom enum import auto,\
-    \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
-    \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
-    \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    inft: int\n\ninft = sys.maxsize\nfrom collections import deque\n\n\nfrom enum\
+    \ import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n\
+    \    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n\
+    \    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
     \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
     \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
     \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
@@ -319,38 +319,46 @@ data:
     \                events.append((DFSEvent.UP,-1,s))\n        return events\n\n\
     \    def dfs_enter_leave(G, s: int|list|None = None):\n        state = [True]\
     \ * G.N\n        child: list[int] = elist(G.N)\n        stack: list[int] = elist(G.N)\n\
-    \n        events = []\n        for s in G.starts(s):\n            stack.append(s)\n\
-    \            child.append(0)\n            \n            while stack:\n       \
-    \         u = stack[-1]\n                \n                if state[u]:\n    \
-    \                state[u] = False\n                    events.append((DFSEvent.ENTER,\
-    \ u))\n\n                \n                if (c := child[-1]) < len(G[u]):\n\
-    \                    child[-1] += 1\n                    if state[v := G[u][c]]:\n\
-    \                        stack.append(v)\n                        child.append(0)\n\
-    \                else:\n                    stack.pop()\n                    child.pop()\n\
-    \                    events.append((DFSEvent.LEAVE, u))\n\n        return events\n\
-    \    \n    def dfs_topdown(G, s: int|list[int]|None = None, connect_roots = False):\n\
-    \        '''Returns list of (u,v) representing u->v edges in order of top down\
-    \ discovery'''\n        stack: list[int] = elist(G.N)\n        vis = [False]*G.N\n\
-    \        edges: list[tuple[int,int]] = elist(G.N)\n\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if connect_roots:\n            \
-    \    edges.append((-1,s))\n            vis[s] = True\n            stack.append(s)\n\
-    \            while stack:\n                u = stack.pop()\n                for\
-    \ v in G[u]:\n                    if vis[v]: continue\n                    vis[v]\
-    \ = True\n                    edges.append((u,v))\n                    stack.append(v)\n\
-    \        return edges\n    \n    def dfs_bottomup(G, s: int|list[int]|None = None,\
-    \ connect_roots = False):\n        '''Returns list of (p,u) representing p->u\
-    \ edges in bottom up order'''\n        edges = G.dfs_topdown(s, connect_roots)\n\
-    \        edges.reverse()\n        return edges\n    \n    def starts(G, v: int|list[int]|None)\
-    \ -> Iterable:\n        match v:\n            case int(v): return (v,)\n     \
-    \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
-    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    \n\nfrom typing import Any, Callable,\
-    \ List\n\nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any],\
-    \ Any], arr: List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
-    \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
-    \ range(self.log)]\n        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
-    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
+    \n        events = []\n        for s in G.starts(s):\n            if not state[s]:\
+    \ continue\n            stack.append(s)\n            child.append(0)\n       \
+    \     \n            while stack:\n                u = stack[-1]\n            \
+    \    \n                if state[u]:\n                    state[u] = False\n  \
+    \                  events.append((DFSEvent.ENTER, u))\n\n                \n  \
+    \              if (c := child[-1]) < len(G[u]):\n                    child[-1]\
+    \ += 1\n                    if state[v := G[u][c]]:\n                        stack.append(v)\n\
+    \                        child.append(0)\n                else:\n            \
+    \        stack.pop()\n                    child.pop()\n                    events.append((DFSEvent.LEAVE,\
+    \ u))\n\n        return events\n    \n    def dfs_topdown(G, s: int|list[int]|None\
+    \ = None, connect_roots = False):\n        '''Returns list of (u,v) representing\
+    \ u->v edges in order of top down discovery'''\n        stack: list[int] = elist(G.N)\n\
+    \        vis = [False]*G.N\n        edges: list[tuple[int,int]] = elist(G.N)\n\
+    \n        for s in G.starts(s):\n            if vis[s]: continue\n           \
+    \ if connect_roots:\n                edges.append((-1,s))\n            vis[s]\
+    \ = True\n            stack.append(s)\n            while stack:\n            \
+    \    u = stack.pop()\n                for v in G[u]:\n                    if vis[v]:\
+    \ continue\n                    vis[v] = True\n                    edges.append((u,v))\n\
+    \                    stack.append(v)\n        return edges\n    \n    def dfs_bottomup(G,\
+    \ s: int|list[int]|None = None, connect_roots = False):\n        '''Returns list\
+    \ of (p,u) representing p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s,\
+    \ connect_roots)\n        edges.reverse()\n        return edges\n\n    def is_bipartite(G):\n\
+    \        N = G.N\n        que = deque()\n        color = [-1]*N\n            \
+    \    \n        for s in range(N):\n            if color[s] >= 0:\n           \
+    \     continue\n            color[s] = 1\n            que.append(s)\n        \
+    \    while que:\n                u = que.popleft()\n                for v in G[u]:\n\
+    \                    if color[v] == -1:\n                        color[v] = 1\
+    \ - color[u]\n                        que.append(v)\n                    elif\
+    \ color[v] == color[u]:\n                        return False\n        return\
+    \ True\n    \n    def starts(G, v: int|list[int]|None) -> Iterable:\n        match\
+    \ v:\n            case int(v): return (v,)\n            case None: return range(G.N)\n\
+    \            case V: return V\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ M: int, E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
+    \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
+    \    \n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n    def\
+    \ __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n        self.n\
+    \ = len(arr)\n        self.log = self.n.bit_length()\n        self.op = op\n \
+    \       self.st = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n    \
+    \    self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n    \
+    \        row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
     \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
     \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
     \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
@@ -473,7 +481,7 @@ data:
   - cp_library/alg/tree/tree_fast_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc202_e_dfs_enter_leave.test.py

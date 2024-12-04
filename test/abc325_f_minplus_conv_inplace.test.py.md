@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -38,9 +38,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\nimport\
-    \ sys\n\ninft = sys.maxsize\n\ndef main():\n    N = read(int)\n    D = read(list[int])\n\
-    \    L1,C1,K1 = read(tuple[int, ...])\n    L2,C2,K2 = read(tuple[int, ...])\n\
-    \    dp = [0]*(K1+1)\n    for i in range(N):\n        DK2 = [(max(0,D[i]-dk1*L1)\
+    \ sys\ninft: int\n\ninft = sys.maxsize\n\ndef main():\n    N = read(int)\n   \
+    \ D = read(list[int])\n    L1,C1,K1 = read(tuple[int, ...])\n    L2,C2,K2 = read(tuple[int,\
+    \ ...])\n    dp = [0]*(K1+1)\n    for i in range(N):\n        DK2 = [(max(0,D[i]-dk1*L1)\
     \ + L2-1) // L2 for dk1 in range(K1+1)]\n        minplus_conv_inplace(dp, DK2)\n\
     \    ans = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inft)\n\
     \    write(ans if ans != inft else -1)\n    \n\n\n\nfrom typing import Type, TypeVar,\
@@ -123,10 +123,11 @@ data:
     \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
     \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
     \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return list(map(int, TokenStream.stream.readline().split()))\n\
+    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
-    \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
     \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
     \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
     \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
@@ -170,7 +171,7 @@ data:
   isVerificationFile: true
   path: test/abc325_f_minplus_conv_inplace.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc325_f_minplus_conv_inplace.test.py

@@ -4,13 +4,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/potentialized_dsu_cls.py
     title: PotentializedDSU (generalized with groups)
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -40,26 +40,26 @@ data:
     \    def consistent(self, x: int, y: int, w) -> bool:\n        rx = self.leader(x)\n\
     \        ry = self.leader(y)\n        if rx == ry:\n            return self.op(self.pot[x],\
     \ self.inv(self.pot[y])) == w\n        return True\n\n    def merge(self, x: int,\
-    \ y: int, w) -> int:\n        assert 0 <= x < self.n\n        assert 0 <= y <\
-    \ self.n\n        rx = self.leader(x)\n        ry = self.leader(y)\n        if\
-    \ rx == ry:\n            return rx\n        \n        if self.par[rx] < self.par[ry]:\n\
-    \            x,y,w,rx,ry = y,x,self.inv(w),ry,rx\n            \n        self.par[ry]\
-    \ += self.par[rx]\n        self.par[rx] = ry\n        self.pot[rx] = self.op(\n\
-    \            self.op(self.inv(self.pot[x]), w), self.pot[y]\n        )\n     \
-    \   return ry\n\n    def same(self, x: int, y: int) -> bool:\n        assert 0\
-    \ <= x < self.n\n        assert 0 <= y < self.n\n        return self.leader(x)\
-    \ == self.leader(y)\n    \n    def size(self, x: int) -> int:\n        assert\
-    \ 0 <= x < self.n\n        return -self.par[self.leader(x)]\n    \n    def groups(self):\n\
-    \        leader_buf = [self.leader(i) for i in range(self.n)]\n\n        result\
-    \ = [[] for _ in range(self.n)]\n        for i in range(self.n):\n           \
-    \ result[leader_buf[i]].append(i)\n\n        return list(filter(lambda r: r, result))\n\
-    \n    def diff(self, x: int, y: int):\n        assert self.same(x, y)\n      \
-    \  return self.op(self.pot[x], self.inv(self.pot[y]))\n\n\ndef read(shift=0, base=10):\n\
-    \    return [int(s, base) + shift for s in input().split()]\nimport os\nimport\
-    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ y: int, w) -> tuple[int, int]:\n        assert 0 <= x < self.n\n        assert\
+    \ 0 <= y < self.n\n        rx = self.leader(x)\n        ry = self.leader(y)\n\
+    \        if rx != ry:\n            par = self.par\n            if par[rx] < par[ry]:\n\
+    \                x,y,w,rx,ry = y,x,self.inv(w),ry,rx\n                \n     \
+    \       par[ry] += par[rx]\n            par[rx] = ry\n            self.pot[rx]\
+    \ = self.op(\n                self.op(self.inv(self.pot[x]), w), self.pot[y]\n\
+    \            )\n        return ry, rx\n\n    def same(self, x: int, y: int) ->\
+    \ bool:\n        assert 0 <= x < self.n\n        assert 0 <= y < self.n\n    \
+    \    return self.leader(x) == self.leader(y)\n    \n    def size(self, x: int)\
+    \ -> int:\n        assert 0 <= x < self.n\n        return -self.par[self.leader(x)]\n\
+    \    \n    def groups(self):\n        leader_buf = [self.leader(i) for i in range(self.n)]\n\
+    \n        result = [[] for _ in range(self.n)]\n        for i in range(self.n):\n\
+    \            result[leader_buf[i]].append(i)\n\n        return list(filter(lambda\
+    \ r: r, result))\n\n    def diff(self, x: int, y: int):\n        assert self.same(x,\
+    \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\n\n\ndef read(shift=0,\
+    \ base=10):\n    return [int(s, base) + shift for s in input().split()]\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -107,7 +107,7 @@ data:
   isVerificationFile: true
   path: test/unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unionfind_with_potential.test.py

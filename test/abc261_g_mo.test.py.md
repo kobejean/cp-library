@@ -4,16 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/mo_cls.py
     title: cp_library/alg/dp/mo_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -109,47 +109,59 @@ data:
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\nfrom\
-    \ typing import Iterable\n\nclass Mo(list, Parsable):\n    \"\"\"\n    Mo[Q: int,\
-    \ N: int, T: type = tuple[int, int]]\n    \"\"\"\n    def __init__(self, queries:\
-    \ Iterable[tuple[int, int]], N: int):\n        # Initialize with original queries\
-    \ and their indices\n        B = isqrt(N)\n        queries = [\n            (b,\
-    \ -r, i, l, r) if (b := l//B) & 2 else (b, r, i, l, r)\n            for i, (l,\
-    \ r) in enumerate(queries)\n        ]\n        self.Q = len(queries)\n       \
-    \ self.queries = queries\n\n    def add(self, i):\n        pass\n\n    def remove(self,\
-    \ i):\n        pass\n\n    def answer(self, i, l, r):\n        pass\n    \n  \
-    \  def solve(self):\n        self.queries.sort()\n\n        curr_l = curr_r =\
-    \ 0\n        ans = [0]*self.Q\n        \n        for _, _, qid, l, r in self.queries:\n\
-    \            if r > curr_r:\n                for i in range(curr_r, r):\n    \
-    \                self.add(i)\n\n            if l < curr_l:\n                for\
-    \ i in range(curr_l-1, l-1, -1):\n                    self.add(i)\n\n        \
-    \    if l > curr_l:\n                for i in range(curr_l, l):\n            \
-    \        self.remove(i)\n\n            if r < curr_r:\n                for i in\
-    \ range(curr_r-1, r-1, -1):\n                    self.remove(i)\n            ans[qid]\
-    \ = self.answer(qid, l, r)\n            \n            curr_l, curr_r = l, r\n\
-    \        return ans\n\n\n    @classmethod\n    def compile(cls, Q: int, N: int,\
-    \ T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((query(ts) for _ in range(Q)), N)\n  \
-    \      return parse\n\n\nfrom typing import Type, TypeVar, Union, overload\n\n\
-    T = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
-    \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
-    \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return list(map(int, TokenStream.stream.readline().split()))\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
-    \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nclass TripletQueries(Mo):\n    cnt = [0]*200001     \
-    \ \n    pairs = [0]*200001    \n    triples = 0\n    A: list[int] = None\n\n \
-    \   def add(self, i):\n        v = self.A[i]\n        self.triples += self.pairs[v]\
-    \    \n        self.pairs[v] += self.cnt[v]     \n        self.cnt[v] += 1 \n\
-    \    \n    def remove(self, i):\n        v = self.A[i]\n        self.cnt[v] -=\
-    \ 1 \n        self.pairs[v] -= self.cnt[v]     \n        self.triples -= self.pairs[v]\
+    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nclass\
+    \ Mo(list, Parsable):\n    \"\"\"\n    Mo[Q: int, N: int, T: type = tuple[int,\
+    \ int]]\n    \"\"\"\n    def __init__(self, L: list[int], R: list[int], N: int):\n\
+    \        self.Q = len(L)\n        self.qbits = self.Q.bit_length()\n        self.nbits\
+    \ = N.bit_length()\n        self.qmask = (1 << self.qbits) - 1\n        self.nmask\
+    \ = (1 << self.nbits) - 1\n        \n        self.B = isqrt(N)\n        self.order\
+    \ = [self.packet(i, L[i], R[i]) for i in range(self.Q)]\n        self.order.sort()\n\
+    \        self.L = [0]*self.Q\n        self.R = [0]*self.Q\n        for i,j in\
+    \ enumerate(self.order):\n            j &= self.qmask\n            self.order[i]\
+    \ = j\n            self.L[i] = L[j]\n            self.R[i] = R[j]\n\n    def packet(self,\
+    \ i: int, l: int, r: int) -> int:\n        \"\"\"Pack query information into a\
+    \ single integer.\"\"\"\n        b = l//self.B\n        if b & 1:\n          \
+    \  return (((b << self.nbits) + self.nmask - r) << self.qbits) + i\n        else:\n\
+    \            return (((b << self.nbits) + r) << self.qbits) + i\n    \n\n    def\
+    \ add(self, i: int):\n        \"\"\"Add element at index i to current range.\"\
+    \"\"\n        pass\n\n    def remove(self, i: int):\n        \"\"\"Remove element\
+    \ at index i from current range.\"\"\"\n        pass\n\n    def answer(self, i:\
+    \ int, l: int, r: int) -> int:\n        \"\"\"Compute answer for current range.\"\
+    \"\"\n        pass\n    \n    def solve(self) -> list[int]:\n        curr_l =\
+    \ curr_r = 0\n        ans = [0] * self.Q\n        order, L, R = self.order, self.L,\
+    \ self.R\n        \n        for i in range(self.Q):\n            qid, l, r = order[i],\
+    \ L[i], R[i]\n            \n            if r > curr_r:\n                for i\
+    \ in range(curr_r, r):\n                    self.add(i)\n\n            if l <\
+    \ curr_l:\n                for i in range(curr_l-1, l-1, -1):\n              \
+    \      self.add(i)\n\n            if l > curr_l:\n                for i in range(curr_l,\
+    \ l):\n                    self.remove(i)\n\n            if r < curr_r:\n    \
+    \            for i in range(curr_r-1, r-1, -1):\n                    self.remove(i)\n\
+    \                    \n            ans[qid] = self.answer(qid, l, r)\n       \
+    \     curr_l, curr_r = l, r\n            \n        return ans\n\n    @classmethod\n\
+    \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
+    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
+    \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
+    \ \n            return cls(L, R, N)\n        return parse\n\nfrom typing import\
+    \ Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() ->\
+    \ list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
+    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
+    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nclass TripletQueries(Mo):\n    cnt =\
+    \ [0]*200001      \n    pairs = [0]*200001    \n    triples = 0\n    A: list[int]\
+    \ = None\n\n    def add(self, i):\n        v = self.A[i]\n        self.triples\
+    \ += self.pairs[v]    \n        self.pairs[v] += self.cnt[v]     \n        self.cnt[v]\
+    \ += 1 \n    \n    def remove(self, i):\n        v = self.A[i]\n        self.cnt[v]\
+    \ -= 1 \n        self.pairs[v] -= self.cnt[v]     \n        self.triples -= self.pairs[v]\
     \   \n\n    def answer(self, i, l, r):\n        return self.triples \n    \n \
     \   def solve(self, A):\n        self.A = A\n        return super().solve()\n\n\
     if __name__ == \"__main__\":\n    main()\n"
@@ -175,7 +187,7 @@ data:
   isVerificationFile: true
   path: test/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc261_g_mo.test.py

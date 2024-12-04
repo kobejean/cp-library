@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -129,10 +129,11 @@ data:
     \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
     \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
     \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return list(map(int, TokenStream.stream.readline().split()))\n\
+    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
-    \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
     \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
     \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
     \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
@@ -166,19 +167,20 @@ data:
     \ ^ bit]\n        for i in range(block,N):\n            for base in range(bit\
     \ := 1<<i, 1<<N, bit << 1):\n                for mask in range(base, base+bit):\n\
     \                    A[mask] -= A[mask ^ bit]\n        return A\n    \n    \n\
-    \    class mint(int):\n        mod = zero = one = two = None\n    \n        def\
-    \ __new__(cls, *args, **kwargs):\n            match int(*args, **kwargs):\n  \
-    \              case 0: return cls.zero\n                case 1: return cls.one\n\
-    \                case 2: return cls.two\n                case x: return cls.fix(x)\n\
+    \    class mint(int):\n        mod: int\n        zero: 'mint'\n        one: 'mint'\n\
+    \        two: 'mint'\n        cache: list['mint']\n    \n        def __new__(cls,\
+    \ *args, **kwargs):\n            if (x := int(*args, **kwargs)) <= 2:\n      \
+    \          return cls.cache[x]\n            else:\n                return cls.fix(x)\n\
     \    \n        @classmethod\n        def set_mod(cls, mod):\n            cls.mod\
     \ = mod\n            cls.zero = cls.cast(0)\n            cls.one = cls.fix(1)\n\
-    \            cls.two = cls.fix(2)\n    \n        @classmethod\n        def fix(cls,\
-    \ x): return cls.cast(x%cls.mod)\n    \n        @classmethod\n        def cast(cls,\
-    \ x): return super().__new__(cls,x)\n    \n        @classmethod\n        def mod_inv(cls,\
-    \ x):\n            a,b,s,t = int(x), cls.mod, 1, 0\n            while b: a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n            if a == 1: return cls.fix(s)\n            raise\
-    \ ValueError(f\"{x} is not invertible\")\n        \n        @property\n      \
-    \  def inv(self): return mint.mod_inv(self)\n    \n        def __add__(self, x):\
+    \            cls.two = cls.fix(2)\n            cls.cache = [cls.zero, cls.one,\
+    \ cls.two]\n    \n        @classmethod\n        def fix(cls, x): return cls.cast(x%cls.mod)\n\
+    \    \n        @classmethod\n        def cast(cls, x): return super().__new__(cls,x)\n\
+    \    \n        @classmethod\n        def mod_inv(cls, x):\n            a,b,s,t\
+    \ = int(x), cls.mod, 1, 0\n            while b: a,b,s,t = b,a%b,t,s-a//b*t\n \
+    \           if a == 1: return cls.fix(s)\n            raise ValueError(f\"{x}\
+    \ is not invertible in mod {cls.mod}\")\n        \n        @property\n       \
+    \ def inv(self): return mint.mod_inv(self)\n    \n        def __add__(self, x):\
     \ return mint.fix(super().__add__(x))\n        def __radd__(self, x): return mint.fix(super().__radd__(x))\n\
     \        def __sub__(self, x): return mint.fix(super().__sub__(x))\n        def\
     \ __rsub__(self, x): return mint.fix(super().__rsub__(x))\n        def __mul__(self,\
@@ -243,7 +245,7 @@ data:
   isVerificationFile: true
   path: test/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/subset_convolution.test.py

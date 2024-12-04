@@ -12,18 +12,18 @@ data:
   attributes:
     links: []
   bundledCode: "\nfrom itertools import groupby\nfrom operator import itemgetter\n\
-    \ndef sort_groups(A, key=None):\n    if isinstance(key,int):\n        key = itemgetter(key)\n\
+    \ndef sort_groups(A, key=0):\n    if isinstance(key,int):\n        key = itemgetter(key)\n\
     \    A.sort(key=key)\n    return sorted((k,list(g)) for k,g in groupby(A, key=key))\n\
-    \    \n"
+    \n    \n"
   code: "import cp_library.alg.iter.__header__\nfrom itertools import groupby\nfrom\
-    \ operator import itemgetter\n\ndef sort_groups(A, key=None):\n    if isinstance(key,int):\n\
+    \ operator import itemgetter\n\ndef sort_groups(A, key=0):\n    if isinstance(key,int):\n\
     \        key = itemgetter(key)\n    A.sort(key=key)\n    return sorted((k,list(g))\
-    \ for k,g in groupby(A, key=key))\n    "
+    \ for k,g in groupby(A, key=key))\n\n    "
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/sort_groups_fn.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc203_e_sort_groups.test.py

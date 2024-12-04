@@ -16,19 +16,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -50,20 +50,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\nimport sys\n\
-    \ninft = sys.maxsize\nfrom typing import Iterable\n\ndef main():\n    H, W = read(tuple[int,\
-    \ ...])\n    G = read(TeleportGraph[H,W])\n    s = g = None\n    for v,c in enumerate(G.S):\n\
-    \        match c:\n            case 'S': s = v\n            case 'G': g = v\n\n\
-    \    ans = bfs(G, s, g)\n    write(ans if ans != inft else -1)\n    \n\n\nfrom\
-    \ collections.abc import Iterator\n\n\n\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    inft: int\n\ninft = sys.maxsize\nfrom typing import Iterable\n\ndef main():\n\
+    \    H, W = read(tuple[int, ...])\n    G = read(TeleportGraph[H,W])\n    s = g\
+    \ = None\n    for v,c in enumerate(G.S):\n        match c:\n            case 'S':\
+    \ s = v\n            case 'G': g = v\n\n    ans = bfs(G, s, g)\n    write(ans\
+    \ if ans != inft else -1)\n    \n\n\nfrom collections.abc import Iterator\n\n\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -298,52 +298,60 @@ data:
     \                events.append((DFSEvent.UP,-1,s))\n        return events\n\n\
     \    def dfs_enter_leave(G, s: int|list|None = None):\n        state = [True]\
     \ * G.N\n        child: list[int] = elist(G.N)\n        stack: list[int] = elist(G.N)\n\
-    \n        events = []\n        for s in G.starts(s):\n            stack.append(s)\n\
-    \            child.append(0)\n            \n            while stack:\n       \
-    \         u = stack[-1]\n                \n                if state[u]:\n    \
-    \                state[u] = False\n                    events.append((DFSEvent.ENTER,\
-    \ u))\n\n                \n                if (c := child[-1]) < len(G[u]):\n\
-    \                    child[-1] += 1\n                    if state[v := G[u][c]]:\n\
-    \                        stack.append(v)\n                        child.append(0)\n\
-    \                else:\n                    stack.pop()\n                    child.pop()\n\
-    \                    events.append((DFSEvent.LEAVE, u))\n\n        return events\n\
-    \    \n    def dfs_topdown(G, s: int|list[int]|None = None, connect_roots = False):\n\
-    \        '''Returns list of (u,v) representing u->v edges in order of top down\
-    \ discovery'''\n        stack: list[int] = elist(G.N)\n        vis = [False]*G.N\n\
-    \        edges: list[tuple[int,int]] = elist(G.N)\n\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if connect_roots:\n            \
-    \    edges.append((-1,s))\n            vis[s] = True\n            stack.append(s)\n\
-    \            while stack:\n                u = stack.pop()\n                for\
-    \ v in G[u]:\n                    if vis[v]: continue\n                    vis[v]\
-    \ = True\n                    edges.append((u,v))\n                    stack.append(v)\n\
-    \        return edges\n    \n    def dfs_bottomup(G, s: int|list[int]|None = None,\
-    \ connect_roots = False):\n        '''Returns list of (p,u) representing p->u\
-    \ edges in bottom up order'''\n        edges = G.dfs_topdown(s, connect_roots)\n\
-    \        edges.reverse()\n        return edges\n    \n    def starts(G, v: int|list[int]|None)\
-    \ -> Iterable:\n        match v:\n            case int(v): return (v,)\n     \
-    \       case None: return range(G.N)\n            case V: return V\n\n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
-    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    \n\nclass GridGraphProtocol(GraphProtocol):\n\
-    \n    def __init__(G, H, W, S=str, dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall =\
-    \ '#', adj = None):\n        super().__init__(W*H, None, adj)\n        G.W = W\n\
-    \        G.H = H\n        G.S = S\n        G.dirs = dirs\n        G.wall = wall\n\
-    \n    def vertex(G, key: tuple[int,int] | int):\n        match key:\n        \
-    \    case i, j: return i*G.W+j\n            case v: return v\n\n    def is_valid(G,\
-    \ i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall\n\
-    \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
-    \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
-    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
-    \nclass LazyGridGraph(GridGraphProtocol):\n\n    def neighbors(G, u: int) -> Iterable[int]:\n\
-    \        S, wall, dirs, H, W = G.S, G.wall, G.dirs, G.H, G.W\n        i,j = divmod(u,\
-    \ W)\n        return tuple(v\n            for di,dj in dirs\n                if\
-    \ (0 <= (ni:=i+di) < H \n                    and 0 <= (nj:=j+dj) < W  \n     \
-    \               and S[v:=ni*W+nj] != wall)\n        ) if S[u] != wall else tuple()\n\
-    \    \n    def __len__(G) -> int:\n        return G.N\n    \n    def __getitem__(G,\
-    \ v: int):\n        return G.neighbors(v)\n    \n    def __iter__(G) -> Iterator:\n\
-    \        return iter(G[v] for v in range(G.N))\n    \n\n\n@overload\ndef bfs(G,\
-    \ s: int = 0) -> list[int]: ...\n@overload\ndef bfs(G, s: int, g: int) -> int:\
-    \ ...\n\ndef bfs(G, s: int = 0, g: int = None):\n    D = [inft for _ in range(G.N)]\n\
+    \n        events = []\n        for s in G.starts(s):\n            if not state[s]:\
+    \ continue\n            stack.append(s)\n            child.append(0)\n       \
+    \     \n            while stack:\n                u = stack[-1]\n            \
+    \    \n                if state[u]:\n                    state[u] = False\n  \
+    \                  events.append((DFSEvent.ENTER, u))\n\n                \n  \
+    \              if (c := child[-1]) < len(G[u]):\n                    child[-1]\
+    \ += 1\n                    if state[v := G[u][c]]:\n                        stack.append(v)\n\
+    \                        child.append(0)\n                else:\n            \
+    \        stack.pop()\n                    child.pop()\n                    events.append((DFSEvent.LEAVE,\
+    \ u))\n\n        return events\n    \n    def dfs_topdown(G, s: int|list[int]|None\
+    \ = None, connect_roots = False):\n        '''Returns list of (u,v) representing\
+    \ u->v edges in order of top down discovery'''\n        stack: list[int] = elist(G.N)\n\
+    \        vis = [False]*G.N\n        edges: list[tuple[int,int]] = elist(G.N)\n\
+    \n        for s in G.starts(s):\n            if vis[s]: continue\n           \
+    \ if connect_roots:\n                edges.append((-1,s))\n            vis[s]\
+    \ = True\n            stack.append(s)\n            while stack:\n            \
+    \    u = stack.pop()\n                for v in G[u]:\n                    if vis[v]:\
+    \ continue\n                    vis[v] = True\n                    edges.append((u,v))\n\
+    \                    stack.append(v)\n        return edges\n    \n    def dfs_bottomup(G,\
+    \ s: int|list[int]|None = None, connect_roots = False):\n        '''Returns list\
+    \ of (p,u) representing p->u edges in bottom up order'''\n        edges = G.dfs_topdown(s,\
+    \ connect_roots)\n        edges.reverse()\n        return edges\n\n    def is_bipartite(G):\n\
+    \        N = G.N\n        que = deque()\n        color = [-1]*N\n            \
+    \    \n        for s in range(N):\n            if color[s] >= 0:\n           \
+    \     continue\n            color[s] = 1\n            que.append(s)\n        \
+    \    while que:\n                u = que.popleft()\n                for v in G[u]:\n\
+    \                    if color[v] == -1:\n                        color[v] = 1\
+    \ - color[u]\n                        que.append(v)\n                    elif\
+    \ color[v] == color[u]:\n                        return False\n        return\
+    \ True\n    \n    def starts(G, v: int|list[int]|None) -> Iterable:\n        match\
+    \ v:\n            case int(v): return (v,)\n            case None: return range(G.N)\n\
+    \            case V: return V\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ M: int, E):\n        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n\
+    \            return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\
+    \    \n\nclass GridGraphProtocol(GraphProtocol):\n\n    def __init__(G, H, W,\
+    \ S=str, dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#', adj = None):\n      \
+    \  super().__init__(W*H, None, adj)\n        G.W = W\n        G.H = H\n      \
+    \  G.S = S\n        G.dirs = dirs\n        G.wall = wall\n\n    def vertex(G,\
+    \ key: tuple[int,int] | int):\n        match key:\n            case i, j: return\
+    \ i*G.W+j\n            case v: return v\n\n    def is_valid(G, i, j, v):\n   \
+    \     return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall\n    \n    @classmethod\n\
+    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
+    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
+    \          return cls(H, W, S, *args)\n        return parse\n\nclass LazyGridGraph(GridGraphProtocol):\n\
+    \n    def neighbors(G, u: int) -> Iterable[int]:\n        S, wall, dirs, H, W\
+    \ = G.S, G.wall, G.dirs, G.H, G.W\n        i,j = divmod(u, W)\n        return\
+    \ tuple(v\n            for di,dj in dirs\n                if (0 <= (ni:=i+di)\
+    \ < H \n                    and 0 <= (nj:=j+dj) < W  \n                    and\
+    \ S[v:=ni*W+nj] != wall)\n        ) if S[u] != wall else tuple()\n    \n    def\
+    \ __len__(G) -> int:\n        return G.N\n    \n    def __getitem__(G, v: int):\n\
+    \        return G.neighbors(v)\n    \n    def __iter__(G) -> Iterator:\n     \
+    \   return iter(G[v] for v in range(G.N))\n    \n\n\n@overload\ndef bfs(G, s:\
+    \ int = 0) -> list[int]: ...\n@overload\ndef bfs(G, s: int, g: int) -> int: ...\n\
+    \ndef bfs(G, s: int = 0, g: int = None):\n    D = [inft for _ in range(G.N)]\n\
     \    D[s] = 0\n    q = deque([s])\n    while q:\n        nd = D[u := q.popleft()]+1\n\
     \        if u == g: return D[u]\n        for v in G[u]:\n            if nd < D[v]:\n\
     \                D[v] = nd\n                q.append(v)\n    return D if g is\
@@ -360,17 +368,17 @@ data:
     \ list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
     def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
     \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
-    \   return list(map(int, TokenStream.stream.readline().split()))\n        elif\
-    \ isinstance(offset := spec, int):\n            return [int(s)+offset for s in\
-    \ TokenStream.stream.readline().split()]\n        else:\n            stream =\
-    \ TokenStream()\n    else:\n        stream = CharStream()\n    parser: T = Parser.compile(spec)\n\
-    \    return parser(stream)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the\
-    \ values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc184_e\n\
     from cp_library.math.inft_cnst import inft\nfrom typing import Iterable\n\ndef\
     \ main():\n    H, W = read(tuple[int, ...])\n    G = read(TeleportGraph[H,W])\n\
@@ -403,7 +411,7 @@ data:
   isVerificationFile: true
   path: test/abc184_e_grid_graph_bfs_fn.test.py
   requiredBy: []
-  timestamp: '2024-11-29 11:58:58+09:00'
+  timestamp: '2024-12-05 01:48:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc184_e_grid_graph_bfs_fn.test.py

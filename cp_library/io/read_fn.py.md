@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -63,13 +63,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc249_f_max_k_heap.test.py
     title: test/abc249_f_max_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc249_f_min_k_heap.test.py
     title: test/abc249_f_min_k_heap.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc261_g_mo.test.py
     title: test/abc261_g_mo.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc261_g_queries_mo.test.py
     title: test/abc261_g_queries_mo.test.py
   - icon: ':heavy_check_mark:'
@@ -102,6 +102,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/agc038_b_sliding_min_max.test.py
     title: test/agc038_b_sliding_min_max.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/dp_v_subtree_dfs_discovery.test.py
+    title: test/dp_v_subtree_dfs_discovery.test.py
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_iterative.test.py
     title: test/dp_v_subtree_rerooting_iterative.test.py
@@ -151,20 +154,20 @@ data:
     path: test/minimum_spanning_tree_kruskal_heap.test.py
     title: test/minimum_spanning_tree_kruskal_heap.test.py
   - icon: ':heavy_check_mark:'
+    path: test/shortest_path_fast_graph.test.py
+    title: test/shortest_path_fast_graph.test.py
+  - icon: ':heavy_check_mark:'
     path: test/shortest_path_graph_weighted.test.py
     title: test/shortest_path_graph_weighted.test.py
   - icon: ':heavy_check_mark:'
     path: test/shortest_path_min_heap.test.py
     title: test/shortest_path_min_heap.test.py
   - icon: ':heavy_check_mark:'
-    path: test/shortest_path_static_graph_weighted.test.py
-    title: test/shortest_path_static_graph_weighted.test.py
-  - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -252,20 +255,22 @@ data:
     \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
     \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
     \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return list(map(int, TokenStream.stream.readline().split()))\n\
+    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
-    \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
     \ T = Parser.compile(spec)\n    return parser(stream)\n"
   code: "import cp_library.io.__header__\n\nfrom typing import Type, TypeVar, Union,\
     \ overload\nfrom cp_library.io.parser_cls import Parser, TokenStream, CharStream\n\
     \nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
     \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
     \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return list(map(int, TokenStream.stream.readline().split()))\n\
+    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        else:\n           \
-    \ stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
     \ T = Parser.compile(spec)\n    return parser(stream)\n"
   dependsOn:
   - cp_library/io/parser_cls.py
@@ -274,12 +279,14 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-11-29 11:58:58+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-05 01:48:11+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/abc261_g_mo.test.py
+  - test/shortest_path_fast_graph.test.py
   - test/abc184_f_subset_sum_fn.test.py
   - test/abc375_g_find_bridges.test.py
+  - test/dp_v_subtree_dfs_discovery.test.py
   - test/shortest_path_min_heap.test.py
   - test/abc202_e_dfs_enter_leave.test.py
   - test/grl_1_b_bellman_ford.test.py
@@ -309,7 +316,6 @@ data:
   - test/abc246_e_grid_direction_graph.test.py
   - test/grl_3_a_articulation_points_fn.test.py
   - test/abc218_f_shortest_path_weighted.test.py
-  - test/shortest_path_static_graph_weighted.test.py
   - test/abc189_e_vec2d.test.py
   - test/abc245_f_digraph.test.py
   - test/abc274_e_vec2d.test.py
