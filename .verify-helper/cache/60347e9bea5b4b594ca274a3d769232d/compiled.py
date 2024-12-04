@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/dp_v_subtree_dfs_discovery.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/dp_v_subtree_rerooting_recursive.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/dp_v_subtree_dfs_discovery.test.py
+# run test/dp_v_subtree_rerooting_recursive.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 

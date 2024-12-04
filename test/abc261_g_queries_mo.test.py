@@ -3,7 +3,7 @@
 
 def main():
     N, Q = read()
-    A = read()
+    A = read(list[int])
     queries = read(QueriesMoOps[Q, N])
     
     # State for counting triples
