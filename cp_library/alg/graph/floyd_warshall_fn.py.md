@@ -44,7 +44,7 @@ data:
   path: cp_library/alg/graph/floyd_warshall_fn.py
   requiredBy:
   - cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
-  timestamp: '2024-12-05 05:25:23+09:00'
+  timestamp: '2024-12-08 02:40:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py

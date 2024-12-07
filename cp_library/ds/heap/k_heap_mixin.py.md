@@ -166,7 +166,7 @@ data:
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_k_heap_cls.py
-  timestamp: '2024-12-05 05:25:23+09:00'
+  timestamp: '2024-12-08 02:40:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_min_k_heap.test.py

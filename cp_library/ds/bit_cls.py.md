@@ -29,6 +29,9 @@ data:
   - icon: ':warning:'
     path: cp_library/ds/bir_cls.py
     title: cp_library/ds/bir_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/inversion_cnt_fn.py
+    title: cp_library/math/inversion_cnt_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/abc202_e_dfs_enter_leave.test.py
@@ -45,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/arc136_b_inversion_cnt_fn.test.py
+    title: test/arc136_b_inversion_cnt_fn.test.py
   - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_iterative.test.py
     title: test/dp_v_subtree_rerooting_iterative.test.py
@@ -101,6 +107,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bit_cls.py
   requiredBy:
+  - cp_library/math/inversion_cnt_fn.py
   - cp_library/ds/bir_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/tree/tree_set_cls.py
@@ -110,11 +117,12 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-05 05:25:23+09:00'
+  timestamp: '2024-12-08 02:40:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_iterative.test.py
   - test/abc202_e_dfs_enter_leave.test.py
+  - test/arc136_b_inversion_cnt_fn.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc361_e_tree_diameter.test.py
   - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py

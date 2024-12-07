@@ -493,7 +493,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_fast_cls.py
   requiredBy: []
-  timestamp: '2024-12-05 05:25:23+09:00'
+  timestamp: '2024-12-08 02:40:51+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/tree_fast_cls.py

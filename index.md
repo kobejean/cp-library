@@ -392,6 +392,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/inft_cnst.py
       title: cp_library/math/inft_cnst.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/inversion_cnt_fn.py
+      title: cp_library/math/inversion_cnt_fn.py
     - icon: ':warning:'
       path: cp_library/math/mat_cls.py
       title: cp_library/math/mat_cls.py
@@ -638,6 +641,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/arc122_b_insurance_median.test.py
       title: test/arc122_b_insurance_median.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/arc136_b_inversion_cnt_fn.test.py
+      title: test/arc136_b_inversion_cnt_fn.test.py
     - icon: ':heavy_check_mark:'
       path: test/arc168_c_swap_characters_combinatoric.test.py
       title: test/arc168_c_swap_characters_combinatoric.test.py

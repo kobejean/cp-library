@@ -417,7 +417,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-05 05:25:23+09:00'
+  timestamp: '2024-12-08 02:40:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/minimum_spanning_tree_kruskal_heap.test.py

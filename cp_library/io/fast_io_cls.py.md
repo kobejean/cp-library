@@ -256,6 +256,9 @@ data:
     path: test/arc122_b_insurance_median.test.py
     title: test/arc122_b_insurance_median.test.py
   - icon: ':heavy_check_mark:'
+    path: test/arc136_b_inversion_cnt_fn.test.py
+    title: test/arc136_b_inversion_cnt_fn.test.py
+  - icon: ':heavy_check_mark:'
     path: test/arc168_c_swap_characters_combinatoric.test.py
     title: test/arc168_c_swap_characters_combinatoric.test.py
   - icon: ':heavy_check_mark:'
@@ -477,7 +480,7 @@ data:
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-05 05:25:23+09:00'
+  timestamp: '2024-12-08 02:40:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_mo.test.py
@@ -509,6 +512,7 @@ data:
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/dp_z_cht_monotone_add_max.test.py
+  - test/arc136_b_inversion_cnt_fn.test.py
   - test/abc175_d_permutation.test.py
   - test/abc151_f_fbisect_left.test.py
   - test/grl_1_b_graph_bellman_ford.test.py

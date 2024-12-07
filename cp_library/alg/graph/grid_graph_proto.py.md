@@ -367,7 +367,7 @@ data:
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/lazy_grid_graph_cls.py
   - cp_library/alg/graph/grid_direction_graph_cls.py
-  timestamp: '2024-12-05 05:25:23+09:00'
+  timestamp: '2024-12-08 02:40:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc184_e_grid_graph.test.py

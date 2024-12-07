@@ -2,34 +2,65 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/bit_cls.py
+    title: cp_library/ds/bit_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/alg/graph/partial_functional_graph_cls.py
-    title: cp_library/alg/graph/partial_functional_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/permutation_cls.py
-    title: cp_library/alg/graph/permutation_cls.py
-  _extendedVerifiedWith:
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
   - icon: ':heavy_check_mark:'
-    path: test/abc175_d_permutation.test.py
-    title: test/abc175_d_permutation.test.py
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/inversion_cnt_fn.py
+    title: cp_library/math/inversion_cnt_fn.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    PROBLEM: https://atcoder.jp/contests/arc136/tasks/arc136_b
+    links:
+    - https://atcoder.jp/contests/arc136/tasks/arc136_b
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc136/tasks/arc136_b\n\
+    \n\ndef main():\n    N = read(int)\n    A = read(list[-1])\n    B = read(list[-1])\n\
+    \    Aic = inversion_cnt(A,5000)\n    Bic = inversion_cnt(B,5000)\n    if sorted(A)\
+    \ != sorted(B):\n        return False\n    has_dup = len(set(A)) < N\n    return\
+    \ has_dup or (Aic&1 == Bic&1)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport sys\n\n\nimport typing\nfrom collections import deque\nfrom numbers import\
+    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\nfrom typing import Union\n\n\nclass BinaryIndexTree:\n\
+    \    def __init__(self, v: int|list):\n        if isinstance(v, int):\n      \
+    \      self.data, self.size = [0]*v, v\n        else:\n            self.build(v)\n\
+    \n    def build(self, data):\n        self.data, self.size = data, len(data)\n\
+    \        for i in range(self.size):\n            if (r := i|(i+1)) < self.size:\
+    \ \n                self.data[r] += self.data[i]\n\n    def get(self, i: int):\n\
+    \        assert 0 <= i < self.size\n        s = self.data[i]\n        z = i&(i+1)\n\
+    \        for _ in range((i^z).bit_count()):\n            s, i = s-self.data[i-1],\
+    \ i-(i&-i)\n        return s\n    \n    def set(self, i: int, x: int):\n     \
+    \   self.add(i, x-self.get(i))\n        \n    def add(self, i: int, x: int) ->\
+    \ None:\n        assert 0 <= i <= self.size\n        i += 1\n        data, size\
+    \ = self.data, self.size\n        while i <= size:\n            data[i-1], i =\
+    \ data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n        assert 0\
+    \ <= i <= self.size\n        s = 0\n        data = self.data\n        for _ in\
+    \ range(i.bit_count()):\n            s, i = s+data[i-1], i-(i&-i)\n        return\
+    \ s\n    \n    def range_sum(self, l: int, r: int):\n        return self.pref_sum(r)\
+    \ - self.pref_sum(l)\n\ndef inversion_cnt(Z, N: Union[int,None] = None):\n   \
+    \ if N is None:\n        # coordinate compression\n        Zsort = sorted(set(Z))\n\
+    \        Zcomp = { v: i for i, v in enumerate(Zsort) }\n        Z = [Zcomp[z]\
+    \ for z in Z]\n        N = len(Z)\n\n    bit = BinaryIndexTree(N)\n    cnt = 0\n\
+    \    for z in reversed(Z):\n        cnt += bit.pref_sum(z)\n        bit.add(z,\
+    \ 1)\n    return cnt\n\n\nfrom typing import Type, TypeVar, Union, overload\n\
+    import sys\n\nimport typing\nfrom collections import deque\nfrom numbers import\
     \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
     \ Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass\
     \ FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
@@ -104,53 +135,48 @@ data:
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nclass\
-    \ FunctionalGraph(list[int], Parsable):\n    def __init__(F, successors):\n  \
-    \      super().__init__(successors)\n        F.N = F.M = len(F)\n\n    def find_cycle(P,\
-    \ root):\n        slow = fast = root\n        while (slow := P[slow]) != (fast\
-    \ := P[P[fast]]):\n            pass\n        \n        cyc = [slow]\n        while\
-    \ P[slow] != cyc[0]:\n            slow = P[slow]\n            cyc.append(slow)\n\
-    \        return cyc\n    \n    def cycles(P):\n        vis = [False]*P.N\n   \
-    \     cycs = []\n        for v in range(P.N):\n            slow = fast = v\n \
-    \           while (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]:\n\
-    \                pass\n            if vis[fast]: continue\n            \n    \
-    \        cyc = [slow]\n            vis[slow] = True\n            while P[slow]\
-    \ != cyc[0]:\n                slow = P[slow]\n                cyc.append(slow)\n\
-    \                vis[slow] = True\n            cycs.append(cyc)\n        return\
-    \ cycs\n\n    @classmethod\n    def compile(cls, N: int, shift = -1):\n      \
-    \  return Parser.compile_repeat(cls, shift, N)\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.io.parser_cls import\
-    \ Parsable, Parser, TokenStream\n\nclass FunctionalGraph(list[int], Parsable):\n\
-    \    def __init__(F, successors):\n        super().__init__(successors)\n    \
-    \    F.N = F.M = len(F)\n\n    def find_cycle(P, root):\n        slow = fast =\
-    \ root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\n           \
-    \ pass\n        \n        cyc = [slow]\n        while P[slow] != cyc[0]:\n   \
-    \         slow = P[slow]\n            cyc.append(slow)\n        return cyc\n \
-    \   \n    def cycles(P):\n        vis = [False]*P.N\n        cycs = []\n     \
-    \   for v in range(P.N):\n            slow = fast = v\n            while (slow\
-    \ := P[slow]) != (fast := P[P[fast]]) and not vis[fast]:\n                pass\n\
-    \            if vis[fast]: continue\n            \n            cyc = [slow]\n\
-    \            vis[slow] = True\n            while P[slow] != cyc[0]:\n        \
-    \        slow = P[slow]\n                cyc.append(slow)\n                vis[slow]\
-    \ = True\n            cycs.append(cyc)\n        return cycs\n\n    @classmethod\n\
-    \    def compile(cls, N: int, shift = -1):\n        return Parser.compile_repeat(cls,\
-    \ shift, N)"
+    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nT\
+    \ = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
+    \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
+    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    ans = main()\n    write(\"\
+    Yes\" if ans else \"No\")\n    \n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc136/tasks/arc136_b\n\
+    \n\ndef main():\n    N = read(int)\n    A = read(list[-1])\n    B = read(list[-1])\n\
+    \    Aic = inversion_cnt(A,5000)\n    Bic = inversion_cnt(B,5000)\n    if sorted(A)\
+    \ != sorted(B):\n        return False\n    has_dup = len(set(A)) < N\n    return\
+    \ has_dup or (Aic&1 == Bic&1)\n\nfrom cp_library.math.inversion_cnt_fn import\
+    \ inversion_cnt\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\n\nif __name__ == \"__main__\":\n    ans = main()\n    write(\"\
+    Yes\" if ans else \"No\")\n    "
   dependsOn:
+  - cp_library/math/inversion_cnt_fn.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
+  - cp_library/ds/bit_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
-  isVerificationFile: false
-  path: cp_library/alg/graph/functional_graph_cls.py
-  requiredBy:
-  - cp_library/alg/graph/permutation_cls.py
-  - cp_library/alg/graph/partial_functional_graph_cls.py
+  isVerificationFile: true
+  path: test/arc136_b_inversion_cnt_fn.test.py
+  requiredBy: []
   timestamp: '2024-12-08 02:40:51+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/abc175_d_permutation.test.py
-documentation_of: cp_library/alg/graph/functional_graph_cls.py
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/arc136_b_inversion_cnt_fn.test.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/functional_graph_cls.py
-- /library/cp_library/alg/graph/functional_graph_cls.py.html
-title: cp_library/alg/graph/functional_graph_cls.py
+- /verify/test/arc136_b_inversion_cnt_fn.test.py
+- /verify/test/arc136_b_inversion_cnt_fn.test.py.html
+title: test/arc136_b_inversion_cnt_fn.test.py
 ---

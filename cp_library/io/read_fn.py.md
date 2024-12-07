@@ -103,6 +103,9 @@ data:
     path: test/agc038_b_sliding_min_max.test.py
     title: test/agc038_b_sliding_min_max.test.py
   - icon: ':heavy_check_mark:'
+    path: test/arc136_b_inversion_cnt_fn.test.py
+    title: test/arc136_b_inversion_cnt_fn.test.py
+  - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_dfs_discovery.test.py
     title: test/dp_v_subtree_dfs_discovery.test.py
   - icon: ':heavy_check_mark:'
@@ -279,7 +282,7 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-05 05:25:23+09:00'
+  timestamp: '2024-12-08 02:40:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc261_g_mo.test.py
@@ -300,6 +303,7 @@ data:
   - test/grl_1_b_fast_bellman_ford.test.py
   - test/grl_2_a_kruskal_sort.test.py
   - test/grl_2_b_edmonds_branching.test.py
+  - test/arc136_b_inversion_cnt_fn.test.py
   - test/abc175_d_permutation.test.py
   - test/abc151_f_fbisect_left.test.py
   - test/grl_1_b_graph_bellman_ford.test.py
