@@ -73,4 +73,10 @@ jobs:
         
         # Run tests with reduced parallelism and increased timeouts
         git pull && oj-verify all --tle 15 --timeout 7200 --jobs 1
-  
+    - name: Cache verify-helper files
+        uses: actions/cache@v3
+        with:
+          path: .verify-helper/cache
+          # Simple static key since we want to keep accumulating files
+          key: ${{ runner.os }}-verify-helper-cache-v1
+          # No restore-keys needed since we always want this exact cache
