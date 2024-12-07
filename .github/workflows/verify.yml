@@ -72,7 +72,7 @@ jobs:
         sudo sh -c 'sync; echo 3 > /proc/sys/vm/drop_caches'
         
         # Run tests with reduced parallelism and increased timeouts
-        git pull && oj-verify all --tle 15 --timeout 7200 --jobs 1
+        git pull && oj-verify all --tle 15 --timeout 7200 --jobs 6
 
     - name: Cache verify-helper files
       uses: actions/cache@v3
