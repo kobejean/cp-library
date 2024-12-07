@@ -8,18 +8,6 @@ class DropboxTokenManager:
         self.app_key = os.environ['DROPBOX_APP_KEY']
         self.app_secret = os.environ['DROPBOX_APP_SECRET']
         self.refresh_token = os.environ['DROPBOX_REFRESH_TOKEN']
-        self.token_file = '.dropbox_token.json'
-
-    def load_cached_token(self):
-        try:
-            with open(self.token_file, 'r') as f:
-                data = json.load(f)
-                expiry = datetime.fromisoformat(data['expiry'])
-                if expiry > datetime.now(timezone.utc):
-                    return data['access_token']
-        except (FileNotFoundError, json.JSONDecodeError, KeyError):
-            pass
-        return None
 
     def refresh_access_token(self):
         response = requests.post(
@@ -48,10 +36,7 @@ class DropboxTokenManager:
         return data['access_token']
 
     def get_valid_token(self):
-        token = self.load_cached_token()
-        if not token:
-            token = self.refresh_access_token()
-        return token
+        return self.refresh_access_token()
 
 if __name__ == '__main__':
     manager = DropboxTokenManager()
