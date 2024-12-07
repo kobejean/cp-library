@@ -24,14 +24,6 @@ class DropboxTokenManager:
             raise Exception(f"Failed to refresh token: {response.text}")
             
         data = response.json()
-        token_data = {
-            'access_token': data['access_token'],
-            'expiry': (datetime.now(timezone.utc) + 
-                      timedelta(seconds=data['expires_in'])).isoformat()
-        }
-        
-        with open(self.token_file, 'w') as f:
-            json.dump(token_data, f)
             
         return data['access_token']
 
