@@ -273,7 +273,7 @@ data:
   - cp_library/alg/graph/fast/tree_cls.py
   - cp_library/alg/graph/fast/tree_weighted_cls.py
   - cp_library/alg/graph/fast/tree_weighted_base_cls.py
-  timestamp: '2024-12-08 02:40:51+09:00'
+  timestamp: '2024-12-08 04:35:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_dfs_discovery.test.py

@@ -120,7 +120,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_fn.py
   requiredBy: []
-  timestamp: '2024-12-08 02:40:51+09:00'
+  timestamp: '2024-12-08 04:35:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_c_fast_floyd_warshall.test.py

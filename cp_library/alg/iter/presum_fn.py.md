@@ -57,7 +57,7 @@ data:
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2024-12-08 02:40:51+09:00'
+  timestamp: '2024-12-08 04:35:12+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc175_d_permutation.test.py

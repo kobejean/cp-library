@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/max_priority_queue_cls.py
   requiredBy: []
-  timestamp: '2024-12-08 02:40:51+09:00'
+  timestamp: '2024-12-08 04:35:12+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/max_priority_queue_cls.py
