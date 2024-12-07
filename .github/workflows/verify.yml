@@ -65,7 +65,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
-        DROPBOX_TOKEN: ${{ secrets.DROPBOX_TOKEN }}
+        DROPBOX_TOKEN: ${{ env.DROPBOX_TOKEN }}
         GH_PAT: ${{ secrets.GH_PAT }}
       run: |
         # Clear system caches
