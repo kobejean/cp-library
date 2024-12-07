@@ -1,6 +1,6 @@
 import os
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import json
 
 class DropboxTokenManager:
@@ -39,7 +39,7 @@ class DropboxTokenManager:
         token_data = {
             'access_token': data['access_token'],
             'expiry': (datetime.now(timezone.utc) + 
-                      datetime.timedelta(seconds=data['expires_in'])).isoformat()
+                      timedelta(seconds=data['expires_in'])).isoformat()
         }
         
         with open(self.token_file, 'w') as f:
