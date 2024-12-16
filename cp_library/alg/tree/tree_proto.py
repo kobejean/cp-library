@@ -1,3 +1,4 @@
+from cp_library.ds.elist_fn import elist
 import cp_library.alg.tree.__header__
 
 from typing import overload, Literal
@@ -57,7 +58,7 @@ class TreeProtocol(GraphProtocol):
         return D if g is None else inft 
 
 
-    def dfs_events(G, opts: DFSFlags, s: int = 0):         
+    def dfs_events(G, flags: DFSFlags, s: int = 0):         
         events = []
         # stack = deque([(s,-1)], maxlen=G.N)
         stack = [(s,-1)]
@@ -69,22 +70,54 @@ class TreeProtocol(GraphProtocol):
             
             if adj[u] is None:
                 adj[u] = iter(G.neighbors(u))
-                if DFSFlags.ENTER in opts:
+                if DFSFlags.ENTER in flags:
                     events.append((DFSEvent.ENTER, u))
             
             if (v := next(adj[u], None)) is not None:
                 if v == p:
-                    if DFSFlags.BACK in opts:
+                    if DFSFlags.BACK in flags:
                         events.append((DFSEvent.BACK, u, v))
                 else:
-                    if DFSFlags.DOWN in opts:
+                    if DFSFlags.DOWN in flags:
                         events.append((DFSEvent.DOWN, u, v))
                     stack.append((v,u))
             else:
                 stack.pop()
 
-                if DFSFlags.LEAVE in opts:
+                if DFSFlags.LEAVE in flags:
                     events.append((DFSEvent.LEAVE, u))
-                if p != -1 and DFSFlags.UP in opts:
+                if p != -1 and DFSFlags.UP in flags:
                     events.append((DFSEvent.UP, u, p))
         return events
+    
+    def euler_tour(T, s = 0):
+        N = len(T)
+        T.tin = tin = [-1] * N
+        T.tout = tout = [-1] * N
+        T.par = par = [-1] * N
+        T.order = order = elist(2*N)
+        T.delta = delta = elist(2*N)
+        
+        stack = elist(N)
+        stack.append(s)
+
+        while stack:
+            u = stack.pop()
+            p = par[u]
+            
+            if tin[u] == -1:
+                tin[u] = len(order)
+                
+                for v in T[u]:
+                    if v != p:
+                        par[v] = u
+                        stack.append(u)
+                        stack.append(v)
+                
+                delta.append(1)
+            else:
+                delta.append(-1)
+            
+            order.append(u)
+            tout[u] = len(order)
+        delta[0] = delta[-1] = 0

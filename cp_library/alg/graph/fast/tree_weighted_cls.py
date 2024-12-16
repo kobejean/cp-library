@@ -1,8 +1,8 @@
 import cp_library.alg.graph.fast.__header__
-from cp_library.alg.graph.fast.graph_cls import Graph
-from cp_library.alg.graph.fast.tree_base_cls import TreeBase
+from cp_library.alg.graph.fast.graph_weighted_cls import GraphWeighted
+from cp_library.alg.graph.fast.tree_weighted_base_cls import TreeWeightedBase
 
-class Tree(Graph, TreeBase):
+class TreeWeighted(GraphWeighted, TreeWeightedBase):
     pass
 
 from cp_library.ds.fill_fn import fill_u32
