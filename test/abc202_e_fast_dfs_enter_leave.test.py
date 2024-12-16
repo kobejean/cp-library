@@ -5,28 +5,26 @@ from bisect import bisect_left
 
 def main():
     N = read(int)
-    P = read(list[-1])
-    E = []
-    for u,p in enumerate(P, start=1):
-        E.append((p,u))
-
-    cnt = [[] for _ in range(N)]
-
-    G = Tree(N, E)
+    V = read(list[-1])
+    U = list(range(1,N))
+    G = Tree(N, U, V)
+    
     depth = [0]*N
-    for p,u in G.dfs_topdown():
-        depth[u] = depth[p]+1
+    depth[0] = -1
+    cnt = [[] for _ in range(N)]
     time = 0
     tin = [0]*N
     tout = [0]*N
-    
-    for event in G.dfs_enter_leave(0):
-        match event:
-            case DFSEvent.ENTER, u:
+    events, U = G.dfs_enter_leave(0)
+    for i in range(len(events)):
+        u = U[i]
+        match events[i]:
+            case DFSEvent.ENTER:
+                depth[u] = d = depth[G.par[u]]+1
                 tin[u] = time
-                cnt[depth[u]].append(time)
+                cnt[d].append(time)
                 time += 1
-            case DFSEvent.LEAVE, u:
+            case DFSEvent.LEAVE:
                 tout[u] = time
                 time += 1
     Q = read(int)
@@ -36,7 +34,7 @@ def main():
 
     
 from cp_library.alg.graph.dfs_options_cls import DFSEvent
-from cp_library.alg.tree.tree_cls import Tree
+from cp_library.alg.graph.fast.tree_cls import Tree
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

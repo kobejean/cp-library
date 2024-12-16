@@ -1,5 +1,5 @@
 import cp_library.alg.graph.__header__
-from typing import Sequence, Union, overload
+from typing import Callable, Sequence, Union, overload
 from collections import deque
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
@@ -51,8 +51,6 @@ class GraphBase(Sequence, Parsable):
         match s, g:
             case None, None:
                 return G.floyd_warshall()
-            case s, None:
-                return G.bfs(s)
             case s, g:
                 return G.bfs(s, g)
 
@@ -63,15 +61,16 @@ class GraphBase(Sequence, Parsable):
     def bfs(G, s: int = 0, g: int = None):
         N, Va = G.N, G.Va
         D = [inft]*N
-        q = deque(G.starts(s))
-        for u in q: D[u] = 0
-        while q:
-            nd = D[u := q.popleft()]+1
+        S = G.starts(s)
+        que = deque(S)
+        for u in S: D[u] = 0
+        while que:
+            nd = D[u := que.popleft()]+1
             if u == g: return nd-1
             for i in G.range(u):
                 if nd < D[v := Va[i]]:
                     D[v] = nd
-                    q.append(v)
+                    que.append(v)
         return D if g is None else inft 
 
     def floyd_warshall(G) -> list[list[int]]:
@@ -117,38 +116,81 @@ class GraphBase(Sequence, Parsable):
                     order.append(i)
                     stack.append(v)
         return order
+
+    def dfs(G, s: int|list = None, /,
+            connect_roots = False, backtrack = False, max_depth = None,
+            enter_fn: Callable[[int],None] = None,
+            leave_fn: Callable[[int],None] = None,
+            max_depth_fn: Callable[[int],None] = None,
+            down_fn: Callable[[int,int],None] = None, 
+            back_fn: Callable[[int,int],None] = None,
+            up_fn: Callable[[int,int],None] = None):
+        Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]
+
+        state = [0]*G.N
+        stack = elist(G.N if max_depth is None else max_depth+1)
+        for s in G.starts(s):
+            if state[s]: continue
+            stack.append(s)
+            state[s] = 1
+            if connect_roots and down_fn: down_fn(-1,s)
+            while stack:
+                u = stack[-1]
+                if state[u] == 1:
+                    state[u] = 2
+                    if enter_fn: enter_fn(u)
+                    if max_depth is not None and len(stack) > max_depth:
+                        I[u] = Ra[u]
+                        if max_depth_fn: max_depth_fn(u)
+
+                if (i := I[u]) < Ra[u]:
+                    I[u] += 1
+                    if state[v := Va[i]]:
+                        if back_fn: back_fn(u,v)
+                    else:
+                        stack.append(v)
+                        state[v] = 1
+                        if down_fn: down_fn(u,v)
+                else:
+                    stack.pop()
+                    if backtrack:
+                        state[u] = 0
+                        I[u] = La[u]
+                    if leave_fn: leave_fn(u)
+                    if up_fn: up_fn(u, stack[-1])
+            if connect_roots and up_fn: up_fn(s, -1)
+
     
     def dfs_enter_leave(G, s: Union[int,list[int],None] = None):
         '''Returns lists U and V representing U[i] -> V[i] edges in order of top down discovery'''
         N, La, Ra, Va = G.N, G.La, G.Ra, G.Va
-        vis = [False]*N
         I = La[:]
         stack: list[int] = elist(N)
         order: list[int] = elist(2*N)
-        G.par = par = [-1]*N
         events: list[DFSEvent] = elist(2*N)
+        G.par = par = [-1]*N
+        ENTER, LEAVE = int(DFSEvent.ENTER), int(DFSEvent.LEAVE)
 
         for s in G.starts(s):
-            if vis[s]: continue
-            vis[s] = True
-            stack.append(s)
+            if par[s] >= 0: continue
+            par[s] = s
             order.append(s)
-            events.append(DFSEvent.ENTER)
+            events.append(ENTER)
+            stack.append(s)
             while stack:
                 u = stack[-1]
                 if (i := I[u]) < Ra[u]:
                     I[u] += 1
-                    v = Va[i]
-                    if vis[v]: continue
+                    if par[v := Va[i]] >= 0: continue
                     par[v] = u
-                    vis[v] = True
                     order.append(v)
-                    events.append(DFSEvent.ENTER)
+                    events.append(ENTER)
                     stack.append(v)
                 else:
                     stack.pop()
                     order.append(u)
-                    events.append(DFSEvent.LEAVE)
+                    events.append(LEAVE)
+            par[s] = s
         return events, order
     
     def is_bipartite(G):
