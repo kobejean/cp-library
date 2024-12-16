@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc186_e_gcd_ex.test.py
     title: test/abc186_e_gcd_ex.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -31,8 +31,8 @@ data:
   isVerificationFile: false
   path: cp_library/math/ext_gcd_fn.py
   requiredBy: []
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc186_e_gcd_ex.test.py
 documentation_of: cp_library/math/ext_gcd_fn.py

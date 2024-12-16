@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc203_e_sort_groups.test.py
     title: test/abc203_e_sort_groups.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "\nfrom itertools import groupby\nfrom operator import itemgetter\n\
@@ -23,8 +23,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort_groups_fn.py
   requiredBy: []
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc203_e_sort_groups.test.py
 documentation_of: cp_library/alg/iter/sort_groups_fn.py

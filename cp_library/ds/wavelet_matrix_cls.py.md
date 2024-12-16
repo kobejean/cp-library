@@ -134,7 +134,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/wavelet_matrix_cls.py
   requiredBy: []
-  timestamp: '2024-12-16 11:58:31+09:00'
+  timestamp: '2024-12-17 03:19:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/wavelet_matrix_cls.py

@@ -29,7 +29,7 @@ data:
   path: cp_library/math/nt/mod_inv_fn.py
   requiredBy:
   - cp_library/math/nt/chinese_remainder_theorem_fn.py
-  timestamp: '2024-12-16 11:58:31+09:00'
+  timestamp: '2024-12-17 03:19:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/nt/mod_inv_fn.py

@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/dp/rerooting_recursive_cls.py
     title: cp_library/alg/dp/rerooting_recursive_cls.py
   - icon: ':heavy_check_mark:'
@@ -15,7 +15,7 @@ data:
     path: cp_library/alg/tree/lca_table_recursive_cls.py
     title: cp_library/alg/tree/lca_table_recursive_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
@@ -24,9 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_recursive.test.py
     title: test/grl_5_c_lca_table_recursive.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -57,8 +57,8 @@ data:
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/graph/edmonds_fn.py
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/grl_2_b_edmonds_branching.test.py

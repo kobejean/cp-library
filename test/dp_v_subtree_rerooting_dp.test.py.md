@@ -7,6 +7,15 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
+  - icon: ':x:'
+    path: cp_library/alg/graph/fast/graph_cls.py
+    title: cp_library/alg/graph/fast/graph_cls.py
+  - icon: ':x:'
+    path: cp_library/alg/graph/fast/tree_base_cls.py
+    title: cp_library/alg/graph/fast/tree_base_cls.py
+  - icon: ':x:'
+    path: cp_library/alg/graph/fast/tree_cls.py
+    title: cp_library/alg/graph/fast/tree_cls.py
   - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
@@ -20,25 +29,38 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':question:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':question:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
+  - icon: ':question:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':x:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    PROBLEM: https://atcoder.jp/contests/dp/tasks/dp_v
+    links:
+    - https://atcoder.jp/contests/dp/tasks/dp_v
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
+    \n\ndef main():\n    N, M = read(tuple[int, ...])\n    T = read(Tree[N])\n\n \
+    \   def merge(a,b):\n        return a*b%M\n\n    def add_node(p, c, i, res):\n\
+    \        return (res+1)%M\n    \n    e = 1\n\n    ans = T.rerooting_dp(e, merge,\
+    \ add_node)\n\n    write(*ans, sep='\\n')\n\nfrom array import array\nfrom math\
+    \ import ceil, log10\nimport os\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Callable, Sequence, Union, overload\nfrom collections import\
-    \ deque\n\nimport typing\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
-    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\nfrom typing import Callable, Sequence, Union, overload\n\
+    from collections import deque\n\nimport typing\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -223,47 +245,84 @@ data:
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom array import array\n\ndef fill_i32(N: int, elm: int\
-    \ = 0):\n    return array('i', (elm,)) * N\n\ndef fill_u32(N: int, elm: int =\
-    \ 0):\n    return array('I', (elm,)) * N\n\ndef fill_i64(N: int, elm: int = 0):\n\
-    \    return array('q', (elm,)) * N\n\ndef fill_u64(N: int, elm: int = 0):\n  \
-    \  return array('Q', (elm,)) * N\n\ninft: int\n\ninft = sys.maxsize\n\nclass DiGraph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M = len(U)\n\
-    \        deg, Ea, Ua, Va = fill_u32(N), fill_u32(M), fill_u32(M), fill_u32(M)\n\
-    \        \n        for u in U:\n            deg[u] += 1\n            \n      \
-    \  La, idx = fill_u32(N), 0\n        for u in range(N): \n            La[u], idx\
-    \ = idx, idx + deg[u]\n        Ra = La[:]\n\n        # place edge data using R\
-    \ to track\n        for e in range(M):\n            u, v = U[e], V[e]\n      \
-    \      i = Ra[u]\n            Ua[i], Va[i], Ea[i] = u, v, e\n            Ra[u]\
-    \ += 1\n\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n"
-  code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.alg.graph.fast.graph_base_cls\
-    \ import GraphBase\n\nclass DiGraph(GraphBase):\n    def __init__(G, N: int, U:\
-    \ list[int], V: list[int]):\n        M = len(U)\n        deg, Ea, Ua, Va = fill_u32(N),\
-    \ fill_u32(M), fill_u32(M), fill_u32(M)\n        \n        for u in U:\n     \
-    \       deg[u] += 1\n            \n        La, idx = fill_u32(N), 0\n        for\
-    \ u in range(N): \n            La[u], idx = idx, idx + deg[u]\n        Ra = La[:]\n\
-    \n        # place edge data using R to track\n        for e in range(M):\n   \
-    \         u, v = U[e], V[e]\n            i = Ra[u]\n            Ua[i], Va[i],\
-    \ Ea[i] = u, v, e\n            Ra[u] += 1\n\n        super().__init__(N, M, U,\
-    \ V, deg, La, Ra, Ua, Va, Ea)\n\nfrom cp_library.ds.fill_fn import fill_u32\n"
+    \ = newlist_hint\n    \n\ndef fill_i32(N: int, elm: int = 0):\n    return array('i',\
+    \ (elm,)) * N\n\ndef fill_u32(N: int, elm: int = 0):\n    return array('I', (elm,))\
+    \ * N\n\ndef fill_i64(N: int, elm: int = 0):\n    return array('q', (elm,)) *\
+    \ N\n\ndef fill_u64(N: int, elm: int = 0):\n    return array('Q', (elm,)) * N\n\
+    \ninft: int\n\ninft = sys.maxsize\n\nclass Graph(GraphBase):\n    def __init__(G,\
+    \ N: int, U: list[int], V: list[int]):\n        M2 = (M := len(U)) << 1\n    \
+    \    deg, Ea, Ua, Va = fill_u32(N), fill_u32(M2), fill_u32(M2), fill_u32(M2)\n\
+    \        \n        for u in U:\n            deg[u] += 1\n        for v in V:\n\
+    \            deg[v] += 1\n            \n        La, idx = fill_u32(N), 0\n   \
+    \     for u in range(N): \n            La[u], idx = idx, idx + deg[u]\n      \
+    \  Ra = La[:]\n\n        # place edge data using R to track\n        for e in\
+    \ range(M):\n            u, v = U[e], V[e]\n            i, j = Ra[u], Ra[v]\n\
+    \            Ua[i], Va[i], Ea[i] = u, v, e\n            Ra[u] += 1\n         \
+    \   Ua[j], Va[j], Ea[j] = v, u, M+e\n            Ra[v] += 1\n\n        super().__init__(N,\
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n\n_T = TypeVar('_T')\n\nclass TreeBase(GraphBase):\n\
+    \n    def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
+    \ \n                     add_child: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n\
+    \                     s: int = 0):\n        N, La, Ra, Ua, Va = T.N, T.La, T.Ra,\
+    \ T.Ua, T.Va\n        order = T.dfs_discovery(s)\n        dp = [e]*N\n       \
+    \ suf = [e]*len(Ua)\n        I = Ra[:] # tracks current indices for suffix array\
+    \ accumulation\n\n        # up\n        for i in order[::-1]:\n            u,v\
+    \ = Ua[i], Va[i]\n            # subtree v finished up pass, store value to accumulate\
+    \ for u\n            dp[v] = new = add_child(u, v, i, dp[v])\n            dp[u]\
+    \ = merge(dp[u], new)\n            # suffix accumulation\n            I[u] -=\
+    \ 1\n            if I[u] > La[u]:\n                suf[I[u]-1] = merge(suf[I[u]],\
+    \ new)\n\n        # down\n        dp[s] = e\n        for i in order:\n       \
+    \     u,v = Ua[i], Va[i]\n            # prefix accumulation\n            dp[u]\
+    \ = merge(pre := dp[u], dp[v])\n            # push value to child\n          \
+    \  dp[v] = add_child(v, u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n\
+    \        \n        return dp\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ shift: int = -1):\n        return super().compile(N, N-1, shift)\n    \n\nclass\
+    \ Tree(Graph, TreeBase):\n    pass\n\n\nfrom typing import Type, TypeVar, Union,\
+    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
+    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
+    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
+    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
+    \n\ndef main():\n    N, M = read(tuple[int, ...])\n    T = read(Tree[N])\n\n \
+    \   def merge(a,b):\n        return a*b%M\n\n    def add_node(p, c, i, res):\n\
+    \        return (res+1)%M\n    \n    e = 1\n\n    ans = T.rerooting_dp(e, merge,\
+    \ add_node)\n\n    write(*ans, sep='\\n')\n\nfrom array import array\nfrom math\
+    \ import ceil, log10\nimport os\n\nfrom cp_library.alg.graph.fast.tree_cls import\
+    \ Tree\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import\
+    \ write\n\nif __name__ == '__main__':\n    main()"
   dependsOn:
-  - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/alg/graph/fast/tree_cls.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
+  - cp_library/alg/graph/fast/graph_cls.py
+  - cp_library/alg/graph/fast/tree_base_cls.py
   - cp_library/ds/fill_fn.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
+  - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/math/inft_cnst.py
-  - cp_library/io/fast_io_cls.py
-  isVerificationFile: false
-  path: cp_library/alg/graph/fast/digraph_cls.py
+  isVerificationFile: true
+  path: test/dp_v_subtree_rerooting_dp.test.py
   requiredBy: []
   timestamp: '2024-12-17 03:19:43+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: cp_library/alg/graph/fast/digraph_cls.py
+documentation_of: test/dp_v_subtree_rerooting_dp.test.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/fast/digraph_cls.py
-- /library/cp_library/alg/graph/fast/digraph_cls.py.html
-title: cp_library/alg/graph/fast/digraph_cls.py
+- /verify/test/dp_v_subtree_rerooting_dp.test.py
+- /verify/test/dp_v_subtree_rerooting_dp.test.py.html
+title: test/dp_v_subtree_rerooting_dp.test.py
 ---

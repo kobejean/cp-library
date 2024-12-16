@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
@@ -73,7 +73,7 @@ data:
   - cp_library/alg/graph/fast/tree_weighted_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  timestamp: '2024-12-16 11:58:31+09:00'
+  timestamp: '2024-12-17 03:19:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_a_fast_dijkstra.test.py

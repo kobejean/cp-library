@@ -1,56 +1,56 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc202/tasks/abc202_e
     links:
@@ -58,7 +58,7 @@ data:
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc202/tasks/abc202_e\n\
     \n\nfrom bisect import bisect_left\n\ndef main():\n    N = read(int)\n    P =\
     \ read(list[-1])\n    E = []\n    for u,p in enumerate(P, start=1):\n        E.append((p,u))\n\
-    \n    cnt = [[] for _ in range(N)]\n\n    G = Tree(N, E)\n    depth = [0]*(N+1)\n\
+    \n    cnt = [[] for _ in range(N)]\n\n    G = Tree(N, E)\n    depth = [0]*N\n\
     \    for p,u in G.dfs_topdown():\n        depth[u] = depth[p]+1\n    time = 0\n\
     \    tin = [0]*N\n    tout = [0]*N\n    \n    for event in G.dfs_enter_leave(0):\n\
     \        match event:\n            case DFSEvent.ENTER, u:\n                tin[u]\
@@ -454,7 +454,7 @@ data:
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc202/tasks/abc202_e\n\
     \n\nfrom bisect import bisect_left\n\ndef main():\n    N = read(int)\n    P =\
     \ read(list[-1])\n    E = []\n    for u,p in enumerate(P, start=1):\n        E.append((p,u))\n\
-    \n    cnt = [[] for _ in range(N)]\n\n    G = Tree(N, E)\n    depth = [0]*(N+1)\n\
+    \n    cnt = [[] for _ in range(N)]\n\n    G = Tree(N, E)\n    depth = [0]*N\n\
     \    for p,u in G.dfs_topdown():\n        depth[u] = depth[p]+1\n    time = 0\n\
     \    tin = [0]*N\n    tout = [0]*N\n    \n    for event in G.dfs_enter_leave(0):\n\
     \        match event:\n            case DFSEvent.ENTER, u:\n                tin[u]\
@@ -485,8 +485,8 @@ data:
   isVerificationFile: true
   path: test/abc202_e_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/abc202_e_dfs_enter_leave.test.py
 layout: document

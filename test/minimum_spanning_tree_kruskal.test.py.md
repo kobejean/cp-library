@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -19,37 +19,37 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/heapq_max_import.py
     title: cp_library/ds/heap/heapq_max_import.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
@@ -159,7 +159,7 @@ data:
     \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
     \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \nfrom typing import Sequence, Union, overload\n\nclass GraphBase(Sequence,\
+    \    \nfrom typing import Callable, Sequence, Union, overload\n\nclass GraphBase(Sequence,\
     \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
     \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
@@ -182,60 +182,81 @@ data:
     \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
     \ distance(G, s = None, g = None):\n        match s, g:\n            case None,\
-    \ None:\n                return G.floyd_warshall()\n            case s, None:\n\
-    \                return G.bfs(s)\n            case s, g:\n                return\
-    \ G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list] = 0) -> list[int]:\
-    \ ...\n    @overload\n    def bfs(G, s: Union[int,list], g: int) -> int: ...\n\
-    \    def bfs(G, s: int = 0, g: int = None):\n        N, Va = G.N, G.Va\n     \
-    \   D = [inft]*N\n        q = deque(G.starts(s))\n        for u in q: D[u] = 0\n\
-    \        while q:\n            nd = D[u := q.popleft()]+1\n            if u ==\
-    \ g: return nd-1\n            for i in G.range(u):\n                if nd < D[v\
-    \ := Va[i]]:\n                    D[v] = nd\n                    q.append(v)\n\
-    \        return D if g is None else inft \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        N, M = G.N, G.M\n        Ua, Va = G.Ua, G.Va\n        D = [[inft]*N for\
-    \ _ in range(N)]\n\n        for u in range(N):\n            D[u][u] = 0\n\n  \
-    \      for i in range(M):\n            u,v = Ua[i], Va[i]\n            D[u][v]\
-    \ = 1\n        \n        for k, Dk in enumerate(D):\n            for Di in D:\n\
-    \                if Di[k] == inft: continue\n                for j in range(N):\n\
-    \                    if Dk[j] == inft: continue\n                    Di[j] = min(Di[j],\
-    \ Di[k]+Dk[j])\n        return D\n    \n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
-    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, Va = G.N, G.Va\n\
-    \        vis = [False]*N\n        stack: list[int] = elist(N)\n        order:\
-    \ list[int] = elist(N)\n\n        for s in G.starts(s):\n            if vis[s]:\
-    \ continue\n            if include_roots:\n                order.append(-s-1)\n\
-    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                u = stack.pop()\n                for i in G.range(u):\n     \
-    \               v = Va[i]\n                    if vis[v]: continue\n         \
-    \           vis[v] = True\n                    order.append(i)\n             \
-    \       stack.append(v)\n        return order\n    \n    def dfs_enter_leave(G,\
-    \ s: Union[int,list[int],None] = None):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, La, Ra, Va\
-    \ = G.N, G.La, G.Ra, G.Va\n        vis = [False]*N\n        I = La[:]\n      \
-    \  stack: list[int] = elist(N)\n        order: list[int] = elist(2*N)\n      \
-    \  G.par = par = [-1]*N\n        events: list[DFSEvent] = elist(2*N)\n\n     \
-    \   for s in G.starts(s):\n            if vis[s]: continue\n            vis[s]\
-    \ = True\n            stack.append(s)\n            order.append(s)\n         \
-    \   events.append(DFSEvent.ENTER)\n            while stack:\n                u\
-    \ = stack[-1]\n                if (i := I[u]) < Ra[u]:\n                    I[u]\
-    \ += 1\n                    v = Va[i]\n                    if vis[v]: continue\n\
-    \                    par[v] = u\n                    vis[v] = True\n         \
-    \           order.append(v)\n                    events.append(DFSEvent.ENTER)\n\
+    \ None:\n                return G.floyd_warshall()\n            case s, g:\n \
+    \               return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list]\
+    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
+    \ int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        N, Va\
+    \ = G.N, G.Va\n        D = [inft]*N\n        S = G.starts(s)\n        que = deque(S)\n\
+    \        for u in S: D[u] = 0\n        while que:\n            nd = D[u := que.popleft()]+1\n\
+    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
+    \          if nd < D[v := Va[i]]:\n                    D[v] = nd\n           \
+    \         que.append(v)\n        return D if g is None else inft \n\n    def floyd_warshall(G)\
+    \ -> list[list[int]]:\n        N, M = G.N, G.M\n        Ua, Va = G.Ua, G.Va\n\
+    \        D = [[inft]*N for _ in range(N)]\n\n        for u in range(N):\n    \
+    \        D[u][u] = 0\n\n        for i in range(M):\n            u,v = Ua[i], Va[i]\n\
+    \            D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n     \
+    \       for Di in D:\n                if Di[k] == inft: continue\n           \
+    \     for j in range(N):\n                    if Dk[j] == inft: continue\n   \
+    \                 Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n\n\
+    \    def dfs_discovery(G, s: Union[int,list[int],None] = None, include_roots =\
+    \ False):\n        '''Returns lists U and V representing U[i] -> V[i] edges in\
+    \ order of top down discovery'''\n        N, Va = G.N, G.Va\n        vis = [False]*N\n\
+    \        stack: list[int] = elist(N)\n        order: list[int] = elist(N)\n\n\
+    \        for s in G.starts(s):\n            if vis[s]: continue\n            if\
+    \ include_roots:\n                order.append(-s-1)\n            vis[s] = True\n\
+    \            stack.append(s)\n            while stack:\n                u = stack.pop()\n\
+    \                for i in G.range(u):\n                    v = Va[i]\n       \
+    \             if vis[v]: continue\n                    vis[v] = True\n       \
+    \             order.append(i)\n                    stack.append(v)\n        return\
+    \ order\n\n    def dfs(G, s: int|list = None, /,\n            connect_roots =\
+    \ False, backtrack = False, max_depth = None,\n            enter_fn: Callable[[int],None]\
+    \ = None,\n            leave_fn: Callable[[int],None] = None,\n            max_depth_fn:\
+    \ Callable[[int],None] = None,\n            down_fn: Callable[[int,int],None]\
+    \ = None, \n            back_fn: Callable[[int,int],None] = None,\n          \
+    \  up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va, G.La,\
+    \ G.Ra, G.La[:]\n\n        state = [0]*G.N\n        stack = elist(G.N if max_depth\
+    \ is None else max_depth+1)\n        for s in G.starts(s):\n            if state[s]:\
+    \ continue\n            stack.append(s)\n            state[s] = 1\n          \
+    \  if connect_roots and down_fn: down_fn(-1,s)\n            while stack:\n   \
+    \             u = stack[-1]\n                if state[u] == 1:\n             \
+    \       state[u] = 2\n                    if enter_fn: enter_fn(u)\n         \
+    \           if max_depth is not None and len(stack) > max_depth:\n           \
+    \             I[u] = Ra[u]\n                        if max_depth_fn: max_depth_fn(u)\n\
+    \n                if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n   \
+    \                 if state[v := Va[i]]:\n                        if back_fn: back_fn(u,v)\n\
+    \                    else:\n                        stack.append(v)\n        \
+    \                state[v] = 1\n                        if down_fn: down_fn(u,v)\n\
+    \                else:\n                    stack.pop()\n                    if\
+    \ backtrack:\n                        state[u] = 0\n                        I[u]\
+    \ = La[u]\n                    if leave_fn: leave_fn(u)\n                    if\
+    \ up_fn: up_fn(u, stack[-1])\n            if connect_roots and up_fn: up_fn(s,\
+    \ -1)\n\n    \n    def dfs_enter_leave(G, s: Union[int,list[int],None] = None):\n\
+    \        '''Returns lists U and V representing U[i] -> V[i] edges in order of\
+    \ top down discovery'''\n        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va\n     \
+    \   I = La[:]\n        stack: list[int] = elist(N)\n        order: list[int] =\
+    \ elist(2*N)\n        events: list[DFSEvent] = elist(2*N)\n        G.par = par\
+    \ = [-1]*N\n        ENTER, LEAVE = int(DFSEvent.ENTER), int(DFSEvent.LEAVE)\n\n\
+    \        for s in G.starts(s):\n            if par[s] >= 0: continue\n       \
+    \     par[s] = s\n            order.append(s)\n            events.append(ENTER)\n\
+    \            stack.append(s)\n            while stack:\n                u = stack[-1]\n\
+    \                if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n    \
+    \                if par[v := Va[i]] >= 0: continue\n                    par[v]\
+    \ = u\n                    order.append(v)\n                    events.append(ENTER)\n\
     \                    stack.append(v)\n                else:\n                \
-    \    stack.pop()\n                    order.append(u)\n                    events.append(DFSEvent.LEAVE)\n\
-    \        return events, order\n    \n    def is_bipartite(G):\n        N, Va =\
-    \ G.N, G.Va\n        que = deque()\n        color = [-1]*N\n                \n\
-    \        for s in range(N):\n            if color[s] >= 0:\n                continue\n\
-    \            color[s] = 1\n            que.append(s)\n            while que:\n\
-    \                u = que.popleft()\n                for i in G.range(u):\n   \
-    \                 if color[v := Va[i]] == -1:\n                        color[v]\
-    \ = 1 - color[u]\n                        que.append(v)\n                    elif\
-    \ color[v] == color[u]:\n                        return False\n        return\
-    \ True\n    \n    def starts(G, s: Union[int,list[int],None]) -> list[int]:\n\
-    \        match s:\n            case int(s): return [s]\n            case None:\
-    \ return [*range(G.N)]\n            case V: return V if isinstance(V, list) else\
-    \ list(V)\n\n    @classmethod\n    def compile(cls, N: int, M: int, shift: int\
-    \ = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
+    \    stack.pop()\n                    order.append(u)\n                    events.append(LEAVE)\n\
+    \            par[s] = s\n        return events, order\n    \n    def is_bipartite(G):\n\
+    \        N, Va = G.N, G.Va\n        que = deque()\n        color = [-1]*N\n  \
+    \              \n        for s in range(N):\n            if color[s] >= 0:\n \
+    \               continue\n            color[s] = 1\n            que.append(s)\n\
+    \            while que:\n                u = que.popleft()\n                for\
+    \ i in G.range(u):\n                    if color[v := Va[i]] == -1:\n        \
+    \                color[v] = 1 - color[u]\n                        que.append(v)\n\
+    \                    elif color[v] == color[u]:\n                        return\
+    \ False\n        return True\n    \n    def starts(G, s: Union[int,list[int],None])\
+    \ -> list[int]:\n        match s:\n            case int(s): return [s]\n     \
+    \       case None: return [*range(G.N)]\n            case V: return V if isinstance(V,\
+    \ list) else list(V)\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \ shift: int = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
     \ fill_u32(M)\n            stream = ts.stream\n            for i in range(M):\n\
     \                u, v = map(int, stream.readline().split())\n                U[i],\
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
@@ -436,7 +457,7 @@ data:
   isVerificationFile: true
   path: test/minimum_spanning_tree_kruskal.test.py
   requiredBy: []
-  timestamp: '2024-12-16 11:58:31+09:00'
+  timestamp: '2024-12-17 03:19:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/minimum_spanning_tree_kruskal.test.py

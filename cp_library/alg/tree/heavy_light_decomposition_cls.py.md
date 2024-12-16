@@ -3,12 +3,12 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "\n\nclass HLD:\n    def __init__(self, T, r=0):\n        N = len(T)\n\
@@ -77,8 +77,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/heavy_light_decomposition_cls.py
   requiredBy: []
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
 documentation_of: cp_library/alg/tree/heavy_light_decomposition_cls.py

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
   _extendedRequiredBy:
@@ -76,7 +76,7 @@ data:
   requiredBy:
   - cp_library/math/mutvec_cls.py
   - cp_library/math/mat_cls.py
-  timestamp: '2024-12-16 11:58:31+09:00'
+  timestamp: '2024-12-17 03:19:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/elm_wise_in_place_mixin.py

@@ -11,28 +11,28 @@ data:
   - icon: ':warning:'
     path: cp_library/math/mutvec_cls.py
     title: cp_library/math/mutvec_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/math/vec2d_cls.py
     title: cp_library/math/vec2d_cls.py
   - icon: ':warning:'
     path: cp_library/math/vec3d_cls.py
     title: cp_library/math/vec3d_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/math/vec_cls.py
     title: cp_library/math/vec_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc151_f_fbisect_left.test.py
     title: test/abc151_f_fbisect_left.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc189_e_vec2d.test.py
     title: test/abc189_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc274_e_vec2d.test.py
     title: test/abc274_e_vec2d.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "from math import hypot\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -92,8 +92,8 @@ data:
   - cp_library/math/mutvec_cls.py
   - cp_library/math/mat_cls.py
   - cp_library/math/vec2d_cls.py
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc151_f_fbisect_left.test.py
   - test/abc189_e_vec2d.test.py

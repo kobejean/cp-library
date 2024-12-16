@@ -1,65 +1,70 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_base_cls.py
     title: cp_library/alg/graph/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_cls.py
     title: cp_library/alg/graph/fast/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
-    PROBLEM: https://atcoder.jp/contests/dp/tasks/dp_v
+    PROBLEM: https://atcoder.jp/contests/abc202/tasks/abc202_e
     links:
-    - https://atcoder.jp/contests/dp/tasks/dp_v
-  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
-    \n\ndef main():\n    N, M = read(tuple[int, ...])\n    T = read(Tree[N])\n\n \
-    \   def merge(a,b):\n        return a*b%M\n\n    def add_node(p, c, i, res):\n\
-    \        return (res+1)%M\n    \n    e = 1\n\n    ans = T.rerooting_dp(e, merge,\
-    \ add_node)\n\n    write(*ans, sep='\\n')\n\nfrom array import array\nfrom math\
-    \ import ceil, log10\nimport os\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
+    - https://atcoder.jp/contests/abc202/tasks/abc202_e
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc202/tasks/abc202_e\n\
+    \n\nfrom bisect import bisect_left\n\ndef main():\n    N = read(int)\n    V =\
+    \ read(list[-1])\n    U = list(range(1,N))\n    G = Tree(N, U, V)\n\n    depth\
+    \ = [0]*N\n    cnt = [[] for _ in range(N)]\n\n    time = 0\n    tin = [0]*N\n\
+    \    tout = [0]*N\n    \n    def down(p,u):\n        depth[u] = depth[p]+1\n\n\
+    \    def enter(u):\n        nonlocal time\n        tin[u] = time\n        cnt[depth[u]].append(time)\n\
+    \        time += 1\n\n    def leave(u):\n        nonlocal time\n        tout[u]\
+    \ = time\n        time += 1\n\n    G.dfs(0, down_fn=down, enter_fn=enter, leave_fn=leave)\n\
+    \n    Q = read(int)\n    for u,d in read(list[tuple[-1,int],Q]):\n        ans\
+    \ = bisect_left(cnt[d], tout[u]) - bisect_left(cnt[d], tin[u])\n        write(ans)\n\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nfrom typing import Sequence, Union, overload\nfrom collections\
-    \ import deque\n\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
+    \ typing import Callable, Sequence, Union, overload\nfrom collections import deque\n\
+    \nimport typing\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
     import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
     \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
     \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
@@ -165,77 +170,98 @@ data:
     \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
     \ distance(G, s = None, g = None):\n        match s, g:\n            case None,\
-    \ None:\n                return G.floyd_warshall()\n            case s, None:\n\
-    \                return G.bfs(s)\n            case s, g:\n                return\
-    \ G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list] = 0) -> list[int]:\
-    \ ...\n    @overload\n    def bfs(G, s: Union[int,list], g: int) -> int: ...\n\
-    \    def bfs(G, s: int = 0, g: int = None):\n        N, Va = G.N, G.Va\n     \
-    \   D = [inft]*N\n        q = deque(G.starts(s))\n        for u in q: D[u] = 0\n\
-    \        while q:\n            nd = D[u := q.popleft()]+1\n            if u ==\
-    \ g: return nd-1\n            for i in G.range(u):\n                if nd < D[v\
-    \ := Va[i]]:\n                    D[v] = nd\n                    q.append(v)\n\
-    \        return D if g is None else inft \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        N, M = G.N, G.M\n        Ua, Va = G.Ua, G.Va\n        D = [[inft]*N for\
-    \ _ in range(N)]\n\n        for u in range(N):\n            D[u][u] = 0\n\n  \
-    \      for i in range(M):\n            u,v = Ua[i], Va[i]\n            D[u][v]\
-    \ = 1\n        \n        for k, Dk in enumerate(D):\n            for Di in D:\n\
-    \                if Di[k] == inft: continue\n                for j in range(N):\n\
-    \                    if Dk[j] == inft: continue\n                    Di[j] = min(Di[j],\
-    \ Di[k]+Dk[j])\n        return D\n    \n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
-    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, Va = G.N, G.Va\n\
-    \        vis = [False]*N\n        stack: list[int] = elist(N)\n        order:\
-    \ list[int] = elist(N)\n\n        for s in G.starts(s):\n            if vis[s]:\
-    \ continue\n            if include_roots:\n                order.append(-s-1)\n\
-    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                u = stack.pop()\n                for i in G.range(u):\n     \
-    \               v = Va[i]\n                    if vis[v]: continue\n         \
-    \           vis[v] = True\n                    order.append(i)\n             \
-    \       stack.append(v)\n        return order\n    \n    def dfs_enter_leave(G,\
-    \ s: Union[int,list[int],None] = None):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, La, Ra, Va\
-    \ = G.N, G.La, G.Ra, G.Va\n        vis = [False]*N\n        I = La[:]\n      \
-    \  stack: list[int] = elist(N)\n        order: list[int] = elist(2*N)\n      \
-    \  G.par = par = [-1]*N\n        events: list[DFSEvent] = elist(2*N)\n\n     \
-    \   for s in G.starts(s):\n            if vis[s]: continue\n            vis[s]\
-    \ = True\n            stack.append(s)\n            order.append(s)\n         \
-    \   events.append(DFSEvent.ENTER)\n            while stack:\n                u\
-    \ = stack[-1]\n                if (i := I[u]) < Ra[u]:\n                    I[u]\
-    \ += 1\n                    v = Va[i]\n                    if vis[v]: continue\n\
-    \                    par[v] = u\n                    vis[v] = True\n         \
-    \           order.append(v)\n                    events.append(DFSEvent.ENTER)\n\
+    \ None:\n                return G.floyd_warshall()\n            case s, g:\n \
+    \               return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list]\
+    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
+    \ int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        N, Va\
+    \ = G.N, G.Va\n        D = [inft]*N\n        S = G.starts(s)\n        que = deque(S)\n\
+    \        for u in S: D[u] = 0\n        while que:\n            nd = D[u := que.popleft()]+1\n\
+    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
+    \          if nd < D[v := Va[i]]:\n                    D[v] = nd\n           \
+    \         que.append(v)\n        return D if g is None else inft \n\n    def floyd_warshall(G)\
+    \ -> list[list[int]]:\n        N, M = G.N, G.M\n        Ua, Va = G.Ua, G.Va\n\
+    \        D = [[inft]*N for _ in range(N)]\n\n        for u in range(N):\n    \
+    \        D[u][u] = 0\n\n        for i in range(M):\n            u,v = Ua[i], Va[i]\n\
+    \            D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n     \
+    \       for Di in D:\n                if Di[k] == inft: continue\n           \
+    \     for j in range(N):\n                    if Dk[j] == inft: continue\n   \
+    \                 Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n\n\
+    \    def dfs_discovery(G, s: Union[int,list[int],None] = None, include_roots =\
+    \ False):\n        '''Returns lists U and V representing U[i] -> V[i] edges in\
+    \ order of top down discovery'''\n        N, Va = G.N, G.Va\n        vis = [False]*N\n\
+    \        stack: list[int] = elist(N)\n        order: list[int] = elist(N)\n\n\
+    \        for s in G.starts(s):\n            if vis[s]: continue\n            if\
+    \ include_roots:\n                order.append(-s-1)\n            vis[s] = True\n\
+    \            stack.append(s)\n            while stack:\n                u = stack.pop()\n\
+    \                for i in G.range(u):\n                    v = Va[i]\n       \
+    \             if vis[v]: continue\n                    vis[v] = True\n       \
+    \             order.append(i)\n                    stack.append(v)\n        return\
+    \ order\n\n    def dfs(G, s: int|list = None, /,\n            connect_roots =\
+    \ False, backtrack = False, max_depth = None,\n            enter_fn: Callable[[int],None]\
+    \ = None,\n            leave_fn: Callable[[int],None] = None,\n            max_depth_fn:\
+    \ Callable[[int],None] = None,\n            down_fn: Callable[[int,int],None]\
+    \ = None, \n            back_fn: Callable[[int,int],None] = None,\n          \
+    \  up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va, G.La,\
+    \ G.Ra, G.La[:]\n\n        state = [0]*G.N\n        stack = elist(G.N if max_depth\
+    \ is None else max_depth+1)\n        for s in G.starts(s):\n            if state[s]:\
+    \ continue\n            stack.append(s)\n            state[s] = 1\n          \
+    \  if connect_roots and down_fn: down_fn(-1,s)\n            while stack:\n   \
+    \             u = stack[-1]\n                if state[u] == 1:\n             \
+    \       state[u] = 2\n                    if enter_fn: enter_fn(u)\n         \
+    \           if max_depth is not None and len(stack) > max_depth:\n           \
+    \             I[u] = Ra[u]\n                        if max_depth_fn: max_depth_fn(u)\n\
+    \n                if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n   \
+    \                 if state[v := Va[i]]:\n                        if back_fn: back_fn(u,v)\n\
+    \                    else:\n                        stack.append(v)\n        \
+    \                state[v] = 1\n                        if down_fn: down_fn(u,v)\n\
+    \                else:\n                    stack.pop()\n                    if\
+    \ backtrack:\n                        state[u] = 0\n                        I[u]\
+    \ = La[u]\n                    if leave_fn: leave_fn(u)\n                    if\
+    \ up_fn: up_fn(u, stack[-1])\n            if connect_roots and up_fn: up_fn(s,\
+    \ -1)\n\n    \n    def dfs_enter_leave(G, s: Union[int,list[int],None] = None):\n\
+    \        '''Returns lists U and V representing U[i] -> V[i] edges in order of\
+    \ top down discovery'''\n        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va\n     \
+    \   I = La[:]\n        stack: list[int] = elist(N)\n        order: list[int] =\
+    \ elist(2*N)\n        events: list[DFSEvent] = elist(2*N)\n        G.par = par\
+    \ = [-1]*N\n        ENTER, LEAVE = int(DFSEvent.ENTER), int(DFSEvent.LEAVE)\n\n\
+    \        for s in G.starts(s):\n            if par[s] >= 0: continue\n       \
+    \     par[s] = s\n            order.append(s)\n            events.append(ENTER)\n\
+    \            stack.append(s)\n            while stack:\n                u = stack[-1]\n\
+    \                if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n    \
+    \                if par[v := Va[i]] >= 0: continue\n                    par[v]\
+    \ = u\n                    order.append(v)\n                    events.append(ENTER)\n\
     \                    stack.append(v)\n                else:\n                \
-    \    stack.pop()\n                    order.append(u)\n                    events.append(DFSEvent.LEAVE)\n\
-    \        return events, order\n    \n    def is_bipartite(G):\n        N, Va =\
-    \ G.N, G.Va\n        que = deque()\n        color = [-1]*N\n                \n\
-    \        for s in range(N):\n            if color[s] >= 0:\n                continue\n\
-    \            color[s] = 1\n            que.append(s)\n            while que:\n\
-    \                u = que.popleft()\n                for i in G.range(u):\n   \
-    \                 if color[v := Va[i]] == -1:\n                        color[v]\
-    \ = 1 - color[u]\n                        que.append(v)\n                    elif\
-    \ color[v] == color[u]:\n                        return False\n        return\
-    \ True\n    \n    def starts(G, s: Union[int,list[int],None]) -> list[int]:\n\
-    \        match s:\n            case int(s): return [s]\n            case None:\
-    \ return [*range(G.N)]\n            case V: return V if isinstance(V, list) else\
-    \ list(V)\n\n    @classmethod\n    def compile(cls, N: int, M: int, shift: int\
-    \ = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
+    \    stack.pop()\n                    order.append(u)\n                    events.append(LEAVE)\n\
+    \            par[s] = s\n        return events, order\n    \n    def is_bipartite(G):\n\
+    \        N, Va = G.N, G.Va\n        que = deque()\n        color = [-1]*N\n  \
+    \              \n        for s in range(N):\n            if color[s] >= 0:\n \
+    \               continue\n            color[s] = 1\n            que.append(s)\n\
+    \            while que:\n                u = que.popleft()\n                for\
+    \ i in G.range(u):\n                    if color[v := Va[i]] == -1:\n        \
+    \                color[v] = 1 - color[u]\n                        que.append(v)\n\
+    \                    elif color[v] == color[u]:\n                        return\
+    \ False\n        return True\n    \n    def starts(G, s: Union[int,list[int],None])\
+    \ -> list[int]:\n        match s:\n            case int(s): return [s]\n     \
+    \       case None: return [*range(G.N)]\n            case V: return V if isinstance(V,\
+    \ list) else list(V)\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \ shift: int = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
     \ fill_u32(M)\n            stream = ts.stream\n            for i in range(M):\n\
     \                u, v = map(int, stream.readline().split())\n                U[i],\
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\ndef fill_i32(N: int, elm: int = 0):\n    return array('i',\
-    \ (elm,)) * N\n\ndef fill_u32(N: int, elm: int = 0):\n    return array('I', (elm,))\
-    \ * N\n\ndef fill_i64(N: int, elm: int = 0):\n    return array('q', (elm,)) *\
-    \ N\n\ndef fill_u64(N: int, elm: int = 0):\n    return array('Q', (elm,)) * N\n\
-    \ninft: int\n\ninft = sys.maxsize\n\nclass Graph(GraphBase):\n    def __init__(G,\
-    \ N: int, U: list[int], V: list[int]):\n        M2 = (M := len(U)) << 1\n    \
-    \    deg, Ea, Ua, Va = fill_u32(N), fill_u32(M2), fill_u32(M2), fill_u32(M2)\n\
-    \        \n        for u in U:\n            deg[u] += 1\n        for v in V:\n\
-    \            deg[v] += 1\n            \n        La, idx = fill_u32(N), 0\n   \
-    \     for u in range(N): \n            La[u], idx = idx, idx + deg[u]\n      \
-    \  Ra = La[:]\n\n        # place edge data using R to track\n        for e in\
-    \ range(M):\n            u, v = U[e], V[e]\n            i, j = Ra[u], Ra[v]\n\
+    \ = newlist_hint\n    \nfrom array import array\n\ndef fill_i32(N: int, elm: int\
+    \ = 0):\n    return array('i', (elm,)) * N\n\ndef fill_u32(N: int, elm: int =\
+    \ 0):\n    return array('I', (elm,)) * N\n\ndef fill_i64(N: int, elm: int = 0):\n\
+    \    return array('q', (elm,)) * N\n\ndef fill_u64(N: int, elm: int = 0):\n  \
+    \  return array('Q', (elm,)) * N\n\ninft: int\n\ninft = sys.maxsize\n\nclass Graph(GraphBase):\n\
+    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M2 = (M :=\
+    \ len(U)) << 1\n        deg, Ea, Ua, Va = fill_u32(N), fill_u32(M2), fill_u32(M2),\
+    \ fill_u32(M2)\n        \n        for u in U:\n            deg[u] += 1\n     \
+    \   for v in V:\n            deg[v] += 1\n            \n        La, idx = fill_u32(N),\
+    \ 0\n        for u in range(N): \n            La[u], idx = idx, idx + deg[u]\n\
+    \        Ra = La[:]\n\n        # place edge data using R to track\n        for\
+    \ e in range(M):\n            u, v = U[e], V[e]\n            i, j = Ra[u], Ra[v]\n\
     \            Ua[i], Va[i], Ea[i] = u, v, e\n            Ra[u] += 1\n         \
     \   Ua[j], Va[j], Ea[j] = v, u, M+e\n            Ra[v] += 1\n\n        super().__init__(N,\
     \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n\n_T = TypeVar('_T')\n\nclass TreeBase(GraphBase):\n\
@@ -270,15 +296,20 @@ data:
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
-  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
-    \n\ndef main():\n    N, M = read(tuple[int, ...])\n    T = read(Tree[N])\n\n \
-    \   def merge(a,b):\n        return a*b%M\n\n    def add_node(p, c, i, res):\n\
-    \        return (res+1)%M\n    \n    e = 1\n\n    ans = T.rerooting_dp(e, merge,\
-    \ add_node)\n\n    write(*ans, sep='\\n')\n\nfrom array import array\nfrom math\
-    \ import ceil, log10\nimport os\n\nfrom cp_library.alg.graph.fast.tree_cls import\
-    \ Tree\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import\
-    \ write\n\nif __name__ == '__main__':\n    main()"
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc202/tasks/abc202_e\n\
+    \n\nfrom bisect import bisect_left\n\ndef main():\n    N = read(int)\n    V =\
+    \ read(list[-1])\n    U = list(range(1,N))\n    G = Tree(N, U, V)\n\n    depth\
+    \ = [0]*N\n    cnt = [[] for _ in range(N)]\n\n    time = 0\n    tin = [0]*N\n\
+    \    tout = [0]*N\n    \n    def down(p,u):\n        depth[u] = depth[p]+1\n\n\
+    \    def enter(u):\n        nonlocal time\n        tin[u] = time\n        cnt[depth[u]].append(time)\n\
+    \        time += 1\n\n    def leave(u):\n        nonlocal time\n        tout[u]\
+    \ = time\n        time += 1\n\n    G.dfs(0, down_fn=down, enter_fn=enter, leave_fn=leave)\n\
+    \n    Q = read(int)\n    for u,d in read(list[tuple[-1,int],Q]):\n        ans\
+    \ = bisect_left(cnt[d], tout[u]) - bisect_left(cnt[d], tin[u])\n        write(ans)\n\
+    \nfrom cp_library.alg.graph.fast.tree_cls import Tree\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    :\n    main()"
   dependsOn:
   - cp_library/alg/graph/fast/tree_cls.py
   - cp_library/io/read_fn.py
@@ -293,15 +324,15 @@ data:
   - cp_library/ds/elist_fn.py
   - cp_library/math/inft_cnst.py
   isVerificationFile: true
-  path: test/dp_v_subtree_dfs_discovery.test.py
+  path: test/abc202_e_fast_dfs.test.py
   requiredBy: []
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: test/dp_v_subtree_dfs_discovery.test.py
+documentation_of: test/abc202_e_fast_dfs.test.py
 layout: document
 redirect_from:
-- /verify/test/dp_v_subtree_dfs_discovery.test.py
-- /verify/test/dp_v_subtree_dfs_discovery.test.py.html
-title: test/dp_v_subtree_dfs_discovery.test.py
+- /verify/test/abc202_e_fast_dfs.test.py
+- /verify/test/abc202_e_fast_dfs.test.py.html
+title: test/abc202_e_fast_dfs.test.py
 ---

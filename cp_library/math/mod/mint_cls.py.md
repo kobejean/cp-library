@@ -8,11 +8,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/modmat_cls.py
     title: cp_library/math/mod/modmat_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/math/table/combinatorics_cls.py
     title: cp_library/math/table/combinatorics_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/arc168_c_swap_characters_combinatoric.test.py
     title: test/arc168_c_swap_characters_combinatoric.test.py
   - icon: ':heavy_check_mark:'
@@ -24,9 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -86,8 +86,8 @@ data:
   - cp_library/math/table/combinatorics_cls.py
   - cp_library/math/mat_cls.py
   - cp_library/math/mod/modmat_cls.py
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/arc168_c_swap_characters_combinatoric.test.py
   - test/pow_of_matrix_modmat.test.py

@@ -1,126 +1,132 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc151_f_fbisect_left.test.py
     title: test/abc151_f_fbisect_left.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc175_d_permutation.test.py
     title: test/abc175_d_permutation.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc184_e_grid_graph.test.py
     title: test/abc184_e_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc184_e_grid_graph_bfs_fn.test.py
     title: test/abc184_e_grid_graph_bfs_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc184_f_subset_sum_fn.test.py
     title: test/abc184_f_subset_sum_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc185_e_dp2d.test.py
     title: test/abc185_e_dp2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc186_e_gcd_ex.test.py
     title: test/abc186_e_gcd_ex.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc189_e_vec2d.test.py
     title: test/abc189_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc202_e_dfs_enter_leave.test.py
     title: test/abc202_e_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: test/abc202_e_fast_dfs.test.py
+    title: test/abc202_e_fast_dfs.test.py
+  - icon: ':x:'
+    path: test/abc202_e_fast_dfs_enter_leave.test.py
+    title: test/abc202_e_fast_dfs_enter_leave.test.py
+  - icon: ':x:'
     path: test/abc203_e_queries_grouped.test.py
     title: test/abc203_e_queries_grouped.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc203_e_sort_groups.test.py
     title: test/abc203_e_sort_groups.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc206_e_mobius_table.test.py
     title: test/abc206_e_mobius_table.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc218_f_shortest_path.test.py
     title: test/abc218_f_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc218_f_shortest_path_weighted.test.py
     title: test/abc218_f_shortest_path_weighted.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc245_f_digraph.test.py
     title: test/abc245_f_digraph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc246_e_grid_direction_graph.test.py
     title: test/abc246_e_grid_direction_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc249_f_max_k_heap.test.py
     title: test/abc249_f_max_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc249_f_min_k_heap.test.py
     title: test/abc249_f_min_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc261_g_mo.test.py
     title: test/abc261_g_mo.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc261_g_queries_mo_ops.test.py
     title: test/abc261_g_queries_mo_ops.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc274_e_vec2d.test.py
     title: test/abc274_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
     title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc304_f_mobius_inv.test.py
     title: test/abc304_f_mobius_inv.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc325_f_minplus_conv_inplace.test.py
     title: test/abc325_f_minplus_conv_inplace.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc362_q_count_substring_query_ahocorasick.test.py
     title: test/abc362_q_count_substring_query_ahocorasick.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/abc375_g_find_bridges.test.py
     title: test/abc375_g_find_bridges.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/agc038_b_sliding_min_max.test.py
     title: test/agc038_b_sliding_min_max.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/arc122_b_insurance_median.test.py
     title: test/arc122_b_insurance_median.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/arc136_b_inversion_cnt_fn.test.py
     title: test/arc136_b_inversion_cnt_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/arc168_c_swap_characters_combinatoric.test.py
     title: test/arc168_c_swap_characters_combinatoric.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/arc182_d_increment_decrement_again_qselect.test.py
     title: test/arc182_d_increment_decrement_again_qselect.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_dfs_discovery.test.py
-    title: test/dp_v_subtree_dfs_discovery.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: test/dp_v_subtree_rerooting_dp.test.py
+    title: test/dp_v_subtree_rerooting_dp.test.py
+  - icon: ':x:'
     path: test/dp_v_subtree_rerooting_iterative.test.py
     title: test/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/dp_z_cht_monotone_add_max.test.py
     title: test/dp_z_cht_monotone_add_max.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/dp_z_cht_monotone_add_min.test.py
     title: test/dp_z_cht_monotone_add_min.test.py
   - icon: ':heavy_check_mark:'
@@ -207,9 +213,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/unionfind_with_potential_non_commutative_group.test.py
     title: test/unionfind_with_potential_non_commutative_group.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -259,13 +265,13 @@ data:
   isVerificationFile: false
   path: cp_library/io/write_fn.py
   requiredBy: []
-  timestamp: '2024-12-16 11:58:31+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-12-17 03:19:43+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/abc218_f_shortest_path.test.py
   - test/abc362_q_count_substring_query_ahocorasick.test.py
-  - test/dp_v_subtree_dfs_discovery.test.py
+  - test/abc202_e_fast_dfs_enter_leave.test.py
   - test/grl_1_a_fast_dijkstra.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/arc168_c_swap_characters_combinatoric.test.py
@@ -283,6 +289,7 @@ data:
   - test/arc136_b_inversion_cnt_fn.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc361_e_tree_diameter.test.py
+  - test/dp_v_subtree_rerooting_dp.test.py
   - test/grl_1_c_fast_floyd_warshall.test.py
   - test/abc186_e_gcd_ex.test.py
   - test/abc261_g_queries_mo_ops.test.py
@@ -292,6 +299,7 @@ data:
   - test/abc249_f_max_k_heap.test.py
   - test/abc203_e_queries_grouped.test.py
   - test/unionfind_with_potential.test.py
+  - test/abc202_e_fast_dfs.test.py
   - test/grl_2_a_kruskal_heap.test.py
   - test/arc122_b_insurance_median.test.py
   - test/grl_1_a_graph_distance.test.py
