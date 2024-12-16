@@ -21,7 +21,7 @@ class Combinatorics(list[mint]):
         if n <= 0: return mint.zero
         return table.nCk(n + k - 1, k)
     
-    nHk = combinations
+    nHk = combinations_with_replacement
     
     def factorial(table, n: int, /) -> mint:
         return table[n]

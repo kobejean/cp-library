@@ -34,9 +34,12 @@ class GraphBase(Sequence, Parsable):
     def __len__(G) -> int:
         return G.N
 
-    def __getitem__(G, v):
-        l,r = G.La[v],G.Ra[v]
+    def __getitem__(G, u):
+        l,r = G.La[u],G.Ra[u]
         return G.Va[l:r]
+    
+    def range(G, u):
+        return range(G.La[u],G.Ra[u])
     
     @overload
     def distance(G) -> list[list[int]]: ...
@@ -58,14 +61,14 @@ class GraphBase(Sequence, Parsable):
     @overload
     def bfs(G, s: Union[int,list], g: int) -> int: ...
     def bfs(G, s: int = 0, g: int = None):
-        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va
+        N, Va = G.N, G.Va
         D = [inft]*N
         q = deque(G.starts(s))
         for u in q: D[u] = 0
         while q:
             nd = D[u := q.popleft()]+1
-            if u == g: return nd
-            for i in range(La[u],Ra[u]):
+            if u == g: return nd-1
+            for i in G.range(u):
                 if nd < D[v := Va[i]]:
                     D[v] = nd
                     q.append(v)
@@ -94,7 +97,7 @@ class GraphBase(Sequence, Parsable):
 
     def dfs_discovery(G, s: Union[int,list[int],None] = None, include_roots = False):
         '''Returns lists U and V representing U[i] -> V[i] edges in order of top down discovery'''
-        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va
+        N, Va = G.N, G.Va
         vis = [False]*N
         stack: list[int] = elist(N)
         order: list[int] = elist(N)
@@ -107,7 +110,7 @@ class GraphBase(Sequence, Parsable):
             stack.append(s)
             while stack:
                 u = stack.pop()
-                for i in range(La[u], Ra[u]):
+                for i in G.range(u):
                     v = Va[i]
                     if vis[v]: continue
                     vis[v] = True
@@ -149,7 +152,7 @@ class GraphBase(Sequence, Parsable):
         return events, order
     
     def is_bipartite(G):
-        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va
+        N, Va = G.N, G.Va
         que = deque()
         color = [-1]*N
                 
@@ -160,7 +163,7 @@ class GraphBase(Sequence, Parsable):
             que.append(s)
             while que:
                 u = que.popleft()
-                for i in range(La[u], Ra[u]):
+                for i in G.range(u):
                     if color[v := Va[i]] == -1:
                         color[v] = 1 - color[u]
                         que.append(v)
