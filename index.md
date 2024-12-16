@@ -109,7 +109,7 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/graph/grid_direction_graph_cls.py
       title: cp_library/alg/graph/grid_direction_graph_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/grid_graph_cls.py
       title: cp_library/alg/graph/grid_graph_cls.py
     - icon: ':heavy_check_mark:'
@@ -156,6 +156,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_weighted_cls.py
       title: cp_library/alg/graph/fast/graph_weighted_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/grid_graph_base_cls.py
+      title: cp_library/alg/graph/fast/grid_graph_base_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/grid_graph_cls.py
+      title: cp_library/alg/graph/fast/grid_graph_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+      title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/tree_base_cls.py
       title: cp_library/alg/graph/fast/tree_base_cls.py
@@ -282,12 +291,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/parallel_cls.py
+      title: cp_library/ds/parallel_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/potentialized_dsu_cls.py
       title: PotentializedDSU (generalized with groups)
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/queries_cls.py
       title: cp_library/ds/queries_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/queries_mo_ops_cls.py
+      title: cp_library/ds/queries_mo_ops_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/segtree_cls.py
       title: cp_library/ds/segtree_cls.py
@@ -606,8 +621,8 @@ data:
       path: test/abc261_g_mo.test.py
       title: test/abc261_g_mo.test.py
     - icon: ':heavy_check_mark:'
-      path: test/abc261_g_queries_mo.test.py
-      title: test/abc261_g_queries_mo.test.py
+      path: test/abc261_g_queries_mo_ops.test.py
+      title: test/abc261_g_queries_mo_ops.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc274_e_vec2d.test.py
       title: test/abc274_e_vec2d.test.py
@@ -617,6 +632,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
       title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc301_e_fast_grid_graph.test.py
+      title: test/abc301_e_fast_grid_graph.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/abc301_e_grid_graph.test.py
+      title: test/abc301_e_grid_graph.test.py
     - icon: ':heavy_check_mark:'
       path: test/abc304_f_mobius_inv.test.py
       title: test/abc304_f_mobius_inv.test.py

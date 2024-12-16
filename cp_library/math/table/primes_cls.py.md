@@ -46,12 +46,12 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/primes_cls.py
   requiredBy:
-  - cp_library/math/table/sieve_cls.py
   - cp_library/math/table/totient_cls.py
-  - cp_library/math/table/sieve_proto.py
   - cp_library/math/table/linear_sieve_cnts_cls.py
+  - cp_library/math/table/sieve_cls.py
+  - cp_library/math/table/sieve_proto.py
   - cp_library/math/table/linear_sieve_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/primes_cls.py

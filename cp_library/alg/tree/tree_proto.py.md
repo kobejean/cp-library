@@ -85,16 +85,16 @@ data:
     \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
     \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
     \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\nimport\
-    \ typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nimport typing\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -476,20 +476,20 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_proto.py
   requiredBy:
-  - cp_library/alg/tree/tree_set_cls.py
-  - cp_library/alg/tree/tree_weighted_proto.py
-  - cp_library/alg/tree/tree_fast_cls.py
-  - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  - cp_library/alg/tree/tree_cls.py
+  - cp_library/alg/tree/tree_weighted_proto.py
+  - cp_library/alg/tree/tree_set_cls.py
+  - cp_library/alg/tree/tree_fast_cls.py
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc202_e_dfs_enter_leave.test.py
-  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/dp_v_subtree_rerooting_iterative.test.py
+  - test/dp_v_subtree_rerooting_recursive.test.py
   - test/abc361_e_tree_diameter.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - test/dp_v_subtree_rerooting_recursive.test.py
-  - test/dp_v_subtree_rerooting_iterative.test.py
+  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/abc202_e_dfs_enter_leave.test.py
 documentation_of: cp_library/alg/tree/tree_proto.py
 layout: document
 redirect_from:

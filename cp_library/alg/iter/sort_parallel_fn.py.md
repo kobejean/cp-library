@@ -31,7 +31,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort_parallel_fn.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/sort_parallel_fn.py

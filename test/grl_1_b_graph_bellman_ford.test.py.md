@@ -69,7 +69,7 @@ data:
     \ read(DiGraphWeighted[N, M, 0])\n\n    D = G.bellman_ford(r)\n    neg_cycle =\
     \ any(D[u]+w<D[v] for u, edges in enumerate(G) for v,w in edges if D[u] != inft)\n\
     \n    if neg_cycle:\n        write(\"NEGATIVE CYCLE\")\n    else:\n        write(*('INF'\
-    \ if d == inft else d for d in D), sep='\\n')\n\n\n\n\n\n\n\nimport typing\nfrom\
+    \ if d == inft else d for d in D), sep='\\n')\n\n\n\n\n\n\nimport typing\nfrom\
     \ collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
     \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
     \ os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE =\
@@ -604,7 +604,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_b_graph_bellman_ford.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_b_graph_bellman_ford.test.py

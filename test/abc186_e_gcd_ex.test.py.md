@@ -41,9 +41,9 @@ data:
     \        case _,_:\n            x,y,r,s = 1,0,0,1\n            while b:\n    \
     \            q, c = divmod(a,b)\n                a, b, r, s, x, y = b, c, x -\
     \ q*r, y - q*s, r, s\n            return x, y, a\n\n\nfrom typing import Type,\
-    \ TypeVar, Union, overload\nimport sys\n\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nfrom io import\
+    \ TypeVar, Union, overload\nimport typing\nfrom collections import deque\nfrom\
+    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import\
     \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
     \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
     \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
@@ -149,7 +149,7 @@ data:
   isVerificationFile: true
   path: test/abc186_e_gcd_ex.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc186_e_gcd_ex.test.py

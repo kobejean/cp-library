@@ -23,7 +23,7 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/grid_direction_graph_cls.py
     title: cp_library/alg/graph/grid_direction_graph_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/grid_graph_cls.py
     title: cp_library/alg/graph/grid_graph_cls.py
   - icon: ':heavy_check_mark:'
@@ -42,6 +42,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc246_e_grid_direction_graph.test.py
     title: test/abc246_e_grid_direction_graph.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc301_e_grid_graph.test.py
+    title: test/abc301_e_grid_graph.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -53,7 +56,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
+    \        \n'''\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
     \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
     \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
@@ -364,15 +367,16 @@ data:
   path: cp_library/alg/graph/grid_graph_proto.py
   requiredBy:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  - cp_library/alg/graph/grid_graph_cls.py
-  - cp_library/alg/graph/lazy_grid_graph_cls.py
   - cp_library/alg/graph/grid_direction_graph_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  - cp_library/alg/graph/lazy_grid_graph_cls.py
+  - cp_library/alg/graph/grid_graph_cls.py
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc184_e_grid_graph.test.py
-  - test/abc184_e_grid_graph_bfs_fn.test.py
+  - test/abc301_e_grid_graph.test.py
   - test/abc246_e_grid_direction_graph.test.py
+  - test/abc184_e_grid_graph_bfs_fn.test.py
+  - test/abc184_e_grid_graph.test.py
 documentation_of: cp_library/alg/graph/grid_graph_proto.py
 layout: document
 redirect_from:

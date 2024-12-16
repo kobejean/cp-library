@@ -109,10 +109,10 @@ data:
     \ dp[u])\n                    for i,v in enumerate(self.T[u]):\n             \
     \           if v != p:\n                            dp[v][parent_idx[v]] = self.add_edge(v,\
     \ u, self.add_node(u, ba.out(i)))\n                            stack.append((2,v,u))\n\
-    \                    ans[u] = ba.all()\n        return ans\n\n\n\nimport sys\n\
-    \n\nfrom collections import deque\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\n\
-    import os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \                    ans[u] = ba.all()\n        return ans\n\n\n\n\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
     \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
     \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
     x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -516,7 +516,7 @@ data:
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_iterative.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_iterative.test.py

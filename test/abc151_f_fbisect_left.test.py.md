@@ -59,10 +59,10 @@ data:
     \      hi = mid\n        else:\n            lo = mid\n            \n    return\
     \ lo\n\ndef fbisect_right(key, hi, x=False, lo=0.0, tol=1e-9):\n    while hi -\
     \ lo > tol:\n        mid = (lo + hi) / 2\n        if key(mid) > x:\n         \
-    \   hi = mid\n        else:\n            lo = mid\n    return hi\n\n\nimport sys\n\
-    \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
-    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \   hi = mid\n        else:\n            lo = mid\n    return hi\n\n\n\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -220,7 +220,7 @@ data:
   isVerificationFile: true
   path: test/abc151_f_fbisect_left.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc151_f_fbisect_left.test.py

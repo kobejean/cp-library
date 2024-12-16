@@ -34,7 +34,7 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \nimport sys\nfrom typing import Type, TypeVar, Union\n\nT = TypeVar('T')\ndef\
     \ read(spec: Union[Type[T],T]=[int]) -> T:\n    stream = TokenStream()\n    parser\
-    \ = Parser.compile(spec)\n    return parser(stream)\n\n\nimport typing\nfrom collections\
+    \ = Parser.compile(spec)\n    return parser(stream)\n\nimport typing\nfrom collections\
     \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
     from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
     from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
@@ -120,13 +120,13 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_fn.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/grl_2_a_graph_kruskal.test.py
+  - test/grl_1_c_floyd_warshall.test.py
   - test/grl_1_c_fast_floyd_warshall.test.py
   - test/grl_2_a_kruskal_heap.test.py
-  - test/grl_1_c_floyd_warshall.test.py
-  - test/grl_2_a_graph_kruskal.test.py
 documentation_of: cp_library/io/legacy/read_fn.py
 layout: document
 redirect_from:

@@ -55,7 +55,7 @@ data:
     \ step:\n            assert step >= 2\n            if func is None:\n        \
     \        func = operator.add\n            A = list(iter)\n            if initial\
     \ is not None:\n                A = [initial] + A\n            for i in range(step,len(A)):\n\
-    \                A[i] = func(A[i], A[i-step])\n            return A\n\n\n\n\n\n\
+    \                A[i] = func(A[i], A[i-step])\n            return A\n\n\n\n\n\
     import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -185,7 +185,7 @@ data:
   isVerificationFile: true
   path: test/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc175_d_permutation.test.py

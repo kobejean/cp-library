@@ -48,7 +48,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \nfrom collections.abc import Iterator\nfrom typing import Iterable\nimport sys\n\
-    \n\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
     from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
@@ -366,12 +366,12 @@ data:
   path: cp_library/alg/graph/lazy_grid_graph_cls.py
   requiredBy:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc184_e_grid_graph.test.py
-  - test/abc184_e_grid_graph_bfs_fn.test.py
   - test/abc246_e_grid_direction_graph.test.py
+  - test/abc184_e_grid_graph_bfs_fn.test.py
+  - test/abc184_e_grid_graph.test.py
 documentation_of: cp_library/alg/graph/lazy_grid_graph_cls.py
 layout: document
 redirect_from:

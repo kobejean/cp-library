@@ -70,8 +70,8 @@ data:
     path: test/abc261_g_mo.test.py
     title: test/abc261_g_mo.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc261_g_queries_mo.test.py
-    title: test/abc261_g_queries_mo.test.py
+    path: test/abc261_g_queries_mo_ops.test.py
+    title: test/abc261_g_queries_mo_ops.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc274_e_vec2d.test.py
     title: test/abc274_e_vec2d.test.py
@@ -81,6 +81,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc301_e_fast_grid_graph.test.py
+    title: test/abc301_e_fast_grid_graph.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc301_e_grid_graph.test.py
+    title: test/abc301_e_grid_graph.test.py
   - icon: ':heavy_check_mark:'
     path: test/abc304_f_mobius_inv.test.py
     title: test/abc304_f_mobius_inv.test.py
@@ -179,13 +185,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Type, TypeVar, Union, overload\nimport sys\n\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
-    \ os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE =\
-    \ 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd =\
-    \ file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"x\"\
-    \ in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \nfrom typing import Type, TypeVar, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -282,61 +288,63 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc261_g_mo.test.py
-  - test/shortest_path_fast_graph.test.py
-  - test/abc184_f_subset_sum_fn.test.py
-  - test/abc375_g_find_bridges.test.py
-  - test/dp_v_subtree_dfs_discovery.test.py
-  - test/shortest_path_min_heap.test.py
-  - test/abc202_e_dfs_enter_leave.test.py
-  - test/grl_1_b_bellman_ford.test.py
-  - test/abc184_e_grid_graph.test.py
-  - test/min_plus_convolution_convex_arbitrary.test.py
-  - test/abc304_f_mobius_inv.test.py
-  - test/grl_1_a_graph_distance.test.py
-  - test/agc038_b_sliding_min_max.test.py
-  - test/abc325_f_minplus_conv_inplace.test.py
-  - test/abc261_g_queries_mo.test.py
-  - test/grl_1_b_fast_bellman_ford.test.py
-  - test/grl_2_a_kruskal_sort.test.py
-  - test/grl_2_b_edmonds_branching.test.py
-  - test/arc136_b_inversion_cnt_fn.test.py
-  - test/abc175_d_permutation.test.py
-  - test/abc151_f_fbisect_left.test.py
-  - test/grl_1_b_graph_bellman_ford.test.py
-  - test/abc249_f_min_k_heap.test.py
-  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - test/abc186_e_gcd_ex.test.py
-  - test/abc203_e_queries_grouped.test.py
-  - test/abc184_e_grid_graph_bfs_fn.test.py
-  - test/shortest_path_graph_weighted.test.py
-  - test/abc203_e_sort_groups.test.py
-  - test/abc362_q_count_substring_query_ahocorasick.test.py
-  - test/abc249_f_max_k_heap.test.py
-  - test/abc361_e_tree_diameter.test.py
-  - test/abc246_e_grid_direction_graph.test.py
-  - test/grl_3_a_articulation_points_fn.test.py
-  - test/abc218_f_shortest_path_weighted.test.py
-  - test/abc189_e_vec2d.test.py
-  - test/abc245_f_digraph.test.py
-  - test/abc274_e_vec2d.test.py
-  - test/grl_3_a_graph_articulation_points.test.py
-  - test/grl_1_a_fast_dijkstra.test.py
-  - test/abc185_e_dp2d.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-  - test/abc206_e_mobius_table.test.py
-  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - test/minimum_spanning_tree_kruskal_heap.test.py
-  - test/subset_convolution.test.py
-  - test/minimum_spanning_tree_kruskal.test.py
-  - test/dp_z_cht_monotone_add_min.test.py
-  - test/grl_1_a_dijkstra.test.py
-  - test/dp_v_subtree_rerooting_recursive.test.py
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/abc218_f_shortest_path.test.py
+  - test/abc362_q_count_substring_query_ahocorasick.test.py
+  - test/dp_v_subtree_dfs_discovery.test.py
+  - test/grl_1_a_fast_dijkstra.test.py
+  - test/dp_v_subtree_rerooting_recursive.test.py
+  - test/abc375_g_find_bridges.test.py
+  - test/abc203_e_sort_groups.test.py
+  - test/abc185_e_dp2d.test.py
+  - test/dp_z_cht_monotone_add_min.test.py
+  - test/abc184_f_subset_sum_fn.test.py
+  - test/minimum_spanning_tree_kruskal.test.py
+  - test/grl_3_a_articulation_points_fn.test.py
+  - test/abc261_g_mo.test.py
+  - test/arc136_b_inversion_cnt_fn.test.py
+  - test/abc301_e_grid_graph.test.py
+  - test/abc361_e_tree_diameter.test.py
+  - test/abc186_e_gcd_ex.test.py
+  - test/abc261_g_queries_mo_ops.test.py
+  - test/min_plus_convolution_convex_arbitrary.test.py
+  - test/abc218_f_shortest_path_weighted.test.py
+  - test/abc249_f_max_k_heap.test.py
+  - test/abc203_e_queries_grouped.test.py
+  - test/grl_1_a_graph_distance.test.py
+  - test/abc151_f_fbisect_left.test.py
+  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - test/abc246_e_grid_direction_graph.test.py
+  - test/abc304_f_mobius_inv.test.py
+  - test/abc301_e_fast_grid_graph.test.py
+  - test/grl_1_b_bellman_ford.test.py
+  - test/shortest_path_fast_graph.test.py
+  - test/abc249_f_min_k_heap.test.py
+  - test/grl_3_a_graph_articulation_points.test.py
+  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+  - test/grl_1_a_dijkstra.test.py
+  - test/grl_1_b_fast_bellman_ford.test.py
+  - test/abc189_e_vec2d.test.py
+  - test/abc175_d_permutation.test.py
+  - test/abc274_e_vec2d.test.py
+  - test/grl_1_b_graph_bellman_ford.test.py
+  - test/shortest_path_graph_weighted.test.py
+  - test/agc038_b_sliding_min_max.test.py
+  - test/shortest_path_min_heap.test.py
+  - test/abc184_e_grid_graph_bfs_fn.test.py
+  - test/grl_2_b_edmonds_branching.test.py
+  - test/abc325_f_minplus_conv_inplace.test.py
+  - test/grl_2_a_kruskal_sort.test.py
+  - test/abc245_f_digraph.test.py
+  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/abc184_e_grid_graph.test.py
+  - test/minimum_spanning_tree_kruskal_heap.test.py
+  - test/subset_convolution.test.py
+  - test/abc202_e_dfs_enter_leave.test.py
+  - test/abc206_e_mobius_table.test.py
 documentation_of: cp_library/io/read_fn.py
 layout: document
 redirect_from:

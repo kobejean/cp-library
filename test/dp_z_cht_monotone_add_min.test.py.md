@@ -48,13 +48,13 @@ data:
     \            return m * x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n\
     \            m2, b2 = self.hull[i+1]\n            return (m2-m1)*x + (b2-b1)\n\
     \        return eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\n\n\n\
-    from typing import Type, TypeVar, Union, overload\nimport sys\n\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
-    \ os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE =\
-    \ 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd =\
-    \ file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"x\"\
-    \ in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    from typing import Type, TypeVar, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -155,7 +155,7 @@ data:
   isVerificationFile: true
   path: test/dp_z_cht_monotone_add_min.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_z_cht_monotone_add_min.test.py

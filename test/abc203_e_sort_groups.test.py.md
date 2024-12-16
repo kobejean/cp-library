@@ -46,10 +46,10 @@ data:
     \              \n'''\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
     \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
     elist = newlist_hint\n    \n\n\nfrom typing import Type, TypeVar, Union, overload\n\
-    import sys\n\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass\
-    \ FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
+    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
     \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
     \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
     \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
@@ -162,7 +162,7 @@ data:
   isVerificationFile: true
   path: test/abc203_e_sort_groups.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc203_e_sort_groups.test.py

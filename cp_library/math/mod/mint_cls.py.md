@@ -83,10 +83,10 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
-  - cp_library/math/mod/modmat_cls.py
-  - cp_library/math/mat_cls.py
   - cp_library/math/table/combinatorics_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  - cp_library/math/mat_cls.py
+  - cp_library/math/mod/modmat_cls.py
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc168_c_swap_characters_combinatoric.test.py

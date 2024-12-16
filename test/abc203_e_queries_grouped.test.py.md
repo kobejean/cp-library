@@ -45,13 +45,13 @@ data:
     \    https://kobejean.github.io/cp-library               \n'''\n\ndef elist(est_len:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
     \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\n\
-    from typing import Type, TypeVar, Union, overload\nimport sys\n\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
-    \ os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE =\
-    \ 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd =\
-    \ file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"x\"\
-    \ in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    from typing import Type, TypeVar, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -136,7 +136,7 @@ data:
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\nfrom enum import IntEnum, auto\nfrom itertools import chain,\
-    \ groupby\n\nfrom typing import Iterable, Sequence\n\nclass Queries(list, Parsable):\n\
+    \ groupby\nfrom typing import Iterable, Sequence\n\nclass Queries(list, Parsable):\n\
     \    def __init__(self, data: Iterable = []):\n        super().__init__((i,*query)\
     \ for i,query in enumerate(data))\n\n    def append(self, query) -> None:\n  \
     \      return super().append((len(self), *query))\n\n    @classmethod\n    def\
@@ -165,39 +165,8 @@ data:
     \      list.__init__(self, groups)\n\n    @classmethod\n    def compile(cls, Q:\
     \ int, N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
     \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
-    \ in range(Q)), N, key)\n        return parse\n\n\nclass MoOp(IntEnum):\n    ADD_LEFT\
-    \ = auto()\n    ADD_RIGHT = auto()\n    REMOVE_LEFT = auto()\n    REMOVE_RIGHT\
-    \ = auto()\n    ANSWER = auto()\n    \nfrom math import isqrt\n\n\nclass QueriesMoOps(list[tuple],Parsable):\n\
-    \    \"\"\"\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int, int]]\n   \
-    \ Orders queries using Mo's algorithm and generates a sequence of operations to\
-    \ process them efficiently.\n    Each operation is either moving pointers or answering\
-    \ a query.\n    \n    Uses half-interval convention: [left, right)\n    Block\
-    \ size is automatically set to sqrt(N) for optimal complexity.\n    \"\"\"\n \
-    \   \n    def encode(self, i, l, r):\n        return (((r << self.nbits) + l)\
-    \ << self.qbits) + i\n    \n    def decode(self, bits):\n        r = bits >> self.qbits\
-    \ >> self.nbits\n        l = bits >> self.qbits & self.nmask\n        i = bits\
-    \ & self.qmask\n        return i, l, r\n\n    def __init__(self, queries: list[tuple[int,\
-    \ int]], N: int):\n        Q = len(queries)\n        self.qbits = Q.bit_length()\n\
-    \        self.nbits = N.bit_length()\n        self.qmask = (1 << self.qbits)-1\n\
-    \        self.nmask = (1 << self.nbits)-1\n\n        # Initialize with original\
-    \ queries and their indices\n        B = isqrt(N)\n        K = (N+B-1)//B\n  \
-    \      buckets = [elist(64) for _ in range(K)]\n        for i, (l, r) in enumerate(queries):\n\
-    \            buckets[l//B].append(self.encode(i, l, r))\n        for i, bucket\
-    \ in enumerate(buckets):\n            bucket.sort(reverse=i&1)\n        \n   \
-    \     \n        # Generate sequence of operations\n        ops = elist(3*Q)\n\n\
-    \        nl = nr = 0\n        \n        for bucket in buckets:\n            for\
-    \ code in bucket:\n                i, l, r = self.decode(code)\n             \
-    \   if l < nl:\n                    ops.append((MoOp.ADD_LEFT, nl-1, l-1, -1))\n\
-    \                elif l > nl:\n                    ops.append((MoOp.REMOVE_LEFT,\
-    \ nl, l, 1))\n\n                if r > nr:\n                    ops.append((MoOp.ADD_RIGHT,\
-    \ nr, r, 1))\n                elif r < nr:\n                    ops.append((MoOp.REMOVE_RIGHT,\
-    \ nr-1, r-1, -1))\n                \n                ops.append((MoOp.ANSWER,\
-    \ i, l, r))\n                \n                nl, nr = l, r\n        super().__init__(ops)\n\
-    \        self.queries = queries\n\n\n    @classmethod\n    def compile(cls, Q:\
-    \ int, N: int, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls([query(ts) for _\
-    \ in range(Q)], N)\n        return parse\n\nif __name__ == \"__main__\":\n   \
-    \ main()\n"
+    \ in range(Q)), N, key)\n        return parse\n\nif __name__ == \"__main__\":\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
     \    XY = read(QueriesGrouped[M])\n    \n    # currently reacable columns\n  \
@@ -220,7 +189,7 @@ data:
   isVerificationFile: true
   path: test/abc203_e_queries_grouped.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc203_e_queries_grouped.test.py

@@ -49,14 +49,15 @@ data:
     \        if n < k: return mint.zero\n        return table[n] * table.inv[k] *\
     \ table.inv[n - k]\n    \n    nCk = combinations\n    \n    def combinations_with_replacement(table,\
     \ n: int, k: int, /) -> mint:\n        if n <= 0: return mint.zero\n        return\
-    \ table.nCk(n + k - 1, k)\n    \n    nHk = combinations\n    \n    def factorial(table,\
-    \ n: int, /) -> mint:\n        return table[n]\n    \n    def multinomial(self,\
-    \ n: int, *K: int) -> mint:\n        res = mint.one\n        for k in K:\n   \
-    \         res *= self.nCk(n, k)\n            n -= k\n        return res\n\n  \
-    \  def perm(table, n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod\
-    \ p\"\"\"\n        if n < k: return mint.zero\n        return table[n] * table.inv[n\
-    \ - k]\n    \n    nPk = perm\n\n    \n    def catalan(table, n: int, /) -> mint:\n\
-    \        return table.nCk(2 * n, n) * table.inv[n + 1]\n \n"
+    \ table.nCk(n + k - 1, k)\n    \n    nHk = combinations_with_replacement\n   \
+    \ \n    def factorial(table, n: int, /) -> mint:\n        return table[n]\n  \
+    \  \n    def multinomial(self, n: int, *K: int) -> mint:\n        res = mint.one\n\
+    \        for k in K:\n            res *= self.nCk(n, k)\n            n -= k\n\
+    \        return res\n\n    def perm(table, n: int, k: int, /) -> mint:\n     \
+    \   \"\"\"Returns P(n,k) mod p\"\"\"\n        if n < k: return mint.zero\n   \
+    \     return table[n] * table.inv[n - k]\n    \n    nPk = perm\n\n    \n    def\
+    \ catalan(table, n: int, /) -> mint:\n        return table.nCk(2 * n, n) * table.inv[n\
+    \ + 1]\n \n"
   code: "\nfrom cp_library.math.mod.mint_cls import mint\n\nfrom itertools import\
     \ accumulate\n\nclass Combinatorics(list[mint]):\n    def __init__(table, N: int):\n\
     \        super().__init__(accumulate(range(1,N+1), mint.__mul__, initial=mint.one))\n\
@@ -66,20 +67,20 @@ data:
     \ table[n] * table.inv[k] * table.inv[n - k]\n    \n    nCk = combinations\n \
     \   \n    def combinations_with_replacement(table, n: int, k: int, /) -> mint:\n\
     \        if n <= 0: return mint.zero\n        return table.nCk(n + k - 1, k)\n\
-    \    \n    nHk = combinations\n    \n    def factorial(table, n: int, /) -> mint:\n\
-    \        return table[n]\n    \n    def multinomial(self, n: int, *K: int) ->\
-    \ mint:\n        res = mint.one\n        for k in K:\n            res *= self.nCk(n,\
-    \ k)\n            n -= k\n        return res\n\n    def perm(table, n: int, k:\
-    \ int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\"\"\n        if n < k:\
-    \ return mint.zero\n        return table[n] * table.inv[n - k]\n    \n    nPk\
-    \ = perm\n\n    \n    def catalan(table, n: int, /) -> mint:\n        return table.nCk(2\
-    \ * n, n) * table.inv[n + 1]\n \n"
+    \    \n    nHk = combinations_with_replacement\n    \n    def factorial(table,\
+    \ n: int, /) -> mint:\n        return table[n]\n    \n    def multinomial(self,\
+    \ n: int, *K: int) -> mint:\n        res = mint.one\n        for k in K:\n   \
+    \         res *= self.nCk(n, k)\n            n -= k\n        return res\n\n  \
+    \  def perm(table, n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod\
+    \ p\"\"\"\n        if n < k: return mint.zero\n        return table[n] * table.inv[n\
+    \ - k]\n    \n    nPk = perm\n\n    \n    def catalan(table, n: int, /) -> mint:\n\
+    \        return table.nCk(2 * n, n) * table.inv[n + 1]\n \n"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   isVerificationFile: false
   path: cp_library/math/table/combinatorics_cls.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc168_c_swap_characters_combinatoric.test.py

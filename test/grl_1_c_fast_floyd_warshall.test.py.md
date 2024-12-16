@@ -74,36 +74,36 @@ data:
     \ row in D:\n            write(*('INF' if d >= inft else d for d in row))\n\n\n\
     \nfrom typing import Type, TypeVar, Union\n\nT = TypeVar('T')\ndef read(spec:\
     \ Union[Type[T],T]=[int]) -> T:\n    stream = TokenStream()\n    parser = Parser.compile(spec)\n\
-    \    return parser(stream)\n\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \    return parser(stream)\n\nimport typing\nfrom collections import deque\nfrom\
+    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
+    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
+    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
+    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
+    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
+    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
+    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -187,106 +187,106 @@ data:
     \        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].\n\
     \        For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M]\
     \ -> U[e-M].\n        \"\"\"\n\n    def __len__(G) -> int:\n        return G.N\n\
-    \n    def __getitem__(G, v):\n        l,r = G.La[v],G.Ra[v]\n        return G.Va[l:r]\n\
-    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
-    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \n    def __getitem__(G, u):\n        l,r = G.La[u],G.Ra[u]\n        return G.Va[l:r]\n\
+    \    \n    def range(G, u):\n        return range(G.La[u],G.Ra[u])\n    \n   \
+    \ @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n    def\
+    \ distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
     \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
     \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
     \            case s, None:\n                return G.bfs(s)\n            case\
     \ s, g:\n                return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s:\
     \ Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list],\
     \ g: int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        N,\
-    \ La, Ra, Va = G.N, G.La, G.Ra, G.Va\n        D = [inft]*N\n        q = deque(G.starts(s))\n\
-    \        for u in q: D[u] = 0\n        while q:\n            nd = D[u := q.popleft()]+1\n\
-    \            if u == g: return nd\n            for i in range(La[u],Ra[u]):\n\
-    \                if nd < D[v := Va[i]]:\n                    D[v] = nd\n     \
-    \               q.append(v)\n        return D if g is None else inft \n\n    def\
-    \ floyd_warshall(G) -> list[list[int]]:\n        N, M = G.N, G.M\n        Ua,\
-    \ Va = G.Ua, G.Va\n        D = [[inft]*N for _ in range(N)]\n\n        for u in\
-    \ range(N):\n            D[u][u] = 0\n\n        for i in range(M):\n         \
-    \   u,v = Ua[i], Va[i]\n            D[u][v] = 1\n        \n        for k, Dk in\
-    \ enumerate(D):\n            for Di in D:\n                if Di[k] == inft: continue\n\
-    \                for j in range(N):\n                    if Dk[j] == inft: continue\n\
-    \                    Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n\
-    \n    def dfs_discovery(G, s: Union[int,list[int],None] = None, include_roots\
-    \ = False):\n        '''Returns lists U and V representing U[i] -> V[i] edges\
-    \ in order of top down discovery'''\n        N, La, Ra, Va = G.N, G.La, G.Ra,\
-    \ G.Va\n        vis = [False]*N\n        stack: list[int] = elist(N)\n       \
-    \ order: list[int] = elist(N)\n\n        for s in G.starts(s):\n            if\
-    \ vis[s]: continue\n            if include_roots:\n                order.append(-s-1)\n\
-    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                u = stack.pop()\n                for i in range(La[u], Ra[u]):\n\
-    \                    v = Va[i]\n                    if vis[v]: continue\n    \
-    \                vis[v] = True\n                    order.append(i)\n        \
-    \            stack.append(v)\n        return order\n    \n    def dfs_enter_leave(G,\
-    \ s: Union[int,list[int],None] = None):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, La, Ra, Va\
-    \ = G.N, G.La, G.Ra, G.Va\n        vis = [False]*N\n        I = La[:]\n      \
-    \  stack: list[int] = elist(N)\n        order: list[int] = elist(2*N)\n      \
-    \  G.par = par = [-1]*N\n        events: list[DFSEvent] = elist(2*N)\n\n     \
-    \   for s in G.starts(s):\n            if vis[s]: continue\n            vis[s]\
-    \ = True\n            stack.append(s)\n            order.append(s)\n         \
-    \   events.append(DFSEvent.ENTER)\n            while stack:\n                u\
-    \ = stack[-1]\n                if (i := I[u]) < Ra[u]:\n                    I[u]\
-    \ += 1\n                    v = Va[i]\n                    if vis[v]: continue\n\
-    \                    par[v] = u\n                    vis[v] = True\n         \
-    \           order.append(v)\n                    events.append(DFSEvent.ENTER)\n\
-    \                    stack.append(v)\n                else:\n                \
-    \    stack.pop()\n                    order.append(u)\n                    events.append(DFSEvent.LEAVE)\n\
-    \        return events, order\n    \n    def is_bipartite(G):\n        N, La,\
-    \ Ra, Va = G.N, G.La, G.Ra, G.Va\n        que = deque()\n        color = [-1]*N\n\
-    \                \n        for s in range(N):\n            if color[s] >= 0:\n\
-    \                continue\n            color[s] = 1\n            que.append(s)\n\
-    \            while que:\n                u = que.popleft()\n                for\
-    \ i in range(La[u], Ra[u]):\n                    if color[v := Va[i]] == -1:\n\
-    \                        color[v] = 1 - color[u]\n                        que.append(v)\n\
-    \                    elif color[v] == color[u]:\n                        return\
-    \ False\n        return True\n    \n    def starts(G, s: Union[int,list[int],None])\
-    \ -> list[int]:\n        match s:\n            case int(s): return [s]\n     \
-    \       case None: return [*range(G.N)]\n            case V: return V if isinstance(V,\
-    \ list) else list(V)\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
-    \ shift: int = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
-    \ fill_u32(M)\n            stream = ts.stream\n            for i in range(M):\n\
-    \                u, v = map(int, stream.readline().split())\n                U[i],\
-    \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
-    \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom array import array\n\ndef fill_i32(N: int, elm: int\
-    \ = 0):\n    return array('i', (elm,)) * N\n\ndef fill_u32(N: int, elm: int =\
-    \ 0):\n    return array('I', (elm,)) * N\n\ndef fill_i64(N: int, elm: int = 0):\n\
-    \    return array('q', (elm,)) * N\n\ndef fill_u64(N: int, elm: int = 0):\n  \
-    \  return array('Q', (elm,)) * N\n\nclass GraphWeightedBase(GraphBase):\n    def\
-    \ __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int], \n\
-    \                 deg: list[int], La: list[int], Ra: list[int],\n            \
-    \     Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int]):\n        super().__init__(N,\
-    \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n        self.W = W\n        self.Wa = Wa\n\
-    \        \"\"\"Va[i] lists weights to edges from u for La[u] <= i < Ra[u].\"\"\
-    \"\n\n    def __getitem__(G, v):\n        l,r = G.La[v],G.Ra[v]\n        return\
-    \ zip(G.Va[l:r], G.Wa[l:r])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        match s, g:\n            case None, None:\n            \
-    \    return G.floyd_warshall()\n            case s, None:\n                return\
-    \ G.dijkstra(s)\n            case s, g:\n                return G.dijkstra(s,\
-    \ g)\n\n    def dijkstra(G, s: int, t: int = None):\n        N, La, Ra, Va, Wa\
-    \ = G.N, G.La, G.Ra, G.Va, G.Wa\n        G.back = back = fill_i32(N, -1)\n   \
-    \     G.D = D = fill_u64(N, inft)\n        D[s] = 0\n            \n        que\
-    \ = PriorityQueue(N, G.starts(s))\n        \n        while que:\n            u,\
-    \ d = que.pop()\n            if u == t: break\n            if d > D[u]: continue\n\
-    \            for i in range(La[u], Ra[u]):\n                v, w = Va[i], Wa[i],\
-    \ \n                if (nd := d + w) < D[v]:\n                    D[v], back[v]\
-    \ = nd, i\n                    que.push(v, nd)\n        return D\n\n    def shortest_path(G,\
+    \ Va = G.N, G.Va\n        D = [inft]*N\n        q = deque(G.starts(s))\n     \
+    \   for u in q: D[u] = 0\n        while q:\n            nd = D[u := q.popleft()]+1\n\
+    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
+    \          if nd < D[v := Va[i]]:\n                    D[v] = nd\n           \
+    \         q.append(v)\n        return D if g is None else inft \n\n    def floyd_warshall(G)\
+    \ -> list[list[int]]:\n        N, M = G.N, G.M\n        Ua, Va = G.Ua, G.Va\n\
+    \        D = [[inft]*N for _ in range(N)]\n\n        for u in range(N):\n    \
+    \        D[u][u] = 0\n\n        for i in range(M):\n            u,v = Ua[i], Va[i]\n\
+    \            D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n     \
+    \       for Di in D:\n                if Di[k] == inft: continue\n           \
+    \     for j in range(N):\n                    if Dk[j] == inft: continue\n   \
+    \                 Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n\n\
+    \    def dfs_discovery(G, s: Union[int,list[int],None] = None, include_roots =\
+    \ False):\n        '''Returns lists U and V representing U[i] -> V[i] edges in\
+    \ order of top down discovery'''\n        N, Va = G.N, G.Va\n        vis = [False]*N\n\
+    \        stack: list[int] = elist(N)\n        order: list[int] = elist(N)\n\n\
+    \        for s in G.starts(s):\n            if vis[s]: continue\n            if\
+    \ include_roots:\n                order.append(-s-1)\n            vis[s] = True\n\
+    \            stack.append(s)\n            while stack:\n                u = stack.pop()\n\
+    \                for i in G.range(u):\n                    v = Va[i]\n       \
+    \             if vis[v]: continue\n                    vis[v] = True\n       \
+    \             order.append(i)\n                    stack.append(v)\n        return\
+    \ order\n    \n    def dfs_enter_leave(G, s: Union[int,list[int],None] = None):\n\
+    \        '''Returns lists U and V representing U[i] -> V[i] edges in order of\
+    \ top down discovery'''\n        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va\n     \
+    \   vis = [False]*N\n        I = La[:]\n        stack: list[int] = elist(N)\n\
+    \        order: list[int] = elist(2*N)\n        G.par = par = [-1]*N\n       \
+    \ events: list[DFSEvent] = elist(2*N)\n\n        for s in G.starts(s):\n     \
+    \       if vis[s]: continue\n            vis[s] = True\n            stack.append(s)\n\
+    \            order.append(s)\n            events.append(DFSEvent.ENTER)\n    \
+    \        while stack:\n                u = stack[-1]\n                if (i :=\
+    \ I[u]) < Ra[u]:\n                    I[u] += 1\n                    v = Va[i]\n\
+    \                    if vis[v]: continue\n                    par[v] = u\n   \
+    \                 vis[v] = True\n                    order.append(v)\n       \
+    \             events.append(DFSEvent.ENTER)\n                    stack.append(v)\n\
+    \                else:\n                    stack.pop()\n                    order.append(u)\n\
+    \                    events.append(DFSEvent.LEAVE)\n        return events, order\n\
+    \    \n    def is_bipartite(G):\n        N, Va = G.N, G.Va\n        que = deque()\n\
+    \        color = [-1]*N\n                \n        for s in range(N):\n      \
+    \      if color[s] >= 0:\n                continue\n            color[s] = 1\n\
+    \            que.append(s)\n            while que:\n                u = que.popleft()\n\
+    \                for i in G.range(u):\n                    if color[v := Va[i]]\
+    \ == -1:\n                        color[v] = 1 - color[u]\n                  \
+    \      que.append(v)\n                    elif color[v] == color[u]:\n       \
+    \                 return False\n        return True\n    \n    def starts(G, s:\
+    \ Union[int,list[int],None]) -> list[int]:\n        match s:\n            case\
+    \ int(s): return [s]\n            case None: return [*range(G.N)]\n          \
+    \  case V: return V if isinstance(V, list) else list(V)\n\n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, shift: int = -1):\n        def parse(ts:\
+    \ TokenStream):\n            U, V = fill_u32(M), fill_u32(M)\n            stream\
+    \ = ts.stream\n            for i in range(M):\n                u, v = map(int,\
+    \ stream.readline().split())\n                U[i], V[i] = u+shift, v+shift\n\
+    \            return cls(N, U, V)\n        return parse\n    \n\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
+    \ array import array\n\ndef fill_i32(N: int, elm: int = 0):\n    return array('i',\
+    \ (elm,)) * N\n\ndef fill_u32(N: int, elm: int = 0):\n    return array('I', (elm,))\
+    \ * N\n\ndef fill_i64(N: int, elm: int = 0):\n    return array('q', (elm,)) *\
+    \ N\n\ndef fill_u64(N: int, elm: int = 0):\n    return array('Q', (elm,)) * N\n\
+    \nclass GraphWeightedBase(GraphBase):\n    def __init__(self, N: int, M: int,\
+    \ U: list[int], V: list[int], W: list[int], \n                 deg: list[int],\
+    \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
+    \ Wa: list[int], Ea: list[int]):\n        super().__init__(N, M, U, V, deg, La,\
+    \ Ra, Ua, Va, Ea)\n        self.W = W\n        self.Wa = Wa\n        \"\"\"Va[i]\
+    \ lists weights to edges from u for La[u] <= i < Ra[u].\"\"\"\n\n    def __getitem__(G,\
+    \ v):\n        l,r = G.La[v],G.Ra[v]\n        return zip(G.Va[l:r], G.Wa[l:r])\n\
+    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.dijkstra(s)\n           \
+    \ case s, g:\n                return G.dijkstra(s, g)\n\n    def dijkstra(G, s:\
+    \ int, t: int = None):\n        N, La, Ra, Va, Wa = G.N, G.La, G.Ra, G.Va, G.Wa\n\
+    \        G.back = back = fill_i32(N, -1)\n        G.D = D = fill_u64(N, inft)\n\
+    \        D[s] = 0\n            \n        que = PriorityQueue(N, G.starts(s))\n\
+    \        \n        while que:\n            u, d = que.pop()\n            if u\
+    \ == t: break\n            if d > D[u]: continue\n            for i in range(La[u],\
+    \ Ra[u]):\n                v, w = Va[i], Wa[i], \n                if (nd := d\
+    \ + w) < D[v]:\n                    D[v], back[v] = nd, i\n                  \
+    \  que.push(v, nd)\n        return D\n\n    def shortest_path(G, s: int, t: int):\n\
+    \        D = G.dijkstra(s, t)\n        if D[t] == inft: return None\n\n      \
+    \  Ua, back = G.Ua, G.back\n            \n        vertices = fill_u32(0)\n   \
+    \     vertices.append(t)\n        v = t\n        while v != s:\n            vertices.append(v\
+    \ := Ua[back[v]])\n        return vertices[::-1]\n    \n    def shortest_path_edge_ids(G,\
     \ s: int, t: int):\n        D = G.dijkstra(s, t)\n        if D[t] == inft: return\
-    \ None\n\n        Ua, back = G.Ua, G.back\n            \n        vertices = fill_u32(0)\n\
-    \        vertices.append(t)\n        v = t\n        while v != s:\n          \
-    \  vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n    \n  \
-    \  def shortest_path_edge_ids(G, s: int, t: int):\n        D = G.dijkstra(s, t)\n\
-    \        if D[t] == inft: return None\n\n        Ea, back = G.Ea, G.back\n   \
-    \         \n        edges = fill_u32(0)\n        edges.append(t)\n        v =\
-    \ t\n        while v != s:\n            edges.append(v := Ea[back[v]])\n     \
-    \   return edges[::-1]\n\n    def kruskal(G):\n        N, U, V, W = G.N, G.U,\
-    \ G.V, G.W \n        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need = N-1\n\
-    \        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
+    \ None\n\n        Ea, back = G.Ea, G.back\n            \n        edges = fill_u32(0)\n\
+    \        edges.append(t)\n        v = t\n        while v != s:\n            edges.append(v\
+    \ := Ea[back[v]])\n        return edges[::-1]\n\n    def kruskal(G):\n       \
+    \ N, U, V, W = G.N, G.U, G.V, G.W \n        dsu = DSU(N)\n        MST = [0]*(N-1)\n\
+    \        need = N-1\n        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
     \            if u != v:\n                need -= 1\n                MST[need]\
     \ = e\n                if not need: break\n        return None if need else MST\n\
     \    \n    def kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W\
@@ -431,7 +431,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_c_fast_floyd_warshall.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_c_fast_floyd_warshall.test.py

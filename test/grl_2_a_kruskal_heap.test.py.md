@@ -51,7 +51,7 @@ data:
     \    https://kobejean.github.io/cp-library               \n'''\n\nimport sys\n\
     from typing import Type, TypeVar, Union\n\nT = TypeVar('T')\ndef read(spec: Union[Type[T],T]=[int])\
     \ -> T:\n    stream = TokenStream()\n    parser = Parser.compile(spec)\n    return\
-    \ parser(stream)\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
+    \ parser(stream)\n\nimport typing\nfrom collections import deque\nfrom numbers\
     \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
     \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
@@ -193,7 +193,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_a_kruskal_heap.test.py

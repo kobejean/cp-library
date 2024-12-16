@@ -107,7 +107,7 @@ data:
     \       if v != p:\n                    dp[v][self.T[v].index(u)] = self.add_edge(v,\
     \ u, self.add_node(u, ba.out(i)))\n                    dfs_down(v, u)\n      \
     \      ans[u] = ba.all()\n\n        dfs_up(0)\n        dfs_down(0)\n        return\
-    \ ans\n\n\nfrom typing import Type, TypeVar, Union, overload\n\nfrom collections\
+    \ ans\n\n\nfrom typing import Type, TypeVar, Union, overload\nfrom collections\
     \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
     from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
     from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
@@ -514,7 +514,7 @@ data:
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_recursive.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_recursive.test.py

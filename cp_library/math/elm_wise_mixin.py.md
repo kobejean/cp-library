@@ -86,13 +86,13 @@ data:
   isVerificationFile: false
   path: cp_library/math/elm_wise_mixin.py
   requiredBy:
-  - cp_library/math/mutvec_cls.py
-  - cp_library/math/mat_cls.py
-  - cp_library/math/vec2d_cls.py
   - cp_library/math/elm_wise_in_place_mixin.py
   - cp_library/math/vec3d_cls.py
   - cp_library/math/vec_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  - cp_library/math/mutvec_cls.py
+  - cp_library/math/mat_cls.py
+  - cp_library/math/vec2d_cls.py
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc151_f_fbisect_left.test.py

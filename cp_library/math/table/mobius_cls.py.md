@@ -28,7 +28,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/mobius_cls.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc206_e_mobius_table.test.py

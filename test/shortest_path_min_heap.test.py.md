@@ -83,8 +83,8 @@ data:
     \    \n    if D[g] == inft:\n        return None, D\n        \n    path = []\n\
     \    current = g\n    while current != s:\n        path.append(par_edge[current])\n\
     \        current = par[current]\n        \n    return path[::-1], D\n\n\n\n\n\n\
-    \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
-    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
@@ -635,7 +635,7 @@ data:
   isVerificationFile: true
   path: test/shortest_path_min_heap.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/shortest_path_min_heap.test.py

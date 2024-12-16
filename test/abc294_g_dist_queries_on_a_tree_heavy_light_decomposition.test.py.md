@@ -116,10 +116,10 @@ data:
     \ i: int):\n        assert 0 <= i <= self.size\n        s = 0\n        data =\
     \ self.data\n        for _ in range(i.bit_count()):\n            s, i = s+data[i-1],\
     \ i-(i&-i)\n        return s\n    \n    def range_sum(self, l: int, r: int):\n\
-    \        return self.pref_sum(r) - self.pref_sum(l)\n\n\n\n\nimport sys\n\n\n\
-    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \        return self.pref_sum(r) - self.pref_sum(l)\n\n\n\n\n\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -793,7 +793,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py

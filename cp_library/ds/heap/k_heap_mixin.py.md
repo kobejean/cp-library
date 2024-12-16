@@ -35,9 +35,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterable, TypeVar\n\nimport sys\n\n\nimport typing\nfrom collections\
-    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    from typing import Iterable, TypeVar\n\n\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
     from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
     \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
     \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
@@ -166,11 +166,11 @@ data:
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_k_heap_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc249_f_min_k_heap.test.py
   - test/abc249_f_max_k_heap.test.py
+  - test/abc249_f_min_k_heap.test.py
 documentation_of: cp_library/ds/heap/k_heap_mixin.py
 layout: document
 redirect_from:

@@ -71,7 +71,7 @@ data:
     \ sys\ninft: int\n\ninft = sys.maxsize\n\ndef main():\n    N, M, r = read()\n\
     \    G = read(DiGraphWeighted[N, M, 0])\n    D = dijkstra(G, r)\n    write(*('INF'\
     \ if d == inft else d for d in D), sep='\\n')\n\n\n\nfrom typing import Type,\
-    \ TypeVar, Union, overload\n\nimport typing\nfrom collections import deque\nfrom\
+    \ TypeVar, Union, overload\nimport typing\nfrom collections import deque\nfrom\
     \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
     \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
@@ -613,7 +613,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_a_dijkstra.test.py

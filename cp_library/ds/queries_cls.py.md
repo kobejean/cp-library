@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -15,24 +12,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc203_e_queries_grouped.test.py
     title: test/abc203_e_queries_grouped.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc261_g_queries_mo.test.py
-    title: test/abc261_g_queries_mo.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "from enum import IntEnum, auto\nfrom itertools import chain, groupby\n\
-    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\nimport sys\n\
-    \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
-    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from enum import IntEnum, auto\nfrom itertools import chain, groupby\n\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -134,44 +128,11 @@ data:
     \      list.__init__(self, groups)\n\n    @classmethod\n    def compile(cls, Q:\
     \ int, N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
     \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
-    \ in range(Q)), N, key)\n        return parse\n\n\nclass MoOp(IntEnum):\n    ADD_LEFT\
-    \ = auto()\n    ADD_RIGHT = auto()\n    REMOVE_LEFT = auto()\n    REMOVE_RIGHT\
-    \ = auto()\n    ANSWER = auto()\n    \nfrom math import isqrt\n\n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class QueriesMoOps(list[tuple],Parsable):\n    \"\"\"\n    QueriesMoOps[Q: int,\
-    \ N: int, T: type = tuple[int, int]]\n    Orders queries using Mo's algorithm\
-    \ and generates a sequence of operations to process them efficiently.\n    Each\
-    \ operation is either moving pointers or answering a query.\n    \n    Uses half-interval\
-    \ convention: [left, right)\n    Block size is automatically set to sqrt(N) for\
-    \ optimal complexity.\n    \"\"\"\n    \n    def encode(self, i, l, r):\n    \
-    \    return (((r << self.nbits) + l) << self.qbits) + i\n    \n    def decode(self,\
-    \ bits):\n        r = bits >> self.qbits >> self.nbits\n        l = bits >> self.qbits\
-    \ & self.nmask\n        i = bits & self.qmask\n        return i, l, r\n\n    def\
-    \ __init__(self, queries: list[tuple[int, int]], N: int):\n        Q = len(queries)\n\
-    \        self.qbits = Q.bit_length()\n        self.nbits = N.bit_length()\n  \
-    \      self.qmask = (1 << self.qbits)-1\n        self.nmask = (1 << self.nbits)-1\n\
-    \n        # Initialize with original queries and their indices\n        B = isqrt(N)\n\
-    \        K = (N+B-1)//B\n        buckets = [elist(64) for _ in range(K)]\n   \
-    \     for i, (l, r) in enumerate(queries):\n            buckets[l//B].append(self.encode(i,\
-    \ l, r))\n        for i, bucket in enumerate(buckets):\n            bucket.sort(reverse=i&1)\n\
-    \        \n        \n        # Generate sequence of operations\n        ops =\
-    \ elist(3*Q)\n\n        nl = nr = 0\n        \n        for bucket in buckets:\n\
-    \            for code in bucket:\n                i, l, r = self.decode(code)\n\
-    \                if l < nl:\n                    ops.append((MoOp.ADD_LEFT, nl-1,\
-    \ l-1, -1))\n                elif l > nl:\n                    ops.append((MoOp.REMOVE_LEFT,\
-    \ nl, l, 1))\n\n                if r > nr:\n                    ops.append((MoOp.ADD_RIGHT,\
-    \ nr, r, 1))\n                elif r < nr:\n                    ops.append((MoOp.REMOVE_RIGHT,\
-    \ nr-1, r-1, -1))\n                \n                ops.append((MoOp.ANSWER,\
-    \ i, l, r))\n                \n                nl, nr = l, r\n        super().__init__(ops)\n\
-    \        self.queries = queries\n\n\n    @classmethod\n    def compile(cls, Q:\
-    \ int, N: int, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls([query(ts) for _\
-    \ in range(Q)], N)\n        return parse\n"
-  code: "from enum import IntEnum, auto\nfrom itertools import chain, groupby\nimport\
-    \ cp_library.alg.graph.__header__\nfrom cp_library.io.parser_cls import Parsable,\
-    \ Parser, TokenStream\nfrom typing import Iterable, Sequence\n\nclass Queries(list,\
-    \ Parsable):\n    def __init__(self, data: Iterable = []):\n        super().__init__((i,*query)\
+    \ in range(Q)), N, key)\n        return parse\n"
+  code: "import cp_library.ds.__header__\nfrom enum import IntEnum, auto\nfrom itertools\
+    \ import chain, groupby\nfrom cp_library.io.parser_cls import Parsable, Parser,\
+    \ TokenStream\nfrom typing import Iterable, Sequence\n\nclass Queries(list, Parsable):\n\
+    \    def __init__(self, data: Iterable = []):\n        super().__init__((i,*query)\
     \ for i,query in enumerate(data))\n\n    def append(self, query) -> None:\n  \
     \      return super().append((len(self), *query))\n\n    @classmethod\n    def\
     \ compile(cls, N: int, T: type = tuple[int, int]):\n        query = Parser.compile(T)\n\
@@ -199,50 +160,16 @@ data:
     \      list.__init__(self, groups)\n\n    @classmethod\n    def compile(cls, Q:\
     \ int, N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
     \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
-    \ in range(Q)), N, key)\n        return parse\n\nfrom enum import IntEnum, auto\n\
-    \nclass MoOp(IntEnum):\n    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n    REMOVE_LEFT\
-    \ = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER = auto()\n    \nfrom math import\
-    \ isqrt\nfrom typing import Iterable\n\nfrom cp_library.ds.elist_fn import elist\n\
-    \nclass QueriesMoOps(list[tuple],Parsable):\n    \"\"\"\n    QueriesMoOps[Q: int,\
-    \ N: int, T: type = tuple[int, int]]\n    Orders queries using Mo's algorithm\
-    \ and generates a sequence of operations to process them efficiently.\n    Each\
-    \ operation is either moving pointers or answering a query.\n    \n    Uses half-interval\
-    \ convention: [left, right)\n    Block size is automatically set to sqrt(N) for\
-    \ optimal complexity.\n    \"\"\"\n    \n    def encode(self, i, l, r):\n    \
-    \    return (((r << self.nbits) + l) << self.qbits) + i\n    \n    def decode(self,\
-    \ bits):\n        r = bits >> self.qbits >> self.nbits\n        l = bits >> self.qbits\
-    \ & self.nmask\n        i = bits & self.qmask\n        return i, l, r\n\n    def\
-    \ __init__(self, queries: list[tuple[int, int]], N: int):\n        Q = len(queries)\n\
-    \        self.qbits = Q.bit_length()\n        self.nbits = N.bit_length()\n  \
-    \      self.qmask = (1 << self.qbits)-1\n        self.nmask = (1 << self.nbits)-1\n\
-    \n        # Initialize with original queries and their indices\n        B = isqrt(N)\n\
-    \        K = (N+B-1)//B\n        buckets = [elist(64) for _ in range(K)]\n   \
-    \     for i, (l, r) in enumerate(queries):\n            buckets[l//B].append(self.encode(i,\
-    \ l, r))\n        for i, bucket in enumerate(buckets):\n            bucket.sort(reverse=i&1)\n\
-    \        \n        \n        # Generate sequence of operations\n        ops =\
-    \ elist(3*Q)\n\n        nl = nr = 0\n        \n        for bucket in buckets:\n\
-    \            for code in bucket:\n                i, l, r = self.decode(code)\n\
-    \                if l < nl:\n                    ops.append((MoOp.ADD_LEFT, nl-1,\
-    \ l-1, -1))\n                elif l > nl:\n                    ops.append((MoOp.REMOVE_LEFT,\
-    \ nl, l, 1))\n\n                if r > nr:\n                    ops.append((MoOp.ADD_RIGHT,\
-    \ nr, r, 1))\n                elif r < nr:\n                    ops.append((MoOp.REMOVE_RIGHT,\
-    \ nr-1, r-1, -1))\n                \n                ops.append((MoOp.ANSWER,\
-    \ i, l, r))\n                \n                nl, nr = l, r\n        super().__init__(ops)\n\
-    \        self.queries = queries\n\n\n    @classmethod\n    def compile(cls, Q:\
-    \ int, N: int, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls([query(ts) for _\
-    \ in range(Q)], N)\n        return parse\n"
+    \ in range(Q)), N, key)\n        return parse\n"
   dependsOn:
   - cp_library/io/parser_cls.py
-  - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/ds/queries_cls.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc261_g_queries_mo.test.py
   - test/abc203_e_queries_grouped.test.py
 documentation_of: cp_library/ds/queries_cls.py
 layout: document

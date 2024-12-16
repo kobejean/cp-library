@@ -78,7 +78,7 @@ data:
     \ in range(M):\n        if path is not None and e in path:\n            G2 = DiGraph(N,\
     \ E[:e]+E[e+1:])\n            ans = G2.distance(0,N-1)\n        else:\n      \
     \      ans = shortest\n        write(ans if ans != inft else -1)\n\n\n\nfrom typing\
-    \ import TypeVar\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
+    \ import TypeVar\n\nimport typing\nfrom collections import deque\nfrom numbers\
     \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
     \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
@@ -632,7 +632,7 @@ data:
   isVerificationFile: true
   path: test/abc218_f_shortest_path_weighted.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc218_f_shortest_path_weighted.test.py

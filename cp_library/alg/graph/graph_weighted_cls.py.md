@@ -71,10 +71,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nimport sys\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \n\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
+    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
     \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
     \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
     \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
@@ -590,14 +590,14 @@ data:
   path: cp_library/alg/graph/graph_weighted_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/grl_2_a_graph_kruskal.test.py
   - test/abc375_g_find_bridges.test.py
   - test/abc361_e_tree_diameter.test.py
-  - test/grl_2_a_graph_kruskal.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/graph/graph_weighted_cls.py
 layout: document
 redirect_from:

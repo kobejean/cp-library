@@ -55,7 +55,7 @@ data:
     \            dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inft\n\
     \    for tmask in range(1<<M):\n        mask = full ^ tmask\n        factor =\
     \ F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l] + O[l]\
-    \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\n\n\n\n\
+    \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\n\n\n\
     import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -218,7 +218,7 @@ data:
   isVerificationFile: true
   path: test/abc274_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2024-12-08 04:35:12+09:00'
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc274_e_vec2d.test.py

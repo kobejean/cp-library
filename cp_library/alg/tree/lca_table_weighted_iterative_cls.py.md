@@ -97,14 +97,14 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   requiredBy:
-  - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-08 04:35:12+09:00'
+  - cp_library/alg/tree/tree_weighted_proto.py
+  timestamp: '2024-12-16 11:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc361_e_tree_diameter.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
 layout: document
 redirect_from:
