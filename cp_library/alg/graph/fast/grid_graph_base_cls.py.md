@@ -272,7 +272,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc301_e_fast_grid_graph.test.py

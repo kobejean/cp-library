@@ -13,12 +13,33 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - icon: ':question:'
+    path: cp_library/alg/graph/fast/graph_weighted_cls.py
+    title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_base_cls.py
     title: cp_library/alg/graph/fast/tree_base_cls.py
+  - icon: ':x:'
+    path: cp_library/alg/graph/fast/tree_weighted_base_cls.py
+    title: cp_library/alg/graph/fast/tree_weighted_base_cls.py
+  - icon: ':x:'
+    path: cp_library/alg/graph/fast/tree_weighted_cls.py
+    title: cp_library/alg/graph/fast/tree_weighted_cls.py
   - icon: ':question:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
+  - icon: ':question:'
+    path: cp_library/alg/iter/presum_fn.py
+    title: cp_library/alg/iter/presum_fn.py
+  - icon: ':question:'
+    path: cp_library/alg/tree/lca_table_iterative_cls.py
+    title: cp_library/alg/tree/lca_table_iterative_cls.py
+  - icon: ':x:'
+    path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
+    title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
+  - icon: ':x:'
+    path: cp_library/ds/bit_cls.py
+    title: cp_library/ds/bit_cls.py
   - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
@@ -38,46 +59,59 @@ data:
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
   - icon: ':question:'
+    path: cp_library/ds/sparse_table_cls.py
+    title: cp_library/ds/sparse_table_cls.py
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':question:'
+    path: cp_library/io/read_fn.py
+    title: cp_library/io/read_fn.py
+  - icon: ':question:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
+  - icon: ':question:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
-  _extendedRequiredBy:
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_weighted_cls.py
-    title: cp_library/alg/graph/fast/tree_weighted_cls.py
-  _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: true
   _pathExtension: py
   _verificationStatusIcon: ':x:'
   attributes:
-    links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    PROBLEM: https://atcoder.jp/contests/abc294/tasks/abc294_g
+    links:
+    - https://atcoder.jp/contests/abc294/tasks/abc294_g
+  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
+    \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n    U, V = T.U,\
+    \ T.V\n    lca = LCATableWeighted(T)\n    bit = BinaryIndexTree(lca.weights)\n\
+    \n    def update(i,w):\n        u,v = U[i], V[i]\n        c = u if T.par[u] ==\
+    \ v else v\n        l,r = lca.start[c], lca.stop[c]\n        bit.set(l,w)\n  \
+    \      bit.set(r,-w)\n    \n    def query(u,v):\n        a,_ = lca.query(u,v)\n\
+    \        ans = bit.pref_sum(lca.stop[u]) + \\\n            bit.pref_sum(lca.stop[v])\
+    \ - \\\n            2*bit.pref_sum(lca.stop[a])\n        write(ans)\n    \n  \
+    \  def answer():\n        Q = read(int)\n        for q in read(list[tuple[int,int,int],\
+    \ Q]):\n            match q:\n                case 1, i, w:\n                \
+    \    update(i-1,w)\n                case 2, u, v:\n                    query(u-1,v-1)\n\
+    \    answer()\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Callable, TypeVar\n\n\ndef elist(est_len: int) -> list: ...\n\
-    try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \nfrom math import inf\n\nfrom typing\
-    \ import overload\n\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\nfrom math import inf\n\nfrom typing import overload\n\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -258,11 +292,13 @@ data:
     \ fill_u32(M)\n            stream = ts.stream\n            for i in range(M):\n\
     \                u, v = map(int, stream.readline().split())\n                U[i],\
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
-    \    \nfrom array import array\n\ndef fill_i32(N: int, elm: int = 0):\n    return\
-    \ array('i', (elm,)) * N\n\ndef fill_u32(N: int, elm: int = 0):\n    return array('I',\
-    \ (elm,)) * N\n\ndef fill_i64(N: int, elm: int = 0):\n    return array('q', (elm,))\
-    \ * N\n\ndef fill_u64(N: int, elm: int = 0):\n    return array('Q', (elm,)) *\
-    \ N\n\ninft: int\n\ninft = sys.maxsize\n\nclass GraphWeightedBase(GraphBase):\n\
+    \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
+    \ = newlist_hint\n    \nfrom array import array\n\ndef fill_i32(N: int, elm: int\
+    \ = 0):\n    return array('i', (elm,)) * N\n\ndef fill_u32(N: int, elm: int =\
+    \ 0):\n    return array('I', (elm,)) * N\n\ndef fill_i64(N: int, elm: int = 0):\n\
+    \    return array('q', (elm,)) * N\n\ndef fill_u64(N: int, elm: int = 0):\n  \
+    \  return array('Q', (elm,)) * N\n\ninft: int\n\ninft = sys.maxsize\n\nclass GraphWeightedBase(GraphBase):\n\
     \    def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
     \        Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int]):\n      \
@@ -399,7 +435,18 @@ data:
     \ self.encode(id, priority)))\n    \n    def replace(self, id: int, priority:\
     \ int):\n        return self.decode(heapreplace_max(self.data, self.encode(id,\
     \ priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n\
-    \n\n_T = TypeVar('_T')\n\nclass TreeBase(GraphBase):\n\n    def rerooting_dp(T,\
+    \nclass GraphWeighted(GraphWeightedBase):\n    def __init__(G, N: int, U: list[int],\
+    \ V: list[int], W: list[int]):\n        M2 = (M := len(U)) << 1\n        deg,\
+    \ Ea, Ua, Va, Wa = fill_u32(N), fill_u32(M2), fill_u32(M2), fill_u32(M2), [0]*M2\n\
+    \        \n        for u in U:\n            deg[u] += 1\n        for v in V:\n\
+    \            deg[v] += 1\n            \n        La, idx = fill_u32(N), 0\n   \
+    \     for u in range(N): \n            La[u], idx = idx, idx + deg[u]\n      \
+    \  Ra = La[:]\n\n        # place edge data using R to track\n        for e in\
+    \ range(M):\n            u, v, w = U[e], V[e], W[e]\n            i, j = Ra[u],\
+    \ Ra[v]\n            Ua[i], Va[i], Wa[i], Ea[i] = u, v, w, e\n            Ra[u]\
+    \ += 1\n            Ua[j], Va[j], Wa[j], Ea[j] = v, u, w, M+e\n            Ra[v]\
+    \ += 1\n\n        super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)\n\
+    \n\n\n_T = TypeVar('_T')\n\nclass TreeBase(GraphBase):\n\n    def rerooting_dp(T,\
     \ e: _T, \n                     merge: Callable[[_T,_T],_T], \n              \
     \       add_child: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n       \
     \              s: int = 0):\n        N, La, Ra, Ua, Va = T.N, T.La, T.Ra, T.Ua,\
@@ -444,56 +491,131 @@ data:
     \            \n            Wdelta.append(wd)\n            order.append(u)\n  \
     \          tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n\n    @classmethod\n\
     \    def compile(cls, N: int, shift: int = -1):\n        return super().compile(N,\
-    \ N-1, shift)\n    \n"
-  code: "import cp_library.alg.graph.__header__\nfrom typing import Callable, TypeVar\n\
-    from cp_library.ds.elist_fn import elist\nfrom cp_library.alg.graph.fast.graph_weighted_base_cls\
-    \ import GraphWeightedBase\n\nfrom cp_library.alg.graph.fast.tree_base_cls import\
-    \ TreeBase\n\n_T = TypeVar('_T')\nclass TreeWeightedBase(GraphWeightedBase, TreeBase):\n\
-    \     \n    def euler_tour(T, s = 0):\n        N = len(T)\n        T.tin = tin\
-    \ = [-1] * N\n        T.tout = tout = [-1] * N\n        T.par = par = [-1] * N\n\
-    \        T.order = order = elist(2*N)\n        T.delta = delta = elist(2*N)\n\
-    \        T.Wdelta = Wdelta = elist(2*N)\n        stack = elist(N)\n        Wstack\
-    \ = elist(N)\n        stack.append(s)\n        Wstack.append(0)\n        Va, Wa\
-    \ = T.Va, T.Wa\n\n        while stack:\n            u = stack.pop()\n        \
-    \    wd = Wstack.pop()\n            p = par[u]\n            \n            if tin[u]\
-    \ == -1:\n                tin[u] = len(order)\n                \n            \
-    \    for i in T.range(u):\n                    if (v := Va[i]) != p:\n       \
-    \                 w = Wa[i]\n                        par[v] = u\n            \
-    \            stack.append(u)\n                        stack.append(v)\n      \
-    \                  Wstack.append(-w)\n                        Wstack.append(w)\n\
-    \                delta.append(1)\n            else:\n                delta.append(-1)\n\
-    \            \n            Wdelta.append(wd)\n            order.append(u)\n  \
-    \          tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n\n    @classmethod\n\
-    \    def compile(cls, N: int, shift: int = -1):\n        return super().compile(N,\
-    \ N-1, shift)\n    "
+    \ N-1, shift)\n    \n\nclass TreeWeighted(GraphWeighted, TreeWeightedBase):\n\
+    \    pass\n\n\nimport operator\nfrom itertools import accumulate\nfrom typing\
+    \ import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T],\
+    \ func: Callable[[T,T],T] = None, initial: T = None, step = 1) -> list[T]:\n \
+    \   match step:\n        case 1:\n            return list(accumulate(iter, func,\
+    \ initial=initial))\n        case step:\n            assert step >= 2\n      \
+    \      if func is None:\n                func = operator.add\n            A =\
+    \ list(iter)\n            if initial is not None:\n                A = [initial]\
+    \ + A\n            for i in range(step,len(A)):\n                A[i] = func(A[i],\
+    \ A[i-step])\n            return A\n\nfrom typing import Any, Callable, List\n\
+    \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
+    \ List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
+    \        self.op = op\n        \n        self.offsets = offsets = [0]\n      \
+    \  for i in range(1, self.log):\n            offsets.append(offsets[-1] + N -\
+    \ (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1] +\
+    \ N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for i\
+    \ in range(self.log - 1):\n            d = 1 << i\n            start = offsets[i]\n\
+    \            next_start = offsets[i + 1]\n            for j in range(N - (1 <<\
+    \ (i+1)) + 1):\n                st[next_start + j] = op(st[k := start+j], st[k\
+    \ + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
+    \ - 1\n        start, st = self.offsets[k], self.st\n        return self.op(st[start\
+    \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
+    \    rows = []\n        for i in range(self.log):\n            start = self.offsets[i]\n\
+    \            end = self.offsets[i+1] if i+1 < self.log else len(self.st)\n   \
+    \         rows.append(f\"{i:<2d} {self.st[start:end]}\")\n        return '\\n'.join(rows)\n\
+    \nclass LCATable(SparseTable):\n    def __init__(self, T, root = 0):\n       \
+    \ N = len(T)\n        T.euler_tour(root)\n        self.depth = depth = presum(T.delta)\n\
+    \        self.start, self.stop = T.tin, T.tout\n\n        self.mask = (1 << (shift\
+    \ := N.bit_length()))-1\n        self.shift = shift\n        order = T.order\n\
+    \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
+    \            packets[i] = depth[i] << shift | order[i] \n\n        super().__init__(min,\
+    \ packets)\n\n    def _query(self, u, v):\n        l,r = min(self.start[u], self.start[v]),\
+    \ max(self.start[u], self.start[v])+1\n        da = super().query(l, r)\n    \
+    \    return l, r, da & self.mask, da >> self.shift\n\n    def query(self, u, v)\
+    \ -> tuple[int,int]:\n        l, r, a, d = self._query(u, v)\n        return a,\
+    \ d\n    \n    def distance(self, u, v) -> int:\n        l, r, a, d = self._query(u,\
+    \ v)\n        return self.depth[l] + self.depth[r] - 2*d\n\nclass LCATableWeighted(LCATable):\n\
+    \    def __init__(self, T, root = 0):\n        super().__init__(T, root)\n   \
+    \     self.weights = T.Wdelta\n        self.weighted_depth = None\n\n    def distance(self,\
+    \ u, v) -> int:\n        if self.weighted_depth is None:\n            self.weighted_depth\
+    \ = presum(self.weights)\n        l, r, a, _ = self._query(u, v)\n        m =\
+    \ self.start[a]\n        return self.weighted_depth[l] + self.weighted_depth[r]\
+    \ - 2*self.weighted_depth[m]\n\nclass BinaryIndexTree:\n    def __init__(self,\
+    \ v: int|list):\n        if isinstance(v, int):\n            self.data, self.size\
+    \ = [0]*v, v\n        else:\n            self.build(v)\n\n    def build(self,\
+    \ data):\n        self.data, self.size = data, len(data)\n        for i in range(self.size):\n\
+    \            if (r := i|(i+1)) < self.size: \n                self.data[r] +=\
+    \ self.data[i]\n\n    def get(self, i: int):\n        assert 0 <= i < self.size\n\
+    \        s = self.data[i]\n        z = i&(i+1)\n        for _ in range((i^z).bit_count()):\n\
+    \            s, i = s-self.data[i-1], i-(i&-i)\n        return s\n    \n    def\
+    \ set(self, i: int, x: int):\n        self.add(i, x-self.get(i))\n        \n \
+    \   def add(self, i: int, x: int) -> None:\n        assert 0 <= i <= self.size\n\
+    \        i += 1\n        data, size = self.data, self.size\n        while i <=\
+    \ size:\n            data[i-1], i = data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self,\
+    \ i: int):\n        assert 0 <= i <= self.size\n        s = 0\n        data =\
+    \ self.data\n        for _ in range(i.bit_count()):\n            s, i = s+data[i-1],\
+    \ i-(i&-i)\n        return s\n    \n    def range_sum(self, l: int, r: int):\n\
+    \        return self.pref_sum(r) - self.pref_sum(l)\n\nfrom typing import Type,\
+    \ TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None,\
+    \ char=False):\n    if not char:\n        if spec is None:\n            return\
+    \ map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
+    \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n    U, V = T.U,\
+    \ T.V\n    lca = LCATableWeighted(T)\n    bit = BinaryIndexTree(lca.weights)\n\
+    \n    def update(i,w):\n        u,v = U[i], V[i]\n        c = u if T.par[u] ==\
+    \ v else v\n        l,r = lca.start[c], lca.stop[c]\n        bit.set(l,w)\n  \
+    \      bit.set(r,-w)\n    \n    def query(u,v):\n        a,_ = lca.query(u,v)\n\
+    \        ans = bit.pref_sum(lca.stop[u]) + \\\n            bit.pref_sum(lca.stop[v])\
+    \ - \\\n            2*bit.pref_sum(lca.stop[a])\n        write(ans)\n    \n  \
+    \  def answer():\n        Q = read(int)\n        for q in read(list[tuple[int,int,int],\
+    \ Q]):\n            match q:\n                case 1, i, w:\n                \
+    \    update(i-1,w)\n                case 2, u, v:\n                    query(u-1,v-1)\n\
+    \    answer()\n\nfrom cp_library.alg.graph.fast.tree_weighted_cls import TreeWeighted\n\
+    from cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted\n\
+    from cp_library.ds.bit_cls import BinaryIndexTree\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    :\n    main()"
   dependsOn:
-  - cp_library/ds/elist_fn.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/tree_base_cls.py
+  - cp_library/alg/graph/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
+  - cp_library/ds/bit_cls.py
+  - cp_library/io/read_fn.py
+  - cp_library/io/write_fn.py
+  - cp_library/alg/graph/fast/graph_weighted_cls.py
+  - cp_library/alg/graph/fast/tree_weighted_base_cls.py
+  - cp_library/ds/fill_fn.py
+  - cp_library/alg/iter/presum_fn.py
+  - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/ds/elist_fn.py
+  - cp_library/alg/graph/fast/tree_base_cls.py
+  - cp_library/ds/sparse_table_cls.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/bellman_ford_fn.py
   - cp_library/ds/dsu_cls.py
-  - cp_library/ds/fill_fn.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/math/inft_cnst.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/heap/heapq_max_import.py
-  - cp_library/io/fast_io_cls.py
-  isVerificationFile: false
-  path: cp_library/alg/graph/fast/tree_weighted_base_cls.py
-  requiredBy:
-  - cp_library/alg/graph/fast/tree_weighted_cls.py
+  isVerificationFile: true
+  path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  requiredBy: []
   timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_ALL_WA
-  verifiedWith:
-  - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-documentation_of: cp_library/alg/graph/fast/tree_weighted_base_cls.py
+  verificationStatus: TEST_WRONG_ANSWER
+  verifiedWith: []
+documentation_of: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/fast/tree_weighted_base_cls.py
-- /library/cp_library/alg/graph/fast/tree_weighted_base_cls.py.html
-title: cp_library/alg/graph/fast/tree_weighted_base_cls.py
+- /verify/test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+- /verify/test/abc294_g_fast_tree_lca_table_weighted_bit.test.py.html
+title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 ---

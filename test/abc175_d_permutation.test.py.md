@@ -7,7 +7,7 @@ data:
   - icon: ':x:'
     path: cp_library/alg/graph/permutation_cls.py
     title: cp_library/alg/graph/permutation_cls.py
-  - icon: ':x:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
   - icon: ':question:'
@@ -185,7 +185,7 @@ data:
   isVerificationFile: true
   path: test/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/abc175_d_permutation.test.py

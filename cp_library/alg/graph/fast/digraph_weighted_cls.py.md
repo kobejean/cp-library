@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
   - icon: ':question:'
@@ -10,10 +10,10 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
   - icon: ':question:'
@@ -439,7 +439,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/digraph_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_a_fast_dijkstra.test.py

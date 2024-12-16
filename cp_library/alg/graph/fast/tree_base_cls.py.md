@@ -26,10 +26,10 @@ data:
   - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_cls.py
     title: cp_library/alg/graph/fast/tree_cls.py
-  - icon: ':warning:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_weighted_base_cls.py
     title: cp_library/alg/graph/fast/tree_weighted_base_cls.py
-  - icon: ':warning:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_weighted_cls.py
     title: cp_library/alg/graph/fast/tree_weighted_cls.py
   _extendedVerifiedWith:
@@ -39,6 +39,9 @@ data:
   - icon: ':x:'
     path: test/abc202_e_fast_dfs_enter_leave.test.py
     title: test/abc202_e_fast_dfs_enter_leave.test.py
+  - icon: ':x:'
+    path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - icon: ':x:'
     path: test/dp_v_subtree_rerooting_dp.test.py
     title: test/dp_v_subtree_rerooting_dp.test.py
@@ -260,9 +263,20 @@ data:
     \ in order:\n            u,v = Ua[i], Va[i]\n            # prefix accumulation\n\
     \            dp[u] = merge(pre := dp[u], dp[v])\n            # push value to child\n\
     \            dp[v] = add_child(v, u, i, merge(suf[I[u]], pre))\n            I[u]\
-    \ += 1\n        \n        return dp\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, shift: int = -1):\n        return super().compile(N, N-1, shift)\n \
-    \   \n"
+    \ += 1\n        \n        return dp\n    \n    def euler_tour(T, s = 0):\n   \
+    \     N = len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1]\
+    \ * N\n        T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n\
+    \        T.delta = delta = elist(2*N)\n        Va = T.Va\n        \n        stack\
+    \ = elist(N)\n        stack.append(s)\n\n        while stack:\n            u =\
+    \ stack.pop()\n            p = par[u]\n            \n            if tin[u] ==\
+    \ -1:\n                tin[u] = len(order)\n                \n               \
+    \ for i in T.range(u):\n                    if (v := Va[i]) != p:\n          \
+    \              par[v] = u\n                        stack.append(u)\n         \
+    \               stack.append(v)\n                \n                delta.append(1)\n\
+    \            else:\n                delta.append(-1)\n            \n         \
+    \   order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
+    \ = 0\n\n    @classmethod\n    def compile(cls, N: int, shift: int = -1):\n  \
+    \      return super().compile(N, N-1, shift)\n    \n"
   code: "import cp_library.alg.graph.__header__\nfrom typing import Callable, Sequence,\
     \ TypeVar, Union, overload\nfrom collections import deque\nfrom cp_library.io.parser_cls\
     \ import Parsable, Parser, TokenStream\nfrom cp_library.alg.graph.dfs_options_cls\
@@ -282,10 +296,21 @@ data:
     \ Va[i]\n            # prefix accumulation\n            dp[u] = merge(pre := dp[u],\
     \ dp[v])\n            # push value to child\n            dp[v] = add_child(v,\
     \ u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n        \n        return\
-    \ dp\n\n    @classmethod\n    def compile(cls, N: int, shift: int = -1):\n   \
-    \     return super().compile(N, N-1, shift)\n    \nfrom cp_library.ds.elist_fn\
-    \ import elist\nfrom cp_library.ds.fill_fn import fill_u32\nfrom cp_library.math.inft_cnst\
-    \ import inft"
+    \ dp\n    \n    def euler_tour(T, s = 0):\n        N = len(T)\n        T.tin =\
+    \ tin = [-1] * N\n        T.tout = tout = [-1] * N\n        T.par = par = [-1]\
+    \ * N\n        T.order = order = elist(2*N)\n        T.delta = delta = elist(2*N)\n\
+    \        Va = T.Va\n        \n        stack = elist(N)\n        stack.append(s)\n\
+    \n        while stack:\n            u = stack.pop()\n            p = par[u]\n\
+    \            \n            if tin[u] == -1:\n                tin[u] = len(order)\n\
+    \                \n                for i in T.range(u):\n                    if\
+    \ (v := Va[i]) != p:\n                        par[v] = u\n                   \
+    \     stack.append(u)\n                        stack.append(v)\n             \
+    \   \n                delta.append(1)\n            else:\n                delta.append(-1)\n\
+    \            \n            order.append(u)\n            tout[u] = len(order)\n\
+    \        delta[0] = delta[-1] = 0\n\n    @classmethod\n    def compile(cls, N:\
+    \ int, shift: int = -1):\n        return super().compile(N, N-1, shift)\n    \n\
+    from cp_library.ds.elist_fn import elist\nfrom cp_library.ds.fill_fn import fill_u32\n\
+    from cp_library.math.inft_cnst import inft"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
@@ -300,9 +325,10 @@ data:
   - cp_library/alg/graph/fast/tree_weighted_cls.py
   - cp_library/alg/graph/fast/tree_weighted_base_cls.py
   - cp_library/alg/graph/fast/tree_cls.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
+  - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/abc202_e_fast_dfs_enter_leave.test.py
   - test/dp_v_subtree_rerooting_dp.test.py
   - test/abc202_e_fast_dfs.test.py

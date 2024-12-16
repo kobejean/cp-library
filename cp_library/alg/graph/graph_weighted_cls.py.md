@@ -46,11 +46,11 @@ data:
     title: cp_library/alg/tree/tree_weighted_cls.py
   _extendedVerifiedWith:
   - icon: ':x:'
-    path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+    path: test/abc294_g_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_tree_heavy_light_decomposition.test.py
   - icon: ':x:'
-    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+    path: test/abc294_g_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_tree_lca_table_weighted_bit.test.py
   - icon: ':x:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
@@ -590,14 +590,14 @@ data:
   path: cp_library/alg/graph/graph_weighted_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/grl_2_a_graph_kruskal.test.py
   - test/abc375_g_find_bridges.test.py
+  - test/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/abc361_e_tree_diameter.test.py
-  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+  - test/abc294_g_tree_heavy_light_decomposition.test.py
 documentation_of: cp_library/alg/graph/graph_weighted_cls.py
 layout: document
 redirect_from:

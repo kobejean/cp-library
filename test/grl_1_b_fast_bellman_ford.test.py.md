@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
   - icon: ':heavy_check_mark:'
@@ -16,10 +16,10 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
   - icon: ':question:'
@@ -468,7 +468,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_b_fast_bellman_ford.test.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_b_fast_bellman_ford.test.py

@@ -23,7 +23,7 @@ data:
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
   - icon: ':warning:'
@@ -48,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_3_a_graph_articulation_points.test.py
     title: test/grl_3_a_graph_articulation_points.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_c_lca_table_iterative.test.py
+    title: test/grl_5_c_lca_table_iterative.test.py
   _isVerificationFailed: true
   _pathExtension: py
   _verificationStatusIcon: ':question:'
@@ -371,13 +374,14 @@ data:
   requiredBy:
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_fast_cls.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/grl_3_a_articulation_points_fn.test.py
   - test/grl_3_a_graph_articulation_points.test.py
+  - test/grl_5_c_lca_table_iterative.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc202_e_dfs_enter_leave.test.py
 documentation_of: cp_library/alg/graph/graph_cls.py

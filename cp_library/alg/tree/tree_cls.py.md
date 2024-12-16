@@ -14,14 +14,14 @@ data:
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':question:'
+    path: cp_library/alg/iter/presum_fn.py
+    title: cp_library/alg/iter/presum_fn.py
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':x:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':question:'
-    path: cp_library/ds/bit_cls.py
-    title: cp_library/ds/bit_cls.py
   - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
@@ -51,9 +51,12 @@ data:
   - icon: ':x:'
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_c_lca_table_iterative.test.py
+    title: test/grl_5_c_lca_table_iterative.test.py
   _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -353,79 +356,85 @@ data:
     \   return super().compile(N, M, E)\n\n    \n\nfrom typing import overload, Literal\n\
     from functools import cached_property\n\nfrom typing import Any, Callable, List\n\
     \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
-    \ List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
-    \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
-    \ range(self.log)]\n        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
-    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
-    \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
-    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
-    \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
-    \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n\nclass BinaryIndexTree:\n\
-    \    def __init__(self, v: int|list):\n        if isinstance(v, int):\n      \
-    \      self.data, self.size = [0]*v, v\n        else:\n            self.build(v)\n\
-    \n    def build(self, data):\n        self.data, self.size = data, len(data)\n\
-    \        for i in range(self.size):\n            if (r := i|(i+1)) < self.size:\
-    \ \n                self.data[r] += self.data[i]\n\n    def get(self, i: int):\n\
-    \        assert 0 <= i < self.size\n        s = self.data[i]\n        z = i&(i+1)\n\
-    \        for _ in range((i^z).bit_count()):\n            s, i = s-self.data[i-1],\
-    \ i-(i&-i)\n        return s\n    \n    def set(self, i: int, x: int):\n     \
-    \   self.add(i, x-self.get(i))\n        \n    def add(self, i: int, x: int) ->\
-    \ None:\n        assert 0 <= i <= self.size\n        i += 1\n        data, size\
-    \ = self.data, self.size\n        while i <= size:\n            data[i-1], i =\
-    \ data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n        assert 0\
-    \ <= i <= self.size\n        s = 0\n        data = self.data\n        for _ in\
-    \ range(i.bit_count()):\n            s, i = s+data[i-1], i-(i&-i)\n        return\
-    \ s\n    \n    def range_sum(self, l: int, r: int):\n        return self.pref_sum(r)\
-    \ - self.pref_sum(l)\n\nclass LCATable(SparseTable):\n    def __init__(self, T,\
-    \ root = 0):\n        self.start = [-1] * len(T)\n        self.end = [-1] * len(T)\n\
-    \        self.euler = []\n        self.depth = []\n        \n        # Iterative\
-    \ DFS\n        stack = [(root, -1, 0)]\n        while stack:\n            u, p,\
-    \ d = stack.pop()\n            \n            if self.start[u] == -1:\n       \
-    \         self.start[u] = len(self.euler)\n                \n                for\
-    \ v in reversed(T[u]):\n                    if v != p:\n                     \
-    \   stack.append((u, p, d))\n                        stack.append((v, u, d+1))\n\
-    \                        \n            self.euler.append(u)\n            self.depth.append(d)\n\
-    \            self.end[u] = len(self.euler)\n        super().__init__(min, list(zip(self.depth,\
-    \ self.euler)))\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r\
-    \ = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n \
-    \       d, a = super().query(l, r)\n        return a, d\n    \n    def distance(self,\
-    \ u, v) -> int:\n        l, r = min(self.start[u], self.start[v]), max(self.start[u],\
-    \ self.start[v])+1\n        d, _ = super().query(l, r)\n        return self.depth[l]\
-    \ + self.depth[r] - 2*d\n        \n\nclass TreeProtocol(GraphProtocol):\n\n  \
-    \  @cached_property\n    def lca(T):\n        return LCATable(T)\n    \n    @overload\n\
-    \    def diameter(T) -> int: ...\n    @overload\n    def diameter(T, endpoints:\
-    \ Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n\
-    \        _, s = max((d,v) for v,d in enumerate(T.dfs(0)))\n        diam, g = max((d,v)\
-    \ for v,d in enumerate(T.dfs(s)))\n        return (diam, s, g) if endpoints else\
-    \ diam\n    \n    @overload\n    def distance(T) -> list[list[int]]: ...\n   \
-    \ @overload\n    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(T, s: int, g: int) -> int: ...\n    def distance(T, s = None,\
-    \ g = None):\n        match s, g:\n            case None, None:\n            \
-    \    return [T.dfs(u) for u in range(T.N)]\n            case s, g:\n         \
-    \       return T.dfs(s, g)\n            \n    @overload\n    def dfs(T, s: int\
-    \ = 0) -> list[int]: ...\n    @overload\n    def dfs(T, s: int, g: int) -> int:\
-    \ ...\n    def dfs(T, s = 0, g = None):\n        D = [inft for _ in range(T.N)]\n\
-    \        D[s] = 0\n        state = [True for _ in range(T.N)]\n        stack =\
-    \ [s]\n\n        while stack:\n            u = stack.pop()\n            if u ==\
-    \ g: return D[u]\n            state[u] = False\n            for v in T[u]:\n \
-    \               if state[v]:\n                    D[v] = D[u]+1\n            \
-    \        stack.append(v)\n        return D if g is None else inft \n\n\n    def\
-    \ dfs_events(G, opts: DFSFlags, s: int = 0):         \n        events = []\n \
-    \       # stack = deque([(s,-1)], maxlen=G.N)\n        stack = [(s,-1)]\n    \
-    \    adj = [None]*G.N\n\n\n        while stack:\n            u, p = stack[-1]\n\
-    \            \n            if adj[u] is None:\n                adj[u] = iter(G.neighbors(u))\n\
-    \                if DFSFlags.ENTER in opts:\n                    events.append((DFSEvent.ENTER,\
+    \ List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
+    \        self.op = op\n        \n        self.offsets = offsets = [0]\n      \
+    \  for i in range(1, self.log):\n            offsets.append(offsets[-1] + N -\
+    \ (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1] +\
+    \ N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for i\
+    \ in range(self.log - 1):\n            d = 1 << i\n            start = offsets[i]\n\
+    \            next_start = offsets[i + 1]\n            for j in range(N - (1 <<\
+    \ (i+1)) + 1):\n                st[next_start + j] = op(st[k := start+j], st[k\
+    \ + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
+    \ - 1\n        start, st = self.offsets[k], self.st\n        return self.op(st[start\
+    \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
+    \    rows = []\n        for i in range(self.log):\n            start = self.offsets[i]\n\
+    \            end = self.offsets[i+1] if i+1 < self.log else len(self.st)\n   \
+    \         rows.append(f\"{i:<2d} {self.st[start:end]}\")\n        return '\\n'.join(rows)\n\
+    \nimport operator\nfrom itertools import accumulate\n\nT = TypeVar('T')\ndef presum(iter:\
+    \ Iterable[T], func: Callable[[T,T],T] = None, initial: T = None, step = 1) ->\
+    \ list[T]:\n    match step:\n        case 1:\n            return list(accumulate(iter,\
+    \ func, initial=initial))\n        case step:\n            assert step >= 2\n\
+    \            if func is None:\n                func = operator.add\n         \
+    \   A = list(iter)\n            if initial is not None:\n                A = [initial]\
+    \ + A\n            for i in range(step,len(A)):\n                A[i] = func(A[i],\
+    \ A[i-step])\n            return A\n\nclass LCATable(SparseTable):\n    def __init__(self,\
+    \ T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n        self.depth\
+    \ = depth = presum(T.delta)\n        self.start, self.stop = T.tin, T.tout\n\n\
+    \        self.mask = (1 << (shift := N.bit_length()))-1\n        self.shift =\
+    \ shift\n        order = T.order\n        M = len(order)\n        packets = [0]*M\n\
+    \        for i in range(M):\n            packets[i] = depth[i] << shift | order[i]\
+    \ \n\n        super().__init__(min, packets)\n\n    def _query(self, u, v):\n\
+    \        l,r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n\
+    \        da = super().query(l, r)\n        return l, r, da & self.mask, da >>\
+    \ self.shift\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r, a,\
+    \ d = self._query(u, v)\n        return a, d\n    \n    def distance(self, u,\
+    \ v) -> int:\n        l, r, a, d = self._query(u, v)\n        return self.depth[l]\
+    \ + self.depth[r] - 2*d\n\nclass TreeProtocol(GraphProtocol):\n\n    @cached_property\n\
+    \    def lca(T):\n        return LCATable(T)\n    \n    @overload\n    def diameter(T)\
+    \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
+    \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        _,\
+    \ s = max((d,v) for v,d in enumerate(T.dfs(0)))\n        diam, g = max((d,v) for\
+    \ v,d in enumerate(T.dfs(s)))\n        return (diam, s, g) if endpoints else diam\n\
+    \    \n    @overload\n    def distance(T) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T,\
+    \ s: int, g: int) -> int: ...\n    def distance(T, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return [T.dfs(u)\
+    \ for u in range(T.N)]\n            case s, g:\n                return T.dfs(s,\
+    \ g)\n            \n    @overload\n    def dfs(T, s: int = 0) -> list[int]: ...\n\
+    \    @overload\n    def dfs(T, s: int, g: int) -> int: ...\n    def dfs(T, s =\
+    \ 0, g = None):\n        D = [inft for _ in range(T.N)]\n        D[s] = 0\n  \
+    \      state = [True for _ in range(T.N)]\n        stack = [s]\n\n        while\
+    \ stack:\n            u = stack.pop()\n            if u == g: return D[u]\n  \
+    \          state[u] = False\n            for v in T[u]:\n                if state[v]:\n\
+    \                    D[v] = D[u]+1\n                    stack.append(v)\n    \
+    \    return D if g is None else inft \n\n\n    def dfs_events(G, flags: DFSFlags,\
+    \ s: int = 0):         \n        events = []\n        # stack = deque([(s,-1)],\
+    \ maxlen=G.N)\n        stack = [(s,-1)]\n        adj = [None]*G.N\n\n\n      \
+    \  while stack:\n            u, p = stack[-1]\n            \n            if adj[u]\
+    \ is None:\n                adj[u] = iter(G.neighbors(u))\n                if\
+    \ DFSFlags.ENTER in flags:\n                    events.append((DFSEvent.ENTER,\
     \ u))\n            \n            if (v := next(adj[u], None)) is not None:\n \
-    \               if v == p:\n                    if DFSFlags.BACK in opts:\n  \
-    \                      events.append((DFSEvent.BACK, u, v))\n                else:\n\
-    \                    if DFSFlags.DOWN in opts:\n                        events.append((DFSEvent.DOWN,\
-    \ u, v))\n                    stack.append((v,u))\n            else:\n       \
-    \         stack.pop()\n\n                if DFSFlags.LEAVE in opts:\n        \
-    \            events.append((DFSEvent.LEAVE, u))\n                if p != -1 and\
-    \ DFSFlags.UP in opts:\n                    events.append((DFSEvent.UP, u, p))\n\
-    \        return events\n\nclass Tree(Graph, TreeProtocol):\n    @classmethod\n\
-    \    def compile(cls, N: int, E: type|int = Edge[-1]):\n        return super().compile(N,\
-    \ N-1, E)\n    \n    \n"
+    \               if v == p:\n                    if DFSFlags.BACK in flags:\n \
+    \                       events.append((DFSEvent.BACK, u, v))\n               \
+    \ else:\n                    if DFSFlags.DOWN in flags:\n                    \
+    \    events.append((DFSEvent.DOWN, u, v))\n                    stack.append((v,u))\n\
+    \            else:\n                stack.pop()\n\n                if DFSFlags.LEAVE\
+    \ in flags:\n                    events.append((DFSEvent.LEAVE, u))\n        \
+    \        if p != -1 and DFSFlags.UP in flags:\n                    events.append((DFSEvent.UP,\
+    \ u, p))\n        return events\n    \n    def euler_tour(T, s = 0):\n       \
+    \ N = len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1] * N\n\
+    \        T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n      \
+    \  T.delta = delta = elist(2*N)\n        \n        stack = elist(N)\n        stack.append(s)\n\
+    \n        while stack:\n            u = stack.pop()\n            p = par[u]\n\
+    \            \n            if tin[u] == -1:\n                tin[u] = len(order)\n\
+    \                \n                for v in T[u]:\n                    if v !=\
+    \ p:\n                        par[v] = u\n                        stack.append(u)\n\
+    \                        stack.append(v)\n                \n                delta.append(1)\n\
+    \            else:\n                delta.append(-1)\n            \n         \
+    \   order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
+    \ = 0\n\nclass Tree(Graph, TreeProtocol):\n    @classmethod\n    def compile(cls,\
+    \ N: int, E: type|int = Edge[-1]):\n        return super().compile(N, N-1, E)\n\
+    \    \n    \n"
   code: "import cp_library.alg.tree.__header__\n\nfrom cp_library.alg.graph.edge_cls\
     \ import Edge\nfrom cp_library.alg.graph.graph_cls import Graph\nfrom cp_library.alg.tree.tree_proto\
     \ import TreeProtocol\n\nclass Tree(Graph, TreeProtocol):\n    @classmethod\n\
@@ -436,22 +445,23 @@ data:
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/graph/graph_proto.py
+  - cp_library/ds/elist_fn.py
   - cp_library/math/inft_cnst.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/ds/elist_fn.py
   - cp_library/ds/sparse_table_cls.py
-  - cp_library/ds/bit_cls.py
+  - cp_library/alg/iter/presum_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/tree_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-12-17 07:25:33+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
+  - test/grl_5_c_lca_table_iterative.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc202_e_dfs_enter_leave.test.py
 documentation_of: cp_library/alg/tree/tree_cls.py

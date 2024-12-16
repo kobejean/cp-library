@@ -267,9 +267,20 @@ data:
     \     u,v = Ua[i], Va[i]\n            # prefix accumulation\n            dp[u]\
     \ = merge(pre := dp[u], dp[v])\n            # push value to child\n          \
     \  dp[v] = add_child(v, u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n\
-    \        \n        return dp\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ shift: int = -1):\n        return super().compile(N, N-1, shift)\n    \n\nclass\
-    \ Tree(Graph, TreeBase):\n    pass\n\n"
+    \        \n        return dp\n    \n    def euler_tour(T, s = 0):\n        N =\
+    \ len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1] * N\n \
+    \       T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n       \
+    \ T.delta = delta = elist(2*N)\n        Va = T.Va\n        \n        stack = elist(N)\n\
+    \        stack.append(s)\n\n        while stack:\n            u = stack.pop()\n\
+    \            p = par[u]\n            \n            if tin[u] == -1:\n        \
+    \        tin[u] = len(order)\n                \n                for i in T.range(u):\n\
+    \                    if (v := Va[i]) != p:\n                        par[v] = u\n\
+    \                        stack.append(u)\n                        stack.append(v)\n\
+    \                \n                delta.append(1)\n            else:\n      \
+    \          delta.append(-1)\n            \n            order.append(u)\n     \
+    \       tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n\n    @classmethod\n\
+    \    def compile(cls, N: int, shift: int = -1):\n        return super().compile(N,\
+    \ N-1, shift)\n    \n\nclass Tree(Graph, TreeBase):\n    pass\n\n"
   code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.alg.graph.fast.graph_cls\
     \ import Graph\nfrom cp_library.alg.graph.fast.tree_base_cls import TreeBase\n\
     \nclass Tree(Graph, TreeBase):\n    pass\n\nfrom cp_library.ds.fill_fn import\
@@ -287,7 +298,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/tree_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc202_e_fast_dfs_enter_leave.test.py

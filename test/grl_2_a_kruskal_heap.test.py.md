@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/edge_list_cls.py
     title: cp_library/alg/graph/edge_list_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_weighted_cls.py
     title: cp_library/alg/graph/edge_list_weighted_cls.py
   - icon: ':question:'
@@ -193,7 +193,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_a_kruskal_heap.test.py

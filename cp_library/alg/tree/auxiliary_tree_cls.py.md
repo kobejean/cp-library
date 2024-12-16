@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':question:'
+    path: cp_library/alg/iter/presum_fn.py
+    title: cp_library/alg/iter/presum_fn.py
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':question:'
-    path: cp_library/ds/bit_cls.py
-    title: cp_library/ds/bit_cls.py
   - icon: ':question:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
@@ -25,63 +25,59 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
     \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
-    \    self.n = len(arr)\n        self.log = self.n.bit_length()\n        self.op\
-    \ = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in range(self.log)]\n\
-    \        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
-    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
-    \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
-    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
-    \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
-    \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n\nclass BinaryIndexTree:\n\
-    \    def __init__(self, v: int|list):\n        if isinstance(v, int):\n      \
-    \      self.data, self.size = [0]*v, v\n        else:\n            self.build(v)\n\
-    \n    def build(self, data):\n        self.data, self.size = data, len(data)\n\
-    \        for i in range(self.size):\n            if (r := i|(i+1)) < self.size:\
-    \ \n                self.data[r] += self.data[i]\n\n    def get(self, i: int):\n\
-    \        assert 0 <= i < self.size\n        s = self.data[i]\n        z = i&(i+1)\n\
-    \        for _ in range((i^z).bit_count()):\n            s, i = s-self.data[i-1],\
-    \ i-(i&-i)\n        return s\n    \n    def set(self, i: int, x: int):\n     \
-    \   self.add(i, x-self.get(i))\n        \n    def add(self, i: int, x: int) ->\
-    \ None:\n        assert 0 <= i <= self.size\n        i += 1\n        data, size\
-    \ = self.data, self.size\n        while i <= size:\n            data[i-1], i =\
-    \ data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n        assert 0\
-    \ <= i <= self.size\n        s = 0\n        data = self.data\n        for _ in\
-    \ range(i.bit_count()):\n            s, i = s+data[i-1], i-(i&-i)\n        return\
-    \ s\n    \n    def range_sum(self, l: int, r: int):\n        return self.pref_sum(r)\
-    \ - self.pref_sum(l)\n\nclass LCATable(SparseTable):\n    def __init__(self, T,\
-    \ root = 0):\n        self.start = [-1] * len(T)\n        self.end = [-1] * len(T)\n\
-    \        self.euler = []\n        self.depth = []\n        \n        # Iterative\
-    \ DFS\n        stack = [(root, -1, 0)]\n        while stack:\n            u, p,\
-    \ d = stack.pop()\n            \n            if self.start[u] == -1:\n       \
-    \         self.start[u] = len(self.euler)\n                \n                for\
-    \ v in reversed(T[u]):\n                    if v != p:\n                     \
-    \   stack.append((u, p, d))\n                        stack.append((v, u, d+1))\n\
-    \                        \n            self.euler.append(u)\n            self.depth.append(d)\n\
-    \            self.end[u] = len(self.euler)\n        super().__init__(min, list(zip(self.depth,\
-    \ self.euler)))\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r\
-    \ = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n \
-    \       d, a = super().query(l, r)\n        return a, d\n    \n    def distance(self,\
-    \ u, v) -> int:\n        l, r = min(self.start[u], self.start[v]), max(self.start[u],\
-    \ self.start[v])+1\n        d, _ = super().query(l, r)\n        return self.depth[l]\
-    \ + self.depth[r] - 2*d\n        \n\nclass AuxiliaryTree(LCATable):\n\n    def\
-    \ build_auxiliary_tree(self, V):\n        V = sorted(V, key=lambda x: self.start[x])\n\
-    \        stack = [V[0]]\n        for u, v in pairwise(V):\n            lca, _\
-    \ = self.query(u, v)\n            while len(stack) > 1 and self.start[stack[-1]]\
-    \ > self.start[lca]:\n                stack.pop()\n            if stack[-1] !=\
-    \ lca:\n                stack.append(lca)\n            stack.append(v)\n\n   \
-    \     aux_tree = { v: [] for v in stack }\n        for p, c in pairwise(stack):\n\
-    \            aux_tree[p].append(c)\n        return aux_tree\n\n    def get_path(self,\
-    \ u, v):\n        lca, _ = self.query(u, v)\n        path = []\n        \n   \
-    \     # Path from u to LCA\n        current = u\n        while current != lca:\n\
-    \            path.append(current)\n            for parent in self.T[current]:\n\
-    \                if self.start[parent] < self.start[current]:\n              \
-    \      current = parent\n                    break\n        \n        # Add LCA\n\
-    \        path.append(lca)\n        \n        # Path from LCA to v (in reverse\
-    \ order)\n        current = v\n        reverse_path = []\n        while current\
-    \ != lca:\n            reverse_path.append(current)\n            for parent in\
-    \ self.T[current]:\n                if self.start[parent] < self.start[current]:\n\
-    \                    current = parent\n                    break\n        # Combine\
-    \ paths\n        path.extend(reversed(reverse_path))\n        return path\n"
+    \    self.N = N = len(arr)\n        self.log = N.bit_length()\n        self.op\
+    \ = op\n        \n        self.offsets = offsets = [0]\n        for i in range(1,\
+    \ self.log):\n            offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n\
+    \            \n        self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1))\
+    \ + 1)\n        st[:N] = arr \n        \n        for i in range(self.log - 1):\n\
+    \            d = 1 << i\n            start = offsets[i]\n            next_start\
+    \ = offsets[i + 1]\n            for j in range(N - (1 << (i+1)) + 1):\n      \
+    \          st[next_start + j] = op(st[k := start+j], st[k + d])\n\n    def query(self,\
+    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length() - 1\n        start,\
+    \ st = self.offsets[k], self.st\n        return self.op(st[start + l], st[start\
+    \ + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n        rows = []\n\
+    \        for i in range(self.log):\n            start = self.offsets[i]\n    \
+    \        end = self.offsets[i+1] if i+1 < self.log else len(self.st)\n       \
+    \     rows.append(f\"{i:<2d} {self.st[start:end]}\")\n        return '\\n'.join(rows)\n\
+    \nimport operator\nfrom itertools import accumulate\nfrom typing import Callable,\
+    \ Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T]\
+    \ = None, initial: T = None, step = 1) -> list[T]:\n    match step:\n        case\
+    \ 1:\n            return list(accumulate(iter, func, initial=initial))\n     \
+    \   case step:\n            assert step >= 2\n            if func is None:\n \
+    \               func = operator.add\n            A = list(iter)\n            if\
+    \ initial is not None:\n                A = [initial] + A\n            for i in\
+    \ range(step,len(A)):\n                A[i] = func(A[i], A[i-step])\n        \
+    \    return A\n\nclass LCATable(SparseTable):\n    def __init__(self, T, root\
+    \ = 0):\n        N = len(T)\n        T.euler_tour(root)\n        self.depth =\
+    \ depth = presum(T.delta)\n        self.start, self.stop = T.tin, T.tout\n\n \
+    \       self.mask = (1 << (shift := N.bit_length()))-1\n        self.shift = shift\n\
+    \        order = T.order\n        M = len(order)\n        packets = [0]*M\n  \
+    \      for i in range(M):\n            packets[i] = depth[i] << shift | order[i]\
+    \ \n\n        super().__init__(min, packets)\n\n    def _query(self, u, v):\n\
+    \        l,r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n\
+    \        da = super().query(l, r)\n        return l, r, da & self.mask, da >>\
+    \ self.shift\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r, a,\
+    \ d = self._query(u, v)\n        return a, d\n    \n    def distance(self, u,\
+    \ v) -> int:\n        l, r, a, d = self._query(u, v)\n        return self.depth[l]\
+    \ + self.depth[r] - 2*d\n\nclass AuxiliaryTree(LCATable):\n\n    def build_auxiliary_tree(self,\
+    \ V):\n        V = sorted(V, key=lambda x: self.start[x])\n        stack = [V[0]]\n\
+    \        for u, v in pairwise(V):\n            lca, _ = self.query(u, v)\n   \
+    \         while len(stack) > 1 and self.start[stack[-1]] > self.start[lca]:\n\
+    \                stack.pop()\n            if stack[-1] != lca:\n             \
+    \   stack.append(lca)\n            stack.append(v)\n\n        aux_tree = { v:\
+    \ [] for v in stack }\n        for p, c in pairwise(stack):\n            aux_tree[p].append(c)\n\
+    \        return aux_tree\n\n    def get_path(self, u, v):\n        lca, _ = self.query(u,\
+    \ v)\n        path = []\n        \n        # Path from u to LCA\n        current\
+    \ = u\n        while current != lca:\n            path.append(current)\n     \
+    \       for parent in self.T[current]:\n                if self.start[parent]\
+    \ < self.start[current]:\n                    current = parent\n             \
+    \       break\n        \n        # Add LCA\n        path.append(lca)\n       \
+    \ \n        # Path from LCA to v (in reverse order)\n        current = v\n   \
+    \     reverse_path = []\n        while current != lca:\n            reverse_path.append(current)\n\
+    \            for parent in self.T[current]:\n                if self.start[parent]\
+    \ < self.start[current]:\n                    current = parent\n             \
+    \       break\n        # Combine paths\n        path.extend(reversed(reverse_path))\n\
+    \        return path\n"
   code: "import cp_library.alg.tree.__header__\nfrom itertools import pairwise\nfrom\
     \ cp_library.alg.tree.lca_table_iterative_cls import LCATable\n\nclass AuxiliaryTree(LCATable):\n\
     \n    def build_auxiliary_tree(self, V):\n        V = sorted(V, key=lambda x:\
@@ -105,11 +101,11 @@ data:
   dependsOn:
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/ds/sparse_table_cls.py
-  - cp_library/ds/bit_cls.py
+  - cp_library/alg/iter/presum_fn.py
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

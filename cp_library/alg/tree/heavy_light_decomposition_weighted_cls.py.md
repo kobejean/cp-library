@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':x:'
-    path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+    path: test/abc294_g_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_tree_heavy_light_decomposition.test.py
   _isVerificationFailed: true
   _pathExtension: py
   _verificationStatusIcon: ':x:'
@@ -79,10 +79,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - test/abc294_g_tree_heavy_light_decomposition.test.py
 documentation_of: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
 layout: document
 redirect_from:

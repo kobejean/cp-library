@@ -597,7 +597,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/digraph_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/grl_1_c_floyd_warshall.test.py

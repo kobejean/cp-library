@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':x:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
   _extendedRequiredBy: []
@@ -53,7 +53,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/inversion_cnt_fn.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/arc136_b_inversion_cnt_fn.test.py

@@ -8,12 +8,6 @@ data:
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':question:'
-    path: cp_library/alg/graph/edge_list_cls.py
-    title: cp_library/alg/graph/edge_list_cls.py
-  - icon: ':question:'
-    path: cp_library/alg/graph/edge_list_weighted_cls.py
-    title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':question:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':question:'
@@ -25,13 +19,28 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
-  - icon: ':x:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
+  - icon: ':x:'
+    path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
+    title: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
+  - icon: ':question:'
+    path: cp_library/alg/tree/lca_table_iterative_cls.py
+    title: cp_library/alg/tree/lca_table_iterative_cls.py
   - icon: ':x:'
     path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - icon: ':question:'
+    path: cp_library/alg/tree/tree_proto.py
+    title: cp_library/alg/tree/tree_proto.py
+  - icon: ':x:'
+    path: cp_library/alg/tree/tree_weighted_cls.py
+    title: cp_library/alg/tree/tree_weighted_cls.py
+  - icon: ':x:'
+    path: cp_library/alg/tree/tree_weighted_proto.py
+    title: cp_library/alg/tree/tree_weighted_proto.py
+  - icon: ':x:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
   - icon: ':question:'
@@ -77,32 +86,46 @@ data:
     links:
     - https://atcoder.jp/contests/abc294/tasks/abc294_g
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
-    \ndef main():\n    N = read(int)\n    E = read(EdgeListWeighted[N-1])\n    T =\
-    \ GraphWeighted(N, E)\n    lca = LCATableWeighted(T)\n    bit = BinaryIndexTree(lca.weights)\n\
-    \n    Q = read(int)\n    for query in read(list[tuple[int,int,int], Q]):\n   \
-    \     match query:\n            case 1, i, w:\n                i -= 1\n      \
-    \          u,v,_ = E[i]\n                p, _ = lca.query(u,v)\n             \
-    \   c = u if p == v else v\n                l,r = lca.start[c], lca.end[c]\n \
-    \               bit.set(l,w)\n                bit.set(r,-w)\n\n            case\
-    \ 2, u, v:\n                u,v=u-1,v-1\n                a,_ = lca.query(u,v)\n\
-    \                ans = bit.pref_sum(lca.end[u]) + \\\n                    bit.pref_sum(lca.end[v])\
-    \ - \\\n                    2*bit.pref_sum(lca.end[a])\n                write(ans)\n\
-    \        \n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
+    \    W = [hld.weights[i] for i in hld.order]\n    bit = BinaryIndexTree(W)\n\n\
+    \    Q = read(int)\n    for query in read(list[tuple[int, int, int], Q]):\n  \
+    \      match query:\n            case 1, i, w:\n                i -= 1  # Convert\
+    \ to 0-based index\n                u, v, _ = T.E[i]\n                # Find child\
+    \ node in edge (u, v)\n                if hld.par[u] == v:\n                 \
+    \   node = u\n                else:\n                    node = v\n          \
+    \      idx = hld[node]\n                bit.set(idx, w)\n            case 2, u,\
+    \ v:\n                u, v = u - 1, v - 1\n                ans = sum(bit.range_sum(l,r)\
+    \ for l,r in hld.path(u,v, True))\n                write(ans)\n\n'''\n\u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\nfrom typing import TypeVar\n\n\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\nclass BinaryIndexTree:\n    def __init__(self, v: int|list):\n\
+    \        if isinstance(v, int):\n            self.data, self.size = [0]*v, v\n\
+    \        else:\n            self.build(v)\n\n    def build(self, data):\n    \
+    \    self.data, self.size = data, len(data)\n        for i in range(self.size):\n\
+    \            if (r := i|(i+1)) < self.size: \n                self.data[r] +=\
+    \ self.data[i]\n\n    def get(self, i: int):\n        assert 0 <= i < self.size\n\
+    \        s = self.data[i]\n        z = i&(i+1)\n        for _ in range((i^z).bit_count()):\n\
+    \            s, i = s-self.data[i-1], i-(i&-i)\n        return s\n    \n    def\
+    \ set(self, i: int, x: int):\n        self.add(i, x-self.get(i))\n        \n \
+    \   def add(self, i: int, x: int) -> None:\n        assert 0 <= i <= self.size\n\
+    \        i += 1\n        data, size = self.data, self.size\n        while i <=\
+    \ size:\n            data[i-1], i = data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self,\
+    \ i: int):\n        assert 0 <= i <= self.size\n        s = 0\n        data =\
+    \ self.data\n        for _ in range(i.bit_count()):\n            s, i = s+data[i-1],\
+    \ i-(i&-i)\n        return s\n    \n    def range_sum(self, l: int, r: int):\n\
+    \        return self.pref_sum(r) - self.pref_sum(l)\n\n\n\n\n\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -171,138 +194,127 @@ data:
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nclass\
     \ Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n    \
     \    def parse(ts: TokenStream):\n            u,v = ts.line()\n            return\
-    \ cls((int(u)+I,int(v)+I))\n        return parse\n\nE = TypeVar('E', bound=Edge)\n\
-    M = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n    @classmethod\n\
-    \    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I := E, int):\n\
-    \            E = Edge[I]\n        edge = Parser.compile(E)\n        def parse(ts:\
-    \ TokenStream):\n            return cls(edge(ts) for _ in range(M))\n        return\
-    \ parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
-    \ set[E]):\n    pass\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
-    class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
-    \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
-    \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
-    \   def parse(ts: TokenStream):\n            u,v,w = ts.line()\n            return\
-    \ cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
-    \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
-    \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
-    \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
-    \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
-    \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
-    \    pass\n\n\nfrom typing import overload\nfrom heapq import heapify, heappop,\
-    \ heappush\nimport operator\n\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass\
-    \ DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n\
-    \    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\
-    \n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n\
-    \    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN\
-    \ | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n \
-    \   TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
-    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
-    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom typing import Iterable, overload\n\ninft: int\n\n\
-    inft = sys.maxsize\n\nclass GraphProtocol(list, Parsable):\n    def __init__(G,\
-    \ N: int, E: list = None, adj: Iterable = None):\n        G.N = N\n        if\
-    \ E is not None:\n            G.M, G.E = len(E), E\n        if adj is not None:\n\
-    \            super().__init__(adj)\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
-    \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n  \
-    \  @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n   \
-    \ def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
-    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
-    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
-    \            case s, None:\n                return G.bfs(s)\n            case\
-    \ s, g:\n                return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s:\
-    \ int|list = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: int|list,\
-    \ g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inft for\
-    \ _ in range(G.N)]\n        q = deque([s] if isinstance(s, int) else s)\n    \
-    \    for u in q: D[u] = 0\n        while q:\n            nd = D[u := q.popleft()]+1\n\
-    \            if u == g: return D[u]\n            for v in G.neighbors(u):\n  \
-    \              if nd < D[v]:\n                    D[v] = nd\n                \
-    \    q.append(v)\n        return D if g is None else inft \n\n    @overload\n\
-    \    def shortest_path(G, s: int, g: int) -> list[int]|None: ...\n    @overload\n\
-    \    def shortest_path(G, s: int, g: int, distances = True) -> tuple[list[int]|None,list[int]]:\
-    \ ...\n    def shortest_path(G, s: int, g: int, distances = False) -> list[int]:\n\
-    \        D = [inft] * G.N\n        D[s] = 0\n        if s == g:\n            return\
-    \ ([], D) if distances else []\n            \n        par = [-1] * G.N\n     \
-    \   par_edge = [-1] * G.N\n        Eid = G.edge_ids()\n        q = deque([s])\n\
-    \        \n        while q:\n            nd = D[u := q.popleft()] + 1\n      \
-    \      if u == g: break\n                \n            for v, eid in zip(G[u],\
-    \ Eid[u]):\n                if nd < D[v]:\n                    D[v] = nd\n   \
-    \                 par[v] = u\n                    par_edge[v] = eid\n        \
-    \            q.append(v)\n        \n        if D[g] == inft:\n            return\
-    \ (None, D) if distances else None\n            \n        path = []\n        current\
-    \ = g\n        while current != s:\n            path.append(par_edge[current])\n\
-    \            current = par[current]\n            \n        return (path[::-1],\
-    \ D) if distances else path[::-1]\n            \n     \n            \n       \
-    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inft]*G.N for\
-    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
-    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
-    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
-    \  if Di[k] == inft: continue\n                for j in range(G.N):\n        \
-    \            if Dk[j] == inft: continue\n                    Di[j] = min(Di[j],\
-    \ Di[k]+Dk[j])\n        return D\n    \n    \n    def find_cycle(G, s = 0, vis\
-    \ = None, par = None):\n        N = G.N\n        vis = vis or [0] * N\n      \
-    \  par = par or [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n\
-    \        stack = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n\
-    \            if forw:\n                stack.append((False, v))\n            \
-    \    vis[v] = 1\n                for u in G.neighbors(v):\n                  \
-    \  if vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n\
-    \                        cyc = [u]\n                        vis[u] = 2\n     \
-    \                   while v != u:\n                            cyc.append(v)\n\
-    \                            vis[v] = 2\n                            v = par[v]\n\
-    \                        return cyc\n                    elif vis[u] == 0:\n \
-    \                       par[u] = v\n                        stack.append((True,\
-    \ u))\n            else:\n                vis[v] = 2\n        return None\n  \
-    \  \n    def bridges(G):\n        tin = [-1] * G.N\n        low = [-1] * G.N\n\
-    \        par = [-1] * G.N\n        vis = [0] * G.N\n        in_edge = [-1] * G.N\n\
-    \n        Eid = G.edge_ids()\n        time = 0\n        bridges = []\n       \
-    \ stack = list(range(G.N))\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            match vis[v]:\n                case 0:\n\
-    \                    vis[v] = 1\n                    tin[v] = low[v] = time\n\
-    \                    time += 1\n                    stack.append(v)\n        \
-    \            for i, child in enumerate(G.neighbors(v)):\n                    \
-    \    if child == p:\n                            continue\n                  \
-    \      match vis[child]:\n                            case 0:\n              \
-    \                  # Tree edge - recurse\n                                par[child]\
-    \ = v\n                                in_edge[child] = Eid[v][i]\n          \
-    \                      stack.append(child)\n                            case 1:\n\
-    \                                # Back edge - update low-link value\n       \
-    \                         low[v] = min(low[v], tin[child])\n                case\
-    \ 1:\n                    vis[v] = 2\n                    if p != -1:\n      \
-    \                  low[p] = min(low[p], low[v])\n                        if low[v]\
-    \ > tin[p]:\n                            bridges.append(in_edge[v])\n        \
-    \        \n        return bridges\n\n    def articulation_points(G):\n       \
-    \ \"\"\"\n        Find articulation points in an undirected graph using DFS events.\n\
-    \        Returns a boolean list that is True for indices where the vertex is an\
-    \ articulation point.\n        \"\"\"\n        N = G.N\n        order = [-1] *\
-    \ N\n        low = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n\
-    \        children = [0] * N\n        ap = [False] * N\n        time = 0\n    \
-    \    stack = list(range(N))\n\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            if state[v] == 0:\n                state[v]\
-    \ = 1\n                order[v] = low[v] = time\n                time += 1\n \
-    \           \n                stack.append(v)\n                for child in G[v]:\n\
-    \                    if order[child] == -1:\n                        par[child]\
-    \ = v\n                        stack.append(child)\n                    elif child\
-    \ != p:\n                        low[v] = min(low[v], order[child])\n        \
-    \        if p != -1:\n                    children[p] += 1\n            elif state[v]\
-    \ == 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
-    \ > 1\n                if p != -1:\n                    low[p] = min(low[p], low[v])\n\
-    \                    ap[p] |= par[p] != -1 and low[v] >= order[p]\n\n        return\
-    \ ap\n    \n    def dfs_events(G, flags: DFSFlags, s: int|list|None = None, max_depth:\
-    \ int|None = None):\n        match flags:\n            case DFSFlags.INTERVAL:\n\
-    \                if max_depth is None:\n                    return G.dfs_enter_leave(s)\n\
-    \            case DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth\
-    \ is None:\n                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS\
-    \ in flags)\n                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n\
-    \            case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth\
-    \ is None:\n                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS\
-    \ in flags)\n                    return [(DFSEvent.UP, p, u) for p,u in edges]\n\
-    \            case flags if flags & DFSFlags.BACKTRACK:\n                return\
-    \ G.dfs_backtrack(flags, s, max_depth)\n        state = [0] * G.N\n        child\
-    \ = [0] * G.N\n        stack = [0] * G.N\n        if flags & DFSFlags.RETURN_PARENTS:\n\
-    \            parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n\
-    \            depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
+    \ cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools import total_ordering\
+    \ \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def __lt__(self, other:\
+    \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
+    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
+    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\n\nfrom typing\
+    \ import overload\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
+    \n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
+    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
+    \ typing import Iterable, overload\n\ninft: int\n\ninft = sys.maxsize\n\nclass\
+    \ GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E: list = None,\
+    \ adj: Iterable = None):\n        G.N = N\n        if E is not None:\n       \
+    \     G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
+    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
+    \    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n    def distance(G)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
+    \ distance(G, s = None, g = None):\n        match s, g:\n            case None,\
+    \ None:\n                return G.floyd_warshall()\n            case s, None:\n\
+    \                return G.bfs(s)\n            case s, g:\n                return\
+    \ G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: int|list = 0) -> list[int]:\
+    \ ...\n    @overload\n    def bfs(G, s: int|list, g: int) -> int: ...\n    def\
+    \ bfs(G, s = 0, g = None):\n        D = [inft for _ in range(G.N)]\n        q\
+    \ = deque([s] if isinstance(s, int) else s)\n        for u in q: D[u] = 0\n  \
+    \      while q:\n            nd = D[u := q.popleft()]+1\n            if u == g:\
+    \ return D[u]\n            for v in G.neighbors(u):\n                if nd < D[v]:\n\
+    \                    D[v] = nd\n                    q.append(v)\n        return\
+    \ D if g is None else inft \n\n    @overload\n    def shortest_path(G, s: int,\
+    \ g: int) -> list[int]|None: ...\n    @overload\n    def shortest_path(G, s: int,\
+    \ g: int, distances = True) -> tuple[list[int]|None,list[int]]: ...\n    def shortest_path(G,\
+    \ s: int, g: int, distances = False) -> list[int]:\n        D = [inft] * G.N\n\
+    \        D[s] = 0\n        if s == g:\n            return ([], D) if distances\
+    \ else []\n            \n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n\
+    \        Eid = G.edge_ids()\n        q = deque([s])\n        \n        while q:\n\
+    \            nd = D[u := q.popleft()] + 1\n            if u == g: break\n    \
+    \            \n            for v, eid in zip(G[u], Eid[u]):\n                if\
+    \ nd < D[v]:\n                    D[v] = nd\n                    par[v] = u\n\
+    \                    par_edge[v] = eid\n                    q.append(v)\n    \
+    \    \n        if D[g] == inft:\n            return (None, D) if distances else\
+    \ None\n            \n        path = []\n        current = g\n        while current\
+    \ != s:\n            path.append(par_edge[current])\n            current = par[current]\n\
+    \            \n        return (path[::-1], D) if distances else path[::-1]\n \
+    \           \n     \n            \n        \n    def floyd_warshall(G) -> list[list[int]]:\n\
+    \        D = [[inft]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
+    \            D[u][u] = 0\n            for v in G.neighbors(u):\n             \
+    \   D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n            for\
+    \ Di in D:\n                if Di[k] == inft: continue\n                for j\
+    \ in range(G.N):\n                    if Dk[j] == inft: continue\n           \
+    \         Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    \n    def\
+    \ find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n        vis\
+    \ = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]: return None\n\
+    \        vis[s] = 1\n        stack = [(True, s)]\n        while stack:\n     \
+    \       forw, v = stack.pop()\n            if forw:\n                stack.append((False,\
+    \ v))\n                vis[v] = 1\n                for u in G.neighbors(v):\n\
+    \                    if vis[u] == 1 and u != par[v]:\n                       \
+    \ # Cycle detected\n                        cyc = [u]\n                      \
+    \  vis[u] = 2\n                        while v != u:\n                       \
+    \     cyc.append(v)\n                            vis[v] = 2\n                \
+    \            v = par[v]\n                        return cyc\n                \
+    \    elif vis[u] == 0:\n                        par[u] = v\n                 \
+    \       stack.append((True, u))\n            else:\n                vis[v] = 2\n\
+    \        return None\n    \n    def bridges(G):\n        tin = [-1] * G.N\n  \
+    \      low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n \
+    \       in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
+    \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
+    \            v = stack.pop()\n            p = par[v]\n            match vis[v]:\n\
+    \                case 0:\n                    vis[v] = 1\n                   \
+    \ tin[v] = low[v] = time\n                    time += 1\n                    stack.append(v)\n\
+    \                    for i, child in enumerate(G.neighbors(v)):\n            \
+    \            if child == p:\n                            continue\n          \
+    \              match vis[child]:\n                            case 0:\n      \
+    \                          # Tree edge - recurse\n                           \
+    \     par[child] = v\n                                in_edge[child] = Eid[v][i]\n\
+    \                                stack.append(child)\n                       \
+    \     case 1:\n                                # Back edge - update low-link value\n\
+    \                                low[v] = min(low[v], tin[child])\n          \
+    \      case 1:\n                    vis[v] = 2\n                    if p != -1:\n\
+    \                        low[p] = min(low[p], low[v])\n                      \
+    \  if low[v] > tin[p]:\n                            bridges.append(in_edge[v])\n\
+    \                \n        return bridges\n\n    def articulation_points(G):\n\
+    \        \"\"\"\n        Find articulation points in an undirected graph using\
+    \ DFS events.\n        Returns a boolean list that is True for indices where the\
+    \ vertex is an articulation point.\n        \"\"\"\n        N = G.N\n        order\
+    \ = [-1] * N\n        low = [-1] * N\n        par = [-1] * N\n        state =\
+    \ [0] * N\n        children = [0] * N\n        ap = [False] * N\n        time\
+    \ = 0\n        stack = list(range(N))\n\n        while stack:\n            v =\
+    \ stack.pop()\n            p = par[v]\n            if state[v] == 0:\n       \
+    \         state[v] = 1\n                order[v] = low[v] = time\n           \
+    \     time += 1\n            \n                stack.append(v)\n             \
+    \   for child in G[v]:\n                    if order[child] == -1:\n         \
+    \               par[child] = v\n                        stack.append(child)\n\
+    \                    elif child != p:\n                        low[v] = min(low[v],\
+    \ order[child])\n                if p != -1:\n                    children[p]\
+    \ += 1\n            elif state[v] == 1:\n                state[v] = 2\n      \
+    \          ap[v] |= p == -1 and children[v] > 1\n                if p != -1:\n\
+    \                    low[p] = min(low[p], low[v])\n                    ap[p] |=\
+    \ par[p] != -1 and low[v] >= order[p]\n\n        return ap\n    \n    def dfs_events(G,\
+    \ flags: DFSFlags, s: int|list|None = None, max_depth: int|None = None):\n   \
+    \     match flags:\n            case DFSFlags.INTERVAL:\n                if max_depth\
+    \ is None:\n                    return G.dfs_enter_leave(s)\n            case\
+    \ DFSFlags.DOWN|DFSFlags.TOPDOWN:\n                if max_depth is None:\n   \
+    \                 edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)\n\
+    \                    return [(DFSEvent.DOWN, p, u) for p,u in edges]\n       \
+    \     case DFSFlags.UP|DFSFlags.BOTTOMUP:\n                if max_depth is None:\n\
+    \                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)\n\
+    \                    return [(DFSEvent.UP, p, u) for p,u in edges]\n         \
+    \   case flags if flags & DFSFlags.BACKTRACK:\n                return G.dfs_backtrack(flags,\
+    \ s, max_depth)\n        state = [0] * G.N\n        child = [0] * G.N\n      \
+    \  stack = [0] * G.N\n        if flags & DFSFlags.RETURN_PARENTS:\n          \
+    \  parents = [-1] * G.N\n        if flags & DFSFlags.RETURN_DEPTHS:\n        \
+    \    depths = [-1] * G.N\n\n        events = []\n        for s in G.starts(s):\n\
     \            stack[depth := 0] = s\n            if (DFSFlags.DOWN|DFSFlags.CONNECT_ROOTS)\
     \ in flags:\n                events.append((DFSEvent.DOWN,-1,s))\n           \
     \ while depth != -1:\n                u = stack[depth]\n                \n   \
@@ -594,122 +606,213 @@ data:
     \        for e,(u,v,*w) in enumerate(G.E):\n            Eid[u].append(e)\n   \
     \         Eid[v].append(e)\n        return Eid\n    \n    @classmethod\n    def\
     \ compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):\n        if isinstance(E,\
-    \ int): E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n\n\nfrom\
-    \ itertools import accumulate\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T],\
+    \ int): E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n\nfrom functools\
+    \ import cached_property\n\nfrom typing import overload, Literal\n\nfrom typing\
+    \ import Any, Callable, List\n\nclass SparseTable:\n    def __init__(self, op:\
+    \ Callable[[Any, Any], Any], arr: List[Any]):\n        self.N = N = len(arr)\n\
+    \        self.log = N.bit_length()\n        self.op = op\n        \n        self.offsets\
+    \ = offsets = [0]\n        for i in range(1, self.log):\n            offsets.append(offsets[-1]\
+    \ + N - (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1]\
+    \ + N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for\
+    \ i in range(self.log - 1):\n            d = 1 << i\n            start = offsets[i]\n\
+    \            next_start = offsets[i + 1]\n            for j in range(N - (1 <<\
+    \ (i+1)) + 1):\n                st[next_start + j] = op(st[k := start+j], st[k\
+    \ + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
+    \ - 1\n        start, st = self.offsets[k], self.st\n        return self.op(st[start\
+    \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
+    \    rows = []\n        for i in range(self.log):\n            start = self.offsets[i]\n\
+    \            end = self.offsets[i+1] if i+1 < self.log else len(self.st)\n   \
+    \         rows.append(f\"{i:<2d} {self.st[start:end]}\")\n        return '\\n'.join(rows)\n\
+    \nfrom itertools import accumulate\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T],\
     \ func: Callable[[T,T],T] = None, initial: T = None, step = 1) -> list[T]:\n \
     \   match step:\n        case 1:\n            return list(accumulate(iter, func,\
     \ initial=initial))\n        case step:\n            assert step >= 2\n      \
     \      if func is None:\n                func = operator.add\n            A =\
     \ list(iter)\n            if initial is not None:\n                A = [initial]\
     \ + A\n            for i in range(step,len(A)):\n                A[i] = func(A[i],\
-    \ A[i-step])\n            return A\n\nfrom typing import Any, Callable, List\n\
-    \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
-    \ List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
-    \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
-    \ range(self.log)]\n        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
-    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
-    \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
-    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
-    \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
-    \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n\nclass LCATableWeighted(SparseTable):\n\
-    \    def __init__(self, T, root = 0):\n        self.start = [-1] * len(T)\n  \
-    \      self.end = [-1] * len(T)\n        self.euler = []\n        self.depth =\
-    \ []\n        self.weights = []\n        self.weighted_depth = None\n        \n\
-    \        # Iterative DFS\n        stack = [(root, -1, 0, 0)]\n        while stack:\n\
-    \            u, p, d, w = stack.pop()\n            \n            if self.start[u]\
-    \ == -1:\n                self.start[u] = len(self.euler)\n                for\
-    \ v, nw in reversed(T[u]):\n                    if v != p:\n                 \
-    \       stack.append((u, p, d, -nw))\n                        stack.append((v,\
-    \ u, d+1, nw))\n\n            self.euler.append(u)\n            self.depth.append(d)\n\
-    \            self.weights.append(w)\n            self.end[u] = len(self.euler)\n\
-    \        super().__init__(min, list(zip(self.depth, self.euler)))\n\n    def query(self,\
-    \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
-    \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
-    \      return a, d\n\n    def distance(self, u, v) -> int:\n        if self.weighted_depth\
+    \ A[i-step])\n            return A\n\nclass LCATable(SparseTable):\n    def __init__(self,\
+    \ T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n        self.depth\
+    \ = depth = presum(T.delta)\n        self.start, self.stop = T.tin, T.tout\n\n\
+    \        self.mask = (1 << (shift := N.bit_length()))-1\n        self.shift =\
+    \ shift\n        order = T.order\n        M = len(order)\n        packets = [0]*M\n\
+    \        for i in range(M):\n            packets[i] = depth[i] << shift | order[i]\
+    \ \n\n        super().__init__(min, packets)\n\n    def _query(self, u, v):\n\
+    \        l,r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n\
+    \        da = super().query(l, r)\n        return l, r, da & self.mask, da >>\
+    \ self.shift\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r, a,\
+    \ d = self._query(u, v)\n        return a, d\n    \n    def distance(self, u,\
+    \ v) -> int:\n        l, r, a, d = self._query(u, v)\n        return self.depth[l]\
+    \ + self.depth[r] - 2*d\n\nclass TreeProtocol(GraphProtocol):\n\n    @cached_property\n\
+    \    def lca(T):\n        return LCATable(T)\n    \n    @overload\n    def diameter(T)\
+    \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
+    \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        _,\
+    \ s = max((d,v) for v,d in enumerate(T.dfs(0)))\n        diam, g = max((d,v) for\
+    \ v,d in enumerate(T.dfs(s)))\n        return (diam, s, g) if endpoints else diam\n\
+    \    \n    @overload\n    def distance(T) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T,\
+    \ s: int, g: int) -> int: ...\n    def distance(T, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return [T.dfs(u)\
+    \ for u in range(T.N)]\n            case s, g:\n                return T.dfs(s,\
+    \ g)\n            \n    @overload\n    def dfs(T, s: int = 0) -> list[int]: ...\n\
+    \    @overload\n    def dfs(T, s: int, g: int) -> int: ...\n    def dfs(T, s =\
+    \ 0, g = None):\n        D = [inft for _ in range(T.N)]\n        D[s] = 0\n  \
+    \      state = [True for _ in range(T.N)]\n        stack = [s]\n\n        while\
+    \ stack:\n            u = stack.pop()\n            if u == g: return D[u]\n  \
+    \          state[u] = False\n            for v in T[u]:\n                if state[v]:\n\
+    \                    D[v] = D[u]+1\n                    stack.append(v)\n    \
+    \    return D if g is None else inft \n\n\n    def dfs_events(G, flags: DFSFlags,\
+    \ s: int = 0):         \n        events = []\n        # stack = deque([(s,-1)],\
+    \ maxlen=G.N)\n        stack = [(s,-1)]\n        adj = [None]*G.N\n\n\n      \
+    \  while stack:\n            u, p = stack[-1]\n            \n            if adj[u]\
+    \ is None:\n                adj[u] = iter(G.neighbors(u))\n                if\
+    \ DFSFlags.ENTER in flags:\n                    events.append((DFSEvent.ENTER,\
+    \ u))\n            \n            if (v := next(adj[u], None)) is not None:\n \
+    \               if v == p:\n                    if DFSFlags.BACK in flags:\n \
+    \                       events.append((DFSEvent.BACK, u, v))\n               \
+    \ else:\n                    if DFSFlags.DOWN in flags:\n                    \
+    \    events.append((DFSEvent.DOWN, u, v))\n                    stack.append((v,u))\n\
+    \            else:\n                stack.pop()\n\n                if DFSFlags.LEAVE\
+    \ in flags:\n                    events.append((DFSEvent.LEAVE, u))\n        \
+    \        if p != -1 and DFSFlags.UP in flags:\n                    events.append((DFSEvent.UP,\
+    \ u, p))\n        return events\n    \n    def euler_tour(T, s = 0):\n       \
+    \ N = len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1] * N\n\
+    \        T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n      \
+    \  T.delta = delta = elist(2*N)\n        \n        stack = elist(N)\n        stack.append(s)\n\
+    \n        while stack:\n            u = stack.pop()\n            p = par[u]\n\
+    \            \n            if tin[u] == -1:\n                tin[u] = len(order)\n\
+    \                \n                for v in T[u]:\n                    if v !=\
+    \ p:\n                        par[v] = u\n                        stack.append(u)\n\
+    \                        stack.append(v)\n                \n                delta.append(1)\n\
+    \            else:\n                delta.append(-1)\n            \n         \
+    \   order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
+    \ = 0\n\nclass LCATableWeighted(LCATable):\n    def __init__(self, T, root = 0):\n\
+    \        super().__init__(T, root)\n        self.weights = T.Wdelta\n        self.weighted_depth\
+    \ = None\n\n    def distance(self, u, v) -> int:\n        if self.weighted_depth\
     \ is None:\n            self.weighted_depth = presum(self.weights)\n        l,\
-    \ r = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n\
-    \        _, a = super().query(l, r)\n        m = self.start[a]\n        return\
-    \ self.weighted_depth[l] + self.weighted_depth[r] - 2*self.weighted_depth[m]\n\
-    \nclass BinaryIndexTree:\n    def __init__(self, v: int|list):\n        if isinstance(v,\
-    \ int):\n            self.data, self.size = [0]*v, v\n        else:\n        \
-    \    self.build(v)\n\n    def build(self, data):\n        self.data, self.size\
-    \ = data, len(data)\n        for i in range(self.size):\n            if (r :=\
-    \ i|(i+1)) < self.size: \n                self.data[r] += self.data[i]\n\n   \
-    \ def get(self, i: int):\n        assert 0 <= i < self.size\n        s = self.data[i]\n\
-    \        z = i&(i+1)\n        for _ in range((i^z).bit_count()):\n           \
-    \ s, i = s-self.data[i-1], i-(i&-i)\n        return s\n    \n    def set(self,\
-    \ i: int, x: int):\n        self.add(i, x-self.get(i))\n        \n    def add(self,\
-    \ i: int, x: int) -> None:\n        assert 0 <= i <= self.size\n        i += 1\n\
-    \        data, size = self.data, self.size\n        while i <= size:\n       \
-    \     data[i-1], i = data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n\
-    \        assert 0 <= i <= self.size\n        s = 0\n        data = self.data\n\
-    \        for _ in range(i.bit_count()):\n            s, i = s+data[i-1], i-(i&-i)\n\
-    \        return s\n    \n    def range_sum(self, l: int, r: int):\n        return\
-    \ self.pref_sum(r) - self.pref_sum(l)\n\nfrom typing import Type, TypeVar, Union,\
-    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
-    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \ r, a, _ = self._query(u, v)\n        m = self.start[a]\n        return self.weighted_depth[l]\
+    \ + self.weighted_depth[r] - 2*self.weighted_depth[m]\n\nclass TreeWeightedProtocol(GraphWeightedProtocol,\
+    \ TreeProtocol):\n\n    @cached_property\n    def lca(T):\n        return LCATableWeighted(T)\n\
+    \    \n    @overload\n    def dfs(T, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def dfs(T, s: int, g: int) -> int: ...\n    def dfs(T, s = 0, g = None):\n\
+    \        D = [inft for _ in range(T.N)]\n        D[s] = 0\n        state = [True\
+    \ for _ in range(T.N)]\n        stack = [s]\n\n        while stack:\n        \
+    \    u = stack.pop()\n            if u == g: return D[u]\n            state[u]\
+    \ = False\n            for v, w, *_ in T[u]:\n                if state[v]:\n \
+    \                   D[v] = D[u]+w\n                    stack.append(v)\n     \
+    \   return D if g is None else inft\n    \n    def euler_tour(T, s = 0):\n   \
+    \     N = len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1]\
+    \ * N\n        T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n\
+    \        T.delta = delta = elist(2*N)\n        T.Wdelta = Wdelta = elist(2*N)\n\
+    \        stack = elist(N)\n        Wstack = elist(N)\n        stack.append(s)\n\
+    \        Wstack.append(0)\n\n        while stack:\n            u = stack.pop()\n\
+    \            wd = Wstack.pop()\n            p = par[u]\n            \n       \
+    \     if tin[u] == -1:\n                tin[u] = len(order)\n                \n\
+    \                for v,w,*_ in T[u]:\n                    if v != p:\n       \
+    \                 par[v] = u\n                        stack.append(u)\n      \
+    \                  stack.append(v)\n                        Wstack.append(-w)\n\
+    \                        Wstack.append(w)\n                delta.append(1)\n \
+    \           else:\n                delta.append(-1)\n            \n          \
+    \  Wdelta.append(wd)\n            order.append(u)\n            tout[u] = len(order)\n\
+    \        delta[0] = delta[-1] = 0\n\nclass TreeWeighted(GraphWeighted, TreeWeightedProtocol):\n\
+    \    @classmethod\n    def compile(cls, N: int, E: type|int = EdgeWeighted[-1]):\n\
+    \        return super().compile(N, N-1, E)\n\nclass HLDWeighted:\n    def __init__(self,\
+    \ T, r=0):\n        N = len(T)\n        # build\n        size = [1]*N\n      \
+    \  start = [0]*N\n        end = [0]*N\n        par = [-1]*N\n        heavy = [-1]*N\n\
+    \        head = [-1]*N\n        depth = [0]*N\n        weights = [0]*N\n     \
+    \   order = [0]*N\n        time = 0\n\n        stack = [(2,r,r), (0,r,-1)]\n \
+    \       while stack:\n            match stack.pop():\n                case 0,\
+    \ v, p: # dfs down\n                    par[v] = p\n                    stack.append((1,\
+    \ v, p))\n                    for c, w in T[v]:\n                        if c\
+    \ != p:\n                            depth[c] = depth[v] + 1 \n              \
+    \              weights[c] = w\n                            stack.append((0, c,\
+    \ v))\n\n                case 1, v, p: # dfs up\n                    l = -1\n\
+    \                    for c, w in T[v]:\n                        if c != p:\n \
+    \                           size[v] += size[c]\n                            if\
+    \ l == -1 or size[c] > size[l]:\n                                l = c\n     \
+    \               heavy[v] = l\n\n                case 2, v, h: # decompose down\n\
+    \                    head[v] = h\n                    start[v] = time\n      \
+    \              order[time] = v\n                    p = par[v]\n             \
+    \       time += 1\n                    l = heavy[v]\n                    stack.append((3,\
+    \ v, h))\n                    \n                    for c, _ in T[v]:\n      \
+    \                  if c != p and c != l:\n                            stack.append((2,\
+    \ c, c))\n\n                    if l != -1:\n                        stack.append((2,\
+    \ l, h))\n                case 3, v, h: # decompose up\n                    end[v]\
+    \ = time\n        self.N = N\n        self.T = T\n        self.size = size\n \
+    \       self.start = start\n        self.end = end\n        self.par = par\n \
+    \       self.heavy = heavy\n        self.head = head\n        self.depth = depth\n\
+    \        self.weights = weights\n        self.order = order\n\n    def __getitem__(self,\
+    \ key):\n        return self.start[key]\n    \n    def path(self, u, v, edge=False):\n\
+    \        head, depth, par, start = self.head, self.depth, self.par, self.start\n\
+    \        while head[u] != head[v]:\n            if depth[head[u]] < depth[head[v]]:\n\
+    \                u,v = v,u\n            yield start[head[u]], start[u]+1\n   \
+    \         u = par[head[u]]\n\n        if depth[u] < depth[v]:\n            u,v\
+    \ = v,u\n\n        yield start[v]+edge, start[u]+1\n\n\nfrom typing import Type,\
+    \ TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None,\
+    \ char=False):\n    if not char:\n        if spec is None:\n            return\
+    \ map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
-    \ndef main():\n    N = read(int)\n    E = read(EdgeListWeighted[N-1])\n    T =\
-    \ GraphWeighted(N, E)\n    lca = LCATableWeighted(T)\n    bit = BinaryIndexTree(lca.weights)\n\
-    \n    Q = read(int)\n    for query in read(list[tuple[int,int,int], Q]):\n   \
-    \     match query:\n            case 1, i, w:\n                i -= 1\n      \
-    \          u,v,_ = E[i]\n                p, _ = lca.query(u,v)\n             \
-    \   c = u if p == v else v\n                l,r = lca.start[c], lca.end[c]\n \
-    \               bit.set(l,w)\n                bit.set(r,-w)\n\n            case\
-    \ 2, u, v:\n                u,v=u-1,v-1\n                a,_ = lca.query(u,v)\n\
-    \                ans = bit.pref_sum(lca.end[u]) + \\\n                    bit.pref_sum(lca.end[v])\
-    \ - \\\n                    2*bit.pref_sum(lca.end[a])\n                write(ans)\n\
-    \        \n\nfrom cp_library.alg.graph.edge_list_weighted_cls import EdgeListWeighted\n\
-    from cp_library.alg.graph.graph_weighted_cls import GraphWeighted\nfrom cp_library.alg.tree.lca_table_weighted_iterative_cls\
-    \ import LCATableWeighted\nfrom cp_library.ds.bit_cls import BinaryIndexTree\n\
+    \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
+    \    W = [hld.weights[i] for i in hld.order]\n    bit = BinaryIndexTree(W)\n\n\
+    \    Q = read(int)\n    for query in read(list[tuple[int, int, int], Q]):\n  \
+    \      match query:\n            case 1, i, w:\n                i -= 1  # Convert\
+    \ to 0-based index\n                u, v, _ = T.E[i]\n                # Find child\
+    \ node in edge (u, v)\n                if hld.par[u] == v:\n                 \
+    \   node = u\n                else:\n                    node = v\n          \
+    \      idx = hld[node]\n                bit.set(idx, w)\n            case 2, u,\
+    \ v:\n                u, v = u - 1, v - 1\n                ans = sum(bit.range_sum(l,r)\
+    \ for l,r in hld.path(u,v, True))\n                write(ans)\n\nfrom cp_library.ds.bit_cls\
+    \ import BinaryIndexTree\nfrom cp_library.alg.tree.tree_weighted_cls import TreeWeighted\n\
+    from cp_library.alg.tree.heavy_light_decomposition_weighted_cls import HLDWeighted\n\
     from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
     \nif __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/alg/graph/edge_list_weighted_cls.py
-  - cp_library/alg/graph/graph_weighted_cls.py
-  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - cp_library/ds/bit_cls.py
+  - cp_library/alg/tree/tree_weighted_cls.py
+  - cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/graph_weighted_proto.py
-  - cp_library/alg/iter/presum_fn.py
-  - cp_library/ds/sparse_table_cls.py
+  - cp_library/alg/graph/graph_weighted_cls.py
+  - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/alg/graph/graph_weighted_proto.py
+  - cp_library/math/inft_cnst.py
+  - cp_library/ds/elist_fn.py
+  - cp_library/alg/tree/tree_proto.py
+  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
-  - cp_library/ds/elist_fn.py
-  - cp_library/math/inft_cnst.py
+  - cp_library/alg/tree/lca_table_iterative_cls.py
+  - cp_library/alg/iter/presum_fn.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/heap/heapq_max_import.py
+  - cp_library/ds/sparse_table_cls.py
   isVerificationFile: true
-  path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+  path: test/abc294_g_tree_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
-documentation_of: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+documentation_of: test/abc294_g_tree_heavy_light_decomposition.test.py
 layout: document
 redirect_from:
-- /verify/test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-- /verify/test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py.html
-title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+- /verify/test/abc294_g_tree_heavy_light_decomposition.test.py
+- /verify/test/abc294_g_tree_heavy_light_decomposition.test.py.html
+title: test/abc294_g_tree_heavy_light_decomposition.test.py
 ---

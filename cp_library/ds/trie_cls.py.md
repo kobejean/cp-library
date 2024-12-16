@@ -62,7 +62,7 @@ data:
   path: cp_library/ds/trie_cls.py
   requiredBy:
   - cp_library/ds/ahocorasick_cls.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc362_q_count_substring_query_ahocorasick.test.py

@@ -167,7 +167,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc203_e_queries_grouped.test.py

@@ -14,7 +14,7 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_weighted_cls.py
     title: cp_library/alg/graph/edge_list_weighted_cls.py
   - icon: ':question:'
@@ -31,11 +31,11 @@ data:
     path: test/abc218_f_shortest_path_weighted.test.py
     title: test/abc218_f_shortest_path_weighted.test.py
   - icon: ':x:'
-    path: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+    path: test/abc294_g_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_tree_heavy_light_decomposition.test.py
   - icon: ':x:'
-    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
+    path: test/abc294_g_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_tree_lca_table_weighted_bit.test.py
   - icon: ':x:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
@@ -190,19 +190,19 @@ data:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/grl_2_a_graph_kruskal.test.py
   - test/abc375_g_find_bridges.test.py
+  - test/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc361_e_tree_diameter.test.py
   - test/abc218_f_shortest_path_weighted.test.py
   - test/grl_2_a_kruskal_heap.test.py
   - test/grl_1_a_graph_distance.test.py
-  - test/abc294_g_dist_queries_on_a_tree_heavy_light_decomposition.test.py
+  - test/abc294_g_tree_heavy_light_decomposition.test.py
   - test/grl_1_b_bellman_ford.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/grl_1_a_dijkstra.test.py
   - test/grl_1_b_graph_bellman_ford.test.py
   - test/shortest_path_graph_weighted.test.py

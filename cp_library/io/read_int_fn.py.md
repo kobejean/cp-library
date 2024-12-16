@@ -57,7 +57,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/arc168_c_swap_characters_combinatoric.test.py

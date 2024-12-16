@@ -26,22 +26,28 @@ data:
     \               \n'''\n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\n\
     pypyjit.set_param(\"max_unroll_recursion=-1\")\n\n\nfrom typing import Any, Callable,\
     \ List\n\nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any],\
-    \ Any], arr: List[Any]):\n        self.n = len(arr)\n        self.log = self.n.bit_length()\n\
-    \        self.op = op\n        self.st = [[None] * (self.n-(1<<i)+1) for i in\
-    \ range(self.log)]\n        self.st[0] = arr[:]\n        \n        for i in range(self.log-1):\n\
-    \            row, d = self.st[i], 1<<i\n            for j in range(len(self.st[i+1])):\n\
-    \                self.st[i+1][j] = op(row[j], row[j+d])\n\n    def query(self,\
-    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length()-1\n        return self.op(self.st[k][l],\
-    \ self.st[k][r-(1<<k)])\n    \n    def __repr__(self) -> str:\n        return\
-    \ '\\n'.join(f'{i:<2d} {row}' for i,row in enumerate(self.st))\n\nclass LCATable(SparseTable):\n\
-    \    def __init__(self, T, root):\n        self.start = [-1] * len(T)\n      \
-    \  euler_tour = []\n        depths = []\n        \n        def dfs(u: int, p:\
-    \ int, depth: int):\n            self.start[u] = len(euler_tour)\n           \
-    \ euler_tour.append(u)\n            depths.append(depth)\n            \n     \
-    \       for child in T[u]:\n                if child != p:\n                 \
-    \   dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n     \
-    \               depths.append(depth)\n        \n        dfs(root, -1, 0)\n   \
-    \     super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
+    \ Any], arr: List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
+    \        self.op = op\n        \n        self.offsets = offsets = [0]\n      \
+    \  for i in range(1, self.log):\n            offsets.append(offsets[-1] + N -\
+    \ (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1] +\
+    \ N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for i\
+    \ in range(self.log - 1):\n            d = 1 << i\n            start = offsets[i]\n\
+    \            next_start = offsets[i + 1]\n            for j in range(N - (1 <<\
+    \ (i+1)) + 1):\n                st[next_start + j] = op(st[k := start+j], st[k\
+    \ + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
+    \ - 1\n        start, st = self.offsets[k], self.st\n        return self.op(st[start\
+    \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
+    \    rows = []\n        for i in range(self.log):\n            start = self.offsets[i]\n\
+    \            end = self.offsets[i+1] if i+1 < self.log else len(self.st)\n   \
+    \         rows.append(f\"{i:<2d} {self.st[start:end]}\")\n        return '\\n'.join(rows)\n\
+    \nclass LCATable(SparseTable):\n    def __init__(self, T, root):\n        self.start\
+    \ = [-1] * len(T)\n        euler_tour = []\n        depths = []\n        \n  \
+    \      def dfs(u: int, p: int, depth: int):\n            self.start[u] = len(euler_tour)\n\
+    \            euler_tour.append(u)\n            depths.append(depth)\n        \
+    \    \n            for child in T[u]:\n                if child != p:\n      \
+    \              dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n\
+    \                    depths.append(depth)\n        \n        dfs(root, -1, 0)\n\
+    \        super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
     \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
     \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
     \      return a, d\n\n    def distance(self, u, v) -> int:\n        l, r = min(self.start[u],\
@@ -68,7 +74,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_recursive_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_5_c_lca_table_recursive.test.py

@@ -26,9 +26,6 @@ data:
   - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_cls.py
     title: cp_library/alg/graph/fast/tree_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/fast/tree_weighted_cls.py
-    title: cp_library/alg/graph/fast/tree_weighted_cls.py
   _extendedVerifiedWith:
   - icon: ':x:'
     path: test/abc202_e_fast_dfs.test.py
@@ -276,9 +273,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_cls.py
   requiredBy:
-  - cp_library/alg/graph/fast/tree_weighted_cls.py
   - cp_library/alg/graph/fast/tree_cls.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/abc202_e_fast_dfs_enter_leave.test.py

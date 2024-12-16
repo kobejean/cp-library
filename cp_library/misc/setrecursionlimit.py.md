@@ -57,7 +57,7 @@ data:
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/graph/edmonds_fn.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/dp_v_subtree_rerooting_recursive.test.py

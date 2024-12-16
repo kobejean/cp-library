@@ -29,10 +29,10 @@ data:
   - icon: ':x:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':x:'
@@ -50,10 +50,10 @@ data:
   - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_cls.py
     title: cp_library/alg/graph/fast/tree_cls.py
-  - icon: ':warning:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_weighted_base_cls.py
     title: cp_library/alg/graph/fast/tree_weighted_base_cls.py
-  - icon: ':warning:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/tree_weighted_cls.py
     title: cp_library/alg/graph/fast/tree_weighted_cls.py
   _extendedVerifiedWith:
@@ -63,6 +63,9 @@ data:
   - icon: ':x:'
     path: test/abc202_e_fast_dfs_enter_leave.test.py
     title: test/abc202_e_fast_dfs_enter_leave.test.py
+  - icon: ':x:'
+    path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - icon: ':x:'
     path: test/abc301_e_fast_grid_graph.test.py
     title: test/abc301_e_fast_grid_graph.test.py
@@ -419,9 +422,10 @@ data:
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/abc202_e_fast_dfs_enter_leave.test.py
   - test/grl_1_a_fast_dijkstra.test.py
   - test/minimum_spanning_tree_kruskal.test.py

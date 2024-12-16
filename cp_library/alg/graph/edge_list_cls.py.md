@@ -11,7 +11,7 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_weighted_cls.py
     title: cp_library/alg/graph/edge_list_weighted_cls.py
   - icon: ':heavy_check_mark:'
@@ -21,9 +21,6 @@ data:
   - icon: ':x:'
     path: test/abc218_f_shortest_path_weighted.test.py
     title: test/abc218_f_shortest_path_weighted.test.py
-  - icon: ':x:'
-    path: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/grl_2_a_kruskal_heap.test.py
     title: test/grl_2_a_kruskal_heap.test.py
@@ -147,12 +144,11 @@ data:
   requiredBy:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/abc218_f_shortest_path_weighted.test.py
   - test/grl_2_a_kruskal_heap.test.py
-  - test/abc294_g_dist_queries_on_a_tree_lca_table_weighted_bit.test.py
   - test/grl_2_b_edmonds_branching.test.py
   - test/grl_2_a_kruskal_sort.test.py
 documentation_of: cp_library/alg/graph/edge_list_cls.py

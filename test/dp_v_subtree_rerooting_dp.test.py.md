@@ -274,24 +274,35 @@ data:
     \     u,v = Ua[i], Va[i]\n            # prefix accumulation\n            dp[u]\
     \ = merge(pre := dp[u], dp[v])\n            # push value to child\n          \
     \  dp[v] = add_child(v, u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n\
-    \        \n        return dp\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ shift: int = -1):\n        return super().compile(N, N-1, shift)\n    \n\nclass\
-    \ Tree(Graph, TreeBase):\n    pass\n\n\nfrom typing import Type, TypeVar, Union,\
-    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
-    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
+    \        \n        return dp\n    \n    def euler_tour(T, s = 0):\n        N =\
+    \ len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1] * N\n \
+    \       T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n       \
+    \ T.delta = delta = elist(2*N)\n        Va = T.Va\n        \n        stack = elist(N)\n\
+    \        stack.append(s)\n\n        while stack:\n            u = stack.pop()\n\
+    \            p = par[u]\n            \n            if tin[u] == -1:\n        \
+    \        tin[u] = len(order)\n                \n                for i in T.range(u):\n\
+    \                    if (v := Va[i]) != p:\n                        par[v] = u\n\
+    \                        stack.append(u)\n                        stack.append(v)\n\
+    \                \n                delta.append(1)\n            else:\n      \
+    \          delta.append(-1)\n            \n            order.append(u)\n     \
+    \       tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n\n    @classmethod\n\
+    \    def compile(cls, N: int, shift: int = -1):\n        return super().compile(N,\
+    \ N-1, shift)\n    \n\nclass Tree(Graph, TreeBase):\n    pass\n\n\nfrom typing\
+    \ import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read()\
+    \ -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
+    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
+    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
     \n\ndef main():\n    N, M = read(tuple[int, ...])\n    T = read(Tree[N])\n\n \
     \   def merge(a,b):\n        return a*b%M\n\n    def add_node(p, c, i, res):\n\
@@ -316,7 +327,7 @@ data:
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_dp.test.py
   requiredBy: []
-  timestamp: '2024-12-17 03:19:43+09:00'
+  timestamp: '2024-12-17 07:25:33+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_dp.test.py
