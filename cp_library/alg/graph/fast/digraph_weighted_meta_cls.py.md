@@ -41,38 +41,25 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_fn.py
-    title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/write_fn.py
-    title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    PROBLEM: https://judge.yosupo.jp/problem/shortest_path
-    links:
-    - https://judge.yosupo.jp/problem/shortest_path
-  bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/shortest_path\n\
-    \ndef main():\n    N, M, s, t = read(tuple[int, ...])\n    G = read(DiGraphWeighted[N,M,0])\n\
-    \    path = G.shortest_path(s, t)\n    if path is None:\n        write(\"-1\"\
-    )\n    else:\n        X, Y = G.D[t], len(path)-1\n        write(X, Y)\n      \
-    \  for i in range(Y):\n            write(path[i],path[i+1])\n    \n'''\n\u257A\
+    links: []
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \    https://kobejean.github.io/cp-library               \n'''\nfrom typing import\
-    \ overload\n\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
+    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
     \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
     \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
     \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
@@ -144,118 +131,119 @@ data:
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n\n\
-    def argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift := N.bit_length()))\
-    \ - 1\n    indices = [0]*N\n    for i in range(N):\n        indices[i] = A[i]\
-    \ << shift | i\n    indices.sort()\n    for i in range(N):\n        indices[i]\
-    \ &= mask\n    return indices\nfrom typing import Callable, Sequence, Union, overload\n\
-    \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
-    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
-    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
-    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
-    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
-    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
-    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
-    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
-    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
-    \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
-    \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
-    \       \"\"\"The number of vertices.\"\"\"\n        self.M = M\n        \"\"\"\
-    The number of edges.\"\"\"\n        self.U = U\n        \"\"\"A list of source\
-    \ vertices in the original edge list.\"\"\"\n        self.V = V\n        \"\"\"\
-    A list of destination vertices in the original edge list.\"\"\"\n        self.deg\
-    \ = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n        self.La\
-    \ = La\n        \"\"\"La[u] stores the start index of the list of adjacent vertices\
-    \ from u.\"\"\"\n        self.Ra = Ra\n        \"\"\"Ra[u] stores the stop index\
-    \ of the list of adjacent vertices from u.\"\"\"\n        self.Ua = Ua\n     \
-    \   \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\"\"\n \
-    \       self.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for La[u]\
-    \ <= i < Ra[u].\"\"\"\n        self.Ea = Ea\n        \"\"\"Ea[i] lists the edge\
-    \ ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
-    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n\n    def __len__(G) -> int:\n        return G.N\n\n    def __getitem__(G, u):\n\
-    \        l,r = G.La[u],G.Ra[u]\n        return G.Va[l:r]\n    \n    def range(G,\
-    \ u):\n        return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        match s, g:\n            case None,\
-    \ None:\n                return G.floyd_warshall()\n            case s, g:\n \
-    \               return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list]\
-    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
-    \ int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        N, Va\
-    \ = G.N, G.Va\n        D = [inft]*N\n        S = G.starts(s)\n        que = deque(S)\n\
-    \        for u in S: D[u] = 0\n        while que:\n            nd = D[u := que.popleft()]+1\n\
-    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
-    \          if nd < D[v := Va[i]]:\n                    D[v] = nd\n           \
-    \         que.append(v)\n        return D if g is None else inft \n\n    def floyd_warshall(G)\
-    \ -> list[list[int]]:\n        N, M = G.N, G.M\n        Ua, Va = G.Ua, G.Va\n\
-    \        D = [[inft]*N for _ in range(N)]\n\n        for u in range(N):\n    \
-    \        D[u][u] = 0\n\n        for i in range(M):\n            u,v = Ua[i], Va[i]\n\
-    \            D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n     \
-    \       for Di in D:\n                if Di[k] == inft: continue\n           \
-    \     for j in range(N):\n                    if Dk[j] == inft: continue\n   \
-    \                 Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n\n\
-    \    def dfs_discovery(G, s: Union[int,list[int],None] = None, include_roots =\
-    \ False):\n        '''Returns lists U and V representing U[i] -> V[i] edges in\
-    \ order of top down discovery'''\n        N, Va = G.N, G.Va\n        vis = [False]*N\n\
-    \        stack: list[int] = elist(N)\n        order: list[int] = elist(N)\n\n\
-    \        for s in G.starts(s):\n            if vis[s]: continue\n            if\
-    \ include_roots:\n                order.append(-s-1)\n            vis[s] = True\n\
-    \            stack.append(s)\n            while stack:\n                u = stack.pop()\n\
-    \                for i in G.range(u):\n                    v = Va[i]\n       \
-    \             if vis[v]: continue\n                    vis[v] = True\n       \
-    \             order.append(i)\n                    stack.append(v)\n        return\
-    \ order\n\n    def dfs(G, s: int|list = None, /,\n            connect_roots =\
-    \ False, backtrack = False, max_depth = None,\n            enter_fn: Callable[[int],None]\
-    \ = None,\n            leave_fn: Callable[[int],None] = None,\n            max_depth_fn:\
-    \ Callable[[int],None] = None,\n            down_fn: Callable[[int,int],None]\
-    \ = None, \n            back_fn: Callable[[int,int],None] = None,\n          \
-    \  up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va, G.La,\
-    \ G.Ra, G.La[:]\n\n        state = [0]*G.N\n        stack = elist(G.N if max_depth\
-    \ is None else max_depth+1)\n        for s in G.starts(s):\n            if state[s]:\
-    \ continue\n            stack.append(s)\n            state[s] = 1\n          \
-    \  if connect_roots and down_fn: down_fn(-1,s)\n            while stack:\n   \
-    \             u = stack[-1]\n                if state[u] == 1:\n             \
-    \       state[u] = 2\n                    if enter_fn: enter_fn(u)\n         \
-    \           if max_depth is not None and len(stack) > max_depth:\n           \
-    \             I[u] = Ra[u]\n                        if max_depth_fn: max_depth_fn(u)\n\
-    \n                if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n   \
-    \                 if state[v := Va[i]]:\n                        if back_fn: back_fn(u,v)\n\
-    \                    else:\n                        stack.append(v)\n        \
-    \                state[v] = 1\n                        if down_fn: down_fn(u,v)\n\
-    \                else:\n                    stack.pop()\n                    if\
-    \ backtrack:\n                        state[u] = 0\n                        I[u]\
-    \ = La[u]\n                    if leave_fn: leave_fn(u)\n                    if\
-    \ up_fn: up_fn(u, stack[-1])\n            if connect_roots and up_fn: up_fn(s,\
-    \ -1)\n\n    \n    def dfs_enter_leave(G, s: Union[int,list[int],None] = None):\n\
-    \        '''Returns lists U and V representing U[i] -> V[i] edges in order of\
-    \ top down discovery'''\n        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va\n     \
-    \   I = La[:]\n        stack: list[int] = elist(N)\n        order: list[int] =\
-    \ elist(2*N)\n        events: list[DFSEvent] = elist(2*N)\n        G.par = par\
-    \ = [-1]*N\n        ENTER, LEAVE = int(DFSEvent.ENTER), int(DFSEvent.LEAVE)\n\n\
-    \        for s in G.starts(s):\n            if par[s] >= 0: continue\n       \
-    \     par[s] = s\n            order.append(s)\n            events.append(ENTER)\n\
-    \            stack.append(s)\n            while stack:\n                u = stack[-1]\n\
-    \                if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n    \
-    \                if par[v := Va[i]] >= 0: continue\n                    par[v]\
-    \ = u\n                    order.append(v)\n                    events.append(ENTER)\n\
-    \                    stack.append(v)\n                else:\n                \
-    \    stack.pop()\n                    order.append(u)\n                    events.append(LEAVE)\n\
-    \            par[s] = s\n        return events, order\n    \n    def is_bipartite(G):\n\
-    \        N, Va = G.N, G.Va\n        que = deque()\n        color = [-1]*N\n  \
-    \              \n        for s in range(N):\n            if color[s] >= 0:\n \
-    \               continue\n            color[s] = 1\n            que.append(s)\n\
-    \            while que:\n                u = que.popleft()\n                for\
-    \ i in G.range(u):\n                    if color[v := Va[i]] == -1:\n        \
-    \                color[v] = 1 - color[u]\n                        que.append(v)\n\
-    \                    elif color[v] == color[u]:\n                        return\
-    \ False\n        return True\n    \n    def starts(G, s: Union[int,list[int],None])\
-    \ -> list[int]:\n        match s:\n            case int(s): return [s]\n     \
-    \       case None: return [*range(G.N)]\n            case V: return V if isinstance(V,\
-    \ list) else list(V)\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
-    \ shift: int = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
+    \ TokenStream):\n            return cls(next(ts))\n        return parser\nfrom\
+    \ typing import overload\n\n\ndef argsort(A: list[int]):\n    N = len(A)\n   \
+    \ mask = (1 << (shift := N.bit_length())) - 1\n    indices = [0]*N\n    for i\
+    \ in range(N):\n        indices[i] = A[i] << shift | i\n    indices.sort()\n \
+    \   for i in range(N):\n        indices[i] &= mask\n    return indices\nfrom typing\
+    \ import Callable, Sequence, Union, overload\n\nfrom enum import auto, IntFlag,\
+    \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
+    \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
+    \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
+    \    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n\
+    \    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL\
+    \ = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n\
+    \    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n\
+    \    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK\
+    \ \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP\
+    \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
+    \    def __init__(self, N: int, M: int, U: list[int], V: list[int], \n       \
+    \          deg: list[int], La: list[int], Ra: list[int],\n                 Ua:\
+    \ list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n        \"\"\"\
+    The number of vertices.\"\"\"\n        self.M = M\n        \"\"\"The number of\
+    \ edges.\"\"\"\n        self.U = U\n        \"\"\"A list of source vertices in\
+    \ the original edge list.\"\"\"\n        self.V = V\n        \"\"\"A list of destination\
+    \ vertices in the original edge list.\"\"\"\n        self.deg = deg\n        \"\
+    \"\"deg[u] is the out degree of vertex u.\"\"\"\n        self.La = La\n      \
+    \  \"\"\"La[u] stores the start index of the list of adjacent vertices from u.\"\
+    \"\"\n        self.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list\
+    \ of adjacent vertices from u.\"\"\"\n        self.Ua = Ua\n        \"\"\"Ua[i]\
+    \ = u for La[u] <= i < Ra[u], useful for backtracking.\"\"\"\n        self.Va\
+    \ = Va\n        \"\"\"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\
+    \"\"\n        self.Ea = Ea\n        \"\"\"Ea[i] lists the edge ids that start\
+    \ from u for La[u] <= i < Ra[u].\n        For undirected graphs, edge ids in range\
+    \ M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\n\n    def __len__(G)\
+    \ -> int:\n        return G.N\n\n    def __getitem__(G, u):\n        l,r = G.La[u],G.Ra[u]\n\
+    \        return G.Va[l:r]\n    \n    def range(G, u):\n        return range(G.La[u],G.Ra[u])\n\
+    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, g:\n                return G.bfs(s, g)\n\n    @overload\n\
+    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
+    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int =\
+    \ 0, g: int = None):\n        N, Va = G.N, G.Va\n        D = [inft]*N\n      \
+    \  S = G.starts(s)\n        que = deque(S)\n        for u in S: D[u] = 0\n   \
+    \     while que:\n            nd = D[u := que.popleft()]+1\n            if u ==\
+    \ g: return nd-1\n            for i in G.range(u):\n                if nd < D[v\
+    \ := Va[i]]:\n                    D[v] = nd\n                    que.append(v)\n\
+    \        return D if g is None else inft \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
+    \        N, M = G.N, G.M\n        Ua, Va = G.Ua, G.Va\n        D = [[inft]*N for\
+    \ _ in range(N)]\n\n        for u in range(N):\n            D[u][u] = 0\n\n  \
+    \      for i in range(M):\n            u,v = Ua[i], Va[i]\n            D[u][v]\
+    \ = 1\n        \n        for k, Dk in enumerate(D):\n            for Di in D:\n\
+    \                if Di[k] == inft: continue\n                for j in range(N):\n\
+    \                    if Dk[j] == inft: continue\n                    Di[j] = min(Di[j],\
+    \ Di[k]+Dk[j])\n        return D\n    \n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
+    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
+    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, Va = G.N, G.Va\n\
+    \        vis = [False]*N\n        stack: list[int] = elist(N)\n        order:\
+    \ list[int] = elist(N)\n\n        for s in G.starts(s):\n            if vis[s]:\
+    \ continue\n            if include_roots:\n                order.append(-s-1)\n\
+    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
+    \                u = stack.pop()\n                for i in G.range(u):\n     \
+    \               v = Va[i]\n                    if vis[v]: continue\n         \
+    \           vis[v] = True\n                    order.append(i)\n             \
+    \       stack.append(v)\n        return order\n\n    def dfs(G, s: int|list =\
+    \ None, /,\n            connect_roots = False, backtrack = False, max_depth =\
+    \ None,\n            enter_fn: Callable[[int],None] = None,\n            leave_fn:\
+    \ Callable[[int],None] = None,\n            max_depth_fn: Callable[[int],None]\
+    \ = None,\n            down_fn: Callable[[int,int],None] = None, \n          \
+    \  back_fn: Callable[[int,int],None] = None,\n            up_fn: Callable[[int,int],None]\
+    \ = None):\n        Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]\n\n        state\
+    \ = [0]*G.N\n        stack = elist(G.N if max_depth is None else max_depth+1)\n\
+    \        for s in G.starts(s):\n            if state[s]: continue\n          \
+    \  stack.append(s)\n            state[s] = 1\n            if connect_roots and\
+    \ down_fn: down_fn(-1,s)\n            while stack:\n                u = stack[-1]\n\
+    \                if state[u] == 1:\n                    state[u] = 2\n       \
+    \             if enter_fn: enter_fn(u)\n                    if max_depth is not\
+    \ None and len(stack) > max_depth:\n                        I[u] = Ra[u]\n   \
+    \                     if max_depth_fn: max_depth_fn(u)\n\n                if (i\
+    \ := I[u]) < Ra[u]:\n                    I[u] += 1\n                    if state[v\
+    \ := Va[i]]:\n                        if back_fn: back_fn(u,v)\n             \
+    \       else:\n                        stack.append(v)\n                     \
+    \   state[v] = 1\n                        if down_fn: down_fn(u,v)\n         \
+    \       else:\n                    stack.pop()\n                    if backtrack:\n\
+    \                        state[u] = 0\n                        I[u] = La[u]\n\
+    \                    if leave_fn: leave_fn(u)\n                    if up_fn: up_fn(u,\
+    \ stack[-1])\n            if connect_roots and up_fn: up_fn(s, -1)\n\n    \n \
+    \   def dfs_enter_leave(G, s: Union[int,list[int],None] = None):\n        '''Returns\
+    \ lists U and V representing U[i] -> V[i] edges in order of top down discovery'''\n\
+    \        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va\n        I = La[:]\n        stack:\
+    \ list[int] = elist(N)\n        order: list[int] = elist(2*N)\n        events:\
+    \ list[DFSEvent] = elist(2*N)\n        G.par = par = [-1]*N\n        ENTER, LEAVE\
+    \ = int(DFSEvent.ENTER), int(DFSEvent.LEAVE)\n\n        for s in G.starts(s):\n\
+    \            if par[s] >= 0: continue\n            par[s] = s\n            order.append(s)\n\
+    \            events.append(ENTER)\n            stack.append(s)\n            while\
+    \ stack:\n                u = stack[-1]\n                if (i := I[u]) < Ra[u]:\n\
+    \                    I[u] += 1\n                    if par[v := Va[i]] >= 0: continue\n\
+    \                    par[v] = u\n                    order.append(v)\n       \
+    \             events.append(ENTER)\n                    stack.append(v)\n    \
+    \            else:\n                    stack.pop()\n                    order.append(u)\n\
+    \                    events.append(LEAVE)\n            par[s] = s\n        return\
+    \ events, order\n    \n    def is_bipartite(G):\n        N, Va = G.N, G.Va\n \
+    \       que = deque()\n        color = [-1]*N\n                \n        for s\
+    \ in range(N):\n            if color[s] >= 0:\n                continue\n    \
+    \        color[s] = 1\n            que.append(s)\n            while que:\n   \
+    \             u = que.popleft()\n                for i in G.range(u):\n      \
+    \              if color[v := Va[i]] == -1:\n                        color[v] =\
+    \ 1 - color[u]\n                        que.append(v)\n                    elif\
+    \ color[v] == color[u]:\n                        return False\n        return\
+    \ True\n    \n    def starts(G, s: Union[int,list[int],None]) -> list[int]:\n\
+    \        match s:\n            case int(s): return [s]\n            case None:\
+    \ return [*range(G.N)]\n            case V: return V if isinstance(V, list) else\
+    \ list(V)\n\n    @classmethod\n    def compile(cls, N: int, M: int, shift: int\
+    \ = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
     \ fill_u32(M)\n            stream = ts.stream\n            for i in range(M):\n\
     \                u, v = map(int, stream.readline().split())\n                U[i],\
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
@@ -402,37 +390,79 @@ data:
     \        Ra = La[:]\n\n        # place edge data using R to track\n        for\
     \ e in range(M):\n            i = Ra[u := U[e]]\n            Ua[i], Va[i], Wa[i],\
     \ Ea[i] = U[e], V[e], W[e], e\n            Ra[u] += 1\n\n        super().__init__(N,\
-    \ M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)\n\n\nfrom typing import Type, TypeVar,\
-    \ Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n\
-    @overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
-    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
-  code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/shortest_path\n\
-    \ndef main():\n    N, M, s, t = read(tuple[int, ...])\n    G = read(DiGraphWeighted[N,M,0])\n\
-    \    path = G.shortest_path(s, t)\n    if path is None:\n        write(\"-1\"\
-    )\n    else:\n        X, Y = G.D[t], len(path)-1\n        write(X, Y)\n      \
-    \  for i in range(Y):\n            write(path[i],path[i+1])\n    \nfrom cp_library.alg.graph.fast.digraph_weighted_cls\
-    \ import DiGraphWeighted\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
-    \ import write\n\nif __name__ == '__main__':\n    main()\n"
+    \ M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)\n\n\nclass DiGraphWeightedMeta(DiGraphWeighted):\n\
+    \    def __init__(G, N: int, U: list[int], V: list[int], W: list[int],\n     \
+    \            X: list[int] = None, Y: list[int] = None, Z: list[int] = None):\n\
+    \        super().__init__(N, U, V, W)\n        M = len(U)\n        if X is not\
+    \ None:\n            Xa = [0]*M\n            for i,e in enumerate(G.Ea):\n   \
+    \             Xa[i] = X[e%M]\n            G.X = X\n            \"\"\"A parallel\
+    \ lists of edge meta data from the original edge list.\"\"\"\n            G.Xa\
+    \ = Xa\n            \"\"\"Xa[i] parallel lists of adjacent meta data to u for\
+    \ La[u] <= i < Ra[u].\"\"\"\n        if Y is not None:\n            Ya = [0]*M\n\
+    \            for i,e in enumerate(G.Ea):\n                Ya[i] = Y[e%M]\n   \
+    \         G.Y = Y\n            \"\"\"A parallel lists of edge meta data from the\
+    \ original edge list.\"\"\"\n            G.Ya = Ya\n            \"\"\"Ya[i] parallel\
+    \ lists of adjacent meta data to u for La[u] <= i < Ra[u].\"\"\"\n        if Z\
+    \ is not None:\n            Za = [0]*M\n            for i,e in enumerate(G.Ea):\n\
+    \                Za[i] = Z[e%M]\n            G.Z = Z\n            \"\"\"A parallel\
+    \ lists of edge meta data from the original edge list.\"\"\"\n            G.Za\
+    \ = Za\n            \"\"\"Za[i] parallel lists of adjacent meta data to u for\
+    \ La[u] <= i < Ra[u].\"\"\"\n\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ M: int, T: list[type] = [-1,-1,int,int]):\n        u, v, *w = map(Parser.compile,\
+    \ T)\n        if len(w) == 2:\n            w, x = w\n            def parse(ts:\
+    \ TokenStream):\n                U, V, W, X = fill_u32(M), fill_u32(M), [0]*M,\
+    \ [0]*M\n                for i in range(M):\n                    U[i], V[i], W[i],\
+    \ X[i] = u(ts), v(ts), w(ts), x(ts)\n                return cls(N, U, V, W, X)\n\
+    \        elif len(w) == 3:\n            w, x, y = w\n            def parse(ts:\
+    \ TokenStream):\n                U, V, W, X, Y = fill_u32(M), fill_u32(M), [0]*M,\
+    \ [0]*M, [0]*M\n                for i in range(M):\n                    U[i],\
+    \ V[i], W[i], X[i], Y[i] = u(ts), v(ts), w(ts), x(ts), y(ts)\n               \
+    \ return cls(N, U, V, W, X, Y)\n        else:\n            w, x, y, z = w\n  \
+    \          def parse(ts: TokenStream):\n                U, V, W, X, Y, Z = fill_u32(M),\
+    \ fill_u32(M), [0]*M, [0]*M, [0]*M, [0]*M\n                for i in range(M):\n\
+    \                    U[i], V[i], W[i], X[i], Y[i], Z[i] = u(ts), v(ts), w(ts),\
+    \ x(ts), y(ts), z(ts)\n                return cls(N, U, V, W, X, Y, Z)\n     \
+    \   return parse\n\n"
+  code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.io.parser_cls\
+    \ import Parser, TokenStream\nfrom cp_library.alg.graph.fast.digraph_weighted_cls\
+    \ import DiGraphWeighted\n\nclass DiGraphWeightedMeta(DiGraphWeighted):\n    def\
+    \ __init__(G, N: int, U: list[int], V: list[int], W: list[int],\n            \
+    \     X: list[int] = None, Y: list[int] = None, Z: list[int] = None):\n      \
+    \  super().__init__(N, U, V, W)\n        M = len(U)\n        if X is not None:\n\
+    \            Xa = [0]*M\n            for i,e in enumerate(G.Ea):\n           \
+    \     Xa[i] = X[e%M]\n            G.X = X\n            \"\"\"A parallel lists\
+    \ of edge meta data from the original edge list.\"\"\"\n            G.Xa = Xa\n\
+    \            \"\"\"Xa[i] parallel lists of adjacent meta data to u for La[u] <=\
+    \ i < Ra[u].\"\"\"\n        if Y is not None:\n            Ya = [0]*M\n      \
+    \      for i,e in enumerate(G.Ea):\n                Ya[i] = Y[e%M]\n         \
+    \   G.Y = Y\n            \"\"\"A parallel lists of edge meta data from the original\
+    \ edge list.\"\"\"\n            G.Ya = Ya\n            \"\"\"Ya[i] parallel lists\
+    \ of adjacent meta data to u for La[u] <= i < Ra[u].\"\"\"\n        if Z is not\
+    \ None:\n            Za = [0]*M\n            for i,e in enumerate(G.Ea):\n   \
+    \             Za[i] = Z[e%M]\n            G.Z = Z\n            \"\"\"A parallel\
+    \ lists of edge meta data from the original edge list.\"\"\"\n            G.Za\
+    \ = Za\n            \"\"\"Za[i] parallel lists of adjacent meta data to u for\
+    \ La[u] <= i < Ra[u].\"\"\"\n\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ M: int, T: list[type] = [-1,-1,int,int]):\n        u, v, *w = map(Parser.compile,\
+    \ T)\n        if len(w) == 2:\n            w, x = w\n            def parse(ts:\
+    \ TokenStream):\n                U, V, W, X = fill_u32(M), fill_u32(M), [0]*M,\
+    \ [0]*M\n                for i in range(M):\n                    U[i], V[i], W[i],\
+    \ X[i] = u(ts), v(ts), w(ts), x(ts)\n                return cls(N, U, V, W, X)\n\
+    \        elif len(w) == 3:\n            w, x, y = w\n            def parse(ts:\
+    \ TokenStream):\n                U, V, W, X, Y = fill_u32(M), fill_u32(M), [0]*M,\
+    \ [0]*M, [0]*M\n                for i in range(M):\n                    U[i],\
+    \ V[i], W[i], X[i], Y[i] = u(ts), v(ts), w(ts), x(ts), y(ts)\n               \
+    \ return cls(N, U, V, W, X, Y)\n        else:\n            w, x, y, z = w\n  \
+    \          def parse(ts: TokenStream):\n                U, V, W, X, Y, Z = fill_u32(M),\
+    \ fill_u32(M), [0]*M, [0]*M, [0]*M, [0]*M\n                for i in range(M):\n\
+    \                    U[i], V[i], W[i], X[i], Y[i], Z[i] = u(ts), v(ts), w(ts),\
+    \ x(ts), y(ts), z(ts)\n                return cls(N, U, V, W, X, Y, Z)\n     \
+    \   return parse\n\nfrom cp_library.ds.fill_fn import fill_u32"
   dependsOn:
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/io/read_fn.py
-  - cp_library/io/write_fn.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/ds/fill_fn.py
   - cp_library/io/parser_cls.py
-  - cp_library/io/fast_io_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/ds/fill_fn.py
+  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/dsu_cls.py
@@ -442,16 +472,17 @@ data:
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/heap/heapq_max_import.py
-  isVerificationFile: true
-  path: test/shortest_path_fast_graph.test.py
+  - cp_library/io/fast_io_cls.py
+  isVerificationFile: false
+  path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   requiredBy: []
   timestamp: '2024-12-18 08:34:54+09:00'
-  verificationStatus: TEST_ACCEPTED
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: test/shortest_path_fast_graph.test.py
+documentation_of: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
 layout: document
 redirect_from:
-- /verify/test/shortest_path_fast_graph.test.py
-- /verify/test/shortest_path_fast_graph.test.py.html
-title: test/shortest_path_fast_graph.test.py
+- /library/cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+- /library/cp_library/alg/graph/fast/digraph_weighted_meta_cls.py.html
+title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
 ---

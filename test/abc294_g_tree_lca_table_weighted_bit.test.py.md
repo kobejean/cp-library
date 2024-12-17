@@ -819,7 +819,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-12-18 00:49:06+09:00'
+  timestamp: '2024-12-18 08:34:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_tree_lca_table_weighted_bit.test.py

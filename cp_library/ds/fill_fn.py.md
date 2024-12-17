@@ -8,6 +8,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_weighted_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+    title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
@@ -20,6 +23,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+    title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
@@ -109,13 +115,15 @@ data:
   - cp_library/alg/graph/fast/graph_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-18 00:49:06+09:00'
+  timestamp: '2024-12-18 08:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

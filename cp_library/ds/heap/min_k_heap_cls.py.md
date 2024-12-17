@@ -180,7 +180,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/min_k_heap_cls.py
   requiredBy: []
-  timestamp: '2024-12-18 00:49:06+09:00'
+  timestamp: '2024-12-18 08:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_min_k_heap.test.py

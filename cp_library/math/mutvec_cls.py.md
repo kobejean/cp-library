@@ -164,7 +164,7 @@ data:
   path: cp_library/math/mutvec_cls.py
   requiredBy:
   - cp_library/math/mat_cls.py
-  timestamp: '2024-12-18 00:49:06+09:00'
+  timestamp: '2024-12-18 08:34:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mutvec_cls.py

@@ -144,6 +144,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/digraph_weighted_cls.py
       title: cp_library/alg/graph/fast/digraph_weighted_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+      title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_base_cls.py
       title: cp_library/alg/graph/fast/graph_base_cls.py
@@ -156,6 +159,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_weighted_cls.py
       title: cp_library/alg/graph/fast/graph_weighted_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+      title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/grid_graph_base_cls.py
       title: cp_library/alg/graph/fast/grid_graph_base_cls.py

@@ -617,7 +617,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_b_bellman_ford.test.py
   requiredBy: []
-  timestamp: '2024-12-18 00:49:06+09:00'
+  timestamp: '2024-12-18 08:34:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_b_bellman_ford.test.py

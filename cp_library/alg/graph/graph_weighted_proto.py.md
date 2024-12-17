@@ -719,7 +719,7 @@ data:
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2024-12-18 00:49:06+09:00'
+  timestamp: '2024-12-18 08:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_graph_kruskal.test.py

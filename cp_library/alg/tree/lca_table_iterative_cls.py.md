@@ -131,7 +131,7 @@ data:
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_set_cls.py
-  timestamp: '2024-12-18 00:49:06+09:00'
+  timestamp: '2024-12-18 08:34:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
