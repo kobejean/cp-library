@@ -11,11 +11,7 @@ class GraphWeightedBase(GraphBase):
         super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)
         self.W = W
         self.Wa = Wa
-        """Va[i] lists weights to edges from u for La[u] <= i < Ra[u]."""
-
-    def __getitem__(G, v):
-        l,r = G.La[v],G.Ra[v]
-        return zip(G.Va[l:r], G.Wa[l:r])
+        """Wa[i] lists weights to edges from u for La[u] <= i < Ra[u]."""
     
     @overload
     def distance(G) -> list[list[int]]: ...
@@ -27,13 +23,11 @@ class GraphWeightedBase(GraphBase):
         match s, g:
             case None, None:
                 return G.floyd_warshall()
-            case s, None:
-                return G.dijkstra(s)
             case s, g:
                 return G.dijkstra(s, g)
 
     def dijkstra(G, s: int, t: int = None):
-        N, La, Ra, Va, Wa = G.N, G.La, G.Ra, G.Va, G.Wa
+        N, Va, Wa = G.N, G.La, G.Ra, G.Va, G.Wa
         G.back = back = fill_i32(N, -1)
         G.D = D = fill_u64(N, inft)
         D[s] = 0
@@ -44,9 +38,8 @@ class GraphWeightedBase(GraphBase):
             u, d = que.pop()
             if u == t: break
             if d > D[u]: continue
-            for i in range(La[u], Ra[u]):
-                v, w = Va[i], Wa[i], 
-                if (nd := d + w) < D[v]:
+            for i in G.range(u): 
+                if (nd := d + Wa[i]) < D[v := Va[i]]:
                     D[v], back[v] = nd, i
                     que.push(v, nd)
         return D
@@ -54,11 +47,8 @@ class GraphWeightedBase(GraphBase):
     def shortest_path(G, s: int, t: int):
         D = G.dijkstra(s, t)
         if D[t] == inft: return None
-
         Ua, back = G.Ua, G.back
-            
-        vertices = fill_u32(0)
-        vertices.append(t)
+        vertices = fill_u32(1, t)
         v = t
         while v != s:
             vertices.append(v := Ua[back[v]])
@@ -67,11 +57,8 @@ class GraphWeightedBase(GraphBase):
     def shortest_path_edge_ids(G, s: int, t: int):
         D = G.dijkstra(s, t)
         if D[t] == inft: return None
-
         Ea, back = G.Ea, G.back
-            
         edges = fill_u32(0)
-        edges.append(t)
         v = t
         while v != s:
             edges.append(v := Ea[back[v]])
@@ -115,7 +102,6 @@ class GraphWeightedBase(GraphBase):
         return D
     
     def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:
-        from cp_library.alg.graph.bellman_ford_fn import bellman_ford
         D = G.bellman_ford(s)
         M, U, V, W = G.M, G.U, G.V, G.W
         neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inft)
