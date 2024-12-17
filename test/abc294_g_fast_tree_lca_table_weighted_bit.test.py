@@ -31,7 +31,7 @@ def main():
                     query(u-1,v-1)
     answer()
 
-from cp_library.alg.graph.fast.tree_weighted_cls import TreeWeighted
+from cp_library.alg.tree.fast.tree_weighted_cls import TreeWeighted
 from cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted
 from cp_library.ds.bit_cls import BinaryIndexTree
 from cp_library.io.read_fn import read

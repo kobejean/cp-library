@@ -14,7 +14,7 @@ class DiGraph(GraphBase):
             La[u], idx = idx, idx + deg[u]
         Ra = La[:]
 
-        # place edge data using R to track
+        # place edge data using Ra to track
         for e in range(M):
             u, v = U[e], V[e]
             i = Ra[u]

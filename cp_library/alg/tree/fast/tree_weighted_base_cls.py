@@ -1,63 +1,26 @@
-import cp_library.alg.tree.__header__
+import cp_library.alg.graph.__header__
+from typing import TypeVar
+from cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase
+from cp_library.alg.tree.fast.tree_base_cls import TreeBase
 
-from typing import overload
-from functools import cached_property
-from cp_library.math.inft_cnst import inft
-from cp_library.ds.elist_fn import elist
-from cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol
-from cp_library.alg.tree.tree_proto import TreeProtocol
-from cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted
-
-class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
-
-    @cached_property
-    def lca(T):
-        return LCATableWeighted(T)
-    
-    @overload
-    def dfs(T, s: int = 0) -> list[int]: ...
-    @overload
-    def dfs(T, s: int, g: int) -> int: ...
-    def dfs(T, s = 0, g = None):
-        D = [inft for _ in range(T.N)]
-        D[s] = 0
-        state = [True for _ in range(T.N)]
-        stack = [s]
-
-        while stack:
-            u = stack.pop()
-            if u == g: return D[u]
-            state[u] = False
-            for v, w, *_ in T[u]:
-                if state[v]:
-                    D[v] = D[u]+w
-                    stack.append(v)
-        return D if g is None else inft
-    
+_T = TypeVar('_T')
+class TreeWeightedBase(GraphWeightedBase, TreeBase):
+     
     def euler_tour(T, s = 0):
-        N = len(T)
-        T.tin = tin = [-1] * N
-        T.tout = tout = [-1] * N
-        T.par = par = [-1] * N
-        T.order = order = elist(2*N)
-        T.delta = delta = elist(2*N)
-        T.Wdelta = Wdelta = elist(2*N)
-        stack = elist(N)
-        Wstack = elist(N)
+        N, Va, Wa = len(T), T.Va, T.Wa
+        tin, tout, par = [-1]*N,[-1]*N,[-1]*N
+        order, delta, Wdelta = elist(2*N), elist(2*N), elist(2*N)
+        
+        stack, Wstack = elist(N), elist(N)
         stack.append(s)
         Wstack.append(0)
-
         while stack:
-            u = stack.pop()
-            wd = Wstack.pop()
-            p = par[u]
-            
+            p, wd = par[u := stack.pop()], Wstack.pop()
             if tin[u] == -1:
                 tin[u] = len(order)
-                
-                for v,w,*_ in T[u]:
-                    if v != p:
-                        par[v] = u
+                for i in T.range(u):
+                    if (v := Va[i]) != p:
+                        w, par[v] = Wa[i], u
                         stack.append(u)
                         stack.append(v)
                         Wstack.append(-w)
@@ -70,9 +33,11 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
             order.append(u)
             tout[u] = len(order)
         delta[0] = delta[-1] = 0
+        T.tin, T.tout, T.par = tin, tout, par
+        T.order, T.delta, T.Wdelta = order, delta, Wdelta
 
     def hld_precomp(T, r = 0):
-        N, time = T.N, 0
+        N, time, Va, Wa = T.N, 0, T.Va, T.Wa
         tin, tout, size = [0]*N, [0]*N, [1]*N+[0]
         par, heavy, head = [-1]*N, [-1]*N, [r]*N
         depth, order, state = [0]*N, [0]*N, [0]*N
@@ -84,15 +49,15 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
                 case 0: # dfs down
                     p, state[v] = par[v], 1
                     stack.append(v)
-                    for c, w, *_ in T[v]:
-                        if c != p:
-                            depth[c], par[c], Wpar[c] = depth[v]+1, v, w
+                    for i in T.range(v):
+                        if (c := Va[i]) != p:
+                            depth[c], par[c], Wpar[c] = depth[v]+1, v, Wa[i]
                             stack.append(c)
 
                 case 1: # dfs up
                     p, l = par[v], -1
-                    for c, w, *_ in T[v]:
-                        if c != p:
+                    for i in T.range(v):
+                        if (c := Va[i]) != p:
                             size[v] += size[c]
                             if size[c] > size[l]:
                                 l = c
@@ -107,8 +72,8 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
                     time += 1
                     stack.append(v)
                     
-                    for c, *_ in T[v]:
-                        if c != p and c != l:
+                    for i in T.range(v):
+                        if (c := Va[i]) != p and c != l:
                             head[c], state[c] = c, 2
                             stack.append(c)
 
@@ -121,3 +86,9 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
         T.order, T.tin, T.tout = order, tin, tout
         T.par, T.heavy, T.head = par, heavy, head
         T.Wpar = Wpar
+
+    @classmethod
+    def compile(cls, N: int, shift: int = -1):
+        return super().compile(N, N-1, shift)
+    
+from cp_library.ds.elist_fn import elist

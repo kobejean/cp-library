@@ -1,8 +1,7 @@
-import sys
 
 import cp_library.alg.graph.__header__
+import sys
 from cp_library.ds.elist_fn import elist
-from cp_library.io.parser_cls import TokenStream
 from cp_library.alg.graph.fast.grid_graph_walled_base_cls import GridGraphWalledBase
 
 class GridGraph(GridGraphWalledBase):

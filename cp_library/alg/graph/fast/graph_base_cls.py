@@ -1,8 +1,8 @@
 import cp_library.alg.graph.__header__
 from typing import Callable, Sequence, Union, overload
 from collections import deque
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
-from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
+from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.alg.graph.dfs_options_cls import DFSEvent
 
 class GraphBase(Sequence, Parsable):
     def __init__(self, N: int, M: int, U: list[int], V: list[int], 

@@ -1,10 +1,7 @@
-from math import inf
 import cp_library.alg.graph.__header__
-
 from typing import overload
-from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.io.parser_cls import TokenStream
 from cp_library.alg.iter.argsort_fn import argsort
-from cp_library.alg.graph.dfs_options_cls import DFSEvent, DFSFlags
 from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 
 class GraphWeightedBase(GraphBase):

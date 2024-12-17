@@ -34,7 +34,7 @@ def main():
 
     
 from cp_library.alg.graph.dfs_options_cls import DFSEvent
-from cp_library.alg.graph.fast.tree_cls import Tree
+from cp_library.alg.tree.fast.tree_cls import Tree
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

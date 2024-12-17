@@ -7,6 +7,7 @@ def main():
     hld = HLDWeighted(T)
     W = [hld.weights[i] for i in hld.order]
     bit = BinaryIndexTree(W)
+    ans = 0
 
     def query(l, r):
         nonlocal ans
@@ -17,13 +18,8 @@ def main():
         match q:
             case 1, i, w:
                 i -= 1  # Convert to 0-based index
-                u, v, _ = T.E[i]
-                # Find child node in edge (u, v)
-                if hld.par[u] == v:
-                    node = u
-                else:
-                    node = v
-                idx = hld[node]
+                u, v = T.U[i], T.V[i]
+                idx = hld[u if hld.par[u] == v else v]
                 bit.set(idx, w)
             case 2, u, v:
                 u, v = u - 1, v - 1
@@ -32,7 +28,7 @@ def main():
                 write(ans)
 
 from cp_library.ds.bit_cls import BinaryIndexTree
-from cp_library.alg.tree.tree_weighted_cls import TreeWeighted
+from cp_library.alg.tree.fast.tree_weighted_cls import TreeWeighted
 from cp_library.alg.tree.heavy_light_decomposition_weighted_cls import HLDWeighted
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write

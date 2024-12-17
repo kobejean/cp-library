@@ -1,7 +1,5 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc337/tasks/abc337_g
 
-from itertools import accumulate
-
 def main():
     N = read(int)
     T = read(Tree[N])
@@ -15,19 +13,17 @@ def main():
         ans[r] -= x
 
     for v in range(N):
+        l,r = hld.subtree_range(v)
+        range_add(l,r,v-bit.range_sum(l,r))
         for c in T[v]:
-            if c == hld.par[v]:
-                l,r = hld.start[v], hld.end[v]
-                cnt = v-bit.range_sum(l,r)
-                range_add(l,r,cnt)
-            else:
-                l,r = hld.start[c], hld.end[c]
+            if c != hld.par[v]:
+                l,r = hld.subtree_range(c)
                 cnt = bit.range_sum(l,r)
                 range_add(0,l,cnt)
                 range_add(r,N,cnt)
         bit.set(hld[v],1)
     ans = presum(ans)
-    ans = [ans[i] for i in hld.start]
+    ans = [ans[i] for i in hld]
     write(*ans)
 
 from cp_library.alg.tree.heavy_light_decomposition_cls import HLD

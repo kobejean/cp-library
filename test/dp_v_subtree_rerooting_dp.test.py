@@ -21,7 +21,7 @@ from array import array
 from math import ceil, log10
 import os
 
-from cp_library.alg.graph.fast.tree_cls import Tree
+from cp_library.alg.tree.fast.tree_cls import Tree
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
