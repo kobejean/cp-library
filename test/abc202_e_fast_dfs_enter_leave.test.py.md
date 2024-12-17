@@ -1,47 +1,47 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_base_cls.py
-    title: cp_library/alg/graph/fast/tree_base_cls.py
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_cls.py
-    title: cp_library/alg/graph/fast/tree_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_base_cls.py
+    title: cp_library/alg/tree/fast/tree_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_cls.py
+    title: cp_library/alg/tree/fast/tree_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc202/tasks/abc202_e
     links:
@@ -281,18 +281,41 @@ data:
     \     u,v = Ua[i], Va[i]\n            # prefix accumulation\n            dp[u]\
     \ = merge(pre := dp[u], dp[v])\n            # push value to child\n          \
     \  dp[v] = add_child(v, u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n\
-    \        \n        return dp\n    \n    def euler_tour(T, s = 0):\n        N =\
-    \ len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1] * N\n \
-    \       T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n       \
-    \ T.delta = delta = elist(2*N)\n        Va = T.Va\n        \n        stack = elist(N)\n\
-    \        stack.append(s)\n\n        while stack:\n            u = stack.pop()\n\
-    \            p = par[u]\n            \n            if tin[u] == -1:\n        \
-    \        tin[u] = len(order)\n                \n                for i in T.range(u):\n\
-    \                    if (v := Va[i]) != p:\n                        par[v] = u\n\
-    \                        stack.append(u)\n                        stack.append(v)\n\
-    \                \n                delta.append(1)\n            else:\n      \
-    \          delta.append(-1)\n            \n            order.append(u)\n     \
-    \       tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n\n    @classmethod\n\
+    \        \n        return dp\n    \n    def euler_tour(T, s = 0):\n        N,\
+    \ Va = len(T), T.Va\n        tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n        order,\
+    \ delta = elist(2*N), elist(2*N)\n        \n        stack = elist(N)\n       \
+    \ stack.append(s)\n        while stack:\n            p = par[u := stack.pop()]\n\
+    \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
+    \       for i in T.range(u):\n                    if (v := Va[i]) != p:\n    \
+    \                    par[v] = u\n                        stack.append(u)\n   \
+    \                     stack.append(v)\n                delta.append(1)\n     \
+    \       else:\n                delta.append(-1)\n            \n            order.append(u)\n\
+    \            tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n        T.tin,\
+    \ T.tout, T.par = tin, tout, par\n        T.order, T.delta = order, delta\n\n\
+    \    def hld_precomp(T, r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin,\
+    \ tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N,\
+    \ [r]*N\n        depth, order, state = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n\
+    \        stack.append(r)\n        while stack:\n            match state[v := stack.pop()]:\n\
+    \                case 0: # dfs down\n                    p, state[v] = par[v],\
+    \ 1\n                    stack.append(v)\n                    for i in T.range(v):\n\
+    \                        if (c := Va[i]) != p:\n                            depth[c],\
+    \ par[c] = depth[v]+1, v\n                            stack.append(c)\n\n    \
+    \            case 1: # dfs up\n                    p, l = par[v], -1\n       \
+    \             for i in T.range(v):\n                        if (c := Va[i]) !=\
+    \ p:\n                            size[v] += size[c]\n                       \
+    \     if size[c] > size[l]:\n                                l = c\n         \
+    \           heavy[v] = l\n                    if p == -1:\n                  \
+    \      state[v] = 2\n                        stack.append(v)\n\n             \
+    \   case 2: # decompose down\n                    p, h, l = par[v], head[v], heavy[v]\n\
+    \                    tin[v], order[time], state[v] = time, v, 3\n            \
+    \        time += 1\n                    stack.append(v)\n                    \n\
+    \                    for i in T.range(v):\n                        if (c := Va[i])\
+    \ != p and c != l:\n                            head[c], state[c] = c, 2\n   \
+    \                         stack.append(c)\n\n                    if l != -1:\n\
+    \                        head[l], state[l] = h, 2\n                        stack.append(l)\n\
+    \                case 3: # decompose up\n                    tout[v] = time\n\
+    \        T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order,\
+    \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n\n    @classmethod\n\
     \    def compile(cls, N: int, shift: int = -1):\n        return super().compile(N,\
     \ N-1, shift)\n    \n\nclass Tree(Graph, TreeBase):\n    pass\n\n\nfrom typing\
     \ import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read()\
@@ -322,27 +345,27 @@ data:
     \ = time\n                time += 1\n    Q = read(int)\n    for u,d in read(list[tuple[-1,int],Q]):\n\
     \        ans = bisect_left(cnt[d], tout[u]) - bisect_left(cnt[d], tin[u])\n  \
     \      write(ans)\n\n    \nfrom cp_library.alg.graph.dfs_options_cls import DFSEvent\n\
-    from cp_library.alg.graph.fast.tree_cls import Tree\nfrom cp_library.io.read_fn\
+    from cp_library.alg.tree.fast.tree_cls import Tree\nfrom cp_library.io.read_fn\
     \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
     :\n    main()"
   dependsOn:
   - cp_library/alg/graph/dfs_options_cls.py
-  - cp_library/alg/graph/fast/tree_cls.py
+  - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/alg/graph/fast/graph_cls.py
-  - cp_library/alg/graph/fast/tree_base_cls.py
-  - cp_library/ds/fill_fn.py
+  - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/ds/fill_fn.py
   - cp_library/ds/elist_fn.py
   - cp_library/math/inft_cnst.py
   isVerificationFile: true
   path: test/abc202_e_fast_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc202_e_fast_dfs_enter_leave.test.py
 layout: document

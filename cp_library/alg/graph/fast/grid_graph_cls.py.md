@@ -1,52 +1,52 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc301_e_fast_grid_graph.test.py
     title: test/abc301_e_fast_grid_graph.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "import sys\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
-    \              \n'''\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\nimport sys\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
     \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
-    \ return []\nelist = newlist_hint\n    \n\nimport typing\nfrom collections import\
+    \ return []\nelist = newlist_hint\n    \n\n\nimport typing\nfrom collections import\
     \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
     \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nfrom io import\
     \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
@@ -121,8 +121,8 @@ data:
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n\n\
-    from typing import Callable, Sequence, Union, overload\n\nfrom enum import auto,\
+    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nfrom\
+    \ typing import Callable, Sequence, Union, overload\n\nfrom enum import auto,\
     \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
     \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
     \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
@@ -266,25 +266,25 @@ data:
     \                  Ua.append(u)\n                            Va.append(v)\n  \
     \              Ra[u] = len(Ua)\n\n        G.M = len(Ua)\n        G.Ea = list(range(G.M))\n\
     \n"
-  code: "import sys\n\nimport cp_library.alg.graph.__header__\nfrom cp_library.ds.elist_fn\
-    \ import elist\nfrom cp_library.io.parser_cls import TokenStream\nfrom cp_library.alg.graph.fast.grid_graph_walled_base_cls\
-    \ import GridGraphWalledBase\n\nclass GridGraph(GridGraphWalledBase):\n\n    def\
-    \ __init__(G, H, W, S=[], dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n \
-    \       N = H*W\n        Mest = N*len(dirs)\n        deg, La, Ra, Ua, Va = fill_u32(N),\
-    \ fill_u32(N), fill_u32(N), elist(Mest), elist(Mest)\n        super().__init__(\n\
-    \            H, W, 0, S, Ua, Va, deg, La, Ra, Ua, Va, None, dirs, wall\n     \
-    \   )\n\n        for i in range(H):\n            for j in range(W):\n        \
-    \        La[u := i*W+j] = len(Ua)\n                if G.is_valid(i, j, u):\n \
-    \                   for di,dj in dirs:\n                        if G.is_valid(ni:=i+di,\
-    \ nj:=j+dj, v:=ni*W+nj):\n                            deg[u] += 1\n          \
-    \                  Ua.append(u)\n                            Va.append(v)\n  \
-    \              Ra[u] = len(Ua)\n\n        G.M = len(Ua)\n        G.Ea = list(range(G.M))\n\
+  code: "\nimport cp_library.alg.graph.__header__\nimport sys\nfrom cp_library.ds.elist_fn\
+    \ import elist\nfrom cp_library.alg.graph.fast.grid_graph_walled_base_cls import\
+    \ GridGraphWalledBase\n\nclass GridGraph(GridGraphWalledBase):\n\n    def __init__(G,\
+    \ H, W, S=[], dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n        N = H*W\n\
+    \        Mest = N*len(dirs)\n        deg, La, Ra, Ua, Va = fill_u32(N), fill_u32(N),\
+    \ fill_u32(N), elist(Mest), elist(Mest)\n        super().__init__(\n         \
+    \   H, W, 0, S, Ua, Va, deg, La, Ra, Ua, Va, None, dirs, wall\n        )\n\n \
+    \       for i in range(H):\n            for j in range(W):\n                La[u\
+    \ := i*W+j] = len(Ua)\n                if G.is_valid(i, j, u):\n             \
+    \       for di,dj in dirs:\n                        if G.is_valid(ni:=i+di, nj:=j+dj,\
+    \ v:=ni*W+nj):\n                            deg[u] += 1\n                    \
+    \        Ua.append(u)\n                            Va.append(v)\n            \
+    \    Ra[u] = len(Ua)\n\n        G.M = len(Ua)\n        G.Ea = list(range(G.M))\n\
     \nfrom cp_library.ds.fill_fn import fill_u32"
   dependsOn:
   - cp_library/ds/elist_fn.py
-  - cp_library/io/parser_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/ds/fill_fn.py
+  - cp_library/io/parser_cls.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
@@ -293,8 +293,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/grid_graph_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc301_e_fast_grid_graph.test.py
 documentation_of: cp_library/alg/graph/fast/grid_graph_cls.py

@@ -3,16 +3,16 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/arc122_b_insurance_median.test.py
     title: test/arc122_b_insurance_median.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/arc168_c_swap_characters_combinatoric.test.py
     title: test/arc168_c_swap_characters_combinatoric.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/arc182_d_increment_decrement_again_qselect.test.py
     title: test/arc182_d_increment_decrement_again_qselect.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/dp_z_cht_monotone_add_max.test.py
     title: test/dp_z_cht_monotone_add_max.test.py
   - icon: ':heavy_check_mark:'
@@ -39,9 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/unionfind_with_potential_non_commutative_group.test.py
     title: test/unionfind_with_potential_non_commutative_group.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -57,8 +57,8 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc168_c_swap_characters_combinatoric.test.py
   - test/arc182_d_increment_decrement_again_qselect.test.py

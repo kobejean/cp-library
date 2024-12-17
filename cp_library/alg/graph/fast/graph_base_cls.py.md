@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
@@ -26,50 +26,53 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_weighted_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_cls.py
     title: cp_library/alg/graph/fast/grid_graph_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_base_cls.py
-    title: cp_library/alg/graph/fast/tree_base_cls.py
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_cls.py
-    title: cp_library/alg/graph/fast/tree_cls.py
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_weighted_base_cls.py
-    title: cp_library/alg/graph/fast/tree_weighted_base_cls.py
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_weighted_cls.py
-    title: cp_library/alg/graph/fast/tree_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_base_cls.py
+    title: cp_library/alg/tree/fast/tree_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_cls.py
+    title: cp_library/alg/tree/fast/tree_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
+    title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_weighted_cls.py
+    title: cp_library/alg/tree/fast/tree_weighted_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc202_e_fast_dfs.test.py
     title: test/abc202_e_fast_dfs.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc202_e_fast_dfs_enter_leave.test.py
     title: test/abc202_e_fast_dfs_enter_leave.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc301_e_fast_grid_graph.test.py
     title: test/abc301_e_fast_grid_graph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_dp.test.py
     title: test/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
@@ -90,9 +93,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/shortest_path_fast_graph.test.py
     title: test/shortest_path_fast_graph.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -296,9 +299,9 @@ data:
     \  return array('Q', (elm,)) * N\n\ninft: int\n\ninft = sys.maxsize\n"
   code: "import cp_library.alg.graph.__header__\nfrom typing import Callable, Sequence,\
     \ Union, overload\nfrom collections import deque\nfrom cp_library.io.parser_cls\
-    \ import Parsable, Parser, TokenStream\nfrom cp_library.alg.graph.dfs_options_cls\
-    \ import DFSFlags, DFSEvent\n\nclass GraphBase(Sequence, Parsable):\n    def __init__(self,\
-    \ N: int, M: int, U: list[int], V: list[int], \n                 deg: list[int],\
+    \ import Parsable, TokenStream\nfrom cp_library.alg.graph.dfs_options_cls import\
+    \ DFSEvent\n\nclass GraphBase(Sequence, Parsable):\n    def __init__(self, N:\
+    \ int, M: int, U: list[int], V: list[int], \n                 deg: list[int],\
     \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
     \ Ea: list[int]):\n        self.N = N\n        \"\"\"The number of vertices.\"\
     \"\"\n        self.M = M\n        \"\"\"The number of edges.\"\"\"\n        self.U\
@@ -410,20 +413,20 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_base_cls.py
   requiredBy:
-  - cp_library/alg/graph/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
+  - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/graph/fast/graph_cls.py
-  - cp_library/alg/graph/fast/tree_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/graph/fast/tree_weighted_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/tree_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/abc202_e_fast_dfs_enter_leave.test.py
@@ -435,6 +438,7 @@ data:
   - test/abc301_e_fast_grid_graph.test.py
   - test/shortest_path_fast_graph.test.py
   - test/grl_1_b_fast_bellman_ford.test.py
+  - test/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/minimum_spanning_tree_kruskal_heap.test.py
 documentation_of: cp_library/alg/graph/fast/graph_base_cls.py
 layout: document

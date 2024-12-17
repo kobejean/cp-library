@@ -1,55 +1,55 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\n\nimport operator\nfrom itertools import accumulate\nfrom typing\
-    \ import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T],\
-    \ func: Callable[[T,T],T] = None, initial: T = None, step = 1) -> list[T]:\n \
-    \   match step:\n        case 1:\n            return list(accumulate(iter, func,\
-    \ initial=initial))\n        case step:\n            assert step >= 2\n      \
-    \      if func is None:\n                func = operator.add\n            A =\
-    \ list(iter)\n            if initial is not None:\n                A = [initial]\
-    \ + A\n            for i in range(step,len(A)):\n                A[i] = func(A[i],\
-    \ A[i-step])\n            return A\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nimport operator\nfrom itertools import accumulate\nfrom typing import Callable,\
+    \ Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T]\
+    \ = None, initial: T = None, step = 1) -> list[T]:\n    match step:\n        case\
+    \ 1:\n            return list(accumulate(iter, func, initial=initial))\n     \
+    \   case step:\n            assert step >= 2\n            if func is None:\n \
+    \               func = operator.add\n            A = list(iter)\n            if\
+    \ initial is not None:\n                A = [initial] + A\n            for i in\
+    \ range(step,len(A)):\n                A[i] = func(A[i], A[i-step])\n        \
+    \    return A\n\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
     \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
     \    self.N = N = len(arr)\n        self.log = N.bit_length()\n        self.op\
     \ = op\n        \n        self.offsets = offsets = [0]\n        for i in range(1,\
@@ -100,8 +100,8 @@ data:
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_tree_lca_table_weighted_bit.test.py

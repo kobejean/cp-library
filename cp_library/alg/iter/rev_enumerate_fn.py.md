@@ -3,19 +3,25 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc249_f_max_k_heap.test.py
     title: test/abc249_f_max_k_heap.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc249_f_min_k_heap.test.py
     title: test/abc249_f_min_k_heap.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\nfrom typing import Reversible\n\ndef rev_enumerate(A: Reversible,\
-    \ start: int = 0):\n    A = list(enumerate(A, start))\n    return A[::-1]\n"
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from typing import Reversible\n\ndef rev_enumerate(A: Reversible, start: int =\
+    \ 0):\n    A = list(enumerate(A, start))\n    return A[::-1]\n"
   code: "import cp_library.alg.iter.__header__\nfrom typing import Reversible\n\n\
     def rev_enumerate(A: Reversible, start: int = 0):\n    A = list(enumerate(A, start))\n\
     \    return A[::-1]"
@@ -23,8 +29,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/rev_enumerate_fn.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_max_k_heap.test.py
   - test/abc249_f_min_k_heap.test.py

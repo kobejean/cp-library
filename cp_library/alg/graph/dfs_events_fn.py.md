@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   _extendedRequiredBy:
@@ -112,7 +112,7 @@ data:
   path: cp_library/alg/graph/dfs_events_fn.py
   requiredBy:
   - cp_library/alg/graph/articulation_points_fn.py
-  timestamp: '2024-12-17 07:25:33+09:00'
+  timestamp: '2024-12-17 20:59:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_3_a_articulation_points_fn.test.py

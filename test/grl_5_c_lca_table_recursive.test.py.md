@@ -4,19 +4,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_recursive_cls.py
     title: cp_library/alg/tree/lca_table_recursive_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/misc/setrecursionlimit.py
     title: cp_library/misc/setrecursionlimit.py
   _extendedRequiredBy: []
@@ -32,13 +32,13 @@ data:
     \ndef main():\n    N, = read()\n    T = []\n    for _ in range(N):\n        k,\
     \ *adj = read()\n        T.append(adj)\n    lca = LCATable(T, 0)\n    Q, = read()\n\
     \    for _ in range(Q):\n        u, v = read()\n        write(lca.query(u,v)[0])\n\
-    \n\nfrom typing import List\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
+    \ typing import List\n\n\n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\n\
     pypyjit.set_param(\"max_unroll_recursion=-1\")\n\n\nfrom typing import Any, Callable,\
     \ List\n\nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any],\
     \ Any], arr: List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
@@ -116,7 +116,7 @@ data:
   isVerificationFile: true
   path: test/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
+  timestamp: '2024-12-17 20:59:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_c_lca_table_recursive.test.py

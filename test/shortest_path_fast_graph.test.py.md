@@ -1,55 +1,55 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_weighted_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heapq_max_import.py
     title: cp_library/ds/heap/heapq_max_import.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
@@ -71,37 +71,37 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \    https://kobejean.github.io/cp-library               \n'''\nfrom math import\
-    \ inf\n\nfrom typing import overload\n\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \    https://kobejean.github.io/cp-library               \n'''\nfrom typing import\
+    \ overload\n\nimport typing\nfrom collections import deque\nfrom numbers import\
+    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
+    \ Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\
+    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
+    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
+    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
+    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
+    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
+    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -151,17 +151,17 @@ data:
     def argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift := N.bit_length()))\
     \ - 1\n    indices = [0]*N\n    for i in range(N):\n        indices[i] = A[i]\
     \ << shift | i\n    indices.sort()\n    for i in range(N):\n        indices[i]\
-    \ &= mask\n    return indices\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass\
-    \ DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n\
-    \    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\
-    \n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n\
-    \    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN\
-    \ | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n \
-    \   TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
-    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
-    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \nfrom typing import Callable, Sequence, Union, overload\n\nclass GraphBase(Sequence,\
+    \ &= mask\n    return indices\nfrom typing import Callable, Sequence, Union, overload\n\
+    \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
+    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
     \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
     \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
@@ -445,19 +445,19 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/iter/argsort_fn.py
-  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/bellman_ford_fn.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/math/inft_cnst.py
+  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/heap/heapq_max_import.py
   isVerificationFile: true
   path: test/shortest_path_fast_graph.test.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
+  timestamp: '2024-12-17 20:59:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/shortest_path_fast_graph.test.py

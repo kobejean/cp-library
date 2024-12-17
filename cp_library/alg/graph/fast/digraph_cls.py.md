@@ -1,25 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
@@ -232,7 +232,7 @@ data:
     \        deg, Ea, Ua, Va = fill_u32(N), fill_u32(M), fill_u32(M), fill_u32(M)\n\
     \        \n        for u in U:\n            deg[u] += 1\n            \n      \
     \  La, idx = fill_u32(N), 0\n        for u in range(N): \n            La[u], idx\
-    \ = idx, idx + deg[u]\n        Ra = La[:]\n\n        # place edge data using R\
+    \ = idx, idx + deg[u]\n        Ra = La[:]\n\n        # place edge data using Ra\
     \ to track\n        for e in range(M):\n            u, v = U[e], V[e]\n      \
     \      i = Ra[u]\n            Ua[i], Va[i], Ea[i] = u, v, e\n            Ra[u]\
     \ += 1\n\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n"
@@ -242,8 +242,8 @@ data:
     \ fill_u32(M), fill_u32(M), fill_u32(M)\n        \n        for u in U:\n     \
     \       deg[u] += 1\n            \n        La, idx = fill_u32(N), 0\n        for\
     \ u in range(N): \n            La[u], idx = idx, idx + deg[u]\n        Ra = La[:]\n\
-    \n        # place edge data using R to track\n        for e in range(M):\n   \
-    \         u, v = U[e], V[e]\n            i = Ra[u]\n            Ua[i], Va[i],\
+    \n        # place edge data using Ra to track\n        for e in range(M):\n  \
+    \          u, v = U[e], V[e]\n            i = Ra[u]\n            Ua[i], Va[i],\
     \ Ea[i] = u, v, e\n            Ra[u] += 1\n\n        super().__init__(N, M, U,\
     \ V, deg, La, Ra, Ua, Va, Ea)\n\nfrom cp_library.ds.fill_fn import fill_u32\n"
   dependsOn:
@@ -257,7 +257,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/digraph_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
+  timestamp: '2024-12-17 20:59:28+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/fast/digraph_cls.py

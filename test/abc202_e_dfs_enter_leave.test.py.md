@@ -1,56 +1,56 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc202/tasks/abc202_e
     links:
@@ -439,13 +439,36 @@ data:
     \                        stack.append(v)\n                \n                delta.append(1)\n\
     \            else:\n                delta.append(-1)\n            \n         \
     \   order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
-    \ = 0\n\nclass Tree(Graph, TreeProtocol):\n    @classmethod\n    def compile(cls,\
-    \ N: int, E: type|int = Edge[-1]):\n        return super().compile(N, N-1, E)\n\
-    \    \n    \n\nfrom typing import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n\
-    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Union[Type[T],T], char=False) -> T: ...\ndef\
-    \ read(spec: Union[Type[T],T] = None, char=False):\n    if not char:\n       \
-    \ if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \ = 0\n\n    def hld_precomp(T, r = 0):\n        N, time = T.N, 0\n        tin,\
+    \ tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N,\
+    \ [r]*N\n        depth, order, state = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n\
+    \        stack.append(r)\n        while stack:\n            match state[v := stack.pop()]:\n\
+    \                case 0: # dfs down\n                    p, state[v] = par[v],\
+    \ 1\n                    stack.append(v)\n                    for c in T[v]:\n\
+    \                        if c != p:\n                            depth[c], par[c]\
+    \ = depth[v]+1, v\n                            stack.append(c)\n\n           \
+    \     case 1: # dfs up\n                    p, l = par[v], -1\n              \
+    \      for c in T[v]:\n                        if c != p:\n                  \
+    \          size[v] += size[c]\n                            if size[c] > size[l]:\n\
+    \                                l = c\n                    heavy[v] = l\n   \
+    \                 if p == -1:\n                        state[v] = 2\n        \
+    \                stack.append(v)\n\n                case 2: # decompose down\n\
+    \                    p, h, l = par[v], head[v], heavy[v]\n                   \
+    \ tin[v], order[time], state[v] = time, v, 3\n                    time += 1\n\
+    \                    stack.append(v)\n                    \n                 \
+    \   for c in T[v]:\n                        if c != p and c != l:\n          \
+    \                  head[c], state[c] = c, 2\n                            stack.append(c)\n\
+    \n                    if l != -1:\n                        head[l], state[l] =\
+    \ h, 2\n                        stack.append(l)\n                case 3: # decompose\
+    \ up\n                    tout[v] = time\n        T.size, T.depth = size, depth\n\
+    \        T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy, T.head\
+    \ = par, heavy, head\n\nclass Tree(Graph, TreeProtocol):\n    @classmethod\n \
+    \   def compile(cls, N: int, E: type|int = Edge[-1]):\n        return super().compile(N,\
+    \ N-1, E)\n    \n    \n\nfrom typing import Type, TypeVar, Union, overload\n\n\
+    T = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
+    \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
+    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
     \            return int(TokenStream.stream.readline())\n        else:\n      \
@@ -491,8 +514,8 @@ data:
   isVerificationFile: true
   path: test/abc202_e_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc202_e_dfs_enter_leave.test.py
 layout: document

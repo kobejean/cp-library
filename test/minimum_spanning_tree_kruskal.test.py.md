@@ -1,55 +1,55 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heapq_max_import.py
     title: cp_library/ds/heap/heapq_max_import.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
@@ -70,13 +70,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\nfrom math import inf\n\nfrom typing import overload\n\nimport\
-    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \        \n'''\nfrom typing import overload\n\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -149,17 +149,17 @@ data:
     def argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift := N.bit_length()))\
     \ - 1\n    indices = [0]*N\n    for i in range(N):\n        indices[i] = A[i]\
     \ << shift | i\n    indices.sort()\n    for i in range(N):\n        indices[i]\
-    \ &= mask\n    return indices\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass\
-    \ DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n\
-    \    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\
-    \n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n\
-    \    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN\
-    \ | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n \
-    \   TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
-    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
-    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \nfrom typing import Callable, Sequence, Union, overload\n\nclass GraphBase(Sequence,\
+    \ &= mask\n    return indices\nfrom typing import Callable, Sequence, Union, overload\n\
+    \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
+    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
     \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
     \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
@@ -445,19 +445,19 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/iter/argsort_fn.py
-  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/bellman_ford_fn.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/math/inft_cnst.py
+  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/heap/heapq_max_import.py
   isVerificationFile: true
   path: test/minimum_spanning_tree_kruskal.test.py
   requiredBy: []
-  timestamp: '2024-12-17 07:25:33+09:00'
+  timestamp: '2024-12-17 20:59:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/minimum_spanning_tree_kruskal.test.py

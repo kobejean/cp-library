@@ -1,82 +1,82 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heapq_max_import.py
     title: cp_library/ds/heap/heapq_max_import.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/sparse_table_cls.py
     title: cp_library/ds/sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\n\nfrom typing import overload\nfrom functools import cached_property\n\
-    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\nimport sys\n\
-    inft: int\n\ninft = sys.maxsize\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
-    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nfrom typing import overload\nfrom functools import cached_property\n\nimport\
+    \ sys\ninft: int\n\ninft = sys.maxsize\n\n\ndef elist(est_len: int) -> list: ...\n\
+    try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
     \        return []\nelist = newlist_hint\n    \n\n\nfrom heapq import heapify,\
     \ heappop, heappush\nimport operator\n\n\nfrom enum import auto, IntFlag, IntEnum\n\
     \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
@@ -627,35 +627,82 @@ data:
     \                        stack.append(v)\n                \n                delta.append(1)\n\
     \            else:\n                delta.append(-1)\n            \n         \
     \   order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
-    \ = 0\n\nclass LCATableWeighted(LCATable):\n    def __init__(self, T, root = 0):\n\
-    \        super().__init__(T, root)\n        self.weights = T.Wdelta\n        self.weighted_depth\
-    \ = None\n\n    def distance(self, u, v) -> int:\n        if self.weighted_depth\
-    \ is None:\n            self.weighted_depth = presum(self.weights)\n        l,\
-    \ r, a, _ = self._query(u, v)\n        m = self.start[a]\n        return self.weighted_depth[l]\
-    \ + self.weighted_depth[r] - 2*self.weighted_depth[m]\n\nclass TreeWeightedProtocol(GraphWeightedProtocol,\
-    \ TreeProtocol):\n\n    @cached_property\n    def lca(T):\n        return LCATableWeighted(T)\n\
-    \    \n    @overload\n    def dfs(T, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def dfs(T, s: int, g: int) -> int: ...\n    def dfs(T, s = 0, g = None):\n\
-    \        D = [inft for _ in range(T.N)]\n        D[s] = 0\n        state = [True\
-    \ for _ in range(T.N)]\n        stack = [s]\n\n        while stack:\n        \
-    \    u = stack.pop()\n            if u == g: return D[u]\n            state[u]\
-    \ = False\n            for v, w, *_ in T[u]:\n                if state[v]:\n \
-    \                   D[v] = D[u]+w\n                    stack.append(v)\n     \
-    \   return D if g is None else inft\n    \n    def euler_tour(T, s = 0):\n   \
-    \     N = len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1]\
-    \ * N\n        T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n\
-    \        T.delta = delta = elist(2*N)\n        T.Wdelta = Wdelta = elist(2*N)\n\
-    \        stack = elist(N)\n        Wstack = elist(N)\n        stack.append(s)\n\
-    \        Wstack.append(0)\n\n        while stack:\n            u = stack.pop()\n\
-    \            wd = Wstack.pop()\n            p = par[u]\n            \n       \
-    \     if tin[u] == -1:\n                tin[u] = len(order)\n                \n\
-    \                for v,w,*_ in T[u]:\n                    if v != p:\n       \
-    \                 par[v] = u\n                        stack.append(u)\n      \
-    \                  stack.append(v)\n                        Wstack.append(-w)\n\
-    \                        Wstack.append(w)\n                delta.append(1)\n \
-    \           else:\n                delta.append(-1)\n            \n          \
-    \  Wdelta.append(wd)\n            order.append(u)\n            tout[u] = len(order)\n\
-    \        delta[0] = delta[-1] = 0\n"
+    \ = 0\n\n    def hld_precomp(T, r = 0):\n        N, time = T.N, 0\n        tin,\
+    \ tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N,\
+    \ [r]*N\n        depth, order, state = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n\
+    \        stack.append(r)\n        while stack:\n            match state[v := stack.pop()]:\n\
+    \                case 0: # dfs down\n                    p, state[v] = par[v],\
+    \ 1\n                    stack.append(v)\n                    for c in T[v]:\n\
+    \                        if c != p:\n                            depth[c], par[c]\
+    \ = depth[v]+1, v\n                            stack.append(c)\n\n           \
+    \     case 1: # dfs up\n                    p, l = par[v], -1\n              \
+    \      for c in T[v]:\n                        if c != p:\n                  \
+    \          size[v] += size[c]\n                            if size[c] > size[l]:\n\
+    \                                l = c\n                    heavy[v] = l\n   \
+    \                 if p == -1:\n                        state[v] = 2\n        \
+    \                stack.append(v)\n\n                case 2: # decompose down\n\
+    \                    p, h, l = par[v], head[v], heavy[v]\n                   \
+    \ tin[v], order[time], state[v] = time, v, 3\n                    time += 1\n\
+    \                    stack.append(v)\n                    \n                 \
+    \   for c in T[v]:\n                        if c != p and c != l:\n          \
+    \                  head[c], state[c] = c, 2\n                            stack.append(c)\n\
+    \n                    if l != -1:\n                        head[l], state[l] =\
+    \ h, 2\n                        stack.append(l)\n                case 3: # decompose\
+    \ up\n                    tout[v] = time\n        T.size, T.depth = size, depth\n\
+    \        T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy, T.head\
+    \ = par, heavy, head\n\nclass LCATableWeighted(LCATable):\n    def __init__(self,\
+    \ T, root = 0):\n        super().__init__(T, root)\n        self.weights = T.Wdelta\n\
+    \        self.weighted_depth = None\n\n    def distance(self, u, v) -> int:\n\
+    \        if self.weighted_depth is None:\n            self.weighted_depth = presum(self.weights)\n\
+    \        l, r, a, _ = self._query(u, v)\n        m = self.start[a]\n        return\
+    \ self.weighted_depth[l] + self.weighted_depth[r] - 2*self.weighted_depth[m]\n\
+    \nclass TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):\n\n    @cached_property\n\
+    \    def lca(T):\n        return LCATableWeighted(T)\n    \n    @overload\n  \
+    \  def dfs(T, s: int = 0) -> list[int]: ...\n    @overload\n    def dfs(T, s:\
+    \ int, g: int) -> int: ...\n    def dfs(T, s = 0, g = None):\n        D = [inft\
+    \ for _ in range(T.N)]\n        D[s] = 0\n        state = [True for _ in range(T.N)]\n\
+    \        stack = [s]\n\n        while stack:\n            u = stack.pop()\n  \
+    \          if u == g: return D[u]\n            state[u] = False\n            for\
+    \ v, w, *_ in T[u]:\n                if state[v]:\n                    D[v] =\
+    \ D[u]+w\n                    stack.append(v)\n        return D if g is None else\
+    \ inft\n    \n    def euler_tour(T, s = 0):\n        N = len(T)\n        T.tin\
+    \ = tin = [-1] * N\n        T.tout = tout = [-1] * N\n        T.par = par = [-1]\
+    \ * N\n        T.order = order = elist(2*N)\n        T.delta = delta = elist(2*N)\n\
+    \        T.Wdelta = Wdelta = elist(2*N)\n        stack = elist(N)\n        Wstack\
+    \ = elist(N)\n        stack.append(s)\n        Wstack.append(0)\n\n        while\
+    \ stack:\n            u = stack.pop()\n            wd = Wstack.pop()\n       \
+    \     p = par[u]\n            \n            if tin[u] == -1:\n               \
+    \ tin[u] = len(order)\n                \n                for v,w,*_ in T[u]:\n\
+    \                    if v != p:\n                        par[v] = u\n        \
+    \                stack.append(u)\n                        stack.append(v)\n  \
+    \                      Wstack.append(-w)\n                        Wstack.append(w)\n\
+    \                delta.append(1)\n            else:\n                delta.append(-1)\n\
+    \            \n            Wdelta.append(wd)\n            order.append(u)\n  \
+    \          tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n\n    def hld_precomp(T,\
+    \ r = 0):\n        N, time = T.N, 0\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n\
+    \        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, state\
+    \ = [0]*N, [0]*N, [0]*N\n        Wpar = [0]*N\n        stack = elist(N)\n    \
+    \    stack.append(r)\n        while stack:\n            match state[v := stack.pop()]:\n\
+    \                case 0: # dfs down\n                    p, state[v] = par[v],\
+    \ 1\n                    stack.append(v)\n                    for c, w, *_ in\
+    \ T[v]:\n                        if c != p:\n                            depth[c],\
+    \ par[c], Wpar[c] = depth[v]+1, v, w\n                            stack.append(c)\n\
+    \n                case 1: # dfs up\n                    p, l = par[v], -1\n  \
+    \                  for c, w, *_ in T[v]:\n                        if c != p:\n\
+    \                            size[v] += size[c]\n                            if\
+    \ size[c] > size[l]:\n                                l = c\n                \
+    \    heavy[v] = l\n                    if p == -1:\n                        state[v]\
+    \ = 2\n                        stack.append(v)\n\n                case 2: # decompose\
+    \ down\n                    p, h, l = par[v], head[v], heavy[v]\n            \
+    \        tin[v], order[time], state[v] = time, v, 3\n                    time\
+    \ += 1\n                    stack.append(v)\n                    \n          \
+    \          for c, *_ in T[v]:\n                        if c != p and c != l:\n\
+    \                            head[c], state[c] = c, 2\n                      \
+    \      stack.append(c)\n\n                    if l != -1:\n                  \
+    \      head[l], state[l] = h, 2\n                        stack.append(l)\n   \
+    \             case 3: # decompose up\n                    tout[v] = time\n   \
+    \     T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order, tin,\
+    \ tout\n        T.par, T.heavy, T.head = par, heavy, head\n        T.Wpar = Wpar\n"
   code: "import cp_library.alg.tree.__header__\n\nfrom typing import overload\nfrom\
     \ functools import cached_property\nfrom cp_library.math.inft_cnst import inft\n\
     from cp_library.ds.elist_fn import elist\nfrom cp_library.alg.graph.graph_weighted_proto\
@@ -683,7 +730,31 @@ data:
     \                      Wstack.append(-w)\n                        Wstack.append(w)\n\
     \                delta.append(1)\n            else:\n                delta.append(-1)\n\
     \            \n            Wdelta.append(wd)\n            order.append(u)\n  \
-    \          tout[u] = len(order)\n        delta[0] = delta[-1] = 0"
+    \          tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n\n    def hld_precomp(T,\
+    \ r = 0):\n        N, time = T.N, 0\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n\
+    \        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, state\
+    \ = [0]*N, [0]*N, [0]*N\n        Wpar = [0]*N\n        stack = elist(N)\n    \
+    \    stack.append(r)\n        while stack:\n            match state[v := stack.pop()]:\n\
+    \                case 0: # dfs down\n                    p, state[v] = par[v],\
+    \ 1\n                    stack.append(v)\n                    for c, w, *_ in\
+    \ T[v]:\n                        if c != p:\n                            depth[c],\
+    \ par[c], Wpar[c] = depth[v]+1, v, w\n                            stack.append(c)\n\
+    \n                case 1: # dfs up\n                    p, l = par[v], -1\n  \
+    \                  for c, w, *_ in T[v]:\n                        if c != p:\n\
+    \                            size[v] += size[c]\n                            if\
+    \ size[c] > size[l]:\n                                l = c\n                \
+    \    heavy[v] = l\n                    if p == -1:\n                        state[v]\
+    \ = 2\n                        stack.append(v)\n\n                case 2: # decompose\
+    \ down\n                    p, h, l = par[v], head[v], heavy[v]\n            \
+    \        tin[v], order[time], state[v] = time, v, 3\n                    time\
+    \ += 1\n                    stack.append(v)\n                    \n          \
+    \          for c, *_ in T[v]:\n                        if c != p and c != l:\n\
+    \                            head[c], state[c] = c, 2\n                      \
+    \      stack.append(c)\n\n                    if l != -1:\n                  \
+    \      head[l], state[l] = h, 2\n                        stack.append(l)\n   \
+    \             case 3: # decompose up\n                    tout[v] = time\n   \
+    \     T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order, tin,\
+    \ tout\n        T.par, T.heavy, T.head = par, heavy, head\n        T.Wpar = Wpar"
   dependsOn:
   - cp_library/math/inft_cnst.py
   - cp_library/ds/elist_fn.py
@@ -705,8 +776,8 @@ data:
   path: cp_library/alg/tree/tree_weighted_proto.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/abc361_e_tree_diameter.test.py

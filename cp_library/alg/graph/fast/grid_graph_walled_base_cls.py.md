@@ -1,53 +1,53 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_cls.py
     title: cp_library/alg/graph/fast/grid_graph_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/abc301_e_fast_grid_graph.test.py
     title: test/abc301_e_fast_grid_graph.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "import sys\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    import sys\n\n\nimport typing\nfrom collections import deque\nfrom numbers import\
+    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
+    \ Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass\
+    \ FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
     \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
     \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
     \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
@@ -255,7 +255,7 @@ data:
     \ def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
     \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
     \          return cls(H, W, S, *args)\n        return parse\n"
-  code: "import sys\nimport cp_library.alg.graph.__header__\n\nfrom cp_library.io.parser_cls\
+  code: "import cp_library.alg.graph.__header__\nimport sys\n\nfrom cp_library.io.parser_cls\
     \ import TokenStream\nfrom cp_library.alg.graph.fast.grid_graph_base_cls import\
     \ GridGraphBase\n\nclass GridGraphWalledBase(GridGraphBase):\n\n    def __init__(G,\
     \ H, W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)],\
@@ -278,8 +278,8 @@ data:
   path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   requiredBy:
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc301_e_fast_grid_graph.test.py
 documentation_of: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py

@@ -1,60 +1,63 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heapq_max_import.py
     title: cp_library/ds/heap/heapq_max_import.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_weighted_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_weighted_base_cls.py
-    title: cp_library/alg/graph/fast/tree_weighted_base_cls.py
-  - icon: ':x:'
-    path: cp_library/alg/graph/fast/tree_weighted_cls.py
-    title: cp_library/alg/graph/fast/tree_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
+    title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_weighted_cls.py
+    title: cp_library/alg/tree/fast/tree_weighted_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
@@ -75,27 +78,27 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/shortest_path_fast_graph.test.py
     title: test/shortest_path_fast_graph.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "from math import inf\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nfrom typing import overload\n\nimport typing\nfrom collections\
-    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
-    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from typing import overload\n\nimport typing\nfrom collections import deque\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom\
+    \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
+    \   newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -165,17 +168,17 @@ data:
     def argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift := N.bit_length()))\
     \ - 1\n    indices = [0]*N\n    for i in range(N):\n        indices[i] = A[i]\
     \ << shift | i\n    indices.sort()\n    for i in range(N):\n        indices[i]\
-    \ &= mask\n    return indices\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass\
-    \ DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n\
-    \    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\
-    \n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n\
-    \    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN\
-    \ | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n \
-    \   TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
-    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
-    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \nfrom typing import Callable, Sequence, Union, overload\n\nclass GraphBase(Sequence,\
+    \ &= mask\n    return indices\nfrom typing import Callable, Sequence, Union, overload\n\
+    \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
+    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
     \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
     \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
@@ -419,42 +422,40 @@ data:
     \ self.encode(id, priority)))\n    \n    def replace(self, id: int, priority:\
     \ int):\n        return self.decode(heapreplace_max(self.data, self.encode(id,\
     \ priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n"
-  code: "from math import inf\nimport cp_library.alg.graph.__header__\n\nfrom typing\
-    \ import overload\nfrom cp_library.io.parser_cls import Parsable, TokenStream\n\
-    from cp_library.alg.iter.argsort_fn import argsort\nfrom cp_library.alg.graph.dfs_options_cls\
-    \ import DFSEvent, DFSFlags\nfrom cp_library.alg.graph.fast.graph_base_cls import\
-    \ GraphBase\n\nclass GraphWeightedBase(GraphBase):\n    def __init__(self, N:\
-    \ int, M: int, U: list[int], V: list[int], W: list[int], \n                 deg:\
-    \ list[int], La: list[int], Ra: list[int],\n                 Ua: list[int], Va:\
-    \ list[int], Wa: list[int], Ea: list[int]):\n        super().__init__(N, M, U,\
-    \ V, deg, La, Ra, Ua, Va, Ea)\n        self.W = W\n        self.Wa = Wa\n    \
-    \    \"\"\"Va[i] lists weights to edges from u for La[u] <= i < Ra[u].\"\"\"\n\
-    \n    def __getitem__(G, v):\n        l,r = G.La[v],G.Ra[v]\n        return zip(G.Va[l:r],\
-    \ G.Wa[l:r])\n    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n\
-    \    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        match s, g:\n            case None, None:\n            \
-    \    return G.floyd_warshall()\n            case s, None:\n                return\
-    \ G.dijkstra(s)\n            case s, g:\n                return G.dijkstra(s,\
-    \ g)\n\n    def dijkstra(G, s: int, t: int = None):\n        N, La, Ra, Va, Wa\
-    \ = G.N, G.La, G.Ra, G.Va, G.Wa\n        G.back = back = fill_i32(N, -1)\n   \
-    \     G.D = D = fill_u64(N, inft)\n        D[s] = 0\n            \n        que\
-    \ = PriorityQueue(N, G.starts(s))\n        \n        while que:\n            u,\
-    \ d = que.pop()\n            if u == t: break\n            if d > D[u]: continue\n\
-    \            for i in range(La[u], Ra[u]):\n                v, w = Va[i], Wa[i],\
-    \ \n                if (nd := d + w) < D[v]:\n                    D[v], back[v]\
-    \ = nd, i\n                    que.push(v, nd)\n        return D\n\n    def shortest_path(G,\
+  code: "import cp_library.alg.graph.__header__\nfrom typing import overload\nfrom\
+    \ cp_library.io.parser_cls import TokenStream\nfrom cp_library.alg.iter.argsort_fn\
+    \ import argsort\nfrom cp_library.alg.graph.fast.graph_base_cls import GraphBase\n\
+    \nclass GraphWeightedBase(GraphBase):\n    def __init__(self, N: int, M: int,\
+    \ U: list[int], V: list[int], W: list[int], \n                 deg: list[int],\
+    \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
+    \ Wa: list[int], Ea: list[int]):\n        super().__init__(N, M, U, V, deg, La,\
+    \ Ra, Ua, Va, Ea)\n        self.W = W\n        self.Wa = Wa\n        \"\"\"Va[i]\
+    \ lists weights to edges from u for La[u] <= i < Ra[u].\"\"\"\n\n    def __getitem__(G,\
+    \ v):\n        l,r = G.La[v],G.Ra[v]\n        return zip(G.Va[l:r], G.Wa[l:r])\n\
+    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    match s, g:\n            case None, None:\n                return G.floyd_warshall()\n\
+    \            case s, None:\n                return G.dijkstra(s)\n           \
+    \ case s, g:\n                return G.dijkstra(s, g)\n\n    def dijkstra(G, s:\
+    \ int, t: int = None):\n        N, La, Ra, Va, Wa = G.N, G.La, G.Ra, G.Va, G.Wa\n\
+    \        G.back = back = fill_i32(N, -1)\n        G.D = D = fill_u64(N, inft)\n\
+    \        D[s] = 0\n            \n        que = PriorityQueue(N, G.starts(s))\n\
+    \        \n        while que:\n            u, d = que.pop()\n            if u\
+    \ == t: break\n            if d > D[u]: continue\n            for i in range(La[u],\
+    \ Ra[u]):\n                v, w = Va[i], Wa[i], \n                if (nd := d\
+    \ + w) < D[v]:\n                    D[v], back[v] = nd, i\n                  \
+    \  que.push(v, nd)\n        return D\n\n    def shortest_path(G, s: int, t: int):\n\
+    \        D = G.dijkstra(s, t)\n        if D[t] == inft: return None\n\n      \
+    \  Ua, back = G.Ua, G.back\n            \n        vertices = fill_u32(0)\n   \
+    \     vertices.append(t)\n        v = t\n        while v != s:\n            vertices.append(v\
+    \ := Ua[back[v]])\n        return vertices[::-1]\n    \n    def shortest_path_edge_ids(G,\
     \ s: int, t: int):\n        D = G.dijkstra(s, t)\n        if D[t] == inft: return\
-    \ None\n\n        Ua, back = G.Ua, G.back\n            \n        vertices = fill_u32(0)\n\
-    \        vertices.append(t)\n        v = t\n        while v != s:\n          \
-    \  vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n    \n  \
-    \  def shortest_path_edge_ids(G, s: int, t: int):\n        D = G.dijkstra(s, t)\n\
-    \        if D[t] == inft: return None\n\n        Ea, back = G.Ea, G.back\n   \
-    \         \n        edges = fill_u32(0)\n        edges.append(t)\n        v =\
-    \ t\n        while v != s:\n            edges.append(v := Ea[back[v]])\n     \
-    \   return edges[::-1]\n\n    def kruskal(G):\n        N, U, V, W = G.N, G.U,\
-    \ G.V, G.W \n        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need = N-1\n\
-    \        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
+    \ None\n\n        Ea, back = G.Ea, G.back\n            \n        edges = fill_u32(0)\n\
+    \        edges.append(t)\n        v = t\n        while v != s:\n            edges.append(v\
+    \ := Ea[back[v]])\n        return edges[::-1]\n\n    def kruskal(G):\n       \
+    \ N, U, V, W = G.N, G.U, G.V, G.W \n        dsu = DSU(N)\n        MST = [0]*(N-1)\n\
+    \        need = N-1\n        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
     \            if u != v:\n                need -= 1\n                MST[need]\
     \ = e\n                if not need: break\n        return None if need else MST\n\
     \    \n    def kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W\
@@ -492,7 +493,6 @@ data:
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/alg/iter/argsort_fn.py
-  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/bellman_ford_fn.py
   - cp_library/ds/dsu_cls.py
@@ -500,18 +500,19 @@ data:
   - cp_library/ds/fill_fn.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/math/inft_cnst.py
+  - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/heap/heapq_max_import.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
   requiredBy:
-  - cp_library/alg/graph/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/graph/fast/tree_weighted_base_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  timestamp: '2024-12-17 07:25:33+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-12-17 20:59:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/grl_1_a_fast_dijkstra.test.py
@@ -519,6 +520,7 @@ data:
   - test/grl_1_c_fast_floyd_warshall.test.py
   - test/shortest_path_fast_graph.test.py
   - test/grl_1_b_fast_bellman_ford.test.py
+  - test/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/minimum_spanning_tree_kruskal_heap.test.py
 documentation_of: cp_library/alg/graph/fast/graph_weighted_base_cls.py
 layout: document
