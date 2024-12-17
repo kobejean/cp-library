@@ -1,8 +1,7 @@
 import cp_library.ds.__header__
-from enum import IntEnum, auto
-from itertools import chain, groupby
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
-from typing import Iterable, Sequence
+from itertools import groupby
+from typing import Iterable
 
 class Queries(list, Parsable):
     def __init__(self, data: Iterable = []):

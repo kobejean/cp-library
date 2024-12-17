@@ -60,7 +60,6 @@ class TreeProtocol(GraphProtocol):
 
     def dfs_events(G, flags: DFSFlags, s: int = 0):         
         events = []
-        # stack = deque([(s,-1)], maxlen=G.N)
         stack = [(s,-1)]
         adj = [None]*G.N
 

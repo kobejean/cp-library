@@ -1,6 +1,6 @@
 import cp_library.alg.tree.__header__
-from cp_library.ds.sparse_table_cls import SparseTable
 from cp_library.alg.iter.presum_fn import presum
+from cp_library.ds.sparse_table_cls import SparseTable
 
 class LCATable(SparseTable):
     def __init__(self, T, root = 0):

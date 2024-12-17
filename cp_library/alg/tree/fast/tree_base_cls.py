@@ -1,4 +1,4 @@
-import cp_library.alg.graph.__header__
+import cp_library.alg.tree.fast.__header__
 from typing import Callable, TypeVar
 from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 

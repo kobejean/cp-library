@@ -1,3 +1,4 @@
+import cp_library.ds.__header__
 from array import array
 
 def fill_i32(N: int, elm: int = 0):

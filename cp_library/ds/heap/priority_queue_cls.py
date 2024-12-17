@@ -1,4 +1,4 @@
-import cp_library.ds.__header__
+import cp_library.ds.heap.__header__
 
 from collections import UserList
 from heapq import heapify, heappop, heappush, heappushpop, heapreplace

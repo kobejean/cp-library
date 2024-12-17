@@ -1,5 +1,4 @@
 import cp_library.ds.__header__
-
 from bisect import bisect_left
 import heapq
 from bitarray import bitarray

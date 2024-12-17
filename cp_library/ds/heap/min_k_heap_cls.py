@@ -1,4 +1,4 @@
-import cp_library.ds.__header__
+import cp_library.ds.heap.__header__
 from typing import Iterable, TypeVar
 
 from cp_library.ds.heap.max_heap_cls import MaxHeap

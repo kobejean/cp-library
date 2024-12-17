@@ -1,5 +1,5 @@
-from heapq import heappop, heappush
 import cp_library.ds.heap.__header__
+from heapq import heappop, heappush
 from collections import Counter, UserList
 from typing import Iterable, TypeVar
 

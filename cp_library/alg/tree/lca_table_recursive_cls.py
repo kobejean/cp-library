@@ -1,6 +1,4 @@
 import cp_library.alg.tree.__header__
-from typing import List
-
 import cp_library.misc.setrecursionlimit
 from cp_library.ds.sparse_table_cls import SparseTable
 

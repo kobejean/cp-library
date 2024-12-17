@@ -1,5 +1,4 @@
 import cp_library.ds.__header__
-
 from collections import defaultdict
 
 class SparseDSU:

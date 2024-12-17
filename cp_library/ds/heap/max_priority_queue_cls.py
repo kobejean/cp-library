@@ -1,4 +1,4 @@
-import cp_library.ds.__header__
+import cp_library.ds.heap.__header__
 
 from collections import UserList
 from cp_library.ds.heap.heapq_max_import import heapify_max, heappop_max, heappush_max, heappushpop_max, heapreplace_max

@@ -1,6 +1,6 @@
+import cp_library.ds.__header__
 from math import prod
 from typing import Container, Iterable
-
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
 class grid2d(Parsable, Container):

@@ -2,8 +2,6 @@ import cp_library.alg.tree.__header__
 
 from typing import overload
 from functools import cached_property
-from cp_library.math.inft_cnst import inft
-from cp_library.ds.elist_fn import elist
 from cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol
 from cp_library.alg.tree.tree_proto import TreeProtocol
 from cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted
@@ -121,3 +119,6 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
         T.order, T.tin, T.tout = order, tin, tout
         T.par, T.heavy, T.head = par, heavy, head
         T.Wpar = Wpar
+
+from cp_library.math.inft_cnst import inft
+from cp_library.ds.elist_fn import elist

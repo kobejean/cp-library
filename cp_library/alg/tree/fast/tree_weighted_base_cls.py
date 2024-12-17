@@ -1,4 +1,4 @@
-import cp_library.alg.graph.__header__
+import cp_library.alg.tree.fast.__header__
 from typing import TypeVar
 from cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase
 from cp_library.alg.tree.fast.tree_base_cls import TreeBase
