@@ -71,7 +71,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import overload\n\nimport typing\nfrom collections import deque\n\
+    \nfrom typing import overload\n\nimport typing\nfrom collections import deque\n\
     from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
     \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom\
     \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
@@ -349,7 +349,7 @@ data:
     \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
     \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
     \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
-    \ if r]\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
+    \ if r]\n\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
     \ heappush, heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\n\
     T = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
     \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
@@ -509,7 +509,7 @@ data:
     \ = Wpar\n\n    @classmethod\n    def compile(cls, N: int, shift: int = -1):\n\
     \        return super().compile(N, N-1, shift)\n    \n\nclass TreeWeighted(GraphWeighted,\
     \ TreeWeightedBase):\n    pass\n\n"
-  code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.alg.graph.fast.graph_weighted_cls\
+  code: "import cp_library.alg.tree.fast.__header__\nfrom cp_library.alg.graph.fast.graph_weighted_cls\
     \ import GraphWeighted\nfrom cp_library.alg.tree.fast.tree_weighted_base_cls import\
     \ TreeWeightedBase\n\nclass TreeWeighted(GraphWeighted, TreeWeightedBase):\n \
     \   pass\n\n"
@@ -534,7 +534,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

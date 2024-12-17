@@ -223,9 +223,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_cls.py
       title: cp_library/alg/tree/tree_cls.py
-    - icon: ':warning:'
-      path: cp_library/alg/tree/tree_fast_cls.py
-      title: cp_library/alg/tree/tree_fast_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_proto.py
       title: cp_library/alg/tree/tree_proto.py

@@ -61,7 +61,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\nfrom\
     \ typing import Callable, Sequence, Union, overload\nfrom collections import deque\n\
     \nimport typing\nfrom numbers import Number\nfrom types import GenericAlias \n\
     from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
@@ -360,7 +360,7 @@ data:
   isVerificationFile: true
   path: test/abc202_e_fast_dfs.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc202_e_fast_dfs.test.py

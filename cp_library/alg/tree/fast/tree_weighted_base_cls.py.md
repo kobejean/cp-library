@@ -68,7 +68,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\nfrom typing import overload\n\nimport typing\nfrom\
+    from typing import TypeVar\n\nfrom typing import overload\n\nimport typing\nfrom\
     \ collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
     \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
     \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -346,7 +346,7 @@ data:
     \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
     \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
     \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
-    \ if r]\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
+    \ if r]\n\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
     \ heappush, heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\n\
     T = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
     \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
@@ -494,8 +494,8 @@ data:
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n        T.Wpar\
     \ = Wpar\n\n    @classmethod\n    def compile(cls, N: int, shift: int = -1):\n\
     \        return super().compile(N, N-1, shift)\n    \n"
-  code: "import cp_library.alg.graph.__header__\nfrom typing import TypeVar\nfrom\
-    \ cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase\n\
+  code: "import cp_library.alg.tree.fast.__header__\nfrom typing import TypeVar\n\
+    from cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase\n\
     from cp_library.alg.tree.fast.tree_base_cls import TreeBase\n\n_T = TypeVar('_T')\n\
     class TreeWeightedBase(GraphWeightedBase, TreeBase):\n     \n    def euler_tour(T,\
     \ s = 0):\n        N, Va, Wa = len(T), T.Va, T.Wa\n        tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n\
@@ -559,7 +559,7 @@ data:
   path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

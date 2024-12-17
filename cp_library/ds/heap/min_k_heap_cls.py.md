@@ -164,8 +164,8 @@ data:
     \ N: int|None]\"\"\"\n\n    def __init__(self, K: int, iterable: Iterable[T] =\
     \ None):\n        MaxHeap.__init__(self, iterable)\n        KHeapMixin.__init__(self,\
     \ K)\n"
-  code: "import cp_library.ds.__header__\nfrom typing import Iterable, TypeVar\n\n\
-    from cp_library.ds.heap.max_heap_cls import MaxHeap\nfrom cp_library.ds.heap.k_heap_mixin\
+  code: "import cp_library.ds.heap.__header__\nfrom typing import Iterable, TypeVar\n\
+    \nfrom cp_library.ds.heap.max_heap_cls import MaxHeap\nfrom cp_library.ds.heap.k_heap_mixin\
     \ import KHeapMixin\n\nT = TypeVar('T')\nclass MinKHeap(KHeapMixin[T], MaxHeap[T]):\n\
     \    \"\"\"MinKHeap[K: int, T: type, N: int|None]\"\"\"\n\n    def __init__(self,\
     \ K: int, iterable: Iterable[T] = None):\n        MaxHeap.__init__(self, iterable)\n\
@@ -180,7 +180,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/min_k_heap_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_min_k_heap.test.py

@@ -37,7 +37,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\n\nfrom collections\
+    \          https://kobejean.github.io/cp-library               \n'''\nfrom collections\
     \ import deque\nfrom typing import Any, Iterable\n\nclass SlidingMinMax(deque):\n\
     \    def __init__(self, *, maxlen = None):\n        super().__init__(maxlen=maxlen+1)\n\
     \        self.minq = deque()\n        self.maxq = deque()\n\n    @property\n \
@@ -165,7 +165,7 @@ data:
   isVerificationFile: true
   path: test/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/agc038_b_sliding_min_max.test.py

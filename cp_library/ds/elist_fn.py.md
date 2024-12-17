@@ -83,9 +83,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/tree/tree_fast_cls.py
-    title: cp_library/alg/tree/tree_fast_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
@@ -265,7 +262,6 @@ data:
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_set_cls.py
-  - cp_library/alg/tree/tree_fast_cls.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/alg/graph/dag_cls.py
@@ -289,7 +285,7 @@ data:
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/grid_graph_proto.py
   - cp_library/ds/queries_mo_ops_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

@@ -17,7 +17,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport typing\n\nclass SegTree:\n    def __init__(self,\n                 op:\
+    import typing\n\nclass SegTree:\n    def __init__(self,\n                 op:\
     \ typing.Callable[[typing.Any, typing.Any], typing.Any],\n                 e:\
     \ typing.Any,\n                 v: typing.Union[int, typing.List[typing.Any]])\
     \ -> None:\n        self.op = op\n        self.e = e\n\n        if isinstance(v,\
@@ -60,7 +60,7 @@ data:
     \       sm = self.op(self.d[right], sm)\n\n        return 0\n\n    def _update(self,\
     \ k: int) -> None:\n        self.d[k] = self.op(self.d[2 * k], self.d[2 * k +\
     \ 1])\n"
-  code: "import cp_library.ds.__header__\n\nimport typing\n\nclass SegTree:\n    def\
+  code: "import cp_library.ds.__header__\nimport typing\n\nclass SegTree:\n    def\
     \ __init__(self,\n                 op: typing.Callable[[typing.Any, typing.Any],\
     \ typing.Any],\n                 e: typing.Any,\n                 v: typing.Union[int,\
     \ typing.List[typing.Any]]) -> None:\n        self.op = op\n        self.e = e\n\
@@ -107,7 +107,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/segtree_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dsl_2_a_segtree.test.py

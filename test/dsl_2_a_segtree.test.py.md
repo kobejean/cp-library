@@ -25,8 +25,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\n\nimport\
-    \ typing\n\nclass SegTree:\n    def __init__(self,\n                 op: typing.Callable[[typing.Any,\
+    \          https://kobejean.github.io/cp-library               \n'''\nimport typing\n\
+    \nclass SegTree:\n    def __init__(self,\n                 op: typing.Callable[[typing.Any,\
     \ typing.Any], typing.Any],\n                 e: typing.Any,\n               \
     \  v: typing.Union[int, typing.List[typing.Any]]) -> None:\n        self.op =\
     \ op\n        self.e = e\n\n        if isinstance(v, int):\n            v = [e]\
@@ -82,7 +82,7 @@ data:
   isVerificationFile: true
   path: test/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dsl_2_a_segtree.test.py

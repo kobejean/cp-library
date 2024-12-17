@@ -26,11 +26,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nimport typing\nimport random\n\nclass KDTreeNode:\n \
-    \   __slots__ = ['id', 'point', 'children']\n    \n    def __init__(self, id,\
-    \ point, children):\n        self.id = id\n        self.point = point\n      \
-    \  self.children = children\n\nclass KDTree:\n    __slots__ = ['k', 'nodes', 'root']\n\
-    \n    def __init__(self, points):\n        self.k = len(points[0])\n        self.build_tree(points)\n\
+    \               \n'''\nimport typing\nimport random\n\nclass KDTreeNode:\n   \
+    \ __slots__ = ['id', 'point', 'children']\n    \n    def __init__(self, id, point,\
+    \ children):\n        self.id = id\n        self.point = point\n        self.children\
+    \ = children\n\nclass KDTree:\n    __slots__ = ['k', 'nodes', 'root']\n\n    def\
+    \ __init__(self, points):\n        self.k = len(points[0])\n        self.build_tree(points)\n\
     \n    def median_of_three(self, l, r, axis):\n        m = (l + r) // 2\n     \
     \   a, b, c = self.nodes[l].point[axis], self.nodes[m].point[axis], self.nodes[r].point[axis]\n\
     \        if a <= b <= c or c <= b <= a:\n            return m\n        if b <=\
@@ -75,7 +75,7 @@ data:
   isVerificationFile: true
   path: test/dsl_2_c_kdtree.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dsl_2_c_kdtree.test.py

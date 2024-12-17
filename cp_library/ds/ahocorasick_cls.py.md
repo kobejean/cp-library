@@ -20,7 +20,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom collections import deque\nfrom typing import Dict, List, Optional\n\nclass\
+    from collections import deque\nfrom typing import Dict, List, Optional\n\nclass\
     \ Trie:\n    __slots__ = 'dic', 'parent', 'last', 'count', 'word'\n\n    def __init__(self):\n\
     \        self.dic: Dict[str, Trie] = {}\n        self.parent: Optional[Trie] =\
     \ None\n        self.last: str = \"\"\n        self.count: int = 0\n        self.word:\
@@ -74,7 +74,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/ahocorasick_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc362_q_count_substring_query_ahocorasick.test.py

@@ -14,13 +14,13 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "from math import prod\nfrom typing import Container, Iterable\n\n\
-    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\nimport typing\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from math import prod\nfrom typing import Container, Iterable\n\nimport typing\n\
     from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
     \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
     \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -112,30 +112,31 @@ data:
     \  self.data[i * self.shape[1] + j] = value\n    \n    def __repr__(self) -> str:\n\
     \        (N, M), data = self.shape, self.data\n        return '\\n'.join(' '.join(str(data[j])\
     \ for j in range(i,i+M)) for i in range(0,N*M,M))\n"
-  code: "from math import prod\nfrom typing import Container, Iterable\n\nfrom cp_library.io.parser_cls\
-    \ import Parsable, Parser, TokenStream\n\nclass grid2d(Parsable, Container):\n\
-    \n    def __init__(self, shape: tuple[int, int], data = 0):\n        self.shape\
-    \ = shape\n        self.size = prod(shape)\n        if isinstance(data, Iterable)\
-    \ and not isinstance(data, str):\n            self.data = list(elm for row in\
-    \ data for elm in row)\n        else:\n            self.data = [data] * (self.size)\n\
-    \    \n    @classmethod\n    def compile(cls, shape: tuple[int, int], T: type\
-    \ = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
-    \            obj = cls.__new__(cls)\n            obj.shape = shape\n         \
-    \   obj.size = prod(shape)\n            obj.data = list(elm(ts) for _ in range(obj.size))\n\
-    \            return obj\n        return parse\n    \n    def __contains__(self,\
-    \ x: object) -> bool:\n        return x in self.data\n    \n    def __getitem__(self,\
-    \ key: tuple[int, int]):\n        i, j = key\n        return self.data[i * self.shape[1]\
-    \ + j]\n    \n    def __setitem__(self, key: tuple[int, int], value):\n      \
-    \  i, j = key\n        self.data[i * self.shape[1] + j] = value\n    \n    def\
-    \ __repr__(self) -> str:\n        (N, M), data = self.shape, self.data\n     \
-    \   return '\\n'.join(' '.join(str(data[j]) for j in range(i,i+M)) for i in range(0,N*M,M))\n"
+  code: "import cp_library.ds.__header__\nfrom math import prod\nfrom typing import\
+    \ Container, Iterable\nfrom cp_library.io.parser_cls import Parsable, Parser,\
+    \ TokenStream\n\nclass grid2d(Parsable, Container):\n\n    def __init__(self,\
+    \ shape: tuple[int, int], data = 0):\n        self.shape = shape\n        self.size\
+    \ = prod(shape)\n        if isinstance(data, Iterable) and not isinstance(data,\
+    \ str):\n            self.data = list(elm for row in data for elm in row)\n  \
+    \      else:\n            self.data = [data] * (self.size)\n    \n    @classmethod\n\
+    \    def compile(cls, shape: tuple[int, int], T: type = int):\n        elm = Parser.compile(T)\n\
+    \        def parse(ts: TokenStream):\n            obj = cls.__new__(cls)\n   \
+    \         obj.shape = shape\n            obj.size = prod(shape)\n            obj.data\
+    \ = list(elm(ts) for _ in range(obj.size))\n            return obj\n        return\
+    \ parse\n    \n    def __contains__(self, x: object) -> bool:\n        return\
+    \ x in self.data\n    \n    def __getitem__(self, key: tuple[int, int]):\n   \
+    \     i, j = key\n        return self.data[i * self.shape[1] + j]\n    \n    def\
+    \ __setitem__(self, key: tuple[int, int], value):\n        i, j = key\n      \
+    \  self.data[i * self.shape[1] + j] = value\n    \n    def __repr__(self) -> str:\n\
+    \        (N, M), data = self.shape, self.data\n        return '\\n'.join(' '.join(str(data[j])\
+    \ for j in range(i,i+M)) for i in range(0,N*M,M))\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/ds/grid.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/grid.py

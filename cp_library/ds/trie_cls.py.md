@@ -20,7 +20,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom collections import deque\nfrom typing import Dict, List, Optional\n\nclass\
+    from collections import deque\nfrom typing import Dict, List, Optional\n\nclass\
     \ Trie:\n    __slots__ = 'dic', 'parent', 'last', 'count', 'word'\n\n    def __init__(self):\n\
     \        self.dic: Dict[str, Trie] = {}\n        self.parent: Optional[Trie] =\
     \ None\n        self.last: str = \"\"\n        self.count: int = 0\n        self.word:\
@@ -38,7 +38,7 @@ data:
     \        return output\n    \n    def prefix(self) -> str:\n        output = []\n\
     \        curr = self\n        while curr.parent is not None:\n            output.append(curr.last)\n\
     \            curr = curr.parent\n        return \"\".join(reversed(output))\n"
-  code: "import cp_library.ds.__header__\n\nfrom collections import deque\nfrom typing\
+  code: "import cp_library.ds.__header__\nfrom collections import deque\nfrom typing\
     \ import Dict, List, Optional\n\nclass Trie:\n    __slots__ = 'dic', 'parent',\
     \ 'last', 'count', 'word'\n\n    def __init__(self):\n        self.dic: Dict[str,\
     \ Trie] = {}\n        self.parent: Optional[Trie] = None\n        self.last: str\
@@ -62,7 +62,7 @@ data:
   path: cp_library/ds/trie_cls.py
   requiredBy:
   - cp_library/ds/ahocorasick_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc362_q_count_substring_query_ahocorasick.test.py

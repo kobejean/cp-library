@@ -35,11 +35,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterable, TypeVar\n\n\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    from typing import TypeVar\n\n\nimport typing\nfrom collections import deque\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom\
+    \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
+    \   newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
     \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
     \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
@@ -134,8 +134,8 @@ data:
     \ TokenStream):\n                return cls(K, (elm(ts) for _ in ts.wait()))\n\
     \        else:\n            def parse(ts: TokenStream):\n                return\
     \ cls(K, (elm(ts) for _ in range(N)))\n        return parse\n"
-  code: "import cp_library.ds.__header__\nfrom typing import Iterable, TypeVar\n\n\
-    from cp_library.io.parser_cls import Parser, Parsable, TokenStream\nfrom cp_library.ds.heap.heap_proto\
+  code: "import cp_library.ds.heap.__header__\nfrom typing import TypeVar\n\nfrom\
+    \ cp_library.io.parser_cls import Parser, Parsable, TokenStream\nfrom cp_library.ds.heap.heap_proto\
     \ import HeapProtocol\n\nT = TypeVar('T')\nclass KHeapMixin(HeapProtocol[T], Parsable):\n\
     \    \"\"\"KHeapMixin[K: int, T: type, N: int|None]\"\"\"\n    def __init__(heap,\
     \ K: int):\n        heap.K = K\n\n    def added(heap, item: T): ...\n\n    def\
@@ -166,7 +166,7 @@ data:
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_k_heap_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_max_k_heap.test.py

@@ -110,7 +110,7 @@ data:
     \        assert 0 <= i <= self.size\n        s = 0\n        data = self.data\n\
     \        for _ in range(i.bit_count()):\n            s, i = s+data[i-1], i-(i&-i)\n\
     \        return s\n    \n    def range_sum(self, l: int, r: int):\n        return\
-    \ self.pref_sum(r) - self.pref_sum(l)\n\nfrom typing import overload\n\nimport\
+    \ self.pref_sum(r) - self.pref_sum(l)\n\n\nfrom typing import overload\n\nimport\
     \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
     \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar,\
     \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -388,7 +388,7 @@ data:
     \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
     \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
     \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
-    \ if r]\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
+    \ if r]\n\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
     \ heappush, heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\n\
     T = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
     \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
@@ -547,7 +547,7 @@ data:
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n        T.Wpar\
     \ = Wpar\n\n    @classmethod\n    def compile(cls, N: int, shift: int = -1):\n\
     \        return super().compile(N, N-1, shift)\n    \n\nclass TreeWeighted(GraphWeighted,\
-    \ TreeWeightedBase):\n    pass\n\n\n\nclass HLD(Sequence[int]):\n    def __init__(self,\
+    \ TreeWeightedBase):\n    pass\n\n\nclass HLD(Sequence[int]):\n    def __init__(self,\
     \ T, r=0):\n        N = len(T)\n        T.hld_precomp(r)\n        self.N, self.T,\
     \ self.size, self.depth = N, T, T.size, T.depth\n        self.order, self.start,\
     \ self.end = T.order, T.tin, T.tout\n        self.par, self.heavy, self.head =\
@@ -618,7 +618,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_fast_tree_heavy_light_decomposition.test.py

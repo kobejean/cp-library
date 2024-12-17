@@ -40,15 +40,15 @@ data:
     \ item: T):\n        heappush(self.data, item)\n\n    def pushpop(self, item:\
     \ T):\n        return heappushpop(self.data, item)\n    \n    def replace(self,\
     \ item: T):\n        return heapreplace(self.data, item)\n"
-  code: "import cp_library.ds.__header__\nfrom collections import UserList\nfrom typing\
-    \ import Iterable, TypeVar\nfrom heapq import heapify, heappop, heappush, heappushpop,\
-    \ heapreplace\nfrom cp_library.ds.heap.heap_proto import HeapProtocol\n\nT = TypeVar('T')\n\
-    class MinHeap(HeapProtocol[T], UserList[T]):\n    \n    def __init__(self, iterable:\
-    \ Iterable = None):\n        super().__init__(iterable)\n        heapify(self.data)\n\
-    \    \n    def pop(self):\n        return heappop(self.data)\n    \n    def push(self,\
-    \ item: T):\n        heappush(self.data, item)\n\n    def pushpop(self, item:\
-    \ T):\n        return heappushpop(self.data, item)\n    \n    def replace(self,\
-    \ item: T):\n        return heapreplace(self.data, item)\n"
+  code: "import cp_library.ds.heap.__header__\nfrom collections import UserList\n\
+    from typing import Iterable, TypeVar\nfrom heapq import heapify, heappop, heappush,\
+    \ heappushpop, heapreplace\nfrom cp_library.ds.heap.heap_proto import HeapProtocol\n\
+    \nT = TypeVar('T')\nclass MinHeap(HeapProtocol[T], UserList[T]):\n    \n    def\
+    \ __init__(self, iterable: Iterable = None):\n        super().__init__(iterable)\n\
+    \        heapify(self.data)\n    \n    def pop(self):\n        return heappop(self.data)\n\
+    \    \n    def push(self, item: T):\n        heappush(self.data, item)\n\n   \
+    \ def pushpop(self, item: T):\n        return heappushpop(self.data, item)\n \
+    \   \n    def replace(self, item: T):\n        return heapreplace(self.data, item)\n"
   dependsOn:
   - cp_library/ds/heap/heap_proto.py
   isVerificationFile: false
@@ -56,7 +56,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/shortest_path_fn.py
   - cp_library/ds/heap/max_k_heap_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_max_k_heap.test.py

@@ -102,7 +102,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\nfrom typing import overload\n\nimport typing\nfrom collections import\
+    \  \n'''\n\nfrom typing import overload\n\nimport typing\nfrom collections import\
     \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
     \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
     from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
@@ -380,7 +380,7 @@ data:
     \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
     \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
     \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
-    \ if r]\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
+    \ if r]\n\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
     \ heappush, heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\n\
     T = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
     \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
@@ -539,7 +539,7 @@ data:
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n        T.Wpar\
     \ = Wpar\n\n    @classmethod\n    def compile(cls, N: int, shift: int = -1):\n\
     \        return super().compile(N, N-1, shift)\n    \n\nclass TreeWeighted(GraphWeighted,\
-    \ TreeWeightedBase):\n    pass\n\n\nimport operator\nfrom itertools import accumulate\n\
+    \ TreeWeightedBase):\n    pass\n\nimport operator\nfrom itertools import accumulate\n\
     from typing import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter:\
     \ Iterable[T], func: Callable[[T,T],T] = None, initial: T = None, step = 1) ->\
     \ list[T]:\n    match step:\n        case 1:\n            return list(accumulate(iter,\
@@ -547,8 +547,8 @@ data:
     \            if func is None:\n                func = operator.add\n         \
     \   A = list(iter)\n            if initial is not None:\n                A = [initial]\
     \ + A\n            for i in range(step,len(A)):\n                A[i] = func(A[i],\
-    \ A[i-step])\n            return A\n\nfrom typing import Any, Callable, List\n\
-    \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
+    \ A[i-step])\n            return A\nfrom typing import Any, Callable, List\n\n\
+    class SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
     \ List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
     \        self.op = op\n        \n        self.offsets = offsets = [0]\n      \
     \  for i in range(1, self.log):\n            offsets.append(offsets[-1] + N -\
@@ -656,7 +656,7 @@ data:
   isVerificationFile: true
   path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

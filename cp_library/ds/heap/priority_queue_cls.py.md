@@ -168,8 +168,8 @@ data:
     \ self.encode(id, priority)))\n    \n    def replace(self, id: int, priority:\
     \ int):\n        return self.decode(heapreplace_max(self.data, self.encode(id,\
     \ priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n"
-  code: "import cp_library.ds.__header__\n\nfrom collections import UserList\nfrom\
-    \ heapq import heapify, heappop, heappush, heappushpop, heapreplace\nfrom cp_library.ds.heap.heap_proto\
+  code: "import cp_library.ds.heap.__header__\n\nfrom collections import UserList\n\
+    from heapq import heapify, heappop, heappush, heappushpop, heapreplace\nfrom cp_library.ds.heap.heap_proto\
     \ import HeapProtocol\n\nclass PriorityQueue(HeapProtocol[int], UserList[int]):\n\
     \    \n    def __init__(self, N: int, ids: list[int] = None, priorities: list[int]\
     \ = None, /):\n        self.shift = N.bit_length()\n        self.mask = (1 <<\
@@ -219,7 +219,7 @@ data:
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

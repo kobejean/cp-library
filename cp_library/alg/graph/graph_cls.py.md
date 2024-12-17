@@ -26,9 +26,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/tree/tree_fast_cls.py
-    title: cp_library/alg/tree/tree_fast_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/abc202_e_dfs_enter_leave.test.py
@@ -373,8 +370,7 @@ data:
   path: cp_library/alg/graph/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_cls.py
-  - cp_library/alg/tree/tree_fast_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py

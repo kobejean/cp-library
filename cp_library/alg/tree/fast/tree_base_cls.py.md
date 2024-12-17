@@ -59,37 +59,37 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Callable, TypeVar\nfrom typing import Callable, Sequence, Union,\
-    \ overload\nfrom collections import deque\n\nimport typing\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    from typing import Callable, TypeVar\n\nfrom typing import Callable, Sequence,\
+    \ Union, overload\nfrom collections import deque\n\nimport typing\nfrom numbers\
+    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -304,40 +304,41 @@ data:
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n\n    @classmethod\n\
     \    def compile(cls, N: int, shift: int = -1):\n        return super().compile(N,\
     \ N-1, shift)\n    \n"
-  code: "import cp_library.alg.graph.__header__\nfrom typing import Callable, TypeVar\n\
-    from cp_library.alg.graph.fast.graph_base_cls import GraphBase\n\n_T = TypeVar('_T')\n\
-    \nclass TreeBase(GraphBase):\n\n    def rerooting_dp(T, e: _T, \n            \
-    \         merge: Callable[[_T,_T],_T], \n                     add_child: Callable[[int,int,int,_T],_T]\
-    \ = lambda p,c,i,s:s,\n                     s: int = 0):\n        N, La, Ra, Ua,\
-    \ Va = T.N, T.La, T.Ra, T.Ua, T.Va\n        order = T.dfs_discovery(s)\n     \
-    \   dp = [e]*N\n        suf = [e]*len(Ua)\n        I = Ra[:] # tracks current\
-    \ indices for suffix array accumulation\n\n        # up\n        for i in order[::-1]:\n\
-    \            u,v = Ua[i], Va[i]\n            # subtree v finished up pass, store\
-    \ value to accumulate for u\n            dp[v] = new = add_child(u, v, i, dp[v])\n\
-    \            dp[u] = merge(dp[u], new)\n            # suffix accumulation\n  \
-    \          I[u] -= 1\n            if I[u] > La[u]:\n                suf[I[u]-1]\
-    \ = merge(suf[I[u]], new)\n\n        # down\n        dp[s] = e\n        for i\
-    \ in order:\n            u,v = Ua[i], Va[i]\n            # prefix accumulation\n\
-    \            dp[u] = merge(pre := dp[u], dp[v])\n            # push value to child\n\
-    \            dp[v] = add_child(v, u, i, merge(suf[I[u]], pre))\n            I[u]\
-    \ += 1\n        \n        return dp\n    \n    def euler_tour(T, s = 0):\n   \
-    \     N, Va = len(T), T.Va\n        tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n  \
-    \      order, delta = elist(2*N), elist(2*N)\n        \n        stack = elist(N)\n\
-    \        stack.append(s)\n        while stack:\n            p = par[u := stack.pop()]\n\
-    \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
-    \       for i in T.range(u):\n                    if (v := Va[i]) != p:\n    \
-    \                    par[v] = u\n                        stack.append(u)\n   \
-    \                     stack.append(v)\n                delta.append(1)\n     \
-    \       else:\n                delta.append(-1)\n            \n            order.append(u)\n\
-    \            tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n        T.tin,\
-    \ T.tout, T.par = tin, tout, par\n        T.order, T.delta = order, delta\n\n\
-    \    def hld_precomp(T, r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin,\
-    \ tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N,\
-    \ [r]*N\n        depth, order, state = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n\
-    \        stack.append(r)\n        while stack:\n            match state[v := stack.pop()]:\n\
-    \                case 0: # dfs down\n                    p, state[v] = par[v],\
-    \ 1\n                    stack.append(v)\n                    for i in T.range(v):\n\
-    \                        if (c := Va[i]) != p:\n                            depth[c],\
+  code: "import cp_library.alg.tree.fast.__header__\nfrom typing import Callable,\
+    \ TypeVar\nfrom cp_library.alg.graph.fast.graph_base_cls import GraphBase\n\n\
+    _T = TypeVar('_T')\n\nclass TreeBase(GraphBase):\n\n    def rerooting_dp(T, e:\
+    \ _T, \n                     merge: Callable[[_T,_T],_T], \n                 \
+    \    add_child: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n          \
+    \           s: int = 0):\n        N, La, Ra, Ua, Va = T.N, T.La, T.Ra, T.Ua, T.Va\n\
+    \        order = T.dfs_discovery(s)\n        dp = [e]*N\n        suf = [e]*len(Ua)\n\
+    \        I = Ra[:] # tracks current indices for suffix array accumulation\n\n\
+    \        # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
+    \            # subtree v finished up pass, store value to accumulate for u\n \
+    \           dp[v] = new = add_child(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
+    \ new)\n            # suffix accumulation\n            I[u] -= 1\n           \
+    \ if I[u] > La[u]:\n                suf[I[u]-1] = merge(suf[I[u]], new)\n\n  \
+    \      # down\n        dp[s] = e\n        for i in order:\n            u,v = Ua[i],\
+    \ Va[i]\n            # prefix accumulation\n            dp[u] = merge(pre := dp[u],\
+    \ dp[v])\n            # push value to child\n            dp[v] = add_child(v,\
+    \ u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n        \n        return\
+    \ dp\n    \n    def euler_tour(T, s = 0):\n        N, Va = len(T), T.Va\n    \
+    \    tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n        order, delta = elist(2*N),\
+    \ elist(2*N)\n        \n        stack = elist(N)\n        stack.append(s)\n  \
+    \      while stack:\n            p = par[u := stack.pop()]\n            if tin[u]\
+    \ == -1:\n                tin[u] = len(order)\n                for i in T.range(u):\n\
+    \                    if (v := Va[i]) != p:\n                        par[v] = u\n\
+    \                        stack.append(u)\n                        stack.append(v)\n\
+    \                delta.append(1)\n            else:\n                delta.append(-1)\n\
+    \            \n            order.append(u)\n            tout[u] = len(order)\n\
+    \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par = tin, tout, par\n\
+    \        T.order, T.delta = order, delta\n\n    def hld_precomp(T, r = 0):\n \
+    \       N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n\
+    \        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, state\
+    \ = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n        stack.append(r)\n \
+    \       while stack:\n            match state[v := stack.pop()]:\n           \
+    \     case 0: # dfs down\n                    p, state[v] = par[v], 1\n      \
+    \              stack.append(v)\n                    for i in T.range(v):\n   \
+    \                     if (c := Va[i]) != p:\n                            depth[c],\
     \ par[c] = depth[v]+1, v\n                            stack.append(c)\n\n    \
     \            case 1: # dfs up\n                    p, l = par[v], -1\n       \
     \             for i in T.range(v):\n                        if (c := Va[i]) !=\
@@ -371,7 +372,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

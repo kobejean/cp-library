@@ -59,8 +59,8 @@ data:
     \        return self.decode(heappushpop_max(self.data, self.encode(id, priority)))\n\
     \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace_max(self.data,\
     \ self.encode(id, priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n"
-  code: "import cp_library.ds.__header__\n\nfrom collections import UserList\nfrom\
-    \ cp_library.ds.heap.heapq_max_import import heapify_max, heappop_max, heappush_max,\
+  code: "import cp_library.ds.heap.__header__\n\nfrom collections import UserList\n\
+    from cp_library.ds.heap.heapq_max_import import heapify_max, heappop_max, heappush_max,\
     \ heappushpop_max, heapreplace_max\nfrom cp_library.ds.heap.heap_proto import\
     \ HeapProtocol\n\nclass MaxPriorityQueue(HeapProtocol[int], UserList[int]):\n\
     \    \n    def __init__(self, N: int, ids: list[int] = None, priorities: list[int]\
@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/max_priority_queue_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/max_priority_queue_cls.py

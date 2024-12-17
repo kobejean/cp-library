@@ -135,38 +135,37 @@ data:
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\nfrom enum import IntEnum, auto\nfrom itertools import chain,\
-    \ groupby\nfrom typing import Iterable, Sequence\n\nclass Queries(list, Parsable):\n\
-    \    def __init__(self, data: Iterable = []):\n        super().__init__((i,*query)\
-    \ for i,query in enumerate(data))\n\n    def append(self, query) -> None:\n  \
-    \      return super().append((len(self), *query))\n\n    @classmethod\n    def\
-    \ compile(cls, N: int, T: type = tuple[int, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls(query(ts) for _ in\
-    \ range(N))\n        return parse\n\nclass QueriesGrouped(Queries):\n    '''QueriesGrouped[Q:\
-    \ int, key = 0, T: type = tuple[int, ...]]'''\n    def __init__(self, queries,\
-    \ key = 0):\n        if isinstance(key, int):\n            group_idx = key+1\n\
-    \            def wrap_key(row):\n                return row[group_idx]\n     \
-    \   else:\n            def wrap_key(row):\n                _, *query = row\n \
-    \               return key(query)\n        rows = sorted(((i,*query) for i,query\
-    \ in enumerate(queries)), key = wrap_key)\n        groups = [(k, list(g)) for\
-    \ k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n        self.key\
-    \ = key\n        \n        list.__init__(self, groups)\n            \n\n    @classmethod\n\
-    \    def compile(cls, Q: int, key = 0, T: type = tuple[int, ...]):\n        query\
-    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            return\
-    \ cls((query(ts) for _ in range(Q)), key)\n        return parse\n\nclass QueriesRange(Queries):\n\
-    \    '''QueriesRange[Q: int, N: int, key = 0, T: type = tuple[-1, int]]'''\n \
-    \   def __init__(self, queries, N: int, key = 0):\n        if isinstance(key,\
+    \        file.flush()\nfrom itertools import groupby\nfrom typing import Iterable\n\
+    \nclass Queries(list, Parsable):\n    def __init__(self, data: Iterable = []):\n\
+    \        super().__init__((i,*query) for i,query in enumerate(data))\n\n    def\
+    \ append(self, query) -> None:\n        return super().append((len(self), *query))\n\
+    \n    @classmethod\n    def compile(cls, N: int, T: type = tuple[int, int]):\n\
+    \        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n    \
+    \        return cls(query(ts) for _ in range(N))\n        return parse\n\nclass\
+    \ QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int, key = 0, T: type = tuple[int,\
+    \ ...]]'''\n    def __init__(self, queries, key = 0):\n        if isinstance(key,\
     \ int):\n            group_idx = key+1\n            def wrap_key(row):\n     \
     \           return row[group_idx]\n        else:\n            def wrap_key(row):\n\
     \                _, *query = row\n                return key(query)\n        rows\
-    \ = list((i,*query) for i,query in enumerate(queries))\n        \n        groups\
-    \ = [(k,[]) for k in range(N)]\n        for k, group in groupby(rows, key = wrap_key):\n\
-    \            groups[k][1].extend(group)\n        self.key = key\n        \n  \
-    \      list.__init__(self, groups)\n\n    @classmethod\n    def compile(cls, Q:\
-    \ int, N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
-    \ in range(Q)), N, key)\n        return parse\n\nif __name__ == \"__main__\":\n\
-    \    main()\n"
+    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
+    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
+    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
+    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
+    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
+    \  def parse(ts: TokenStream):\n            return cls((query(ts) for _ in range(Q)),\
+    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
+    \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
+    \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
+    \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
+    \        else:\n            def wrap_key(row):\n                _, *query = row\n\
+    \                return key(query)\n        rows = list((i,*query) for i,query\
+    \ in enumerate(queries))\n        \n        groups = [(k,[]) for k in range(N)]\n\
+    \        for k, group in groupby(rows, key = wrap_key):\n            groups[k][1].extend(group)\n\
+    \        self.key = key\n        \n        list.__init__(self, groups)\n\n   \
+    \ @classmethod\n    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1,\
+    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls((query(ts) for _ in range(Q)), N, key)\n        return\
+    \ parse\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
     \    XY = read(QueriesGrouped[M])\n    \n    # currently reacable columns\n  \
@@ -189,7 +188,7 @@ data:
   isVerificationFile: true
   path: test/abc203_e_queries_grouped.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc203_e_queries_grouped.test.py

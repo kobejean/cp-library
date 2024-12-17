@@ -5,9 +5,6 @@ data:
     path: cp_library/alg/graph/bellman_ford_fn.py
     title: cp_library/alg/graph/bellman_ford_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-    title: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -74,23 +71,16 @@ data:
     inft: int\n\ninft = sys.maxsize\n\ndef main():\n    N, M, r = read()\n    G =\
     \ read(DiGraphWeighted[N, M, 0])\n\n    neg_cycle, D = G.bellman_ford_neg_cyc_check(r)\n\
     \n    if neg_cycle:\n        write(\"NEGATIVE CYCLE\")\n    else:\n        write(*('INF'\
-    \ if d == inft else d for d in D), sep='\\n')\n\n\n\ndef bellman_ford(G, N, root)\
-    \ -> tuple[bool, list[int]]:\n    \n    def bellman_ford(G, N, root) -> list[int]:\n\
-    \        D = [inft]*N\n        D[root] = 0\n        for _ in range(N-1):\n   \
-    \         for u, edges in enumerate(G):\n                if D[u] == inft: continue\n\
-    \                for v,w in edges:\n                    D[v] = min(D[v], D[u]\
-    \ + w)\n        return D\n    D = bellman_ford(G, N, root)\n    neg_cycle = any(D[u]+w<D[v]\
-    \ for u, edges in enumerate(G) for v,w in edges if D[u] != inft)\n    return neg_cycle,\
-    \ D\n\nfrom typing import overload\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ if d == inft else d for d in D), sep='\\n')\n\n\nfrom typing import overload\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -359,7 +349,7 @@ data:
     \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
     \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
     \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
-    \ if r]\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
+    \ if r]\n\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
     \ heappush, heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\n\
     T = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
     \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
@@ -442,23 +432,21 @@ data:
     from cp_library.math.inft_cnst import inft\n\ndef main():\n    N, M, r = read()\n\
     \    G = read(DiGraphWeighted[N, M, 0])\n\n    neg_cycle, D = G.bellman_ford_neg_cyc_check(r)\n\
     \n    if neg_cycle:\n        write(\"NEGATIVE CYCLE\")\n    else:\n        write(*('INF'\
-    \ if d == inft else d for d in D), sep='\\n')\n\nfrom cp_library.alg.graph.bellman_ford_neg_cyc_check_fn\
-    \ import bellman_ford\nfrom cp_library.alg.graph.fast.digraph_weighted_cls import\
-    \ DiGraphWeighted\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ if d == inft else d for d in D), sep='\\n')\n\nfrom cp_library.alg.graph.fast.digraph_weighted_cls\
+    \ import DiGraphWeighted\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
     \ import write\n\nif __name__ == '__main__':\n    main()"
   dependsOn:
   - cp_library/math/inft_cnst.py
-  - cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/alg/graph/bellman_ford_fn.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/ds/fill_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/alg/graph/bellman_ford_fn.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/heap/priority_queue_cls.py
@@ -468,7 +456,7 @@ data:
   isVerificationFile: true
   path: test/grl_1_b_fast_bellman_ford.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_1_b_fast_bellman_ford.test.py

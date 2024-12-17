@@ -73,7 +73,7 @@ data:
     \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
     \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\nfrom typing import Callable, Sequence, Union, overload\nfrom collections\
+    \    \n\n\nfrom typing import Callable, Sequence, Union, overload\nfrom collections\
     \ import deque\n\nimport typing\nfrom numbers import Number\nfrom types import\
     \ GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\n\
     import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -364,7 +364,7 @@ data:
   isVerificationFile: true
   path: test/abc202_e_fast_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc202_e_fast_dfs_enter_leave.test.py

@@ -14,9 +14,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom bisect import bisect_left\nimport heapq\nfrom bitarray import bitarray\n\
-    \nclass WaveletMatrix:\n\n    class Level(bitarray):\n        def select(self,\
-    \ bit: int, k: int) -> int:\n            def key(i):\n                return self.count(bit,\
+    from bisect import bisect_left\nimport heapq\nfrom bitarray import bitarray\n\n\
+    class WaveletMatrix:\n\n    class Level(bitarray):\n        def select(self, bit:\
+    \ int, k: int) -> int:\n            def key(i):\n                return self.count(bit,\
     \ 0, i+1)\n            index = bisect_left(range(len(self)), k+1, key=key)\n \
     \           return -1 if index >= len(self) else index\n\n    def __init__(self,\
     \ data: list[int]):\n        self.n = len(data)\n        self.height = max(data).bit_length()\n\
@@ -72,8 +72,8 @@ data:
     \n        dfs(l, r, 0, 0)\n        \n        result = []\n        while heap and\
     \ len(result) < k:\n            _, _, val, count = heapq.heappop(heap)\n     \
     \       result.append((val, count))\n        \n        return result\n"
-  code: "import cp_library.ds.__header__\n\nfrom bisect import bisect_left\nimport\
-    \ heapq\nfrom bitarray import bitarray\n\nclass WaveletMatrix:\n\n    class Level(bitarray):\n\
+  code: "import cp_library.ds.__header__\nfrom bisect import bisect_left\nimport heapq\n\
+    from bitarray import bitarray\n\nclass WaveletMatrix:\n\n    class Level(bitarray):\n\
     \        def select(self, bit: int, k: int) -> int:\n            def key(i):\n\
     \                return self.count(bit, 0, i+1)\n            index = bisect_left(range(len(self)),\
     \ k+1, key=key)\n            return -1 if index >= len(self) else index\n\n  \
@@ -134,7 +134,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/wavelet_matrix_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/wavelet_matrix_cls.py

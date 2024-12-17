@@ -49,7 +49,7 @@ data:
     \               func = operator.add\n            A = list(iter)\n            if\
     \ initial is not None:\n                A = [initial] + A\n            for i in\
     \ range(step,len(A)):\n                A[i] = func(A[i], A[i-step])\n        \
-    \    return A\n\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
+    \    return A\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
     \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
     \    self.N = N = len(arr)\n        self.log = N.bit_length()\n        self.op\
     \ = op\n        \n        self.offsets = offsets = [0]\n        for i in range(1,\
@@ -100,7 +100,7 @@ data:
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

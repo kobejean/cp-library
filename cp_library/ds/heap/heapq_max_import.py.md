@@ -142,7 +142,7 @@ data:
     \ heappushpop_max(heap: list[T], item: T) -> T:\n    \"\"\"Fast version of a heappush_max\
     \ followed by a heappop_max.\"\"\"\n    if heap and heap[0] > item:\n        item,\
     \ heap[0] = heap[0], item\n        heapsiftup_max(heap, 0)\n    return item\n\n"
-  code: "import cp_library.ds.__header__\nfrom typing import TypeVar\nT = TypeVar('T')\n\
+  code: "import cp_library.ds.heap.__header__\nfrom typing import TypeVar\nT = TypeVar('T')\n\
     def heappop_max(heap: list[T], /) -> T: ...\ndef heapsiftdown_max(heap: list[T],\
     \ root: int, pos: int): ...\ndef heapsiftup_max(heap: list[T], pos: int): ...\n\
     def heapsiftdown(heap: list[T], root: int, pos: int): ...\ndef heapsiftup(heap:\
@@ -181,7 +181,7 @@ data:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_priority_queue_cls.py
   - cp_library/ds/heap/max_heap_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

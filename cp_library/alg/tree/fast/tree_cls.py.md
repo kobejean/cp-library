@@ -50,7 +50,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Callable, Sequence, Union, overload\nfrom collections import\
+    \nfrom typing import Callable, Sequence, Union, overload\nfrom collections import\
     \ deque\n\nimport typing\nfrom numbers import Number\nfrom types import GenericAlias\
     \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
     \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -304,7 +304,7 @@ data:
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n\n    @classmethod\n\
     \    def compile(cls, N: int, shift: int = -1):\n        return super().compile(N,\
     \ N-1, shift)\n    \n\nclass Tree(Graph, TreeBase):\n    pass\n\n"
-  code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.alg.graph.fast.graph_cls\
+  code: "import cp_library.alg.tree.fast.__header__\nfrom cp_library.alg.graph.fast.graph_cls\
     \ import Graph\nfrom cp_library.alg.tree.fast.tree_base_cls import TreeBase\n\n\
     class Tree(Graph, TreeBase):\n    pass\n\n"
   dependsOn:
@@ -320,7 +320,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/tree_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc202_e_fast_dfs_enter_leave.test.py

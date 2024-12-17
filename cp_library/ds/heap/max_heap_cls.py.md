@@ -56,16 +56,16 @@ data:
     \ push(self, item: T):\n        heappush_max(self.data, item)\n\n    def pushpop(self,\
     \ item: T):\n        return heappushpop_max(self.data, item)\n    \n    def replace(self,\
     \ item: T):\n        return heapreplace_max(self.data, item)\n\n"
-  code: "import cp_library.ds.__header__\nfrom collections import UserList\nfrom typing\
-    \ import Iterable, TypeVar\nfrom cp_library.ds.heap.heapq_max_import import heapify_max,\
-    \ heappop_max, heappush_max, heapreplace_max, heappushpop_max\nfrom cp_library.ds.heap.heap_proto\
-    \ import HeapProtocol\n\nT = TypeVar('T')\nclass MaxHeap(HeapProtocol[T], UserList[T]):\n\
-    \    \n    def __init__(self, iterable: Iterable[T] = None):\n        super().__init__(iterable)\n\
-    \        heapify_max(self.data)\n    \n    def pop(self):\n        return heappop_max(self.data)\n\
-    \    \n    def push(self, item: T):\n        heappush_max(self.data, item)\n\n\
-    \    def pushpop(self, item: T):\n        return heappushpop_max(self.data, item)\n\
-    \    \n    def replace(self, item: T):\n        return heapreplace_max(self.data,\
-    \ item)\n\n"
+  code: "import cp_library.ds.heap.__header__\nfrom collections import UserList\n\
+    from typing import Iterable, TypeVar\nfrom cp_library.ds.heap.heapq_max_import\
+    \ import heapify_max, heappop_max, heappush_max, heapreplace_max, heappushpop_max\n\
+    from cp_library.ds.heap.heap_proto import HeapProtocol\n\nT = TypeVar('T')\nclass\
+    \ MaxHeap(HeapProtocol[T], UserList[T]):\n    \n    def __init__(self, iterable:\
+    \ Iterable[T] = None):\n        super().__init__(iterable)\n        heapify_max(self.data)\n\
+    \    \n    def pop(self):\n        return heappop_max(self.data)\n    \n    def\
+    \ push(self, item: T):\n        heappush_max(self.data, item)\n\n    def pushpop(self,\
+    \ item: T):\n        return heappushpop_max(self.data, item)\n    \n    def replace(self,\
+    \ item: T):\n        return heapreplace_max(self.data, item)\n\n"
   dependsOn:
   - cp_library/ds/heap/heapq_max_import.py
   - cp_library/ds/heap/heap_proto.py
@@ -73,7 +73,7 @@ data:
   path: cp_library/ds/heap/max_heap_cls.py
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_min_k_heap.test.py

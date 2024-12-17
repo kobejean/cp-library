@@ -14,7 +14,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom collections import defaultdict\n\nclass SparseDSU:\n    def __init__(self,\
+    from collections import defaultdict\n\nclass SparseDSU:\n    def __init__(self,\
     \ n) -> None:\n        self.par = defaultdict(lambda:-1)\n\n    def merge(self,\
     \ u, v) -> int:\n        x, y = self.leader(u), self.leader(v)\n        if x ==\
     \ y: return x\n\n        if -self.par[x] < -self.par[y]:\n            x, y = y,\
@@ -28,7 +28,7 @@ data:
     \        leader_buf = [self.leader(i) for i in idx]\n\n        result = [[] for\
     \ _ in idx]\n        for i in idx:\n            result[leader_buf[i]].append(i)\n\
     \n        return list(filter(lambda r: r, result))\n"
-  code: "import cp_library.ds.__header__\n\nfrom collections import defaultdict\n\n\
+  code: "import cp_library.ds.__header__\nfrom collections import defaultdict\n\n\
     class SparseDSU:\n    def __init__(self, n) -> None:\n        self.par = defaultdict(lambda:-1)\n\
     \n    def merge(self, u, v) -> int:\n        x, y = self.leader(u), self.leader(v)\n\
     \        if x == y: return x\n\n        if -self.par[x] < -self.par[y]:\n    \
@@ -47,7 +47,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/sparse_dsu_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/sparse_dsu_cls.py

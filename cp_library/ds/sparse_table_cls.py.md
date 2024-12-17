@@ -17,9 +17,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/tree/tree_fast_cls.py
-    title: cp_library/alg/tree/tree_fast_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
@@ -74,7 +71,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Any, Callable, List\n\nclass SparseTable:\n    def __init__(self,\
+    from typing import Any, Callable, List\n\nclass SparseTable:\n    def __init__(self,\
     \ op: Callable[[Any, Any], Any], arr: List[Any]):\n        self.N = N = len(arr)\n\
     \        self.log = N.bit_length()\n        self.op = op\n        \n        self.offsets\
     \ = offsets = [0]\n        for i in range(1, self.log):\n            offsets.append(offsets[-1]\
@@ -89,7 +86,7 @@ data:
     \    rows = []\n        for i in range(self.log):\n            start = self.offsets[i]\n\
     \            end = self.offsets[i+1] if i+1 < self.log else len(self.st)\n   \
     \         rows.append(f\"{i:<2d} {self.st[start:end]}\")\n        return '\\n'.join(rows)\n"
-  code: "import cp_library.ds.__header__\n\nfrom typing import Any, Callable, List\n\
+  code: "import cp_library.ds.__header__\nfrom typing import Any, Callable, List\n\
     \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
     \ List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
     \        self.op = op\n        \n        self.offsets = offsets = [0]\n      \
@@ -118,8 +115,7 @@ data:
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_set_cls.py
-  - cp_library/alg/tree/tree_fast_cls.py
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

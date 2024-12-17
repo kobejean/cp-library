@@ -57,7 +57,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nfrom typing import Callable, Sequence, Union, overload\n\
+    \               \n'''\n\nfrom typing import Callable, Sequence, Union, overload\n\
     from collections import deque\n\nimport typing\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeVar, Union\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -350,7 +350,7 @@ data:
   isVerificationFile: true
   path: test/dp_v_subtree_rerooting_dp.test.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/dp_v_subtree_rerooting_dp.test.py

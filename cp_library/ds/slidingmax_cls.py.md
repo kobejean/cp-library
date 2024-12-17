@@ -14,7 +14,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom collections import deque\nfrom typing import Any, Iterable\n\nclass SlidingMax(deque):\n\
+    from collections import deque\nfrom typing import Any, Iterable\n\nclass SlidingMax(deque):\n\
     \    def __init__(self, *, maxlen = None):\n        super().__init__(maxlen=maxlen+1)\n\
     \        self.maxq = deque()\n\n    @property\n    def maxlen(self):\n       \
     \ return super().maxlen-1\n\n    def append(self, x: Any) -> None:\n        while\
@@ -27,7 +27,7 @@ data:
     \        x = super().popleft()\n        if x == self.maxq[0]:\n            self.maxq.popleft()\n\
     \        return x\n    \n    def pop(self) -> Any:\n        raise NotImplementedError()\n\
     \n    @property\n    def max(self) -> Any:\n        return self.maxq[0]\n"
-  code: "import cp_library.ds.__header__\n\nfrom collections import deque\nfrom typing\
+  code: "import cp_library.ds.__header__\nfrom collections import deque\nfrom typing\
     \ import Any, Iterable\n\nclass SlidingMax(deque):\n    def __init__(self, *,\
     \ maxlen = None):\n        super().__init__(maxlen=maxlen+1)\n        self.maxq\
     \ = deque()\n\n    @property\n    def maxlen(self):\n        return super().maxlen-1\n\
@@ -45,7 +45,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/slidingmax_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:55:08+09:00'
+  timestamp: '2024-12-18 00:49:06+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/slidingmax_cls.py
