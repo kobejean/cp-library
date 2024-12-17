@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_cls.py
     title: cp_library/alg/graph/edge_list_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':heavy_check_mark:'
@@ -17,13 +17,22 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_a_kruskal_heap.test.py
+    title: test/grl_2_a_kruskal_heap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_a_kruskal_sort.test.py
+    title: test/grl_2_a_kruskal_sort.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_b_edmonds_branching.test.py
+    title: test/grl_2_b_edmonds_branching.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -146,9 +155,12 @@ data:
   path: cp_library/alg/graph/edge_list_weighted_cls.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-17 23:23:47+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-12-17 23:55:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/grl_2_a_kruskal_heap.test.py
+  - test/grl_2_b_edmonds_branching.test.py
+  - test/grl_2_a_kruskal_sort.test.py
 documentation_of: cp_library/alg/graph/edge_list_weighted_cls.py
 layout: document
 redirect_from:

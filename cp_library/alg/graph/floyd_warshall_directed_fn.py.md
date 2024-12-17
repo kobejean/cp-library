@@ -1,17 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
     title: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_c_floyd_warshall.test.py
+    title: test/grl_1_c_floyd_warshall.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -40,9 +43,10 @@ data:
   path: cp_library/alg/graph/floyd_warshall_directed_fn.py
   requiredBy:
   - cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
-  timestamp: '2024-12-17 23:23:47+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-12-17 23:55:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/grl_1_c_floyd_warshall.test.py
 documentation_of: cp_library/alg/graph/floyd_warshall_directed_fn.py
 layout: document
 redirect_from:

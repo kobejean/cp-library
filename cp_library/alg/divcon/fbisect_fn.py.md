@@ -34,7 +34,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/divcon/fbisect_fn.py
   requiredBy: []
-  timestamp: '2024-12-17 23:23:47+09:00'
+  timestamp: '2024-12-17 23:55:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc151_f_fbisect_left.test.py

@@ -1,14 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/bidirectional_array_cls.py
     title: cp_library/ds/bidirectional_array_cls.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/dp_v_subtree_rerooting_iterative.test.py
+    title: test/dp_v_subtree_rerooting_iterative.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -93,9 +96,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/rerooting_iterative_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 23:23:47+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-12-17 23:55:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/dp_v_subtree_rerooting_iterative.test.py
 documentation_of: cp_library/alg/dp/rerooting_iterative_cls.py
 layout: document
 redirect_from:

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
   _extendedRequiredBy: []
@@ -37,7 +37,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort_parallel_fn.py
   requiredBy: []
-  timestamp: '2024-12-17 23:23:47+09:00'
+  timestamp: '2024-12-17 23:55:08+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/sort_parallel_fn.py

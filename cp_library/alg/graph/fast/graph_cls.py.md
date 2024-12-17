@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
   - icon: ':heavy_check_mark:'
@@ -19,17 +19,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/abc202_e_fast_dfs.test.py
+    title: test/abc202_e_fast_dfs.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc202_e_fast_dfs_enter_leave.test.py
+    title: test/abc202_e_fast_dfs_enter_leave.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/dp_v_subtree_rerooting_dp.test.py
+    title: test/dp_v_subtree_rerooting_dp.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -265,9 +274,12 @@ data:
   path: cp_library/alg/graph/fast/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2024-12-17 23:23:47+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-12-17 23:55:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/abc202_e_fast_dfs_enter_leave.test.py
+  - test/dp_v_subtree_rerooting_dp.test.py
+  - test/abc202_e_fast_dfs.test.py
 documentation_of: cp_library/alg/graph/fast/graph_cls.py
 layout: document
 redirect_from:

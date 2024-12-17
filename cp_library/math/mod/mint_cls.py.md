@@ -5,16 +5,28 @@ data:
   - icon: ':warning:'
     path: cp_library/math/mat_cls.py
     title: cp_library/math/mat_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/modmat_cls.py
     title: cp_library/math/mod/modmat_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/table/combinatorics_cls.py
     title: cp_library/math/table/combinatorics_cls.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/arc168_c_swap_characters_combinatoric.test.py
+    title: test/arc168_c_swap_characters_combinatoric.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/pow_of_matrix_matpow.test.py
+    title: test/pow_of_matrix_matpow.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/pow_of_matrix_modmat.test.py
+    title: test/pow_of_matrix_modmat.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/subset_convolution.test.py
+    title: test/subset_convolution.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -74,9 +86,13 @@ data:
   - cp_library/math/table/combinatorics_cls.py
   - cp_library/math/mat_cls.py
   - cp_library/math/mod/modmat_cls.py
-  timestamp: '2024-12-17 23:23:47+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-12-17 23:55:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/arc168_c_swap_characters_combinatoric.test.py
+  - test/pow_of_matrix_modmat.test.py
+  - test/pow_of_matrix_matpow.test.py
+  - test/subset_convolution.test.py
 documentation_of: cp_library/math/mod/mint_cls.py
 layout: document
 redirect_from:

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
@@ -11,25 +11,73 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_weighted_cls.py
     title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/abc218_f_shortest_path_weighted.test.py
+    title: test/abc218_f_shortest_path_weighted.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_tree_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_tree_lca_table_weighted_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc361_e_tree_diameter.test.py
+    title: test/abc361_e_tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc375_g_find_bridges.test.py
+    title: test/abc375_g_find_bridges.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_a_dijkstra.test.py
+    title: test/grl_1_a_dijkstra.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_a_graph_distance.test.py
+    title: test/grl_1_a_graph_distance.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_b_bellman_ford.test.py
+    title: test/grl_1_b_bellman_ford.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_b_graph_bellman_ford.test.py
+    title: test/grl_1_b_graph_bellman_ford.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_1_c_floyd_warshall.test.py
+    title: test/grl_1_c_floyd_warshall.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_a_graph_kruskal.test.py
+    title: test/grl_2_a_graph_kruskal.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_a_kruskal_heap.test.py
+    title: test/grl_2_a_kruskal_heap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_a_kruskal_sort.test.py
+    title: test/grl_2_a_kruskal_sort.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_2_b_edmonds_branching.test.py
+    title: test/grl_2_b_edmonds_branching.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/shortest_path_graph_weighted.test.py
+    title: test/shortest_path_graph_weighted.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/shortest_path_min_heap.test.py
+    title: test/shortest_path_min_heap.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -142,9 +190,25 @@ data:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-17 23:23:47+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-12-17 23:55:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/grl_2_a_graph_kruskal.test.py
+  - test/abc375_g_find_bridges.test.py
+  - test/abc294_g_tree_lca_table_weighted_bit.test.py
+  - test/grl_1_c_floyd_warshall.test.py
+  - test/abc361_e_tree_diameter.test.py
+  - test/abc218_f_shortest_path_weighted.test.py
+  - test/grl_2_a_kruskal_heap.test.py
+  - test/grl_1_a_graph_distance.test.py
+  - test/abc294_g_tree_heavy_light_decomposition.test.py
+  - test/grl_1_b_bellman_ford.test.py
+  - test/grl_1_a_dijkstra.test.py
+  - test/grl_1_b_graph_bellman_ford.test.py
+  - test/shortest_path_graph_weighted.test.py
+  - test/shortest_path_min_heap.test.py
+  - test/grl_2_b_edmonds_branching.test.py
+  - test/grl_2_a_kruskal_sort.test.py
 documentation_of: cp_library/alg/graph/edge_weighted_cls.py
 layout: document
 redirect_from:

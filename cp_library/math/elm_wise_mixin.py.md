@@ -24,6 +24,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc151_f_fbisect_left.test.py
     title: test/abc151_f_fbisect_left.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc189_e_vec2d.test.py
+    title: test/abc189_e_vec2d.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc274_e_vec2d.test.py
+    title: test/abc274_e_vec2d.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -86,10 +92,12 @@ data:
   - cp_library/math/mutvec_cls.py
   - cp_library/math/mat_cls.py
   - cp_library/math/vec2d_cls.py
-  timestamp: '2024-12-17 23:23:47+09:00'
+  timestamp: '2024-12-17 23:55:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc151_f_fbisect_left.test.py
+  - test/abc189_e_vec2d.test.py
+  - test/abc274_e_vec2d.test.py
 documentation_of: cp_library/math/elm_wise_mixin.py
 layout: document
 redirect_from:

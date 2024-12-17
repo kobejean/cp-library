@@ -5,13 +5,31 @@ data:
   - icon: ':warning:'
     path: cp_library/ds/bir_cls.py
     title: cp_library/ds/bir_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inversion_cnt_fn.py
     title: cp_library/math/inversion_cnt_fn.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_tree_heavy_light_decomposition.test.py
+    title: test/abc294_g_tree_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc294_g_tree_lca_table_weighted_bit.test.py
+    title: test/abc294_g_tree_lca_table_weighted_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/arc136_b_inversion_cnt_fn.test.py
+    title: test/arc136_b_inversion_cnt_fn.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -58,9 +76,15 @@ data:
   requiredBy:
   - cp_library/math/inversion_cnt_fn.py
   - cp_library/ds/bir_cls.py
-  timestamp: '2024-12-17 23:23:47+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-12-17 23:55:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/abc294_g_tree_lca_table_weighted_bit.test.py
+  - test/arc136_b_inversion_cnt_fn.test.py
+  - test/abc294_g_tree_heavy_light_decomposition.test.py
+  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/abc294_g_fast_tree_heavy_light_decomposition.test.py
 documentation_of: cp_library/ds/bit_cls.py
 layout: document
 redirect_from:
