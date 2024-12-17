@@ -27,7 +27,7 @@ class GraphWeightedBase(GraphBase):
                 return G.dijkstra(s, g)
 
     def dijkstra(G, s: int, t: int = None):
-        N, Va, Wa = G.N, G.La, G.Ra, G.Va, G.Wa
+        N, Va, Wa = G.N, G.Va, G.Wa
         G.back = back = fill_i32(N, -1)
         G.D = D = fill_u64(N, inft)
         D[s] = 0
