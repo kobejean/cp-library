@@ -590,7 +590,7 @@ data:
   path: cp_library/alg/graph/graph_weighted_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-17 20:59:28+09:00'
+  timestamp: '2024-12-17 21:24:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_graph_kruskal.test.py

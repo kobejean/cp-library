@@ -374,7 +374,7 @@ data:
   requiredBy:
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_fast_cls.py
-  timestamp: '2024-12-17 20:59:28+09:00'
+  timestamp: '2024-12-17 21:24:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp_v_subtree_rerooting_iterative.test.py

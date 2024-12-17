@@ -92,7 +92,7 @@ data:
   - cp_library/math/mutvec_cls.py
   - cp_library/math/mat_cls.py
   - cp_library/math/vec2d_cls.py
-  timestamp: '2024-12-17 20:59:28+09:00'
+  timestamp: '2024-12-17 21:24:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc151_f_fbisect_left.test.py
