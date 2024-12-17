@@ -38,20 +38,7 @@ jobs:
         df -h
 
     - uses: actions/checkout@v4
-
-    - name: Generate cache hash
-      id: cache-hash
-      run: |
-        mkdir -p .verify-helper/cache
-        HASH=$(find .verify-helper/cache -type f | sort | shasum -a 256 | cut -d' ' -f1)
-        echo "CACHE_HASH=$HASH" >> $GITHUB_ENV
-
-    - name: Cache verify-helper files
-      uses: actions/cache@v3
-      with:
-        path: .verify-helper/cache
-        key: verify-helper-filenames-${{ env.CACHE_HASH }}
-
+    
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -86,3 +73,15 @@ jobs:
         
         # Run tests with reduced parallelism and increased timeouts
         git pull && oj-verify all --tle 15 --timeout 7200 --jobs 6
+
+    - name: Generate cache hash
+      id: cache-hash
+      run: |
+        HASH=$(find .verify-helper/cache -type f | sort | shasum -a 256 | cut -d' ' -f1)
+        echo "CACHE_HASH=$HASH" >> $GITHUB_ENV
+
+    - name: Cache verify-helper files
+      uses: actions/cache@v3
+      with:
+        path: .verify-helper/cache
+        key: verify-helper-filenames-${{ env.CACHE_HASH }}
