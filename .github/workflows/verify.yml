@@ -44,6 +44,16 @@ jobs:
       with:
         python-version: 'pypy3.10'
 
+    # Restore cache with static key
+    - name: Restore verify-helper cache
+      uses: actions/cache/restore@v4
+      id: cache-restore
+      with:
+        path: |
+          .verify-helper/cache
+          ~/.cache/pip
+        key: verify-helper-static-v1
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -74,14 +84,12 @@ jobs:
         # Run tests with reduced parallelism and increased timeouts
         git pull && oj-verify all --tle 15 --timeout 7200 --jobs 6
 
-    - name: Generate cache hash
-      id: cache-hash
-      run: |
-        HASH=$(find .verify-helper/cache -type f | sort | shasum -a 256 | cut -d' ' -f1)
-        echo "CACHE_HASH=$HASH" >> $GITHUB_ENV
-
-    - name: Cache verify-helper files
-      uses: actions/cache@v3
+    # Save cache with static key
+    - name: Save verify-helper cache
+      uses: actions/cache/save@v4
+      if: always()
       with:
-        path: .verify-helper/cache
-        key: verify-helper-filenames-${{ env.CACHE_HASH }}
+        path: |
+          .verify-helper/cache
+          ~/.cache/pip
+        key: verify-helper-static-v1
