@@ -103,7 +103,7 @@ data:
   - cp_library/alg/graph/kruskal_heap_fn.py
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2024-12-17 21:59:33+09:00'
+  timestamp: '2024-12-17 23:23:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/dsu_cls.py

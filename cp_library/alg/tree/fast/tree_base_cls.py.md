@@ -356,7 +356,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2024-12-17 21:59:33+09:00'
+  timestamp: '2024-12-17 23:23:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/fast/tree_base_cls.py

@@ -160,7 +160,7 @@ data:
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_k_heap_cls.py
-  timestamp: '2024-12-17 21:59:33+09:00'
+  timestamp: '2024-12-17 23:23:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/k_heap_mixin.py
