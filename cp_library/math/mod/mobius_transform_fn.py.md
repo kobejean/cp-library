@@ -2,16 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/math/mod/subset_convolution_fn.py
     title: cp_library/math/mod/subset_convolution_fn.py
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/subset_convolution.test.py
-    title: test/subset_convolution.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -37,10 +34,9 @@ data:
   path: cp_library/math/mod/mobius_transform_fn.py
   requiredBy:
   - cp_library/math/mod/subset_convolution_fn.py
-  timestamp: '2024-12-17 21:24:00+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/subset_convolution.test.py
+  timestamp: '2024-12-17 21:59:33+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: cp_library/math/mod/mobius_transform_fn.py
 layout: document
 redirect_from:

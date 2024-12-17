@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
@@ -16,38 +16,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy:
   - icon: ':warning:'
     path: cp_library/alg/graph/grid_direction_graph_cls.py
     title: cp_library/alg/graph/grid_direction_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/alg/graph/grid_graph_cls.py
     title: cp_library/alg/graph/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/abc184_e_grid_graph.test.py
-    title: test/abc184_e_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc184_e_grid_graph_bfs_fn.test.py
-    title: test/abc184_e_grid_graph_bfs_fn.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc246_e_grid_direction_graph.test.py
-    title: test/abc246_e_grid_direction_graph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/abc301_e_grid_graph.test.py
-    title: test/abc301_e_grid_graph.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "import sys\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -370,13 +358,9 @@ data:
   - cp_library/alg/graph/grid_direction_graph_cls.py
   - cp_library/alg/graph/lazy_grid_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
-  timestamp: '2024-12-17 21:24:00+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/abc301_e_grid_graph.test.py
-  - test/abc246_e_grid_direction_graph.test.py
-  - test/abc184_e_grid_graph_bfs_fn.test.py
-  - test/abc184_e_grid_graph.test.py
+  timestamp: '2024-12-17 21:59:33+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: cp_library/alg/graph/grid_graph_proto.py
 layout: document
 redirect_from:

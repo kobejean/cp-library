@@ -27,7 +27,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort_buckets_fn.py
   requiredBy: []
-  timestamp: '2024-12-17 21:24:00+09:00'
+  timestamp: '2024-12-17 21:59:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/sort_buckets_fn.py

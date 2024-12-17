@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':warning:'
@@ -285,7 +285,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mat_cls.py
   requiredBy: []
-  timestamp: '2024-12-17 21:24:00+09:00'
+  timestamp: '2024-12-17 21:59:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mat_cls.py
