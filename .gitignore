@@ -1,5 +1,6 @@
 /dist
 __pycache__
+.verify-helper/cache.zip
 .env
 /output
 .DS_Store
