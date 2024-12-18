@@ -49,6 +49,9 @@ data:
     path: test/abc206_e_mobius_table.test.py
     title: test/abc206_e_mobius_table.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc218_f_fast_shortest_path.test.py
+    title: test/abc218_f_fast_shortest_path.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc218_f_shortest_path.test.py
     title: test/abc218_f_shortest_path.test.py
   - icon: ':heavy_check_mark:'
@@ -178,6 +181,18 @@ data:
     path: test/grl_3_a_graph_articulation_points.test.py
     title: test/grl_3_a_graph_articulation_points.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_3_b_graph_bridges.test.py
+    title: test/grl_3_b_graph_bridges.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_diameter.test.py
+    title: test/grl_5_a_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_fast_diameter.test.py
+    title: test/grl_5_a_fast_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_b_fast_height.test.py
+    title: test/grl_5_b_fast_height.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
   - icon: ':heavy_check_mark:'
@@ -271,7 +286,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/write_fn.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -285,6 +300,7 @@ data:
   - test/grl_2_a_graph_kruskal.test.py
   - test/abc375_g_find_bridges.test.py
   - test/abc203_e_sort_groups.test.py
+  - test/abc218_f_fast_shortest_path.test.py
   - test/abc185_e_dp2d.test.py
   - test/dp_z_cht_monotone_add_min.test.py
   - test/abc294_g_tree_lca_table_weighted_bit.test.py
@@ -302,6 +318,7 @@ data:
   - test/abc186_e_gcd_ex.test.py
   - test/abc261_g_queries_mo_ops.test.py
   - test/min_plus_convolution_convex_arbitrary.test.py
+  - test/grl_5_a_diameter.test.py
   - test/abc218_f_shortest_path_weighted.test.py
   - test/unionfind.test.py
   - test/abc249_f_max_k_heap.test.py
@@ -329,6 +346,7 @@ data:
   - test/unionfind_with_potential_non_commutative_group.test.py
   - test/grl_1_b_graph_bellman_ford.test.py
   - test/grl_5_c_lca_table_iterative.test.py
+  - test/grl_5_b_fast_height.test.py
   - test/shortest_path_graph_weighted.test.py
   - test/agc038_b_sliding_min_max.test.py
   - test/shortest_path_min_heap.test.py
@@ -338,9 +356,11 @@ data:
   - test/grl_2_a_kruskal_sort.test.py
   - test/abc245_f_digraph.test.py
   - test/grl_5_c_lca_table_recursive.test.py
+  - test/grl_5_a_fast_diameter.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/abc184_e_grid_graph.test.py
+  - test/grl_3_b_graph_bridges.test.py
   - test/minimum_spanning_tree_kruskal_heap.test.py
   - test/subset_convolution.test.py
   - test/abc202_e_dfs_enter_leave.test.py

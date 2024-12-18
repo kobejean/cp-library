@@ -35,11 +35,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom\
-    \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
-    \   newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    from typing import TypeVar, Union\n\n\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
     \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
     \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
@@ -115,9 +115,9 @@ data:
     \    def pop(self) -> T: ...\n    def push(self, item: T): ...\n    def pushpop(self,\
     \ item: T) -> T: ...\n    def replace(self, item: T) -> T: ...\n\nT = TypeVar('T')\n\
     class KHeapMixin(HeapProtocol[T], Parsable):\n    \"\"\"KHeapMixin[K: int, T:\
-    \ type, N: int|None]\"\"\"\n    def __init__(heap, K: int):\n        heap.K =\
-    \ K\n\n    def added(heap, item: T): ...\n\n    def removed(heap, item: T): ...\n\
-    \    \n    def pop(heap):\n        item = super().pop()\n        heap.removed(item)\n\
+    \ type, N: Union[int,None]]\"\"\"\n    def __init__(heap, K: int):\n        heap.K\
+    \ = K\n\n    def added(heap, item: T): ...\n\n    def removed(heap, item: T):\
+    \ ...\n    \n    def pop(heap):\n        item = super().pop()\n        heap.removed(item)\n\
     \        return item\n    \n    def push(heap, item: T):\n        if len(heap)\
     \ < heap._K:\n            heap.added(item)\n            super().push(item)\n \
     \       elif heap._K:\n            assert len(heap) == heap._K, f'{len(heap)=}\
@@ -129,15 +129,15 @@ data:
     \        return remove\n    \n    \n    @property\n    def K(heap):\n        return\
     \ heap._K\n\n    @K.setter\n    def K(heap, K):\n        heap._K = K\n       \
     \ if K is not None:\n            while len(heap) > K:\n                heap.pop()\n\
-    \    \n    @classmethod\n    def compile(cls, K: int, T: type, N: int|None = None):\n\
-    \        elm = Parser.compile(T)\n        if N is None:\n            def parse(ts:\
-    \ TokenStream):\n                return cls(K, (elm(ts) for _ in ts.wait()))\n\
-    \        else:\n            def parse(ts: TokenStream):\n                return\
-    \ cls(K, (elm(ts) for _ in range(N)))\n        return parse\n"
-  code: "import cp_library.ds.heap.__header__\nfrom typing import TypeVar\n\nfrom\
-    \ cp_library.io.parser_cls import Parser, Parsable, TokenStream\nfrom cp_library.ds.heap.heap_proto\
+    \    \n    @classmethod\n    def compile(cls, K: int, T: type, N: Union[int,None]\
+    \ = None):\n        elm = Parser.compile(T)\n        if N is None:\n         \
+    \   def parse(ts: TokenStream):\n                return cls(K, (elm(ts) for _\
+    \ in ts.wait()))\n        else:\n            def parse(ts: TokenStream):\n   \
+    \             return cls(K, (elm(ts) for _ in range(N)))\n        return parse\n"
+  code: "import cp_library.ds.heap.__header__\nfrom typing import TypeVar, Union\n\
+    \nfrom cp_library.io.parser_cls import Parser, Parsable, TokenStream\nfrom cp_library.ds.heap.heap_proto\
     \ import HeapProtocol\n\nT = TypeVar('T')\nclass KHeapMixin(HeapProtocol[T], Parsable):\n\
-    \    \"\"\"KHeapMixin[K: int, T: type, N: int|None]\"\"\"\n    def __init__(heap,\
+    \    \"\"\"KHeapMixin[K: int, T: type, N: Union[int,None]]\"\"\"\n    def __init__(heap,\
     \ K: int):\n        heap.K = K\n\n    def added(heap, item: T): ...\n\n    def\
     \ removed(heap, item: T): ...\n    \n    def pop(heap):\n        item = super().pop()\n\
     \        heap.removed(item)\n        return item\n    \n    def push(heap, item:\
@@ -152,9 +152,9 @@ data:
     \    def K(heap):\n        return heap._K\n\n    @K.setter\n    def K(heap, K):\n\
     \        heap._K = K\n        if K is not None:\n            while len(heap) >\
     \ K:\n                heap.pop()\n    \n    @classmethod\n    def compile(cls,\
-    \ K: int, T: type, N: int|None = None):\n        elm = Parser.compile(T)\n   \
-    \     if N is None:\n            def parse(ts: TokenStream):\n               \
-    \ return cls(K, (elm(ts) for _ in ts.wait()))\n        else:\n            def\
+    \ K: int, T: type, N: Union[int,None] = None):\n        elm = Parser.compile(T)\n\
+    \        if N is None:\n            def parse(ts: TokenStream):\n            \
+    \    return cls(K, (elm(ts) for _ in ts.wait()))\n        else:\n            def\
     \ parse(ts: TokenStream):\n                return cls(K, (elm(ts) for _ in range(N)))\n\
     \        return parse\n"
   dependsOn:
@@ -166,7 +166,7 @@ data:
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_k_heap_cls.py
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_max_k_heap.test.py

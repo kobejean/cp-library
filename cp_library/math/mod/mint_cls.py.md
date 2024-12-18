@@ -86,7 +86,7 @@ data:
   - cp_library/math/table/combinatorics_cls.py
   - cp_library/math/mat_cls.py
   - cp_library/math/mod/modmat_cls.py
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc168_c_swap_characters_combinatoric.test.py

@@ -156,9 +156,9 @@ data:
     \ T):\n        return heappushpop(self.data, item)\n    \n    def replace(self,\
     \ item: T):\n        return heapreplace(self.data, item)\n\n\nT = TypeVar('T')\n\
     class KHeapMixin(HeapProtocol[T], Parsable):\n    \"\"\"KHeapMixin[K: int, T:\
-    \ type, N: int|None]\"\"\"\n    def __init__(heap, K: int):\n        heap.K =\
-    \ K\n\n    def added(heap, item: T): ...\n\n    def removed(heap, item: T): ...\n\
-    \    \n    def pop(heap):\n        item = super().pop()\n        heap.removed(item)\n\
+    \ type, N: Union[int,None]]\"\"\"\n    def __init__(heap, K: int):\n        heap.K\
+    \ = K\n\n    def added(heap, item: T): ...\n\n    def removed(heap, item: T):\
+    \ ...\n    \n    def pop(heap):\n        item = super().pop()\n        heap.removed(item)\n\
     \        return item\n    \n    def push(heap, item: T):\n        if len(heap)\
     \ < heap._K:\n            heap.added(item)\n            super().push(item)\n \
     \       elif heap._K:\n            assert len(heap) == heap._K, f'{len(heap)=}\
@@ -170,14 +170,14 @@ data:
     \        return remove\n    \n    \n    @property\n    def K(heap):\n        return\
     \ heap._K\n\n    @K.setter\n    def K(heap, K):\n        heap._K = K\n       \
     \ if K is not None:\n            while len(heap) > K:\n                heap.pop()\n\
-    \    \n    @classmethod\n    def compile(cls, K: int, T: type, N: int|None = None):\n\
-    \        elm = Parser.compile(T)\n        if N is None:\n            def parse(ts:\
-    \ TokenStream):\n                return cls(K, (elm(ts) for _ in ts.wait()))\n\
-    \        else:\n            def parse(ts: TokenStream):\n                return\
-    \ cls(K, (elm(ts) for _ in range(N)))\n        return parse\n\nT = TypeVar('T')\n\
-    class MaxKHeap(KHeapMixin[T], MinHeap[T]):\n    \"\"\"MaxKHeap[K: int, T: type,\
-    \ N: int|None]\"\"\"\n\n    def __init__(self, K: int, iterable: Iterable[T] =\
-    \ None):\n        MinHeap.__init__(self, iterable)\n        KHeapMixin.__init__(self,\
+    \    \n    @classmethod\n    def compile(cls, K: int, T: type, N: Union[int,None]\
+    \ = None):\n        elm = Parser.compile(T)\n        if N is None:\n         \
+    \   def parse(ts: TokenStream):\n                return cls(K, (elm(ts) for _\
+    \ in ts.wait()))\n        else:\n            def parse(ts: TokenStream):\n   \
+    \             return cls(K, (elm(ts) for _ in range(N)))\n        return parse\n\
+    \nT = TypeVar('T')\nclass MaxKHeap(KHeapMixin[T], MinHeap[T]):\n    \"\"\"MaxKHeap[K:\
+    \ int, T: type, N: Union[int,None]]\"\"\"\n\n    def __init__(self, K: int, iterable:\
+    \ Iterable[T] = None):\n        MinHeap.__init__(self, iterable)\n        KHeapMixin.__init__(self,\
     \ K)\n\nclass BadOps(MaxKHeap[int]):\n    def __init__(self, K: int, x: int):\n\
     \        super().__init__(K)\n        self.x = x\n        self.ans = x\n\n   \
     \ def added(self, y):\n        self.x += y\n        self.ans = max(self.ans, self.x)\n\
@@ -213,7 +213,7 @@ data:
   isVerificationFile: true
   path: test/abc249_f_max_k_heap.test.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc249_f_max_k_heap.test.py

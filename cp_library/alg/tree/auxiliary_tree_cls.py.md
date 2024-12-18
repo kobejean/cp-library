@@ -26,19 +26,18 @@ data:
     from itertools import pairwise\n\nimport operator\nfrom itertools import accumulate\n\
     from typing import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter:\
     \ Iterable[T], func: Callable[[T,T],T] = None, initial: T = None, step = 1) ->\
-    \ list[T]:\n    match step:\n        case 1:\n            return list(accumulate(iter,\
-    \ func, initial=initial))\n        case step:\n            assert step >= 2\n\
-    \            if func is None:\n                func = operator.add\n         \
-    \   A = list(iter)\n            if initial is not None:\n                A = [initial]\
-    \ + A\n            for i in range(step,len(A)):\n                A[i] = func(A[i],\
-    \ A[i-step])\n            return A\n\nfrom typing import Any, Callable, List\n\
-    \nclass SparseTable:\n    def __init__(self, op: Callable[[Any, Any], Any], arr:\
-    \ List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
-    \        self.op = op\n        \n        self.offsets = offsets = [0]\n      \
-    \  for i in range(1, self.log):\n            offsets.append(offsets[-1] + N -\
-    \ (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1] +\
-    \ N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for i\
-    \ in range(self.log - 1):\n            d = 1 << i\n            start = offsets[i]\n\
+    \ list[T]:\n    if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
+    \    else:\n        assert step >= 2\n        if func is None:\n            func\
+    \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
+    \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
+    \   A[i] = func(A[i], A[i-step])\n        return A\n\nfrom typing import Any,\
+    \ Callable, List\n\nclass SparseTable:\n    def __init__(self, op: Callable[[Any,\
+    \ Any], Any], arr: List[Any]):\n        self.N = N = len(arr)\n        self.log\
+    \ = N.bit_length()\n        self.op = op\n        \n        self.offsets = offsets\
+    \ = [0]\n        for i in range(1, self.log):\n            offsets.append(offsets[-1]\
+    \ + N - (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1]\
+    \ + N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for\
+    \ i in range(self.log - 1):\n            d = 1 << i\n            start = offsets[i]\n\
     \            next_start = offsets[i + 1]\n            for j in range(N - (1 <<\
     \ (i+1)) + 1):\n                st[next_start + j] = op(st[k := start+j], st[k\
     \ + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
@@ -104,7 +103,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

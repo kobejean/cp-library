@@ -17,9 +17,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':warning:'
-    path: cp_library/alg/tree/tree_set_cls.py
-    title: cp_library/alg/tree/tree_set_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
@@ -55,6 +52,9 @@ data:
     path: test/dp_v_subtree_rerooting_recursive.test.py
     title: test/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_diameter.test.py
+    title: test/grl_5_a_diameter.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
   _isVerificationFailed: false
@@ -70,22 +70,20 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     import operator\nfrom itertools import accumulate\nfrom typing import Callable,\
     \ Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T]\
-    \ = None, initial: T = None, step = 1) -> list[T]:\n    match step:\n        case\
-    \ 1:\n            return list(accumulate(iter, func, initial=initial))\n     \
-    \   case step:\n            assert step >= 2\n            if func is None:\n \
-    \               func = operator.add\n            A = list(iter)\n            if\
-    \ initial is not None:\n                A = [initial] + A\n            for i in\
-    \ range(step,len(A)):\n                A[i] = func(A[i], A[i-step])\n        \
-    \    return A\n"
+    \ = None, initial: T = None, step = 1) -> list[T]:\n    if step == 1:\n      \
+    \  return list(accumulate(iter, func, initial=initial))\n    else:\n        assert\
+    \ step >= 2\n        if func is None:\n            func = operator.add\n     \
+    \   A = list(iter)\n        if initial is not None:\n            A = [initial]\
+    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
+    \        return A\n"
   code: "import cp_library.alg.iter.__header__\nimport operator\nfrom itertools import\
     \ accumulate\nfrom typing import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\n\
     def presum(iter: Iterable[T], func: Callable[[T,T],T] = None, initial: T = None,\
-    \ step = 1) -> list[T]:\n    match step:\n        case 1:\n            return\
-    \ list(accumulate(iter, func, initial=initial))\n        case step:\n        \
-    \    assert step >= 2\n            if func is None:\n                func = operator.add\n\
-    \            A = list(iter)\n            if initial is not None:\n           \
-    \     A = [initial] + A\n            for i in range(step,len(A)):\n          \
-    \      A[i] = func(A[i], A[i-step])\n            return A"
+    \ step = 1) -> list[T]:\n    if step == 1:\n        return list(accumulate(iter,\
+    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
+    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
+    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
+    \            A[i] = func(A[i], A[i-step])\n        return A"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/presum_fn.py
@@ -97,8 +95,7 @@ data:
   - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  - cp_library/alg/tree/tree_set_cls.py
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -106,6 +103,7 @@ data:
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/abc361_e_tree_diameter.test.py
+  - test/grl_5_a_diameter.test.py
   - test/abc294_g_tree_heavy_light_decomposition.test.py
   - test/abc175_d_permutation.test.py
   - test/grl_5_c_lca_table_iterative.test.py

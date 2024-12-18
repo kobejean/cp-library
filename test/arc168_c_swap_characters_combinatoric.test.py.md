@@ -130,7 +130,7 @@ data:
   isVerificationFile: true
   path: test/arc168_c_swap_characters_combinatoric.test.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc168_c_swap_characters_combinatoric.test.py

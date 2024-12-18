@@ -21,7 +21,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Union\n\n\nclass BinaryIndexTree:\n    def __init__(self, v:\
-    \ int|list):\n        if isinstance(v, int):\n            self.data, self.size\
+    \ Union[int,list]):\n        if isinstance(v, int):\n            self.data, self.size\
     \ = [0]*v, v\n        else:\n            self.build(v)\n\n    def build(self,\
     \ data):\n        self.data, self.size = data, len(data)\n        for i in range(self.size):\n\
     \            if (r := i|(i+1)) < self.size: \n                self.data[r] +=\
@@ -53,7 +53,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/inversion_cnt_fn.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/arc136_b_inversion_cnt_fn.test.py

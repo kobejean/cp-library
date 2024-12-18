@@ -20,36 +20,36 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    from typing import Union\n\nimport typing\nfrom collections import deque\nfrom\
+    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -98,9 +98,25 @@ data:
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nclass\
     \ Parallel(tuple, Parsable):\n    def __new__(cls, N, K=2):\n        return super().__new__(cls,\
     \ ([0]*N for _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ K: int = 2, T: type|int = int):\n        if issubclass(T, int):\n          \
-    \  def parse(ts: TokenStream):\n                P = cls(N, K)\n              \
-    \  for i in range(N):\n                    for k,val in enumerate(map(T, ts.line())):\n\
+    \ K: int = 2, T: Union[type,int] = int):\n        if issubclass(T, int):\n   \
+    \         def parse(ts: TokenStream):\n                P = cls(N, K)\n       \
+    \         for i in range(N):\n                    for k,val in enumerate(map(T,\
+    \ ts.line())):\n                        P[k][i] = val\n                return\
+    \ P\n        elif isinstance(shift := T, int):\n            def parse(ts: TokenStream):\n\
+    \                P = cls(N, K)\n                for i in range(N):\n         \
+    \           for k,val in enumerate(map(int, ts.line())):\n                   \
+    \     P[k][i] = val+shift\n                return P\n        else:\n         \
+    \   row = Parser.compile(T)\n            def parse(ts: TokenStream):\n       \
+    \         P = cls(N, K)\n                for i in range(N):\n                \
+    \    for k, val in enumerate(row(ts)):\n                        P[k][i] = val\n\
+    \                return P\n        return parse\n"
+  code: "import cp_library.ds.__header__\nfrom typing import Union\nfrom cp_library.io.parser_cls\
+    \ import Parsable, Parser, TokenStream\n\nclass Parallel(tuple, Parsable):\n \
+    \   def __new__(cls, N, K=2):\n        return super().__new__(cls, ([0]*N for\
+    \ _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int, K: int = 2,\
+    \ T: Union[type,int] = int):\n        if issubclass(T, int):\n            def\
+    \ parse(ts: TokenStream):\n                P = cls(N, K)\n                for\
+    \ i in range(N):\n                    for k,val in enumerate(map(T, ts.line())):\n\
     \                        P[k][i] = val\n                return P\n        elif\
     \ isinstance(shift := T, int):\n            def parse(ts: TokenStream):\n    \
     \            P = cls(N, K)\n                for i in range(N):\n             \
@@ -110,28 +126,13 @@ data:
     \   P = cls(N, K)\n                for i in range(N):\n                    for\
     \ k, val in enumerate(row(ts)):\n                        P[k][i] = val\n     \
     \           return P\n        return parse\n"
-  code: "import cp_library.ds.__header__\nfrom cp_library.io.parser_cls import Parsable,\
-    \ Parser, TokenStream\n\nclass Parallel(tuple, Parsable):\n    def __new__(cls,\
-    \ N, K=2):\n        return super().__new__(cls, ([0]*N for _ in range(K)))\n\n\
-    \    @classmethod\n    def compile(cls, N: int, K: int = 2, T: type|int = int):\n\
-    \        if issubclass(T, int):\n            def parse(ts: TokenStream):\n   \
-    \             P = cls(N, K)\n                for i in range(N):\n            \
-    \        for k,val in enumerate(map(T, ts.line())):\n                        P[k][i]\
-    \ = val\n                return P\n        elif isinstance(shift := T, int):\n\
-    \            def parse(ts: TokenStream):\n                P = cls(N, K)\n    \
-    \            for i in range(N):\n                    for k,val in enumerate(map(int,\
-    \ ts.line())):\n                        P[k][i] = val+shift\n                return\
-    \ P\n        else:\n            row = Parser.compile(T)\n            def parse(ts:\
-    \ TokenStream):\n                P = cls(N, K)\n                for i in range(N):\n\
-    \                    for k, val in enumerate(row(ts)):\n                     \
-    \   P[k][i] = val\n                return P\n        return parse\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/ds/parallel_cls.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/parallel_cls.py

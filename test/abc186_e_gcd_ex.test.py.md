@@ -36,18 +36,17 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\ndef ext_gcd(a, b):\n    match a, b:\n        case 0,0: return\
-    \ 0, 1, 0\n        case _,0: return 1, 0, a\n        case 0,_: return 0, 1, b\n\
-    \        case _,_:\n            x,y,r,s = 1,0,0,1\n            while b:\n    \
-    \            q, c = divmod(a,b)\n                a, b, r, s, x, y = b, c, x -\
-    \ q*r, y - q*s, r, s\n            return x, y, a\n\n\nfrom typing import Type,\
-    \ TypeVar, Union, overload\nimport typing\nfrom collections import deque\nfrom\
-    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \        \n'''\n\ndef ext_gcd(a, b):\n    if a and b:\n        x,y,r,s = 1,0,0,1\n\
+    \        while b:\n            q, c = divmod(a,b)\n            a, b, r, s, x,\
+    \ y = b, c, x - q*r, y - q*s, r, s\n        return x, y, a\n    elif a: return\
+    \ 1, 0, a\n    elif b: return 0, 1, b\n    else: return 0, 1, 0\n\n\nfrom typing\
+    \ import Type, TypeVar, Union, overload\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -149,7 +148,7 @@ data:
   isVerificationFile: true
   path: test/abc186_e_gcd_ex.test.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc186_e_gcd_ex.test.py

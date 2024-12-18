@@ -30,6 +30,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc361_e_tree_diameter.test.py
     title: test/abc361_e_tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_diameter.test.py
+    title: test/grl_5_a_diameter.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -43,13 +46,12 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \nimport operator\nfrom itertools import accumulate\nfrom typing import Callable,\
     \ Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T]\
-    \ = None, initial: T = None, step = 1) -> list[T]:\n    match step:\n        case\
-    \ 1:\n            return list(accumulate(iter, func, initial=initial))\n     \
-    \   case step:\n            assert step >= 2\n            if func is None:\n \
-    \               func = operator.add\n            A = list(iter)\n            if\
-    \ initial is not None:\n                A = [initial] + A\n            for i in\
-    \ range(step,len(A)):\n                A[i] = func(A[i], A[i-step])\n        \
-    \    return A\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
+    \ = None, initial: T = None, step = 1) -> list[T]:\n    if step == 1:\n      \
+    \  return list(accumulate(iter, func, initial=initial))\n    else:\n        assert\
+    \ step >= 2\n        if func is None:\n            func = operator.add\n     \
+    \   A = list(iter)\n        if initial is not None:\n            A = [initial]\
+    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
+    \        return A\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
     \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
     \    self.N = N = len(arr)\n        self.log = N.bit_length()\n        self.op\
     \ = op\n        \n        self.offsets = offsets = [0]\n        for i in range(1,\
@@ -100,12 +102,13 @@ data:
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/abc361_e_tree_diameter.test.py
+  - test/grl_5_a_diameter.test.py
   - test/abc294_g_tree_heavy_light_decomposition.test.py
 documentation_of: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
 layout: document

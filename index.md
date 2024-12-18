@@ -138,7 +138,7 @@ data:
       title: cp_library/alg/graph/shortest_path_fn.py
   - name: cp_library/alg/graph/fast
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/digraph_cls.py
       title: cp_library/alg/graph/fast/digraph_cls.py
     - icon: ':heavy_check_mark:'
@@ -232,9 +232,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_proto.py
       title: cp_library/alg/tree/tree_proto.py
-    - icon: ':warning:'
-      path: cp_library/alg/tree/tree_set_cls.py
-      title: cp_library/alg/tree/tree_set_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_weighted_cls.py
       title: cp_library/alg/tree/tree_weighted_cls.py
@@ -611,6 +608,9 @@ data:
       path: test/abc206_e_mobius_table.test.py
       title: test/abc206_e_mobius_table.test.py
     - icon: ':heavy_check_mark:'
+      path: test/abc218_f_fast_shortest_path.test.py
+      title: test/abc218_f_fast_shortest_path.test.py
+    - icon: ':heavy_check_mark:'
       path: test/abc218_f_shortest_path.test.py
       title: test/abc218_f_shortest_path.test.py
     - icon: ':heavy_check_mark:'
@@ -751,6 +751,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grl_3_a_graph_articulation_points.test.py
       title: test/grl_3_a_graph_articulation_points.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/grl_3_b_graph_bridges.test.py
+      title: test/grl_3_b_graph_bridges.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/grl_5_a_diameter.test.py
+      title: test/grl_5_a_diameter.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/grl_5_a_fast_diameter.test.py
+      title: test/grl_5_a_fast_diameter.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/grl_5_b_fast_height.test.py
+      title: test/grl_5_b_fast_height.test.py
     - icon: ':heavy_check_mark:'
       path: test/grl_5_c_lca_table_iterative.test.py
       title: test/grl_5_c_lca_table_iterative.test.py

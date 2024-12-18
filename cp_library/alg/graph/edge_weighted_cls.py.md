@@ -70,6 +70,9 @@ data:
     path: test/grl_2_b_edmonds_branching.test.py
     title: test/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_diameter.test.py
+    title: test/grl_5_a_diameter.test.py
+  - icon: ':heavy_check_mark:'
     path: test/shortest_path_graph_weighted.test.py
     title: test/shortest_path_graph_weighted.test.py
   - icon: ':heavy_check_mark:'
@@ -190,7 +193,7 @@ data:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_2_a_graph_kruskal.test.py
@@ -198,6 +201,7 @@ data:
   - test/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc361_e_tree_diameter.test.py
+  - test/grl_5_a_diameter.test.py
   - test/abc218_f_shortest_path_weighted.test.py
   - test/grl_2_a_kruskal_heap.test.py
   - test/grl_1_a_graph_distance.test.py

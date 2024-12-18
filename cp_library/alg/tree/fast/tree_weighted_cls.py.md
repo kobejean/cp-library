@@ -57,6 +57,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_fast_diameter.test.py
+    title: test/grl_5_a_fast_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_b_fast_height.test.py
+    title: test/grl_5_b_fast_height.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -179,81 +185,89 @@ data:
     \ u):\n        return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
     \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        match s, g:\n            case None,\
-    \ None:\n                return G.floyd_warshall()\n            case s, g:\n \
-    \               return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list]\
-    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
-    \ int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        N, Va\
-    \ = G.N, G.Va\n        D = [inft]*N\n        S = G.starts(s)\n        que = deque(S)\n\
-    \        for u in S: D[u] = 0\n        while que:\n            nd = D[u := que.popleft()]+1\n\
+    \ distance(G, s = None, g = None):\n        if s == None:\n            return\
+    \ G.floyd_warshall()\n        else:\n            return G.bfs(s, g)\n\n    def\
+    \ shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inft: return\
+    \ None\n        Ua, back, vertices = G.Ua, G.back, fill_u32(1, v := t)\n     \
+    \   while v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n\
+    \    \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
+    \ t) >= inft: return None\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back,\
+    \ fill_u32(0), t\n        while v != s:\n            edges.append(Ea[i := back[v]])\n\
+    \            v = Ua[i]\n        return edges[::-1]\n    \n    @overload\n    def\
+    \ bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G,\
+    \ s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int = 0, g: int =\
+    \ None):\n        N, S, Va = G.N, G.starts(s), G.Va\n        G.back = back = fill_i32(N,\
+    \ -1)\n        G.D = D = fill_u64(N, inft)\n        for u in S: D[u] = 0\n   \
+    \     que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
     \            if u == g: return nd-1\n            for i in G.range(u):\n      \
-    \          if nd < D[v := Va[i]]:\n                    D[v] = nd\n           \
-    \         que.append(v)\n        return D if g is None else inft \n\n    def floyd_warshall(G)\
-    \ -> list[list[int]]:\n        N, M = G.N, G.M\n        Ua, Va = G.Ua, G.Va\n\
-    \        D = [[inft]*N for _ in range(N)]\n\n        for u in range(N):\n    \
-    \        D[u][u] = 0\n\n        for i in range(M):\n            u,v = Ua[i], Va[i]\n\
-    \            D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n     \
-    \       for Di in D:\n                if Di[k] == inft: continue\n           \
-    \     for j in range(N):\n                    if Dk[j] == inft: continue\n   \
-    \                 Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n\n\
-    \    def dfs_discovery(G, s: Union[int,list[int],None] = None, include_roots =\
-    \ False):\n        '''Returns lists U and V representing U[i] -> V[i] edges in\
-    \ order of top down discovery'''\n        N, Va = G.N, G.Va\n        vis = [False]*N\n\
-    \        stack: list[int] = elist(N)\n        order: list[int] = elist(N)\n\n\
-    \        for s in G.starts(s):\n            if vis[s]: continue\n            if\
-    \ include_roots:\n                order.append(-s-1)\n            vis[s] = True\n\
-    \            stack.append(s)\n            while stack:\n                u = stack.pop()\n\
-    \                for i in G.range(u):\n                    v = Va[i]\n       \
-    \             if vis[v]: continue\n                    vis[v] = True\n       \
-    \             order.append(i)\n                    stack.append(v)\n        return\
-    \ order\n\n    def dfs(G, s: int|list = None, /,\n            connect_roots =\
-    \ False, backtrack = False, max_depth = None,\n            enter_fn: Callable[[int],None]\
-    \ = None,\n            leave_fn: Callable[[int],None] = None,\n            max_depth_fn:\
-    \ Callable[[int],None] = None,\n            down_fn: Callable[[int,int],None]\
-    \ = None, \n            back_fn: Callable[[int,int],None] = None,\n          \
-    \  up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va, G.La,\
-    \ G.Ra, G.La[:]\n\n        state = [0]*G.N\n        stack = elist(G.N if max_depth\
-    \ is None else max_depth+1)\n        for s in G.starts(s):\n            if state[s]:\
-    \ continue\n            stack.append(s)\n            state[s] = 1\n          \
-    \  if connect_roots and down_fn: down_fn(-1,s)\n            while stack:\n   \
-    \             u = stack[-1]\n                if state[u] == 1:\n             \
-    \       state[u] = 2\n                    if enter_fn: enter_fn(u)\n         \
-    \           if max_depth is not None and len(stack) > max_depth:\n           \
-    \             I[u] = Ra[u]\n                        if max_depth_fn: max_depth_fn(u)\n\
-    \n                if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n   \
-    \                 if state[v := Va[i]]:\n                        if back_fn: back_fn(u,v)\n\
-    \                    else:\n                        stack.append(v)\n        \
-    \                state[v] = 1\n                        if down_fn: down_fn(u,v)\n\
-    \                else:\n                    stack.pop()\n                    if\
-    \ backtrack:\n                        state[u] = 0\n                        I[u]\
-    \ = La[u]\n                    if leave_fn: leave_fn(u)\n                    if\
-    \ up_fn: up_fn(u, stack[-1])\n            if connect_roots and up_fn: up_fn(s,\
-    \ -1)\n\n    \n    def dfs_enter_leave(G, s: Union[int,list[int],None] = None):\n\
-    \        '''Returns lists U and V representing U[i] -> V[i] edges in order of\
-    \ top down discovery'''\n        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va\n     \
-    \   I = La[:]\n        stack: list[int] = elist(N)\n        order: list[int] =\
-    \ elist(2*N)\n        events: list[DFSEvent] = elist(2*N)\n        G.par = par\
-    \ = [-1]*N\n        ENTER, LEAVE = int(DFSEvent.ENTER), int(DFSEvent.LEAVE)\n\n\
-    \        for s in G.starts(s):\n            if par[s] >= 0: continue\n       \
-    \     par[s] = s\n            order.append(s)\n            events.append(ENTER)\n\
-    \            stack.append(s)\n            while stack:\n                u = stack[-1]\n\
-    \                if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n    \
-    \                if par[v := Va[i]] >= 0: continue\n                    par[v]\
-    \ = u\n                    order.append(v)\n                    events.append(ENTER)\n\
-    \                    stack.append(v)\n                else:\n                \
-    \    stack.pop()\n                    order.append(u)\n                    events.append(LEAVE)\n\
-    \            par[s] = s\n        return events, order\n    \n    def is_bipartite(G):\n\
-    \        N, Va = G.N, G.Va\n        que = deque()\n        color = [-1]*N\n  \
-    \              \n        for s in range(N):\n            if color[s] >= 0:\n \
-    \               continue\n            color[s] = 1\n            que.append(s)\n\
-    \            while que:\n                u = que.popleft()\n                for\
-    \ i in G.range(u):\n                    if color[v := Va[i]] == -1:\n        \
-    \                color[v] = 1 - color[u]\n                        que.append(v)\n\
-    \                    elif color[v] == color[u]:\n                        return\
-    \ False\n        return True\n    \n    def starts(G, s: Union[int,list[int],None])\
-    \ -> list[int]:\n        match s:\n            case int(s): return [s]\n     \
-    \       case None: return [*range(G.N)]\n            case V: return V if isinstance(V,\
-    \ list) else list(V)\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
+    \                    que.append(v)\n        return D if g is None else inft \n\
+    \n    def floyd_warshall(G) -> list[list[int]]:\n        N, M = G.N, G.M\n   \
+    \     Ua, Va = G.Ua, G.Va\n        D = [[inft]*N for _ in range(N)]\n\n      \
+    \  for u in range(N):\n            D[u][u] = 0\n\n        for i in range(M):\n\
+    \            u,v = Ua[i], Va[i]\n            D[u][v] = 1\n        \n        for\
+    \ k, Dk in enumerate(D):\n            for Di in D:\n                if Di[k] ==\
+    \ inft: continue\n                for j in range(N):\n                    if Dk[j]\
+    \ == inft: continue\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n   \
+    \     return D\n    \n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
+    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
+    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, Va = G.N, G.Va\n\
+    \        vis = [False]*N\n        stack: list[int] = elist(N)\n        order:\
+    \ list[int] = elist(N)\n\n        for s in G.starts(s):\n            if vis[s]:\
+    \ continue\n            if include_roots:\n                order.append(-s-1)\n\
+    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
+    \                u = stack.pop()\n                for i in G.range(u):\n     \
+    \               v = Va[i]\n                    if vis[v]: continue\n         \
+    \           vis[v] = True\n                    order.append(i)\n             \
+    \       stack.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list]\
+    \ = None, /,\n            connect_roots = False, backtrack = False, max_depth\
+    \ = None,\n            enter_fn: Callable[[int],None] = None,\n            leave_fn:\
+    \ Callable[[int],None] = None,\n            max_depth_fn: Callable[[int],None]\
+    \ = None,\n            down_fn: Callable[[int,int],None] = None, \n          \
+    \  back_fn: Callable[[int,int],None] = None,\n            up_fn: Callable[[int,int],None]\
+    \ = None):\n        Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]\n\n        state\
+    \ = [0]*G.N\n        stack = elist(G.N if max_depth is None else max_depth+1)\n\
+    \        for s in G.starts(s):\n            if state[s]: continue\n          \
+    \  stack.append(s)\n            state[s] = 1\n            if connect_roots and\
+    \ down_fn: down_fn(-1,s)\n            while stack:\n                u = stack[-1]\n\
+    \                if state[u] == 1:\n                    state[u] = 2\n       \
+    \             if enter_fn: enter_fn(u)\n                    if max_depth is not\
+    \ None and len(stack) > max_depth:\n                        I[u] = Ra[u]\n   \
+    \                     if max_depth_fn: max_depth_fn(u)\n\n                if (i\
+    \ := I[u]) < Ra[u]:\n                    I[u] += 1\n                    if state[v\
+    \ := Va[i]]:\n                        if back_fn: back_fn(u,v)\n             \
+    \       else:\n                        stack.append(v)\n                     \
+    \   state[v] = 1\n                        if down_fn: down_fn(u,v)\n         \
+    \       else:\n                    stack.pop()\n                    if backtrack:\n\
+    \                        state[u] = 0\n                        I[u] = La[u]\n\
+    \                    if leave_fn: leave_fn(u)\n                    if up_fn: up_fn(u,\
+    \ stack[-1])\n            if connect_roots and up_fn: up_fn(s, -1)\n\n    \n \
+    \   def dfs_enter_leave(G, s: Union[int,list[int],None] = None):\n        '''Returns\
+    \ lists U and V representing U[i] -> V[i] edges in order of top down discovery'''\n\
+    \        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va\n        I = La[:]\n        stack:\
+    \ list[int] = elist(N)\n        order: list[int] = elist(2*N)\n        events:\
+    \ list[DFSEvent] = elist(2*N)\n        G.par = par = [-1]*N\n        ENTER, LEAVE\
+    \ = int(DFSEvent.ENTER), int(DFSEvent.LEAVE)\n\n        for s in G.starts(s):\n\
+    \            if par[s] >= 0: continue\n            par[s] = s\n            order.append(s)\n\
+    \            events.append(ENTER)\n            stack.append(s)\n            while\
+    \ stack:\n                u = stack[-1]\n                if (i := I[u]) < Ra[u]:\n\
+    \                    I[u] += 1\n                    if par[v := Va[i]] >= 0: continue\n\
+    \                    par[v] = u\n                    order.append(v)\n       \
+    \             events.append(ENTER)\n                    stack.append(v)\n    \
+    \            else:\n                    stack.pop()\n                    order.append(u)\n\
+    \                    events.append(LEAVE)\n            par[s] = s\n        return\
+    \ events, order\n    \n    def is_bipartite(G):\n        N, Va = G.N, G.Va\n \
+    \       que = deque()\n        color = [-1]*N\n                \n        for s\
+    \ in range(N):\n            if color[s] >= 0:\n                continue\n    \
+    \        color[s] = 1\n            que.append(s)\n            while que:\n   \
+    \             u = que.popleft()\n                for i in G.range(u):\n      \
+    \              if color[v := Va[i]] == -1:\n                        color[v] =\
+    \ 1 - color[u]\n                        que.append(v)\n                    elif\
+    \ color[v] == color[u]:\n                        return False\n        return\
+    \ True\n    \n    def starts(G, s: Union[int,list[int],None]) -> list[int]:\n\
+    \        if isinstance(s, int):\n            return [s]\n        elif s is None:\n\
+    \            return [*range(G.N)]\n        else:\n            return s if isinstance(s,\
+    \ list) else list(s)\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
     \ shift: int = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
     \ fill_u32(M)\n            stream = ts.stream\n            for i in range(M):\n\
     \                u, v = map(int, stream.readline().split())\n                U[i],\
@@ -270,85 +284,78 @@ data:
     \        Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int]):\n      \
     \  super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        self.W = W\n\
     \        self.Wa = Wa\n        \"\"\"Wa[i] lists weights to edges from u for La[u]\
-    \ <= i < Ra[u].\"\"\"\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        match s, g:\n            case None, None:\n            \
-    \    return G.floyd_warshall()\n            case s, g:\n                return\
-    \ G.dijkstra(s, g)\n\n    def dijkstra(G, s: int, t: int = None):\n        N,\
-    \ Va, Wa = G.N, G.Va, G.Wa\n        G.back = back = fill_i32(N, -1)\n        G.D\
-    \ = D = fill_u64(N, inft)\n        D[s] = 0\n            \n        que = PriorityQueue(N,\
-    \ G.starts(s))\n        \n        while que:\n            u, d = que.pop()\n \
-    \           if u == t: break\n            if d > D[u]: continue\n            for\
-    \ i in G.range(u): \n                if (nd := d + Wa[i]) < D[v := Va[i]]:\n \
-    \                   D[v], back[v] = nd, i\n                    que.push(v, nd)\n\
-    \        return D\n\n    def shortest_path(G, s: int, t: int):\n        D = G.dijkstra(s,\
-    \ t)\n        if D[t] == inft: return None\n        Ua, back = G.Ua, G.back\n\
-    \        vertices = fill_u32(1, t)\n        v = t\n        while v != s:\n   \
-    \         vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n \
-    \   \n    def shortest_path_edge_ids(G, s: int, t: int):\n        D = G.dijkstra(s,\
-    \ t)\n        if D[t] == inft: return None\n        Ea, back = G.Ea, G.back\n\
-    \        edges = fill_u32(0)\n        v = t\n        while v != s:\n         \
-    \   edges.append(v := Ea[back[v]])\n        return edges[::-1]\n\n    def kruskal(G):\n\
-    \        N, U, V, W = G.N, G.U, G.V, G.W \n        dsu = DSU(N)\n        MST =\
-    \ [0]*(N-1)\n        need = N-1\n        for e in argsort(W):\n            u,\
-    \ v = dsu.merge(U[e],V[e],True)\n            if u != v:\n                need\
-    \ -= 1\n                MST[need] = e\n                if not need: break\n  \
-    \      return None if need else MST\n    \n    def kruskal_heap(G):\n        N,\
-    \ M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que = PriorityQueue(M, list(range(M)),\
-    \ W)\n        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need = N-1\n    \
-    \    while que and need:\n            e, _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n\
-    \            if u != v:\n                MST[need := need-1] = e\n        return\
-    \ None if need else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n\
-    \        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n        D = [inft]*N\n       \
-    \ D[s] = 0\n        for _ in range(N-1):\n            for i in range(len(Ua)):\n\
-    \                u,v,w = Ua[i], Va[i], Wa[i]\n                if D[u] == inft:\
-    \ continue\n                D[v] = min(D[v], D[u] + w)\n        return D\n   \
-    \ \n    def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:\n\
-    \        D = G.bellman_ford(s)\n        M, U, V, W = G.M, G.U, G.V, G.W\n    \
-    \    neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inft)\n\
-    \        return neg_cycle, D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n        D = [[inft]*N for _ in\
-    \ range(N)]\n\n        for u in range(N):\n            D[u][u] = 0\n\n       \
-    \ for i in range(len(Ua)):\n            u,v,w = Ua[i], Va[i], Wa[i]\n        \
-    \    D[u][v] = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n\
-    \            for Di in D:\n                if Di[k] == inft: continue\n      \
-    \          for j in range(N):\n                    if Dk[j] == inft: continue\n\
-    \                    Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n     \
-    \   \n    def floyd_warshall_neg_cyc_check(G):\n        D = G.floyd_warshall()\n\
-    \        return any(D[i][i] < 0 for i in range(G.N)), D\n    \n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, shift: int = -1):\n        def parse(ts:\
-    \ TokenStream):\n            U, V, W = fill_u32(M), fill_u32(M), [0]*M\n     \
-    \       stream = ts.stream\n            for i in range(M):\n                u,\
-    \ v, W[i] = map(int, stream.readline().split())\n                U[i], V[i] =\
-    \ u+shift, v+shift\n            return cls(N, U, V, W)\n        return parse\n\
-    \n\nclass DSU:\n    def __init__(self, N):\n        self.N = N\n        self.par\
-    \ = [-1] * N\n\n    def merge(self, u, v, src = False):\n        assert 0 <= u\
-    \ < self.N\n        assert 0 <= v < self.N\n\n        x, y = self.leader(u), self.leader(v)\n\
-    \        if x == y: return (x,y) if src else x\n\n        if self.par[x] > self.par[y]:\n\
-    \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
-    \ = x\n\n        return (x,y) if src else x\n\n    def same(self, u: int, v: int):\n\
-    \        assert 0 <= u < self.N\n        assert 0 <= v < self.N\n        return\
-    \ self.leader(u) == self.leader(v)\n\n    def leader(self, i) -> int:\n      \
-    \  assert 0 <= i < self.N\n        par = self.par\n        p = par[i]\n      \
-    \  while p >= 0:\n            if par[p] < 0:\n                return p\n     \
-    \       par[i], i, p = par[p], par[p], par[par[p]]\n\n        return i\n\n   \
-    \ def size(self, i) -> int:\n        assert 0 <= i < self.N\n        \n      \
-    \  return -self.par[self.leader(i)]\n\n    def groups(self) -> list[list[int]]:\n\
-    \        leader_buf = [self.leader(i) for i in range(self.N)]\n\n        result\
-    \ = [[] for _ in range(self.N)]\n        for i in range(self.N):\n           \
-    \ result[leader_buf[i]].append(i)\n\n        return [r for r in result if r]\n\
-    \n\nfrom collections import UserList\nfrom heapq import heapify, heappop, heappush,\
-    \ heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\nT = TypeVar('T')\n\
-    class HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n    def push(self,\
-    \ item: T): ...\n    def pushpop(self, item: T) -> T: ...\n    def replace(self,\
-    \ item: T) -> T: ...\n\nclass PriorityQueue(HeapProtocol[int], UserList[int]):\n\
-    \    \n    def __init__(self, N: int, ids: list[int] = None, priorities: list[int]\
-    \ = None, /):\n        self.shift = N.bit_length()\n        self.mask = (1 <<\
-    \ self.shift)-1\n        if ids is None:\n            super().__init__()\n   \
-    \     elif priorities is None:\n            heapify(ids)\n            self.data\
-    \ = ids\n        else:\n            M = len(ids)\n            data = [0]*M\n \
-    \           for i in range(M):\n                data[i] = self.encode(ids[i],\
+    \ <= i < Ra[u].\"\"\"\n        \n    def __getitem__(G, u):\n        l,r = G.La[u],G.Ra[u]\n\
+    \        return zip(G.Va[l:r], G.Wa[l:r])\n    \n    @overload\n    def distance(G)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
+    \ distance(G, s = None, g = None):\n        if s == None:\n            return\
+    \ G.floyd_warshall()\n        else:\n            return G.dijkstra(s, g)\n\n \
+    \   def dijkstra(G, s: int, t: int = None):\n        N, S, Va, Wa = G.N, G.starts(s),\
+    \ G.Va, G.Wa\n        G.back = back = fill_i32(N, -1)\n        G.D = D = fill_u64(N,\
+    \ inft)\n        for s in S: D[s] = 0\n        que = PriorityQueue(N, S)\n   \
+    \     while que:\n            u, d = que.pop()\n            if d > D[u]: continue\n\
+    \            if u == t: return d\n            for i in G.range(u): \n        \
+    \        if (nd := d + Wa[i]) < D[v := Va[i]]:\n                    D[v], back[v]\
+    \ = nd, i\n                    que.push(v, nd)\n        return D if t is None\
+    \ else inft \n\n    def kruskal(G):\n        N, U, V, W = G.N, G.U, G.V, G.W \n\
+    \        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need = N-1\n        for\
+    \ e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n           \
+    \ if u != v:\n                MST[need := need-1] = e\n                if not\
+    \ need: break\n        return None if need else MST\n    \n    def kruskal_heap(G):\n\
+    \        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que = PriorityQueue(M,\
+    \ list(range(M)), W)\n        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need\
+    \ = N-1\n        while que and need:\n            e, _ = que.pop()\n         \
+    \   u, v = dsu.merge(U[e],V[e],True)\n            if u != v:\n               \
+    \ MST[need := need-1] = e\n        return None if need else MST\n   \n    def\
+    \ bellman_ford(G, s: int = 0) -> list[int]:\n        N, Ua, Va, Wa = G.N, G.Ua,\
+    \ G.Va, G.Wa\n        D = [inft]*N\n        D[s] = 0\n        for _ in range(N-1):\n\
+    \            for i in range(len(Ua)):\n                u,v,w = Ua[i], Va[i], Wa[i]\n\
+    \                if D[u] == inft: continue\n                D[v] = min(D[v], D[u]\
+    \ + w)\n        return D\n    \n    def bellman_ford_neg_cyc_check(G, s: int =\
+    \ 0) -> tuple[bool, list[int]]:\n        D = G.bellman_ford(s)\n        M, U,\
+    \ V, W = G.M, G.U, G.V, G.W\n        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for\
+    \ i in range(M) if D[U[i]] < inft)\n        return neg_cycle, D\n    \n    def\
+    \ floyd_warshall(G) -> list[list[int]]:\n        N, Ua, Va, Wa = G.N, G.Ua, G.Va,\
+    \ G.Wa\n        D = [[inft]*N for _ in range(N)]\n\n        for u in range(N):\n\
+    \            D[u][u] = 0\n\n        for i in range(len(Ua)):\n            u,v,w\
+    \ = Ua[i], Va[i], Wa[i]\n            D[u][v] = min(D[u][v], w)\n        \n   \
+    \     for k, Dk in enumerate(D):\n            for Di in D:\n                if\
+    \ Di[k] == inft: continue\n                for j in range(N):\n              \
+    \      if Dk[j] == inft: continue\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n        \n    def floyd_warshall_neg_cyc_check(G):\n      \
+    \  D = G.floyd_warshall()\n        return any(D[i][i] < 0 for i in range(G.N)),\
+    \ D\n    \n    @classmethod\n    def compile(cls, N: int, M: int, shift: int =\
+    \ -1):\n        def parse(ts: TokenStream):\n            U, V, W = fill_u32(M),\
+    \ fill_u32(M), [0]*M\n            stream = ts.stream\n            for i in range(M):\n\
+    \                u, v, W[i] = map(int, stream.readline().split())\n          \
+    \      U[i], V[i] = u+shift, v+shift\n            return cls(N, U, V, W)\n   \
+    \     return parse\n\n\nclass DSU:\n    def __init__(self, N):\n        self.N\
+    \ = N\n        self.par = [-1] * N\n\n    def merge(self, u, v, src = False):\n\
+    \        assert 0 <= u < self.N\n        assert 0 <= v < self.N\n\n        x,\
+    \ y = self.leader(u), self.leader(v)\n        if x == y: return (x,y) if src else\
+    \ x\n\n        if self.par[x] > self.par[y]:\n            x, y = y, x\n\n    \
+    \    self.par[x] += self.par[y]\n        self.par[y] = x\n\n        return (x,y)\
+    \ if src else x\n\n    def same(self, u: int, v: int):\n        assert 0 <= u\
+    \ < self.N\n        assert 0 <= v < self.N\n        return self.leader(u) == self.leader(v)\n\
+    \n    def leader(self, i) -> int:\n        assert 0 <= i < self.N\n        par\
+    \ = self.par\n        p = par[i]\n        while p >= 0:\n            if par[p]\
+    \ < 0:\n                return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n\
+    \n        return i\n\n    def size(self, i) -> int:\n        assert 0 <= i < self.N\n\
+    \        \n        return -self.par[self.leader(i)]\n\n    def groups(self) ->\
+    \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
+    \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
+    \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
+    \ if r]\n\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
+    \ heappush, heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\n\
+    T = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
+    \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
+    \    def replace(self, item: T) -> T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
+    \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
+    \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
+    \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            self.data\
+    \ = elist(N)\n        elif priorities is None:\n            heapify(ids)\n   \
+    \         self.data = ids\n        else:\n            M = len(ids)\n         \
+    \   data = [0]*M\n            for i in range(M):\n                data[i] = self.encode(ids[i],\
     \ priorities[i]) \n            heapify(data)\n            self.data = data\n\n\
     \    def encode(self, id, priority):\n        return priority << self.shift |\
     \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
@@ -393,26 +400,44 @@ data:
     \ self.encode(id, priority)))\n    \n    def replace(self, id: int, priority:\
     \ int):\n        return self.decode(heapreplace_max(self.data, self.encode(id,\
     \ priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n\
-    \nclass GraphWeighted(GraphWeightedBase):\n    def __init__(G, N: int, U: list[int],\
-    \ V: list[int], W: list[int]):\n        M2 = (M := len(U)) << 1\n        deg,\
-    \ Ea, Ua, Va, Wa = fill_u32(N), fill_u32(M2), fill_u32(M2), fill_u32(M2), [0]*M2\n\
-    \        \n        for u in U:\n            deg[u] += 1\n        for v in V:\n\
-    \            deg[v] += 1\n            \n        La, idx = fill_u32(N), 0\n   \
-    \     for u in range(N): \n            La[u], idx = idx, idx + deg[u]\n      \
-    \  Ra = La[:]\n\n        # place edge data using R to track\n        for e in\
-    \ range(M):\n            u, v, w = U[e], V[e], W[e]\n            i, j = Ra[u],\
+    \    \n\nclass GraphWeighted(GraphWeightedBase):\n    def __init__(G, N: int,\
+    \ U: list[int], V: list[int], W: list[int]):\n        M2 = (M := len(U)) << 1\n\
+    \        deg, Ea, Ua, Va, Wa = fill_u32(N), fill_u32(M2), fill_u32(M2), fill_u32(M2),\
+    \ [0]*M2\n        \n        for u in U:\n            deg[u] += 1\n        for\
+    \ v in V:\n            deg[v] += 1\n            \n        La, idx = fill_u32(N),\
+    \ 0\n        for u in range(N): \n            La[u], idx = idx, idx + deg[u]\n\
+    \        Ra = La[:]\n\n        # place edge data using R to track\n        for\
+    \ e in range(M):\n            u, v, w = U[e], V[e], W[e]\n            i, j = Ra[u],\
     \ Ra[v]\n            Ua[i], Va[i], Wa[i], Ea[i] = u, v, w, e\n            Ra[u]\
     \ += 1\n            Ua[j], Va[j], Wa[j], Ea[j] = v, u, w, M+e\n            Ra[v]\
     \ += 1\n\n        super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)\n\
-    \n\n_T = TypeVar('_T')\n\nclass TreeBase(GraphBase):\n\n    def rerooting_dp(T,\
-    \ e: _T, \n                     merge: Callable[[_T,_T],_T], \n              \
-    \       add_child: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n       \
-    \              s: int = 0):\n        N, La, Ra, Ua, Va = T.N, T.La, T.Ra, T.Ua,\
-    \ T.Va\n        order = T.dfs_discovery(s)\n        dp = [e]*N\n        suf =\
-    \ [e]*len(Ua)\n        I = Ra[:] # tracks current indices for suffix array accumulation\n\
-    \n        # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
-    \            # subtree v finished up pass, store value to accumulate for u\n \
-    \           dp[v] = new = add_child(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
+    \nfrom typing import Callable, Literal, TypeVar, Union, overload\n\n_T = TypeVar('_T')\n\
+    \nclass TreeBase(GraphBase):\n    @overload\n    def distance(T) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(T, s: int, g: int) -> int: ...\n    def distance(T, s = None,\
+    \ g = None):\n        if s == None:\n            return [T.dfs_distance(u) for\
+    \ u in range(T.N)]\n        else:\n            return T.dfs_distance(s, g)\n\n\
+    \    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
+    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
+    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
+    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
+    \    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        stack,\
+    \ Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = fill_u64(N, inft),\
+    \ fill_i32(N, -1)\n        D[s] = 0\n        stack.append(s)\n        while stack:\n\
+    \            nd = D[u := stack.pop()]+1\n            if u == g: return nd-1\n\
+    \            for i in T.range(u):\n                if nd < D[v := Va[i]]:\n  \
+    \                  D[v], back[v] = nd, i\n                    stack.append(v)\n\
+    \        return D if g is None else inft\n\n    def rerooting_dp(T, e: _T, \n\
+    \                     merge: Callable[[_T,_T],_T], \n                     add_child:\
+    \ Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n                     s: int\
+    \ = 0):\n        N, La, Ra, Ua, Va = T.N, T.La, T.Ra, T.Ua, T.Va\n        order\
+    \ = T.dfs_discovery(s)\n        dp = [e]*N\n        suf = [e]*len(Ua)\n      \
+    \  I = Ra[:] # tracks current indices for suffix array accumulation\n\n      \
+    \  # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n     \
+    \       # subtree v finished up pass, store value to accumulate for u\n      \
+    \      dp[v] = new = add_child(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
     \ new)\n            # suffix accumulation\n            I[u] -= 1\n           \
     \ if I[u] > La[u]:\n                suf[I[u]-1] = merge(suf[I[u]], new)\n\n  \
     \      # down\n        dp[s] = e\n        for i in order:\n            u,v = Ua[i],\
@@ -420,87 +445,91 @@ data:
     \ dp[v])\n            # push value to child\n            dp[v] = add_child(v,\
     \ u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n        \n        return\
     \ dp\n    \n    def euler_tour(T, s = 0):\n        N, Va = len(T), T.Va\n    \
-    \    tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n        order, delta = elist(2*N),\
-    \ elist(2*N)\n        \n        stack = elist(N)\n        stack.append(s)\n  \
-    \      while stack:\n            p = par[u := stack.pop()]\n            if tin[u]\
+    \    tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n        order, delta =\
+    \ elist(2*N), elist(2*N)\n        \n        stack = elist(N)\n        stack.append(s)\n\
+    \        while stack:\n            p = par[u := stack.pop()]\n            if tin[u]\
     \ == -1:\n                tin[u] = len(order)\n                for i in T.range(u):\n\
-    \                    if (v := Va[i]) != p:\n                        par[v] = u\n\
-    \                        stack.append(u)\n                        stack.append(v)\n\
+    \                    if (v := Va[i]) != p:\n                        par[v], back[v]\
+    \ = u, i\n                        stack.append(u)\n                        stack.append(v)\n\
     \                delta.append(1)\n            else:\n                delta.append(-1)\n\
     \            \n            order.append(u)\n            tout[u] = len(order)\n\
-    \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par = tin, tout, par\n\
-    \        T.order, T.delta = order, delta\n\n    def hld_precomp(T, r = 0):\n \
-    \       N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n\
-    \        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, state\
-    \ = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n        stack.append(r)\n \
-    \       while stack:\n            match state[v := stack.pop()]:\n           \
-    \     case 0: # dfs down\n                    p, state[v] = par[v], 1\n      \
-    \              stack.append(v)\n                    for i in T.range(v):\n   \
-    \                     if (c := Va[i]) != p:\n                            depth[c],\
-    \ par[c] = depth[v]+1, v\n                            stack.append(c)\n\n    \
-    \            case 1: # dfs up\n                    p, l = par[v], -1\n       \
-    \             for i in T.range(v):\n                        if (c := Va[i]) !=\
-    \ p:\n                            size[v] += size[c]\n                       \
-    \     if size[c] > size[l]:\n                                l = c\n         \
-    \           heavy[v] = l\n                    if p == -1:\n                  \
-    \      state[v] = 2\n                        stack.append(v)\n\n             \
-    \   case 2: # decompose down\n                    p, h, l = par[v], head[v], heavy[v]\n\
-    \                    tin[v], order[time], state[v] = time, v, 3\n            \
-    \        time += 1\n                    stack.append(v)\n                    \n\
-    \                    for i in T.range(v):\n                        if (c := Va[i])\
-    \ != p and c != l:\n                            head[c], state[c] = c, 2\n   \
-    \                         stack.append(c)\n\n                    if l != -1:\n\
-    \                        head[l], state[l] = h, 2\n                        stack.append(l)\n\
-    \                case 3: # decompose up\n                    tout[v] = time\n\
-    \        T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order,\
-    \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n\n    @classmethod\n\
-    \    def compile(cls, N: int, shift: int = -1):\n        return super().compile(N,\
-    \ N-1, shift)\n    \n\n_T = TypeVar('_T')\nclass TreeWeightedBase(GraphWeightedBase,\
-    \ TreeBase):\n     \n    def euler_tour(T, s = 0):\n        N, Va, Wa = len(T),\
-    \ T.Va, T.Wa\n        tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n        order, delta,\
-    \ Wdelta = elist(2*N), elist(2*N), elist(2*N)\n        \n        stack, Wstack\
-    \ = elist(N), elist(N)\n        stack.append(s)\n        Wstack.append(0)\n  \
-    \      while stack:\n            p, wd = par[u := stack.pop()], Wstack.pop()\n\
-    \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
-    \       for i in T.range(u):\n                    if (v := Va[i]) != p:\n    \
-    \                    w, par[v] = Wa[i], u\n                        stack.append(u)\n\
-    \                        stack.append(v)\n                        Wstack.append(-w)\n\
-    \                        Wstack.append(w)\n                delta.append(1)\n \
-    \           else:\n                delta.append(-1)\n            \n          \
-    \  Wdelta.append(wd)\n            order.append(u)\n            tout[u] = len(order)\n\
-    \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par = tin, tout, par\n\
-    \        T.order, T.delta, T.Wdelta = order, delta, Wdelta\n\n    def hld_precomp(T,\
-    \ r = 0):\n        N, time, Va, Wa = T.N, 0, T.Va, T.Wa\n        tin, tout, size\
-    \ = [0]*N, [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n\
-    \        depth, order, state = [0]*N, [0]*N, [0]*N\n        Wpar = [0]*N\n   \
-    \     stack = elist(N)\n        stack.append(r)\n        while stack:\n      \
-    \      match state[v := stack.pop()]:\n                case 0: # dfs down\n  \
-    \                  p, state[v] = par[v], 1\n                    stack.append(v)\n\
-    \                    for i in T.range(v):\n                        if (c := Va[i])\
-    \ != p:\n                            depth[c], par[c], Wpar[c] = depth[v]+1, v,\
-    \ Wa[i]\n                            stack.append(c)\n\n                case 1:\
-    \ # dfs up\n                    p, l = par[v], -1\n                    for i in\
-    \ T.range(v):\n                        if (c := Va[i]) != p:\n               \
-    \             size[v] += size[c]\n                            if size[c] > size[l]:\n\
-    \                                l = c\n                    heavy[v] = l\n   \
-    \                 if p == -1:\n                        state[v] = 2\n        \
-    \                stack.append(v)\n\n                case 2: # decompose down\n\
-    \                    p, h, l = par[v], head[v], heavy[v]\n                   \
-    \ tin[v], order[time], state[v] = time, v, 3\n                    time += 1\n\
-    \                    stack.append(v)\n                    \n                 \
-    \   for i in T.range(v):\n                        if (c := Va[i]) != p and c !=\
-    \ l:\n                            head[c], state[c] = c, 2\n                 \
-    \           stack.append(c)\n\n                    if l != -1:\n             \
-    \           head[l], state[l] = h, 2\n                        stack.append(l)\n\
-    \                case 3: # decompose up\n                    tout[v] = time\n\
-    \        T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order,\
+    \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
+    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    def hld_precomp(T,\
+    \ r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N,\
+    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
+    \ depth, order, state = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n      \
+    \  stack.append(r)\n        while stack:\n            if (s := state[v := stack.pop()])\
+    \ == 0: # dfs down\n                p, state[v] = par[v], 1\n                stack.append(v)\n\
+    \                for i in T.range(v):\n                    if (c := Va[i]) !=\
+    \ p:\n                        depth[c], par[c] = depth[v]+1, v\n             \
+    \           stack.append(c)\n\n            elif s == 1: # dfs up\n           \
+    \     p, l = par[v], -1\n                for i in T.range(v):\n              \
+    \      if (c := Va[i]) != p:\n                        size[v] += size[c]\n   \
+    \                     if size[c] > size[l]:\n                            l = c\n\
+    \                heavy[v] = l\n                if p == -1:\n                 \
+    \   state[v] = 2\n                    stack.append(v)\n\n            elif s ==\
+    \ 2: # decompose down\n                p, h, l = par[v], head[v], heavy[v]\n \
+    \               tin[v], order[time], state[v] = time, v, 3\n                time\
+    \ += 1\n                stack.append(v)\n                \n                for\
+    \ i in T.range(v):\n                    if (c := Va[i]) != p and c != l:\n   \
+    \                     head[c], state[c] = c, 2\n                        stack.append(c)\n\
+    \n                if l != -1:\n                    head[l], state[l] = h, 2\n\
+    \                    stack.append(l)\n\n            elif s == 3: # decompose up\n\
+    \                tout[v] = time\n        T.size, T.depth = size, depth\n     \
+    \   T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy, T.head\
+    \ = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int, shift:\
+    \ int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
+    \    \n\n_T = TypeVar('_T')\nclass TreeWeightedBase(TreeBase, GraphWeightedBase):\n\
+    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        stack,\
+    \ Wa, Va = elist(N := T.N), T.Wa, T.Va\n        stack.append(s)\n        T.D,\
+    \ T.back = D, back = fill_u64(N, inft), fill_i32(N, -1)\n        D[s] = 0\n  \
+    \      while stack:\n            d = D[u := stack.pop()]\n            if u ==\
+    \ g: return d\n            for i in T.range(u):\n                if (nd := d+Wa[i])\
+    \ < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n              \
+    \      stack.append(v)\n        return D if g is None else inft \n    \n    def\
+    \ euler_tour(T, s = 0):\n        N, Va, Wa = len(T), T.Va, T.Wa\n        tin,\
+    \ tout, par = [-1]*N,[-1]*N,[-1]*N\n        order, delta, Wdelta = elist(2*N),\
+    \ elist(2*N), elist(2*N)\n        \n        stack, Wstack = elist(N), elist(N)\n\
+    \        stack.append(s)\n        Wstack.append(0)\n        while stack:\n   \
+    \         p, wd = par[u := stack.pop()], Wstack.pop()\n            if tin[u] ==\
+    \ -1:\n                tin[u] = len(order)\n                for i in T.range(u):\n\
+    \                    if (v := Va[i]) != p:\n                        w, par[v]\
+    \ = Wa[i], u\n                        stack.append(u)\n                      \
+    \  stack.append(v)\n                        Wstack.append(-w)\n              \
+    \          Wstack.append(w)\n                delta.append(1)\n            else:\n\
+    \                delta.append(-1)\n            \n            Wdelta.append(wd)\n\
+    \            order.append(u)\n            tout[u] = len(order)\n        delta[0]\
+    \ = delta[-1] = 0\n        T.tin, T.tout, T.par = tin, tout, par\n        T.order,\
+    \ T.delta, T.Wdelta = order, delta, Wdelta\n\n    def hld_precomp(T, r = 0):\n\
+    \        N, time, Va, Wa = T.N, 0, T.Va, T.Wa\n        tin, tout, size = [0]*N,\
+    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
+    \ depth, order, state = [0]*N, [0]*N, [0]*N\n        Wpar = [0]*N\n        stack\
+    \ = elist(N)\n        stack.append(r)\n        while stack:\n            if (s\
+    \ := state[v := stack.pop()]) == 0: # dfs down\n                p, state[v] =\
+    \ par[v], 1\n                stack.append(v)\n                for i in T.range(v):\n\
+    \                    if (c := Va[i]) != p:\n                        depth[c],\
+    \ par[c], Wpar[c] = depth[v]+1, v, Wa[i]\n                        stack.append(c)\n\
+    \n            elif s == 1: # dfs up\n                p, l = par[v], -1\n     \
+    \           for i in T.range(v):\n                    if (c := Va[i]) != p:\n\
+    \                        size[v] += size[c]\n                        if size[c]\
+    \ > size[l]:\n                            l = c\n                heavy[v] = l\n\
+    \                if p == -1:\n                    state[v] = 2\n             \
+    \       stack.append(v)\n\n            elif s == 2: # decompose down\n       \
+    \         p, h, l = par[v], head[v], heavy[v]\n                tin[v], order[time],\
+    \ state[v] = time, v, 3\n                time += 1\n                stack.append(v)\n\
+    \                \n                for i in T.range(v):\n                    if\
+    \ (c := Va[i]) != p and c != l:\n                        head[c], state[c] = c,\
+    \ 2\n                        stack.append(c)\n\n                if l != -1:\n\
+    \                    head[l], state[l] = h, 2\n                    stack.append(l)\n\
+    \n            elif s == 3: # decompose up\n                tout[v] = time\n  \
+    \      T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order,\
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n        T.Wpar\
     \ = Wpar\n\n    @classmethod\n    def compile(cls, N: int, shift: int = -1):\n\
-    \        return super().compile(N, N-1, shift)\n    \n\nclass TreeWeighted(GraphWeighted,\
-    \ TreeWeightedBase):\n    pass\n\n"
+    \        return GraphWeightedBase.compile.__func__(cls, N, N-1, shift)\n    \n\
+    \nclass TreeWeighted(TreeWeightedBase, GraphWeighted):\n    pass\n\n"
   code: "import cp_library.alg.tree.fast.__header__\nfrom cp_library.alg.graph.fast.graph_weighted_cls\
     \ import GraphWeighted\nfrom cp_library.alg.tree.fast.tree_weighted_base_cls import\
-    \ TreeWeightedBase\n\nclass TreeWeighted(GraphWeighted, TreeWeightedBase):\n \
+    \ TreeWeightedBase\n\nclass TreeWeighted(TreeWeightedBase, GraphWeighted):\n \
     \   pass\n\n"
   dependsOn:
   - cp_library/alg/graph/fast/graph_weighted_cls.py
@@ -509,12 +538,12 @@ data:
   - cp_library/ds/fill_fn.py
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/ds/elist_fn.py
+  - cp_library/math/inft_cnst.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
-  - cp_library/math/inft_cnst.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/heap/heapq_max_import.py
   - cp_library/alg/graph/dfs_options_cls.py
@@ -522,10 +551,12 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/grl_5_b_fast_height.test.py
+  - test/grl_5_a_fast_diameter.test.py
   - test/abc294_g_fast_tree_heavy_light_decomposition.test.py
 documentation_of: cp_library/alg/tree/fast/tree_weighted_cls.py
 layout: document

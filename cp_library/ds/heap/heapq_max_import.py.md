@@ -103,6 +103,15 @@ data:
     path: test/grl_2_a_graph_kruskal.test.py
     title: test/grl_2_a_graph_kruskal.test.py
   - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_diameter.test.py
+    title: test/grl_5_a_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_fast_diameter.test.py
+    title: test/grl_5_a_fast_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_b_fast_height.test.py
+    title: test/grl_5_b_fast_height.test.py
+  - icon: ':heavy_check_mark:'
     path: test/minimum_spanning_tree_kruskal.test.py
     title: test/minimum_spanning_tree_kruskal.test.py
   - icon: ':heavy_check_mark:'
@@ -189,7 +198,7 @@ data:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_priority_queue_cls.py
   - cp_library/ds/heap/max_heap_cls.py
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -201,6 +210,7 @@ data:
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc361_e_tree_diameter.test.py
   - test/grl_1_c_fast_floyd_warshall.test.py
+  - test/grl_5_a_diameter.test.py
   - test/abc218_f_shortest_path_weighted.test.py
   - test/grl_1_a_graph_distance.test.py
   - test/abc294_g_tree_heavy_light_decomposition.test.py
@@ -210,8 +220,10 @@ data:
   - test/grl_1_a_dijkstra.test.py
   - test/grl_1_b_fast_bellman_ford.test.py
   - test/grl_1_b_graph_bellman_ford.test.py
+  - test/grl_5_b_fast_height.test.py
   - test/shortest_path_graph_weighted.test.py
   - test/shortest_path_min_heap.test.py
+  - test/grl_5_a_fast_diameter.test.py
   - test/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/minimum_spanning_tree_kruskal_heap.test.py
 documentation_of: cp_library/ds/heap/heapq_max_import.py

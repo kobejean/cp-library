@@ -64,16 +64,17 @@ data:
     \    \n    def pop(self):\n        return heappop_max(self.data)\n    \n    def\
     \ push(self, item: T):\n        heappush_max(self.data, item)\n\n    def pushpop(self,\
     \ item: T):\n        return heappushpop_max(self.data, item)\n    \n    def replace(self,\
-    \ item: T):\n        return heapreplace_max(self.data, item)\n\n\n\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
-    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ item: T):\n        return heapreplace_max(self.data, item)\n\nfrom typing import\
+    \ TypeVar, Union\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
+    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -141,12 +142,12 @@ data:
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nT\
     \ = TypeVar('T')\nclass KHeapMixin(HeapProtocol[T], Parsable):\n    \"\"\"KHeapMixin[K:\
-    \ int, T: type, N: int|None]\"\"\"\n    def __init__(heap, K: int):\n        heap.K\
-    \ = K\n\n    def added(heap, item: T): ...\n\n    def removed(heap, item: T):\
-    \ ...\n    \n    def pop(heap):\n        item = super().pop()\n        heap.removed(item)\n\
-    \        return item\n    \n    def push(heap, item: T):\n        if len(heap)\
-    \ < heap._K:\n            heap.added(item)\n            super().push(item)\n \
-    \       elif heap._K:\n            assert len(heap) == heap._K, f'{len(heap)=}\
+    \ int, T: type, N: Union[int,None]]\"\"\"\n    def __init__(heap, K: int):\n \
+    \       heap.K = K\n\n    def added(heap, item: T): ...\n\n    def removed(heap,\
+    \ item: T): ...\n    \n    def pop(heap):\n        item = super().pop()\n    \
+    \    heap.removed(item)\n        return item\n    \n    def push(heap, item: T):\n\
+    \        if len(heap) < heap._K:\n            heap.added(item)\n            super().push(item)\n\
+    \        elif heap._K:\n            assert len(heap) == heap._K, f'{len(heap)=}\
     \ {heap._K}'\n            heap.pushpop(item)\n    \n    def pushpop(heap, item:\
     \ T):\n        if item != (remove := super().pushpop(item)):\n            heap.removed(remove)\n\
     \            heap.added(item)\n            return remove\n        else:\n    \
@@ -155,19 +156,19 @@ data:
     \        return remove\n    \n    \n    @property\n    def K(heap):\n        return\
     \ heap._K\n\n    @K.setter\n    def K(heap, K):\n        heap._K = K\n       \
     \ if K is not None:\n            while len(heap) > K:\n                heap.pop()\n\
-    \    \n    @classmethod\n    def compile(cls, K: int, T: type, N: int|None = None):\n\
-    \        elm = Parser.compile(T)\n        if N is None:\n            def parse(ts:\
-    \ TokenStream):\n                return cls(K, (elm(ts) for _ in ts.wait()))\n\
-    \        else:\n            def parse(ts: TokenStream):\n                return\
-    \ cls(K, (elm(ts) for _ in range(N)))\n        return parse\n\nT = TypeVar('T')\n\
-    class MinKHeap(KHeapMixin[T], MaxHeap[T]):\n    \"\"\"MinKHeap[K: int, T: type,\
-    \ N: int|None]\"\"\"\n\n    def __init__(self, K: int, iterable: Iterable[T] =\
-    \ None):\n        MaxHeap.__init__(self, iterable)\n        KHeapMixin.__init__(self,\
+    \    \n    @classmethod\n    def compile(cls, K: int, T: type, N: Union[int,None]\
+    \ = None):\n        elm = Parser.compile(T)\n        if N is None:\n         \
+    \   def parse(ts: TokenStream):\n                return cls(K, (elm(ts) for _\
+    \ in ts.wait()))\n        else:\n            def parse(ts: TokenStream):\n   \
+    \             return cls(K, (elm(ts) for _ in range(N)))\n        return parse\n\
+    \nT = TypeVar('T')\nclass MinKHeap(KHeapMixin[T], MaxHeap[T]):\n    \"\"\"MinKHeap[K:\
+    \ int, T: type, N: Union[int,None]]\"\"\"\n\n    def __init__(self, K: int, iterable:\
+    \ Iterable[T] = None):\n        MaxHeap.__init__(self, iterable)\n        KHeapMixin.__init__(self,\
     \ K)\n"
   code: "import cp_library.ds.heap.__header__\nfrom typing import Iterable, TypeVar\n\
     \nfrom cp_library.ds.heap.max_heap_cls import MaxHeap\nfrom cp_library.ds.heap.k_heap_mixin\
     \ import KHeapMixin\n\nT = TypeVar('T')\nclass MinKHeap(KHeapMixin[T], MaxHeap[T]):\n\
-    \    \"\"\"MinKHeap[K: int, T: type, N: int|None]\"\"\"\n\n    def __init__(self,\
+    \    \"\"\"MinKHeap[K: int, T: type, N: Union[int,None]]\"\"\"\n\n    def __init__(self,\
     \ K: int, iterable: Iterable[T] = None):\n        MaxHeap.__init__(self, iterable)\n\
     \        KHeapMixin.__init__(self, K)\n"
   dependsOn:
@@ -180,7 +181,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/min_k_heap_cls.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc249_f_min_k_heap.test.py

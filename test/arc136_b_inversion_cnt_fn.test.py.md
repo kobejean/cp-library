@@ -39,8 +39,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Union\n\n\nclass BinaryIndexTree:\n\
-    \    def __init__(self, v: int|list):\n        if isinstance(v, int):\n      \
-    \      self.data, self.size = [0]*v, v\n        else:\n            self.build(v)\n\
+    \    def __init__(self, v: Union[int,list]):\n        if isinstance(v, int):\n\
+    \            self.data, self.size = [0]*v, v\n        else:\n            self.build(v)\n\
     \n    def build(self, data):\n        self.data, self.size = data, len(data)\n\
     \        for i in range(self.size):\n            if (r := i|(i+1)) < self.size:\
     \ \n                self.data[r] += self.data[i]\n\n    def get(self, i: int):\n\
@@ -170,7 +170,7 @@ data:
   isVerificationFile: true
   path: test/arc136_b_inversion_cnt_fn.test.py
   requiredBy: []
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/arc136_b_inversion_cnt_fn.test.py

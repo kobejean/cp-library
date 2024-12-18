@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
   - icon: ':heavy_check_mark:'
@@ -55,6 +55,9 @@ data:
     path: test/abc202_e_fast_dfs_enter_leave.test.py
     title: test/abc202_e_fast_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
+    path: test/abc218_f_fast_shortest_path.test.py
+    title: test/abc218_f_fast_shortest_path.test.py
+  - icon: ':heavy_check_mark:'
     path: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
@@ -75,6 +78,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grl_1_c_fast_floyd_warshall.test.py
     title: test/grl_1_c_fast_floyd_warshall.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_a_fast_diameter.test.py
+    title: test/grl_5_a_fast_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/grl_5_b_fast_height.test.py
+    title: test/grl_5_b_fast_height.test.py
   - icon: ':heavy_check_mark:'
     path: test/minimum_spanning_tree_kruskal.test.py
     title: test/minimum_spanning_tree_kruskal.test.py
@@ -123,12 +132,13 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-18 08:34:54+09:00'
+  timestamp: '2024-12-18 14:55:02+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/abc202_e_fast_dfs_enter_leave.test.py
   - test/grl_1_a_fast_dijkstra.test.py
+  - test/abc218_f_fast_shortest_path.test.py
   - test/minimum_spanning_tree_kruskal.test.py
   - test/dp_v_subtree_rerooting_dp.test.py
   - test/grl_1_c_fast_floyd_warshall.test.py
@@ -136,6 +146,8 @@ data:
   - test/abc301_e_fast_grid_graph.test.py
   - test/shortest_path_fast_graph.test.py
   - test/grl_1_b_fast_bellman_ford.test.py
+  - test/grl_5_b_fast_height.test.py
+  - test/grl_5_a_fast_diameter.test.py
   - test/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/minimum_spanning_tree_kruskal_heap.test.py
 documentation_of: cp_library/ds/fill_fn.py
