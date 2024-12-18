@@ -1,7 +1,8 @@
 import cp_library.ds.__header__
+from typing import Union
 
 class BinaryIndexTree:
-    def __init__(self, v: int|list):
+    def __init__(self, v: Union[int,list]):
         if isinstance(v, int):
             self.data, self.size = [0]*v, v
         else:

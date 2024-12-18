@@ -10,7 +10,7 @@ class PriorityQueue(HeapProtocol[int], UserList[int]):
         self.shift = N.bit_length()
         self.mask = (1 << self.shift)-1
         if ids is None:
-            super().__init__()
+            self.data = elist(N)
         elif priorities is None:
             heapify(ids)
             self.data = ids
@@ -82,3 +82,5 @@ class MaxPriorityQueue(HeapProtocol[int], UserList[int]):
 
     def peek(self):
         return self.decode(self.data[0])
+    
+from cp_library.ds.elist_fn import elist

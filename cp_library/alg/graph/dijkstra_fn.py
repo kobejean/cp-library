@@ -1,14 +1,14 @@
 import cp_library.alg.graph.__header__
 
 from heapq import heappop, heappush
-from typing import overload
+from typing import Union, overload
 from cp_library.math.inft_cnst import inft
 
 @overload
 def dijkstra(G, s: int = 0) -> list[int]: ...
 @overload
 def dijkstra(G, s: int, g: int) -> int: ...
-def dijkstra(G, s = 0, g: int|None = None):
+def dijkstra(G, s = 0, g: Union[int,None] = None):
     N = len(G)
     D = [inft for _ in range(N)]
     D[s] = 0

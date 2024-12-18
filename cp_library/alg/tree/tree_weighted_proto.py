@@ -78,43 +78,43 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
         stack = elist(N)
         stack.append(r)
         while stack:
-            match state[v := stack.pop()]:
-                case 0: # dfs down
-                    p, state[v] = par[v], 1
+            if (s := state[v := stack.pop()]) == 0: # dfs down
+                p, state[v] = par[v], 1
+                stack.append(v)
+                for c, w, *_ in T[v]:
+                    if c != p:
+                        depth[c], par[c], Wpar[c] = depth[v]+1, v, w
+                        stack.append(c)
+
+            elif s == 1: # dfs up
+                p, l = par[v], -1
+                for c, w, *_ in T[v]:
+                    if c != p:
+                        size[v] += size[c]
+                        if size[c] > size[l]:
+                            l = c
+                heavy[v] = l
+                if p == -1:
+                    state[v] = 2
                     stack.append(v)
-                    for c, w, *_ in T[v]:
-                        if c != p:
-                            depth[c], par[c], Wpar[c] = depth[v]+1, v, w
-                            stack.append(c)
 
-                case 1: # dfs up
-                    p, l = par[v], -1
-                    for c, w, *_ in T[v]:
-                        if c != p:
-                            size[v] += size[c]
-                            if size[c] > size[l]:
-                                l = c
-                    heavy[v] = l
-                    if p == -1:
-                        state[v] = 2
-                        stack.append(v)
+            elif s == 2: # decompose down
+                p, h, l = par[v], head[v], heavy[v]
+                tin[v], order[time], state[v] = time, v, 3
+                time += 1
+                stack.append(v)
+                
+                for c, *_ in T[v]:
+                    if c != p and c != l:
+                        head[c], state[c] = c, 2
+                        stack.append(c)
 
-                case 2: # decompose down
-                    p, h, l = par[v], head[v], heavy[v]
-                    tin[v], order[time], state[v] = time, v, 3
-                    time += 1
-                    stack.append(v)
-                    
-                    for c, *_ in T[v]:
-                        if c != p and c != l:
-                            head[c], state[c] = c, 2
-                            stack.append(c)
+                if l != -1:
+                    head[l], state[l] = h, 2
+                    stack.append(l)
 
-                    if l != -1:
-                        head[l], state[l] = h, 2
-                        stack.append(l)
-                case 3: # decompose up
-                    tout[v] = time
+            elif s == 3: # decompose up
+                tout[v] = time
         T.size, T.depth = size, depth
         T.order, T.tin, T.tout = order, tin, tout
         T.par, T.heavy, T.head = par, heavy, head

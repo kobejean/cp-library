@@ -15,9 +15,11 @@ class GridGraphProtocol(GraphProtocol):
         G.wall = wall
 
     def vertex(G, key: tuple[int,int] | int):
-        match key:
-            case i, j: return i*G.W+j
-            case v: return v
+        if isinstance(key, tuple):
+            i,j = key
+            return i*G.W+j
+        else:
+            return key
 
     def is_valid(G, i, j, v):
         return 0 <= i < G.H and 0 <= j < G.W and G.S[v] != G.wall

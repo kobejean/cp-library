@@ -12,6 +12,10 @@ class GraphWeightedBase(GraphBase):
         self.W = W
         self.Wa = Wa
         """Wa[i] lists weights to edges from u for La[u] <= i < Ra[u]."""
+        
+    def __getitem__(G, u):
+        l,r = G.La[u],G.Ra[u]
+        return zip(G.Va[l:r], G.Wa[l:r])
     
     @overload
     def distance(G) -> list[list[int]]: ...
@@ -20,49 +24,26 @@ class GraphWeightedBase(GraphBase):
     @overload
     def distance(G, s: int, g: int) -> int: ...
     def distance(G, s = None, g = None):
-        match s, g:
-            case None, None:
-                return G.floyd_warshall()
-            case s, g:
-                return G.dijkstra(s, g)
+        if s == None:
+            return G.floyd_warshall()
+        else:
+            return G.dijkstra(s, g)
 
     def dijkstra(G, s: int, t: int = None):
-        N, Va, Wa = G.N, G.Va, G.Wa
+        N, S, Va, Wa = G.N, G.starts(s), G.Va, G.Wa
         G.back = back = fill_i32(N, -1)
         G.D = D = fill_u64(N, inft)
-        D[s] = 0
-            
-        que = PriorityQueue(N, G.starts(s))
-        
+        for s in S: D[s] = 0
+        que = PriorityQueue(N, S)
         while que:
             u, d = que.pop()
-            if u == t: break
             if d > D[u]: continue
+            if u == t: return d
             for i in G.range(u): 
                 if (nd := d + Wa[i]) < D[v := Va[i]]:
                     D[v], back[v] = nd, i
                     que.push(v, nd)
-        return D
-
-    def shortest_path(G, s: int, t: int):
-        D = G.dijkstra(s, t)
-        if D[t] == inft: return None
-        Ua, back = G.Ua, G.back
-        vertices = fill_u32(1, t)
-        v = t
-        while v != s:
-            vertices.append(v := Ua[back[v]])
-        return vertices[::-1]
-    
-    def shortest_path_edge_ids(G, s: int, t: int):
-        D = G.dijkstra(s, t)
-        if D[t] == inft: return None
-        Ea, back = G.Ea, G.back
-        edges = fill_u32(0)
-        v = t
-        while v != s:
-            edges.append(v := Ea[back[v]])
-        return edges[::-1]
+        return D if t is None else inft 
 
     def kruskal(G):
         N, U, V, W = G.N, G.U, G.V, G.W 
@@ -72,8 +53,7 @@ class GraphWeightedBase(GraphBase):
         for e in argsort(W):
             u, v = dsu.merge(U[e],V[e],True)
             if u != v:
-                need -= 1
-                MST[need] = e
+                MST[need := need-1] = e
                 if not need: break
         return None if need else MST
     

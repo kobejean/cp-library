@@ -1,5 +1,5 @@
 import cp_library.alg.graph.__header__
-
+from typing import Union
 from cp_library.alg.graph.edge_cls import Edge
 from cp_library.alg.graph.graph_proto import GraphProtocol
 
@@ -13,6 +13,6 @@ class Graph(GraphProtocol):
             G[v].add(u)
 
     @classmethod
-    def compile(cls, N: int, M: int, E: type|int = Edge[-1]):
+    def compile(cls, N: int, M: int, E: Union[type,int] = Edge[-1]):
         if isinstance(E, int): E = Edge[E]
         return super().compile(N, M, E)

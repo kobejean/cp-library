@@ -1,7 +1,7 @@
 from cp_library.ds.elist_fn import elist
 import cp_library.alg.tree.__header__
 
-from typing import overload, Literal
+from typing import overload, Literal, Union
 from functools import cached_property
 from cp_library.math.inft_cnst import inft
 from collections import deque
@@ -20,8 +20,10 @@ class TreeProtocol(GraphProtocol):
     @overload
     def diameter(T, endpoints: Literal[True]) -> tuple[int,int,int]: ...
     def diameter(T, endpoints = False):
-        _, s = max((d,v) for v,d in enumerate(T.dfs(0)))
-        diam, g = max((d,v) for v,d in enumerate(T.dfs(s)))
+        mask = (1 << (shift := T.N.bit_length())) - 1
+        s = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask
+        dg = max(d << shift | v for v,d in enumerate(T.distance(s))) 
+        diam, g = dg >> shift, dg & mask
         return (diam, s, g) if endpoints else diam
     
     @overload
@@ -31,11 +33,10 @@ class TreeProtocol(GraphProtocol):
     @overload
     def distance(T, s: int, g: int) -> int: ...
     def distance(T, s = None, g = None):
-        match s, g:
-            case None, None:
-                return [T.dfs(u) for u in range(T.N)]
-            case s, g:
-                return T.dfs(s, g)
+        if s == None:
+            return [T.dfs(u) for u in range(T.N)]
+        else:
+            return T.dfs(s, g)
             
     @overload
     def dfs(T, s: int = 0) -> list[int]: ...
@@ -129,43 +130,43 @@ class TreeProtocol(GraphProtocol):
         stack = elist(N)
         stack.append(r)
         while stack:
-            match state[v := stack.pop()]:
-                case 0: # dfs down
-                    p, state[v] = par[v], 1
+            if (s := state[v := stack.pop()]) == 0: # dfs down
+                p, state[v] = par[v], 1
+                stack.append(v)
+                for c in T[v]:
+                    if c != p:
+                        depth[c], par[c] = depth[v]+1, v
+                        stack.append(c)
+
+            elif s == 1: # dfs up
+                p, l = par[v], -1
+                for c in T[v]:
+                    if c != p:
+                        size[v] += size[c]
+                        if size[c] > size[l]:
+                            l = c
+                heavy[v] = l
+                if p == -1:
+                    state[v] = 2
                     stack.append(v)
-                    for c in T[v]:
-                        if c != p:
-                            depth[c], par[c] = depth[v]+1, v
-                            stack.append(c)
 
-                case 1: # dfs up
-                    p, l = par[v], -1
-                    for c in T[v]:
-                        if c != p:
-                            size[v] += size[c]
-                            if size[c] > size[l]:
-                                l = c
-                    heavy[v] = l
-                    if p == -1:
-                        state[v] = 2
-                        stack.append(v)
+            elif s == 2: # decompose down
+                p, h, l = par[v], head[v], heavy[v]
+                tin[v], order[time], state[v] = time, v, 3
+                time += 1
+                stack.append(v)
+                
+                for c in T[v]:
+                    if c != p and c != l:
+                        head[c], state[c] = c, 2
+                        stack.append(c)
 
-                case 2: # decompose down
-                    p, h, l = par[v], head[v], heavy[v]
-                    tin[v], order[time], state[v] = time, v, 3
-                    time += 1
-                    stack.append(v)
-                    
-                    for c in T[v]:
-                        if c != p and c != l:
-                            head[c], state[c] = c, 2
-                            stack.append(c)
+                if l != -1:
+                    head[l], state[l] = h, 2
+                    stack.append(l)
 
-                    if l != -1:
-                        head[l], state[l] = h, 2
-                        stack.append(l)
-                case 3: # decompose up
-                    tout[v] = time
+            elif s == 3: # decompose up
+                tout[v] = time
         T.size, T.depth = size, depth
         T.order, T.tin, T.tout = order, tin, tout
         T.par, T.heavy, T.head = par, heavy, head

@@ -1,6 +1,6 @@
 import cp_library.alg.graph.__header__
 
-from typing import overload
+from typing import Union, overload
 from heapq import heapify, heappop, heappush
 import operator
 
@@ -19,13 +19,10 @@ class GraphWeightedProtocol(GraphProtocol):
     @overload
     def distance(G, s: int, g: int) -> int: ...
     def distance(G, s = None, g = None):
-        match s, g:
-            case None, None:
-                return G.floyd_warshall()
-            case s, None:
-                return G.dijkstra(s)
-            case s, g:
-                return G.dijkstra(s, g)
+        if s == None:
+            return G.floyd_warshall()
+        else:
+            return G.dijkstra(s, g)
     
     def dijkstra(G, s = 0, g = None):
         D = [inft for _ in range(G.N)]
@@ -123,21 +120,20 @@ class GraphWeightedProtocol(GraphProtocol):
                     Di[j] = min(Di[j], Di[k]+Dk[j])
         return D
     
-    def dfs_events(G, flags: DFSFlags, s: int|list|None = None, max_depth: int|None = None):
-        match flags:
-            case DFSFlags.INTERVAL:
-                if max_depth is None:
-                    return G.dfs_enter_leave(s)
-            case DFSFlags.DOWN|DFSFlags.TOPDOWN:
-                if max_depth is None:
-                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
-                    return [(DFSEvent.DOWN, p, u) for p,u in edges]
-            case DFSFlags.UP|DFSFlags.BOTTOMUP:
-                if max_depth is None:
-                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)
-                    return [(DFSEvent.UP, p, u) for p,u in edges]
-            case flags if flags & DFSFlags.BACKTRACK:
-                return G.dfs_backtrack(flags, s, max_depth)
+    def dfs_events(G, flags: DFSFlags, s: Union[int,list,None] = None, max_depth: Union[int,None] = None):
+        if flags == DFSFlags.INTERVAL:
+            if max_depth is None:
+                return G.dfs_enter_leave(s)
+        elif flags == DFSFlags.DOWN or flags == DFSFlags.TOPDOWN:
+            if max_depth is None:
+                edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
+                return [(DFSEvent.DOWN, p, u) for p,u in edges]
+        elif flags == DFSFlags.UP or flags == DFSFlags.BOTTOMUP:
+            if max_depth is None:
+                edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)
+                return [(DFSEvent.UP, p, u) for p,u in edges]
+        elif flags & DFSFlags.BACKTRACK:
+            return G.dfs_backtrack(flags, s, max_depth)
         state = [0] * G.N
         child = elist(G.N)
         weights = elist(G.N)
@@ -166,22 +162,21 @@ class GraphWeightedProtocol(GraphProtocol):
                 if (c := child[-1]) < len(G[u]):
                     child[-1] += 1
                     v, w = G[u][c]
-                    match state[v]:
-                        case 0:  # Unvisited
-                            if max_depth is None or len(stack)-1 <= max_depth:
-                                if flags & DFSFlags.DOWN:
-                                    events.append((DFSEvent.DOWN, u, v, w))
-                                stack.append(v)
-                                weights.append(w)
-                                child.append(0)
-                                if flags & DFSFlags.RETURN_PARENTS:
-                                    parents[v] = u
-                        case 1:  # In progress
-                            if flags & DFSFlags.BACK:
-                                events.append((DFSEvent.BACK, u, v, w))
-                        case 2:  # Completed
-                            if flags & DFSFlags.CROSS:
-                                events.append((DFSEvent.CROSS, u, v, w))
+                    if (s := state[v]) == 0:  # Unvisited
+                        if max_depth is None or len(stack)-1 <= max_depth:
+                            if flags & DFSFlags.DOWN:
+                                events.append((DFSEvent.DOWN, u, v, w))
+                            stack.append(v)
+                            weights.append(w)
+                            child.append(0)
+                            if flags & DFSFlags.RETURN_PARENTS:
+                                parents[v] = u
+                    elif s == 1:  # In progress
+                        if flags & DFSFlags.BACK:
+                            events.append((DFSEvent.BACK, u, v, w))
+                    elif s == 2:  # Completed
+                        if flags & DFSFlags.CROSS:
+                            events.append((DFSEvent.CROSS, u, v, w))
                 else:
                     stack.pop()
                     child.pop()
@@ -200,7 +195,7 @@ class GraphWeightedProtocol(GraphProtocol):
             ret += (depths,)
         return ret
 
-    def dfs_backtrack(G, flags: DFSFlags, s: int|list = None, max_depth: int|None = None):
+    def dfs_backtrack(G, flags: DFSFlags, s: Union[int,list] = None, max_depth: Union[int,None] = None):
         stack_depth = (max_depth+1 if max_depth is not None else G.N)
         stack = elist(stack_depth)
         child = elist(stack_depth)
@@ -253,7 +248,7 @@ class GraphWeightedProtocol(GraphProtocol):
                 events.append((DFSEvent.UP,-1,s,-1))
         return events
     
-    def dfs_topdown(G, s: int|list[int]|None = None, connect_roots = False):
+    def dfs_topdown(G, s: Union[int,list[int],None] = None, connect_roots = False):
         '''Returns list of (u,v) representing u->v edges in order of top down discovery'''
         stack: list[int] = elist(G.N)
         vis = [False]*G.N

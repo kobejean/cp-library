@@ -1,7 +1,7 @@
 import cp_library.ds.__header__
-
+from typing import Union
 class BinaryIndexTree:
-    def __init__(self, e, op, v: int|list):
+    def __init__(self, e, op, v: Union[int,list]):
         self.e, self.op = e, op
         if isinstance(v, int):
             self.data, self.size = [e]*v, v
@@ -30,7 +30,7 @@ class BinaryIndexTree:
     
 
 class BinaryIndexTreePURQ(BinaryIndexTree):
-    def __init__(self, e, op, inv, v: int|list):
+    def __init__(self, e, op, inv, v: Union[int,list]):
         self.inv = inv
         super().__init__(e, op, v)
 

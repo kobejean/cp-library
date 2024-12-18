@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v
 
-
+from typing import Union
 def main():
     N, M = read(tuple[int, ...])
     T = read(Tree[N])
@@ -54,7 +54,7 @@ def main():
 
 from cp_library.ds.elist_fn import elist
 
-def dfs_topdown(T, s: int|list[int]|None = None, connect_roots = False):
+def dfs_topdown(T, s: Union[int,list[int],None] = None, connect_roots = False):
     '''Returns list of (u,v) representing u->v edges in order of top down discovery'''
     stack: list[int] = elist(T.N)
     vis = [False]*T.N

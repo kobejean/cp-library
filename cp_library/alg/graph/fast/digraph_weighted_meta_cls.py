@@ -32,17 +32,24 @@ class DiGraphWeightedMeta(DiGraphWeighted):
             G.Za = Za
             """Za[i] parallel lists of adjacent meta data to u for La[u] <= i < Ra[u]."""
 
-
     @classmethod
     def compile(cls, N: int, M: int, T: list[type] = [-1,-1,int,int]):
         u, v, *w = map(Parser.compile, T)
         if len(w) == 2:
-            w, x = w
-            def parse(ts: TokenStream):
-                U, V, W, X = fill_u32(M), fill_u32(M), [0]*M, [0]*M
-                for i in range(M):
-                    U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts), x(ts)
-                return cls(N, U, V, W, X)
+            if T == [-1,-1,int,int]:
+                def parse(ts: TokenStream):
+                    U, V, W, X = fill_u32(M), fill_u32(M), [0]*M, [0]*M
+                    for i in range(M):
+                        u,v,a,b = ts.line()
+                        U[i], V[i], W[i], X[i] = int(u)-1, int(v)-1, int(a), int(b)
+                    return cls(N, U, V, W, X)
+            else:
+                w, x = w
+                def parse(ts: TokenStream):
+                    U, V, W, X = fill_u32(M), fill_u32(M), [0]*M, [0]*M
+                    for i in range(M):
+                        U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts), x(ts)
+                    return cls(N, U, V, W, X)
         elif len(w) == 3:
             w, x, y = w
             def parse(ts: TokenStream):

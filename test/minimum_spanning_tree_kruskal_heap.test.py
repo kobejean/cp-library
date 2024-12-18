@@ -5,7 +5,7 @@ def main():
     G = read(GraphWeighted[N,M,0])
     W = G.W
     E = G.kruskal_heap()
-    X = sum(W[e] for e in E)
+    X = sum([W[e] for e in E])
     write(X)
     write(*E)
     

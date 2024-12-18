@@ -1,5 +1,5 @@
 import cp_library.alg.graph.__header__
-
+from typing import Union
 from cp_library.alg.graph.edge_weighted_cls import EdgeWeighted
 from cp_library.alg.graph.graph_weighted_proto import GraphWeightedProtocol
 
@@ -19,6 +19,6 @@ class GraphWeighted(GraphWeightedProtocol):
         return Eid
     
     @classmethod
-    def compile(cls, N: int, M: int, E: type|int = EdgeWeighted[-1]):
+    def compile(cls, N: int, M: int, E: Union[type,int] = EdgeWeighted[-1]):
         if isinstance(E, int): E = EdgeWeighted[E]
         return super().compile(N, M, E)

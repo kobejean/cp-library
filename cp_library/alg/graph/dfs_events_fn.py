@@ -1,19 +1,19 @@
 import cp_library.alg.graph.__header__
+from typing import Union
 from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
 
-def dfs_events(G, flags: DFSFlags, s: int|list|None = None, max_depth: int|None = None):
-    match flags:
-        case DFSFlags.INTERVAL:
-            if max_depth is None:
-                return G.dfs_enter_leave(s)
-        case DFSFlags.TOPDOWN:
-            edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
-            return [(DFSEvent.DOWN, p, u) for p,u in edges]
-        case DFSFlags.BOTTOMUP:
-            edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)
-            return [(DFSEvent.UP, p, u) for p,u in edges]
-        case flags if DFSFlags.BACKTRACK in flags:
-            return G.dfs_backtrack(s)
+def dfs_events(G, flags: DFSFlags, s: Union[int,list,None] = None, max_depth: Union[int,None] = None):
+    if flags == DFSFlags.INTERVAL:
+        if max_depth is None:
+            return G.dfs_enter_leave(s)
+    elif flags == DFSFlags.TOPDOWN:
+        edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
+        return [(DFSEvent.DOWN, p, u) for p,u in edges]
+    elif flags == DFSFlags.BOTTOMUP:
+        edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)
+        return [(DFSEvent.UP, p, u) for p,u in edges]
+    elif DFSFlags.BACKTRACK in flags:
+        return G.dfs_backtrack(s)
     state = [0] * G.N
     child = [0] * G.N
     stack = [0] * G.N
@@ -39,20 +39,19 @@ def dfs_events(G, flags: DFSFlags, s: int|list|None = None, max_depth: int|None 
             
             if (c := child[u]) < len(G[u]):
                 child[u] += 1
-                match state[v := G[u][c]]:
-                    case 0:  # Unvisited
-                        if max_depth is None or depth <= max_depth:
-                            if DFSFlags.DOWN in flags:
-                                events.append((DFSEvent.DOWN, u, v))
-                            stack[depth := depth+1] = v
-                            if DFSFlags.RETURN_PARENTS in flags:
-                                parents[v] = u
-                    case 1:  # In progress
-                        if DFSFlags.BACK in flags:
-                            events.append((DFSEvent.BACK, u, v))
-                    case 2:  # Completed
-                        if DFSFlags.CROSS in flags:
-                            events.append((DFSEvent.CROSS, u, v))
+                if (s := state[v := G[u][c]]) == 0: # Unvisited
+                    if max_depth is None or depth <= max_depth:
+                        if flags & DFSFlags.DOWN:
+                            events.append((DFSEvent.DOWN, u, v))
+                        stack[depth := depth+1] = v
+                        if flags & DFSFlags.RETURN_PARENTS:
+                            parents[v] = u
+                elif s == 1:  # In progress
+                    if flags & DFSFlags.BACK:
+                        events.append((DFSEvent.BACK, u, v))
+                elif s == 2: # Completed
+                    if flags & DFSFlags.CROSS:
+                        events.append((DFSEvent.CROSS, u, v))
             else:
                 depth -= 1
                 state[u] = 0 if DFSFlags.BACKTRACK in flags else 2

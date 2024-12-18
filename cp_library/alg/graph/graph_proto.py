@@ -2,7 +2,7 @@ import cp_library.alg.graph.__header__
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
 from cp_library.ds.elist_fn import elist
-from typing import Iterable, overload
+from typing import Iterable, Union, overload
 from collections import deque
 from cp_library.math.inft_cnst import inft
 
@@ -26,18 +26,15 @@ class GraphProtocol(list, Parsable):
     @overload
     def distance(G, s: int, g: int) -> int: ...
     def distance(G, s = None, g = None):
-        match s, g:
-            case None, None:
-                return G.floyd_warshall()
-            case s, None:
-                return G.bfs(s)
-            case s, g:
-                return G.bfs(s, g)
+        if s == None:
+            return G.floyd_warshall()
+        else:
+            return G.bfs(s, g)
 
     @overload
-    def bfs(G, s: int|list = 0) -> list[int]: ...
+    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...
     @overload
-    def bfs(G, s: int|list, g: int) -> int: ...
+    def bfs(G, s: Union[int,list], g: int) -> int: ...
     def bfs(G, s = 0, g = None):
         D = [inft for _ in range(G.N)]
         q = deque([s] if isinstance(s, int) else s)
@@ -52,9 +49,9 @@ class GraphProtocol(list, Parsable):
         return D if g is None else inft 
 
     @overload
-    def shortest_path(G, s: int, g: int) -> list[int]|None: ...
+    def shortest_path(G, s: int, g: int) -> Union[list[int],None]: ...
     @overload
-    def shortest_path(G, s: int, g: int, distances = True) -> tuple[list[int]|None,list[int]]: ...
+    def shortest_path(G, s: int, g: int, distances = True) -> tuple[Union[list[int],None],list[int]]: ...
     def shortest_path(G, s: int, g: int, distances = False) -> list[int]:
         D = [inft] * G.N
         D[s] = 0
@@ -149,33 +146,25 @@ class GraphProtocol(list, Parsable):
         bridges = []
         stack = list(range(G.N))
         while stack:
-            v = stack.pop()
-            p = par[v]
-            match vis[v]:
-                case 0:
-                    vis[v] = 1
-                    tin[v] = low[v] = time
-                    time += 1
-                    stack.append(v)
-                    for i, child in enumerate(G.neighbors(v)):
-                        if child == p:
-                            continue
-                        match vis[child]:
-                            case 0:
-                                # Tree edge - recurse
-                                par[child] = v
-                                in_edge[child] = Eid[v][i]
-                                stack.append(child)
-                            case 1:
-                                # Back edge - update low-link value
-                                low[v] = min(low[v], tin[child])
-                case 1:
-                    vis[v] = 2
-                    if p != -1:
-                        low[p] = min(low[p], low[v])
-                        if low[v] > tin[p]:
-                            bridges.append(in_edge[v])
-                
+            p = par[v := stack.pop()]
+            if vis[v] == 0:
+                vis[v] = 1
+                tin[v] = low[v] = time
+                time += 1
+                stack.append(v)
+                for i, child in enumerate(G.neighbors(v)):
+                    if child == p: continue
+                    if vis[child] == 0: # Tree edge - recurse
+                        par[child] = v
+                        in_edge[child] = Eid[v][i]
+                        stack.append(child)
+                    else: # Back edge - update low-link value
+                        low[v] = min(low[v], tin[child])
+            elif vis[v] == 1:
+                vis[v] = 2
+                if p != -1:
+                    low[p] = min(low[p], low[v])
+                    if low[v] > tin[p]: bridges.append(in_edge[v])
         return bridges
 
     def articulation_points(G):
@@ -219,21 +208,20 @@ class GraphProtocol(list, Parsable):
 
         return ap
     
-    def dfs_events(G, flags: DFSFlags, s: int|list|None = None, max_depth: int|None = None):
-        match flags:
-            case DFSFlags.INTERVAL:
-                if max_depth is None:
-                    return G.dfs_enter_leave(s)
-            case DFSFlags.DOWN|DFSFlags.TOPDOWN:
-                if max_depth is None:
-                    edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
-                    return [(DFSEvent.DOWN, p, u) for p,u in edges]
-            case DFSFlags.UP|DFSFlags.BOTTOMUP:
-                if max_depth is None:
-                    edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)
-                    return [(DFSEvent.UP, p, u) for p,u in edges]
-            case flags if flags & DFSFlags.BACKTRACK:
-                return G.dfs_backtrack(flags, s, max_depth)
+    def dfs_events(G, flags: DFSFlags, s: Union[int,list,None] = None, max_depth: Union[int,None] = None):
+        if flags == DFSFlags.INTERVAL:
+            if max_depth is None:
+                return G.dfs_enter_leave(s)
+        elif flags == DFSFlags.DOWN or flags == DFSFlags.TOPDOWN:
+            if max_depth is None:
+                edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
+                return [(DFSEvent.DOWN, p, u) for p,u in edges]
+        elif flags == DFSFlags.UP or flags == DFSFlags.BOTTOMUP:
+            if max_depth is None:
+                edges = G.dfs_bottomup(s, DFSFlags.CONNECT_ROOTS in flags)
+                return [(DFSEvent.UP, p, u) for p,u in edges]
+        elif flags & DFSFlags.BACKTRACK:
+            return G.dfs_backtrack(flags, s, max_depth)
         state = [0] * G.N
         child = [0] * G.N
         stack = [0] * G.N
@@ -259,20 +247,19 @@ class GraphProtocol(list, Parsable):
                 
                 if (c := child[u]) < len(G[u]):
                     child[u] += 1
-                    match state[v := G[u][c]]:
-                        case 0:  # Unvisited
-                            if max_depth is None or depth <= max_depth:
-                                if flags & DFSFlags.DOWN:
-                                    events.append((DFSEvent.DOWN, u, v))
-                                stack[depth := depth+1] = v
-                                if flags & DFSFlags.RETURN_PARENTS:
-                                    parents[v] = u
-                        case 1:  # In progress
-                            if flags & DFSFlags.BACK:
-                                events.append((DFSEvent.BACK, u, v))
-                        case 2:  # Completed
-                            if flags & DFSFlags.CROSS:
-                                events.append((DFSEvent.CROSS, u, v))
+                    if (s := state[v := G[u][c]]) == 0: # Unvisited
+                        if max_depth is None or depth <= max_depth:
+                            if flags & DFSFlags.DOWN:
+                                events.append((DFSEvent.DOWN, u, v))
+                            stack[depth := depth+1] = v
+                            if flags & DFSFlags.RETURN_PARENTS:
+                                parents[v] = u
+                    elif s == 1:  # In progress
+                        if flags & DFSFlags.BACK:
+                            events.append((DFSEvent.BACK, u, v))
+                    elif s == 2: # Completed
+                        if flags & DFSFlags.CROSS:
+                            events.append((DFSEvent.CROSS, u, v))
                 else:
                     depth -= 1
                     state[u] = 0 if DFSFlags.BACKTRACK in flags else 2
@@ -289,7 +276,7 @@ class GraphProtocol(list, Parsable):
             ret += (depths,)
         return ret
 
-    def dfs_backtrack(G, flags: DFSFlags, s: int|list = None, max_depth: int|None = None):
+    def dfs_backtrack(G, flags: DFSFlags, s: Union[int,list] = None, max_depth: Union[int,None] = None):
         stack_depth = (max_depth+1 if max_depth is not None else G.N)
         stack = [0]*stack_depth
         child = [0]*stack_depth
@@ -335,7 +322,7 @@ class GraphProtocol(list, Parsable):
                 events.append((DFSEvent.UP,-1,s))
         return events
 
-    def dfs_enter_leave(G, s: int|list|None = None):
+    def dfs_enter_leave(G, s: Union[int,list,None] = None):
         state = [True] * G.N
         child: list[int] = elist(G.N)
         stack: list[int] = elist(G.N)
@@ -366,7 +353,7 @@ class GraphProtocol(list, Parsable):
 
         return events
     
-    def dfs_topdown(G, s: int|list[int]|None = None, connect_roots = False):
+    def dfs_topdown(G, s: Union[int,list,None] = None, connect_roots = False):
         '''Returns list of (u,v) representing u->v edges in order of top down discovery'''
         stack: list[int] = elist(G.N)
         vis = [False]*G.N
@@ -387,7 +374,7 @@ class GraphProtocol(list, Parsable):
                     stack.append(v)
         return edges
     
-    def dfs_bottomup(G, s: int|list[int]|None = None, connect_roots = False):
+    def dfs_bottomup(G, s: Union[int,list,None] = None, connect_roots = False):
         '''Returns list of (p,u) representing p->u edges in bottom up order'''
         edges = G.dfs_topdown(s, connect_roots)
         edges.reverse()
@@ -413,11 +400,13 @@ class GraphProtocol(list, Parsable):
                         return False
         return True
     
-    def starts(G, v: int|list[int]|None) -> Iterable:
-        match v:
-            case int(v): return (v,)
-            case None: return range(G.N)
-            case V: return V
+    def starts(G, v: Union[int,list,None]) -> Iterable:
+        if isinstance(v, int):
+            return (v,)
+        elif v is None:
+            return range(G.N)
+        else:
+            return v
 
     @classmethod
     def compile(cls, N: int, M: int, E):

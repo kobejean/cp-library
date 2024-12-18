@@ -1,8 +1,9 @@
 import cp_library.alg.graph.__header__
+from typing import Union
 from cp_library.alg.graph.dfs_events_fn import DFSEvent, DFSFlags, dfs_events
 from cp_library.math.inft_cnst import inft
 
-def articulation_points(G, s: int|list|None = None):
+def articulation_points(G, s: Union[int,list,None] = None):
     """
     Find articulation points in an undirected graph using DFS events.
     Returns a boolean list that is True for indices where the vertex is an articulation point.

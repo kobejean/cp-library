@@ -1,12 +1,12 @@
 import cp_library.ds.heap.__header__
-from typing import TypeVar
+from typing import TypeVar, Union
 
 from cp_library.io.parser_cls import Parser, Parsable, TokenStream
 from cp_library.ds.heap.heap_proto import HeapProtocol
 
 T = TypeVar('T')
 class KHeapMixin(HeapProtocol[T], Parsable):
-    """KHeapMixin[K: int, T: type, N: int|None]"""
+    """KHeapMixin[K: int, T: type, N: Union[int,None]]"""
     def __init__(heap, K: int):
         heap.K = K
 
@@ -54,7 +54,7 @@ class KHeapMixin(HeapProtocol[T], Parsable):
                 heap.pop()
     
     @classmethod
-    def compile(cls, K: int, T: type, N: int|None = None):
+    def compile(cls, K: int, T: type, N: Union[int,None] = None):
         elm = Parser.compile(T)
         if N is None:
             def parse(ts: TokenStream):

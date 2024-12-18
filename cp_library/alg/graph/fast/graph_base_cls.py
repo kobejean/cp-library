@@ -48,28 +48,41 @@ class GraphBase(Sequence, Parsable):
     @overload
     def distance(G, s: int, g: int) -> int: ...
     def distance(G, s = None, g = None):
-        match s, g:
-            case None, None:
-                return G.floyd_warshall()
-            case s, g:
-                return G.bfs(s, g)
+        if s == None:
+            return G.floyd_warshall()
+        else:
+            return G.bfs(s, g)
 
+    def shortest_path(G, s: int, t: int):
+        if G.distance(s, t) >= inft: return None
+        Ua, back, vertices = G.Ua, G.back, fill_u32(1, v := t)
+        while v != s: vertices.append(v := Ua[back[v]])
+        return vertices[::-1]
+    
+    def shortest_path_edge_ids(G, s: int, t: int):
+        if G.distance(s, t) >= inft: return None
+        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, fill_u32(0), t
+        while v != s:
+            edges.append(Ea[i := back[v]])
+            v = Ua[i]
+        return edges[::-1]
+    
     @overload
     def bfs(G, s: Union[int,list] = 0) -> list[int]: ...
     @overload
     def bfs(G, s: Union[int,list], g: int) -> int: ...
     def bfs(G, s: int = 0, g: int = None):
-        N, Va = G.N, G.Va
-        D = [inft]*N
-        S = G.starts(s)
-        que = deque(S)
+        N, S, Va = G.N, G.starts(s), G.Va
+        G.back = back = fill_i32(N, -1)
+        G.D = D = fill_u64(N, inft)
         for u in S: D[u] = 0
+        que = deque(S)
         while que:
             nd = D[u := que.popleft()]+1
             if u == g: return nd-1
             for i in G.range(u):
                 if nd < D[v := Va[i]]:
-                    D[v] = nd
+                    D[v], back[v] = nd, i
                     que.append(v)
         return D if g is None else inft 
 
@@ -117,7 +130,7 @@ class GraphBase(Sequence, Parsable):
                     stack.append(v)
         return order
 
-    def dfs(G, s: int|list = None, /,
+    def dfs(G, s: Union[int,list] = None, /,
             connect_roots = False, backtrack = False, max_depth = None,
             enter_fn: Callable[[int],None] = None,
             leave_fn: Callable[[int],None] = None,
@@ -214,10 +227,12 @@ class GraphBase(Sequence, Parsable):
         return True
     
     def starts(G, s: Union[int,list[int],None]) -> list[int]:
-        match s:
-            case int(s): return [s]
-            case None: return [*range(G.N)]
-            case V: return V if isinstance(V, list) else list(V)
+        if isinstance(s, int):
+            return [s]
+        elif s is None:
+            return [*range(G.N)]
+        else:
+            return s if isinstance(s, list) else list(s)
 
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
@@ -231,5 +246,5 @@ class GraphBase(Sequence, Parsable):
         return parse
     
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.fill_fn import fill_u32
+from cp_library.ds.fill_fn import fill_u32, fill_i32, fill_u64
 from cp_library.math.inft_cnst import inft
