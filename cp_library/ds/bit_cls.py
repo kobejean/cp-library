@@ -12,14 +12,13 @@ class BinaryIndexTree:
         self.data, self.size = data, len(data)
         for i in range(self.size):
             if (r := i|(i+1)) < self.size: 
-                self.data[r] += self.data[i]
+                data[r] += data[i]
 
     def get(self, i: int):
         assert 0 <= i < self.size
-        s = self.data[i]
-        z = i&(i+1)
+        s, z = (data := self.data)[i], i&(i+1)
         for _ in range((i^z).bit_count()):
-            s, i = s-self.data[i-1], i-(i&-i)
+            s, i = s-data[i-1], i-(i&-i)
         return s
     
     def set(self, i: int, x: int):

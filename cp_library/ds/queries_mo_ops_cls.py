@@ -15,6 +15,20 @@ class MoOp(IntFlag):
     ADD = ADD_LEFT | ADD_RIGHT
     REMOVE = REMOVE_LEFT | REMOVE_RIGHT
 
+# def hilbert(x: int, y: int, n: int) -> int:
+#     """Convert (x,y) to Hilbert curve distance for given n (power of 2)."""
+#     d = 0
+#     for s in range(n.bit_length() - 1, -1, -1):
+#         rx = (x >> s) & 1
+#         ry = (y >> s) & 1
+#         d += n * n * ((3 * rx) ^ ry) >> 2
+#         if ry == 0:
+#             if rx == 1:
+#                 x = n-1 - x
+#                 y = n-1 - y
+#             x, y = y, x
+#     return d
+
 class QueriesMoOps(tuple[list[int], ...],Parsable):
     """
     QueriesMoOps[Q: int, N: int, T: type = tuple[int, int]]
@@ -22,23 +36,27 @@ class QueriesMoOps(tuple[list[int], ...],Parsable):
     Each operation is either moving pointers or answering a query.
     
     Uses half-interval convention: [left, right)
-    Block size is automatically set to sqrt(N) for optimal complexity.
     """
     
-    def __new__(cls, L: list[int], R: list[int], N: int):
+    def __new__(cls, L: list[int], R: list[int], N: int, B: int = None):
         Q = len(L)
         qbits = Q.bit_length()
-        nbits = N.bit_length()
+        nbits = (N+1).bit_length()
         qmask = qmask = (1 << qbits)-1
         nmask = (1 << nbits)-1
-        B = isqrt(N)
-
+        B = max(1,N//isqrt(max(1,Q)) )if B is None else B
         order = [0]*Q
         for i in range(Q):
             l, r = L[i], R[i]
             b = l//B
             r = nmask - r if b & 1 else r
             order[i] = (((b << nbits) + r) << qbits) + i
+        # n = 1 << nbits
+        # for i in range(Q):
+        #     l, r = L[i], R[i]
+        #     # Use Hilbert curve mapping for the 2D point (l,r)
+        #     h = hilbert(l, r, n)
+        #     order[i] = (h << qbits) + i
         order.sort()
         
         ops = elist(3*Q)
@@ -84,7 +102,7 @@ class QueriesMoOps(tuple[list[int], ...],Parsable):
         return super().__new__(cls, (ops, A1, A2, A3))
 
     @classmethod
-    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):
+    def compile(cls, Q: int, N: int, T: type = tuple[-1, int], B: int = None):
         if T == tuple[-1, int]:
             query = Parser.compile(T)
             def parse(ts: TokenStream):
@@ -92,7 +110,7 @@ class QueriesMoOps(tuple[list[int], ...],Parsable):
                 for i in range(Q):
                     L[i], R[i] = map(int,ts.line())
                     L[i] -= 1
-                return cls(L, R, N)
+                return cls(L, R, N, B)
             return parse
         else:
             query = Parser.compile(T)
@@ -100,5 +118,5 @@ class QueriesMoOps(tuple[list[int], ...],Parsable):
                 L, R = [0]*Q, [0]*Q
                 for i in range(Q):
                     L[i], R[i] = query(ts)
-                return cls(L, R, N)
+                return cls(L, R, N, B)
             return parse

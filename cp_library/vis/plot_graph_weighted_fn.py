@@ -1,6 +1,7 @@
 import cp_library.vis.__header__
 
-def plot_graph(G, N):
+def plot_graph(G):
+    N = len(G)
     import networkx as nx
     import matplotlib.pyplot as plt
     # Create NetworkX graph
@@ -8,8 +9,12 @@ def plot_graph(G, N):
 
     # Add edges to the graph
     for u in range(N):
-        for w, v in G[u]:
-            graph.add_edge(u, v, weight=w)
+        for e in G[u]:
+            if isinstance(e, tuple):
+                v, w = e
+                graph.add_edge(u, v, weight=w)
+            else:
+                graph.add_edge(u, e)
 
     # Set up the plot
     plt.figure(figsize=(12, 8))
