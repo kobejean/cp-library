@@ -74,6 +74,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/tree/auxiliary_tree_cls.py
+    title: cp_library/alg/tree/auxiliary_tree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
@@ -276,6 +279,7 @@ data:
   - cp_library/math/minplus_conv_fn.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/tree_proto.py
+  - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
@@ -308,7 +312,7 @@ data:
   - cp_library/alg/graph/grid_graph_proto.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
-  timestamp: '2024-12-18 14:55:02+09:00'
+  timestamp: '2024-12-21 20:47:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

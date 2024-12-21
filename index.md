@@ -177,6 +177,9 @@ data:
       path: cp_library/alg/iter/argsort_fn.py
       title: cp_library/alg/iter/argsort_fn.py
     - icon: ':warning:'
+      path: cp_library/alg/iter/counter_fn.py
+      title: cp_library/alg/iter/counter_fn.py
+    - icon: ':warning:'
       path: cp_library/alg/iter/enumerate_rev_fn.py
       title: cp_library/alg/iter/enumerate_rev_fn.py
     - icon: ':heavy_check_mark:'
@@ -293,6 +296,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/min_sparse_table_cls.py
+      title: cp_library/ds/min_sparse_table_cls.py
     - icon: ':warning:'
       path: cp_library/ds/parallel_cls.py
       title: cp_library/ds/parallel_cls.py

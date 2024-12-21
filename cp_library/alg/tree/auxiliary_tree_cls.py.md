@@ -2,14 +2,20 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/argsort_fn.py
+    title: cp_library/alg/iter/argsort_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/sparse_table_cls.py
-    title: cp_library/ds/sparse_table_cls.py
+    path: cp_library/ds/elist_fn.py
+    title: cp_library/ds/elist_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/min_sparse_table_cls.py
+    title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -31,79 +37,91 @@ data:
     \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
     \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
     \   A[i] = func(A[i], A[i-step])\n        return A\n\nfrom typing import Any,\
-    \ Callable, List\n\nclass SparseTable:\n    def __init__(self, op: Callable[[Any,\
-    \ Any], Any], arr: List[Any]):\n        self.N = N = len(arr)\n        self.log\
-    \ = N.bit_length()\n        self.op = op\n        \n        self.offsets = offsets\
-    \ = [0]\n        for i in range(1, self.log):\n            offsets.append(offsets[-1]\
-    \ + N - (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1]\
-    \ + N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for\
-    \ i in range(self.log - 1):\n            d = 1 << i\n            start = offsets[i]\n\
-    \            next_start = offsets[i + 1]\n            for j in range(N - (1 <<\
-    \ (i+1)) + 1):\n                st[next_start + j] = op(st[k := start+j], st[k\
-    \ + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
-    \ - 1\n        start, st = self.offsets[k], self.st\n        return self.op(st[start\
+    \ List\n\nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n   \
+    \     self.N = N = len(arr)\n        self.log = N.bit_length()\n        \n   \
+    \     self.offsets = offsets = [0]\n        for i in range(1, self.log):\n   \
+    \         offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n            \n \
+    \       self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1)) + 1)\n   \
+    \     st[:N] = arr \n        \n        for i,ni in pairwise(range(self.log)):\n\
+    \            start, nxt, d = offsets[i], offsets[ni], 1 << i\n            for\
+    \ j in range(N - (1 << ni) + 1):\n                st[nxt+j] = min(st[k := start+j],\
+    \ st[k + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
+    \ - 1\n        start, st = self.offsets[k], self.st\n        return min(st[start\
     \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
-    \    rows = []\n        for i in range(self.log):\n            start = self.offsets[i]\n\
-    \            end = self.offsets[i+1] if i+1 < self.log else len(self.st)\n   \
-    \         rows.append(f\"{i:<2d} {self.st[start:end]}\")\n        return '\\n'.join(rows)\n\
-    \nclass LCATable(SparseTable):\n    def __init__(self, T, root = 0):\n       \
-    \ N = len(T)\n        T.euler_tour(root)\n        self.depth = depth = presum(T.delta)\n\
-    \        self.start, self.stop = T.tin, T.tout\n\n        self.mask = (1 << (shift\
-    \ := N.bit_length()))-1\n        self.shift = shift\n        order = T.order\n\
-    \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
-    \            packets[i] = depth[i] << shift | order[i] \n\n        super().__init__(min,\
-    \ packets)\n\n    def _query(self, u, v):\n        l,r = min(self.start[u], self.start[v]),\
-    \ max(self.start[u], self.start[v])+1\n        da = super().query(l, r)\n    \
-    \    return l, r, da & self.mask, da >> self.shift\n\n    def query(self, u, v)\
-    \ -> tuple[int,int]:\n        l, r, a, d = self._query(u, v)\n        return a,\
-    \ d\n    \n    def distance(self, u, v) -> int:\n        l, r, a, d = self._query(u,\
-    \ v)\n        return self.depth[l] + self.depth[r] - 2*d\n\nclass AuxiliaryTree(LCATable):\n\
-    \n    def build_auxiliary_tree(self, V):\n        V = sorted(V, key=lambda x:\
-    \ self.start[x])\n        stack = [V[0]]\n        for u, v in pairwise(V):\n \
-    \           lca, _ = self.query(u, v)\n            while len(stack) > 1 and self.start[stack[-1]]\
-    \ > self.start[lca]:\n                stack.pop()\n            if stack[-1] !=\
-    \ lca:\n                stack.append(lca)\n            stack.append(v)\n\n   \
-    \     aux_tree = { v: [] for v in stack }\n        for p, c in pairwise(stack):\n\
-    \            aux_tree[p].append(c)\n        return aux_tree\n\n    def get_path(self,\
-    \ u, v):\n        lca, _ = self.query(u, v)\n        path = []\n        \n   \
-    \     # Path from u to LCA\n        current = u\n        while current != lca:\n\
-    \            path.append(current)\n            for parent in self.T[current]:\n\
-    \                if self.start[parent] < self.start[current]:\n              \
-    \      current = parent\n                    break\n        \n        # Add LCA\n\
-    \        path.append(lca)\n        \n        # Path from LCA to v (in reverse\
-    \ order)\n        current = v\n        reverse_path = []\n        while current\
-    \ != lca:\n            reverse_path.append(current)\n            for parent in\
-    \ self.T[current]:\n                if self.start[parent] < self.start[current]:\n\
-    \                    current = parent\n                    break\n        # Combine\
-    \ paths\n        path.extend(reversed(reverse_path))\n        return path\n"
+    \    rows, offsets, log, st = [], self.offsets, self.log, self.st\n        for\
+    \ i in range(log):\n            start = offsets[i]\n            end = offsets[i+1]\
+    \ if i+1 < log else len(st)\n            rows.append(f\"{i:<2d} {st[start:end]}\"\
+    )\n        return '\\n'.join(rows)\n\nclass LCATable(MinSparseTable):\n    def\
+    \ __init__(self, T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n\
+    \        self.depth = depth = presum(T.delta)\n        self.start, self.stop =\
+    \ T.tin, T.tout\n        self.mask = (1 << (shift := N.bit_length()))-1\n    \
+    \    self.shift = shift\n        order = T.order\n        M = len(order)\n   \
+    \     packets = [0]*M\n        for i in range(M):\n            packets[i] = depth[i]\
+    \ << shift | order[i] \n        super().__init__(packets)\n\n    def _query(self,\
+    \ u, v):\n        start = self.start\n        l,r = min(start[u], start[v]), max(start[u],\
+    \ start[v])+1\n        da = super().query(l, r)\n        return l, r, da & self.mask,\
+    \ da >> self.shift\n\n    def query(self, u, v) -> tuple[int,int]:\n        l,\
+    \ r, a, d = self._query(u, v)\n        return a, d\n    \n    def distance(self,\
+    \ u, v) -> int:\n        l, r, a, d = self._query(u, v)\n        return self.depth[l]\
+    \ + self.depth[r] - 2*d\n    \n    def path(self, u, v):\n        path, par, lca,\
+    \ c = [], self.T.par, self.query(u, v)[0], u\n        while c != lca:\n      \
+    \      path.append(c)\n            c = par[c]\n        path.append(lca)\n    \
+    \    rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
+    \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
+    \ path\n\ndef argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift\
+    \ := N.bit_length())) - 1\n    indices = [0]*N\n    for i in range(N):\n     \
+    \   indices[i] = A[i] << shift | i\n    indices.sort()\n    for i in range(N):\n\
+    \        indices[i] &= mask\n    return indices\n\nclass AuxiliaryTree(LCATable):\n\
+    \n    def __init__(self, T, root=0):\n        super().__init__(T, root)\n    \
+    \    self.par = [-1]*T.N\n\n    def bucketize(self, K, A):\n        self.pre_all\
+    \ = pre_all = argsort(self.start)\n        self.buckets = buckets = [[] for _\
+    \ in range(K)]\n        for u in pre_all:\n            buckets[A[u]].append(u)\n\
+    \        return buckets\n\n    def build_postorder(self, V, sort = False):\n \
+    \       if sort:\n            V = sorted(V, key=self.start.__getitem__)\n    \
+    \    L = len(V)\n        post, stc, start, par = elist(L<<1), elist(L), self.start,\
+    \ self.par\n        stc.append(V[0])\n        par[V[0]] = -1\n        for u, v\
+    \ in pairwise(V):\n            lca, _ = self.query(u, v)\n            if lca !=\
+    \ u:\n                last = stc.pop()\n                while stc and start[top\
+    \ := stc[-1]] > start[lca]:\n                    post.append(last)\n         \
+    \           par[last] = last = stc.pop()\n                if not stc or top !=\
+    \ lca:\n                    stc.append(lca)\n                    par[lca] = -1\n\
+    \                    \n                post.append(last)\n                par[last]\
+    \ = lca\n            stc.append(v)\n            par[v] = -1\n        \n      \
+    \  last = stc.pop()\n        while stc:\n            post.append(last)\n     \
+    \       par[last] = last = stc.pop()\n        post.append(last)\n        return\
+    \ post, par\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\n"
   code: "import cp_library.alg.tree.__header__\nfrom itertools import pairwise\nfrom\
-    \ cp_library.alg.tree.lca_table_iterative_cls import LCATable\n\nclass AuxiliaryTree(LCATable):\n\
-    \n    def build_auxiliary_tree(self, V):\n        V = sorted(V, key=lambda x:\
-    \ self.start[x])\n        stack = [V[0]]\n        for u, v in pairwise(V):\n \
-    \           lca, _ = self.query(u, v)\n            while len(stack) > 1 and self.start[stack[-1]]\
-    \ > self.start[lca]:\n                stack.pop()\n            if stack[-1] !=\
-    \ lca:\n                stack.append(lca)\n            stack.append(v)\n\n   \
-    \     aux_tree = { v: [] for v in stack }\n        for p, c in pairwise(stack):\n\
-    \            aux_tree[p].append(c)\n        return aux_tree\n\n    def get_path(self,\
-    \ u, v):\n        lca, _ = self.query(u, v)\n        path = []\n        \n   \
-    \     # Path from u to LCA\n        current = u\n        while current != lca:\n\
-    \            path.append(current)\n            for parent in self.T[current]:\n\
-    \                if self.start[parent] < self.start[current]:\n              \
-    \      current = parent\n                    break\n        \n        # Add LCA\n\
-    \        path.append(lca)\n        \n        # Path from LCA to v (in reverse\
-    \ order)\n        current = v\n        reverse_path = []\n        while current\
-    \ != lca:\n            reverse_path.append(current)\n            for parent in\
-    \ self.T[current]:\n                if self.start[parent] < self.start[current]:\n\
-    \                    current = parent\n                    break\n        # Combine\
-    \ paths\n        path.extend(reversed(reverse_path))\n        return path"
+    \ cp_library.alg.tree.lca_table_iterative_cls import LCATable\nfrom cp_library.alg.iter.argsort_fn\
+    \ import argsort\n\nclass AuxiliaryTree(LCATable):\n\n    def __init__(self, T,\
+    \ root=0):\n        super().__init__(T, root)\n        self.par = [-1]*T.N\n\n\
+    \    def bucketize(self, K, A):\n        self.pre_all = pre_all = argsort(self.start)\n\
+    \        self.buckets = buckets = [[] for _ in range(K)]\n        for u in pre_all:\n\
+    \            buckets[A[u]].append(u)\n        return buckets\n\n    def build_postorder(self,\
+    \ V, sort = False):\n        if sort:\n            V = sorted(V, key=self.start.__getitem__)\n\
+    \        L = len(V)\n        post, stc, start, par = elist(L<<1), elist(L), self.start,\
+    \ self.par\n        stc.append(V[0])\n        par[V[0]] = -1\n        for u, v\
+    \ in pairwise(V):\n            lca, _ = self.query(u, v)\n            if lca !=\
+    \ u:\n                last = stc.pop()\n                while stc and start[top\
+    \ := stc[-1]] > start[lca]:\n                    post.append(last)\n         \
+    \           par[last] = last = stc.pop()\n                if not stc or top !=\
+    \ lca:\n                    stc.append(lca)\n                    par[lca] = -1\n\
+    \                    \n                post.append(last)\n                par[last]\
+    \ = lca\n            stc.append(v)\n            par[v] = -1\n        \n      \
+    \  last = stc.pop()\n        while stc:\n            post.append(last)\n     \
+    \       par[last] = last = stc.pop()\n        post.append(last)\n        return\
+    \ post, par\n\nfrom cp_library.ds.elist_fn import elist\n\n"
   dependsOn:
   - cp_library/alg/tree/lca_table_iterative_cls.py
+  - cp_library/alg/iter/argsort_fn.py
+  - cp_library/ds/elist_fn.py
   - cp_library/alg/iter/presum_fn.py
-  - cp_library/ds/sparse_table_cls.py
+  - cp_library/ds/min_sparse_table_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2024-12-18 14:55:02+09:00'
+  timestamp: '2024-12-21 20:47:09+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

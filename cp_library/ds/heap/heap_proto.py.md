@@ -183,7 +183,7 @@ data:
   - cp_library/ds/heap/max_priority_queue_cls.py
   - cp_library/ds/heap/max_k_heap_cls.py
   - cp_library/ds/heap/max_heap_cls.py
-  timestamp: '2024-12-18 14:55:02+09:00'
+  timestamp: '2024-12-21 20:47:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

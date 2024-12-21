@@ -25,9 +25,6 @@ data:
     title: cp_library/alg/tree/tree_weighted_proto.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc175_d_permutation.test.py
-    title: test/abc175_d_permutation.test.py
-  - icon: ':heavy_check_mark:'
     path: test/abc202_e_dfs_enter_leave.test.py
     title: test/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
@@ -68,25 +65,41 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import operator\nfrom itertools import accumulate\nfrom typing import Callable,\
-    \ Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T]\
-    \ = None, initial: T = None, step = 1) -> list[T]:\n    if step == 1:\n      \
-    \  return list(accumulate(iter, func, initial=initial))\n    else:\n        assert\
-    \ step >= 2\n        if func is None:\n            func = operator.add\n     \
-    \   A = list(iter)\n        if initial is not None:\n            A = [initial]\
-    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
-    \        return A\n"
-  code: "import cp_library.alg.iter.__header__\nimport operator\nfrom itertools import\
-    \ accumulate\nfrom typing import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\n\
-    def presum(iter: Iterable[T], func: Callable[[T,T],T] = None, initial: T = None,\
-    \ step = 1) -> list[T]:\n    if step == 1:\n        return list(accumulate(iter,\
-    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
-    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
-    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A"
+    from itertools import pairwise\nfrom typing import Any, List\n\nclass MinSparseTable:\n\
+    \    def __init__(self, arr: List[Any]):\n        self.N = N = len(arr)\n    \
+    \    self.log = N.bit_length()\n        \n        self.offsets = offsets = [0]\n\
+    \        for i in range(1, self.log):\n            offsets.append(offsets[-1]\
+    \ + N - (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1]\
+    \ + N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for\
+    \ i,ni in pairwise(range(self.log)):\n            start, nxt, d = offsets[i],\
+    \ offsets[ni], 1 << i\n            for j in range(N - (1 << ni) + 1):\n      \
+    \          st[nxt+j] = min(st[k := start+j], st[k + d])\n\n    def query(self,\
+    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length() - 1\n        start,\
+    \ st = self.offsets[k], self.st\n        return min(st[start + l], st[start +\
+    \ r - (1 << k)])\n    \n    def __repr__(self) -> str:\n        rows, offsets,\
+    \ log, st = [], self.offsets, self.log, self.st\n        for i in range(log):\n\
+    \            start = offsets[i]\n            end = offsets[i+1] if i+1 < log else\
+    \ len(st)\n            rows.append(f\"{i:<2d} {st[start:end]}\")\n        return\
+    \ '\\n'.join(rows)\n"
+  code: "import cp_library.ds.__header__\nfrom itertools import pairwise\nfrom typing\
+    \ import Any, List\n\nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n\
+    \        self.N = N = len(arr)\n        self.log = N.bit_length()\n        \n\
+    \        self.offsets = offsets = [0]\n        for i in range(1, self.log):\n\
+    \            offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n            \n\
+    \        self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1)) + 1)\n  \
+    \      st[:N] = arr \n        \n        for i,ni in pairwise(range(self.log)):\n\
+    \            start, nxt, d = offsets[i], offsets[ni], 1 << i\n            for\
+    \ j in range(N - (1 << ni) + 1):\n                st[nxt+j] = min(st[k := start+j],\
+    \ st[k + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
+    \ - 1\n        start, st = self.offsets[k], self.st\n        return min(st[start\
+    \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
+    \    rows, offsets, log, st = [], self.offsets, self.log, self.st\n        for\
+    \ i in range(log):\n            start = offsets[i]\n            end = offsets[i+1]\
+    \ if i+1 < log else len(st)\n            rows.append(f\"{i:<2d} {st[start:end]}\"\
+    )\n        return '\\n'.join(rows)"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/alg/iter/presum_fn.py
+  path: cp_library/ds/min_sparse_table_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
@@ -105,14 +118,13 @@ data:
   - test/abc361_e_tree_diameter.test.py
   - test/grl_5_a_diameter.test.py
   - test/abc294_g_tree_heavy_light_decomposition.test.py
-  - test/abc175_d_permutation.test.py
   - test/grl_5_c_lca_table_iterative.test.py
   - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/abc202_e_dfs_enter_leave.test.py
-documentation_of: cp_library/alg/iter/presum_fn.py
+documentation_of: cp_library/ds/min_sparse_table_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/iter/presum_fn.py
-- /library/cp_library/alg/iter/presum_fn.py.html
-title: cp_library/alg/iter/presum_fn.py
+- /library/cp_library/ds/min_sparse_table_cls.py
+- /library/cp_library/ds/min_sparse_table_cls.py.html
+title: cp_library/ds/min_sparse_table_cls.py
 ---

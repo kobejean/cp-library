@@ -8,8 +8,8 @@ data:
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/sparse_table_cls.py
-    title: cp_library/ds/sparse_table_cls.py
+    path: cp_library/ds/min_sparse_table_cls.py
+    title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_cls.py
@@ -51,40 +51,44 @@ data:
     \ step >= 2\n        if func is None:\n            func = operator.add\n     \
     \   A = list(iter)\n        if initial is not None:\n            A = [initial]\
     \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
-    \        return A\n\nfrom typing import Any, Callable, List\n\nclass SparseTable:\n\
-    \    def __init__(self, op: Callable[[Any, Any], Any], arr: List[Any]):\n    \
-    \    self.N = N = len(arr)\n        self.log = N.bit_length()\n        self.op\
-    \ = op\n        \n        self.offsets = offsets = [0]\n        for i in range(1,\
-    \ self.log):\n            offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n\
-    \            \n        self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1))\
-    \ + 1)\n        st[:N] = arr \n        \n        for i in range(self.log - 1):\n\
-    \            d = 1 << i\n            start = offsets[i]\n            next_start\
-    \ = offsets[i + 1]\n            for j in range(N - (1 << (i+1)) + 1):\n      \
-    \          st[next_start + j] = op(st[k := start+j], st[k + d])\n\n    def query(self,\
+    \        return A\n\nfrom itertools import pairwise\nfrom typing import Any, List\n\
+    \nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n        self.N\
+    \ = N = len(arr)\n        self.log = N.bit_length()\n        \n        self.offsets\
+    \ = offsets = [0]\n        for i in range(1, self.log):\n            offsets.append(offsets[-1]\
+    \ + N - (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1]\
+    \ + N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for\
+    \ i,ni in pairwise(range(self.log)):\n            start, nxt, d = offsets[i],\
+    \ offsets[ni], 1 << i\n            for j in range(N - (1 << ni) + 1):\n      \
+    \          st[nxt+j] = min(st[k := start+j], st[k + d])\n\n    def query(self,\
     \ l: int, r: int) -> Any:\n        k = (r-l).bit_length() - 1\n        start,\
-    \ st = self.offsets[k], self.st\n        return self.op(st[start + l], st[start\
-    \ + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n        rows = []\n\
-    \        for i in range(self.log):\n            start = self.offsets[i]\n    \
-    \        end = self.offsets[i+1] if i+1 < self.log else len(self.st)\n       \
-    \     rows.append(f\"{i:<2d} {self.st[start:end]}\")\n        return '\\n'.join(rows)\n\
-    \nclass LCATable(SparseTable):\n    def __init__(self, T, root = 0):\n       \
-    \ N = len(T)\n        T.euler_tour(root)\n        self.depth = depth = presum(T.delta)\n\
-    \        self.start, self.stop = T.tin, T.tout\n\n        self.mask = (1 << (shift\
-    \ := N.bit_length()))-1\n        self.shift = shift\n        order = T.order\n\
-    \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
-    \            packets[i] = depth[i] << shift | order[i] \n\n        super().__init__(min,\
-    \ packets)\n\n    def _query(self, u, v):\n        l,r = min(self.start[u], self.start[v]),\
-    \ max(self.start[u], self.start[v])+1\n        da = super().query(l, r)\n    \
-    \    return l, r, da & self.mask, da >> self.shift\n\n    def query(self, u, v)\
-    \ -> tuple[int,int]:\n        l, r, a, d = self._query(u, v)\n        return a,\
-    \ d\n    \n    def distance(self, u, v) -> int:\n        l, r, a, d = self._query(u,\
-    \ v)\n        return self.depth[l] + self.depth[r] - 2*d\n\nclass LCATableWeighted(LCATable):\n\
-    \    def __init__(self, T, root = 0):\n        super().__init__(T, root)\n   \
-    \     self.weights = T.Wdelta\n        self.weighted_depth = None\n\n    def distance(self,\
-    \ u, v) -> int:\n        if self.weighted_depth is None:\n            self.weighted_depth\
-    \ = presum(self.weights)\n        l, r, a, _ = self._query(u, v)\n        m =\
-    \ self.start[a]\n        return self.weighted_depth[l] + self.weighted_depth[r]\
-    \ - 2*self.weighted_depth[m]\n"
+    \ st = self.offsets[k], self.st\n        return min(st[start + l], st[start +\
+    \ r - (1 << k)])\n    \n    def __repr__(self) -> str:\n        rows, offsets,\
+    \ log, st = [], self.offsets, self.log, self.st\n        for i in range(log):\n\
+    \            start = offsets[i]\n            end = offsets[i+1] if i+1 < log else\
+    \ len(st)\n            rows.append(f\"{i:<2d} {st[start:end]}\")\n        return\
+    \ '\\n'.join(rows)\n\nclass LCATable(MinSparseTable):\n    def __init__(self,\
+    \ T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n        self.depth\
+    \ = depth = presum(T.delta)\n        self.start, self.stop = T.tin, T.tout\n \
+    \       self.mask = (1 << (shift := N.bit_length()))-1\n        self.shift = shift\n\
+    \        order = T.order\n        M = len(order)\n        packets = [0]*M\n  \
+    \      for i in range(M):\n            packets[i] = depth[i] << shift | order[i]\
+    \ \n        super().__init__(packets)\n\n    def _query(self, u, v):\n       \
+    \ start = self.start\n        l,r = min(start[u], start[v]), max(start[u], start[v])+1\n\
+    \        da = super().query(l, r)\n        return l, r, da & self.mask, da >>\
+    \ self.shift\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r, a,\
+    \ d = self._query(u, v)\n        return a, d\n    \n    def distance(self, u,\
+    \ v) -> int:\n        l, r, a, d = self._query(u, v)\n        return self.depth[l]\
+    \ + self.depth[r] - 2*d\n    \n    def path(self, u, v):\n        path, par, lca,\
+    \ c = [], self.T.par, self.query(u, v)[0], u\n        while c != lca:\n      \
+    \      path.append(c)\n            c = par[c]\n        path.append(lca)\n    \
+    \    rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
+    \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
+    \ path\n\nclass LCATableWeighted(LCATable):\n    def __init__(self, T, root =\
+    \ 0):\n        super().__init__(T, root)\n        self.weights = T.Wdelta\n  \
+    \      self.weighted_depth = None\n\n    def distance(self, u, v) -> int:\n  \
+    \      if self.weighted_depth is None:\n            self.weighted_depth = presum(self.weights)\n\
+    \        l, r, a, _ = self._query(u, v)\n        m = self.start[a]\n        return\
+    \ self.weighted_depth[l] + self.weighted_depth[r] - 2*self.weighted_depth[m]\n"
   code: "import cp_library.alg.tree.__header__\nfrom cp_library.alg.iter.presum_fn\
     \ import presum\nfrom cp_library.alg.tree.lca_table_iterative_cls import LCATable\n\
     \nclass LCATableWeighted(LCATable):\n    def __init__(self, T, root = 0):\n  \
@@ -96,13 +100,13 @@ data:
   dependsOn:
   - cp_library/alg/iter/presum_fn.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
-  - cp_library/ds/sparse_table_cls.py
+  - cp_library/ds/min_sparse_table_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2024-12-18 14:55:02+09:00'
+  timestamp: '2024-12-21 20:47:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

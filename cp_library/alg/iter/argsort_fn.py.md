@@ -20,6 +20,9 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/iter/sort_parallel_fn.py
     title: cp_library/alg/iter/sort_parallel_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/tree/auxiliary_tree_cls.py
+    title: cp_library/alg/tree/auxiliary_tree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
@@ -81,6 +84,7 @@ data:
   path: cp_library/alg/iter/argsort_fn.py
   requiredBy:
   - cp_library/alg/iter/sort_parallel_fn.py
+  - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
@@ -88,7 +92,7 @@ data:
   - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  timestamp: '2024-12-18 14:55:02+09:00'
+  timestamp: '2024-12-21 20:47:09+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
