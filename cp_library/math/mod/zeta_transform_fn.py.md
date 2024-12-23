@@ -3,8 +3,8 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/subset_convolution_fn.py
-    title: cp_library/math/mod/subset_convolution_fn.py
+    path: cp_library/math/mod/subset_conv_fn.py
+    title: cp_library/math/mod/subset_conv_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
@@ -36,8 +36,8 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/zeta_transform_fn.py
   requiredBy:
-  - cp_library/math/mod/subset_convolution_fn.py
-  timestamp: '2024-12-21 20:47:09+09:00'
+  - cp_library/math/mod/subset_conv_fn.py
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/subset_convolution.test.py

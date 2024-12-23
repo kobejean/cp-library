@@ -2,6 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/chmax_fn.py
+    title: cp_library/alg/dp/chmax_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/chmin_fn.py
+    title: cp_library/alg/dp/chmin_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -50,30 +56,29 @@ data:
     \ > T:\n        return -1\n    stops = [s] + O + [g]\n    Y = len(stops)\n   \
     \ Z = 1 << Y\n    D = []\n    for u in stops:\n        dist = G.distance(u)\n\
     \        D.append([dist[v] for v in stops])\n    \n    dp = [[inf]*Y for _ in\
-    \ range(Z)]\n    dp[1][0] = 0\n    ans = 0\n    for mask in range(1,Z,2):\n  \
-    \      for i in range(Y):\n            val = dp[mask][i]\n            if mask\
-    \ >> i & 1 and val < inf:\n                for j in range(1,Y):\n            \
-    \        nmask = mask | 1 << j\n                    if nmask == mask: continue\n\
-    \                    dp[nmask][j] = min(dp[nmask][j], val+D[i][j])\n        if\
-    \ dp[mask][-1] <= T:\n            ans = max(ans, mask.bit_count()-2)\n    return\
-    \ ans\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ range(Z)]\n    dp[1][0] = 0\n    ans = [0]\n    for mask in range(1,Z,2):\n\
+    \        for i, Di in enumerate(D):\n            val = dp[mask][i]\n         \
+    \   if mask >> i & 1 and val < inf:\n                for j in range(1,Y):\n  \
+    \                  nmask = mask | 1 << j\n                    if nmask == mask:\
+    \ continue\n                    chmin(dp[nmask], j, val+Di[j])\n        if dp[mask][-1]\
+    \ <= T:\n            chmax(ans, 0, mask.bit_count()-2)\n    return ans[0]\n\n\n\
+    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import sys\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
-    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
-    elist = newlist_hint\n    \n\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\nimport sys\n\
+    \n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -291,17 +296,19 @@ data:
     \ in dirs:\n                        if G.is_valid(ni:=i+di, nj:=j+dj, v:=ni*W+nj):\n\
     \                            deg[u] += 1\n                            Ua.append(u)\n\
     \                            Va.append(v)\n                Ra[u] = len(Ua)\n\n\
-    \        G.M = len(Ua)\n        G.Ea = list(range(G.M))\n\n\nfrom typing import\
-    \ Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() ->\
-    \ list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
-    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
-    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
-    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
-    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
-    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
-    \        else:\n            stream = TokenStream()\n    else:\n        stream\
-    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
-    \nif __name__ == \"__main__\":\n    print(solve())\n"
+    \        G.M = len(Ua)\n        G.Ea = list(range(G.M))\n\n\n\ndef chmin(dp, i,\
+    \ v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\ndef chmax(dp, i, v):\n   \
+    \ if ch:=dp[i]<v:dp[i]=v\n    return ch\n\nfrom typing import Type, TypeVar, Union,\
+    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
+    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
+    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
+    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
+    :\n    print(solve())\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc301/tasks/abc301_e\n\
     \nfrom math import inf\n\n\ndef solve():\n    H, W, T = read(tuple[int, ...])\n\
     \    G = read(GridGraph[H, W])\n    s = G.S.find('S')\n    g = G.S.find('G')\n\
@@ -309,16 +316,19 @@ data:
     \ > T:\n        return -1\n    stops = [s] + O + [g]\n    Y = len(stops)\n   \
     \ Z = 1 << Y\n    D = []\n    for u in stops:\n        dist = G.distance(u)\n\
     \        D.append([dist[v] for v in stops])\n    \n    dp = [[inf]*Y for _ in\
-    \ range(Z)]\n    dp[1][0] = 0\n    ans = 0\n    for mask in range(1,Z,2):\n  \
-    \      for i in range(Y):\n            val = dp[mask][i]\n            if mask\
-    \ >> i & 1 and val < inf:\n                for j in range(1,Y):\n            \
-    \        nmask = mask | 1 << j\n                    if nmask == mask: continue\n\
-    \                    dp[nmask][j] = min(dp[nmask][j], val+D[i][j])\n        if\
-    \ dp[mask][-1] <= T:\n            ans = max(ans, mask.bit_count()-2)\n    return\
-    \ ans\n\nfrom cp_library.alg.graph.fast.grid_graph_cls import GridGraph\nfrom\
-    \ cp_library.io.read_fn import read\n\nif __name__ == \"__main__\":\n    print(solve())"
+    \ range(Z)]\n    dp[1][0] = 0\n    ans = [0]\n    for mask in range(1,Z,2):\n\
+    \        for i, Di in enumerate(D):\n            val = dp[mask][i]\n         \
+    \   if mask >> i & 1 and val < inf:\n                for j in range(1,Y):\n  \
+    \                  nmask = mask | 1 << j\n                    if nmask == mask:\
+    \ continue\n                    chmin(dp[nmask], j, val+Di[j])\n        if dp[mask][-1]\
+    \ <= T:\n            chmax(ans, 0, mask.bit_count()-2)\n    return ans[0]\n\n\
+    from cp_library.alg.graph.fast.grid_graph_cls import GridGraph\nfrom cp_library.alg.dp.chmin_fn\
+    \ import chmin\nfrom cp_library.alg.dp.chmax_fn import chmax\nfrom cp_library.io.read_fn\
+    \ import read\n\nif __name__ == \"__main__\":\n    print(solve())"
   dependsOn:
   - cp_library/alg/graph/fast/grid_graph_cls.py
+  - cp_library/alg/dp/chmin_fn.py
+  - cp_library/alg/dp/chmax_fn.py
   - cp_library/io/read_fn.py
   - cp_library/ds/elist_fn.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
@@ -332,7 +342,7 @@ data:
   isVerificationFile: true
   path: test/abc301_e_fast_grid_graph.test.py
   requiredBy: []
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/abc301_e_fast_grid_graph.test.py

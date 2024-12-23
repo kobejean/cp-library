@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/chmin_fn.py
+    title: cp_library/alg/dp/chmin_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inft_cnst.py
     title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
@@ -20,30 +23,31 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom heapq import heappop, heappush\nfrom typing import Union, overload\n\n\
-    import sys\ninft: int\n\ninft = sys.maxsize\n\n@overload\ndef dijkstra(G, s: int\
+    \nfrom heapq import heappop, heappush\nfrom typing import Union, overload\n\n\n\
+    def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\nimport sys\n\
+    inft: int\n\ninft = sys.maxsize\n\n@overload\ndef dijkstra(G, s: int = 0) -> list[int]:\
+    \ ...\n@overload\ndef dijkstra(G, s: int, g: int) -> int: ...\ndef dijkstra(G,\
+    \ s = 0, g: Union[int,None] = None):\n    N = len(G)\n    D = [inft for _ in range(N)]\n\
+    \    D[s] = 0\n    q = [(0, s)]\n    while q:\n        d, v = heappop(q)\n   \
+    \     if d > D[v]: continue\n        if v == g: return d\n        for u, w, *_\
+    \ in G[v]:\n            if chmin(D, u, nd := d + w):\n                heappush(q,\
+    \ (nd, u))\n    return D if g is None else inft\n"
+  code: "import cp_library.alg.graph.__header__\n\nfrom heapq import heappop, heappush\n\
+    from typing import Union, overload\nfrom cp_library.alg.dp.chmin_fn import chmin\n\
+    from cp_library.math.inft_cnst import inft\n\n@overload\ndef dijkstra(G, s: int\
     \ = 0) -> list[int]: ...\n@overload\ndef dijkstra(G, s: int, g: int) -> int: ...\n\
     def dijkstra(G, s = 0, g: Union[int,None] = None):\n    N = len(G)\n    D = [inft\
     \ for _ in range(N)]\n    D[s] = 0\n    q = [(0, s)]\n    while q:\n        d,\
     \ v = heappop(q)\n        if d > D[v]: continue\n        if v == g: return d\n\
-    \        for u, w, *_ in G[v]:\n            if (nd := d + w) < D[u]:\n       \
-    \         D[u] = nd\n                heappush(q, (nd, u))\n    return D if g is\
-    \ None else inft\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom heapq import heappop, heappush\n\
-    from typing import Union, overload\nfrom cp_library.math.inft_cnst import inft\n\
-    \n@overload\ndef dijkstra(G, s: int = 0) -> list[int]: ...\n@overload\ndef dijkstra(G,\
-    \ s: int, g: int) -> int: ...\ndef dijkstra(G, s = 0, g: Union[int,None] = None):\n\
-    \    N = len(G)\n    D = [inft for _ in range(N)]\n    D[s] = 0\n    q = [(0,\
-    \ s)]\n    while q:\n        d, v = heappop(q)\n        if d > D[v]: continue\n\
-    \        if v == g: return d\n        for u, w, *_ in G[v]:\n            if (nd\
-    \ := d + w) < D[u]:\n                D[u] = nd\n                heappush(q, (nd,\
-    \ u))\n    return D if g is None else inft"
+    \        for u, w, *_ in G[v]:\n            if chmin(D, u, nd := d + w):\n   \
+    \             heappush(q, (nd, u))\n    return D if g is None else inft"
   dependsOn:
+  - cp_library/alg/dp/chmin_fn.py
   - cp_library/math/inft_cnst.py
   isVerificationFile: false
   path: cp_library/alg/graph/dijkstra_fn.py
   requiredBy: []
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grl_1_a_dijkstra.test.py

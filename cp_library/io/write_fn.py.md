@@ -124,6 +124,15 @@ data:
     path: test/arc182_d_increment_decrement_again_qselect.test.py
     title: test/arc182_d_increment_decrement_again_qselect.test.py
   - icon: ':heavy_check_mark:'
+    path: test/convolution.test.py
+    title: test/convolution.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/convolution_int.test.py
+    title: test/convolution_int.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/convolution_mod_1000000007.test.py
+    title: test/convolution_mod_1000000007.test.py
+  - icon: ':heavy_check_mark:'
     path: test/dp_v_subtree_rerooting_dp.test.py
     title: test/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
@@ -208,6 +217,9 @@ data:
     path: test/minimum_spanning_tree_kruskal_heap.test.py
     title: test/minimum_spanning_tree_kruskal_heap.test.py
   - icon: ':heavy_check_mark:'
+    path: test/polynomial_taylor_shift.test.py
+    title: test/polynomial_taylor_shift.test.py
+  - icon: ':heavy_check_mark:'
     path: test/pow_of_matrix_matpow.test.py
     title: test/pow_of_matrix_matpow.test.py
   - icon: ':heavy_check_mark:'
@@ -222,6 +234,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/shortest_path_min_heap.test.py
     title: test/shortest_path_min_heap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/stirling_number_of_the_first_kind.test.py
+    title: test/stirling_number_of_the_first_kind.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/stirling_number_of_the_second_kind.test.py
+    title: test/stirling_number_of_the_second_kind.test.py
   - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
@@ -286,7 +304,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/write_fn.py
   requiredBy: []
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -295,6 +313,7 @@ data:
   - test/abc362_q_count_substring_query_ahocorasick.test.py
   - test/abc202_e_fast_dfs_enter_leave.test.py
   - test/grl_1_a_fast_dijkstra.test.py
+  - test/convolution_mod_1000000007.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
   - test/arc168_c_swap_characters_combinatoric.test.py
   - test/grl_2_a_graph_kruskal.test.py
@@ -311,12 +330,14 @@ data:
   - test/grl_3_a_articulation_points_fn.test.py
   - test/abc261_g_mo.test.py
   - test/arc136_b_inversion_cnt_fn.test.py
+  - test/polynomial_taylor_shift.test.py
   - test/grl_1_c_floyd_warshall.test.py
   - test/abc361_e_tree_diameter.test.py
   - test/dp_v_subtree_rerooting_dp.test.py
   - test/grl_1_c_fast_floyd_warshall.test.py
   - test/abc186_e_gcd_ex.test.py
   - test/abc261_g_queries_mo_ops.test.py
+  - test/stirling_number_of_the_second_kind.test.py
   - test/min_plus_convolution_convex_arbitrary.test.py
   - test/grl_5_a_diameter.test.py
   - test/abc218_f_shortest_path_weighted.test.py
@@ -346,9 +367,11 @@ data:
   - test/unionfind_with_potential_non_commutative_group.test.py
   - test/grl_1_b_graph_bellman_ford.test.py
   - test/grl_5_c_lca_table_iterative.test.py
+  - test/convolution_int.test.py
   - test/grl_5_b_fast_height.test.py
   - test/shortest_path_graph_weighted.test.py
   - test/agc038_b_sliding_min_max.test.py
+  - test/convolution.test.py
   - test/shortest_path_min_heap.test.py
   - test/abc184_e_grid_graph_bfs_fn.test.py
   - test/grl_2_b_edmonds_branching.test.py
@@ -363,6 +386,7 @@ data:
   - test/grl_3_b_graph_bridges.test.py
   - test/minimum_spanning_tree_kruskal_heap.test.py
   - test/subset_convolution.test.py
+  - test/stirling_number_of_the_first_kind.test.py
   - test/abc202_e_dfs_enter_leave.test.py
   - test/abc206_e_mobius_table.test.py
 documentation_of: cp_library/io/write_fn.py

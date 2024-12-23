@@ -15,6 +15,12 @@ data:
   - name: cp_library/alg/dp
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/dp/chmax_fn.py
+      title: cp_library/alg/dp/chmax_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/dp/chmin_fn.py
+      title: cp_library/alg/dp/chmin_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/dp2d_cls.py
       title: cp_library/alg/dp/dp2d_cls.py
     - icon: ':heavy_check_mark:'
@@ -442,12 +448,9 @@ data:
     - icon: ':warning:'
       path: cp_library/math/mutvec_cls.py
       title: cp_library/math/mutvec_cls.py
-    - icon: ':warning:'
-      path: cp_library/math/ntt_cls.py
-      title: cp_library/math/ntt_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/subset_convolution_fn.py
-      title: cp_library/math/subset_convolution_fn.py
+      path: cp_library/math/subset_conv_fn.py
+      title: cp_library/math/subset_conv_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/subset_sum_fn.py
       title: cp_library/math/subset_sum_fn.py
@@ -469,6 +472,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/zeta_transform_fn.py
       title: cp_library/math/zeta_transform_fn.py
+  - name: cp_library/math/fps
+    pages:
+    - icon: ':warning:'
+      path: cp_library/math/fps/fps_cls.py
+      title: cp_library/math/fps/fps_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fps/tayler_shift_fn.py
+      title: cp_library/math/fps/tayler_shift_fn.py
   - name: cp_library/math/mod
     pages:
     - icon: ':warning:'
@@ -487,14 +498,17 @@ data:
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/math/mod/mint_ntt_cls.py
+      title: cp_library/math/mod/mint_ntt_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mobius_transform_fn.py
       title: cp_library/math/mod/mobius_transform_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat_cls.py
       title: cp_library/math/mod/modmat_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/mod/subset_convolution_fn.py
-      title: cp_library/math/mod/subset_convolution_fn.py
+      path: cp_library/math/mod/subset_conv_fn.py
+      title: cp_library/math/mod/subset_conv_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/zeta_transform_fn.py
       title: cp_library/math/mod/zeta_transform_fn.py
@@ -503,14 +517,17 @@ data:
     - icon: ':warning:'
       path: cp_library/math/nt/chinese_remainder_theorem_fn.py
       title: cp_library/math/nt/chinese_remainder_theorem_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/nt/conv_int_fn.py
+      title: cp_library/math/nt/conv_int_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/nt/mod_inv_fn.py
       title: cp_library/math/nt/mod_inv_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/nt/ntt_cls.py
+      title: cp_library/math/nt/ntt_cls.py
   - name: cp_library/math/table
     pages:
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/table/combinatorics_cls.py
-      title: cp_library/math/table/combinatorics_cls.py
     - icon: ':warning:'
       path: cp_library/math/table/divisors_cls.py
       title: cp_library/math/table/divisors_cls.py
@@ -533,6 +550,9 @@ data:
       path: cp_library/math/table/mobius_cls.py
       title: cp_library/math/table/mobius_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/math/table/modcomb_cls.py
+      title: cp_library/math/table/modcomb_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/table/pow_cls.py
       title: cp_library/math/table/pow_cls.py
     - icon: ':warning:'
@@ -544,12 +564,23 @@ data:
     - icon: ':warning:'
       path: cp_library/math/table/sieve_proto.py
       title: cp_library/math/table/sieve_proto.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/table/stirling1_n_fn.py
+      title: cp_library/math/table/stirling1_n_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/table/stirling2_n_fn.py
+      title: cp_library/math/table/stirling2_n_fn.py
     - icon: ':warning:'
       path: cp_library/math/table/totient_cls.py
       title: cp_library/math/table/totient_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/table/unique_factors_cls.py
       title: cp_library/math/table/unique_factors_cls.py
+  - name: cp_library/misc/decorators
+    pages:
+    - icon: ':warning:'
+      path: cp_library/misc/decorators/lazy_class_attribute_cls.py
+      title: cp_library/misc/decorators/lazy_class_attribute_cls.py
   - name: cp_library/misc
     pages:
     - icon: ':heavy_check_mark:'
@@ -565,6 +596,9 @@ data:
       title: cp_library/opt/lib_load.py
   - name: cp_library/vis
     pages:
+    - icon: ':warning:'
+      path: cp_library/vis/debug_fn.py
+      title: cp_library/vis/debug_fn.py
     - icon: ':warning:'
       path: cp_library/vis/plot_graph_weighted_fn.py
       title: cp_library/vis/plot_graph_weighted_fn.py
@@ -695,6 +729,15 @@ data:
       path: test/arc182_d_increment_decrement_again_qselect.test.py
       title: test/arc182_d_increment_decrement_again_qselect.test.py
     - icon: ':heavy_check_mark:'
+      path: test/convolution.test.py
+      title: test/convolution.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/convolution_int.test.py
+      title: test/convolution_int.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/convolution_mod_1000000007.test.py
+      title: test/convolution_mod_1000000007.test.py
+    - icon: ':heavy_check_mark:'
       path: test/dp_v_subtree_rerooting_dp.test.py
       title: test/dp_v_subtree_rerooting_dp.test.py
     - icon: ':heavy_check_mark:'
@@ -785,6 +828,9 @@ data:
       path: test/minimum_spanning_tree_kruskal_heap.test.py
       title: test/minimum_spanning_tree_kruskal_heap.test.py
     - icon: ':heavy_check_mark:'
+      path: test/polynomial_taylor_shift.test.py
+      title: test/polynomial_taylor_shift.test.py
+    - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py
     - icon: ':heavy_check_mark:'
@@ -799,6 +845,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/shortest_path_min_heap.test.py
       title: test/shortest_path_min_heap.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/stirling_number_of_the_first_kind.test.py
+      title: test/stirling_number_of_the_first_kind.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/stirling_number_of_the_second_kind.test.py
+      title: test/stirling_number_of_the_second_kind.test.py
     - icon: ':heavy_check_mark:'
       path: test/subset_convolution.test.py
       title: test/subset_convolution.test.py

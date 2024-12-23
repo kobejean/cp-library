@@ -73,16 +73,17 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
-    \               \n        '''\n        \n        class mint(int):\n          \
-    \  mod: int\n            zero: 'mint'\n            one: 'mint'\n            two:\
-    \ 'mint'\n            cache: list['mint']\n        \n            def __new__(cls,\
+    \               \n        '''\n            \n        class mint(int):\n      \
+    \      mod: int\n            zero: 'mint'\n            one: 'mint'\n         \
+    \   two: 'mint'\n            cache: list['mint']\n        \n            def __new__(cls,\
     \ *args, **kwargs):\n                if (x := int(*args, **kwargs)) <= 2:\n  \
     \                  return cls.cache[x]\n                else:\n              \
     \      return cls.fix(x)\n        \n            @classmethod\n            def\
-    \ set_mod(cls, mod):\n                cls.mod = mod\n                cls.zero\
-    \ = cls.cast(0)\n                cls.one = cls.fix(1)\n                cls.two\
-    \ = cls.fix(2)\n                cls.cache = [cls.zero, cls.one, cls.two]\n   \
-    \     \n            @classmethod\n            def fix(cls, x): return cls.cast(x%cls.mod)\n\
+    \ set_mod(cls, mod: int):\n                mint.mod = cls.mod = mod\n        \
+    \        mint.zero = cls.zero = cls.cast(0)\n                mint.one = cls.one\
+    \ = cls.fix(1)\n                mint.two = cls.two = cls.fix(2)\n            \
+    \    mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n        \n       \
+    \     @classmethod\n            def fix(cls, x): return cls.cast(x%cls.mod)\n\
     \        \n            @classmethod\n            def cast(cls, x): return super().__new__(cls,x)\n\
     \        \n            @classmethod\n            def mod_inv(cls, x):\n      \
     \          a,b,s,t = int(x), cls.mod, 1, 0\n                while b: a,b,s,t =\
@@ -100,7 +101,7 @@ data:
     \            def __rtruediv__(self, x): return self.inv * x\n            def __pow__(self,\
     \ x): \n                return self.cast(super().__pow__(x, self.mod))\n     \
     \       def __neg__(self): return mint.mod-self\n            def __pos__(self):\
-    \ return self\n            def __abs__(self): return self\n        \n        mint.set_mod(998244353)\n\
+    \ return self\n            def __abs__(self): return self\n        mint.set_mod(998244353)\n\
     \n        A = [read(mint) for _ in range(N)]\n        B = mat_pow(A, K)\n    else:\n\
     \        '''\n        \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -191,7 +192,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_matpow.test.py

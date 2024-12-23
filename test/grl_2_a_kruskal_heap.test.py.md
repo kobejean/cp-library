@@ -193,7 +193,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_a_kruskal_heap.test.py

@@ -173,16 +173,17 @@ data:
     \            obj.N, obj.M = N, M\n            obj.size = size\n            obj.data\
     \ = list(elm(ts) for _ in range(obj.size))\n            return obj\n        return\
     \ parse\n    \n    def __repr__(self) -> str:\n        return '\\n'.join(' '.join(str(elm)\
-    \ for elm in row) for row in self)\n\n\n\n\nclass mint(int):\n    mod: int\n \
-    \   zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\n\
-    \    def __new__(cls, *args, **kwargs):\n        if (x := int(*args, **kwargs))\
+    \ for elm in row) for row in self)\n\n\n\n    \nclass mint(int):\n    mod: int\n\
+    \    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\
+    \n    def __new__(cls, *args, **kwargs):\n        if (x := int(*args, **kwargs))\
     \ <= 2:\n            return cls.cache[x]\n        else:\n            return cls.fix(x)\n\
-    \n    @classmethod\n    def set_mod(cls, mod):\n        cls.mod = mod\n      \
-    \  cls.zero = cls.cast(0)\n        cls.one = cls.fix(1)\n        cls.two = cls.fix(2)\n\
-    \        cls.cache = [cls.zero, cls.one, cls.two]\n\n    @classmethod\n    def\
-    \ fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def cast(cls,\
-    \ x): return super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls,\
-    \ x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
+    \n    @classmethod\n    def set_mod(cls, mod: int):\n        mint.mod = cls.mod\
+    \ = mod\n        mint.zero = cls.zero = cls.cast(0)\n        mint.one = cls.one\
+    \ = cls.fix(1)\n        mint.two = cls.two = cls.fix(2)\n        mint.cache =\
+    \ cls.cache = [cls.zero, cls.one, cls.two]\n\n    @classmethod\n    def fix(cls,\
+    \ x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def cast(cls, x): return\
+    \ super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls, x):\n     \
+    \   a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
     \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
     \ invertible in mod {cls.mod}\")\n    \n    @property\n    def inv(self): return\
     \ mint.mod_inv(self)\n\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
@@ -194,8 +195,8 @@ data:
     \    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
     \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
     \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
-    \ return self\n    def __abs__(self): return self\n\n\nclass ModMat(Mat):\n\n\
-    \    # def __init__(self, N: int, M: int, data = None):\n    #     super().__init__(N,\
+    \ return self\n    def __abs__(self): return self\n\nclass ModMat(Mat):\n\n  \
+    \  # def __init__(self, N: int, M: int, data = None):\n    #     super().__init__(N,\
     \ M, data or mint.zero)\n\n    # def __matmul__(A,B):\n    #     assert A.M ==\
     \ len(B), f\"Dimension mismatch {A.M = } {len(B) = }\"\n    #     cls = type(A)\n\
     \    #     R = cls(A.N,A.M)\n    #     Br = super(cls.__bases__[0], B).__getitem__\n\
@@ -285,7 +286,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mat_cls.py
   requiredBy: []
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mat_cls.py

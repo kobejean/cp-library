@@ -5,10 +5,19 @@ data:
   - icon: ':warning:'
     path: cp_library/math/nt/chinese_remainder_theorem_fn.py
     title: cp_library/math/nt/chinese_remainder_theorem_fn.py
-  _extendedVerifiedWith: []
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/nt/conv_int_fn.py
+    title: cp_library/math/nt/conv_int_fn.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/convolution_int.test.py
+    title: test/convolution_int.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/convolution_mod_1000000007.test.py
+    title: test/convolution_mod_1000000007.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -28,10 +37,13 @@ data:
   isVerificationFile: false
   path: cp_library/math/nt/mod_inv_fn.py
   requiredBy:
+  - cp_library/math/nt/conv_int_fn.py
   - cp_library/math/nt/chinese_remainder_theorem_fn.py
-  timestamp: '2024-12-21 20:47:09+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-12-23 15:11:03+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/convolution_mod_1000000007.test.py
+  - test/convolution_int.test.py
 documentation_of: cp_library/math/nt/mod_inv_fn.py
 layout: document
 redirect_from:

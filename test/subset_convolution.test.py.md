@@ -23,14 +23,14 @@ data:
     path: cp_library/math/mod/mobius_transform_fn.py
     title: cp_library/math/mod/mobius_transform_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/subset_convolution_fn.py
-    title: cp_library/math/mod/subset_convolution_fn.py
+    path: cp_library/math/mod/subset_conv_fn.py
+    title: cp_library/math/mod/subset_conv_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/zeta_transform_fn.py
     title: cp_library/math/mod/zeta_transform_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/subset_convolution_fn.py
-    title: cp_library/math/subset_convolution_fn.py
+    path: cp_library/math/subset_conv_fn.py
+    title: cp_library/math/subset_conv_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/zeta_transform_fn.py
     title: cp_library/math/zeta_transform_fn.py
@@ -141,8 +141,8 @@ data:
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\nmod = 998244353\n\nN, = read()\nif N < 10:\n    \n    \n\
-    \    def subset_convolution(A, B, N):\n        Z = 1 << N\n    \n        # Prepare\
-    \ arrays for rank (popcount) decomposition\n        Arank = [[0]*Z for _ in range(N+1)]\n\
+    \    def subset_conv(A, B, N):\n        Z = 1 << N\n    \n        # Prepare arrays\
+    \ for rank (popcount) decomposition\n        Arank = [[0]*Z for _ in range(N+1)]\n\
     \        Brank = [[0]*Z for _ in range(N+1)]\n    \n        # Initialize rank\
     \ arrays\n        for mask in range(Z):\n            rank = mask.bit_count()\n\
     \            Arank[rank][mask] = A[mask]\n            Brank[rank][mask] = B[mask]\n\
@@ -166,14 +166,15 @@ data:
     \ 1<<N):\n                if mask & bit:\n                    A[mask] -= A[mask\
     \ ^ bit]\n        for i in range(block,N):\n            for base in range(bit\
     \ := 1<<i, 1<<N, bit << 1):\n                for mask in range(base, base+bit):\n\
-    \                    A[mask] -= A[mask ^ bit]\n        return A\n    \n    \n\
-    \    class mint(int):\n        mod: int\n        zero: 'mint'\n        one: 'mint'\n\
-    \        two: 'mint'\n        cache: list['mint']\n    \n        def __new__(cls,\
-    \ *args, **kwargs):\n            if (x := int(*args, **kwargs)) <= 2:\n      \
-    \          return cls.cache[x]\n            else:\n                return cls.fix(x)\n\
-    \    \n        @classmethod\n        def set_mod(cls, mod):\n            cls.mod\
-    \ = mod\n            cls.zero = cls.cast(0)\n            cls.one = cls.fix(1)\n\
-    \            cls.two = cls.fix(2)\n            cls.cache = [cls.zero, cls.one,\
+    \                    A[mask] -= A[mask ^ bit]\n        return A\n    \n      \
+    \  \n    class mint(int):\n        mod: int\n        zero: 'mint'\n        one:\
+    \ 'mint'\n        two: 'mint'\n        cache: list['mint']\n    \n        def\
+    \ __new__(cls, *args, **kwargs):\n            if (x := int(*args, **kwargs)) <=\
+    \ 2:\n                return cls.cache[x]\n            else:\n               \
+    \ return cls.fix(x)\n    \n        @classmethod\n        def set_mod(cls, mod:\
+    \ int):\n            mint.mod = cls.mod = mod\n            mint.zero = cls.zero\
+    \ = cls.cast(0)\n            mint.one = cls.one = cls.fix(1)\n            mint.two\
+    \ = cls.two = cls.fix(2)\n            mint.cache = cls.cache = [cls.zero, cls.one,\
     \ cls.two]\n    \n        @classmethod\n        def fix(cls, x): return cls.cast(x%cls.mod)\n\
     \    \n        @classmethod\n        def cast(cls, x): return super().__new__(cls,x)\n\
     \    \n        @classmethod\n        def mod_inv(cls, x):\n            a,b,s,t\
@@ -191,51 +192,51 @@ data:
     \ __rtruediv__(self, x): return self.inv * x\n        def __pow__(self, x): \n\
     \            return self.cast(super().__pow__(x, self.mod))\n        def __neg__(self):\
     \ return mint.mod-self\n        def __pos__(self): return self\n        def __abs__(self):\
-    \ return self\n    \n    mint.set_mod(mod)\n    F = read(list[mint])\n    G =\
-    \ read(list[mint])\n    write(*subset_convolution(F, G, N))\nelse:\n    \n   \
-    \ \n    def subset_convolution(A, B, N, mod):\n        Z = 1 << N\n    \n    \
-    \    # Prepare arrays for rank (popcount) decomposition\n        Arank = [[0]*Z\
-    \ for _ in range(N+1)]\n        Brank = [[0]*Z for _ in range(N+1)]\n    \n  \
-    \      # Initialize rank arrays\n        for mask in range(Z):\n            rank\
-    \ = mask.bit_count()\n            Arank[rank][mask] = A[mask]\n            Brank[rank][mask]\
-    \ = B[mask]\n    \n        # Zeta transform for each rank\n        for Ar in Arank:\
-    \ zeta_transform(Ar, N, mod)\n        for Br in Brank: zeta_transform(Br, N, mod)\n\
-    \    \n        # Convolution\n        Crank = [[0]*Z for _ in range(N+1)]\n  \
-    \      for mask in range(Z):\n            L = mask.bit_count()+1\n           \
-    \ for i in range(L):\n                for j in range(min(L, N+1-i)):\n       \
-    \             k = i+j\n                    Crank[k][mask] = (Crank[k][mask] +\
-    \ Arank[i][mask] * Brank[j][mask]) % mod\n    \n        # M\xF6bius transform\
-    \ (inverse of Zeta transform)\n        for Cr in Crank: mobius_transform(Cr, N,\
-    \ mod)\n            \n        # Combine results\n        C = [0] * Z\n       \
-    \ for mask in range(Z):\n            rank = mask.bit_count()\n            C[mask]\
-    \ = Crank[rank][mask]\n    \n        return C\n    \n    \n    \n    def zeta_transform(A,\
-    \ N, mod, block=5):\n        for i in range(min(block,N)):\n            for mask\
-    \ in range(bit := 1<<i, 1<<N):\n                if mask & bit:\n             \
-    \       A[mask] = (A[mask] + A[mask ^ bit]) % mod\n        for i in range(block,N):\n\
-    \            for base in range(bit := 1<<i, 1<<N, bit << 1):\n               \
-    \ for mask in range(base, base+bit):\n                    A[mask] = (A[mask] +\
-    \ A[mask ^ bit]) % mod\n        return A\n    \n    \n    def mobius_transform(A,\
-    \ N, mod, block=5):\n        for i in range(min(block,N)):\n            for mask\
-    \ in range(bit := 1<<i, 1<<N):\n                if mask & bit:\n             \
-    \       A[mask] = (A[mask] - A[mask ^ bit]) % mod\n        for i in range(block,N):\n\
-    \            for base in range(bit := 1<<i, 1<<N, bit << 1):\n               \
-    \ for mask in range(base, base+bit):\n                    A[mask] = (A[mask] -\
-    \ A[mask ^ bit]) % mod\n        return A\n    \n    F = read(list[int])\n    G\
-    \ = read(list[int])\n    write(*subset_convolution(F, G, N, mod))\n"
+    \ return self\n    mint.set_mod(mod)\n    F = read(list[mint])\n    G = read(list[mint])\n\
+    \    write(*subset_conv(F, G, N))\nelse:\n    \n    \n    def subset_conv(A, B,\
+    \ N, mod):\n        Z = 1 << N\n    \n        # Prepare arrays for rank (popcount)\
+    \ decomposition\n        Arank = [[0]*Z for _ in range(N+1)]\n        Brank =\
+    \ [[0]*Z for _ in range(N+1)]\n    \n        # Initialize rank arrays\n      \
+    \  for mask in range(Z):\n            rank = mask.bit_count()\n            Arank[rank][mask]\
+    \ = A[mask]\n            Brank[rank][mask] = B[mask]\n    \n        # Zeta transform\
+    \ for each rank\n        for Ar in Arank: zeta_transform(Ar, N, mod)\n       \
+    \ for Br in Brank: zeta_transform(Br, N, mod)\n    \n        # Convolution\n \
+    \       Crank = [[0]*Z for _ in range(N+1)]\n        for mask in range(Z):\n \
+    \           L = mask.bit_count()+1\n            for i in range(L):\n         \
+    \       for j in range(min(L, N+1-i)):\n                    k = i+j\n        \
+    \            Crank[k][mask] = (Crank[k][mask] + Arank[i][mask] * Brank[j][mask])\
+    \ % mod\n    \n        # M\xF6bius transform (inverse of Zeta transform)\n   \
+    \     for Cr in Crank: mobius_transform(Cr, N, mod)\n            \n        # Combine\
+    \ results\n        C = [0] * Z\n        for mask in range(Z):\n            rank\
+    \ = mask.bit_count()\n            C[mask] = Crank[rank][mask]\n    \n        return\
+    \ C\n    \n    \n    \n    def zeta_transform(A, N, mod, block=5):\n        for\
+    \ i in range(min(block,N)):\n            for mask in range(bit := 1<<i, 1<<N):\n\
+    \                if mask & bit:\n                    A[mask] = (A[mask] + A[mask\
+    \ ^ bit]) % mod\n        for i in range(block,N):\n            for base in range(bit\
+    \ := 1<<i, 1<<N, bit << 1):\n                for mask in range(base, base+bit):\n\
+    \                    A[mask] = (A[mask] + A[mask ^ bit]) % mod\n        return\
+    \ A\n    \n    \n    def mobius_transform(A, N, mod, block=5):\n        for i\
+    \ in range(min(block,N)):\n            for mask in range(bit := 1<<i, 1<<N):\n\
+    \                if mask & bit:\n                    A[mask] = (A[mask] - A[mask\
+    \ ^ bit]) % mod\n        for i in range(block,N):\n            for base in range(bit\
+    \ := 1<<i, 1<<N, bit << 1):\n                for mask in range(base, base+bit):\n\
+    \                    A[mask] = (A[mask] - A[mask ^ bit]) % mod\n        return\
+    \ A\n    \n    F = read(list[int])\n    G = read(list[int])\n    write(*subset_conv(F,\
+    \ G, N, mod))\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
     from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
-    mod = 998244353\n\nN, = read()\nif N < 10:\n    from cp_library.math.subset_convolution_fn\
-    \ import subset_convolution\n    from cp_library.math.mod.mint_cls import mint\n\
-    \    mint.set_mod(mod)\n    F = read(list[mint])\n    G = read(list[mint])\n \
-    \   write(*subset_convolution(F, G, N))\nelse:\n    from cp_library.math.mod.subset_convolution_fn\
-    \ import subset_convolution\n    \n    F = read(list[int])\n    G = read(list[int])\n\
-    \    write(*subset_convolution(F, G, N, mod))"
+    mod = 998244353\n\nN, = read()\nif N < 10:\n    from cp_library.math.subset_conv_fn\
+    \ import subset_conv\n    from cp_library.math.mod.mint_cls import mint\n    mint.set_mod(mod)\n\
+    \    F = read(list[mint])\n    G = read(list[mint])\n    write(*subset_conv(F,\
+    \ G, N))\nelse:\n    from cp_library.math.mod.subset_conv_fn import subset_conv\n\
+    \    \n    F = read(list[int])\n    G = read(list[int])\n    write(*subset_conv(F,\
+    \ G, N, mod))"
   dependsOn:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/math/subset_convolution_fn.py
+  - cp_library/math/subset_conv_fn.py
   - cp_library/math/mod/mint_cls.py
-  - cp_library/math/mod/subset_convolution_fn.py
+  - cp_library/math/mod/subset_conv_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/math/zeta_transform_fn.py
@@ -245,7 +246,7 @@ data:
   isVerificationFile: true
   path: test/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/subset_convolution.test.py

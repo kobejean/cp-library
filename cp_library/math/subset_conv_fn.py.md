@@ -23,12 +23,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef subset_convolution(A, B, N):\n    Z = 1 << N\n\n    # Prepare arrays for\
-    \ rank (popcount) decomposition\n    Arank = [[0]*Z for _ in range(N+1)]\n   \
-    \ Brank = [[0]*Z for _ in range(N+1)]\n\n    # Initialize rank arrays\n    for\
-    \ mask in range(Z):\n        rank = mask.bit_count()\n        Arank[rank][mask]\
-    \ = A[mask]\n        Brank[rank][mask] = B[mask]\n\n    # Zeta transform for each\
-    \ rank\n    for Ar in Arank: zeta_transform(Ar, N)\n    for Br in Brank: zeta_transform(Br,\
+    \ndef subset_conv(A, B, N):\n    Z = 1 << N\n\n    # Prepare arrays for rank (popcount)\
+    \ decomposition\n    Arank = [[0]*Z for _ in range(N+1)]\n    Brank = [[0]*Z for\
+    \ _ in range(N+1)]\n\n    # Initialize rank arrays\n    for mask in range(Z):\n\
+    \        rank = mask.bit_count()\n        Arank[rank][mask] = A[mask]\n      \
+    \  Brank[rank][mask] = B[mask]\n\n    # Zeta transform for each rank\n    for\
+    \ Ar in Arank: zeta_transform(Ar, N)\n    for Br in Brank: zeta_transform(Br,\
     \ N)\n\n    # Convolution\n    Crank = [[0 for _ in range(Z)] for _ in range(N+1)]\n\
     \    for mask in range(Z):\n        L = mask.bit_count()+1\n        for i in range(L):\n\
     \            for j in range(min(L, N+1-i)):\n                k = i+j\n       \
@@ -46,10 +46,10 @@ data:
     \ ^ bit]\n    for i in range(block,N):\n        for base in range(bit := 1<<i,\
     \ 1<<N, bit << 1):\n            for mask in range(base, base+bit):\n         \
     \       A[mask] -= A[mask ^ bit]\n    return A\n"
-  code: "import cp_library.math.__header__\n\ndef subset_convolution(A, B, N):\n \
-    \   Z = 1 << N\n\n    # Prepare arrays for rank (popcount) decomposition\n   \
-    \ Arank = [[0]*Z for _ in range(N+1)]\n    Brank = [[0]*Z for _ in range(N+1)]\n\
-    \n    # Initialize rank arrays\n    for mask in range(Z):\n        rank = mask.bit_count()\n\
+  code: "import cp_library.math.__header__\n\ndef subset_conv(A, B, N):\n    Z = 1\
+    \ << N\n\n    # Prepare arrays for rank (popcount) decomposition\n    Arank =\
+    \ [[0]*Z for _ in range(N+1)]\n    Brank = [[0]*Z for _ in range(N+1)]\n\n   \
+    \ # Initialize rank arrays\n    for mask in range(Z):\n        rank = mask.bit_count()\n\
     \        Arank[rank][mask] = A[mask]\n        Brank[rank][mask] = B[mask]\n\n\
     \    # Zeta transform for each rank\n    for Ar in Arank: zeta_transform(Ar, N)\n\
     \    for Br in Brank: zeta_transform(Br, N)\n\n    # Convolution\n    Crank =\
@@ -66,16 +66,16 @@ data:
   - cp_library/math/zeta_transform_fn.py
   - cp_library/math/mobius_transform_fn.py
   isVerificationFile: false
-  path: cp_library/math/subset_convolution_fn.py
+  path: cp_library/math/subset_conv_fn.py
   requiredBy: []
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/subset_convolution.test.py
-documentation_of: cp_library/math/subset_convolution_fn.py
+documentation_of: cp_library/math/subset_conv_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/subset_convolution_fn.py
-- /library/cp_library/math/subset_convolution_fn.py.html
-title: cp_library/math/subset_convolution_fn.py
+- /library/cp_library/math/subset_conv_fn.py
+- /library/cp_library/math/subset_conv_fn.py.html
+title: cp_library/math/subset_conv_fn.py
 ---

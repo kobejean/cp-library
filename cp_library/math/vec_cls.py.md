@@ -144,15 +144,14 @@ data:
     \  \n"
   code: "import cp_library.math.__header__\n\nfrom cp_library.io.parser_cls import\
     \ Parsable, Parser, TokenStream\nfrom cp_library.math.elm_wise_mixin import ElmWiseMixin\n\
-    from typing import Iterable \nfrom math import hypot\n\nclass Vec(ElmWiseMixin,\
-    \ tuple, Parsable):\n    def __new__(cls, *args):\n        if len(args) == 1 and\
-    \ isinstance(args[0], Iterable):\n            return super().__new__(cls, args[0])\n\
-    \        return super().__new__(cls, args)\n\n    @classmethod\n    def compile(cls,\
-    \ T: type = int, N = None):\n        elm = Parser.compile(T)\n        if N is\
-    \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
-    \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
-    \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  "
+    from typing import Iterable \n\nclass Vec(ElmWiseMixin, tuple, Parsable):\n  \
+    \  def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ Iterable):\n            return super().__new__(cls, args[0])\n        return\
+    \ super().__new__(cls, args)\n\n    @classmethod\n    def compile(cls, T: type\
+    \ = int, N = None):\n        elm = Parser.compile(T)\n        if N is None:\n\
+    \            def parse(ts: TokenStream):\n                return cls(elm(ts) for\
+    \ _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n  \
+    \              return cls(elm(ts) for _ in range(N))\n        return parse\n  "
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/math/elm_wise_mixin.py
@@ -162,7 +161,7 @@ data:
   requiredBy:
   - cp_library/math/vec3d_cls.py
   - cp_library/math/vec2d_cls.py
-  timestamp: '2024-12-21 20:47:09+09:00'
+  timestamp: '2024-12-23 15:11:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc151_f_fbisect_left.test.py
