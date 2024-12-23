@@ -5,15 +5,15 @@ mod = 998244353
 
 N, = read()
 if N < 10:
-    from cp_library.math.subset_convolution_fn import subset_convolution
+    from cp_library.math.subset_conv_fn import subset_conv
     from cp_library.math.mod.mint_cls import mint
     mint.set_mod(mod)
     F = read(list[mint])
     G = read(list[mint])
-    write(*subset_convolution(F, G, N))
+    write(*subset_conv(F, G, N))
 else:
-    from cp_library.math.mod.subset_convolution_fn import subset_convolution
+    from cp_library.math.mod.subset_conv_fn import subset_conv
     
     F = read(list[int])
     G = read(list[int])
-    write(*subset_convolution(F, G, N, mod))
+    write(*subset_conv(F, G, N, mod))

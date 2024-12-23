@@ -3,7 +3,6 @@ import cp_library.math.__header__
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 from cp_library.math.elm_wise_mixin import ElmWiseMixin
 from typing import Iterable 
-from math import hypot
 
 class Vec(ElmWiseMixin, tuple, Parsable):
     def __new__(cls, *args):

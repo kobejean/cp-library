@@ -22,20 +22,22 @@ def solve():
     
     dp = [[inf]*Y for _ in range(Z)]
     dp[1][0] = 0
-    ans = 0
+    ans = [0]
     for mask in range(1,Z,2):
-        for i in range(Y):
+        for i, Di in enumerate(D):
             val = dp[mask][i]
             if mask >> i & 1 and val < inf:
                 for j in range(1,Y):
                     nmask = mask | 1 << j
                     if nmask == mask: continue
-                    dp[nmask][j] = min(dp[nmask][j], val+D[i][j])
+                    chmin(dp[nmask], j, val+Di[j])
         if dp[mask][-1] <= T:
-            ans = max(ans, mask.bit_count()-2)
-    return ans
+            chmax(ans, 0, mask.bit_count()-2)
+    return ans[0]
 
 from cp_library.alg.graph.fast.grid_graph_cls import GridGraph
+from cp_library.alg.dp.chmin_fn import chmin
+from cp_library.alg.dp.chmax_fn import chmax
 from cp_library.io.read_fn import read
 
 if __name__ == "__main__":

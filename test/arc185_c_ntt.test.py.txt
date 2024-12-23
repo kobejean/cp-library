@@ -7,7 +7,7 @@ def solve():
     for a in A:
         F[a] += 1
     ntt = NTT()
-    G = ntt.convolution(F, F)
+    G = ntt.conv(F, F)
     G = [(g if n&1 else g-F[n//2]) // 2 for n,g in enumerate(G)]
     for s in range(N):
         cnt = G[X-A[s]] - F[max(0,X-2*A[s])] + (X == 3*A[s])
@@ -27,6 +27,6 @@ def main():
 
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
-from cp_library.math.ntt_cls import NTT
+from cp_library.math.nt.ntt_cls import NTT
 if __name__ == "__main__":
     main()

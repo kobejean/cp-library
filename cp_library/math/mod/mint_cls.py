@@ -1,5 +1,5 @@
 import cp_library.math.mod.__header__
-
+    
 class mint(int):
     mod: int
     zero: 'mint'
@@ -14,12 +14,12 @@ class mint(int):
             return cls.fix(x)
 
     @classmethod
-    def set_mod(cls, mod):
-        cls.mod = mod
-        cls.zero = cls.cast(0)
-        cls.one = cls.fix(1)
-        cls.two = cls.fix(2)
-        cls.cache = [cls.zero, cls.one, cls.two]
+    def set_mod(cls, mod: int):
+        mint.mod = cls.mod = mod
+        mint.zero = cls.zero = cls.cast(0)
+        mint.one = cls.one = cls.fix(1)
+        mint.two = cls.two = cls.fix(2)
+        mint.cache = cls.cache = [cls.zero, cls.one, cls.two]
 
     @classmethod
     def fix(cls, x): return cls.cast(x%cls.mod)
@@ -52,4 +52,3 @@ class mint(int):
     def __neg__(self): return mint.mod-self
     def __pos__(self): return self
     def __abs__(self): return self
-

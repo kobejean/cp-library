@@ -1,6 +1,6 @@
-import cp_library.math.__header__
+import cp_library.math.mod.__header__
 
-def subset_convolution(A, B, N):
+def subset_conv(A, B, N, mod):
     Z = 1 << N
 
     # Prepare arrays for rank (popcount) decomposition
@@ -14,20 +14,20 @@ def subset_convolution(A, B, N):
         Brank[rank][mask] = B[mask]
 
     # Zeta transform for each rank
-    for Ar in Arank: zeta_transform(Ar, N)
-    for Br in Brank: zeta_transform(Br, N)
+    for Ar in Arank: zeta_transform(Ar, N, mod)
+    for Br in Brank: zeta_transform(Br, N, mod)
 
     # Convolution
-    Crank = [[0 for _ in range(Z)] for _ in range(N+1)]
+    Crank = [[0]*Z for _ in range(N+1)]
     for mask in range(Z):
         L = mask.bit_count()+1
         for i in range(L):
             for j in range(min(L, N+1-i)):
                 k = i+j
-                Crank[k][mask] = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]
+                Crank[k][mask] = (Crank[k][mask] + Arank[i][mask] * Brank[j][mask]) % mod
 
     # Möbius transform (inverse of Zeta transform)
-    for Cr in Crank: mobius_transform(Cr, N)
+    for Cr in Crank: mobius_transform(Cr, N, mod)
         
     # Combine results
     C = [0] * Z
@@ -37,5 +37,5 @@ def subset_convolution(A, B, N):
 
     return C
 
-from cp_library.math.zeta_transform_fn import zeta_transform
-from cp_library.math.mobius_transform_fn import mobius_transform
+from cp_library.math.mod.zeta_transform_fn import zeta_transform
+from cp_library.math.mod.mobius_transform_fn import mobius_transform
