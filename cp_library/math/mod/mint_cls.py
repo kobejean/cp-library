@@ -8,7 +8,7 @@ class mint(int):
     cache: list['mint']
 
     def __new__(cls, *args, **kwargs):
-        if (x := int(*args, **kwargs)) <= 2:
+        if 0<= (x := int(*args, **kwargs)) <= 2:
             return cls.cache[x]
         else:
             return cls.fix(x)

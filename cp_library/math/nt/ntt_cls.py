@@ -1,5 +1,7 @@
 import cp_library.math.__header__
 
+from cp_library.math.nt.mod_inv_fn import mod_inv
+
 class NTT:
     def __init__(self, mod = 998244353) -> None:
         self.mod = m = mod
@@ -43,7 +45,7 @@ class NTT:
                 if pow(g,(m-1)//divs[i],m)==1:break
             else:return g
     
-    def fntt(self, A):
+    def fntt(self, A: list[int]):
         im, r8, m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()
         for L in range(0,h-1,2):
             p, r = 1<<(h-L-2),1
@@ -62,8 +64,9 @@ class NTT:
                 al,ar = A[i0],A[i1]*r%m
                 A[i0],A[i1] = (al+ar)%m,(al-ar)%m
                 r=r*r8[(~s&-~s).bit_length()-1]%m
+        return A
     
-    def ifntt(self, A):
+    def _ifntt(self, A: list[int]):
         im, r8, m, h = self.iroot[2],self.irate3,self.mod,(len(A)-1).bit_length()
         for L in range(h,1,-2):
             p,r = 1<<(h-L),1
@@ -79,6 +82,13 @@ class NTT:
             for i0 in range(p:=1<<(h-1)):
                 al,ar = A[i0],A[i1:=i0+p]
                 A[i0],A[i1] = (al+ar)%m,(al-ar)%m
+        return A
+
+    def ifntt(self, A: list[int]):
+        self._ifntt(A)
+        iz = mod_inv(N:=len(A),mod:=self.mod)
+        for i in range(N): A[i]=A[i]*iz%mod
+        return A
     
     def conv_naive(self, A, B, N):
         n, m, mod = len(A),len(B),self.mod
@@ -93,10 +103,16 @@ class NTT:
         n,m,mod=len(A),len(B),self.mod
         z=1<<(n+m-2).bit_length()
         self.fntt(A:=A+[0]*(z-n)), self.fntt(B:=B+[0]*(z-m))
-        for i in range(z):A[i]=A[i]*B[i]%mod
+        for i, b in enumerate(B): A[i] = A[i] * b % mod
         self.ifntt(A)
-        A,iz=A[:N],pow(z,mod-2,mod)
-        for i in range(N):A[i]=A[i]*iz%mod
+        del A[N:]
+        return A
+    
+    def conv_half(self, A, Bres):
+        mod = self.mod
+        self.fntt(A)
+        for i, b in enumerate(Bres): A[i] = A[i] * b % mod
+        self.ifntt(A)
         return A
     
     def conv(self, A, B, N = None):

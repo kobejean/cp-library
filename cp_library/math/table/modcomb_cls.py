@@ -1,28 +1,34 @@
 import cp_library.math.table.__header__
 from cp_library.math.mod.mint_cls import mint
+from cp_library.math.nt.mod_inv_fn import mod_inv
 from itertools import accumulate
 
 class modcomb(list[mint]):
-    fact: list[mint]
-    fact_inv: list[mint]
+    fact: list[int]
+    fact_inv: list[int]
+    inv: list[int] = [0,1]
 
     @staticmethod
     def precomp(N):
-        fact = list(accumulate(range(1,N+1), mint.__mul__, initial=mint.one))
-        fact_inv = list(accumulate(range(N,0,-1), mint.__mul__, initial=fact[N].inv))
+        mod = mint.mod
+        def mod_mul(a,b): return a*b%mod
+        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))
+        fact_inv = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N], mod)))
         fact_inv.reverse()
-        # table.inv = inv = [0]*(N+1)
-        # inv[N] = int(table[N].inv)
-        # mod = mint.mod
-        # for n in range(N,0,-1):
-        #     inv[n-1] = n*inv[n]%mod
         modcomb.fact, modcomb.fact_inv = fact, fact_inv
+    
+    @staticmethod
+    def extend_inv(N):
+        N, inv, mod = N+1, modcomb.inv, mint.mod
+        while len(inv) < N:
+            j, k = divmod(mod, len(inv))
+            inv.append(-inv[k] * j % mod)
 
     @staticmethod
     def comb(n: int, k: int, /) -> mint:
-        inv = modcomb.fact_inv
+        inv, mod = modcomb.fact_inv, mint.mod
         if n < k: return mint.zero
-        return (inv[k] * inv[n-k]) * modcomb.fact[n]
+        return mint(inv[k] * inv[n-k] % mod * modcomb.fact[n])
     nCk = binom = comb
     
     @staticmethod
@@ -41,9 +47,9 @@ class modcomb(list[mint]):
     def perm(n: int, k: int, /) -> mint:
         """Returns P(n,k) mod p"""
         if n < k: return mint.zero
-        return modcomb.fact[n] * modcomb.fact_inv[n-k]
+        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])
     nPk = perm
     
     @staticmethod
     def catalan(n: int, /) -> mint:
-        return modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1]
+        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])
