@@ -76,9 +76,9 @@ data:
     \               \n        '''\n            \n        class mint(int):\n      \
     \      mod: int\n            zero: 'mint'\n            one: 'mint'\n         \
     \   two: 'mint'\n            cache: list['mint']\n        \n            def __new__(cls,\
-    \ *args, **kwargs):\n                if (x := int(*args, **kwargs)) <= 2:\n  \
-    \                  return cls.cache[x]\n                else:\n              \
-    \      return cls.fix(x)\n        \n            @classmethod\n            def\
+    \ *args, **kwargs):\n                if 0<= (x := int(*args, **kwargs)) <= 2:\n\
+    \                    return cls.cache[x]\n                else:\n            \
+    \        return cls.fix(x)\n        \n            @classmethod\n            def\
     \ set_mod(cls, mod: int):\n                mint.mod = cls.mod = mod\n        \
     \        mint.zero = cls.zero = cls.cast(0)\n                mint.one = cls.one\
     \ = cls.fix(1)\n                mint.two = cls.two = cls.fix(2)\n            \
@@ -192,7 +192,7 @@ data:
   isVerificationFile: true
   path: test/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2024-12-23 15:11:03+09:00'
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/pow_of_matrix_matpow.test.py

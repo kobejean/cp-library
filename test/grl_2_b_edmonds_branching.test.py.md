@@ -238,7 +238,7 @@ data:
   isVerificationFile: true
   path: test/grl_2_b_edmonds_branching.test.py
   requiredBy: []
-  timestamp: '2024-12-23 15:11:03+09:00'
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_2_b_edmonds_branching.test.py

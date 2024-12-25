@@ -318,6 +318,9 @@ data:
       path: cp_library/ds/queries_mo_ops_cls.py
       title: cp_library/ds/queries_mo_ops_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/reserve_fn.py
+      title: cp_library/ds/reserve_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/segtree_cls.py
       title: cp_library/ds/segtree_cls.py
     - icon: ':warning:'
@@ -375,6 +378,9 @@ data:
       title: cp_library/ds/heap/priority_queue_cls.py
   - name: cp_library/io
     pages:
+    - icon: ':warning:'
+      path: cp_library/io/bye_fn.py
+      title: cp_library/io/bye_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
@@ -474,12 +480,39 @@ data:
       title: cp_library/math/zeta_transform_fn.py
   - name: cp_library/math/fps
     pages:
-    - icon: ':warning:'
-      path: cp_library/math/fps/fps_cls.py
-      title: cp_library/math/fps/fps_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/math/fps/tayler_shift_fn.py
-      title: cp_library/math/fps/tayler_shift_fn.py
+      path: cp_library/math/fps/fps_deriv_fn.py
+      title: cp_library/math/fps/fps_deriv_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fps/fps_exp_fn.py
+      title: cp_library/math/fps/fps_exp_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/fps/fps_ideriv_fn.py
+      title: cp_library/math/fps/fps_ideriv_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/fps/fps_ideriv_k_fn.py
+      title: cp_library/math/fps/fps_ideriv_k_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/fps/fps_iinteg_fn.py
+      title: cp_library/math/fps/fps_iinteg_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fps/fps_integ_fn.py
+      title: cp_library/math/fps/fps_integ_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fps/fps_inv_fn.py
+      title: cp_library/math/fps/fps_inv_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fps/fps_log_fn.py
+      title: cp_library/math/fps/fps_log_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fps/fps_normalize_fn.py
+      title: cp_library/math/fps/fps_normalize_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fps/fps_pow_fn.py
+      title: cp_library/math/fps/fps_pow_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/fps/fps_tayler_shift_fn.py
+      title: cp_library/math/fps/fps_tayler_shift_fn.py
   - name: cp_library/math/mod
     pages:
     - icon: ':warning:'
@@ -565,8 +598,14 @@ data:
       path: cp_library/math/table/sieve_proto.py
       title: cp_library/math/table/sieve_proto.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/math/table/stirling1_k_fn.py
+      title: cp_library/math/table/stirling1_k_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/table/stirling1_n_fn.py
       title: cp_library/math/table/stirling1_n_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/table/stirling2_k_fn.py
+      title: cp_library/math/table/stirling2_k_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/table/stirling2_n_fn.py
       title: cp_library/math/table/stirling2_n_fn.py
@@ -759,6 +798,9 @@ data:
       path: test/dsl_2_c_kdtree.test.py
       title: test/dsl_2_c_kdtree.test.py
     - icon: ':heavy_check_mark:'
+      path: test/exp_of_formal_power_series.test.py
+      title: test/exp_of_formal_power_series.test.py
+    - icon: ':heavy_check_mark:'
       path: test/grl_1_a_dijkstra.test.py
       title: test/grl_1_a_dijkstra.test.py
     - icon: ':heavy_check_mark:'
@@ -819,6 +861,12 @@ data:
       path: test/grl_5_c_lca_table_recursive.test.py
       title: test/grl_5_c_lca_table_recursive.test.py
     - icon: ':heavy_check_mark:'
+      path: test/inv_of_formal_power_series.test.py
+      title: test/inv_of_formal_power_series.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/log_of_formal_power_series.test.py
+      title: test/log_of_formal_power_series.test.py
+    - icon: ':heavy_check_mark:'
       path: test/min_plus_convolution_convex_arbitrary.test.py
       title: test/min_plus_convolution_convex_arbitrary.test.py
     - icon: ':heavy_check_mark:'
@@ -830,6 +878,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/polynomial_taylor_shift.test.py
       title: test/polynomial_taylor_shift.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/pow_of_formal_power_series.test.py
+      title: test/pow_of_formal_power_series.test.py
     - icon: ':heavy_check_mark:'
       path: test/pow_of_matrix_matpow.test.py
       title: test/pow_of_matrix_matpow.test.py
@@ -849,8 +900,14 @@ data:
       path: test/stirling_number_of_the_first_kind.test.py
       title: test/stirling_number_of_the_first_kind.test.py
     - icon: ':heavy_check_mark:'
+      path: test/stirling_number_of_the_first_kind_fixed_k.test.py
+      title: test/stirling_number_of_the_first_kind_fixed_k.test.py
+    - icon: ':heavy_check_mark:'
       path: test/stirling_number_of_the_second_kind.test.py
       title: test/stirling_number_of_the_second_kind.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/stirling_number_of_the_second_kind_fixed_k.test.py
+      title: test/stirling_number_of_the_second_kind_fixed_k.test.py
     - icon: ':heavy_check_mark:'
       path: test/subset_convolution.test.py
       title: test/subset_convolution.test.py

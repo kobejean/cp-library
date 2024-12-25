@@ -22,7 +22,7 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Union, List, Tuple\n    \nclass mint(int):\n    mod: int\n\
     \    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\
-    \n    def __new__(cls, *args, **kwargs):\n        if (x := int(*args, **kwargs))\
+    \n    def __new__(cls, *args, **kwargs):\n        if 0<= (x := int(*args, **kwargs))\
     \ <= 2:\n            return cls.cache[x]\n        else:\n            return cls.fix(x)\n\
     \n    @classmethod\n    def set_mod(cls, mod: int):\n        mint.mod = cls.mod\
     \ = mod\n        mint.zero = cls.zero = cls.cast(0)\n        mint.one = cls.one\
@@ -202,7 +202,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/modmat_cls.py
   requiredBy: []
-  timestamp: '2024-12-23 15:11:03+09:00'
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/pow_of_matrix_modmat.test.py

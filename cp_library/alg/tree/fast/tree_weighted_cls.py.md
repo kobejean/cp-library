@@ -551,7 +551,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-23 15:11:03+09:00'
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py

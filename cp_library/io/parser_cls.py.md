@@ -310,6 +310,9 @@ data:
     path: test/dp_z_cht_monotone_add_min.test.py
     title: test/dp_z_cht_monotone_add_min.test.py
   - icon: ':heavy_check_mark:'
+    path: test/exp_of_formal_power_series.test.py
+    title: test/exp_of_formal_power_series.test.py
+  - icon: ':heavy_check_mark:'
     path: test/grl_1_a_dijkstra.test.py
     title: test/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
@@ -367,6 +370,12 @@ data:
     path: test/grl_5_c_lca_table_iterative.test.py
     title: test/grl_5_c_lca_table_iterative.test.py
   - icon: ':heavy_check_mark:'
+    path: test/inv_of_formal_power_series.test.py
+    title: test/inv_of_formal_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/log_of_formal_power_series.test.py
+    title: test/log_of_formal_power_series.test.py
+  - icon: ':heavy_check_mark:'
     path: test/min_plus_convolution_convex_arbitrary.test.py
     title: test/min_plus_convolution_convex_arbitrary.test.py
   - icon: ':heavy_check_mark:'
@@ -378,6 +387,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/polynomial_taylor_shift.test.py
     title: test/polynomial_taylor_shift.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/pow_of_formal_power_series.test.py
+    title: test/pow_of_formal_power_series.test.py
   - icon: ':heavy_check_mark:'
     path: test/shortest_path_fast_graph.test.py
     title: test/shortest_path_fast_graph.test.py
@@ -391,8 +403,14 @@ data:
     path: test/stirling_number_of_the_first_kind.test.py
     title: test/stirling_number_of_the_first_kind.test.py
   - icon: ':heavy_check_mark:'
+    path: test/stirling_number_of_the_first_kind_fixed_k.test.py
+    title: test/stirling_number_of_the_first_kind_fixed_k.test.py
+  - icon: ':heavy_check_mark:'
     path: test/stirling_number_of_the_second_kind.test.py
     title: test/stirling_number_of_the_second_kind.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/stirling_number_of_the_second_kind_fixed_k.test.py
+    title: test/stirling_number_of_the_second_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
@@ -597,10 +615,11 @@ data:
   - cp_library/io/read_fn.py
   - cp_library/io/legacy/read_fn.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-23 15:11:03+09:00'
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/log_of_formal_power_series.test.py
   - test/dp_v_subtree_rerooting_iterative.test.py
   - test/abc218_f_shortest_path.test.py
   - test/abc362_q_count_substring_query_ahocorasick.test.py
@@ -608,6 +627,7 @@ data:
   - test/grl_1_a_fast_dijkstra.test.py
   - test/convolution_mod_1000000007.test.py
   - test/dp_v_subtree_rerooting_recursive.test.py
+  - test/pow_of_formal_power_series.test.py
   - test/grl_2_a_graph_kruskal.test.py
   - test/abc375_g_find_bridges.test.py
   - test/abc203_e_sort_groups.test.py
@@ -617,6 +637,7 @@ data:
   - test/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/abc184_f_subset_sum_fn.test.py
   - test/minimum_spanning_tree_kruskal.test.py
+  - test/exp_of_formal_power_series.test.py
   - test/grl_3_a_articulation_points_fn.test.py
   - test/abc261_g_mo.test.py
   - test/arc136_b_inversion_cnt_fn.test.py
@@ -631,12 +652,14 @@ data:
   - test/stirling_number_of_the_second_kind.test.py
   - test/min_plus_convolution_convex_arbitrary.test.py
   - test/grl_5_a_diameter.test.py
+  - test/inv_of_formal_power_series.test.py
   - test/abc218_f_shortest_path_weighted.test.py
   - test/abc249_f_max_k_heap.test.py
   - test/abc203_e_queries_grouped.test.py
   - test/abc202_e_fast_dfs.test.py
   - test/grl_2_a_kruskal_heap.test.py
   - test/grl_1_a_graph_distance.test.py
+  - test/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/abc151_f_fbisect_left.test.py
   - test/abc246_e_grid_direction_graph.test.py
   - test/abc294_g_tree_heavy_light_decomposition.test.py
@@ -674,6 +697,7 @@ data:
   - test/stirling_number_of_the_first_kind.test.py
   - test/abc202_e_dfs_enter_leave.test.py
   - test/abc206_e_mobius_table.test.py
+  - test/stirling_number_of_the_first_kind_fixed_k.test.py
 documentation_of: cp_library/io/parser_cls.py
 layout: document
 redirect_from:

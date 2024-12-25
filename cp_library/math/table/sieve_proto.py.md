@@ -48,7 +48,7 @@ data:
   - cp_library/math/table/linear_sieve_cnts_cls.py
   - cp_library/math/table/sieve_cls.py
   - cp_library/math/table/linear_sieve_cls.py
-  timestamp: '2024-12-23 15:11:03+09:00'
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/sieve_proto.py

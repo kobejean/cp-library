@@ -572,7 +572,7 @@ data:
   isVerificationFile: true
   path: test/grl_5_a_fast_diameter.test.py
   requiredBy: []
-  timestamp: '2024-12-23 15:11:03+09:00'
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grl_5_a_fast_diameter.test.py

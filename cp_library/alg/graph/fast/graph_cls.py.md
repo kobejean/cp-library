@@ -279,7 +279,7 @@ data:
   path: cp_library/alg/graph/fast/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2024-12-23 15:11:03+09:00'
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/abc202_e_fast_dfs_enter_leave.test.py

@@ -2,12 +2,36 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/math/fps/fps_cls.py
-    title: cp_library/math/fps/fps_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/fps/tayler_shift_fn.py
-    title: cp_library/math/fps/tayler_shift_fn.py
+    path: cp_library/math/fps/fps_deriv_fn.py
+    title: cp_library/math/fps/fps_deriv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/fps/fps_exp_fn.py
+    title: cp_library/math/fps/fps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/fps/fps_ideriv_fn.py
+    title: cp_library/math/fps/fps_ideriv_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/fps/fps_ideriv_k_fn.py
+    title: cp_library/math/fps/fps_ideriv_k_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/fps/fps_iinteg_fn.py
+    title: cp_library/math/fps/fps_iinteg_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/fps/fps_integ_fn.py
+    title: cp_library/math/fps/fps_integ_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/fps/fps_inv_fn.py
+    title: cp_library/math/fps/fps_inv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/fps/fps_log_fn.py
+    title: cp_library/math/fps/fps_log_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/fps/fps_pow_fn.py
+    title: cp_library/math/fps/fps_pow_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/fps/fps_tayler_shift_fn.py
+    title: cp_library/math/fps/fps_tayler_shift_fn.py
   - icon: ':warning:'
     path: cp_library/math/mat_cls.py
     title: cp_library/math/mat_cls.py
@@ -21,8 +45,14 @@ data:
     path: cp_library/math/table/modcomb_cls.py
     title: cp_library/math/table/modcomb_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/math/table/stirling1_k_fn.py
+    title: cp_library/math/table/stirling1_k_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/table/stirling1_n_fn.py
     title: cp_library/math/table/stirling1_n_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/table/stirling2_k_fn.py
+    title: cp_library/math/table/stirling2_k_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/stirling2_n_fn.py
     title: cp_library/math/table/stirling2_n_fn.py
@@ -34,8 +64,20 @@ data:
     path: test/convolution.test.py
     title: test/convolution.test.py
   - icon: ':heavy_check_mark:'
+    path: test/exp_of_formal_power_series.test.py
+    title: test/exp_of_formal_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/inv_of_formal_power_series.test.py
+    title: test/inv_of_formal_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/log_of_formal_power_series.test.py
+    title: test/log_of_formal_power_series.test.py
+  - icon: ':heavy_check_mark:'
     path: test/polynomial_taylor_shift.test.py
     title: test/polynomial_taylor_shift.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/pow_of_formal_power_series.test.py
+    title: test/pow_of_formal_power_series.test.py
   - icon: ':heavy_check_mark:'
     path: test/pow_of_matrix_matpow.test.py
     title: test/pow_of_matrix_matpow.test.py
@@ -46,8 +88,14 @@ data:
     path: test/stirling_number_of_the_first_kind.test.py
     title: test/stirling_number_of_the_first_kind.test.py
   - icon: ':heavy_check_mark:'
+    path: test/stirling_number_of_the_first_kind_fixed_k.test.py
+    title: test/stirling_number_of_the_first_kind_fixed_k.test.py
+  - icon: ':heavy_check_mark:'
     path: test/stirling_number_of_the_second_kind.test.py
     title: test/stirling_number_of_the_second_kind.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/stirling_number_of_the_second_kind_fixed_k.test.py
+    title: test/stirling_number_of_the_second_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
     path: test/subset_convolution.test.py
     title: test/subset_convolution.test.py
@@ -64,7 +112,7 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n   \
     \ two: 'mint'\n    cache: list['mint']\n\n    def __new__(cls, *args, **kwargs):\n\
-    \        if (x := int(*args, **kwargs)) <= 2:\n            return cls.cache[x]\n\
+    \        if 0<= (x := int(*args, **kwargs)) <= 2:\n            return cls.cache[x]\n\
     \        else:\n            return cls.fix(x)\n\n    @classmethod\n    def set_mod(cls,\
     \ mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero = cls.zero =\
     \ cls.cast(0)\n        mint.one = cls.one = cls.fix(1)\n        mint.two = cls.two\
@@ -86,7 +134,7 @@ data:
     \ return self\n    def __abs__(self): return self\n"
   code: "import cp_library.math.mod.__header__\n    \nclass mint(int):\n    mod: int\n\
     \    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\
-    \n    def __new__(cls, *args, **kwargs):\n        if (x := int(*args, **kwargs))\
+    \n    def __new__(cls, *args, **kwargs):\n        if 0<= (x := int(*args, **kwargs))\
     \ <= 2:\n            return cls.cache[x]\n        else:\n            return cls.fix(x)\n\
     \n    @classmethod\n    def set_mod(cls, mod: int):\n        mint.mod = cls.mod\
     \ = mod\n        mint.zero = cls.zero = cls.cast(0)\n        mint.one = cls.one\
@@ -112,24 +160,40 @@ data:
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
   - cp_library/math/table/modcomb_cls.py
+  - cp_library/math/table/stirling2_k_fn.py
+  - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/table/stirling2_n_fn.py
   - cp_library/math/table/stirling1_n_fn.py
   - cp_library/math/mat_cls.py
   - cp_library/math/mod/modmat_cls.py
   - cp_library/math/mod/mint_ntt_cls.py
-  - cp_library/math/fps/tayler_shift_fn.py
-  - cp_library/math/fps/fps_cls.py
-  timestamp: '2024-12-23 15:11:03+09:00'
+  - cp_library/math/fps/fps_exp_fn.py
+  - cp_library/math/fps/fps_deriv_fn.py
+  - cp_library/math/fps/fps_ideriv_k_fn.py
+  - cp_library/math/fps/fps_tayler_shift_fn.py
+  - cp_library/math/fps/fps_integ_fn.py
+  - cp_library/math/fps/fps_log_fn.py
+  - cp_library/math/fps/fps_inv_fn.py
+  - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/fps/fps_ideriv_fn.py
+  - cp_library/math/fps/fps_iinteg_fn.py
+  timestamp: '2024-12-25 17:59:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/log_of_formal_power_series.test.py
   - test/arc168_c_swap_characters_combinatoric.test.py
+  - test/pow_of_formal_power_series.test.py
   - test/pow_of_matrix_modmat.test.py
+  - test/exp_of_formal_power_series.test.py
   - test/polynomial_taylor_shift.test.py
   - test/stirling_number_of_the_second_kind.test.py
+  - test/inv_of_formal_power_series.test.py
+  - test/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/pow_of_matrix_matpow.test.py
   - test/convolution.test.py
   - test/subset_convolution.test.py
   - test/stirling_number_of_the_first_kind.test.py
+  - test/stirling_number_of_the_first_kind_fixed_k.test.py
 documentation_of: cp_library/math/mod/mint_cls.py
 layout: document
 redirect_from:
