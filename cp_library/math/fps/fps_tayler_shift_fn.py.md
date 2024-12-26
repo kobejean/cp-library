@@ -22,11 +22,11 @@ data:
     title: cp_library/math/table/stirling1_n_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/polynomial_taylor_shift.test.py
-    title: test/polynomial_taylor_shift.test.py
+    path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
+    title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   - icon: ':heavy_check_mark:'
-    path: test/stirling_number_of_the_first_kind.test.py
-    title: test/stirling_number_of_the_first_kind.test.py
+    path: test/library-checker/polynomial/polynomial_taylor_shift.test.py
+    title: test/library-checker/polynomial/polynomial_taylor_shift.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -165,11 +165,11 @@ data:
   path: cp_library/math/fps/fps_tayler_shift_fn.py
   requiredBy:
   - cp_library/math/table/stirling1_n_fn.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/polynomial_taylor_shift.test.py
-  - test/stirling_number_of_the_first_kind.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
+  - test/library-checker/polynomial/polynomial_taylor_shift.test.py
 documentation_of: cp_library/math/fps/fps_tayler_shift_fn.py
 layout: document
 redirect_from:

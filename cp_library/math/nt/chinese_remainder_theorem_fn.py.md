@@ -31,7 +31,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/nt/chinese_remainder_theorem_fn.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/nt/chinese_remainder_theorem_fn.py

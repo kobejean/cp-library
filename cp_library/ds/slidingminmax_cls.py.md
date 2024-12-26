@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/agc038_b_sliding_min_max.test.py
-    title: test/agc038_b_sliding_min_max.test.py
+    path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
+    title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -56,10 +56,10 @@ data:
   isVerificationFile: false
   path: cp_library/ds/slidingminmax_cls.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/agc038_b_sliding_min_max.test.py
+  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
 documentation_of: cp_library/ds/slidingminmax_cls.py
 layout: document
 redirect_from:

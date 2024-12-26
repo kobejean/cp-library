@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/dsl_2_c_kdtree.test.py
-    title: test/dsl_2_c_kdtree.test.py
+    path: test/aoj/dsl/dsl_2_c_kdtree.test.py
+    title: test/aoj/dsl/dsl_2_c_kdtree.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -89,10 +89,10 @@ data:
   isVerificationFile: false
   path: cp_library/ds/kdtree_cls.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/dsl_2_c_kdtree.test.py
+  - test/aoj/dsl/dsl_2_c_kdtree.test.py
 documentation_of: cp_library/ds/kdtree_cls.py
 layout: document
 redirect_from:

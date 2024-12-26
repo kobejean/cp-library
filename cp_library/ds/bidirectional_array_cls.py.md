@@ -10,11 +10,11 @@ data:
     title: cp_library/alg/dp/rerooting_recursive_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_iterative.test.py
-    title: test/dp_v_subtree_rerooting_iterative.test.py
+    path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
+    title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_recursive.test.py
-    title: test/dp_v_subtree_rerooting_recursive.test.py
+    path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
+    title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -51,11 +51,11 @@ data:
   requiredBy:
   - cp_library/alg/dp/rerooting_iterative_cls.py
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/dp_v_subtree_rerooting_iterative.test.py
-  - test/dp_v_subtree_rerooting_recursive.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
 documentation_of: cp_library/ds/bidirectional_array_cls.py
 layout: document
 redirect_from:

@@ -28,14 +28,14 @@ data:
     title: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc184_e_grid_graph.test.py
-    title: test/abc184_e_grid_graph.test.py
+    path: test/atcoder/abc/abc184_e_grid_graph.test.py
+    title: test/atcoder/abc/abc184_e_grid_graph.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc184_e_grid_graph_bfs_fn.test.py
-    title: test/abc184_e_grid_graph_bfs_fn.test.py
+    path: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
+    title: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc246_e_grid_direction_graph.test.py
-    title: test/abc246_e_grid_direction_graph.test.py
+    path: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
+    title: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -361,12 +361,12 @@ data:
   path: cp_library/alg/graph/lazy_grid_graph_cls.py
   requiredBy:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc246_e_grid_direction_graph.test.py
-  - test/abc184_e_grid_graph_bfs_fn.test.py
-  - test/abc184_e_grid_graph.test.py
+  - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
+  - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
+  - test/atcoder/abc/abc184_e_grid_graph.test.py
 documentation_of: cp_library/alg/graph/lazy_grid_graph_cls.py
 layout: document
 redirect_from:

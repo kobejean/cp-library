@@ -22,8 +22,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/stirling_number_of_the_first_kind.test.py
-    title: test/stirling_number_of_the_first_kind.test.py
+    path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
+    title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -165,10 +165,10 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling1_n_fn.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/stirling_number_of_the_first_kind.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
 documentation_of: cp_library/math/table/stirling1_n_fn.py
 layout: document
 redirect_from:

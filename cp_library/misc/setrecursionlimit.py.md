@@ -16,14 +16,14 @@ data:
     title: cp_library/alg/tree/lca_table_recursive_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_recursive.test.py
-    title: test/dp_v_subtree_rerooting_recursive.test.py
+    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_2_b_edmonds_branching.test.py
-    title: test/grl_2_b_edmonds_branching.test.py
+    path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
+    title: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_5_c_lca_table_recursive.test.py
-    title: test/grl_5_c_lca_table_recursive.test.py
+    path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
+    title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -57,12 +57,12 @@ data:
   - cp_library/alg/tree/lca_table_recursive_cls.py
   - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/graph/edmonds_fn.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/dp_v_subtree_rerooting_recursive.test.py
-  - test/grl_2_b_edmonds_branching.test.py
-  - test/grl_5_c_lca_table_recursive.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
+  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
+  - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
 documentation_of: cp_library/misc/setrecursionlimit.py
 layout: document
 redirect_from:

@@ -7,8 +7,8 @@ data:
     title: cp_library/math/mod/subset_conv_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/subset_convolution.test.py
-    title: test/subset_convolution.test.py
+    path: test/library-checker/set-power-series/subset_convolution.test.py
+    title: test/library-checker/set-power-series/subset_convolution.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -37,10 +37,10 @@ data:
   path: cp_library/math/mod/zeta_transform_fn.py
   requiredBy:
   - cp_library/math/mod/subset_conv_fn.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/subset_convolution.test.py
+  - test/library-checker/set-power-series/subset_convolution.test.py
 documentation_of: cp_library/math/mod/zeta_transform_fn.py
 layout: document
 redirect_from:

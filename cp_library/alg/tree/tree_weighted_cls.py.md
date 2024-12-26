@@ -64,17 +64,17 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc294_g_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_tree_heavy_light_decomposition.test.py
+    path: test/aoj/grl/grl_5_a_diameter.test.py
+    title: test/aoj/grl/grl_5_a_diameter.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc294_g_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_tree_lca_table_weighted_bit.test.py
+    path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
+    title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc361_e_tree_diameter.test.py
-    title: test/abc361_e_tree_diameter.test.py
+    path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
+    title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_5_a_diameter.test.py
-    title: test/grl_5_a_diameter.test.py
+    path: test/atcoder/abc/abc361_e_tree_diameter.test.py
+    title: test/atcoder/abc/abc361_e_tree_diameter.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -761,13 +761,13 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc294_g_tree_lca_table_weighted_bit.test.py
-  - test/abc361_e_tree_diameter.test.py
-  - test/grl_5_a_diameter.test.py
-  - test/abc294_g_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
+  - test/aoj/grl/grl_5_a_diameter.test.py
 documentation_of: cp_library/alg/tree/tree_weighted_cls.py
 layout: document
 redirect_from:

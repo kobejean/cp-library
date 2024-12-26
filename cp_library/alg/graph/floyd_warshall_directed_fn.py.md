@@ -10,8 +10,8 @@ data:
     title: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/grl_1_c_floyd_warshall.test.py
-    title: test/grl_1_c_floyd_warshall.test.py
+    path: test/aoj/grl/grl_1_c_floyd_warshall.test.py
+    title: test/aoj/grl/grl_1_c_floyd_warshall.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -43,10 +43,10 @@ data:
   path: cp_library/alg/graph/floyd_warshall_directed_fn.py
   requiredBy:
   - cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/grl_1_c_floyd_warshall.test.py
+  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
 documentation_of: cp_library/alg/graph/floyd_warshall_directed_fn.py
 layout: document
 redirect_from:

@@ -10,11 +10,11 @@ data:
     title: cp_library/math/median_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/arc122_b_insurance_median.test.py
-    title: test/arc122_b_insurance_median.test.py
+    path: test/atcoder/arc/arc122_b_insurance_median.test.py
+    title: test/atcoder/arc/arc122_b_insurance_median.test.py
   - icon: ':heavy_check_mark:'
-    path: test/arc182_d_increment_decrement_again_qselect.test.py
-    title: test/arc182_d_increment_decrement_again_qselect.test.py
+    path: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
+    title: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -41,11 +41,11 @@ data:
   requiredBy:
   - cp_library/math/median_fn.py
   - cp_library/alg/divcon/qselect_fn.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/arc182_d_increment_decrement_again_qselect.test.py
-  - test/arc122_b_insurance_median.test.py
+  - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
+  - test/atcoder/arc/arc122_b_insurance_median.test.py
 documentation_of: cp_library/alg/divcon/partition_fn.py
 layout: document
 redirect_from:

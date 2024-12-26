@@ -486,7 +486,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py

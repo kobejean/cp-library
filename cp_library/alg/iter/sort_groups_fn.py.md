@@ -4,8 +4,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc203_e_sort_groups.test.py
-    title: test/abc203_e_sort_groups.test.py
+    path: test/atcoder/abc/abc203_e_sort_groups.test.py
+    title: test/atcoder/abc/abc203_e_sort_groups.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -28,10 +28,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort_groups_fn.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc203_e_sort_groups.test.py
+  - test/atcoder/abc/abc203_e_sort_groups.test.py
 documentation_of: cp_library/alg/iter/sort_groups_fn.py
 layout: document
 redirect_from:

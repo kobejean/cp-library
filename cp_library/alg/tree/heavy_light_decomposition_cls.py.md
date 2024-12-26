@@ -7,14 +7,14 @@ data:
     title: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc294_g_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
+    title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -58,12 +58,12 @@ data:
   path: cp_library/alg/tree/heavy_light_decomposition_cls.py
   requiredBy:
   - cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc294_g_tree_heavy_light_decomposition.test.py
-  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - test/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
 documentation_of: cp_library/alg/tree/heavy_light_decomposition_cls.py
 layout: document
 redirect_from:

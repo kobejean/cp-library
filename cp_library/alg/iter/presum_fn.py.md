@@ -23,40 +23,52 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/minplus_conv_fn.py
+    title: cp_library/math/conv/minplus_conv_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc175_d_permutation.test.py
-    title: test/abc175_d_permutation.test.py
+    path: test/aoj/grl/grl_5_a_diameter.test.py
+    title: test/aoj/grl/grl_5_a_diameter.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc202_e_dfs_enter_leave.test.py
-    title: test/abc202_e_dfs_enter_leave.test.py
+    path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+    title: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+    path: test/atcoder/abc/abc175_d_permutation.test.py
+    title: test/atcoder/abc/abc175_d_permutation.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc294_g_tree_heavy_light_decomposition.test.py
-    title: test/abc294_g_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+    title: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc294_g_tree_lca_table_weighted_bit.test.py
-    title: test/abc294_g_tree_lca_table_weighted_bit.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
+    title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc361_e_tree_diameter.test.py
-    title: test/abc361_e_tree_diameter.test.py
+    path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
+    title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_iterative.test.py
-    title: test/dp_v_subtree_rerooting_iterative.test.py
+    path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
+    title: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   - icon: ':heavy_check_mark:'
-    path: test/dp_v_subtree_rerooting_recursive.test.py
-    title: test/dp_v_subtree_rerooting_recursive.test.py
+    path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_5_a_diameter.test.py
-    title: test/grl_5_a_diameter.test.py
+    path: test/atcoder/abc/abc361_e_tree_diameter.test.py
+    title: test/atcoder/abc/abc361_e_tree_diameter.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_5_c_lca_table_iterative.test.py
-    title: test/grl_5_c_lca_table_iterative.test.py
+    path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
+    title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
+    title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
+    title: test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
+    title: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -88,6 +100,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/presum_fn.py
   requiredBy:
+  - cp_library/math/conv/minplus_conv_fn.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
@@ -95,20 +108,23 @@ data:
   - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/dp_v_subtree_rerooting_iterative.test.py
-  - test/dp_v_subtree_rerooting_recursive.test.py
-  - test/abc294_g_tree_lca_table_weighted_bit.test.py
-  - test/abc361_e_tree_diameter.test.py
-  - test/grl_5_a_diameter.test.py
-  - test/abc294_g_tree_heavy_light_decomposition.test.py
-  - test/abc175_d_permutation.test.py
-  - test/grl_5_c_lca_table_iterative.test.py
-  - test/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - test/abc202_e_dfs_enter_leave.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc175_d_permutation.test.py
+  - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+  - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
+  - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
+  - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
 documentation_of: cp_library/alg/iter/presum_fn.py
 layout: document
 redirect_from:

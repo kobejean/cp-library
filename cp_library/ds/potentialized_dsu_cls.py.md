@@ -4,11 +4,11 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/unionfind_with_potential.test.py
-    title: test/unionfind_with_potential.test.py
+    path: test/library-checker/data-structure/unionfind_with_potential.test.py
+    title: test/library-checker/data-structure/unionfind_with_potential.test.py
   - icon: ':heavy_check_mark:'
-    path: test/unionfind_with_potential_non_commutative_group.test.py
-    title: test/unionfind_with_potential_non_commutative_group.test.py
+    path: test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
+    title: test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -77,11 +77,11 @@ data:
   isVerificationFile: false
   path: cp_library/ds/potentialized_dsu_cls.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/unionfind_with_potential.test.py
-  - test/unionfind_with_potential_non_commutative_group.test.py
+  - test/library-checker/data-structure/unionfind_with_potential.test.py
+  - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
 documentation_of: cp_library/ds/potentialized_dsu_cls.py
 layout: document
 title: PotentializedDSU (generalized with groups)

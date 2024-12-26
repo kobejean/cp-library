@@ -16,8 +16,8 @@ data:
     title: cp_library/alg/graph/permutation_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc175_d_permutation.test.py
-    title: test/abc175_d_permutation.test.py
+    path: test/atcoder/abc/abc175_d_permutation.test.py
+    title: test/atcoder/abc/abc175_d_permutation.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -143,10 +143,10 @@ data:
   requiredBy:
   - cp_library/alg/graph/permutation_cls.py
   - cp_library/alg/graph/partial_functional_graph_cls.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc175_d_permutation.test.py
+  - test/atcoder/abc/abc175_d_permutation.test.py
 documentation_of: cp_library/alg/graph/functional_graph_cls.py
 layout: document
 redirect_from:

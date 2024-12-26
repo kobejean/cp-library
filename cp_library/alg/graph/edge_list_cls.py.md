@@ -19,17 +19,17 @@ data:
     title: cp_library/io/read_edges_weighted_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc218_f_shortest_path_weighted.test.py
-    title: test/abc218_f_shortest_path_weighted.test.py
+    path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
+    title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_2_a_kruskal_heap.test.py
-    title: test/grl_2_a_kruskal_heap.test.py
+    path: test/aoj/grl/grl_2_a_kruskal_sort.test.py
+    title: test/aoj/grl/grl_2_a_kruskal_sort.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_2_a_kruskal_sort.test.py
-    title: test/grl_2_a_kruskal_sort.test.py
+    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_2_b_edmonds_branching.test.py
-    title: test/grl_2_b_edmonds_branching.test.py
+    path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
+    title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -144,13 +144,13 @@ data:
   requiredBy:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc218_f_shortest_path_weighted.test.py
-  - test/grl_2_a_kruskal_heap.test.py
-  - test/grl_2_b_edmonds_branching.test.py
-  - test/grl_2_a_kruskal_sort.test.py
+  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
+  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
+  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
+  - test/aoj/grl/grl_2_a_kruskal_sort.test.py
 documentation_of: cp_library/alg/graph/edge_list_cls.py
 layout: document
 redirect_from:

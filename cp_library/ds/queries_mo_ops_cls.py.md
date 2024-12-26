@@ -13,8 +13,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc261_g_queries_mo_ops.test.py
-    title: test/abc261_g_queries_mo_ops.test.py
+    path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
+    title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -209,10 +209,10 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_mo_ops_cls.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc261_g_queries_mo_ops.test.py
+  - test/atcoder/abc/abc261_g_queries_mo_ops.test.py
 documentation_of: cp_library/ds/queries_mo_ops_cls.py
 layout: document
 redirect_from:

@@ -7,8 +7,8 @@ data:
     title: cp_library/ds/ahocorasick_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc362_q_count_substring_query_ahocorasick.test.py
-    title: test/abc362_q_count_substring_query_ahocorasick.test.py
+    path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
+    title: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -62,10 +62,10 @@ data:
   path: cp_library/ds/trie_cls.py
   requiredBy:
   - cp_library/ds/ahocorasick_cls.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc362_q_count_substring_query_ahocorasick.test.py
+  - test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
 documentation_of: cp_library/ds/trie_cls.py
 layout: document
 redirect_from:

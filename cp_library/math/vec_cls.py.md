@@ -19,14 +19,14 @@ data:
     title: cp_library/math/vec3d_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/abc151_f_fbisect_left.test.py
-    title: test/abc151_f_fbisect_left.test.py
+    path: test/atcoder/abc/abc151_f_fbisect_left.test.py
+    title: test/atcoder/abc/abc151_f_fbisect_left.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc189_e_vec2d.test.py
-    title: test/abc189_e_vec2d.test.py
+    path: test/atcoder/abc/abc189_e_vec2d.test.py
+    title: test/atcoder/abc/abc189_e_vec2d.test.py
   - icon: ':heavy_check_mark:'
-    path: test/abc274_e_vec2d.test.py
-    title: test/abc274_e_vec2d.test.py
+    path: test/atcoder/abc/abc274_e_vec2d.test.py
+    title: test/atcoder/abc/abc274_e_vec2d.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -161,12 +161,12 @@ data:
   requiredBy:
   - cp_library/math/vec3d_cls.py
   - cp_library/math/vec2d_cls.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/abc151_f_fbisect_left.test.py
-  - test/abc189_e_vec2d.test.py
-  - test/abc274_e_vec2d.test.py
+  - test/atcoder/abc/abc151_f_fbisect_left.test.py
+  - test/atcoder/abc/abc189_e_vec2d.test.py
+  - test/atcoder/abc/abc274_e_vec2d.test.py
 documentation_of: cp_library/math/vec_cls.py
 layout: document
 redirect_from:

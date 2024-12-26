@@ -19,17 +19,17 @@ data:
     title: cp_library/math/table/stirling2_k_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/log_of_formal_power_series.test.py
-    title: test/log_of_formal_power_series.test.py
+    path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
+    title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
-    path: test/pow_of_formal_power_series.test.py
-    title: test/pow_of_formal_power_series.test.py
+    path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+    title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
-    path: test/stirling_number_of_the_first_kind_fixed_k.test.py
-    title: test/stirling_number_of_the_first_kind_fixed_k.test.py
+    path: test/library-checker/polynomial/log_of_formal_power_series.test.py
+    title: test/library-checker/polynomial/log_of_formal_power_series.test.py
   - icon: ':heavy_check_mark:'
-    path: test/stirling_number_of_the_second_kind_fixed_k.test.py
-    title: test/stirling_number_of_the_second_kind_fixed_k.test.py
+    path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
+    title: test/library-checker/polynomial/pow_of_formal_power_series.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -82,13 +82,13 @@ data:
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/log_of_formal_power_series.test.py
-  - test/pow_of_formal_power_series.test.py
-  - test/stirling_number_of_the_second_kind_fixed_k.test.py
-  - test/stirling_number_of_the_first_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
+  - test/library-checker/polynomial/log_of_formal_power_series.test.py
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
 documentation_of: cp_library/math/fps/fps_integ_fn.py
 layout: document
 redirect_from:

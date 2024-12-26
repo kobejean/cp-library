@@ -4,41 +4,41 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/arc122_b_insurance_median.test.py
-    title: test/arc122_b_insurance_median.test.py
+    path: test/aoj/dsl/dsl_2_a_segtree.test.py
+    title: test/aoj/dsl/dsl_2_a_segtree.test.py
   - icon: ':heavy_check_mark:'
-    path: test/arc168_c_swap_characters_combinatoric.test.py
-    title: test/arc168_c_swap_characters_combinatoric.test.py
+    path: test/aoj/dsl/dsl_2_c_kdtree.test.py
+    title: test/aoj/dsl/dsl_2_c_kdtree.test.py
   - icon: ':heavy_check_mark:'
-    path: test/arc182_d_increment_decrement_again_qselect.test.py
-    title: test/arc182_d_increment_decrement_again_qselect.test.py
+    path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+    title: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - icon: ':heavy_check_mark:'
-    path: test/dp_z_cht_monotone_add_max.test.py
-    title: test/dp_z_cht_monotone_add_max.test.py
+    path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
+    title: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   - icon: ':heavy_check_mark:'
-    path: test/dsl_2_a_segtree.test.py
-    title: test/dsl_2_a_segtree.test.py
+    path: test/atcoder/arc/arc122_b_insurance_median.test.py
+    title: test/atcoder/arc/arc122_b_insurance_median.test.py
   - icon: ':heavy_check_mark:'
-    path: test/dsl_2_c_kdtree.test.py
-    title: test/dsl_2_c_kdtree.test.py
+    path: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
+    title: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_5_c_lca_table_iterative.test.py
-    title: test/grl_5_c_lca_table_iterative.test.py
+    path: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
+    title: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
   - icon: ':heavy_check_mark:'
-    path: test/grl_5_c_lca_table_recursive.test.py
-    title: test/grl_5_c_lca_table_recursive.test.py
+    path: test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
+    title: test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
   - icon: ':heavy_check_mark:'
-    path: test/pow_of_matrix_modmat.test.py
-    title: test/pow_of_matrix_modmat.test.py
+    path: test/library-checker/data-structure/unionfind.test.py
+    title: test/library-checker/data-structure/unionfind.test.py
   - icon: ':heavy_check_mark:'
-    path: test/unionfind.test.py
-    title: test/unionfind.test.py
+    path: test/library-checker/data-structure/unionfind_with_potential.test.py
+    title: test/library-checker/data-structure/unionfind_with_potential.test.py
   - icon: ':heavy_check_mark:'
-    path: test/unionfind_with_potential.test.py
-    title: test/unionfind_with_potential.test.py
+    path: test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
+    title: test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
   - icon: ':heavy_check_mark:'
-    path: test/unionfind_with_potential_non_commutative_group.test.py
-    title: test/unionfind_with_potential_non_commutative_group.test.py
+    path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+    title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -57,21 +57,21 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2024-12-25 17:59:38+09:00'
+  timestamp: '2024-12-26 11:51:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/arc168_c_swap_characters_combinatoric.test.py
-  - test/arc182_d_increment_decrement_again_qselect.test.py
-  - test/dsl_2_c_kdtree.test.py
-  - test/pow_of_matrix_modmat.test.py
-  - test/unionfind.test.py
-  - test/unionfind_with_potential.test.py
-  - test/arc122_b_insurance_median.test.py
-  - test/dsl_2_a_segtree.test.py
-  - test/dp_z_cht_monotone_add_max.test.py
-  - test/unionfind_with_potential_non_commutative_group.test.py
-  - test/grl_5_c_lca_table_iterative.test.py
-  - test/grl_5_c_lca_table_recursive.test.py
+  - test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
+  - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
+  - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
+  - test/atcoder/arc/arc122_b_insurance_median.test.py
+  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+  - test/library-checker/data-structure/unionfind.test.py
+  - test/library-checker/data-structure/unionfind_with_potential.test.py
+  - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
+  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+  - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
+  - test/aoj/dsl/dsl_2_c_kdtree.test.py
+  - test/aoj/dsl/dsl_2_a_segtree.test.py
 documentation_of: cp_library/io/read_int_fn.py
 layout: document
 redirect_from:
