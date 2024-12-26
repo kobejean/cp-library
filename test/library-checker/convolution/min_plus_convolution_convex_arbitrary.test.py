@@ -9,7 +9,7 @@ def main():
     
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
-from cp_library.math.minplus_conv_fn import minplus_conv_arb_cnvx
+from cp_library.math.conv.minplus_conv_fn import minplus_conv_arb_cnvx
 
 if __name__ == "__main__":
     main()
