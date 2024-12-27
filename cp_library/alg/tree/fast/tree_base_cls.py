@@ -47,9 +47,7 @@ class TreeBase(GraphBase):
                      add_child: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,
                      s: int = 0):
         N, La, Ra, Ua, Va = T.N, T.La, T.Ra, T.Ua, T.Va
-        order = T.dfs_discovery(s)
-        dp = [e]*N
-        suf = [e]*len(Ua)
+        order, dp, suf = T.dfs_discovery(s), [e]*N, [e]*len(Ua)
         I = Ra[:] # tracks current indices for suffix array accumulation
 
         # up
@@ -64,7 +62,7 @@ class TreeBase(GraphBase):
                 suf[I[u]-1] = merge(suf[I[u]], new)
 
         # down
-        dp[s] = e
+        dp[s] = e # at this point dp stores values to be merged in parent
         for i in order:
             u,v = Ua[i], Va[i]
             # prefix accumulation

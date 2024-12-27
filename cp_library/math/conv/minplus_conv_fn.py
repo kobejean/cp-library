@@ -1,8 +1,5 @@
-from itertools import accumulate
 import cp_library.math.conv.__header__
-from heapq import merge
 from cp_library.alg.dp.monotone_minima_fn import monotone_minima
-from cp_library.alg.iter.presum_fn import presum
 
 def minplus_conv_arb_cnvx(arb: list[int], cnvx: list[int]) -> list[int]:
     N, M = len(cnvx), len(arb)
