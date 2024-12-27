@@ -104,7 +104,6 @@ class GraphProtocol(list, Parsable):
                     Di[j] = min(Di[j], Di[k]+Dk[j])
         return D
     
-    
     def find_cycle(G, s = 0, vis = None, par = None):
         N = G.N
         vis = vis or [0] * N
@@ -133,6 +132,19 @@ class GraphProtocol(list, Parsable):
             else:
                 vis[v] = 2
         return None
+
+    def find_minimal_cycle(G, s=0):
+        D, par, que = [inft] * (N := G.N), [-1] * N, deque([s])
+        D[s] = 0
+        while que:
+            for v in G[u := que.popleft()]:
+                if v == s:  # Found cycle back to start
+                    cycle = [u]
+                    while u != s: cycle.append(u := par[u])
+                    return cycle
+                if D[v] < inft: continue
+                D[v], par[v] = D[u]+1, u
+                que.append(v)
     
     def bridges(G):
         tin = [-1] * G.N

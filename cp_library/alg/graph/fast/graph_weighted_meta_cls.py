@@ -39,24 +39,24 @@ class GraphWeightedMeta(GraphWeighted):
         if len(w) == 2:
             w, x = w
             def parse(ts: TokenStream):
-                U, V, W, X = fill_u32(M), fill_u32(M), [0]*M, [0]*M
+                U, V, W, X = u32a(M), u32a(M), [0]*M, [0]*M
                 for i in range(M):
                     U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts), x(ts)
                 return cls(N, U, V, W, X)
         elif len(w) == 3:
             w, x, y = w
             def parse(ts: TokenStream):
-                U, V, W, X, Y = fill_u32(M), fill_u32(M), [0]*M, [0]*M, [0]*M
+                U, V, W, X, Y = u32a(M), u32a(M), [0]*M, [0]*M, [0]*M
                 for i in range(M):
                     U[i], V[i], W[i], X[i], Y[i] = u(ts), v(ts), w(ts), x(ts), y(ts)
                 return cls(N, U, V, W, X, Y)
         else:
             w, x, y, z = w
             def parse(ts: TokenStream):
-                U, V, W, X, Y, Z = fill_u32(M), fill_u32(M), [0]*M, [0]*M, [0]*M, [0]*M
+                U, V, W, X, Y, Z = u32a(M), u32a(M), [0]*M, [0]*M, [0]*M, [0]*M
                 for i in range(M):
                     U[i], V[i], W[i], X[i], Y[i], Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)
                 return cls(N, U, V, W, X, Y, Z)
         return parse
 
-from cp_library.ds.fill_fn import fill_u32
+from cp_library.ds.fill_fn import u32a

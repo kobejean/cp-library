@@ -9,7 +9,7 @@ class TreeWeightedBase(TreeBase, GraphWeightedBase):
     def dfs_distance(T, s: int, g: Union[int,None] = None):
         stack, Wa, Va = elist(N := T.N), T.Wa, T.Va
         stack.append(s)
-        T.D, T.back = D, back = fill_u64(N, inft), fill_i32(N, -1)
+        T.D, T.back = D, back = u64a(N, inft), i32a(N, -1)
         D[s] = 0
         while stack:
             d = D[u := stack.pop()]
@@ -106,5 +106,5 @@ class TreeWeightedBase(TreeBase, GraphWeightedBase):
         return GraphWeightedBase.compile.__func__(cls, N, N-1, shift)
     
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.fill_fn import fill_u64, fill_i32
+from cp_library.ds.fill_fn import u64a, i32a
 from cp_library.math.inft_cnst import inft

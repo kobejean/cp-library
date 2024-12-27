@@ -4,14 +4,14 @@ class i32a(array):
     def __init__(self, N: int, elm = 0):
         return array('i', (elm,)) * N
 
-# def fill_i32(N: int, elm: int = 0):
+# def i32a(N: int, elm: int = 0):
 #     return array('i', (elm,)) * N
 
-# def fill_u32(N: int, elm: int = 0):
+# def u32a(N: int, elm: int = 0):
 #     return array('I', (elm,)) * N
 
-# def fill_i64(N: int, elm: int = 0):
+# def i64a(N: int, elm: int = 0):
 #     return array('q', (elm,)) * N
 
-# def fill_u64(N: int, elm: int = 0):
+# def u64a(N: int, elm: int = 0):
 #     return array('Q', (elm,)) * N

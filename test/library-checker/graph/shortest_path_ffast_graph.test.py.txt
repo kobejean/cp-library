@@ -210,27 +210,27 @@ class Parsable:
         return parser
 from array import array
 
-def fill_i32(N: int, elm: int = 0):
+def i32a(N: int, elm: int = 0):
     return array('i', (elm,)) * N
 
-def fill_u32(N: int, elm: int = 0):
+def u32a(N: int, elm: int = 0):
     return array('I', (elm,)) * N
 
-def fill_i64(N: int, elm: int = 0):
+def i64a(N: int, elm: int = 0):
     return array('q', (elm,)) * N
 
-def fill_u64(N: int, elm: int = 0):
+def u64a(N: int, elm: int = 0):
     return array('Q', (elm,)) * N
 
 class StaticDiGraphWeighted(Sequence, Parsable):
     def __init__(G, N: int, U: list, V: list, W: list):
         M = len(U)
-        deg, adj, Wadj = fill_u32(N), fill_u32(M), [0]*M
+        deg, adj, Wadj = u32a(N), u32a(M), [0]*M
 
         for u in U:
             deg[u] += 1
 
-        L, idx = fill_u32(N), 0
+        L, idx = u32a(N), 0
         for u in range(N):
             L[u], idx = idx, idx + deg[u]
         R = copy(L)
@@ -249,7 +249,7 @@ class StaticDiGraphWeighted(Sequence, Parsable):
 
     def dijkstra(G, s: int, t: int = None):
         N, L, R, adj, Wadj = G.N, G.L, G.R, G.adj, G.Wadj
-        G.par = par = fill_i32(N, -1)
+        G.par = par = i32a(N, -1)
         G.D = D = [inft]*N
         D[s] = 0
             
@@ -272,7 +272,7 @@ class StaticDiGraphWeighted(Sequence, Parsable):
         if D[t] == inft: return None
         par = G.par
             
-        path = fill_u32(0)
+        path = u32a(0)
         path.append(t)
         v = t
         while v != s:
@@ -294,7 +294,7 @@ class StaticDiGraphWeighted(Sequence, Parsable):
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
         def parse(ts: TokenStream):
-            U, V, W = fill_u32(M), fill_u32(M), [0]*M
+            U, V, W = u32a(M), u32a(M), [0]*M
             stream = ts.stream
             for i in range(M):
                 u, v, W[i] = map(int, stream.readline().split())

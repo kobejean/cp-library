@@ -31,8 +31,8 @@ class GraphWeightedBase(GraphBase):
 
     def dijkstra(G, s: int, t: int = None):
         N, S, Va, Wa = G.N, G.starts(s), G.Va, G.Wa
-        G.back = back = fill_i32(N, -1)
-        G.D = D = fill_u64(N, inft)
+        G.back = back = i32a(N, -1)
+        G.D = D = u64a(N, inft)
         for s in S: D[s] = 0
         que = PriorityQueue(N, S)
         while que:
@@ -113,7 +113,7 @@ class GraphWeightedBase(GraphBase):
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
         def parse(ts: TokenStream):
-            U, V, W = fill_u32(M), fill_u32(M), [0]*M
+            U, V, W = u32a(M), u32a(M), [0]*M
             stream = ts.stream
             for i in range(M):
                 u, v, W[i] = map(int, stream.readline().split())
@@ -123,6 +123,6 @@ class GraphWeightedBase(GraphBase):
 
 from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.fill_fn import fill_i32, fill_u32, fill_u64
+from cp_library.ds.fill_fn import i32a, u32a, u64a
 from cp_library.ds.heap.priority_queue_cls import PriorityQueue
 from cp_library.math.inft_cnst import inft

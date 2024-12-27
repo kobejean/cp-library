@@ -9,7 +9,7 @@ class GridGraph(GridGraphWalledBase):
     def __init__(G, H, W, S=[], dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):
         N = H*W
         Mest = N*len(dirs)
-        deg, La, Ra, Ua, Va = fill_u32(N), fill_u32(N), fill_u32(N), elist(Mest), elist(Mest)
+        deg, La, Ra, Ua, Va = u32a(N), u32a(N), u32a(N), elist(Mest), elist(Mest)
         super().__init__(
             H, W, 0, S, Ua, Va, deg, La, Ra, Ua, Va, None, dirs, wall
         )
@@ -28,4 +28,4 @@ class GridGraph(GridGraphWalledBase):
         G.M = len(Ua)
         G.Ea = list(range(G.M))
 
-from cp_library.ds.fill_fn import fill_u32
+from cp_library.ds.fill_fn import u32a
