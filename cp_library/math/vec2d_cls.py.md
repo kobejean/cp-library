@@ -179,7 +179,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/vec2d_cls.py
   requiredBy: []
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc151_f_fbisect_left.test.py

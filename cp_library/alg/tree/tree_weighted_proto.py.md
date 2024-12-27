@@ -205,22 +205,28 @@ data:
     \   D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n            for\
     \ Di in D:\n                if Di[k] == inft: continue\n                for j\
     \ in range(G.N):\n                    if Dk[j] == inft: continue\n           \
-    \         Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    \n    def\
-    \ find_cycle(G, s = 0, vis = None, par = None):\n        N = G.N\n        vis\
-    \ = vis or [0] * N\n        par = par or [-1] * N\n        if vis[s]: return None\n\
-    \        vis[s] = 1\n        stack = [(True, s)]\n        while stack:\n     \
-    \       forw, v = stack.pop()\n            if forw:\n                stack.append((False,\
-    \ v))\n                vis[v] = 1\n                for u in G.neighbors(v):\n\
-    \                    if vis[u] == 1 and u != par[v]:\n                       \
-    \ # Cycle detected\n                        cyc = [u]\n                      \
-    \  vis[u] = 2\n                        while v != u:\n                       \
-    \     cyc.append(v)\n                            vis[v] = 2\n                \
-    \            v = par[v]\n                        return cyc\n                \
-    \    elif vis[u] == 0:\n                        par[u] = v\n                 \
-    \       stack.append((True, u))\n            else:\n                vis[v] = 2\n\
-    \        return None\n    \n    def bridges(G):\n        tin = [-1] * G.N\n  \
-    \      low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n \
-    \       in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
+    \         Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G,\
+    \ s = 0, vis = None, par = None):\n        N = G.N\n        vis = vis or [0] *\
+    \ N\n        par = par or [-1] * N\n        if vis[s]: return None\n        vis[s]\
+    \ = 1\n        stack = [(True, s)]\n        while stack:\n            forw, v\
+    \ = stack.pop()\n            if forw:\n                stack.append((False, v))\n\
+    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
+    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
+    \ detected\n                        cyc = [u]\n                        vis[u]\
+    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
+    \                            vis[v] = 2\n                            v = par[v]\n\
+    \                        return cyc\n                    elif vis[u] == 0:\n \
+    \                       par[u] = v\n                        stack.append((True,\
+    \ u))\n            else:\n                vis[v] = 2\n        return None\n\n\
+    \    def find_minimal_cycle(G, s=0):\n        D, par, que = [inft] * (N := G.N),\
+    \ [-1] * N, deque([s])\n        D[s] = 0\n        while que:\n            for\
+    \ v in G[u := que.popleft()]:\n                if v == s:  # Found cycle back\
+    \ to start\n                    cycle = [u]\n                    while u != s:\
+    \ cycle.append(u := par[u])\n                    return cycle\n              \
+    \  if D[v] < inft: continue\n                D[v], par[v] = D[u]+1, u\n      \
+    \          que.append(v)\n    \n    def bridges(G):\n        tin = [-1] * G.N\n\
+    \        low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n\
+    \        in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
     \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
     \            p = par[v := stack.pop()]\n            if vis[v] == 0:\n        \
     \        vis[v] = 1\n                tin[v] = low[v] = time\n                time\
@@ -775,7 +781,7 @@ data:
   path: cp_library/alg/tree/tree_weighted_proto.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py

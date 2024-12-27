@@ -84,7 +84,7 @@ data:
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

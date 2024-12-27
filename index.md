@@ -201,6 +201,12 @@ data:
       path: cp_library/alg/iter/rev_enumerate_fn.py
       title: cp_library/alg/iter/rev_enumerate_fn.py
     - icon: ':warning:'
+      path: cp_library/alg/iter/slice_iterator_cls.py
+      title: cp_library/alg/iter/slice_iterator_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/slice_iterator_reverse_cls.py
+      title: cp_library/alg/iter/slice_iterator_reverse_cls.py
+    - icon: ':warning:'
       path: cp_library/alg/iter/sort_buckets_fn.py
       title: cp_library/alg/iter/sort_buckets_fn.py
     - icon: ':heavy_check_mark:'
@@ -928,11 +934,20 @@ data:
       path: test/library-checker/graph/chromatic_number.test.py
       title: test/library-checker/graph/chromatic_number.test.py
     - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/cycle_detection.test.py
+      title: test/library-checker/graph/cycle_detection.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/cycle_detection_undirected.test.py
+      title: test/library-checker/graph/cycle_detection_undirected.test.py
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
       title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
       title: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/scc.test.py
+      title: test/library-checker/graph/scc.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/shortest_path_fast_graph.test.py
       title: test/library-checker/graph/shortest_path_fast_graph.test.py

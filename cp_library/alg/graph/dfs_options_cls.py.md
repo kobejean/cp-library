@@ -220,11 +220,20 @@ data:
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/cycle_detection.test.py
+    title: test/library-checker/graph/cycle_detection.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/cycle_detection_undirected.test.py
+    title: test/library-checker/graph/cycle_detection_undirected.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/scc.test.py
+    title: test/library-checker/graph/scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
@@ -304,7 +313,7 @@ data:
   - cp_library/alg/graph/lazy_grid_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/grid_graph_proto.py
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
@@ -330,7 +339,10 @@ data:
   - test/atcoder/abc/abc184_e_grid_graph.test.py
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py

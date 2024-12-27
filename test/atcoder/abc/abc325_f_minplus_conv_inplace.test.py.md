@@ -147,26 +147,26 @@ data:
     \ True if element (i,j) < element (i,k)\n    \n    Returns:\n        List of column\
     \ indices containing the minimum value for each row\n    \n    Example:\n    \
     \    # Find minima where each element is (i-j)\xB2\n        min_indices = monotone_minima(5,\
-    \ 5, lambda i,j,k: (i-j)**2 < (i-k)**2)\n    \"\"\"\n    min_j = [0] * N\n   \
-    \ st = elist(N+1)\n    st.append((0, N, 0, M))\n\n    while st:\n        li, ri,\
-    \ lj, rj = st.pop()\n        if li == ri: continue\n        mi, mj = li + ri >>\
-    \ 1, lj\n        for j in range(lj + 1, rj):\n            if func(mi, mj, j):\n\
-    \                mj = j\n        min_j[mi] = mj\n        st.append((li, mi, lj,\
-    \ mj+1))\n        st.append((mi+1, ri, mj, rj))\n\n    return min_j\n\n\n\ndef\
-    \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\ndef minplus_conv_arb_cnvx(arb: list[int], cnvx: list[int]) -> list[int]:\n\
-    \    N, M = len(cnvx), len(arb)\n    def cmp(i, j, k):\n        return i >= k\
-    \ and (i-j >= N or (cnvx[i-j] + arb[j] >= cnvx[i-k] + arb[k]))\n    cols = monotone_minima(N+M-1,\
-    \ M, cmp)\n    return [arb[j] + cnvx[i-j] for i, j in enumerate(cols)]\n\ndef\
-    \ minplus_conv_cnvx(A: list[int], B: list[int]) -> list[int]:\n    if not (N :=\
-    \ len(A)) | (M := len(B)): return []\n    C = [0] * (K:=N+M-1)\n    C[0], I, J\
-    \ = A[i := 0] + B[j := 0], N-1, M-1\n    for k in range(1, K):\n        if j ==\
-    \ J or (i != I and A[i+1] + B[j] < A[i] + B[j+1]): i += 1\n        else: j +=\
-    \ 1\n        C[k] = A[i] + B[j]\n    return C\n\ndef minplus_iconv(A: list[int],\
-    \ B: list[int]):\n    N, M = len(A), len(B)\n    for i in range(N-1,-1,-1):\n\
-    \        A[i] = min(B[j] + A[i-j] for j in range(min(M,i+1)))   \n\nif __name__\
-    \ == \"__main__\":\n    main()\n"
+    \ 5, lambda i,j,k: (i-j)**2 < (i-k)**2)\n    \"\"\"\n    min_j, st = [0] * N,\
+    \ elist(N)\n    st.append((0, N, 0, M))\n    while st:\n        li, ri, lj, rj\
+    \ = st.pop()\n        if li == ri: continue\n        mi, mj = li + ri >> 1, lj\n\
+    \        for j in range(lj + 1, rj):\n            if func(mi, mj, j): mj = j\n\
+    \        min_j[mi] = mj\n        st.append((li, mi, lj, mj+1))\n        st.append((mi+1,\
+    \ ri, mj, rj))\n    return min_j\n\n\n\ndef elist(est_len: int) -> list: ...\n\
+    try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\ndef minplus_conv_arb_cnvx(arb:\
+    \ list[int], cnvx: list[int]) -> list[int]:\n    N, M = len(cnvx), len(arb)\n\
+    \    def cmp(i, j, k):\n        return i >= k and (i-j >= N or (cnvx[i-j] + arb[j]\
+    \ >= cnvx[i-k] + arb[k]))\n    cols = monotone_minima(N+M-1, M, cmp)\n    return\
+    \ [arb[j] + cnvx[i-j] for i, j in enumerate(cols)]\n\ndef minplus_conv_cnvx(A:\
+    \ list[int], B: list[int]) -> list[int]:\n    if not (N := len(A)) | (M := len(B)):\
+    \ return []\n    C = [0] * (K:=N+M-1)\n    C[0], I, J = A[i := 0] + B[j := 0],\
+    \ N-1, M-1\n    for k in range(1, K):\n        if j == J or (i != I and A[i+1]\
+    \ + B[j] < A[i] + B[j+1]): i += 1\n        else: j += 1\n        C[k] = A[i] +\
+    \ B[j]\n    return C\n\ndef minplus_iconv(A: list[int], B: list[int]):\n    N,\
+    \ M = len(A), len(B)\n    for i in range(N-1,-1,-1):\n        A[i] = min(B[j]\
+    \ + A[i-j] for j in range(min(M,i+1)))   \n\nif __name__ == \"__main__\":\n  \
+    \  main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc325/tasks/abc325_f\n\
     \nfrom cp_library.math.inft_cnst import inft\n\ndef main():\n    N = read(int)\n\
     \    D = read(list[int])\n    L1,C1,K1 = read(tuple[int, ...])\n    L2,C2,K2 =\
@@ -188,7 +188,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   requiredBy: []
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py

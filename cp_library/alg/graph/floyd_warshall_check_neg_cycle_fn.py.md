@@ -58,7 +58,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/floyd_warshall_check_neg_cycle_fn.py
   requiredBy: []
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_c_floyd_warshall.test.py

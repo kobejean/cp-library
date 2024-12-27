@@ -247,11 +247,20 @@ data:
     path: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
     title: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/cycle_detection.test.py
+    title: test/library-checker/graph/cycle_detection.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/cycle_detection_undirected.test.py
+    title: test/library-checker/graph/cycle_detection_undirected.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/scc.test.py
+    title: test/library-checker/graph/scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
@@ -319,7 +328,7 @@ data:
   - cp_library/alg/graph/grid_graph_proto.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
@@ -351,7 +360,10 @@ data:
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py

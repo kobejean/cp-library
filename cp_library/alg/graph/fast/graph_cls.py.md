@@ -36,6 +36,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/cycle_detection_undirected.test.py
+    title: test/library-checker/graph/cycle_detection_undirected.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -149,124 +152,143 @@ data:
     \ <= i < Ra[u].\"\"\"\n        self.Ea = Ea\n        \"\"\"Ea[i] lists the edge\
     \ ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
     \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n\n    def __len__(G) -> int:\n        return G.N\n\n    def __getitem__(G, u):\n\
-    \        l,r = G.La[u],G.Ra[u]\n        return G.Va[l:r]\n    \n    def range(G,\
-    \ u):\n        return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        if s == None:\n            return\
-    \ G.floyd_warshall()\n        else:\n            return G.bfs(s, g)\n\n    def\
+    \n\n    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
+    \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
+    \ None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\n    def\
     \ shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inft: return\
-    \ None\n        Ua, back, vertices = G.Ua, G.back, fill_u32(1, v := t)\n     \
-    \   while v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n\
-    \    \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
+    \ None\n        Ua, back, vertices = G.Ua, G.back, u32a(1, v := t)\n        while\
+    \ v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n \
+    \   \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
     \ t) >= inft: return None\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back,\
-    \ fill_u32(0), t\n        while v != s:\n            edges.append(Ea[i := back[v]])\n\
+    \ u32a(0), t\n        while v != s:\n            edges.append(Ea[i := back[v]])\n\
     \            v = Ua[i]\n        return edges[::-1]\n    \n    @overload\n    def\
     \ bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G,\
     \ s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int = 0, g: int =\
-    \ None):\n        N, S, Va = G.N, G.starts(s), G.Va\n        G.back = back = fill_i32(N,\
-    \ -1)\n        G.D = D = fill_u64(N, inft)\n        for u in S: D[u] = 0\n   \
-    \     que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
+    \ None):\n        S, Va, back, D = G.starts(s), G.Va, i32a(N := G.N, -1), u64a(N,\
+    \ inft)\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n       \
+    \ que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
     \            if u == g: return nd-1\n            for i in G.range(u):\n      \
     \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
     \                    que.append(v)\n        return D if g is None else inft \n\
-    \n    def floyd_warshall(G) -> list[list[int]]:\n        N, M = G.N, G.M\n   \
-    \     Ua, Va = G.Ua, G.Va\n        D = [[inft]*N for _ in range(N)]\n\n      \
-    \  for u in range(N):\n            D[u][u] = 0\n\n        for i in range(M):\n\
-    \            u,v = Ua[i], Va[i]\n            D[u][v] = 1\n        \n        for\
-    \ k, Dk in enumerate(D):\n            for Di in D:\n                if Di[k] ==\
-    \ inft: continue\n                for j in range(N):\n                    if Dk[j]\
-    \ == inft: continue\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n   \
-    \     return D\n    \n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
+    \n    def floyd_warshall(G) -> list[list[int]]:\n        M, Ua, Va, N = G.M, G.Ua,\
+    \ G.Va, G.N\n        G.D = D = [[inft]*N for _ in range(N)]\n        for u in\
+    \ range(N): D[u][u] = 0\n        for i in range(M): D[Ua[i]][Va[i]] = 1\n    \
+    \    for k, Dk in enumerate(D):\n            for Di in D:\n                if\
+    \ Di[k] == inft: continue\n                for j in range(N):\n              \
+    \      if Dk[j] == inft: continue\n                    Di[j] = min(Di[j], Di[k]+Dk[j])\n\
+    \        return D\n\n    def find_cycle_indices(G, s: Union[int, None] = None):\n\
+    \        M, Ea, Ua, Va, vis, back = G.M, G.Ea, G. Ua, G.Va, u8a(N := G.N), i32a(N,\
+    \ -1)\n        G.vis, G.back, stack = vis, back, elist(N)\n        for s in G.starts(s):\n\
+    \            if vis[s]: continue\n            stack.append(s)\n            while\
+    \ stack:\n                if vis[u := stack.pop()] == 0:\n                   \
+    \ stack.append(u)\n                    vis[u] = 1\n                    for i in\
+    \ G.range(u):\n                        if vis[v := Va[i]] == 1:\n            \
+    \                if u != v and ((j := back[u]) == -1 or abs(Ea[j]-Ea[i]) == M):\
+    \ continue\n                            I = u32a(1,i)\n                      \
+    \      while v != u:\n                                I.append(i := back[u])\n\
+    \                                u = Ua[i]\n                            return\
+    \ I[::-1]\n                        elif vis[v] == 0:\n                       \
+    \     back[v] = i\n                            stack.append(v)\n             \
+    \   else:\n                    vis[u] = 2\n    \n    def find_cycle(G, s: Union[int,\
+    \ None] = None):\n        if I := G.find_cycle_indices(s): return [G.Ua[i] for\
+    \ i in I]\n    \n    def find_cycle_edge_ids(G, s: Union[int, None] = None):\n\
+    \        if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]\n\n    def\
+    \ find_minimal_cycle(G, s=0):\n        D, par, que, Va = u64a(N := G.N, inft),\
+    \ i32a(N, -1), deque([s]), G.Va\n        D[s] = 0\n        while que:\n      \
+    \      for i in G.range(u := que.popleft()):\n                if (v := Va[i])\
+    \ == s:  # Found cycle back to start\n                    cycle = [u]\n      \
+    \              while u != s: cycle.append(u := par[u])\n                    return\
+    \ cycle\n                if D[v] < inft: continue\n                D[v], par[v]\
+    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
     \ = None, include_roots = False):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, Va = G.N, G.Va\n\
-    \        vis = [False]*N\n        stack: list[int] = elist(N)\n        order:\
-    \ list[int] = elist(N)\n\n        for s in G.starts(s):\n            if vis[s]:\
-    \ continue\n            if include_roots:\n                order.append(-s-1)\n\
+    \ U[i] -> V[i] edges in order of top down discovery'''\n        Va, vis, stack,\
+    \ order = G.Va, [False]*(N := G.N), elist(N), elist(N)\n        for s in G.starts(s):\n\
+    \            if vis[s]: continue\n            if include_roots: order.append(-s-1)\n\
     \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                u = stack.pop()\n                for i in G.range(u):\n     \
-    \               v = Va[i]\n                    if vis[v]: continue\n         \
-    \           vis[v] = True\n                    order.append(i)\n             \
-    \       stack.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list]\
-    \ = None, /,\n            connect_roots = False, backtrack = False, max_depth\
-    \ = None,\n            enter_fn: Callable[[int],None] = None,\n            leave_fn:\
-    \ Callable[[int],None] = None,\n            max_depth_fn: Callable[[int],None]\
-    \ = None,\n            down_fn: Callable[[int,int],None] = None, \n          \
-    \  back_fn: Callable[[int,int],None] = None,\n            up_fn: Callable[[int,int],None]\
-    \ = None):\n        Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]\n\n        state\
-    \ = [0]*G.N\n        stack = elist(G.N if max_depth is None else max_depth+1)\n\
-    \        for s in G.starts(s):\n            if state[s]: continue\n          \
-    \  stack.append(s)\n            state[s] = 1\n            if connect_roots and\
-    \ down_fn: down_fn(-1,s)\n            while stack:\n                u = stack[-1]\n\
-    \                if state[u] == 1:\n                    state[u] = 2\n       \
-    \             if enter_fn: enter_fn(u)\n                    if max_depth is not\
-    \ None and len(stack) > max_depth:\n                        I[u] = Ra[u]\n   \
-    \                     if max_depth_fn: max_depth_fn(u)\n\n                if (i\
-    \ := I[u]) < Ra[u]:\n                    I[u] += 1\n                    if state[v\
-    \ := Va[i]]:\n                        if back_fn: back_fn(u,v)\n             \
-    \       else:\n                        stack.append(v)\n                     \
-    \   state[v] = 1\n                        if down_fn: down_fn(u,v)\n         \
-    \       else:\n                    stack.pop()\n                    if backtrack:\n\
-    \                        state[u] = 0\n                        I[u] = La[u]\n\
-    \                    if leave_fn: leave_fn(u)\n                    if up_fn: up_fn(u,\
-    \ stack[-1])\n            if connect_roots and up_fn: up_fn(s, -1)\n\n    \n \
-    \   def dfs_enter_leave(G, s: Union[int,list[int],None] = None):\n        '''Returns\
-    \ lists U and V representing U[i] -> V[i] edges in order of top down discovery'''\n\
-    \        N, La, Ra, Va = G.N, G.La, G.Ra, G.Va\n        I = La[:]\n        stack:\
-    \ list[int] = elist(N)\n        order: list[int] = elist(2*N)\n        events:\
-    \ list[DFSEvent] = elist(2*N)\n        G.par = par = [-1]*N\n        ENTER, LEAVE\
-    \ = int(DFSEvent.ENTER), int(DFSEvent.LEAVE)\n\n        for s in G.starts(s):\n\
-    \            if par[s] >= 0: continue\n            par[s] = s\n            order.append(s)\n\
-    \            events.append(ENTER)\n            stack.append(s)\n            while\
-    \ stack:\n                u = stack[-1]\n                if (i := I[u]) < Ra[u]:\n\
-    \                    I[u] += 1\n                    if par[v := Va[i]] >= 0: continue\n\
-    \                    par[v] = u\n                    order.append(v)\n       \
-    \             events.append(ENTER)\n                    stack.append(v)\n    \
-    \            else:\n                    stack.pop()\n                    order.append(u)\n\
-    \                    events.append(LEAVE)\n            par[s] = s\n        return\
-    \ events, order\n    \n    def is_bipartite(G):\n        N, Va = G.N, G.Va\n \
-    \       que = deque()\n        color = [-1]*N\n                \n        for s\
-    \ in range(N):\n            if color[s] >= 0:\n                continue\n    \
-    \        color[s] = 1\n            que.append(s)\n            while que:\n   \
-    \             u = que.popleft()\n                for i in G.range(u):\n      \
-    \              if color[v := Va[i]] == -1:\n                        color[v] =\
-    \ 1 - color[u]\n                        que.append(v)\n                    elif\
-    \ color[v] == color[u]:\n                        return False\n        return\
-    \ True\n    \n    def starts(G, s: Union[int,list[int],None]) -> list[int]:\n\
-    \        if isinstance(s, int):\n            return [s]\n        elif s is None:\n\
-    \            return [*range(G.N)]\n        else:\n            return s if isinstance(s,\
-    \ list) else list(s)\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
-    \ shift: int = -1):\n        def parse(ts: TokenStream):\n            U, V = fill_u32(M),\
-    \ fill_u32(M)\n            stream = ts.stream\n            for i in range(M):\n\
-    \                u, v = map(int, stream.readline().split())\n                U[i],\
+    \                for i in G.range(stack.pop()):\n                    if vis[v\
+    \ := Va[i]]: continue\n                    vis[v] = True\n                   \
+    \ order.append(i), stack.append(v)\n        return order\n\n    def dfs(G, s:\
+    \ Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth\
+    \ = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
+    \ = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None]\
+    \ = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None]\
+    \ = None, up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va,\
+    \ G.La, G.Ra, G.La[:]\n        state, stack = u8a(G.N), elist(G.N if max_depth\
+    \ is None else max_depth+1)\n        for s in G.starts(s):\n            if state[s]:\
+    \ continue\n            stack.append(s)\n            if connect_roots and down_fn:\
+    \ down_fn(-1,s)\n            while stack:\n                if state[u := stack[-1]]\
+    \ == 0:\n                    state[u] = 1\n                    if enter_fn: enter_fn(u)\n\
+    \                    if max_depth is not None and len(stack) > max_depth:\n  \
+    \                      I[u] = Ra[u]\n                        if max_depth_fn:\
+    \ max_depth_fn(u)\n                if (i := I[u]) < Ra[u]:\n                 \
+    \   I[u] += 1\n                    if (s := state[v := Va[i]]) == 0:\n       \
+    \                 stack.append(v)\n                        if down_fn: down_fn(u,v)\n\
+    \                    elif back_fn and s == 1: back_fn(u,v)\n                 \
+    \   elif cross_fn and s == 2: cross_fn(u,v)\n                else:\n         \
+    \           stack.pop()\n                    state[u] = 2\n                  \
+    \  if backtrack: state[u], I[u] = 0, La[u]\n                    if leave_fn: leave_fn(u)\n\
+    \                    if up_fn and stack: up_fn(u, stack[-1])\n            if connect_roots\
+    \ and up_fn: up_fn(s, -1)\n    \n    def dfs_enter_leave(G, s: Union[int,list[int],None]\
+    \ = None) -> tuple[list[int],list[int]]:\n        '''Returns lists U and V representing\
+    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, Ra, Va, I =\
+    \ G.N, G.Ra, G.Va, G.La[:]\n        stack, order, events, par = elist(N), elist(2*N),\
+    \ elist(2*N), i32a(N, -1)\n        G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER),\
+    \ int(DFSEvent.LEAVE)\n        for s in G.starts(s):\n            if par[s] >=\
+    \ 0: continue\n            par[s] = s\n            order.append(s), events.append(ENTER),\
+    \ stack.append(s)\n            while stack:\n                if (i := I[u := stack[-1]])\
+    \ < Ra[u]:\n                    I[u] += 1\n                    if par[v := Va[i]]\
+    \ >= 0: continue\n                    par[v] = u\n                    order.append(v),\
+    \ events.append(ENTER), stack.append(v)\n                else:\n             \
+    \       order.append(u), events.append(LEAVE), stack.pop()\n        return events,\
+    \ order\n    \n    def is_bipartite(G):\n        Va, que, color = G.Va, deque(),\
+    \ u8a(N := G.N)                \n        for s in range(N):\n            if color[s]:\
+    \ continue\n            color[s] = 1\n            que.append(s)\n            while\
+    \ que:\n                for i in G.range(u := que.popleft()):\n              \
+    \      if color[v := Va[i]] == 0:\n                        color[v] = color[u]\
+    \ ^ 2\n                        que.append(v)\n                    elif color[v]\
+    \ == color[u]: return False\n        return True\n    \n    def starts(G, s: Union[int,list[int],None])\
+    \ -> list[int]:\n        if isinstance(s, int): return [s]\n        elif s is\
+    \ None: return range(G.N)\n        elif isinstance(s, list): return s\n      \
+    \  else: return list(s)\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \ shift: int = -1):\n        def parse(ts: TokenStream):\n            U, V = u32a(M),\
+    \ u32a(M)\n            stream = ts.stream\n            for i in range(M):\n  \
+    \              u, v = map(int, stream.readline().split())\n                U[i],\
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom array import array\n\ndef fill_i32(N: int, elm: int\
-    \ = 0):\n    return array('i', (elm,)) * N\n\ndef fill_u32(N: int, elm: int =\
-    \ 0):\n    return array('I', (elm,)) * N\n\ndef fill_i64(N: int, elm: int = 0):\n\
-    \    return array('q', (elm,)) * N\n\ndef fill_u64(N: int, elm: int = 0):\n  \
-    \  return array('Q', (elm,)) * N\n\ninft: int\n\ninft = sys.maxsize\n\nclass Graph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M2 = (M :=\
-    \ len(U)) << 1\n        deg, Ea, Ua, Va = fill_u32(N), fill_u32(M2), fill_u32(M2),\
-    \ fill_u32(M2)\n        for u in U: deg[u] += 1\n        for v in V: deg[v] +=\
-    \ 1\n        La, i = fill_u32(N), 0\n        for u in range(N): La[u], i = i,\
-    \ i + deg[u]\n        Ra = La[:]\n        for e in range(M):\n            i, j\
-    \ = Ra[u := U[e]], Ra[v := V[e]]\n            Ua[i], Va[i], Ea[i] = u, v, e\n\
-    \            Ra[u] += 1\n            Ua[j], Va[j], Ea[j] = v, u, M+e\n       \
-    \     Ra[v] += 1\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\
-    \n"
+    \ = newlist_hint\n    \nfrom array import array\n\ndef i8a(N: int, elm: int =\
+    \ 0): return array('b', (elm,))*N       # signed char\ndef u8a(N: int, elm: int\
+    \ = 0): return array('B', (elm,))*N       # unsigned char\ndef i16a(N: int, elm:\
+    \ int = 0): return array('h', (elm,))*N      # signed short\ndef u16a(N: int,\
+    \ elm: int = 0): return array('H', (elm,))*N      # unsigned short\ndef i32a(N:\
+    \ int, elm: int = 0): return array('i', (elm,))*N      # signed int\ndef u32a(N:\
+    \ int, elm: int = 0): return array('I', (elm,))*N      # unsigned int\ndef i64a(N:\
+    \ int, elm: int = 0): return array('q', (elm,))*N      # signed long long\ndef\
+    \ u64a(N: int, elm: int = 0): return array('Q', (elm,))*N      # unsigned long\
+    \ long\ndef f32a(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
+    def f64a(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
+    inft: int\n\ninft = sys.maxsize\n\nclass Graph(GraphBase):\n    def __init__(G,\
+    \ N: int, U: list[int], V: list[int]):\n        M2 = (M := len(U)) << 1\n    \
+    \    deg, Ea, Ua, Va = u32a(N), u32a(M2), u32a(M2), u32a(M2)\n        for u in\
+    \ U: deg[u] += 1\n        for v in V: deg[v] += 1\n        La, i = u32a(N), 0\n\
+    \        for u in range(N): La[u], i = i, i + deg[u]\n        Ra = La[:]\n   \
+    \     for e in range(M):\n            i, j = Ra[u := U[e]], Ra[v := V[e]]\n  \
+    \          Ua[i], Va[i], Ea[i], Ra[u] = u, v, e, i+1\n            Ua[j], Va[j],\
+    \ Ea[j], Ra[v] = v, u, M+e, j+1\n        super().__init__(N, M, U, V, deg, La,\
+    \ Ra, Ua, Va, Ea)\n\n"
   code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.alg.graph.fast.graph_base_cls\
     \ import GraphBase\n\nclass Graph(GraphBase):\n    def __init__(G, N: int, U:\
     \ list[int], V: list[int]):\n        M2 = (M := len(U)) << 1\n        deg, Ea,\
-    \ Ua, Va = fill_u32(N), fill_u32(M2), fill_u32(M2), fill_u32(M2)\n        for\
-    \ u in U: deg[u] += 1\n        for v in V: deg[v] += 1\n        La, i = fill_u32(N),\
-    \ 0\n        for u in range(N): La[u], i = i, i + deg[u]\n        Ra = La[:]\n\
-    \        for e in range(M):\n            i, j = Ra[u := U[e]], Ra[v := V[e]]\n\
-    \            Ua[i], Va[i], Ea[i] = u, v, e\n            Ra[u] += 1\n         \
-    \   Ua[j], Va[j], Ea[j] = v, u, M+e\n            Ra[v] += 1\n        super().__init__(N,\
-    \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n\nfrom cp_library.ds.fill_fn import fill_u32\n"
+    \ Ua, Va = u32a(N), u32a(M2), u32a(M2), u32a(M2)\n        for u in U: deg[u] +=\
+    \ 1\n        for v in V: deg[v] += 1\n        La, i = u32a(N), 0\n        for\
+    \ u in range(N): La[u], i = i, i + deg[u]\n        Ra = La[:]\n        for e in\
+    \ range(M):\n            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ua[i],\
+    \ Va[i], Ea[i], Ra[u] = u, v, e, i+1\n            Ua[j], Va[j], Ea[j], Ra[v] =\
+    \ v, u, M+e, j+1\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\
+    \nfrom cp_library.ds.fill_fn import u32a\n"
   dependsOn:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/fill_fn.py
@@ -279,12 +301,13 @@ data:
   path: cp_library/alg/graph/fast/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
 documentation_of: cp_library/alg/graph/fast/graph_cls.py
 layout: document
 redirect_from:

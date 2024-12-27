@@ -85,11 +85,20 @@ data:
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/cycle_detection.test.py
+    title: test/library-checker/graph/cycle_detection.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/cycle_detection_undirected.test.py
+    title: test/library-checker/graph/cycle_detection_undirected.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/scc.test.py
+    title: test/library-checker/graph/scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
@@ -104,15 +113,46 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from array import array\n\ndef fill_i32(N: int, elm: int = 0):\n    return array('i',\
-    \ (elm,)) * N\n\ndef fill_u32(N: int, elm: int = 0):\n    return array('I', (elm,))\
-    \ * N\n\ndef fill_i64(N: int, elm: int = 0):\n    return array('q', (elm,)) *\
-    \ N\n\ndef fill_u64(N: int, elm: int = 0):\n    return array('Q', (elm,)) * N\n"
-  code: "import cp_library.ds.__header__\nfrom array import array\n\ndef fill_i32(N:\
-    \ int, elm: int = 0):\n    return array('i', (elm,)) * N\n\ndef fill_u32(N: int,\
-    \ elm: int = 0):\n    return array('I', (elm,)) * N\n\ndef fill_i64(N: int, elm:\
-    \ int = 0):\n    return array('q', (elm,)) * N\n\ndef fill_u64(N: int, elm: int\
-    \ = 0):\n    return array('Q', (elm,)) * N"
+    from array import array\n\ndef i8a(N: int, elm: int = 0): return array('b', (elm,))*N\
+    \       # signed char\ndef u8a(N: int, elm: int = 0): return array('B', (elm,))*N\
+    \       # unsigned char\ndef i16a(N: int, elm: int = 0): return array('h', (elm,))*N\
+    \      # signed short\ndef u16a(N: int, elm: int = 0): return array('H', (elm,))*N\
+    \      # unsigned short\ndef i32a(N: int, elm: int = 0): return array('i', (elm,))*N\
+    \      # signed int\ndef u32a(N: int, elm: int = 0): return array('I', (elm,))*N\
+    \      # unsigned int\ndef i64a(N: int, elm: int = 0): return array('q', (elm,))*N\
+    \      # signed long long\ndef u64a(N: int, elm: int = 0): return array('Q', (elm,))*N\
+    \      # unsigned long long\ndef f32a(N: int, elm: float = 0.0): return array('f',\
+    \ (elm,))*N  # float\ndef f64a(N: int, elm: float = 0.0): return array('d', (elm,))*N\
+    \  # double\n"
+  code: 'import cp_library.ds.__header__
+
+    from array import array
+
+
+    def i8a(N: int, elm: int = 0): return array(''b'', (elm,))*N       # signed char
+
+    def u8a(N: int, elm: int = 0): return array(''B'', (elm,))*N       # unsigned
+    char
+
+    def i16a(N: int, elm: int = 0): return array(''h'', (elm,))*N      # signed short
+
+    def u16a(N: int, elm: int = 0): return array(''H'', (elm,))*N      # unsigned
+    short
+
+    def i32a(N: int, elm: int = 0): return array(''i'', (elm,))*N      # signed int
+
+    def u32a(N: int, elm: int = 0): return array(''I'', (elm,))*N      # unsigned
+    int
+
+    def i64a(N: int, elm: int = 0): return array(''q'', (elm,))*N      # signed long
+    long
+
+    def u64a(N: int, elm: int = 0): return array(''Q'', (elm,))*N      # unsigned
+    long long
+
+    def f32a(N: int, elm: float = 0.0): return array(''f'', (elm,))*N  # float
+
+    def f64a(N: int, elm: float = 0.0): return array(''d'', (elm,))*N  # double'
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/fill_fn.py
@@ -132,7 +172,7 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-27 10:06:11+09:00'
+  timestamp: '2024-12-27 22:35:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
@@ -143,7 +183,10 @@ data:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
