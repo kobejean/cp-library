@@ -31,7 +31,7 @@ data:
   path: cp_library/alg/dp/chmin_fn.py
   requiredBy:
   - cp_library/alg/graph/dijkstra_fn.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

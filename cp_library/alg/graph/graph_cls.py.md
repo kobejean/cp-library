@@ -368,7 +368,7 @@ data:
   path: cp_library/alg/graph/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_cls.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

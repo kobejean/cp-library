@@ -208,6 +208,9 @@ data:
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/chromatic_number.test.py
+    title: test/library-checker/graph/chromatic_number.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - icon: ':heavy_check_mark:'
@@ -354,7 +357,7 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
@@ -419,6 +422,7 @@ data:
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/chromatic_number.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py

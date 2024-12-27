@@ -165,7 +165,7 @@ data:
   path: cp_library/math/fps/fps_tayler_shift_fn.py
   requiredBy:
   - cp_library/math/table/stirling1_n_fn.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

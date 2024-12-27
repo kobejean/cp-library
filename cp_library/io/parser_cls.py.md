@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/mo_cls.py
     title: cp_library/alg/dp/mo_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/bit_graph_cls.py
+    title: cp_library/alg/graph/bit_graph_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/dag_cls.py
     title: cp_library/alg/graph/dag_cls.py
@@ -385,6 +388,9 @@ data:
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/chromatic_number.test.py
+    title: test/library-checker/graph/chromatic_number.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - icon: ':heavy_check_mark:'
@@ -580,6 +586,7 @@ data:
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/graph/graph_proto.py
+  - cp_library/alg/graph/bit_graph_cls.py
   - cp_library/alg/graph/dag_cls.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
@@ -618,7 +625,7 @@ data:
   - cp_library/io/read_fn.py
   - cp_library/io/legacy/read_fn.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
@@ -683,6 +690,7 @@ data:
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/chromatic_number.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py

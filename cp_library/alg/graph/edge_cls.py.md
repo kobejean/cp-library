@@ -8,6 +8,9 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/bit_graph_cls.py
+    title: cp_library/alg/graph/bit_graph_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/dag_cls.py
     title: cp_library/alg/graph/dag_cls.py
@@ -121,6 +124,9 @@ data:
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/chromatic_number.test.py
+    title: test/library-checker/graph/chromatic_number.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_graph_weighted.test.py
     title: test/library-checker/graph/shortest_path_graph_weighted.test.py
   - icon: ':heavy_check_mark:'
@@ -230,6 +236,7 @@ data:
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/graph_cls.py
+  - cp_library/alg/graph/bit_graph_cls.py
   - cp_library/alg/graph/dag_cls.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
@@ -238,7 +245,7 @@ data:
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/digraph_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
@@ -254,6 +261,7 @@ data:
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/graph/chromatic_number.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   - test/aoj/grl/grl_1_c_floyd_warshall.test.py

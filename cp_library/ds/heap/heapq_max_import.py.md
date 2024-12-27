@@ -198,7 +198,7 @@ data:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_priority_queue_cls.py
   - cp_library/ds/heap/max_heap_cls.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

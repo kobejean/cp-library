@@ -132,7 +132,7 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py

@@ -49,6 +49,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/bfs_fn.py
       title: cp_library/alg/graph/bfs_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/bit_graph_cls.py
+      title: cp_library/alg/graph/bit_graph_cls.py
     - icon: ':warning:'
       path: cp_library/alg/graph/dag_cls.py
       title: cp_library/alg/graph/dag_cls.py
@@ -264,6 +267,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_weighted_cls.py
       title: cp_library/alg/tree/fast/tree_weighted_cls.py
+  - name: cp_library/bit
+    pages:
+    - icon: ':warning:'
+      path: cp_library/bit/bit_reverse_fn.py
+      title: cp_library/bit/bit_reverse_fn.py
+    - icon: ':warning:'
+      path: cp_library/bit/clz_fn.py
+      title: cp_library/bit/clz_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/bit/ctz_fn.py
+      title: cp_library/bit/ctz_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/bit/popcnt_fn.py
+      title: cp_library/bit/popcnt_fn.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
@@ -907,6 +924,9 @@ data:
       title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - name: test/library-checker/graph
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/chromatic_number.test.py
+      title: test/library-checker/graph/chromatic_number.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
       title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py

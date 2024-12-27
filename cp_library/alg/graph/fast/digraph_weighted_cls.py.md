@@ -430,7 +430,7 @@ data:
   path: cp_library/alg/graph/fast/digraph_weighted_cls.py
   requiredBy:
   - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/shortest_path_fast_graph.test.py

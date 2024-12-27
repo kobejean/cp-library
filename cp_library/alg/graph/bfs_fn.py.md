@@ -41,7 +41,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/bfs_fn.py
   requiredBy: []
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py

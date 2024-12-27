@@ -193,7 +193,7 @@ data:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-26 11:51:13+09:00'
+  timestamp: '2024-12-27 10:06:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc375_g_find_bridges.test.py
