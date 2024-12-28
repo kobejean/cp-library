@@ -381,7 +381,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc218_f_shortest_path.test.py
   requiredBy: []
-  timestamp: '2024-12-27 22:35:21+09:00'
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc218_f_shortest_path.test.py

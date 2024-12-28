@@ -29,6 +29,9 @@ data:
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/reserve_fn.py
+    title: cp_library/ds/reserve_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -145,34 +148,35 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nfrom\
-    \ typing import Callable, Sequence, Union, overload\n\nfrom enum import auto,\
-    \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
-    \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
-    \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
-    \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
-    \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
-    \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
-    \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
-    \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
-    \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ array import array\nfrom typing import Callable, Sequence, Union, overload\n\
+    \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
+    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
-    \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
+    \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
-    \       \"\"\"The number of vertices.\"\"\"\n        self.M = M\n        \"\"\"\
-    The number of edges.\"\"\"\n        self.U = U\n        \"\"\"A list of source\
-    \ vertices in the original edge list.\"\"\"\n        self.V = V\n        \"\"\"\
-    A list of destination vertices in the original edge list.\"\"\"\n        self.deg\
-    \ = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n        self.La\
-    \ = La\n        \"\"\"La[u] stores the start index of the list of adjacent vertices\
-    \ from u.\"\"\"\n        self.Ra = Ra\n        \"\"\"Ra[u] stores the stop index\
-    \ of the list of adjacent vertices from u.\"\"\"\n        self.Ua = Ua\n     \
-    \   \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\"\"\n \
-    \       self.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for La[u]\
-    \ <= i < Ra[u].\"\"\"\n        self.Ea = Ea\n        \"\"\"Ea[i] lists the edge\
-    \ ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
-    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n\n    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        G.N = N\n    \
+    \    \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The number\
+    \ of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices in\
+    \ the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
+    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
+    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
+    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
+    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
+    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
+    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
+    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
+    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
+    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
+    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n\
+    \        G.order: list[int] = None\n        G.vis: array = None\n\n    def __len__(G)\
+    \ -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -222,17 +226,15 @@ data:
     \ == s:  # Found cycle back to start\n                    cycle = [u]\n      \
     \              while u != s: cycle.append(u := par[u])\n                    return\
     \ cycle\n                if D[v] < inft: continue\n                D[v], par[v]\
-    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
-    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        Va, vis, stack,\
-    \ order = G.Va, [False]*(N := G.N), elist(N), elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if include_roots: order.append(-s-1)\n\
-    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                for i in G.range(stack.pop()):\n                    if vis[v\
-    \ := Va[i]]: continue\n                    vis[v] = True\n                   \
-    \ order.append(i), stack.append(v)\n        return order\n\n    def dfs(G, s:\
-    \ Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth\
-    \ = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
+    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_topdown(G, s: int):\n\
+    \        '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order\
+    \ of top down discovery'''\n        G.vis, G.stack, G.order = vis, stack, order\
+    \ = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)\n        vis[s] =\
+    \ 1\n        stack.append(s)\n        while stack:\n            for i in G.range(stack.pop()):\n\
+    \                if vis[v := G.Va[i]]: continue\n                vis[v] = 1\n\
+    \                order.append(i), stack.append(v)\n        return order\n\n  \
+    \  def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack =\
+    \ False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
     \ = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None]\
     \ = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None]\
     \ = None, up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va,\
@@ -277,57 +279,59 @@ data:
     \ u32a(M)\n            stream = ts.stream\n            for i in range(M):\n  \
     \              u, v = map(int, stream.readline().split())\n                U[i],\
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
-    \    \nfrom array import array\n\ndef i8a(N: int, elm: int = 0): return array('b',\
-    \ (elm,))*N       # signed char\ndef u8a(N: int, elm: int = 0): return array('B',\
-    \ (elm,))*N       # unsigned char\ndef i16a(N: int, elm: int = 0): return array('h',\
-    \ (elm,))*N      # signed short\ndef u16a(N: int, elm: int = 0): return array('H',\
-    \ (elm,))*N      # unsigned short\ndef i32a(N: int, elm: int = 0): return array('i',\
-    \ (elm,))*N      # signed int\ndef u32a(N: int, elm: int = 0): return array('I',\
-    \ (elm,))*N      # unsigned int\ndef i64a(N: int, elm: int = 0): return array('q',\
-    \ (elm,))*N      # signed long long\ndef u64a(N: int, elm: int = 0): return array('Q',\
-    \ (elm,))*N      # unsigned long long\ndef f32a(N: int, elm: float = 0.0): return\
-    \ array('f', (elm,))*N  # float\ndef f64a(N: int, elm: float = 0.0): return array('d',\
-    \ (elm,))*N  # double\n\ninft: int\n\ninft = sys.maxsize\n\nclass GridGraphBase(GraphBase):\n\
-    \n    def __init__(G, H, W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n           \
-    \ dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n        super().__init__(H*W, M,\
-    \ U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W = W\n        G.H = H\n        G.S\
-    \ = S\n        G.dirs = dirs\n\n    def vertex(G, key: tuple[int,int] | int):\n\
-    \        if isinstance(key, tuple):\n            i,j = key\n            return\
-    \ i*G.W+j\n        else:\n            return key\n\n    def is_valid(G, i, j,\
-    \ v):\n        return 0 <= i < G.H and 0 <= j < G.W\n    \n    @classmethod\n\
-    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
-    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
-    \          return cls(H, W, S, *args)\n        return parse\n\nclass GridGraphWalledBase(GridGraphBase):\n\
-    \n    def __init__(G, H, W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n           \
-    \ dirs: list = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n        super().__init__(H,\
-    \ W, M, S, U, V, deg, La, Ra, Ua, Va, Ea, dirs)\n        G.wall = wall\n\n   \
-    \ def is_valid(G, i, j, v):\n        return super().is_valid(i, j, v) and G.S[v]\
-    \ != G.wall\n    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n\
-    \        def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
+    \    \n\n\ndef chmax(dp, i, v):\n    if ch:=dp[i]<v:dp[i]=v\n    return ch\n\n\
+    def reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import\
+    \ resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
+    \        pass\nreserve = resizelist_hint\n\ndef i8a(N: int, elm: int = 0): return\
+    \ array('b', (elm,))*N       # signed char\ndef u8a(N: int, elm: int = 0): return\
+    \ array('B', (elm,))*N       # unsigned char\ndef i16a(N: int, elm: int = 0):\
+    \ return array('h', (elm,))*N      # signed short\ndef u16a(N: int, elm: int =\
+    \ 0): return array('H', (elm,))*N      # unsigned short\ndef i32a(N: int, elm:\
+    \ int = 0): return array('i', (elm,))*N      # signed int\ndef u32a(N: int, elm:\
+    \ int = 0): return array('I', (elm,))*N      # unsigned int\ndef i64a(N: int,\
+    \ elm: int = 0): return array('q', (elm,))*N      # signed long long\ndef u64a(N:\
+    \ int, elm: int = 0): return array('Q', (elm,))*N      # unsigned long long\n\
+    def f32a(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef\
+    \ f64a(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\ninft:\
+    \ int\n\ninft = sys.maxsize\n\nclass GridGraphBase(GraphBase):\n\n    def __init__(G,\
+    \ H, W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
+    \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W\
+    \ = W\n        G.H = H\n        G.S = S\n        G.dirs = dirs\n\n    def vertex(G,\
+    \ key: tuple[int,int] | int):\n        if isinstance(key, tuple):\n          \
+    \  i,j = key\n            return i*G.W+j\n        else:\n            return key\n\
+    \n    def is_valid(G, i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W\n\
+    \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
+    \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
     \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
-    \nclass GridGraph(GridGraphWalledBase):\n\n    def __init__(G, H, W, S=[], dirs\
-    \ = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n        N = H*W\n        Mest =\
-    \ N*len(dirs)\n        deg, La, Ra, Ua, Va = u32a(N), u32a(N), u32a(N), elist(Mest),\
-    \ elist(Mest)\n        super().__init__(\n            H, W, 0, S, Ua, Va, deg,\
-    \ La, Ra, Ua, Va, None, dirs, wall\n        )\n\n        for i in range(H):\n\
-    \            for j in range(W):\n                La[u := i*W+j] = len(Ua)\n  \
-    \              if G.is_valid(i, j, u):\n                    for di,dj in dirs:\n\
-    \                        if G.is_valid(ni:=i+di, nj:=j+dj, v:=ni*W+nj):\n    \
-    \                        deg[u] += 1\n                            Ua.append(u)\n\
-    \                            Va.append(v)\n                Ra[u] = len(Ua)\n\n\
-    \        G.M = len(Ua)\n        G.Ea = list(range(G.M))\n\n\n\ndef chmin(dp, i,\
-    \ v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\ndef chmax(dp, i, v):\n   \
-    \ if ch:=dp[i]<v:dp[i]=v\n    return ch\n\nfrom typing import Type, TypeVar, Union,\
-    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
-    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
-    :\n    print(solve())\n"
+    \nclass GridGraphWalledBase(GridGraphBase):\n\n    def __init__(G, H, W, M, S,\
+    \ U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)],\
+    \ wall = '#'):\n        super().__init__(H, W, M, S, U, V, deg, La, Ra, Ua, Va,\
+    \ Ea, dirs)\n        G.wall = wall\n\n    def is_valid(G, i, j, v):\n        return\
+    \ super().is_valid(i, j, v) and G.S[v] != G.wall\n    \n    @classmethod\n   \
+    \ def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
+    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
+    \          return cls(H, W, S, *args)\n        return parse\n\nclass GridGraph(GridGraphWalledBase):\n\
+    \n    def __init__(G, H, W, S=[], dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n\
+    \        N = H*W\n        Mest = N*len(dirs)\n        deg, La, Ra, Ua, Va = u32a(N),\
+    \ u32a(N), u32a(N), elist(Mest), elist(Mest)\n        super().__init__(\n    \
+    \        H, W, 0, S, Ua, Va, deg, La, Ra, Ua, Va, None, dirs, wall\n        )\n\
+    \n        for i in range(H):\n            for j in range(W):\n               \
+    \ La[u := i*W+j] = len(Ua)\n                if G.is_valid(i, j, u):\n        \
+    \            for di,dj in dirs:\n                        if G.is_valid(ni:=i+di,\
+    \ nj:=j+dj, v:=ni*W+nj):\n                            deg[u] += 1\n          \
+    \                  Ua.append(u)\n                            Va.append(v)\n  \
+    \              Ra[u] = len(Ua)\n\n        G.M = len(Ua)\n        G.Ea = list(range(G.M))\n\
+    \n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom typing\
+    \ import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read()\
+    \ -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
+    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
+    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \nif __name__ == \"__main__\":\n    print(solve())\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc301/tasks/abc301_e\n\
     \nfrom math import inf\n\n\ndef solve():\n    H, W, T = read(tuple[int, ...])\n\
     \    G = read(GridGraph[H, W])\n    s = G.S.find('S')\n    g = G.S.find('G')\n\
@@ -356,12 +360,13 @@ data:
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/ds/reserve_fn.py
   - cp_library/math/inft_cnst.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   requiredBy: []
-  timestamp: '2024-12-27 22:35:21+09:00'
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc301_e_fast_grid_graph.test.py

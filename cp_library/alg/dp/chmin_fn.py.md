@@ -44,7 +44,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/dijkstra_fn.py
   - cp_library/alg/graph/fast/digraph_cls.py
-  timestamp: '2024-12-27 22:35:21+09:00'
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py

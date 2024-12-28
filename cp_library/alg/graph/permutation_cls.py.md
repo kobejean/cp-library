@@ -5,6 +5,15 @@ data:
     path: cp_library/alg/graph/functional_graph_cls.py
     title: cp_library/alg/graph/functional_graph_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/slice_iterator_reverse_cls.py
+    title: cp_library/alg/iter/slice_iterator_reverse_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/elist_fn.py
+    title: cp_library/ds/elist_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/fill_fn.py
+    title: cp_library/ds/fill_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -26,36 +35,36 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
-    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \nfrom typing import Iterator\n\nimport typing\nfrom collections import deque\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom\
+    \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
+    \   newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -105,19 +114,37 @@ data:
     \ FunctionalGraph(list[int], Parsable):\n    def __init__(F, successors):\n  \
     \      super().__init__(successors)\n        F.N = F.M = len(F)\n\n    def find_cycle(P,\
     \ root):\n        slow = fast = root\n        while (slow := P[slow]) != (fast\
-    \ := P[P[fast]]):\n            pass\n        \n        cyc = [slow]\n        while\
-    \ P[slow] != cyc[0]:\n            slow = P[slow]\n            cyc.append(slow)\n\
-    \        return cyc\n    \n    def cycles(P):\n        vis = [False]*P.N\n   \
-    \     cycs = []\n        for v in range(P.N):\n            slow = fast = v\n \
-    \           while (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]:\n\
-    \                pass\n            if vis[fast]: continue\n            \n    \
-    \        cyc = [slow]\n            vis[slow] = True\n            while P[slow]\
-    \ != cyc[0]:\n                slow = P[slow]\n                cyc.append(slow)\n\
-    \                vis[slow] = True\n            cycs.append(cyc)\n        return\
-    \ cycs\n\n    @classmethod\n    def compile(cls, N: int, shift = -1):\n      \
-    \  return Parser.compile_repeat(cls, shift, N)\n\nclass Permutation(FunctionalGraph):\n\
-    \n    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n\
-    \            Pinv[p] = i\n        return type(P)(Pinv)\n"
+    \ := P[P[fast]]): pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow\
+    \ := P[slow])\n        return cyc\n    \n    def cycles(P) -> Iterator[list[int]]:\n\
+    \        vis, cycs, L = u8a(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
+    \            if vis[v]: continue\n            slow = fast = v\n            while\
+    \ (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n        \
+    \    if vis[fast]: continue\n            L.append(len(cycs))\n            cycs.append(slow)\n\
+    \            vis[slow := P[slow]] = 1\n            while slow != fast:\n     \
+    \           cycs.append(slow)\n                vis[slow := P[slow]] = 1\n    \
+    \    return SliceIteratorReverse(cycs, L)\n\n    @classmethod\n    def compile(cls,\
+    \ N: int, shift = -1):\n        return Parser.compile_repeat(cls, shift, N)\n\n\
+    \nfrom typing import Iterator, SupportsIndex, TypeVar\n\nT = TypeVar('T')\nclass\
+    \ SliceIteratorReverse(Iterator[T]):\n    def __init__(self, A: list[T], L: list[SupportsIndex]):\n\
+    \        self.A, self.L, self.r = A, L, len(A)\n    def __len__(self): return\
+    \ len(self.L)\n    def __next__(self):\n        L = self.L\n        if not L:\
+    \ raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n        return\
+    \ self.A[l:r]\n\nfrom array import array\n\ndef i8a(N: int, elm: int = 0): return\
+    \ array('b', (elm,))*N       # signed char\ndef u8a(N: int, elm: int = 0): return\
+    \ array('B', (elm,))*N       # unsigned char\ndef i16a(N: int, elm: int = 0):\
+    \ return array('h', (elm,))*N      # signed short\ndef u16a(N: int, elm: int =\
+    \ 0): return array('H', (elm,))*N      # unsigned short\ndef i32a(N: int, elm:\
+    \ int = 0): return array('i', (elm,))*N      # signed int\ndef u32a(N: int, elm:\
+    \ int = 0): return array('I', (elm,))*N      # unsigned int\ndef i64a(N: int,\
+    \ elm: int = 0): return array('q', (elm,))*N      # signed long long\ndef u64a(N:\
+    \ int, elm: int = 0): return array('Q', (elm,))*N      # unsigned long long\n\
+    def f32a(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef\
+    \ f64a(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef\
+    \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n\nclass Permutation(FunctionalGraph):\n\n    def inv(P):\n        Pinv\
+    \ = [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p] = i\n     \
+    \   return type(P)(Pinv)\n"
   code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.functional_graph_cls\
     \ import FunctionalGraph\n\nclass Permutation(FunctionalGraph):\n\n    def inv(P):\n\
     \        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p]\
@@ -125,11 +152,14 @@ data:
   dependsOn:
   - cp_library/alg/graph/functional_graph_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/alg/iter/slice_iterator_reverse_cls.py
+  - cp_library/ds/fill_fn.py
+  - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/permutation_cls.py
   requiredBy: []
-  timestamp: '2024-12-27 22:35:21+09:00'
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

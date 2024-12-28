@@ -48,6 +48,9 @@ data:
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/functional_graph_cls.py
+    title: cp_library/alg/graph/functional_graph_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
   - icon: ':heavy_check_mark:'
@@ -77,6 +80,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/partial_functional_graph_cls.py
+    title: cp_library/alg/graph/partial_functional_graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/permutation_cls.py
+    title: cp_library/alg/graph/permutation_cls.py
   - icon: ':warning:'
     path: cp_library/alg/tree/auxiliary_tree_cls.py
     title: cp_library/alg/tree/auxiliary_tree_cls.py
@@ -162,6 +171,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
     title: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc175_d_permutation.test.py
+    title: test/atcoder/abc/abc175_d_permutation.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc184_e_grid_graph.test.py
     title: test/atcoder/abc/abc184_e_grid_graph.test.py
@@ -321,14 +333,17 @@ data:
   - cp_library/alg/graph/graph_set_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/digraph_weighted_cls.py
+  - cp_library/alg/graph/functional_graph_cls.py
   - cp_library/alg/graph/grid_direction_graph_cls.py
+  - cp_library/alg/graph/permutation_cls.py
   - cp_library/alg/graph/digraph_cls.py
   - cp_library/alg/graph/lazy_grid_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/grid_graph_proto.py
+  - cp_library/alg/graph/partial_functional_graph_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
-  timestamp: '2024-12-27 22:35:21+09:00'
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
@@ -350,6 +365,7 @@ data:
   - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
   - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
+  - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
   - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   - test/atcoder/abc/abc245_f_digraph.test.py

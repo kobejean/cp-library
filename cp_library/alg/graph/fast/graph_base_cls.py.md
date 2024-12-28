@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/chmax_fn.py
+    title: cp_library/alg/dp/chmax_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -10,6 +13,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/reserve_fn.py
+    title: cp_library/ds/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -122,42 +128,43 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "from array import array\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Callable, Sequence, Union, overload\nfrom collections import\
-    \ deque\n\nimport typing\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
-    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\nfrom typing import Callable, Sequence, Union, overload\n\
+    from collections import deque\n\nimport typing\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
+    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
+    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
+    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
+    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
+    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
+    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -214,23 +221,24 @@ data:
     \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
     \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
-    \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
+    \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
-    \       \"\"\"The number of vertices.\"\"\"\n        self.M = M\n        \"\"\"\
-    The number of edges.\"\"\"\n        self.U = U\n        \"\"\"A list of source\
-    \ vertices in the original edge list.\"\"\"\n        self.V = V\n        \"\"\"\
-    A list of destination vertices in the original edge list.\"\"\"\n        self.deg\
-    \ = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n        self.La\
-    \ = La\n        \"\"\"La[u] stores the start index of the list of adjacent vertices\
-    \ from u.\"\"\"\n        self.Ra = Ra\n        \"\"\"Ra[u] stores the stop index\
-    \ of the list of adjacent vertices from u.\"\"\"\n        self.Ua = Ua\n     \
-    \   \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\"\"\n \
-    \       self.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for La[u]\
-    \ <= i < Ra[u].\"\"\"\n        self.Ea = Ea\n        \"\"\"Ea[i] lists the edge\
-    \ ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
-    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n\n    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        G.N = N\n    \
+    \    \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The number\
+    \ of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices in\
+    \ the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
+    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
+    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
+    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
+    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
+    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
+    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
+    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
+    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
+    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
+    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n\
+    \        G.order: list[int] = None\n        G.vis: array = None\n\n    def __len__(G)\
+    \ -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -280,17 +288,15 @@ data:
     \ == s:  # Found cycle back to start\n                    cycle = [u]\n      \
     \              while u != s: cycle.append(u := par[u])\n                    return\
     \ cycle\n                if D[v] < inft: continue\n                D[v], par[v]\
-    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
-    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        Va, vis, stack,\
-    \ order = G.Va, [False]*(N := G.N), elist(N), elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if include_roots: order.append(-s-1)\n\
-    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                for i in G.range(stack.pop()):\n                    if vis[v\
-    \ := Va[i]]: continue\n                    vis[v] = True\n                   \
-    \ order.append(i), stack.append(v)\n        return order\n\n    def dfs(G, s:\
-    \ Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth\
-    \ = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
+    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_topdown(G, s: int):\n\
+    \        '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order\
+    \ of top down discovery'''\n        G.vis, G.stack, G.order = vis, stack, order\
+    \ = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)\n        vis[s] =\
+    \ 1\n        stack.append(s)\n        while stack:\n            for i in G.range(stack.pop()):\n\
+    \                if vis[v := G.Va[i]]: continue\n                vis[v] = 1\n\
+    \                order.append(i), stack.append(v)\n        return order\n\n  \
+    \  def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack =\
+    \ False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
     \ = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None]\
     \ = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None]\
     \ = None, up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va,\
@@ -337,7 +343,10 @@ data:
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom array import array\n\ndef i8a(N: int, elm: int =\
+    \ = newlist_hint\n    \n\n\ndef chmax(dp, i, v):\n    if ch:=dp[i]<v:dp[i]=v\n\
+    \    return ch\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from\
+    \ __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len:\
+    \ int):\n        pass\nreserve = resizelist_hint\n\ndef i8a(N: int, elm: int =\
     \ 0): return array('b', (elm,))*N       # signed char\ndef u8a(N: int, elm: int\
     \ = 0): return array('B', (elm,))*N       # unsigned char\ndef i16a(N: int, elm:\
     \ int = 0): return array('h', (elm,))*N      # signed short\ndef u16a(N: int,\
@@ -349,26 +358,27 @@ data:
     \ long\ndef f32a(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
     def f64a(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
     inft: int\n\ninft = sys.maxsize\n"
-  code: "import cp_library.alg.graph.__header__\nfrom typing import Callable, Sequence,\
-    \ Union, overload\nfrom collections import deque\nfrom cp_library.io.parser_cls\
-    \ import Parsable, TokenStream\nfrom cp_library.alg.graph.dfs_options_cls import\
-    \ DFSEvent\n\nclass GraphBase(Sequence, Parsable):\n    def __init__(self, N:\
-    \ int, M: int, U: list[int], V: list[int], \n                 deg: list[int],\
+  code: "from array import array\nimport cp_library.alg.graph.__header__\nfrom typing\
+    \ import Callable, Sequence, Union, overload\nfrom collections import deque\n\
+    from cp_library.io.parser_cls import Parsable, TokenStream\nfrom cp_library.alg.graph.dfs_options_cls\
+    \ import DFSEvent\n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G,\
+    \ N: int, M: int, U: list[int], V: list[int], \n                 deg: list[int],\
     \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
-    \ Ea: list[int]):\n        self.N = N\n        \"\"\"The number of vertices.\"\
-    \"\"\n        self.M = M\n        \"\"\"The number of edges.\"\"\"\n        self.U\
-    \ = U\n        \"\"\"A list of source vertices in the original edge list.\"\"\"\
-    \n        self.V = V\n        \"\"\"A list of destination vertices in the original\
-    \ edge list.\"\"\"\n        self.deg = deg\n        \"\"\"deg[u] is the out degree\
-    \ of vertex u.\"\"\"\n        self.La = La\n        \"\"\"La[u] stores the start\
-    \ index of the list of adjacent vertices from u.\"\"\"\n        self.Ra = Ra\n\
-    \        \"\"\"Ra[u] stores the stop index of the list of adjacent vertices from\
-    \ u.\"\"\"\n        self.Ua = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u],\
-    \ useful for backtracking.\"\"\"\n        self.Va = Va\n        \"\"\"Va[i] lists\
-    \ adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        self.Ea = Ea\n\
-    \        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].\n\
-    \        For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M]\
-    \ -> U[e-M].\n        \"\"\"\n\n    def __len__(G) -> int: return G.N\n    def\
+    \ Ea: list[int]):\n        G.N = N\n        \"\"\"The number of vertices.\"\"\"\
+    \n        G.M = M\n        \"\"\"The number of edges.\"\"\"\n        G.U = U\n\
+    \        \"\"\"A list of source vertices in the original edge list.\"\"\"\n  \
+    \      G.V = V\n        \"\"\"A list of destination vertices in the original edge\
+    \ list.\"\"\"\n        G.deg = deg\n        \"\"\"deg[u] is the out degree of\
+    \ vertex u.\"\"\"\n        G.La = La\n        \"\"\"La[u] stores the start index\
+    \ of the list of adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n        \"\
+    \"\"Ra[u] stores the stop index of the list of adjacent vertices from u.\"\"\"\
+    \n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for\
+    \ backtracking.\"\"\"\n        G.Va = Va\n        \"\"\"Va[i] lists adjacent vertices\
+    \ to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n        \"\"\"Ea[i] lists\
+    \ the edge ids that start from u for La[u] <= i < Ra[u].\n        For undirected\
+    \ graphs, edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n    \
+    \    \"\"\"\n        G.stack: list[int] = None\n        G.order: list[int] = None\n\
+    \        G.vis: array = None\n\n    def __len__(G) -> int: return G.N\n    def\
     \ __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G, u): return\
     \ range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
     \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
@@ -418,17 +428,15 @@ data:
     \ == s:  # Found cycle back to start\n                    cycle = [u]\n      \
     \              while u != s: cycle.append(u := par[u])\n                    return\
     \ cycle\n                if D[v] < inft: continue\n                D[v], par[v]\
-    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
-    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        Va, vis, stack,\
-    \ order = G.Va, [False]*(N := G.N), elist(N), elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if include_roots: order.append(-s-1)\n\
-    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                for i in G.range(stack.pop()):\n                    if vis[v\
-    \ := Va[i]]: continue\n                    vis[v] = True\n                   \
-    \ order.append(i), stack.append(v)\n        return order\n\n    def dfs(G, s:\
-    \ Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth\
-    \ = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
+    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_topdown(G, s: int):\n\
+    \        '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order\
+    \ of top down discovery'''\n        G.vis, G.stack, G.order = vis, stack, order\
+    \ = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)\n        vis[s] =\
+    \ 1\n        stack.append(s)\n        while stack:\n            for i in G.range(stack.pop()):\n\
+    \                if vis[v := G.Va[i]]: continue\n                vis[v] = 1\n\
+    \                order.append(i), stack.append(v)\n        return order\n\n  \
+    \  def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack =\
+    \ False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
     \ = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None]\
     \ = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None]\
     \ = None, up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va,\
@@ -473,12 +481,15 @@ data:
     \ u32a(M)\n            stream = ts.stream\n            for i in range(M):\n  \
     \              u, v = map(int, stream.readline().split())\n                U[i],\
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
-    \    \nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.ds.fill_fn import\
-    \ u8a, u32a, i32a, u64a\nfrom cp_library.math.inft_cnst import inft"
+    \    \nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.alg.dp.chmax_fn\
+    \ import chmax\nfrom cp_library.ds.reserve_fn import reserve\nfrom cp_library.ds.fill_fn\
+    \ import u8a, u32a, i32a, u64a\nfrom cp_library.math.inft_cnst import inft"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/elist_fn.py
+  - cp_library/alg/dp/chmax_fn.py
+  - cp_library/ds/reserve_fn.py
   - cp_library/ds/fill_fn.py
   - cp_library/math/inft_cnst.py
   - cp_library/io/fast_io_cls.py
@@ -499,7 +510,7 @@ data:
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-27 22:35:21+09:00'
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py

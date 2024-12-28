@@ -36,6 +36,15 @@ data:
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/functional_graph_cls.py
+    title: cp_library/alg/graph/functional_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/partial_functional_graph_cls.py
+    title: cp_library/alg/graph/partial_functional_graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/permutation_cls.py
+    title: cp_library/alg/graph/permutation_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -63,6 +72,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_b_fast_height.test.py
     title: test/aoj/grl/grl_5_b_fast_height.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc175_d_permutation.test.py
+    title: test/atcoder/abc/abc175_d_permutation.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc202_e_fast_dfs.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs.test.py
@@ -172,7 +184,10 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-27 22:35:21+09:00'
+  - cp_library/alg/graph/functional_graph_cls.py
+  - cp_library/alg/graph/permutation_cls.py
+  - cp_library/alg/graph/partial_functional_graph_cls.py
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
@@ -181,6 +196,7 @@ data:
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
+  - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/scc.test.py

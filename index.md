@@ -669,6 +669,11 @@ data:
     - icon: ':warning:'
       path: cp_library/vis/plot_graph_weighted_fn.py
       title: cp_library/vis/plot_graph_weighted_fn.py
+  - name: .
+    pages:
+    - icon: ':warning:'
+      path: play.py
+      title: play.py
   verificationCategories:
   - name: test/aoj/dsl
     pages:

@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/chmax_fn.py
+    title: cp_library/alg/dp/chmax_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -13,6 +16,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/reserve_fn.py
+    title: cp_library/ds/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -65,14 +71,14 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Callable, Literal, TypeVar, Union, overload\n\nfrom typing\
-    \ import Callable, Sequence, Union, overload\nfrom collections import deque\n\n\
-    import typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom\
-    \ typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport\
-    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    from typing import Callable, Literal, TypeVar, Union, overload\nfrom array import\
+    \ array\n\nfrom typing import Callable, Sequence, Union, overload\nfrom collections\
+    \ import deque\n\nimport typing\nfrom numbers import Number\nfrom types import\
+    \ GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\n\
+    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -152,23 +158,24 @@ data:
     \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
     \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
-    \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
+    \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
-    \       \"\"\"The number of vertices.\"\"\"\n        self.M = M\n        \"\"\"\
-    The number of edges.\"\"\"\n        self.U = U\n        \"\"\"A list of source\
-    \ vertices in the original edge list.\"\"\"\n        self.V = V\n        \"\"\"\
-    A list of destination vertices in the original edge list.\"\"\"\n        self.deg\
-    \ = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n        self.La\
-    \ = La\n        \"\"\"La[u] stores the start index of the list of adjacent vertices\
-    \ from u.\"\"\"\n        self.Ra = Ra\n        \"\"\"Ra[u] stores the stop index\
-    \ of the list of adjacent vertices from u.\"\"\"\n        self.Ua = Ua\n     \
-    \   \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\"\"\n \
-    \       self.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for La[u]\
-    \ <= i < Ra[u].\"\"\"\n        self.Ea = Ea\n        \"\"\"Ea[i] lists the edge\
-    \ ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
-    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n\n    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        G.N = N\n    \
+    \    \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The number\
+    \ of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices in\
+    \ the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
+    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
+    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
+    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
+    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
+    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
+    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
+    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
+    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
+    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
+    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n\
+    \        G.order: list[int] = None\n        G.vis: array = None\n\n    def __len__(G)\
+    \ -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -218,17 +225,15 @@ data:
     \ == s:  # Found cycle back to start\n                    cycle = [u]\n      \
     \              while u != s: cycle.append(u := par[u])\n                    return\
     \ cycle\n                if D[v] < inft: continue\n                D[v], par[v]\
-    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
-    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        Va, vis, stack,\
-    \ order = G.Va, [False]*(N := G.N), elist(N), elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if include_roots: order.append(-s-1)\n\
-    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                for i in G.range(stack.pop()):\n                    if vis[v\
-    \ := Va[i]]: continue\n                    vis[v] = True\n                   \
-    \ order.append(i), stack.append(v)\n        return order\n\n    def dfs(G, s:\
-    \ Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth\
-    \ = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
+    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_topdown(G, s: int):\n\
+    \        '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order\
+    \ of top down discovery'''\n        G.vis, G.stack, G.order = vis, stack, order\
+    \ = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)\n        vis[s] =\
+    \ 1\n        stack.append(s)\n        while stack:\n            for i in G.range(stack.pop()):\n\
+    \                if vis[v := G.Va[i]]: continue\n                vis[v] = 1\n\
+    \                order.append(i), stack.append(v)\n        return order\n\n  \
+    \  def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack =\
+    \ False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
     \ = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None]\
     \ = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None]\
     \ = None, up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va,\
@@ -275,7 +280,10 @@ data:
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom array import array\n\ndef i8a(N: int, elm: int =\
+    \ = newlist_hint\n    \n\n\ndef chmax(dp, i, v):\n    if ch:=dp[i]<v:dp[i]=v\n\
+    \    return ch\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from\
+    \ __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len:\
+    \ int):\n        pass\nreserve = resizelist_hint\n\ndef i8a(N: int, elm: int =\
     \ 0): return array('b', (elm,))*N       # signed char\ndef u8a(N: int, elm: int\
     \ = 0): return array('B', (elm,))*N       # unsigned char\ndef i16a(N: int, elm:\
     \ int = 0): return array('h', (elm,))*N      # signed short\ndef u16a(N: int,\
@@ -305,21 +313,19 @@ data:
     \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
     \                    stack.append(v)\n        return D if g is None else inft\n\
     \n    def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
-    \ \n                     add_child: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n\
-    \                     s: int = 0):\n        N, La, Ra, Ua, Va = T.N, T.La, T.Ra,\
-    \ T.Ua, T.Va\n        order, dp, suf = T.dfs_discovery(s), [e]*N, [e]*len(Ua)\n\
-    \        I = Ra[:] # tracks current indices for suffix array accumulation\n\n\
-    \        # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
+    \ \n                     edge_op: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n\
+    \                     s: int = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n  \
+    \      order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]\n \
+    \       # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
     \            # subtree v finished up pass, store value to accumulate for u\n \
-    \           dp[v] = new = add_child(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
-    \ new)\n            # suffix accumulation\n            I[u] -= 1\n           \
-    \ if I[u] > La[u]:\n                suf[I[u]-1] = merge(suf[I[u]], new)\n\n  \
-    \      # down\n        dp[s] = e # at this point dp stores values to be merged\
-    \ in parent\n        for i in order:\n            u,v = Ua[i], Va[i]\n       \
-    \     # prefix accumulation\n            dp[u] = merge(pre := dp[u], dp[v])\n\
-    \            # push value to child\n            dp[v] = add_child(v, u, i, merge(suf[I[u]],\
-    \ pre))\n            I[u] += 1\n        \n        return dp\n    \n    def euler_tour(T,\
-    \ s = 0):\n        N, Va = len(T), T.Va\n        tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n\
+    \           dp[v] = new = edge_op(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
+    \ new)\n            # suffix accumulation\n            if (c:=I[u]-1) > La[u]:\
+    \ suf[c-1] = merge(suf[c], new)\n            I[u] = c\n        # down\n      \
+    \  dp[s] = e # at this point dp stores values to be merged in parent\n       \
+    \ for i in order:\n            u,v = Ua[i], Va[i]\n            dp[u] = merge(pre\
+    \ := dp[u], dp[v])\n            dp[v] = edge_op(v, u, i, merge(suf[I[u]], pre))\n\
+    \            I[u] += 1\n        return dp\n    \n    def euler_tour(T, s = 0):\n\
+    \        N, Va = len(T), T.Va\n        tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n\
     \        order, delta = elist(2*N), elist(2*N)\n        \n        stack = elist(N)\n\
     \        stack.append(s)\n        while stack:\n            p = par[u := stack.pop()]\n\
     \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
@@ -375,21 +381,19 @@ data:
     \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
     \                    stack.append(v)\n        return D if g is None else inft\n\
     \n    def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
-    \ \n                     add_child: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n\
-    \                     s: int = 0):\n        N, La, Ra, Ua, Va = T.N, T.La, T.Ra,\
-    \ T.Ua, T.Va\n        order, dp, suf = T.dfs_discovery(s), [e]*N, [e]*len(Ua)\n\
-    \        I = Ra[:] # tracks current indices for suffix array accumulation\n\n\
-    \        # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
+    \ \n                     edge_op: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n\
+    \                     s: int = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n  \
+    \      order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]\n \
+    \       # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
     \            # subtree v finished up pass, store value to accumulate for u\n \
-    \           dp[v] = new = add_child(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
-    \ new)\n            # suffix accumulation\n            I[u] -= 1\n           \
-    \ if I[u] > La[u]:\n                suf[I[u]-1] = merge(suf[I[u]], new)\n\n  \
-    \      # down\n        dp[s] = e # at this point dp stores values to be merged\
-    \ in parent\n        for i in order:\n            u,v = Ua[i], Va[i]\n       \
-    \     # prefix accumulation\n            dp[u] = merge(pre := dp[u], dp[v])\n\
-    \            # push value to child\n            dp[v] = add_child(v, u, i, merge(suf[I[u]],\
-    \ pre))\n            I[u] += 1\n        \n        return dp\n    \n    def euler_tour(T,\
-    \ s = 0):\n        N, Va = len(T), T.Va\n        tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n\
+    \           dp[v] = new = edge_op(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
+    \ new)\n            # suffix accumulation\n            if (c:=I[u]-1) > La[u]:\
+    \ suf[c-1] = merge(suf[c], new)\n            I[u] = c\n        # down\n      \
+    \  dp[s] = e # at this point dp stores values to be merged in parent\n       \
+    \ for i in order:\n            u,v = Ua[i], Va[i]\n            dp[u] = merge(pre\
+    \ := dp[u], dp[v])\n            dp[v] = edge_op(v, u, i, merge(suf[I[u]], pre))\n\
+    \            I[u] += 1\n        return dp\n    \n    def euler_tour(T, s = 0):\n\
+    \        N, Va = len(T), T.Va\n        tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n\
     \        order, delta = elist(2*N), elist(2*N)\n        \n        stack = elist(N)\n\
     \        stack.append(s)\n        while stack:\n            p = par[u := stack.pop()]\n\
     \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
@@ -432,6 +436,8 @@ data:
   - cp_library/math/inft_cnst.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/alg/dp/chmax_fn.py
+  - cp_library/ds/reserve_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/fast/tree_base_cls.py
@@ -439,7 +445,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2024-12-27 22:35:21+09:00'
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py

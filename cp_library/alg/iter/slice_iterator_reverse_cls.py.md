@@ -5,7 +5,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/functional_graph_cls.py
+    title: cp_library/alg/graph/functional_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/partial_functional_graph_cls.py
+    title: cp_library/alg/graph/partial_functional_graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/permutation_cls.py
+    title: cp_library/alg/graph/permutation_cls.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc175_d_permutation.test.py
+    title: test/atcoder/abc/abc175_d_permutation.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
@@ -43,10 +55,14 @@ data:
   path: cp_library/alg/iter/slice_iterator_reverse_cls.py
   requiredBy:
   - cp_library/alg/graph/fast/digraph_cls.py
-  timestamp: '2024-12-27 22:35:21+09:00'
+  - cp_library/alg/graph/functional_graph_cls.py
+  - cp_library/alg/graph/permutation_cls.py
+  - cp_library/alg/graph/partial_functional_graph_cls.py
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/atcoder/abc/abc175_d_permutation.test.py
   - test/library-checker/graph/scc.test.py
   - test/library-checker/graph/cycle_detection.test.py
 documentation_of: cp_library/alg/iter/slice_iterator_reverse_cls.py

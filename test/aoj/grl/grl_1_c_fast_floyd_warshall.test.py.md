@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/chmax_fn.py
+    title: cp_library/alg/dp/chmax_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -34,6 +37,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/reserve_fn.py
+    title: cp_library/ds/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -156,43 +162,44 @@ data:
     \ argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift := N.bit_length()))\
     \ - 1\n    indices = [0]*N\n    for i in range(N):\n        indices[i] = A[i]\
     \ << shift | i\n    indices.sort()\n    for i in range(N):\n        indices[i]\
-    \ &= mask\n    return indices\nfrom typing import Callable, Sequence, Union, overload\n\
-    \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
-    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
-    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
-    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
-    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
-    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
-    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
-    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
-    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
-    \ Parsable):\n    def __init__(self, N: int, M: int, U: list[int], V: list[int],\
-    \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        self.N = N\n \
-    \       \"\"\"The number of vertices.\"\"\"\n        self.M = M\n        \"\"\"\
-    The number of edges.\"\"\"\n        self.U = U\n        \"\"\"A list of source\
-    \ vertices in the original edge list.\"\"\"\n        self.V = V\n        \"\"\"\
-    A list of destination vertices in the original edge list.\"\"\"\n        self.deg\
-    \ = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n        self.La\
-    \ = La\n        \"\"\"La[u] stores the start index of the list of adjacent vertices\
-    \ from u.\"\"\"\n        self.Ra = Ra\n        \"\"\"Ra[u] stores the stop index\
-    \ of the list of adjacent vertices from u.\"\"\"\n        self.Ua = Ua\n     \
-    \   \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\"\"\n \
-    \       self.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for La[u]\
-    \ <= i < Ra[u].\"\"\"\n        self.Ea = Ea\n        \"\"\"Ea[i] lists the edge\
-    \ ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
+    \ &= mask\n    return indices\nfrom array import array\nfrom typing import Callable,\
+    \ Sequence, Union, overload\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass\
+    \ DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n\
+    \    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\
+    \n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n\
+    \    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN\
+    \ | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n \
+    \   TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
+    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
+    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
+    \    \n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G, N: int, M:\
+    \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
+    \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int]):\n\
+    \        G.N = N\n        \"\"\"The number of vertices.\"\"\"\n        G.M = M\n\
+    \        \"\"\"The number of edges.\"\"\"\n        G.U = U\n        \"\"\"A list\
+    \ of source vertices in the original edge list.\"\"\"\n        G.V = V\n     \
+    \   \"\"\"A list of destination vertices in the original edge list.\"\"\"\n  \
+    \      G.deg = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n\
+    \        G.La = La\n        \"\"\"La[u] stores the start index of the list of\
+    \ adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n        \"\"\"Ra[u] stores\
+    \ the stop index of the list of adjacent vertices from u.\"\"\"\n        G.Ua\
+    \ = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\
+    \"\"\n        G.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for\
+    \ La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n        \"\"\"Ea[i] lists the\
+    \ edge ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
     \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n\n    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
-    \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
-    \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
-    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
-    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
-    \ None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\n    def\
-    \ shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inft: return\
-    \ None\n        Ua, back, vertices = G.Ua, G.back, u32a(1, v := t)\n        while\
-    \ v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n \
-    \   \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
+    \n        G.stack: list[int] = None\n        G.order: list[int] = None\n     \
+    \   G.vis: array = None\n\n    def __len__(G) -> int: return G.N\n    def __getitem__(G,\
+    \ u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G, u): return range(G.La[u],G.Ra[u])\n\
+    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    if s == None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\
+    \n    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inft:\
+    \ return None\n        Ua, back, vertices = G.Ua, G.back, u32a(1, v := t)\n  \
+    \      while v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n\
+    \    \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
     \ t) >= inft: return None\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back,\
     \ u32a(0), t\n        while v != s:\n            edges.append(Ea[i := back[v]])\n\
     \            v = Ua[i]\n        return edges[::-1]\n    \n    @overload\n    def\
@@ -233,17 +240,15 @@ data:
     \ == s:  # Found cycle back to start\n                    cycle = [u]\n      \
     \              while u != s: cycle.append(u := par[u])\n                    return\
     \ cycle\n                if D[v] < inft: continue\n                D[v], par[v]\
-    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_discovery(G, s: Union[int,list[int],None]\
-    \ = None, include_roots = False):\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        Va, vis, stack,\
-    \ order = G.Va, [False]*(N := G.N), elist(N), elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            if include_roots: order.append(-s-1)\n\
-    \            vis[s] = True\n            stack.append(s)\n            while stack:\n\
-    \                for i in G.range(stack.pop()):\n                    if vis[v\
-    \ := Va[i]]: continue\n                    vis[v] = True\n                   \
-    \ order.append(i), stack.append(v)\n        return order\n\n    def dfs(G, s:\
-    \ Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth\
-    \ = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
+    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_topdown(G, s: int):\n\
+    \        '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order\
+    \ of top down discovery'''\n        G.vis, G.stack, G.order = vis, stack, order\
+    \ = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)\n        vis[s] =\
+    \ 1\n        stack.append(s)\n        while stack:\n            for i in G.range(stack.pop()):\n\
+    \                if vis[v := G.Va[i]]: continue\n                vis[v] = 1\n\
+    \                order.append(i), stack.append(v)\n        return order\n\n  \
+    \  def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack =\
+    \ False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
     \ = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None]\
     \ = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None]\
     \ = None, up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va,\
@@ -290,7 +295,10 @@ data:
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom array import array\n\ndef i8a(N: int, elm: int =\
+    \ = newlist_hint\n    \n\n\ndef chmax(dp, i, v):\n    if ch:=dp[i]<v:dp[i]=v\n\
+    \    return ch\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from\
+    \ __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len:\
+    \ int):\n        pass\nreserve = resizelist_hint\n\ndef i8a(N: int, elm: int =\
     \ 0): return array('b', (elm,))*N       # signed char\ndef u8a(N: int, elm: int\
     \ = 0): return array('B', (elm,))*N       # unsigned char\ndef i16a(N: int, elm:\
     \ int = 0): return array('h', (elm,))*N      # signed short\ndef u16a(N: int,\
@@ -453,12 +461,14 @@ data:
   - cp_library/ds/elist_fn.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/alg/dp/chmax_fn.py
+  - cp_library/ds/reserve_fn.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/heap/heapq_max_import.py
   isVerificationFile: true
   path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   requiredBy: []
-  timestamp: '2024-12-27 22:35:21+09:00'
+  timestamp: '2024-12-28 12:13:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
