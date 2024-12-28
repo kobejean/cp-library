@@ -25,8 +25,7 @@ class DiGraph(GraphBase):
             stack.append(u)
             while stack:
                 if tin[u := stack[-1]] < 0:
-                    tin[u] = low[u] = time
-                    time += 1
+                    tin[u] = low[u] = (time := time+1)
                     order.append(u)
                     on_stack[u] = 1
                 if (i := I[u]) < Ra[u]:

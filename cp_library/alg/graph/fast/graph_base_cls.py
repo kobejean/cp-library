@@ -1,3 +1,4 @@
+from array import array
 import cp_library.alg.graph.__header__
 from typing import Callable, Sequence, Union, overload
 from collections import deque
@@ -5,31 +6,34 @@ from cp_library.io.parser_cls import Parsable, TokenStream
 from cp_library.alg.graph.dfs_options_cls import DFSEvent
 
 class GraphBase(Sequence, Parsable):
-    def __init__(self, N: int, M: int, U: list[int], V: list[int], 
+    def __init__(G, N: int, M: int, U: list[int], V: list[int], 
                  deg: list[int], La: list[int], Ra: list[int],
                  Ua: list[int], Va: list[int], Ea: list[int]):
-        self.N = N
+        G.N = N
         """The number of vertices."""
-        self.M = M
+        G.M = M
         """The number of edges."""
-        self.U = U
+        G.U = U
         """A list of source vertices in the original edge list."""
-        self.V = V
+        G.V = V
         """A list of destination vertices in the original edge list."""
-        self.deg = deg
+        G.deg = deg
         """deg[u] is the out degree of vertex u."""
-        self.La = La
+        G.La = La
         """La[u] stores the start index of the list of adjacent vertices from u."""
-        self.Ra = Ra
+        G.Ra = Ra
         """Ra[u] stores the stop index of the list of adjacent vertices from u."""
-        self.Ua = Ua
+        G.Ua = Ua
         """Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking."""
-        self.Va = Va
+        G.Va = Va
         """Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u]."""
-        self.Ea = Ea
+        G.Ea = Ea
         """Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].
         For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].
         """
+        G.stack: list[int] = None
+        G.order: list[int] = None
+        G.vis: array = None
 
     def __len__(G) -> int: return G.N
     def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]
@@ -133,19 +137,16 @@ class GraphBase(Sequence, Parsable):
                 D[v], par[v] = D[u]+1, u
                 que.append(v)
 
-    def dfs_discovery(G, s: Union[int,list[int],None] = None, include_roots = False):
-        '''Returns lists U and V representing U[i] -> V[i] edges in order of top down discovery'''
-        Va, vis, stack, order = G.Va, [False]*(N := G.N), elist(N), elist(N)
-        for s in G.starts(s):
-            if vis[s]: continue
-            if include_roots: order.append(-s-1)
-            vis[s] = True
-            stack.append(s)
-            while stack:
-                for i in G.range(stack.pop()):
-                    if vis[v := Va[i]]: continue
-                    vis[v] = True
-                    order.append(i), stack.append(v)
+    def dfs_topdown(G, s: int):
+        '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
+        G.vis, G.stack, G.order = vis, stack, order = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)
+        vis[s] = 1
+        stack.append(s)
+        while stack:
+            for i in G.range(stack.pop()):
+                if vis[v := G.Va[i]]: continue
+                vis[v] = 1
+                order.append(i), stack.append(v)
         return order
 
     def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None] = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None] = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None] = None, up_fn: Callable[[int,int],None] = None):
@@ -228,5 +229,7 @@ class GraphBase(Sequence, Parsable):
         return parse
     
 from cp_library.ds.elist_fn import elist
+from cp_library.alg.dp.chmax_fn import chmax
+from cp_library.ds.reserve_fn import reserve
 from cp_library.ds.fill_fn import u8a, u32a, i32a, u64a
 from cp_library.math.inft_cnst import inft

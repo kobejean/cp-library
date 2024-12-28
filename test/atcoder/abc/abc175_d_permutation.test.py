@@ -1,8 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc175/tasks/abc175_d
 
-
 from cp_library.math.inft_cnst import inft
-
 
 def main():
     N, K = read(tuple[int, ...])

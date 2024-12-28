@@ -9,14 +9,8 @@ def articulation_points(G, s: Union[int,list,None] = None):
     Returns a boolean list that is True for indices where the vertex is an articulation point.
     """
     N = G.N
-    if s is None:
-        s = range(N)
-    low = [inft] * N
-    disc = [-1] * N
-    children = [0] * N
-    ap = [False] * N
-    time = 0
-    
+    if s is None: s = range(N)
+    low, disc, children, ap, time = [inft]*N, [-1]*N, [0]*N, [False]*N, 0    
     flags = DFSFlags.DOWN | DFSFlags.BACK | DFSFlags.UP | DFSFlags.RETURN_PARENTS
     events, parent = dfs_events(G, flags, s)
     for event in events:
@@ -34,6 +28,5 @@ def articulation_points(G, s: Union[int,list,None] = None):
                     ap[p] |= low[u] >= disc[p]
                 else:
                     # root case
-                    ap[p] |= children[p] > 1
-                    
+                    ap[p] |= children[p] > 1    
     return ap

@@ -44,33 +44,26 @@ class TreeBase(GraphBase):
 
     def rerooting_dp(T, e: _T, 
                      merge: Callable[[_T,_T],_T], 
-                     add_child: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,
+                     edge_op: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,
                      s: int = 0):
-        N, La, Ra, Ua, Va = T.N, T.La, T.Ra, T.Ua, T.Va
-        order, dp, suf = T.dfs_discovery(s), [e]*N, [e]*len(Ua)
-        I = Ra[:] # tracks current indices for suffix array accumulation
-
+        La, Ua, Va = T.La, T.Ua, T.Va
+        order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]
         # up
         for i in order[::-1]:
             u,v = Ua[i], Va[i]
             # subtree v finished up pass, store value to accumulate for u
-            dp[v] = new = add_child(u, v, i, dp[v])
+            dp[v] = new = edge_op(u, v, i, dp[v])
             dp[u] = merge(dp[u], new)
             # suffix accumulation
-            I[u] -= 1
-            if I[u] > La[u]:
-                suf[I[u]-1] = merge(suf[I[u]], new)
-
+            if (c:=I[u]-1) > La[u]: suf[c-1] = merge(suf[c], new)
+            I[u] = c
         # down
         dp[s] = e # at this point dp stores values to be merged in parent
         for i in order:
             u,v = Ua[i], Va[i]
-            # prefix accumulation
             dp[u] = merge(pre := dp[u], dp[v])
-            # push value to child
-            dp[v] = add_child(v, u, i, merge(suf[I[u]], pre))
+            dp[v] = edge_op(v, u, i, merge(suf[I[u]], pre))
             I[u] += 1
-        
         return dp
     
     def euler_tour(T, s = 0):
