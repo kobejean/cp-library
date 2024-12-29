@@ -72,9 +72,13 @@ class Parser:
             return Parser.compile_tuple(type(spec), args)
         elif isinstance(args := spec, Collection):  
             return Parser.compile_collection(type(spec), args)
+        elif isinstance(fn := spec, Callable): 
+            def parse(ts: TokenStream):
+                return fn(next(ts))
+            return parse
         else:
             raise NotImplementedError()
-    
+
     @staticmethod
     def compile_line(cls: T, spec=int) -> ParseFn[T]:
         if spec is int:

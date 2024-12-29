@@ -108,6 +108,22 @@ class NTT:
         del A[N:]
         return A
     
+    def deconv(self, C, B, N = None):
+        n, m = len(C), len(B)
+        if N is None: N = n - m + 1
+        z = 1 << (n + m - 2).bit_length()
+        self.fntt(C := C+[0]*(z-n)), self.fntt(B := B+[0]*(z - m))
+
+        A = [0] * z
+        for i in range(z):
+            if B[i] == 0:
+                raise ValueError("Division by zero in NTT domain - deconvolution not possible")
+            b_inv = mod_inv(B[i], self.mod)
+            A[i] = (C[i] * b_inv) % self.mod
+        
+        self.ifntt(A)
+        return A[:N]
+    
     def conv_half(self, A, Bres):
         mod = self.mod
         self.fntt(A)

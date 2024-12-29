@@ -8,7 +8,7 @@ class Parallel(tuple, Parsable):
 
     @classmethod
     def compile(cls, N: int, K: int = 2, T: Union[type,int] = int):
-        if issubclass(T, int):
+        if T is int:
             def parse(ts: TokenStream):
                 P = cls(N, K)
                 for i in range(N):

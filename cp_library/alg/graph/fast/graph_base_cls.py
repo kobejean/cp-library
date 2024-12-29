@@ -1,4 +1,4 @@
-from array import array
+from itertools import islice
 import cp_library.alg.graph.__header__
 from typing import Callable, Sequence, Union, overload
 from collections import deque
@@ -33,10 +33,10 @@ class GraphBase(Sequence, Parsable):
         """
         G.stack: list[int] = None
         G.order: list[int] = None
-        G.vis: array = None
+        G.vis: list[int] = None
 
     def __len__(G) -> int: return G.N
-    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]
+    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])
     def range(G, u): return range(G.La[u],G.Ra[u])
     
     @overload
@@ -137,7 +137,7 @@ class GraphBase(Sequence, Parsable):
                 D[v], par[v] = D[u]+1, u
                 que.append(v)
 
-    def dfs_topdown(G, s: int):
+    def dfs_topdown(G, s: int) -> list[int]:
         '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
         G.vis, G.stack, G.order = vis, stack, order = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)
         vis[s] = 1
@@ -151,7 +151,7 @@ class GraphBase(Sequence, Parsable):
 
     def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None] = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None] = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None] = None, up_fn: Callable[[int,int],None] = None):
         Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]
-        state, stack = u8a(G.N), elist(G.N if max_depth is None else max_depth+1)
+        G.state, G.stack = state, stack = u8a(G.N), elist(G.N if max_depth is None else max_depth+1)
         for s in G.starts(s):
             if state[s]: continue
             stack.append(s)
@@ -178,24 +178,23 @@ class GraphBase(Sequence, Parsable):
                     if up_fn and stack: up_fn(u, stack[-1])
             if connect_roots and up_fn: up_fn(s, -1)
     
-    def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> tuple[list[int],list[int]]:
-        '''Returns lists U and V representing U[i] -> V[i] edges in order of top down discovery'''
+    def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:
         N, Ra, Va, I = G.N, G.Ra, G.Va, G.La[:]
-        stack, order, events, par = elist(N), elist(2*N), elist(2*N), i32a(N, -1)
-        G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER), int(DFSEvent.LEAVE)
+        stack, par, plist = elist(N), i32a(N,-1), PacketList(order := elist(2*N), N-1)
+        G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER) << plist.shift, int(DFSEvent.LEAVE) << plist.shift
         for s in G.starts(s):
             if par[s] >= 0: continue
             par[s] = s
-            order.append(s), events.append(ENTER), stack.append(s)
+            order.append(ENTER | s), stack.append(s)
             while stack:
                 if (i := I[u := stack[-1]]) < Ra[u]:
                     I[u] += 1
                     if par[v := Va[i]] >= 0: continue
                     par[v] = u
-                    order.append(v), events.append(ENTER), stack.append(v)
+                    order.append(ENTER | v), stack.append(v)
                 else:
-                    order.append(u), events.append(LEAVE), stack.pop()
-        return events, order
+                    order.append(LEAVE | u), stack.pop()
+        return PacketList(order, N-1)
     
     def is_bipartite(G):
         Va, que, color = G.Va, deque(), u8a(N := G.N)                
@@ -229,7 +228,6 @@ class GraphBase(Sequence, Parsable):
         return parse
     
 from cp_library.ds.elist_fn import elist
-from cp_library.alg.dp.chmax_fn import chmax
-from cp_library.ds.reserve_fn import reserve
 from cp_library.ds.fill_fn import u8a, u32a, i32a, u64a
+from cp_library.ds.packet_list_cls import PacketList
 from cp_library.math.inft_cnst import inft

@@ -1,4 +1,5 @@
 import cp_library.alg.graph.__header__
+from cp_library.alg.dp.chmin_fn import chmin
 from typing import overload
 from cp_library.io.parser_cls import TokenStream
 from cp_library.alg.iter.argsort_fn import argsort
@@ -24,15 +25,12 @@ class GraphWeightedBase(GraphBase):
     @overload
     def distance(G, s: int, g: int) -> int: ...
     def distance(G, s = None, g = None):
-        if s == None:
-            return G.floyd_warshall()
-        else:
-            return G.dijkstra(s, g)
+        if s == None: return G.floyd_warshall()
+        else: return G.dijkstra(s, g)
 
     def dijkstra(G, s: int, t: int = None):
         N, S, Va, Wa = G.N, G.starts(s), G.Va, G.Wa
-        G.back = back = i32a(N, -1)
-        G.D = D = u64a(N, inft)
+        G.back, G.D  = back, D = i32a(N, -1), u64a(N, inft)
         for s in S: D[s] = 0
         que = PriorityQueue(N, S)
         while que:
@@ -40,16 +38,13 @@ class GraphWeightedBase(GraphBase):
             if d > D[u]: continue
             if u == t: return d
             for i in G.range(u): 
-                if (nd := d + Wa[i]) < D[v := Va[i]]:
-                    D[v], back[v] = nd, i
+                if chmin(D, v := Va[i], nd := d + Wa[i]):
+                    back[v] = i
                     que.push(v, nd)
         return D if t is None else inft 
 
     def kruskal(G):
-        N, U, V, W = G.N, G.U, G.V, G.W 
-        dsu = DSU(N)
-        MST = [0]*(N-1)
-        need = N-1
+        U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1
         for e in argsort(W):
             u, v = dsu.merge(U[e],V[e],True)
             if u != v:
@@ -71,39 +66,29 @@ class GraphWeightedBase(GraphBase):
         return None if need else MST
    
     def bellman_ford(G, s: int = 0) -> list[int]:
-        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa
-        D = [inft]*N
+        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inft]*(N := G.N)
         D[s] = 0
         for _ in range(N-1):
-            for i in range(len(Ua)):
-                u,v,w = Ua[i], Va[i], Wa[i]
-                if D[u] == inft: continue
-                D[v] = min(D[v], D[u] + w)
+            for i, u in enumerate(Ua):
+                if D[u] < inft: chmin(D, Va[i], D[u] + Wa[i])
         return D
     
     def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:
-        D = G.bellman_ford(s)
-        M, U, V, W = G.M, G.U, G.V, G.W
+        M, U, V, W, D = G.M, G.U, G.V, G.W, G.bellman_ford(s)
         neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inft)
         return neg_cycle, D
     
     def floyd_warshall(G) -> list[list[int]]:
         N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa
         D = [[inft]*N for _ in range(N)]
-
-        for u in range(N):
-            D[u][u] = 0
-
-        for i in range(len(Ua)):
-            u,v,w = Ua[i], Va[i], Wa[i]
-            D[u][v] = min(D[u][v], w)
-        
+        for u in range(N): D[u][u] = 0
+        for i in range(len(Ua)): chmin(D[Ua[i]], Va[i], Wa[i])
         for k, Dk in enumerate(D):
             for Di in D:
-                if Di[k] == inft: continue
+                if Di[k] >= inft: continue
                 for j in range(N):
-                    if Dk[j] == inft: continue
-                    Di[j] = min(Di[j], Di[k]+Dk[j])
+                    if Dk[j] >= inft: continue
+                    chmin(Di, j, Di[k]+Dk[j])
         return D
         
     def floyd_warshall_neg_cyc_check(G):

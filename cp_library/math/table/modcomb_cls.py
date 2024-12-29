@@ -3,7 +3,7 @@ from cp_library.math.mod.mint_cls import mint
 from cp_library.math.nt.mod_inv_fn import mod_inv
 from itertools import accumulate
 
-class modcomb(list[mint]):
+class modcomb():
     fact: list[int]
     fact_inv: list[int]
     inv: list[int] = [0,1]
@@ -23,6 +23,10 @@ class modcomb(list[mint]):
         while len(inv) < N:
             j, k = divmod(mod, len(inv))
             inv.append(-inv[k] * j % mod)
+
+    @staticmethod
+    def factorial(n: int, /) -> mint:
+        return mint(modcomb.fact[n])
 
     @staticmethod
     def comb(n: int, k: int, /) -> mint:

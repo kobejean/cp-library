@@ -1,3 +1,4 @@
+import cp_library.alg.graph.__header__
 from cp_library.math.inft_cnst import inft
 from cp_library.ds.heap.min_heap_cls import MinHeap
 
