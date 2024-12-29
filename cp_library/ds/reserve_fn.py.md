@@ -3,51 +3,6 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/digraph_cls.py
-    title: cp_library/alg/graph/fast/digraph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/digraph_weighted_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_base_cls.py
-    title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_cls.py
-    title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_base_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_base_cls.py
-    title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_cls.py
-    title: cp_library/alg/tree/fast/tree_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/math/fps/fps_exp_fn.py
     title: cp_library/math/fps/fps_exp_fn.py
   - icon: ':heavy_check_mark:'
@@ -61,65 +16,11 @@ data:
     title: cp_library/math/table/stirling2_k_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-    title: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-    title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_5_a_fast_diameter.test.py
-    title: test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_5_b_fast_height.test.py
-    title: test/aoj/grl/grl_5_b_fast_height.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc202_e_fast_dfs.test.py
-    title: test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-    title: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-    title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-    title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-    title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/cycle_detection.test.py
-    title: test/library-checker/graph/cycle_detection.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/cycle_detection_undirected.test.py
-    title: test/library-checker/graph/cycle_detection_undirected.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-    title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-    title: test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/scc.test.py
-    title: test/library-checker/graph/scc.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_fast_graph.test.py
-    title: test/library-checker/graph/shortest_path_fast_graph.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/polynomial/exp_of_formal_power_series.test.py
     title: test/library-checker/polynomial/exp_of_formal_power_series.test.py
@@ -151,46 +52,13 @@ data:
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_base_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - cp_library/alg/tree/fast/tree_cls.py
-  - cp_library/alg/graph/fast/graph_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - cp_library/alg/graph/fast/graph_base_cls.py
-  - cp_library/alg/graph/fast/digraph_cls.py
-  - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/scc.test.py
-  - test/library-checker/graph/cycle_detection.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/library-checker/graph/cycle_detection_undirected.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
 documentation_of: cp_library/ds/reserve_fn.py
 layout: document
 redirect_from:

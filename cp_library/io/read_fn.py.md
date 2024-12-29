@@ -226,6 +226,9 @@ data:
     path: test/library-checker/graph/scc.test.py
     title: test/library-checker/graph/scc.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/scc_strongly_connected_components.test.py
+    title: test/library-checker/graph/scc_strongly_connected_components.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
   - icon: ':heavy_check_mark:'
@@ -316,23 +319,25 @@ data:
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
     \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
     \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        else:\n            raise\
-    \ NotImplementedError()\n    \n    @staticmethod\n    def compile_line(cls: T,\
-    \ spec=int) -> ParseFn[T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((int(token)\
-    \ for token in ts.line()))\n            return parse\n        else:\n        \
-    \    fn = Parser.compile(spec)\n            def parse(ts: TokenStream):\n    \
-    \            return cls((fn(ts) for _ in ts.wait()))\n            return parse\n\
-    \n    @staticmethod\n    def compile_repeat(cls: T, spec, N) -> ParseFn[T]:\n\
-    \        fn = Parser.compile(spec)\n        def parse(ts: TokenStream):\n    \
-    \        return cls((fn(ts) for _ in range(N)))\n        return parse\n\n    @staticmethod\n\
-    \    def compile_children(cls: T, specs) -> ParseFn[T]:\n        fns = tuple((Parser.compile(spec)\
-    \ for spec in specs))\n        def parse(ts: TokenStream):\n            return\
-    \ cls((fn(ts) for fn in fns))  \n        return parse\n            \n    @staticmethod\n\
-    \    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
+    \ Callable): \n            def parse(ts: TokenStream):\n                return\
+    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
+    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
+    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
+    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
+    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
+    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
+    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
+    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
+    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -366,7 +371,7 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
@@ -433,6 +438,7 @@ data:
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/chromatic_number.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py

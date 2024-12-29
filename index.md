@@ -148,6 +148,9 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/graph/shortest_path_fn.py
       title: cp_library/alg/graph/shortest_path_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/strongly_connected_components_fn.py
+      title: cp_library/alg/graph/strongly_connected_components_fn.py
   - name: cp_library/alg/graph/fast
     pages:
     - icon: ':heavy_check_mark:'
@@ -183,6 +186,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
       title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - name: cp_library/alg/graph/snippets
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
+      title: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
   - name: cp_library/alg/iter
     pages:
     - icon: ':heavy_check_mark:'
@@ -331,6 +339,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/min_sparse_table_cls.py
       title: cp_library/ds/min_sparse_table_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/packet_list_cls.py
+      title: cp_library/ds/packet_list_cls.py
     - icon: ':warning:'
       path: cp_library/ds/parallel_cls.py
       title: cp_library/ds/parallel_cls.py
@@ -953,6 +964,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/scc.test.py
       title: test/library-checker/graph/scc.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/scc_strongly_connected_components.test.py
+      title: test/library-checker/graph/scc_strongly_connected_components.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/shortest_path_fast_graph.test.py
       title: test/library-checker/graph/shortest_path_fast_graph.test.py

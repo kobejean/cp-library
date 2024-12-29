@@ -45,6 +45,12 @@ data:
     path: cp_library/alg/graph/permutation_cls.py
     title: cp_library/alg/graph/permutation_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
+    title: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/strongly_connected_components_fn.py
+    title: cp_library/alg/graph/strongly_connected_components_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -112,6 +118,9 @@ data:
     path: test/library-checker/graph/scc.test.py
     title: test/library-checker/graph/scc.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/scc_strongly_connected_components.test.py
+    title: test/library-checker/graph/scc_strongly_connected_components.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
   _isVerificationFailed: false
@@ -173,6 +182,7 @@ data:
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
+  - cp_library/alg/graph/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/graph_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
@@ -186,8 +196,9 @@ data:
   - cp_library/alg/graph/fast/grid_graph_cls.py
   - cp_library/alg/graph/functional_graph_cls.py
   - cp_library/alg/graph/permutation_cls.py
+  - cp_library/alg/graph/strongly_connected_components_fn.py
   - cp_library/alg/graph/partial_functional_graph_cls.py
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
@@ -203,6 +214,7 @@ data:
   - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py

@@ -50,15 +50,16 @@ data:
     \ return self\n    def __abs__(self): return self\n\n\n\ndef mod_inv(x, mod):\n\
     \    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t = b,a%b,t,s-a//b*t\n\
     \    if a == 1: return s % mod\n    raise ValueError(f\"{x} is not invertible\
-    \ in mod {mod}\")\nfrom itertools import accumulate\n\nclass modcomb(list[mint]):\n\
-    \    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n\
-    \    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b):\
-    \ return a*b%mod\n        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n\
+    \ in mod {mod}\")\nfrom itertools import accumulate\n\nclass modcomb():\n    fact:\
+    \ list[int]\n    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n\
+    \    def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return\
+    \ a*b%mod\n        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n\
     \        fact_inv = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N],\
     \ mod)))\n        fact_inv.reverse()\n        modcomb.fact, modcomb.fact_inv =\
     \ fact, fact_inv\n    \n    @staticmethod\n    def extend_inv(N):\n        N,\
     \ inv, mod = N+1, modcomb.inv, mint.mod\n        while len(inv) < N:\n       \
     \     j, k = divmod(mod, len(inv))\n            inv.append(-inv[k] * j % mod)\n\
+    \n    @staticmethod\n    def factorial(n: int, /) -> mint:\n        return mint(modcomb.fact[n])\n\
     \n    @staticmethod\n    def comb(n: int, k: int, /) -> mint:\n        inv, mod\
     \ = modcomb.fact_inv, mint.mod\n        if n < k: return mint.zero\n        return\
     \ mint(inv[k] * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom = comb\n  \
@@ -83,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_ideriv_k_fn.py
   requiredBy: []
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_ideriv_k_fn.py

@@ -69,8 +69,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n\
-    \    return [P[i]*i%mod for i in range(1,len(P))]\n\n\n    \nclass mint(int):\n\
+    \               \n'''\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n  \
+    \  return [P[i]*i%mod for i in range(1,len(P))]\n\n\n    \nclass mint(int):\n\
     \    mod: int\n    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache:\
     \ list['mint']\n\n    def __new__(cls, *args, **kwargs):\n        if 0<= (x :=\
     \ int(*args, **kwargs)) <= 2:\n            return cls.cache[x]\n        else:\n\
@@ -153,9 +153,16 @@ data:
     \ conv_fntt(self, A, B, N):\n        n,m,mod=len(A),len(B),self.mod\n        z=1<<(n+m-2).bit_length()\n\
     \        self.fntt(A:=A+[0]*(z-n)), self.fntt(B:=B+[0]*(z-m))\n        for i,\
     \ b in enumerate(B): A[i] = A[i] * b % mod\n        self.ifntt(A)\n        del\
-    \ A[N:]\n        return A\n    \n    def conv_half(self, A, Bres):\n        mod\
-    \ = self.mod\n        self.fntt(A)\n        for i, b in enumerate(Bres): A[i]\
-    \ = A[i] * b % mod\n        self.ifntt(A)\n        return A\n    \n    def conv(self,\
+    \ A[N:]\n        return A\n    \n    def deconv(self, C, B, N = None):\n     \
+    \   n, m = len(C), len(B)\n        if N is None: N = n - m + 1\n        z = 1\
+    \ << (n + m - 2).bit_length()\n        self.fntt(C := C+[0]*(z-n)), self.fntt(B\
+    \ := B+[0]*(z - m))\n\n        A = [0] * z\n        for i in range(z):\n     \
+    \       if B[i] == 0:\n                raise ValueError(\"Division by zero in\
+    \ NTT domain - deconvolution not possible\")\n            b_inv = mod_inv(B[i],\
+    \ self.mod)\n            A[i] = (C[i] * b_inv) % self.mod\n        \n        self.ifntt(A)\n\
+    \        return A[:N]\n    \n    def conv_half(self, A, Bres):\n        mod =\
+    \ self.mod\n        self.fntt(A)\n        for i, b in enumerate(Bres): A[i] =\
+    \ A[i] * b % mod\n        self.ifntt(A)\n        return A\n    \n    def conv(self,\
     \ A, B, N = None):\n        n,m = len(A), len(B)\n        N = n+m-1 if N is None\
     \ else N\n        if min(n,m) <= 60: return self.conv_naive(A, B, N)\n       \
     \ return self.conv_fntt(A, B, N)\n\n    def cycle_conv(self, A, B):\n        n,m,mod=len(A),len(B),self.mod\n\
@@ -163,82 +170,82 @@ data:
     \        for i in range(n-1):res[i]=(con[i]+con[i+n])%mod\n        res[n-1]=con[n-1]\n\
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
-    \ = NTT(mod)\n\ndef fps_log(P: list) -> list:\n    fntt, ifntt = mint.ntt.fntt,\
-    \ mint.ntt.ifntt\n    return fps_integ(mint.ntt.conv(fps_deriv(P), fps_inv(P),\
-    \ len(P)-1))\n\n\ndef fps_exp(P: list) -> list:\n    max_sz = 1 << ((deg := len(P))-1).bit_length()\n\
-    \    modcomb.extend_inv(max_sz)\n    inv, mod, ntt = modcomb.inv, mint.mod, mint.ntt\n\
-    \    fntt, ifntt, conv_half = ntt.fntt, ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P)\
-    \ + [0]*(max_sz-deg+1)\n    R, E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1,\
-    \ 1]\n    reserve(R, max_sz), reserve(E, max_sz)\n    p = 2\n    while p < deg:\n\
-    \        Rres = fntt(R + [0]*p)\n        x = ifntt([Rres[i]*-e%mod for i, e in\
-    \ enumerate(Eres)])\n        x[:h] = [0]*(h:=p>>1)\n        E[h:] = conv_half(x,\
-    \ Eres)[h:]\n        Eres = fntt(E + [0]*p)\n        x = conv_half(dP[:p-1]+[0],\
-    \ Rres[:p])\n        for i in range(1,p): x[i-1] -= R[i]*i % mod\n        x +=\
-    \ [0] * p\n        for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n\
-    \        for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod\
-    \ \n        x[:p] = [0] * p\n        R[p:] = conv_half(x,Rres)[p:]\n        p\
-    \ <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int) -> None:\
-    \ ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A:\
-    \ list, est_len: int):\n        pass\nreserve = resizelist_hint\n\nfrom itertools\
-    \ import accumulate\n\nclass modcomb(list[mint]):\n    fact: list[int]\n    fact_inv:\
-    \ list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n    def precomp(N):\n\
-    \        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n        fact\
-    \ = list(accumulate(range(1,N+1), mod_mul, initial=1))\n        fact_inv = list(accumulate(range(N,0,-1),\
-    \ mod_mul, initial=mod_inv(fact[N], mod)))\n        fact_inv.reverse()\n     \
-    \   modcomb.fact, modcomb.fact_inv = fact, fact_inv\n    \n    @staticmethod\n\
-    \    def extend_inv(N):\n        N, inv, mod = N+1, modcomb.inv, mint.mod\n  \
-    \      while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n       \
-    \     inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def comb(n: int,\
-    \ k: int, /) -> mint:\n        inv, mod = modcomb.fact_inv, mint.mod\n       \
-    \ if n < k: return mint.zero\n        return mint(inv[k] * inv[n-k] % mod * modcomb.fact[n])\n\
-    \    nCk = binom = comb\n    \n    @staticmethod\n    def comb_with_replacement(n:\
-    \ int, k: int, /) -> mint:\n        if n <= 0: return mint.zero\n        return\
-    \ modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n\
-    \    def multinom(n: int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n\
-    \        for k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\
-    \ndef fps_normalize(P: list, deg) -> list:\n    if (N:=len(P)) < deg: P[N:] =\
-    \ [0]*(deg-N)\n    del P[deg:]\n    return P\n\ndef fps_pow(P: list, k: int, deg\
-    \ = -1) -> list:\n    deg, mod = (len(P) if deg<0 else deg), mint.mod\n    if\
-    \ k == 0: return [1]+[0]*(deg-1) if deg else []\n    i = next((i for i, c in enumerate(P)\
-    \ if c), default=deg)\n    if i * k >= deg: return [0] * deg\n    inv, alpha =\
-    \ mod_inv(P[i],mod), pow(P[i], k, mod)\n    R = fps_log([P[j]*inv%mod for j in\
-    \ range(i,deg)])\n    for j,r in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n\
-    \    for j,r in enumerate(R): R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n\
-    \    return fps_normalize(R, deg)\n\n\n\nfrom typing import Type, TypeVar, Union,\
-    \ overload\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \ = NTT(mod)\n\ndef fps_log(P: list) -> list:\n    return fps_integ(mint.ntt.conv(fps_deriv(P),\
+    \ fps_inv(P), len(P)-1))\n\n\ndef fps_exp(P: list) -> list:\n    max_sz = 1 <<\
+    \ ((deg := len(P))-1).bit_length()\n    modcomb.extend_inv(max_sz)\n    inv, mod,\
+    \ ntt = modcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt,\
+    \ ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n    R,\
+    \ E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz),\
+    \ reserve(E, max_sz)\n    p = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n\
+    \        x = ifntt([Rres[i]*-e%mod for i, e in enumerate(Eres)])\n        x[:h]\
+    \ = [0]*(h:=p>>1)\n        E[h:] = conv_half(x, Eres)[h:]\n        Eres = fntt(E\
+    \ + [0]*p)\n        x = conv_half(dP[:p-1]+[0], Rres[:p])\n        for i in range(1,p):\
+    \ x[i-1] -= R[i]*i % mod\n        x += [0] * p\n        for i in range(p-1): x[p+i],x[i]\
+    \ = x[i],0\n        conv_half(x,Eres)\n        for i in range(min(deg, p<<1)-1,p-1,-1):\
+    \ x[i] = P[i]+x[i-1]*inv[i]%mod \n        x[:p] = [0] * p\n        R[p:] = conv_half(x,Rres)[p:]\n\
+    \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
+    \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
+    \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
+    \nfrom itertools import accumulate\n\nclass modcomb():\n    fact: list[int]\n\
+    \    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n  \
+    \  def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
+    \        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n        fact_inv\
+    \ = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N], mod)))\n\
+    \        fact_inv.reverse()\n        modcomb.fact, modcomb.fact_inv = fact, fact_inv\n\
+    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, modcomb.inv,\
+    \ mint.mod\n        while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n\
+    \            inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def factorial(n:\
+    \ int, /) -> mint:\n        return mint(modcomb.fact[n])\n\n    @staticmethod\n\
+    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = modcomb.fact_inv,\
+    \ mint.mod\n        if n < k: return mint.zero\n        return mint(inv[k] * inv[n-k]\
+    \ % mod * modcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
+    \    def comb_with_replacement(n: int, k: int, /) -> mint:\n        if n <= 0:\
+    \ return mint.zero\n        return modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
+    \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
+    \ nCk, res = modcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k),\
+    \ n-k\n        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /)\
+    \ -> mint:\n        \"\"\"Returns P(n,k) mod p\"\"\"\n        if n < k: return\
+    \ mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n  \
+    \  nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\ndef fps_normalize(P:\
+    \ list, deg) -> list:\n    if (N:=len(P)) < deg: P[N:] = [0]*(deg-N)\n    del\
+    \ P[deg:]\n    return P\n\ndef fps_pow(P: list, k: int, deg = -1) -> list:\n \
+    \   deg, mod = (len(P) if deg<0 else deg), mint.mod\n    if k == 0: return [1]+[0]*(deg-1)\
+    \ if deg else []\n    i = next((i for i, c in enumerate(P) if c), default=deg)\n\
+    \    if i * k >= deg: return [0] * deg\n    inv, alpha = mod_inv(P[i],mod), pow(P[i],\
+    \ k, mod)\n    R = fps_log([P[j]*inv%mod for j in range(i,deg)])\n    for j,r\
+    \ in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n    for j,r in enumerate(R):\
+    \ R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n    return fps_normalize(R, deg)\n\
+    \n\n\nfrom typing import Type, TypeVar, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -262,23 +269,25 @@ data:
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
     \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
     \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        else:\n            raise\
-    \ NotImplementedError()\n    \n    @staticmethod\n    def compile_line(cls: T,\
-    \ spec=int) -> ParseFn[T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((int(token)\
-    \ for token in ts.line()))\n            return parse\n        else:\n        \
-    \    fn = Parser.compile(spec)\n            def parse(ts: TokenStream):\n    \
-    \            return cls((fn(ts) for _ in ts.wait()))\n            return parse\n\
-    \n    @staticmethod\n    def compile_repeat(cls: T, spec, N) -> ParseFn[T]:\n\
-    \        fn = Parser.compile(spec)\n        def parse(ts: TokenStream):\n    \
-    \        return cls((fn(ts) for _ in range(N)))\n        return parse\n\n    @staticmethod\n\
-    \    def compile_children(cls: T, specs) -> ParseFn[T]:\n        fns = tuple((Parser.compile(spec)\
-    \ for spec in specs))\n        def parse(ts: TokenStream):\n            return\
-    \ cls((fn(ts) for fn in fns))  \n        return parse\n            \n    @staticmethod\n\
-    \    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
+    \ Callable): \n            def parse(ts: TokenStream):\n                return\
+    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
+    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
+    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
+    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
+    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
+    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
+    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
+    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
+    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -327,7 +336,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
   requiredBy: []
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/pow_of_formal_power_series.test.py

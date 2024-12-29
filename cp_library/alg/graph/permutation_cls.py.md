@@ -35,7 +35,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Iterator\n\nimport typing\nfrom collections import deque\n\
+    from typing import Iterator\n\nimport typing\nfrom collections import deque\n\
     from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
     \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom\
     \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
@@ -88,23 +88,25 @@ data:
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
     \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
     \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        else:\n            raise\
-    \ NotImplementedError()\n    \n    @staticmethod\n    def compile_line(cls: T,\
-    \ spec=int) -> ParseFn[T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((int(token)\
-    \ for token in ts.line()))\n            return parse\n        else:\n        \
-    \    fn = Parser.compile(spec)\n            def parse(ts: TokenStream):\n    \
-    \            return cls((fn(ts) for _ in ts.wait()))\n            return parse\n\
-    \n    @staticmethod\n    def compile_repeat(cls: T, spec, N) -> ParseFn[T]:\n\
-    \        fn = Parser.compile(spec)\n        def parse(ts: TokenStream):\n    \
-    \        return cls((fn(ts) for _ in range(N)))\n        return parse\n\n    @staticmethod\n\
-    \    def compile_children(cls: T, specs) -> ParseFn[T]:\n        fns = tuple((Parser.compile(spec)\
-    \ for spec in specs))\n        def parse(ts: TokenStream):\n            return\
-    \ cls((fn(ts) for fn in fns))  \n        return parse\n            \n    @staticmethod\n\
-    \    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
+    \ Callable): \n            def parse(ts: TokenStream):\n                return\
+    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
+    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
+    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
+    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
+    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
+    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
+    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
+    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
+    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -142,11 +144,11 @@ data:
     \ f64a(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef\
     \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
     except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nclass Permutation(FunctionalGraph):\n\n    def inv(P):\n        Pinv\
-    \ = [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p] = i\n     \
-    \   return type(P)(Pinv)\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.functional_graph_cls\
-    \ import FunctionalGraph\n\nclass Permutation(FunctionalGraph):\n\n    def inv(P):\n\
+    \    \n\nclass Permutation(FunctionalGraph):\n    def inv(P):\n        Pinv =\
+    \ [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p] = i\n       \
+    \ return type(P)(Pinv)\n"
+  code: "import cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.functional_graph_cls\
+    \ import FunctionalGraph\n\nclass Permutation(FunctionalGraph):\n    def inv(P):\n\
     \        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p]\
     \ = i\n        return type(P)(Pinv)"
   dependsOn:
@@ -159,7 +161,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/permutation_cls.py
   requiredBy: []
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

@@ -142,23 +142,25 @@ data:
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
     \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
     \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        else:\n            raise\
-    \ NotImplementedError()\n    \n    @staticmethod\n    def compile_line(cls: T,\
-    \ spec=int) -> ParseFn[T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((int(token)\
-    \ for token in ts.line()))\n            return parse\n        else:\n        \
-    \    fn = Parser.compile(spec)\n            def parse(ts: TokenStream):\n    \
-    \            return cls((fn(ts) for _ in ts.wait()))\n            return parse\n\
-    \n    @staticmethod\n    def compile_repeat(cls: T, spec, N) -> ParseFn[T]:\n\
-    \        fn = Parser.compile(spec)\n        def parse(ts: TokenStream):\n    \
-    \        return cls((fn(ts) for _ in range(N)))\n        return parse\n\n    @staticmethod\n\
-    \    def compile_children(cls: T, specs) -> ParseFn[T]:\n        fns = tuple((Parser.compile(spec)\
-    \ for spec in specs))\n        def parse(ts: TokenStream):\n            return\
-    \ cls((fn(ts) for fn in fns))  \n        return parse\n            \n    @staticmethod\n\
-    \    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
+    \ Callable): \n            def parse(ts: TokenStream):\n                return\
+    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
+    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
+    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
+    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
+    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
+    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
+    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
+    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
+    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -193,7 +195,7 @@ data:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc375_g_find_bridges.test.py

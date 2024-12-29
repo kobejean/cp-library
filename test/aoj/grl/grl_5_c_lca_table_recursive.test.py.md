@@ -116,7 +116,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_c_lca_table_recursive.test.py

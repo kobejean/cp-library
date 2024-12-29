@@ -132,9 +132,16 @@ data:
     \ conv_fntt(self, A, B, N):\n        n,m,mod=len(A),len(B),self.mod\n        z=1<<(n+m-2).bit_length()\n\
     \        self.fntt(A:=A+[0]*(z-n)), self.fntt(B:=B+[0]*(z-m))\n        for i,\
     \ b in enumerate(B): A[i] = A[i] * b % mod\n        self.ifntt(A)\n        del\
-    \ A[N:]\n        return A\n    \n    def conv_half(self, A, Bres):\n        mod\
-    \ = self.mod\n        self.fntt(A)\n        for i, b in enumerate(Bres): A[i]\
-    \ = A[i] * b % mod\n        self.ifntt(A)\n        return A\n    \n    def conv(self,\
+    \ A[N:]\n        return A\n    \n    def deconv(self, C, B, N = None):\n     \
+    \   n, m = len(C), len(B)\n        if N is None: N = n - m + 1\n        z = 1\
+    \ << (n + m - 2).bit_length()\n        self.fntt(C := C+[0]*(z-n)), self.fntt(B\
+    \ := B+[0]*(z - m))\n\n        A = [0] * z\n        for i in range(z):\n     \
+    \       if B[i] == 0:\n                raise ValueError(\"Division by zero in\
+    \ NTT domain - deconvolution not possible\")\n            b_inv = mod_inv(B[i],\
+    \ self.mod)\n            A[i] = (C[i] * b_inv) % self.mod\n        \n        self.ifntt(A)\n\
+    \        return A[:N]\n    \n    def conv_half(self, A, Bres):\n        mod =\
+    \ self.mod\n        self.fntt(A)\n        for i, b in enumerate(Bres): A[i] =\
+    \ A[i] * b % mod\n        self.ifntt(A)\n        return A\n    \n    def conv(self,\
     \ A, B, N = None):\n        n,m = len(A), len(B)\n        N = n+m-1 if N is None\
     \ else N\n        if min(n,m) <= 60: return self.conv_naive(A, B, N)\n       \
     \ return self.conv_fntt(A, B, N)\n\n    def cycle_conv(self, A, B):\n        n,m,mod=len(A),len(B),self.mod\n\
@@ -162,7 +169,7 @@ data:
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

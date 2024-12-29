@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/dp/chmax_fn.py
-    title: cp_library/alg/dp/chmax_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -17,8 +14,8 @@ data:
     path: cp_library/ds/fill_fn.py
     title: cp_library/ds/fill_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/packet_list_cls.py
+    title: cp_library/ds/packet_list_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -56,7 +53,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from array import array\nfrom typing import Callable, Sequence, Union, overload\n\
+    from itertools import islice\nfrom typing import Callable, Sequence, Union, overload\n\
     from collections import deque\n\nimport typing\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
@@ -110,23 +107,25 @@ data:
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
     \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
     \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        else:\n            raise\
-    \ NotImplementedError()\n    \n    @staticmethod\n    def compile_line(cls: T,\
-    \ spec=int) -> ParseFn[T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((int(token)\
-    \ for token in ts.line()))\n            return parse\n        else:\n        \
-    \    fn = Parser.compile(spec)\n            def parse(ts: TokenStream):\n    \
-    \            return cls((fn(ts) for _ in ts.wait()))\n            return parse\n\
-    \n    @staticmethod\n    def compile_repeat(cls: T, spec, N) -> ParseFn[T]:\n\
-    \        fn = Parser.compile(spec)\n        def parse(ts: TokenStream):\n    \
-    \        return cls((fn(ts) for _ in range(N)))\n        return parse\n\n    @staticmethod\n\
-    \    def compile_children(cls: T, specs) -> ParseFn[T]:\n        fns = tuple((Parser.compile(spec)\
-    \ for spec in specs))\n        def parse(ts: TokenStream):\n            return\
-    \ cls((fn(ts) for fn in fns))  \n        return parse\n            \n    @staticmethod\n\
-    \    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
+    \ Callable): \n            def parse(ts: TokenStream):\n                return\
+    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
+    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
+    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
+    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
+    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
+    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
+    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
+    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
+    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -159,8 +158,8 @@ data:
     \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
     \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
     \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n\
-    \        G.order: list[int] = None\n        G.vis: array = None\n\n    def __len__(G)\
-    \ -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        G.order: list[int] = None\n        G.vis: list[int] = None\n\n    def\
+    \ __len__(G) -> int: return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -210,23 +209,24 @@ data:
     \ == s:  # Found cycle back to start\n                    cycle = [u]\n      \
     \              while u != s: cycle.append(u := par[u])\n                    return\
     \ cycle\n                if D[v] < inft: continue\n                D[v], par[v]\
-    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_topdown(G, s: int):\n\
-    \        '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order\
-    \ of top down discovery'''\n        G.vis, G.stack, G.order = vis, stack, order\
-    \ = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)\n        vis[s] =\
-    \ 1\n        stack.append(s)\n        while stack:\n            for i in G.range(stack.pop()):\n\
-    \                if vis[v := G.Va[i]]: continue\n                vis[v] = 1\n\
-    \                order.append(i), stack.append(v)\n        return order\n\n  \
-    \  def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack =\
-    \ False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None]\
-    \ = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None]\
-    \ = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None]\
-    \ = None, up_fn: Callable[[int,int],None] = None):\n        Va, La, Ra, I = G.Va,\
-    \ G.La, G.Ra, G.La[:]\n        state, stack = u8a(G.N), elist(G.N if max_depth\
-    \ is None else max_depth+1)\n        for s in G.starts(s):\n            if state[s]:\
-    \ continue\n            stack.append(s)\n            if connect_roots and down_fn:\
-    \ down_fn(-1,s)\n            while stack:\n                if state[u := stack[-1]]\
-    \ == 0:\n                    state[u] = 1\n                    if enter_fn: enter_fn(u)\n\
+    \ = D[u]+1, u\n                que.append(v)\n\n    def dfs_topdown(G, s: int)\
+    \ -> list[int]:\n        '''Returns lists of indices i where Ua[i] -> Va[i] are\
+    \ edges in order of top down discovery'''\n        G.vis, G.stack, G.order = vis,\
+    \ stack, order = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)\n   \
+    \     vis[s] = 1\n        stack.append(s)\n        while stack:\n            for\
+    \ i in G.range(stack.pop()):\n                if vis[v := G.Va[i]]: continue\n\
+    \                vis[v] = 1\n                order.append(i), stack.append(v)\n\
+    \        return order\n\n    def dfs(G, s: Union[int,list] = None, /, connect_roots\
+    \ = False, backtrack = False, max_depth = None, enter_fn: Callable[[int],None]\
+    \ = None, leave_fn: Callable[[int],None] = None, max_depth_fn: Callable[[int],None]\
+    \ = None, down_fn: Callable[[int,int],None] = None, back_fn: Callable[[int,int],None]\
+    \ = None, cross_fn: Callable[[int,int],None] = None, up_fn: Callable[[int,int],None]\
+    \ = None):\n        Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]\n        G.state,\
+    \ G.stack = state, stack = u8a(G.N), elist(G.N if max_depth is None else max_depth+1)\n\
+    \        for s in G.starts(s):\n            if state[s]: continue\n          \
+    \  stack.append(s)\n            if connect_roots and down_fn: down_fn(-1,s)\n\
+    \            while stack:\n                if state[u := stack[-1]] == 0:\n  \
+    \                  state[u] = 1\n                    if enter_fn: enter_fn(u)\n\
     \                    if max_depth is not None and len(stack) > max_depth:\n  \
     \                      I[u] = Ra[u]\n                        if max_depth_fn:\
     \ max_depth_fn(u)\n                if (i := I[u]) < Ra[u]:\n                 \
@@ -238,18 +238,17 @@ data:
     \  if backtrack: state[u], I[u] = 0, La[u]\n                    if leave_fn: leave_fn(u)\n\
     \                    if up_fn and stack: up_fn(u, stack[-1])\n            if connect_roots\
     \ and up_fn: up_fn(s, -1)\n    \n    def dfs_enter_leave(G, s: Union[int,list[int],None]\
-    \ = None) -> tuple[list[int],list[int]]:\n        '''Returns lists U and V representing\
-    \ U[i] -> V[i] edges in order of top down discovery'''\n        N, Ra, Va, I =\
-    \ G.N, G.Ra, G.Va, G.La[:]\n        stack, order, events, par = elist(N), elist(2*N),\
-    \ elist(2*N), i32a(N, -1)\n        G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER),\
-    \ int(DFSEvent.LEAVE)\n        for s in G.starts(s):\n            if par[s] >=\
-    \ 0: continue\n            par[s] = s\n            order.append(s), events.append(ENTER),\
-    \ stack.append(s)\n            while stack:\n                if (i := I[u := stack[-1]])\
-    \ < Ra[u]:\n                    I[u] += 1\n                    if par[v := Va[i]]\
-    \ >= 0: continue\n                    par[v] = u\n                    order.append(v),\
-    \ events.append(ENTER), stack.append(v)\n                else:\n             \
-    \       order.append(u), events.append(LEAVE), stack.pop()\n        return events,\
-    \ order\n    \n    def is_bipartite(G):\n        Va, que, color = G.Va, deque(),\
+    \ = None) -> Sequence[tuple[DFSEvent,int]]:\n        N, Ra, Va, I = G.N, G.Ra,\
+    \ G.Va, G.La[:]\n        stack, par, plist = elist(N), i32a(N,-1), PacketList(order\
+    \ := elist(2*N), N-1)\n        G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER)\
+    \ << plist.shift, int(DFSEvent.LEAVE) << plist.shift\n        for s in G.starts(s):\n\
+    \            if par[s] >= 0: continue\n            par[s] = s\n            order.append(ENTER\
+    \ | s), stack.append(s)\n            while stack:\n                if (i := I[u\
+    \ := stack[-1]]) < Ra[u]:\n                    I[u] += 1\n                   \
+    \ if par[v := Va[i]] >= 0: continue\n                    par[v] = u\n        \
+    \            order.append(ENTER | v), stack.append(v)\n                else:\n\
+    \                    order.append(LEAVE | u), stack.pop()\n        return PacketList(order,\
+    \ N-1)\n    \n    def is_bipartite(G):\n        Va, que, color = G.Va, deque(),\
     \ u8a(N := G.N)                \n        for s in range(N):\n            if color[s]:\
     \ continue\n            color[s] = 1\n            que.append(s)\n            while\
     \ que:\n                for i in G.range(u := que.popleft()):\n              \
@@ -265,10 +264,7 @@ data:
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\n\ndef chmax(dp, i, v):\n    if ch:=dp[i]<v:dp[i]=v\n\
-    \    return ch\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from\
-    \ __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len:\
-    \ int):\n        pass\nreserve = resizelist_hint\n\ndef i8a(N: int, elm: int =\
+    \ = newlist_hint\n    \nfrom array import array\n\ndef i8a(N: int, elm: int =\
     \ 0): return array('b', (elm,))*N       # signed char\ndef u8a(N: int, elm: int\
     \ = 0): return array('B', (elm,))*N       # unsigned char\ndef i16a(N: int, elm:\
     \ int = 0): return array('h', (elm,))*N      # signed short\ndef u16a(N: int,\
@@ -279,7 +275,12 @@ data:
     \ u64a(N: int, elm: int = 0): return array('Q', (elm,))*N      # unsigned long\
     \ long\ndef f32a(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
     def f64a(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    inft: int\n\ninft = sys.maxsize\n\nclass Graph(GraphBase):\n    def __init__(G,\
+    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(self, A: list[int],\
+    \ max0: int):\n        self.A = A\n        self.mask = (1 << (shift := (max0).bit_length()))\
+    \ - 1\n        self.shift = shift\n    def __len__(self): return self.A.__len__()\n\
+    \    def __contains__(self, x): return self.A.__contains__(x)\n    def __getitem__(self,\
+    \ key):\n        x = self.A[key]\n        return x >> self.shift, x & self.mask\n\
+    \ninft: int\n\ninft = sys.maxsize\n\nclass Graph(GraphBase):\n    def __init__(G,\
     \ N: int, U: list[int], V: list[int]):\n        M2 = (M := len(U)) << 1\n    \
     \    deg, Ea, Ua, Va = u32a(N), u32a(M2), u32a(M2), u32a(M2)\n        for u in\
     \ U: deg[u] += 1\n        for v in V: deg[v] += 1\n        La, i = u32a(N), 0\n\
@@ -304,15 +305,14 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/elist_fn.py
-  - cp_library/alg/dp/chmax_fn.py
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/packet_list_cls.py
   - cp_library/math/inft_cnst.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py

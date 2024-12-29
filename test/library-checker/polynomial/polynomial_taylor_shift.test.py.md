@@ -73,15 +73,16 @@ data:
     \ return self\n    def __abs__(self): return self\n\n\ndef mod_inv(x, mod):\n\
     \    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t = b,a%b,t,s-a//b*t\n\
     \    if a == 1: return s % mod\n    raise ValueError(f\"{x} is not invertible\
-    \ in mod {mod}\")\nfrom itertools import accumulate\n\nclass modcomb(list[mint]):\n\
-    \    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n\
-    \    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b):\
-    \ return a*b%mod\n        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n\
+    \ in mod {mod}\")\nfrom itertools import accumulate\n\nclass modcomb():\n    fact:\
+    \ list[int]\n    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n\
+    \    def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return\
+    \ a*b%mod\n        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n\
     \        fact_inv = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N],\
     \ mod)))\n        fact_inv.reverse()\n        modcomb.fact, modcomb.fact_inv =\
     \ fact, fact_inv\n    \n    @staticmethod\n    def extend_inv(N):\n        N,\
     \ inv, mod = N+1, modcomb.inv, mint.mod\n        while len(inv) < N:\n       \
     \     j, k = divmod(mod, len(inv))\n            inv.append(-inv[k] * j % mod)\n\
+    \n    @staticmethod\n    def factorial(n: int, /) -> mint:\n        return mint(modcomb.fact[n])\n\
     \n    @staticmethod\n    def comb(n: int, k: int, /) -> mint:\n        inv, mod\
     \ = modcomb.fact_inv, mint.mod\n        if n < k: return mint.zero\n        return\
     \ mint(inv[k] * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom = comb\n  \
@@ -143,9 +144,16 @@ data:
     \ conv_fntt(self, A, B, N):\n        n,m,mod=len(A),len(B),self.mod\n        z=1<<(n+m-2).bit_length()\n\
     \        self.fntt(A:=A+[0]*(z-n)), self.fntt(B:=B+[0]*(z-m))\n        for i,\
     \ b in enumerate(B): A[i] = A[i] * b % mod\n        self.ifntt(A)\n        del\
-    \ A[N:]\n        return A\n    \n    def conv_half(self, A, Bres):\n        mod\
-    \ = self.mod\n        self.fntt(A)\n        for i, b in enumerate(Bres): A[i]\
-    \ = A[i] * b % mod\n        self.ifntt(A)\n        return A\n    \n    def conv(self,\
+    \ A[N:]\n        return A\n    \n    def deconv(self, C, B, N = None):\n     \
+    \   n, m = len(C), len(B)\n        if N is None: N = n - m + 1\n        z = 1\
+    \ << (n + m - 2).bit_length()\n        self.fntt(C := C+[0]*(z-n)), self.fntt(B\
+    \ := B+[0]*(z - m))\n\n        A = [0] * z\n        for i in range(z):\n     \
+    \       if B[i] == 0:\n                raise ValueError(\"Division by zero in\
+    \ NTT domain - deconvolution not possible\")\n            b_inv = mod_inv(B[i],\
+    \ self.mod)\n            A[i] = (C[i] * b_inv) % self.mod\n        \n        self.ifntt(A)\n\
+    \        return A[:N]\n    \n    def conv_half(self, A, Bres):\n        mod =\
+    \ self.mod\n        self.fntt(A)\n        for i, b in enumerate(Bres): A[i] =\
+    \ A[i] * b % mod\n        self.ifntt(A)\n        return A\n    \n    def conv(self,\
     \ A, B, N = None):\n        n,m = len(A), len(B)\n        N = n+m-1 if N is None\
     \ else N\n        if min(n,m) <= 60: return self.conv_naive(A, B, N)\n       \
     \ return self.conv_fntt(A, B, N)\n\n    def cycle_conv(self, A, B):\n        n,m,mod=len(A),len(B),self.mod\n\
@@ -212,23 +220,25 @@ data:
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
     \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
     \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        else:\n            raise\
-    \ NotImplementedError()\n    \n    @staticmethod\n    def compile_line(cls: T,\
-    \ spec=int) -> ParseFn[T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((int(token)\
-    \ for token in ts.line()))\n            return parse\n        else:\n        \
-    \    fn = Parser.compile(spec)\n            def parse(ts: TokenStream):\n    \
-    \            return cls((fn(ts) for _ in ts.wait()))\n            return parse\n\
-    \n    @staticmethod\n    def compile_repeat(cls: T, spec, N) -> ParseFn[T]:\n\
-    \        fn = Parser.compile(spec)\n        def parse(ts: TokenStream):\n    \
-    \        return cls((fn(ts) for _ in range(N)))\n        return parse\n\n    @staticmethod\n\
-    \    def compile_children(cls: T, specs) -> ParseFn[T]:\n        fns = tuple((Parser.compile(spec)\
-    \ for spec in specs))\n        def parse(ts: TokenStream):\n            return\
-    \ cls((fn(ts) for fn in fns))  \n        return parse\n            \n    @staticmethod\n\
-    \    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
+    \ Callable): \n            def parse(ts: TokenStream):\n                return\
+    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
+    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
+    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
+    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
+    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
+    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
+    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
+    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
+    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
+    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -271,7 +281,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/polynomial_taylor_shift.test.py
   requiredBy: []
-  timestamp: '2024-12-28 12:13:01+09:00'
+  timestamp: '2024-12-29 16:20:36+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/polynomial_taylor_shift.test.py
