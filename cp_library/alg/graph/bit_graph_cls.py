@@ -1,7 +1,7 @@
 import cp_library.alg.graph.__header__
 from typing import Union
-from cp_library.bit.popcnt_fn import popcnt
-from cp_library.bit.ctz_fn import ctz
+from cp_library.bit.popcnt32_fn import popcnt32
+from cp_library.bit.ctz32_fn import ctz32
 from cp_library.alg.graph.edge_cls import Edge
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
@@ -23,9 +23,9 @@ class BitGraph(list, Parsable):
         I, coef = [0]*Z, [1]*Z
         I[0] = 1
         for S in range(1, Z):
-            T = 1 << (v := ctz(S)) ^ S
+            T = 1 << (v := ctz32(S)) ^ S
             I[S] = I[T] + I[T & ~G[v]]
-            coef[S] = -1 if popcnt(S) & 1 else 1
+            coef[S] = -1 if popcnt32(S) & 1 else 1
         for k in range(1, N):
             Pk = 0
             for S in range(Z):

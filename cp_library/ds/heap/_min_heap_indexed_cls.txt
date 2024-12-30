@@ -1,6 +1,6 @@
 import cp_library.ds.heap.__header__
 from collections import UserList
-from cp_library.math.inft_cnst import inft
+from math import inf
 from typing import Generic, Iterable, Sequence, SupportsIndex, TypeVar
 from heapq import heapify, heappop
 from cp_library.ds.heap.heapq_max_import import heapsiftup, heapsiftdown
@@ -23,7 +23,7 @@ class Task(Generic[T]):
 
 class TaskList(UserList[Task[T]]):
     def __init__(self, N: int, tuples: Iterable[tuple[int,T]] = None):
-        tasks = [Task(-1, id, inft) for id in range(N)]
+        tasks = [Task(-1, id, inf) for id in range(N)]
         data = elist(N) # empty list allocating space for N items
         if tuples is not None:
             for id, priority in tuples:

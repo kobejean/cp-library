@@ -210,27 +210,27 @@ class Parsable:
         return parser
 from array import array
 
-def i32a(N: int, elm: int = 0):
+def i32f(N: int, elm: int = 0):
     return array('i', (elm,)) * N
 
-def u32a(N: int, elm: int = 0):
+def u32f(N: int, elm: int = 0):
     return array('I', (elm,)) * N
 
-def i64a(N: int, elm: int = 0):
+def i64f(N: int, elm: int = 0):
     return array('q', (elm,)) * N
 
-def u64a(N: int, elm: int = 0):
+def i64f(N: int, elm: int = 0):
     return array('Q', (elm,)) * N
 
 class StaticDiGraphWeighted(Sequence, Parsable):
     def __init__(G, N: int, U: list, V: list, W: list):
         M = len(U)
-        deg, adj, Wadj = u32a(N), u32a(M), [0]*M
+        deg, adj, Wadj = u32f(N), u32f(M), [0]*M
 
         for u in U:
             deg[u] += 1
 
-        L, idx = u32a(N), 0
+        L, idx = u32f(N), 0
         for u in range(N):
             L[u], idx = idx, idx + deg[u]
         R = copy(L)
@@ -249,8 +249,8 @@ class StaticDiGraphWeighted(Sequence, Parsable):
 
     def dijkstra(G, s: int, t: int = None):
         N, L, R, adj, Wadj = G.N, G.L, G.R, G.adj, G.Wadj
-        G.par = par = i32a(N, -1)
-        G.D = D = [inft]*N
+        G.par = par = i32f(N, -1)
+        G.D = D = [inf]*N
         D[s] = 0
             
         heap = PriorityQueue(N)
@@ -269,10 +269,10 @@ class StaticDiGraphWeighted(Sequence, Parsable):
         
     def shortest_path(G, s: int, t: int):
         D = G.dijkstra(s, t)
-        if D[t] == inft: return None
+        if D[t] == inf: return None
         par = G.par
             
-        path = u32a(0)
+        path = u32f(0)
         path.append(t)
         v = t
         while v != s:
@@ -281,7 +281,7 @@ class StaticDiGraphWeighted(Sequence, Parsable):
     
     def shortest_path_edge_ids(G, s: int, t: int):
         D = G.dijkstra(s, t)
-        if D[t] == inft: return None
+        if D[t] == inf: return None
         par, par_ei = G.par, G.par_ei
             
         path = elist(G.N)
@@ -294,7 +294,7 @@ class StaticDiGraphWeighted(Sequence, Parsable):
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
         def parse(ts: TokenStream):
-            U, V, W = u32a(M), u32a(M), [0]*M
+            U, V, W = u32f(M), u32f(M), [0]*M
             stream = ts.stream
             for i in range(M):
                 u, v, W[i] = map(int, stream.readline().split())
@@ -359,7 +359,7 @@ class PriorityQueue(HeapProtocol[int], UserList[int]):
 
 
 
-inft = sys.maxsize
+inf = sys.maxsize
 
 from typing import Type, TypeVar, Union, overload
 

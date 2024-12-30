@@ -1,5 +1,5 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 def main():
     N, M = read((int,int))
@@ -10,7 +10,7 @@ def main():
         write("NEGATIVE CYCLE")
     else:
         for row in D:
-            write(*('INF' if d == inft else d for d in row))
+            write(*('INF' if d == inf else d for d in row))
 
 from cp_library.io.legacy.read_fn import read
 from cp_library.io.write_fn import write

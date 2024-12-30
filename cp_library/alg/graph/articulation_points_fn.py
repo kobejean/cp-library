@@ -1,7 +1,7 @@
 import cp_library.alg.graph.__header__
 from typing import Union
 from cp_library.alg.graph.dfs_events_fn import DFSEvent, DFSFlags, dfs_events
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 def articulation_points(G, s: Union[int,list,None] = None):
     """
@@ -10,7 +10,7 @@ def articulation_points(G, s: Union[int,list,None] = None):
     """
     N = G.N
     if s is None: s = range(N)
-    low, disc, children, ap, time = [inft]*N, [-1]*N, [0]*N, [False]*N, 0    
+    low, disc, children, ap, time = [inf]*N, [-1]*N, [0]*N, [False]*N, 0    
     flags = DFSFlags.DOWN | DFSFlags.BACK | DFSFlags.UP | DFSFlags.RETURN_PARENTS
     events, parent = dfs_events(G, flags, s)
     for event in events:

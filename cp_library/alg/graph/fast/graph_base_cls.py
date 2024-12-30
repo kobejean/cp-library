@@ -1,5 +1,6 @@
-from itertools import islice
 import cp_library.alg.graph.__header__
+from math import inf
+from itertools import islice
 from typing import Callable, Sequence, Union, overload
 from collections import deque
 from cp_library.io.parser_cls import Parsable, TokenStream
@@ -8,7 +9,7 @@ from cp_library.alg.graph.dfs_options_cls import DFSEvent
 class GraphBase(Sequence, Parsable):
     def __init__(G, N: int, M: int, U: list[int], V: list[int], 
                  deg: list[int], La: list[int], Ra: list[int],
-                 Ua: list[int], Va: list[int], Ea: list[int]):
+                 Ua: list[int], Va: list[int], Ea: list[int], self_loops = False):
         G.N = N
         """The number of vertices."""
         G.M = M
@@ -50,17 +51,15 @@ class GraphBase(Sequence, Parsable):
         else: return G.bfs(s, g)
 
     def shortest_path(G, s: int, t: int):
-        if G.distance(s, t) >= inft: return None
-        Ua, back, vertices = G.Ua, G.back, u32a(1, v := t)
+        if G.distance(s, t) >= inf: return None
+        Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)
         while v != s: vertices.append(v := Ua[back[v]])
         return vertices[::-1]
     
     def shortest_path_edge_ids(G, s: int, t: int):
-        if G.distance(s, t) >= inft: return None
-        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32a(0), t
-        while v != s:
-            edges.append(Ea[i := back[v]])
-            v = Ua[i]
+        if G.distance(s, t) >= inf: return None
+        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t
+        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])
         return edges[::-1]
     
     @overload
@@ -68,7 +67,7 @@ class GraphBase(Sequence, Parsable):
     @overload
     def bfs(G, s: Union[int,list], g: int) -> int: ...
     def bfs(G, s: int = 0, g: int = None):
-        S, Va, back, D = G.starts(s), G.Va, i32a(N := G.N, -1), u64a(N, inft)
+        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N, -1), [inf]*N
         G.back, G.D = back, D
         for u in S: D[u] = 0
         que = deque(S)
@@ -79,23 +78,22 @@ class GraphBase(Sequence, Parsable):
                 if nd < D[v := Va[i]]:
                     D[v], back[v] = nd, i
                     que.append(v)
-        return D if g is None else inft 
+        return D if g is None else inf 
 
     def floyd_warshall(G) -> list[list[int]]:
         M, Ua, Va, N = G.M, G.Ua, G.Va, G.N
-        G.D = D = [[inft]*N for _ in range(N)]
+        G.D = D = [[inf]*N for _ in range(N)]
         for u in range(N): D[u][u] = 0
         for i in range(M): D[Ua[i]][Va[i]] = 1
         for k, Dk in enumerate(D):
             for Di in D:
-                if Di[k] == inft: continue
+                if Di[k] == inf: continue
                 for j in range(N):
-                    if Dk[j] == inft: continue
                     Di[j] = min(Di[j], Di[k]+Dk[j])
         return D
 
     def find_cycle_indices(G, s: Union[int, None] = None):
-        M, Ea, Ua, Va, vis, back = G.M, G.Ea, G. Ua, G.Va, u8a(N := G.N), i32a(N, -1)
+        M, Ea, Ua, Va, vis, back = G.M, G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)
         G.vis, G.back, stack = vis, back, elist(N)
         for s in G.starts(s):
             if vis[s]: continue
@@ -103,20 +101,21 @@ class GraphBase(Sequence, Parsable):
             while stack:
                 if vis[u := stack.pop()] == 0:
                     stack.append(u)
-                    vis[u] = 1
+                    vis[u], pe = 1, ~Ea[j] if (j := back[u]) != i32_max else i32_max
                     for i in G.range(u):
-                        if vis[v := Va[i]] == 1:
-                            if u != v and ((j := back[u]) == -1 or abs(Ea[j]-Ea[i]) == M): continue
-                            I = u32a(1,i)
-                            while v != u:
-                                I.append(i := back[u])
-                                u = Ua[i]
-                            return I[::-1]
-                        elif vis[v] == 0:
+                        if vis[v := Va[i]] == 0:
                             back[v] = i
                             stack.append(v)
+                        elif vis[v] == 1 and pe != Ea[i]:
+                            I = u32f(1,i)
+                            while v != u: I.append(i := back[u]), (u := Ua[i])
+                            return I[::-1]
                 else:
                     vis[u] = 2
+        # check for self loops
+        for i in range(len(Ua)):
+            if Ua[i] == Va[i]:
+                return u32f(1,i)
     
     def find_cycle(G, s: Union[int, None] = None):
         if I := G.find_cycle_indices(s): return [G.Ua[i] for i in I]
@@ -125,7 +124,7 @@ class GraphBase(Sequence, Parsable):
         if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]
 
     def find_minimal_cycle(G, s=0):
-        D, par, que, Va = u64a(N := G.N, inft), i32a(N, -1), deque([s]), G.Va
+        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), deque([s]), G.Va
         D[s] = 0
         while que:
             for i in G.range(u := que.popleft()):
@@ -133,13 +132,13 @@ class GraphBase(Sequence, Parsable):
                     cycle = [u]
                     while u != s: cycle.append(u := par[u])
                     return cycle
-                if D[v] < inft: continue
+                if D[v] < u32_max: continue
                 D[v], par[v] = D[u]+1, u
                 que.append(v)
 
     def dfs_topdown(G, s: int) -> list[int]:
         '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
-        G.vis, G.stack, G.order = vis, stack, order = u8a(N := G.N), G.stack or elist(N), G.order or elist(N)
+        G.vis, G.stack, G.order = vis, stack, order = u8f(N := G.N), G.stack or elist(N), G.order or elist(N)
         vis[s] = 1
         stack.append(s)
         while stack:
@@ -151,7 +150,7 @@ class GraphBase(Sequence, Parsable):
 
     def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None] = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None] = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None] = None, up_fn: Callable[[int,int],None] = None):
         Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]
-        G.state, G.stack = state, stack = u8a(G.N), elist(G.N if max_depth is None else max_depth+1)
+        G.state, G.stack = state, stack = u8f(G.N), elist(G.N if max_depth is None else max_depth+1)
         for s in G.starts(s):
             if state[s]: continue
             stack.append(s)
@@ -180,7 +179,7 @@ class GraphBase(Sequence, Parsable):
     
     def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:
         N, Ra, Va, I = G.N, G.Ra, G.Va, G.La[:]
-        stack, par, plist = elist(N), i32a(N,-1), PacketList(order := elist(2*N), N-1)
+        stack, par, plist = elist(N), i32f(N,-1), PacketList(order := elist(2*N), N-1)
         G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER) << plist.shift, int(DFSEvent.LEAVE) << plist.shift
         for s in G.starts(s):
             if par[s] >= 0: continue
@@ -197,7 +196,7 @@ class GraphBase(Sequence, Parsable):
         return PacketList(order, N-1)
     
     def is_bipartite(G):
-        Va, que, color = G.Va, deque(), u8a(N := G.N)                
+        Va, que, color = G.Va, deque(), u8f(N := G.N)                
         for s in range(N):
             if color[s]: continue
             color[s] = 1
@@ -219,7 +218,7 @@ class GraphBase(Sequence, Parsable):
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
         def parse(ts: TokenStream):
-            U, V = u32a(M), u32a(M)
+            U, V = u32f(M), u32f(M)
             stream = ts.stream
             for i in range(M):
                 u, v = map(int, stream.readline().split())
@@ -228,6 +227,5 @@ class GraphBase(Sequence, Parsable):
         return parse
     
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.fill_fn import u8a, u32a, i32a, u64a
+from cp_library.ds.array_init_fn import u8f, u32f, i32f, i64f, u32_max, i32_max
 from cp_library.ds.packet_list_cls import PacketList
-from cp_library.math.inft_cnst import inft

@@ -1,13 +1,13 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc175/tasks/abc175_d
 
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 def main():
     N, K = read(tuple[int, ...])
     P = read(Permutation[N])
     C = read(list[int, N])
 
-    ans = -inft
+    ans = -inf
     for cyc in P.cycles():
         L = len(cyc)
         A = [C[u] for u in cyc]

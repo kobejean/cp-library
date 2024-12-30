@@ -15,10 +15,10 @@ def main():
             u,v,_ = E[e]
             write(u,v)
     
-from cp_library.math.inft_cnst import inft
+from math import inf
     
 def shortest_path(G, s: int, g: int) -> list[int]:
-    D = [inft] * G.N
+    D = [inf] * G.N
     D[s] = 0
     if s == g:
         return [], D
@@ -40,7 +40,7 @@ def shortest_path(G, s: int, g: int) -> list[int]:
                 par_edge[u] = Eid[v][i]
                 heap.push((nd, u))
     
-    if D[g] == inft:
+    if D[g] == inf:
         return None, D
         
     path = []

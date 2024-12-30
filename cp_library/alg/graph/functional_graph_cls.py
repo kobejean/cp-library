@@ -15,7 +15,7 @@ class FunctionalGraph(list[int], Parsable):
         return cyc
     
     def cycles(P) -> Iterator[list[int]]:
-        vis, cycs, L = u8a(N := P.N), elist(N), elist(N)
+        vis, cycs, L = u8f(N := P.N), elist(N), elist(N)
         for v in range(P.N):
             if vis[v]: continue
             slow = fast = v
@@ -34,5 +34,5 @@ class FunctionalGraph(list[int], Parsable):
         return Parser.compile_repeat(cls, shift, N)
 
 from cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse
-from cp_library.ds.fill_fn import u8a
+from cp_library.ds.array_init_fn import u8f
 from cp_library.ds.elist_fn import elist

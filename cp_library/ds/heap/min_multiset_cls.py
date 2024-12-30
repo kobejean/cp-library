@@ -3,12 +3,12 @@ from heapq import heappop, heappush
 from collections import Counter, UserList
 from typing import Iterable, TypeVar
 
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 T = TypeVar('T')
 class MinMultiset(UserList[T]):
     
-    def __init__(self, iterable: Iterable = None, default = -inft):
+    def __init__(self, iterable: Iterable = None, default = -inf):
         super().__init__(iterable)
         self.default = default
         self.counter = Counter(self.data)

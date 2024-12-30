@@ -2,7 +2,7 @@ import cp_library.alg.graph.__header__
 
 from collections import deque
 from typing import overload
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 @overload
 def bfs(G, s: int = 0) -> list[int]: ...
@@ -10,7 +10,7 @@ def bfs(G, s: int = 0) -> list[int]: ...
 def bfs(G, s: int, g: int) -> int: ...
 
 def bfs(G, s: int = 0, g: int = None):
-    D = [inft for _ in range(G.N)]
+    D = [inf for _ in range(G.N)]
     D[s] = 0
     q = deque([s])
     while q:
@@ -20,4 +20,4 @@ def bfs(G, s: int = 0, g: int = None):
             if nd < D[v]:
                 D[v] = nd
                 q.append(v)
-    return D if g is None else inft
+    return D if g is None else inf

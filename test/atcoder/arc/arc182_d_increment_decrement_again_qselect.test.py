@@ -21,7 +21,7 @@ def main():
                 C.append(Ci)
                 break
     median = qselect([c-a for a,c in zip(A,C)], N//2)
-    ans = inft
+    ans = inf
     for i in range(median//M,median//M+2):
         now=0
         for j in range(N):
@@ -29,7 +29,7 @@ def main():
         ans=min(ans,now)
     write(ans)
 
-from cp_library.math.inft_cnst import inft
+from math import inf
 from cp_library.alg.divcon.qselect_fn import qselect
 from cp_library.io.read_int_fn import read
 from cp_library.io.write_fn import write

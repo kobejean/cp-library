@@ -4,12 +4,13 @@ def main():
     N, M = read()
     G = read(Graph[N,M,0])
     cyc = G.find_cycle_edge_ids()
+
     if cyc is None:
         write("-1")
     else:
         write(len(cyc))
-        V = [G.U[e] if e < M else G.V[e-M] for e in cyc]
-        E = [e if e < M else e-M for e in cyc]
+        V = [G.V[~e] if e < 0 else G.U[e] for e in cyc]
+        E = [~e if e < 0 else e for e in cyc]
         write(*V)
         write(*E)
     

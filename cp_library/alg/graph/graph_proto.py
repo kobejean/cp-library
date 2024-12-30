@@ -4,7 +4,7 @@ from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
 from cp_library.ds.elist_fn import elist
 from typing import Iterable, Union, overload
 from collections import deque
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 class GraphProtocol(list, Parsable):
     def __init__(G, N: int, E: list = None, adj: Iterable = None):
@@ -36,7 +36,7 @@ class GraphProtocol(list, Parsable):
     @overload
     def bfs(G, s: Union[int,list], g: int) -> int: ...
     def bfs(G, s = 0, g = None):
-        D = [inft for _ in range(G.N)]
+        D = [inf for _ in range(G.N)]
         q = deque([s] if isinstance(s, int) else s)
         for u in q: D[u] = 0
         while q:
@@ -46,14 +46,14 @@ class GraphProtocol(list, Parsable):
                 if nd < D[v]:
                     D[v] = nd
                     q.append(v)
-        return D if g is None else inft 
+        return D if g is None else inf 
 
     @overload
     def shortest_path(G, s: int, g: int) -> Union[list[int],None]: ...
     @overload
     def shortest_path(G, s: int, g: int, distances = True) -> tuple[Union[list[int],None],list[int]]: ...
     def shortest_path(G, s: int, g: int, distances = False) -> list[int]:
-        D = [inft] * G.N
+        D = [inf] * G.N
         D[s] = 0
         if s == g:
             return ([], D) if distances else []
@@ -74,7 +74,7 @@ class GraphProtocol(list, Parsable):
                     par_edge[v] = eid
                     q.append(v)
         
-        if D[g] == inft:
+        if D[g] == inf:
             return (None, D) if distances else None
             
         path = []
@@ -89,7 +89,7 @@ class GraphProtocol(list, Parsable):
             
         
     def floyd_warshall(G) -> list[list[int]]:
-        D = [[inft]*G.N for _ in range(G.N)]
+        D = [[inf]*G.N for _ in range(G.N)]
 
         for u in range(G.N):
             D[u][u] = 0
@@ -98,9 +98,9 @@ class GraphProtocol(list, Parsable):
         
         for k, Dk in enumerate(D):
             for Di in D:
-                if Di[k] == inft: continue
+                if Di[k] == inf: continue
                 for j in range(G.N):
-                    if Dk[j] == inft: continue
+                    if Dk[j] == inf: continue
                     Di[j] = min(Di[j], Di[k]+Dk[j])
         return D
     
@@ -134,7 +134,7 @@ class GraphProtocol(list, Parsable):
         return None
 
     def find_minimal_cycle(G, s=0):
-        D, par, que = [inft] * (N := G.N), [-1] * N, deque([s])
+        D, par, que = [inf] * (N := G.N), [-1] * N, deque([s])
         D[s] = 0
         while que:
             for v in G[u := que.popleft()]:
@@ -142,7 +142,7 @@ class GraphProtocol(list, Parsable):
                     cycle = [u]
                     while u != s: cycle.append(u := par[u])
                     return cycle
-                if D[v] < inft: continue
+                if D[v] < inf: continue
                 D[v], par[v] = D[u]+1, u
                 que.append(v)
     

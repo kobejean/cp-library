@@ -8,8 +8,8 @@ class TreeWeightedBase(TreeBase, GraphWeightedBase):
 
     def dfs_distance(T, s: int, g: Union[int,None] = None):
         stack, Wa, Va = elist(N := T.N), T.Wa, T.Va
+        T.D, T.back = D, back = [inf]*N, i32f(N, -1)
         stack.append(s)
-        T.D, T.back = D, back = u64a(N, inft), i32a(N, -1)
         D[s] = 0
         while stack:
             d = D[u := stack.pop()]
@@ -18,7 +18,7 @@ class TreeWeightedBase(TreeBase, GraphWeightedBase):
                 if (nd := d+Wa[i]) < D[v := Va[i]]:
                     D[v], back[v] = nd, i
                     stack.append(v)
-        return D if g is None else inft 
+        return D if g is None else inf 
     
     def euler_tour(T, s = 0):
         N, Va, Wa = len(T), T.Va, T.Wa
@@ -106,5 +106,5 @@ class TreeWeightedBase(TreeBase, GraphWeightedBase):
         return GraphWeightedBase.compile.__func__(cls, N, N-1, shift)
     
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.fill_fn import u64a, i32a
-from cp_library.math.inft_cnst import inft
+from cp_library.ds.array_init_fn import i64f, i32f
+from math import inf

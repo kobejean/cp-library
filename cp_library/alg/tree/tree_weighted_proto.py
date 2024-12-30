@@ -17,7 +17,7 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
     @overload
     def dfs(T, s: int, g: int) -> int: ...
     def dfs(T, s = 0, g = None):
-        D = [inft for _ in range(T.N)]
+        D = [inf for _ in range(T.N)]
         D[s] = 0
         state = [True for _ in range(T.N)]
         stack = [s]
@@ -30,7 +30,7 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
                 if state[v]:
                     D[v] = D[u]+w
                     stack.append(v)
-        return D if g is None else inft
+        return D if g is None else inf
     
     def euler_tour(T, s = 0):
         N = len(T)
@@ -120,5 +120,5 @@ class TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):
         T.par, T.heavy, T.head = par, heavy, head
         T.Wpar = Wpar
 
-from cp_library.math.inft_cnst import inft
+from math import inf
 from cp_library.ds.elist_fn import elist

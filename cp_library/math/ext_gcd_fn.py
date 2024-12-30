@@ -1,6 +1,7 @@
 import cp_library.math.__header__
 
 def ext_gcd(a, b):
+    """ Returns (x, y, d) where: ax + by = d = gcd(a,b) """
     if a and b:
         x,y,r,s = 1,0,0,1
         while b:

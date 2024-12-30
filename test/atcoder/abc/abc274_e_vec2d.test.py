@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc274/tasks/abc274_e
 # verification-helper: ERROR 1e-6
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 def main():
     N, M = read(tuple[int, ...])
@@ -14,7 +14,7 @@ def main():
     O = [o.distance(v) for v in pts]
     F = [1/(1 << mask.bit_count()) for mask in range(1 << M)]
     
-    dp = [[inft]*Y for _ in range(Z)]
+    dp = [[inf]*Y for _ in range(Z)]
     for y in range(Y):
         mask = 1 << y
         dp[mask][y] = O[y]
@@ -30,7 +30,7 @@ def main():
             dp[nmask][y] = nc
             
     full = Z-1
-    ans = inft
+    ans = inf
     for tmask in range(1<<M):
         mask = full ^ tmask
         factor = F[mask&Tmask]

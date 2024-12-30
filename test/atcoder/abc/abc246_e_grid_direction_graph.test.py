@@ -10,7 +10,7 @@ def solve():
         return -1 
     s,g = G.vertex((Ax, Ay)), G.vertex((Bx, By))
     ans = G.distance(s, g)
-    return -1 if ans == inft else ans
+    return -1 if ans == inf else ans
 
 
 def main():
@@ -19,7 +19,7 @@ def main():
     
 
 from collections import deque
-from cp_library.math.inft_cnst import inft
+from math import inf
 from typing import Iterable
 from cp_library.alg.graph.lazy_grid_direction_graph_cls import LazyGridDirectionGraph
 from cp_library.io.read_fn import read
@@ -41,7 +41,7 @@ class BishopBoard(LazyGridDirectionGraph):
         return v
     
     def bfs(G, s = 0, g = None):
-        D = [[inft]*4 for _ in range(G.N)]
+        D = [[inf]*4 for _ in range(G.N)]
         D[s] = [0]*4
         q = deque([(s,-1)])
         while q:
@@ -58,7 +58,7 @@ class BishopBoard(LazyGridDirectionGraph):
                     D[v][ndir] = nd
                     q.append((v,ndir))
 
-        return D if g is None else inft    
+        return D if g is None else inf    
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,9 @@
 import cp_library.alg.graph.__header__
-from cp_library.math.inft_cnst import inft
+from math import inf
 from cp_library.ds.heap.min_heap_cls import MinHeap
 
 def shortest_path(G, s: int, g: int) -> tuple[list[int]|None,list[int]]:
-    D = [inft] * G.N
+    D = [inf] * G.N
     D[s] = 0
     if s == g:
         return [], D
@@ -25,7 +25,7 @@ def shortest_path(G, s: int, g: int) -> tuple[list[int]|None,list[int]]:
                 par_edge[u] = Eid[v][i]
                 heap.push((nd, u))
     
-    if D[g] == inft:
+    if D[g] == inf:
         return None, D
         
     path = []

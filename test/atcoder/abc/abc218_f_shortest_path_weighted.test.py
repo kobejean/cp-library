@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc218/tasks/abc218_f
 
-from cp_library.math.inft_cnst import inft
+from math import inf
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
             ans = G2.distance(0,N-1)
         else:
             ans = shortest
-        write(ans if ans != inft else -1)
+        write(ans if ans != inf else -1)
 
 from cp_library.alg.graph.edge_list_cls import EdgeList
 from cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted

@@ -30,7 +30,7 @@ class TreeBase(GraphBase):
     
     def dfs_distance(T, s: int, g: Union[int,None] = None):
         stack, Va = elist(N := T.N), T.Va
-        T.D, T.back = D, back = u64a(N, inft), i32a(N, -1)
+        T.D, T.back = D, back = u32f(N, inf), i32f(N, -1)
         D[s] = 0
         stack.append(s)
         while stack:
@@ -40,7 +40,7 @@ class TreeBase(GraphBase):
                 if nd < D[v := Va[i]]:
                     D[v], back[v] = nd, i
                     stack.append(v)
-        return D if g is None else inft
+        return D if g is None else inf
 
     def rerooting_dp(T, e: _T, 
                      merge: Callable[[_T,_T],_T], 
@@ -146,5 +146,5 @@ class TreeBase(GraphBase):
         return GraphBase.compile.__func__(cls, N, N-1, shift)
     
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.fill_fn import u64a, i32a
-from cp_library.math.inft_cnst import inft
+from cp_library.ds.array_init_fn import u32f, i32f
+from math import inf

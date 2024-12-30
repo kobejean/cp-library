@@ -3,7 +3,7 @@ import cp_library.alg.tree.__header__
 
 from typing import overload, Literal, Union
 from functools import cached_property
-from cp_library.math.inft_cnst import inft
+from math import inf
 from collections import deque
 from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
 from cp_library.alg.graph.graph_proto import GraphProtocol
@@ -43,7 +43,7 @@ class TreeProtocol(GraphProtocol):
     @overload
     def dfs(T, s: int, g: int) -> int: ...
     def dfs(T, s = 0, g = None):
-        D = [inft for _ in range(T.N)]
+        D = [inf for _ in range(T.N)]
         D[s] = 0
         state = [True for _ in range(T.N)]
         stack = [s]
@@ -56,7 +56,7 @@ class TreeProtocol(GraphProtocol):
                 if state[v]:
                     D[v] = D[u]+1
                     stack.append(v)
-        return D if g is None else inft 
+        return D if g is None else inf 
 
 
     def dfs_events(G, flags: DFSFlags, s: int = 0):         

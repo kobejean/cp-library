@@ -30,7 +30,7 @@ class GraphWeightedBase(GraphBase):
 
     def dijkstra(G, s: int, t: int = None):
         N, S, Va, Wa = G.N, G.starts(s), G.Va, G.Wa
-        G.back, G.D  = back, D = i32a(N, -1), u64a(N, inft)
+        G.back, G.D  = back, D = i32f(N, -1), [inf]*N
         for s in S: D[s] = 0
         que = PriorityQueue(N, S)
         while que:
@@ -41,7 +41,7 @@ class GraphWeightedBase(GraphBase):
                 if chmin(D, v := Va[i], nd := d + Wa[i]):
                     back[v] = i
                     que.push(v, nd)
-        return D if t is None else inft 
+        return D if t is None else inf 
 
     def kruskal(G):
         U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1
@@ -66,28 +66,28 @@ class GraphWeightedBase(GraphBase):
         return None if need else MST
    
     def bellman_ford(G, s: int = 0) -> list[int]:
-        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inft]*(N := G.N)
+        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)
         D[s] = 0
         for _ in range(N-1):
             for i, u in enumerate(Ua):
-                if D[u] < inft: chmin(D, Va[i], D[u] + Wa[i])
+                if D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])
         return D
     
     def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:
         M, U, V, W, D = G.M, G.U, G.V, G.W, G.bellman_ford(s)
-        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inft)
+        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inf)
         return neg_cycle, D
     
     def floyd_warshall(G) -> list[list[int]]:
         N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa
-        D = [[inft]*N for _ in range(N)]
+        D = [[inf]*N for _ in range(N)]
         for u in range(N): D[u][u] = 0
         for i in range(len(Ua)): chmin(D[Ua[i]], Va[i], Wa[i])
         for k, Dk in enumerate(D):
             for Di in D:
-                if Di[k] >= inft: continue
+                if Di[k] >= inf: continue
                 for j in range(N):
-                    if Dk[j] >= inft: continue
+                    if Dk[j] >= inf: continue
                     chmin(Di, j, Di[k]+Dk[j])
         return D
         
@@ -98,7 +98,7 @@ class GraphWeightedBase(GraphBase):
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
         def parse(ts: TokenStream):
-            U, V, W = u32a(M), u32a(M), [0]*M
+            U, V, W = u32f(M), u32f(M), [0]*M
             stream = ts.stream
             for i in range(M):
                 u, v, W[i] = map(int, stream.readline().split())
@@ -108,6 +108,6 @@ class GraphWeightedBase(GraphBase):
 
 from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.fill_fn import i32a, u32a, u64a
+from cp_library.ds.array_init_fn import i32f, u32f, i64f
 from cp_library.ds.heap.priority_queue_cls import PriorityQueue
-from cp_library.math.inft_cnst import inft
+from math import inf

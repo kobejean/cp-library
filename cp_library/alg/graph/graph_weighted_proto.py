@@ -25,7 +25,7 @@ class GraphWeightedProtocol(GraphProtocol):
             return G.dijkstra(s, g)
     
     def dijkstra(G, s = 0, g = None):
-        D = [inft for _ in range(G.N)]
+        D = [inf for _ in range(G.N)]
         D[s] = 0
         que = PriorityQueue(G.N)
         que.push(s, 0)
@@ -37,14 +37,14 @@ class GraphWeightedProtocol(GraphProtocol):
                 if (nd := d + w) < D[c]:
                     D[c] = nd
                     que.push(c, nd)
-        return D if g is None else inft
+        return D if g is None else inf
     
     @overload
     def shortest_path(G, s: int, t: int) -> list[int]|None: ...
     @overload
     def shortest_path(G, s: int, t: int, distances = True) -> tuple[list[int]|None,list[int]]: ...
     def shortest_path(G, s: int, t: int, distances = False):
-        D = [inft] * G.N
+        D = [inf] * G.N
         D[s] = 0
         if s == t:
             return ([], D) if distances else []
@@ -68,7 +68,7 @@ class GraphWeightedProtocol(GraphProtocol):
                     down[c] = Eid[v][i]
                     que.push(c, nd)
         
-        if D[t] == inft:
+        if D[t] == inf:
             return (None, D) if distances else None
             
         path = []
@@ -95,17 +95,17 @@ class GraphWeightedProtocol(GraphProtocol):
         return MST
     
     def bellman_ford(G, s = 0) -> list[int]:
-        D = [inft]*G.N
+        D = [inf]*G.N
         D[s] = 0
         for _ in range(G.N-1):
             for u, edges in enumerate(G):
-                if D[u] == inft: continue
+                if D[u] == inf: continue
                 for v,w,*_ in edges:
                     D[v] = min(D[v], D[u] + w)
         return D
     
     def floyd_warshall(G) -> list[list[int]]:
-        D = [[inft]*G.N for _ in range(G.N)]
+        D = [[inf]*G.N for _ in range(G.N)]
 
         for u, edges in enumerate(G):
             D[u][u] = 0
@@ -114,9 +114,9 @@ class GraphWeightedProtocol(GraphProtocol):
         
         for k, Dk in enumerate(D):
             for Di in D:
-                if Di[k] == inft: continue
+                if Di[k] == inf: continue
                 for j in range(G.N):
-                    if Dk[j] == inft: continue
+                    if Dk[j] == inf: continue
                     Di[j] = min(Di[j], Di[k]+Dk[j])
         return D
     
@@ -272,4 +272,4 @@ class GraphWeightedProtocol(GraphProtocol):
 from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.heap.priority_queue_cls import PriorityQueue
 from cp_library.ds.elist_fn import elist
-from cp_library.math.inft_cnst import inft
+from math import inf
