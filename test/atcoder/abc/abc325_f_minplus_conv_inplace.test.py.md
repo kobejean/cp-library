@@ -22,9 +22,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/minplus_conv_fn.py
     title: cp_library/math/conv/minplus_conv_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -35,48 +32,47 @@ data:
     links:
     - https://atcoder.jp/contests/abc325/tasks/abc325_f
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc325/tasks/abc325_f\n\
-    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\nimport\
-    \ sys\ninft: int\n\ninft = sys.maxsize\n\ndef main():\n    N = read(int)\n   \
-    \ D = read(list[int])\n    L1,C1,K1 = read(tuple[int, ...])\n    L2,C2,K2 = read(tuple[int,\
-    \ ...])\n    dp = [0]*(K1+1)\n    for i in range(N):\n        DK2 = [(max(0,D[i]-dk1*L1)\
+    \nfrom math import inf\n\ndef main():\n    N = read(int)\n    D = read(list[int])\n\
+    \    L1,C1,K1 = read(tuple[int, ...])\n    L2,C2,K2 = read(tuple[int, ...])\n\
+    \    dp = [0]*(K1+1)\n    for i in range(N):\n        DK2 = [(max(0,D[i]-dk1*L1)\
     \ + L2-1) // L2 for dk1 in range(K1+1)]\n        minplus_iconv(dp, DK2)\n    ans\
-    \ = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inft)\n\
-    \    write(ans if ans != inft else -1)\n    \n\n\n\nfrom typing import Type, TypeVar,\
-    \ Union, overload\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \ = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inf)\n \
+    \   write(ans if ans != inf else -1)\n    \n\n'''\n\u257A\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\nfrom typing import Type, TypeVar, Union, overload\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -170,16 +166,15 @@ data:
     \ + A[i-j] for j in range(min(M,i+1)))   \n\nif __name__ == \"__main__\":\n  \
     \  main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc325/tasks/abc325_f\n\
-    \nfrom cp_library.math.inft_cnst import inft\n\ndef main():\n    N = read(int)\n\
-    \    D = read(list[int])\n    L1,C1,K1 = read(tuple[int, ...])\n    L2,C2,K2 =\
-    \ read(tuple[int, ...])\n    dp = [0]*(K1+1)\n    for i in range(N):\n       \
-    \ DK2 = [(max(0,D[i]-dk1*L1) + L2-1) // L2 for dk1 in range(K1+1)]\n        minplus_iconv(dp,\
-    \ DK2)\n    ans = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inft)\n\
-    \    write(ans if ans != inft else -1)\n    \n\nfrom cp_library.io.read_fn import\
+    \nfrom math import inf\n\ndef main():\n    N = read(int)\n    D = read(list[int])\n\
+    \    L1,C1,K1 = read(tuple[int, ...])\n    L2,C2,K2 = read(tuple[int, ...])\n\
+    \    dp = [0]*(K1+1)\n    for i in range(N):\n        DK2 = [(max(0,D[i]-dk1*L1)\
+    \ + L2-1) // L2 for dk1 in range(K1+1)]\n        minplus_iconv(dp, DK2)\n    ans\
+    \ = min((k1*C1+k2*C2 for k1,k2 in enumerate(dp) if k2 <= K2), default=inf)\n \
+    \   write(ans if ans != inf else -1)\n    \n\nfrom cp_library.io.read_fn import\
     \ read\nfrom cp_library.io.write_fn import write\nfrom cp_library.math.conv.minplus_conv_fn\
     \ import minplus_iconv\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/math/inft_cnst.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/math/conv/minplus_conv_fn.py
@@ -190,7 +185,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py

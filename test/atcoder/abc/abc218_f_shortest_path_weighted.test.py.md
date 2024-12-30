@@ -52,9 +52,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -65,49 +62,49 @@ data:
     links:
     - https://atcoder.jp/contests/abc218/tasks/abc218_f
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc218/tasks/abc218_f\n\
-    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\nimport\
-    \ sys\ninft: int\n\ninft = sys.maxsize\n\n\ndef main():\n    N, M = read(tuple[int,\
-    \ ...])\n    E = read(EdgeList[M])\n    EW = [(u,v,1) for u,v in E]\n    G = DiGraphWeighted(N,EW)\n\
+    \nfrom math import inf\n\n\ndef main():\n    N, M = read(tuple[int, ...])\n  \
+    \  E = read(EdgeList[M])\n    EW = [(u,v,1) for u,v in E]\n    G = DiGraphWeighted(N,EW)\n\
     \    path = G.shortest_path(0,N-1)\n    if path is None:\n        shortest = -1\n\
     \    else:\n        path = set(path)\n        shortest = len(path)\n    for e\
     \ in range(M):\n        if path is not None and e in path:\n            G2 = DiGraph(N,\
     \ E[:e]+E[e+1:])\n            ans = G2.distance(0,N-1)\n        else:\n      \
-    \      ans = shortest\n        write(ans if ans != inft else -1)\n\n\n\nfrom typing\
+    \      ans = shortest\n        write(ans if ans != inf else -1)\n\n'''\n\u257A\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \    https://kobejean.github.io/cp-library               \n'''\n\nfrom typing\
     \ import TypeVar\n\nimport typing\nfrom collections import deque\nfrom numbers\
     \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \ Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -195,33 +192,33 @@ data:
     \       else:\n            return G.bfs(s, g)\n\n    @overload\n    def bfs(G,\
     \ s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
     \ Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n   \
-    \     D = [inft for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
+    \     D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
     \ else s)\n        for u in q: D[u] = 0\n        while q:\n            nd = D[u\
     \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
     \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
-    \                    q.append(v)\n        return D if g is None else inft \n\n\
+    \                    q.append(v)\n        return D if g is None else inf \n\n\
     \    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
     \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
     \ -> tuple[Union[list[int],None],list[int]]: ...\n    def shortest_path(G, s:\
-    \ int, g: int, distances = False) -> list[int]:\n        D = [inft] * G.N\n  \
-    \      D[s] = 0\n        if s == g:\n            return ([], D) if distances else\
+    \ int, g: int, distances = False) -> list[int]:\n        D = [inf] * G.N\n   \
+    \     D[s] = 0\n        if s == g:\n            return ([], D) if distances else\
     \ []\n            \n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n\
     \        Eid = G.edge_ids()\n        q = deque([s])\n        \n        while q:\n\
     \            nd = D[u := q.popleft()] + 1\n            if u == g: break\n    \
     \            \n            for v, eid in zip(G[u], Eid[u]):\n                if\
     \ nd < D[v]:\n                    D[v] = nd\n                    par[v] = u\n\
     \                    par_edge[v] = eid\n                    q.append(v)\n    \
-    \    \n        if D[g] == inft:\n            return (None, D) if distances else\
+    \    \n        if D[g] == inf:\n            return (None, D) if distances else\
     \ None\n            \n        path = []\n        current = g\n        while current\
     \ != s:\n            path.append(par_edge[current])\n            current = par[current]\n\
     \            \n        return (path[::-1], D) if distances else path[::-1]\n \
     \           \n     \n            \n        \n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        D = [[inft]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
+    \        D = [[inf]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
     \            D[u][u] = 0\n            for v in G.neighbors(u):\n             \
     \   D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n            for\
-    \ Di in D:\n                if Di[k] == inft: continue\n                for j\
-    \ in range(G.N):\n                    if Dk[j] == inft: continue\n           \
-    \         Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G,\
+    \ Di in D:\n                if Di[k] == inf: continue\n                for j in\
+    \ range(G.N):\n                    if Dk[j] == inf: continue\n               \
+    \     Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G,\
     \ s = 0, vis = None, par = None):\n        N = G.N\n        vis = vis or [0] *\
     \ N\n        par = par or [-1] * N\n        if vis[s]: return None\n        vis[s]\
     \ = 1\n        stack = [(True, s)]\n        while stack:\n            forw, v\
@@ -234,13 +231,13 @@ data:
     \                        return cyc\n                    elif vis[u] == 0:\n \
     \                       par[u] = v\n                        stack.append((True,\
     \ u))\n            else:\n                vis[v] = 2\n        return None\n\n\
-    \    def find_minimal_cycle(G, s=0):\n        D, par, que = [inft] * (N := G.N),\
+    \    def find_minimal_cycle(G, s=0):\n        D, par, que = [inf] * (N := G.N),\
     \ [-1] * N, deque([s])\n        D[s] = 0\n        while que:\n            for\
     \ v in G[u := que.popleft()]:\n                if v == s:  # Found cycle back\
     \ to start\n                    cycle = [u]\n                    while u != s:\
     \ cycle.append(u := par[u])\n                    return cycle\n              \
-    \  if D[v] < inft: continue\n                D[v], par[v] = D[u]+1, u\n      \
-    \          que.append(v)\n    \n    def bridges(G):\n        tin = [-1] * G.N\n\
+    \  if D[v] < inf: continue\n                D[v], par[v] = D[u]+1, u\n       \
+    \         que.append(v)\n    \n    def bridges(G):\n        tin = [-1] * G.N\n\
     \        low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n\
     \        in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
     \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
@@ -380,24 +377,24 @@ data:
     \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
     \    if s == None:\n            return G.floyd_warshall()\n        else:\n   \
     \         return G.dijkstra(s, g)\n    \n    def dijkstra(G, s = 0, g = None):\n\
-    \        D = [inft for _ in range(G.N)]\n        D[s] = 0\n        que = PriorityQueue(G.N)\n\
+    \        D = [inf for _ in range(G.N)]\n        D[s] = 0\n        que = PriorityQueue(G.N)\n\
     \        que.push(s, 0)\n        while que:\n            v, d = que.pop()\n  \
     \          if v == g: return d\n            if d > D[v]: continue\n          \
     \  for c, w, *_ in G[v]:\n                if (nd := d + w) < D[c]:\n         \
     \           D[c] = nd\n                    que.push(c, nd)\n        return D if\
-    \ g is None else inft\n    \n    @overload\n    def shortest_path(G, s: int, t:\
+    \ g is None else inf\n    \n    @overload\n    def shortest_path(G, s: int, t:\
     \ int) -> list[int]|None: ...\n    @overload\n    def shortest_path(G, s: int,\
     \ t: int, distances = True) -> tuple[list[int]|None,list[int]]: ...\n    def shortest_path(G,\
-    \ s: int, t: int, distances = False):\n        D = [inft] * G.N\n        D[s]\
-    \ = 0\n        if s == t:\n            return ([], D) if distances else []\n \
-    \           \n        par = [-1] * G.N\n        down = [-1] * G.N\n        Eid\
-    \ = G.edge_ids()\n        que = PriorityQueue(G.N)\n        que.push(s, 0)\n \
-    \       \n        while que:\n            v, d = que.pop()\n            if v ==\
+    \ s: int, t: int, distances = False):\n        D = [inf] * G.N\n        D[s] =\
+    \ 0\n        if s == t:\n            return ([], D) if distances else []\n   \
+    \         \n        par = [-1] * G.N\n        down = [-1] * G.N\n        Eid =\
+    \ G.edge_ids()\n        que = PriorityQueue(G.N)\n        que.push(s, 0)\n   \
+    \     \n        while que:\n            v, d = que.pop()\n            if v ==\
     \ t: break\n            if d > D[v]: continue\n                \n            for\
     \ i in range(len(G[v])):\n                c, w, *_ = G[v][i]\n               \
     \ if (nd := d + w) < D[c]:\n                    D[c] = nd\n                  \
     \  par[c] = v\n                    down[c] = Eid[v][i]\n                    que.push(c,\
-    \ nd)\n        \n        if D[t] == inft:\n            return (None, D) if distances\
+    \ nd)\n        \n        if D[t] == inf:\n            return (None, D) if distances\
     \ else None\n            \n        path = []\n        v = t\n        while v !=\
     \ s:\n            path.append(down[v])\n            v = par[v]\n            \n\
     \        return (path[::-1], D) if distances else path[::-1]\n    \n    def kruskal(G):\n\
@@ -406,16 +403,16 @@ data:
     \            u,v,*_ = edge\n            u,v = dsu.merge(u,v,True)\n          \
     \  if u != v:\n                MST.append(edge)\n                need -= 1\n \
     \       return MST\n    \n    def bellman_ford(G, s = 0) -> list[int]:\n     \
-    \   D = [inft]*G.N\n        D[s] = 0\n        for _ in range(G.N-1):\n       \
-    \     for u, edges in enumerate(G):\n                if D[u] == inft: continue\n\
+    \   D = [inf]*G.N\n        D[s] = 0\n        for _ in range(G.N-1):\n        \
+    \    for u, edges in enumerate(G):\n                if D[u] == inf: continue\n\
     \                for v,w,*_ in edges:\n                    D[v] = min(D[v], D[u]\
     \ + w)\n        return D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        D = [[inft]*G.N for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n\
+    \        D = [[inf]*G.N for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n\
     \            D[u][u] = 0\n            for v,w in edges:\n                D[u][v]\
     \ = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n          \
-    \  for Di in D:\n                if Di[k] == inft: continue\n                for\
-    \ j in range(G.N):\n                    if Dk[j] == inft: continue\n         \
-    \           Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def dfs_events(G,\
+    \  for Di in D:\n                if Di[k] == inf: continue\n                for\
+    \ j in range(G.N):\n                    if Dk[j] == inf: continue\n          \
+    \          Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def dfs_events(G,\
     \ flags: DFSFlags, s: Union[int,list,None] = None, max_depth: Union[int,None]\
     \ = None):\n        if flags == DFSFlags.INTERVAL:\n            if max_depth is\
     \ None:\n                return G.dfs_enter_leave(s)\n        elif flags == DFSFlags.DOWN\
@@ -601,19 +598,18 @@ data:
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc218/tasks/abc218_f\n\
-    \nfrom cp_library.math.inft_cnst import inft\n\n\ndef main():\n    N, M = read(tuple[int,\
-    \ ...])\n    E = read(EdgeList[M])\n    EW = [(u,v,1) for u,v in E]\n    G = DiGraphWeighted(N,EW)\n\
+    \nfrom math import inf\n\n\ndef main():\n    N, M = read(tuple[int, ...])\n  \
+    \  E = read(EdgeList[M])\n    EW = [(u,v,1) for u,v in E]\n    G = DiGraphWeighted(N,EW)\n\
     \    path = G.shortest_path(0,N-1)\n    if path is None:\n        shortest = -1\n\
     \    else:\n        path = set(path)\n        shortest = len(path)\n    for e\
     \ in range(M):\n        if path is not None and e in path:\n            G2 = DiGraph(N,\
     \ E[:e]+E[e+1:])\n            ans = G2.distance(0,N-1)\n        else:\n      \
-    \      ans = shortest\n        write(ans if ans != inft else -1)\n\nfrom cp_library.alg.graph.edge_list_cls\
+    \      ans = shortest\n        write(ans if ans != inf else -1)\n\nfrom cp_library.alg.graph.edge_list_cls\
     \ import EdgeList\nfrom cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted\n\
     from cp_library.alg.graph.digraph_cls import DiGraph\nfrom cp_library.io.read_fn\
     \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
     :\n    main()"
   dependsOn:
-  - cp_library/math/inft_cnst.py
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/digraph_cls.py
@@ -634,7 +630,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py

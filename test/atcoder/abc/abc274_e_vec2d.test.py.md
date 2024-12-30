@@ -17,9 +17,6 @@ data:
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/math/vec2d_cls.py
     title: cp_library/math/vec2d_cls.py
   - icon: ':heavy_check_mark:'
@@ -36,29 +33,29 @@ data:
     links:
     - https://atcoder.jp/contests/abc274/tasks/abc274_e
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc274/tasks/abc274_e\n\
-    # verification-helper: ERROR 1e-6\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nimport sys\ninft: int\n\ninft = sys.maxsize\n\ndef main():\n\
-    \    N, M = read(tuple[int, ...])\n    XY = read(list[Vec2D, N])\n    PQ = read(list[Vec2D,\
+    # verification-helper: ERROR 1e-6\nfrom math import inf\n\ndef main():\n    N,\
+    \ M = read(tuple[int, ...])\n    XY = read(list[Vec2D, N])\n    PQ = read(list[Vec2D,\
     \ M])\n    pts = PQ+XY\n    o = Vec2D(0,0)\n    Tmask = (1 << M) -1\n    Y = N+M\n\
     \    Z = 1 << Y\n    O = [o.distance(v) for v in pts]\n    F = [1/(1 << mask.bit_count())\
-    \ for mask in range(1 << M)]\n    \n    dp = [[inft]*Y for _ in range(Z)]\n  \
-    \  for y in range(Y):\n        mask = 1 << y\n        dp[mask][y] = O[y]\n   \
-    \     \n    for mask in range(1,Z):\n        factor = F[mask&Tmask]\n        for\
+    \ for mask in range(1 << M)]\n    \n    dp = [[inf]*Y for _ in range(Z)]\n   \
+    \ for y in range(Y):\n        mask = 1 << y\n        dp[mask][y] = O[y]\n    \
+    \    \n    for mask in range(1,Z):\n        factor = F[mask&Tmask]\n        for\
     \ y in range(Y):\n            nmask = mask | 1 << y\n            if mask == nmask:\
     \ continue\n            nc = dp[nmask][y]\n            for l in range(Y):\n  \
     \              nc = min(nc, dp[mask][l] + pts[l].distance(pts[y]) * factor)\n\
-    \            dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inft\n\
+    \            dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inf\n\
     \    for tmask in range(1<<M):\n        mask = full ^ tmask\n        factor =\
     \ F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l] + O[l]\
-    \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\n\n\n\
-    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\n'''\n\
+    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\n\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -191,25 +188,24 @@ data:
     \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
     flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc274/tasks/abc274_e\n\
-    # verification-helper: ERROR 1e-6\nfrom cp_library.math.inft_cnst import inft\n\
-    \ndef main():\n    N, M = read(tuple[int, ...])\n    XY = read(list[Vec2D, N])\n\
-    \    PQ = read(list[Vec2D, M])\n    pts = PQ+XY\n    o = Vec2D(0,0)\n    Tmask\
-    \ = (1 << M) -1\n    Y = N+M\n    Z = 1 << Y\n    O = [o.distance(v) for v in\
-    \ pts]\n    F = [1/(1 << mask.bit_count()) for mask in range(1 << M)]\n    \n\
-    \    dp = [[inft]*Y for _ in range(Z)]\n    for y in range(Y):\n        mask =\
-    \ 1 << y\n        dp[mask][y] = O[y]\n        \n    for mask in range(1,Z):\n\
-    \        factor = F[mask&Tmask]\n        for y in range(Y):\n            nmask\
-    \ = mask | 1 << y\n            if mask == nmask: continue\n            nc = dp[nmask][y]\n\
-    \            for l in range(Y):\n                nc = min(nc, dp[mask][l] + pts[l].distance(pts[y])\
-    \ * factor)\n            dp[nmask][y] = nc\n            \n    full = Z-1\n   \
-    \ ans = inft\n    for tmask in range(1<<M):\n        mask = full ^ tmask\n   \
-    \     factor = F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l]\
-    \ + O[l] * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\
-    \nfrom cp_library.math.vec2d_cls import Vec2D\nfrom cp_library.io.read_fn import\
-    \ read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
-    :\n    main()"
+    # verification-helper: ERROR 1e-6\nfrom math import inf\n\ndef main():\n    N,\
+    \ M = read(tuple[int, ...])\n    XY = read(list[Vec2D, N])\n    PQ = read(list[Vec2D,\
+    \ M])\n    pts = PQ+XY\n    o = Vec2D(0,0)\n    Tmask = (1 << M) -1\n    Y = N+M\n\
+    \    Z = 1 << Y\n    O = [o.distance(v) for v in pts]\n    F = [1/(1 << mask.bit_count())\
+    \ for mask in range(1 << M)]\n    \n    dp = [[inf]*Y for _ in range(Z)]\n   \
+    \ for y in range(Y):\n        mask = 1 << y\n        dp[mask][y] = O[y]\n    \
+    \    \n    for mask in range(1,Z):\n        factor = F[mask&Tmask]\n        for\
+    \ y in range(Y):\n            nmask = mask | 1 << y\n            if mask == nmask:\
+    \ continue\n            nc = dp[nmask][y]\n            for l in range(Y):\n  \
+    \              nc = min(nc, dp[mask][l] + pts[l].distance(pts[y]) * factor)\n\
+    \            dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inf\n\
+    \    for tmask in range(1<<M):\n        mask = full ^ tmask\n        factor =\
+    \ F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l] + O[l]\
+    \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\nfrom\
+    \ cp_library.math.vec2d_cls import Vec2D\nfrom cp_library.io.read_fn import read\n\
+    from cp_library.io.write_fn import write\n\nif __name__ == \"__main__\":\n   \
+    \ main()"
   dependsOn:
-  - cp_library/math/inft_cnst.py
   - cp_library/math/vec2d_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
@@ -220,7 +216,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc274_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc274_e_vec2d.test.py

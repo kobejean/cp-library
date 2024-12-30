@@ -1,9 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
+  _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -20,28 +17,26 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom collections import deque\nfrom typing import overload\n\nimport sys\ninft:\
-    \ int\n\ninft = sys.maxsize\n\n@overload\ndef bfs(G, s: int = 0) -> list[int]:\
-    \ ...\n@overload\ndef bfs(G, s: int, g: int) -> int: ...\n\ndef bfs(G, s: int\
-    \ = 0, g: int = None):\n    D = [inft for _ in range(G.N)]\n    D[s] = 0\n   \
-    \ q = deque([s])\n    while q:\n        nd = D[u := q.popleft()]+1\n        if\
-    \ u == g: return D[u]\n        for v in G[u]:\n            if nd < D[v]:\n   \
-    \             D[v] = nd\n                q.append(v)\n    return D if g is None\
-    \ else inft\n"
+    \nfrom collections import deque\nfrom typing import overload\nfrom math import\
+    \ inf\n\n@overload\ndef bfs(G, s: int = 0) -> list[int]: ...\n@overload\ndef bfs(G,\
+    \ s: int, g: int) -> int: ...\n\ndef bfs(G, s: int = 0, g: int = None):\n    D\
+    \ = [inf for _ in range(G.N)]\n    D[s] = 0\n    q = deque([s])\n    while q:\n\
+    \        nd = D[u := q.popleft()]+1\n        if u == g: return D[u]\n        for\
+    \ v in G[u]:\n            if nd < D[v]:\n                D[v] = nd\n         \
+    \       q.append(v)\n    return D if g is None else inf\n"
   code: "import cp_library.alg.graph.__header__\n\nfrom collections import deque\n\
-    from typing import overload\nfrom cp_library.math.inft_cnst import inft\n\n@overload\n\
-    def bfs(G, s: int = 0) -> list[int]: ...\n@overload\ndef bfs(G, s: int, g: int)\
-    \ -> int: ...\n\ndef bfs(G, s: int = 0, g: int = None):\n    D = [inft for _ in\
-    \ range(G.N)]\n    D[s] = 0\n    q = deque([s])\n    while q:\n        nd = D[u\
-    \ := q.popleft()]+1\n        if u == g: return D[u]\n        for v in G[u]:\n\
-    \            if nd < D[v]:\n                D[v] = nd\n                q.append(v)\n\
-    \    return D if g is None else inft"
-  dependsOn:
-  - cp_library/math/inft_cnst.py
+    from typing import overload\nfrom math import inf\n\n@overload\ndef bfs(G, s:\
+    \ int = 0) -> list[int]: ...\n@overload\ndef bfs(G, s: int, g: int) -> int: ...\n\
+    \ndef bfs(G, s: int = 0, g: int = None):\n    D = [inf for _ in range(G.N)]\n\
+    \    D[s] = 0\n    q = deque([s])\n    while q:\n        nd = D[u := q.popleft()]+1\n\
+    \        if u == g: return D[u]\n        for v in G[u]:\n            if nd < D[v]:\n\
+    \                D[v] = nd\n                q.append(v)\n    return D if g is\
+    \ None else inf"
+  dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/bfs_fn.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py

@@ -284,22 +284,34 @@ data:
   - name: cp_library/bit
     pages:
     - icon: ':warning:'
-      path: cp_library/bit/bit_reverse_fn.py
-      title: cp_library/bit/bit_reverse_fn.py
+      path: cp_library/bit/bit_reverse32_fn.py
+      title: cp_library/bit/bit_reverse32_fn.py
     - icon: ':warning:'
-      path: cp_library/bit/clz_fn.py
-      title: cp_library/bit/clz_fn.py
+      path: cp_library/bit/clz32_fn.py
+      title: cp_library/bit/clz32_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/bit/ctz32_fn.py
+      title: cp_library/bit/ctz32_fn.py
+    - icon: ':warning:'
+      path: cp_library/bit/ctz64_fn.py
+      title: cp_library/bit/ctz64_fn.py
+    - icon: ':warning:'
       path: cp_library/bit/ctz_fn.py
       title: cp_library/bit/ctz_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/bit/popcnt_fn.py
-      title: cp_library/bit/popcnt_fn.py
+      path: cp_library/bit/popcnt32_fn.py
+      title: cp_library/bit/popcnt32_fn.py
+    - icon: ':warning:'
+      path: cp_library/bit/popcnt64_fn.py
+      title: cp_library/bit/popcnt64_fn.py
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/ahocorasick_cls.py
       title: cp_library/ds/ahocorasick_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/array_init_fn.py
+      title: cp_library/ds/array_init_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/bidirectional_array_cls.py
       title: cp_library/ds/bidirectional_array_cls.py
@@ -327,9 +339,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/elist_fn.py
       title: cp_library/ds/elist_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/fill_fn.py
-      title: cp_library/ds/fill_fn.py
     - icon: ':warning:'
       path: cp_library/ds/grid.py
       title: cp_library/ds/grid.py
@@ -461,7 +470,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/geometic_series_fn.py
       title: cp_library/math/geometic_series_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/math/inft_cnst.py
       title: cp_library/math/inft_cnst.py
     - icon: ':heavy_check_mark:'

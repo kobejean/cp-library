@@ -151,7 +151,7 @@ data:
   - cp_library/math/fps/fps_ideriv_k_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py

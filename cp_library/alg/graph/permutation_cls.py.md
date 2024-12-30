@@ -8,11 +8,11 @@ data:
     path: cp_library/alg/iter/slice_iterator_reverse_cls.py
     title: cp_library/alg/iter/slice_iterator_reverse_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array_init_fn.py
+    title: cp_library/ds/array_init_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/fill_fn.py
-    title: cp_library/ds/fill_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -118,7 +118,7 @@ data:
     \ root):\n        slow = fast = root\n        while (slow := P[slow]) != (fast\
     \ := P[P[fast]]): pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow\
     \ := P[slow])\n        return cyc\n    \n    def cycles(P) -> Iterator[list[int]]:\n\
-    \        vis, cycs, L = u8a(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
+    \        vis, cycs, L = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
     \            if vis[v]: continue\n            slow = fast = v\n            while\
     \ (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n        \
     \    if vis[fast]: continue\n            L.append(len(cycs))\n            cycs.append(slow)\n\
@@ -131,22 +131,36 @@ data:
     \        self.A, self.L, self.r = A, L, len(A)\n    def __len__(self): return\
     \ len(self.L)\n    def __next__(self):\n        L = self.L\n        if not L:\
     \ raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n        return\
-    \ self.A[l:r]\n\nfrom array import array\n\ndef i8a(N: int, elm: int = 0): return\
-    \ array('b', (elm,))*N       # signed char\ndef u8a(N: int, elm: int = 0): return\
-    \ array('B', (elm,))*N       # unsigned char\ndef i16a(N: int, elm: int = 0):\
-    \ return array('h', (elm,))*N      # signed short\ndef u16a(N: int, elm: int =\
-    \ 0): return array('H', (elm,))*N      # unsigned short\ndef i32a(N: int, elm:\
-    \ int = 0): return array('i', (elm,))*N      # signed int\ndef u32a(N: int, elm:\
-    \ int = 0): return array('I', (elm,))*N      # unsigned int\ndef i64a(N: int,\
-    \ elm: int = 0): return array('q', (elm,))*N      # signed long long\ndef u64a(N:\
-    \ int, elm: int = 0): return array('Q', (elm,))*N      # unsigned long long\n\
-    def f32a(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef\
-    \ f64a(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef\
-    \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nclass Permutation(FunctionalGraph):\n    def inv(P):\n        Pinv =\
-    \ [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p] = i\n       \
-    \ return type(P)(Pinv)\n"
+    \ self.A[l:r]\nfrom typing import Iterable\n\nfrom array import array\n\ndef i8f(N:\
+    \ int, elm: int = 0):      return array('b', (elm,))*N  # signed char\ndef u8f(N:\
+    \ int, elm: int = 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N:\
+    \ int, elm: int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N:\
+    \ int, elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
+    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
+    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
+    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
+    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
+    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
+    def i8a(init = None):  return array('b') if init is None else array('b', init)\
+    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
+    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
+    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
+    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
+    def i32a(init = None): return array('i') if init is None else array('i', init)\
+    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
+    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
+    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
+    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
+    def f32a(init = None): return array('f') if init is None else array('f', init)\
+    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
+    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
+    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
+    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\nclass Permutation(FunctionalGraph):\n\
+    \    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n \
+    \           Pinv[p] = i\n        return type(P)(Pinv)\n"
   code: "import cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.functional_graph_cls\
     \ import FunctionalGraph\n\nclass Permutation(FunctionalGraph):\n    def inv(P):\n\
     \        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p]\
@@ -155,13 +169,13 @@ data:
   - cp_library/alg/graph/functional_graph_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/iter/slice_iterator_reverse_cls.py
-  - cp_library/ds/fill_fn.py
+  - cp_library/ds/array_init_fn.py
   - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/permutation_cls.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

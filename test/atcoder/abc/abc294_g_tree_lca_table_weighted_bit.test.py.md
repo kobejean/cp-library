@@ -70,9 +70,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -197,11 +194,11 @@ data:
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom typing import Iterable, Union, overload\n\ninft:\
-    \ int\n\ninft = sys.maxsize\n\nclass GraphProtocol(list, Parsable):\n    def __init__(G,\
-    \ N: int, E: list = None, adj: Iterable = None):\n        G.N = N\n        if\
-    \ E is not None:\n            G.M, G.E = len(E), E\n        if adj is not None:\n\
-    \            super().__init__(adj)\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
+    \ = newlist_hint\n    \nfrom typing import Iterable, Union, overload\nfrom math\
+    \ import inf\n\nclass GraphProtocol(list, Parsable):\n    def __init__(G, N: int,\
+    \ E: list = None, adj: Iterable = None):\n        G.N = N\n        if E is not\
+    \ None:\n            G.M, G.E = len(E), E\n        if adj is not None:\n     \
+    \       super().__init__(adj)\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
     \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n  \
     \  @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n   \
     \ def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
@@ -209,33 +206,33 @@ data:
     \    if s == None:\n            return G.floyd_warshall()\n        else:\n   \
     \         return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list]\
     \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
-    \ int) -> int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inft for _\
-    \ in range(G.N)]\n        q = deque([s] if isinstance(s, int) else s)\n      \
-    \  for u in q: D[u] = 0\n        while q:\n            nd = D[u := q.popleft()]+1\n\
+    \ int) -> int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inf for _ in\
+    \ range(G.N)]\n        q = deque([s] if isinstance(s, int) else s)\n        for\
+    \ u in q: D[u] = 0\n        while q:\n            nd = D[u := q.popleft()]+1\n\
     \            if u == g: return D[u]\n            for v in G.neighbors(u):\n  \
     \              if nd < D[v]:\n                    D[v] = nd\n                \
-    \    q.append(v)\n        return D if g is None else inft \n\n    @overload\n\
-    \    def shortest_path(G, s: int, g: int) -> Union[list[int],None]: ...\n    @overload\n\
+    \    q.append(v)\n        return D if g is None else inf \n\n    @overload\n \
+    \   def shortest_path(G, s: int, g: int) -> Union[list[int],None]: ...\n    @overload\n\
     \    def shortest_path(G, s: int, g: int, distances = True) -> tuple[Union[list[int],None],list[int]]:\
     \ ...\n    def shortest_path(G, s: int, g: int, distances = False) -> list[int]:\n\
-    \        D = [inft] * G.N\n        D[s] = 0\n        if s == g:\n            return\
+    \        D = [inf] * G.N\n        D[s] = 0\n        if s == g:\n            return\
     \ ([], D) if distances else []\n            \n        par = [-1] * G.N\n     \
     \   par_edge = [-1] * G.N\n        Eid = G.edge_ids()\n        q = deque([s])\n\
     \        \n        while q:\n            nd = D[u := q.popleft()] + 1\n      \
     \      if u == g: break\n                \n            for v, eid in zip(G[u],\
     \ Eid[u]):\n                if nd < D[v]:\n                    D[v] = nd\n   \
     \                 par[v] = u\n                    par_edge[v] = eid\n        \
-    \            q.append(v)\n        \n        if D[g] == inft:\n            return\
+    \            q.append(v)\n        \n        if D[g] == inf:\n            return\
     \ (None, D) if distances else None\n            \n        path = []\n        current\
     \ = g\n        while current != s:\n            path.append(par_edge[current])\n\
     \            current = par[current]\n            \n        return (path[::-1],\
     \ D) if distances else path[::-1]\n            \n     \n            \n       \
-    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inft]*G.N for\
+    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
     \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
     \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
     \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
-    \  if Di[k] == inft: continue\n                for j in range(G.N):\n        \
-    \            if Dk[j] == inft: continue\n                    Di[j] = min(Di[j],\
+    \  if Di[k] == inf: continue\n                for j in range(G.N):\n         \
+    \           if Dk[j] == inf: continue\n                    Di[j] = min(Di[j],\
     \ Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G, s = 0, vis = None,\
     \ par = None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par\
     \ or [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
@@ -249,13 +246,13 @@ data:
     \                        return cyc\n                    elif vis[u] == 0:\n \
     \                       par[u] = v\n                        stack.append((True,\
     \ u))\n            else:\n                vis[v] = 2\n        return None\n\n\
-    \    def find_minimal_cycle(G, s=0):\n        D, par, que = [inft] * (N := G.N),\
+    \    def find_minimal_cycle(G, s=0):\n        D, par, que = [inf] * (N := G.N),\
     \ [-1] * N, deque([s])\n        D[s] = 0\n        while que:\n            for\
     \ v in G[u := que.popleft()]:\n                if v == s:  # Found cycle back\
     \ to start\n                    cycle = [u]\n                    while u != s:\
     \ cycle.append(u := par[u])\n                    return cycle\n              \
-    \  if D[v] < inft: continue\n                D[v], par[v] = D[u]+1, u\n      \
-    \          que.append(v)\n    \n    def bridges(G):\n        tin = [-1] * G.N\n\
+    \  if D[v] < inf: continue\n                D[v], par[v] = D[u]+1, u\n       \
+    \         que.append(v)\n    \n    def bridges(G):\n        tin = [-1] * G.N\n\
     \        low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n\
     \        in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
     \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
@@ -395,24 +392,24 @@ data:
     \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
     \    if s == None:\n            return G.floyd_warshall()\n        else:\n   \
     \         return G.dijkstra(s, g)\n    \n    def dijkstra(G, s = 0, g = None):\n\
-    \        D = [inft for _ in range(G.N)]\n        D[s] = 0\n        que = PriorityQueue(G.N)\n\
+    \        D = [inf for _ in range(G.N)]\n        D[s] = 0\n        que = PriorityQueue(G.N)\n\
     \        que.push(s, 0)\n        while que:\n            v, d = que.pop()\n  \
     \          if v == g: return d\n            if d > D[v]: continue\n          \
     \  for c, w, *_ in G[v]:\n                if (nd := d + w) < D[c]:\n         \
     \           D[c] = nd\n                    que.push(c, nd)\n        return D if\
-    \ g is None else inft\n    \n    @overload\n    def shortest_path(G, s: int, t:\
+    \ g is None else inf\n    \n    @overload\n    def shortest_path(G, s: int, t:\
     \ int) -> list[int]|None: ...\n    @overload\n    def shortest_path(G, s: int,\
     \ t: int, distances = True) -> tuple[list[int]|None,list[int]]: ...\n    def shortest_path(G,\
-    \ s: int, t: int, distances = False):\n        D = [inft] * G.N\n        D[s]\
-    \ = 0\n        if s == t:\n            return ([], D) if distances else []\n \
-    \           \n        par = [-1] * G.N\n        down = [-1] * G.N\n        Eid\
-    \ = G.edge_ids()\n        que = PriorityQueue(G.N)\n        que.push(s, 0)\n \
-    \       \n        while que:\n            v, d = que.pop()\n            if v ==\
+    \ s: int, t: int, distances = False):\n        D = [inf] * G.N\n        D[s] =\
+    \ 0\n        if s == t:\n            return ([], D) if distances else []\n   \
+    \         \n        par = [-1] * G.N\n        down = [-1] * G.N\n        Eid =\
+    \ G.edge_ids()\n        que = PriorityQueue(G.N)\n        que.push(s, 0)\n   \
+    \     \n        while que:\n            v, d = que.pop()\n            if v ==\
     \ t: break\n            if d > D[v]: continue\n                \n            for\
     \ i in range(len(G[v])):\n                c, w, *_ = G[v][i]\n               \
     \ if (nd := d + w) < D[c]:\n                    D[c] = nd\n                  \
     \  par[c] = v\n                    down[c] = Eid[v][i]\n                    que.push(c,\
-    \ nd)\n        \n        if D[t] == inft:\n            return (None, D) if distances\
+    \ nd)\n        \n        if D[t] == inf:\n            return (None, D) if distances\
     \ else None\n            \n        path = []\n        v = t\n        while v !=\
     \ s:\n            path.append(down[v])\n            v = par[v]\n            \n\
     \        return (path[::-1], D) if distances else path[::-1]\n    \n    def kruskal(G):\n\
@@ -421,16 +418,16 @@ data:
     \            u,v,*_ = edge\n            u,v = dsu.merge(u,v,True)\n          \
     \  if u != v:\n                MST.append(edge)\n                need -= 1\n \
     \       return MST\n    \n    def bellman_ford(G, s = 0) -> list[int]:\n     \
-    \   D = [inft]*G.N\n        D[s] = 0\n        for _ in range(G.N-1):\n       \
-    \     for u, edges in enumerate(G):\n                if D[u] == inft: continue\n\
+    \   D = [inf]*G.N\n        D[s] = 0\n        for _ in range(G.N-1):\n        \
+    \    for u, edges in enumerate(G):\n                if D[u] == inf: continue\n\
     \                for v,w,*_ in edges:\n                    D[v] = min(D[v], D[u]\
     \ + w)\n        return D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        D = [[inft]*G.N for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n\
+    \        D = [[inf]*G.N for _ in range(G.N)]\n\n        for u, edges in enumerate(G):\n\
     \            D[u][u] = 0\n            for v,w in edges:\n                D[u][v]\
     \ = min(D[u][v], w)\n        \n        for k, Dk in enumerate(D):\n          \
-    \  for Di in D:\n                if Di[k] == inft: continue\n                for\
-    \ j in range(G.N):\n                    if Dk[j] == inft: continue\n         \
-    \           Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def dfs_events(G,\
+    \  for Di in D:\n                if Di[k] == inf: continue\n                for\
+    \ j in range(G.N):\n                    if Dk[j] == inf: continue\n          \
+    \          Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def dfs_events(G,\
     \ flags: DFSFlags, s: Union[int,list,None] = None, max_depth: Union[int,None]\
     \ = None):\n        if flags == DFSFlags.INTERVAL:\n            if max_depth is\
     \ None:\n                return G.dfs_enter_leave(s)\n        elif flags == DFSFlags.DOWN\
@@ -645,12 +642,12 @@ data:
     \ None:\n            return [T.dfs(u) for u in range(T.N)]\n        else:\n  \
     \          return T.dfs(s, g)\n            \n    @overload\n    def dfs(T, s:\
     \ int = 0) -> list[int]: ...\n    @overload\n    def dfs(T, s: int, g: int) ->\
-    \ int: ...\n    def dfs(T, s = 0, g = None):\n        D = [inft for _ in range(T.N)]\n\
+    \ int: ...\n    def dfs(T, s = 0, g = None):\n        D = [inf for _ in range(T.N)]\n\
     \        D[s] = 0\n        state = [True for _ in range(T.N)]\n        stack =\
     \ [s]\n\n        while stack:\n            u = stack.pop()\n            if u ==\
     \ g: return D[u]\n            state[u] = False\n            for v in T[u]:\n \
     \               if state[v]:\n                    D[v] = D[u]+1\n            \
-    \        stack.append(v)\n        return D if g is None else inft \n\n\n    def\
+    \        stack.append(v)\n        return D if g is None else inf \n\n\n    def\
     \ dfs_events(G, flags: DFSFlags, s: int = 0):         \n        events = []\n\
     \        stack = [(s,-1)]\n        adj = [None]*G.N\n\n\n        while stack:\n\
     \            u, p = stack[-1]\n            \n            if adj[u] is None:\n\
@@ -706,13 +703,13 @@ data:
     \ TreeProtocol):\n\n    @cached_property\n    def lca(T):\n        return LCATableWeighted(T)\n\
     \    \n    @overload\n    def dfs(T, s: int = 0) -> list[int]: ...\n    @overload\n\
     \    def dfs(T, s: int, g: int) -> int: ...\n    def dfs(T, s = 0, g = None):\n\
-    \        D = [inft for _ in range(T.N)]\n        D[s] = 0\n        state = [True\
+    \        D = [inf for _ in range(T.N)]\n        D[s] = 0\n        state = [True\
     \ for _ in range(T.N)]\n        stack = [s]\n\n        while stack:\n        \
     \    u = stack.pop()\n            if u == g: return D[u]\n            state[u]\
     \ = False\n            for v, w, *_ in T[u]:\n                if state[v]:\n \
     \                   D[v] = D[u]+w\n                    stack.append(v)\n     \
-    \   return D if g is None else inft\n    \n    def euler_tour(T, s = 0):\n   \
-    \     N = len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1]\
+    \   return D if g is None else inf\n    \n    def euler_tour(T, s = 0):\n    \
+    \    N = len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1]\
     \ * N\n        T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n\
     \        T.delta = delta = elist(2*N)\n        T.Wdelta = Wdelta = elist(2*N)\n\
     \        stack = elist(N)\n        Wstack = elist(N)\n        stack.append(s)\n\
@@ -810,7 +807,6 @@ data:
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/tree/tree_proto.py
-  - cp_library/math/inft_cnst.py
   - cp_library/ds/elist_fn.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
@@ -825,7 +821,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py

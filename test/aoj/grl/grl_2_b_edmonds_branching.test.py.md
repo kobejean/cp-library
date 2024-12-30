@@ -240,7 +240,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_b_edmonds_branching.test.py

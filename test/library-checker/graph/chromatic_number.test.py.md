@@ -8,11 +8,11 @@ data:
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/ctz_fn.py
-    title: cp_library/bit/ctz_fn.py
+    path: cp_library/bit/ctz32_fn.py
+    title: cp_library/bit/ctz32_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/popcnt_fn.py
-    title: cp_library/bit/popcnt_fn.py
+    path: cp_library/bit/popcnt32_fn.py
+    title: cp_library/bit/popcnt32_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -42,21 +42,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
-    \ typing import Union\n\n\ndef popcnt(x):\n    x = ((x >> 1)  & 0x55555555) +\
-    \ (x & 0x55555555)\n    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x\
-    \ = ((x >> 4)  & 0x0f0f0f0f) + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff)\
+    \ typing import Union\n\n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555)\
+    \ + (x & 0x55555555)\n    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n  \
+    \  x = ((x >> 4)  & 0x0f0f0f0f) + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff)\
     \ + (x & 0x00ff00ff)\n    x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n  \
-    \  return x\n\nif hasattr(int, 'bit_count'):\n    popcnt = int.bit_count\n\ndef\
-    \ ctz(x): return popcnt(~x & (x - 1))\n\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \  return x\n\ndef ctz32(x): return popcnt32(~x & (x - 1))\n\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -134,18 +133,19 @@ data:
     \ full = (1 << G.N) - 1\n        for u in range(G.N):\n            G[u] = full\
     \ ^ G[u]\n\n    def chromatic_number(G):\n        Z = 1 << (N := len(G))\n   \
     \     I, coef = [0]*Z, [1]*Z\n        I[0] = 1\n        for S in range(1, Z):\n\
-    \            T = 1 << (v := ctz(S)) ^ S\n            I[S] = I[T] + I[T & ~G[v]]\n\
-    \            coef[S] = -1 if popcnt(S) & 1 else 1\n        for k in range(1, N):\n\
-    \            Pk = 0\n            for S in range(Z):\n                coef[S] *=\
-    \ I[S]\n                Pk += coef[S]\n            if Pk != 0: return k\n    \
-    \    return N\n\n    @classmethod\n    def compile(cls, N: int, M: int, E: Union[type,int]\
-    \ = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n        edge = Parser.compile(E)\n\
-    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n\n    \n\nfrom typing import Type, TypeVar,\
-    \ Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n\
-    @overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
-    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \            T = 1 << (v := ctz32(S)) ^ S\n            I[S] = I[T] + I[T & ~G[v]]\n\
+    \            coef[S] = -1 if popcnt32(S) & 1 else 1\n        for k in range(1,\
+    \ N):\n            Pk = 0\n            for S in range(Z):\n                coef[S]\
+    \ *= I[S]\n                Pk += coef[S]\n            if Pk != 0: return k\n \
+    \       return N\n\n    @classmethod\n    def compile(cls, N: int, M: int, E:\
+    \ Union[type,int] = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n \
+    \       edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\n \
+    \   \n\nfrom typing import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n\
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[T],T], char=False) -> T: ...\ndef\
+    \ read(spec: Union[Type[T],T] = None, char=False):\n    if not char:\n       \
+    \ if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
     \            return int(TokenStream.stream.readline())\n        else:\n      \
@@ -166,15 +166,15 @@ data:
   - cp_library/alg/graph/bit_graph_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/bit/popcnt_fn.py
-  - cp_library/bit/ctz_fn.py
+  - cp_library/bit/popcnt32_fn.py
+  - cp_library/bit/ctz32_fn.py
   - cp_library/alg/graph/edge_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/library-checker/graph/chromatic_number.test.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/chromatic_number.test.py

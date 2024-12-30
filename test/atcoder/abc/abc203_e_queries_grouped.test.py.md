@@ -190,7 +190,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc203_e_queries_grouped.test.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc203_e_queries_grouped.test.py

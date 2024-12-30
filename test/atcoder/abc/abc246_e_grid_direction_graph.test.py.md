@@ -31,9 +31,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -47,24 +44,24 @@ data:
     \ndef solve():\n    N = read(int)\n    Ax, Ay = read(tuple[-1, ...])\n    Bx,\
     \ By = read(tuple[-1, ...])\n    G = read(BishopBoard[N,N])\n    \n    if (Ax+Ay)&1\
     \ != (Bx+By)&1:\n        return -1 \n    s,g = G.vertex((Ax, Ay)), G.vertex((Bx,\
-    \ By))\n    ans = G.distance(s, g)\n    return -1 if ans == inft else ans\n\n\n\
-    def main():\n    write(solve())\n\n    \n\nfrom collections import deque\n'''\n\
-    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ By))\n    ans = G.distance(s, g)\n    return -1 if ans == inf else ans\n\n\n\
+    def main():\n    write(solve())\n\n    \n\nfrom collections import deque\nfrom\
+    \ math import inf\nfrom typing import Iterable\n'''\n\u257A\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\nimport sys\n\
-    inft: int\n\ninft = sys.maxsize\nfrom typing import Iterable\n\n\n\nfrom collections.abc\
-    \ import Iterator\n\n\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\n\
-    import os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\n\nfrom collections.abc import Iterator\nimport sys\n\n\
+    \nimport typing\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -157,33 +154,33 @@ data:
     \       else:\n            return G.bfs(s, g)\n\n    @overload\n    def bfs(G,\
     \ s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
     \ Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n   \
-    \     D = [inft for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
+    \     D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
     \ else s)\n        for u in q: D[u] = 0\n        while q:\n            nd = D[u\
     \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
     \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
-    \                    q.append(v)\n        return D if g is None else inft \n\n\
+    \                    q.append(v)\n        return D if g is None else inf \n\n\
     \    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
     \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
     \ -> tuple[Union[list[int],None],list[int]]: ...\n    def shortest_path(G, s:\
-    \ int, g: int, distances = False) -> list[int]:\n        D = [inft] * G.N\n  \
-    \      D[s] = 0\n        if s == g:\n            return ([], D) if distances else\
+    \ int, g: int, distances = False) -> list[int]:\n        D = [inf] * G.N\n   \
+    \     D[s] = 0\n        if s == g:\n            return ([], D) if distances else\
     \ []\n            \n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n\
     \        Eid = G.edge_ids()\n        q = deque([s])\n        \n        while q:\n\
     \            nd = D[u := q.popleft()] + 1\n            if u == g: break\n    \
     \            \n            for v, eid in zip(G[u], Eid[u]):\n                if\
     \ nd < D[v]:\n                    D[v] = nd\n                    par[v] = u\n\
     \                    par_edge[v] = eid\n                    q.append(v)\n    \
-    \    \n        if D[g] == inft:\n            return (None, D) if distances else\
+    \    \n        if D[g] == inf:\n            return (None, D) if distances else\
     \ None\n            \n        path = []\n        current = g\n        while current\
     \ != s:\n            path.append(par_edge[current])\n            current = par[current]\n\
     \            \n        return (path[::-1], D) if distances else path[::-1]\n \
     \           \n     \n            \n        \n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        D = [[inft]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
+    \        D = [[inf]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
     \            D[u][u] = 0\n            for v in G.neighbors(u):\n             \
     \   D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n            for\
-    \ Di in D:\n                if Di[k] == inft: continue\n                for j\
-    \ in range(G.N):\n                    if Dk[j] == inft: continue\n           \
-    \         Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G,\
+    \ Di in D:\n                if Di[k] == inf: continue\n                for j in\
+    \ range(G.N):\n                    if Dk[j] == inf: continue\n               \
+    \     Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G,\
     \ s = 0, vis = None, par = None):\n        N = G.N\n        vis = vis or [0] *\
     \ N\n        par = par or [-1] * N\n        if vis[s]: return None\n        vis[s]\
     \ = 1\n        stack = [(True, s)]\n        while stack:\n            forw, v\
@@ -196,13 +193,13 @@ data:
     \                        return cyc\n                    elif vis[u] == 0:\n \
     \                       par[u] = v\n                        stack.append((True,\
     \ u))\n            else:\n                vis[v] = 2\n        return None\n\n\
-    \    def find_minimal_cycle(G, s=0):\n        D, par, que = [inft] * (N := G.N),\
+    \    def find_minimal_cycle(G, s=0):\n        D, par, que = [inf] * (N := G.N),\
     \ [-1] * N, deque([s])\n        D[s] = 0\n        while que:\n            for\
     \ v in G[u := que.popleft()]:\n                if v == s:  # Found cycle back\
     \ to start\n                    cycle = [u]\n                    while u != s:\
     \ cycle.append(u := par[u])\n                    return cycle\n              \
-    \  if D[v] < inft: continue\n                D[v], par[v] = D[u]+1, u\n      \
-    \          que.append(v)\n    \n    def bridges(G):\n        tin = [-1] * G.N\n\
+    \  if D[v] < inf: continue\n                D[v], par[v] = D[u]+1, u\n       \
+    \         que.append(v)\n    \n    def bridges(G):\n        tin = [-1] * G.N\n\
     \        low = [-1] * G.N\n        par = [-1] * G.N\n        vis = [0] * G.N\n\
     \        in_edge = [-1] * G.N\n\n        Eid = G.edge_ids()\n        time = 0\n\
     \        bridges = []\n        stack = list(range(G.N))\n        while stack:\n\
@@ -380,22 +377,21 @@ data:
     \        if dir < 0: return v\n        H, W = G.H, G.W\n        i,j = divmod(v,\
     \ W)\n        di,dj = G.dirs[dir]\n        ni,nj = i+di,j+dj\n        if G.is_valid(ni,\
     \ nj, u := ni*W+nj):\n            return u\n        return v\n    \n    def bfs(G,\
-    \ s = 0, g = None):\n        D = [[inft]*4 for _ in range(G.N)]\n        D[s]\
-    \ = [0]*4\n        q = deque([(s,-1)])\n        while q:\n            u, dir =\
-    \ q.popleft()\n            if u == g: return D[u][dir]\n            \n       \
-    \     nd = D[u][dir]\n            if nd < D[v := G.free_move(u,dir)][dir]:\n \
-    \               D[v][dir] = nd\n                q.appendleft((v,dir))\n      \
-    \      nd += 1\n            for v, ndir in G[u]:\n                if nd < D[v][ndir]:\n\
-    \                    D[v][ndir] = nd\n                    q.append((v,ndir))\n\
-    \n        return D if g is None else inft    \n\nif __name__ == \"__main__\":\n\
-    \    main()\n"
+    \ s = 0, g = None):\n        D = [[inf]*4 for _ in range(G.N)]\n        D[s] =\
+    \ [0]*4\n        q = deque([(s,-1)])\n        while q:\n            u, dir = q.popleft()\n\
+    \            if u == g: return D[u][dir]\n            \n            nd = D[u][dir]\n\
+    \            if nd < D[v := G.free_move(u,dir)][dir]:\n                D[v][dir]\
+    \ = nd\n                q.appendleft((v,dir))\n            nd += 1\n         \
+    \   for v, ndir in G[u]:\n                if nd < D[v][ndir]:\n              \
+    \      D[v][ndir] = nd\n                    q.append((v,ndir))\n\n        return\
+    \ D if g is None else inf    \n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc246/tasks/abc246_e\n\
     \ndef solve():\n    N = read(int)\n    Ax, Ay = read(tuple[-1, ...])\n    Bx,\
     \ By = read(tuple[-1, ...])\n    G = read(BishopBoard[N,N])\n    \n    if (Ax+Ay)&1\
     \ != (Bx+By)&1:\n        return -1 \n    s,g = G.vertex((Ax, Ay)), G.vertex((Bx,\
-    \ By))\n    ans = G.distance(s, g)\n    return -1 if ans == inft else ans\n\n\n\
+    \ By))\n    ans = G.distance(s, g)\n    return -1 if ans == inf else ans\n\n\n\
     def main():\n    write(solve())\n\n    \n\nfrom collections import deque\nfrom\
-    \ cp_library.math.inft_cnst import inft\nfrom typing import Iterable\nfrom cp_library.alg.graph.lazy_grid_direction_graph_cls\
+    \ math import inf\nfrom typing import Iterable\nfrom cp_library.alg.graph.lazy_grid_direction_graph_cls\
     \ import LazyGridDirectionGraph\nfrom cp_library.io.read_fn import read\nfrom\
     \ cp_library.io.write_fn import write\n\nclass BishopBoard(LazyGridDirectionGraph):\n\
     \    def __init__(G, H, W, S=...):\n        dirs = [(1,1),(1,-1),(-1,1),(-1,-1)]\n\
@@ -403,17 +399,16 @@ data:
     \ int) -> Iterable[int]:\n        if dir < 0: return v\n        H, W = G.H, G.W\n\
     \        i,j = divmod(v, W)\n        di,dj = G.dirs[dir]\n        ni,nj = i+di,j+dj\n\
     \        if G.is_valid(ni, nj, u := ni*W+nj):\n            return u\n        return\
-    \ v\n    \n    def bfs(G, s = 0, g = None):\n        D = [[inft]*4 for _ in range(G.N)]\n\
+    \ v\n    \n    def bfs(G, s = 0, g = None):\n        D = [[inf]*4 for _ in range(G.N)]\n\
     \        D[s] = [0]*4\n        q = deque([(s,-1)])\n        while q:\n       \
     \     u, dir = q.popleft()\n            if u == g: return D[u][dir]\n        \
     \    \n            nd = D[u][dir]\n            if nd < D[v := G.free_move(u,dir)][dir]:\n\
     \                D[v][dir] = nd\n                q.appendleft((v,dir))\n     \
     \       nd += 1\n            for v, ndir in G[u]:\n                if nd < D[v][ndir]:\n\
     \                    D[v][ndir] = nd\n                    q.append((v,ndir))\n\
-    \n        return D if g is None else inft    \n\nif __name__ == \"__main__\":\n\
+    \n        return D if g is None else inf    \n\nif __name__ == \"__main__\":\n\
     \    main()"
   dependsOn:
-  - cp_library/math/inft_cnst.py
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
@@ -427,7 +422,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
   requiredBy: []
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc246_e_grid_direction_graph.test.py

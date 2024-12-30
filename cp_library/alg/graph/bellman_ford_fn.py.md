@@ -1,9 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/inft_cnst.py
-    title: cp_library/math/inft_cnst.py
+  _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
@@ -23,23 +20,21 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport sys\ninft: int\n\ninft = sys.maxsize\n\ndef bellman_ford(G, N, root)\
-    \ -> list[int]:\n    D = [inft]*N\n    D[root] = 0\n    for _ in range(N-1):\n\
-    \        for u, edges in enumerate(G):\n            if D[u] == inft: continue\n\
+    from math import inf\n\ndef bellman_ford(G, N, root) -> list[int]:\n    D = [inf]*N\n\
+    \    D[root] = 0\n    for _ in range(N-1):\n        for u, edges in enumerate(G):\n\
+    \            if D[u] == inf: continue\n            for v,w in edges:\n       \
+    \         D[v] = min(D[v], D[u] + w)\n    return D\n"
+  code: "import cp_library.alg.graph.__header__\nfrom math import inf\n\ndef bellman_ford(G,\
+    \ N, root) -> list[int]:\n    D = [inf]*N\n    D[root] = 0\n    for _ in range(N-1):\n\
+    \        for u, edges in enumerate(G):\n            if D[u] == inf: continue\n\
     \            for v,w in edges:\n                D[v] = min(D[v], D[u] + w)\n \
     \   return D\n"
-  code: "import cp_library.alg.graph.__header__\nfrom cp_library.math.inft_cnst import\
-    \ inft\n\ndef bellman_ford(G, N, root) -> list[int]:\n    D = [inft]*N\n    D[root]\
-    \ = 0\n    for _ in range(N-1):\n        for u, edges in enumerate(G):\n     \
-    \       if D[u] == inft: continue\n            for v,w in edges:\n           \
-    \     D[v] = min(D[v], D[u] + w)\n    return D\n"
-  dependsOn:
-  - cp_library/math/inft_cnst.py
+  dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_fn.py
   requiredBy:
   - cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_b_bellman_ford.test.py

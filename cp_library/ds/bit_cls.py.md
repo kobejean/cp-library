@@ -76,7 +76,7 @@ data:
   requiredBy:
   - cp_library/math/inversion_cnt_fn.py
   - cp_library/ds/bir_cls.py
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

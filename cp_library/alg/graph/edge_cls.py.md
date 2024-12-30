@@ -247,7 +247,7 @@ data:
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/digraph_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-29 16:20:36+09:00'
+  timestamp: '2024-12-30 17:25:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
