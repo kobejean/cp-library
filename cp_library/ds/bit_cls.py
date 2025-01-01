@@ -20,9 +20,11 @@ class BinaryIndexTree:
         for _ in range((i^z).bit_count()):
             s, i = s-data[i-1], i-(i&-i)
         return s
+    __getitem__ = get
     
     def set(self, i: int, x: int):
         self.add(i, x-self.get(i))
+    __setitem__ = set
         
     def add(self, i: int, x: int) -> None:
         assert 0 <= i <= self.size

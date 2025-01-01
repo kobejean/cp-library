@@ -22,7 +22,7 @@ class GraphWeighted(GraphWeightedBase):
             i, j = Ra[u], Ra[v]
             Ua[i], Va[i], Wa[i], Ea[i] = u, v, w, e
             Ra[u] += 1
-            Ua[j], Va[j], Wa[j], Ea[j] = v, u, w, ~e
+            Ua[j], Va[j], Wa[j], Ea[j] = v, u, w, e
             Ra[v] += 1
 
         super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)

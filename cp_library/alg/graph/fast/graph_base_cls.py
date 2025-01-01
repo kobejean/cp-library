@@ -101,7 +101,7 @@ class GraphBase(Sequence, Parsable):
             while stack:
                 if vis[u := stack.pop()] == 0:
                     stack.append(u)
-                    vis[u], pe = 1, ~Ea[j] if (j := back[u]) != i32_max else i32_max
+                    vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max
                     for i in G.range(u):
                         if vis[v := Va[i]] == 0:
                             back[v] = i

@@ -29,11 +29,13 @@ class SegTree:
         self.d[p] = x
         for i in range(1, self.log + 1):
             self._update(p >> i)
+    __setitem__ = set
 
     def get(self, p: int) -> typing.Any:
         assert 0 <= p < self.n
 
         return self.d[p + self.size]
+    __getitem__ = get
 
     def prod(self, left: int, right: int) -> typing.Any:
         assert 0 <= left <= right <= self.n

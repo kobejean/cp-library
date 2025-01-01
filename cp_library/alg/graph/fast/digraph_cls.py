@@ -4,13 +4,10 @@ from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 
 class DiGraph(GraphBase):
     def __init__(G, N: int, U: list[int], V: list[int]):
-        deg, Ea, Ua, Va, La, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), 0
+        deg, Ea, Ua, Va, La, Ra, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), u32f(N), 0
         for u in U: deg[u] += 1
-        for u in range(N): La[u], i = i, i+deg[u]
-        Ra = La[:]
-        for e in range(M):
-            i = Ra[u := U[e]]
-            Ua[i], Va[i], Ea[i], Ra[u] = u, V[e], e, i+1
+        for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]
+        for e in range(M): Ra[u], Ua[i], Va[i], Ea[i] = (i := Ra[u := U[e]])+1, u, V[e], e
         super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)
 
     def scc(G) -> Iterator[list[int]]:
