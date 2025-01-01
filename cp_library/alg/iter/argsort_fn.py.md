@@ -18,6 +18,9 @@ data:
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - icon: ':warning:'
+    path: cp_library/alg/iter/sort_parallel_copies_fn.py
+    title: cp_library/alg/iter/sort_parallel_copies_fn.py
+  - icon: ':warning:'
     path: cp_library/alg/iter/sort_parallel_fn.py
     title: cp_library/alg/iter/sort_parallel_fn.py
   - icon: ':warning:'
@@ -71,18 +74,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift := N.bit_length()))\
-    \ - 1\n    indices = [0]*N\n    for i in range(N):\n        indices[i] = A[i]\
-    \ << shift | i\n    indices.sort()\n    for i in range(N):\n        indices[i]\
-    \ &= mask\n    return indices\n"
-  code: "import cp_library.alg.iter.__header__\n\ndef argsort(A: list[int]):\n   \
-    \ N = len(A)\n    mask = (1 << (shift := N.bit_length())) - 1\n    indices = [0]*N\n\
-    \    for i in range(N):\n        indices[i] = A[i] << shift | i\n    indices.sort()\n\
-    \    for i in range(N):\n        indices[i] &= mask\n    return indices\n"
+    \ndef argsort(A: list[int], reverse=False):\n    N = len(A)\n    mask = (1 <<\
+    \ (shift := N.bit_length())) - 1\n    indices = [0]*N\n    for i in range(N):\n\
+    \        indices[i] = A[i] << shift | i\n    indices.sort(reverse=reverse)\n \
+    \   for i in range(N):\n        indices[i] &= mask\n    return indices\n"
+  code: "import cp_library.alg.iter.__header__\n\ndef argsort(A: list[int], reverse=False):\n\
+    \    N = len(A)\n    mask = (1 << (shift := N.bit_length())) - 1\n    indices\
+    \ = [0]*N\n    for i in range(N):\n        indices[i] = A[i] << shift | i\n  \
+    \  indices.sort(reverse=reverse)\n    for i in range(N):\n        indices[i] &=\
+    \ mask\n    return indices\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/argsort_fn.py
   requiredBy:
+  - cp_library/alg/iter/sort_parallel_copies_fn.py
   - cp_library/alg/iter/sort_parallel_fn.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
@@ -92,7 +97,7 @@ data:
   - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

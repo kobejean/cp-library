@@ -193,7 +193,7 @@ data:
     \ := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack = vis, back, elist(N)\n\
     \        for s in G.starts(s):\n            if vis[s]: continue\n            stack.append(s)\n\
     \            while stack:\n                if vis[u := stack.pop()] == 0:\n  \
-    \                  stack.append(u)\n                    vis[u], pe = 1, ~Ea[j]\
+    \                  stack.append(u)\n                    vis[u], pe = 1, Ea[j]\
     \ if (j := back[u]) != i32_max else i32_max\n                    for i in G.range(u):\n\
     \                        if vis[v := Va[i]] == 0:\n                          \
     \  back[v] = i\n                            stack.append(v)\n                \
@@ -297,85 +297,85 @@ data:
     \ shift\n    def __len__(self): return self.A.__len__()\n    def __contains__(self,\
     \ x): return self.A.__contains__(x)\n    def __getitem__(self, key):\n       \
     \ x = self.A[key]\n        return x >> self.shift, x & self.mask\n\nclass Graph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M2 = (M :=\
-    \ len(U)) << 1\n        deg, Ea, Ua, Va = u32f(N), i32f(M2), u32f(M2), u32f(M2)\n\
-    \        for u in U: deg[u] += 1\n        for v in V: deg[v] += 1\n        La,\
-    \ i = u32f(N), 0\n        for u in range(N): La[u], i = i, i + deg[u]\n      \
-    \  Ra = La[:]\n        for e in range(M):\n            i, j = Ra[u := U[e]], Ra[v\
-    \ := V[e]]\n            Ua[i], Va[i], Ea[i], Ra[u] = u, v, e, i+1\n          \
-    \  Ua[j], Va[j], Ea[j], Ra[v] = v, u, ~e, j+1\n        super().__init__(N, M,\
-    \ U, V, deg, La, Ra, Ua, Va, Ea)\n\nfrom typing import Callable, Literal, TypeVar,\
-    \ Union, overload\n\n_T = TypeVar('_T')\n\nclass TreeBase(GraphBase):\n    @overload\n\
-    \    def distance(T) -> list[list[int]]: ...\n    @overload\n    def distance(T,\
-    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T, s: int, g:\
-    \ int) -> int: ...\n    def distance(T, s = None, g = None):\n        if s ==\
-    \ None:\n            return [T.dfs_distance(u) for u in range(T.N)]\n        else:\n\
-    \            return T.dfs_distance(s, g)\n\n    @overload\n    def diameter(T)\
-    \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
-    \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        mask\
-    \ = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift | v for\
-    \ v,d in enumerate(T.distance(0))) & mask\n        dg = max(d << shift | v for\
-    \ v,d in enumerate(T.distance(s))) \n        diam, g = dg >> shift, dg & mask\n\
-    \        return (diam, s, g) if endpoints else diam\n    \n    def dfs_distance(T,\
-    \ s: int, g: Union[int,None] = None):\n        stack, Va = elist(N := T.N), T.Va\n\
-    \        T.D, T.back = D, back = u32f(N, inf), i32f(N, -1)\n        D[s] = 0\n\
-    \        stack.append(s)\n        while stack:\n            nd = D[u := stack.pop()]+1\n\
-    \            if u == g: return nd-1\n            for i in T.range(u):\n      \
-    \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
-    \                    stack.append(v)\n        return D if g is None else inf\n\
-    \n    def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
-    \ \n                     edge_op: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n\
-    \                     s: int = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n  \
-    \      order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]\n \
-    \       # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
-    \            # subtree v finished up pass, store value to accumulate for u\n \
-    \           dp[v] = new = edge_op(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
-    \ new)\n            # suffix accumulation\n            if (c:=I[u]-1) > La[u]:\
-    \ suf[c-1] = merge(suf[c], new)\n            I[u] = c\n        # down\n      \
-    \  dp[s] = e # at this point dp stores values to be merged in parent\n       \
-    \ for i in order:\n            u,v = Ua[i], Va[i]\n            dp[u] = merge(pre\
-    \ := dp[u], dp[v])\n            dp[v] = edge_op(v, u, i, merge(suf[I[u]], pre))\n\
-    \            I[u] += 1\n        return dp\n    \n    def euler_tour(T, s = 0):\n\
-    \        N, Va = len(T), T.Va\n        tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n\
-    \        order, delta = elist(2*N), elist(2*N)\n        \n        stack = elist(N)\n\
-    \        stack.append(s)\n        while stack:\n            p = par[u := stack.pop()]\n\
-    \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
-    \       for i in T.range(u):\n                    if (v := Va[i]) != p:\n    \
-    \                    par[v], back[v] = u, i\n                        stack.append(u)\n\
-    \                        stack.append(v)\n                delta.append(1)\n  \
-    \          else:\n                delta.append(-1)\n            \n           \
-    \ order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
-    \ = 0\n        T.tin, T.tout, T.par, T.back = tin, tout, par, back\n        T.order,\
-    \ T.delta = order, delta\n\n    def hld_precomp(T, r = 0):\n        N, time, Va\
-    \ = T.N, 0, T.Va\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par,\
-    \ heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, state = [0]*N, [0]*N,\
-    \ [0]*N\n        stack = elist(N)\n        stack.append(r)\n        while stack:\n\
-    \            if (s := state[v := stack.pop()]) == 0: # dfs down\n            \
-    \    p, state[v] = par[v], 1\n                stack.append(v)\n              \
-    \  for i in T.range(v):\n                    if (c := Va[i]) != p:\n         \
-    \               depth[c], par[c] = depth[v]+1, v\n                        stack.append(c)\n\
-    \n            elif s == 1: # dfs up\n                p, l = par[v], -1\n     \
-    \           for i in T.range(v):\n                    if (c := Va[i]) != p:\n\
-    \                        size[v] += size[c]\n                        if size[c]\
-    \ > size[l]:\n                            l = c\n                heavy[v] = l\n\
-    \                if p == -1:\n                    state[v] = 2\n             \
-    \       stack.append(v)\n\n            elif s == 2: # decompose down\n       \
-    \         p, h, l = par[v], head[v], heavy[v]\n                tin[v], order[time],\
-    \ state[v] = time, v, 3\n                time += 1\n                stack.append(v)\n\
-    \                \n                for i in T.range(v):\n                    if\
-    \ (c := Va[i]) != p and c != l:\n                        head[c], state[c] = c,\
-    \ 2\n                        stack.append(c)\n\n                if l != -1:\n\
-    \                    head[l], state[l] = h, 2\n                    stack.append(l)\n\
-    \n            elif s == 3: # decompose up\n                tout[v] = time\n  \
-    \      T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order,\
-    \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n\n    @classmethod\n\
-    \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
-    \ N, N-1, shift)\n    \n\nclass Tree(TreeBase, Graph):\n    pass\n\n\nfrom typing\
-    \ import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read()\
-    \ -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
-    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
-    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
-    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua,\
+    \ Va, La, Ra, i = u32f(N), i32f(M2 := (M := len(U)) << 1), u32f(M2), u32f(M2),\
+    \ u32f(N), u32f(N), 0\n        for u in U: deg[u] += 1\n        for v in V: deg[v]\
+    \ += 1\n        for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]\n        for\
+    \ e in range(M):\n            Ra[u], Ra[v] = (i := Ra[u := U[e]])+1, (j := Ra[v\
+    \ := V[e]])+1\n            Ua[i], Va[i], Ea[i], Ua[j], Va[j], Ea[j] = u, v, e,\
+    \ v, u, e\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\nfrom\
+    \ typing import Callable, Literal, TypeVar, Union, overload\n\n_T = TypeVar('_T')\n\
+    \nclass TreeBase(GraphBase):\n    @overload\n    def distance(T) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(T, s: int, g: int) -> int: ...\n    def distance(T, s = None,\
+    \ g = None):\n        if s == None:\n            return [T.dfs_distance(u) for\
+    \ u in range(T.N)]\n        else:\n            return T.dfs_distance(s, g)\n\n\
+    \    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
+    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
+    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
+    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
+    \    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        stack,\
+    \ Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = u32f(N, inf), i32f(N,\
+    \ -1)\n        D[s] = 0\n        stack.append(s)\n        while stack:\n     \
+    \       nd = D[u := stack.pop()]+1\n            if u == g: return nd-1\n     \
+    \       for i in T.range(u):\n                if nd < D[v := Va[i]]:\n       \
+    \             D[v], back[v] = nd, i\n                    stack.append(v)\n   \
+    \     return D if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n    \
+    \                 merge: Callable[[_T,_T],_T], \n                     edge_op:\
+    \ Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n                     s: int\
+    \ = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topdown(s),\
+    \ [e]*T.N, [e]*len(Ua), T.Ra[:]\n        # up\n        for i in order[::-1]:\n\
+    \            u,v = Ua[i], Va[i]\n            # subtree v finished up pass, store\
+    \ value to accumulate for u\n            dp[v] = new = edge_op(u, v, i, dp[v])\n\
+    \            dp[u] = merge(dp[u], new)\n            # suffix accumulation\n  \
+    \          if (c:=I[u]-1) > La[u]: suf[c-1] = merge(suf[c], new)\n           \
+    \ I[u] = c\n        # down\n        dp[s] = e # at this point dp stores values\
+    \ to be merged in parent\n        for i in order:\n            u,v = Ua[i], Va[i]\n\
+    \            dp[u] = merge(pre := dp[u], dp[v])\n            dp[v] = edge_op(v,\
+    \ u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n        return dp\n   \
+    \ \n    def euler_tour(T, s = 0):\n        N, Va = len(T), T.Va\n        tin,\
+    \ tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n        order, delta = elist(2*N),\
+    \ elist(2*N)\n        \n        stack = elist(N)\n        stack.append(s)\n  \
+    \      while stack:\n            p = par[u := stack.pop()]\n            if tin[u]\
+    \ == -1:\n                tin[u] = len(order)\n                for i in T.range(u):\n\
+    \                    if (v := Va[i]) != p:\n                        par[v], back[v]\
+    \ = u, i\n                        stack.append(u)\n                        stack.append(v)\n\
+    \                delta.append(1)\n            else:\n                delta.append(-1)\n\
+    \            \n            order.append(u)\n            tout[u] = len(order)\n\
+    \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
+    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    def hld_precomp(T,\
+    \ r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N,\
+    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
+    \ depth, order, state = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n      \
+    \  stack.append(r)\n        while stack:\n            if (s := state[v := stack.pop()])\
+    \ == 0: # dfs down\n                p, state[v] = par[v], 1\n                stack.append(v)\n\
+    \                for i in T.range(v):\n                    if (c := Va[i]) !=\
+    \ p:\n                        depth[c], par[c] = depth[v]+1, v\n             \
+    \           stack.append(c)\n\n            elif s == 1: # dfs up\n           \
+    \     p, l = par[v], -1\n                for i in T.range(v):\n              \
+    \      if (c := Va[i]) != p:\n                        size[v] += size[c]\n   \
+    \                     if size[c] > size[l]:\n                            l = c\n\
+    \                heavy[v] = l\n                if p == -1:\n                 \
+    \   state[v] = 2\n                    stack.append(v)\n\n            elif s ==\
+    \ 2: # decompose down\n                p, h, l = par[v], head[v], heavy[v]\n \
+    \               tin[v], order[time], state[v] = time, v, 3\n                time\
+    \ += 1\n                stack.append(v)\n                \n                for\
+    \ i in T.range(v):\n                    if (c := Va[i]) != p and c != l:\n   \
+    \                     head[c], state[c] = c, 2\n                        stack.append(c)\n\
+    \n                if l != -1:\n                    head[l], state[l] = h, 2\n\
+    \                    stack.append(l)\n\n            elif s == 3: # decompose up\n\
+    \                tout[v] = time\n        T.size, T.depth = size, depth\n     \
+    \   T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy, T.head\
+    \ = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int, shift:\
+    \ int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
+    \    \n\nclass Tree(TreeBase, Graph):\n    pass\n\n\nfrom typing import Type,\
+    \ TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None,\
+    \ char=False):\n    if not char:\n        if spec is None:\n            return\
+    \ map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
     \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
     \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
     \        else:\n            stream = TokenStream()\n    else:\n        stream\
@@ -409,7 +409,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py

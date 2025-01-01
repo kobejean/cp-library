@@ -202,6 +202,9 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/iter/enumerate_rev_fn.py
       title: cp_library/alg/iter/enumerate_rev_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/partition_cls.py
+      title: cp_library/alg/iter/partition_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/presum_fn.py
       title: cp_library/alg/iter/presum_fn.py
@@ -220,6 +223,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/sort_groups_fn.py
       title: cp_library/alg/iter/sort_groups_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/sort_parallel_copies_fn.py
+      title: cp_library/alg/iter/sort_parallel_copies_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/sort_parallel_fn.py
       title: cp_library/alg/iter/sort_parallel_fn.py

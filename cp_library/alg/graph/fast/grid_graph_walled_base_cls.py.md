@@ -182,7 +182,7 @@ data:
     \  G.vis, G.back, stack = vis, back, elist(N)\n        for s in G.starts(s):\n\
     \            if vis[s]: continue\n            stack.append(s)\n            while\
     \ stack:\n                if vis[u := stack.pop()] == 0:\n                   \
-    \ stack.append(u)\n                    vis[u], pe = 1, ~Ea[j] if (j := back[u])\
+    \ stack.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
     \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
     \                if vis[v := Va[i]] == 0:\n                            back[v]\
     \ = i\n                            stack.append(v)\n                        elif\
@@ -326,7 +326,7 @@ data:
   path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   requiredBy:
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

@@ -163,20 +163,20 @@ data:
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
-    \    return ch\n\n\ndef argsort(A: list[int]):\n    N = len(A)\n    mask = (1\
-    \ << (shift := N.bit_length())) - 1\n    indices = [0]*N\n    for i in range(N):\n\
-    \        indices[i] = A[i] << shift | i\n    indices.sort()\n    for i in range(N):\n\
-    \        indices[i] &= mask\n    return indices\nfrom itertools import islice\n\
-    from typing import Callable, Sequence, Union, overload\n\nfrom enum import auto,\
-    \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
-    \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
-    \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
-    \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
-    \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
-    \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
-    \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
-    \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
-    \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \    return ch\n\n\ndef argsort(A: list[int], reverse=False):\n    N = len(A)\n\
+    \    mask = (1 << (shift := N.bit_length())) - 1\n    indices = [0]*N\n    for\
+    \ i in range(N):\n        indices[i] = A[i] << shift | i\n    indices.sort(reverse=reverse)\n\
+    \    for i in range(N):\n        indices[i] &= mask\n    return indices\nfrom\
+    \ itertools import islice\nfrom typing import Callable, Sequence, Union, overload\n\
+    \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
+    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
     \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
@@ -226,7 +226,7 @@ data:
     \ := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack = vis, back, elist(N)\n\
     \        for s in G.starts(s):\n            if vis[s]: continue\n            stack.append(s)\n\
     \            while stack:\n                if vis[u := stack.pop()] == 0:\n  \
-    \                  stack.append(u)\n                    vis[u], pe = 1, ~Ea[j]\
+    \                  stack.append(u)\n                    vis[u], pe = 1, Ea[j]\
     \ if (j := back[u]) != i32_max else i32_max\n                    for i in G.range(u):\n\
     \                        if vis[v := Va[i]] == 0:\n                          \
     \  back[v] = i\n                            stack.append(v)\n                \
@@ -483,7 +483,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_a_fast_dijkstra.test.py

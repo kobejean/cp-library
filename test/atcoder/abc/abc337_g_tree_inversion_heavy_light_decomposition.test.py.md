@@ -492,19 +492,20 @@ data:
     \            if (r := i|(i+1)) < self.size: \n                data[r] += data[i]\n\
     \n    def get(self, i: int):\n        assert 0 <= i < self.size\n        s, z\
     \ = (data := self.data)[i], i&(i+1)\n        for _ in range((i^z).bit_count()):\n\
-    \            s, i = s-data[i-1], i-(i&-i)\n        return s\n    \n    def set(self,\
-    \ i: int, x: int):\n        self.add(i, x-self.get(i))\n        \n    def add(self,\
-    \ i: int, x: int) -> None:\n        assert 0 <= i <= self.size\n        i += 1\n\
-    \        data, size = self.data, self.size\n        while i <= size:\n       \
-    \     data[i-1], i = data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n\
-    \        assert 0 <= i <= self.size\n        s = 0\n        data = self.data\n\
-    \        for _ in range(i.bit_count()):\n            s, i = s+data[i-1], i-(i&-i)\n\
-    \        return s\n    \n    def range_sum(self, l: int, r: int):\n        return\
-    \ self.pref_sum(r) - self.pref_sum(l)\n\nfrom typing import Type, TypeVar, Union,\
-    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
-    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \            s, i = s-data[i-1], i-(i&-i)\n        return s\n    __getitem__ =\
+    \ get\n    \n    def set(self, i: int, x: int):\n        self.add(i, x-self.get(i))\n\
+    \    __setitem__ = set\n        \n    def add(self, i: int, x: int) -> None:\n\
+    \        assert 0 <= i <= self.size\n        i += 1\n        data, size = self.data,\
+    \ self.size\n        while i <= size:\n            data[i-1], i = data[i-1] +\
+    \ x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n        assert 0 <= i <= self.size\n\
+    \        s = 0\n        data = self.data\n        for _ in range(i.bit_count()):\n\
+    \            s, i = s+data[i-1], i-(i&-i)\n        return s\n    \n    def range_sum(self,\
+    \ l: int, r: int):\n        return self.pref_sum(r) - self.pref_sum(l)\n\nfrom\
+    \ typing import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\n\
+    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
+    @overload\ndef read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec:\
+    \ Union[Type[T],T] = None, char=False):\n    if not char:\n        if spec is\
+    \ None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
     \            return int(TokenStream.stream.readline())\n        else:\n      \
@@ -549,7 +550,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py

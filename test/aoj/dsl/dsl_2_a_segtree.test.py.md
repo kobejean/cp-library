@@ -36,40 +36,41 @@ data:
     \       for i in range(self.size - 1, 0, -1):\n            self._update(i)\n\n\
     \    def set(self, p: int, x: typing.Any) -> None:\n        assert 0 <= p < self.n\n\
     \n        p += self.size\n        self.d[p] = x\n        for i in range(1, self.log\
-    \ + 1):\n            self._update(p >> i)\n\n    def get(self, p: int) -> typing.Any:\n\
-    \        assert 0 <= p < self.n\n\n        return self.d[p + self.size]\n\n  \
-    \  def prod(self, left: int, right: int) -> typing.Any:\n        assert 0 <= left\
-    \ <= right <= self.n\n        sml = self.e\n        smr = self.e\n        left\
-    \ += self.size\n        right += self.size\n\n        while left < right:\n  \
-    \          if left & 1:\n                sml = self.op(sml, self.d[left])\n  \
-    \              left += 1\n            if right & 1:\n                right -=\
-    \ 1\n                smr = self.op(self.d[right], smr)\n            left >>= 1\n\
-    \            right >>= 1\n\n        return self.op(sml, smr)\n\n    def all_prod(self)\
-    \ -> typing.Any:\n        return self.d[1]\n\n    def max_right(self, left: int,\n\
-    \                  f: typing.Callable[[typing.Any], bool]) -> int:\n        assert\
-    \ 0 <= left <= self.n\n        assert f(self.e)\n\n        if left == self.n:\n\
-    \            return self.n\n\n        left += self.size\n        sm = self.e\n\
-    \n        first = True\n        while first or (left & -left) != left:\n     \
-    \       first = False\n            while left % 2 == 0:\n                left\
-    \ >>= 1\n            if not f(self.op(sm, self.d[left])):\n                while\
-    \ left < self.size:\n                    left *= 2\n                    if f(self.op(sm,\
-    \ self.d[left])):\n                        sm = self.op(sm, self.d[left])\n  \
-    \                      left += 1\n                return left - self.size\n  \
-    \          sm = self.op(sm, self.d[left])\n            left += 1\n\n        return\
-    \ self.n\n\n    def min_left(self, right: int,\n                 f: typing.Callable[[typing.Any],\
-    \ bool]) -> int:\n        assert 0 <= right <= self.n\n        assert f(self.e)\n\
-    \n        if right == 0:\n            return 0\n\n        right += self.size\n\
-    \        sm = self.e\n\n        first = True\n        while first or (right &\
-    \ -right) != right:\n            first = False\n            right -= 1\n     \
-    \       while right > 1 and right % 2:\n                right >>= 1\n        \
-    \    if not f(self.op(self.d[right], sm)):\n                while right < self.size:\n\
-    \                    right = 2 * right + 1\n                    if f(self.op(self.d[right],\
-    \ sm)):\n                        sm = self.op(self.d[right], sm)\n           \
-    \             right -= 1\n                return right + 1 - self.size\n     \
-    \       sm = self.op(self.d[right], sm)\n\n        return 0\n\n    def _update(self,\
-    \ k: int) -> None:\n        self.d[k] = self.op(self.d[2 * k], self.d[2 * k +\
-    \ 1])\n\n\ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s\
-    \ in input().split()]\n\nif __name__ == '__main__':\n    main()\n"
+    \ + 1):\n            self._update(p >> i)\n    __setitem__ = set\n\n    def get(self,\
+    \ p: int) -> typing.Any:\n        assert 0 <= p < self.n\n\n        return self.d[p\
+    \ + self.size]\n    __getitem__ = get\n\n    def prod(self, left: int, right:\
+    \ int) -> typing.Any:\n        assert 0 <= left <= right <= self.n\n        sml\
+    \ = self.e\n        smr = self.e\n        left += self.size\n        right +=\
+    \ self.size\n\n        while left < right:\n            if left & 1:\n       \
+    \         sml = self.op(sml, self.d[left])\n                left += 1\n      \
+    \      if right & 1:\n                right -= 1\n                smr = self.op(self.d[right],\
+    \ smr)\n            left >>= 1\n            right >>= 1\n\n        return self.op(sml,\
+    \ smr)\n\n    def all_prod(self) -> typing.Any:\n        return self.d[1]\n\n\
+    \    def max_right(self, left: int,\n                  f: typing.Callable[[typing.Any],\
+    \ bool]) -> int:\n        assert 0 <= left <= self.n\n        assert f(self.e)\n\
+    \n        if left == self.n:\n            return self.n\n\n        left += self.size\n\
+    \        sm = self.e\n\n        first = True\n        while first or (left & -left)\
+    \ != left:\n            first = False\n            while left % 2 == 0:\n    \
+    \            left >>= 1\n            if not f(self.op(sm, self.d[left])):\n  \
+    \              while left < self.size:\n                    left *= 2\n      \
+    \              if f(self.op(sm, self.d[left])):\n                        sm =\
+    \ self.op(sm, self.d[left])\n                        left += 1\n             \
+    \   return left - self.size\n            sm = self.op(sm, self.d[left])\n    \
+    \        left += 1\n\n        return self.n\n\n    def min_left(self, right: int,\n\
+    \                 f: typing.Callable[[typing.Any], bool]) -> int:\n        assert\
+    \ 0 <= right <= self.n\n        assert f(self.e)\n\n        if right == 0:\n \
+    \           return 0\n\n        right += self.size\n        sm = self.e\n\n  \
+    \      first = True\n        while first or (right & -right) != right:\n     \
+    \       first = False\n            right -= 1\n            while right > 1 and\
+    \ right % 2:\n                right >>= 1\n            if not f(self.op(self.d[right],\
+    \ sm)):\n                while right < self.size:\n                    right =\
+    \ 2 * right + 1\n                    if f(self.op(self.d[right], sm)):\n     \
+    \                   sm = self.op(self.d[right], sm)\n                        right\
+    \ -= 1\n                return right + 1 - self.size\n            sm = self.op(self.d[right],\
+    \ sm)\n\n        return 0\n\n    def _update(self, k: int) -> None:\n        self.d[k]\
+    \ = self.op(self.d[2 * k], self.d[2 * k + 1])\n\n\ndef read(shift=0, base=10):\n\
+    \    return [int(s, base) + shift for s in input().split()]\n\nif __name__ ==\
+    \ '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\n\
     \ndef main():\n    N, Q = read()\n\n    seg = SegTree(min, 2147483647, N)\n\n\
     \    for _ in range(Q):\n        com, x, y = read()\n        if com:\n       \
@@ -82,7 +83,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/dsl_2_a_segtree.test.py

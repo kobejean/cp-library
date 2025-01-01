@@ -187,7 +187,7 @@ data:
     \ := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack = vis, back, elist(N)\n\
     \        for s in G.starts(s):\n            if vis[s]: continue\n            stack.append(s)\n\
     \            while stack:\n                if vis[u := stack.pop()] == 0:\n  \
-    \                  stack.append(u)\n                    vis[u], pe = 1, ~Ea[j]\
+    \                  stack.append(u)\n                    vis[u], pe = 1, Ea[j]\
     \ if (j := back[u]) != i32_max else i32_max\n                    for i in G.range(u):\n\
     \                        if vis[v := Va[i]] == 0:\n                          \
     \  back[v] = i\n                            stack.append(v)\n                \
@@ -291,24 +291,23 @@ data:
     \ shift\n    def __len__(self): return self.A.__len__()\n    def __contains__(self,\
     \ x): return self.A.__contains__(x)\n    def __getitem__(self, key):\n       \
     \ x = self.A[key]\n        return x >> self.shift, x & self.mask\n\nclass Graph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M2 = (M :=\
-    \ len(U)) << 1\n        deg, Ea, Ua, Va = u32f(N), i32f(M2), u32f(M2), u32f(M2)\n\
-    \        for u in U: deg[u] += 1\n        for v in V: deg[v] += 1\n        La,\
-    \ i = u32f(N), 0\n        for u in range(N): La[u], i = i, i + deg[u]\n      \
-    \  Ra = La[:]\n        for e in range(M):\n            i, j = Ra[u := U[e]], Ra[v\
-    \ := V[e]]\n            Ua[i], Va[i], Ea[i], Ra[u] = u, v, e, i+1\n          \
-    \  Ua[j], Va[j], Ea[j], Ra[v] = v, u, ~e, j+1\n        super().__init__(N, M,\
-    \ U, V, deg, La, Ra, Ua, Va, Ea)\n\n"
+    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua,\
+    \ Va, La, Ra, i = u32f(N), i32f(M2 := (M := len(U)) << 1), u32f(M2), u32f(M2),\
+    \ u32f(N), u32f(N), 0\n        for u in U: deg[u] += 1\n        for v in V: deg[v]\
+    \ += 1\n        for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]\n        for\
+    \ e in range(M):\n            Ra[u], Ra[v] = (i := Ra[u := U[e]])+1, (j := Ra[v\
+    \ := V[e]])+1\n            Ua[i], Va[i], Ea[i], Ua[j], Va[j], Ea[j] = u, v, e,\
+    \ v, u, e\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n"
   code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.alg.graph.fast.graph_base_cls\
     \ import GraphBase\n\nclass Graph(GraphBase):\n    def __init__(G, N: int, U:\
-    \ list[int], V: list[int]):\n        M2 = (M := len(U)) << 1\n        deg, Ea,\
-    \ Ua, Va = u32f(N), i32f(M2), u32f(M2), u32f(M2)\n        for u in U: deg[u] +=\
-    \ 1\n        for v in V: deg[v] += 1\n        La, i = u32f(N), 0\n        for\
-    \ u in range(N): La[u], i = i, i + deg[u]\n        Ra = La[:]\n        for e in\
-    \ range(M):\n            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ua[i],\
-    \ Va[i], Ea[i], Ra[u] = u, v, e, i+1\n            Ua[j], Va[j], Ea[j], Ra[v] =\
-    \ v, u, ~e, j+1\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\
-    \nfrom cp_library.ds.array_init_fn import u32f, i32f\n"
+    \ list[int], V: list[int]):\n        deg, Ea, Ua, Va, La, Ra, i = u32f(N), i32f(M2\
+    \ := (M := len(U)) << 1), u32f(M2), u32f(M2), u32f(N), u32f(N), 0\n        for\
+    \ u in U: deg[u] += 1\n        for v in V: deg[v] += 1\n        for u in range(N):\
+    \ La[u], Ra[u], i = i, i, i+deg[u]\n        for e in range(M):\n            Ra[u],\
+    \ Ra[v] = (i := Ra[u := U[e]])+1, (j := Ra[v := V[e]])+1\n            Ua[i], Va[i],\
+    \ Ea[i], Ua[j], Va[j], Ea[j] = u, v, e, v, u, e\n        super().__init__(N, M,\
+    \ U, V, deg, La, Ra, Ua, Va, Ea)\n\nfrom cp_library.ds.array_init_fn import u32f,\
+    \ i32f\n"
   dependsOn:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/array_init_fn.py
@@ -321,7 +320,7 @@ data:
   path: cp_library/alg/graph/fast/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py

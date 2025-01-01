@@ -41,47 +41,46 @@ data:
     links:
     - https://judge.yosupo.jp/problem/cycle_detection_undirected
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/cycle_detection_undirected\n\
-    \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    cyc = G.find_cycle_edge_ids()\n\
+    \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    cyc = G.find_cycle_indices()\n\
     \n    if cyc is None:\n        write(\"-1\")\n    else:\n        write(len(cyc))\n\
-    \        V = [G.V[~e] if e < 0 else G.U[e] for e in cyc]\n        E = [~e if e\
-    \ < 0 else e for e in cyc]\n        write(*V)\n        write(*E)\n    \n'''\n\u257A\
+    \        V = [G.Ua[i] for i in cyc]\n        E = [G.Ea[i] for i in cyc]\n    \
+    \    write(*V)\n        write(*E)\n    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \    https://kobejean.github.io/cp-library               \n'''\nfrom math import\
-    \ inf\nfrom itertools import islice\nfrom typing import Callable, Sequence, Union,\
-    \ overload\nfrom collections import deque\n\nimport typing\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\nfrom math import inf\nfrom itertools import islice\nfrom\
+    \ typing import Callable, Sequence, Union, overload\nfrom collections import deque\n\
+    \nimport typing\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
+    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -188,7 +187,7 @@ data:
     \ := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack = vis, back, elist(N)\n\
     \        for s in G.starts(s):\n            if vis[s]: continue\n            stack.append(s)\n\
     \            while stack:\n                if vis[u := stack.pop()] == 0:\n  \
-    \                  stack.append(u)\n                    vis[u], pe = 1, ~Ea[j]\
+    \                  stack.append(u)\n                    vis[u], pe = 1, Ea[j]\
     \ if (j := back[u]) != i32_max else i32_max\n                    for i in G.range(u):\n\
     \                        if vis[v := Va[i]] == 0:\n                          \
     \  back[v] = i\n                            stack.append(v)\n                \
@@ -292,18 +291,18 @@ data:
     \ shift\n    def __len__(self): return self.A.__len__()\n    def __contains__(self,\
     \ x): return self.A.__contains__(x)\n    def __getitem__(self, key):\n       \
     \ x = self.A[key]\n        return x >> self.shift, x & self.mask\n\nclass Graph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M2 = (M :=\
-    \ len(U)) << 1\n        deg, Ea, Ua, Va = u32f(N), i32f(M2), u32f(M2), u32f(M2)\n\
-    \        for u in U: deg[u] += 1\n        for v in V: deg[v] += 1\n        La,\
-    \ i = u32f(N), 0\n        for u in range(N): La[u], i = i, i + deg[u]\n      \
-    \  Ra = La[:]\n        for e in range(M):\n            i, j = Ra[u := U[e]], Ra[v\
-    \ := V[e]]\n            Ua[i], Va[i], Ea[i], Ra[u] = u, v, e, i+1\n          \
-    \  Ua[j], Va[j], Ea[j], Ra[v] = v, u, ~e, j+1\n        super().__init__(N, M,\
-    \ U, V, deg, La, Ra, Ua, Va, Ea)\n\n\nfrom typing import Type, TypeVar, Union,\
-    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
-    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua,\
+    \ Va, La, Ra, i = u32f(N), i32f(M2 := (M := len(U)) << 1), u32f(M2), u32f(M2),\
+    \ u32f(N), u32f(N), 0\n        for u in U: deg[u] += 1\n        for v in V: deg[v]\
+    \ += 1\n        for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]\n        for\
+    \ e in range(M):\n            Ra[u], Ra[v] = (i := Ra[u := U[e]])+1, (j := Ra[v\
+    \ := V[e]])+1\n            Ua[i], Va[i], Ea[i], Ua[j], Va[j], Ea[j] = u, v, e,\
+    \ v, u, e\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n\n\
+    from typing import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\n\
+    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
+    @overload\ndef read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec:\
+    \ Union[Type[T],T] = None, char=False):\n    if not char:\n        if spec is\
+    \ None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
     \            return int(TokenStream.stream.readline())\n        else:\n      \
@@ -316,10 +315,10 @@ data:
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/cycle_detection_undirected\n\
-    \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    cyc = G.find_cycle_edge_ids()\n\
+    \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    cyc = G.find_cycle_indices()\n\
     \n    if cyc is None:\n        write(\"-1\")\n    else:\n        write(len(cyc))\n\
-    \        V = [G.V[~e] if e < 0 else G.U[e] for e in cyc]\n        E = [~e if e\
-    \ < 0 else e for e in cyc]\n        write(*V)\n        write(*E)\n    \nfrom cp_library.alg.graph.fast.graph_cls\
+    \        V = [G.Ua[i] for i in cyc]\n        E = [G.Ea[i] for i in cyc]\n    \
+    \    write(*V)\n        write(*E)\n    \nfrom cp_library.alg.graph.fast.graph_cls\
     \ import Graph\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
     \ import write\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
@@ -336,7 +335,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/cycle_detection_undirected.test.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/cycle_detection_undirected.test.py

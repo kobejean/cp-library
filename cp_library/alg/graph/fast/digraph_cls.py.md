@@ -190,7 +190,7 @@ data:
     \ := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack = vis, back, elist(N)\n\
     \        for s in G.starts(s):\n            if vis[s]: continue\n            stack.append(s)\n\
     \            while stack:\n                if vis[u := stack.pop()] == 0:\n  \
-    \                  stack.append(u)\n                    vis[u], pe = 1, ~Ea[j]\
+    \                  stack.append(u)\n                    vis[u], pe = 1, Ea[j]\
     \ if (j := back[u]) != i32_max else i32_max\n                    for i in G.range(u):\n\
     \                        if vis[v := Va[i]] == 0:\n                          \
     \  back[v] = i\n                            stack.append(v)\n                \
@@ -295,61 +295,60 @@ data:
     \ x): return self.A.__contains__(x)\n    def __getitem__(self, key):\n       \
     \ x = self.A[key]\n        return x >> self.shift, x & self.mask\n\nclass DiGraph(GraphBase):\n\
     \    def __init__(G, N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua,\
-    \ Va, La, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), 0\n     \
-    \   for u in U: deg[u] += 1\n        for u in range(N): La[u], i = i, i+deg[u]\n\
-    \        Ra = La[:]\n        for e in range(M):\n            i = Ra[u := U[e]]\n\
-    \            Ua[i], Va[i], Ea[i], Ra[u] = u, V[e], e, i+1\n        super().__init__(N,\
-    \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n\
-    \        \"\"\"\n        Finds strongly connected sccs in directed graph using\
-    \ Tarjan's algorithm.\n        Returns sccs in topological order.\n        \"\"\
-    \"\n        Ra, tin, low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N),\
-    \ u8f(N), G.La[:], 0\n        order, stack, sccs, L = elist(N), elist(N), elist(N),\
-    \ elist(N)\n        for u in range(N):\n            if tin[u] >= 0: continue\n\
-    \            stack.append(u)\n            while stack:\n                if tin[u\
-    \ := stack[-1]] < 0:\n                    tin[u] = low[u] = (time := time+1)\n\
-    \                    order.append(u)\n                    on_stack[u] = 1\n  \
-    \              if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n      \
-    \              if tin[v := G.Va[i]] < 0: stack.append(v)\n                   \
-    \ elif on_stack[v]: chmin(low, u, tin[v])\n                else:\n           \
-    \         stack.pop()\n                    if low[u] == tin[u]:\n            \
-    \            L.append(len(sccs))\n                        v = -1\n           \
-    \             while v != u:\n                            on_stack[v := order.pop()]\
-    \ = 0\n                            sccs.append(v)\n                    if stack:\
-    \ chmin(low, stack[-1], low[u])\n        return SliceIteratorReverse(sccs, L)\n\
-    \    \n\nfrom typing import Iterator, SupportsIndex, TypeVar\n\nT = TypeVar('T')\n\
-    class SliceIteratorReverse(Iterator[T]):\n    def __init__(self, A: list[T], L:\
-    \ list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n    def\
-    \ __len__(self): return len(self.L)\n    def __next__(self):\n        L = self.L\n\
-    \        if not L: raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n\
-    \        return self.A[l:r]\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
-    \    return ch\n"
+    \ Va, La, Ra, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), u32f(N),\
+    \ 0\n        for u in U: deg[u] += 1\n        for u in range(N): La[u], Ra[u],\
+    \ i = i, i, i+deg[u]\n        for e in range(M): Ra[u], Ua[i], Va[i], Ea[i] =\
+    \ (i := Ra[u := U[e]])+1, u, V[e], e\n        super().__init__(N, M, U, V, deg,\
+    \ La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n        \"\"\"\
+    \n        Finds strongly connected sccs in directed graph using Tarjan's algorithm.\n\
+    \        Returns sccs in topological order.\n        \"\"\"\n        Ra, tin,\
+    \ low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N), u8f(N), G.La[:],\
+    \ 0\n        order, stack, sccs, L = elist(N), elist(N), elist(N), elist(N)\n\
+    \        for u in range(N):\n            if tin[u] >= 0: continue\n          \
+    \  stack.append(u)\n            while stack:\n                if tin[u := stack[-1]]\
+    \ < 0:\n                    tin[u] = low[u] = (time := time+1)\n             \
+    \       order.append(u)\n                    on_stack[u] = 1\n               \
+    \ if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n                   \
+    \ if tin[v := G.Va[i]] < 0: stack.append(v)\n                    elif on_stack[v]:\
+    \ chmin(low, u, tin[v])\n                else:\n                    stack.pop()\n\
+    \                    if low[u] == tin[u]:\n                        L.append(len(sccs))\n\
+    \                        v = -1\n                        while v != u:\n     \
+    \                       on_stack[v := order.pop()] = 0\n                     \
+    \       sccs.append(v)\n                    if stack: chmin(low, stack[-1], low[u])\n\
+    \        return SliceIteratorReverse(sccs, L)\n    \n\nfrom typing import Iterator,\
+    \ SupportsIndex, TypeVar\n\nT = TypeVar('T')\nclass SliceIteratorReverse(Iterator[T]):\n\
+    \    def __init__(self, A: list[T], L: list[SupportsIndex]):\n        self.A,\
+    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
+    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n\n\n\
+    def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n"
   code: "import cp_library.alg.graph.fast.__header__\nfrom typing import Iterator\n\
     from cp_library.alg.graph.fast.graph_base_cls import GraphBase\n\nclass DiGraph(GraphBase):\n\
     \    def __init__(G, N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua,\
-    \ Va, La, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), 0\n     \
-    \   for u in U: deg[u] += 1\n        for u in range(N): La[u], i = i, i+deg[u]\n\
-    \        Ra = La[:]\n        for e in range(M):\n            i = Ra[u := U[e]]\n\
-    \            Ua[i], Va[i], Ea[i], Ra[u] = u, V[e], e, i+1\n        super().__init__(N,\
-    \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n\
-    \        \"\"\"\n        Finds strongly connected sccs in directed graph using\
-    \ Tarjan's algorithm.\n        Returns sccs in topological order.\n        \"\"\
-    \"\n        Ra, tin, low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N),\
-    \ u8f(N), G.La[:], 0\n        order, stack, sccs, L = elist(N), elist(N), elist(N),\
-    \ elist(N)\n        for u in range(N):\n            if tin[u] >= 0: continue\n\
-    \            stack.append(u)\n            while stack:\n                if tin[u\
-    \ := stack[-1]] < 0:\n                    tin[u] = low[u] = (time := time+1)\n\
-    \                    order.append(u)\n                    on_stack[u] = 1\n  \
-    \              if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n      \
-    \              if tin[v := G.Va[i]] < 0: stack.append(v)\n                   \
-    \ elif on_stack[v]: chmin(low, u, tin[v])\n                else:\n           \
-    \         stack.pop()\n                    if low[u] == tin[u]:\n            \
-    \            L.append(len(sccs))\n                        v = -1\n           \
-    \             while v != u:\n                            on_stack[v := order.pop()]\
-    \ = 0\n                            sccs.append(v)\n                    if stack:\
-    \ chmin(low, stack[-1], low[u])\n        return SliceIteratorReverse(sccs, L)\n\
-    \    \nfrom cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse\n\
-    from cp_library.ds.array_init_fn import u32f, i32f, u8f\nfrom cp_library.ds.elist_fn\
-    \ import elist\nfrom cp_library.alg.dp.chmin_fn import chmin"
+    \ Va, La, Ra, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), u32f(N),\
+    \ 0\n        for u in U: deg[u] += 1\n        for u in range(N): La[u], Ra[u],\
+    \ i = i, i, i+deg[u]\n        for e in range(M): Ra[u], Ua[i], Va[i], Ea[i] =\
+    \ (i := Ra[u := U[e]])+1, u, V[e], e\n        super().__init__(N, M, U, V, deg,\
+    \ La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n        \"\"\"\
+    \n        Finds strongly connected sccs in directed graph using Tarjan's algorithm.\n\
+    \        Returns sccs in topological order.\n        \"\"\"\n        Ra, tin,\
+    \ low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N), u8f(N), G.La[:],\
+    \ 0\n        order, stack, sccs, L = elist(N), elist(N), elist(N), elist(N)\n\
+    \        for u in range(N):\n            if tin[u] >= 0: continue\n          \
+    \  stack.append(u)\n            while stack:\n                if tin[u := stack[-1]]\
+    \ < 0:\n                    tin[u] = low[u] = (time := time+1)\n             \
+    \       order.append(u)\n                    on_stack[u] = 1\n               \
+    \ if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n                   \
+    \ if tin[v := G.Va[i]] < 0: stack.append(v)\n                    elif on_stack[v]:\
+    \ chmin(low, u, tin[v])\n                else:\n                    stack.pop()\n\
+    \                    if low[u] == tin[u]:\n                        L.append(len(sccs))\n\
+    \                        v = -1\n                        while v != u:\n     \
+    \                       on_stack[v := order.pop()] = 0\n                     \
+    \       sccs.append(v)\n                    if stack: chmin(low, stack[-1], low[u])\n\
+    \        return SliceIteratorReverse(sccs, L)\n    \nfrom cp_library.alg.iter.slice_iterator_reverse_cls\
+    \ import SliceIteratorReverse\nfrom cp_library.ds.array_init_fn import u32f, i32f,\
+    \ u8f\nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.alg.dp.chmin_fn\
+    \ import chmin"
   dependsOn:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/iter/slice_iterator_reverse_cls.py
@@ -363,7 +362,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/digraph_cls.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py

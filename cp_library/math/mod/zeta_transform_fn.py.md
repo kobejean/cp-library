@@ -37,7 +37,7 @@ data:
   path: cp_library/math/mod/zeta_transform_fn.py
   requiredBy:
   - cp_library/math/mod/subset_conv_fn.py
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py

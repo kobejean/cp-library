@@ -138,75 +138,76 @@ data:
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n\n\
     def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\nfrom typing import\
-    \ overload\n\n\ndef argsort(A: list[int]):\n    N = len(A)\n    mask = (1 << (shift\
-    \ := N.bit_length())) - 1\n    indices = [0]*N\n    for i in range(N):\n     \
-    \   indices[i] = A[i] << shift | i\n    indices.sort()\n    for i in range(N):\n\
-    \        indices[i] &= mask\n    return indices\nfrom math import inf\nfrom itertools\
-    \ import islice\nfrom typing import Callable, Sequence, Union, overload\n\nfrom\
-    \ enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER =\
-    \ auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
-    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
-    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
-    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
-    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
-    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
-    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
-    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
-    \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
-    \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Ea: list[int], self_loops = False):\n \
-    \       G.N = N\n        \"\"\"The number of vertices.\"\"\"\n        G.M = M\n\
-    \        \"\"\"The number of edges.\"\"\"\n        G.U = U\n        \"\"\"A list\
-    \ of source vertices in the original edge list.\"\"\"\n        G.V = V\n     \
-    \   \"\"\"A list of destination vertices in the original edge list.\"\"\"\n  \
-    \      G.deg = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n\
-    \        G.La = La\n        \"\"\"La[u] stores the start index of the list of\
-    \ adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n        \"\"\"Ra[u] stores\
-    \ the stop index of the list of adjacent vertices from u.\"\"\"\n        G.Ua\
-    \ = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\
-    \"\"\n        G.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for\
-    \ La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n        \"\"\"Ea[i] lists the\
-    \ edge ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
-    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n        G.stack: list[int] = None\n        G.order: list[int] = None\n     \
-    \   G.vis: list[int] = None\n\n    def __len__(G) -> int: return G.N\n    def\
-    \ __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n    def range(G, u):\
-    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
-    \ G.bfs(s, g)\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
-    \ t) >= inf: return None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v\
-    \ := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n        return\
-    \ vertices[::-1]\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n \
-    \       if G.distance(s, t) >= inf: return None\n        Ea, Ua, back, edges,\
-    \ v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v != s: edges.append(Ea[i\
-    \ := back[v]]), (v := Ua[i])\n        return edges[::-1]\n    \n    @overload\n\
-    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
-    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int =\
-    \ 0, g: int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N,\
-    \ -1), [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n\
-    \        que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
-    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
-    \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
-    \                    que.append(v)\n        return D if g is None else inf \n\n\
-    \    def floyd_warshall(G) -> list[list[int]]:\n        M, Ua, Va, N = G.M, G.Ua,\
-    \ G.Va, G.N\n        G.D = D = [[inf]*N for _ in range(N)]\n        for u in range(N):\
-    \ D[u][u] = 0\n        for i in range(M): D[Ua[i]][Va[i]] = 1\n        for k,\
-    \ Dk in enumerate(D):\n            for Di in D:\n                if Di[k] == inf:\
-    \ continue\n                for j in range(N):\n                    Di[j] = min(Di[j],\
-    \ Di[k]+Dk[j])\n        return D\n\n    def find_cycle_indices(G, s: Union[int,\
-    \ None] = None):\n        M, Ea, Ua, Va, vis, back = G.M, G.Ea, G. Ua, G.Va, u8f(N\
-    \ := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack = vis, back, elist(N)\n\
-    \        for s in G.starts(s):\n            if vis[s]: continue\n            stack.append(s)\n\
-    \            while stack:\n                if vis[u := stack.pop()] == 0:\n  \
-    \                  stack.append(u)\n                    vis[u], pe = 1, ~Ea[j]\
-    \ if (j := back[u]) != i32_max else i32_max\n                    for i in G.range(u):\n\
-    \                        if vis[v := Va[i]] == 0:\n                          \
-    \  back[v] = i\n                            stack.append(v)\n                \
-    \        elif vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n\
-    \                            while v != u: I.append(i := back[u]), (u := Ua[i])\n\
+    \ overload\n\n\ndef argsort(A: list[int], reverse=False):\n    N = len(A)\n  \
+    \  mask = (1 << (shift := N.bit_length())) - 1\n    indices = [0]*N\n    for i\
+    \ in range(N):\n        indices[i] = A[i] << shift | i\n    indices.sort(reverse=reverse)\n\
+    \    for i in range(N):\n        indices[i] &= mask\n    return indices\nfrom\
+    \ math import inf\nfrom itertools import islice\nfrom typing import Callable,\
+    \ Sequence, Union, overload\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass\
+    \ DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n\
+    \    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\
+    \n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n\
+    \    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN\
+    \ | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n \
+    \   TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
+    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
+    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
+    \    \n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G, N: int, M:\
+    \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
+    \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int],\
+    \ self_loops = False):\n        G.N = N\n        \"\"\"The number of vertices.\"\
+    \"\"\n        G.M = M\n        \"\"\"The number of edges.\"\"\"\n        G.U =\
+    \ U\n        \"\"\"A list of source vertices in the original edge list.\"\"\"\n\
+    \        G.V = V\n        \"\"\"A list of destination vertices in the original\
+    \ edge list.\"\"\"\n        G.deg = deg\n        \"\"\"deg[u] is the out degree\
+    \ of vertex u.\"\"\"\n        G.La = La\n        \"\"\"La[u] stores the start\
+    \ index of the list of adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n  \
+    \      \"\"\"Ra[u] stores the stop index of the list of adjacent vertices from\
+    \ u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u],\
+    \ useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\"Va[i] lists\
+    \ adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n  \
+    \      \"\"\"Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].\n\
+    \        For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M]\
+    \ -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n        G.order:\
+    \ list[int] = None\n        G.vis: list[int] = None\n\n    def __len__(G) -> int:\
+    \ return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
+    \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
+    \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
+    \ None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\n    def\
+    \ shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf: return\
+    \ None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while\
+    \ v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n \
+    \   \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
+    \ t) >= inf: return None\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back,\
+    \ u32f(0), t\n        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n\
+    \        return edges[::-1]\n    \n    @overload\n    def bfs(G, s: Union[int,list]\
+    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
+    \ int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        S, Va,\
+    \ back, D = G.starts(s), G.Va, i32f(N := G.N, -1), [inf]*N\n        G.back, G.D\
+    \ = back, D\n        for u in S: D[u] = 0\n        que = deque(S)\n        while\
+    \ que:\n            nd = D[u := que.popleft()]+1\n            if u == g: return\
+    \ nd-1\n            for i in G.range(u):\n                if nd < D[v := Va[i]]:\n\
+    \                    D[v], back[v] = nd, i\n                    que.append(v)\n\
+    \        return D if g is None else inf \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
+    \        M, Ua, Va, N = G.M, G.Ua, G.Va, G.N\n        G.D = D = [[inf]*N for _\
+    \ in range(N)]\n        for u in range(N): D[u][u] = 0\n        for i in range(M):\
+    \ D[Ua[i]][Va[i]] = 1\n        for k, Dk in enumerate(D):\n            for Di\
+    \ in D:\n                if Di[k] == inf: continue\n                for j in range(N):\n\
+    \                    Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n   \
+    \ def find_cycle_indices(G, s: Union[int, None] = None):\n        M, Ea, Ua, Va,\
+    \ vis, back = G.M, G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n      \
+    \  G.vis, G.back, stack = vis, back, elist(N)\n        for s in G.starts(s):\n\
+    \            if vis[s]: continue\n            stack.append(s)\n            while\
+    \ stack:\n                if vis[u := stack.pop()] == 0:\n                   \
+    \ stack.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
+    \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
+    \                if vis[v := Va[i]] == 0:\n                            back[v]\
+    \ = i\n                            stack.append(v)\n                        elif\
+    \ vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n  \
+    \                          while v != u: I.append(i := back[u]), (u := Ua[i])\n\
     \                            return I[::-1]\n                else:\n         \
     \           vis[u] = 2\n        # check for self loops\n        for i in range(len(Ua)):\n\
     \            if Ua[i] == Va[i]:\n                return u32f(1,i)\n    \n    def\
@@ -435,38 +436,38 @@ data:
     \     X: list[int] = None, Y: list[int] = None, Z: list[int] = None):\n      \
     \  super().__init__(N, U, V, W)\n        M = len(U)\n        if X is not None:\n\
     \            Xa = [0]*M\n            for i,e in enumerate(G.Ea):\n           \
-    \     Xa[i] = X[e%M]\n            G.X = X\n            \"\"\"A parallel lists\
-    \ of edge meta data from the original edge list.\"\"\"\n            G.Xa = Xa\n\
-    \            \"\"\"Xa[i] parallel lists of adjacent meta data to u for La[u] <=\
+    \     Xa[i] = X[e]\n            G.X = X\n            \"\"\"A parallel lists of\
+    \ edge meta data from the original edge list.\"\"\"\n            G.Xa = Xa\n \
+    \           \"\"\"Xa[i] parallel lists of adjacent meta data to u for La[u] <=\
     \ i < Ra[u].\"\"\"\n        if Y is not None:\n            Ya = [0]*M\n      \
-    \      for i,e in enumerate(G.Ea):\n                Ya[i] = Y[e%M]\n         \
-    \   G.Y = Y\n            \"\"\"A parallel lists of edge meta data from the original\
-    \ edge list.\"\"\"\n            G.Ya = Ya\n            \"\"\"Ya[i] parallel lists\
-    \ of adjacent meta data to u for La[u] <= i < Ra[u].\"\"\"\n        if Z is not\
-    \ None:\n            Za = [0]*M\n            for i,e in enumerate(G.Ea):\n   \
-    \             Za[i] = Z[e%M]\n            G.Z = Z\n            \"\"\"A parallel\
-    \ lists of edge meta data from the original edge list.\"\"\"\n            G.Za\
-    \ = Za\n            \"\"\"Za[i] parallel lists of adjacent meta data to u for\
-    \ La[u] <= i < Ra[u].\"\"\"\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ M: int, T: list[type] = [-1,-1,int,int]):\n        u, v, *w = map(Parser.compile,\
-    \ T)\n        if len(w) == 2:\n            if T == [-1,-1,int,int]:\n        \
-    \        def parse(ts: TokenStream):\n                    U, V, W, X = u32f(M),\
-    \ u32f(M), [0]*M, [0]*M\n                    for i in range(M):\n            \
-    \            u,v,a,b = ts.line()\n                        U[i], V[i], W[i], X[i]\
-    \ = int(u)-1, int(v)-1, int(a), int(b)\n                    return cls(N, U, V,\
-    \ W, X)\n            else:\n                w, x = w\n                def parse(ts:\
-    \ TokenStream):\n                    U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M\n\
-    \                    for i in range(M):\n                        U[i], V[i], W[i],\
-    \ X[i] = u(ts), v(ts), w(ts), x(ts)\n                    return cls(N, U, V, W,\
-    \ X)\n        elif len(w) == 3:\n            w, x, y = w\n            def parse(ts:\
-    \ TokenStream):\n                U, V, W, X, Y = u32f(M), u32f(M), [0]*M, [0]*M,\
-    \ [0]*M\n                for i in range(M):\n                    U[i], V[i], W[i],\
-    \ X[i], Y[i] = u(ts), v(ts), w(ts), x(ts), y(ts)\n                return cls(N,\
-    \ U, V, W, X, Y)\n        else:\n            w, x, y, z = w\n            def parse(ts:\
-    \ TokenStream):\n                U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M,\
-    \ [0]*M, [0]*M\n                for i in range(M):\n                    U[i],\
-    \ V[i], W[i], X[i], Y[i], Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)\n  \
-    \              return cls(N, U, V, W, X, Y, Z)\n        return parse\n\n"
+    \      for i,e in enumerate(G.Ea): Ya[i] = Y[e]\n            G.Y = Y\n       \
+    \     \"\"\"A parallel lists of edge meta data from the original edge list.\"\"\
+    \"\n            G.Ya = Ya\n            \"\"\"Ya[i] parallel lists of adjacent\
+    \ meta data to u for La[u] <= i < Ra[u].\"\"\"\n        if Z is not None:\n  \
+    \          Za = [0]*M\n            for i,e in enumerate(G.Ea): Za[i] = Z[e]\n\
+    \            G.Z = Z\n            \"\"\"A parallel lists of edge meta data from\
+    \ the original edge list.\"\"\"\n            G.Za = Za\n            \"\"\"Za[i]\
+    \ parallel lists of adjacent meta data to u for La[u] <= i < Ra[u].\"\"\"\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, T: list[type] = [-1,-1,int,int]):\n\
+    \        u, v, *w = map(Parser.compile, T)\n        if len(w) == 2:\n        \
+    \    if T == [-1,-1,int,int]:\n                def parse(ts: TokenStream):\n \
+    \                   U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M\n            \
+    \        for i in range(M):\n                        u,v,a,b = ts.line()\n   \
+    \                     U[i], V[i], W[i], X[i] = int(u)-1, int(v)-1, int(a), int(b)\n\
+    \                    return cls(N, U, V, W, X)\n            else:\n          \
+    \      w, x = w\n                def parse(ts: TokenStream):\n               \
+    \     U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M\n                    for i in\
+    \ range(M):\n                        U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts),\
+    \ x(ts)\n                    return cls(N, U, V, W, X)\n        elif len(w) ==\
+    \ 3:\n            w, x, y = w\n            def parse(ts: TokenStream):\n     \
+    \           U, V, W, X, Y = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M\n          \
+    \      for i in range(M):\n                    U[i], V[i], W[i], X[i], Y[i] =\
+    \ u(ts), v(ts), w(ts), x(ts), y(ts)\n                return cls(N, U, V, W, X,\
+    \ Y)\n        else:\n            w, x, y, z = w\n            def parse(ts: TokenStream):\n\
+    \                U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M, [0]*M\n\
+    \                for i in range(M):\n                    U[i], V[i], W[i], X[i],\
+    \ Y[i], Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)\n                return\
+    \ cls(N, U, V, W, X, Y, Z)\n        return parse\n\n"
   code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.io.parser_cls\
     \ import Parser, TokenStream\nfrom cp_library.alg.graph.fast.digraph_weighted_cls\
     \ import DiGraphWeighted\n\nclass DiGraphWeightedMeta(DiGraphWeighted):\n    def\
@@ -474,38 +475,38 @@ data:
     \     X: list[int] = None, Y: list[int] = None, Z: list[int] = None):\n      \
     \  super().__init__(N, U, V, W)\n        M = len(U)\n        if X is not None:\n\
     \            Xa = [0]*M\n            for i,e in enumerate(G.Ea):\n           \
-    \     Xa[i] = X[e%M]\n            G.X = X\n            \"\"\"A parallel lists\
-    \ of edge meta data from the original edge list.\"\"\"\n            G.Xa = Xa\n\
-    \            \"\"\"Xa[i] parallel lists of adjacent meta data to u for La[u] <=\
+    \     Xa[i] = X[e]\n            G.X = X\n            \"\"\"A parallel lists of\
+    \ edge meta data from the original edge list.\"\"\"\n            G.Xa = Xa\n \
+    \           \"\"\"Xa[i] parallel lists of adjacent meta data to u for La[u] <=\
     \ i < Ra[u].\"\"\"\n        if Y is not None:\n            Ya = [0]*M\n      \
-    \      for i,e in enumerate(G.Ea):\n                Ya[i] = Y[e%M]\n         \
-    \   G.Y = Y\n            \"\"\"A parallel lists of edge meta data from the original\
-    \ edge list.\"\"\"\n            G.Ya = Ya\n            \"\"\"Ya[i] parallel lists\
-    \ of adjacent meta data to u for La[u] <= i < Ra[u].\"\"\"\n        if Z is not\
-    \ None:\n            Za = [0]*M\n            for i,e in enumerate(G.Ea):\n   \
-    \             Za[i] = Z[e%M]\n            G.Z = Z\n            \"\"\"A parallel\
-    \ lists of edge meta data from the original edge list.\"\"\"\n            G.Za\
-    \ = Za\n            \"\"\"Za[i] parallel lists of adjacent meta data to u for\
-    \ La[u] <= i < Ra[u].\"\"\"\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ M: int, T: list[type] = [-1,-1,int,int]):\n        u, v, *w = map(Parser.compile,\
-    \ T)\n        if len(w) == 2:\n            if T == [-1,-1,int,int]:\n        \
-    \        def parse(ts: TokenStream):\n                    U, V, W, X = u32f(M),\
-    \ u32f(M), [0]*M, [0]*M\n                    for i in range(M):\n            \
-    \            u,v,a,b = ts.line()\n                        U[i], V[i], W[i], X[i]\
-    \ = int(u)-1, int(v)-1, int(a), int(b)\n                    return cls(N, U, V,\
-    \ W, X)\n            else:\n                w, x = w\n                def parse(ts:\
-    \ TokenStream):\n                    U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M\n\
-    \                    for i in range(M):\n                        U[i], V[i], W[i],\
-    \ X[i] = u(ts), v(ts), w(ts), x(ts)\n                    return cls(N, U, V, W,\
-    \ X)\n        elif len(w) == 3:\n            w, x, y = w\n            def parse(ts:\
-    \ TokenStream):\n                U, V, W, X, Y = u32f(M), u32f(M), [0]*M, [0]*M,\
-    \ [0]*M\n                for i in range(M):\n                    U[i], V[i], W[i],\
-    \ X[i], Y[i] = u(ts), v(ts), w(ts), x(ts), y(ts)\n                return cls(N,\
-    \ U, V, W, X, Y)\n        else:\n            w, x, y, z = w\n            def parse(ts:\
-    \ TokenStream):\n                U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M,\
-    \ [0]*M, [0]*M\n                for i in range(M):\n                    U[i],\
-    \ V[i], W[i], X[i], Y[i], Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)\n  \
-    \              return cls(N, U, V, W, X, Y, Z)\n        return parse\n\nfrom cp_library.ds.array_init_fn\
+    \      for i,e in enumerate(G.Ea): Ya[i] = Y[e]\n            G.Y = Y\n       \
+    \     \"\"\"A parallel lists of edge meta data from the original edge list.\"\"\
+    \"\n            G.Ya = Ya\n            \"\"\"Ya[i] parallel lists of adjacent\
+    \ meta data to u for La[u] <= i < Ra[u].\"\"\"\n        if Z is not None:\n  \
+    \          Za = [0]*M\n            for i,e in enumerate(G.Ea): Za[i] = Z[e]\n\
+    \            G.Z = Z\n            \"\"\"A parallel lists of edge meta data from\
+    \ the original edge list.\"\"\"\n            G.Za = Za\n            \"\"\"Za[i]\
+    \ parallel lists of adjacent meta data to u for La[u] <= i < Ra[u].\"\"\"\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, T: list[type] = [-1,-1,int,int]):\n\
+    \        u, v, *w = map(Parser.compile, T)\n        if len(w) == 2:\n        \
+    \    if T == [-1,-1,int,int]:\n                def parse(ts: TokenStream):\n \
+    \                   U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M\n            \
+    \        for i in range(M):\n                        u,v,a,b = ts.line()\n   \
+    \                     U[i], V[i], W[i], X[i] = int(u)-1, int(v)-1, int(a), int(b)\n\
+    \                    return cls(N, U, V, W, X)\n            else:\n          \
+    \      w, x = w\n                def parse(ts: TokenStream):\n               \
+    \     U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M\n                    for i in\
+    \ range(M):\n                        U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts),\
+    \ x(ts)\n                    return cls(N, U, V, W, X)\n        elif len(w) ==\
+    \ 3:\n            w, x, y = w\n            def parse(ts: TokenStream):\n     \
+    \           U, V, W, X, Y = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M\n          \
+    \      for i in range(M):\n                    U[i], V[i], W[i], X[i], Y[i] =\
+    \ u(ts), v(ts), w(ts), x(ts), y(ts)\n                return cls(N, U, V, W, X,\
+    \ Y)\n        else:\n            w, x, y, z = w\n            def parse(ts: TokenStream):\n\
+    \                U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M, [0]*M\n\
+    \                for i in range(M):\n                    U[i], V[i], W[i], X[i],\
+    \ Y[i], Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)\n                return\
+    \ cls(N, U, V, W, X, Y, Z)\n        return parse\n\nfrom cp_library.ds.array_init_fn\
     \ import u32f"
   dependsOn:
   - cp_library/io/parser_cls.py
@@ -526,7 +527,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py

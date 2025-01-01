@@ -146,7 +146,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py

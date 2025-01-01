@@ -27,20 +27,20 @@ data:
     \            if (r := i|(i+1)) < self.size: \n                data[r] += data[i]\n\
     \n    def get(self, i: int):\n        assert 0 <= i < self.size\n        s, z\
     \ = (data := self.data)[i], i&(i+1)\n        for _ in range((i^z).bit_count()):\n\
-    \            s, i = s-data[i-1], i-(i&-i)\n        return s\n    \n    def set(self,\
-    \ i: int, x: int):\n        self.add(i, x-self.get(i))\n        \n    def add(self,\
-    \ i: int, x: int) -> None:\n        assert 0 <= i <= self.size\n        i += 1\n\
-    \        data, size = self.data, self.size\n        while i <= size:\n       \
-    \     data[i-1], i = data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n\
-    \        assert 0 <= i <= self.size\n        s = 0\n        data = self.data\n\
-    \        for _ in range(i.bit_count()):\n            s, i = s+data[i-1], i-(i&-i)\n\
-    \        return s\n    \n    def range_sum(self, l: int, r: int):\n        return\
-    \ self.pref_sum(r) - self.pref_sum(l)\n\ndef inversion_cnt(Z, N: Union[int,None]\
-    \ = None):\n    if N is None:\n        # coordinate compression\n        Zsort\
-    \ = sorted(set(Z))\n        Zcomp = { v: i for i, v in enumerate(Zsort) }\n  \
-    \      Z = [Zcomp[z] for z in Z]\n        N = len(Z)\n\n    bit = BinaryIndexTree(N)\n\
-    \    cnt = 0\n    for z in reversed(Z):\n        cnt += bit.pref_sum(z)\n    \
-    \    bit.add(z, 1)\n    return cnt\n"
+    \            s, i = s-data[i-1], i-(i&-i)\n        return s\n    __getitem__ =\
+    \ get\n    \n    def set(self, i: int, x: int):\n        self.add(i, x-self.get(i))\n\
+    \    __setitem__ = set\n        \n    def add(self, i: int, x: int) -> None:\n\
+    \        assert 0 <= i <= self.size\n        i += 1\n        data, size = self.data,\
+    \ self.size\n        while i <= size:\n            data[i-1], i = data[i-1] +\
+    \ x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n        assert 0 <= i <= self.size\n\
+    \        s = 0\n        data = self.data\n        for _ in range(i.bit_count()):\n\
+    \            s, i = s+data[i-1], i-(i&-i)\n        return s\n    \n    def range_sum(self,\
+    \ l: int, r: int):\n        return self.pref_sum(r) - self.pref_sum(l)\n\ndef\
+    \ inversion_cnt(Z, N: Union[int,None] = None):\n    if N is None:\n        # coordinate\
+    \ compression\n        Zsort = sorted(set(Z))\n        Zcomp = { v: i for i, v\
+    \ in enumerate(Zsort) }\n        Z = [Zcomp[z] for z in Z]\n        N = len(Z)\n\
+    \n    bit = BinaryIndexTree(N)\n    cnt = 0\n    for z in reversed(Z):\n     \
+    \   cnt += bit.pref_sum(z)\n        bit.add(z, 1)\n    return cnt\n"
   code: "import cp_library.math.__header__\nfrom typing import Union\nfrom cp_library.ds.bit_cls\
     \ import BinaryIndexTree\n\ndef inversion_cnt(Z, N: Union[int,None] = None):\n\
     \    if N is None:\n        # coordinate compression\n        Zsort = sorted(set(Z))\n\
@@ -53,7 +53,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/inversion_cnt_fn.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

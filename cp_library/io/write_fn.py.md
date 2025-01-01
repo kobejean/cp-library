@@ -344,7 +344,7 @@ data:
   path: cp_library/io/write_fn.py
   requiredBy:
   - cp_library/io/bye_fn.py
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

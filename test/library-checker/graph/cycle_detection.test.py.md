@@ -193,7 +193,7 @@ data:
     \ := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack = vis, back, elist(N)\n\
     \        for s in G.starts(s):\n            if vis[s]: continue\n            stack.append(s)\n\
     \            while stack:\n                if vis[u := stack.pop()] == 0:\n  \
-    \                  stack.append(u)\n                    vis[u], pe = 1, ~Ea[j]\
+    \                  stack.append(u)\n                    vis[u], pe = 1, Ea[j]\
     \ if (j := back[u]) != i32_max else i32_max\n                    for i in G.range(u):\n\
     \                        if vis[v := Va[i]] == 0:\n                          \
     \  back[v] = i\n                            stack.append(v)\n                \
@@ -298,49 +298,48 @@ data:
     \ x): return self.A.__contains__(x)\n    def __getitem__(self, key):\n       \
     \ x = self.A[key]\n        return x >> self.shift, x & self.mask\n\nclass DiGraph(GraphBase):\n\
     \    def __init__(G, N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua,\
-    \ Va, La, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), 0\n     \
-    \   for u in U: deg[u] += 1\n        for u in range(N): La[u], i = i, i+deg[u]\n\
-    \        Ra = La[:]\n        for e in range(M):\n            i = Ra[u := U[e]]\n\
-    \            Ua[i], Va[i], Ea[i], Ra[u] = u, V[e], e, i+1\n        super().__init__(N,\
-    \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n\
-    \        \"\"\"\n        Finds strongly connected sccs in directed graph using\
-    \ Tarjan's algorithm.\n        Returns sccs in topological order.\n        \"\"\
-    \"\n        Ra, tin, low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N),\
-    \ u8f(N), G.La[:], 0\n        order, stack, sccs, L = elist(N), elist(N), elist(N),\
-    \ elist(N)\n        for u in range(N):\n            if tin[u] >= 0: continue\n\
-    \            stack.append(u)\n            while stack:\n                if tin[u\
-    \ := stack[-1]] < 0:\n                    tin[u] = low[u] = (time := time+1)\n\
-    \                    order.append(u)\n                    on_stack[u] = 1\n  \
-    \              if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n      \
-    \              if tin[v := G.Va[i]] < 0: stack.append(v)\n                   \
-    \ elif on_stack[v]: chmin(low, u, tin[v])\n                else:\n           \
-    \         stack.pop()\n                    if low[u] == tin[u]:\n            \
-    \            L.append(len(sccs))\n                        v = -1\n           \
-    \             while v != u:\n                            on_stack[v := order.pop()]\
-    \ = 0\n                            sccs.append(v)\n                    if stack:\
-    \ chmin(low, stack[-1], low[u])\n        return SliceIteratorReverse(sccs, L)\n\
-    \    \n\nfrom typing import Iterator, SupportsIndex, TypeVar\n\nT = TypeVar('T')\n\
-    class SliceIteratorReverse(Iterator[T]):\n    def __init__(self, A: list[T], L:\
-    \ list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n    def\
-    \ __len__(self): return len(self.L)\n    def __next__(self):\n        L = self.L\n\
-    \        if not L: raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n\
-    \        return self.A[l:r]\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
-    \    return ch\n\nfrom typing import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n\
-    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Union[Type[T],T], char=False) -> T: ...\ndef\
-    \ read(spec: Union[Type[T],T] = None, char=False):\n    if not char:\n       \
-    \ if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
+    \ Va, La, Ra, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), u32f(N),\
+    \ 0\n        for u in U: deg[u] += 1\n        for u in range(N): La[u], Ra[u],\
+    \ i = i, i, i+deg[u]\n        for e in range(M): Ra[u], Ua[i], Va[i], Ea[i] =\
+    \ (i := Ra[u := U[e]])+1, u, V[e], e\n        super().__init__(N, M, U, V, deg,\
+    \ La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n        \"\"\"\
+    \n        Finds strongly connected sccs in directed graph using Tarjan's algorithm.\n\
+    \        Returns sccs in topological order.\n        \"\"\"\n        Ra, tin,\
+    \ low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N), u8f(N), G.La[:],\
+    \ 0\n        order, stack, sccs, L = elist(N), elist(N), elist(N), elist(N)\n\
+    \        for u in range(N):\n            if tin[u] >= 0: continue\n          \
+    \  stack.append(u)\n            while stack:\n                if tin[u := stack[-1]]\
+    \ < 0:\n                    tin[u] = low[u] = (time := time+1)\n             \
+    \       order.append(u)\n                    on_stack[u] = 1\n               \
+    \ if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n                   \
+    \ if tin[v := G.Va[i]] < 0: stack.append(v)\n                    elif on_stack[v]:\
+    \ chmin(low, u, tin[v])\n                else:\n                    stack.pop()\n\
+    \                    if low[u] == tin[u]:\n                        L.append(len(sccs))\n\
+    \                        v = -1\n                        while v != u:\n     \
+    \                       on_stack[v := order.pop()] = 0\n                     \
+    \       sccs.append(v)\n                    if stack: chmin(low, stack[-1], low[u])\n\
+    \        return SliceIteratorReverse(sccs, L)\n    \n\nfrom typing import Iterator,\
+    \ SupportsIndex, TypeVar\n\nT = TypeVar('T')\nclass SliceIteratorReverse(Iterator[T]):\n\
+    \    def __init__(self, A: list[T], L: list[SupportsIndex]):\n        self.A,\
+    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
+    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n\n\n\
+    def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom typing\
+    \ import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read()\
+    \ -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
+    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
+    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/cycle_detection\n\
     \ndef main():\n    N, M = read()\n    G = read(DiGraph[N,M,0])\n    cyc = G.find_cycle_edge_ids()\n\
     \    if cyc is None:\n        write(\"-1\")\n    else:\n        write(len(cyc))\n\
@@ -363,7 +362,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/cycle_detection.test.py
   requiredBy: []
-  timestamp: '2024-12-30 17:25:46+09:00'
+  timestamp: '2025-01-01 22:39:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/cycle_detection.test.py
