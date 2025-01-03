@@ -27,7 +27,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/inft_cnst.py
   requiredBy: []
-  timestamp: '2025-01-01 22:39:28+09:00'
+  timestamp: '2025-01-03 12:10:04+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/inft_cnst.py

@@ -56,7 +56,7 @@ data:
   path: cp_library/ds/sparse_table_cls.py
   requiredBy:
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  timestamp: '2025-01-01 22:39:28+09:00'
+  timestamp: '2025-01-03 12:10:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_c_lca_table_recursive.test.py

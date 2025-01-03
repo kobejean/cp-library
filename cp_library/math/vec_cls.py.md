@@ -163,7 +163,7 @@ data:
   requiredBy:
   - cp_library/math/vec3d_cls.py
   - cp_library/math/vec2d_cls.py
-  timestamp: '2025-01-01 22:39:28+09:00'
+  timestamp: '2025-01-03 12:10:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc151_f_fbisect_left.test.py

@@ -409,7 +409,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
   requiredBy: []
-  timestamp: '2025-01-01 22:39:28+09:00'
+  timestamp: '2025-01-03 12:10:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
