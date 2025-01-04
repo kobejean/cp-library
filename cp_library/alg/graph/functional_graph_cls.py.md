@@ -191,7 +191,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/permutation_cls.py
   - cp_library/alg/graph/partial_functional_graph_cls.py
-  timestamp: '2025-01-03 12:10:04+09:00'
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

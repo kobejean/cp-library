@@ -602,7 +602,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc375_g_find_bridges.test.py
   requiredBy: []
-  timestamp: '2025-01-03 12:10:04+09:00'
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc375_g_find_bridges.test.py

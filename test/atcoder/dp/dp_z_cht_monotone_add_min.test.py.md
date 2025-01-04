@@ -157,7 +157,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   requiredBy: []
-  timestamp: '2025-01-03 12:10:04+09:00'
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py

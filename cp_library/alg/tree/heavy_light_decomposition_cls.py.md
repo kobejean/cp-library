@@ -58,7 +58,7 @@ data:
   path: cp_library/alg/tree/heavy_light_decomposition_cls.py
   requiredBy:
   - cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
-  timestamp: '2025-01-03 12:10:04+09:00'
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py

@@ -59,10 +59,10 @@ data:
     \      hi = mid\n        else:\n            lo = mid\n            \n    return\
     \ lo\n\ndef fbisect_right(key, hi, x=False, lo=0.0, tol=1e-9):\n    while hi -\
     \ lo > tol:\n        mid = (lo + hi) / 2\n        if key(mid) > x:\n         \
-    \   hi = mid\n        else:\n            lo = mid\n    return hi\n\n\n\nimport\
-    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \   hi = mid\n        else:\n            lo = mid\n    return hi\n\n\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, TypeVar, Union\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -164,36 +164,45 @@ data:
     \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
     \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
     \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  \n\nclass Vec2D(Vec):\n\n    def elm_wise(self, other, op):\n        if isinstance(other,\
-    \ Number):\n            return Vec2D(op(self[0], other), op(self[1], other))\n\
-    \        if isinstance(other, Sequence):\n            return Vec2D(op(self[0],\
-    \ other[0]), op(self[1], other[1]))\n        raise ValueError(\"Operand must be\
-    \ a number or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2:\
-    \ 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
-    \    \n    def magnitude(vec: 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n\
-    \    \n    def rot90(vec):\n        x,y = vec\n        return Vec2D(-y,x)\n  \
-    \  \n    def rot180(vec):\n        x,y = vec\n        return Vec2D(-x,-y)\n  \
-    \  \n    def rot270(vec):\n        x,y = vec\n        return Vec2D(y,-x)\n   \
-    \ \n    def flip_x(vec):\n        x,y = vec\n        return Vec2D(-x,y)\n    \n\
-    \    def flip_y(vec):\n        x,y = vec\n        return Vec2D(x,-y)\n    \n \
-    \   @classmethod\n    def compile(cls, T: type = int):\n        elm = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls(elm(ts), elm(ts))\n\
-    \        return parse\n\n\nfrom typing import Type, TypeVar, Union, overload\n\
-    \nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
-    \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T], char=False)\
-    \ -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \  \nfrom math import gcd, sqrt\n\nclass Vec2D(Vec):\n    def __new__(cls, *args):\n\
+    \        if len(args) == 0:\n            return super().__new__(cls, (0,0))\n\
+    \        return super().__new__(cls, *args)\n\n    def elm_wise(self, other, op):\n\
+    \        if isinstance(other, Number):\n            return Vec2D(op(self[0], other),\
+    \ op(self[1], other))\n        if isinstance(other, Sequence):\n            return\
+    \ Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n        raise ValueError(\"\
+    Operand must be a number or a tuple of the same length\")\n\n    def distance(v1:\
+    \ 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return\
+    \ sqrt(dx*dx+dy*dy)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx,\
+    \ dy = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec:\
+    \ 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
+    \ 'Vec'):\n        x, y = vec\n        return x*x+y*y\n    \n    def rot90(vec):\n\
+    \        x,y = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n \
+    \       x,y = vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n \
+    \       x,y = vec\n        return Vec2D(y,-x)\n    \n    def flip_x(vec):\n  \
+    \      x,y = vec\n        return Vec2D(-x,y)\n    \n    def flip_y(vec):\n   \
+    \     x,y = vec\n        return Vec2D(x,-y)\n    \n    def cross(vec, other):\n\
+    \        return vec[0]*other[1] - vec[1]*other[0]\n    \n    def slope_norm(vec):\n\
+    \        x,y = vec\n        if x == 0 and y == 0: return vec\n        if x ==\
+    \ 0: return Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n        if y == 0: return\
+    \ Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return\
+    \ Vec2D((x//g,y//g))\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
+    \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(elm(ts), elm(ts))\n        return parse\n\n\nfrom typing import\
+    \ Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() ->\
+    \ list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
+    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
+    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
+    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
+    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
+    \        else:\n            stream = TokenStream()\n    else:\n        stream\
+    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc151/tasks/abc151_f\n\
     # verification-helper: ERROR 1e-6\n\nfrom math import sqrt\n\ndef main():\n  \
     \  N = read(int)\n    points = read(list[Vec2D[float], N])\n\n    def candidates(r)\
@@ -222,7 +231,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc151_f_fbisect_left.test.py
   requiredBy: []
-  timestamp: '2025-01-03 12:10:04+09:00'
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc151_f_fbisect_left.test.py

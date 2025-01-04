@@ -500,6 +500,9 @@ data:
     - icon: ':warning:'
       path: cp_library/math/mutvec_cls.py
       title: cp_library/math/mutvec_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/slope_cls.py
+      title: cp_library/math/slope_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/subset_conv_fn.py
       title: cp_library/math/subset_conv_fn.py

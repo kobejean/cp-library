@@ -44,7 +44,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/median_fn.py
   requiredBy: []
-  timestamp: '2025-01-03 12:10:04+09:00'
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc122_b_insurance_median.test.py

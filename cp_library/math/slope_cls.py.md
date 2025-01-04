@@ -8,12 +8,6 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_fn.py
-    title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/write_fn.py
-    title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
   - icon: ':heavy_check_mark:'
@@ -26,62 +20,45 @@ data:
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    ERROR: 1e-6
-    PROBLEM: https://atcoder.jp/contests/abc274/tasks/abc274_e
-    links:
-    - https://atcoder.jp/contests/abc274/tasks/abc274_e
-  bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc274/tasks/abc274_e\n\
-    # verification-helper: ERROR 1e-6\nfrom math import inf\n\ndef main():\n    N,\
-    \ M = read(tuple[int, ...])\n    XY = read(list[Vec2D, N])\n    PQ = read(list[Vec2D,\
-    \ M])\n    pts = PQ+XY\n    o = Vec2D(0,0)\n    Tmask = (1 << M) -1\n    Y = N+M\n\
-    \    Z = 1 << Y\n    O = [o.distance(v) for v in pts]\n    F = [1/(1 << mask.bit_count())\
-    \ for mask in range(1 << M)]\n    \n    dp = [[inf]*Y for _ in range(Z)]\n   \
-    \ for y in range(Y):\n        mask = 1 << y\n        dp[mask][y] = O[y]\n    \
-    \    \n    for mask in range(1,Z):\n        factor = F[mask&Tmask]\n        for\
-    \ y in range(Y):\n            nmask = mask | 1 << y\n            if mask == nmask:\
-    \ continue\n            nc = dp[nmask][y]\n            for l in range(Y):\n  \
-    \              nc = min(nc, dp[mask][l] + pts[l].distance(pts[y]) * factor)\n\
-    \            dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inf\n\
-    \    for tmask in range(1<<M):\n        mask = full ^ tmask\n        factor =\
-    \ F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l] + O[l]\
-    \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\n'''\n\
-    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    links: []
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\n\nimport\
-    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, TypeVar,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
+    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
+    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
+    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
+    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
+    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
+    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
@@ -180,58 +157,45 @@ data:
     \ Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return\
     \ Vec2D((x//g,y//g))\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
     \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
-    \      return cls(elm(ts), elm(ts))\n        return parse\n\n\nfrom typing import\
-    \ Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() ->\
-    \ list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
-    def read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T]\
-    \ = None, char=False):\n    if not char:\n        if spec is None:\n         \
-    \   return map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
-    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
-    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
-    \        else:\n            stream = TokenStream()\n    else:\n        stream\
-    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
-    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
-    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
-    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
-    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
-    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
-    flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
-  code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc274/tasks/abc274_e\n\
-    # verification-helper: ERROR 1e-6\nfrom math import inf\n\ndef main():\n    N,\
-    \ M = read(tuple[int, ...])\n    XY = read(list[Vec2D, N])\n    PQ = read(list[Vec2D,\
-    \ M])\n    pts = PQ+XY\n    o = Vec2D(0,0)\n    Tmask = (1 << M) -1\n    Y = N+M\n\
-    \    Z = 1 << Y\n    O = [o.distance(v) for v in pts]\n    F = [1/(1 << mask.bit_count())\
-    \ for mask in range(1 << M)]\n    \n    dp = [[inf]*Y for _ in range(Z)]\n   \
-    \ for y in range(Y):\n        mask = 1 << y\n        dp[mask][y] = O[y]\n    \
-    \    \n    for mask in range(1,Z):\n        factor = F[mask&Tmask]\n        for\
-    \ y in range(Y):\n            nmask = mask | 1 << y\n            if mask == nmask:\
-    \ continue\n            nc = dp[nmask][y]\n            for l in range(Y):\n  \
-    \              nc = min(nc, dp[mask][l] + pts[l].distance(pts[y]) * factor)\n\
-    \            dp[nmask][y] = nc\n            \n    full = Z-1\n    ans = inf\n\
-    \    for tmask in range(1<<M):\n        mask = full ^ tmask\n        factor =\
-    \ F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l] + O[l]\
-    \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\nfrom\
-    \ cp_library.math.vec2d_cls import Vec2D\nfrom cp_library.io.read_fn import read\n\
-    from cp_library.io.write_fn import write\n\nif __name__ == \"__main__\":\n   \
-    \ main()"
+    \      return cls(elm(ts), elm(ts))\n        return parse\n\n\nclass Slope(Vec2D):\n\
+    \    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ tuple):\n            x,y = args[0]\n        else:\n            x,y = args\n\
+    \        if x == 0 and y == 0: tup = 0, 0\n        elif x == 0: tup = (0,1) if\
+    \ y > 0 else (0,-1)\n        elif y == 0: tup = (1,0) if x > 0 else (-1,0)\n \
+    \       else:\n            g = gcd(x,y)\n            tup = (x//g,y//g)\n     \
+    \   return super().__new__(cls, tup)\n    \n    def __lt__(slope, other):\n  \
+    \      q1, q2 = slope.quadrant(), other.quadrant()\n        return q1 < q2 or\
+    \ (q1 == q2 and slope.cross(other) > 0)\n    \n    def quadrant(vec):\n      \
+    \  if vec[0] > 0 and vec[1] >= 0: return 1\n        elif vec[1] > 0: return 2\n\
+    \        elif vec[0] < 0: return 3\n        else: return 4\n\n"
+  code: "import cp_library.math.__header__\nfrom cp_library.math.vec2d_cls import\
+    \ Vec2D\nfrom math import gcd\n\nclass Slope(Vec2D):\n    def __new__(cls, *args):\n\
+    \        if len(args) == 1 and isinstance(args[0], tuple):\n            x,y =\
+    \ args[0]\n        else:\n            x,y = args\n        if x == 0 and y == 0:\
+    \ tup = 0, 0\n        elif x == 0: tup = (0,1) if y > 0 else (0,-1)\n        elif\
+    \ y == 0: tup = (1,0) if x > 0 else (-1,0)\n        else:\n            g = gcd(x,y)\n\
+    \            tup = (x//g,y//g)\n        return super().__new__(cls, tup)\n   \
+    \ \n    def __lt__(slope, other):\n        q1, q2 = slope.quadrant(), other.quadrant()\n\
+    \        return q1 < q2 or (q1 == q2 and slope.cross(other) > 0)\n    \n    def\
+    \ quadrant(vec):\n        if vec[0] > 0 and vec[1] >= 0: return 1\n        elif\
+    \ vec[1] > 0: return 2\n        elif vec[0] < 0: return 3\n        else: return\
+    \ 4\n\n"
   dependsOn:
   - cp_library/math/vec2d_cls.py
-  - cp_library/io/read_fn.py
-  - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/math/vec_cls.py
-  - cp_library/io/fast_io_cls.py
   - cp_library/math/elm_wise_mixin.py
-  isVerificationFile: true
-  path: test/atcoder/abc/abc274_e_vec2d.test.py
+  - cp_library/io/fast_io_cls.py
+  isVerificationFile: false
+  path: cp_library/math/slope_cls.py
   requiredBy: []
   timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: TEST_ACCEPTED
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: test/atcoder/abc/abc274_e_vec2d.test.py
+documentation_of: cp_library/math/slope_cls.py
 layout: document
 redirect_from:
-- /verify/test/atcoder/abc/abc274_e_vec2d.test.py
-- /verify/test/atcoder/abc/abc274_e_vec2d.test.py.html
-title: test/atcoder/abc/abc274_e_vec2d.test.py
+- /library/cp_library/math/slope_cls.py
+- /library/cp_library/math/slope_cls.py.html
+title: cp_library/math/slope_cls.py
 ---

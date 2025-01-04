@@ -13,7 +13,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/vec_cls.py
     title: cp_library/math/vec_cls.py
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/math/slope_cls.py
+    title: cp_library/math/slope_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc151_f_fbisect_left.test.py
@@ -35,8 +38,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
-    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
     class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
     \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
@@ -140,39 +143,57 @@ data:
     \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
     \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
     \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  \nfrom math import sqrt\n\nclass Vec2D(Vec):\n\n    def elm_wise(self, other,\
-    \ op):\n        if isinstance(other, Number):\n            return Vec2D(op(self[0],\
-    \ other), op(self[1], other))\n        if isinstance(other, Sequence):\n     \
-    \       return Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n        raise\
-    \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
-    \   def distance(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
-    \        return sqrt(dx*dx+dy*dy)\n    \n    def magnitude(vec: 'Vec'):\n    \
-    \    x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def rot90(vec):\n   \
-    \     x,y = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n    \
-    \    x,y = vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n    \
-    \    x,y = vec\n        return Vec2D(y,-x)\n    \n    def flip_x(vec):\n     \
-    \   x,y = vec\n        return Vec2D(-x,y)\n    \n    def flip_y(vec):\n      \
-    \  x,y = vec\n        return Vec2D(x,-y)\n    \n    @classmethod\n    def compile(cls,\
-    \ T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
-    \            return cls(elm(ts), elm(ts))\n        return parse\n\n"
-  code: "import cp_library.math.__header__\n\nfrom cp_library.io.parser_cls import\
-    \ Parser, TokenStream\nfrom cp_library.math.vec_cls import Vec\nfrom numbers import\
-    \ Number\nfrom typing import Sequence\nfrom math import sqrt\n\nclass Vec2D(Vec):\n\
-    \n    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n\
-    \            return Vec2D(op(self[0], other), op(self[1], other))\n        if\
-    \ isinstance(other, Sequence):\n            return Vec2D(op(self[0], other[0]),\
-    \ op(self[1], other[1]))\n        raise ValueError(\"Operand must be a number\
-    \ or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n\
-    \        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
-    \    \n    def magnitude(vec: 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n\
+    \  \nfrom math import gcd, sqrt\n\nclass Vec2D(Vec):\n    def __new__(cls, *args):\n\
+    \        if len(args) == 0:\n            return super().__new__(cls, (0,0))\n\
+    \        return super().__new__(cls, *args)\n\n    def elm_wise(self, other, op):\n\
+    \        if isinstance(other, Number):\n            return Vec2D(op(self[0], other),\
+    \ op(self[1], other))\n        if isinstance(other, Sequence):\n            return\
+    \ Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n        raise ValueError(\"\
+    Operand must be a number or a tuple of the same length\")\n\n    def distance(v1:\
+    \ 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return\
+    \ sqrt(dx*dx+dy*dy)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx,\
+    \ dy = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec:\
+    \ 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
+    \ 'Vec'):\n        x, y = vec\n        return x*x+y*y\n    \n    def rot90(vec):\n\
+    \        x,y = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n \
+    \       x,y = vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n \
+    \       x,y = vec\n        return Vec2D(y,-x)\n    \n    def flip_x(vec):\n  \
+    \      x,y = vec\n        return Vec2D(-x,y)\n    \n    def flip_y(vec):\n   \
+    \     x,y = vec\n        return Vec2D(x,-y)\n    \n    def cross(vec, other):\n\
+    \        return vec[0]*other[1] - vec[1]*other[0]\n    \n    def slope_norm(vec):\n\
+    \        x,y = vec\n        if x == 0 and y == 0: return vec\n        if x ==\
+    \ 0: return Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n        if y == 0: return\
+    \ Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return\
+    \ Vec2D((x//g,y//g))\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
+    \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(elm(ts), elm(ts))\n        return parse\n\n"
+  code: "import cp_library.math.__header__\nfrom cp_library.io.parser_cls import Parser,\
+    \ TokenStream\nfrom cp_library.math.vec_cls import Vec\nfrom numbers import Number\n\
+    from typing import Sequence\nfrom math import gcd, sqrt\n\nclass Vec2D(Vec):\n\
+    \    def __new__(cls, *args):\n        if len(args) == 0:\n            return\
+    \ super().__new__(cls, (0,0))\n        return super().__new__(cls, *args)\n\n\
+    \    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n \
+    \           return Vec2D(op(self[0], other), op(self[1], other))\n        if isinstance(other,\
+    \ Sequence):\n            return Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n\
+    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
+    )\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
+    \        return sqrt(dx*dx+dy*dy)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n\
+    \        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n\
+    \    def magnitude(vec: 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n\
+    \    \n    def magnitude2(vec: 'Vec'):\n        x, y = vec\n        return x*x+y*y\n\
     \    \n    def rot90(vec):\n        x,y = vec\n        return Vec2D(-y,x)\n  \
     \  \n    def rot180(vec):\n        x,y = vec\n        return Vec2D(-x,-y)\n  \
     \  \n    def rot270(vec):\n        x,y = vec\n        return Vec2D(y,-x)\n   \
     \ \n    def flip_x(vec):\n        x,y = vec\n        return Vec2D(-x,y)\n    \n\
     \    def flip_y(vec):\n        x,y = vec\n        return Vec2D(x,-y)\n    \n \
-    \   @classmethod\n    def compile(cls, T: type = int):\n        elm = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls(elm(ts), elm(ts))\n\
-    \        return parse\n\n"
+    \   def cross(vec, other):\n        return vec[0]*other[1] - vec[1]*other[0]\n\
+    \    \n    def slope_norm(vec):\n        x,y = vec\n        if x == 0 and y ==\
+    \ 0: return vec\n        if x == 0: return Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n\
+    \        if y == 0: return Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g\
+    \ = gcd(x,y)\n        return Vec2D((x//g,y//g))\n    \n    @classmethod\n    def\
+    \ compile(cls, T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(elm(ts), elm(ts))\n        return parse\n\
+    \n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/math/vec_cls.py
@@ -180,8 +201,9 @@ data:
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/math/vec2d_cls.py
-  requiredBy: []
-  timestamp: '2025-01-03 12:10:04+09:00'
+  requiredBy:
+  - cp_library/math/slope_cls.py
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc151_f_fbisect_left.test.py

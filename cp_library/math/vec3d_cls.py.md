@@ -131,30 +131,40 @@ data:
     \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
     \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
     \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  \nfrom math import sqrt\n\nclass Vec3D(Vec):\n    \n    def elm_wise(self,\
-    \ other, op):\n        if isinstance(other, Number):\n            return Vec3D(op(self[0],\
+    \  \nfrom math import sqrt\n\nclass Vec3D(Vec):\n\n    def __new__(cls, *args):\n\
+    \        if len(args) == 0:\n            return super().__new__(cls, (0,0))\n\
+    \        return super().__new__(cls, *args)\n    \n    def elm_wise(self, other,\
+    \ op):\n        if isinstance(other, Number):\n            return Vec3D(op(self[0],\
     \ other), op(self[1], other), op(self[2], other))\n        if isinstance(other,\
     \ Sequence):\n            return Vec3D(op(self[0], other[0]), op(self[1], other[1]),\
     \ op(self[2], other[2]))\n        raise ValueError(\"Operand must be a number\
     \ or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n\
     \        dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy+dz*dz)\n\
-    \    \n    def magnitude(vec: 'Vec'):\n        x, y, z = vec\n        return sqrt(x*x+y*y+z*z)\n\
+    \    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx, dy, dz = v2[0]-v1[0],\
+    \ v2[1]-v1[1]\n        return dx*dx+dy*dy+dz*dz\n    \n    def magnitude(vec:\
+    \ 'Vec'):\n        x, y, z = vec\n        return sqrt(x*x+y*y+z*z)\n    \n   \
+    \ def magnitude2(vec: 'Vec'):\n        x, y, z = vec\n        return x*x+y*y+z*z\n\
     \    \n    @classmethod\n    def compile(cls, T: type = int):\n        elm = Parser.compile(T)\n\
     \        def parse(ts: TokenStream):\n            return cls(elm(ts), elm(ts),\
     \ elm(ts))\n        return parse\n"
   code: "import cp_library.math.__header__\n\nfrom cp_library.io.parser_cls import\
     \ Parser, TokenStream\nfrom cp_library.math.vec_cls import Vec\nfrom numbers import\
     \ Number\nfrom typing import Sequence\nfrom math import sqrt\n\nclass Vec3D(Vec):\n\
-    \    \n    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n\
+    \n    def __new__(cls, *args):\n        if len(args) == 0:\n            return\
+    \ super().__new__(cls, (0,0))\n        return super().__new__(cls, *args)\n  \
+    \  \n    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n\
     \            return Vec3D(op(self[0], other), op(self[1], other), op(self[2],\
     \ other))\n        if isinstance(other, Sequence):\n            return Vec3D(op(self[0],\
     \ other[0]), op(self[1], other[1]), op(self[2], other[2]))\n        raise ValueError(\"\
     Operand must be a number or a tuple of the same length\")\n\n    def distance(v1:\
     \ 'Vec', v2: 'Vec'):\n        dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]\n        return\
-    \ sqrt(dx*dx+dy*dy+dz*dz)\n    \n    def magnitude(vec: 'Vec'):\n        x, y,\
-    \ z = vec\n        return sqrt(x*x+y*y+z*z)\n    \n    @classmethod\n    def compile(cls,\
-    \ T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
-    \            return cls(elm(ts), elm(ts), elm(ts))\n        return parse"
+    \ sqrt(dx*dx+dy*dy+dz*dz)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n  \
+    \      dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy+dz*dz\n\
+    \    \n    def magnitude(vec: 'Vec'):\n        x, y, z = vec\n        return sqrt(x*x+y*y+z*z)\n\
+    \    \n    def magnitude2(vec: 'Vec'):\n        x, y, z = vec\n        return\
+    \ x*x+y*y+z*z\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
+    \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(elm(ts), elm(ts), elm(ts))\n        return parse"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/math/vec_cls.py
@@ -163,7 +173,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/vec3d_cls.py
   requiredBy: []
-  timestamp: '2025-01-03 12:10:04+09:00'
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/vec3d_cls.py

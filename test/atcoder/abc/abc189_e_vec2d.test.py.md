@@ -143,7 +143,7 @@ data:
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\n\nfrom math import hypot\n\nimport operator\nfrom typing\
+    \        file.flush()\n\n\nfrom math import hypot\n\nimport operator\nfrom typing\
     \ import Sequence\n\nclass ElmWiseMixin:\n    def elm_wise(self, other, op):\n\
     \        if isinstance(other, Number):\n            return type(self)(op(x, other)\
     \ for x in self)\n        if isinstance(other, Sequence):\n            return\
@@ -170,22 +170,31 @@ data:
     \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
     \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
     \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  \nfrom math import sqrt\n\nclass Vec2D(Vec):\n\n    def elm_wise(self, other,\
-    \ op):\n        if isinstance(other, Number):\n            return Vec2D(op(self[0],\
-    \ other), op(self[1], other))\n        if isinstance(other, Sequence):\n     \
-    \       return Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n        raise\
-    \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
-    \   def distance(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
-    \        return sqrt(dx*dx+dy*dy)\n    \n    def magnitude(vec: 'Vec'):\n    \
-    \    x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def rot90(vec):\n   \
-    \     x,y = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n    \
-    \    x,y = vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n    \
-    \    x,y = vec\n        return Vec2D(y,-x)\n    \n    def flip_x(vec):\n     \
-    \   x,y = vec\n        return Vec2D(-x,y)\n    \n    def flip_y(vec):\n      \
-    \  x,y = vec\n        return Vec2D(x,-y)\n    \n    @classmethod\n    def compile(cls,\
-    \ T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
-    \            return cls(elm(ts), elm(ts))\n        return parse\n\n\nif __name__\
-    \ == \"__main__\":\n    main()\n"
+    \  \nfrom math import gcd, sqrt\n\nclass Vec2D(Vec):\n    def __new__(cls, *args):\n\
+    \        if len(args) == 0:\n            return super().__new__(cls, (0,0))\n\
+    \        return super().__new__(cls, *args)\n\n    def elm_wise(self, other, op):\n\
+    \        if isinstance(other, Number):\n            return Vec2D(op(self[0], other),\
+    \ op(self[1], other))\n        if isinstance(other, Sequence):\n            return\
+    \ Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n        raise ValueError(\"\
+    Operand must be a number or a tuple of the same length\")\n\n    def distance(v1:\
+    \ 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return\
+    \ sqrt(dx*dx+dy*dy)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx,\
+    \ dy = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec:\
+    \ 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
+    \ 'Vec'):\n        x, y = vec\n        return x*x+y*y\n    \n    def rot90(vec):\n\
+    \        x,y = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n \
+    \       x,y = vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n \
+    \       x,y = vec\n        return Vec2D(y,-x)\n    \n    def flip_x(vec):\n  \
+    \      x,y = vec\n        return Vec2D(-x,y)\n    \n    def flip_y(vec):\n   \
+    \     x,y = vec\n        return Vec2D(x,-y)\n    \n    def cross(vec, other):\n\
+    \        return vec[0]*other[1] - vec[1]*other[0]\n    \n    def slope_norm(vec):\n\
+    \        x,y = vec\n        if x == 0 and y == 0: return vec\n        if x ==\
+    \ 0: return Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n        if y == 0: return\
+    \ Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return\
+    \ Vec2D((x//g,y//g))\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
+    \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(elm(ts), elm(ts))\n        return parse\n\n\nif __name__ ==\
+    \ \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc189/tasks/abc189_e\n\
     \ndef main():\n    N = read(int)\n    pts = read(list[Vec2D, N])\n    \n    dx,dy\
     \ = Vec2D(1,0), Vec2D(0,1)\n    origin = Vec2D(0,0)\n    \n    M = read(int)\n\
@@ -214,7 +223,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc189_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2025-01-03 12:10:04+09:00'
+  timestamp: '2025-01-04 20:48:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc189_e_vec2d.test.py
