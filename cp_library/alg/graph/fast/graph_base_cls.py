@@ -136,16 +136,19 @@ class GraphBase(Sequence, Parsable):
                 D[v], par[v] = D[u]+1, u
                 que.append(v)
 
-    def dfs_topdown(G, s: int) -> list[int]:
+    def dfs_topdown(G, s: Union[int,list] = None) -> list[int]:
         '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
-        G.vis, G.stack, G.order = vis, stack, order = u8f(N := G.N), G.stack or elist(N), G.order or elist(N)
-        vis[s] = 1
-        stack.append(s)
-        while stack:
-            for i in G.range(stack.pop()):
-                if vis[v := G.Va[i]]: continue
-                vis[v] = 1
-                order.append(i), stack.append(v)
+        N = G.N
+        G.vis, G.stack, G.order = vis, stack, order = u8f(N), G.stack or elist(N), G.order or elist(N)
+        for s in G.starts(s):
+            if vis[s]: continue
+            vis[s] = 1
+            stack.append(s) 
+            while stack:
+                for i in G.range(stack.pop()):
+                    if vis[v := G.Va[i]]: continue
+                    vis[v] = 1
+                    order.append(i), stack.append(v)
         return order
 
     def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None] = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None] = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None] = None, up_fn: Callable[[int,int],None] = None):

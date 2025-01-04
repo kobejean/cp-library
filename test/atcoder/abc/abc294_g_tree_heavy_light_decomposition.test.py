@@ -24,7 +24,7 @@ def main():
                 else:
                     node = v
                 idx = hld[node]
-                bit.set(idx, w)
+                bit[idx] = w
             case 2, u, v:
                 u, v = u - 1, v - 1
                 ans = 0

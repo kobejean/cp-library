@@ -13,6 +13,6 @@ def inversion_cnt(Z, N: Union[int,None] = None):
     bit = BinaryIndexTree(N)
     cnt = 0
     for z in reversed(Z):
-        cnt += bit.pref_sum(z)
+        cnt += bit.presum(z)
         bit.add(z, 1)
     return cnt

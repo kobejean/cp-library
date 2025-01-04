@@ -16,9 +16,9 @@ def main():
     
     def query(u,v):
         a,_ = lca.query(u,v)
-        ans = bit.pref_sum(lca.stop[u]) + \
-            bit.pref_sum(lca.stop[v]) - \
-            2*bit.pref_sum(lca.stop[a])
+        ans = bit.presum(lca.stop[u]) + \
+            bit.presum(lca.stop[v]) - \
+            2*bit.presum(lca.stop[a])
         write(ans)
     
     def answer():

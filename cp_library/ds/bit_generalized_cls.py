@@ -21,7 +21,7 @@ class BinaryIndexTree:
         while i <= self.size:
             self.data[i-1], i = self.op(self.data[i-1], x), i+(i&-i)
 
-    def pref_sum(self, i: int):
+    def presum(self, i: int):
         assert 0 <= i <= self.size
         s = self.e
         while i > 0:
@@ -35,4 +35,4 @@ class BinaryIndexTreePURQ(BinaryIndexTree):
         super().__init__(e, op, v)
 
     def range_sum(self, l: int, r: int) -> object:
-        return self.op(self.pref_sum(r), self.inv(self.pref_sum(l)))
+        return self.op(self.presum(r), self.inv(self.presum(l)))

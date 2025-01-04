@@ -13,13 +13,13 @@ class BinaryIndexRange:
         self.bit2.add(l, x)
         self.bit2.add(r, -x)
 
-    def pref_sum(self, i):
+    def presum(self, i):
         """Get sum of elements in range [0, i)"""
-        return self.bit1.pref_sum(i) - i * self.bit2.pref_sum(i)
+        return self.bit1.presum(i) - i * self.bit2.presum(i)
 
     def range_sum(self, l, r):
         """Get sum of elements in range [l, r)"""
-        return self.pref_sum(r) - self.pref_sum(l)
+        return self.presum(r) - self.presum(l)
 
     def get(self, i):
         """Get the value at index i"""

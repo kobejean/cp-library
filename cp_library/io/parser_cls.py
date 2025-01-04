@@ -23,11 +23,14 @@ class TokenStream(Iterator):
         
     def line(self):
         return TokenStream.stream.readline().split()
+        
+TokenStream.default = TokenStream()
 
 class CharStream(TokenStream):
+
     def line(self):
-        assert not self.queue
-        return next(TokenStream.stream).rstrip()
+        return TokenStream.stream.readline().rstrip()
+
 
 ParseFn = Callable[[TokenStream],_T]
 class Parser:

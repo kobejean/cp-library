@@ -1,5 +1,5 @@
 /dist
-.verify-helper/cache.zip
+.verify-helper/*.zip
 __pycache__
 .env
 /output
