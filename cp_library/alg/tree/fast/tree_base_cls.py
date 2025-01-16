@@ -1,8 +1,7 @@
 import cp_library.alg.tree.fast.__header__
 from typing import Callable, Literal, TypeVar, Union, overload
 from cp_library.alg.graph.fast.graph_base_cls import GraphBase
-
-_T = TypeVar('_T')
+from cp_library.misc.typing import _T
 
 class TreeBase(GraphBase):
     @overload

@@ -1,25 +1,25 @@
 import cp_library.ds.heap.__header__
-from typing import TypeVar, Union
+from typing import Union
 
 from cp_library.io.parser_cls import Parser, Parsable, TokenStream
 from cp_library.ds.heap.heap_proto import HeapProtocol
+from cp_library.misc.typing import _T
 
-T = TypeVar('T')
-class KHeapMixin(HeapProtocol[T], Parsable):
+class KHeapMixin(HeapProtocol[_T], Parsable):
     """KHeapMixin[K: int, T: type, N: Union[int,None]]"""
     def __init__(heap, K: int):
         heap.K = K
 
-    def added(heap, item: T): ...
+    def added(heap, item: _T): ...
 
-    def removed(heap, item: T): ...
+    def removed(heap, item: _T): ...
     
     def pop(heap):
         item = super().pop()
         heap.removed(item)
         return item
     
-    def push(heap, item: T):
+    def push(heap, item: _T):
         if len(heap) < heap._K:
             heap.added(item)
             super().push(item)
@@ -27,7 +27,7 @@ class KHeapMixin(HeapProtocol[T], Parsable):
             assert len(heap) == heap._K, f'{len(heap)=} {heap._K}'
             heap.pushpop(item)
     
-    def pushpop(heap, item: T):
+    def pushpop(heap, item: _T):
         if item != (remove := super().pushpop(item)):
             heap.removed(remove)
             heap.added(item)
@@ -35,7 +35,7 @@ class KHeapMixin(HeapProtocol[T], Parsable):
         else:
             return item
     
-    def replace(heap, item: T):
+    def replace(heap, item: _T):
         remove = super().replace(item)
         heap.removed(remove)
         heap.added(item)

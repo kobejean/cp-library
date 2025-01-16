@@ -4,36 +4,35 @@ from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 from dataclasses import dataclass
 from math import inf
 
-T = TypeVar('T')
+_T = TypeVar('T')
 
 @dataclass
-class Transition2D(Generic[T]):
+class Transition2D(Generic[_T]):
     di: int
     dj: int
     
-    def __call__(self, i: int, j: int, src: T, dest: T) -> T:
+    def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:
         """Override this to implement transition logic"""
         return src  # Default no-op
     
     @classmethod
     def make(cls, func):
         class Transition(cls):
-            def __call__(self, i: int, j: int, src: T, dest: T) -> T:
+            def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:
                 return func(i,j,src,dest)
         return Transition
-    
-T = TypeVar('T')
-class DynamicProgramming2D(Generic[T], Parsable, Container):
-    def __init__(self, rows: int, cols: int, default: T = inf):
+
+class DynamicProgramming2D(Generic[_T], Parsable, Container):
+    def __init__(self, rows: int, cols: int, default: _T = inf):
         self.rows = rows
         self.cols = cols
         self.table = default if isinstance(default, list) else [[default] * cols for _ in range(rows)]
     
-    def __getitem__(self, pos: tuple[int, int]) -> T:
+    def __getitem__(self, pos: tuple[int, int]) -> _T:
         i, j = pos
         return self.table[i][j]
     
-    def __setitem__(self, pos: tuple[int, int], value: T) -> None:
+    def __setitem__(self, pos: tuple[int, int], value: _T) -> None:
         i, j = pos
         self.table[i][j] = value
 
@@ -41,7 +40,7 @@ class DynamicProgramming2D(Generic[T], Parsable, Container):
         return any(x in row for row in self.table)
     
     
-    def solve(self, transitions: list[Transition2D[T]]) -> None:
+    def solve(self, transitions: list[Transition2D[_T]]) -> None:
         for i in range(self.rows):
             for j in range(self.cols):
                 curr_val = self.table[i][j]

@@ -1,16 +1,16 @@
 import cp_library.io.__header__
 
-from typing import Type, TypeVar, Union, overload
+from typing import Type, Union, overload
 from cp_library.io.parser_cls import Parser, TokenStream, CharStream
+from cp_library.misc.typing import _T
 
-T = TypeVar('T')
 @overload
 def read() -> list[int]: ...
 @overload
 def read(spec: int) -> list[int]: ...
 @overload
-def read(spec: Union[Type[T],T], char=False) -> T: ...
-def read(spec: Union[Type[T],T] = None, char=False):
+def read(spec: Union[Type[_T],_T], char=False) -> _T: ...
+def read(spec: Union[Type[_T],_T] = None, char=False):
     if not char:
         if spec is None:
             return map(int, TokenStream.stream.readline().split())
@@ -22,5 +22,5 @@ def read(spec: Union[Type[T],T] = None, char=False):
             stream = TokenStream()
     else:
         stream = CharStream()
-    parser: T = Parser.compile(spec)
+    parser: _T = Parser.compile(spec)
     return parser(stream)

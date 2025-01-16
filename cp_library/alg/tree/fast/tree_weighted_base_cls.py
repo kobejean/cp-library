@@ -3,7 +3,7 @@ from typing import TypeVar, Union
 from cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase
 from cp_library.alg.tree.fast.tree_base_cls import TreeBase
 
-_T = TypeVar('_T')
+_T = TypeVar('T')
 class TreeWeightedBase(TreeBase, GraphWeightedBase):
 
     def dfs_distance(T, s: int, g: Union[int,None] = None):

@@ -1,10 +1,10 @@
 import cp_library.alg.iter.__header__
 import operator
 from itertools import accumulate
-from typing import Callable, Reversible, TypeVar
+from typing import Callable, Reversible
+from cp_library.misc.typing import _T
 
-T = TypeVar('T')
-def sufsum(iter: Reversible[T], func: Callable[[T,T],T] = None, initial: T = None, step = 1) -> list[T]:
+def sufsum(iter: Reversible[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:
     if step == 1:
         A = list(accumulate(reversed(iter), func, initial=initial))
         A.reverse()

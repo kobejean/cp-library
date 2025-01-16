@@ -3,9 +3,9 @@ import typing
 from collections import deque
 from numbers import Number
 from types import GenericAlias 
-from typing import Callable, Collection, Iterator, TypeVar, Union
+from typing import Callable, Collection, Iterator, Union
 from cp_library.io.fast_io_cls import IOWrapper
-
+from cp_library.misc.typing import _T
 
 class TokenStream(Iterator):
     stream = IOWrapper.stdin
@@ -28,18 +28,17 @@ class CharStream(TokenStream):
     def line(self):
         assert not self.queue
         return next(TokenStream.stream).rstrip()
-        
-T = TypeVar('T')
-ParseFn = Callable[[TokenStream],T]
+
+ParseFn = Callable[[TokenStream],_T]
 class Parser:
-    def __init__(self, spec: Union[type[T],T]):
+    def __init__(self, spec: Union[type[_T],_T]):
         self.parse = Parser.compile(spec)
 
-    def __call__(self, ts: TokenStream) -> T:
+    def __call__(self, ts: TokenStream) -> _T:
         return self.parse(ts)
     
     @staticmethod
-    def compile_type(cls: type[T], args = ()) -> T:
+    def compile_type(cls: type[_T], args = ()) -> _T:
         if issubclass(cls, Parsable):
             return cls.compile(*args)
         elif issubclass(cls, (Number, str)):
@@ -58,7 +57,7 @@ class Parser:
             raise NotImplementedError()
     
     @staticmethod
-    def compile(spec: Union[type[T],T]=int) -> ParseFn[T]:
+    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:
         if isinstance(spec, (type, GenericAlias)):
             cls = typing.get_origin(spec) or spec
             args = typing.get_args(spec) or tuple()
@@ -80,7 +79,7 @@ class Parser:
             raise NotImplementedError()
 
     @staticmethod
-    def compile_line(cls: T, spec=int) -> ParseFn[T]:
+    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:
         if spec is int:
             fn = Parser.compile(spec)
             def parse(ts: TokenStream):
@@ -93,21 +92,21 @@ class Parser:
             return parse
 
     @staticmethod
-    def compile_repeat(cls: T, spec, N) -> ParseFn[T]:
+    def compile_repeat(cls: _T, spec, N) -> ParseFn[_T]:
         fn = Parser.compile(spec)
         def parse(ts: TokenStream):
             return cls((fn(ts) for _ in range(N)))
         return parse
 
     @staticmethod
-    def compile_children(cls: T, specs) -> ParseFn[T]:
+    def compile_children(cls: _T, specs) -> ParseFn[_T]:
         fns = tuple((Parser.compile(spec) for spec in specs))
         def parse(ts: TokenStream):
             return cls((fn(ts) for fn in fns))  
         return parse
             
     @staticmethod
-    def compile_tuple(cls: type[T], specs) -> ParseFn[T]:
+    def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:
         if isinstance(specs, (tuple,list)) and len(specs) == 2 and specs[1] is ...:
             return Parser.compile_line(cls, specs[0])
         else:
