@@ -15,18 +15,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     import operator\nfrom itertools import accumulate\nfrom typing import Callable,\
-    \ Reversible, TypeVar\n\nT = TypeVar('T')\ndef sufsum(iter: Reversible[T], func:\
-    \ Callable[[T,T],T] = None, initial: T = None, step = 1) -> list[T]:\n    if step\
-    \ == 1:\n        A = list(accumulate(reversed(iter), func, initial=initial))\n\
-    \        A.reverse()\n        return A   \n    else:\n        assert step >= 2\n\
-    \        if func is None:\n            func = operator.add\n        A = list(reversed(iter))\n\
-    \        if initial is not None:\n            A = [initial] + A\n        for i\
-    \ in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n        A.reverse()\n\
-    \        return A\n"
+    \ Reversible\nfrom typing import TypeVar\n_T = TypeVar('T')\n\ndef sufsum(iter:\
+    \ Reversible[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step\
+    \ = 1) -> list[_T]:\n    if step == 1:\n        A = list(accumulate(reversed(iter),\
+    \ func, initial=initial))\n        A.reverse()\n        return A   \n    else:\n\
+    \        assert step >= 2\n        if func is None:\n            func = operator.add\n\
+    \        A = list(reversed(iter))\n        if initial is not None:\n         \
+    \   A = [initial] + A\n        for i in range(step,len(A)):\n            A[i]\
+    \ = func(A[i], A[i-step])\n        A.reverse()\n        return A\n"
   code: "import cp_library.alg.iter.__header__\nimport operator\nfrom itertools import\
-    \ accumulate\nfrom typing import Callable, Reversible, TypeVar\n\nT = TypeVar('T')\n\
-    def sufsum(iter: Reversible[T], func: Callable[[T,T],T] = None, initial: T = None,\
-    \ step = 1) -> list[T]:\n    if step == 1:\n        A = list(accumulate(reversed(iter),\
+    \ accumulate\nfrom typing import Callable, Reversible\nfrom cp_library.misc.typing\
+    \ import _T\n\ndef sufsum(iter: Reversible[_T], func: Callable[[_T,_T],_T] = None,\
+    \ initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n        A = list(accumulate(reversed(iter),\
     \ func, initial=initial))\n        A.reverse()\n        return A   \n    else:\n\
     \        assert step >= 2\n        if func is None:\n            func = operator.add\n\
     \        A = list(reversed(iter))\n        if initial is not None:\n         \
@@ -36,7 +36,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sufsum_fn.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
+  timestamp: '2025-01-16 09:57:28+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/sufsum_fn.py

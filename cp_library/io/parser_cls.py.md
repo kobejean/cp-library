@@ -1,14 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/dp/dp2d_cls.py
     title: cp_library/alg/dp/dp2d_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/dp/mo_cls.py
     title: cp_library/alg/dp/mo_cls.py
   - icon: ':heavy_check_mark:'
@@ -17,25 +17,25 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/dag_cls.py
     title: cp_library/alg/graph/dag_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/digraph_cls.py
     title: cp_library/alg/graph/digraph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/edge_list_cls.py
     title: cp_library/alg/graph/edge_list_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_weighted_cls.py
     title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
   - icon: ':heavy_check_mark:'
@@ -44,112 +44,112 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_cls.py
     title: cp_library/alg/graph/fast/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/functional_graph_cls.py
     title: cp_library/alg/graph/functional_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':warning:'
     path: cp_library/alg/graph/graph_set_cls.py
     title: cp_library/alg/graph/graph_set_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
   - icon: ':warning:'
     path: cp_library/alg/graph/grid_direction_graph_cls.py
     title: cp_library/alg/graph/grid_direction_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/grid_graph_cls.py
     title: cp_library/alg/graph/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/grid_graph_proto.py
     title: cp_library/alg/graph/grid_graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/partial_functional_graph_cls.py
     title: cp_library/alg/graph/partial_functional_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/permutation_cls.py
     title: cp_library/alg/graph/permutation_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
   - icon: ':warning:'
     path: cp_library/ds/grid.py
     title: cp_library/ds/grid.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/heap/k_heap_mixin.py
     title: cp_library/ds/heap/k_heap_mixin.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/heap/max_k_heap_cls.py
     title: cp_library/ds/heap/max_k_heap_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/heap/min_k_heap_cls.py
     title: cp_library/ds/heap/min_k_heap_cls.py
   - icon: ':warning:'
     path: cp_library/ds/parallel_cls.py
     title: cp_library/ds/parallel_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/queries_cls.py
     title: cp_library/ds/queries_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/queries_mo_ops_cls.py
     title: cp_library/ds/queries_mo_ops_cls.py
   - icon: ':heavy_check_mark:'
@@ -158,7 +158,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':warning:'
@@ -170,13 +170,13 @@ data:
   - icon: ':warning:'
     path: cp_library/math/slope_cls.py
     title: cp_library/math/slope_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/math/vec2d_cls.py
     title: cp_library/math/vec2d_cls.py
   - icon: ':warning:'
     path: cp_library/math/vec3d_cls.py
     title: cp_library/math/vec3d_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/math/vec_cls.py
     title: cp_library/math/vec_cls.py
   _extendedVerifiedWith:
@@ -237,130 +237,130 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
     title: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc151_f_fbisect_left.test.py
     title: test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc184_e_grid_graph.test.py
     title: test/atcoder/abc/abc184_e_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
     title: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
     title: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc185_e_dp2d.test.py
     title: test/atcoder/abc/abc185_e_dp2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc186_e_gcd_ex.test.py
     title: test/atcoder/abc/abc186_e_gcd_ex.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc189_e_vec2d.test.py
     title: test/atcoder/abc/abc189_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_fast_dfs.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc203_e_queries_grouped.test.py
     title: test/atcoder/abc/abc203_e_queries_grouped.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc203_e_sort_groups.test.py
     title: test/atcoder/abc/abc203_e_sort_groups.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc206_e_mobius_table.test.py
     title: test/atcoder/abc/abc206_e_mobius_table.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
     title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc245_f_digraph.test.py
     title: test/atcoder/abc/abc245_f_digraph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
     title: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc249_f_max_k_heap.test.py
     title: test/atcoder/abc/abc249_f_max_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc249_f_min_k_heap.test.py
     title: test/atcoder/abc/abc249_f_min_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc261_g_mo.test.py
     title: test/atcoder/abc/abc261_g_mo.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
     title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc274_e_vec2d.test.py
     title: test/atcoder/abc/abc274_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc301_e_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc304_f_mobius_inv.test.py
     title: test/atcoder/abc/abc304_f_mobius_inv.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
     title: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
     title: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
     title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
     title: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
     title: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   - icon: ':heavy_check_mark:'
@@ -438,9 +438,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -451,41 +451,41 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
+    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \        \nT = TypeVar('T')\nParseFn = Callable[[TokenStream],T]\nclass Parser:\n\
-    \    def __init__(self, spec: Union[type[T],T]):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[T], args = ()) -> T:\n\
+    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
+    \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
     \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
@@ -494,7 +494,7 @@ data:
     \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
     \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[T],T]=int) -> ParseFn[T]:\n        if isinstance(spec,\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
     \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
     \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
@@ -505,22 +505,22 @@ data:
     \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
     \ Callable): \n            def parse(ts: TokenStream):\n                return\
     \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
-    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
+    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
     \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
     \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
     \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
     \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
-    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
-    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
-    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
-    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
-    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
-    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
-    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
+    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
+    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
+    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
+    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
+    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
+    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
+    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
+    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
+    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -529,29 +529,30 @@ data:
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n"
   code: "import cp_library.io.__header__\nimport typing\nfrom collections import deque\n\
     from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, TypeVar, Union\nfrom cp_library.io.fast_io_cls\
-    \ import IOWrapper\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
-    \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \        \nT = TypeVar('T')\nParseFn = Callable[[TokenStream],T]\nclass Parser:\n\
-    \    def __init__(self, spec: Union[type[T],T]):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[T], args = ()) -> T:\n\
-    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[T],T]=int) -> ParseFn[T]:\n        if isinstance(spec,\
-    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
-    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \ Callable, Collection, Iterator, Union\nfrom cp_library.io.fast_io_cls import\
+    \ IOWrapper\nfrom cp_library.misc.typing import _T\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
+    \        \n    def line(self):\n        return TokenStream.stream.readline().split()\n\
+    \nclass CharStream(TokenStream):\n    def line(self):\n        assert not self.queue\n\
+    \        return next(TokenStream.stream).rstrip()\n\nParseFn = Callable[[TokenStream],_T]\n\
+    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
+    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
+    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
+    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
+    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
+    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
+    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
+    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
     \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
@@ -560,22 +561,22 @@ data:
     \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
     \ Callable): \n            def parse(ts: TokenStream):\n                return\
     \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
-    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
+    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
     \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
     \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
     \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
     \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
-    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
-    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
-    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
-    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
-    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
-    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
-    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
+    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
+    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
+    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
+    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
+    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
+    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
+    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
+    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
+    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -645,8 +646,8 @@ data:
   - cp_library/io/read_fn.py
   - cp_library/io/legacy/read_fn.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

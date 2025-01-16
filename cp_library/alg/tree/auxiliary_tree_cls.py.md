@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy: []
@@ -30,19 +30,19 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from itertools import pairwise\n\nimport operator\nfrom itertools import accumulate\n\
-    from typing import Callable, Iterable, TypeVar\n\nT = TypeVar('T')\ndef presum(iter:\
-    \ Iterable[T], func: Callable[[T,T],T] = None, initial: T = None, step = 1) ->\
-    \ list[T]:\n    if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
-    \    else:\n        assert step >= 2\n        if func is None:\n            func\
-    \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
-    \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
-    \   A[i] = func(A[i], A[i-step])\n        return A\n\nfrom typing import Any,\
-    \ List\n\nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n   \
-    \     self.N = N = len(arr)\n        self.log = N.bit_length()\n        \n   \
-    \     self.offsets = offsets = [0]\n        for i in range(1, self.log):\n   \
-    \         offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n            \n \
-    \       self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1)) + 1)\n   \
-    \     st[:N] = arr \n        \n        for i,ni in pairwise(range(self.log)):\n\
+    from typing import Callable, Iterable, TypeVar\n_T = TypeVar('T')\n\ndef presum(iter:\
+    \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
+    \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
+    \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
+    \            func = operator.add\n        A = list(iter)\n        if initial is\
+    \ not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
+    \            A[i] = func(A[i], A[i-step])\n        return A\n\nfrom typing import\
+    \ Any, List\n\nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n\
+    \        self.N = N = len(arr)\n        self.log = N.bit_length()\n        \n\
+    \        self.offsets = offsets = [0]\n        for i in range(1, self.log):\n\
+    \            offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n            \n\
+    \        self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1)) + 1)\n  \
+    \      st[:N] = arr \n        \n        for i,ni in pairwise(range(self.log)):\n\
     \            start, nxt, d = offsets[i], offsets[ni], 1 << i\n            for\
     \ j in range(N - (1 << ni) + 1):\n                st[nxt+j] = min(st[k := start+j],\
     \ st[k + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
@@ -121,7 +121,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
+  timestamp: '2025-01-16 09:57:28+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

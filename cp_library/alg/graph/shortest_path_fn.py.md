@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/min_heap_cls.py
     title: cp_library/ds/heap/min_heap_cls.py
   _extendedRequiredBy: []
@@ -20,17 +20,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from math import inf\n\nfrom collections import UserList\nfrom typing import Iterable,\
-    \ TypeVar\nfrom heapq import heapify, heappop, heappush, heappushpop, heapreplace\n\
-    from typing import Generic, TypeVar\n\nT = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n\
-    \    def pop(self) -> T: ...\n    def push(self, item: T): ...\n    def pushpop(self,\
-    \ item: T) -> T: ...\n    def replace(self, item: T) -> T: ...\n\nT = TypeVar('T')\n\
-    class MinHeap(HeapProtocol[T], UserList[T]):\n    \n    def __init__(self, iterable:\
-    \ Iterable = None):\n        super().__init__(iterable)\n        heapify(self.data)\n\
-    \    \n    def pop(self):\n        return heappop(self.data)\n    \n    def push(self,\
-    \ item: T):\n        heappush(self.data, item)\n\n    def pushpop(self, item:\
-    \ T):\n        return heappushpop(self.data, item)\n    \n    def replace(self,\
-    \ item: T):\n        return heapreplace(self.data, item)\n\ndef shortest_path(G,\
+    from math import inf\n\nfrom collections import UserList\nfrom typing import Iterable\n\
+    from heapq import heapify, heappop, heappush, heappushpop, heapreplace\nfrom typing\
+    \ import Generic\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass HeapProtocol(Generic[_T]):\n\
+    \    def pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
+    \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MinHeap(HeapProtocol[_T],\
+    \ UserList[_T]):\n    def __init__(self, iterable: Iterable = None):\n       \
+    \ super().__init__(iterable)\n        heapify(self.data)\n    \n    def pop(self):\
+    \ return heappop(self.data)\n    def push(self, item: _T): heappush(self.data,\
+    \ item)\n    def pushpop(self, item: _T): return heappushpop(self.data, item)\n\
+    \    def replace(self, item: _T): return heapreplace(self.data, item)\n\ndef shortest_path(G,\
     \ s: int, g: int) -> tuple[list[int]|None,list[int]]:\n    D = [inf] * G.N\n \
     \   D[s] = 0\n    if s == g:\n        return [], D\n    par = [-1] * G.N\n   \
     \ par_edge = [-1] * G.N\n    Eid = G.edge_ids()\n    heap = MinHeap()\n    heap.push((0,\
@@ -59,7 +58,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/shortest_path_fn.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
+  timestamp: '2025-01-16 09:57:28+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/shortest_path_fn.py

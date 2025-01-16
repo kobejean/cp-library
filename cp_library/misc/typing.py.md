@@ -8,41 +8,25 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: '
+  bundledCode: 'from typing import TypeVar
 
-    from __pypy__ import strategy
-
-    A = [False]*10
-
-    print(strategy(A))
-
-    from array import array
-
-    array(''b'', None)
+    _T = TypeVar(''T'')
 
     '
-  code: '
+  code: 'from typing import TypeVar
 
-    from __pypy__ import strategy
-
-    A = [False]*10
-
-    print(strategy(A))
-
-    from array import array
-
-    array(''b'', None)'
+    _T = TypeVar(''T'')'
   dependsOn: []
   isVerificationFile: false
-  path: play.py
+  path: cp_library/misc/typing.py
   requiredBy: []
   timestamp: '2025-01-16 09:57:28+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: play.py
+documentation_of: cp_library/misc/typing.py
 layout: document
 redirect_from:
-- /library/play.py
-- /library/play.py.html
-title: play.py
+- /library/cp_library/misc/typing.py
+- /library/cp_library/misc/typing.py.html
+title: cp_library/misc/typing.py
 ---

@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
   - icon: ':heavy_check_mark:'
@@ -11,40 +11,40 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_cls.py
     title: cp_library/alg/graph/fast/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
   _extendedVerifiedWith:
@@ -63,25 +63,25 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_b_fast_height.test.py
     title: test/aoj/grl/grl_5_b_fast_height.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_fast_dfs.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
@@ -105,9 +105,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -147,8 +147,8 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

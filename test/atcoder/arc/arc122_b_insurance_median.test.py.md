@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/divcon/partition_fn.py
     title: cp_library/alg/divcon/partition_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/divcon/qselect_fn.py
     title: cp_library/alg/divcon/qselect_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/math/median_fn.py
     title: cp_library/math/median_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/arc122/tasks/arc122_b
     links:
@@ -101,8 +101,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc122_b_insurance_median.test.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc122_b_insurance_median.test.py
 layout: document

@@ -2,19 +2,19 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/monotone_minima_fn.py
     title: cp_library/alg/dp/monotone_minima_fn.py
   - icon: ':warning:'
     path: cp_library/alg/graph/dag_cls.py
     title: cp_library/alg/graph/dag_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/digraph_cls.py
     title: cp_library/alg/graph/digraph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
   - icon: ':heavy_check_mark:'
@@ -23,67 +23,67 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_cls.py
     title: cp_library/alg/graph/fast/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/functional_graph_cls.py
     title: cp_library/alg/graph/functional_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':warning:'
     path: cp_library/alg/graph/graph_set_cls.py
     title: cp_library/alg/graph/graph_set_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
   - icon: ':warning:'
     path: cp_library/alg/graph/grid_direction_graph_cls.py
     title: cp_library/alg/graph/grid_direction_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/grid_graph_cls.py
     title: cp_library/alg/graph/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/grid_graph_proto.py
     title: cp_library/alg/graph/grid_graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/partial_functional_graph_cls.py
     title: cp_library/alg/graph/partial_functional_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/permutation_cls.py
     title: cp_library/alg/graph/permutation_cls.py
   - icon: ':heavy_check_mark:'
@@ -95,37 +95,37 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/tree/auxiliary_tree_cls.py
     title: cp_library/alg/tree/auxiliary_tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/queries_mo_ops_cls.py
     title: cp_library/ds/queries_mo_ops_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/conv/minplus_conv_fn.py
     title: cp_library/math/conv/minplus_conv_fn.py
   _extendedVerifiedWith:
@@ -177,85 +177,85 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
     title: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc184_e_grid_graph.test.py
     title: test/atcoder/abc/abc184_e_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
     title: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_fast_dfs.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc203_e_queries_grouped.test.py
     title: test/atcoder/abc/abc203_e_queries_grouped.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc203_e_sort_groups.test.py
     title: test/atcoder/abc/abc203_e_sort_groups.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
     title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc245_f_digraph.test.py
     title: test/atcoder/abc/abc245_f_digraph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
     title: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
     title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc301_e_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
     title: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
@@ -291,9 +291,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -354,8 +354,8 @@ data:
   - cp_library/alg/graph/partial_functional_graph_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

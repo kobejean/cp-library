@@ -1,47 +1,47 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc202/tasks/abc202_e
     links:
@@ -75,11 +75,11 @@ data:
     \    \n\n\nfrom math import inf\nfrom itertools import islice\nfrom typing import\
     \ Callable, Sequence, Union, overload\nfrom collections import deque\n\nimport\
     \ typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
+    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -99,17 +99,18 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
+    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \        \nT = TypeVar('T')\nParseFn = Callable[[TokenStream],T]\nclass Parser:\n\
-    \    def __init__(self, spec: Union[type[T],T]):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[T], args = ()) -> T:\n\
+    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
+    \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
     \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
@@ -118,7 +119,7 @@ data:
     \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
     \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[T],T]=int) -> ParseFn[T]:\n        if isinstance(spec,\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
     \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
     \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
@@ -129,22 +130,22 @@ data:
     \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
     \ Callable): \n            def parse(ts: TokenStream):\n                return\
     \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
-    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
+    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
     \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
     \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
     \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
     \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
-    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
-    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
-    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
-    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
-    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
-    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
-    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
+    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
+    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
+    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
+    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
+    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
+    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
+    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
+    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
+    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -310,88 +311,87 @@ data:
     \ e in range(M):\n            Ra[u], Ra[v] = (i := Ra[u := U[e]])+1, (j := Ra[v\
     \ := V[e]])+1\n            Ua[i], Va[i], Ea[i], Ua[j], Va[j], Ea[j] = u, v, e,\
     \ v, u, e\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\nfrom\
-    \ typing import Callable, Literal, TypeVar, Union, overload\n\n_T = TypeVar('_T')\n\
-    \nclass TreeBase(GraphBase):\n    @overload\n    def distance(T) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(T, s: int, g: int) -> int: ...\n    def distance(T, s = None,\
-    \ g = None):\n        if s == None:\n            return [T.dfs_distance(u) for\
-    \ u in range(T.N)]\n        else:\n            return T.dfs_distance(s, g)\n\n\
-    \    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
-    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
-    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
-    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
-    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
-    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
-    \    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        stack,\
-    \ Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = u32f(N, inf), i32f(N,\
-    \ -1)\n        D[s] = 0\n        stack.append(s)\n        while stack:\n     \
-    \       nd = D[u := stack.pop()]+1\n            if u == g: return nd-1\n     \
-    \       for i in T.range(u):\n                if nd < D[v := Va[i]]:\n       \
-    \             D[v], back[v] = nd, i\n                    stack.append(v)\n   \
-    \     return D if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n    \
-    \                 merge: Callable[[_T,_T],_T], \n                     edge_op:\
-    \ Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n                     s: int\
-    \ = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topdown(s),\
-    \ [e]*T.N, [e]*len(Ua), T.Ra[:]\n        # up\n        for i in order[::-1]:\n\
-    \            u,v = Ua[i], Va[i]\n            # subtree v finished up pass, store\
-    \ value to accumulate for u\n            dp[v] = new = edge_op(u, v, i, dp[v])\n\
-    \            dp[u] = merge(dp[u], new)\n            # suffix accumulation\n  \
-    \          if (c:=I[u]-1) > La[u]: suf[c-1] = merge(suf[c], new)\n           \
-    \ I[u] = c\n        # down\n        dp[s] = e # at this point dp stores values\
-    \ to be merged in parent\n        for i in order:\n            u,v = Ua[i], Va[i]\n\
-    \            dp[u] = merge(pre := dp[u], dp[v])\n            dp[v] = edge_op(v,\
-    \ u, i, merge(suf[I[u]], pre))\n            I[u] += 1\n        return dp\n   \
-    \ \n    def euler_tour(T, s = 0):\n        N, Va = len(T), T.Va\n        tin,\
-    \ tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n        order, delta = elist(2*N),\
-    \ elist(2*N)\n        \n        stack = elist(N)\n        stack.append(s)\n  \
-    \      while stack:\n            p = par[u := stack.pop()]\n            if tin[u]\
-    \ == -1:\n                tin[u] = len(order)\n                for i in T.range(u):\n\
-    \                    if (v := Va[i]) != p:\n                        par[v], back[v]\
-    \ = u, i\n                        stack.append(u)\n                        stack.append(v)\n\
-    \                delta.append(1)\n            else:\n                delta.append(-1)\n\
-    \            \n            order.append(u)\n            tout[u] = len(order)\n\
-    \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
-    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    def hld_precomp(T,\
-    \ r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N,\
-    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
-    \ depth, order, state = [0]*N, [0]*N, [0]*N\n        stack = elist(N)\n      \
-    \  stack.append(r)\n        while stack:\n            if (s := state[v := stack.pop()])\
-    \ == 0: # dfs down\n                p, state[v] = par[v], 1\n                stack.append(v)\n\
-    \                for i in T.range(v):\n                    if (c := Va[i]) !=\
-    \ p:\n                        depth[c], par[c] = depth[v]+1, v\n             \
-    \           stack.append(c)\n\n            elif s == 1: # dfs up\n           \
-    \     p, l = par[v], -1\n                for i in T.range(v):\n              \
-    \      if (c := Va[i]) != p:\n                        size[v] += size[c]\n   \
-    \                     if size[c] > size[l]:\n                            l = c\n\
-    \                heavy[v] = l\n                if p == -1:\n                 \
-    \   state[v] = 2\n                    stack.append(v)\n\n            elif s ==\
-    \ 2: # decompose down\n                p, h, l = par[v], head[v], heavy[v]\n \
-    \               tin[v], order[time], state[v] = time, v, 3\n                time\
-    \ += 1\n                stack.append(v)\n                \n                for\
-    \ i in T.range(v):\n                    if (c := Va[i]) != p and c != l:\n   \
-    \                     head[c], state[c] = c, 2\n                        stack.append(c)\n\
-    \n                if l != -1:\n                    head[l], state[l] = h, 2\n\
-    \                    stack.append(l)\n\n            elif s == 3: # decompose up\n\
-    \                tout[v] = time\n        T.size, T.depth = size, depth\n     \
-    \   T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy, T.head\
-    \ = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int, shift:\
-    \ int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
-    \    \n\nclass Tree(TreeBase, Graph):\n    pass\n\n\nfrom typing import Type,\
-    \ TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]:\
-    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Union[Type[T],T], char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None,\
-    \ char=False):\n    if not char:\n        if spec is None:\n            return\
-    \ map(int, TokenStream.stream.readline().split())\n        elif isinstance(offset\
-    \ := spec, int):\n            return [int(s)+offset for s in TokenStream.stream.readline().split()]\n\
-    \        elif spec is int:\n            return int(TokenStream.stream.readline())\n\
-    \        else:\n            stream = TokenStream()\n    else:\n        stream\
-    \ = CharStream()\n    parser: T = Parser.compile(spec)\n    return parser(stream)\n\
-    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
-    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
-    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
-    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
-    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
-    flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \ typing import Callable, Literal, TypeVar, Union, overload\n\nclass TreeBase(GraphBase):\n\
+    \    @overload\n    def distance(T) -> list[list[int]]: ...\n    @overload\n \
+    \   def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T,\
+    \ s: int, g: int) -> int: ...\n    def distance(T, s = None, g = None):\n    \
+    \    if s == None:\n            return [T.dfs_distance(u) for u in range(T.N)]\n\
+    \        else:\n            return T.dfs_distance(s, g)\n\n    @overload\n   \
+    \ def diameter(T) -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True])\
+    \ -> tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n      \
+    \  mask = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift |\
+    \ v for v,d in enumerate(T.distance(0))) & mask\n        dg = max(d << shift |\
+    \ v for v,d in enumerate(T.distance(s))) \n        diam, g = dg >> shift, dg &\
+    \ mask\n        return (diam, s, g) if endpoints else diam\n    \n    def dfs_distance(T,\
+    \ s: int, g: Union[int,None] = None):\n        stack, Va = elist(N := T.N), T.Va\n\
+    \        T.D, T.back = D, back = u32f(N, inf), i32f(N, -1)\n        D[s] = 0\n\
+    \        stack.append(s)\n        while stack:\n            nd = D[u := stack.pop()]+1\n\
+    \            if u == g: return nd-1\n            for i in T.range(u):\n      \
+    \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
+    \                    stack.append(v)\n        return D if g is None else inf\n\
+    \n    def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
+    \ \n                     edge_op: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n\
+    \                     s: int = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n  \
+    \      order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]\n \
+    \       # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
+    \            # subtree v finished up pass, store value to accumulate for u\n \
+    \           dp[v] = new = edge_op(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
+    \ new)\n            # suffix accumulation\n            if (c:=I[u]-1) > La[u]:\
+    \ suf[c-1] = merge(suf[c], new)\n            I[u] = c\n        # down\n      \
+    \  dp[s] = e # at this point dp stores values to be merged in parent\n       \
+    \ for i in order:\n            u,v = Ua[i], Va[i]\n            dp[u] = merge(pre\
+    \ := dp[u], dp[v])\n            dp[v] = edge_op(v, u, i, merge(suf[I[u]], pre))\n\
+    \            I[u] += 1\n        return dp\n    \n    def euler_tour(T, s = 0):\n\
+    \        N, Va = len(T), T.Va\n        tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n\
+    \        order, delta = elist(2*N), elist(2*N)\n        \n        stack = elist(N)\n\
+    \        stack.append(s)\n        while stack:\n            p = par[u := stack.pop()]\n\
+    \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
+    \       for i in T.range(u):\n                    if (v := Va[i]) != p:\n    \
+    \                    par[v], back[v] = u, i\n                        stack.append(u)\n\
+    \                        stack.append(v)\n                delta.append(1)\n  \
+    \          else:\n                delta.append(-1)\n            \n           \
+    \ order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
+    \ = 0\n        T.tin, T.tout, T.par, T.back = tin, tout, par, back\n        T.order,\
+    \ T.delta = order, delta\n\n    def hld_precomp(T, r = 0):\n        N, time, Va\
+    \ = T.N, 0, T.Va\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par,\
+    \ heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, state = [0]*N, [0]*N,\
+    \ [0]*N\n        stack = elist(N)\n        stack.append(r)\n        while stack:\n\
+    \            if (s := state[v := stack.pop()]) == 0: # dfs down\n            \
+    \    p, state[v] = par[v], 1\n                stack.append(v)\n              \
+    \  for i in T.range(v):\n                    if (c := Va[i]) != p:\n         \
+    \               depth[c], par[c] = depth[v]+1, v\n                        stack.append(c)\n\
+    \n            elif s == 1: # dfs up\n                p, l = par[v], -1\n     \
+    \           for i in T.range(v):\n                    if (c := Va[i]) != p:\n\
+    \                        size[v] += size[c]\n                        if size[c]\
+    \ > size[l]:\n                            l = c\n                heavy[v] = l\n\
+    \                if p == -1:\n                    state[v] = 2\n             \
+    \       stack.append(v)\n\n            elif s == 2: # decompose down\n       \
+    \         p, h, l = par[v], head[v], heavy[v]\n                tin[v], order[time],\
+    \ state[v] = time, v, 3\n                time += 1\n                stack.append(v)\n\
+    \                \n                for i in T.range(v):\n                    if\
+    \ (c := Va[i]) != p and c != l:\n                        head[c], state[c] = c,\
+    \ 2\n                        stack.append(c)\n\n                if l != -1:\n\
+    \                    head[l], state[l] = h, 2\n                    stack.append(l)\n\
+    \n            elif s == 3: # decompose up\n                tout[v] = time\n  \
+    \      T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order,\
+    \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n\n    @classmethod\n\
+    \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
+    \ N, N-1, shift)\n    \n\nclass Tree(TreeBase, Graph):\n    pass\n\n\nfrom typing\
+    \ import Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
+    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
+    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
+    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
+    \            return int(TokenStream.stream.readline())\n        else:\n      \
+    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
+    \ _T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc202/tasks/abc202_e\n\
     \n\nfrom bisect import bisect_left\n\ndef main():\n    N = read(int)\n    U =\
     \ list(range(1,N))\n    V = read(list[-1])\n    G = Tree(N, U, V)\n    \n    depth\
@@ -422,8 +422,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
 layout: document

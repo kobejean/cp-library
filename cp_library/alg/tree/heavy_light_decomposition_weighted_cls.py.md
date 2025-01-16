@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/heavy_light_decomposition_cls.py
     title: cp_library/alg/tree/heavy_light_decomposition_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -46,8 +46,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py

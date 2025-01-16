@@ -2,16 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/functional_graph_cls.py
     title: cp_library/alg/graph/functional_graph_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/partial_functional_graph_cls.py
     title: cp_library/alg/graph/partial_functional_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/permutation_cls.py
     title: cp_library/alg/graph/permutation_cls.py
   - icon: ':heavy_check_mark:'
@@ -21,10 +21,10 @@ data:
     path: cp_library/alg/graph/strongly_connected_components_fn.py
     title: cp_library/alg/graph/strongly_connected_components_fn.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - icon: ':heavy_check_mark:'
@@ -36,9 +36,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/scc_strongly_connected_components.test.py
     title: test/library-checker/graph/scc_strongly_connected_components.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -47,18 +47,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterator, SupportsIndex, TypeVar\n\nT = TypeVar('T')\nclass\
-    \ SliceIteratorReverse(Iterator[T]):\n    def __init__(self, A: list[T], L: list[SupportsIndex]):\n\
-    \        self.A, self.L, self.r = A, L, len(A)\n    def __len__(self): return\
-    \ len(self.L)\n    def __next__(self):\n        L = self.L\n        if not L:\
-    \ raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n        return\
-    \ self.A[l:r]\n"
-  code: "import cp_library.alg.iter.__header__\nfrom typing import Iterator, SupportsIndex,\
-    \ TypeVar\n\nT = TypeVar('T')\nclass SliceIteratorReverse(Iterator[T]):\n    def\
-    \ __init__(self, A: list[T], L: list[SupportsIndex]):\n        self.A, self.L,\
-    \ self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
-    \        L = self.L\n        if not L: raise StopIteration\n        self.r, r\
-    \ = (l := L.pop()), self.r\n        return self.A[l:r]"
+    from typing import Iterator, SupportsIndex\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
+    \nclass SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T],\
+    \ L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n  \
+    \  def __len__(self): return len(self.L)\n    def __next__(self):\n        L =\
+    \ self.L\n        if not L: raise StopIteration\n        self.r, r = (l := L.pop()),\
+    \ self.r\n        return self.A[l:r]\n"
+  code: "import cp_library.alg.iter.__header__\nfrom typing import Iterator, SupportsIndex\n\
+    from cp_library.misc.typing import _T\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
+    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
+    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/slice_iterator_reverse_cls.py
@@ -69,8 +69,8 @@ data:
   - cp_library/alg/graph/permutation_cls.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
   - cp_library/alg/graph/partial_functional_graph_cls.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - test/atcoder/abc/abc175_d_permutation.test.py

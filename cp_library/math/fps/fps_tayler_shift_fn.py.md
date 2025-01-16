@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_ntt_cls.py
     title: cp_library/math/mod/mint_ntt_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/nt/mod_inv_fn.py
     title: cp_library/math/nt/mod_inv_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/nt/ntt_cls.py
     title: cp_library/math/nt/ntt_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/table/modcomb_cls.py
     title: cp_library/math/table/modcomb_cls.py
   _extendedRequiredBy:
@@ -173,7 +173,7 @@ data:
   path: cp_library/math/fps/fps_tayler_shift_fn.py
   requiredBy:
   - cp_library/math/table/stirling1_n_fn.py
-  timestamp: '2025-01-04 20:48:52+09:00'
+  timestamp: '2025-01-16 09:57:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

@@ -1,50 +1,50 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/dp/chmax_fn.py
     title: cp_library/alg/dp/chmax_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_cls.py
     title: cp_library/alg/graph/fast/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc301/tasks/abc301_e
     links:
@@ -72,7 +72,7 @@ data:
     except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
     \    \n\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
     from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \ Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -95,17 +95,18 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
+    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \        \nT = TypeVar('T')\nParseFn = Callable[[TokenStream],T]\nclass Parser:\n\
-    \    def __init__(self, spec: Union[type[T],T]):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[T], args = ()) -> T:\n\
+    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
+    \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
     \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
@@ -114,7 +115,7 @@ data:
     \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
     \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[T],T]=int) -> ParseFn[T]:\n        if isinstance(spec,\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
     \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
     \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
@@ -125,22 +126,22 @@ data:
     \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
     \ Callable): \n            def parse(ts: TokenStream):\n                return\
     \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
-    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
+    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
     \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
     \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
     \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
     \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
-    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
-    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
-    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
-    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
-    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
-    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
-    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
+    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
+    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
+    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
+    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
+    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
+    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
+    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
+    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
+    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -337,16 +338,16 @@ data:
     \                            Va.append(v)\n                Ra[u] = len(Ua)\n\n\
     \        G.M = len(Ua)\n        G.Ea = u32a(range(G.M))\n\n\n\ndef chmin(dp, i,\
     \ v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\ndef chmax(dp, i, v):\n   \
-    \ if ch:=dp[i]<v:dp[i]=v\n    return ch\n\nfrom typing import Type, TypeVar, Union,\
-    \ overload\n\nT = TypeVar('T')\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[T],T],\
-    \ char=False) -> T: ...\ndef read(spec: Union[Type[T],T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \ if ch:=dp[i]<v:dp[i]=v\n    return ch\n\nfrom typing import Type, Union, overload\n\
+    \n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char:\n   \
+    \     if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
     \            return int(TokenStream.stream.readline())\n        else:\n      \
     \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
+    \ _T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
     :\n    print(solve())\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc301/tasks/abc301_e\n\
     \nfrom math import inf\n\n\ndef solve():\n    H, W, T = read(tuple[int, ...])\n\
@@ -381,8 +382,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
 layout: document

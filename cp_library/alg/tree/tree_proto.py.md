@@ -1,38 +1,38 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
   _extendedVerifiedWith:
@@ -42,30 +42,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
     title: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -89,11 +89,11 @@ data:
     \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nimport typing\n\
     from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, TypeVar, Union\nimport os\nimport sys\nfrom\
-    \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
-    \   newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -113,17 +113,18 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
+    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \        \nT = TypeVar('T')\nParseFn = Callable[[TokenStream],T]\nclass Parser:\n\
-    \    def __init__(self, spec: Union[type[T],T]):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[T], args = ()) -> T:\n\
+    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
+    \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
     \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
@@ -132,7 +133,7 @@ data:
     \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
     \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[T],T]=int) -> ParseFn[T]:\n        if isinstance(spec,\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
     \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
     \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
@@ -143,22 +144,22 @@ data:
     \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
     \ Callable): \n            def parse(ts: TokenStream):\n                return\
     \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
-    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
+    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
     \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
     \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
     \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
     \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
-    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
-    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
-    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
-    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
-    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
-    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
-    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
+    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
+    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
+    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
+    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
+    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
+    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
+    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
+    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
+    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -356,11 +357,11 @@ data:
     \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
     \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
     \ _ in range(M)])\n        return parse\n    \n\nimport operator\nfrom itertools\
-    \ import accumulate\n\nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T]\
-    \ = None, initial: T = None, step = 1) -> list[T]:\n    if step == 1:\n      \
-    \  return list(accumulate(iter, func, initial=initial))\n    else:\n        assert\
-    \ step >= 2\n        if func is None:\n            func = operator.add\n     \
-    \   A = list(iter)\n        if initial is not None:\n            A = [initial]\
+    \ import accumulate\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T]\
+    \ = None, initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n    \
+    \    return list(accumulate(iter, func, initial=initial))\n    else:\n       \
+    \ assert step >= 2\n        if func is None:\n            func = operator.add\n\
+    \        A = list(iter)\n        if initial is not None:\n            A = [initial]\
     \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
     \        return A\nfrom itertools import pairwise\nfrom typing import Any, List\n\
     \nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n        self.N\
@@ -545,8 +546,8 @@ data:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

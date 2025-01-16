@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
   - icon: ':heavy_check_mark:'
@@ -11,55 +11,55 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_weighted_cls.py
     title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
   - icon: ':warning:'
     path: cp_library/alg/graph/shortest_path_fn.py
     title: cp_library/alg/graph/shortest_path_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/heap/k_heap_mixin.py
     title: cp_library/ds/heap/k_heap_mixin.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/heap/max_heap_cls.py
     title: cp_library/ds/heap/max_heap_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/heap/max_k_heap_cls.py
     title: cp_library/ds/heap/max_k_heap_cls.py
   - icon: ':warning:'
     path: cp_library/ds/heap/max_priority_queue_cls.py
     title: cp_library/ds/heap/max_priority_queue_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/min_heap_cls.py
     title: cp_library/ds/heap/min_heap_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/heap/min_k_heap_cls.py
     title: cp_library/ds/heap/min_k_heap_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
   _extendedVerifiedWith:
@@ -99,31 +99,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_b_fast_height.test.py
     title: test/aoj/grl/grl_5_b_fast_height.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
     title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc249_f_max_k_heap.test.py
     title: test/atcoder/abc/abc249_f_max_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc249_f_min_k_heap.test.py
     title: test/atcoder/abc/abc249_f_min_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
   - icon: ':heavy_check_mark:'
@@ -141,9 +141,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -152,13 +152,14 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Generic, TypeVar\n\nT = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n\
-    \    def pop(self) -> T: ...\n    def push(self, item: T): ...\n    def pushpop(self,\
-    \ item: T) -> T: ...\n    def replace(self, item: T) -> T: ...\n"
-  code: "import cp_library.ds.heap.__header__\nfrom typing import Generic, TypeVar\n\
-    \nT = TypeVar('T')\nclass HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n\
-    \    def push(self, item: T): ...\n    def pushpop(self, item: T) -> T: ...\n\
-    \    def replace(self, item: T) -> T: ..."
+    from typing import Generic\nfrom typing import TypeVar\n_T = TypeVar('T')\n\n\
+    class HeapProtocol(Generic[_T]):\n    def pop(self) -> _T: ...\n    def push(self,\
+    \ item: _T): ...\n    def pushpop(self, item: _T) -> _T: ...\n    def replace(self,\
+    \ item: _T) -> _T: ...\n"
+  code: "import cp_library.ds.heap.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
+    \ import _T\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self) -> _T: ...\n\
+    \    def push(self, item: _T): ...\n    def pushpop(self, item: _T) -> _T: ...\n\
+    \    def replace(self, item: _T) -> _T: ..."
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/heap/heap_proto.py
@@ -183,8 +184,8 @@ data:
   - cp_library/ds/heap/max_priority_queue_cls.py
   - cp_library/ds/heap/max_k_heap_cls.py
   - cp_library/ds/heap/max_heap_cls.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py

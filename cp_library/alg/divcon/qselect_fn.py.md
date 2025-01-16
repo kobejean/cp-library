@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/divcon/partition_fn.py
     title: cp_library/alg/divcon/partition_fn.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/math/median_fn.py
     title: cp_library/math/median_fn.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/arc/arc122_b_insurance_median.test.py
     title: test/atcoder/arc/arc122_b_insurance_median.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
     title: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -47,8 +47,8 @@ data:
   path: cp_library/alg/divcon/qselect_fn.py
   requiredBy:
   - cp_library/math/median_fn.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
   - test/atcoder/arc/arc122_b_insurance_median.test.py

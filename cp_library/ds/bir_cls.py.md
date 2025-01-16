@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
   _extendedRequiredBy: []
@@ -63,7 +63,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bir_cls.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
+  timestamp: '2025-01-16 09:57:28+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/bir_cls.py

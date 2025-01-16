@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   _extendedRequiredBy:
@@ -69,136 +69,136 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
     title: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc151_f_fbisect_left.test.py
     title: test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc184_e_grid_graph.test.py
     title: test/atcoder/abc/abc184_e_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
     title: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
     title: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc185_e_dp2d.test.py
     title: test/atcoder/abc/abc185_e_dp2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc186_e_gcd_ex.test.py
     title: test/atcoder/abc/abc186_e_gcd_ex.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc189_e_vec2d.test.py
     title: test/atcoder/abc/abc189_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_fast_dfs.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc203_e_queries_grouped.test.py
     title: test/atcoder/abc/abc203_e_queries_grouped.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc203_e_sort_groups.test.py
     title: test/atcoder/abc/abc203_e_sort_groups.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc206_e_mobius_table.test.py
     title: test/atcoder/abc/abc206_e_mobius_table.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
     title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc245_f_digraph.test.py
     title: test/atcoder/abc/abc245_f_digraph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
     title: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc249_f_max_k_heap.test.py
     title: test/atcoder/abc/abc249_f_max_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc249_f_min_k_heap.test.py
     title: test/atcoder/abc/abc249_f_min_k_heap.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc261_g_mo.test.py
     title: test/atcoder/abc/abc261_g_mo.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
     title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc274_e_vec2d.test.py
     title: test/atcoder/abc/abc274_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc304_f_mobius_inv.test.py
     title: test/atcoder/abc/abc304_f_mobius_inv.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
     title: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
     title: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
     title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/arc/arc122_b_insurance_median.test.py
     title: test/atcoder/arc/arc122_b_insurance_median.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
     title: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
     title: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
     title: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
     title: test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
     title: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   - icon: ':heavy_check_mark:'
@@ -291,9 +291,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -344,8 +344,8 @@ data:
   path: cp_library/io/write_fn.py
   requiredBy:
   - cp_library/io/bye_fn.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

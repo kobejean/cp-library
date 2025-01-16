@@ -1,59 +1,59 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_cls.py
     title: cp_library/alg/graph/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/alg/tree/heavy_light_decomposition_cls.py
     title: cp_library/alg/tree/heavy_light_decomposition_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc337/tasks/abc337_g
     links:
@@ -88,41 +88,41 @@ data:
     \ u,v = v,u\n        query_fn(start[v]+edge, start[u]+1)\nfrom typing import Union\n\
     \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
     from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ TypeVar, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
+    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
     \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
     \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \        \nT = TypeVar('T')\nParseFn = Callable[[TokenStream],T]\nclass Parser:\n\
-    \    def __init__(self, spec: Union[type[T],T]):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[T], args = ()) -> T:\n\
+    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
+    \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
     \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
@@ -131,7 +131,7 @@ data:
     \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
     \                return cls(next(ts))              \n            return parse\n\
     \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[T],T]=int) -> ParseFn[T]:\n        if isinstance(spec,\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
     \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
     \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
@@ -142,22 +142,22 @@ data:
     \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
     \ Callable): \n            def parse(ts: TokenStream):\n                return\
     \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
-    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
+    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
     \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
     \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
     \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
     \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
-    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
-    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
-    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
-    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
-    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
-    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
-    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
+    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
+    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
+    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
+    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
+    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
+    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
+    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
+    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
+    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -379,39 +379,38 @@ data:
     \ Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
     \ M, E)\n\n    \n\nfrom typing import overload, Literal, Union\nfrom functools\
     \ import cached_property\n\nimport operator\nfrom itertools import accumulate\n\
-    \nT = TypeVar('T')\ndef presum(iter: Iterable[T], func: Callable[[T,T],T] = None,\
-    \ initial: T = None, step = 1) -> list[T]:\n    if step == 1:\n        return\
-    \ list(accumulate(iter, func, initial=initial))\n    else:\n        assert step\
-    \ >= 2\n        if func is None:\n            func = operator.add\n        A =\
-    \ list(iter)\n        if initial is not None:\n            A = [initial] + A\n\
-    \        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
-    \        return A\nfrom itertools import pairwise\nfrom typing import Any, List\n\
-    \nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n        self.N\
-    \ = N = len(arr)\n        self.log = N.bit_length()\n        \n        self.offsets\
-    \ = offsets = [0]\n        for i in range(1, self.log):\n            offsets.append(offsets[-1]\
-    \ + N - (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1]\
-    \ + N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for\
-    \ i,ni in pairwise(range(self.log)):\n            start, nxt, d = offsets[i],\
-    \ offsets[ni], 1 << i\n            for j in range(N - (1 << ni) + 1):\n      \
-    \          st[nxt+j] = min(st[k := start+j], st[k + d])\n\n    def query(self,\
-    \ l: int, r: int) -> Any:\n        k = (r-l).bit_length() - 1\n        start,\
-    \ st = self.offsets[k], self.st\n        return min(st[start + l], st[start +\
-    \ r - (1 << k)])\n    \n    def __repr__(self) -> str:\n        rows, offsets,\
-    \ log, st = [], self.offsets, self.log, self.st\n        for i in range(log):\n\
-    \            start = offsets[i]\n            end = offsets[i+1] if i+1 < log else\
-    \ len(st)\n            rows.append(f\"{i:<2d} {st[start:end]}\")\n        return\
-    \ '\\n'.join(rows)\n\nclass LCATable(MinSparseTable):\n    def __init__(self,\
-    \ T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n        self.depth\
-    \ = depth = presum(T.delta)\n        self.start, self.stop = T.tin, T.tout\n \
-    \       self.mask = (1 << (shift := N.bit_length()))-1\n        self.shift = shift\n\
-    \        order = T.order\n        M = len(order)\n        packets = [0]*M\n  \
-    \      for i in range(M):\n            packets[i] = depth[i] << shift | order[i]\
-    \ \n        super().__init__(packets)\n\n    def _query(self, u, v):\n       \
-    \ start = self.start\n        l,r = min(start[u], start[v]), max(start[u], start[v])+1\n\
-    \        da = super().query(l, r)\n        return l, r, da & self.mask, da >>\
-    \ self.shift\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r, a,\
-    \ d = self._query(u, v)\n        return a, d\n    \n    def distance(self, u,\
-    \ v) -> int:\n        l, r, a, d = self._query(u, v)\n        return self.depth[l]\
+    \ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
+    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
+    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
+    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
+    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
+    \            A[i] = func(A[i], A[i-step])\n        return A\nfrom itertools import\
+    \ pairwise\nfrom typing import Any, List\n\nclass MinSparseTable:\n    def __init__(self,\
+    \ arr: List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
+    \        \n        self.offsets = offsets = [0]\n        for i in range(1, self.log):\n\
+    \            offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n            \n\
+    \        self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1)) + 1)\n  \
+    \      st[:N] = arr \n        \n        for i,ni in pairwise(range(self.log)):\n\
+    \            start, nxt, d = offsets[i], offsets[ni], 1 << i\n            for\
+    \ j in range(N - (1 << ni) + 1):\n                st[nxt+j] = min(st[k := start+j],\
+    \ st[k + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
+    \ - 1\n        start, st = self.offsets[k], self.st\n        return min(st[start\
+    \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
+    \    rows, offsets, log, st = [], self.offsets, self.log, self.st\n        for\
+    \ i in range(log):\n            start = offsets[i]\n            end = offsets[i+1]\
+    \ if i+1 < log else len(st)\n            rows.append(f\"{i:<2d} {st[start:end]}\"\
+    )\n        return '\\n'.join(rows)\n\nclass LCATable(MinSparseTable):\n    def\
+    \ __init__(self, T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n\
+    \        self.depth = depth = presum(T.delta)\n        self.start, self.stop =\
+    \ T.tin, T.tout\n        self.mask = (1 << (shift := N.bit_length()))-1\n    \
+    \    self.shift = shift\n        order = T.order\n        M = len(order)\n   \
+    \     packets = [0]*M\n        for i in range(M):\n            packets[i] = depth[i]\
+    \ << shift | order[i] \n        super().__init__(packets)\n\n    def _query(self,\
+    \ u, v):\n        start = self.start\n        l,r = min(start[u], start[v]), max(start[u],\
+    \ start[v])+1\n        da = super().query(l, r)\n        return l, r, da & self.mask,\
+    \ da >> self.shift\n\n    def query(self, u, v) -> tuple[int,int]:\n        l,\
+    \ r, a, d = self._query(u, v)\n        return a, d\n    \n    def distance(self,\
+    \ u, v) -> int:\n        l, r, a, d = self._query(u, v)\n        return self.depth[l]\
     \ + self.depth[r] - 2*d\n    \n    def path(self, u, v):\n        path, par, lca,\
     \ c = [], self.T.par, self.query(u, v)[0], u\n        while c != lca:\n      \
     \      path.append(c)\n            c = par[c]\n        path.append(lca)\n    \
@@ -501,16 +500,15 @@ data:
     \        s = 0\n        data = self.data\n        for _ in range(i.bit_count()):\n\
     \            s, i = s+data[i-1], i-(i&-i)\n        return s\n    \n    def range_sum(self,\
     \ l: int, r: int):\n        return self.pref_sum(r) - self.pref_sum(l)\n\nfrom\
-    \ typing import Type, TypeVar, Union, overload\n\nT = TypeVar('T')\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
-    @overload\ndef read(spec: Union[Type[T],T], char=False) -> T: ...\ndef read(spec:\
-    \ Union[Type[T],T] = None, char=False):\n    if not char:\n        if spec is\
-    \ None:\n            return map(int, TokenStream.stream.readline().split())\n\
+    \ typing import Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n\
+    @overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
+    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
     \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
     \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
     \            return int(TokenStream.stream.readline())\n        else:\n      \
     \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
+    \ _T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
     \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
     \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
@@ -550,8 +548,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
 layout: document

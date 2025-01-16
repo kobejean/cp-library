@@ -1,53 +1,53 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/heapq_max_import.py
     title: cp_library/ds/heap/heapq_max_import.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
   _extendedVerifiedWith:
@@ -57,15 +57,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_b_fast_height.test.py
     title: test/aoj/grl/grl_5_b_fast_height.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -77,14 +77,14 @@ data:
     from typing import TypeVar, Union\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
     \    return ch\nfrom typing import overload\n\nimport typing\nfrom collections\
     \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, TypeVar, Union\nimport os\n\
-    import sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -101,28 +101,29 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self.line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
-    \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \        \nT = TypeVar('T')\nParseFn = Callable[[TokenStream],T]\nclass Parser:\n\
-    \    def __init__(self, spec: Union[type[T],T]):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[T], args = ()) -> T:\n\
-    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[T],T]=int) -> ParseFn[T]:\n        if isinstance(spec,\
-    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
-    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \ = IOWrapper(sys.stdout)\n_T = TypeVar('T')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
+    \        \n    def line(self):\n        return TokenStream.stream.readline().split()\n\
+    \nclass CharStream(TokenStream):\n    def line(self):\n        assert not self.queue\n\
+    \        return next(TokenStream.stream).rstrip()\n\nParseFn = Callable[[TokenStream],_T]\n\
+    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
+    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
+    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
+    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
+    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
+    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
+    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
+    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
     \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
@@ -131,22 +132,22 @@ data:
     \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
     \ Callable): \n            def parse(ts: TokenStream):\n                return\
     \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: T, spec=int) -> ParseFn[T]:\n \
-    \       if spec is int:\n            fn = Parser.compile(spec)\n            def\
+    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
+    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
     \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
     \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
     \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
     \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ T, spec, N) -> ParseFn[T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n        return\
-    \ parse\n\n    @staticmethod\n    def compile_children(cls: T, specs) -> ParseFn[T]:\n\
-    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
-    \ TokenStream):\n            return cls((fn(ts) for fn in fns))  \n        return\
-    \ parse\n            \n    @staticmethod\n    def compile_tuple(cls: type[T],\
-    \ specs) -> ParseFn[T]:\n        if isinstance(specs, (tuple,list)) and len(specs)\
-    \ == 2 and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
-    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
-    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
+    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
+    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
+    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
+    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
+    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
+    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
+    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
+    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
+    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
     \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
     \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
@@ -385,16 +386,15 @@ data:
     \ = [[] for _ in range(self.N)]\n        for i in range(self.N):\n           \
     \ result[leader_buf[i]].append(i)\n\n        return [r for r in result if r]\n\
     \n\nfrom collections import UserList\nfrom heapq import heapify, heappop, heappush,\
-    \ heappushpop, heapreplace\nfrom typing import Generic, TypeVar\n\nT = TypeVar('T')\n\
-    class HeapProtocol(Generic[T]):\n    def pop(self) -> T: ...\n    def push(self,\
-    \ item: T): ...\n    def pushpop(self, item: T) -> T: ...\n    def replace(self,\
-    \ item: T) -> T: ...\n\nclass PriorityQueue(HeapProtocol[int], UserList[int]):\n\
-    \    \n    def __init__(self, N: int, ids: list[int] = None, priorities: list[int]\
-    \ = None, /):\n        self.shift = N.bit_length()\n        self.mask = (1 <<\
-    \ self.shift)-1\n        if ids is None:\n            self.data = elist(N)\n \
-    \       elif priorities is None:\n            heapify(ids)\n            self.data\
-    \ = ids\n        else:\n            M = len(ids)\n            data = [0]*M\n \
-    \           for i in range(M):\n                data[i] = self.encode(ids[i],\
+    \ heappushpop, heapreplace\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
+    \    def pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
+    \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
+    \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
+    \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
+    \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            self.data\
+    \ = elist(N)\n        elif priorities is None:\n            heapify(ids)\n   \
+    \         self.data = ids\n        else:\n            M = len(ids)\n         \
+    \   data = [0]*M\n            for i in range(M):\n                data[i] = self.encode(ids[i],\
     \ priorities[i]) \n            heapify(data)\n            self.data = data\n\n\
     \    def encode(self, id, priority):\n        return priority << self.shift |\
     \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
@@ -403,62 +403,61 @@ data:
     \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
     \        return self.decode(heappushpop(self.data, self.encode(id, priority)))\n\
     \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
-    \ self.encode(id, priority)))\n\nT = TypeVar('T')\ndef heappop_max(heap: list[T],\
-    \ /) -> T: ...\ndef heapsiftdown_max(heap: list[T], root: int, pos: int): ...\n\
-    def heapsiftup_max(heap: list[T], pos: int): ...\ndef heapsiftdown(heap: list[T],\
-    \ root: int, pos: int): ...\ndef heapsiftup(heap: list[T], pos: int): ...\n\n\
-    from heapq import (\n    _heapify_max as heapify_max, \n    _heappop_max as heappop_max,\
-    \ \n    _siftdown_max as heapsiftdown_max,\n    _siftup_max as heapsiftup_max,\n\
-    \    _siftdown as heapsiftdown,\n    _siftup as heapsiftup\n)\n\ndef heappush_max(heap:\
-    \ list[T], item: T):\n    \"\"\"Push item onto heap, maintaining the heap invariant.\"\
-    \"\"\n    heap.append(item)\n    heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef\
-    \ heapreplace_max(heap: list[T], item: T) -> T:\n    \"\"\"Pop and return the\
-    \ current largest value, and add the new item.\n\n    This is more efficient than\
-    \ heappop_max() followed by heappush_max(), and can be\n    more appropriate when\
-    \ using a fixed-size heap.  Note that the value\n    returned may be larger than\
-    \ item!  That constrains reasonable uses of\n    this routine unless written as\
-    \ part of a conditional replacement:\n\n        if item > heap[0]:\n         \
-    \   item = heapreplace_max(heap, item)\n    \"\"\"\n    returnitem = heap[0]\n\
-    \    heap[0] = item\n    heapsiftup_max(heap, 0)\n    return returnitem\n\ndef\
-    \ heappushpop_max(heap: list[T], item: T) -> T:\n    \"\"\"Fast version of a heappush_max\
-    \ followed by a heappop_max.\"\"\"\n    if heap and heap[0] > item:\n        item,\
-    \ heap[0] = heap[0], item\n        heapsiftup_max(heap, 0)\n    return item\n\n\
-    \nclass MaxPriorityQueue(HeapProtocol[int], UserList[int]):\n    \n    def __init__(self,\
-    \ N: int, ids: list[int] = None, priorities: list[int] = None, /):\n        self.shift\
-    \ = N.bit_length()\n        self.mask = (1 << self.shift)-1\n        if ids is\
-    \ None:\n            super().__init__()\n        elif priorities is None:\n  \
-    \          heapify_max(ids)\n            self.data = ids\n        else:\n    \
-    \        M = len(ids)\n            data = [0]*M\n            for i in range(M):\n\
-    \                data[i] = self.encode(ids[i], priorities[i]) \n            heapify_max(data)\n\
-    \            self.data = data\n\n    def encode(self, id, priority):\n       \
-    \ return priority << self.shift | id\n    \n    def decode(self, encoded):\n \
-    \       return self.mask & encoded, encoded >> self.shift\n    \n    def pop(self):\n\
-    \        return self.decode(heappop_max(self.data))\n    \n    def push(self,\
-    \ id: int, priority: int):\n        heappush_max(self.data, self.encode(id, priority))\n\
-    \n    def pushpop(self, id: int, priority: int):\n        return self.decode(heappushpop_max(self.data,\
-    \ self.encode(id, priority)))\n    \n    def replace(self, id: int, priority:\
-    \ int):\n        return self.decode(heapreplace_max(self.data, self.encode(id,\
-    \ priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n\
-    \    \nfrom typing import Callable, Literal, TypeVar, Union, overload\n\n_T =\
-    \ TypeVar('_T')\n\nclass TreeBase(GraphBase):\n    @overload\n    def distance(T)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(T, s: int, g: int) -> int: ...\n    def\
-    \ distance(T, s = None, g = None):\n        if s == None:\n            return\
-    \ [T.dfs_distance(u) for u in range(T.N)]\n        else:\n            return T.dfs_distance(s,\
-    \ g)\n\n    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def\
-    \ diameter(T, endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T,\
-    \ endpoints = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n\
-    \        s = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n\
-    \        dg = max(d << shift | v for v,d in enumerate(T.distance(s))) \n     \
-    \   diam, g = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints\
-    \ else diam\n    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n\
-    \        stack, Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = u32f(N,\
-    \ inf), i32f(N, -1)\n        D[s] = 0\n        stack.append(s)\n        while\
-    \ stack:\n            nd = D[u := stack.pop()]+1\n            if u == g: return\
-    \ nd-1\n            for i in T.range(u):\n                if nd < D[v := Va[i]]:\n\
-    \                    D[v], back[v] = nd, i\n                    stack.append(v)\n\
-    \        return D if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n \
-    \                    merge: Callable[[_T,_T],_T], \n                     edge_op:\
+    \ self.encode(id, priority)))\n\ndef heappop_max(heap: list[_T], /) -> _T: ...\n\
+    def heapsiftdown_max(heap: list[_T], root: int, pos: int): ...\ndef heapsiftup_max(heap:\
+    \ list[_T], pos: int): ...\ndef heapsiftdown(heap: list[_T], root: int, pos: int):\
+    \ ...\ndef heapsiftup(heap: list[_T], pos: int): ...\n\nfrom heapq import (\n\
+    \    _heapify_max as heapify_max, \n    _heappop_max as heappop_max, \n    _siftdown_max\
+    \ as heapsiftdown_max,\n    _siftup_max as heapsiftup_max,\n    _siftdown as heapsiftdown,\n\
+    \    _siftup as heapsiftup\n)\n\ndef heappush_max(heap: list[_T], item: _T):\n\
+    \    \"\"\"Push item onto heap, maintaining the heap invariant.\"\"\"\n    heap.append(item)\n\
+    \    heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list[_T],\
+    \ item: _T) -> _T:\n    \"\"\"Pop and return the current largest value, and add\
+    \ the new item.\n\n    This is more efficient than heappop_max() followed by heappush_max(),\
+    \ and can be\n    more appropriate when using a fixed-size heap.  Note that the\
+    \ value\n    returned may be larger than item!  That constrains reasonable uses\
+    \ of\n    this routine unless written as part of a conditional replacement:\n\n\
+    \        if item > heap[0]:\n            item = heapreplace_max(heap, item)\n\
+    \    \"\"\"\n    returnitem = heap[0]\n    heap[0] = item\n    heapsiftup_max(heap,\
+    \ 0)\n    return returnitem\n\ndef heappushpop_max(heap: list[_T], item: _T) ->\
+    \ _T:\n    \"\"\"Fast version of a heappush_max followed by a heappop_max.\"\"\
+    \"\n    if heap and heap[0] > item:\n        item, heap[0] = heap[0], item\n \
+    \       heapsiftup_max(heap, 0)\n    return item\n\n\nclass MaxPriorityQueue(HeapProtocol[int],\
+    \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
+    \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
+    \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            super().__init__()\n\
+    \        elif priorities is None:\n            heapify_max(ids)\n            self.data\
+    \ = ids\n        else:\n            M = len(ids)\n            data = [0]*M\n \
+    \           for i in range(M):\n                data[i] = self.encode(ids[i],\
+    \ priorities[i]) \n            heapify_max(data)\n            self.data = data\n\
+    \n    def encode(self, id, priority):\n        return priority << self.shift |\
+    \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
+    \ encoded >> self.shift\n    \n    def pop(self):\n        return self.decode(heappop_max(self.data))\n\
+    \    \n    def push(self, id: int, priority: int):\n        heappush_max(self.data,\
+    \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
+    \        return self.decode(heappushpop_max(self.data, self.encode(id, priority)))\n\
+    \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace_max(self.data,\
+    \ self.encode(id, priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n\
+    \    \nfrom typing import Callable, Literal, TypeVar, Union, overload\n\nclass\
+    \ TreeBase(GraphBase):\n    @overload\n    def distance(T) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(T, s: int, g: int) -> int: ...\n    def distance(T, s = None,\
+    \ g = None):\n        if s == None:\n            return [T.dfs_distance(u) for\
+    \ u in range(T.N)]\n        else:\n            return T.dfs_distance(s, g)\n\n\
+    \    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
+    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
+    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
+    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
+    \    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        stack,\
+    \ Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = u32f(N, inf), i32f(N,\
+    \ -1)\n        D[s] = 0\n        stack.append(s)\n        while stack:\n     \
+    \       nd = D[u := stack.pop()]+1\n            if u == g: return nd-1\n     \
+    \       for i in T.range(u):\n                if nd < D[v := Va[i]]:\n       \
+    \             D[v], back[v] = nd, i\n                    stack.append(v)\n   \
+    \     return D if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n    \
+    \                 merge: Callable[[_T,_T],_T], \n                     edge_op:\
     \ Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n                     s: int\
     \ = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topdown(s),\
     \ [e]*T.N, [e]*len(Ua), T.Ra[:]\n        # up\n        for i in order[::-1]:\n\
@@ -505,7 +504,7 @@ data:
     \   T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy, T.head\
     \ = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int, shift:\
     \ int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
-    \    \n\n_T = TypeVar('_T')\nclass TreeWeightedBase(TreeBase, GraphWeightedBase):\n\
+    \    \n\n_T = TypeVar('T')\nclass TreeWeightedBase(TreeBase, GraphWeightedBase):\n\
     \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        stack,\
     \ Wa, Va = elist(N := T.N), T.Wa, T.Va\n        T.D, T.back = D, back = [inf]*N,\
     \ i32f(N, -1)\n        stack.append(s)\n        D[s] = 0\n        while stack:\n\
@@ -554,7 +553,7 @@ data:
     \ N, N-1, shift)\n    \n"
   code: "import cp_library.alg.tree.fast.__header__\nfrom typing import TypeVar, Union\n\
     from cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase\n\
-    from cp_library.alg.tree.fast.tree_base_cls import TreeBase\n\n_T = TypeVar('_T')\n\
+    from cp_library.alg.tree.fast.tree_base_cls import TreeBase\n\n_T = TypeVar('T')\n\
     class TreeWeightedBase(TreeBase, GraphWeightedBase):\n\n    def dfs_distance(T,\
     \ s: int, g: Union[int,None] = None):\n        stack, Wa, Va = elist(N := T.N),\
     \ T.Wa, T.Va\n        T.D, T.back = D, back = [inf]*N, i32f(N, -1)\n        stack.append(s)\n\
@@ -623,8 +622,8 @@ data:
   path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
-  timestamp: '2025-01-04 20:48:52+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-01-16 09:57:28+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
