@@ -1,11 +1,11 @@
 import cp_library.io.__header__
 
-from typing import Type, Union, overload
+from typing import Iterable, Type, Union, overload
 from cp_library.io.parser_cls import Parser, TokenStream, CharStream
 from cp_library.misc.typing import _T
 
 @overload
-def read() -> list[int]: ...
+def read() -> Iterable[int]: ...
 @overload
 def read(spec: int) -> list[int]: ...
 @overload
