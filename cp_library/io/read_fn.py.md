@@ -54,112 +54,112 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_b_fast_height.test.py
     title: test/aoj/grl/grl_5_b_fast_height.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc151_f_fbisect_left.test.py
     title: test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc184_e_grid_graph.test.py
     title: test/atcoder/abc/abc184_e_grid_graph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
     title: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
     title: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc185_e_dp2d.test.py
     title: test/atcoder/abc/abc185_e_dp2d.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc186_e_gcd_ex.test.py
     title: test/atcoder/abc/abc186_e_gcd_ex.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc189_e_vec2d.test.py
     title: test/atcoder/abc/abc189_e_vec2d.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc202_e_fast_dfs.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc203_e_queries_grouped.test.py
     title: test/atcoder/abc/abc203_e_queries_grouped.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc203_e_sort_groups.test.py
     title: test/atcoder/abc/abc203_e_sort_groups.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc206_e_mobius_table.test.py
     title: test/atcoder/abc/abc206_e_mobius_table.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc218_f_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_shortest_path.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
     title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc245_f_digraph.test.py
     title: test/atcoder/abc/abc245_f_digraph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
     title: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc249_f_max_k_heap.test.py
     title: test/atcoder/abc/abc249_f_max_k_heap.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc249_f_min_k_heap.test.py
     title: test/atcoder/abc/abc249_f_min_k_heap.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc261_g_mo.test.py
     title: test/atcoder/abc/abc261_g_mo.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
     title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc274_e_vec2d.test.py
     title: test/atcoder/abc/abc274_e_vec2d.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc301_e_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_grid_graph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc304_f_mobius_inv.test.py
     title: test/atcoder/abc/abc304_f_mobius_inv.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
     title: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
     title: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
   - icon: ':x:'
@@ -298,9 +298,9 @@ data:
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
-    \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
+    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
     \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
     \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
@@ -347,24 +347,18 @@ data:
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
     def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
     @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char:\n        if spec is\
-    \ None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(stream)\n"
+    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
+    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
+    \ parser(CharStream.default if char else TokenStream.default)\n"
   code: "import cp_library.io.__header__\n\nfrom typing import Type, Union, overload\n\
     from cp_library.io.parser_cls import Parser, TokenStream, CharStream\nfrom cp_library.misc.typing\
     \ import _T\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
     \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False)\
     \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
-    \ char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(stream)\n"
+    \ char and spec is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
+    \ parser(CharStream.default if char else TokenStream.default)\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
@@ -372,7 +366,7 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-01-16 09:57:28+09:00'
+  timestamp: '2025-01-21 19:55:16+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

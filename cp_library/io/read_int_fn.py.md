@@ -57,7 +57,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
+  timestamp: '2025-01-21 19:55:16+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/dp/dp_z_cht_monotone_add_max.test.py

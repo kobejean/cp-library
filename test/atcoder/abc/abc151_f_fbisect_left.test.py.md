@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/divcon/fbisect_fn.py
     title: cp_library/alg/divcon/fbisect_fn.py
   - icon: ':question:'
@@ -16,20 +16,20 @@ data:
   - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/elm_wise_mixin.py
     title: cp_library/math/elm_wise_mixin.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/vec2d_cls.py
     title: cp_library/math/vec2d_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/vec_cls.py
     title: cp_library/math/vec_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     ERROR: 1e-6
     PROBLEM: https://atcoder.jp/contests/abc151/tasks/abc151_f
@@ -91,9 +91,9 @@ data:
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
-    \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
+    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
     \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
     \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
@@ -192,18 +192,16 @@ data:
     \ Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
     def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
     \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \    if not char and spec is None:\n        line = TokenStream.default.queue or\
+    \ TokenStream.stream.readline().split()\n        return map(int, line)\n    parser:\
+    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
+    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the values\
+    \ to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc151/tasks/abc151_f\n\
     # verification-helper: ERROR 1e-6\n\nfrom math import sqrt\n\ndef main():\n  \
     \  N = read(int)\n    points = read(list[Vec2D[float], N])\n\n    def candidates(r)\
@@ -232,8 +230,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc151_f_fbisect_left.test.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-01-21 19:55:16+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc151_f_fbisect_left.test.py
 layout: document

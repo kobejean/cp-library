@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':question:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
   - icon: ':question:'
@@ -39,27 +39,35 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Union\n\n\nclass BinaryIndexTree:\n\
-    \    def __init__(self, v: Union[int,list]):\n        if isinstance(v, int):\n\
-    \            self.data, self.size = [0]*v, v\n        else:\n            self.build(v)\n\
-    \n    def build(self, data):\n        self.data, self.size = data, len(data)\n\
-    \        for i in range(self.size):\n            if (r := i|(i+1)) < self.size:\
-    \ \n                data[r] += data[i]\n\n    def get(self, i: int):\n       \
-    \ assert 0 <= i < self.size\n        s, z = (data := self.data)[i], i&(i+1)\n\
-    \        for _ in range((i^z).bit_count()):\n            s, i = s-data[i-1], i-(i&-i)\n\
-    \        return s\n    __getitem__ = get\n    \n    def set(self, i: int, x: int):\n\
-    \        self.add(i, x-self.get(i))\n    __setitem__ = set\n        \n    def\
-    \ add(self, i: int, x: int) -> None:\n        assert 0 <= i <= self.size\n   \
-    \     i += 1\n        data, size = self.data, self.size\n        while i <= size:\n\
-    \            data[i-1], i = data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self,\
-    \ i: int):\n        assert 0 <= i <= self.size\n        s = 0\n        data =\
-    \ self.data\n        for _ in range(i.bit_count()):\n            s, i = s+data[i-1],\
-    \ i-(i&-i)\n        return s\n    \n    def range_sum(self, l: int, r: int):\n\
-    \        return self.pref_sum(r) - self.pref_sum(l)\n\ndef inversion_cnt(Z, N:\
-    \ Union[int,None] = None):\n    if N is None:\n        # coordinate compression\n\
-    \        Zsort = sorted(set(Z))\n        Zcomp = { v: i for i, v in enumerate(Zsort)\
-    \ }\n        Z = [Zcomp[z] for z in Z]\n        N = len(Z)\n\n    bit = BinaryIndexTree(N)\n\
-    \    cnt = 0\n    for z in reversed(Z):\n        cnt += bit.pref_sum(z)\n    \
-    \    bit.add(z, 1)\n    return cnt\n\n\nfrom typing import Type, Union, overload\n\
+    \    def __init__(bit, v: Union[int,list]):\n        if isinstance(v, int):\n\
+    \            bit.data, bit.size = [0]*v, v\n        else:\n            bit.build(v)\n\
+    \n    def build(bit, data):\n        bit.data, bit.size = data, len(data)\n  \
+    \      for i in range(bit.size):\n            if (r := i|(i+1)) < bit.size: \n\
+    \                data[r] += data[i]\n\n    def get(bit, i: int):\n        assert\
+    \ 0 <= i < bit.size\n        s, z = (data := bit.data)[i], i&(i+1)\n        for\
+    \ _ in range((i^z).bit_count()):\n            s, i = s-data[i-1], i-(i&-i)\n \
+    \       return s\n    __getitem__ = get\n    \n    def set(bit, i: int, x: int):\n\
+    \        bit.add(i, x-bit.get(i))\n    __setitem__ = set\n        \n    def add(bit,\
+    \ i: int, x: int) -> None:\n        assert 0 <= i <= bit.size\n        data, size\
+    \ = bit.data, bit.size\n        while i < size:\n            data[i], i = data[i]+x,\
+    \ i|(i+1)\n\n    def presum(bit, n: int):\n        assert 0 <= n <= bit.size\n\
+    \        s, z, i, data = 0, n.bit_count(), n-1, bit.data\n        for _ in range(z):\n\
+    \            s, i = s+data[i], (i&(i+1))-1\n        return s\n    \n    def range_sum(bit,\
+    \ l: int, r: int):\n        return bit.presum(r) - bit.presum(l)\n\n    def prelist(bit):\n\
+    \        pre = [0]+bit.data\n        for i in range(bit.size+1):\n           \
+    \ pre[i] += pre[i&(i-1)]\n        return pre\n    \n    def bisect_left(bit, v):\n\
+    \        data, i, s, m = bit.data, 0, 0, 1 << ((N := bit.size).bit_length()-1)\n\
+    \        while m:\n            if (ni := i|m) <= N and (ns := s + data[ni-1])\
+    \ < v:\n                s, i = ns, ni\n            m >>= 1\n        return i\n\
+    \    \n    def bisect_right(bit, v):\n        data, i, s, m = bit.data, 0, 0,\
+    \ 1 << ((N := bit.size).bit_length()-1)\n        while m:\n            if (ni\
+    \ := i|m) <= N and (ns := s + data[ni-1]) <= v:\n                s, i = ns, ni\n\
+    \            m >>= 1\n        return i\n\ndef inversion_cnt(Z, N: Union[int,None]\
+    \ = None):\n    if N is None:\n        # coordinate compression\n        Zsort\
+    \ = sorted(set(Z))\n        Zcomp = { v: i for i, v in enumerate(Zsort) }\n  \
+    \      Z = [Zcomp[z] for z in Z]\n        N = len(Z)\n\n    bit = BinaryIndexTree(N)\n\
+    \    cnt = 0\n    for z in reversed(Z):\n        cnt += bit.presum(z)\n      \
+    \  bit.add(z, 1)\n    return cnt\n\n\nfrom typing import Type, Union, overload\n\
     import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -91,9 +99,9 @@ data:
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
-    \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
+    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
     \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
     \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
@@ -140,15 +148,12 @@ data:
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
     def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
     @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char:\n        if spec is\
-    \ None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
+    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
+    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
+    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
@@ -172,7 +177,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
+  timestamp: '2025-01-21 19:55:16+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

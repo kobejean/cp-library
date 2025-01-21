@@ -9,12 +9,12 @@ data:
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc185_e_dp2d.test.py
     title: test/atcoder/abc/abc185_e_dp2d.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -55,23 +55,23 @@ data:
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
     \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
     \        \n    def line(self):\n        return TokenStream.stream.readline().split()\n\
-    \nclass CharStream(TokenStream):\n    def line(self):\n        assert not self.queue\n\
-    \        return next(TokenStream.stream).rstrip()\n\nParseFn = Callable[[TokenStream],_T]\n\
-    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
-    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
-    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
-    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
-    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
-    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
-    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
-    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
-    \      return cls(next(ts))              \n            return parse\n        else:\n\
-    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
-    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
-    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \        \nTokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n\
+    \n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
+    \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
+    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
+    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
+    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
     \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
@@ -157,8 +157,8 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/dp2d_cls.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2025-01-21 19:55:16+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc185_e_dp2d.test.py
 documentation_of: cp_library/alg/dp/dp2d_cls.py

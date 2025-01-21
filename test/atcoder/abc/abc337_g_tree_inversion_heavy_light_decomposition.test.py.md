@@ -16,7 +16,7 @@ data:
   - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/heavy_light_decomposition_cls.py
     title: cp_library/alg/tree/heavy_light_decomposition_cls.py
   - icon: ':question:'
@@ -28,7 +28,7 @@ data:
   - icon: ':question:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':x:'
+  - icon: ':question:'
     path: cp_library/ds/bit_cls.py
     title: cp_library/ds/bit_cls.py
   - icon: ':question:'
@@ -51,9 +51,9 @@ data:
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc337/tasks/abc337_g
     links:
@@ -117,9 +117,9 @@ data:
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
-    \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
+    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
     \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
     \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
@@ -484,37 +484,43 @@ data:
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n\nclass Tree(TreeProtocol,\
     \ Graph):\n    @classmethod\n    def compile(cls, N: int, E: Union[type,int] =\
     \ Edge[-1]):\n        return Graph.compile.__func__(cls, N, N-1, E)\n    \n  \
-    \  \n\nclass BinaryIndexTree:\n    def __init__(self, v: Union[int,list]):\n \
-    \       if isinstance(v, int):\n            self.data, self.size = [0]*v, v\n\
-    \        else:\n            self.build(v)\n\n    def build(self, data):\n    \
-    \    self.data, self.size = data, len(data)\n        for i in range(self.size):\n\
-    \            if (r := i|(i+1)) < self.size: \n                data[r] += data[i]\n\
-    \n    def get(self, i: int):\n        assert 0 <= i < self.size\n        s, z\
-    \ = (data := self.data)[i], i&(i+1)\n        for _ in range((i^z).bit_count()):\n\
-    \            s, i = s-data[i-1], i-(i&-i)\n        return s\n    __getitem__ =\
-    \ get\n    \n    def set(self, i: int, x: int):\n        self.add(i, x-self.get(i))\n\
-    \    __setitem__ = set\n        \n    def add(self, i: int, x: int) -> None:\n\
-    \        assert 0 <= i <= self.size\n        i += 1\n        data, size = self.data,\
-    \ self.size\n        while i <= size:\n            data[i-1], i = data[i-1] +\
-    \ x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n        assert 0 <= i <= self.size\n\
-    \        s = 0\n        data = self.data\n        for _ in range(i.bit_count()):\n\
-    \            s, i = s+data[i-1], i-(i&-i)\n        return s\n    \n    def range_sum(self,\
-    \ l: int, r: int):\n        return self.pref_sum(r) - self.pref_sum(l)\n\nfrom\
-    \ typing import Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n\
-    @overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
-    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \  \n\nclass BinaryIndexTree:\n    def __init__(bit, v: Union[int,list]):\n  \
+    \      if isinstance(v, int):\n            bit.data, bit.size = [0]*v, v\n   \
+    \     else:\n            bit.build(v)\n\n    def build(bit, data):\n        bit.data,\
+    \ bit.size = data, len(data)\n        for i in range(bit.size):\n            if\
+    \ (r := i|(i+1)) < bit.size: \n                data[r] += data[i]\n\n    def get(bit,\
+    \ i: int):\n        assert 0 <= i < bit.size\n        s, z = (data := bit.data)[i],\
+    \ i&(i+1)\n        for _ in range((i^z).bit_count()):\n            s, i = s-data[i-1],\
+    \ i-(i&-i)\n        return s\n    __getitem__ = get\n    \n    def set(bit, i:\
+    \ int, x: int):\n        bit.add(i, x-bit.get(i))\n    __setitem__ = set\n   \
+    \     \n    def add(bit, i: int, x: int) -> None:\n        assert 0 <= i <= bit.size\n\
+    \        data, size = bit.data, bit.size\n        while i < size:\n          \
+    \  data[i], i = data[i]+x, i|(i+1)\n\n    def presum(bit, n: int):\n        assert\
+    \ 0 <= n <= bit.size\n        s, z, i, data = 0, n.bit_count(), n-1, bit.data\n\
+    \        for _ in range(z):\n            s, i = s+data[i], (i&(i+1))-1\n     \
+    \   return s\n    \n    def range_sum(bit, l: int, r: int):\n        return bit.presum(r)\
+    \ - bit.presum(l)\n\n    def prelist(bit):\n        pre = [0]+bit.data\n     \
+    \   for i in range(bit.size+1):\n            pre[i] += pre[i&(i-1)]\n        return\
+    \ pre\n    \n    def bisect_left(bit, v):\n        data, i, s, m = bit.data, 0,\
+    \ 0, 1 << ((N := bit.size).bit_length()-1)\n        while m:\n            if (ni\
+    \ := i|m) <= N and (ns := s + data[ni-1]) < v:\n                s, i = ns, ni\n\
+    \            m >>= 1\n        return i\n    \n    def bisect_right(bit, v):\n\
+    \        data, i, s, m = bit.data, 0, 0, 1 << ((N := bit.size).bit_length()-1)\n\
+    \        while m:\n            if (ni := i|m) <= N and (ns := s + data[ni-1])\
+    \ <= v:\n                s, i = ns, ni\n            m >>= 1\n        return i\n\
+    \nfrom typing import Type, Union, overload\n\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
+    \ = None, char=False):\n    if not char and spec is None:\n        line = TokenStream.default.queue\
+    \ or TokenStream.stream.readline().split()\n        return map(int, line)\n  \
+    \  parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc337/tasks/abc337_g\n\
     \ndef main():\n    N = read(int)\n    T = read(Tree[N])\n\n    hld = HLD(T)\n\
     \    bit = BinaryIndexTree(N)\n    ans = [0]*(N+1)\n\n    def range_add(l,r,x):\n\
@@ -548,8 +554,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-01-21 19:55:16+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
 layout: document

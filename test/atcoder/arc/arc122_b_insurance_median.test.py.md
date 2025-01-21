@@ -101,7 +101,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc122_b_insurance_median.test.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
+  timestamp: '2025-01-21 19:55:16+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc122_b_insurance_median.test.py

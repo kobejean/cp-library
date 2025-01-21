@@ -136,23 +136,23 @@ data:
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
     \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
     \        \n    def line(self):\n        return TokenStream.stream.readline().split()\n\
-    \nclass CharStream(TokenStream):\n    def line(self):\n        assert not self.queue\n\
-    \        return next(TokenStream.stream).rstrip()\n\nParseFn = Callable[[TokenStream],_T]\n\
-    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
-    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
-    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
-    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
-    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
-    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
-    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
-    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
-    \      return cls(next(ts))              \n            return parse\n        else:\n\
-    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
-    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
-    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \        \nTokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n\
+    \n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
+    \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
+    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
+    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
+    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
     \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
@@ -185,15 +185,12 @@ data:
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
     def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
     @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char:\n        if spec is\
-    \ None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
+    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
+    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
+    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
@@ -547,7 +544,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
+  timestamp: '2025-01-21 19:55:16+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

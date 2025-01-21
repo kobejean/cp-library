@@ -1,26 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
   _extendedRequiredBy:
   - icon: ':warning:'
     path: cp_library/alg/graph/shortest_path_fn.py
     title: cp_library/alg/graph/shortest_path_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/max_k_heap_cls.py
     title: cp_library/ds/heap/max_k_heap_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc249_f_max_k_heap.test.py
     title: test/atcoder/abc/abc249_f_max_k_heap.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -54,8 +54,8 @@ data:
   requiredBy:
   - cp_library/alg/graph/shortest_path_fn.py
   - cp_library/ds/heap/max_k_heap_cls.py
-  timestamp: '2025-01-16 09:57:28+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-01-21 19:55:16+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_max_k_heap.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py

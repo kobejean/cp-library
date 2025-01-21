@@ -9,19 +9,19 @@ data:
     path: cp_library/math/inversion_cnt_fn.py
     title: cp_library/math/inversion_cnt_fn.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - icon: ':x:'
@@ -29,7 +29,7 @@ data:
     title: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -38,47 +38,64 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Union\n\nclass BinaryIndexTree:\n    def __init__(self, v:\
-    \ Union[int,list]):\n        if isinstance(v, int):\n            self.data, self.size\
-    \ = [0]*v, v\n        else:\n            self.build(v)\n\n    def build(self,\
-    \ data):\n        self.data, self.size = data, len(data)\n        for i in range(self.size):\n\
-    \            if (r := i|(i+1)) < self.size: \n                data[r] += data[i]\n\
-    \n    def get(self, i: int):\n        assert 0 <= i < self.size\n        s, z\
-    \ = (data := self.data)[i], i&(i+1)\n        for _ in range((i^z).bit_count()):\n\
+    from typing import Union\n\nclass BinaryIndexTree:\n    def __init__(bit, v: Union[int,list]):\n\
+    \        if isinstance(v, int):\n            bit.data, bit.size = [0]*v, v\n \
+    \       else:\n            bit.build(v)\n\n    def build(bit, data):\n       \
+    \ bit.data, bit.size = data, len(data)\n        for i in range(bit.size):\n  \
+    \          if (r := i|(i+1)) < bit.size: \n                data[r] += data[i]\n\
+    \n    def get(bit, i: int):\n        assert 0 <= i < bit.size\n        s, z =\
+    \ (data := bit.data)[i], i&(i+1)\n        for _ in range((i^z).bit_count()):\n\
     \            s, i = s-data[i-1], i-(i&-i)\n        return s\n    __getitem__ =\
-    \ get\n    \n    def set(self, i: int, x: int):\n        self.add(i, x-self.get(i))\n\
-    \    __setitem__ = set\n        \n    def add(self, i: int, x: int) -> None:\n\
-    \        assert 0 <= i <= self.size\n        i += 1\n        data, size = self.data,\
-    \ self.size\n        while i <= size:\n            data[i-1], i = data[i-1] +\
-    \ x, i+(i&-i)\n\n    def pref_sum(self, i: int):\n        assert 0 <= i <= self.size\n\
-    \        s = 0\n        data = self.data\n        for _ in range(i.bit_count()):\n\
-    \            s, i = s+data[i-1], i-(i&-i)\n        return s\n    \n    def range_sum(self,\
-    \ l: int, r: int):\n        return self.pref_sum(r) - self.pref_sum(l)\n"
+    \ get\n    \n    def set(bit, i: int, x: int):\n        bit.add(i, x-bit.get(i))\n\
+    \    __setitem__ = set\n        \n    def add(bit, i: int, x: int) -> None:\n\
+    \        assert 0 <= i <= bit.size\n        data, size = bit.data, bit.size\n\
+    \        while i < size:\n            data[i], i = data[i]+x, i|(i+1)\n\n    def\
+    \ presum(bit, n: int):\n        assert 0 <= n <= bit.size\n        s, z, i, data\
+    \ = 0, n.bit_count(), n-1, bit.data\n        for _ in range(z):\n            s,\
+    \ i = s+data[i], (i&(i+1))-1\n        return s\n    \n    def range_sum(bit, l:\
+    \ int, r: int):\n        return bit.presum(r) - bit.presum(l)\n\n    def prelist(bit):\n\
+    \        pre = [0]+bit.data\n        for i in range(bit.size+1):\n           \
+    \ pre[i] += pre[i&(i-1)]\n        return pre\n    \n    def bisect_left(bit, v):\n\
+    \        data, i, s, m = bit.data, 0, 0, 1 << ((N := bit.size).bit_length()-1)\n\
+    \        while m:\n            if (ni := i|m) <= N and (ns := s + data[ni-1])\
+    \ < v:\n                s, i = ns, ni\n            m >>= 1\n        return i\n\
+    \    \n    def bisect_right(bit, v):\n        data, i, s, m = bit.data, 0, 0,\
+    \ 1 << ((N := bit.size).bit_length()-1)\n        while m:\n            if (ni\
+    \ := i|m) <= N and (ns := s + data[ni-1]) <= v:\n                s, i = ns, ni\n\
+    \            m >>= 1\n        return i\n"
   code: "import cp_library.ds.__header__\nfrom typing import Union\n\nclass BinaryIndexTree:\n\
-    \    def __init__(self, v: Union[int,list]):\n        if isinstance(v, int):\n\
-    \            self.data, self.size = [0]*v, v\n        else:\n            self.build(v)\n\
-    \n    def build(self, data):\n        self.data, self.size = data, len(data)\n\
-    \        for i in range(self.size):\n            if (r := i|(i+1)) < self.size:\
-    \ \n                data[r] += data[i]\n\n    def get(self, i: int):\n       \
-    \ assert 0 <= i < self.size\n        s, z = (data := self.data)[i], i&(i+1)\n\
-    \        for _ in range((i^z).bit_count()):\n            s, i = s-data[i-1], i-(i&-i)\n\
-    \        return s\n    __getitem__ = get\n    \n    def set(self, i: int, x: int):\n\
-    \        self.add(i, x-self.get(i))\n    __setitem__ = set\n        \n    def\
-    \ add(self, i: int, x: int) -> None:\n        assert 0 <= i <= self.size\n   \
-    \     i += 1\n        data, size = self.data, self.size\n        while i <= size:\n\
-    \            data[i-1], i = data[i-1] + x, i+(i&-i)\n\n    def pref_sum(self,\
-    \ i: int):\n        assert 0 <= i <= self.size\n        s = 0\n        data =\
-    \ self.data\n        for _ in range(i.bit_count()):\n            s, i = s+data[i-1],\
-    \ i-(i&-i)\n        return s\n    \n    def range_sum(self, l: int, r: int):\n\
-    \        return self.pref_sum(r) - self.pref_sum(l)\n"
+    \    def __init__(bit, v: Union[int,list]):\n        if isinstance(v, int):\n\
+    \            bit.data, bit.size = [0]*v, v\n        else:\n            bit.build(v)\n\
+    \n    def build(bit, data):\n        bit.data, bit.size = data, len(data)\n  \
+    \      for i in range(bit.size):\n            if (r := i|(i+1)) < bit.size: \n\
+    \                data[r] += data[i]\n\n    def get(bit, i: int):\n        assert\
+    \ 0 <= i < bit.size\n        s, z = (data := bit.data)[i], i&(i+1)\n        for\
+    \ _ in range((i^z).bit_count()):\n            s, i = s-data[i-1], i-(i&-i)\n \
+    \       return s\n    __getitem__ = get\n    \n    def set(bit, i: int, x: int):\n\
+    \        bit.add(i, x-bit.get(i))\n    __setitem__ = set\n        \n    def add(bit,\
+    \ i: int, x: int) -> None:\n        assert 0 <= i <= bit.size\n        data, size\
+    \ = bit.data, bit.size\n        while i < size:\n            data[i], i = data[i]+x,\
+    \ i|(i+1)\n\n    def presum(bit, n: int):\n        assert 0 <= n <= bit.size\n\
+    \        s, z, i, data = 0, n.bit_count(), n-1, bit.data\n        for _ in range(z):\n\
+    \            s, i = s+data[i], (i&(i+1))-1\n        return s\n    \n    def range_sum(bit,\
+    \ l: int, r: int):\n        return bit.presum(r) - bit.presum(l)\n\n    def prelist(bit):\n\
+    \        pre = [0]+bit.data\n        for i in range(bit.size+1):\n           \
+    \ pre[i] += pre[i&(i-1)]\n        return pre\n    \n    def bisect_left(bit, v):\n\
+    \        data, i, s, m = bit.data, 0, 0, 1 << ((N := bit.size).bit_length()-1)\n\
+    \        while m:\n            if (ni := i|m) <= N and (ns := s + data[ni-1])\
+    \ < v:\n                s, i = ns, ni\n            m >>= 1\n        return i\n\
+    \    \n    def bisect_right(bit, v):\n        data, i, s, m = bit.data, 0, 0,\
+    \ 1 << ((N := bit.size).bit_length()-1)\n        while m:\n            if (ni\
+    \ := i|m) <= N and (ns := s + data[ni-1]) <= v:\n                s, i = ns, ni\n\
+    \            m >>= 1\n        return i\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/bit_cls.py
   requiredBy:
   - cp_library/math/inversion_cnt_fn.py
   - cp_library/ds/bir_cls.py
-  timestamp: '2025-01-16 09:57:28+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2025-01-21 19:55:16+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py

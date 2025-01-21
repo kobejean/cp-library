@@ -56,7 +56,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/slidingminmax_cls.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
+  timestamp: '2025-01-21 19:55:16+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py

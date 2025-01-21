@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bfs_fn.py
     title: cp_library/alg/graph/bfs_fn.py
   - icon: ':question:'
@@ -10,10 +10,10 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/grid_graph_proto.py
     title: cp_library/alg/graph/grid_graph_proto.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
   - icon: ':question:'
@@ -33,9 +33,9 @@ data:
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc184/tasks/abc184_e
     links:
@@ -83,23 +83,23 @@ data:
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
     \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
     \        \n    def line(self):\n        return TokenStream.stream.readline().split()\n\
-    \nclass CharStream(TokenStream):\n    def line(self):\n        assert not self.queue\n\
-    \        return next(TokenStream.stream).rstrip()\n\nParseFn = Callable[[TokenStream],_T]\n\
-    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
-    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
-    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
-    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
-    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
-    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
-    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
-    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
-    \      return cls(next(ts))              \n            return parse\n        else:\n\
-    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
-    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
-    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \        \nTokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n\
+    \n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
+    \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
+    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
+    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
+    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
     \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
@@ -368,18 +368,16 @@ data:
     \ Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
     def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
     \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char:\n        if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(stream)\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \    if not char and spec is None:\n        line = TokenStream.default.queue or\
+    \ TokenStream.stream.readline().split()\n        return map(int, line)\n    parser:\
+    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
+    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the values\
+    \ to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc184_e\n\
     from math import inf\nfrom typing import Iterable\n\ndef main():\n    H, W = read(tuple[int,\
     \ ...])\n    G = read(TeleportGraph[H,W])\n    s = g = None\n    for v,c in enumerate(G.S):\n\
@@ -410,8 +408,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-01-21 19:55:16+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
 layout: document

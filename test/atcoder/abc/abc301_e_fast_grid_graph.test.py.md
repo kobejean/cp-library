@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/chmax_fn.py
     title: cp_library/alg/dp/chmax_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':question:'
@@ -13,13 +13,13 @@ data:
   - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_cls.py
     title: cp_library/alg/graph/fast/grid_graph_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - icon: ':question:'
@@ -42,9 +42,9 @@ data:
     title: cp_library/io/read_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc301/tasks/abc301_e
     links:
@@ -101,9 +101,9 @@ data:
     \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
     \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n\nclass CharStream(TokenStream):\n  \
-    \  def line(self):\n        assert not self.queue\n        return next(TokenStream.stream).rstrip()\n\
-    \nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
+    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
+    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def __init__(self,\
     \ spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\n  \
     \  def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
@@ -226,19 +226,21 @@ data:
     \ [u]\n                    while u != s: cycle.append(u := par[u])\n         \
     \           return cycle\n                if D[v] < u32_max: continue\n      \
     \          D[v], par[v] = D[u]+1, u\n                que.append(v)\n\n    def\
-    \ dfs_topdown(G, s: int) -> list[int]:\n        '''Returns lists of indices i\
-    \ where Ua[i] -> Va[i] are edges in order of top down discovery'''\n        G.vis,\
-    \ G.stack, G.order = vis, stack, order = u8f(N := G.N), G.stack or elist(N), G.order\
-    \ or elist(N)\n        vis[s] = 1\n        stack.append(s)\n        while stack:\n\
-    \            for i in G.range(stack.pop()):\n                if vis[v := G.Va[i]]:\
-    \ continue\n                vis[v] = 1\n                order.append(i), stack.append(v)\n\
-    \        return order\n\n    def dfs(G, s: Union[int,list] = None, /, connect_roots\
-    \ = False, backtrack = False, max_depth = None, enter_fn: Callable[[int],None]\
-    \ = None, leave_fn: Callable[[int],None] = None, max_depth_fn: Callable[[int],None]\
-    \ = None, down_fn: Callable[[int,int],None] = None, back_fn: Callable[[int,int],None]\
-    \ = None, cross_fn: Callable[[int,int],None] = None, up_fn: Callable[[int,int],None]\
-    \ = None):\n        Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]\n        G.state,\
-    \ G.stack = state, stack = u8f(G.N), elist(G.N if max_depth is None else max_depth+1)\n\
+    \ dfs_topdown(G, s: Union[int,list] = None) -> list[int]:\n        '''Returns\
+    \ lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''\n\
+    \        N = G.N\n        G.vis, G.stack, G.order = vis, stack, order = u8f(N),\
+    \ G.stack or elist(N), G.order or elist(N)\n        for s in G.starts(s):\n  \
+    \          if vis[s]: continue\n            vis[s] = 1\n            stack.append(s)\
+    \ \n            while stack:\n                for i in G.range(stack.pop()):\n\
+    \                    if vis[v := G.Va[i]]: continue\n                    vis[v]\
+    \ = 1\n                    order.append(i), stack.append(v)\n        return order\n\
+    \n    def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack\
+    \ = False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn:\
+    \ Callable[[int],None] = None, max_depth_fn: Callable[[int],None] = None, down_fn:\
+    \ Callable[[int,int],None] = None, back_fn: Callable[[int,int],None] = None, cross_fn:\
+    \ Callable[[int,int],None] = None, up_fn: Callable[[int,int],None] = None):\n\
+    \        Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]\n        G.state, G.stack =\
+    \ state, stack = u8f(G.N), elist(G.N if max_depth is None else max_depth+1)\n\
     \        for s in G.starts(s):\n            if state[s]: continue\n          \
     \  stack.append(s)\n            if connect_roots and down_fn: down_fn(-1,s)\n\
     \            while stack:\n                if state[u := stack[-1]] == 0:\n  \
@@ -341,14 +343,11 @@ data:
     \ if ch:=dp[i]<v:dp[i]=v\n    return ch\n\nfrom typing import Type, Union, overload\n\
     \n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
     \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
-    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char:\n   \
-    \     if spec is None:\n            return map(int, TokenStream.stream.readline().split())\n\
-    \        elif isinstance(offset := spec, int):\n            return [int(s)+offset\
-    \ for s in TokenStream.stream.readline().split()]\n        elif spec is int:\n\
-    \            return int(TokenStream.stream.readline())\n        else:\n      \
-    \      stream = TokenStream()\n    else:\n        stream = CharStream()\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(stream)\n\nif __name__ == \"__main__\"\
-    :\n    print(solve())\n"
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
+    \ parser(CharStream.default if char else TokenStream.default)\n\nif __name__ ==\
+    \ \"__main__\":\n    print(solve())\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc301/tasks/abc301_e\n\
     \nfrom math import inf\n\n\ndef solve():\n    H, W, T = read(tuple[int, ...])\n\
     \    G = read(GridGraph[H, W])\n    s = G.S.find('S')\n    g = G.S.find('G')\n\
@@ -382,8 +381,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   requiredBy: []
-  timestamp: '2025-01-16 09:57:28+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-01-21 19:55:16+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
 layout: document
