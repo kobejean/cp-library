@@ -51,7 +51,7 @@ data:
   - cp_library/math/table/sieve_cls.py
   - cp_library/math/table/sieve_proto.py
   - cp_library/math/table/linear_sieve_cls.py
-  timestamp: '2025-01-21 21:57:07+09:00'
+  timestamp: '2025-01-21 22:25:59+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/primes_cls.py

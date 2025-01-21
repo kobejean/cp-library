@@ -165,7 +165,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2025-01-21 21:57:07+09:00'
+  timestamp: '2025-01-21 22:25:59+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/agc/agc038_b_sliding_min_max.test.py

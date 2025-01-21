@@ -94,7 +94,7 @@ data:
   requiredBy:
   - cp_library/math/inversion_cnt_fn.py
   - cp_library/ds/bir_cls.py
-  timestamp: '2025-01-21 21:57:07+09:00'
+  timestamp: '2025-01-21 22:25:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

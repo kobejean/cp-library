@@ -1,21 +1,6 @@
 ---
 data:
   libraryCategories:
-  - name: 60347e9bea5b4b594ca274a3d769232d
-    pages:
-    - icon: ':warning:'
-      path: 60347e9bea5b4b594ca274a3d769232d/compiled.py
-      title: 60347e9bea5b4b594ca274a3d769232d/compiled.py
-  - name: a38fd13cb580e3ab455567494d6b35e4
-    pages:
-    - icon: ':warning:'
-      path: a38fd13cb580e3ab455567494d6b35e4/compiled.py
-      title: a38fd13cb580e3ab455567494d6b35e4/compiled.py
-  - name: bbea009b86be89d44fe0ce7631111f92
-    pages:
-    - icon: ':warning:'
-      path: bbea009b86be89d44fe0ce7631111f92/compiled.py
-      title: bbea009b86be89d44fe0ce7631111f92/compiled.py
   - name: cp_library/alg/divcon
     pages:
     - icon: ':heavy_check_mark:'

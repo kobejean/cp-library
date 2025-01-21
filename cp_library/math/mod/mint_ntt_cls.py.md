@@ -191,7 +191,7 @@ data:
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_inv_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-01-21 21:57:07+09:00'
+  timestamp: '2025-01-21 22:25:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution.test.py

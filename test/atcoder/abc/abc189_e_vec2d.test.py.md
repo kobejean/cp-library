@@ -221,7 +221,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc189_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2025-01-21 21:57:07+09:00'
+  timestamp: '2025-01-21 22:25:59+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc189_e_vec2d.test.py

@@ -367,7 +367,7 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-01-21 21:57:07+09:00'
+  timestamp: '2025-01-21 22:25:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

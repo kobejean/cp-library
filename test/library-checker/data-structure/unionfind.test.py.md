@@ -91,7 +91,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/unionfind.test.py
   requiredBy: []
-  timestamp: '2025-01-21 21:57:07+09:00'
+  timestamp: '2025-01-21 22:25:59+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/unionfind.test.py
