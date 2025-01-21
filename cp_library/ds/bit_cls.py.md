@@ -5,7 +5,7 @@ data:
   - icon: ':warning:'
     path: cp_library/ds/bir_cls.py
     title: cp_library/ds/bir_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/inversion_cnt_fn.py
     title: cp_library/math/inversion_cnt_fn.py
   _extendedVerifiedWith:
@@ -24,12 +24,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
     title: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -94,8 +94,8 @@ data:
   requiredBy:
   - cp_library/math/inversion_cnt_fn.py
   - cp_library/ds/bir_cls.py
-  timestamp: '2025-01-21 19:55:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-01-21 21:57:07+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py

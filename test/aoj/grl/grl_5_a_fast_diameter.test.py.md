@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -19,7 +19,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -28,13 +28,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
@@ -46,19 +46,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -78,13 +78,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\n\nfrom\
-    \ typing import Type, Union, overload\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
-    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ typing import Iterable, Type, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -157,10 +157,10 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
-    @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
-    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
     \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
     \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
@@ -308,20 +308,20 @@ data:
     \ V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return parse\n\
     \    \n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
     \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom typing import Iterable\nfrom array import array\n\
-    \ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  # signed char\n\
-    def u8f(N: int, elm: int = 0):      return array('B', (elm,))*N  # unsigned char\n\
-    def i16f(N: int, elm: int = 0):     return array('h', (elm,))*N  # signed short\n\
-    def u16f(N: int, elm: int = 0):     return array('H', (elm,))*N  # unsigned short\n\
-    def i32f(N: int, elm: int = 0):     return array('i', (elm,))*N  # signed int\n\
-    def u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    def i64f(N: int, elm: int = 0):     return array('q', (elm,))*N  # signed long\
-    \ long\n# def u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned\
-    \ long long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N \
-    \ # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  #\
-    \ double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
-    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
-    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
+    \ = newlist_hint\n    \nfrom array import array\n\ndef i8f(N: int, elm: int =\
+    \ 0):      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int\
+    \ = 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm:\
+    \ int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int,\
+    \ elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
+    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
+    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
+    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
+    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
+    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
+    def i8a(init = None):  return array('b') if init is None else array('b', init)\
+    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
+    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
     \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
     \ return array('H') if init is None else array('H', init)  # unsigned short\n\
     def i32a(init = None): return array('i') if init is None else array('i', init)\
@@ -609,7 +609,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_a_fast_diameter.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_a_fast_diameter.test.py

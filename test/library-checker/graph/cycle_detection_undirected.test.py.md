@@ -1,34 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -301,9 +301,9 @@ data:
     \ e in range(M):\n            Ra[u], Ra[v] = (i := Ra[u := U[e]])+1, (j := Ra[v\
     \ := V[e]])+1\n            Ua[i], Va[i], Ea[i], Ua[j], Va[j], Ea[j] = u, v, e,\
     \ v, u, e\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n\n\
-    from typing import Type, Union, overload\n\n@overload\ndef read() -> list[int]:\
-    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
+    from typing import Iterable, Type, Union, overload\n\n@overload\ndef read() ->\
+    \ Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None:\n        line = TokenStream.default.queue\
     \ or TokenStream.stream.readline().split()\n        return map(int, line)\n  \
     \  parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
@@ -335,7 +335,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/cycle_detection_undirected.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/cycle_detection_undirected.test.py

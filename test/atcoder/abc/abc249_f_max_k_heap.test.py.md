@@ -16,16 +16,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/min_heap_cls.py
     title: cp_library/ds/heap/min_heap_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -52,13 +52,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nfrom typing import Type, Union, overload\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nimport\
-    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \               \n'''\n\nfrom typing import Iterable, Type, Union, overload\n\
+    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -131,10 +131,10 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
-    @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
-    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
     \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
     \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
@@ -144,11 +144,10 @@ data:
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nfrom typing import Reversible\n\ndef rev_enumerate(A:\
     \ Reversible, start: int = 0):\n    A = list(enumerate(A, start))\n    return\
-    \ A[::-1]\n\nfrom typing import Iterable, TypeVar\n\nfrom collections import UserList\n\
-    from heapq import heapify, heappop, heappush, heappushpop, heapreplace\nfrom typing\
-    \ import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self) -> _T:\
-    \ ...\n    def push(self, item: _T): ...\n    def pushpop(self, item: _T) -> _T:\
-    \ ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MinHeap(HeapProtocol[_T],\
+    \ A[::-1]\n\n\nfrom collections import UserList\nfrom heapq import heapify, heappop,\
+    \ heappush, heappushpop, heapreplace\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
+    \    def pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
+    \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MinHeap(HeapProtocol[_T],\
     \ UserList[_T]):\n    def __init__(self, iterable: Iterable = None):\n       \
     \ super().__init__(iterable)\n        heapify(self.data)\n    \n    def pop(self):\
     \ return heappop(self.data)\n    def push(self, item: _T): heappush(self.data,\
@@ -212,7 +211,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc249_f_max_k_heap.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc249_f_max_k_heap.test.py

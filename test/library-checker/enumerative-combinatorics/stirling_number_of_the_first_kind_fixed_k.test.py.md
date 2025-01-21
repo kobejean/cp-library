@@ -4,16 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/reserve_fn.py
     title: cp_library/ds/reserve_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -37,19 +37,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/fps/fps_pow_fn.py
     title: cp_library/math/fps/fps_pow_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_ntt_cls.py
     title: cp_library/math/mod/mint_ntt_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/nt/mod_inv_fn.py
     title: cp_library/math/nt/mod_inv_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/nt/ntt_cls.py
     title: cp_library/math/nt/ntt_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/table/modcomb_cls.py
     title: cp_library/math/table/modcomb_cls.py
   - icon: ':heavy_check_mark:'
@@ -224,16 +224,16 @@ data:
     \    kinv,fact,mod,deg = modcomb.fact_inv[k],modcomb.fact,mint.mod,n+1-k\n   \
     \ R = modcomb.inv[1:deg+1]\n    if signed:\n        for i in range(1,deg,2): R[i]\
     \ = mod - R[i]\n    return [mint(r*kinv%mod*fact[i]) for i,r in enumerate(fps_pow(R,k,deg),start=k)]\n\
-    \n\n\nfrom typing import Type, Union, overload\nimport typing\nfrom collections\
-    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \n\n\nfrom typing import Iterable, Type, Union, overload\nimport typing\nfrom\
+    \ collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nimport\
+    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -303,10 +303,10 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
-    @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
-    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
     \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
     \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
@@ -344,7 +344,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

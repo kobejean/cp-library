@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
@@ -13,13 +13,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   _extendedRequiredBy: []
@@ -38,13 +38,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Type, Union, overload\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
-    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \nfrom typing import Iterable, Type, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -117,10 +117,10 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
-    @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
-    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
     \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n\n\n\n\nclass Edge(tuple,\
     \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
@@ -157,7 +157,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_edges_weighted_fn.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py

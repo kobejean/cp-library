@@ -1,31 +1,31 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_cls.py
     title: cp_library/alg/graph/digraph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -344,19 +344,20 @@ data:
     \        for e,(u,v) in enumerate(G.E):\n            Eid[u].append(e)\n      \
     \  return Eid\n    \n    @classmethod\n    def compile(cls, N: int, M: int, E:\
     \ Union[type,int] = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n \
-    \       return super().compile(N, M, E)\n\nfrom typing import Type, Union, overload\n\
-    \n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
-    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
-    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
-    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \       return super().compile(N, M, E)\n\nfrom typing import Iterable, Type,\
+    \ Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
+    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
+    \    if not char and spec is None:\n        line = TokenStream.default.queue or\
+    \ TokenStream.stream.readline().split()\n        return map(int, line)\n    parser:\
+    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
+    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the values\
+    \ to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc245/tasks/abc245_f\n\
     \ndef main():\n    N, M = read(tuple[int,int])\n    G = read(DiGraph[N,M])\n \
     \   ans = sum(label_cycles(G))\n    write(ans)\n\ndef label_cycles(G):\n    state\
@@ -383,7 +384,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc245_f_digraph.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc245_f_digraph.test.py

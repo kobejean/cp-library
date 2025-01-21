@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/monotone_minima_fn.py
     title: cp_library/alg/dp/monotone_minima_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   _extendedRequiredBy: []
@@ -77,7 +77,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/minplus_conv_fn.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py

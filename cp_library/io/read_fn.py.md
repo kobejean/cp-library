@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -162,22 +162,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
     title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
     title: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
     title: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   - icon: ':heavy_check_mark:'
@@ -255,9 +255,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -266,13 +266,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Type, Union, overload\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
-    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \nfrom typing import Iterable, Type, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -345,20 +345,21 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
-    @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
-    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
     \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n"
-  code: "import cp_library.io.__header__\n\nfrom typing import Type, Union, overload\n\
-    from cp_library.io.parser_cls import Parser, TokenStream, CharStream\nfrom cp_library.misc.typing\
-    \ import _T\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
-    \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False)\
-    \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
-    \ char and spec is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
-    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n"
+  code: "import cp_library.io.__header__\n\nfrom typing import Iterable, Type, Union,\
+    \ overload\nfrom cp_library.io.parser_cls import Parser, TokenStream, CharStream\n\
+    from cp_library.misc.typing import _T\n\n@overload\ndef read() -> Iterable[int]:\
+    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
+    \ = None, char=False):\n    if not char and spec is None:\n        line = TokenStream.default.queue\
+    \ or TokenStream.stream.readline().split()\n        return map(int, line)\n  \
+    \  parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
@@ -366,8 +367,8 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-01-21 19:55:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-01-21 21:57:07+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

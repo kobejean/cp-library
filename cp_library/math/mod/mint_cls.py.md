@@ -41,7 +41,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/modmat_cls.py
     title: cp_library/math/mod/modmat_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/table/modcomb_cls.py
     title: cp_library/math/table/modcomb_cls.py
   - icon: ':heavy_check_mark:'
@@ -57,7 +57,7 @@ data:
     path: cp_library/math/table/stirling2_n_fn.py
     title: cp_library/math/table/stirling2_n_fn.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
     title: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
   - icon: ':heavy_check_mark:'
@@ -99,9 +99,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -177,8 +177,8 @@ data:
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_ideriv_fn.py
   - cp_library/math/fps/fps_iinteg_fn.py
-  timestamp: '2025-01-21 19:55:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-01-21 21:57:07+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py

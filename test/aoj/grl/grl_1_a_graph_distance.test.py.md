@@ -1,19 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/digraph_weighted_cls.py
     title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
@@ -22,7 +22,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
@@ -34,16 +34,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -64,8 +64,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\nfrom typing import Type, Union, overload\nimport typing\nfrom\
-    \ collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \        \n'''\n\nfrom typing import Iterable, Type, Union, overload\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
     \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nimport\
     \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
     \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
@@ -143,10 +143,10 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
-    @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
-    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
     \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
     \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
@@ -174,25 +174,24 @@ data:
     \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\ndef elist(est_len:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ typing import Iterable, Union, overload\n\nclass GraphProtocol(list, Parsable):\n\
-    \    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
-    \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
-    \ adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
-    \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
-    \ list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        if s == None:\n            return G.floyd_warshall()\n \
-    \       else:\n            return G.bfs(s, g)\n\n    @overload\n    def bfs(G,\
-    \ s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
-    \ Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n   \
-    \     D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
-    \ else s)\n        for u in q: D[u] = 0\n        while q:\n            nd = D[u\
-    \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
-    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
-    \                    q.append(v)\n        return D if g is None else inf \n\n\
-    \    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    class GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E: list = None,\
+    \ adj: Iterable = None):\n        G.N = N\n        if E is not None:\n       \
+    \     G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
+    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
+    \    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n    def distance(G)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
+    \ distance(G, s = None, g = None):\n        if s == None:\n            return\
+    \ G.floyd_warshall()\n        else:\n            return G.bfs(s, g)\n\n    @overload\n\
+    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
+    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g\
+    \ = None):\n        D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s,\
+    \ int) else s)\n        for u in q: D[u] = 0\n        while q:\n            nd\
+    \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
+    \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
+    \ \n\n    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
     \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
     \ -> tuple[Union[list[int],None],list[int]]: ...\n    def shortest_path(G, s:\
     \ int, g: int, distances = False) -> list[int]:\n        D = [inf] * G.N\n   \
@@ -593,7 +592,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_a_graph_distance.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_a_graph_distance.test.py

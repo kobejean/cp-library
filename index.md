@@ -1,15 +1,30 @@
 ---
 data:
   libraryCategories:
+  - name: 60347e9bea5b4b594ca274a3d769232d
+    pages:
+    - icon: ':warning:'
+      path: 60347e9bea5b4b594ca274a3d769232d/compiled.py
+      title: 60347e9bea5b4b594ca274a3d769232d/compiled.py
+  - name: a38fd13cb580e3ab455567494d6b35e4
+    pages:
+    - icon: ':warning:'
+      path: a38fd13cb580e3ab455567494d6b35e4/compiled.py
+      title: a38fd13cb580e3ab455567494d6b35e4/compiled.py
+  - name: bbea009b86be89d44fe0ce7631111f92
+    pages:
+    - icon: ':warning:'
+      path: bbea009b86be89d44fe0ce7631111f92/compiled.py
+      title: bbea009b86be89d44fe0ce7631111f92/compiled.py
   - name: cp_library/alg/divcon
     pages:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/fbisect_fn.py
       title: cp_library/alg/divcon/fbisect_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/partition_fn.py
       title: cp_library/alg/divcon/partition_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/qselect_fn.py
       title: cp_library/alg/divcon/qselect_fn.py
     - icon: ':warning:'
@@ -32,10 +47,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/monotone_minima_fn.py
       title: cp_library/alg/dp/monotone_minima_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/rerooting_iterative_cls.py
       title: cp_library/alg/dp/rerooting_iterative_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/rerooting_recursive_cls.py
       title: cp_library/alg/dp/rerooting_recursive_cls.py
   - name: cp_library/alg/graph
@@ -61,7 +76,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dfs_events_fn.py
       title: cp_library/alg/graph/dfs_events_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dfs_options_cls.py
       title: cp_library/alg/graph/dfs_options_cls.py
     - icon: ':heavy_check_mark:'
@@ -73,7 +88,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dijkstra_fn.py
       title: cp_library/alg/graph/dijkstra_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/edge_cls.py
       title: cp_library/alg/graph/edge_cls.py
     - icon: ':heavy_check_mark:'
@@ -106,10 +121,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/functional_graph_cls.py
       title: cp_library/alg/graph/functional_graph_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_cls.py
       title: cp_library/alg/graph/graph_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/graph_proto.py
       title: cp_library/alg/graph/graph_proto.py
     - icon: ':warning:'
@@ -165,10 +180,10 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
       title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_base_cls.py
       title: cp_library/alg/graph/fast/graph_base_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_cls.py
       title: cp_library/alg/graph/fast/graph_cls.py
     - icon: ':heavy_check_mark:'
@@ -205,7 +220,7 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/iter/enumerate_rev_fn.py
       title: cp_library/alg/iter/enumerate_rev_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/presum_fn.py
       title: cp_library/alg/iter/presum_fn.py
     - icon: ':heavy_check_mark:'
@@ -255,7 +270,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
       title: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_iterative_cls.py
       title: cp_library/alg/tree/lca_table_iterative_cls.py
     - icon: ':heavy_check_mark:'
@@ -264,10 +279,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
       title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_cls.py
       title: cp_library/alg/tree/tree_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/tree_proto.py
       title: cp_library/alg/tree/tree_proto.py
     - icon: ':heavy_check_mark:'
@@ -278,10 +293,10 @@ data:
       title: cp_library/alg/tree/tree_weighted_proto.py
   - name: cp_library/alg/tree/fast
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_base_cls.py
       title: cp_library/alg/tree/fast/tree_base_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_cls.py
       title: cp_library/alg/tree/fast/tree_cls.py
     - icon: ':heavy_check_mark:'
@@ -318,25 +333,25 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/ahocorasick_cls.py
       title: cp_library/ds/ahocorasick_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/array_init_fn.py
       title: cp_library/ds/array_init_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/bidirectional_array_cls.py
       title: cp_library/ds/bidirectional_array_cls.py
     - icon: ':warning:'
       path: cp_library/ds/bir_cls.py
       title: cp_library/ds/bir_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/bit_cls.py
       title: cp_library/ds/bit_cls.py
     - icon: ':warning:'
       path: cp_library/ds/bit_generalized_cls.py
       title: cp_library/ds/bit_generalized_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/cht_monotone_add_max_cls.py
       title: cp_library/ds/cht_monotone_add_max_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/cht_monotone_add_min_cls.py
       title: cp_library/ds/cht_monotone_add_min_cls.py
     - icon: ':warning:'
@@ -345,7 +360,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/elist_fn.py
       title: cp_library/ds/elist_fn.py
     - icon: ':warning:'
@@ -354,10 +369,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/min_sparse_table_cls.py
       title: cp_library/ds/min_sparse_table_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/packet_list_cls.py
       title: cp_library/ds/packet_list_cls.py
     - icon: ':warning:'
@@ -384,7 +399,7 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/slidingmin_cls.py
       title: cp_library/ds/slidingmin_cls.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/slidingminmax_cls.py
       title: cp_library/ds/slidingminmax_cls.py
     - icon: ':warning:'
@@ -436,25 +451,25 @@ data:
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/legacy
@@ -482,7 +497,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/inft_cnst.py
       title: cp_library/math/inft_cnst.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/inversion_cnt_fn.py
       title: cp_library/math/inversion_cnt_fn.py
     - icon: ':warning:'
@@ -497,7 +512,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mat_pow_fn.py
       title: cp_library/math/mat_pow_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/median_fn.py
       title: cp_library/math/median_fn.py
     - icon: ':heavy_check_mark:'
@@ -590,7 +605,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/mod/mat_sub_fn.py
       title: cp_library/math/mod/mat_sub_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
@@ -613,7 +628,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/nt/chinese_remainder_theorem_fn.py
       title: cp_library/math/nt/chinese_remainder_theorem_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/nt/mod_inv_fn.py
       title: cp_library/math/nt/mod_inv_fn.py
     - icon: ':heavy_check_mark:'
@@ -642,7 +657,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/table/mobius_cls.py
       title: cp_library/math/table/mobius_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/table/modcomb_cls.py
       title: cp_library/math/table/modcomb_cls.py
     - icon: ':heavy_check_mark:'
@@ -682,7 +697,7 @@ data:
       title: cp_library/misc/decorators/lazy_class_attribute_cls.py
   - name: cp_library/misc
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/misc/setrecursionlimit.py
       title: cp_library/misc/setrecursionlimit.py
     - icon: ':warning:'
@@ -892,38 +907,38 @@ data:
       title: test/atcoder/abc/abc375_g_find_bridges.test.py
   - name: test/atcoder/agc
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
       title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   - name: test/atcoder/arc
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/arc/arc122_b_insurance_median.test.py
       title: test/atcoder/arc/arc122_b_insurance_median.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
       title: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
       title: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
       title: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
   - name: test/atcoder/dp
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
       title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
       title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
       title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
       title: test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
       title: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   - name: test/library-checker/convolution

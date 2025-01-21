@@ -2,22 +2,22 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/rerooting_iterative_cls.py
     title: cp_library/alg/dp/rerooting_iterative_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/rerooting_recursive_cls.py
     title: cp_library/alg/dp/rerooting_recursive_cls.py
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -51,8 +51,8 @@ data:
   requiredBy:
   - cp_library/alg/dp/rerooting_iterative_cls.py
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  timestamp: '2025-01-21 19:55:16+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2025-01-21 21:57:07+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

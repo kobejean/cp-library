@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/divcon/partition_fn.py
     title: cp_library/alg/divcon/partition_fn.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/divcon/qselect_fn.py
     title: cp_library/alg/divcon/qselect_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/arc/arc122_b_insurance_median.test.py
     title: test/atcoder/arc/arc122_b_insurance_median.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -44,8 +44,8 @@ data:
   isVerificationFile: false
   path: cp_library/math/median_fn.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2025-01-21 21:57:07+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc122_b_insurance_median.test.py
 documentation_of: cp_library/math/median_fn.py

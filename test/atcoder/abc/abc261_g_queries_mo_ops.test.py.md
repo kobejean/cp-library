@@ -1,22 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/queries_mo_ops_cls.py
     title: cp_library/ds/queries_mo_ops_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -173,11 +173,11 @@ data:
     \            query = Parser.compile(T)\n            def parse(ts: TokenStream):\n\
     \                L, R = [0]*Q, [0]*Q\n                for i in range(Q):\n   \
     \                 L[i], R[i] = query(ts)\n                return cls(L, R, N,\
-    \ B)\n            return parse\n\nfrom typing import Type, Union, overload\n\n\
-    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
-    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
-    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    \ B)\n            return parse\n\nfrom typing import Iterable, Type, Union, overload\n\
+    \n@overload\ndef read() -> Iterable[int]: ...\n@overload\ndef read(spec: int)\
+    \ -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False)\
+    \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
+    \ char and spec is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
     \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
     \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
@@ -210,7 +210,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_queries_mo_ops.test.py

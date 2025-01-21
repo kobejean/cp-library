@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -25,13 +25,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/fps/fps_log_fn.py
     title: cp_library/math/fps/fps_log_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_ntt_cls.py
     title: cp_library/math/mod/mint_ntt_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/nt/mod_inv_fn.py
     title: cp_library/math/nt/mod_inv_fn.py
   - icon: ':heavy_check_mark:'
@@ -156,10 +156,10 @@ data:
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
     \ = NTT(mod)\n\ndef fps_log(P: list) -> list:\n    return fps_integ(mint.ntt.conv(fps_deriv(P),\
-    \ fps_inv(P), len(P)-1))\n\n\n\nfrom typing import Type, Union, overload\nimport\
-    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
-    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \ fps_inv(P), len(P)-1))\n\n\n\nfrom typing import Iterable, Type, Union, overload\n\
+    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -235,10 +235,10 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n\
-    @overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec:\
-    \ Union[Type[_T],_T] = None, char=False):\n    if not char and spec is None:\n\
-    \        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
     \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
     \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
@@ -269,7 +269,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/log_of_formal_power_series.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/log_of_formal_power_series.test.py

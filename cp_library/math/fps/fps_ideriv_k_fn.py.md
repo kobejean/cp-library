@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/nt/mod_inv_fn.py
     title: cp_library/math/nt/mod_inv_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/table/modcomb_cls.py
     title: cp_library/math/table/modcomb_cls.py
   _extendedRequiredBy: []
@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_ideriv_k_fn.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_ideriv_k_fn.py

@@ -69,7 +69,7 @@ data:
   - cp_library/alg/graph/permutation_cls.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
   - cp_library/alg/graph/partial_functional_graph_cls.py
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py

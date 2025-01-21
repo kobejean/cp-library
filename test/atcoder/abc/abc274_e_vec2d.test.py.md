@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -182,8 +182,8 @@ data:
     \ Vec2D((x//g,y//g))\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
     \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
     \      return cls(elm(ts), elm(ts))\n        return parse\n\n\nfrom typing import\
-    \ Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ Iterable, Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n\
+    @overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
     \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
     \    if not char and spec is None:\n        line = TokenStream.default.queue or\
     \ TokenStream.stream.readline().split()\n        return map(int, line)\n    parser:\
@@ -224,7 +224,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc274_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc274_e_vec2d.test.py

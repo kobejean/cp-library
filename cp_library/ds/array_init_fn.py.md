@@ -11,10 +11,10 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
   - icon: ':heavy_check_mark:'
@@ -50,10 +50,10 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/strongly_connected_components_fn.py
     title: cp_library/alg/graph/strongly_connected_components_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
   - icon: ':heavy_check_mark:'
@@ -99,7 +99,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
@@ -123,9 +123,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "from typing import Iterable\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\
@@ -265,8 +265,8 @@ data:
   - cp_library/alg/graph/permutation_cls.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
   - cp_library/alg/graph/partial_functional_graph_cls.py
-  timestamp: '2025-01-21 19:55:16+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-01-21 21:57:07+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

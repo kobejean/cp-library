@@ -4,37 +4,37 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/slice_iterator_reverse_cls.py
     title: cp_library/alg/iter/slice_iterator_reverse_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -326,19 +326,20 @@ data:
     \ len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
     \        L = self.L\n        if not L: raise StopIteration\n        self.r, r\
     \ = (l := L.pop()), self.r\n        return self.A[l:r]\n\n\ndef chmin(dp, i, v):\n\
-    \    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom typing import Type, Union,\
-    \ overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
-    \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False)\
-    \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
-    \ char and spec is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
-    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
+    \    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom typing import Iterable, Type,\
+    \ Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
+    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
+    \    if not char and spec is None:\n        line = TokenStream.default.queue or\
+    \ TokenStream.stream.readline().split()\n        return map(int, line)\n    parser:\
+    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
+    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the values\
+    \ to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/scc\n\ndef\
     \ main():\n    N, M = read()\n    G = read(DiGraph[N,M,0])\n    sccs = G.scc()\n\
     \    write(len(sccs))\n    for scc in sccs:\n        write(len(scc), *scc)\n \
@@ -361,7 +362,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/scc.test.py
   requiredBy: []
-  timestamp: '2025-01-21 19:55:16+09:00'
+  timestamp: '2025-01-21 21:57:07+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/scc.test.py
