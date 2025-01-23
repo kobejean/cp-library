@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/abc184_f_subset_sum_fn.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc184_f_subset_sum_fn.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/abc184_f_subset_sum_fn.test.py
+# run test/atcoder/abc/abc184_f_subset_sum_fn.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 

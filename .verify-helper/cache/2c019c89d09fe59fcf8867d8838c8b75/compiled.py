@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/abc325_f_minplus_conv_inplace.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/abc325_f_minplus_conv_inplace.test.py
+# run test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 
