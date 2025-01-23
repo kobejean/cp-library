@@ -31,6 +31,7 @@ class CharStream(TokenStream):
     def line(self):
         return TokenStream.stream.readline().rstrip()
 
+CharStream.default = CharStream()
 
 ParseFn = Callable[[TokenStream],_T]
 class Parser:
