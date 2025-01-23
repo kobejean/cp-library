@@ -104,16 +104,16 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   requiredBy:
-  - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2025-01-21 22:25:59+09:00'
+  - cp_library/alg/tree/tree_weighted_cls.py
+  timestamp: '2025-01-24 05:21:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
 layout: document
 redirect_from:

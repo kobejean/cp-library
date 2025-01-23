@@ -5,8 +5,14 @@ data:
     path: cp_library/ds/segtree_cls.py
     title: cp_library/ds/segtree_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/fast_io_cls.py
+    title: cp_library/io/fast_io_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/write_fn.py
+    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,73 +23,91 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\n\
-    \ndef main():\n    N, Q = read()\n\n    seg = SegTree(min, 2147483647, N)\n\n\
-    \    for _ in range(Q):\n        com, x, y = read()\n        if com:\n       \
-    \     print(seg.prod(x,y+1))\n        else:\n            seg.set(x,y)\n\n'''\n\
-    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ndef main():\n    N, Q = read()\n    seg = SegTree(min, 2147483647, N)\n    for\
+    \ _ in range(Q):\n        com, x, y = read()\n        if com: write(seg.prod(x,y+1))\n\
+    \        else: seg[x] = y\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\nimport typing\n\
-    \nclass SegTree:\n    def __init__(self,\n                 op: typing.Callable[[typing.Any,\
-    \ typing.Any], typing.Any],\n                 e: typing.Any,\n               \
-    \  v: typing.Union[int, typing.List[typing.Any]]) -> None:\n        self.op =\
-    \ op\n        self.e = e\n\n        if isinstance(v, int):\n            v = [e]\
-    \ * v\n\n        self.n = len(v)\n        self.log = (self.n-1).bit_length()+1\n\
-    \        self.size = 1 << self.log\n        self.d = [e] * (2 * self.size)\n\n\
-    \        for i in range(self.n):\n            self.d[self.size + i] = v[i]\n \
-    \       for i in range(self.size - 1, 0, -1):\n            self._update(i)\n\n\
-    \    def set(self, p: int, x: typing.Any) -> None:\n        assert 0 <= p < self.n\n\
-    \n        p += self.size\n        self.d[p] = x\n        for i in range(1, self.log\
-    \ + 1):\n            self._update(p >> i)\n    __setitem__ = set\n\n    def get(self,\
-    \ p: int) -> typing.Any:\n        assert 0 <= p < self.n\n\n        return self.d[p\
-    \ + self.size]\n    __getitem__ = get\n\n    def prod(self, left: int, right:\
-    \ int) -> typing.Any:\n        assert 0 <= left <= right <= self.n\n        sml\
-    \ = self.e\n        smr = self.e\n        left += self.size\n        right +=\
-    \ self.size\n\n        while left < right:\n            if left & 1:\n       \
-    \         sml = self.op(sml, self.d[left])\n                left += 1\n      \
-    \      if right & 1:\n                right -= 1\n                smr = self.op(self.d[right],\
-    \ smr)\n            left >>= 1\n            right >>= 1\n\n        return self.op(sml,\
-    \ smr)\n\n    def all_prod(self) -> typing.Any:\n        return self.d[1]\n\n\
-    \    def max_right(self, left: int,\n                  f: typing.Callable[[typing.Any],\
-    \ bool]) -> int:\n        assert 0 <= left <= self.n\n        assert f(self.e)\n\
-    \n        if left == self.n:\n            return self.n\n\n        left += self.size\n\
-    \        sm = self.e\n\n        first = True\n        while first or (left & -left)\
-    \ != left:\n            first = False\n            while left % 2 == 0:\n    \
-    \            left >>= 1\n            if not f(self.op(sm, self.d[left])):\n  \
-    \              while left < self.size:\n                    left *= 2\n      \
-    \              if f(self.op(sm, self.d[left])):\n                        sm =\
-    \ self.op(sm, self.d[left])\n                        left += 1\n             \
-    \   return left - self.size\n            sm = self.op(sm, self.d[left])\n    \
-    \        left += 1\n\n        return self.n\n\n    def min_left(self, right: int,\n\
-    \                 f: typing.Callable[[typing.Any], bool]) -> int:\n        assert\
-    \ 0 <= right <= self.n\n        assert f(self.e)\n\n        if right == 0:\n \
-    \           return 0\n\n        right += self.size\n        sm = self.e\n\n  \
-    \      first = True\n        while first or (right & -right) != right:\n     \
-    \       first = False\n            right -= 1\n            while right > 1 and\
-    \ right % 2:\n                right >>= 1\n            if not f(self.op(self.d[right],\
-    \ sm)):\n                while right < self.size:\n                    right =\
-    \ 2 * right + 1\n                    if f(self.op(self.d[right], sm)):\n     \
-    \                   sm = self.op(self.d[right], sm)\n                        right\
-    \ -= 1\n                return right + 1 - self.size\n            sm = self.op(self.d[right],\
-    \ sm)\n\n        return 0\n\n    def _update(self, k: int) -> None:\n        self.d[k]\
-    \ = self.op(self.d[2 * k], self.d[2 * k + 1])\n\n\ndef read(shift=0, base=10):\n\
-    \    return [int(s, base) + shift for s in input().split()]\n\nif __name__ ==\
-    \ '__main__':\n    main()\n"
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
+    \              \n'''\nfrom typing import Callable, Generic, Union\nfrom typing\
+    \ import TypeVar\n_T = TypeVar('T')\n\nclass SegTree(Generic[_T]):\n    def __init__(self,\
+    \ op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) -> None:\n     \
+    \   if isinstance(v, int): v = [e] * v\n        self.op, self.e, self.n = op,\
+    \ e, (n := len(v))\n        self.log, self.sz, self.d = (log := (n-1).bit_length()+1),\
+    \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): self.d[sz + i]\
+    \ = v[i]\n        for i in range(sz-1,0,-1): self.d[i] = op(self.d[i<<1], self.d[i<<1|1])\n\
+    \n    def set(self, p: int, x: _T) -> None:\n        assert 0 <= p < self.n\n\
+    \        (d := self.d)[p := p + self.sz], op = x, self.op\n        for _ in range(self.log):\
+    \ d[p:=p>>1] = op(d[p:=p^(p&1)], d[p|1])\n    __setitem__ = set\n\n    def get(self,\
+    \ p: int) -> _T:\n        assert 0 <= p < self.n\n        return self.d[p + self.sz]\n\
+    \    __getitem__ = get\n\n    def prod(self, l: int, r: int) -> _T:\n        assert\
+    \ 0 <= l <= r <= self.n\n        sml = smr = self.e\n        l, r, op, d = l+self.sz,\
+    \ r+self.sz, self.op, self.d\n        while l < r:\n            if l&1: sml, l\
+    \ = op(sml, d[l]), l+1\n            if r&1: smr = op(d[r:=r-1], smr)\n       \
+    \     l, r = l >> 1, r >> 1\n        return op(sml, smr)\n\n    def all_prod(self)\
+    \ -> _T:\n        return self.d[1]\n\n    def max_right(self, l: int, f: Callable[[_T],\
+    \ bool]) -> int:\n        assert 0 <= l <= self.n\n        assert f(self.e)\n\
+    \        if l == self.n: return self.n\n        l, op, d, sm = l+(sz := self.sz),\
+    \ self.op, self.d, self.e\n        while True:\n            while l&1 == 0: l\
+    \ >>= 1\n            if not f(op(sm, d[l])):\n                while l < sz:\n\
+    \                    if f(op(sm, d[l:=l<<1])): sm, l = op(sm, d[l]), l+1\n   \
+    \             return l - sz\n            sm = op(sm, d[l])\n            l += 1\n\
+    \            if (l & -l) == l: return self.n\n\n    def min_left(self, r: int,\
+    \ f: Callable[[_T], bool]) -> int:\n        assert 0 <= r <= self.n\n        assert\
+    \ f(self.e)\n        if r == 0: return 0\n        r, op, d, sm = r+(sz := self.sz),\
+    \ self.op, self.d, self.e\n        while True:\n            r -= 1\n         \
+    \   while r > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n    \
+    \            while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm,\
+    \ r = op(d[r], sm), r-1\n                return r + 1 - sz\n            sm = op(d[r],\
+    \ sm)\n            if (r & -r) == r: return 0\n\n\ndef read(shift=0, base=10):\n\
+    \    return [int(s, base) + shift for s in input().split()]\nimport os\nimport\
+    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the\
+    \ values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\n\
-    \ndef main():\n    N, Q = read()\n\n    seg = SegTree(min, 2147483647, N)\n\n\
-    \    for _ in range(Q):\n        com, x, y = read()\n        if com:\n       \
-    \     print(seg.prod(x,y+1))\n        else:\n            seg.set(x,y)\n\nfrom\
-    \ cp_library.ds.segtree_cls import SegTree\nfrom cp_library.io.read_int_fn import\
-    \ read\n\nif __name__ == '__main__':\n    main()"
+    \ndef main():\n    N, Q = read()\n    seg = SegTree(min, 2147483647, N)\n    for\
+    \ _ in range(Q):\n        com, x, y = read()\n        if com: write(seg.prod(x,y+1))\n\
+    \        else: seg[x] = y\n\nfrom cp_library.ds.segtree_cls import SegTree\nfrom\
+    \ cp_library.io.read_int_fn import read\nfrom cp_library.io.write_fn import write\n\
+    \nif __name__ == '__main__':\n    main()"
   dependsOn:
   - cp_library/ds/segtree_cls.py
   - cp_library/io/read_int_fn.py
+  - cp_library/io/write_fn.py
+  - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/aoj/dsl/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2025-01-21 22:25:59+09:00'
+  timestamp: '2025-01-24 05:21:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/dsl_2_a_segtree.test.py

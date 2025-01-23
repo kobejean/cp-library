@@ -40,9 +40,9 @@ data:
   path: cp_library/bit/popcnt32_fn.py
   requiredBy:
   - cp_library/alg/graph/bit_graph_cls.py
-  - cp_library/bit/ctz32_fn.py
   - cp_library/bit/clz32_fn.py
-  timestamp: '2025-01-21 22:25:59+09:00'
+  - cp_library/bit/ctz32_fn.py
+  timestamp: '2025-01-24 05:21:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

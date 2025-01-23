@@ -89,19 +89,19 @@ data:
   isVerificationFile: false
   path: cp_library/math/elm_wise_mixin.py
   requiredBy:
-  - cp_library/math/elm_wise_in_place_mixin.py
+  - cp_library/math/mutvec_cls.py
+  - cp_library/math/vec2d_cls.py
+  - cp_library/math/slope_cls.py
+  - cp_library/math/mat_cls.py
   - cp_library/math/vec3d_cls.py
   - cp_library/math/vec_cls.py
-  - cp_library/math/slope_cls.py
-  - cp_library/math/mutvec_cls.py
-  - cp_library/math/mat_cls.py
-  - cp_library/math/vec2d_cls.py
-  timestamp: '2025-01-21 22:25:59+09:00'
+  - cp_library/math/elm_wise_in_place_mixin.py
+  timestamp: '2025-01-24 05:21:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - test/atcoder/abc/abc189_e_vec2d.test.py
   - test/atcoder/abc/abc274_e_vec2d.test.py
+  - test/atcoder/abc/abc189_e_vec2d.test.py
 documentation_of: cp_library/math/elm_wise_mixin.py
 layout: document
 redirect_from:

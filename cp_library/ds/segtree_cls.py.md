@@ -17,98 +17,73 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import typing\n\nclass SegTree:\n    def __init__(self,\n                 op:\
-    \ typing.Callable[[typing.Any, typing.Any], typing.Any],\n                 e:\
-    \ typing.Any,\n                 v: typing.Union[int, typing.List[typing.Any]])\
-    \ -> None:\n        self.op = op\n        self.e = e\n\n        if isinstance(v,\
-    \ int):\n            v = [e] * v\n\n        self.n = len(v)\n        self.log\
-    \ = (self.n-1).bit_length()+1\n        self.size = 1 << self.log\n        self.d\
-    \ = [e] * (2 * self.size)\n\n        for i in range(self.n):\n            self.d[self.size\
-    \ + i] = v[i]\n        for i in range(self.size - 1, 0, -1):\n            self._update(i)\n\
-    \n    def set(self, p: int, x: typing.Any) -> None:\n        assert 0 <= p < self.n\n\
-    \n        p += self.size\n        self.d[p] = x\n        for i in range(1, self.log\
-    \ + 1):\n            self._update(p >> i)\n    __setitem__ = set\n\n    def get(self,\
-    \ p: int) -> typing.Any:\n        assert 0 <= p < self.n\n\n        return self.d[p\
-    \ + self.size]\n    __getitem__ = get\n\n    def prod(self, left: int, right:\
-    \ int) -> typing.Any:\n        assert 0 <= left <= right <= self.n\n        sml\
-    \ = self.e\n        smr = self.e\n        left += self.size\n        right +=\
-    \ self.size\n\n        while left < right:\n            if left & 1:\n       \
-    \         sml = self.op(sml, self.d[left])\n                left += 1\n      \
-    \      if right & 1:\n                right -= 1\n                smr = self.op(self.d[right],\
-    \ smr)\n            left >>= 1\n            right >>= 1\n\n        return self.op(sml,\
-    \ smr)\n\n    def all_prod(self) -> typing.Any:\n        return self.d[1]\n\n\
-    \    def max_right(self, left: int,\n                  f: typing.Callable[[typing.Any],\
-    \ bool]) -> int:\n        assert 0 <= left <= self.n\n        assert f(self.e)\n\
-    \n        if left == self.n:\n            return self.n\n\n        left += self.size\n\
-    \        sm = self.e\n\n        first = True\n        while first or (left & -left)\
-    \ != left:\n            first = False\n            while left % 2 == 0:\n    \
-    \            left >>= 1\n            if not f(self.op(sm, self.d[left])):\n  \
-    \              while left < self.size:\n                    left *= 2\n      \
-    \              if f(self.op(sm, self.d[left])):\n                        sm =\
-    \ self.op(sm, self.d[left])\n                        left += 1\n             \
-    \   return left - self.size\n            sm = self.op(sm, self.d[left])\n    \
-    \        left += 1\n\n        return self.n\n\n    def min_left(self, right: int,\n\
-    \                 f: typing.Callable[[typing.Any], bool]) -> int:\n        assert\
-    \ 0 <= right <= self.n\n        assert f(self.e)\n\n        if right == 0:\n \
-    \           return 0\n\n        right += self.size\n        sm = self.e\n\n  \
-    \      first = True\n        while first or (right & -right) != right:\n     \
-    \       first = False\n            right -= 1\n            while right > 1 and\
-    \ right % 2:\n                right >>= 1\n            if not f(self.op(self.d[right],\
-    \ sm)):\n                while right < self.size:\n                    right =\
-    \ 2 * right + 1\n                    if f(self.op(self.d[right], sm)):\n     \
-    \                   sm = self.op(self.d[right], sm)\n                        right\
-    \ -= 1\n                return right + 1 - self.size\n            sm = self.op(self.d[right],\
-    \ sm)\n\n        return 0\n\n    def _update(self, k: int) -> None:\n        self.d[k]\
-    \ = self.op(self.d[2 * k], self.d[2 * k + 1])\n"
-  code: "import cp_library.ds.__header__\nimport typing\n\nclass SegTree:\n    def\
-    \ __init__(self,\n                 op: typing.Callable[[typing.Any, typing.Any],\
-    \ typing.Any],\n                 e: typing.Any,\n                 v: typing.Union[int,\
-    \ typing.List[typing.Any]]) -> None:\n        self.op = op\n        self.e = e\n\
-    \n        if isinstance(v, int):\n            v = [e] * v\n\n        self.n =\
-    \ len(v)\n        self.log = (self.n-1).bit_length()+1\n        self.size = 1\
-    \ << self.log\n        self.d = [e] * (2 * self.size)\n\n        for i in range(self.n):\n\
-    \            self.d[self.size + i] = v[i]\n        for i in range(self.size -\
-    \ 1, 0, -1):\n            self._update(i)\n\n    def set(self, p: int, x: typing.Any)\
-    \ -> None:\n        assert 0 <= p < self.n\n\n        p += self.size\n       \
-    \ self.d[p] = x\n        for i in range(1, self.log + 1):\n            self._update(p\
-    \ >> i)\n    __setitem__ = set\n\n    def get(self, p: int) -> typing.Any:\n \
-    \       assert 0 <= p < self.n\n\n        return self.d[p + self.size]\n    __getitem__\
-    \ = get\n\n    def prod(self, left: int, right: int) -> typing.Any:\n        assert\
-    \ 0 <= left <= right <= self.n\n        sml = self.e\n        smr = self.e\n \
-    \       left += self.size\n        right += self.size\n\n        while left <\
-    \ right:\n            if left & 1:\n                sml = self.op(sml, self.d[left])\n\
-    \                left += 1\n            if right & 1:\n                right -=\
-    \ 1\n                smr = self.op(self.d[right], smr)\n            left >>= 1\n\
-    \            right >>= 1\n\n        return self.op(sml, smr)\n\n    def all_prod(self)\
-    \ -> typing.Any:\n        return self.d[1]\n\n    def max_right(self, left: int,\n\
-    \                  f: typing.Callable[[typing.Any], bool]) -> int:\n        assert\
-    \ 0 <= left <= self.n\n        assert f(self.e)\n\n        if left == self.n:\n\
-    \            return self.n\n\n        left += self.size\n        sm = self.e\n\
-    \n        first = True\n        while first or (left & -left) != left:\n     \
-    \       first = False\n            while left % 2 == 0:\n                left\
-    \ >>= 1\n            if not f(self.op(sm, self.d[left])):\n                while\
-    \ left < self.size:\n                    left *= 2\n                    if f(self.op(sm,\
-    \ self.d[left])):\n                        sm = self.op(sm, self.d[left])\n  \
-    \                      left += 1\n                return left - self.size\n  \
-    \          sm = self.op(sm, self.d[left])\n            left += 1\n\n        return\
-    \ self.n\n\n    def min_left(self, right: int,\n                 f: typing.Callable[[typing.Any],\
-    \ bool]) -> int:\n        assert 0 <= right <= self.n\n        assert f(self.e)\n\
-    \n        if right == 0:\n            return 0\n\n        right += self.size\n\
-    \        sm = self.e\n\n        first = True\n        while first or (right &\
-    \ -right) != right:\n            first = False\n            right -= 1\n     \
-    \       while right > 1 and right % 2:\n                right >>= 1\n        \
-    \    if not f(self.op(self.d[right], sm)):\n                while right < self.size:\n\
-    \                    right = 2 * right + 1\n                    if f(self.op(self.d[right],\
-    \ sm)):\n                        sm = self.op(self.d[right], sm)\n           \
-    \             right -= 1\n                return right + 1 - self.size\n     \
-    \       sm = self.op(self.d[right], sm)\n\n        return 0\n\n    def _update(self,\
-    \ k: int) -> None:\n        self.d[k] = self.op(self.d[2 * k], self.d[2 * k +\
-    \ 1])"
+    from typing import Callable, Generic, Union\nfrom typing import TypeVar\n_T =\
+    \ TypeVar('T')\n\nclass SegTree(Generic[_T]):\n    def __init__(self, op: Callable[[_T,\
+    \ _T], _T], e: _T, v: Union[int, list[_T]]) -> None:\n        if isinstance(v,\
+    \ int): v = [e] * v\n        self.op, self.e, self.n = op, e, (n := len(v))\n\
+    \        self.log, self.sz, self.d = (log := (n-1).bit_length()+1), (sz := 1 <<\
+    \ log), [e] * (sz << 1)\n        for i in range(n): self.d[sz + i] = v[i]\n  \
+    \      for i in range(sz-1,0,-1): self.d[i] = op(self.d[i<<1], self.d[i<<1|1])\n\
+    \n    def set(self, p: int, x: _T) -> None:\n        assert 0 <= p < self.n\n\
+    \        (d := self.d)[p := p + self.sz], op = x, self.op\n        for _ in range(self.log):\
+    \ d[p:=p>>1] = op(d[p:=p^(p&1)], d[p|1])\n    __setitem__ = set\n\n    def get(self,\
+    \ p: int) -> _T:\n        assert 0 <= p < self.n\n        return self.d[p + self.sz]\n\
+    \    __getitem__ = get\n\n    def prod(self, l: int, r: int) -> _T:\n        assert\
+    \ 0 <= l <= r <= self.n\n        sml = smr = self.e\n        l, r, op, d = l+self.sz,\
+    \ r+self.sz, self.op, self.d\n        while l < r:\n            if l&1: sml, l\
+    \ = op(sml, d[l]), l+1\n            if r&1: smr = op(d[r:=r-1], smr)\n       \
+    \     l, r = l >> 1, r >> 1\n        return op(sml, smr)\n\n    def all_prod(self)\
+    \ -> _T:\n        return self.d[1]\n\n    def max_right(self, l: int, f: Callable[[_T],\
+    \ bool]) -> int:\n        assert 0 <= l <= self.n\n        assert f(self.e)\n\
+    \        if l == self.n: return self.n\n        l, op, d, sm = l+(sz := self.sz),\
+    \ self.op, self.d, self.e\n        while True:\n            while l&1 == 0: l\
+    \ >>= 1\n            if not f(op(sm, d[l])):\n                while l < sz:\n\
+    \                    if f(op(sm, d[l:=l<<1])): sm, l = op(sm, d[l]), l+1\n   \
+    \             return l - sz\n            sm = op(sm, d[l])\n            l += 1\n\
+    \            if (l & -l) == l: return self.n\n\n    def min_left(self, r: int,\
+    \ f: Callable[[_T], bool]) -> int:\n        assert 0 <= r <= self.n\n        assert\
+    \ f(self.e)\n        if r == 0: return 0\n        r, op, d, sm = r+(sz := self.sz),\
+    \ self.op, self.d, self.e\n        while True:\n            r -= 1\n         \
+    \   while r > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n    \
+    \            while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm,\
+    \ r = op(d[r], sm), r-1\n                return r + 1 - sz\n            sm = op(d[r],\
+    \ sm)\n            if (r & -r) == r: return 0\n"
+  code: "import cp_library.ds.__header__\nfrom typing import Callable, Generic, Union\n\
+    from cp_library.misc.typing import _T\n\nclass SegTree(Generic[_T]):\n    def\
+    \ __init__(self, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) ->\
+    \ None:\n        if isinstance(v, int): v = [e] * v\n        self.op, self.e,\
+    \ self.n = op, e, (n := len(v))\n        self.log, self.sz, self.d = (log := (n-1).bit_length()+1),\
+    \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): self.d[sz + i]\
+    \ = v[i]\n        for i in range(sz-1,0,-1): self.d[i] = op(self.d[i<<1], self.d[i<<1|1])\n\
+    \n    def set(self, p: int, x: _T) -> None:\n        assert 0 <= p < self.n\n\
+    \        (d := self.d)[p := p + self.sz], op = x, self.op\n        for _ in range(self.log):\
+    \ d[p:=p>>1] = op(d[p:=p^(p&1)], d[p|1])\n    __setitem__ = set\n\n    def get(self,\
+    \ p: int) -> _T:\n        assert 0 <= p < self.n\n        return self.d[p + self.sz]\n\
+    \    __getitem__ = get\n\n    def prod(self, l: int, r: int) -> _T:\n        assert\
+    \ 0 <= l <= r <= self.n\n        sml = smr = self.e\n        l, r, op, d = l+self.sz,\
+    \ r+self.sz, self.op, self.d\n        while l < r:\n            if l&1: sml, l\
+    \ = op(sml, d[l]), l+1\n            if r&1: smr = op(d[r:=r-1], smr)\n       \
+    \     l, r = l >> 1, r >> 1\n        return op(sml, smr)\n\n    def all_prod(self)\
+    \ -> _T:\n        return self.d[1]\n\n    def max_right(self, l: int, f: Callable[[_T],\
+    \ bool]) -> int:\n        assert 0 <= l <= self.n\n        assert f(self.e)\n\
+    \        if l == self.n: return self.n\n        l, op, d, sm = l+(sz := self.sz),\
+    \ self.op, self.d, self.e\n        while True:\n            while l&1 == 0: l\
+    \ >>= 1\n            if not f(op(sm, d[l])):\n                while l < sz:\n\
+    \                    if f(op(sm, d[l:=l<<1])): sm, l = op(sm, d[l]), l+1\n   \
+    \             return l - sz\n            sm = op(sm, d[l])\n            l += 1\n\
+    \            if (l & -l) == l: return self.n\n\n    def min_left(self, r: int,\
+    \ f: Callable[[_T], bool]) -> int:\n        assert 0 <= r <= self.n\n        assert\
+    \ f(self.e)\n        if r == 0: return 0\n        r, op, d, sm = r+(sz := self.sz),\
+    \ self.op, self.d, self.e\n        while True:\n            r -= 1\n         \
+    \   while r > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n    \
+    \            while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm,\
+    \ r = op(d[r], sm), r-1\n                return r + 1 - sz\n            sm = op(d[r],\
+    \ sm)\n            if (r & -r) == r: return 0"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/segtree_cls.py
   requiredBy: []
-  timestamp: '2025-01-21 22:25:59+09:00'
+  timestamp: '2025-01-24 05:21:27+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
