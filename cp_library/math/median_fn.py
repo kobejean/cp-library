@@ -1,11 +1,8 @@
 import cp_library.math.__header__
 
 def median(A):
-    n = len(A)
-    m = n // 2
-    ret = qselect(A, m)
-    if n % 2 == 0:
-        return (ret + qselect(A, m-1)) / 2
-    return ret
+    med = qselect(A, M := (N := len(A)) >> 1)
+    if N&1: return med
+    return (med + qselect(A, M-1)) >> 1
 
 from cp_library.alg.divcon.qselect_fn import qselect

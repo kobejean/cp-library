@@ -1,7 +1,7 @@
 import cp_library.alg.iter.__header__
 from typing import Iterable, Union
 
-def counter(A: Iterable[int], N: Union[int,list[int],None] = None):
+def counter(A: Iterable[int] = tuple(), N: Union[int,list[int],None] = None):
     if isinstance(N, int): cnt = [0]*N
     elif N is None: cnt = [0]*(N := max(A := list(A))+1)
     else:  N, cnt = len(N), N

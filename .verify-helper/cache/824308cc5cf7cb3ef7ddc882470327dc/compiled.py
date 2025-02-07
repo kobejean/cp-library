@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/arc182_d_increment_decrement_again_qselect.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/arc182_d_increment_decrement_again_qselect.test.py
+# run test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 
