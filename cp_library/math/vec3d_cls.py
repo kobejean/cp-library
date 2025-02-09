@@ -7,7 +7,6 @@ from typing import Sequence
 from math import sqrt
 
 class Vec3D(Vec):
-
     def __new__(cls, *args):
         if len(args) == 0:
             return super().__new__(cls, (0,0))

@@ -14,15 +14,22 @@ class TokenStream(Iterator):
         self.queue = deque()
 
     def __next__(self):
-        if not self.queue: self.queue.extend(self.line())
+        if not self.queue: self.queue.extend(self._line())
         return self.queue.popleft()
     
     def wait(self):
-        if not self.queue: self.queue.extend(self.line())
+        if not self.queue: self.queue.extend(self._line())
         while self.queue: yield
         
-    def line(self):
+    def _line(self):
         return TokenStream.stream.readline().split()
+    
+    def line(self):
+        if self.queue:
+            A = list(self.queue)
+            self.queue.clear()
+            return A
+        return self._line()
         
 TokenStream.default = TokenStream()
 

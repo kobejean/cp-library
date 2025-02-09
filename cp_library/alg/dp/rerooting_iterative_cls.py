@@ -1,14 +1,14 @@
 import cp_library.alg.dp.__header__
-import typing
+from typing import TypeVar, Callable
 from cp_library.ds.bidirectional_array_cls import BidirectionalArray
 
 class ReRootingDP():
     """ A class implementation of the Re-rooting Dynamic Programming technique. """
     
-    S = typing.TypeVar('S')
-    MergeOp = typing.Callable[[S, S], S]
-    AddNodeOp = typing.Callable[[int, S], S]
-    AddEdgeOp = typing.Callable[[int, int, S], S]
+    S = TypeVar('S')
+    MergeOp = Callable[[S, S], S]
+    AddNodeOp = Callable[[int, S], S]
+    AddEdgeOp = Callable[[int, int, S], S]
 
     def __init__(self, T: list[list[int]], e: S,
                  merge: MergeOp, 

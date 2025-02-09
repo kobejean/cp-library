@@ -49,17 +49,12 @@ class BinaryIndexTree:
         return pre
     
     def bisect_left(bit, v):
-        data, i, s, m = bit.data, 0, 0, 1 << ((N := bit.size).bit_length()-1)
-        while m:
-            if (ni := i|m) <= N and (ns := s + data[ni-1]) < v:
-                s, i = ns, ni
-            m >>= 1
-        return i
+        return bit.bisect_right(v-1)+1
     
     def bisect_right(bit, v):
-        data, i, s, m = bit.data, 0, 0, 1 << ((N := bit.size).bit_length()-1)
+        d, i, s, m, n = bit.data, 0, 0, bit.lead, bit.size
         while m:
-            if (ni := i|m) <= N and (ns := s + data[ni-1]) <= v:
+            if (ni:=i|m) <= n and (ns:=s+d[ni-1]) <= v:
                 s, i = ns, ni
             m >>= 1
         return i

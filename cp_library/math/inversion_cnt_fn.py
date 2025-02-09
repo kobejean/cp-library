@@ -4,11 +4,9 @@ from cp_library.ds.bit_cls import BinaryIndexTree
 
 def inversion_cnt(Z, N: Union[int,None] = None):
     if N is None:
-        Zcomp = { v: i for i, v in enumerate(sorted(set(Z))) }
-        Z, N = [Zcomp[z] for z in Z],  len(Z)
-
-    bit = BinaryIndexTree(N)
-    cnt = 0
+        Zi = { z: i for i, z in enumerate(sorted(set(Z))) }
+        Z, N = [Zi[z] for z in Z], len(Z)
+    bit, cnt = BinaryIndexTree(N), 0
     for z in reversed(Z):
         cnt += bit.presum(z)
         bit.add(z, 1)

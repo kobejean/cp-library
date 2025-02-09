@@ -20,8 +20,7 @@ def subset_conv(A, B, N):
     # Convolution
     Crank = [[0 for _ in range(Z)] for _ in range(N+1)]
     for mask in range(Z):
-        L = mask.bit_count()+1
-        for i in range(L):
+        for i in range(L := mask.bit_count()+1):
             for j in range(min(L, N+1-i)):
                 k = i+j
                 Crank[k][mask] = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]

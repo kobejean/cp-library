@@ -3,9 +3,7 @@ from math import isqrt
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
 class Mo(list, Parsable):
-    """
-    Mo[Q: int, N: int, T: type = tuple[int, int]]
-    """
+    """Mo[Q: int, N: int, T: type = tuple[int, int]]"""
     def __init__(self, L: list[int], R: list[int], N: int):
         self.Q = len(L)
         self.qbits = self.Q.bit_length()
@@ -31,7 +29,6 @@ class Mo(list, Parsable):
             return (((b << self.nbits) + self.nmask - r) << self.qbits) + i
         else:
             return (((b << self.nbits) + r) << self.qbits) + i
-    
 
     def add(self, i: int):
         """Add element at index i to current range."""
