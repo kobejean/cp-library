@@ -54,27 +54,29 @@ data:
     \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
     \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
-    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
-    \nCharStream.default = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\n\
-    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
-    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
-    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
-    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
-    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
-    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
-    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
-    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
-    \      return cls(next(ts))              \n            return parse\n        else:\n\
-    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
-    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
-    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n        \n    def _line(self):\n        return\
+    \ TokenStream.stream.readline().split()\n    \n    def line(self):\n        if\
+    \ self.queue:\n            A = list(self.queue)\n            self.queue.clear()\n\
+    \            return A\n        return self._line()\n        \nTokenStream.default\
+    \ = TokenStream()\n\nclass CharStream(TokenStream):\n\n    def line(self):\n \
+    \       return TokenStream.stream.readline().rstrip()\n\nCharStream.default =\
+    \ CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
+    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
+    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
+    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
     \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
@@ -132,7 +134,7 @@ data:
     \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
     \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
     \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  \nfrom math import sqrt\n\nclass Vec3D(Vec):\n\n    def __new__(cls, *args):\n\
+    \  \nfrom math import sqrt\n\nclass Vec3D(Vec):\n    def __new__(cls, *args):\n\
     \        if len(args) == 0:\n            return super().__new__(cls, (0,0))\n\
     \        return super().__new__(cls, *args)\n    \n    def elm_wise(self, other,\
     \ op):\n        if isinstance(other, Number):\n            return Vec3D(op(self[0],\
@@ -151,7 +153,7 @@ data:
   code: "import cp_library.math.__header__\n\nfrom cp_library.io.parser_cls import\
     \ Parser, TokenStream\nfrom cp_library.math.vec_cls import Vec\nfrom numbers import\
     \ Number\nfrom typing import Sequence\nfrom math import sqrt\n\nclass Vec3D(Vec):\n\
-    \n    def __new__(cls, *args):\n        if len(args) == 0:\n            return\
+    \    def __new__(cls, *args):\n        if len(args) == 0:\n            return\
     \ super().__new__(cls, (0,0))\n        return super().__new__(cls, *args)\n  \
     \  \n    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n\
     \            return Vec3D(op(self[0], other), op(self[1], other), op(self[2],\
@@ -174,7 +176,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/vec3d_cls.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/vec3d_cls.py

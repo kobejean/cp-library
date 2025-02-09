@@ -96,7 +96,7 @@ data:
   - cp_library/math/vec3d_cls.py
   - cp_library/math/vec_cls.py
   - cp_library/math/elm_wise_in_place_mixin.py
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc151_f_fbisect_left.test.py

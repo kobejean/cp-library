@@ -333,6 +333,9 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/bit_generalized_cls.py
       title: cp_library/ds/bit_generalized_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/bucket_list_cls.py
+      title: cp_library/ds/bucket_list_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/cht_monotone_add_max_cls.py
       title: cp_library/ds/cht_monotone_add_max_cls.py
@@ -388,6 +391,12 @@ data:
       path: cp_library/ds/slidingminmax_cls.py
       title: cp_library/ds/slidingminmax_cls.py
     - icon: ':warning:'
+      path: cp_library/ds/sorted_multiset_cls.py
+      title: cp_library/ds/sorted_multiset_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/sorted_set_cls.py
+      title: cp_library/ds/sorted_set_cls.py
+    - icon: ':warning:'
       path: cp_library/ds/sparse_dsu_cls.py
       title: cp_library/ds/sparse_dsu_cls.py
     - icon: ':heavy_check_mark:'
@@ -431,6 +440,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/priority_queue_cls.py
       title: cp_library/ds/heap/priority_queue_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/heap/skew_heap_forest_cls copy.py
+      title: cp_library/ds/heap/skew_heap_forest_cls copy.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/skew_heap_forest_cls.py
+      title: cp_library/ds/heap/skew_heap_forest_cls.py
   - name: cp_library/io
     pages:
     - icon: ':warning:'
@@ -979,6 +994,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/cycle_detection_undirected.test.py
       title: test/library-checker/graph/cycle_detection_undirected.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/directedmst.test.py
+      title: test/library-checker/graph/directedmst.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
       title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py

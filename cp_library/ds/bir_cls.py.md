@@ -46,13 +46,10 @@ data:
     \ l: int, r: int):\n        return bit.presum(r) - bit.presum(l)\n\n    def prelist(bit):\n\
     \        pre = [0]+bit.data\n        for i in range(bit.size+1):\n           \
     \ pre[i] += pre[i&(i-1)]\n        return pre\n    \n    def bisect_left(bit, v):\n\
-    \        data, i, s, m = bit.data, 0, 0, 1 << ((N := bit.size).bit_length()-1)\n\
-    \        while m:\n            if (ni := i|m) <= N and (ns := s + data[ni-1])\
-    \ < v:\n                s, i = ns, ni\n            m >>= 1\n        return i\n\
-    \    \n    def bisect_right(bit, v):\n        data, i, s, m = bit.data, 0, 0,\
-    \ 1 << ((N := bit.size).bit_length()-1)\n        while m:\n            if (ni\
-    \ := i|m) <= N and (ns := s + data[ni-1]) <= v:\n                s, i = ns, ni\n\
-    \            m >>= 1\n        return i\n"
+    \        return bit.bisect_right(v-1)+1\n    \n    def bisect_right(bit, v):\n\
+    \        d, i, s, m, n = bit.data, 0, 0, bit.lead, bit.size\n        while m:\n\
+    \            if (ni:=i|m) <= n and (ns:=s+d[ni-1]) <= v:\n                s, i\
+    \ = ns, ni\n            m >>= 1\n        return i\n"
   code: "import cp_library.ds.__header__\n\nclass BinaryIndexRange:\n    def __init__(self,\
     \ size: int):\n        self.size = size\n        self.bit1 = BinaryIndexTree(size)\n\
     \        self.bit2 = BinaryIndexTree(size)\n\n    def add(self, l, r, x) -> None:\n\
@@ -71,7 +68,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bir_cls.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/bir_cls.py

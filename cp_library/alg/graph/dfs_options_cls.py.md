@@ -316,7 +316,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/tree/tree_cls.py
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py

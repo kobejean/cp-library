@@ -38,31 +38,26 @@ data:
     \ int, r: int):\n        return bit.presum(r) - bit.presum(l)\n\n    def prelist(bit):\n\
     \        pre = [0]+bit.data\n        for i in range(bit.size+1):\n           \
     \ pre[i] += pre[i&(i-1)]\n        return pre\n    \n    def bisect_left(bit, v):\n\
-    \        data, i, s, m = bit.data, 0, 0, 1 << ((N := bit.size).bit_length()-1)\n\
-    \        while m:\n            if (ni := i|m) <= N and (ns := s + data[ni-1])\
-    \ < v:\n                s, i = ns, ni\n            m >>= 1\n        return i\n\
-    \    \n    def bisect_right(bit, v):\n        data, i, s, m = bit.data, 0, 0,\
-    \ 1 << ((N := bit.size).bit_length()-1)\n        while m:\n            if (ni\
-    \ := i|m) <= N and (ns := s + data[ni-1]) <= v:\n                s, i = ns, ni\n\
-    \            m >>= 1\n        return i\n\ndef inversion_cnt(Z, N: Union[int,None]\
-    \ = None):\n    if N is None:\n        # coordinate compression\n        Zsort\
-    \ = sorted(set(Z))\n        Zcomp = { v: i for i, v in enumerate(Zsort) }\n  \
-    \      Z = [Zcomp[z] for z in Z]\n        N = len(Z)\n\n    bit = BinaryIndexTree(N)\n\
-    \    cnt = 0\n    for z in reversed(Z):\n        cnt += bit.presum(z)\n      \
-    \  bit.add(z, 1)\n    return cnt\n"
+    \        return bit.bisect_right(v-1)+1\n    \n    def bisect_right(bit, v):\n\
+    \        d, i, s, m, n = bit.data, 0, 0, bit.lead, bit.size\n        while m:\n\
+    \            if (ni:=i|m) <= n and (ns:=s+d[ni-1]) <= v:\n                s, i\
+    \ = ns, ni\n            m >>= 1\n        return i\n\ndef inversion_cnt(Z, N: Union[int,None]\
+    \ = None):\n    if N is None:\n        Zi = { z: i for i, z in enumerate(sorted(set(Z)))\
+    \ }\n        Z, N = [Zi[z] for z in Z], len(Z)\n    bit, cnt = BinaryIndexTree(N),\
+    \ 0\n    for z in reversed(Z):\n        cnt += bit.presum(z)\n        bit.add(z,\
+    \ 1)\n    return cnt\n"
   code: "import cp_library.math.__header__\nfrom typing import Union\nfrom cp_library.ds.bit_cls\
     \ import BinaryIndexTree\n\ndef inversion_cnt(Z, N: Union[int,None] = None):\n\
-    \    if N is None:\n        # coordinate compression\n        Zsort = sorted(set(Z))\n\
-    \        Zcomp = { v: i for i, v in enumerate(Zsort) }\n        Z = [Zcomp[z]\
-    \ for z in Z]\n        N = len(Z)\n\n    bit = BinaryIndexTree(N)\n    cnt = 0\n\
-    \    for z in reversed(Z):\n        cnt += bit.presum(z)\n        bit.add(z, 1)\n\
-    \    return cnt"
+    \    if N is None:\n        Zi = { z: i for i, z in enumerate(sorted(set(Z)))\
+    \ }\n        Z, N = [Zi[z] for z in Z], len(Z)\n    bit, cnt = BinaryIndexTree(N),\
+    \ 0\n    for z in reversed(Z):\n        cnt += bit.presum(z)\n        bit.add(z,\
+    \ 1)\n    return cnt"
   dependsOn:
   - cp_library/ds/bit_cls.py
   isVerificationFile: false
   path: cp_library/math/inversion_cnt_fn.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

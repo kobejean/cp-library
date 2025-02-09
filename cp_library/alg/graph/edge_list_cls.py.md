@@ -69,10 +69,12 @@ data:
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
     \ = IOWrapper(sys.stdout)\n_T = TypeVar('T')\n\nclass TokenStream(Iterator):\n\
     \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
-    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self.line())\n\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
-    \ self.queue: self.queue.extend(self.line())\n        while self.queue: yield\n\
-    \        \n    def line(self):\n        return TokenStream.stream.readline().split()\n\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \        \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \            self.queue.clear()\n            return A\n        return self._line()\n\
     \        \nTokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n\
     \n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
     \nCharStream.default = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\n\
@@ -148,7 +150,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py

@@ -30,7 +30,7 @@ data:
     \  Brank[rank][mask] = B[mask]\n\n    # Zeta transform for each rank\n    for\
     \ Ar in Arank: zeta_transform(Ar, N)\n    for Br in Brank: zeta_transform(Br,\
     \ N)\n\n    # Convolution\n    Crank = [[0 for _ in range(Z)] for _ in range(N+1)]\n\
-    \    for mask in range(Z):\n        L = mask.bit_count()+1\n        for i in range(L):\n\
+    \    for mask in range(Z):\n        for i in range(L := mask.bit_count()+1):\n\
     \            for j in range(min(L, N+1-i)):\n                k = i+j\n       \
     \         Crank[k][mask] = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]\n\n\
     \    # M\xF6bius transform (inverse of Zeta transform)\n    for Cr in Crank: mobius_transform(Cr,\
@@ -54,21 +54,20 @@ data:
     \    # Zeta transform for each rank\n    for Ar in Arank: zeta_transform(Ar, N)\n\
     \    for Br in Brank: zeta_transform(Br, N)\n\n    # Convolution\n    Crank =\
     \ [[0 for _ in range(Z)] for _ in range(N+1)]\n    for mask in range(Z):\n   \
-    \     L = mask.bit_count()+1\n        for i in range(L):\n            for j in\
-    \ range(min(L, N+1-i)):\n                k = i+j\n                Crank[k][mask]\
-    \ = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]\n\n    # M\xF6bius transform\
-    \ (inverse of Zeta transform)\n    for Cr in Crank: mobius_transform(Cr, N)\n\
-    \        \n    # Combine results\n    C = [0] * Z\n    for mask in range(Z):\n\
-    \        rank = mask.bit_count()\n        C[mask] = Crank[rank][mask]\n\n    return\
-    \ C\n\nfrom cp_library.math.zeta_transform_fn import zeta_transform\nfrom cp_library.math.mobius_transform_fn\
-    \ import mobius_transform"
+    \     for i in range(L := mask.bit_count()+1):\n            for j in range(min(L,\
+    \ N+1-i)):\n                k = i+j\n                Crank[k][mask] = Crank[k][mask]\
+    \ + Arank[i][mask] * Brank[j][mask]\n\n    # M\xF6bius transform (inverse of Zeta\
+    \ transform)\n    for Cr in Crank: mobius_transform(Cr, N)\n        \n    # Combine\
+    \ results\n    C = [0] * Z\n    for mask in range(Z):\n        rank = mask.bit_count()\n\
+    \        C[mask] = Crank[rank][mask]\n\n    return C\n\nfrom cp_library.math.zeta_transform_fn\
+    \ import zeta_transform\nfrom cp_library.math.mobius_transform_fn import mobius_transform"
   dependsOn:
   - cp_library/math/zeta_transform_fn.py
   - cp_library/math/mobius_transform_fn.py
   isVerificationFile: false
   path: cp_library/math/subset_conv_fn.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py

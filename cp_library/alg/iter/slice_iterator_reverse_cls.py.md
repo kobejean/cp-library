@@ -69,7 +69,7 @@ data:
   - cp_library/alg/graph/strongly_connected_components_fn.py
   - cp_library/alg/graph/functional_graph_cls.py
   - cp_library/alg/graph/permutation_cls.py
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/scc_strongly_connected_components.test.py

@@ -14,20 +14,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterable, Union\n\ndef counter(A: Iterable[int], N: Union[int,list[int],None]\
-    \ = None):\n    if isinstance(N, int): cnt = [0]*N\n    elif N is None: cnt =\
-    \ [0]*(N := max(A := list(A))+1)\n    else:  N, cnt = len(N), N\n    for a in\
-    \ A: cnt[a] += 1\n    return cnt\n"
+    from typing import Iterable, Union\n\ndef counter(A: Iterable[int] = tuple(),\
+    \ N: Union[int,list[int],None] = None):\n    if isinstance(N, int): cnt = [0]*N\n\
+    \    elif N is None: cnt = [0]*(N := max(A := list(A))+1)\n    else:  N, cnt =\
+    \ len(N), N\n    for a in A: cnt[a] += 1\n    return cnt\n"
   code: "import cp_library.alg.iter.__header__\nfrom typing import Iterable, Union\n\
-    \ndef counter(A: Iterable[int], N: Union[int,list[int],None] = None):\n    if\
-    \ isinstance(N, int): cnt = [0]*N\n    elif N is None: cnt = [0]*(N := max(A :=\
-    \ list(A))+1)\n    else:  N, cnt = len(N), N\n    for a in A: cnt[a] += 1\n  \
-    \  return cnt"
+    \ndef counter(A: Iterable[int] = tuple(), N: Union[int,list[int],None] = None):\n\
+    \    if isinstance(N, int): cnt = [0]*N\n    elif N is None: cnt = [0]*(N := max(A\
+    \ := list(A))+1)\n    else:  N, cnt = len(N), N\n    for a in A: cnt[a] += 1\n\
+    \    return cnt"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/counter_fn.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/counter_fn.py

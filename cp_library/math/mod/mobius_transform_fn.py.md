@@ -37,7 +37,7 @@ data:
   path: cp_library/math/mod/mobius_transform_fn.py
   requiredBy:
   - cp_library/math/mod/subset_conv_fn.py
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py

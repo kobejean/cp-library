@@ -23,7 +23,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/divcon/ternary_max_fn.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/divcon/ternary_max_fn.py

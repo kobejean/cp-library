@@ -67,55 +67,55 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\nimport\
-    \ typing\n\n\nclass BidirectionalArray:\n    def __init__(self, e, op, data):\n\
-    \        self.size = len(data)\n        self.prefix = [e] + data.copy()\n    \
-    \    self.suffix = data.copy() + [e]\n        self.e = e\n        self.op = op\n\
-    \        for i in range(self.size):\n            self.prefix[i+1] = op(self.prefix[i],\
+    \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
+    \ typing import TypeVar, Callable\n\n\nclass BidirectionalArray:\n    def __init__(self,\
+    \ e, op, data):\n        self.size = len(data)\n        self.prefix = [e] + data.copy()\n\
+    \        self.suffix = data.copy() + [e]\n        self.e = e\n        self.op\
+    \ = op\n        for i in range(self.size):\n            self.prefix[i+1] = op(self.prefix[i],\
     \ self.prefix[i+1])\n        for i in range(self.size,0,-1):\n            self.suffix[i-1]\
     \ = op(self.suffix[i-1], self.suffix[i])\n    def left(self, l): return self.prefix[l]\n\
     \    def right(self, r): return self.suffix[r]\n    def all(self): return self.prefix[-1]\n\
     \    def out(self, l, r=None):\n        r = l+1 if r is None else r\n        return\
     \ self.op(self.prefix[l], self.suffix[r])\n\nclass ReRootingDP():\n    \"\"\"\
     \ A class implementation of the Re-rooting Dynamic Programming technique. \"\"\
-    \"\n    \n    S = typing.TypeVar('S')\n    MergeOp = typing.Callable[[S, S], S]\n\
-    \    AddNodeOp = typing.Callable[[int, S], S]\n    AddEdgeOp = typing.Callable[[int,\
-    \ int, S], S]\n\n    def __init__(self, T: list[list[int]], e: S,\n          \
-    \       merge: MergeOp, \n                 add_node: AddNodeOp = lambda u,s:s,\
-    \ \n                 add_edge: AddEdgeOp = lambda u,v,s:s):\n        \"\"\"\n\
-    \        T: list[list[int]] - Adjacency list representation of the tree.\n   \
-    \     e: S - Identity element for the merge operation.\n        merge: (S,S) ->\
-    \ S - Function to merge two states.\n        add_node: (int,S) -> S - Function\
-    \ to incorporate a node into the state.\n        add_edge: (int,int,S) -> S -\
-    \ Function to incorporate an edge into the state.\n        \"\"\"\n        self.T\
-    \ = T\n        self.e = e\n        self.merge = merge\n        self.add_node =\
-    \ add_node\n        self.add_edge = add_edge\n\n    def solve(self) -> list[S]:\n\
-    \        dp = [[self.e]*len(adj) for adj in self.T]\n        ans = [self.e for\
-    \ _ in range(len(self.T))]\n        parent_idx = [None for _ in range(len(self.T))]\n\
-    \        child_idx = [None for _ in range(len(self.T))]\n        stack = [(2,0,None),(0,0,None)]\n\
-    \        while stack:\n            phase, u, p = stack.pop()\n            match\
-    \ phase:\n                case 0:  # Visit children\n                    if p\
-    \ is not None:\n                        stack.append((1,u,p))\n              \
-    \      for i,v in enumerate(self.T[u]):\n                        if v != p:\n\
-    \                            stack.append((0,v,u))\n                         \
-    \   child_idx[v] = i\n                        else:\n                        \
-    \    parent_idx[u] = i\n                case 1:  # Upward updates\n          \
-    \          val = dp[p][child_idx[u]] = self.add_edge(p, u, self.add_node(u, ans[u]))\n\
-    \                    ans[p] = self.merge(ans[p], val)\n                case 2:\
-    \  # Downward updates\n                    ba = BidirectionalArray(self.e, self.merge,\
-    \ dp[u])\n                    for i,v in enumerate(self.T[u]):\n             \
-    \           if v != p:\n                            dp[v][parent_idx[v]] = self.add_edge(v,\
-    \ u, self.add_node(u, ba.out(i)))\n                            stack.append((2,v,u))\n\
-    \                    ans[u] = ba.all()\n        return ans\n\nfrom typing import\
-    \ Union\n\n\nfrom collections import deque\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
-    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \"\n    \n    S = TypeVar('S')\n    MergeOp = Callable[[S, S], S]\n    AddNodeOp\
+    \ = Callable[[int, S], S]\n    AddEdgeOp = Callable[[int, int, S], S]\n\n    def\
+    \ __init__(self, T: list[list[int]], e: S,\n                 merge: MergeOp, \n\
+    \                 add_node: AddNodeOp = lambda u,s:s, \n                 add_edge:\
+    \ AddEdgeOp = lambda u,v,s:s):\n        \"\"\"\n        T: list[list[int]] - Adjacency\
+    \ list representation of the tree.\n        e: S - Identity element for the merge\
+    \ operation.\n        merge: (S,S) -> S - Function to merge two states.\n    \
+    \    add_node: (int,S) -> S - Function to incorporate a node into the state.\n\
+    \        add_edge: (int,int,S) -> S - Function to incorporate an edge into the\
+    \ state.\n        \"\"\"\n        self.T = T\n        self.e = e\n        self.merge\
+    \ = merge\n        self.add_node = add_node\n        self.add_edge = add_edge\n\
+    \n    def solve(self) -> list[S]:\n        dp = [[self.e]*len(adj) for adj in\
+    \ self.T]\n        ans = [self.e for _ in range(len(self.T))]\n        parent_idx\
+    \ = [None for _ in range(len(self.T))]\n        child_idx = [None for _ in range(len(self.T))]\n\
+    \        stack = [(2,0,None),(0,0,None)]\n        while stack:\n            phase,\
+    \ u, p = stack.pop()\n            match phase:\n                case 0:  # Visit\
+    \ children\n                    if p is not None:\n                        stack.append((1,u,p))\n\
+    \                    for i,v in enumerate(self.T[u]):\n                      \
+    \  if v != p:\n                            stack.append((0,v,u))\n           \
+    \                 child_idx[v] = i\n                        else:\n          \
+    \                  parent_idx[u] = i\n                case 1:  # Upward updates\n\
+    \                    val = dp[p][child_idx[u]] = self.add_edge(p, u, self.add_node(u,\
+    \ ans[u]))\n                    ans[p] = self.merge(ans[p], val)\n           \
+    \     case 2:  # Downward updates\n                    ba = BidirectionalArray(self.e,\
+    \ self.merge, dp[u])\n                    for i,v in enumerate(self.T[u]):\n \
+    \                       if v != p:\n                            dp[v][parent_idx[v]]\
+    \ = self.add_edge(v, u, self.add_node(u, ba.out(i)))\n                       \
+    \     stack.append((2,v,u))\n                    ans[u] = ba.all()\n        return\
+    \ ans\n\nfrom typing import Union\n\n\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
+    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -132,14 +132,16 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
-    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
+    \ = IOWrapper(sys.stdout)\n_T = TypeVar('T')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \        \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \            self.queue.clear()\n            return A\n        return self._line()\n\
+    \        \nTokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n\
+    \n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
     \nCharStream.default = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\n\
     class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
     \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
@@ -546,7 +548,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

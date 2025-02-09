@@ -45,19 +45,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n                     https://kobejean.github.io/cp-library     \
-    \          \n        '''\n        \n        def mat_pow(A,K):\n            N =\
-    \ len(A)\n            ret = A if K & 1 else mat_id(N)\n            for i in range(1,K.bit_length()):\n\
-    \                A = mat_mul(A,A) \n                if K >> i & 1:\n         \
-    \           ret = mat_mul(ret,A) \n            return ret \n        \n       \
-    \ '''\n        \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \          \n        '''\n        \n        def mat_pow(A,K):\n            R =\
+    \ A if K & 1 else mat_id(len(A))\n            for i in range(1,K.bit_length()):\n\
+    \                A = mat_mul(A,A) \n                if K >> i & 1: R = mat_mul(R,A)\
+    \ \n            return R \n        \n        '''\n        \u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n                     https://kobejean.github.io/cp-library           \
-    \    \n        '''\n        \n        def mat_mul(A,B):\n            assert len(A[0])\
-    \ == len(B)\n            R = [[0]*len(B[0]) for _ in range(len(A))] \n       \
-    \     for i,Ri in enumerate(R):\n                for k,Aik in enumerate(A[i]):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        def mat_mul(A,B):\n         \
+    \   assert len(A[0]) == len(B)\n            R = [[0]*len(B[0]) for _ in range(len(A))]\
+    \ \n            for i,Ri in enumerate(R):\n                for k,Aik in enumerate(A[i]):\n\
     \                    for j,Bkj in enumerate(B[k]):\n                        Ri[j]\
     \ = Bkj*Aik + Ri[j]  \n            return R \n        '''\n        \u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -192,7 +191,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

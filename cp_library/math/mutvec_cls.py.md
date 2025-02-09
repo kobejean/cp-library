@@ -29,7 +29,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Iterable\n\nimport typing\nfrom collections import deque\n\
+    from typing import Iterable\n\nimport typing\nfrom collections import deque\n\
     from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
     \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
     \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
@@ -58,27 +58,29 @@ data:
     \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
     \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
-    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
-    \nCharStream.default = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\n\
-    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
-    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
-    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
-    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
-    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
-    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
-    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
-    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
-    \      return cls(next(ts))              \n            return parse\n        else:\n\
-    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
-    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
-    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n        \n    def _line(self):\n        return\
+    \ TokenStream.stream.readline().split()\n    \n    def line(self):\n        if\
+    \ self.queue:\n            A = list(self.queue)\n            self.queue.clear()\n\
+    \            return A\n        return self._line()\n        \nTokenStream.default\
+    \ = TokenStream()\n\nclass CharStream(TokenStream):\n\n    def line(self):\n \
+    \       return TokenStream.stream.readline().rstrip()\n\nCharStream.default =\
+    \ CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
+    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
+    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
+    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
     \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
@@ -141,24 +143,21 @@ data:
     \ self.ielm_wise(other, operator.truediv)\n    def __ifloordiv__(self, other):\
     \ return self.ielm_wise(other, operator.floordiv)\n    def __imod__(self, other):\
     \ return self.ielm_wise(other, operator.mod)\n\nclass MutVec(list, ElmWiseInPlaceMixin,\
-    \ Parsable):\n\n    def __init__(self, *args):\n        if len(args) == 1 and\
-    \ isinstance(args[0], Iterable):\n            super().__init__(args[0])\n    \
-    \    else:\n            super().__init__(args)\n    \n\n    @classmethod\n   \
-    \ def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
-    \        if N is None:\n            def parse(ts: TokenStream):\n            \
-    \    return cls(elm(ts) for _ in ts.wait())\n        else:\n            def parse(ts:\
-    \ TokenStream):\n                return cls(elm(ts) for _ in range(N))\n     \
-    \   return parse\n"
-  code: "import cp_library.math.__header__\n\nfrom typing import Iterable\nfrom cp_library.io.parser_cls\
+    \ Parsable):\n    def __init__(self, *args):\n        super().__init__(args[0]\
+    \ if len(args) == 1 and isinstance(args[0], Iterable) else args)\n    \n    @classmethod\n\
+    \    def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
+    \        if N is None:\n            def parse(ts: TokenStream): return cls(elm(ts)\
+    \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\
+    \  return cls(elm(ts) for _ in range(N))\n        return parse\n"
+  code: "import cp_library.math.__header__\nfrom typing import Iterable\nfrom cp_library.io.parser_cls\
     \ import Parsable, Parser, TokenStream\nfrom cp_library.math.elm_wise_in_place_mixin\
     \ import ElmWiseInPlaceMixin\n\nclass MutVec(list, ElmWiseInPlaceMixin, Parsable):\n\
-    \n    def __init__(self, *args):\n        if len(args) == 1 and isinstance(args[0],\
-    \ Iterable):\n            super().__init__(args[0])\n        else:\n         \
-    \   super().__init__(args)\n    \n\n    @classmethod\n    def compile(cls, T:\
-    \ type = int, N = None):\n        elm = Parser.compile(T)\n        if N is None:\n\
-    \            def parse(ts: TokenStream):\n                return cls(elm(ts) for\
-    \ _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n  \
-    \              return cls(elm(ts) for _ in range(N))\n        return parse"
+    \    def __init__(self, *args):\n        super().__init__(args[0] if len(args)\
+    \ == 1 and isinstance(args[0], Iterable) else args)\n    \n    @classmethod\n\
+    \    def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
+    \        if N is None:\n            def parse(ts: TokenStream): return cls(elm(ts)\
+    \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\
+    \  return cls(elm(ts) for _ in range(N))\n        return parse"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/math/elm_wise_in_place_mixin.py
@@ -168,7 +167,7 @@ data:
   path: cp_library/math/mutvec_cls.py
   requiredBy:
   - cp_library/math/mat_cls.py
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mutvec_cls.py

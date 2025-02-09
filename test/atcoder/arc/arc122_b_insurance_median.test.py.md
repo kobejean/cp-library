@@ -40,25 +40,23 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\ndef median(A):\n    n = len(A)\n    m = n // 2\n    ret = qselect(A,\
-    \ m)\n    if n % 2 == 0:\n        return (ret + qselect(A, m-1)) / 2\n    return\
-    \ ret\n\n\nimport random\n\ndef partition(A, l, r, pi) -> int:\n    '''Partition\
-    \ subarray [l,r)'''\n    r -= 1\n    A[pi], A[r] = A[r], A[pi]\n    pi = l\n \
-    \   for j in range(l, r):\n        if A[j] <= A[r]:\n            A[pi], A[j] =\
-    \ A[j], A[pi]\n            pi += 1\n    A[pi], A[r] = A[r], A[pi]\n    return\
-    \ pi\n\ndef qselect(A, k, l=0, r=None):\n    '''Find kth element in subarray [l,r)'''\n\
-    \    if r is None: r = len(A)\n    while True:\n        if l == r-1: return A[k]\n\
-    \        pi = partition(A, l, r, random.randint(l, r-1))\n        if k == pi:\n\
-    \            return A[k]\n        elif k < pi:\n            r = pi\n        else:\n\
-    \            l = pi + 1\n\n\ndef read(shift=0, base=10):\n    return [int(s, base)\
-    \ + shift for s in input().split()]\nimport os\nimport sys\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \        \n'''\n\ndef median(A):\n    med = qselect(A, M := (N := len(A)) >> 1)\n\
+    \    return med if N&1 else (med + qselect(A, M-1)) >> 1\n\n\nfrom random import\
+    \ randint\n\ndef partition(A, l, r, p) -> int:\n    '''Partition subarray [l,r)'''\n\
+    \    A[p], A[r], p = A[r := r-1], A[p], l\n    for j in range(l, r):\n       \
+    \ if A[j] <= A[r]: A[p], A[j], p = A[j], A[p], p+1\n    A[p], A[r] = A[r], A[p]\n\
+    \    return p\n\ndef qselect(A, k, l=0, r=None):\n    '''Find kth element in subarray\
+    \ [l,r)'''\n    if r is None: r = len(A)\n    while l != r-1:\n        if k <\
+    \ (p := partition(A, l, r, randint(l,r-1))): r = p\n        elif k > p: l = p+1\n\
+    \        else: return A[k]\n    return A[k]\n\n\ndef read(shift=0, base=10):\n\
+    \    return [int(s, base) + shift for s in input().split()]\nimport os\nimport\
+    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -101,7 +99,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc122_b_insurance_median.test.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc122_b_insurance_median.test.py

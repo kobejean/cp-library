@@ -48,7 +48,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/cht_monotone_add_max_cls.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_z_cht_monotone_add_max.test.py

@@ -63,27 +63,29 @@ data:
     \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
     \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self.line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self.line())\n\
-    \        while self.queue: yield\n        \n    def line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n        \nTokenStream.default = TokenStream()\n\
-    \nclass CharStream(TokenStream):\n\n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
-    \nCharStream.default = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\n\
-    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
-    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
-    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
-    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
-    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
-    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
-    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
-    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
-    \      return cls(next(ts))              \n            return parse\n        else:\n\
-    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
-    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
-    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n        \n    def _line(self):\n        return\
+    \ TokenStream.stream.readline().split()\n    \n    def line(self):\n        if\
+    \ self.queue:\n            A = list(self.queue)\n            self.queue.clear()\n\
+    \            return A\n        return self._line()\n        \nTokenStream.default\
+    \ = TokenStream()\n\nclass CharStream(TokenStream):\n\n    def line(self):\n \
+    \       return TokenStream.stream.readline().rstrip()\n\nCharStream.default =\
+    \ CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
+    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
+    \                return cls(next(ts))              \n            return parse\n\
+    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
+    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
+    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
+    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
     \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
     \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
@@ -114,34 +116,34 @@ data:
     \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
     \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
     \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nclass\
-    \ Mo(list, Parsable):\n    \"\"\"\n    Mo[Q: int, N: int, T: type = tuple[int,\
-    \ int]]\n    \"\"\"\n    def __init__(self, L: list[int], R: list[int], N: int):\n\
-    \        self.Q = len(L)\n        self.qbits = self.Q.bit_length()\n        self.nbits\
-    \ = N.bit_length()\n        self.qmask = (1 << self.qbits) - 1\n        self.nmask\
-    \ = (1 << self.nbits) - 1\n        \n        self.B = isqrt(N)\n        self.order\
-    \ = [self.packet(i, L[i], R[i]) for i in range(self.Q)]\n        self.order.sort()\n\
-    \        self.L = [0]*self.Q\n        self.R = [0]*self.Q\n        for i,j in\
-    \ enumerate(self.order):\n            j &= self.qmask\n            self.order[i]\
-    \ = j\n            self.L[i] = L[j]\n            self.R[i] = R[j]\n\n    def packet(self,\
-    \ i: int, l: int, r: int) -> int:\n        \"\"\"Pack query information into a\
-    \ single integer.\"\"\"\n        b = l//self.B\n        if b & 1:\n          \
-    \  return (((b << self.nbits) + self.nmask - r) << self.qbits) + i\n        else:\n\
-    \            return (((b << self.nbits) + r) << self.qbits) + i\n    \n\n    def\
-    \ add(self, i: int):\n        \"\"\"Add element at index i to current range.\"\
-    \"\"\n        pass\n\n    def remove(self, i: int):\n        \"\"\"Remove element\
-    \ at index i from current range.\"\"\"\n        pass\n\n    def answer(self, i:\
-    \ int, l: int, r: int) -> int:\n        \"\"\"Compute answer for current range.\"\
-    \"\"\n        pass\n    \n    def solve(self) -> list[int]:\n        curr_l =\
-    \ curr_r = 0\n        ans = [0] * self.Q\n        order, L, R = self.order, self.L,\
-    \ self.R\n        \n        for i in range(self.Q):\n            qid, l, r = order[i],\
-    \ L[i], R[i]\n            \n            if r > curr_r:\n                for i\
-    \ in range(curr_r, r):\n                    self.add(i)\n\n            if l <\
-    \ curr_l:\n                for i in range(curr_l-1, l-1, -1):\n              \
-    \      self.add(i)\n\n            if l > curr_l:\n                for i in range(curr_l,\
-    \ l):\n                    self.remove(i)\n\n            if r < curr_r:\n    \
-    \            for i in range(curr_r-1, r-1, -1):\n                    self.remove(i)\n\
-    \                    \n            ans[qid] = self.answer(qid, l, r)\n       \
-    \     curr_l, curr_r = l, r\n            \n        return ans\n\n    @classmethod\n\
+    \ Mo(list, Parsable):\n    \"\"\"Mo[Q: int, N: int, T: type = tuple[int, int]]\"\
+    \"\"\n    def __init__(self, L: list[int], R: list[int], N: int):\n        self.Q\
+    \ = len(L)\n        self.qbits = self.Q.bit_length()\n        self.nbits = N.bit_length()\n\
+    \        self.qmask = (1 << self.qbits) - 1\n        self.nmask = (1 << self.nbits)\
+    \ - 1\n        \n        self.B = isqrt(N)\n        self.order = [self.packet(i,\
+    \ L[i], R[i]) for i in range(self.Q)]\n        self.order.sort()\n        self.L\
+    \ = [0]*self.Q\n        self.R = [0]*self.Q\n        for i,j in enumerate(self.order):\n\
+    \            j &= self.qmask\n            self.order[i] = j\n            self.L[i]\
+    \ = L[j]\n            self.R[i] = R[j]\n\n    def packet(self, i: int, l: int,\
+    \ r: int) -> int:\n        \"\"\"Pack query information into a single integer.\"\
+    \"\"\n        b = l//self.B\n        if b & 1:\n            return (((b << self.nbits)\
+    \ + self.nmask - r) << self.qbits) + i\n        else:\n            return (((b\
+    \ << self.nbits) + r) << self.qbits) + i\n\n    def add(self, i: int):\n     \
+    \   \"\"\"Add element at index i to current range.\"\"\"\n        pass\n\n   \
+    \ def remove(self, i: int):\n        \"\"\"Remove element at index i from current\
+    \ range.\"\"\"\n        pass\n\n    def answer(self, i: int, l: int, r: int) ->\
+    \ int:\n        \"\"\"Compute answer for current range.\"\"\"\n        pass\n\
+    \    \n    def solve(self) -> list[int]:\n        curr_l = curr_r = 0\n      \
+    \  ans = [0] * self.Q\n        order, L, R = self.order, self.L, self.R\n    \
+    \    \n        for i in range(self.Q):\n            qid, l, r = order[i], L[i],\
+    \ R[i]\n            \n            if r > curr_r:\n                for i in range(curr_r,\
+    \ r):\n                    self.add(i)\n\n            if l < curr_l:\n       \
+    \         for i in range(curr_l-1, l-1, -1):\n                    self.add(i)\n\
+    \n            if l > curr_l:\n                for i in range(curr_l, l):\n   \
+    \                 self.remove(i)\n\n            if r < curr_r:\n             \
+    \   for i in range(curr_r-1, r-1, -1):\n                    self.remove(i)\n \
+    \                   \n            ans[qid] = self.answer(qid, l, r)\n        \
+    \    curr_l, curr_r = l, r\n            \n        return ans\n\n    @classmethod\n\
     \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
     \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
     \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
@@ -188,7 +190,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2025-01-24 05:21:27+09:00'
+  timestamp: '2025-02-09 13:23:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_mo.test.py
