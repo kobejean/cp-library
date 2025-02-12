@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -297,72 +297,68 @@ data:
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n        \n    def _line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n    \n    def line(self):\n        if\
-    \ self.queue:\n            A = list(self.queue)\n            self.queue.clear()\n\
-    \            return A\n        return self._line()\n        \nTokenStream.default\
-    \ = TokenStream()\n\nclass CharStream(TokenStream):\n\n    def line(self):\n \
-    \       return TokenStream.stream.readline().rstrip()\n\nCharStream.default =\
-    \ CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
-    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \            self.queue.clear()\n            return A\n        return self._line()\n\
+    TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
+    \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
+    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
+    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
-    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
-    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\
+    \ return cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
+    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
-    \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
-    \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
-    \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
-    \ Callable): \n            def parse(ts: TokenStream):\n                return\
-    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
-    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
-    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
-    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
-    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
-    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
-    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
-    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
-    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
-    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
-    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
+    \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
+    \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
+    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
+    \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
+    \ _T, spec=int) -> ParseFn[_T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])\n\
+    \            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])\n\
+    \            return parse\n\n    @staticmethod\n    def compile_repeat(cls: _T,\
+    \ spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for _ in range(N)])\n        return parse\n\
+    \n    @staticmethod\n    def compile_children(cls: _T, specs) -> ParseFn[_T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for fn in fns])  \n        return parse\n \
+    \           \n    @staticmethod\n    def compile_tuple(cls: type[_T], specs) ->\
+    \ ParseFn[_T]:\n        if isinstance(specs, (tuple,list)) and len(specs) == 2\
+    \ and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
-    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
-    \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
-    \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
-    \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n@overload\n\
-    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
-    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
-    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
-    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
+    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and\
+    \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
+    \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
+    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
+    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
+    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
+    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
     \ parser(CharStream.default if char else TokenStream.default)\n"
   code: "import cp_library.io.__header__\n\nfrom typing import Iterable, Type, Union,\
     \ overload\nfrom cp_library.io.parser_cls import Parser, TokenStream, CharStream\n\
     from cp_library.misc.typing import _T\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        line = TokenStream.default.queue\
-    \ or TokenStream.stream.readline().split()\n        return map(int, line)\n  \
-    \  parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n"
+    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
+    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
+    \ parser(CharStream.default if char else TokenStream.default)\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
@@ -370,90 +366,90 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
-  - test/aoj/grl/grl_1_b_bellman_ford.test.py
+  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
-  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
+  - test/aoj/grl/grl_1_b_bellman_ford.test.py
   - test/aoj/grl/grl_1_a_dijkstra.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
+  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
+  - test/atcoder/abc/abc261_g_mo.test.py
+  - test/atcoder/abc/abc249_f_max_k_heap.test.py
+  - test/atcoder/abc/abc206_e_mobius_table.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
+  - test/atcoder/abc/abc186_e_gcd_ex.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc184_e_grid_graph.test.py
+  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc175_d_permutation.test.py
+  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
+  - test/atcoder/abc/abc189_e_vec2d.test.py
+  - test/atcoder/abc/abc185_e_dp2d.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
+  - test/atcoder/abc/abc249_f_min_k_heap.test.py
+  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
+  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
+  - test/atcoder/abc/abc304_f_mobius_inv.test.py
+  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/atcoder/abc/abc203_e_sort_groups.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc151_f_fbisect_left.test.py
+  - test/atcoder/abc/abc301_e_grid_graph.test.py
+  - test/atcoder/abc/abc203_e_queries_grouped.test.py
+  - test/atcoder/abc/abc261_g_queries_mo_ops.test.py
+  - test/atcoder/abc/abc218_f_shortest_path.test.py
+  - test/atcoder/abc/abc245_f_digraph.test.py
+  - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
+  - test/atcoder/abc/abc184_f_subset_sum_fn.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc274_e_vec2d.test.py
+  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
+  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
+  - test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
+  - test/library-checker/convolution/convolution_int.test.py
+  - test/library-checker/convolution/convolution_mod_1000000007.test.py
+  - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
+  - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
+  - test/library-checker/convolution/convolution.test.py
+  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
+  - test/library-checker/polynomial/inv_of_formal_power_series.test.py
+  - test/library-checker/polynomial/log_of_formal_power_series.test.py
+  - test/library-checker/polynomial/polynomial_taylor_shift.test.py
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
-  - test/library-checker/polynomial/log_of_formal_power_series.test.py
-  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
-  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - test/library-checker/polynomial/inv_of_formal_power_series.test.py
-  - test/library-checker/polynomial/polynomial_taylor_shift.test.py
-  - test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/shortest_path_graph_weighted.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/chromatic_number.test.py
-  - test/library-checker/graph/scc.test.py
-  - test/library-checker/graph/cycle_detection.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
-  - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
-  - test/library-checker/convolution/convolution_int.test.py
-  - test/library-checker/convolution/convolution.test.py
-  - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
-  - test/library-checker/convolution/convolution_mod_1000000007.test.py
+  - test/library-checker/graph/scc.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
-  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
-  - test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-  - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
-  - test/atcoder/abc/abc203_e_queries_grouped.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc203_e_sort_groups.test.py
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc184_f_subset_sum_fn.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
-  - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
-  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - test/atcoder/abc/abc304_f_mobius_inv.test.py
-  - test/atcoder/abc/abc218_f_shortest_path.test.py
-  - test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
-  - test/atcoder/abc/abc206_e_mobius_table.test.py
-  - test/atcoder/abc/abc186_e_gcd_ex.test.py
-  - test/atcoder/abc/abc301_e_grid_graph.test.py
-  - test/atcoder/abc/abc245_f_digraph.test.py
-  - test/atcoder/abc/abc185_e_dp2d.test.py
-  - test/atcoder/abc/abc274_e_vec2d.test.py
-  - test/atcoder/abc/abc249_f_max_k_heap.test.py
-  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - test/atcoder/abc/abc175_d_permutation.test.py
-  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc261_g_mo.test.py
-  - test/atcoder/abc/abc249_f_min_k_heap.test.py
-  - test/atcoder/abc/abc184_e_grid_graph.test.py
-  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - test/atcoder/abc/abc189_e_vec2d.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
 documentation_of: cp_library/io/read_fn.py
 layout: document
 redirect_from:

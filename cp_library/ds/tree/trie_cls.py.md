@@ -3,8 +3,8 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/ahocorasick_cls.py
-    title: cp_library/ds/ahocorasick_cls.py
+    path: cp_library/ds/tree/ahocorasick_cls.py
+    title: cp_library/ds/tree/ahocorasick_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
@@ -59,17 +59,17 @@ data:
     \            curr = curr.parent\n        return \"\".join(reversed(output))\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/ds/trie_cls.py
+  path: cp_library/ds/tree/trie_cls.py
   requiredBy:
-  - cp_library/ds/ahocorasick_cls.py
-  timestamp: '2025-02-09 13:23:10+09:00'
+  - cp_library/ds/tree/ahocorasick_cls.py
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-documentation_of: cp_library/ds/trie_cls.py
+documentation_of: cp_library/ds/tree/trie_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/trie_cls.py
-- /library/cp_library/ds/trie_cls.py.html
-title: cp_library/ds/trie_cls.py
+- /library/cp_library/ds/tree/trie_cls.py
+- /library/cp_library/ds/tree/trie_cls.py.html
+title: cp_library/ds/tree/trie_cls.py
 ---

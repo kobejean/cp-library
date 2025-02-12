@@ -46,9 +46,9 @@ data:
   path: cp_library/math/table/sieve_proto.py
   requiredBy:
   - cp_library/math/table/sieve_cls.py
-  - cp_library/math/table/linear_sieve_cls.py
   - cp_library/math/table/linear_sieve_cnts_cls.py
-  timestamp: '2025-02-09 13:23:10+09:00'
+  - cp_library/math/table/linear_sieve_cls.py
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/sieve_proto.py

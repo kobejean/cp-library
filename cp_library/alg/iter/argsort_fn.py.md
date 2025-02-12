@@ -87,29 +87,29 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/argsort_fn.py
   requiredBy:
-  - cp_library/alg/iter/sort_parallel_copies_fn.py
-  - cp_library/alg/iter/sort_parallel_fn.py
+  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
-  timestamp: '2025-02-09 13:23:10+09:00'
+  - cp_library/alg/iter/sort_parallel_fn.py
+  - cp_library/alg/iter/sort_parallel_copies_fn.py
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/iter/argsort_fn.py
 layout: document
 redirect_from:

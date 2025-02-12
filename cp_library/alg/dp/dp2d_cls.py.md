@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -54,20 +54,19 @@ data:
     \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
     \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
-    \        \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
-    \    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
-    \        \nTokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n\
-    \n    def line(self):\n        return TokenStream.stream.readline().rstrip()\n\
-    \nCharStream.default = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\n\
-    class Parser:\n    def __init__(self, spec: Union[type[_T],_T]):\n        self.parse\
-    \ = Parser.compile(spec)\n\n    def __call__(self, ts: TokenStream) -> _T:\n \
-    \       return self.parse(ts)\n    \n    @staticmethod\n    def compile_type(cls:\
-    \ type[_T], args = ()) -> _T:\n        if issubclass(cls, Parsable):\n       \
-    \     return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n\
-    \            def parse(ts: TokenStream):\n                return cls(next(ts))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\n\
-    \            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
+    \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
+    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
+    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
+    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\
+    \ return cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
     \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
     \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
     \      return cls(next(ts))              \n            return parse\n        else:\n\
@@ -76,45 +75,44 @@ data:
     \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
     \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
-    \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
-    \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
-    \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
-    \ Callable): \n            def parse(ts: TokenStream):\n                return\
-    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
-    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
-    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
-    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
-    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
-    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
-    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
-    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
-    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
-    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
-    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
+    \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
+    \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
+    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
+    \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
+    \ _T, spec=int) -> ParseFn[_T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])\n\
+    \            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])\n\
+    \            return parse\n\n    @staticmethod\n    def compile_repeat(cls: _T,\
+    \ spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for _ in range(N)])\n        return parse\n\
+    \n    @staticmethod\n    def compile_children(cls: _T, specs) -> ParseFn[_T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for fn in fns])  \n        return parse\n \
+    \           \n    @staticmethod\n    def compile_tuple(cls: type[_T], specs) ->\
+    \ ParseFn[_T]:\n        if isinstance(specs, (tuple,list)) and len(specs) == 2\
+    \ and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
-    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
-    \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
-    \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
-    \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\nfrom\
-    \ dataclasses import dataclass\nfrom math import inf\n\n_T = TypeVar('T')\n\n\
-    @dataclass\nclass Transition2D(Generic[_T]):\n    di: int\n    dj: int\n    \n\
-    \    def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n        \"\"\
-    \"Override this to implement transition logic\"\"\"\n        return src  # Default\
-    \ no-op\n    \n    @classmethod\n    def make(cls, func):\n        class Transition(cls):\n\
-    \            def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n  \
-    \              return func(i,j,src,dest)\n        return Transition\n\nclass DynamicProgramming2D(Generic[_T],\
-    \ Parsable, Container):\n    def __init__(self, rows: int, cols: int, default:\
-    \ _T = inf):\n        self.rows = rows\n        self.cols = cols\n        self.table\
-    \ = default if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
+    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and\
+    \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
+    \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
+    \ return cls(next(ts))\n        return parser\nfrom dataclasses import dataclass\n\
+    from math import inf\n\n_T = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[_T]):\n\
+    \    di: int\n    dj: int\n    \n    def __call__(self, i: int, j: int, src: _T,\
+    \ dest: _T) -> _T:\n        \"\"\"Override this to implement transition logic\"\
+    \"\"\n        return src  # Default no-op\n    \n    @classmethod\n    def make(cls,\
+    \ func):\n        class Transition(cls):\n            def __call__(self, i: int,\
+    \ j: int, src: _T, dest: _T) -> _T:\n                return func(i,j,src,dest)\n\
+    \        return Transition\n\nclass DynamicProgramming2D(Generic[_T], Parsable,\
+    \ Container):\n    def __init__(self, rows: int, cols: int, default: _T = inf):\n\
+    \        self.rows = rows\n        self.cols = cols\n        self.table = default\
+    \ if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
     \    \n    def __getitem__(self, pos: tuple[int, int]) -> _T:\n        i, j =\
     \ pos\n        return self.table[i][j]\n    \n    def __setitem__(self, pos: tuple[int,\
     \ int], value: _T) -> None:\n        i, j = pos\n        self.table[i][j] = value\n\
@@ -160,7 +158,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/dp2d_cls.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc185_e_dp2d.test.py

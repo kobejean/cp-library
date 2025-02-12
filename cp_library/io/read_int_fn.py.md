@@ -3,7 +3,7 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/aoj/dsl/dsl_2_a_segtree.test.py
     title: test/aoj/dsl/dsl_2_a_segtree.test.py
   - icon: ':heavy_check_mark:'
@@ -39,9 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -57,21 +57,21 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-02-12 22:25:56+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/aoj/dsl/dsl_2_c_kdtree.test.py
-  - test/library-checker/data-structure/unionfind_with_potential.test.py
-  - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
-  - test/library-checker/data-structure/unionfind.test.py
-  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
-  - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
+  - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
+  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/atcoder/arc/arc122_b_insurance_median.test.py
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
+  - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
   - test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
+  - test/library-checker/data-structure/unionfind.test.py
+  - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
+  - test/library-checker/data-structure/unionfind_with_potential.test.py
+  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
 documentation_of: cp_library/io/read_int_fn.py
 layout: document
 redirect_from:

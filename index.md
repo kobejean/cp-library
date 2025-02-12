@@ -196,6 +196,12 @@ data:
       title: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
   - name: cp_library/alg/iter
     pages:
+    - icon: ':warning:'
+      path: cp_library/alg/iter/argmax_fn.py
+      title: cp_library/alg/iter/argmax_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/argmin_fn.py
+      title: cp_library/alg/iter/argmin_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/argsort_fn.py
       title: cp_library/alg/iter/argsort_fn.py
@@ -316,23 +322,11 @@ data:
   - name: cp_library/ds
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/ahocorasick_cls.py
-      title: cp_library/ds/ahocorasick_cls.py
-    - icon: ':heavy_check_mark:'
       path: cp_library/ds/array_init_fn.py
       title: cp_library/ds/array_init_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/bidirectional_array_cls.py
       title: cp_library/ds/bidirectional_array_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/bir_cls.py
-      title: cp_library/ds/bir_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/bit_cls.py
-      title: cp_library/ds/bit_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/bit_generalized_cls.py
-      title: cp_library/ds/bit_generalized_cls.py
     - icon: ':warning:'
       path: cp_library/ds/bucket_list_cls.py
       title: cp_library/ds/bucket_list_cls.py
@@ -378,9 +372,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/reserve_fn.py
       title: cp_library/ds/reserve_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/segtree_cls.py
-      title: cp_library/ds/segtree_cls.py
     - icon: ':warning:'
       path: cp_library/ds/slidingmax_cls.py
       title: cp_library/ds/slidingmax_cls.py
@@ -402,9 +393,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/sparse_table_cls.py
       title: cp_library/ds/sparse_table_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/trie_cls.py
-      title: cp_library/ds/trie_cls.py
     - icon: ':warning:'
       path: cp_library/ds/wavelet_matrix_cls.py
       title: cp_library/ds/wavelet_matrix_cls.py
@@ -446,12 +434,38 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/skew_heap_forest_cls.py
       title: cp_library/ds/heap/skew_heap_forest_cls.py
+  - name: cp_library/ds/tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/ahocorasick_cls.py
+      title: cp_library/ds/tree/ahocorasick_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/bir_cls.py
+      title: cp_library/ds/tree/bir_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bit_cls.py
+      title: cp_library/ds/tree/bit_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/bit_fast_cls.py
+      title: cp_library/ds/tree/bit_fast_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/bit_group_cls.py
+      title: cp_library/ds/tree/bit_group_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/bit_monoid_cls.py
+      title: cp_library/ds/tree/bit_monoid_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/segtree_cls.py
+      title: cp_library/ds/tree/segtree_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/trie_cls.py
+      title: cp_library/ds/tree/trie_cls.py
   - name: cp_library/io
     pages:
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
     - icon: ':heavy_check_mark:'
@@ -466,10 +480,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/legacy
@@ -727,7 +741,7 @@ data:
   verificationCategories:
   - name: test/aoj/dsl
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/aoj/dsl/dsl_2_a_segtree.test.py
       title: test/aoj/dsl/dsl_2_a_segtree.test.py
     - icon: ':heavy_check_mark:'
@@ -960,6 +974,9 @@ data:
       title: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - name: test/library-checker/data-structure
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/point_add_range_sum.test.py
+      title: test/library-checker/data-structure/point_add_range_sum.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/unionfind.test.py
       title: test/library-checker/data-structure/unionfind.test.py

@@ -76,7 +76,7 @@ data:
   requiredBy:
   - cp_library/math/mutvec_cls.py
   - cp_library/math/mat_cls.py
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/elm_wise_in_place_mixin.py

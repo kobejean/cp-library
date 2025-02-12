@@ -127,7 +127,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/directedmst.test.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/directedmst.test.py

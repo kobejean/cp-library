@@ -22,7 +22,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -31,7 +31,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -142,80 +142,77 @@ data:
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n        \n    def _line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n    \n    def line(self):\n        if\
-    \ self.queue:\n            A = list(self.queue)\n            self.queue.clear()\n\
-    \            return A\n        return self._line()\n        \nTokenStream.default\
-    \ = TokenStream()\n\nclass CharStream(TokenStream):\n\n    def line(self):\n \
-    \       return TokenStream.stream.readline().rstrip()\n\nCharStream.default =\
-    \ CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
-    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \            self.queue.clear()\n            return A\n        return self._line()\n\
+    TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
+    \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
+    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
+    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
-    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
-    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\
+    \ return cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
+    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
-    \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
-    \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
-    \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
-    \ Callable): \n            def parse(ts: TokenStream):\n                return\
-    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
-    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
-    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
-    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
-    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
-    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
-    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
-    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
-    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
-    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
-    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
+    \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
+    \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
+    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
+    \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
+    \ _T, spec=int) -> ParseFn[_T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])\n\
+    \            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])\n\
+    \            return parse\n\n    @staticmethod\n    def compile_repeat(cls: _T,\
+    \ spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for _ in range(N)])\n        return parse\n\
+    \n    @staticmethod\n    def compile_children(cls: _T, specs) -> ParseFn[_T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for fn in fns])  \n        return parse\n \
+    \           \n    @staticmethod\n    def compile_tuple(cls: type[_T], specs) ->\
+    \ ParseFn[_T]:\n        if isinstance(specs, (tuple,list)) and len(specs) == 2\
+    \ and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
-    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
-    \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
-    \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
-    \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\nclass\
-    \ Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n    \
-    \    def parse(ts: TokenStream):\n            u,v = ts.line()\n            return\
-    \ cls((int(u)+I,int(v)+I))\n        return parse\n\n\ndef elist(est_len: int)\
-    \ -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def\
-    \ newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom typing\
-    \ import Iterable, Union, overload\n\nclass GraphProtocol(list, Parsable):\n \
-    \   def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
-    \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
-    \ adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
-    \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
-    \ list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        if s == None:\n            return G.floyd_warshall()\n \
-    \       else:\n            return G.bfs(s, g)\n\n    @overload\n    def bfs(G,\
-    \ s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
-    \ Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n   \
-    \     D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
-    \ else s)\n        for u in q: D[u] = 0\n        while q:\n            nd = D[u\
-    \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
-    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
-    \                    q.append(v)\n        return D if g is None else inf \n\n\
-    \    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
+    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and\
+    \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
+    \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
+    \ return cls(next(ts))\n        return parser\n\nclass Edge(tuple, Parsable):\n\
+    \    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n\
+    \            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n  \
+    \      return parse\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \nfrom typing import Iterable, Union, overload\n\
+    \nclass GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E: list =\
+    \ None, adj: Iterable = None):\n        G.N = N\n        if E is not None:\n \
+    \           G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
+    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
+    \    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n    def distance(G)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
+    \ distance(G, s = None, g = None):\n        if s == None:\n            return\
+    \ G.floyd_warshall()\n        else:\n            return G.bfs(s, g)\n\n    @overload\n\
+    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
+    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g\
+    \ = None):\n        D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s,\
+    \ int) else s)\n        for u in q: D[u] = 0\n        while q:\n            nd\
+    \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
+    \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
+    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
+    \ \n\n    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
     \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
     \ -> tuple[Union[list[int],None],list[int]]: ...\n    def shortest_path(G, s:\
     \ int, g: int, distances = False) -> list[int]:\n        D = [inf] * G.N\n   \
@@ -400,15 +397,14 @@ data:
     def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
     \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
     def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
-    \ is None:\n        line = TokenStream.default.queue or TokenStream.stream.readline().split()\n\
-    \        return map(int, line)\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
+    \ is None:\n        return map(int, TokenStream.default.line())\n    parser: _T\
+    \ = Parser.compile(spec)\n    return parser(CharStream.default if char else TokenStream.default)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_A\n\
     \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    ap = articulation_points(G)\n\
     \    ans = [v for v,b in enumerate(ap) if b]\n    if ans:\n        write(*ans,\
@@ -431,7 +427,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_3_a_articulation_points_fn.test.py

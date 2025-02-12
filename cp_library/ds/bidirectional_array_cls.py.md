@@ -51,11 +51,11 @@ data:
   requiredBy:
   - cp_library/alg/dp/rerooting_iterative_cls.py
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
 documentation_of: cp_library/ds/bidirectional_array_cls.py
 layout: document
 redirect_from:

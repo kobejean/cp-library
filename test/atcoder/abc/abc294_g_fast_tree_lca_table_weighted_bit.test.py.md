@@ -41,9 +41,6 @@ data:
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/bit_cls.py
-    title: cp_library/ds/bit_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
@@ -65,6 +62,9 @@ data:
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bit_cls.py
+    title: cp_library/ds/tree/bit_cls.py
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -73,7 +73,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -87,29 +87,28 @@ data:
     - https://atcoder.jp/contests/abc294/tasks/abc294_g
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n    U, V = T.U,\
-    \ T.V\n    lca = LCATableWeighted(T)\n    bit = BinaryIndexTree(lca.weights)\n\
-    \n    def update(i,w):\n        u,v = U[i], V[i]\n        c = u if T.par[u] ==\
-    \ v else v\n        l,r = lca.start[c], lca.stop[c]\n        bit.set(l,w)\n  \
-    \      bit.set(r,-w)\n    \n    def query(u,v):\n        a,_ = lca.query(u,v)\n\
-    \        ans = bit.presum(lca.stop[u]) + \\\n            bit.presum(lca.stop[v])\
-    \ - \\\n            2*bit.presum(lca.stop[a])\n        write(ans)\n    \n    def\
-    \ answer():\n        Q = read(int)\n        for q in read(list[tuple[int,int,int],\
-    \ Q]):\n            match q:\n                case 1, i, w:\n                \
-    \    update(i-1,w)\n                case 2, u, v:\n                    query(u-1,v-1)\n\
-    \    answer()\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ T.V\n    lca = LCATableWeighted(T)\n    bit = BIT(lca.weights)\n\n    def update(i,w):\n\
+    \        u,v = U[i], V[i]\n        c = u if T.par[u] == v else v\n        l,r\
+    \ = lca.start[c], lca.stop[c]\n        bit.set(l,w)\n        bit.set(r,-w)\n \
+    \   \n    def query(u,v):\n        a,_ = lca.query(u,v)\n        ans = bit.sum(lca.stop[u])\
+    \ + \\\n            bit.sum(lca.stop[v]) - \\\n            2*bit.sum(lca.stop[a])\n\
+    \        write(ans)\n    \n    def answer():\n        Q = read(int)\n        for\
+    \ q in read(list[tuple[int,int,int], Q]):\n            match q:\n            \
+    \    case 1, i, w:\n                    update(i-1,w)\n                case 2,\
+    \ u, v:\n                    query(u-1,v-1)\n    answer()\n\n'''\n\u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\
-    from typing import overload\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
+    \    return ch\nfrom typing import overload\n\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -134,127 +133,124 @@ data:
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n        \n    def _line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n    \n    def line(self):\n        if\
-    \ self.queue:\n            A = list(self.queue)\n            self.queue.clear()\n\
-    \            return A\n        return self._line()\n        \nTokenStream.default\
-    \ = TokenStream()\n\nclass CharStream(TokenStream):\n\n    def line(self):\n \
-    \       return TokenStream.stream.readline().rstrip()\n\nCharStream.default =\
-    \ CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
-    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \            self.queue.clear()\n            return A\n        return self._line()\n\
+    TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
+    \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
+    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
+    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
-    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
-    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\
+    \ return cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
+    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
-    \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
-    \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
-    \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
-    \ Callable): \n            def parse(ts: TokenStream):\n                return\
-    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
-    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
-    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
-    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
-    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
-    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
-    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
-    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
-    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
-    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
-    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
+    \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
+    \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
+    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
+    \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
+    \ _T, spec=int) -> ParseFn[_T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])\n\
+    \            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])\n\
+    \            return parse\n\n    @staticmethod\n    def compile_repeat(cls: _T,\
+    \ spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for _ in range(N)])\n        return parse\n\
+    \n    @staticmethod\n    def compile_children(cls: _T, specs) -> ParseFn[_T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for fn in fns])  \n        return parse\n \
+    \           \n    @staticmethod\n    def compile_tuple(cls: type[_T], specs) ->\
+    \ ParseFn[_T]:\n        if isinstance(specs, (tuple,list)) and len(specs) == 2\
+    \ and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
-    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
-    \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
-    \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
-    \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\n\n\
-    def argsort(A: list[int], reverse=False):\n    N = len(A)\n    mask = (1 << (shift\
-    \ := N.bit_length())) - 1\n    indices = [0]*N\n    for i in range(N):\n     \
-    \   indices[i] = A[i] << shift | i\n    indices.sort(reverse=reverse)\n    for\
-    \ i in range(N):\n        indices[i] &= mask\n    return indices\nfrom math import\
-    \ inf\nfrom itertools import islice\nfrom typing import Callable, Sequence, Union,\
-    \ overload\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
-    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
-    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
-    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
-    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
-    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
-    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
-    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
-    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G, N: int, M:\
-    \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
-    \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int],\
-    \ self_loops = False):\n        G.N = N\n        \"\"\"The number of vertices.\"\
-    \"\"\n        G.M = M\n        \"\"\"The number of edges.\"\"\"\n        G.U =\
-    \ U\n        \"\"\"A list of source vertices in the original edge list.\"\"\"\n\
-    \        G.V = V\n        \"\"\"A list of destination vertices in the original\
-    \ edge list.\"\"\"\n        G.deg = deg\n        \"\"\"deg[u] is the out degree\
-    \ of vertex u.\"\"\"\n        G.La = La\n        \"\"\"La[u] stores the start\
-    \ index of the list of adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n  \
-    \      \"\"\"Ra[u] stores the stop index of the list of adjacent vertices from\
-    \ u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u],\
-    \ useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\"Va[i] lists\
-    \ adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n  \
-    \      \"\"\"Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].\n\
-    \        For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M]\
-    \ -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n        G.order:\
-    \ list[int] = None\n        G.vis: list[int] = None\n\n    def __len__(G) -> int:\
-    \ return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
-    \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
-    \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
-    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
-    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
-    \ None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\n    def\
-    \ shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf: return\
-    \ None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while\
-    \ v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n \
-    \   \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
-    \ t) >= inf: return None\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back,\
-    \ u32f(0), t\n        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n\
-    \        return edges[::-1]\n    \n    @overload\n    def bfs(G, s: Union[int,list]\
-    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
-    \ int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        S, Va,\
-    \ back, D = G.starts(s), G.Va, i32f(N := G.N, -1), [inf]*N\n        G.back, G.D\
-    \ = back, D\n        for u in S: D[u] = 0\n        que = deque(S)\n        while\
-    \ que:\n            nd = D[u := que.popleft()]+1\n            if u == g: return\
-    \ nd-1\n            for i in G.range(u):\n                if nd < D[v := Va[i]]:\n\
-    \                    D[v], back[v] = nd, i\n                    que.append(v)\n\
-    \        return D if g is None else inf \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        M, Ua, Va, N = G.M, G.Ua, G.Va, G.N\n        G.D = D = [[inf]*N for _\
-    \ in range(N)]\n        for u in range(N): D[u][u] = 0\n        for i in range(M):\
-    \ D[Ua[i]][Va[i]] = 1\n        for k, Dk in enumerate(D):\n            for Di\
-    \ in D:\n                if Di[k] == inf: continue\n                for j in range(N):\n\
-    \                    Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n   \
-    \ def find_cycle_indices(G, s: Union[int, None] = None):\n        M, Ea, Ua, Va,\
-    \ vis, back = G.M, G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n      \
-    \  G.vis, G.back, stack = vis, back, elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            stack.append(s)\n            while\
-    \ stack:\n                if vis[u := stack.pop()] == 0:\n                   \
-    \ stack.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
-    \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
-    \                if vis[v := Va[i]] == 0:\n                            back[v]\
-    \ = i\n                            stack.append(v)\n                        elif\
-    \ vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n  \
-    \                          while v != u: I.append(i := back[u]), (u := Ua[i])\n\
+    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and\
+    \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
+    \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
+    \ return cls(next(ts))\n        return parser\n\n\ndef argsort(A: list[int], reverse=False):\n\
+    \    N = len(A)\n    mask = (1 << (shift := N.bit_length())) - 1\n    indices\
+    \ = [0]*N\n    for i in range(N):\n        indices[i] = A[i] << shift | i\n  \
+    \  indices.sort(reverse=reverse)\n    for i in range(N):\n        indices[i] &=\
+    \ mask\n    return indices\nfrom math import inf\nfrom itertools import islice\n\
+    from typing import Callable, Sequence, Union, overload\n\nfrom enum import auto,\
+    \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
+    \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
+    \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
+    \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
+    \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
+    \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
+    \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
+    \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
+    \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
+    \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
+    \        Ua: list[int], Va: list[int], Ea: list[int], self_loops = False):\n \
+    \       G.N = N\n        \"\"\"The number of vertices.\"\"\"\n        G.M = M\n\
+    \        \"\"\"The number of edges.\"\"\"\n        G.U = U\n        \"\"\"A list\
+    \ of source vertices in the original edge list.\"\"\"\n        G.V = V\n     \
+    \   \"\"\"A list of destination vertices in the original edge list.\"\"\"\n  \
+    \      G.deg = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n\
+    \        G.La = La\n        \"\"\"La[u] stores the start index of the list of\
+    \ adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n        \"\"\"Ra[u] stores\
+    \ the stop index of the list of adjacent vertices from u.\"\"\"\n        G.Ua\
+    \ = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\
+    \"\"\n        G.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for\
+    \ La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n        \"\"\"Ea[i] lists the\
+    \ edge ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
+    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
+    \n        G.stack: list[int] = None\n        G.order: list[int] = None\n     \
+    \   G.vis: list[int] = None\n\n    def __len__(G) -> int: return G.N\n    def\
+    \ __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n    def range(G, u):\
+    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
+    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
+    \ G.bfs(s, g)\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
+    \ t) >= inf: return None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v\
+    \ := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n        return\
+    \ vertices[::-1]\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n \
+    \       if G.distance(s, t) >= inf: return None\n        Ea, Ua, back, edges,\
+    \ v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v != s: edges.append(Ea[i\
+    \ := back[v]]), (v := Ua[i])\n        return edges[::-1]\n    \n    @overload\n\
+    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
+    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int =\
+    \ 0, g: int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N,\
+    \ -1), [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n\
+    \        que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
+    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
+    \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
+    \                    que.append(v)\n        return D if g is None else inf \n\n\
+    \    def floyd_warshall(G) -> list[list[int]]:\n        M, Ua, Va, N = G.M, G.Ua,\
+    \ G.Va, G.N\n        G.D = D = [[inf]*N for _ in range(N)]\n        for u in range(N):\
+    \ D[u][u] = 0\n        for i in range(M): D[Ua[i]][Va[i]] = 1\n        for k,\
+    \ Dk in enumerate(D):\n            for Di in D:\n                if Di[k] == inf:\
+    \ continue\n                for j in range(N):\n                    Di[j] = min(Di[j],\
+    \ Di[k]+Dk[j])\n        return D\n\n    def find_cycle_indices(G, s: Union[int,\
+    \ None] = None):\n        M, Ea, Ua, Va, vis, back = G.M, G.Ea, G. Ua, G.Va, u8f(N\
+    \ := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack = vis, back, elist(N)\n\
+    \        for s in G.starts(s):\n            if vis[s]: continue\n            stack.append(s)\n\
+    \            while stack:\n                if vis[u := stack.pop()] == 0:\n  \
+    \                  stack.append(u)\n                    vis[u], pe = 1, Ea[j]\
+    \ if (j := back[u]) != i32_max else i32_max\n                    for i in G.range(u):\n\
+    \                        if vis[v := Va[i]] == 0:\n                          \
+    \  back[v] = i\n                            stack.append(v)\n                \
+    \        elif vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n\
+    \                            while v != u: I.append(i := back[u]), (u := Ua[i])\n\
     \                            return I[::-1]\n                else:\n         \
     \           vis[u] = 2\n        # check for self loops\n        for i in range(len(Ua)):\n\
     \            if Ua[i] == Va[i]:\n                return u32f(1,i)\n    \n    def\
@@ -495,8 +491,8 @@ data:
     \ v for v,d in enumerate(T.distance(s))) \n        diam, g = dg >> shift, dg &\
     \ mask\n        return (diam, s, g) if endpoints else diam\n    \n    def dfs_distance(T,\
     \ s: int, g: Union[int,None] = None):\n        stack, Va = elist(N := T.N), T.Va\n\
-    \        T.D, T.back = D, back = u32f(N, inf), i32f(N, -1)\n        D[s] = 0\n\
-    \        stack.append(s)\n        while stack:\n            nd = D[u := stack.pop()]+1\n\
+    \        T.D, T.back = D, back = [inf]*N, i32f(N, -1)\n        D[s] = 0\n    \
+    \    stack.append(s)\n        while stack:\n            nd = D[u := stack.pop()]+1\n\
     \            if u == g: return nd-1\n            for i in T.range(u):\n      \
     \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
     \                    stack.append(v)\n        return D if g is None else inf\n\
@@ -639,60 +635,56 @@ data:
     \      if self.weighted_depth is None:\n            self.weighted_depth = presum(self.weights)\n\
     \        l, r, a, _ = self._query(u, v)\n        m = self.start[a]\n        return\
     \ self.weighted_depth[l] + self.weighted_depth[r] - 2*self.weighted_depth[m]\n\
-    \nclass BinaryIndexTree:\n    def __init__(bit, v: Union[int,list]):\n       \
-    \ if isinstance(v, int):\n            bit.data, bit.size = [0]*v, v\n        else:\n\
-    \            bit.build(v)\n\n    def build(bit, data):\n        bit.data, bit.size\
-    \ = data, len(data)\n        for i in range(bit.size):\n            if (r := i|(i+1))\
-    \ < bit.size: \n                data[r] += data[i]\n\n    def get(bit, i: int):\n\
-    \        assert 0 <= i < bit.size\n        s, z = (data := bit.data)[i], i&(i+1)\n\
-    \        for _ in range((i^z).bit_count()):\n            s, i = s-data[i-1], i-(i&-i)\n\
-    \        return s\n    __getitem__ = get\n    \n    def set(bit, i: int, x: int):\n\
-    \        bit.add(i, x-bit.get(i))\n    __setitem__ = set\n        \n    def add(bit,\
-    \ i: int, x: int) -> None:\n        assert 0 <= i <= bit.size\n        data, size\
-    \ = bit.data, bit.size\n        while i < size:\n            data[i], i = data[i]+x,\
-    \ i|(i+1)\n\n    def presum(bit, n: int):\n        assert 0 <= n <= bit.size\n\
-    \        s, z, i, data = 0, n.bit_count(), n-1, bit.data\n        for _ in range(z):\n\
-    \            s, i = s+data[i], (i&(i+1))-1\n        return s\n    \n    def range_sum(bit,\
-    \ l: int, r: int):\n        return bit.presum(r) - bit.presum(l)\n\n    def prelist(bit):\n\
-    \        pre = [0]+bit.data\n        for i in range(bit.size+1):\n           \
-    \ pre[i] += pre[i&(i-1)]\n        return pre\n    \n    def bisect_left(bit, v):\n\
-    \        return bit.bisect_right(v-1)+1\n    \n    def bisect_right(bit, v):\n\
-    \        d, i, s, m, n = bit.data, 0, 0, bit.lead, bit.size\n        while m:\n\
-    \            if (ni:=i|m) <= n and (ns:=s+d[ni-1]) <= v:\n                s, i\
-    \ = ns, ni\n            m >>= 1\n        return i\n\nfrom typing import Iterable,\
-    \ Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
-    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None:\n        line = TokenStream.default.queue or\
-    \ TokenStream.stream.readline().split()\n        return map(int, line)\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
-    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the values\
-    \ to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    \nclass BIT(Sequence[int]):\n    def __init__(bit, v):\n        if isinstance(v,\
+    \ int): bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n\n    def build(bit,\
+    \ data):\n        bit.d, bit.n = data, len(data)\n        for i in range(bit.n):\n\
+    \            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\n    def add(bit,\
+    \ i, x):\n        while i < bit.n:\n            bit.d[i] += x\n            i |=\
+    \ i+1\n\n    def sum(bit, n: int) -> int:\n        assert 0 <= n <= bit.n\n  \
+    \      s = 0\n        while n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n\
+    \    def range_sum(bit, l, r):\n        s = 0\n        while r: s, r = s+bit.d[r-1],\
+    \ r&r-1\n        while l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n   \
+    \ def __len__(bit) -> int:\n        return bit.n\n    \n    def __getitem__(bit,\
+    \ i: int) -> int:\n        s, l = bit.d[i], i&(i+1)\n        while l != i: s,\
+    \ i = s-bit.d[i-1], i-(i&-i)\n        return s\n    get = __getitem__\n    \n\
+    \    def __setitem__(bit, i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n\
+    \    set = __setitem__\n\n    def presum(bit) -> list[int]:\n        pre = [0]+bit.d\n\
+    \        for i in range(bit.n+1): pre[i] += pre[i&i-1]\n        return pre\n \
+    \   \n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)+1\n\
+    \    \n    def bisect_right(bit, v) -> int:\n        d, i, s, m, n = bit.d, 0,\
+    \ 0, 1 << (bit.n.bit_length()-1), bit.n\n        while m:\n            if (ni:=i|m)\
+    \ <= n and (ns:=s+d[(i|m)-1]) <= v: s, i = ns, ni\n            m >>= 1\n     \
+    \   return i\n\nfrom typing import Iterable, Type, Union, overload\n\n@overload\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None:\n        return map(int, TokenStream.default.line())\n    parser: _T\
+    \ = Parser.compile(spec)\n    return parser(CharStream.default if char else TokenStream.default)\n\
+    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
+    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
+    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
+    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
+    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n    U, V = T.U,\
-    \ T.V\n    lca = LCATableWeighted(T)\n    bit = BinaryIndexTree(lca.weights)\n\
-    \n    def update(i,w):\n        u,v = U[i], V[i]\n        c = u if T.par[u] ==\
-    \ v else v\n        l,r = lca.start[c], lca.stop[c]\n        bit.set(l,w)\n  \
-    \      bit.set(r,-w)\n    \n    def query(u,v):\n        a,_ = lca.query(u,v)\n\
-    \        ans = bit.presum(lca.stop[u]) + \\\n            bit.presum(lca.stop[v])\
-    \ - \\\n            2*bit.presum(lca.stop[a])\n        write(ans)\n    \n    def\
-    \ answer():\n        Q = read(int)\n        for q in read(list[tuple[int,int,int],\
-    \ Q]):\n            match q:\n                case 1, i, w:\n                \
-    \    update(i-1,w)\n                case 2, u, v:\n                    query(u-1,v-1)\n\
-    \    answer()\n\nfrom cp_library.alg.tree.fast.tree_weighted_cls import TreeWeighted\n\
-    from cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted\n\
-    from cp_library.ds.bit_cls import BinaryIndexTree\nfrom cp_library.io.read_fn\
+    \ T.V\n    lca = LCATableWeighted(T)\n    bit = BIT(lca.weights)\n\n    def update(i,w):\n\
+    \        u,v = U[i], V[i]\n        c = u if T.par[u] == v else v\n        l,r\
+    \ = lca.start[c], lca.stop[c]\n        bit.set(l,w)\n        bit.set(r,-w)\n \
+    \   \n    def query(u,v):\n        a,_ = lca.query(u,v)\n        ans = bit.sum(lca.stop[u])\
+    \ + \\\n            bit.sum(lca.stop[v]) - \\\n            2*bit.sum(lca.stop[a])\n\
+    \        write(ans)\n    \n    def answer():\n        Q = read(int)\n        for\
+    \ q in read(list[tuple[int,int,int], Q]):\n            match q:\n            \
+    \    case 1, i, w:\n                    update(i-1,w)\n                case 2,\
+    \ u, v:\n                    query(u-1,v-1)\n    answer()\n\nfrom cp_library.alg.tree.fast.tree_weighted_cls\
+    \ import TreeWeighted\nfrom cp_library.alg.tree.lca_table_weighted_iterative_cls\
+    \ import LCATableWeighted\nfrom cp_library.ds.tree.bit_cls import BIT\nfrom cp_library.io.read_fn\
     \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
     :\n    main()"
   dependsOn:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  - cp_library/ds/bit_cls.py
+  - cp_library/ds/tree/bit_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
@@ -718,7 +710,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

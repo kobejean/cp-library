@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -53,87 +53,85 @@ data:
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n        \n    def _line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n    \n    def line(self):\n        if\
-    \ self.queue:\n            A = list(self.queue)\n            self.queue.clear()\n\
-    \            return A\n        return self._line()\n        \nTokenStream.default\
-    \ = TokenStream()\n\nclass CharStream(TokenStream):\n\n    def line(self):\n \
-    \       return TokenStream.stream.readline().rstrip()\n\nCharStream.default =\
-    \ CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
-    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \            self.queue.clear()\n            return A\n        return self._line()\n\
+    TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
+    \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
+    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
+    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
-    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
-    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\
+    \ return cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
+    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
-    \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
-    \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
-    \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
-    \ Callable): \n            def parse(ts: TokenStream):\n                return\
-    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
-    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
-    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
-    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
-    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
-    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
-    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
-    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
-    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
-    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
-    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
+    \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
+    \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
+    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
+    \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
+    \ _T, spec=int) -> ParseFn[_T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])\n\
+    \            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])\n\
+    \            return parse\n\n    @staticmethod\n    def compile_repeat(cls: _T,\
+    \ spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for _ in range(N)])\n        return parse\n\
+    \n    @staticmethod\n    def compile_children(cls: _T, specs) -> ParseFn[_T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for fn in fns])  \n        return parse\n \
+    \           \n    @staticmethod\n    def compile_tuple(cls: type[_T], specs) ->\
+    \ ParseFn[_T]:\n        if isinstance(specs, (tuple,list)) and len(specs) == 2\
+    \ and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
-    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
-    \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
-    \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
-    \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\nfrom\
-    \ itertools import groupby\nfrom typing import Iterable\n\nclass Queries(list,\
-    \ Parsable):\n    def __init__(self, data: Iterable = []):\n        super().__init__((i,*query)\
-    \ for i,query in enumerate(data))\n\n    def append(self, query) -> None:\n  \
-    \      return super().append((len(self), *query))\n\n    @classmethod\n    def\
-    \ compile(cls, N: int, T: type = tuple[int, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls(query(ts) for _ in\
-    \ range(N))\n        return parse\n\nclass QueriesGrouped(Queries):\n    '''QueriesGrouped[Q:\
-    \ int, key = 0, T: type = tuple[int, ...]]'''\n    def __init__(self, queries,\
-    \ key = 0):\n        if isinstance(key, int):\n            group_idx = key+1\n\
-    \            def wrap_key(row):\n                return row[group_idx]\n     \
-    \   else:\n            def wrap_key(row):\n                _, *query = row\n \
-    \               return key(query)\n        rows = sorted(((i,*query) for i,query\
-    \ in enumerate(queries)), key = wrap_key)\n        groups = [(k, list(g)) for\
-    \ k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n        self.key\
-    \ = key\n        \n        list.__init__(self, groups)\n            \n\n    @classmethod\n\
-    \    def compile(cls, Q: int, key = 0, T: type = tuple[int, ...]):\n        query\
-    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            return\
-    \ cls((query(ts) for _ in range(Q)), key)\n        return parse\n\nclass QueriesRange(Queries):\n\
-    \    '''QueriesRange[Q: int, N: int, key = 0, T: type = tuple[-1, int]]'''\n \
-    \   def __init__(self, queries, N: int, key = 0):\n        if isinstance(key,\
-    \ int):\n            group_idx = key+1\n            def wrap_key(row):\n     \
-    \           return row[group_idx]\n        else:\n            def wrap_key(row):\n\
+    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and\
+    \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
+    \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
+    \ return cls(next(ts))\n        return parser\nfrom itertools import groupby\n\
+    from typing import Iterable\n\nclass Queries(list, Parsable):\n    def __init__(self,\
+    \ data: Iterable = []):\n        super().__init__((i,*query) for i,query in enumerate(data))\n\
+    \n    def append(self, query) -> None:\n        return super().append((len(self),\
+    \ *query))\n\n    @classmethod\n    def compile(cls, N: int, T: type = tuple[int,\
+    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls(query(ts) for _ in range(N))\n        return parse\n\n\
+    class QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int, key = 0, T: type\
+    \ = tuple[int, ...]]'''\n    def __init__(self, queries, key = 0):\n        if\
+    \ isinstance(key, int):\n            group_idx = key+1\n            def wrap_key(row):\n\
+    \                return row[group_idx]\n        else:\n            def wrap_key(row):\n\
     \                _, *query = row\n                return key(query)\n        rows\
-    \ = list((i,*query) for i,query in enumerate(queries))\n        \n        groups\
-    \ = [(k,[]) for k in range(N)]\n        for k, group in groupby(rows, key = wrap_key):\n\
-    \            groups[k][1].extend(group)\n        self.key = key\n        \n  \
-    \      list.__init__(self, groups)\n\n    @classmethod\n    def compile(cls, Q:\
-    \ int, N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
-    \ in range(Q)), N, key)\n        return parse\n"
+    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
+    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
+    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
+    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
+    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
+    \  def parse(ts: TokenStream):\n            return cls((query(ts) for _ in range(Q)),\
+    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
+    \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
+    \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
+    \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
+    \        else:\n            def wrap_key(row):\n                _, *query = row\n\
+    \                return key(query)\n        rows = list((i,*query) for i,query\
+    \ in enumerate(queries))\n        \n        groups = [(k,[]) for k in range(N)]\n\
+    \        for k, group in groupby(rows, key = wrap_key):\n            groups[k][1].extend(group)\n\
+    \        self.key = key\n        \n        list.__init__(self, groups)\n\n   \
+    \ @classmethod\n    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1,\
+    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls((query(ts) for _ in range(Q)), N, key)\n        return\
+    \ parse\n"
   code: "import cp_library.ds.__header__\nfrom cp_library.io.parser_cls import Parsable,\
     \ Parser, TokenStream\nfrom itertools import groupby\nfrom typing import Iterable\n\
     \nclass Queries(list, Parsable):\n    def __init__(self, data: Iterable = []):\n\
@@ -172,7 +170,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_cls.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc203_e_queries_grouped.test.py

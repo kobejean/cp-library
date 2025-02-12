@@ -15,16 +15,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import MutableSequence\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
-    \ndef shift(A: MutableSequence[_T], offset=-1):\n    for i in range(len(A)): A[i]\
-    \ += offset\n    return A\n"
+    \ndef shift(A: MutableSequence[_T], offset=-1):\n    return [a+offset for a in\
+    \ A]\n"
   code: "import cp_library.alg.iter.__header__\nfrom typing import MutableSequence\n\
     from cp_library.misc.typing import _T\n\ndef shift(A: MutableSequence[_T], offset=-1):\n\
-    \    for i in range(len(A)): A[i] += offset\n    return A"
+    \    return [a+offset for a in A]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/shift_fn.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/shift_fn.py

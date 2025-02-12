@@ -44,11 +44,11 @@ data:
   path: cp_library/alg/divcon/qselect_fn.py
   requiredBy:
   - cp_library/math/median_fn.py
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
   - test/atcoder/arc/arc122_b_insurance_median.test.py
+  - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
 documentation_of: cp_library/alg/divcon/qselect_fn.py
 layout: document
 redirect_from:

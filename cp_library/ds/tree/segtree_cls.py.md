@@ -2,13 +2,10 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/dsl/dsl_2_a_segtree.test.py
-    title: test/aoj/dsl/dsl_2_a_segtree.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -39,15 +36,15 @@ data:
     \ self.op, self.d, self.e\n        while True:\n            while l&1 == 0: l\
     \ >>= 1\n            if not f(op(sm, d[l])):\n                while l < sz:\n\
     \                    if f(op(sm, d[l:=l<<1])): sm, l = op(sm, d[l]), l+1\n   \
-    \             return l - sz\n            sm = op(sm, d[l])\n            l += 1\n\
-    \            if (l & -l) == l: return self.n\n\n    def min_left(self, r: int,\
-    \ f: Callable[[_T], bool]) -> int:\n        assert 0 <= r <= self.n\n        assert\
-    \ f(self.e)\n        if r == 0: return 0\n        r, op, d, sm = r+(sz := self.sz),\
-    \ self.op, self.d, self.e\n        while True:\n            r -= 1\n         \
-    \   while r > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n    \
-    \            while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm,\
-    \ r = op(d[r], sm), r-1\n                return r + 1 - sz\n            sm = op(d[r],\
-    \ sm)\n            if (r & -r) == r: return 0\n"
+    \             return l - sz\n            sm, l = op(sm, d[l]), l+1\n         \
+    \   if l&-l == l: return self.n\n\n    def min_left(self, r: int, f: Callable[[_T],\
+    \ bool]) -> int:\n        assert 0 <= r <= self.n\n        assert f(self.e)\n\
+    \        if r == 0: return 0\n        r, op, d, sm = r+(sz := self.sz), self.op,\
+    \ self.d, self.e\n        while True:\n            r -= 1\n            while r\
+    \ > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n              \
+    \  while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm, r = op(d[r],\
+    \ sm), r-1\n                return r + 1 - sz\n            sm = op(d[r], sm)\n\
+    \            if (r & -r) == r: return 0\n"
   code: "import cp_library.ds.__header__\nfrom typing import Callable, Generic, Union\n\
     from cp_library.misc.typing import _T\n\nclass SegTree(Generic[_T]):\n    def\
     \ __init__(self, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) ->\
@@ -70,27 +67,26 @@ data:
     \ self.op, self.d, self.e\n        while True:\n            while l&1 == 0: l\
     \ >>= 1\n            if not f(op(sm, d[l])):\n                while l < sz:\n\
     \                    if f(op(sm, d[l:=l<<1])): sm, l = op(sm, d[l]), l+1\n   \
-    \             return l - sz\n            sm = op(sm, d[l])\n            l += 1\n\
-    \            if (l & -l) == l: return self.n\n\n    def min_left(self, r: int,\
-    \ f: Callable[[_T], bool]) -> int:\n        assert 0 <= r <= self.n\n        assert\
-    \ f(self.e)\n        if r == 0: return 0\n        r, op, d, sm = r+(sz := self.sz),\
-    \ self.op, self.d, self.e\n        while True:\n            r -= 1\n         \
-    \   while r > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n    \
-    \            while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm,\
-    \ r = op(d[r], sm), r-1\n                return r + 1 - sz\n            sm = op(d[r],\
-    \ sm)\n            if (r & -r) == r: return 0"
+    \             return l - sz\n            sm, l = op(sm, d[l]), l+1\n         \
+    \   if l&-l == l: return self.n\n\n    def min_left(self, r: int, f: Callable[[_T],\
+    \ bool]) -> int:\n        assert 0 <= r <= self.n\n        assert f(self.e)\n\
+    \        if r == 0: return 0\n        r, op, d, sm = r+(sz := self.sz), self.op,\
+    \ self.d, self.e\n        while True:\n            r -= 1\n            while r\
+    \ > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n              \
+    \  while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm, r = op(d[r],\
+    \ sm), r-1\n                return r + 1 - sz\n            sm = op(d[r], sm)\n\
+    \            if (r & -r) == r: return 0"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/ds/segtree_cls.py
+  path: cp_library/ds/tree/segtree_cls.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/dsl/dsl_2_a_segtree.test.py
-documentation_of: cp_library/ds/segtree_cls.py
+  timestamp: '2025-02-12 22:25:56+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: cp_library/ds/tree/segtree_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/segtree_cls.py
-- /library/cp_library/ds/segtree_cls.py.html
-title: cp_library/ds/segtree_cls.py
+- /library/cp_library/ds/tree/segtree_cls.py
+- /library/cp_library/ds/tree/segtree_cls.py.html
+title: cp_library/ds/tree/segtree_cls.py
 ---

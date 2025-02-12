@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -56,91 +56,89 @@ data:
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
     \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n        \n    def _line(self):\n        return\
-    \ TokenStream.stream.readline().split()\n    \n    def line(self):\n        if\
-    \ self.queue:\n            A = list(self.queue)\n            self.queue.clear()\n\
-    \            return A\n        return self._line()\n        \nTokenStream.default\
-    \ = TokenStream()\n\nclass CharStream(TokenStream):\n\n    def line(self):\n \
-    \       return TokenStream.stream.readline().rstrip()\n\nCharStream.default =\
-    \ CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
-    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \            self.queue.clear()\n            return A\n        return self._line()\n\
+    TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
+    \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
+    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
+    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        elif issubclass(cls, tuple):\n            return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection):\n            return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(ts: TokenStream):\n\
-    \                return cls(next(ts))              \n            return parse\n\
-    \        else:\n            raise NotImplementedError()\n    \n    @staticmethod\n\
-    \    def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec,\
-    \ (type, GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n\
-    \            args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\
+    \ return cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
+    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
     \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
-    \ type(spec)  \n            def parse(ts: TokenStream):\n                return\
-    \ cls(next(ts)) + offset\n            return parse\n        elif isinstance(args\
-    \ := spec, tuple):      \n            return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection):  \n            return\
-    \ Parser.compile_collection(type(spec), args)\n        elif isinstance(fn := spec,\
-    \ Callable): \n            def parse(ts: TokenStream):\n                return\
-    \ fn(next(ts))\n            return parse\n        else:\n            raise NotImplementedError()\n\
-    \n    @staticmethod\n    def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n\
-    \        if spec is int:\n            fn = Parser.compile(spec)\n            def\
-    \ parse(ts: TokenStream):\n                return cls((int(token) for token in\
-    \ ts.line()))\n            return parse\n        else:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream):\n                return cls((fn(ts) for\
-    \ _ in ts.wait()))\n            return parse\n\n    @staticmethod\n    def compile_repeat(cls:\
-    \ _T, spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def\
-    \ parse(ts: TokenStream):\n            return cls((fn(ts) for _ in range(N)))\n\
-    \        return parse\n\n    @staticmethod\n    def compile_children(cls: _T,\
-    \ specs) -> ParseFn[_T]:\n        fns = tuple((Parser.compile(spec) for spec in\
-    \ specs))\n        def parse(ts: TokenStream):\n            return cls((fn(ts)\
-    \ for fn in fns))  \n        return parse\n            \n    @staticmethod\n \
-    \   def compile_tuple(cls: type[_T], specs) -> ParseFn[_T]:\n        if isinstance(specs,\
-    \ (tuple,list)) and len(specs) == 2 and specs[1] is ...:\n            return Parser.compile_line(cls,\
-    \ specs[0])\n        else:\n            return Parser.compile_children(cls, specs)\n\
-    \n    @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
+    \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
+    \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
+    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
+    \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
+    \ _T, spec=int) -> ParseFn[_T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])\n\
+    \            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])\n\
+    \            return parse\n\n    @staticmethod\n    def compile_repeat(cls: _T,\
+    \ spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for _ in range(N)])\n        return parse\n\
+    \n    @staticmethod\n    def compile_children(cls: _T, specs) -> ParseFn[_T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for fn in fns])  \n        return parse\n \
+    \           \n    @staticmethod\n    def compile_tuple(cls: type[_T], specs) ->\
+    \ ParseFn[_T]:\n        if isinstance(specs, (tuple,list)) and len(specs) == 2\
+    \ and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
     \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
-    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 \n\
-    \            and isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls,\
-    \ specs[0], specs[1])\n        else:\n            raise NotImplementedError()\n\
-    \nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(ts:\
-    \ TokenStream):\n            return cls(next(ts))\n        return parser\n\ndef\
-    \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nfrom enum import IntFlag, auto\nfrom math import isqrt\n\nclass MoOp(IntFlag):\n\
-    \    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n    REMOVE_LEFT = auto()\n   \
-    \ REMOVE_RIGHT = auto()\n    ANSWER = auto()\n    \n    ADD = ADD_LEFT | ADD_RIGHT\n\
-    \    REMOVE = REMOVE_LEFT | REMOVE_RIGHT\n\n# def hilbert(x: int, y: int, n: int)\
-    \ -> int:\n#     \"\"\"Convert (x,y) to Hilbert curve distance for given n (power\
-    \ of 2).\"\"\"\n#     d = 0\n#     for s in range(n.bit_length() - 1, -1, -1):\n\
-    #         rx = (x >> s) & 1\n#         ry = (y >> s) & 1\n#         d += n * n\
-    \ * ((3 * rx) ^ ry) >> 2\n#         if ry == 0:\n#             if rx == 1:\n#\
-    \                 x = n-1 - x\n#                 y = n-1 - y\n#             x,\
-    \ y = y, x\n#     return d\n\nclass QueriesMoOps(tuple[list[int], ...],Parsable):\n\
-    \    \"\"\"\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int, int]]\n   \
-    \ Orders queries using Mo's algorithm and generates a sequence of operations to\
-    \ process them efficiently.\n    Each operation is either moving pointers or answering\
-    \ a query.\n    \n    Uses half-interval convention: [left, right)\n    \"\"\"\
-    \n    \n    def __new__(cls, L: list[int], R: list[int], N: int, B: int = None):\n\
-    \        Q = len(L)\n        qbits = Q.bit_length()\n        nbits = (N+1).bit_length()\n\
-    \        qmask = qmask = (1 << qbits)-1\n        nmask = (1 << nbits)-1\n    \
-    \    B = max(1,N//isqrt(max(1,Q)) )if B is None else B\n        order = [0]*Q\n\
-    \        for i in range(Q):\n            l, r = L[i], R[i]\n            b = l//B\n\
-    \            r = nmask - r if b & 1 else r\n            order[i] = (((b << nbits)\
-    \ + r) << qbits) + i\n        # n = 1 << nbits\n        # for i in range(Q):\n\
-    \        #     l, r = L[i], R[i]\n        #     # Use Hilbert curve mapping for\
-    \ the 2D point (l,r)\n        #     h = hilbert(l, r, n)\n        #     order[i]\
-    \ = (h << qbits) + i\n        order.sort()\n        \n        ops = elist(3*Q)\n\
-    \        A1 = elist(3*Q)\n        A2 = elist(3*Q)\n        A3 = elist(3*Q)\n\n\
-    \        nl = nr = 0\n        \n        for i in order:\n            i &= qmask\n\
-    \            l, r = L[i], R[i]\n            if l < nl:\n                ops.append(MoOp.ADD_LEFT)\n\
-    \                A1.append(nl-1)\n                A2.append(l-1)\n           \
-    \     A3.append(-1)\n                \n            elif l > nl:\n            \
-    \    ops.append(MoOp.REMOVE_LEFT)\n                A1.append(nl)\n           \
-    \     A2.append(l)\n                A3.append(1)\n                \n         \
-    \   if r > nr:\n                ops.append(MoOp.ADD_RIGHT)\n                A1.append(nr)\n\
+    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and\
+    \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
+    \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
+    \ return cls(next(ts))\n        return parser\n\ndef elist(est_len: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\nfrom enum import IntFlag, auto\n\
+    from math import isqrt\n\nclass MoOp(IntFlag):\n    ADD_LEFT = auto()\n    ADD_RIGHT\
+    \ = auto()\n    REMOVE_LEFT = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER =\
+    \ auto()\n    \n    ADD = ADD_LEFT | ADD_RIGHT\n    REMOVE = REMOVE_LEFT | REMOVE_RIGHT\n\
+    \n# def hilbert(x: int, y: int, n: int) -> int:\n#     \"\"\"Convert (x,y) to\
+    \ Hilbert curve distance for given n (power of 2).\"\"\"\n#     d = 0\n#     for\
+    \ s in range(n.bit_length() - 1, -1, -1):\n#         rx = (x >> s) & 1\n#    \
+    \     ry = (y >> s) & 1\n#         d += n * n * ((3 * rx) ^ ry) >> 2\n#      \
+    \   if ry == 0:\n#             if rx == 1:\n#                 x = n-1 - x\n# \
+    \                y = n-1 - y\n#             x, y = y, x\n#     return d\n\nclass\
+    \ QueriesMoOps(tuple[list[int], ...],Parsable):\n    \"\"\"\n    QueriesMoOps[Q:\
+    \ int, N: int, T: type = tuple[int, int]]\n    Orders queries using Mo's algorithm\
+    \ and generates a sequence of operations to process them efficiently.\n    Each\
+    \ operation is either moving pointers or answering a query.\n    \n    Uses half-interval\
+    \ convention: [left, right)\n    \"\"\"\n    \n    def __new__(cls, L: list[int],\
+    \ R: list[int], N: int, B: int = None):\n        Q = len(L)\n        qbits = Q.bit_length()\n\
+    \        nbits = (N+1).bit_length()\n        qmask = qmask = (1 << qbits)-1\n\
+    \        nmask = (1 << nbits)-1\n        B = max(1,N//isqrt(max(1,Q)) )if B is\
+    \ None else B\n        order = [0]*Q\n        for i in range(Q):\n           \
+    \ l, r = L[i], R[i]\n            b = l//B\n            r = nmask - r if b & 1\
+    \ else r\n            order[i] = (((b << nbits) + r) << qbits) + i\n        #\
+    \ n = 1 << nbits\n        # for i in range(Q):\n        #     l, r = L[i], R[i]\n\
+    \        #     # Use Hilbert curve mapping for the 2D point (l,r)\n        # \
+    \    h = hilbert(l, r, n)\n        #     order[i] = (h << qbits) + i\n       \
+    \ order.sort()\n        \n        ops = elist(3*Q)\n        A1 = elist(3*Q)\n\
+    \        A2 = elist(3*Q)\n        A3 = elist(3*Q)\n\n        nl = nr = 0\n   \
+    \     \n        for i in order:\n            i &= qmask\n            l, r = L[i],\
+    \ R[i]\n            if l < nl:\n                ops.append(MoOp.ADD_LEFT)\n  \
+    \              A1.append(nl-1)\n                A2.append(l-1)\n             \
+    \   A3.append(-1)\n                \n            elif l > nl:\n              \
+    \  ops.append(MoOp.REMOVE_LEFT)\n                A1.append(nl)\n             \
+    \   A2.append(l)\n                A3.append(1)\n                \n           \
+    \ if r > nr:\n                ops.append(MoOp.ADD_RIGHT)\n                A1.append(nr)\n\
     \                A2.append(r)\n                A3.append(1)\n                \n\
     \            elif r < nr:\n                ops.append(MoOp.REMOVE_RIGHT)\n   \
     \             A1.append(nr-1)\n                A2.append(r-1)\n              \
@@ -214,7 +212,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_mo_ops_cls.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc261_g_queries_mo_ops.test.py

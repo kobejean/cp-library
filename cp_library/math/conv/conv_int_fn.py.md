@@ -116,7 +116,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/conv_int_fn.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution_int.test.py

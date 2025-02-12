@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/trie_cls.py
-    title: cp_library/ds/trie_cls.py
+    path: cp_library/ds/tree/trie_cls.py
+    title: cp_library/ds/tree/trie_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -53,8 +53,8 @@ data:
     \  for i in range(len(arr_bfs) - 1, 0, -1):\n            p = arr_bfs[i]\n    \
     \        p.failed.count += p.count\n            if p.word:\n                output[p.prefix()]\
     \ = p.count\n        return output\n"
-  code: "import cp_library.ds.__header__\nfrom cp_library.ds.trie_cls import Trie\n\
-    \nclass AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
+  code: "import cp_library.ds.__header__\nfrom cp_library.ds.tree.trie_cls import\
+    \ Trie\n\nclass AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
     \        super().__init__()\n        self.failed: 'AhoCorasick' = None\n\n   \
     \ def build_fail(self):\n        arr_bfs = self.bfs()\n        for p in arr_bfs:\n\
     \            curr = p.parent\n            if curr:\n                c = p.last\n\
@@ -70,18 +70,18 @@ data:
     \        p.failed.count += p.count\n            if p.word:\n                output[p.prefix()]\
     \ = p.count\n        return output\n"
   dependsOn:
-  - cp_library/ds/trie_cls.py
+  - cp_library/ds/tree/trie_cls.py
   isVerificationFile: false
-  path: cp_library/ds/ahocorasick_cls.py
+  path: cp_library/ds/tree/ahocorasick_cls.py
   requiredBy: []
-  timestamp: '2025-02-09 13:23:10+09:00'
+  timestamp: '2025-02-12 22:25:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-documentation_of: cp_library/ds/ahocorasick_cls.py
+documentation_of: cp_library/ds/tree/ahocorasick_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/ahocorasick_cls.py
-- /library/cp_library/ds/ahocorasick_cls.py.html
-title: cp_library/ds/ahocorasick_cls.py
+- /library/cp_library/ds/tree/ahocorasick_cls.py
+- /library/cp_library/ds/tree/ahocorasick_cls.py.html
+title: cp_library/ds/tree/ahocorasick_cls.py
 ---
