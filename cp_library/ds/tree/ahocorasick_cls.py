@@ -1,5 +1,5 @@
 import cp_library.ds.__header__
-from cp_library.ds.trie_cls import Trie
+from cp_library.ds.tree.trie_cls import Trie
 
 class AhoCorasick(Trie):
     __slots__ = 'failed',

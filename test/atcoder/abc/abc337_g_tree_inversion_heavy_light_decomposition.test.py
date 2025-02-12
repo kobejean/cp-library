@@ -5,7 +5,7 @@ def main():
     T = read(Tree[N])
 
     hld = HLD(T)
-    bit = BinaryIndexTree(N)
+    bit = BIT(N)
     ans = [0]*(N+1)
 
     def range_add(l,r,x):
@@ -28,7 +28,7 @@ def main():
 
 from cp_library.alg.tree.heavy_light_decomposition_cls import HLD
 from cp_library.alg.tree.tree_cls import Tree
-from cp_library.ds.bit_cls import BinaryIndexTree
+from cp_library.ds.tree.bit_cls import BIT
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.alg.iter.presum_fn import presum

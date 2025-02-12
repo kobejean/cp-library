@@ -6,7 +6,7 @@ def main():
 
     hld = HLDWeighted(T)
     W = [hld.weights[i] for i in hld.order]
-    bit = BinaryIndexTree(W)
+    bit = BIT(W)
 
     def query(l, r):
         nonlocal ans
@@ -31,7 +31,7 @@ def main():
                 hld.path(u,v, query, True)
                 write(ans)
 
-from cp_library.ds.bit_cls import BinaryIndexTree
+from cp_library.ds.tree.bit_cls import BIT
 from cp_library.alg.tree.tree_weighted_cls import TreeWeighted
 from cp_library.alg.tree.heavy_light_decomposition_weighted_cls import HLDWeighted
 from cp_library.io.read_fn import read

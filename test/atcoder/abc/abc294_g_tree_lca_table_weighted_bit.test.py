@@ -5,7 +5,7 @@ def main():
     T = read(TreeWeighted[N])
     E = T.E
     lca = LCATableWeighted(T)
-    bit = BinaryIndexTree(lca.weights)
+    bit = BIT(lca.weights)
 
     def update(i,w):
         u,v,_ = E[i]
@@ -16,9 +16,9 @@ def main():
     
     def query(u,v):
         a,_ = lca.query(u,v)
-        ans = bit.presum(lca.stop[u]) + \
-            bit.presum(lca.stop[v]) - \
-            2*bit.presum(lca.stop[a])
+        ans = bit.sum(lca.stop[u]) + \
+            bit.sum(lca.stop[v]) - \
+            2*bit.sum(lca.stop[a])
         write(ans)
     
     def answer():
@@ -33,7 +33,7 @@ def main():
 
 from cp_library.alg.tree.tree_weighted_cls import TreeWeighted
 from cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted
-from cp_library.ds.bit_cls import BinaryIndexTree
+from cp_library.ds.tree.bit_cls import BIT
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

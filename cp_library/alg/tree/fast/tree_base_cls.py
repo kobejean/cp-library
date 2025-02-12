@@ -29,7 +29,7 @@ class TreeBase(GraphBase):
     
     def dfs_distance(T, s: int, g: Union[int,None] = None):
         stack, Va = elist(N := T.N), T.Va
-        T.D, T.back = D, back = u32f(N, inf), i32f(N, -1)
+        T.D, T.back = D, back = [inf]*N, i32f(N, -1)
         D[s] = 0
         stack.append(s)
         while stack:

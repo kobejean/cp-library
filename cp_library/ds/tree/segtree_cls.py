@@ -45,9 +45,8 @@ class SegTree(Generic[_T]):
                 while l < sz:
                     if f(op(sm, d[l:=l<<1])): sm, l = op(sm, d[l]), l+1
                 return l - sz
-            sm = op(sm, d[l])
-            l += 1
-            if (l & -l) == l: return self.n
+            sm, l = op(sm, d[l]), l+1
+            if l&-l == l: return self.n
 
     def min_left(self, r: int, f: Callable[[_T], bool]) -> int:
         assert 0 <= r <= self.n

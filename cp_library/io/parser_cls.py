@@ -20,25 +20,23 @@ class TokenStream(Iterator):
     def wait(self):
         if not self.queue: self.queue.extend(self._line())
         while self.queue: yield
-        
+ 
     def _line(self):
         return TokenStream.stream.readline().split()
-    
+
     def line(self):
         if self.queue:
             A = list(self.queue)
             self.queue.clear()
             return A
         return self._line()
-        
 TokenStream.default = TokenStream()
 
 class CharStream(TokenStream):
-
-    def line(self):
+    def _line(self):
         return TokenStream.stream.readline().rstrip()
-
 CharStream.default = CharStream()
+
 
 ParseFn = Callable[[TokenStream],_T]
 class Parser:
@@ -53,8 +51,7 @@ class Parser:
         if issubclass(cls, Parsable):
             return cls.compile(*args)
         elif issubclass(cls, (Number, str)):
-            def parse(ts: TokenStream):
-                return cls(next(ts))              
+            def parse(ts: TokenStream): return cls(next(ts))              
             return parse
         elif issubclass(cls, tuple):
             return Parser.compile_tuple(cls, args)
@@ -75,16 +72,14 @@ class Parser:
             return Parser.compile_type(cls, args)
         elif isinstance(offset := spec, Number): 
             cls = type(spec)  
-            def parse(ts: TokenStream):
-                return cls(next(ts)) + offset
+            def parse(ts: TokenStream): return cls(next(ts)) + offset
             return parse
         elif isinstance(args := spec, tuple):      
             return Parser.compile_tuple(type(spec), args)
         elif isinstance(args := spec, Collection):  
             return Parser.compile_collection(type(spec), args)
         elif isinstance(fn := spec, Callable): 
-            def parse(ts: TokenStream):
-                return fn(next(ts))
+            def parse(ts: TokenStream): return fn(next(ts))
             return parse
         else:
             raise NotImplementedError()
@@ -93,27 +88,23 @@ class Parser:
     def compile_line(cls: _T, spec=int) -> ParseFn[_T]:
         if spec is int:
             fn = Parser.compile(spec)
-            def parse(ts: TokenStream):
-                return cls((int(token) for token in ts.line()))
+            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])
             return parse
         else:
             fn = Parser.compile(spec)
-            def parse(ts: TokenStream):
-                return cls((fn(ts) for _ in ts.wait()))
+            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])
             return parse
 
     @staticmethod
     def compile_repeat(cls: _T, spec, N) -> ParseFn[_T]:
         fn = Parser.compile(spec)
-        def parse(ts: TokenStream):
-            return cls((fn(ts) for _ in range(N)))
+        def parse(ts: TokenStream): return cls([fn(ts) for _ in range(N)])
         return parse
 
     @staticmethod
     def compile_children(cls: _T, specs) -> ParseFn[_T]:
         fns = tuple((Parser.compile(spec) for spec in specs))
-        def parse(ts: TokenStream):
-            return cls((fn(ts) for fn in fns))  
+        def parse(ts: TokenStream): return cls([fn(ts) for fn in fns])  
         return parse
             
     @staticmethod
@@ -127,8 +118,7 @@ class Parser:
     def compile_collection(cls, specs):
         if not specs or len(specs) == 1 or isinstance(specs, set):
             return Parser.compile_line(cls, *specs)
-        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 
-            and isinstance(specs[1], int)):
+        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1], int)):
             return Parser.compile_repeat(cls, specs[0], specs[1])
         else:
             raise NotImplementedError()
@@ -136,6 +126,5 @@ class Parser:
 class Parsable:
     @classmethod
     def compile(cls):
-        def parser(ts: TokenStream):
-            return cls(next(ts))
+        def parser(ts: TokenStream): return cls(next(ts))
         return parser

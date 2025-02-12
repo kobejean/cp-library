@@ -16,7 +16,7 @@ def main():
 
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
-from cp_library.ds.ahocorasick_cls import AhoCorasick
+from cp_library.ds.tree.ahocorasick_cls import AhoCorasick
 
 if __name__ == '__main__':
     main()
