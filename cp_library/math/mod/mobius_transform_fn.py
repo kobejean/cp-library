@@ -1,6 +1,6 @@
 import cp_library.math.mod.__header__
 
-def mobius_transform(A, N, mod, block=5):
+def subset_mobius(A, N, mod, block=5):
     for i in range(min(block,N)):
         for mask in range(bit := 1<<i, 1<<N):
             if mask & bit:

@@ -11,7 +11,6 @@ def read(spec: int) -> list[int]: ...
 @overload
 def read(spec: Union[Type[_T],_T], char=False) -> _T: ...
 def read(spec: Union[Type[_T],_T] = None, char=False):
-    if not char and spec is None:
-        return map(int, TokenStream.default.line())
+    if not char and spec is None: return map(int, TokenStream.default.line())
     parser: _T = Parser.compile(spec)
     return parser(CharStream.default if char else TokenStream.default)

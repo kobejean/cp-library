@@ -1,3 +1,4 @@
+from cp_library.ds.elist_fn import elist
 import cp_library.alg.graph.__header__
 
 from cp_library.alg.graph.functional_graph_cls import FunctionalGraph
@@ -20,19 +21,20 @@ class PartialFunctionalGraph(FunctionalGraph):
         return None
     
     def cycles(F):
-        vis = [False]*F.N
-        cycs = []
+        vis, cycs, S = [False]*F.N, elist(F.N), elist(F.N)
         for v in range(F.N):
             slow = fast = v
             while F[fast] != -1 and (fast := F[F[fast]]) != -1 and not vis[fast]:
                 slow, fast = F[slow], F[F[fast]]
                 if slow == fast:
-                    cyc = [slow]
+                    S.append(len(cycs))
+                    cycs.append(slow)
                     vis[slow] = True
-                    while F[slow] != cyc[0]:
+                    while F[slow] != fast:
                         slow = F[slow]
-                        cyc.append(slow)
+                        cycs.append(slow)
                         vis[slow] = True
-                    cycs.append(cyc)
                     break
-        return cycs
+        return CRFList(cycs, S)
+
+from cp_library.alg.iter.crf_list_cls import CRFList

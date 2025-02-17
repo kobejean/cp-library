@@ -81,10 +81,10 @@ class GraphBase(Sequence, Parsable):
         return D if g is None else inf 
 
     def floyd_warshall(G) -> list[list[int]]:
-        M, Ua, Va, N = G.M, G.Ua, G.Va, G.N
+        Ua, Va, N = G.Ua, G.Va, G.N
         G.D = D = [[inf]*N for _ in range(N)]
         for u in range(N): D[u][u] = 0
-        for i in range(M): D[Ua[i]][Va[i]] = 1
+        for i in range(len(Ua)): D[Ua[i]][Va[i]] = 1
         for k, Dk in enumerate(D):
             for Di in D:
                 if Di[k] == inf: continue

@@ -19,7 +19,7 @@ class UniqueFactors(list[int]):
     def mobius_inv(P, F, full=True):
         C, f = [P.N]*(1<<len(P)), F(P.N) if full else 0
         for i,p in enumerate(P):
-            l = 2*(b := 1<<i)-1
+            l = ((b := 1<<i)<<1)-1
             for m in range(b, b << 1):
                 C[m], f = (c := C[l^m]//p), F(c)-f
         return -f if full else f

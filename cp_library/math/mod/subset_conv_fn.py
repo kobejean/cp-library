@@ -14,8 +14,8 @@ def subset_conv(A, B, N, mod):
         Brank[rank][mask] = B[mask]
 
     # Zeta transform for each rank
-    for Ar in Arank: zeta_transform(Ar, N, mod)
-    for Br in Brank: zeta_transform(Br, N, mod)
+    for Ar in Arank: subset_zeta(Ar, N, mod)
+    for Br in Brank: subset_zeta(Br, N, mod)
 
     # Convolution
     Crank = [[0]*Z for _ in range(N+1)]
@@ -27,7 +27,7 @@ def subset_conv(A, B, N, mod):
                 Crank[k][mask] = (Crank[k][mask] + Arank[i][mask] * Brank[j][mask]) % mod
 
     # Möbius transform (inverse of Zeta transform)
-    for Cr in Crank: mobius_transform(Cr, N, mod)
+    for Cr in Crank: subset_mobius(Cr, N, mod)
         
     # Combine results
     C = [0] * Z
@@ -37,5 +37,5 @@ def subset_conv(A, B, N, mod):
 
     return C
 
-from cp_library.math.mod.zeta_transform_fn import zeta_transform
-from cp_library.math.mod.mobius_transform_fn import mobius_transform
+from cp_library.math.mod.subset_zeta_fn import subset_zeta
+from cp_library.math.mod.subset_mobius_fn import subset_mobius
