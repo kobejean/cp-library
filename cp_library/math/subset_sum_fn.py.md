@@ -27,7 +27,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/subset_sum_fn.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc184_f_subset_sum_fn.test.py

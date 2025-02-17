@@ -107,7 +107,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/unionfind_with_potential.test.py

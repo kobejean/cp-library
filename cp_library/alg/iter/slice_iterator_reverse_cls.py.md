@@ -6,24 +6,12 @@ data:
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/functional_graph_cls.py
-    title: cp_library/alg/graph/functional_graph_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/partial_functional_graph_cls.py
-    title: cp_library/alg/graph/partial_functional_graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/permutation_cls.py
-    title: cp_library/alg/graph/permutation_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
     title: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
   - icon: ':warning:'
     path: cp_library/alg/graph/strongly_connected_components_fn.py
     title: cp_library/alg/graph/strongly_connected_components_fn.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc175_d_permutation.test.py
-    title: test/atcoder/abc/abc175_d_permutation.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
@@ -63,16 +51,12 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/slice_iterator_reverse_cls.py
   requiredBy:
-  - cp_library/alg/graph/partial_functional_graph_cls.py
-  - cp_library/alg/graph/functional_graph_cls.py
   - cp_library/alg/graph/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/digraph_cls.py
-  - cp_library/alg/graph/permutation_cls.py
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/cycle_detection.test.py

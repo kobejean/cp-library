@@ -10,7 +10,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
@@ -177,7 +177,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py

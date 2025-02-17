@@ -43,10 +43,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -152,28 +152,27 @@ data:
     \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\nfrom heapq import heappop, heappush\n\n\ndef chmin(dp,\
-    \ i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n@overload\ndef dijkstra(G,\
-    \ s: int = 0) -> list[int]: ...\n@overload\ndef dijkstra(G, s: int, g: int) ->\
-    \ int: ...\ndef dijkstra(G, s = 0, g: Union[int,None] = None):\n    N = len(G)\n\
-    \    D = [inf for _ in range(N)]\n    D[s] = 0\n    q = [(0, s)]\n    while q:\n\
-    \        d, v = heappop(q)\n        if d > D[v]: continue\n        if v == g:\
-    \ return d\n        for u, w, *_ in G[v]:\n            if chmin(D, u, nd := d\
-    \ + w):\n                heappush(q, (nd, u))\n    return D if g is None else\
-    \ inf\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
-    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
-    \           return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools\
-    \ import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def\
-    \ __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n \
-    \       b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \n\nfrom heapq import heappop, heappush\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
+    \    return ch\n\n@overload\ndef dijkstra(G, s: int = 0) -> list[int]: ...\n@overload\n\
+    def dijkstra(G, s: int, g: int) -> int: ...\ndef dijkstra(G, s = 0, g: Union[int,None]\
+    \ = None):\n    N = len(G)\n    D = [inf for _ in range(N)]\n    D[s] = 0\n  \
+    \  q = [(0, s)]\n    while q:\n        d, v = heappop(q)\n        if d > D[v]:\
+    \ continue\n        if v == g: return d\n        for u, w, *_ in G[v]:\n     \
+    \       if chmin(D, u, nd := d + w):\n                heappush(q, (nd, u))\n \
+    \   return D if g is None else inf\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
+    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
+    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
+    \ parse\n\nfrom functools import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n\
+    \    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
+    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
     \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
     \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
     \       return parse\n\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
@@ -608,7 +607,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_a_dijkstra.test.py

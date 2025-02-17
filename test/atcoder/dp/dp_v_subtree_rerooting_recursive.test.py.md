@@ -40,10 +40,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -186,77 +186,77 @@ data:
     \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
-    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
-    \ parse\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
-    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
-    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
-    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
-    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
-    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
-    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
-    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
-    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \nfrom math import inf\n\nclass GraphProtocol(list, Parsable):\n\
-    \    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
-    \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
-    \ adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
-    \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
-    \ list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        if s == None:\n            return G.floyd_warshall()\n \
-    \       else:\n            return G.bfs(s, g)\n\n    @overload\n    def bfs(G,\
-    \ s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
-    \ Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n   \
-    \     D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
-    \ else s)\n        for u in q: D[u] = 0\n        while q:\n            nd = D[u\
-    \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
-    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
-    \                    q.append(v)\n        return D if g is None else inf \n\n\
-    \    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
-    \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
-    \ -> tuple[Union[list[int],None],list[int]]: ...\n    def shortest_path(G, s:\
-    \ int, g: int, distances = False) -> list[int]:\n        D = [inf] * G.N\n   \
-    \     D[s] = 0\n        if s == g:\n            return ([], D) if distances else\
-    \ []\n            \n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n\
-    \        Eid = G.edge_ids()\n        q = deque([s])\n        \n        while q:\n\
-    \            nd = D[u := q.popleft()] + 1\n            if u == g: break\n    \
-    \            \n            for v, eid in zip(G[u], Eid[u]):\n                if\
-    \ nd < D[v]:\n                    D[v] = nd\n                    par[v] = u\n\
-    \                    par_edge[v] = eid\n                    q.append(v)\n    \
-    \    \n        if D[g] == inf:\n            return (None, D) if distances else\
-    \ None\n            \n        path = []\n        current = g\n        while current\
-    \ != s:\n            path.append(par_edge[current])\n            current = par[current]\n\
-    \            \n        return (path[::-1], D) if distances else path[::-1]\n \
-    \           \n     \n            \n        \n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        D = [[inf]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
-    \            D[u][u] = 0\n            for v in G.neighbors(u):\n             \
-    \   D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n            for\
-    \ Di in D:\n                if Di[k] == inf: continue\n                for j in\
-    \ range(G.N):\n                    if Dk[j] == inf: continue\n               \
-    \     Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G,\
-    \ s = 0, vis = None, par = None):\n        N = G.N\n        vis = vis or [0] *\
-    \ N\n        par = par or [-1] * N\n        if vis[s]: return None\n        vis[s]\
-    \ = 1\n        stack = [(True, s)]\n        while stack:\n            forw, v\
-    \ = stack.pop()\n            if forw:\n                stack.append((False, v))\n\
-    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
-    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
-    \ detected\n                        cyc = [u]\n                        vis[u]\
-    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
-    \                            vis[v] = 2\n                            v = par[v]\n\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n\
+    \        def parse(ts: TokenStream):\n            u,v = ts.line()\n          \
+    \  return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom enum import auto,\
+    \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
+    \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
+    \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
+    \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
+    \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
+    \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
+    \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
+    \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
+    \ math import inf\n\nclass GraphProtocol(list, Parsable):\n    def __init__(G,\
+    \ N: int, E: list = None, adj: Iterable = None):\n        G.N = N\n        if\
+    \ E is not None:\n            G.M, G.E = len(E), E\n        if adj is not None:\n\
+    \            super().__init__(adj)\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
+    \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n  \
+    \  @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n   \
+    \ def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    if s == None:\n            return G.floyd_warshall()\n        else:\n   \
+    \         return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list]\
+    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
+    \ int) -> int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inf for _ in\
+    \ range(G.N)]\n        q = deque([s] if isinstance(s, int) else s)\n        for\
+    \ u in q: D[u] = 0\n        while q:\n            nd = D[u := q.popleft()]+1\n\
+    \            if u == g: return D[u]\n            for v in G.neighbors(u):\n  \
+    \              if nd < D[v]:\n                    D[v] = nd\n                \
+    \    q.append(v)\n        return D if g is None else inf \n\n    @overload\n \
+    \   def shortest_path(G, s: int, g: int) -> Union[list[int],None]: ...\n    @overload\n\
+    \    def shortest_path(G, s: int, g: int, distances = True) -> tuple[Union[list[int],None],list[int]]:\
+    \ ...\n    def shortest_path(G, s: int, g: int, distances = False) -> list[int]:\n\
+    \        D = [inf] * G.N\n        D[s] = 0\n        if s == g:\n            return\
+    \ ([], D) if distances else []\n            \n        par = [-1] * G.N\n     \
+    \   par_edge = [-1] * G.N\n        Eid = G.edge_ids()\n        q = deque([s])\n\
+    \        \n        while q:\n            nd = D[u := q.popleft()] + 1\n      \
+    \      if u == g: break\n                \n            for v, eid in zip(G[u],\
+    \ Eid[u]):\n                if nd < D[v]:\n                    D[v] = nd\n   \
+    \                 par[v] = u\n                    par_edge[v] = eid\n        \
+    \            q.append(v)\n        \n        if D[g] == inf:\n            return\
+    \ (None, D) if distances else None\n            \n        path = []\n        current\
+    \ = g\n        while current != s:\n            path.append(par_edge[current])\n\
+    \            current = par[current]\n            \n        return (path[::-1],\
+    \ D) if distances else path[::-1]\n            \n     \n            \n       \
+    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
+    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
+    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
+    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
+    \  if Di[k] == inf: continue\n                for j in range(G.N):\n         \
+    \           if Dk[j] == inf: continue\n                    Di[j] = min(Di[j],\
+    \ Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G, s = 0, vis = None,\
+    \ par = None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par\
+    \ or [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
+    \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
+    \         if forw:\n                stack.append((False, v))\n               \
+    \ vis[v] = 1\n                for u in G.neighbors(v):\n                    if\
+    \ vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n   \
+    \                     cyc = [u]\n                        vis[u] = 2\n        \
+    \                while v != u:\n                            cyc.append(v)\n  \
+    \                          vis[v] = 2\n                            v = par[v]\n\
     \                        return cyc\n                    elif vis[u] == 0:\n \
     \                       par[u] = v\n                        stack.append((True,\
     \ u))\n            else:\n                vis[v] = 2\n        return None\n\n\
@@ -543,7 +543,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/mobius_transform_fn.py
-    title: cp_library/math/mobius_transform_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/zeta_transform_fn.py
-    title: cp_library/math/zeta_transform_fn.py
+  - icon: ':x:'
+    path: cp_library/math/subset_mobius_fn.py
+    title: cp_library/math/subset_mobius_fn.py
+  - icon: ':x:'
+    path: cp_library/math/subset_zeta_fn.py
+    title: cp_library/math/subset_zeta_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -28,19 +28,19 @@ data:
     \ _ in range(N+1)]\n\n    # Initialize rank arrays\n    for mask in range(Z):\n\
     \        rank = mask.bit_count()\n        Arank[rank][mask] = A[mask]\n      \
     \  Brank[rank][mask] = B[mask]\n\n    # Zeta transform for each rank\n    for\
-    \ Ar in Arank: zeta_transform(Ar, N)\n    for Br in Brank: zeta_transform(Br,\
-    \ N)\n\n    # Convolution\n    Crank = [[0 for _ in range(Z)] for _ in range(N+1)]\n\
+    \ Ar in Arank: subset_zeta(Ar, N)\n    for Br in Brank: subset_zeta(Br, N)\n\n\
+    \    # Convolution\n    Crank = [[0 for _ in range(Z)] for _ in range(N+1)]\n\
     \    for mask in range(Z):\n        for i in range(L := mask.bit_count()+1):\n\
     \            for j in range(min(L, N+1-i)):\n                k = i+j\n       \
     \         Crank[k][mask] = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]\n\n\
-    \    # M\xF6bius transform (inverse of Zeta transform)\n    for Cr in Crank: mobius_transform(Cr,\
+    \    # M\xF6bius transform (inverse of Zeta transform)\n    for Cr in Crank: subset_mobius(Cr,\
     \ N)\n        \n    # Combine results\n    C = [0] * Z\n    for mask in range(Z):\n\
     \        rank = mask.bit_count()\n        C[mask] = Crank[rank][mask]\n\n    return\
-    \ C\n\n\ndef zeta_transform(A, N, block=5):\n    for i in range(min(block,N)):\n\
+    \ C\n\n\ndef subset_zeta(A, N, block=5):\n    for i in range(min(block,N)):\n\
     \        for mask in range(bit := 1<<i, 1<<N):\n            if mask & bit:\n \
     \               A[mask] += A[mask ^ bit]\n    for i in range(block,N):\n     \
     \   for base in range(bit := 1<<i, 1<<N, bit << 1):\n            for mask in range(base,\
-    \ base+bit):\n                A[mask] += A[mask ^ bit]\n    return A\n\ndef mobius_transform(A,\
+    \ base+bit):\n                A[mask] += A[mask ^ bit]\n    return A\n\ndef subset_mobius(A,\
     \ N, block=5):\n    for i in range(min(block,N)):\n        for mask in range(bit\
     \ := 1<<i, 1<<N):\n            if mask & bit:\n                A[mask] -= A[mask\
     \ ^ bit]\n    for i in range(block,N):\n        for base in range(bit := 1<<i,\
@@ -51,24 +51,24 @@ data:
     \ [[0]*Z for _ in range(N+1)]\n    Brank = [[0]*Z for _ in range(N+1)]\n\n   \
     \ # Initialize rank arrays\n    for mask in range(Z):\n        rank = mask.bit_count()\n\
     \        Arank[rank][mask] = A[mask]\n        Brank[rank][mask] = B[mask]\n\n\
-    \    # Zeta transform for each rank\n    for Ar in Arank: zeta_transform(Ar, N)\n\
-    \    for Br in Brank: zeta_transform(Br, N)\n\n    # Convolution\n    Crank =\
-    \ [[0 for _ in range(Z)] for _ in range(N+1)]\n    for mask in range(Z):\n   \
-    \     for i in range(L := mask.bit_count()+1):\n            for j in range(min(L,\
+    \    # Zeta transform for each rank\n    for Ar in Arank: subset_zeta(Ar, N)\n\
+    \    for Br in Brank: subset_zeta(Br, N)\n\n    # Convolution\n    Crank = [[0\
+    \ for _ in range(Z)] for _ in range(N+1)]\n    for mask in range(Z):\n       \
+    \ for i in range(L := mask.bit_count()+1):\n            for j in range(min(L,\
     \ N+1-i)):\n                k = i+j\n                Crank[k][mask] = Crank[k][mask]\
     \ + Arank[i][mask] * Brank[j][mask]\n\n    # M\xF6bius transform (inverse of Zeta\
-    \ transform)\n    for Cr in Crank: mobius_transform(Cr, N)\n        \n    # Combine\
+    \ transform)\n    for Cr in Crank: subset_mobius(Cr, N)\n        \n    # Combine\
     \ results\n    C = [0] * Z\n    for mask in range(Z):\n        rank = mask.bit_count()\n\
-    \        C[mask] = Crank[rank][mask]\n\n    return C\n\nfrom cp_library.math.zeta_transform_fn\
-    \ import zeta_transform\nfrom cp_library.math.mobius_transform_fn import mobius_transform"
+    \        C[mask] = Crank[rank][mask]\n\n    return C\n\nfrom cp_library.math.subset_zeta_fn\
+    \ import subset_zeta\nfrom cp_library.math.subset_mobius_fn import subset_mobius"
   dependsOn:
-  - cp_library/math/zeta_transform_fn.py
-  - cp_library/math/mobius_transform_fn.py
+  - cp_library/math/subset_zeta_fn.py
+  - cp_library/math/subset_mobius_fn.py
   isVerificationFile: false
   path: cp_library/math/subset_conv_fn.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-02-18 02:22:25+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py
 documentation_of: cp_library/math/subset_conv_fn.py

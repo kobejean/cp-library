@@ -5,8 +5,11 @@ data:
     path: cp_library/alg/graph/functional_graph_cls.py
     title: cp_library/alg/graph/functional_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/slice_iterator_reverse_cls.py
-    title: cp_library/alg/iter/slice_iterator_reverse_cls.py
+    path: cp_library/alg/iter/crf_list_cls.py
+    title: cp_library/alg/iter/crf_list_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/roll_fn.py
+    title: cp_library/alg/iter/roll_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
@@ -16,7 +19,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -35,13 +38,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterator\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    from math import gcd\nfrom typing import Iterable\n\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -116,30 +119,36 @@ data:
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
     \ return cls(next(ts))\n        return parser\n\nclass FunctionalGraph(list[int],\
     \ Parsable):\n    def __init__(F, successors):\n        super().__init__(successors)\n\
-    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root):\n        slow = fast\
-    \ = root\n        while (slow := P[slow]) != (fast := P[P[fast]]): pass\n    \
-    \    cyc = [slow]\n        while P[slow] != fast: cyc.append(slow := P[slow])\n\
-    \        return cyc\n    \n    def cycles(P) -> Iterator[list[int]]:\n       \
-    \ vis, cycs, L = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
+    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n\
+    \        slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
+    \ pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow :=\
+    \ P[slow])\n        return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n \
+    \       vis, cycs, S = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
     \            if vis[v]: continue\n            slow = fast = v\n            while\
     \ (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n        \
-    \    if vis[fast]: continue\n            L.append(len(cycs))\n            cycs.append(slow)\n\
+    \    if vis[fast]: continue\n            S.append(len(cycs))\n            cycs.append(slow)\n\
     \            vis[slow := P[slow]] = 1\n            while slow != fast:\n     \
     \           cycs.append(slow)\n                vis[slow := P[slow]] = 1\n    \
-    \    return SliceIteratorReverse(cycs, L)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, shift = -1):\n        return Parser.compile_repeat(cls, shift, N)\n\n\
-    \nfrom typing import Iterator, SupportsIndex\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
-    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
-    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
-    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
-    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\nfrom\
-    \ typing import Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int\
-    \ = 0):      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm:\
-    \ int = 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int,\
-    \ elm: int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N:\
-    \ int, elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
+    \    return CRFList(cycs, S)\n    \n    def chain(P, root):\n        cyc = P.find_cycle(root)\n\
+    \        slow, fast = root, cyc[0]\n        if slow == fast: return [], cyc\n\
+    \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
+    \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
+    \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
+    \ Parser.compile_repeat(cls, shift, N)\n\nfrom itertools import pairwise\n\nfrom\
+    \ typing import Generic\n\nclass CRFList(Generic[_T]):\n    def __init__(crf,\
+    \ A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S = len(S), A, S\n  \
+    \      S.append(len(A))\n\n    def __len__(crf) -> int: return crf.N\n\n    def\
+    \ __getitem__(crf, i: int) -> list[_T]:\n        return crf.A[crf.S[i]:crf.S[i+1]]\n\
+    \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
+    \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
+    \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
+    \    return A\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):   \
+    \   return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int\
+    \ = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm:\
+    \ int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N: int,\
+    \ elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N: int,\
+    \ elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
     \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
     \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
     \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
@@ -170,14 +179,15 @@ data:
   dependsOn:
   - cp_library/alg/graph/functional_graph_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/alg/iter/slice_iterator_reverse_cls.py
+  - cp_library/alg/iter/crf_list_cls.py
+  - cp_library/alg/iter/roll_fn.py
   - cp_library/ds/array_init_fn.py
   - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/permutation_cls.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

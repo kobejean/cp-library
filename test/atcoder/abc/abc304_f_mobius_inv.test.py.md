@@ -4,10 +4,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -121,25 +121,25 @@ data:
     \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n    \nclass UniqueFactors(list[int]):\n    def __init__(P,\
-    \ N: int):\n        super().__init__()\n        P.N = N\n        d = 2\n     \
-    \   while N > 1:\n            if N % d == 0:\n                P.append(d)\n  \
-    \              N //= d\n                while N % d == 0:\n                  \
-    \  N //= d\n            d += 1\n            if d * d > N:\n                if\
-    \ N > 1: P.append(N)\n                break\n    \n    def mobius_inv(P, F, full=True):\n\
-    \        C, f = [P.N]*(1<<len(P)), F(P.N) if full else 0\n        for i,p in enumerate(P):\n\
-    \            l = 2*(b := 1<<i)-1\n            for m in range(b, b << 1):\n   \
-    \             C[m], f = (c := C[l^m]//p), F(c)-f\n        return -f if full else\
-    \ f\n    \n    def totient(P):\n        N = P.N\n        phi = 1\n        for\
-    \ p in P:\n            phi *= N - N//p\n        return phi\n\nclass Pow(list[int]):\n\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \n    \nclass UniqueFactors(list[int]):\n    def __init__(P, N: int):\n      \
+    \  super().__init__()\n        P.N = N\n        d = 2\n        while N > 1:\n\
+    \            if N % d == 0:\n                P.append(d)\n                N //=\
+    \ d\n                while N % d == 0:\n                    N //= d\n        \
+    \    d += 1\n            if d * d > N:\n                if N > 1: P.append(N)\n\
+    \                break\n    \n    def mobius_inv(P, F, full=True):\n        C,\
+    \ f = [P.N]*(1<<len(P)), F(P.N) if full else 0\n        for i,p in enumerate(P):\n\
+    \            l = ((b := 1<<i)<<1)-1\n            for m in range(b, b << 1):\n\
+    \                C[m], f = (c := C[l^m]//p), F(c)-f\n        return -f if full\
+    \ else f\n    \n    def totient(P):\n        N = P.N\n        phi = 1\n      \
+    \  for p in P:\n            phi *= N - N//p\n        return phi\n\nclass Pow(list[int]):\n\
     \    def __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n \
     \       if mod is None:\n            for i in range(N):\n                self[i+1]\
     \ = self[i]*K\n        else:\n            for i in range(N):\n               \
@@ -163,7 +163,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc304_f_mobius_inv.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc304_f_mobius_inv.test.py

@@ -8,12 +8,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/fps/fps_pow_fn.py
     title: cp_library/math/fps/fps_pow_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/table/linear_sieve_cls.py
+    title: cp_library/math/table/linear_sieve_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/table/linear_sieve_cnts_cls.py
+    title: cp_library/math/table/linear_sieve_cnts_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/table/primes_cls.py
+    title: cp_library/math/table/primes_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/table/sieve_cls.py
+    title: cp_library/math/table/sieve_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/table/sieve_proto.py
+    title: cp_library/math/table/sieve_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/stirling1_k_fn.py
     title: cp_library/math/table/stirling1_k_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/stirling2_k_fn.py
     title: cp_library/math/table/stirling2_k_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/table/totient_cls.py
+    title: cp_library/math/table/totient_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
@@ -48,11 +66,17 @@ data:
   isVerificationFile: false
   path: cp_library/ds/reserve_fn.py
   requiredBy:
+  - cp_library/math/table/sieve_cls.py
+  - cp_library/math/table/primes_cls.py
+  - cp_library/math/table/totient_cls.py
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
+  - cp_library/math/table/linear_sieve_cnts_cls.py
+  - cp_library/math/table/linear_sieve_cls.py
+  - cp_library/math/table/sieve_proto.py
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py

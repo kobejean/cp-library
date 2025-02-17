@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -252,12 +252,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
     title: test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -348,17 +348,17 @@ data:
     \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n"
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n"
   code: "import cp_library.io.__header__\n\nfrom typing import Iterable, Type, Union,\
     \ overload\nfrom cp_library.io.parser_cls import Parser, TokenStream, CharStream\n\
     from cp_library.misc.typing import _T\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n"
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
@@ -366,8 +366,8 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-02-12 22:25:56+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-02-18 02:22:25+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py

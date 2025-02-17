@@ -19,10 +19,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   _extendedRequiredBy: []
@@ -354,7 +354,7 @@ data:
     \ Iterable, Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n\
     @overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
     \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None:\n        return map(int, TokenStream.default.line())\n\
+    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\nif __name__ == \"__main__\":\n    print(solve())\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc301/tasks/abc301_e\n\
@@ -384,7 +384,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc301_e_grid_graph.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc301_e_grid_graph.test.py

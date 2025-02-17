@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/fps/fps_inv_fn.py
     title: cp_library/math/fps/fps_inv_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
@@ -178,7 +178,7 @@ data:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/log_of_formal_power_series.test.py

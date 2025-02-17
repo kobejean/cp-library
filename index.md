@@ -208,15 +208,24 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/iter/counter_fn.py
       title: cp_library/alg/iter/counter_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/crf_list_cls.py
+      title: cp_library/alg/iter/crf_list_cls.py
     - icon: ':warning:'
       path: cp_library/alg/iter/enumerate_rev_fn.py
       title: cp_library/alg/iter/enumerate_rev_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/presum2d_fn.py
+      title: cp_library/alg/iter/presum2d_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/presum_fn.py
       title: cp_library/alg/iter/presum_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/rev_enumerate_fn.py
       title: cp_library/alg/iter/rev_enumerate_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/roll_fn.py
+      title: cp_library/alg/iter/roll_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/shift_fn.py
       title: cp_library/alg/iter/shift_fn.py
@@ -241,6 +250,9 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/iter/sufsum_fn.py
       title: cp_library/alg/iter/sufsum_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/sum_range_fn.py
+      title: cp_library/alg/iter/sum_range_fn.py
   - name: cp_library/alg/tree
     pages:
     - icon: ':warning:'
@@ -468,13 +480,13 @@ data:
     - icon: ':question:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
     - icon: ':heavy_check_mark:'
@@ -529,21 +541,24 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/median_fn.py
       title: cp_library/math/median_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mobius_transform_fn.py
-      title: cp_library/math/mobius_transform_fn.py
     - icon: ':warning:'
       path: cp_library/math/mutvec_cls.py
       title: cp_library/math/mutvec_cls.py
     - icon: ':warning:'
       path: cp_library/math/slope_cls.py
       title: cp_library/math/slope_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/math/subset_conv_fn.py
       title: cp_library/math/subset_conv_fn.py
+    - icon: ':x:'
+      path: cp_library/math/subset_mobius_fn.py
+      title: cp_library/math/subset_mobius_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/subset_sum_fn.py
       title: cp_library/math/subset_sum_fn.py
+    - icon: ':x:'
+      path: cp_library/math/subset_zeta_fn.py
+      title: cp_library/math/subset_zeta_fn.py
     - icon: ':warning:'
       path: cp_library/math/sum_of_naturals_fn.py
       title: cp_library/math/sum_of_naturals_fn.py
@@ -559,9 +574,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/vec_cls.py
       title: cp_library/math/vec_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/zeta_transform_fn.py
-      title: cp_library/math/zeta_transform_fn.py
   - name: cp_library/math/conv
     pages:
     - icon: ':heavy_check_mark:'
@@ -619,22 +631,22 @@ data:
     - icon: ':warning:'
       path: cp_library/math/mod/mat_sub_fn.py
       title: cp_library/math/mod/mat_sub_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_ntt_cls.py
       title: cp_library/math/mod/mint_ntt_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/math/mod/mobius_transform_fn.py
       title: cp_library/math/mod/mobius_transform_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/modmat_cls.py
       title: cp_library/math/mod/modmat_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/math/mod/subset_conv_fn.py
       title: cp_library/math/mod/subset_conv_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/math/mod/zeta_transform_fn.py
       title: cp_library/math/mod/zeta_transform_fn.py
   - name: cp_library/math/nt
@@ -1062,7 +1074,7 @@ data:
       title: test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - name: test/library-checker/set-power-series
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/library-checker/set-power-series/subset_convolution.test.py
       title: test/library-checker/set-power-series/subset_convolution.test.py
 layout: toppage

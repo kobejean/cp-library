@@ -7,10 +7,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -119,25 +119,25 @@ data:
     \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nfrom typing import TypeVar, Generic, Container\nfrom\
-    \ dataclasses import dataclass\nfrom math import inf\n\n_T = TypeVar('T')\n\n\
-    @dataclass\nclass Transition2D(Generic[_T]):\n    di: int\n    dj: int\n    \n\
-    \    def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n        \"\"\
-    \"Override this to implement transition logic\"\"\"\n        return src  # Default\
-    \ no-op\n    \n    @classmethod\n    def make(cls, func):\n        class Transition(cls):\n\
-    \            def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n  \
-    \              return func(i,j,src,dest)\n        return Transition\n\nclass DynamicProgramming2D(Generic[_T],\
-    \ Parsable, Container):\n    def __init__(self, rows: int, cols: int, default:\
-    \ _T = inf):\n        self.rows = rows\n        self.cols = cols\n        self.table\
-    \ = default if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nfrom typing import TypeVar, Generic, Container\nfrom dataclasses import dataclass\n\
+    from math import inf\n\n_T = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[_T]):\n\
+    \    di: int\n    dj: int\n    \n    def __call__(self, i: int, j: int, src: _T,\
+    \ dest: _T) -> _T:\n        \"\"\"Override this to implement transition logic\"\
+    \"\"\n        return src  # Default no-op\n    \n    @classmethod\n    def make(cls,\
+    \ func):\n        class Transition(cls):\n            def __call__(self, i: int,\
+    \ j: int, src: _T, dest: _T) -> _T:\n                return func(i,j,src,dest)\n\
+    \        return Transition\n\nclass DynamicProgramming2D(Generic[_T], Parsable,\
+    \ Container):\n    def __init__(self, rows: int, cols: int, default: _T = inf):\n\
+    \        self.rows = rows\n        self.cols = cols\n        self.table = default\
+    \ if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
     \    \n    def __getitem__(self, pos: tuple[int, int]) -> _T:\n        i, j =\
     \ pos\n        return self.table[i][j]\n    \n    def __setitem__(self, pos: tuple[int,\
     \ int], value: _T) -> None:\n        i, j = pos\n        self.table[i][j] = value\n\
@@ -179,7 +179,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc185_e_dp2d.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc185_e_dp2d.test.py

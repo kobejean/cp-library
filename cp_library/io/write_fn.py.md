@@ -291,7 +291,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
     title: test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
   _isVerificationFailed: true
@@ -347,7 +347,7 @@ data:
   path: cp_library/io/write_fn.py
   requiredBy:
   - cp_library/io/bye_fn.py
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py

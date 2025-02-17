@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   _extendedRequiredBy:
@@ -84,7 +84,7 @@ data:
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_log_fn.py
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py

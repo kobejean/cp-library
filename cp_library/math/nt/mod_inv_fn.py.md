@@ -124,7 +124,7 @@ data:
   - cp_library/math/nt/chinese_remainder_theorem_fn.py
   - cp_library/math/nt/ntt_cls.py
   - cp_library/math/mod/mint_ntt_cls.py
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py

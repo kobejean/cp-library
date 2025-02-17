@@ -68,14 +68,16 @@ data:
     \      path.append(c)\n            c = par[c]\n        path.append(lca)\n    \
     \    rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
     \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
-    \ path\n\ndef argsort(A: list[int], reverse=False):\n    N = len(A)\n    mask\
-    \ = (1 << (shift := N.bit_length())) - 1\n    indices = [0]*N\n    for i in range(N):\n\
-    \        indices[i] = A[i] << shift | i\n    indices.sort(reverse=reverse)\n \
-    \   for i in range(N):\n        indices[i] &= mask\n    return indices\n\nclass\
-    \ AuxiliaryTree(LCATable):\n\n    def __init__(self, T, root=0):\n        super().__init__(T,\
-    \ root)\n        self.par = [-1]*T.N\n\n    def bucketize(self, K, A):\n     \
-    \   self.pre_all = pre_all = argsort(self.start)\n        self.buckets = buckets\
-    \ = [[] for _ in range(K)]\n        for u in pre_all:\n            buckets[A[u]].append(u)\n\
+    \ path\n\ndef argsort(A: list[int], reverse=False):\n    mask, I = (1 << (shift\
+    \ := (N := len(A)).bit_length())) - 1, [0]*N\n    if reverse:\n        for i in\
+    \ range(N): I[i] = A[i] << shift | (i ^ mask)\n        I.sort(reverse=True)\n\
+    \        for i in range(N): I[i] = (I[i] & mask) & mask\n    else:\n        for\
+    \ i in range(N): I[i] = A[i] << shift | i\n        I.sort()\n        for i in\
+    \ range(N): I[i] &= mask\n    return I\n\nclass AuxiliaryTree(LCATable):\n\n \
+    \   def __init__(self, T, root=0):\n        super().__init__(T, root)\n      \
+    \  self.par = [-1]*T.N\n\n    def bucketize(self, K, A):\n        self.pre_all\
+    \ = pre_all = argsort(self.start)\n        self.buckets = buckets = [[] for _\
+    \ in range(K)]\n        for u in pre_all:\n            buckets[A[u]].append(u)\n\
     \        return buckets\n\n    def build_postorder(self, V, sort = False):\n \
     \       if sort:\n            V = sorted(V, key=self.start.__getitem__)\n    \
     \    L = len(V)\n        post, stc, start, par = elist(L<<1), elist(L), self.start,\
@@ -121,7 +123,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

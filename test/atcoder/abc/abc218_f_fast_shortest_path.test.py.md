@@ -28,10 +28,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -188,36 +188,35 @@ data:
     \ nd-1\n            for i in G.range(u):\n                if nd < D[v := Va[i]]:\n\
     \                    D[v], back[v] = nd, i\n                    que.append(v)\n\
     \        return D if g is None else inf \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        M, Ua, Va, N = G.M, G.Ua, G.Va, G.N\n        G.D = D = [[inf]*N for _\
-    \ in range(N)]\n        for u in range(N): D[u][u] = 0\n        for i in range(M):\
-    \ D[Ua[i]][Va[i]] = 1\n        for k, Dk in enumerate(D):\n            for Di\
-    \ in D:\n                if Di[k] == inf: continue\n                for j in range(N):\n\
-    \                    Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n   \
-    \ def find_cycle_indices(G, s: Union[int, None] = None):\n        M, Ea, Ua, Va,\
-    \ vis, back = G.M, G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n      \
-    \  G.vis, G.back, stack = vis, back, elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            stack.append(s)\n            while\
-    \ stack:\n                if vis[u := stack.pop()] == 0:\n                   \
-    \ stack.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
-    \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
-    \                if vis[v := Va[i]] == 0:\n                            back[v]\
-    \ = i\n                            stack.append(v)\n                        elif\
-    \ vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n  \
-    \                          while v != u: I.append(i := back[u]), (u := Ua[i])\n\
-    \                            return I[::-1]\n                else:\n         \
-    \           vis[u] = 2\n        # check for self loops\n        for i in range(len(Ua)):\n\
-    \            if Ua[i] == Va[i]:\n                return u32f(1,i)\n    \n    def\
-    \ find_cycle(G, s: Union[int, None] = None):\n        if I := G.find_cycle_indices(s):\
-    \ return [G.Ua[i] for i in I]\n    \n    def find_cycle_edge_ids(G, s: Union[int,\
-    \ None] = None):\n        if I := G.find_cycle_indices(s): return [G.Ea[i] for\
-    \ i in I]\n\n    def find_minimal_cycle(G, s=0):\n        D, par, que, Va = u32f(N\
-    \ := G.N, u32_max), i32f(N, -1), deque([s]), G.Va\n        D[s] = 0\n        while\
-    \ que:\n            for i in G.range(u := que.popleft()):\n                if\
-    \ (v := Va[i]) == s:  # Found cycle back to start\n                    cycle =\
-    \ [u]\n                    while u != s: cycle.append(u := par[u])\n         \
-    \           return cycle\n                if D[v] < u32_max: continue\n      \
-    \          D[v], par[v] = D[u]+1, u\n                que.append(v)\n\n    def\
-    \ dfs_topdown(G, s: Union[int,list] = None) -> list[int]:\n        '''Returns\
+    \        Ua, Va, N = G.Ua, G.Va, G.N\n        G.D = D = [[inf]*N for _ in range(N)]\n\
+    \        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)): D[Ua[i]][Va[i]]\
+    \ = 1\n        for k, Dk in enumerate(D):\n            for Di in D:\n        \
+    \        if Di[k] == inf: continue\n                for j in range(N):\n     \
+    \               Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
+    \ s: Union[int, None] = None):\n        M, Ea, Ua, Va, vis, back = G.M, G.Ea,\
+    \ G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack =\
+    \ vis, back, elist(N)\n        for s in G.starts(s):\n            if vis[s]: continue\n\
+    \            stack.append(s)\n            while stack:\n                if vis[u\
+    \ := stack.pop()] == 0:\n                    stack.append(u)\n               \
+    \     vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max\n      \
+    \              for i in G.range(u):\n                        if vis[v := Va[i]]\
+    \ == 0:\n                            back[v] = i\n                           \
+    \ stack.append(v)\n                        elif vis[v] == 1 and pe != Ea[i]:\n\
+    \                            I = u32f(1,i)\n                            while\
+    \ v != u: I.append(i := back[u]), (u := Ua[i])\n                            return\
+    \ I[::-1]\n                else:\n                    vis[u] = 2\n        # check\
+    \ for self loops\n        for i in range(len(Ua)):\n            if Ua[i] == Va[i]:\n\
+    \                return u32f(1,i)\n    \n    def find_cycle(G, s: Union[int, None]\
+    \ = None):\n        if I := G.find_cycle_indices(s): return [G.Ua[i] for i in\
+    \ I]\n    \n    def find_cycle_edge_ids(G, s: Union[int, None] = None):\n    \
+    \    if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]\n\n    def find_minimal_cycle(G,\
+    \ s=0):\n        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), deque([s]),\
+    \ G.Va\n        D[s] = 0\n        while que:\n            for i in G.range(u :=\
+    \ que.popleft()):\n                if (v := Va[i]) == s:  # Found cycle back to\
+    \ start\n                    cycle = [u]\n                    while u != s: cycle.append(u\
+    \ := par[u])\n                    return cycle\n                if D[v] < u32_max:\
+    \ continue\n                D[v], par[v] = D[u]+1, u\n                que.append(v)\n\
+    \n    def dfs_topdown(G, s: Union[int,list] = None) -> list[int]:\n        '''Returns\
     \ lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''\n\
     \        N = G.N\n        G.vis, G.stack, G.order = vis, stack, order = u8f(N),\
     \ G.stack or elist(N), G.order or elist(N)\n        for s in G.starts(s):\n  \
@@ -335,7 +334,7 @@ data:
     \ Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
     def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
     \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None:\n        return map(int, TokenStream.default.line())\n\
+    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
     \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
@@ -370,7 +369,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc218_f_fast_shortest_path.test.py

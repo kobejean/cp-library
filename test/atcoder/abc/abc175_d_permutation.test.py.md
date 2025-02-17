@@ -8,11 +8,14 @@ data:
     path: cp_library/alg/graph/permutation_cls.py
     title: cp_library/alg/graph/permutation_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/crf_list_cls.py
+    title: cp_library/alg/iter/crf_list_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/slice_iterator_reverse_cls.py
-    title: cp_library/alg/iter/slice_iterator_reverse_cls.py
+    path: cp_library/alg/iter/roll_fn.py
+    title: cp_library/alg/iter/roll_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
@@ -22,10 +25,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -60,37 +63,36 @@ data:
     \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
     \            func = operator.add\n        A = list(iter)\n        if initial is\
     \ not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\n\nfrom typing import\
-    \ Iterator\n\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \            A[i] = func(A[i], A[i-step])\n        return A\n\nfrom math import\
+    \ gcd\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
@@ -141,57 +143,63 @@ data:
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
     \ return cls(next(ts))\n        return parser\n\nclass FunctionalGraph(list[int],\
     \ Parsable):\n    def __init__(F, successors):\n        super().__init__(successors)\n\
-    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root):\n        slow = fast\
-    \ = root\n        while (slow := P[slow]) != (fast := P[P[fast]]): pass\n    \
-    \    cyc = [slow]\n        while P[slow] != fast: cyc.append(slow := P[slow])\n\
-    \        return cyc\n    \n    def cycles(P) -> Iterator[list[int]]:\n       \
-    \ vis, cycs, L = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
+    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n\
+    \        slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
+    \ pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow :=\
+    \ P[slow])\n        return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n \
+    \       vis, cycs, S = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
     \            if vis[v]: continue\n            slow = fast = v\n            while\
     \ (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n        \
-    \    if vis[fast]: continue\n            L.append(len(cycs))\n            cycs.append(slow)\n\
+    \    if vis[fast]: continue\n            S.append(len(cycs))\n            cycs.append(slow)\n\
     \            vis[slow := P[slow]] = 1\n            while slow != fast:\n     \
     \           cycs.append(slow)\n                vis[slow := P[slow]] = 1\n    \
-    \    return SliceIteratorReverse(cycs, L)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, shift = -1):\n        return Parser.compile_repeat(cls, shift, N)\n\n\
-    from typing import Iterator, SupportsIndex\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
-    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
-    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
-    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
-    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n\nfrom\
-    \ array import array\n\ndef i8f(N: int, elm: int = 0):      return array('b',\
-    \ (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B',\
-    \ (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h',\
-    \ (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H',\
-    \ (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i',\
-    \ (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I',\
-    \ (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q',\
-    \ (elm,))*N  # signed long long\n# def u64f(N: int, elm: int = 0):     return\
-    \ array('Q', (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0):\
-    \ return array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return\
-    \ array('d', (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if\
-    \ init is None else array('b', init)  # signed char\ndef u8a(init = None):  return\
-    \ array('B') if init is None else array('B', init)  # unsigned char\ndef i16a(init\
-    \ = None): return array('h') if init is None else array('h', init)  # signed short\n\
-    def u16a(init = None): return array('H') if init is None else array('H', init)\
-    \  # unsigned short\ndef i32a(init = None): return array('i') if init is None\
-    \ else array('i', init)  # signed int\ndef u32a(init = None): return array('I')\
-    \ if init is None else array('I', init)  # unsigned int\ndef i64a(init = None):\
-    \ return array('q') if init is None else array('q', init)  # signed long long\n\
-    # def u64a(init = None): return array('Q') if init is None else array('Q', init)\
-    \  # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
-    \ else array('f', init)  # float\ndef f64a(init = None): return array('d') if\
-    \ init is None else array('d', init)  # double\n\ni8_max = (1 << 7)-1\nu8_max\
-    \ = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 <<\
-    \ 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nclass Permutation(FunctionalGraph):\n    def inv(P):\n        Pinv =\
-    \ [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p] = i\n       \
-    \ return type(P)(Pinv)\n\nfrom typing import Iterable, Type, Union, overload\n\
-    \n@overload\ndef read() -> Iterable[int]: ...\n@overload\ndef read(spec: int)\
-    \ -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False)\
-    \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
-    \ char and spec is None:\n        return map(int, TokenStream.default.line())\n\
+    \    return CRFList(cycs, S)\n    \n    def chain(P, root):\n        cyc = P.find_cycle(root)\n\
+    \        slow, fast = root, cyc[0]\n        if slow == fast: return [], cyc\n\
+    \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
+    \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
+    \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
+    \ Parser.compile_repeat(cls, shift, N)\n\nfrom itertools import pairwise\nfrom\
+    \ typing import Generic\n\nclass CRFList(Generic[_T]):\n    def __init__(crf,\
+    \ A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S = len(S), A, S\n  \
+    \      S.append(len(A))\n\n    def __len__(crf) -> int: return crf.N\n\n    def\
+    \ __getitem__(crf, i: int) -> list[_T]:\n        return crf.A[crf.S[i]:crf.S[i+1]]\n\
+    \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
+    \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
+    \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
+    \    return A\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):   \
+    \   return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int\
+    \ = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm:\
+    \ int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N: int,\
+    \ elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N: int,\
+    \ elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
+    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
+    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
+    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
+    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
+    def i8a(init = None):  return array('b') if init is None else array('b', init)\
+    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
+    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
+    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
+    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
+    def i32a(init = None): return array('i') if init is None else array('i', init)\
+    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
+    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
+    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
+    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
+    def f32a(init = None): return array('f') if init is None else array('f', init)\
+    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
+    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
+    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
+    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\nclass Permutation(FunctionalGraph):\n\
+    \    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n \
+    \           Pinv[p] = i\n        return type(P)(Pinv)\n\nfrom typing import Iterable,\
+    \ Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
+    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
+    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
     \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
@@ -219,13 +227,14 @@ data:
   - cp_library/alg/graph/functional_graph_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
-  - cp_library/alg/iter/slice_iterator_reverse_cls.py
+  - cp_library/alg/iter/crf_list_cls.py
+  - cp_library/alg/iter/roll_fn.py
   - cp_library/ds/array_init_fn.py
   - cp_library/ds/elist_fn.py
   isVerificationFile: true
   path: test/atcoder/abc/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc175_d_permutation.test.py

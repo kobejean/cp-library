@@ -16,10 +16,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   _extendedRequiredBy: []
@@ -120,14 +120,14 @@ data:
     \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\n\n\n\nclass Edge(tuple,\
-    \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
-    \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
-    \        return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
-    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
-    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
+    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
+    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
+    \ parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass\
+    \ EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M, E: E\
+    \ = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
     \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
     \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
     \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
@@ -157,7 +157,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_edges_weighted_fn.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py

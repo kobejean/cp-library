@@ -10,10 +10,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -120,30 +120,30 @@ data:
     \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nfrom typing import Dict, List, Optional\n\nclass Trie:\n\
-    \    __slots__ = 'dic', 'parent', 'last', 'count', 'word'\n\n    def __init__(self):\n\
-    \        self.dic: Dict[str, Trie] = {}\n        self.parent: Optional[Trie] =\
-    \ None\n        self.last: str = \"\"\n        self.count: int = 0\n        self.word:\
-    \ bool = False\n    \n    def add(self, word: str) -> None:\n        p = self\n\
-    \        for c in word:\n            if c not in p.dic:   \n                p.dic[c]\
-    \ = type(self)()\n            parent = p\n            p = p.dic[c]\n         \
-    \   p.parent = parent\n            p.last = c\n        p.word = True\n    \n \
-    \   def find(self, prefix: str) -> 'Trie':\n        node = self\n        for char\
-    \ in prefix:\n            if char not in node.dic:\n                return None\n\
-    \            node = node.dic[char]\n        return node\n    \n    def search(self,\
-    \ word: str) -> bool:\n        node = self.find(word)\n        return node.word\
-    \ if node is not None else False\n\n    def bfs(self) -> List['Trie']:\n     \
-    \   output = []\n        queue = deque([self])\n        while queue:\n       \
-    \     p = queue.popleft()\n            output.append(p)\n            queue.extend(p.dic.values())\n\
-    \        return output\n    \n    def prefix(self) -> str:\n        output = []\n\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nfrom typing import Dict, List, Optional\n\nclass Trie:\n    __slots__ = 'dic',\
+    \ 'parent', 'last', 'count', 'word'\n\n    def __init__(self):\n        self.dic:\
+    \ Dict[str, Trie] = {}\n        self.parent: Optional[Trie] = None\n        self.last:\
+    \ str = \"\"\n        self.count: int = 0\n        self.word: bool = False\n \
+    \   \n    def add(self, word: str) -> None:\n        p = self\n        for c in\
+    \ word:\n            if c not in p.dic:   \n                p.dic[c] = type(self)()\n\
+    \            parent = p\n            p = p.dic[c]\n            p.parent = parent\n\
+    \            p.last = c\n        p.word = True\n    \n    def find(self, prefix:\
+    \ str) -> 'Trie':\n        node = self\n        for char in prefix:\n        \
+    \    if char not in node.dic:\n                return None\n            node =\
+    \ node.dic[char]\n        return node\n    \n    def search(self, word: str) ->\
+    \ bool:\n        node = self.find(word)\n        return node.word if node is not\
+    \ None else False\n\n    def bfs(self) -> List['Trie']:\n        output = []\n\
+    \        queue = deque([self])\n        while queue:\n            p = queue.popleft()\n\
+    \            output.append(p)\n            queue.extend(p.dic.values())\n    \
+    \    return output\n    \n    def prefix(self) -> str:\n        output = []\n\
     \        curr = self\n        while curr.parent is not None:\n            output.append(curr.last)\n\
     \            curr = curr.parent\n        return \"\".join(reversed(output))\n\n\
     class AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
@@ -178,7 +178,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py

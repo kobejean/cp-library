@@ -36,7 +36,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sufsum_fn.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/sufsum_fn.py

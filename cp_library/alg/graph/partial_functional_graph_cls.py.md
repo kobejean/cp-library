@@ -5,8 +5,11 @@ data:
     path: cp_library/alg/graph/functional_graph_cls.py
     title: cp_library/alg/graph/functional_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/slice_iterator_reverse_cls.py
-    title: cp_library/alg/iter/slice_iterator_reverse_cls.py
+    path: cp_library/alg/iter/crf_list_cls.py
+    title: cp_library/alg/iter/crf_list_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/roll_fn.py
+    title: cp_library/alg/iter/roll_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
@@ -16,7 +19,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -32,16 +35,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Iterator\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n\n\nfrom math import gcd\nfrom typing import Iterable\n\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nimport\
+    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -113,30 +118,36 @@ data:
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
     \ return cls(next(ts))\n        return parser\n\nclass FunctionalGraph(list[int],\
     \ Parsable):\n    def __init__(F, successors):\n        super().__init__(successors)\n\
-    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root):\n        slow = fast\
-    \ = root\n        while (slow := P[slow]) != (fast := P[P[fast]]): pass\n    \
-    \    cyc = [slow]\n        while P[slow] != fast: cyc.append(slow := P[slow])\n\
-    \        return cyc\n    \n    def cycles(P) -> Iterator[list[int]]:\n       \
-    \ vis, cycs, L = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
+    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n\
+    \        slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
+    \ pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow :=\
+    \ P[slow])\n        return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n \
+    \       vis, cycs, S = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
     \            if vis[v]: continue\n            slow = fast = v\n            while\
     \ (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n        \
-    \    if vis[fast]: continue\n            L.append(len(cycs))\n            cycs.append(slow)\n\
+    \    if vis[fast]: continue\n            S.append(len(cycs))\n            cycs.append(slow)\n\
     \            vis[slow := P[slow]] = 1\n            while slow != fast:\n     \
     \           cycs.append(slow)\n                vis[slow := P[slow]] = 1\n    \
-    \    return SliceIteratorReverse(cycs, L)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, shift = -1):\n        return Parser.compile_repeat(cls, shift, N)\n\n\
-    \nfrom typing import Iterator, SupportsIndex\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
-    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
-    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
-    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
-    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\nfrom\
-    \ typing import Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int\
-    \ = 0):      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm:\
-    \ int = 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int,\
-    \ elm: int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N:\
-    \ int, elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
+    \    return CRFList(cycs, S)\n    \n    def chain(P, root):\n        cyc = P.find_cycle(root)\n\
+    \        slow, fast = root, cyc[0]\n        if slow == fast: return [], cyc\n\
+    \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
+    \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
+    \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
+    \ Parser.compile_repeat(cls, shift, N)\n\nfrom itertools import pairwise\n\nfrom\
+    \ typing import Generic\n\nclass CRFList(Generic[_T]):\n    def __init__(crf,\
+    \ A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S = len(S), A, S\n  \
+    \      S.append(len(A))\n\n    def __len__(crf) -> int: return crf.N\n\n    def\
+    \ __getitem__(crf, i: int) -> list[_T]:\n        return crf.A[crf.S[i]:crf.S[i+1]]\n\
+    \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
+    \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
+    \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
+    \    return A\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):     \
+    \ return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0): \
+    \     return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int\
+    \ = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm:\
+    \ int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N: int,\
+    \ elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N: int,\
+    \ elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
     \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
     \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
     \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
@@ -155,52 +166,52 @@ data:
     \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
     \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
     \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
-    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nclass PartialFunctionalGraph(FunctionalGraph):\n\
+    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\nclass PartialFunctionalGraph(FunctionalGraph):\n\
     \    def __init__(F, successors):\n        super().__init__(successors)\n    \
     \    F.M = sum(f>=0 for f in F)\n\n    def find_cycle(F, root):\n        slow\
     \ = fast = root\n        while F[fast] != -1 and F[F[fast]] != -1:\n         \
     \   slow, fast = F[slow], F[F[fast]]\n            if slow == fast:\n         \
     \       cyc = [slow]\n                while F[slow] != cyc[0]:\n             \
     \       slow = F[slow]\n                    cyc.append(slow)\n               \
-    \ return cyc\n        return None\n    \n    def cycles(F):\n        vis = [False]*F.N\n\
-    \        cycs = []\n        for v in range(F.N):\n            slow = fast = v\n\
-    \            while F[fast] != -1 and (fast := F[F[fast]]) != -1 and not vis[fast]:\n\
-    \                slow, fast = F[slow], F[F[fast]]\n                if slow ==\
-    \ fast:\n                    cyc = [slow]\n                    vis[slow] = True\n\
-    \                    while F[slow] != cyc[0]:\n                        slow =\
-    \ F[slow]\n                        cyc.append(slow)\n                        vis[slow]\
-    \ = True\n                    cycs.append(cyc)\n                    break\n  \
-    \      return cycs\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.alg.graph.functional_graph_cls\
-    \ import FunctionalGraph\n\nclass PartialFunctionalGraph(FunctionalGraph):\n \
-    \   def __init__(F, successors):\n        super().__init__(successors)\n     \
-    \   F.M = sum(f>=0 for f in F)\n\n    def find_cycle(F, root):\n        slow =\
-    \ fast = root\n        while F[fast] != -1 and F[F[fast]] != -1:\n           \
-    \ slow, fast = F[slow], F[F[fast]]\n            if slow == fast:\n           \
-    \     cyc = [slow]\n                while F[slow] != cyc[0]:\n               \
-    \     slow = F[slow]\n                    cyc.append(slow)\n                return\
-    \ cyc\n        return None\n    \n    def cycles(F):\n        vis = [False]*F.N\n\
-    \        cycs = []\n        for v in range(F.N):\n            slow = fast = v\n\
-    \            while F[fast] != -1 and (fast := F[F[fast]]) != -1 and not vis[fast]:\n\
-    \                slow, fast = F[slow], F[F[fast]]\n                if slow ==\
-    \ fast:\n                    cyc = [slow]\n                    vis[slow] = True\n\
-    \                    while F[slow] != cyc[0]:\n                        slow =\
-    \ F[slow]\n                        cyc.append(slow)\n                        vis[slow]\
-    \ = True\n                    cycs.append(cyc)\n                    break\n  \
-    \      return cycs"
+    \ return cyc\n        return None\n    \n    def cycles(F):\n        vis, cycs,\
+    \ S = [False]*F.N, elist(F.N), elist(F.N)\n        for v in range(F.N):\n    \
+    \        slow = fast = v\n            while F[fast] != -1 and (fast := F[F[fast]])\
+    \ != -1 and not vis[fast]:\n                slow, fast = F[slow], F[F[fast]]\n\
+    \                if slow == fast:\n                    S.append(len(cycs))\n \
+    \                   cycs.append(slow)\n                    vis[slow] = True\n\
+    \                    while F[slow] != fast:\n                        slow = F[slow]\n\
+    \                        cycs.append(slow)\n                        vis[slow]\
+    \ = True\n                    break\n        return CRFList(cycs, S)\n\n"
+  code: "from cp_library.ds.elist_fn import elist\nimport cp_library.alg.graph.__header__\n\
+    \nfrom cp_library.alg.graph.functional_graph_cls import FunctionalGraph\n\nclass\
+    \ PartialFunctionalGraph(FunctionalGraph):\n    def __init__(F, successors):\n\
+    \        super().__init__(successors)\n        F.M = sum(f>=0 for f in F)\n\n\
+    \    def find_cycle(F, root):\n        slow = fast = root\n        while F[fast]\
+    \ != -1 and F[F[fast]] != -1:\n            slow, fast = F[slow], F[F[fast]]\n\
+    \            if slow == fast:\n                cyc = [slow]\n                while\
+    \ F[slow] != cyc[0]:\n                    slow = F[slow]\n                   \
+    \ cyc.append(slow)\n                return cyc\n        return None\n    \n  \
+    \  def cycles(F):\n        vis, cycs, S = [False]*F.N, elist(F.N), elist(F.N)\n\
+    \        for v in range(F.N):\n            slow = fast = v\n            while\
+    \ F[fast] != -1 and (fast := F[F[fast]]) != -1 and not vis[fast]:\n          \
+    \      slow, fast = F[slow], F[F[fast]]\n                if slow == fast:\n  \
+    \                  S.append(len(cycs))\n                    cycs.append(slow)\n\
+    \                    vis[slow] = True\n                    while F[slow] != fast:\n\
+    \                        slow = F[slow]\n                        cycs.append(slow)\n\
+    \                        vis[slow] = True\n                    break\n       \
+    \ return CRFList(cycs, S)\n\nfrom cp_library.alg.iter.crf_list_cls import CRFList"
   dependsOn:
-  - cp_library/alg/graph/functional_graph_cls.py
-  - cp_library/io/parser_cls.py
-  - cp_library/alg/iter/slice_iterator_reverse_cls.py
-  - cp_library/ds/array_init_fn.py
   - cp_library/ds/elist_fn.py
+  - cp_library/alg/graph/functional_graph_cls.py
+  - cp_library/alg/iter/crf_list_cls.py
+  - cp_library/io/parser_cls.py
+  - cp_library/alg/iter/roll_fn.py
+  - cp_library/ds/array_init_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/partial_functional_graph_cls.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/partial_functional_graph_cls.py

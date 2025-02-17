@@ -74,15 +74,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef argsort(A: list[int], reverse=False):\n    N = len(A)\n    mask = (1 <<\
-    \ (shift := N.bit_length())) - 1\n    indices = [0]*N\n    for i in range(N):\n\
-    \        indices[i] = A[i] << shift | i\n    indices.sort(reverse=reverse)\n \
-    \   for i in range(N):\n        indices[i] &= mask\n    return indices\n"
+    \ndef argsort(A: list[int], reverse=False):\n    mask, I = (1 << (shift := (N\
+    \ := len(A)).bit_length())) - 1, [0]*N\n    if reverse:\n        for i in range(N):\
+    \ I[i] = A[i] << shift | (i ^ mask)\n        I.sort(reverse=True)\n        for\
+    \ i in range(N): I[i] = (I[i] & mask) & mask\n    else:\n        for i in range(N):\
+    \ I[i] = A[i] << shift | i\n        I.sort()\n        for i in range(N): I[i]\
+    \ &= mask\n    return I\n"
   code: "import cp_library.alg.iter.__header__\n\ndef argsort(A: list[int], reverse=False):\n\
-    \    N = len(A)\n    mask = (1 << (shift := N.bit_length())) - 1\n    indices\
-    \ = [0]*N\n    for i in range(N):\n        indices[i] = A[i] << shift | i\n  \
-    \  indices.sort(reverse=reverse)\n    for i in range(N):\n        indices[i] &=\
-    \ mask\n    return indices\n"
+    \    mask, I = (1 << (shift := (N := len(A)).bit_length())) - 1, [0]*N\n    if\
+    \ reverse:\n        for i in range(N): I[i] = A[i] << shift | (i ^ mask)\n   \
+    \     I.sort(reverse=True)\n        for i in range(N): I[i] = (I[i] & mask) &\
+    \ mask\n    else:\n        for i in range(N): I[i] = A[i] << shift | i\n     \
+    \   I.sort()\n        for i in range(N): I[i] &= mask\n    return I\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/argsort_fn.py
@@ -97,7 +100,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/iter/sort_parallel_fn.py
   - cp_library/alg/iter/sort_parallel_copies_fn.py
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_a_fast_diameter.test.py

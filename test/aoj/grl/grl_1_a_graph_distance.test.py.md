@@ -37,10 +37,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -146,20 +146,20 @@ data:
     \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
-    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
-    \ parse\n\nfrom functools import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n\
-    \    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
-    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \n\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls,\
+    \ I=-1):\n        def parse(ts: TokenStream):\n            u,v = ts.line()\n \
+    \           return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools\
+    \ import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def\
+    \ __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n \
+    \       b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
     \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
     \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
     \       return parse\n\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
@@ -592,7 +592,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_a_graph_distance.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_a_graph_distance.test.py

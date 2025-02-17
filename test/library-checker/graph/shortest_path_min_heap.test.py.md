@@ -40,10 +40,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -575,21 +575,20 @@ data:
     \ import Iterable, Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]:\
     \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None:\n        return map(int,\
-    \ TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n    return\
-    \ parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\
-    \"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nclass MinHeap(HeapProtocol[_T], UserList[_T]):\n    def\
-    \ __init__(self, iterable: Iterable = None):\n        super().__init__(iterable)\n\
-    \        heapify(self.data)\n    \n    def pop(self): return heappop(self.data)\n\
-    \    def push(self, item: _T): heappush(self.data, item)\n    def pushpop(self,\
-    \ item: _T): return heappushpop(self.data, item)\n    def replace(self, item:\
-    \ _T): return heapreplace(self.data, item)\n\nif __name__ == '__main__':\n   \
-    \ main()\n"
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nclass MinHeap(HeapProtocol[_T], UserList[_T]):\n    def __init__(self, iterable:\
+    \ Iterable = None):\n        super().__init__(iterable)\n        heapify(self.data)\n\
+    \    \n    def pop(self): return heappop(self.data)\n    def push(self, item:\
+    \ _T): heappush(self.data, item)\n    def pushpop(self, item: _T): return heappushpop(self.data,\
+    \ item)\n    def replace(self, item: _T): return heapreplace(self.data, item)\n\
+    \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/shortest_path\n\
     \n\ndef main():\n    N, M, s, t = read()\n    G = read(DiGraphWeighted[N,M,0])\n\
     \    path, D = shortest_path(G, s, t)\n    if path is None:\n        write(\"\
@@ -629,7 +628,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/shortest_path_min_heap.test.py
   requiredBy: []
-  timestamp: '2025-02-12 22:25:56+09:00'
+  timestamp: '2025-02-18 02:22:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/shortest_path_min_heap.test.py
