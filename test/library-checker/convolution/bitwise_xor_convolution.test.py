@@ -1,12 +1,14 @@
-# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution
+# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_xor_convolution
 
 def main():
     N = rd()
     A = rdl(1 << N)
     B = rdl(1 << N)
-    wtnl(and_conv(A, B, N, 998244353))
+    C = xor_conv(A, B, N, 998244353)
+    wtnl(C)
 
-from cp_library.math.conv.and_conv_fast_fn import and_conv
+from cp_library.math.conv.mod.xor_conv_fn import xor_conv
+
 from atexit import register
 from os import read, write
 import sys
@@ -17,7 +19,7 @@ class Fastio:
     sb = builders.StringBuilder()
     def load(self):
         self.ibuf = self.ibuf[self.pil:]
-        self.ibuf += read(0, 131072)
+        self.ibuf += read(0, 20738704)
         self.pil = 0; self.pir = len(self.ibuf)
     def flush(self): write(1, self.sb.build().encode())
     def fastin(self):

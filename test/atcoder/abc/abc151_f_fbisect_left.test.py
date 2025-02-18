@@ -35,7 +35,7 @@ def main():
 
 
 from cp_library.alg.divcon.fbisect_fn import fbisect_left
-from cp_library.math.vec2d_cls import Vec2D
+from cp_library.math.vec.vec2d_cls import Vec2D
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

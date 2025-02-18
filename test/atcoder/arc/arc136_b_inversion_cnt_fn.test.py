@@ -5,14 +5,14 @@ def main():
     N = read(int)
     A = read(list[-1])
     B = read(list[-1])
-    Aic = inversion_cnt(A,5000)
-    Bic = inversion_cnt(B,5000)
+    Aic = invcnt(A,5000)
+    Bic = invcnt(B,5000)
     if sorted(A) != sorted(B):
         return False
     has_dup = len(set(A)) < N
     return has_dup or (Aic&1 == Bic&1)
 
-from cp_library.math.inversion_cnt_fn import inversion_cnt
+from cp_library.math.invcnt_fn import invcnt
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
