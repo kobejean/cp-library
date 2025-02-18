@@ -1,14 +1,12 @@
-# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution
+# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution
 
 def main():
-    mod = 998244353
-    n = rd()
-    a = rdl(1 << n)
-    b = rdl(1 << n)
-    wtnl(subset_conv(a, b, n, mod))
+    N = rd()
+    A = rdl(1 << N)
+    B = rdl(1 << N)
+    wtnl(and_conv(A, B, N, 998244353))
 
-from cp_library.math.mod.subset_conv_fn import subset_conv
-
+from cp_library.math.and_conv_fast_fn import and_conv
 from atexit import register
 from os import read, write
 import sys
@@ -41,4 +39,5 @@ sys.stdin = None; sys.stdout = None
 def rdl(n): return [rd() for _ in range(n)]
 def wtnl(l): wtn(' '.join(map(str, l)))
 
-main()
+if __name__ == '__main__':
+    main()

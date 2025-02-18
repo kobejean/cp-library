@@ -1,40 +1,17 @@
-import cp_library.math.__header__
-
-def subset_conv(A, B, N):
-    Z = 1 << N
-
-    # Prepare arrays for rank (popcount) decomposition
-    Arank = [[0]*Z for _ in range(N+1)]
-    Brank = [[0]*Z for _ in range(N+1)]
-
-    # Initialize rank arrays
-    for mask in range(Z):
-        rank = mask.bit_count()
-        Arank[rank][mask] = A[mask]
-        Brank[rank][mask] = B[mask]
-
-    # Zeta transform for each rank
-    for Ar in Arank: subset_zeta(Ar, N)
-    for Br in Brank: subset_zeta(Br, N)
-
-    # Convolution
-    Crank = [[0 for _ in range(Z)] for _ in range(N+1)]
-    for mask in range(Z):
-        for i in range(L := mask.bit_count()+1):
-            for j in range(min(L, N+1-i)):
-                k = i+j
-                Crank[k][mask] = Crank[k][mask] + Arank[i][mask] * Brank[j][mask]
-
-    # Möbius transform (inverse of Zeta transform)
-    for Cr in Crank: subset_mobius(Cr, N)
-        
-    # Combine results
-    C = [0] * Z
-    for mask in range(Z):
-        rank = mask.bit_count()
-        C[mask] = Crank[rank][mask]
-
-    return C
-
-from cp_library.math.subset_zeta_fn import subset_zeta
+import cp_library.math.mod.__header__
+from cp_library.bit.popcnts_fn import popcnts
+from cp_library.math.subset_zeta_pair_fn import subset_zeta_pair
 from cp_library.math.subset_mobius_fn import subset_mobius
+
+def subset_conv(A,B,N):
+    Z = (N+1)*(M := 1<<N)
+    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)
+    for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]
+    subset_zeta_pair(Ar, Br, N, Z)
+    for i in range(0,Z,M):
+        for j in range(0,Z-i,M):
+            ij = i+j
+            for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]
+    subset_mobius(Cr, N, Z)
+    for i,p in enumerate(P): A[i] = Cr[p<<N|i]
+    return A
