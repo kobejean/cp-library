@@ -14,7 +14,7 @@ data:
   - icon: ':warning:'
     path: cp_library/math/table/linear_sieve_cnts_cls.py
     title: cp_library/math/table/linear_sieve_cnts_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/table/primes_cls.py
     title: cp_library/math/table/primes_cls.py
   - icon: ':warning:'
@@ -33,6 +33,12 @@ data:
     path: cp_library/math/table/totient_cls.py
     title: cp_library/math/table/totient_cls.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/gcd_convolution.test.py
+    title: test/library-checker/convolution/gcd_convolution.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/lcm_convolution.test.py
+    title: test/library-checker/convolution/lcm_convolution.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
@@ -76,9 +82,11 @@ data:
   - cp_library/math/table/sieve_proto.py
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-02-18 02:22:25+09:00'
+  timestamp: '2025-02-18 11:27:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/convolution/gcd_convolution.test.py
+  - test/library-checker/convolution/lcm_convolution.test.py
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

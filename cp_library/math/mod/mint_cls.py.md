@@ -96,12 +96,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
     title: test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - icon: ':x:'
-    path: test/library-checker/set-power-series/subset_convolution.test.py
-    title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: true
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution_all.test.py
+    title: test/library-checker/set-power-series/subset_convolution_all.test.py
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -177,8 +177,8 @@ data:
   - cp_library/math/mod/modmat_cls.py
   - cp_library/math/mod/mint_ntt_cls.py
   - cp_library/math/mat_cls.py
-  timestamp: '2025-02-18 02:22:25+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-02-18 11:27:51+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
   - test/library-checker/convolution/convolution.test.py
@@ -193,7 +193,7 @@ data:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-  - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/subset_convolution_all.test.py
 documentation_of: cp_library/math/mod/mint_cls.py
 layout: document
 redirect_from:

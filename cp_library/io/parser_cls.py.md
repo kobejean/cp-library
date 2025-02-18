@@ -158,7 +158,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':warning:'
@@ -364,6 +364,9 @@ data:
     path: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
     title: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/bitwise_and_convolution.test.py
+    title: test/library-checker/convolution/bitwise_and_convolution.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/convolution/convolution.test.py
     title: test/library-checker/convolution/convolution.test.py
   - icon: ':heavy_check_mark:'
@@ -372,6 +375,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/convolution/convolution_mod_1000000007.test.py
     title: test/library-checker/convolution/convolution_mod_1000000007.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/gcd_convolution.test.py
+    title: test/library-checker/convolution/gcd_convolution.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/lcm_convolution.test.py
+    title: test/library-checker/convolution/lcm_convolution.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
     title: test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
@@ -435,12 +444,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
     title: test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - icon: ':x:'
-    path: test/library-checker/set-power-series/subset_convolution.test.py
-    title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: true
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution_all.test.py
+    title: test/library-checker/set-power-series/subset_convolution_all.test.py
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -648,8 +657,8 @@ data:
   - cp_library/io/read_fn.py
   - cp_library/io/legacy/read_fn.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-02-18 02:22:25+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-02-18 11:27:51+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
@@ -713,9 +722,12 @@ data:
   - test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - test/library-checker/convolution/convolution_int.test.py
+  - test/library-checker/convolution/bitwise_and_convolution.test.py
+  - test/library-checker/convolution/gcd_convolution.test.py
   - test/library-checker/convolution/convolution_mod_1000000007.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
+  - test/library-checker/convolution/lcm_convolution.test.py
   - test/library-checker/convolution/convolution.test.py
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/library-checker/polynomial/inv_of_formal_power_series.test.py
@@ -736,7 +748,7 @@ data:
   - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/scc.test.py
-  - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/subset_convolution_all.test.py
 documentation_of: cp_library/io/parser_cls.py
 layout: document
 redirect_from:

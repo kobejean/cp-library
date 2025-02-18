@@ -16,7 +16,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -527,7 +527,7 @@ data:
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
-  timestamp: '2025-02-18 02:22:25+09:00'
+  timestamp: '2025-02-18 11:27:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_a_fast_diameter.test.py

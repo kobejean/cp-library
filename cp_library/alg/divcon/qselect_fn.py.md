@@ -44,7 +44,7 @@ data:
   path: cp_library/alg/divcon/qselect_fn.py
   requiredBy:
   - cp_library/math/median_fn.py
-  timestamp: '2025-02-18 02:22:25+09:00'
+  timestamp: '2025-02-18 11:27:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc122_b_insurance_median.test.py

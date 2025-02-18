@@ -2,16 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':x:'
-    path: cp_library/math/subset_conv_fn.py
-    title: cp_library/math/subset_conv_fn.py
-  _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/library-checker/set-power-series/subset_convolution.test.py
-    title: test/library-checker/set-power-series/subset_convolution.test.py
-  _isVerificationFailed: true
+  - icon: ':warning:'
+    path: cp_library/math/or_conv_fn.py
+    title: cp_library/math/or_conv_fn.py
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -20,26 +17,21 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef subset_zeta(A, N, block=5):\n    for i in range(min(block,N)):\n       \
-    \ for mask in range(bit := 1<<i, 1<<N):\n            if mask & bit:\n        \
-    \        A[mask] += A[mask ^ bit]\n    for i in range(block,N):\n        for base\
-    \ in range(bit := 1<<i, 1<<N, bit << 1):\n            for mask in range(base,\
-    \ base+bit):\n                A[mask] += A[mask ^ bit]\n    return A\n"
-  code: "import cp_library.math.__header__\n\ndef subset_zeta(A, N, block=5):\n  \
-    \  for i in range(min(block,N)):\n        for mask in range(bit := 1<<i, 1<<N):\n\
-    \            if mask & bit:\n                A[mask] += A[mask ^ bit]\n    for\
-    \ i in range(block,N):\n        for base in range(bit := 1<<i, 1<<N, bit << 1):\n\
-    \            for mask in range(base, base+bit):\n                A[mask] += A[mask\
-    \ ^ bit]\n    return A\n"
+    \ndef subset_zeta(A: list[int], N: int, Z: int = None):\n    Z = 1 << N if Z is\
+    \ None else Z\n    for i in range(N):\n        m = b = 1<<i\n        while m <\
+    \ Z:\n            A[m] += A[m^b]\n            m = m+1|b\n    return A\n"
+  code: "import cp_library.math.__header__\n\ndef subset_zeta(A: list[int], N: int,\
+    \ Z: int = None):\n    Z = 1 << N if Z is None else Z\n    for i in range(N):\n\
+    \        m = b = 1<<i\n        while m < Z:\n            A[m] += A[m^b]\n    \
+    \        m = m+1|b\n    return A"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/subset_zeta_fn.py
   requiredBy:
-  - cp_library/math/subset_conv_fn.py
-  timestamp: '2025-02-18 02:22:25+09:00'
-  verificationStatus: LIBRARY_ALL_WA
-  verifiedWith:
-  - test/library-checker/set-power-series/subset_convolution.test.py
+  - cp_library/math/or_conv_fn.py
+  timestamp: '2025-02-18 11:27:51+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: cp_library/math/subset_zeta_fn.py
 layout: document
 redirect_from:

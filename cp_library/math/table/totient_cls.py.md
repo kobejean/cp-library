@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/reserve_fn.py
     title: cp_library/ds/reserve_fn.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/table/primes_cls.py
     title: cp_library/math/table/primes_cls.py
   _extendedRequiredBy: []
@@ -29,25 +29,31 @@ data:
     \           spf[i] = i\n                P.append(i)\n            for p in P:\n\
     \                if p > spf[i] or i*p > N: break\n                spf[i*p] = p\n\
     \        P.spf = spf\n\n    def divisor_zeta(P, A: list[int], op: Callable[[int,int],\
-    \ int] = operator.add):\n        N = len(A)\n        for p in P:\n           \
-    \ for i in range(1, N//p+1):\n                A[i*p] = op(A[i], A[i*p])\n    \
-    \    return A\n    \n    def divisor_mobius(P, A: list[int], diff: Callable[[int,int],\
-    \ int] = operator.sub):\n        N = len(A)\n        for p in P:\n           \
-    \ for i in range(N//p, 0, -1):\n                A[i*p] = diff(A[i*p], A[i])\n\
-    \        return A\n    \n    def multiple_zeta(P, A: list[int], op: Callable[[int,int],\
-    \ int] = operator.add):\n        N = len(A)\n        for p in P:\n           \
-    \ for i in range(N//p, 0, -1):\n                A[i] = op(A[i*p], A[i])\n    \
-    \    return A\n    \n    def multiple_mobius(P, A: list[int], diff: Callable[[int,int],\
-    \ int] = operator.sub):\n        N = len(A)\n        for p in P:\n           \
-    \ for i in range(1, N//p+1):\n                A[i] = diff(A[i], A[i*p])\n    \
-    \    return A\n\n\nclass Totient(list[int]):\n    def __init__(phi, N):\n    \
-    \    super().__init__([0] * (N + 1))\n        phi[0], phi[1] = 0, 1\n        primes\
-    \ = Primes.__new__(Primes)\n\n        for x in range(2, N + 1):\n            if\
-    \ phi[x] == 0:\n                phi[x] = x-1\n                primes.append(x)\n\
-    \            for p in primes:\n                if (y := x * p) > N: break\n  \
-    \              if x % p == 0:\n                    phi[y] = phi[x] * p\n     \
-    \               break\n                phi[y] = phi[x] * (p-1)\n        phi.primes\
-    \ = phi\n"
+    \ int] = operator.add) -> list[int]:\n        N = len(A)-1\n        for p in P:\n\
+    \            for i in range(1, N//p+1): A[i*p] = op(A[i*p], A[i])\n        return\
+    \ A\n    \n    def divisor_mobius(P, A: list[int], diff: Callable[[int,int], int]\
+    \ = operator.sub) -> list[int]:\n        N = len(A)-1\n        for p in P:\n \
+    \           for i in range(N//p, 0, -1): A[i*p] = diff(A[i*p], A[i])\n       \
+    \ return A\n    \n    def multiple_zeta(P, A: list[int], op: Callable[[int,int],\
+    \ int] = operator.add) -> list[int]:\n        N = len(A)-1\n        for p in P:\n\
+    \            for i in range(N//p, 0, -1): A[i] = op(A[i], A[i*p])\n        return\
+    \ A\n    \n    def multiple_mobius(P, A: list[int], diff: Callable[[int,int],\
+    \ int] = operator.sub) -> list[int]:\n        N = len(A)-1\n        for p in P:\n\
+    \            for i in range(1, N//p+1): A[i] = diff(A[i], A[i*p])\n        return\
+    \ A\n    \n    def gcd_conv(P, A: list[int], B: list[int], add = operator.add,\
+    \ sub = operator.sub, mul = operator.mul):\n        A, B = P.multiple_zeta(A,\
+    \ add), P.multiple_zeta(B, add)\n        for i, b in enumerate(B): A[i] = mul(A[i],\
+    \ b)\n        return P.multiple_mobius(A, sub)\n    \n    def lcm_conv(P, A: list[int],\
+    \ B: list[int], add = operator.add, sub = operator.sub, mul = operator.mul):\n\
+    \        A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i,\
+    \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n\
+    \n\nclass Totient(list[int]):\n    def __init__(phi, N):\n        super().__init__([0]\
+    \ * (N + 1))\n        phi[0], phi[1] = 0, 1\n        primes = Primes.__new__(Primes)\n\
+    \n        for x in range(2, N + 1):\n            if phi[x] == 0:\n           \
+    \     phi[x] = x-1\n                primes.append(x)\n            for p in primes:\n\
+    \                if (y := x * p) > N: break\n                if x % p == 0:\n\
+    \                    phi[y] = phi[x] * p\n                    break\n        \
+    \        phi[y] = phi[x] * (p-1)\n        phi.primes = phi\n"
   code: "import cp_library.math.table.__header__\nfrom cp_library.math.table.primes_cls\
     \ import Primes\n\nclass Totient(list[int]):\n    def __init__(phi, N):\n    \
     \    super().__init__([0] * (N + 1))\n        phi[0], phi[1] = 0, 1\n        primes\
@@ -63,7 +69,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/totient_cls.py
   requiredBy: []
-  timestamp: '2025-02-18 02:22:25+09:00'
+  timestamp: '2025-02-18 11:27:51+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/totient_cls.py

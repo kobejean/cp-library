@@ -4,10 +4,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -131,8 +131,8 @@ data:
     \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \n\ndef subset_sum(A):\n    dp = [0]*(1 << len(A))\n    for i,a in enumerate(A):\n\
-    \        for mask in range(bit := 1 << i):\n            dp[mask^bit] = dp[mask]\
-    \ + a\n    return dp\n\nif __name__ == \"__main__\":\n    main()\n"
+    \        for m in range(b := 1<<i):\n            dp[m^b] = dp[m] + a\n    return\
+    \ dp\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc184_f\n\
     \n\nfrom bisect import bisect_left\n\ndef solve(N, T, A):\n    if N <= 5:\n  \
     \      A = sorted(subset_sum(A))\n        return max_lim(A, T)\n    else:\n  \
@@ -154,7 +154,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
   requiredBy: []
-  timestamp: '2025-02-18 02:22:25+09:00'
+  timestamp: '2025-02-18 11:27:51+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc184_f_subset_sum_fn.test.py

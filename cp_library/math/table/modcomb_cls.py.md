@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
@@ -151,7 +151,7 @@ data:
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_ideriv_k_fn.py
-  timestamp: '2025-02-18 02:22:25+09:00'
+  timestamp: '2025-02-18 11:27:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py

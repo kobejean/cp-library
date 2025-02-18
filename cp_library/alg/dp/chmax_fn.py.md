@@ -24,7 +24,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/chmax_fn.py
   requiredBy: []
-  timestamp: '2025-02-18 02:22:25+09:00'
+  timestamp: '2025-02-18 11:27:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
