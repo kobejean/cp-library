@@ -43,7 +43,7 @@ class TreeBase(GraphBase):
 
     def rerooting_dp(T, e: _T, 
                      merge: Callable[[_T,_T],_T], 
-                     edge_op: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,
+                     edge_op: Callable[[_T,int,int,int],_T] = lambda s,i,p,u:s,
                      s: int = 0):
         La, Ua, Va = T.La, T.Ua, T.Va
         order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]
@@ -51,7 +51,7 @@ class TreeBase(GraphBase):
         for i in order[::-1]:
             u,v = Ua[i], Va[i]
             # subtree v finished up pass, store value to accumulate for u
-            dp[v] = new = edge_op(u, v, i, dp[v])
+            dp[v] = new = edge_op(dp[v], i, u, v)
             dp[u] = merge(dp[u], new)
             # suffix accumulation
             if (c:=I[u]-1) > La[u]: suf[c-1] = merge(suf[c], new)
@@ -61,7 +61,7 @@ class TreeBase(GraphBase):
         for i in order:
             u,v = Ua[i], Va[i]
             dp[u] = merge(pre := dp[u], dp[v])
-            dp[v] = edge_op(v, u, i, merge(suf[I[u]], pre))
+            dp[v] = edge_op(merge(suf[I[u]], pre), i, v, u)
             I[u] += 1
         return dp
     

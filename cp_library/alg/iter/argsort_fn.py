@@ -5,7 +5,7 @@ def argsort(A: list[int], reverse=False):
     if reverse:
         for i in range(N): I[i] = A[i] << shift | (i ^ mask)
         I.sort(reverse=True)
-        for i in range(N): I[i] = (I[i] & mask) & mask
+        for i in range(N): I[i] = (I[i] ^ mask) & mask
     else:
         for i in range(N): I[i] = A[i] << shift | i
         I.sort()

@@ -9,7 +9,7 @@ from cp_library.alg.graph.dfs_options_cls import DFSEvent
 class GraphBase(Sequence, Parsable):
     def __init__(G, N: int, M: int, U: list[int], V: list[int], 
                  deg: list[int], La: list[int], Ra: list[int],
-                 Ua: list[int], Va: list[int], Ea: list[int], self_loops = False):
+                 Ua: list[int], Va: list[int], Ea: list[int]):
         G.N = N
         """The number of vertices."""
         G.M = M

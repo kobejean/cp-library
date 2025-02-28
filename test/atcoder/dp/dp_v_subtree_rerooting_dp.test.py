@@ -4,7 +4,7 @@ def main():
     N, M = read(tuple[int, ...])
     T = read(Tree[N])
     def merge(a,b): return a*b%M
-    def add_node(p, c, i, s): return (s+1)%M
+    def add_node(s, i, p, u): return (s+1)%M
     ans = T.rerooting_dp(1, merge, add_node)
     write(*ans, sep='\n')
 

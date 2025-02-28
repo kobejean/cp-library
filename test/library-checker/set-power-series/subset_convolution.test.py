@@ -7,7 +7,7 @@ def main():
     b = rdl(1 << n)
     wtnl(subset_conv(a, b, n, mod))
 
-from cp_library.math.mod.subset_conv_fn import subset_conv
+from cp_library.math.conv.mod.subset_conv_fn import subset_conv
 
 from atexit import register
 from os import read, write

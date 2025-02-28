@@ -52,4 +52,3 @@ class Primes(list[int]):
         A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)
         for i, b in enumerate(B): A[i] = mul(A[i], b)
         return P.divisor_mobius(A, sub)
-

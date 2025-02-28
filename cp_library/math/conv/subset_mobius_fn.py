@@ -1,6 +1,6 @@
 import cp_library.math.conv.__header__
 
-def subset_mobius(A: list[int], N: int, Z: int = None):
+def subset_mobius(A: list[int], N: int):
     Z = len(A)
     for i in range(N):
         m = b = 1<<i
