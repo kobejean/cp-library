@@ -8,7 +8,7 @@ def main():
     write(B)
 
 from cp_library.math.mod.mint_cls import mint
-from cp_library.math.mod.modmat_cls import ModMat
+from cp_library.math.mat.mod.modmat_cls import ModMat
 from cp_library.io.read_int_fn import read
 from cp_library.io.write_fn import write
 
