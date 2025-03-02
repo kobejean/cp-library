@@ -1,26 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/popcnts_fn.py
+    title: cp_library/bit/popcnts_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/subset_conv_fn.py
+    title: cp_library/math/conv/mod/subset_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/subset_conv_fn.py
+    title: cp_library/math/conv/subset_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/subset_mobius_fn.py
+    title: cp_library/math/conv/subset_mobius_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/subset_zeta_pair_fn.py
+    title: cp_library/math/conv/subset_zeta_pair_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://judge.yosupo.jp/problem/subset_convolution
     links:
@@ -122,9 +137,24 @@ data:
     \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
     \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    mod = 998244353\n\nN, = read()\nif N < 10:\n    from cp_library.math.subset_conv_fn\
-    \ import subset_conv\n    \n        \n    class mint(int):\n        mod: int\n\
-    \        zero: 'mint'\n        one: 'mint'\n        two: 'mint'\n        cache:\
+    mod = 998244353\n\nN, = read()\nif N < 10:\n    \n    \n    \n    def popcnts(N):\n\
+    \        P = [0]*(1 << N)\n        for i in range(N):\n            for m in range(b\
+    \ := 1<<i):\n                P[m^b] = P[m] + 1\n        return P\n    \n    \n\
+    \    def subset_zeta_pair(A: list[int], B: list[int], N: int):\n        Z = len(A)\n\
+    \        for i in range(N):\n            m = b = 1<<i\n            while m < Z:\n\
+    \                A[m] += A[m^b]\n                B[m] += B[m^b]\n            \
+    \    m = m+1|b\n        return A, B\n    \n    \n    def subset_mobius(A: list[int],\
+    \ N: int):\n        Z = len(A)\n        for i in range(N):\n            m = b\
+    \ = 1<<i\n            while m < Z:\n                A[m] -= A[m^b]\n         \
+    \       m = m+1|b\n        return A\n    \n    def subset_conv(A,B,N):\n     \
+    \   assert len(A) == len(B)\n        Z = (N+1)*(M := 1<<N)\n        Ar,Br,Cr,P\
+    \ = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n        for i,p in enumerate(P): Ar[p<<N|i],\
+    \ Br[p<<N|i] = A[i], B[i]\n        subset_zeta_pair(Ar, Br, N)\n        for i\
+    \ in range(0,Z,M):\n            for j in range(0,Z-i,M):\n                ij =\
+    \ i+j\n                for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]\n    \
+    \    subset_mobius(Cr, N)\n        for i,p in enumerate(P): A[i] = Cr[p<<N|i]\n\
+    \        return A\n    \n        \n    class mint(int):\n        mod: int\n  \
+    \      zero: 'mint'\n        one: 'mint'\n        two: 'mint'\n        cache:\
     \ list['mint']\n    \n        def __new__(cls, *args, **kwargs):\n           \
     \ if 0<= (x := int(*args, **kwargs)) <= 2:\n                return cls.cache[x]\n\
     \            else:\n                return cls.fix(x)\n    \n        @classmethod\n\
@@ -150,28 +180,48 @@ data:
     \ self.mod))\n        def __neg__(self): return mint.mod-self\n        def __pos__(self):\
     \ return self\n        def __abs__(self): return self\n    mint.set_mod(mod)\n\
     \    F = read(list[mint])\n    G = read(list[mint])\n    write(*subset_conv(F,\
-    \ G, N))\nelse:\n    from cp_library.math.mod.subset_conv_fn import subset_conv\n\
-    \    \n    F = read(list[int])\n    G = read(list[int])\n    write(*subset_conv(F,\
-    \ G, N, mod))\n"
+    \ G, N))\nelse:\n    \n    \n    \n    def popcnts(N):\n        P = [0]*(1 <<\
+    \ N)\n        for i in range(N):\n            for m in range(b := 1<<i):\n   \
+    \             P[m^b] = P[m] + 1\n        return P\n    \n    \n    def subset_zeta_pair(A:\
+    \ list[int], B: list[int], N: int):\n        Z = len(A)\n        for i in range(N):\n\
+    \            m = b = 1<<i\n            while m < Z:\n                A[m] += A[m^b]\n\
+    \                B[m] += B[m^b]\n                m = m+1|b\n        return A,\
+    \ B\n    \n    \n    def subset_mobius(A: list[int], N: int):\n        Z = len(A)\n\
+    \        for i in range(N):\n            m = b = 1<<i\n            while m < Z:\n\
+    \                A[m] -= A[m^b]\n                m = m+1|b\n        return A\n\
+    \    \n    def subset_conv(A,B,N,mod):\n        assert len(A) == len(B)\n    \
+    \    Z = (N+1)*(M := 1<<N)\n        Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n\
+    \        for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n      \
+    \  subset_zeta_pair(Ar, Br, N)\n        for i in range(Z): Ar[i], Br[i] = Ar[i]%mod,\
+    \ Br[i]%mod\n        for i in range(0,Z,M):\n            for j in range(0,Z-i,M):\n\
+    \                ij = i+j\n                for k in range(M): Cr[ijk] = (Cr[ijk:=ij|k]\
+    \ + Ar[i|k] * Br[j|k]) % mod\n        subset_mobius(Cr, N)\n        for i,p in\
+    \ enumerate(P): A[i] = Cr[p<<N|i] % mod\n        return A\n    \n    F = read(list[int])\n\
+    \    G = read(list[int])\n    write(*subset_conv(F, G, N, mod))\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
     from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
-    mod = 998244353\n\nN, = read()\nif N < 10:\n    from cp_library.math.subset_conv_fn\
+    mod = 998244353\n\nN, = read()\nif N < 10:\n    from cp_library.math.conv.subset_conv_fn\
     \ import subset_conv\n    from cp_library.math.mod.mint_cls import mint\n    mint.set_mod(mod)\n\
     \    F = read(list[mint])\n    G = read(list[mint])\n    write(*subset_conv(F,\
-    \ G, N))\nelse:\n    from cp_library.math.mod.subset_conv_fn import subset_conv\n\
+    \ G, N))\nelse:\n    from cp_library.math.conv.mod.subset_conv_fn import subset_conv\n\
     \    \n    F = read(list[int])\n    G = read(list[int])\n    write(*subset_conv(F,\
     \ G, N, mod))"
   dependsOn:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
+  - cp_library/math/conv/subset_conv_fn.py
   - cp_library/math/mod/mint_cls.py
+  - cp_library/math/conv/mod/subset_conv_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/bit/popcnts_fn.py
+  - cp_library/math/conv/subset_zeta_pair_fn.py
+  - cp_library/math/conv/subset_mobius_fn.py
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution_all.test.py
   requiredBy: []
-  timestamp: '2025-03-02 23:16:20+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-03-03 00:10:01+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution_all.test.py
 layout: document

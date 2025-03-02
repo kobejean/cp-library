@@ -77,7 +77,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/minplus_conv_fn.py
   requiredBy: []
-  timestamp: '2025-03-02 23:16:20+09:00'
+  timestamp: '2025-03-03 00:10:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py

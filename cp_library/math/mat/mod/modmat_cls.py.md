@@ -1,14 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+    title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -199,9 +202,10 @@ data:
   isVerificationFile: false
   path: cp_library/math/mat/mod/modmat_cls.py
   requiredBy: []
-  timestamp: '2025-03-02 23:16:20+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2025-03-03 00:10:01+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
 documentation_of: cp_library/math/mat/mod/modmat_cls.py
 layout: document
 redirect_from:

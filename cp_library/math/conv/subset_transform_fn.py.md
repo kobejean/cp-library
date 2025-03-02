@@ -30,7 +30,7 @@ data:
   path: cp_library/math/conv/subset_transform_fn.py
   requiredBy:
   - cp_library/math/conv/or_conv_fn.py
-  timestamp: '2025-03-02 23:16:20+09:00'
+  timestamp: '2025-03-03 00:10:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/subset_transform_fn.py

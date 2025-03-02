@@ -51,7 +51,7 @@ data:
   requiredBy:
   - cp_library/alg/dp/rerooting_recursive_cls.py
   - cp_library/alg/dp/rerooting_iterative_cls.py
-  timestamp: '2025-03-02 23:16:20+09:00'
+  timestamp: '2025-03-03 00:10:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

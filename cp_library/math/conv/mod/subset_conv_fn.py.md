@@ -15,6 +15,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution_all.test.py
+    title: test/library-checker/set-power-series/subset_convolution_all.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -58,10 +61,11 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/mod/subset_conv_fn.py
   requiredBy: []
-  timestamp: '2025-03-02 23:16:20+09:00'
+  timestamp: '2025-03-03 00:10:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/subset_convolution_all.test.py
 documentation_of: cp_library/math/conv/mod/subset_conv_fn.py
 layout: document
 redirect_from:

@@ -475,7 +475,7 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/tree/bit_monoid_cls.py
       title: cp_library/ds/tree/bit_monoid_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/segtree_cls.py
       title: cp_library/ds/tree/segtree_cls.py
     - icon: ':heavy_check_mark:'
@@ -486,25 +486,25 @@ data:
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/legacy
@@ -544,7 +544,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/conv/or_conv_fn.py
       title: cp_library/math/conv/or_conv_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/conv/subset_conv_fn.py
       title: cp_library/math/conv/subset_conv_fn.py
     - icon: ':heavy_check_mark:'
@@ -659,12 +659,12 @@ data:
     - icon: ':warning:'
       path: cp_library/math/mat/mod/mat_sub_fn.py
       title: cp_library/math/mat/mod/mat_sub_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/mat/mod/modmat_cls.py
       title: cp_library/math/mat/mod/modmat_cls.py
   - name: cp_library/math/mod
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
@@ -814,7 +814,7 @@ data:
   verificationCategories:
   - name: test/aoj/dsl
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/aoj/dsl/dsl_2_a_segtree.test.py
       title: test/aoj/dsl/dsl_2_a_segtree.test.py
     - icon: ':heavy_check_mark:'
@@ -1128,7 +1128,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
       title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
       title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - name: test/library-checker/polynomial
@@ -1153,7 +1153,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/set-power-series/subset_convolution.test.py
       title: test/library-checker/set-power-series/subset_convolution.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/set-power-series/subset_convolution_all.test.py
       title: test/library-checker/set-power-series/subset_convolution_all.test.py
 layout: toppage
