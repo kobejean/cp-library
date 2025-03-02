@@ -4,7 +4,7 @@ from math import inf
 
 def main():
     N, K = read(tuple[int, ...])
-    P = read(Permutation[N])
+    P = read(PermGraph[N])
     C = read(list[int, N])
 
     ans = -inf
@@ -24,7 +24,7 @@ def main():
     write(ans)
     
 from cp_library.alg.iter.presum_fn import presum
-from cp_library.alg.graph.permutation_cls import Permutation
+from cp_library.alg.graph.perm_graph_cls import PermGraph
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

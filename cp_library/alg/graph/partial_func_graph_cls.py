@@ -1,9 +1,9 @@
 from cp_library.ds.elist_fn import elist
 import cp_library.alg.graph.__header__
 
-from cp_library.alg.graph.functional_graph_cls import FunctionalGraph
+from cp_library.alg.graph.func_graph_cls import FuncGraph
 
-class PartialFunctionalGraph(FunctionalGraph):
+class PartialFuncGraph(FuncGraph):
     def __init__(F, successors):
         super().__init__(successors)
         F.M = sum(f>=0 for f in F)

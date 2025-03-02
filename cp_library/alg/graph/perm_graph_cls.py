@@ -1,7 +1,7 @@
 import cp_library.alg.graph.__header__
-from cp_library.alg.graph.functional_graph_cls import FunctionalGraph
+from cp_library.alg.graph.func_graph_cls import FuncGraph
 
-class Permutation(FunctionalGraph):
+class PermGraph(FuncGraph):
     def inv(P):
         Pinv = [0]*P.N
         for i,p in enumerate(P):

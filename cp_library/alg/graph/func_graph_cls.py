@@ -3,7 +3,7 @@ import cp_library.alg.graph.__header__
 from typing import Iterable
 from cp_library.io.parser_cls import Parsable, Parser
 
-class FunctionalGraph(list[int], Parsable):
+class FuncGraph(list[int], Parsable):
     def __init__(F, successors):
         super().__init__(successors)
         F.N = F.M = len(F)
