@@ -7,18 +7,18 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/inversion_cnt_fn.py
-    title: cp_library/math/inversion_cnt_fn.py
+    path: cp_library/math/invcnt_fn.py
+    title: cp_library/math/invcnt_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -30,48 +30,48 @@ data:
     - https://atcoder.jp/contests/arc136/tasks/arc136_b
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc136/tasks/arc136_b\n\
     \n\ndef main():\n    N = read(int)\n    A = read(list[-1])\n    B = read(list[-1])\n\
-    \    Aic = inversion_cnt(A,5000)\n    Bic = inversion_cnt(B,5000)\n    if sorted(A)\
-    \ != sorted(B):\n        return False\n    has_dup = len(set(A)) < N\n    return\
-    \ has_dup or (Aic&1 == Bic&1)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
+    \    Aic = invcnt(A,5000)\n    Bic = invcnt(B,5000)\n    if sorted(A) != sorted(B):\n\
+    \        return False\n    has_dup = len(set(A)) < N\n    return has_dup or (Aic&1\
+    \ == Bic&1)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nfrom typing import Union\nfrom typing import Sequence\n\
-    \n\nclass BIT(Sequence[int]):\n    def __init__(bit, v):\n        if isinstance(v,\
-    \ int): bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n\n    def build(bit,\
-    \ data):\n        bit.d, bit.n = data, len(data)\n        for i in range(bit.n):\n\
-    \            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\n    def add(bit,\
-    \ i, x):\n        while i < bit.n:\n            bit.d[i] += x\n            i |=\
-    \ i+1\n\n    def sum(bit, n: int) -> int:\n        assert 0 <= n <= bit.n\n  \
-    \      s = 0\n        while n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n\
-    \    def range_sum(bit, l, r):\n        s = 0\n        while r: s, r = s+bit.d[r-1],\
-    \ r&r-1\n        while l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n   \
-    \ def __len__(bit) -> int:\n        return bit.n\n    \n    def __getitem__(bit,\
-    \ i: int) -> int:\n        s, l = bit.d[i], i&(i+1)\n        while l != i: s,\
-    \ i = s-bit.d[i-1], i-(i&-i)\n        return s\n    get = __getitem__\n    \n\
-    \    def __setitem__(bit, i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n\
-    \    set = __setitem__\n\n    def presum(bit) -> list[int]:\n        pre = [0]+bit.d\n\
-    \        for i in range(bit.n+1): pre[i] += pre[i&i-1]\n        return pre\n \
-    \   \n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)+1\n\
-    \    \n    def bisect_right(bit, v) -> int:\n        d, i, s, m, n = bit.d, 0,\
-    \ 0, 1 << (bit.n.bit_length()-1), bit.n\n        while m:\n            if (ni:=i|m)\
-    \ <= n and (ns:=s+d[(i|m)-1]) <= v: s, i = ns, ni\n            m >>= 1\n     \
-    \   return i\n\ndef inversion_cnt(Z, N: Union[int,None] = None):\n    if N is\
-    \ None:\n        Zi = { z: i for i, z in enumerate(sorted(set(Z))) }\n       \
-    \ Z, N = [Zi[z] for z in Z], len(Z)\n    bit, cnt = BIT(N), 0\n    for z in reversed(Z):\n\
-    \        cnt += bit.sum(z)\n        bit.add(z, 1)\n    return cnt\n\n\nfrom typing\
-    \ import Iterable, Type, Union, overload\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
-    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\nfrom typing import Union\nfrom typing import Sequence\n\n\nclass BIT(Sequence[int]):\n\
+    \    def __init__(bit, v):\n        if isinstance(v, int): bit.d, bit.n = [0]*v,\
+    \ v\n        else: bit.build(v)\n\n    def build(bit, data):\n        bit.d, bit.n\
+    \ = data, len(data)\n        for i in range(bit.n):\n            if (r := i|i+1)\
+    \ < bit.n: bit.d[r] += bit.d[i]\n\n    def add(bit, i, x):\n        while i <\
+    \ bit.n:\n            bit.d[i] += x\n            i |= i+1\n\n    def sum(bit,\
+    \ n: int) -> int:\n        assert 0 <= n <= bit.n\n        s = 0\n        while\
+    \ n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n    def range_sum(bit, l,\
+    \ r):\n        s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n        while\
+    \ l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n    def __len__(bit) -> int:\n\
+    \        return bit.n\n    \n    def __getitem__(bit, i: int) -> int:\n      \
+    \  s, l = bit.d[i], i&(i+1)\n        while l != i: s, i = s-bit.d[i-1], i-(i&-i)\n\
+    \        return s\n    get = __getitem__\n    \n    def __setitem__(bit, i: int,\
+    \ x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\n  \
+    \  def presum(bit) -> list[int]:\n        pre = [0]+bit.d\n        for i in range(bit.n+1):\
+    \ pre[i] += pre[i&i-1]\n        return pre\n    \n    def bisect_left(bit, v)\
+    \ -> int:\n        return bit.bisect_right(v-1)+1\n    \n    def bisect_right(bit,\
+    \ v) -> int:\n        d, i, s, m, n = bit.d, 0, 0, 1 << (bit.n.bit_length()-1),\
+    \ bit.n\n        while m:\n            if (ni:=i|m) <= n and (ns:=s+d[(i|m)-1])\
+    \ <= v: s, i = ns, ni\n            m >>= 1\n        return i\n\ndef invcnt(Z,\
+    \ N: Union[int,None] = None):\n    if N is None:\n        Zi = { z: i for i, z\
+    \ in enumerate(sorted(set(Z))) }\n        Z, N = [Zi[z] for z in Z], len(Z)\n\
+    \    bit, cnt = BIT(N), 0\n    for z in reversed(Z):\n        cnt += bit.sum(z)\n\
+    \        bit.add(z, 1)\n    return cnt\n\n\nfrom typing import Iterable, Type,\
+    \ Union, overload\nimport typing\nfrom collections import deque\nfrom numbers\
+    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -156,14 +156,13 @@ data:
     \ \"No\")\n    \n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc136/tasks/arc136_b\n\
     \n\ndef main():\n    N = read(int)\n    A = read(list[-1])\n    B = read(list[-1])\n\
-    \    Aic = inversion_cnt(A,5000)\n    Bic = inversion_cnt(B,5000)\n    if sorted(A)\
-    \ != sorted(B):\n        return False\n    has_dup = len(set(A)) < N\n    return\
-    \ has_dup or (Aic&1 == Bic&1)\n\nfrom cp_library.math.inversion_cnt_fn import\
-    \ inversion_cnt\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
-    \ import write\n\nif __name__ == \"__main__\":\n    ans = main()\n    write(\"\
-    Yes\" if ans else \"No\")\n    "
+    \    Aic = invcnt(A,5000)\n    Bic = invcnt(B,5000)\n    if sorted(A) != sorted(B):\n\
+    \        return False\n    has_dup = len(set(A)) < N\n    return has_dup or (Aic&1\
+    \ == Bic&1)\n\nfrom cp_library.math.invcnt_fn import invcnt\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    :\n    ans = main()\n    write(\"Yes\" if ans else \"No\")\n    "
   dependsOn:
-  - cp_library/math/inversion_cnt_fn.py
+  - cp_library/math/invcnt_fn.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/ds/tree/bit_cls.py
@@ -172,7 +171,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

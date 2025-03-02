@@ -1,0 +1,90 @@
+---
+data:
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/fwht_fn.py
+    title: cp_library/math/conv/fwht_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/fwht_pair_fn.py
+    title: cp_library/math/conv/fwht_pair_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/xor_conv_fn.py
+    title: cp_library/math/conv/mod/xor_conv_fn.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
+  _isVerificationFailed: false
+  _pathExtension: py
+  _verificationStatusIcon: ':heavy_check_mark:'
+  attributes:
+    PROBLEM: https://judge.yosupo.jp/problem/bitwise_xor_convolution
+    links:
+    - https://judge.yosupo.jp/problem/bitwise_xor_convolution
+  bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_xor_convolution\n\
+    \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    C =\
+    \ xor_conv(A, B, N, 998244353)\n    wtnl(C)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\ndef fwht_pair(A: list[int], B: list[int], N: int):\n\
+    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
+    \ < Z:\n            a0, a1, b0, b1 = A[m^b], A[m], B[m^b], B[m]\n            A[m^b],\
+    \ A[m], B[m^b], B[m] = a0+a1, a0-a1, b0+b1, b0-b1\n            m = m+1|b\n   \
+    \ return A, B\n\ndef fwht(A: list, N: int):\n    Z = len(A)\n    for i in range(N):\n\
+    \        m = b = 1<<i\n        while m < Z:\n            a0, a1 = A[m^b], A[m]\n\
+    \            A[m^b], A[m] = a0+a1, a0-a1\n            m = m+1|b\n    return A\n\
+    \ndef xor_conv(A: list, B: list, N: int, mod: int):\n    assert len(A) == len(B)\n\
+    \    fwht_pair(A, B, N)\n    for i, b in enumerate(B): A[i] = A[i]%mod * (b%mod)\
+    \ % mod\n    fwht(A, N)\n    inv = pow(len(A), -1, mod)\n    for i, a in enumerate(A):\
+    \ A[i] = a%mod * inv%mod\n    return A\n\nfrom atexit import register\nfrom os\
+    \ import read, write\nimport sys\nfrom __pypy__ import builders\nclass Fastio:\n\
+    \    ibuf = bytes()\n    pil = pir = 0\n    sb = builders.StringBuilder()\n  \
+    \  def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
+    \ += read(0, 20738704)\n        self.pil = 0; self.pir = len(self.ibuf)\n    def\
+    \ flush(self): write(1, self.sb.build().encode())\n    def fastin(self):\n   \
+    \     if self.pir - self.pil < 64: self.load()\n        minus = x = 0\n      \
+    \  while self.ibuf[self.pil] < 45: self.pil += 1\n        if self.ibuf[self.pil]\
+    \ == 45: minus = 1; self.pil += 1\n        while self.ibuf[self.pil] >= 48:\n\
+    \            x = x * 10 + (self.ibuf[self.pil] & 15)\n            self.pil +=\
+    \ 1\n        if minus: return -x\n        return x\n    def fastout(self, x):\
+    \ self.sb.append(str(x))\n    def fastoutln(self, x): self.sb.append(str(x));\
+    \ self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin; wt = fastio.fastout;\
+    \ wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\nsys.stdin = None;\
+    \ sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\ndef wtnl(l):\
+    \ wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
+  code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_xor_convolution\n\
+    \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    C =\
+    \ xor_conv(A, B, N, 998244353)\n    wtnl(C)\n\nfrom cp_library.math.conv.mod.xor_conv_fn\
+    \ import xor_conv\n\nfrom atexit import register\nfrom os import read, write\n\
+    import sys\nfrom __pypy__ import builders\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = builders.StringBuilder()\n    def load(self):\n \
+    \       self.ibuf = self.ibuf[self.pil:]\n        self.ibuf += read(0, 20738704)\n\
+    \        self.pil = 0; self.pir = len(self.ibuf)\n    def flush(self): write(1,\
+    \ self.sb.build().encode())\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \ x\n    def fastout(self, x): self.sb.append(str(x))\n    def fastoutln(self,\
+    \ x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin;\
+    \ wt = fastio.fastout; wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\n\
+    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
+    def wtnl(l): wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
+  dependsOn:
+  - cp_library/math/conv/mod/xor_conv_fn.py
+  - cp_library/math/conv/fwht_pair_fn.py
+  - cp_library/math/conv/fwht_fn.py
+  isVerificationFile: true
+  path: test/library-checker/convolution/bitwise_xor_convolution.test.py
+  requiredBy: []
+  timestamp: '2025-03-02 23:16:20+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/library-checker/convolution/bitwise_xor_convolution.test.py
+layout: document
+redirect_from:
+- /verify/test/library-checker/convolution/bitwise_xor_convolution.test.py
+- /verify/test/library-checker/convolution/bitwise_xor_convolution.test.py.html
+title: test/library-checker/convolution/bitwise_xor_convolution.test.py
+---

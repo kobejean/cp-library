@@ -40,11 +40,11 @@ data:
   requiredBy:
   - cp_library/math/median_fn.py
   - cp_library/alg/divcon/qselect_fn.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/arc/arc122_b_insurance_median.test.py
   - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
+  - test/atcoder/arc/arc122_b_insurance_median.test.py
 documentation_of: cp_library/alg/divcon/partition_fn.py
 layout: document
 redirect_from:

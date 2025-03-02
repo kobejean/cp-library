@@ -53,15 +53,15 @@ data:
   isVerificationFile: false
   path: cp_library/misc/setrecursionlimit.py
   requiredBy:
-  - cp_library/alg/graph/edmonds_fn.py
-  - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/tree/lca_table_recursive_cls.py
+  - cp_library/alg/tree/find_centroid_recursive_fn.py
+  - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/dp/rerooting_recursive_cls.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
+  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
 documentation_of: cp_library/misc/setrecursionlimit.py
 layout: document

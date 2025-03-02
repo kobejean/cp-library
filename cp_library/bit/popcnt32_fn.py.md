@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/ctz32_fn.py
     title: cp_library/bit/ctz32_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/table/submasks_cls.py
+    title: cp_library/math/table/submasks_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/chromatic_number.test.py
@@ -39,10 +42,11 @@ data:
   isVerificationFile: false
   path: cp_library/bit/popcnt32_fn.py
   requiredBy:
-  - cp_library/bit/clz32_fn.py
-  - cp_library/bit/ctz32_fn.py
+  - cp_library/math/table/submasks_cls.py
   - cp_library/alg/graph/bit_graph_cls.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/bit/ctz32_fn.py
+  - cp_library/bit/clz32_fn.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

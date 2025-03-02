@@ -77,11 +77,11 @@ data:
   isVerificationFile: false
   path: cp_library/ds/potentialized_dsu_cls.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
   - test/library-checker/data-structure/unionfind_with_potential.test.py
+  - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
 documentation_of: cp_library/ds/potentialized_dsu_cls.py
 layout: document
 title: PotentializedDSU (generalized with groups)

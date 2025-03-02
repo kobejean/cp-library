@@ -28,10 +28,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -148,22 +148,22 @@ data:
     \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
     \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
     \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
-    \ Va: list[int], Ea: list[int], self_loops = False):\n        G.N = N\n      \
-    \  \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The number\
-    \ of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices in\
-    \ the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
-    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
-    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
-    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
-    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
-    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
-    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
-    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
-    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
-    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
-    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n\
-    \        G.order: list[int] = None\n        G.vis: list[int] = None\n\n    def\
-    \ __len__(G) -> int: return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
+    \ Va: list[int], Ea: list[int]):\n        G.N = N\n        \"\"\"The number of\
+    \ vertices.\"\"\"\n        G.M = M\n        \"\"\"The number of edges.\"\"\"\n\
+    \        G.U = U\n        \"\"\"A list of source vertices in the original edge\
+    \ list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination vertices in\
+    \ the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\"deg[u] is\
+    \ the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\"La[u] stores\
+    \ the start index of the list of adjacent vertices from u.\"\"\"\n        G.Ra\
+    \ = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent vertices\
+    \ from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u],\
+    \ useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\"Va[i] lists\
+    \ adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n  \
+    \      \"\"\"Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].\n\
+    \        For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M]\
+    \ -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n        G.order:\
+    \ list[int] = None\n        G.vis: list[int] = None\n\n    def __len__(G) -> int:\
+    \ return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -361,7 +361,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/cycle_detection.test.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/cycle_detection.test.py

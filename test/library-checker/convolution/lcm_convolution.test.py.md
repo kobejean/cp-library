@@ -7,10 +7,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -65,7 +65,7 @@ data:
     \ sub)\n    \n    def lcm_conv(P, A: list[int], B: list[int], add = operator.add,\
     \ sub = operator.sub, mul = operator.mul):\n        A, B = P.divisor_zeta(A, add),\
     \ P.divisor_zeta(B, add)\n        for i, b in enumerate(B): A[i] = mul(A[i], b)\n\
-    \        return P.divisor_mobius(A, sub)\n\n\n\nfrom typing import Iterable, Type,\
+    \        return P.divisor_mobius(A, sub)\n\n\nfrom typing import Iterable, Type,\
     \ Union, overload\nimport typing\nfrom collections import deque\nfrom numbers\
     \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
@@ -174,7 +174,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/lcm_convolution.test.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/lcm_convolution.test.py

@@ -3,18 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/subset_conv_fn.py
-    title: cp_library/math/mod/subset_conv_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/subset_conv_fn.py
-    title: cp_library/math/subset_conv_fn.py
+    path: cp_library/math/conv/mod/subset_conv_fn.py
+    title: cp_library/math/conv/mod/subset_conv_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/conv/subset_conv_fn.py
+    title: cp_library/math/conv/subset_conv_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/set-power-series/subset_convolution_all.test.py
-    title: test/library-checker/set-power-series/subset_convolution_all.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -35,13 +32,12 @@ data:
   isVerificationFile: false
   path: cp_library/bit/popcnts_fn.py
   requiredBy:
-  - cp_library/math/subset_conv_fn.py
-  - cp_library/math/mod/subset_conv_fn.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/math/conv/subset_conv_fn.py
+  - cp_library/math/conv/mod/subset_conv_fn.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py
-  - test/library-checker/set-power-series/subset_convolution_all.test.py
 documentation_of: cp_library/bit/popcnts_fn.py
 layout: document
 redirect_from:

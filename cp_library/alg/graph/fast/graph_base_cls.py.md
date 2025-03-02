@@ -16,7 +16,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -224,22 +224,22 @@ data:
     \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
     \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
     \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
-    \ Va: list[int], Ea: list[int], self_loops = False):\n        G.N = N\n      \
-    \  \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The number\
-    \ of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices in\
-    \ the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
-    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
-    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
-    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
-    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
-    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
-    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
-    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
-    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
-    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
-    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n\
-    \        G.order: list[int] = None\n        G.vis: list[int] = None\n\n    def\
-    \ __len__(G) -> int: return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
+    \ Va: list[int], Ea: list[int]):\n        G.N = N\n        \"\"\"The number of\
+    \ vertices.\"\"\"\n        G.M = M\n        \"\"\"The number of edges.\"\"\"\n\
+    \        G.U = U\n        \"\"\"A list of source vertices in the original edge\
+    \ list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination vertices in\
+    \ the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\"deg[u] is\
+    \ the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\"La[u] stores\
+    \ the start index of the list of adjacent vertices from u.\"\"\"\n        G.Ra\
+    \ = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent vertices\
+    \ from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u],\
+    \ useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\"Va[i] lists\
+    \ adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n  \
+    \      \"\"\"Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].\n\
+    \        For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M]\
+    \ -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n        G.order:\
+    \ list[int] = None\n        G.vis: list[int] = None\n\n    def __len__(G) -> int:\
+    \ return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -381,48 +381,47 @@ data:
     from cp_library.alg.graph.dfs_options_cls import DFSEvent\n\nclass GraphBase(Sequence,\
     \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Ea: list[int], self_loops = False):\n \
-    \       G.N = N\n        \"\"\"The number of vertices.\"\"\"\n        G.M = M\n\
-    \        \"\"\"The number of edges.\"\"\"\n        G.U = U\n        \"\"\"A list\
-    \ of source vertices in the original edge list.\"\"\"\n        G.V = V\n     \
-    \   \"\"\"A list of destination vertices in the original edge list.\"\"\"\n  \
-    \      G.deg = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n\
-    \        G.La = La\n        \"\"\"La[u] stores the start index of the list of\
-    \ adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n        \"\"\"Ra[u] stores\
-    \ the stop index of the list of adjacent vertices from u.\"\"\"\n        G.Ua\
-    \ = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\
-    \"\"\n        G.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for\
-    \ La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n        \"\"\"Ea[i] lists the\
-    \ edge ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
-    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n        G.stack: list[int] = None\n        G.order: list[int] = None\n     \
-    \   G.vis: list[int] = None\n\n    def __len__(G) -> int: return G.N\n    def\
-    \ __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n    def range(G, u):\
-    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
-    \ G.bfs(s, g)\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
-    \ t) >= inf: return None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v\
-    \ := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n        return\
-    \ vertices[::-1]\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n \
-    \       if G.distance(s, t) >= inf: return None\n        Ea, Ua, back, edges,\
-    \ v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v != s: edges.append(Ea[i\
-    \ := back[v]]), (v := Ua[i])\n        return edges[::-1]\n    \n    @overload\n\
-    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
-    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int =\
-    \ 0, g: int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N,\
-    \ -1), [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n\
-    \        que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
-    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
-    \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
-    \                    que.append(v)\n        return D if g is None else inf \n\n\
-    \    def floyd_warshall(G) -> list[list[int]]:\n        Ua, Va, N = G.Ua, G.Va,\
-    \ G.N\n        G.D = D = [[inf]*N for _ in range(N)]\n        for u in range(N):\
-    \ D[u][u] = 0\n        for i in range(len(Ua)): D[Ua[i]][Va[i]] = 1\n        for\
-    \ k, Dk in enumerate(D):\n            for Di in D:\n                if Di[k] ==\
-    \ inf: continue\n                for j in range(N):\n                    Di[j]\
-    \ = min(Di[j], Di[k]+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
+    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        G.N = N\n    \
+    \    \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The number\
+    \ of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices in\
+    \ the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
+    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
+    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
+    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
+    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
+    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
+    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
+    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
+    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
+    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
+    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n\
+    \        G.order: list[int] = None\n        G.vis: list[int] = None\n\n    def\
+    \ __len__(G) -> int: return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
+    \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
+    \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
+    \ None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\n    def\
+    \ shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf: return\
+    \ None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while\
+    \ v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n \
+    \   \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
+    \ t) >= inf: return None\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back,\
+    \ u32f(0), t\n        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n\
+    \        return edges[::-1]\n    \n    @overload\n    def bfs(G, s: Union[int,list]\
+    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
+    \ int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        S, Va,\
+    \ back, D = G.starts(s), G.Va, i32f(N := G.N, -1), [inf]*N\n        G.back, G.D\
+    \ = back, D\n        for u in S: D[u] = 0\n        que = deque(S)\n        while\
+    \ que:\n            nd = D[u := que.popleft()]+1\n            if u == g: return\
+    \ nd-1\n            for i in G.range(u):\n                if nd < D[v := Va[i]]:\n\
+    \                    D[v], back[v] = nd, i\n                    que.append(v)\n\
+    \        return D if g is None else inf \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
+    \        Ua, Va, N = G.Ua, G.Va, G.N\n        G.D = D = [[inf]*N for _ in range(N)]\n\
+    \        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)): D[Ua[i]][Va[i]]\
+    \ = 1\n        for k, Dk in enumerate(D):\n            for Di in D:\n        \
+    \        if Di[k] == inf: continue\n                for j in range(N):\n     \
+    \               Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
     \ s: Union[int, None] = None):\n        M, Ea, Ua, Va, vis, back = G.M, G.Ea,\
     \ G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack =\
     \ vis, back, elist(N)\n        for s in G.starts(s):\n            if vis[s]: continue\n\
@@ -513,42 +512,42 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_base_cls.py
   requiredBy:
-  - cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/grid_graph_cls.py
-  - cp_library/alg/graph/fast/digraph_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - cp_library/alg/graph/fast/graph_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/alg/graph/fast/grid_graph_base_cls.py
+  - cp_library/alg/graph/fast/graph_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_cls.py
+  - cp_library/alg/graph/fast/digraph_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/fast/grid_graph_cls.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/cycle_detection.test.py
+  - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/scc_strongly_connected_components.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/library-checker/graph/cycle_detection.test.py
-  - test/library-checker/graph/cycle_detection_undirected.test.py
-  - test/library-checker/graph/scc.test.py
 documentation_of: cp_library/alg/graph/fast/graph_base_cls.py
 layout: document
 redirect_from:

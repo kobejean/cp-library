@@ -3,14 +3,17 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/functional_graph_cls.py
-    title: cp_library/alg/graph/functional_graph_cls.py
+    path: cp_library/alg/graph/func_graph_cls.py
+    title: cp_library/alg/graph/func_graph_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/partial_functional_graph_cls.py
-    title: cp_library/alg/graph/partial_functional_graph_cls.py
+    path: cp_library/alg/graph/mut_perm_graph_cls.py
+    title: cp_library/alg/graph/mut_perm_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/partial_func_graph_cls.py
+    title: cp_library/alg/graph/partial_func_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/permutation_cls.py
-    title: cp_library/alg/graph/permutation_cls.py
+    path: cp_library/alg/graph/perm_graph_cls.py
+    title: cp_library/alg/graph/perm_graph_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
@@ -34,10 +37,11 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/roll_fn.py
   requiredBy:
-  - cp_library/alg/graph/partial_functional_graph_cls.py
-  - cp_library/alg/graph/functional_graph_cls.py
-  - cp_library/alg/graph/permutation_cls.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/alg/graph/func_graph_cls.py
+  - cp_library/alg/graph/partial_func_graph_cls.py
+  - cp_library/alg/graph/mut_perm_graph_cls.py
+  - cp_library/alg/graph/perm_graph_cls.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

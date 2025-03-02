@@ -47,7 +47,7 @@ data:
     \ B: list[int], add = operator.add, sub = operator.sub, mul = operator.mul):\n\
     \        A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i,\
     \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n\
-    \n\nclass Totient(list[int]):\n    def __init__(phi, N):\n        super().__init__([0]\
+    \nclass Totient(list[int]):\n    def __init__(phi, N):\n        super().__init__([0]\
     \ * (N + 1))\n        phi[0], phi[1] = 0, 1\n        primes = Primes.__new__(Primes)\n\
     \n        for x in range(2, N + 1):\n            if phi[x] == 0:\n           \
     \     phi[x] = x-1\n                primes.append(x)\n            for p in primes:\n\
@@ -69,7 +69,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/totient_cls.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/totient_cls.py

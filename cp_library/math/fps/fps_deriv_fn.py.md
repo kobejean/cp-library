@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   _extendedRequiredBy:
@@ -81,17 +81,17 @@ data:
   requiredBy:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/fps/fps_exp_fn.py
-  - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_log_fn.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/fps/fps_exp_fn.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
-  - test/library-checker/polynomial/log_of_formal_power_series.test.py
-  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/polynomial/log_of_formal_power_series.test.py
+  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
 documentation_of: cp_library/math/fps/fps_deriv_fn.py
 layout: document
 redirect_from:

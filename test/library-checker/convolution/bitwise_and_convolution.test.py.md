@@ -4,21 +4,21 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/and_conv_fn.py
-    title: cp_library/math/and_conv_fn.py
+    path: cp_library/math/conv/and_conv_fn.py
+    title: cp_library/math/conv/and_conv_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/superset_transform_fn.py
-    title: cp_library/math/superset_transform_fn.py
+    path: cp_library/math/conv/superset_transform_fn.py
+    title: cp_library/math/conv/superset_transform_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -128,33 +128,33 @@ data:
     \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
     \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nimport operator\n\ndef superset_transform(A: list[_T], N: int, Z: int = None,\
-    \ /, op = operator.add) -> list[_T]:\n    Z = 1<<N\n    for i in range(N):\n \
-    \       m = b = 1<<i\n        while m < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n\
-    \    return A\n\ndef and_conv(A: list[_T], B: list[_T], N: int,\n            \
-    \ mul: Callable[[_T,_T],_T] = operator.mul,\n             sub: Callable[[_T,_T],_T]\
-    \ = operator.sub,\n             add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n\
-    \    superset_transform(A, N, Z := 1 << N, op=add), superset_transform(B, N, Z,\
-    \ op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return superset_transform(A,\
+    \nimport operator\n\ndef superset_transform(A: list[_T], N: int, /, op = operator.add)\
+    \ -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n\
+    \        while m < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n    return A\n\ndef\
+    \ and_conv(A: list[_T], B: list[_T], N: int,\n             mul: Callable[[_T,_T],_T]\
+    \ = operator.mul,\n             sub: Callable[[_T,_T],_T] = operator.sub,\n  \
+    \           add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n    assert\
+    \ len(A) == len(B)\n    superset_transform(A, N, op=add), superset_transform(B,\
+    \ N, op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return superset_transform(A,\
     \ N, op=sub)\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
     \ndef mul(a,b): return a*b%998244353\ndef sub(a,b): return (a-b)%998244353\ndef\
     \ add(a,b): return (a+b)%998244353\n\ndef main():\n    N = read(int)\n    A =\
     \ read(list[int])\n    B = read(list[int])\n    C = and_conv(A, B, N, mul, sub,\
     \ add)\n    write(*C)\n\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
-    \ import write\nfrom cp_library.math.and_conv_fn import and_conv\n\nif __name__\
+    \ import write\nfrom cp_library.math.conv.and_conv_fn import and_conv\n\nif __name__\
     \ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/math/and_conv_fn.py
+  - cp_library/math/conv/and_conv_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
-  - cp_library/math/superset_transform_fn.py
+  - cp_library/math/conv/superset_transform_fn.py
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution.test.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution.test.py

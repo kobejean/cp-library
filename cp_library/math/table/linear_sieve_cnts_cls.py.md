@@ -50,7 +50,7 @@ data:
     \ P.multiple_mobius(A, sub)\n    \n    def lcm_conv(P, A: list[int], B: list[int],\
     \ add = operator.add, sub = operator.sub, mul = operator.mul):\n        A, B =\
     \ P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i, b in enumerate(B):\
-    \ A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n\n\nclass SieveProtocol(Protocol):\n\
+    \ A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n\nclass SieveProtocol(Protocol):\n\
     \    primes: Primes\n    def factor_cnts(self, N): ...\n    def factors(self,\
     \ N): ...\n    def unique_factors(self, N): ...\n    def __getitem__(self, key)\
     \ -> int: ...\n\nclass LinearSieveCounts(list[int], SieveProtocol):\n\n    def\
@@ -96,7 +96,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/linear_sieve_cnts_cls.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/linear_sieve_cnts_cls.py

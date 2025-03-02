@@ -4,24 +4,24 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/elm_wise_mixin.py
-    title: cp_library/math/elm_wise_mixin.py
+    path: cp_library/math/vec/elm_wise_mixin.py
+    title: cp_library/math/vec/elm_wise_mixin.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec2d_cls.py
-    title: cp_library/math/vec2d_cls.py
+    path: cp_library/math/vec/vec2d_cls.py
+    title: cp_library/math/vec/vec2d_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec_cls.py
-    title: cp_library/math/vec_cls.py
+    path: cp_library/math/vec/vec_cls.py
+    title: cp_library/math/vec/vec_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -209,21 +209,21 @@ data:
     \    for tmask in range(1<<M):\n        mask = full ^ tmask\n        factor =\
     \ F[mask&Tmask]\n        for l in range(Y):\n            nc = dp[mask][l] + O[l]\
     \ * factor\n            ans = min(ans, nc)\n    write(f'{ans:0.10f}')\n\nfrom\
-    \ cp_library.math.vec2d_cls import Vec2D\nfrom cp_library.io.read_fn import read\n\
-    from cp_library.io.write_fn import write\n\nif __name__ == \"__main__\":\n   \
-    \ main()"
+    \ cp_library.math.vec.vec2d_cls import Vec2D\nfrom cp_library.io.read_fn import\
+    \ read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    :\n    main()"
   dependsOn:
-  - cp_library/math/vec2d_cls.py
+  - cp_library/math/vec/vec2d_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
-  - cp_library/math/vec_cls.py
+  - cp_library/math/vec/vec_cls.py
   - cp_library/io/fast_io_cls.py
-  - cp_library/math/elm_wise_mixin.py
+  - cp_library/math/vec/elm_wise_mixin.py
   isVerificationFile: true
   path: test/atcoder/abc/abc274_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc274_e_vec2d.test.py

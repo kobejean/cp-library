@@ -52,10 +52,10 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -173,7 +173,7 @@ data:
     def argsort(A: list[int], reverse=False):\n    mask, I = (1 << (shift := (N :=\
     \ len(A)).bit_length())) - 1, [0]*N\n    if reverse:\n        for i in range(N):\
     \ I[i] = A[i] << shift | (i ^ mask)\n        I.sort(reverse=True)\n        for\
-    \ i in range(N): I[i] = (I[i] & mask) & mask\n    else:\n        for i in range(N):\
+    \ i in range(N): I[i] = (I[i] ^ mask) & mask\n    else:\n        for i in range(N):\
     \ I[i] = A[i] << shift | i\n        I.sort()\n        for i in range(N): I[i]\
     \ &= mask\n    return I\nfrom math import inf\nfrom itertools import islice\n\
     from typing import Callable, Sequence, Union, overload\n\nfrom enum import auto,\
@@ -189,48 +189,47 @@ data:
     \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence,\
     \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Ea: list[int], self_loops = False):\n \
-    \       G.N = N\n        \"\"\"The number of vertices.\"\"\"\n        G.M = M\n\
-    \        \"\"\"The number of edges.\"\"\"\n        G.U = U\n        \"\"\"A list\
-    \ of source vertices in the original edge list.\"\"\"\n        G.V = V\n     \
-    \   \"\"\"A list of destination vertices in the original edge list.\"\"\"\n  \
-    \      G.deg = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n\
-    \        G.La = La\n        \"\"\"La[u] stores the start index of the list of\
-    \ adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n        \"\"\"Ra[u] stores\
-    \ the stop index of the list of adjacent vertices from u.\"\"\"\n        G.Ua\
-    \ = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\
-    \"\"\n        G.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for\
-    \ La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n        \"\"\"Ea[i] lists the\
-    \ edge ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
-    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n        G.stack: list[int] = None\n        G.order: list[int] = None\n     \
-    \   G.vis: list[int] = None\n\n    def __len__(G) -> int: return G.N\n    def\
-    \ __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n    def range(G, u):\
-    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
-    \ G.bfs(s, g)\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
-    \ t) >= inf: return None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v\
-    \ := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n        return\
-    \ vertices[::-1]\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n \
-    \       if G.distance(s, t) >= inf: return None\n        Ea, Ua, back, edges,\
-    \ v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v != s: edges.append(Ea[i\
-    \ := back[v]]), (v := Ua[i])\n        return edges[::-1]\n    \n    @overload\n\
-    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
-    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int =\
-    \ 0, g: int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N,\
-    \ -1), [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n\
-    \        que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
-    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
-    \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
-    \                    que.append(v)\n        return D if g is None else inf \n\n\
-    \    def floyd_warshall(G) -> list[list[int]]:\n        Ua, Va, N = G.Ua, G.Va,\
-    \ G.N\n        G.D = D = [[inf]*N for _ in range(N)]\n        for u in range(N):\
-    \ D[u][u] = 0\n        for i in range(len(Ua)): D[Ua[i]][Va[i]] = 1\n        for\
-    \ k, Dk in enumerate(D):\n            for Di in D:\n                if Di[k] ==\
-    \ inf: continue\n                for j in range(N):\n                    Di[j]\
-    \ = min(Di[j], Di[k]+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
+    \        Ua: list[int], Va: list[int], Ea: list[int]):\n        G.N = N\n    \
+    \    \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The number\
+    \ of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices in\
+    \ the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
+    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
+    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
+    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
+    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
+    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
+    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
+    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
+    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
+    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
+    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n\
+    \        G.order: list[int] = None\n        G.vis: list[int] = None\n\n    def\
+    \ __len__(G) -> int: return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
+    \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
+    \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
+    \ None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\n    def\
+    \ shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf: return\
+    \ None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while\
+    \ v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n \
+    \   \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
+    \ t) >= inf: return None\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back,\
+    \ u32f(0), t\n        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n\
+    \        return edges[::-1]\n    \n    @overload\n    def bfs(G, s: Union[int,list]\
+    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
+    \ int) -> int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        S, Va,\
+    \ back, D = G.starts(s), G.Va, i32f(N := G.N, -1), [inf]*N\n        G.back, G.D\
+    \ = back, D\n        for u in S: D[u] = 0\n        que = deque(S)\n        while\
+    \ que:\n            nd = D[u := que.popleft()]+1\n            if u == g: return\
+    \ nd-1\n            for i in G.range(u):\n                if nd < D[v := Va[i]]:\n\
+    \                    D[v], back[v] = nd, i\n                    que.append(v)\n\
+    \        return D if g is None else inf \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
+    \        Ua, Va, N = G.Ua, G.Va, G.N\n        G.D = D = [[inf]*N for _ in range(N)]\n\
+    \        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)): D[Ua[i]][Va[i]]\
+    \ = 1\n        for k, Dk in enumerate(D):\n            for Di in D:\n        \
+    \        if Di[k] == inf: continue\n                for j in range(N):\n     \
+    \               Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
     \ s: Union[int, None] = None):\n        M, Ea, Ua, Va, vis, back = G.M, G.Ea,\
     \ G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n        G.vis, G.back, stack =\
     \ vis, back, elist(N)\n        for s in G.starts(s):\n            if vis[s]: continue\n\
@@ -487,17 +486,17 @@ data:
     \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
     \                    stack.append(v)\n        return D if g is None else inf\n\
     \n    def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
-    \ \n                     edge_op: Callable[[int,int,int,_T],_T] = lambda p,c,i,s:s,\n\
+    \ \n                     edge_op: Callable[[_T,int,int,int],_T] = lambda s,i,p,u:s,\n\
     \                     s: int = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n  \
     \      order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]\n \
     \       # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
     \            # subtree v finished up pass, store value to accumulate for u\n \
-    \           dp[v] = new = edge_op(u, v, i, dp[v])\n            dp[u] = merge(dp[u],\
+    \           dp[v] = new = edge_op(dp[v], i, u, v)\n            dp[u] = merge(dp[u],\
     \ new)\n            # suffix accumulation\n            if (c:=I[u]-1) > La[u]:\
     \ suf[c-1] = merge(suf[c], new)\n            I[u] = c\n        # down\n      \
     \  dp[s] = e # at this point dp stores values to be merged in parent\n       \
     \ for i in order:\n            u,v = Ua[i], Va[i]\n            dp[u] = merge(pre\
-    \ := dp[u], dp[v])\n            dp[v] = edge_op(v, u, i, merge(suf[I[u]], pre))\n\
+    \ := dp[u], dp[v])\n            dp[v] = edge_op(merge(suf[I[u]], pre), i, v, u)\n\
     \            I[u] += 1\n        return dp\n    \n    def euler_tour(T, s = 0):\n\
     \        N, Va = len(T), T.Va\n        tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N\n\
     \        order, delta = elist(2*N), elist(2*N)\n        \n        stack = elist(N)\n\
@@ -612,7 +611,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_b_fast_height.test.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_b_fast_height.test.py

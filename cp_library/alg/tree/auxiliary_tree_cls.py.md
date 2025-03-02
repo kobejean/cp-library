@@ -71,7 +71,7 @@ data:
     \ path\n\ndef argsort(A: list[int], reverse=False):\n    mask, I = (1 << (shift\
     \ := (N := len(A)).bit_length())) - 1, [0]*N\n    if reverse:\n        for i in\
     \ range(N): I[i] = A[i] << shift | (i ^ mask)\n        I.sort(reverse=True)\n\
-    \        for i in range(N): I[i] = (I[i] & mask) & mask\n    else:\n        for\
+    \        for i in range(N): I[i] = (I[i] ^ mask) & mask\n    else:\n        for\
     \ i in range(N): I[i] = A[i] << shift | i\n        I.sort()\n        for i in\
     \ range(N): I[i] &= mask\n    return I\n\nclass AuxiliaryTree(LCATable):\n\n \
     \   def __init__(self, T, root=0):\n        super().__init__(T, root)\n      \
@@ -123,7 +123,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

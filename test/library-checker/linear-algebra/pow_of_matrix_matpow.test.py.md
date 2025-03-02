@@ -11,21 +11,21 @@ data:
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mat_id_fn.py
-    title: cp_library/math/mat_id_fn.py
+    path: cp_library/math/mat/mat_id_fn.py
+    title: cp_library/math/mat/mat_id_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mat_mul_fn.py
-    title: cp_library/math/mat_mul_fn.py
+    path: cp_library/math/mat/mat_mul_fn.py
+    title: cp_library/math/mat/mat_mul_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mat_pow_fn.py
-    title: cp_library/math/mat_pow_fn.py
+    path: cp_library/math/mat/mat_pow_fn.py
+    title: cp_library/math/mat/mat_pow_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/mat_mul_fn.py
-    title: cp_library/math/mod/mat_mul_fn.py
+    path: cp_library/math/mat/mod/mat_mul_fn.py
+    title: cp_library/math/mat/mod/mat_mul_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/mod/mat_pow_fn.py
-    title: cp_library/math/mod/mat_pow_fn.py
-  - icon: ':heavy_check_mark:'
+    path: cp_library/math/mat/mod/mat_pow_fn.py
+    title: cp_library/math/mat/mod/mat_pow_fn.py
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   _extendedRequiredBy: []
@@ -171,27 +171,27 @@ data:
     \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
     \n\ndef main():\n    mod = 998244353\n    N, K = read()\n    if N < 10:\n    \
-    \    from cp_library.math.mat_pow_fn import mat_pow\n        from cp_library.math.mod.mint_cls\
+    \    from cp_library.math.mat.mat_pow_fn import mat_pow\n        from cp_library.math.mod.mint_cls\
     \ import mint\n        mint.set_mod(998244353)\n\n        A = [read(mint) for\
-    \ _ in range(N)]\n        B = mat_pow(A, K)\n    else:\n        from cp_library.math.mod.mat_pow_fn\
+    \ _ in range(N)]\n        B = mat_pow(A, K)\n    else:\n        from cp_library.math.mat.mod.mat_pow_fn\
     \ import mat_pow\n\n        A = [read() for _ in range(N)]\n        B = mat_pow(A,\
     \ K, mod)\n\n    for row in B:\n        write(*row)\n\nfrom cp_library.io.read_func_fn\
     \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n\
     \    main()"
   dependsOn:
-  - cp_library/math/mat_pow_fn.py
+  - cp_library/math/mat/mat_pow_fn.py
   - cp_library/math/mod/mint_cls.py
-  - cp_library/math/mod/mat_pow_fn.py
+  - cp_library/math/mat/mod/mat_pow_fn.py
   - cp_library/io/read_func_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/math/mat_mul_fn.py
-  - cp_library/math/mat_id_fn.py
-  - cp_library/math/mod/mat_mul_fn.py
+  - cp_library/math/mat/mat_mul_fn.py
+  - cp_library/math/mat/mat_id_fn.py
+  - cp_library/math/mat/mod/mat_mul_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2025-02-18 11:27:51+09:00'
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

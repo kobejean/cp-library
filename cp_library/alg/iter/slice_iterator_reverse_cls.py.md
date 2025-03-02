@@ -52,15 +52,15 @@ data:
   path: cp_library/alg/iter/slice_iterator_reverse_cls.py
   requiredBy:
   - cp_library/alg/graph/snippets/strongly_connected_components_fn.py
-  - cp_library/alg/graph/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/digraph_cls.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/alg/graph/strongly_connected_components_fn.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
 documentation_of: cp_library/alg/iter/slice_iterator_reverse_cls.py
 layout: document
 redirect_from:

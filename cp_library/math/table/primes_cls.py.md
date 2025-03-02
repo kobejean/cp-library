@@ -6,6 +6,12 @@ data:
     title: cp_library/ds/reserve_fn.py
   _extendedRequiredBy:
   - icon: ':warning:'
+    path: cp_library/math/conv/gcd_conv_fn.py
+    title: cp_library/math/conv/gcd_conv_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/conv/lcm_conv_fn.py
+    title: cp_library/math/conv/lcm_conv_fn.py
+  - icon: ':warning:'
     path: cp_library/math/table/linear_sieve_cls.py
     title: cp_library/math/table/linear_sieve_cls.py
   - icon: ':warning:'
@@ -64,8 +70,7 @@ data:
     \ b)\n        return P.multiple_mobius(A, sub)\n    \n    def lcm_conv(P, A: list[int],\
     \ B: list[int], add = operator.add, sub = operator.sub, mul = operator.mul):\n\
     \        A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i,\
-    \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n\
-    \n"
+    \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n"
   code: "import cp_library.math.table.__header__\nimport operator\nfrom typing import\
     \ Callable\nfrom cp_library.ds.reserve_fn import reserve\n\nclass Primes(list[int]):\n\
     \    def __init__(P, N: int):\n        super().__init__()\n        spf = [0] *\
@@ -91,19 +96,20 @@ data:
     \ b)\n        return P.multiple_mobius(A, sub)\n    \n    def lcm_conv(P, A: list[int],\
     \ B: list[int], add = operator.add, sub = operator.sub, mul = operator.mul):\n\
     \        A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i,\
-    \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n\
-    \n"
+    \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n"
   dependsOn:
   - cp_library/ds/reserve_fn.py
   isVerificationFile: false
   path: cp_library/math/table/primes_cls.py
   requiredBy:
-  - cp_library/math/table/sieve_cls.py
-  - cp_library/math/table/totient_cls.py
   - cp_library/math/table/linear_sieve_cnts_cls.py
-  - cp_library/math/table/linear_sieve_cls.py
+  - cp_library/math/table/totient_cls.py
+  - cp_library/math/table/sieve_cls.py
   - cp_library/math/table/sieve_proto.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/math/table/linear_sieve_cls.py
+  - cp_library/math/conv/gcd_conv_fn.py
+  - cp_library/math/conv/lcm_conv_fn.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/gcd_convolution.test.py

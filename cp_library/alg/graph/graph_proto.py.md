@@ -10,7 +10,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -642,53 +642,53 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/graph_proto.py
   requiredBy:
-  - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  - cp_library/alg/graph/lazy_grid_graph_cls.py
-  - cp_library/alg/graph/grid_graph_proto.py
-  - cp_library/alg/graph/grid_graph_cls.py
-  - cp_library/alg/graph/digraph_cls.py
-  - cp_library/alg/graph/graph_cls.py
-  - cp_library/alg/graph/graph_weighted_proto.py
-  - cp_library/alg/graph/digraph_weighted_cls.py
-  - cp_library/alg/graph/grid_direction_graph_cls.py
-  - cp_library/alg/graph/graph_set_cls.py
-  - cp_library/alg/graph/dag_cls.py
-  - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/alg/graph/lazy_grid_graph_cls.py
+  - cp_library/alg/graph/graph_set_cls.py
+  - cp_library/alg/graph/graph_cls.py
+  - cp_library/alg/graph/graph_weighted_cls.py
+  - cp_library/alg/graph/digraph_cls.py
+  - cp_library/alg/graph/graph_weighted_proto.py
+  - cp_library/alg/graph/digraph_weighted_cls.py
+  - cp_library/alg/graph/grid_graph_proto.py
+  - cp_library/alg/graph/grid_direction_graph_cls.py
+  - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
+  - cp_library/alg/graph/grid_graph_cls.py
+  - cp_library/alg/graph/dag_cls.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
-  - test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - test/aoj/grl/grl_1_a_dijkstra.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
-  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
+  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
+  - test/aoj/grl/grl_1_a_dijkstra.test.py
+  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+  - test/aoj/grl/grl_1_b_bellman_ford.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
-  - test/atcoder/abc/abc184_e_grid_graph.test.py
-  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
-  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc301_e_grid_graph.test.py
-  - test/atcoder/abc/abc218_f_shortest_path.test.py
-  - test/atcoder/abc/abc245_f_digraph.test.py
-  - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/atcoder/abc/abc245_f_digraph.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
+  - test/atcoder/abc/abc184_e_grid_graph.test.py
+  - test/atcoder/abc/abc218_f_shortest_path.test.py
+  - test/atcoder/abc/abc301_e_grid_graph.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
+  - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
 documentation_of: cp_library/alg/graph/graph_proto.py
 layout: document
 redirect_from:

@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -146,14 +146,14 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/edge_list_cls.py
   requiredBy:
-  - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/alg/graph/edge_list_weighted_cls.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/aoj/grl/grl_2_a_kruskal_sort.test.py
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py
-  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
 documentation_of: cp_library/alg/graph/edge_list_cls.py
 layout: document

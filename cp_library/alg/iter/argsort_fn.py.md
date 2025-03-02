@@ -77,42 +77,42 @@ data:
     \ndef argsort(A: list[int], reverse=False):\n    mask, I = (1 << (shift := (N\
     \ := len(A)).bit_length())) - 1, [0]*N\n    if reverse:\n        for i in range(N):\
     \ I[i] = A[i] << shift | (i ^ mask)\n        I.sort(reverse=True)\n        for\
-    \ i in range(N): I[i] = (I[i] & mask) & mask\n    else:\n        for i in range(N):\
+    \ i in range(N): I[i] = (I[i] ^ mask) & mask\n    else:\n        for i in range(N):\
     \ I[i] = A[i] << shift | i\n        I.sort()\n        for i in range(N): I[i]\
     \ &= mask\n    return I\n"
   code: "import cp_library.alg.iter.__header__\n\ndef argsort(A: list[int], reverse=False):\n\
     \    mask, I = (1 << (shift := (N := len(A)).bit_length())) - 1, [0]*N\n    if\
     \ reverse:\n        for i in range(N): I[i] = A[i] << shift | (i ^ mask)\n   \
-    \     I.sort(reverse=True)\n        for i in range(N): I[i] = (I[i] & mask) &\
+    \     I.sort(reverse=True)\n        for i in range(N): I[i] = (I[i] ^ mask) &\
     \ mask\n    else:\n        for i in range(N): I[i] = A[i] << shift | i\n     \
     \   I.sort()\n        for i in range(N): I[i] &= mask\n    return I\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/argsort_fn.py
   requiredBy:
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/iter/sort_parallel_fn.py
+  - cp_library/alg/tree/auxiliary_tree_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/iter/sort_parallel_copies_fn.py
-  timestamp: '2025-02-18 11:27:51+09:00'
+  - cp_library/alg/iter/sort_parallel_fn.py
+  timestamp: '2025-03-02 23:16:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/iter/argsort_fn.py
 layout: document
 redirect_from:
