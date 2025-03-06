@@ -13,7 +13,6 @@ class BIT:
             i |= i+1
 
     def sum(bit, n: int) -> int:
-        assert 0 <= n <= bit.n
         s = 0
         while n: s, n = s+bit.d[n-1], n&n-1
         return s
@@ -37,17 +36,17 @@ class BIT:
         bit.add(i, x-bit[i])
     set = __setitem__
 
-    def presum(bit) -> list[int]:
+    def prelist(bit) -> list[int]:
         pre = [0]+bit.d
         for i in range(bit.n+1): pre[i] += pre[i&i-1]
         return pre
-    
+
     def bisect_left(bit, v) -> int:
-        return bit.bisect_right(v-1)+1
+        return bit.bisect_right(v-1) if v>0 else 0
     
     def bisect_right(bit, v) -> int:
-        d, i, s, m, n = bit.d, 0, 0, bit.lead, bit.n
+        i, ni = s, m = 0, bit.lb
         while m:
-            if (ni:=i|m) <= n and (ns:=s+d[(i|m)-1]) <= v: s, i = ns, ni
-            m >>= 1
+            if ni <= bit.n and (ns:=s+bit.d[ni-1]) <= v: s, i = ns, ni
+            ni = (m:=m>>1)|i
         return i

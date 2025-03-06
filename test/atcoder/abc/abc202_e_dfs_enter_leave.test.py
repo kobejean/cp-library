@@ -20,15 +20,14 @@ def main():
     tin = [0]*N
     tout = [0]*N
     
-    for event in G.dfs_enter_leave(0):
-        match event:
-            case DFSEvent.ENTER, u:
+    for t, u in G.dfs_enter_leave(0):
+        match t:
+            case DFSEvent.ENTER:
                 tin[u] = time
                 cnt[depth[u]].append(time)
-                time += 1
-            case DFSEvent.LEAVE, u:
+            case DFSEvent.LEAVE:
                 tout[u] = time
-                time += 1
+        time += 1
     Q = read(int)
     for u,d in read(list[tuple[-1,int],Q]):
         ans = bisect_left(cnt[d], tout[u]) - bisect_left(cnt[d], tin[u])

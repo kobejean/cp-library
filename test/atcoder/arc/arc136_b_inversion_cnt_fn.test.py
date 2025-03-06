@@ -5,8 +5,8 @@ def main():
     N = read(int)
     A = read(list[-1])
     B = read(list[-1])
-    Aic = invcnt(A,5000)
-    Bic = invcnt(B,5000)
+    Aic = invcnt(A)
+    Bic = invcnt(B)
     if sorted(A) != sorted(B):
         return False
     has_dup = len(set(A)) < N

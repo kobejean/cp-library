@@ -1,13 +1,12 @@
 import cp_library.math.__header__
-from typing import Union
 from cp_library.ds.tree.bit_cls import BIT
+from cp_library.bit.pack_sm_fn import pack_sm, pack_enc
 
-def invcnt(Z, N: Union[int,None] = None):
-    if N is None:
-        Zi = { z: i for i, z in enumerate(sorted(set(Z))) }
-        Z, N = [Zi[z] for z in Z], len(Z)
-    bit, cnt = BIT(N), 0
-    for z in reversed(Z):
-        cnt += bit.sum(z)
-        bit.add(z, 1)
+def invcnt(A: list[int]):
+    s, m = pack_sm(N := len(A))
+    bit, cnt, I = BIT(N), 0, [pack_enc(a,i,s) for i,a in enumerate(A)]
+    I.sort(reverse=True)
+    for i in I:
+        cnt += bit.sum(i&m)
+        bit.add(i&m, 1)
     return cnt

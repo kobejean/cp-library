@@ -99,10 +99,9 @@ class GraphWeightedBase(GraphBase):
     def compile(cls, N: int, M: int, shift: int = -1):
         def parse(ts: TokenStream):
             U, V, W = u32f(M), u32f(M), [0]*M
-            stream = ts.stream
             for i in range(M):
-                u, v, W[i] = map(int, stream.readline().split())
-                U[i], V[i] = u+shift, v+shift
+                u, v, w = ts._line()
+                U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)
             return cls(N, U, V, W)
         return parse
 

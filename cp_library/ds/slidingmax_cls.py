@@ -1,43 +1,31 @@
 import cp_library.ds.__header__
-from collections import deque
-from typing import Any, Iterable
+from cp_library.misc.typing import _T
+from cp_library.ds.list.deque_cls import Deque
+from typing import Iterable
 
-class SlidingMax(deque):
+class SlidingMax(Deque[_T]):
     def __init__(self, *, maxlen = None):
-        super().__init__(maxlen=maxlen+1)
-        self.maxq = deque()
+        super().__init__(maxlen=maxlen)
+        self.maxq = Deque(maxlen=maxlen)
 
-    @property
-    def maxlen(self):
-        return super().maxlen-1
-
-    def append(self, x: Any) -> None:
-        while self.maxq and self.maxq[-1] < x:
-            self.maxq.pop()
+    def append(self, x: _T) -> None:
+        while self.maxq and self.maxq.tail() < x: self.maxq.pop()
         self.maxq.append(x)
         super().append(x)
-        if len(self) > self.maxlen:
-            self.popleft()
     
-    def appendleft(self, x: Any) -> None:
-        raise NotImplementedError()
+    def appendleft(self, x: _T) -> None: raise NotImplementedError()
     
     def extend(self, iterable: Iterable) -> None:
-        for x in iterable:
-            self.append(x)
+        for x in iterable: self.append(x)
 
-    def extendleft(self, iterable: Iterable) -> None:
-        raise NotImplementedError()
+    def extendleft(self, iterable: Iterable) -> None: raise NotImplementedError()
 
-    def popleft(self) -> Any:
+    def popleft(self) -> _T:
         x = super().popleft()
-        if x == self.maxq[0]:
-            self.maxq.popleft()
+        if x == self.maxq.head(): self.maxq.popleft()
         return x
     
-    def pop(self) -> Any:
-        raise NotImplementedError()
+    def pop(self) -> _T: raise NotImplementedError()
 
     @property
-    def max(self) -> Any:
-        return self.maxq[0]
+    def max(self) -> _T: return self.maxq.head()

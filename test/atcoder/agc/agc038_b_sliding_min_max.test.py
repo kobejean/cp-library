@@ -1,18 +1,18 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/agc038/tasks/agc038_b
 
+from cp_library.alg.graph.perm_graph_cls import PermGraph
+
 def main():
     N, K = read(tuple[int,int])
-    P = read(list[int])
-    win = SlidingMinMax(maxlen=K+1)
-    for i in range(K):
-        win.append(P[i])
+    P = read(PermGraph[N,0])
+    win = SlidingMinMax(maxlen=K)
+    win.extend(P[:K])
     ans = 1 - (unchanged := len(win.minq) == K)
     for i in range(K,N):
         p = win.popleft()
         win.append(P[i])
-        unchanged |= len(win.minq) == K
-        if len(win.minq) != K and (p > win.min or P[i] < win.max):
-            ans += 1
+        unchanged |= (is_sorted:=len(win.minq) == K)
+        ans += not is_sorted and (p > win.min or P[i] < win.max)
         
     ans += unchanged
     write(ans)

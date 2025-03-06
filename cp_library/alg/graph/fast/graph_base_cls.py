@@ -1,3 +1,4 @@
+from cp_library.alg.dp.chmin_fn import chmin
 import cp_library.alg.graph.__header__
 from math import inf
 from itertools import islice
@@ -87,29 +88,30 @@ class GraphBase(Sequence, Parsable):
         for i in range(len(Ua)): D[Ua[i]][Va[i]] = 1
         for k, Dk in enumerate(D):
             for Di in D:
-                if Di[k] == inf: continue
+                if (Dik := Di[k]) == inf: continue
                 for j in range(N):
-                    Di[j] = min(Di[j], Di[k]+Dk[j])
+                    chmin(Di, j, Dik+Dk[j])
         return D
 
     def find_cycle_indices(G, s: Union[int, None] = None):
-        M, Ea, Ua, Va, vis, back = G.M, G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)
+        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)
         G.vis, G.back, stack = vis, back, elist(N)
         for s in G.starts(s):
             if vis[s]: continue
             stack.append(s)
             while stack:
-                if vis[u := stack.pop()] == 0:
+                if not vis[u := stack.pop()]:
                     stack.append(u)
                     vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max
                     for i in G.range(u):
-                        if vis[v := Va[i]] == 0:
+                        if not vis[v := Va[i]]:
                             back[v] = i
                             stack.append(v)
                         elif vis[v] == 1 and pe != Ea[i]:
                             I = u32f(1,i)
                             while v != u: I.append(i := back[u]), (u := Ua[i])
-                            return I[::-1]
+                            I.reverse()
+                            return I
                 else:
                     vis[u] = 2
         # check for self loops
@@ -133,8 +135,7 @@ class GraphBase(Sequence, Parsable):
                     while u != s: cycle.append(u := par[u])
                     return cycle
                 if D[v] < u32_max: continue
-                D[v], par[v] = D[u]+1, u
-                que.append(v)
+                D[v], par[v] = D[u]+1, u; que.append(v)
 
     def dfs_topdown(G, s: Union[int,list] = None) -> list[int]:
         '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
@@ -142,13 +143,11 @@ class GraphBase(Sequence, Parsable):
         G.vis, G.stack, G.order = vis, stack, order = u8f(N), G.stack or elist(N), G.order or elist(N)
         for s in G.starts(s):
             if vis[s]: continue
-            vis[s] = 1
-            stack.append(s) 
+            vis[s] = 1; stack.append(s) 
             while stack:
                 for i in G.range(stack.pop()):
                     if vis[v := G.Va[i]]: continue
-                    vis[v] = 1
-                    order.append(i), stack.append(v)
+                    vis[v] = 1; order.append(i); stack.append(v)
         return order
 
     def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None] = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None] = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None] = None, up_fn: Callable[[int,int],None] = None):
@@ -182,8 +181,8 @@ class GraphBase(Sequence, Parsable):
     
     def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:
         N, Ra, Va, I = G.N, G.Ra, G.Va, G.La[:]
-        stack, par, plist = elist(N), i32f(N,-1), PacketList(order := elist(2*N), N-1)
-        G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER) << plist.shift, int(DFSEvent.LEAVE) << plist.shift
+        stack, par, plst = elist(N), i32f(N,-1), PacketList(order := elist(2*N), N-1)
+        G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER) << plst.shift, int(DFSEvent.LEAVE) << plst.shift
         for s in G.starts(s):
             if par[s] >= 0: continue
             par[s] = s
@@ -193,10 +192,10 @@ class GraphBase(Sequence, Parsable):
                     I[u] += 1
                     if par[v := Va[i]] >= 0: continue
                     par[v] = u
-                    order.append(ENTER | v), stack.append(v)
+                    order.append(ENTER | v); stack.append(v)
                 else:
-                    order.append(LEAVE | u), stack.pop()
-        return PacketList(order, N-1)
+                    order.append(LEAVE | u); stack.pop()
+        return plst
     
     def is_bipartite(G):
         Va, que, color = G.Va, deque(), u8f(N := G.N)                
@@ -222,13 +221,12 @@ class GraphBase(Sequence, Parsable):
     def compile(cls, N: int, M: int, shift: int = -1):
         def parse(ts: TokenStream):
             U, V = u32f(M), u32f(M)
-            stream = ts.stream
             for i in range(M):
-                u, v = map(int, stream.readline().split())
-                U[i], V[i] = u+shift, v+shift
+                u, v = ts._line()
+                U[i], V[i] = int(u)+shift, int(v)+shift
             return cls(N, U, V)
         return parse
     
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.array_init_fn import u8f, u32f, i32f, i64f, u32_max, i32_max
+from cp_library.ds.array_init_fn import u8f, u32f, i32f, u32_max, i32_max
 from cp_library.ds.packet_list_cls import PacketList

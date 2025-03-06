@@ -1,43 +1,31 @@
 import cp_library.ds.__header__
-from collections import deque
-from typing import Any, Iterable
+from cp_library.misc.typing import _T
+from cp_library.ds.list.deque_cls import Deque
+from typing import Iterable
 
-class SlidingMin(deque):
-    def __init__(self, *, maxlen = None):
-        super().__init__(maxlen=maxlen+1)
-        self.minq = deque()
+class SlidingMin(Deque[_T]):
+    def __init__(self, *, maxlen):
+        super().__init__(maxlen=maxlen)
+        self.minq = Deque(maxlen=maxlen)
 
-    @property
-    def maxlen(self):
-        return super().maxlen-1
-
-    def append(self, x: Any) -> None:
-        while self.minq and x < self.minq[-1]:
-            self.minq.pop()
+    def append(self, x: _T) -> None:
+        while self.minq and x < self.minq.tail(): self.minq.pop()
         self.minq.append(x)
         super().append(x)
-        if len(self) > self.maxlen:
-            self.popleft()
     
-    def appendleft(self, x: Any) -> None:
-        raise NotImplementedError()
+    def appendleft(self, x: _T) -> None: raise NotImplemented
     
     def extend(self, iterable: Iterable) -> None:
-        for x in iterable:
-            self.append(x)
+        for x in iterable: self.append(x)
 
-    def extendleft(self, iterable: Iterable) -> None:
-        raise NotImplementedError()
+    def extendleft(self, iterable: Iterable) -> None: raise NotImplemented
 
-    def popleft(self) -> Any:
+    def popleft(self) -> _T:
         x = super().popleft()
-        if x == self.minq[0]:
-            self.minq.popleft()
+        if x == self.minq.head(): self.minq.popleft()
         return x
     
-    def pop(self) -> Any:
-        raise NotImplementedError()
+    def pop(self) -> _T: raise NotImplemented
 
     @property
-    def min(self) -> Any:
-        return self.minq[0]
+    def min(self) -> _T: return self.minq.head()

@@ -32,8 +32,7 @@ class DiGraph(GraphBase):
                 else:
                     stack.pop()
                     if low[u] == tin[u]:
-                        L.append(len(sccs))
-                        v = -1
+                        v = -1; L.append(len(sccs))
                         while v != u:
                             on_stack[v := order.pop()] = 0
                             sccs.append(v)
