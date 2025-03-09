@@ -486,36 +486,38 @@ data:
     \ Graph):\n    @classmethod\n    def compile(cls, N: int, E: Union[type,int] =\
     \ Edge[-1]):\n        return Graph.compile.__func__(cls, N, N-1, E)\n    \n  \
     \  \n\nclass BIT(Sequence[int]):\n    def __init__(bit, v):\n        if isinstance(v,\
-    \ int): bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n\n    def build(bit,\
-    \ data):\n        bit.d, bit.n = data, len(data)\n        for i in range(bit.n):\n\
-    \            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\n    def add(bit,\
-    \ i, x):\n        while i < bit.n:\n            bit.d[i] += x\n            i |=\
-    \ i+1\n\n    def sum(bit, n: int) -> int:\n        assert 0 <= n <= bit.n\n  \
-    \      s = 0\n        while n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n\
-    \    def range_sum(bit, l, r):\n        s = 0\n        while r: s, r = s+bit.d[r-1],\
-    \ r&r-1\n        while l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n   \
-    \ def __len__(bit) -> int:\n        return bit.n\n    \n    def __getitem__(bit,\
-    \ i: int) -> int:\n        s, l = bit.d[i], i&(i+1)\n        while l != i: s,\
-    \ i = s-bit.d[i-1], i-(i&-i)\n        return s\n    get = __getitem__\n    \n\
-    \    def __setitem__(bit, i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n\
-    \    set = __setitem__\n\n    def presum(bit) -> list[int]:\n        pre = [0]+bit.d\n\
-    \        for i in range(bit.n+1): pre[i] += pre[i&i-1]\n        return pre\n \
-    \   \n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)+1\n\
-    \    \n    def bisect_right(bit, v) -> int:\n        d, i, s, m, n = bit.d, 0,\
-    \ 0, 1 << (bit.n.bit_length()-1), bit.n\n        while m:\n            if (ni:=i|m)\
-    \ <= n and (ns:=s+d[(i|m)-1]) <= v: s, i = ns, ni\n            m >>= 1\n     \
-    \   return i\n\nfrom typing import Iterable, Type, Union, overload\n\n@overload\n\
-    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
-    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
-    \ is None: return map(int, TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n\
-    \    return parser(CharStream.default if char else TokenStream.default)\n\ndef\
-    \ write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to stdout_fast\
-    \ by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
-    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
-    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
-    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
-    flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \ int): bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n        bit.lb =\
+    \ 1<<(bit.n.bit_length()-1)\n\n    def build(bit, data):\n        bit.d, bit.n\
+    \ = data, len(data)\n        for i in range(bit.n):\n            if (r := i|i+1)\
+    \ < bit.n: bit.d[r] += bit.d[i]\n\n    def add(bit, i, x):\n        assert 0 <=\
+    \ i <= bit.n\n        while i < bit.n:\n            bit.d[i] += x\n          \
+    \  i |= i+1\n\n    def sum(bit, r: int) -> int:\n        assert 0 <= r <= bit.n\n\
+    \        s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n        return s\n\
+    \n    def range_sum(bit, l, r):\n        assert 0 <= l <= r <= bit.n\n       \
+    \ s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n        while l: s, l =\
+    \ s-bit.d[l-1], l&l-1\n        return s\n\n    def __len__(bit) -> int:\n    \
+    \    return bit.n\n    \n    def __getitem__(bit, i: int) -> int:\n        s,\
+    \ l = bit.d[i], i&(i+1)\n        while l != i: s, i = s-bit.d[i-1], i-(i&-i)\n\
+    \        return s\n    get = __getitem__\n    \n    def __setitem__(bit, i: int,\
+    \ x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\n  \
+    \  def prelist(bit) -> list[int]:\n        pre = [0]+bit.d\n        for i in range(bit.n+1):\
+    \ pre[i] += pre[i&i-1]\n        return pre\n\n    def bisect_left(bit, v) -> int:\n\
+    \        return bit.bisect_right(v-1) if v>0 else 0\n    \n    def bisect_right(bit,\
+    \ v) -> int:\n        i, ni = s, m = 0, bit.lb\n        while m:\n           \
+    \ if ni <= bit.n and (ns:=s+bit.d[ni-1]) <= v: s, i = ns, ni\n            ni =\
+    \ (m:=m>>1)|i\n        return i\n\nfrom typing import Iterable, Type, Union, overload\n\
+    \n@overload\ndef read() -> Iterable[int]: ...\n@overload\ndef read(spec: int)\
+    \ -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False)\
+    \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
+    \ char and spec is None: return map(int, TokenStream.default.line())\n    parser:\
+    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
+    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the values\
+    \ to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc337/tasks/abc337_g\n\
     \ndef main():\n    N = read(int)\n    T = read(Tree[N])\n\n    hld = HLD(T)\n\
     \    bit = BIT(N)\n    ans = [0]*(N+1)\n\n    def range_add(l,r,x):\n        ans[l]\
@@ -549,7 +551,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py

@@ -117,17 +117,19 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Sequence\n\nclass PacketList(Sequence[tuple[int,int]]):\n \
-    \   def __init__(self, A: list[int], max0: int):\n        self.A = A\n       \
-    \ self.mask = (1 << (shift := (max0).bit_length())) - 1\n        self.shift =\
-    \ shift\n    def __len__(self): return self.A.__len__()\n    def __contains__(self,\
-    \ x): return self.A.__contains__(x)\n    def __getitem__(self, key):\n       \
-    \ x = self.A[key]\n        return x >> self.shift, x & self.mask\n"
+    \   def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n"
   code: "import cp_library.ds.__header__\nfrom typing import Sequence\n\nclass PacketList(Sequence[tuple[int,int]]):\n\
-    \    def __init__(self, A: list[int], max0: int):\n        self.A = A\n      \
-    \  self.mask = (1 << (shift := (max0).bit_length())) - 1\n        self.shift =\
-    \ shift\n    def __len__(self): return self.A.__len__()\n    def __contains__(self,\
-    \ x): return self.A.__contains__(x)\n    def __getitem__(self, key):\n       \
-    \ x = self.A[key]\n        return x >> self.shift, x & self.mask"
+    \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/packet_list_cls.py
@@ -147,7 +149,7 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py

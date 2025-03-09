@@ -130,7 +130,7 @@ data:
     \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
     \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \n\n\ndef monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):\n\
+    \n\ndef monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):\n\
     \    \"\"\"\n    Finds row minima in a totally monotone N\xD7M matrix using the\
     \ SMAWK algorithm.\n    The matrix is defined implicitly through the comparison\
     \ function.\n    \n    A matrix is totally monotone if the minimum in row i occurs\
@@ -147,19 +147,69 @@ data:
     \        min_j[mi] = mj\n        st.append((li, mi, lj, mj+1))\n        st.append((mi+1,\
     \ ri, mj, rj))\n    return min_j\n\n\n\ndef elist(est_len: int) -> list: ...\n\
     try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\ndef minplus_conv_arb_cnvx(arb:\
-    \ list[int], cnvx: list[int]) -> list[int]:\n    N, M = len(cnvx), len(arb)\n\
-    \    def cmp(i, j, k):\n        return i >= k and (i-j >= N or (cnvx[i-j] + arb[j]\
-    \ >= cnvx[i-k] + arb[k]))\n    cols = monotone_minima(N+M-1, M, cmp)\n    return\
-    \ [arb[j] + cnvx[i-j] for i, j in enumerate(cols)]\n\ndef minplus_conv_cnvx(A:\
-    \ list[int], B: list[int]) -> list[int]:\n    if not (N := len(A)) | (M := len(B)):\
-    \ return []\n    C = [0] * (K:=N+M-1)\n    C[0], I, J = A[i := 0] + B[j := 0],\
-    \ N-1, M-1\n    for k in range(1, K):\n        if j == J or (i != I and A[i+1]\
-    \ + B[j] < A[i] + B[j+1]): i += 1\n        else: j += 1\n        C[k] = A[i] +\
-    \ B[j]\n    return C\n\ndef minplus_iconv(A: list[int], B: list[int]):\n    N,\
-    \ M = len(A), len(B)\n    for i in range(N-1,-1,-1):\n        A[i] = min(B[j]\
-    \ + A[i-j] for j in range(min(M,i+1)))   \n\nif __name__ == \"__main__\":\n  \
-    \  main()\n"
+    \        return []\nelist = newlist_hint\n    \n\n\"\"\"\n\u257A\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n  X[0] \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[0]\n                \u2573      \
+    \    \u2572 \u2571          \u2572     \u2571          \n  X[4] \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2572\u2500\u2500\u2500\u2571\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[1]\n                      \
+    \     \u2573 \u2573          \u2572 \u2572 \u2571 \u2571          \n  X[2] \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2572\u2500\u2573\u2500\u2571\u2500\
+    \u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[2]\n          \
+    \      \u2573          \u2571 \u2572          \u2572 \u2573 \u2573 \u2571    \
+    \      \n  X[6] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2573\
+    \u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X[3]\n                                        \u2573 \u2573 \u2573 \u2573  \
+    \       \n  X[1] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2573\
+    \u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X[4]\n                \u2573          \u2572 \u2571          \u2571 \u2573 \u2573\
+    \ \u2572          \n  X[5] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\
+    \u2500\u2573\u2500\u2572\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25BA X[5]\n                           \u2573 \u2573          \u2571 \u2571\
+    \ \u2572 \u2572          \n  X[3] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2571\u2500\u2500\u2500\u2572\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25BA X[6]\n                \u2573          \u2571 \u2572       \
+    \   \u2571     \u2572          \n  X[7] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X[7]\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2578\n                      Math - Convolution           \
+    \          \n\"\"\"\n\ndef minplus_conv_arb_cnvx(arb: list[int], cnvx: list[int])\
+    \ -> list[int]:\n    N, M = len(cnvx), len(arb)\n    def cmp(i, j, k):\n     \
+    \   return i >= k and (i-j >= N or (cnvx[i-j] + arb[j] >= cnvx[i-k] + arb[k]))\n\
+    \    cols = monotone_minima(N+M-1, M, cmp)\n    return [arb[j] + cnvx[i-j] for\
+    \ i, j in enumerate(cols)]\n\ndef minplus_conv_cnvx(A: list[int], B: list[int])\
+    \ -> list[int]:\n    if not (N := len(A)) | (M := len(B)): return []\n    C =\
+    \ [0] * (K:=N+M-1)\n    C[0], I, J = A[i := 0] + B[j := 0], N-1, M-1\n    for\
+    \ k in range(1, K):\n        if j == J or (i != I and A[i+1] + B[j] < A[i] + B[j+1]):\
+    \ i += 1\n        else: j += 1\n        C[k] = A[i] + B[j]\n    return C\n\ndef\
+    \ minplus_iconv(A: list[int], B: list[int]):\n    N, M = len(A), len(B)\n    for\
+    \ i in range(N-1,-1,-1):\n        A[i] = min(B[j] + A[i-j] for j in range(min(M,i+1)))\
+    \   \n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/min_plus_convolution_convex_arbitrary\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    A = read(list[int])\n   \
     \ B = read(list[int])\n    C = minplus_conv_arb_cnvx(B,A)\n    write(*C)\n   \
@@ -177,7 +227,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py

@@ -32,6 +32,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/nt/ntt_cls.py
     title: cp_library/math/nt/ntt_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/series/mod/geosum_fn.py
+    title: cp_library/math/series/mod/geosum_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/modcomb_cls.py
     title: cp_library/math/table/modcomb_cls.py
@@ -118,13 +121,14 @@ data:
   - cp_library/math/mod/mint_ntt_cls.py
   - cp_library/math/nt/ntt_cls.py
   - cp_library/math/nt/chinese_remainder_theorem_fn.py
+  - cp_library/math/series/mod/geosum_fn.py
   - cp_library/math/fps/fps_ideriv_k_fn.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_inv_fn.py
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

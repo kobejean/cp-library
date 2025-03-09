@@ -69,11 +69,11 @@ data:
     \  \"\"\"\n    tin, low, on_stack, time = i32f(N := G.N, -1), u32f(N), u8f(N),\
     \ 0\n    order, sccs, L = elist(N), elist(N), elist(N)\n    \n    def enter(u):\n\
     \        nonlocal time\n        tin[u] = low[u] = (time := time+1)\n        order.append(u)\n\
-    \        on_stack[u] = 1\n\n    def back_or_cross(u,v):\n        if on_stack[v]:\
+    \        on_stack[u] = 1\n\n    def back_or_cross(u,v,i):\n        if on_stack[v]:\
     \ chmin(low, u, tin[v])\n\n    def leave(u):\n        if low[u] == tin[u]:\n \
     \           L.append(len(sccs))\n            v = -1\n            while v != u:\n\
     \                on_stack[v := order.pop()] = 0\n                sccs.append(v)\n\
-    \n    def up(u,v):\n        chmin(low, v, low[u])\n\n    G.dfs(enter_fn=enter,\
+    \n    def up(u,v,i):\n        chmin(low, v, low[u])\n\n    G.dfs(enter_fn=enter,\
     \ back_fn=back_or_cross, cross_fn=back_or_cross, leave_fn=leave, up_fn=up)\n \
     \   return SliceIteratorReverse(sccs, L)\n"
   code: "import cp_library.alg.graph.__header__\nfrom typing import Iterator\nfrom\
@@ -85,11 +85,11 @@ data:
     \  \"\"\"\n    tin, low, on_stack, time = i32f(N := G.N, -1), u32f(N), u8f(N),\
     \ 0\n    order, sccs, L = elist(N), elist(N), elist(N)\n    \n    def enter(u):\n\
     \        nonlocal time\n        tin[u] = low[u] = (time := time+1)\n        order.append(u)\n\
-    \        on_stack[u] = 1\n\n    def back_or_cross(u,v):\n        if on_stack[v]:\
+    \        on_stack[u] = 1\n\n    def back_or_cross(u,v,i):\n        if on_stack[v]:\
     \ chmin(low, u, tin[v])\n\n    def leave(u):\n        if low[u] == tin[u]:\n \
     \           L.append(len(sccs))\n            v = -1\n            while v != u:\n\
     \                on_stack[v := order.pop()] = 0\n                sccs.append(v)\n\
-    \n    def up(u,v):\n        chmin(low, v, low[u])\n\n    G.dfs(enter_fn=enter,\
+    \n    def up(u,v,i):\n        chmin(low, v, low[u])\n\n    G.dfs(enter_fn=enter,\
     \ back_fn=back_or_cross, cross_fn=back_or_cross, leave_fn=leave, up_fn=up)\n \
     \   return SliceIteratorReverse(sccs, L)"
   dependsOn:
@@ -100,7 +100,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/scc_strongly_connected_components.test.py

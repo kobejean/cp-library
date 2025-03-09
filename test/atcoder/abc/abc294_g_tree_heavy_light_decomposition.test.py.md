@@ -96,64 +96,65 @@ data:
     \       else:\n                    node = v\n                idx = hld[node]\n\
     \                bit[idx] = w\n            case 2, u, v:\n                u, v\
     \ = u - 1, v - 1\n                ans = 0\n                hld.path(u,v, query,\
-    \ True)\n                write(ans)\n\nfrom typing import Sequence\n'''\n\u257A\
+    \ True)\n                write(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \    https://kobejean.github.io/cp-library               \n'''\n\nclass BIT(Sequence[int]):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\nfrom typing import Sequence\n\nclass BIT(Sequence[int]):\n\
     \    def __init__(bit, v):\n        if isinstance(v, int): bit.d, bit.n = [0]*v,\
-    \ v\n        else: bit.build(v)\n\n    def build(bit, data):\n        bit.d, bit.n\
-    \ = data, len(data)\n        for i in range(bit.n):\n            if (r := i|i+1)\
-    \ < bit.n: bit.d[r] += bit.d[i]\n\n    def add(bit, i, x):\n        while i <\
-    \ bit.n:\n            bit.d[i] += x\n            i |= i+1\n\n    def sum(bit,\
-    \ n: int) -> int:\n        assert 0 <= n <= bit.n\n        s = 0\n        while\
-    \ n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n    def range_sum(bit, l,\
-    \ r):\n        s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n        while\
-    \ l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n    def __len__(bit) -> int:\n\
-    \        return bit.n\n    \n    def __getitem__(bit, i: int) -> int:\n      \
-    \  s, l = bit.d[i], i&(i+1)\n        while l != i: s, i = s-bit.d[i-1], i-(i&-i)\n\
-    \        return s\n    get = __getitem__\n    \n    def __setitem__(bit, i: int,\
-    \ x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\n  \
-    \  def presum(bit) -> list[int]:\n        pre = [0]+bit.d\n        for i in range(bit.n+1):\
-    \ pre[i] += pre[i&i-1]\n        return pre\n    \n    def bisect_left(bit, v)\
-    \ -> int:\n        return bit.bisect_right(v-1)+1\n    \n    def bisect_right(bit,\
-    \ v) -> int:\n        d, i, s, m, n = bit.d, 0, 0, 1 << (bit.n.bit_length()-1),\
-    \ bit.n\n        while m:\n            if (ni:=i|m) <= n and (ns:=s+d[(i|m)-1])\
-    \ <= v: s, i = ns, ni\n            m >>= 1\n        return i\n\nfrom typing import\
-    \ Union\n\n\n\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    from typing import TypeVar\n_T = TypeVar('T')\n\nclass TokenStream(Iterator):\n\
-    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
-    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
-    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
-    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \ v\n        else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\n\
+    \    def build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for\
+    \ i in range(bit.n):\n            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\
+    \n    def add(bit, i, x):\n        assert 0 <= i <= bit.n\n        while i < bit.n:\n\
+    \            bit.d[i] += x\n            i |= i+1\n\n    def sum(bit, r: int) ->\
+    \ int:\n        assert 0 <= r <= bit.n\n        s = 0\n        while r: s, r =\
+    \ s+bit.d[r-1], r&r-1\n        return s\n\n    def range_sum(bit, l, r):\n   \
+    \     assert 0 <= l <= r <= bit.n\n        s = 0\n        while r: s, r = s+bit.d[r-1],\
+    \ r&r-1\n        while l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n   \
+    \ def __len__(bit) -> int:\n        return bit.n\n    \n    def __getitem__(bit,\
+    \ i: int) -> int:\n        s, l = bit.d[i], i&(i+1)\n        while l != i: s,\
+    \ i = s-bit.d[i-1], i-(i&-i)\n        return s\n    get = __getitem__\n    \n\
+    \    def __setitem__(bit, i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n\
+    \    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n        pre = [0]+bit.d\n\
+    \        for i in range(bit.n+1): pre[i] += pre[i&i-1]\n        return pre\n\n\
+    \    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1) if\
+    \ v>0 else 0\n    \n    def bisect_right(bit, v) -> int:\n        i, ni = s, m\
+    \ = 0, bit.lb\n        while m:\n            if ni <= bit.n and (ns:=s+bit.d[ni-1])\
+    \ <= v: s, i = ns, ni\n            ni = (m:=m>>1)|i\n        return i\n\nfrom\
+    \ typing import Union\n\n\n\nimport typing\nfrom collections import deque\nfrom\
+    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
+    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -843,7 +844,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py

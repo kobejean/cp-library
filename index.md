@@ -15,6 +15,11 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/divcon/ternary_max_fn.py
       title: cp_library/alg/divcon/ternary_max_fn.py
+  - name: cp_library/alg/dp/butterfly
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/dp/butterfly/butterfly_masks_fn.py
+      title: cp_library/alg/dp/butterfly/butterfly_masks_fn.py
   - name: cp_library/alg/dp
     pages:
     - icon: ':heavy_check_mark:'
@@ -26,6 +31,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/dp2d_cls.py
       title: cp_library/alg/dp/dp2d_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/dp/max2_fn.py
+      title: cp_library/alg/dp/max2_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/dp/min2_fn.py
+      title: cp_library/alg/dp/min2_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/mo_cls.py
       title: cp_library/alg/dp/mo_cls.py
@@ -218,6 +229,12 @@ data:
       path: cp_library/alg/iter/enumerate_rev_fn.py
       title: cp_library/alg/iter/enumerate_rev_fn.py
     - icon: ':warning:'
+      path: cp_library/alg/iter/iargsort_fn.py
+      title: cp_library/alg/iter/iargsort_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/ishift_fn.py
+      title: cp_library/alg/iter/ishift_fn.py
+    - icon: ':warning:'
       path: cp_library/alg/iter/presum2d_fn.py
       title: cp_library/alg/iter/presum2d_fn.py
     - icon: ':heavy_check_mark:'
@@ -328,6 +345,9 @@ data:
     - icon: ':warning:'
       path: cp_library/bit/ctz_fn.py
       title: cp_library/bit/ctz_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/bit/pack_sm_fn.py
+      title: cp_library/bit/pack_sm_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/bit/popcnt32_fn.py
       title: cp_library/bit/popcnt32_fn.py
@@ -455,6 +475,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/skew_heap_forest_cls.py
       title: cp_library/ds/heap/skew_heap_forest_cls.py
+  - name: cp_library/ds/list
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/deque_cls.py
+      title: cp_library/ds/list/deque_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/list_find_fn.py
+      title: cp_library/ds/list/list_find_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/list/ordlist_cls.py
+      title: cp_library/ds/list/ordlist_cls.py
   - name: cp_library/ds/tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -475,6 +506,9 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/tree/bit_monoid_cls.py
       title: cp_library/ds/tree/bit_monoid_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/pdsu_cls.py
+      title: cp_library/ds/tree/pdsu_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/segtree_cls.py
       title: cp_library/ds/tree/segtree_cls.py
@@ -483,6 +517,9 @@ data:
       title: cp_library/ds/tree/trie_cls.py
   - name: cp_library/io
     pages:
+    - icon: ':warning:'
+      path: cp_library/io/base2_fn.py
+      title: cp_library/io/base2_fn.py
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
@@ -526,12 +563,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/conv/fwht_fn.py
       title: cp_library/math/conv/fwht_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/conv/fwht_inv_fn.py
+      title: cp_library/math/conv/fwht_inv_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/conv/fwht_pair_fn.py
       title: cp_library/math/conv/fwht_pair_fn.py
     - icon: ':warning:'
       path: cp_library/math/conv/gcd_conv_fn.py
       title: cp_library/math/conv/gcd_conv_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/conv/ixor_conv_fn.py
+      title: cp_library/math/conv/ixor_conv_fn.py
     - icon: ':warning:'
       path: cp_library/math/conv/lcm_conv_fn.py
       title: cp_library/math/conv/lcm_conv_fn.py
@@ -571,8 +614,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/conv/superset_zeta_pair_fn.py
       title: cp_library/math/conv/superset_zeta_pair_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/conv/xor_conv_fn.py
+      title: cp_library/math/conv/xor_conv_fn.py
   - name: cp_library/math/conv/mod
     pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/conv/mod/fwht_inv_fn.py
+      title: cp_library/math/conv/mod/fwht_inv_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/conv/mod/isubset_conv_fn.py
+      title: cp_library/math/conv/mod/isubset_conv_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/math/conv/mod/ixor_conv_fn.py
+      title: cp_library/math/conv/mod/ixor_conv_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/conv/mod/subset_conv_fn.py
       title: cp_library/math/conv/mod/subset_conv_fn.py
@@ -687,14 +742,25 @@ data:
       path: cp_library/math/series/arithmetic_series_fn.py
       title: cp_library/math/series/arithmetic_series_fn.py
     - icon: ':warning:'
+      path: cp_library/math/series/arthsum_fn.py
+      title: cp_library/math/series/arthsum_fn.py
+    - icon: ':warning:'
       path: cp_library/math/series/geometic_series_fn.py
       title: cp_library/math/series/geometic_series_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/series/geosum_fn.py
+      title: cp_library/math/series/geosum_fn.py
     - icon: ':warning:'
       path: cp_library/math/series/sum_of_naturals_fn.py
       title: cp_library/math/series/sum_of_naturals_fn.py
     - icon: ':warning:'
       path: cp_library/math/series/sum_of_squares_fn.py
       title: cp_library/math/series/sum_of_squares_fn.py
+  - name: cp_library/math/series/mod
+    pages:
+    - icon: ':warning:'
+      path: cp_library/math/series/mod/geosum_fn.py
+      title: cp_library/math/series/mod/geosum_fn.py
   - name: cp_library/math/table
     pages:
     - icon: ':warning:'
@@ -1156,5 +1222,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/set-power-series/subset_convolution_all.test.py
       title: test/library-checker/set-power-series/subset_convolution_all.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/set-power-series/subset_convolution_snippet.test.py
+      title: test/library-checker/set-power-series/subset_convolution_snippet.test.py
 layout: toppage
 ---

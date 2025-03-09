@@ -27,30 +27,81 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\ndef superset_zeta_pair(A: list[int], B: list[int], N: int):\n\
-    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
-    \ < Z:\n            A[m ^ b] += A[m]\n            B[m ^ b] += B[m]\n         \
-    \   m = m+1|b\n    return A\n\ndef superset_mobius(A, N: int):\n    Z = len(A)\n\
-    \    for i in range(N):\n        m = b = 1<<i\n        while m < Z:\n        \
-    \    A[m^b] -= A[m]\n            m = m+1|b\n    return A\n\ndef and_conv(A: list[int],\
-    \ B: list[int], N: int, mod) -> list[int]:\n    assert len(A) == len(B)\n    Z\
-    \ = 1 << N\n    superset_zeta_pair(A, B, N)\n    for i, b in enumerate(B): A[i]\
-    \ = A[i]*b%mod\n    superset_mobius(A, N)\n    for i in range(Z): A[i] %= mod\n\
-    \    return A\nfrom atexit import register\nfrom os import read, write\nimport\
-    \ sys\nfrom __pypy__ import builders\nclass Fastio:\n    ibuf = bytes()\n    pil\
-    \ = pir = 0\n    sb = builders.StringBuilder()\n    def load(self):\n        self.ibuf\
-    \ = self.ibuf[self.pil:]\n        self.ibuf += read(0, 131072)\n        self.pil\
-    \ = 0; self.pir = len(self.ibuf)\n    def flush(self): write(1, self.sb.build().encode())\n\
-    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
-    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
-    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
-    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
-    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
-    \ x\n    def fastout(self, x): self.sb.append(str(x))\n    def fastoutln(self,\
-    \ x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin;\
-    \ wt = fastio.fastout; wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\n\
-    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
-    def wtnl(l): wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
+    \        \n'''\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2578\n  X[0] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25BA X[0]\n                \u2573          \u2572 \u2571          \u2572\
+    \     \u2571          \n  X[4] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2572\u2500\u2500\u2500\u2571\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25BA X[1]\n                           \u2573 \u2573          \u2572\
+    \ \u2572 \u2571 \u2571          \n  X[2] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2572\u2500\u2573\u2500\u2571\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X[2]\n                \u2573          \u2571 \u2572 \
+    \         \u2572 \u2573 \u2573 \u2571          \n  X[6] \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[3]\n                            \
+    \            \u2573 \u2573 \u2573 \u2573         \n  X[1] \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[4]\n                \u2573      \
+    \    \u2572 \u2571          \u2571 \u2573 \u2573 \u2572          \n  X[5] \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\u2500\u2573\u2500\u2572\u2500\
+    \u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[5]\n          \
+    \                 \u2573 \u2573          \u2571 \u2571 \u2572 \u2572         \
+    \ \n  X[3] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\u2500\u2500\u2500\
+    \u2572\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[6]\n\
+    \                \u2573          \u2571 \u2572          \u2571     \u2572    \
+    \      \n  X[7] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X[7]\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n                      Math - Convolution                     \n\"\"\"\n\ndef\
+    \ superset_zeta_pair(A: list[int], B: list[int], N: int):\n    Z = len(A)\n  \
+    \  for i in range(N):\n        m = b = 1<<i\n        while m < Z:\n          \
+    \  A[m ^ b] += A[m]\n            B[m ^ b] += B[m]\n            m = m+1|b\n   \
+    \ return A\n\ndef superset_mobius(A, N: int):\n    Z = len(A)\n    for i in range(N):\n\
+    \        m = b = 1<<i\n        while m < Z:\n            A[m^b] -= A[m]\n    \
+    \        m = m+1|b\n    return A\n\ndef and_conv(A: list[int], B: list[int], N:\
+    \ int, mod) -> list[int]:\n    assert len(A) == len(B)\n    Z = 1 << N\n    superset_zeta_pair(A,\
+    \ B, N)\n    for i, b in enumerate(B): A[i] = A[i]*b%mod\n    superset_mobius(A,\
+    \ N)\n    for i in range(Z): A[i] %= mod\n    return A\nfrom atexit import register\n\
+    from os import read, write\nimport sys\nfrom __pypy__ import builders\nclass Fastio:\n\
+    \    ibuf = bytes()\n    pil = pir = 0\n    sb = builders.StringBuilder()\n  \
+    \  def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
+    \ += read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n    def\
+    \ flush(self): write(1, self.sb.build().encode())\n    def fastin(self):\n   \
+    \     if self.pir - self.pil < 64: self.load()\n        minus = x = 0\n      \
+    \  while self.ibuf[self.pil] < 45: self.pil += 1\n        if self.ibuf[self.pil]\
+    \ == 45: minus = 1; self.pil += 1\n        while self.ibuf[self.pil] >= 48:\n\
+    \            x = x * 10 + (self.ibuf[self.pil] & 15)\n            self.pil +=\
+    \ 1\n        if minus: return -x\n        return x\n    def fastout(self, x):\
+    \ self.sb.append(str(x))\n    def fastoutln(self, x): self.sb.append(str(x));\
+    \ self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin; wt = fastio.fastout;\
+    \ wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\nsys.stdin = None;\
+    \ sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\ndef wtnl(l):\
+    \ wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
     \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    wtnl(and_conv(A,\
     \ B, N, 998244353))\n\nfrom cp_library.math.conv.and_conv_fast_fn import and_conv\n\
@@ -76,7 +127,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution_fast.test.py

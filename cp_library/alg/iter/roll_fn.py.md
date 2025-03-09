@@ -18,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
+    title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -41,10 +44,11 @@ data:
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py
+  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
 documentation_of: cp_library/alg/iter/roll_fn.py
 layout: document
 redirect_from:

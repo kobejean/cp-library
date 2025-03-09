@@ -17,20 +17,72 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_T = TypeVar('T')\nimport operator\n\ndef subset_transform(A:\
-    \ list[_T], N: int, /, op = operator.add) -> list[_T]:\n    Z = len(A)\n    for\
-    \ i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m], m = op(A[m],\
-    \ A[m^b]), m+1|b\n    return A\n"
-  code: "import cp_library.math.conv.__header__\nfrom cp_library.misc.typing import\
-    \ _T\nimport operator\n\ndef subset_transform(A: list[_T], N: int, /, op = operator.add)\
-    \ -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n\
-    \        while m < Z: A[m], m = op(A[m], A[m^b]), m+1|b\n    return A"
+    from typing import TypeVar\n_T = TypeVar('T')\nimport operator\n\n\"\"\"\n\u257A\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n  X[0] \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[0]\n          \
+    \      \u2573          \u2572 \u2571          \u2572     \u2571          \n  X[4]\
+    \ \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2572\u2500\u2500\u2500\u2571\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[1]\n    \
+    \                       \u2573 \u2573          \u2572 \u2572 \u2571 \u2571   \
+    \       \n  X[2] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2572\u2500\u2573\
+    \u2500\u2571\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X[2]\n                \u2573          \u2571 \u2572          \u2572 \u2573 \u2573\
+    \ \u2571          \n  X[6] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\
+    \u2500\u2573\u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25BA X[3]\n                                        \u2573 \u2573 \u2573\
+    \ \u2573         \n  X[1] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\
+    \u2500\u2573\u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25BA X[4]\n                \u2573          \u2572 \u2571          \u2571\
+    \ \u2573 \u2573 \u2572          \n  X[5] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2571\u2500\u2573\u2500\u2572\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X[5]\n                           \u2573 \u2573      \
+    \    \u2571 \u2571 \u2572 \u2572          \n  X[3] \u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2571\u2500\u2500\u2500\u2572\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25BA X[6]\n                \u2573          \u2571\
+    \ \u2572          \u2571     \u2572          \n  X[7] \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[7]\n\u257A\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
+    \                     \n\"\"\"\n\ndef subset_transform(A: list[_T], N: int, /,\
+    \ op = operator.add) -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n  \
+    \      m = b = 1<<i\n        while m < Z: A[m], m = op(A[m], A[m^b]), m+1|b\n\
+    \    return A\n"
+  code: "import cp_library.__header__\nfrom cp_library.misc.typing import _T\nimport\
+    \ operator\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
+    \ndef subset_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:\n\
+    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
+    \ < Z: A[m], m = op(A[m], A[m^b]), m+1|b\n    return A"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/conv/subset_transform_fn.py
   requiredBy:
   - cp_library/math/conv/or_conv_fn.py
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/subset_transform_fn.py

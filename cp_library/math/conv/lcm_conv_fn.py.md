@@ -21,8 +21,62 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     import operator\nfrom typing import Callable\nfrom typing import TypeVar\n_T =\
-    \ TypeVar('T')\n\n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n\
-    \    from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A:\
+    \ TypeVar('T')\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2578\n  X[0] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25BA X[0]\n                \u2573          \u2572 \u2571          \u2572\
+    \     \u2571          \n  X[4] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2572\u2500\u2500\u2500\u2571\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25BA X[1]\n                           \u2573 \u2573          \u2572\
+    \ \u2572 \u2571 \u2571          \n  X[2] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2572\u2500\u2573\u2500\u2571\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X[2]\n                \u2573          \u2571 \u2572 \
+    \         \u2572 \u2573 \u2573 \u2571          \n  X[6] \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[3]\n                            \
+    \            \u2573 \u2573 \u2573 \u2573         \n  X[1] \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[4]\n                \u2573      \
+    \    \u2572 \u2571          \u2571 \u2573 \u2573 \u2572          \n  X[5] \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\u2500\u2573\u2500\u2572\u2500\
+    \u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[5]\n          \
+    \                 \u2573 \u2573          \u2571 \u2571 \u2572 \u2572         \
+    \ \n  X[3] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\u2500\u2500\u2500\
+    \u2572\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[6]\n\
+    \                \u2573          \u2571 \u2572          \u2571     \u2572    \
+    \      \n  X[7] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X[7]\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n                      Math - Convolution                     \n\"\"\"\n\ndef\
+    \ lcm_conv(A: list[_T], B: list[_T], N: int,\n            mul: Callable[[_T,_T],_T]\
+    \ = operator.mul,\n            sub: Callable[[_T,_T],_T] = operator.sub,\n   \
+    \         add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n    return Primes(N).lcm_conv(A,\
+    \ B, add, sub, mul)\n\n\n\n\ndef reserve(A: list, est_len: int) -> None: ...\n\
+    try:\n    from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A:\
     \ list, est_len: int):\n        pass\nreserve = resizelist_hint\n\nclass Primes(list[int]):\n\
     \    def __init__(P, N: int):\n        super().__init__()\n        spf = [0] *\
     \ (N + 1)\n        spf[0], spf[1] = 0, 1\n        reserve(P, N)\n\n        for\
@@ -47,24 +101,21 @@ data:
     \ b)\n        return P.multiple_mobius(A, sub)\n    \n    def lcm_conv(P, A: list[int],\
     \ B: list[int], add = operator.add, sub = operator.sub, mul = operator.mul):\n\
     \        A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i,\
-    \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n\
-    \ndef lcm_conv(A: list[_T], B: list[_T], N: int,\n            mul: Callable[[_T,_T],_T]\
-    \ = operator.mul,\n            sub: Callable[[_T,_T],_T] = operator.sub,\n   \
-    \         add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n    return Primes(N).lcm_conv(A,\
-    \ B, add, sub, mul)\n"
-  code: "import cp_library.math.conv.__header__\nimport operator\nfrom typing import\
-    \ Callable\nfrom cp_library.misc.typing import _T\nfrom cp_library.math.table.primes_cls\
-    \ import Primes\n\ndef lcm_conv(A: list[_T], B: list[_T], N: int,\n          \
-    \  mul: Callable[[_T,_T],_T] = operator.mul,\n            sub: Callable[[_T,_T],_T]\
-    \ = operator.sub,\n            add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n\
-    \    return Primes(N).lcm_conv(A, B, add, sub, mul)\n"
+    \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n"
+  code: "import cp_library.__header__\nimport operator\nfrom typing import Callable\n\
+    from cp_library.misc.typing import _T\nimport cp_library.math.__header__\nimport\
+    \ cp_library.math.conv.__header__\n\ndef lcm_conv(A: list[_T], B: list[_T], N:\
+    \ int,\n            mul: Callable[[_T,_T],_T] = operator.mul,\n            sub:\
+    \ Callable[[_T,_T],_T] = operator.sub,\n            add: Callable[[_T,_T],_T]\
+    \ = operator.add) -> list[_T]:\n    return Primes(N).lcm_conv(A, B, add, sub,\
+    \ mul)\n\nfrom cp_library.math.table.primes_cls import Primes\n"
   dependsOn:
   - cp_library/math/table/primes_cls.py
   - cp_library/ds/reserve_fn.py
   isVerificationFile: false
   path: cp_library/math/conv/lcm_conv_fn.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/lcm_conv_fn.py

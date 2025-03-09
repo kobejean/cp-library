@@ -128,15 +128,66 @@ data:
     \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
     \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nimport operator\n\ndef superset_transform(A: list[_T], N: int, /, op = operator.add)\
-    \ -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n\
-    \        while m < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n    return A\n\ndef\
-    \ and_conv(A: list[_T], B: list[_T], N: int,\n             mul: Callable[[_T,_T],_T]\
-    \ = operator.mul,\n             sub: Callable[[_T,_T],_T] = operator.sub,\n  \
-    \           add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n    assert\
-    \ len(A) == len(B)\n    superset_transform(A, N, op=add), superset_transform(B,\
-    \ N, op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return superset_transform(A,\
-    \ N, op=sub)\n\nif __name__ == '__main__':\n    main()\n"
+    \nimport operator\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2578\n  X[0] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25BA X[0]\n                \u2573          \u2572 \u2571          \u2572\
+    \     \u2571          \n  X[4] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2572\u2500\u2500\u2500\u2571\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25BA X[1]\n                           \u2573 \u2573          \u2572\
+    \ \u2572 \u2571 \u2571          \n  X[2] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2572\u2500\u2573\u2500\u2571\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X[2]\n                \u2573          \u2571 \u2572 \
+    \         \u2572 \u2573 \u2573 \u2571          \n  X[6] \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[3]\n                            \
+    \            \u2573 \u2573 \u2573 \u2573         \n  X[1] \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2593\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[4]\n                \u2573      \
+    \    \u2572 \u2571          \u2571 \u2573 \u2573 \u2572          \n  X[5] \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\u2500\u2573\u2500\u2572\u2500\
+    \u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[5]\n          \
+    \                 \u2573 \u2573          \u2571 \u2571 \u2572 \u2572         \
+    \ \n  X[3] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\u2500\u2500\u2500\
+    \u2572\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[6]\n\
+    \                \u2573          \u2571 \u2572          \u2571     \u2572    \
+    \      \n  X[7] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X[7]\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n                      Math - Convolution                     \n\"\"\"\n\ndef\
+    \ superset_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:\n\
+    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
+    \ < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n    return A\n\ndef and_conv(A: list[_T],\
+    \ B: list[_T], N: int,\n             mul: Callable[[_T,_T],_T] = operator.mul,\n\
+    \             sub: Callable[[_T,_T],_T] = operator.sub,\n             add: Callable[[_T,_T],_T]\
+    \ = operator.add) -> list[_T]:\n    assert len(A) == len(B)\n    superset_transform(A,\
+    \ N, op=add), superset_transform(B, N, op=add)\n    for i, b in enumerate(B):\
+    \ A[i] = mul(A[i], b)\n    return superset_transform(A, N, op=sub)\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
     \ndef mul(a,b): return a*b%998244353\ndef sub(a,b): return (a-b)%998244353\ndef\
     \ add(a,b): return (a+b)%998244353\n\ndef main():\n    N = read(int)\n    A =\
@@ -154,7 +205,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution.test.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution.test.py

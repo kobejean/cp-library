@@ -11,6 +11,9 @@ data:
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack_sm_fn.py
+    title: cp_library/bit/pack_sm_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
@@ -68,16 +71,17 @@ data:
     \      path.append(c)\n            c = par[c]\n        path.append(lca)\n    \
     \    rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
     \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
-    \ path\n\ndef argsort(A: list[int], reverse=False):\n    mask, I = (1 << (shift\
-    \ := (N := len(A)).bit_length())) - 1, [0]*N\n    if reverse:\n        for i in\
-    \ range(N): I[i] = A[i] << shift | (i ^ mask)\n        I.sort(reverse=True)\n\
-    \        for i in range(N): I[i] = (I[i] ^ mask) & mask\n    else:\n        for\
-    \ i in range(N): I[i] = A[i] << shift | i\n        I.sort()\n        for i in\
-    \ range(N): I[i] &= mask\n    return I\n\nclass AuxiliaryTree(LCATable):\n\n \
-    \   def __init__(self, T, root=0):\n        super().__init__(T, root)\n      \
-    \  self.par = [-1]*T.N\n\n    def bucketize(self, K, A):\n        self.pre_all\
-    \ = pre_all = argsort(self.start)\n        self.buckets = buckets = [[] for _\
-    \ in range(K)]\n        for u in pre_all:\n            buckets[A[u]].append(u)\n\
+    \ path\n\n\ndef pack_sm(N: int):\n    s = N.bit_length()\n    return s, (1<<s)-1\n\
+    \ndef pack_enc(a: int, b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab:\
+    \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef argsort(A: list[int],\
+    \ reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|i^m\
+    \ for i,a in enumerate(A)]\n        I.sort(reverse=True)\n        for i,ai in\
+    \ enumerate(I): I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n\
+    \        I.sort()\n        for i,ai in enumerate(I): I[i] = ai&m\n    return I\n\
+    \nclass AuxiliaryTree(LCATable):\n\n    def __init__(self, T, root=0):\n     \
+    \   super().__init__(T, root)\n        self.par = [-1]*T.N\n\n    def bucketize(self,\
+    \ K, A):\n        self.pre_all = pre_all = argsort(self.start)\n        self.buckets\
+    \ = buckets = [[] for _ in range(K)]\n        for u in pre_all:\n            buckets[A[u]].append(u)\n\
     \        return buckets\n\n    def build_postorder(self, V, sort = False):\n \
     \       if sort:\n            V = sorted(V, key=self.start.__getitem__)\n    \
     \    L = len(V)\n        post, stc, start, par = elist(L<<1), elist(L), self.start,\
@@ -120,10 +124,11 @@ data:
   - cp_library/ds/elist_fn.py
   - cp_library/alg/iter/presum_fn.py
   - cp_library/ds/min_sparse_table_cls.py
+  - cp_library/bit/pack_sm_fn.py
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

@@ -14,17 +14,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import MutableSequence\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
-    \ndef shift(A: MutableSequence[_T], offset=-1):\n    return [a+offset for a in\
-    \ A]\n"
-  code: "import cp_library.alg.iter.__header__\nfrom typing import MutableSequence\n\
-    from cp_library.misc.typing import _T\n\ndef shift(A: MutableSequence[_T], offset=-1):\n\
+    from typing import Sequence\nfrom typing import TypeVar\n_T = TypeVar('T')\n\n\
+    def shift(A: Sequence[_T], offset=-1):\n    return [a+offset for a in A]\n"
+  code: "import cp_library.alg.iter.__header__\nfrom typing import Sequence\nfrom\
+    \ cp_library.misc.typing import _T\n\ndef shift(A: Sequence[_T], offset=-1):\n\
     \    return [a+offset for a in A]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/shift_fn.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/shift_fn.py

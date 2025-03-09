@@ -57,19 +57,18 @@ data:
     \ read(list[-1])\n    E = []\n    for u,p in enumerate(P, start=1):\n        E.append((p,u))\n\
     \n    cnt = [[] for _ in range(N)]\n\n    G = Tree(N, E)\n    depth = [0]*N\n\
     \    for p,u in G.dfs_topdown():\n        depth[u] = depth[p]+1\n    time = 0\n\
-    \    tin = [0]*N\n    tout = [0]*N\n    \n    for event in G.dfs_enter_leave(0):\n\
-    \        match event:\n            case DFSEvent.ENTER, u:\n                tin[u]\
-    \ = time\n                cnt[depth[u]].append(time)\n                time +=\
-    \ 1\n            case DFSEvent.LEAVE, u:\n                tout[u] = time\n   \
-    \             time += 1\n    Q = read(int)\n    for u,d in read(list[tuple[-1,int],Q]):\n\
-    \        ans = bisect_left(cnt[d], tout[u]) - bisect_left(cnt[d], tin[u])\n  \
-    \      write(ans)\n\n    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \    tin = [0]*N\n    tout = [0]*N\n    \n    for t, u in G.dfs_enter_leave(0):\n\
+    \        match t:\n            case DFSEvent.ENTER:\n                tin[u] =\
+    \ time\n                cnt[depth[u]].append(time)\n            case DFSEvent.LEAVE:\n\
+    \                tout[u] = time\n        time += 1\n    Q = read(int)\n    for\
+    \ u,d in read(list[tuple[-1,int],Q]):\n        ans = bisect_left(cnt[d], tout[u])\
+    \ - bisect_left(cnt[d], tin[u])\n        write(ans)\n\n    \n'''\n\u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
-    \              \n'''\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
     \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
     \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
     \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
@@ -486,15 +485,14 @@ data:
     \ read(list[-1])\n    E = []\n    for u,p in enumerate(P, start=1):\n        E.append((p,u))\n\
     \n    cnt = [[] for _ in range(N)]\n\n    G = Tree(N, E)\n    depth = [0]*N\n\
     \    for p,u in G.dfs_topdown():\n        depth[u] = depth[p]+1\n    time = 0\n\
-    \    tin = [0]*N\n    tout = [0]*N\n    \n    for event in G.dfs_enter_leave(0):\n\
-    \        match event:\n            case DFSEvent.ENTER, u:\n                tin[u]\
-    \ = time\n                cnt[depth[u]].append(time)\n                time +=\
-    \ 1\n            case DFSEvent.LEAVE, u:\n                tout[u] = time\n   \
-    \             time += 1\n    Q = read(int)\n    for u,d in read(list[tuple[-1,int],Q]):\n\
-    \        ans = bisect_left(cnt[d], tout[u]) - bisect_left(cnt[d], tin[u])\n  \
-    \      write(ans)\n\n    \nfrom cp_library.alg.graph.dfs_options_cls import DFSEvent\n\
-    from cp_library.alg.tree.tree_cls import Tree\nfrom cp_library.io.read_fn import\
-    \ read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    \    tin = [0]*N\n    tout = [0]*N\n    \n    for t, u in G.dfs_enter_leave(0):\n\
+    \        match t:\n            case DFSEvent.ENTER:\n                tin[u] =\
+    \ time\n                cnt[depth[u]].append(time)\n            case DFSEvent.LEAVE:\n\
+    \                tout[u] = time\n        time += 1\n    Q = read(int)\n    for\
+    \ u,d in read(list[tuple[-1,int],Q]):\n        ans = bisect_left(cnt[d], tout[u])\
+    \ - bisect_left(cnt[d], tin[u])\n        write(ans)\n\n    \nfrom cp_library.alg.graph.dfs_options_cls\
+    \ import DFSEvent\nfrom cp_library.alg.tree.tree_cls import Tree\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
     :\n    main()"
   dependsOn:
   - cp_library/alg/graph/dfs_options_cls.py
@@ -514,7 +512,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py

@@ -103,6 +103,9 @@ data:
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   - icon: ':heavy_check_mark:'
+    path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
+    title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
@@ -269,7 +272,7 @@ data:
   - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -291,6 +294,7 @@ data:
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
 documentation_of: cp_library/ds/array_init_fn.py
 layout: document

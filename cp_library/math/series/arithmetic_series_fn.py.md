@@ -14,14 +14,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef arithmetic_series(d, n, a = 0):\n    return (2*a+(n-1)*d)*n//2\n"
+    \ndef arithmetic_series(d, n, a = 0):\n    return (a << 1 + (n-1) * d) * n >>\
+    \ 1\n"
   code: "import cp_library.math.series.__header__\n\ndef arithmetic_series(d, n, a\
-    \ = 0):\n    return (2*a+(n-1)*d)*n//2\n"
+    \ = 0):\n    return (a << 1 + (n-1) * d) * n >> 1\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/series/arithmetic_series_fn.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/series/arithmetic_series_fn.py

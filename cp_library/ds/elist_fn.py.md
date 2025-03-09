@@ -262,6 +262,9 @@ data:
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
   - icon: ':heavy_check_mark:'
+    path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
+    title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
@@ -373,7 +376,7 @@ data:
   - cp_library/ds/heap/skew_heap_forest_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
@@ -428,6 +431,7 @@ data:
   - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
   - test/atcoder/abc/abc203_e_queries_grouped.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
+  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

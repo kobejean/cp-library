@@ -89,7 +89,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/rerooting_recursive_cls.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

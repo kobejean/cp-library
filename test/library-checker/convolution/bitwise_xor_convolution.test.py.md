@@ -8,6 +8,12 @@ data:
     path: cp_library/math/conv/fwht_pair_fn.py
     title: cp_library/math/conv/fwht_pair_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/fwht_inv_fn.py
+    title: cp_library/math/conv/mod/fwht_inv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/ixor_conv_fn.py
+    title: cp_library/math/conv/mod/ixor_conv_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/mod/xor_conv_fn.py
     title: cp_library/math/conv/mod/xor_conv_fn.py
   _extendedRequiredBy: []
@@ -27,32 +33,85 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\ndef fwht_pair(A: list[int], B: list[int], N: int):\n\
-    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
-    \ < Z:\n            a0, a1, b0, b1 = A[m^b], A[m], B[m^b], B[m]\n            A[m^b],\
-    \ A[m], B[m^b], B[m] = a0+a1, a0-a1, b0+b1, b0-b1\n            m = m+1|b\n   \
-    \ return A, B\n\ndef fwht(A: list, N: int):\n    Z = len(A)\n    for i in range(N):\n\
-    \        m = b = 1<<i\n        while m < Z:\n            a0, a1 = A[m^b], A[m]\n\
-    \            A[m^b], A[m] = a0+a1, a0-a1\n            m = m+1|b\n    return A\n\
-    \ndef xor_conv(A: list, B: list, N: int, mod: int):\n    assert len(A) == len(B)\n\
-    \    fwht_pair(A, B, N)\n    for i, b in enumerate(B): A[i] = A[i]%mod * (b%mod)\
-    \ % mod\n    fwht(A, N)\n    inv = pow(len(A), -1, mod)\n    for i, a in enumerate(A):\
-    \ A[i] = a%mod * inv%mod\n    return A\n\nfrom atexit import register\nfrom os\
-    \ import read, write\nimport sys\nfrom __pypy__ import builders\nclass Fastio:\n\
-    \    ibuf = bytes()\n    pil = pir = 0\n    sb = builders.StringBuilder()\n  \
-    \  def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += read(0, 20738704)\n        self.pil = 0; self.pir = len(self.ibuf)\n    def\
-    \ flush(self): write(1, self.sb.build().encode())\n    def fastin(self):\n   \
-    \     if self.pir - self.pil < 64: self.load()\n        minus = x = 0\n      \
-    \  while self.ibuf[self.pil] < 45: self.pil += 1\n        if self.ibuf[self.pil]\
-    \ == 45: minus = 1; self.pil += 1\n        while self.ibuf[self.pil] >= 48:\n\
-    \            x = x * 10 + (self.ibuf[self.pil] & 15)\n            self.pil +=\
-    \ 1\n        if minus: return -x\n        return x\n    def fastout(self, x):\
-    \ self.sb.append(str(x))\n    def fastoutln(self, x): self.sb.append(str(x));\
-    \ self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin; wt = fastio.fastout;\
-    \ wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\nsys.stdin = None;\
-    \ sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\ndef wtnl(l):\
-    \ wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
+    \               \n'''\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2578\n  X[0] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25BA X[0]\n                \u2573          \u2572 \u2571       \
+    \   \u2572     \u2571          \n  X[4] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\
+    \u2500\u2572\u2500\u2500\u2500\u2571\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X[1]\n                           \u2573 \u2573      \
+    \    \u2572 \u2572 \u2571 \u2571          \n  X[2] \u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2593\u2500\u2572\u2500\u2573\u2500\u2571\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25BA X[2]\n                \u2573          \u2571\
+    \ \u2572          \u2572 \u2573 \u2573 \u2571          \n  X[6] \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[3]\n                      \
+    \                  \u2573 \u2573 \u2573 \u2573         \n  X[1] \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u2593\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[4]\n                \u2573\
+    \          \u2572 \u2571          \u2571 \u2573 \u2573 \u2572          \n  X[5]\
+    \ \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\u2500\u2573\u2500\u2572\
+    \u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X[5]\n    \
+    \                       \u2573 \u2573          \u2571 \u2571 \u2572 \u2572   \
+    \       \n  X[3] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2573\u2500\u2593\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2571\u2500\u2500\
+    \u2500\u2572\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X[6]\n                \u2573          \u2571 \u2572          \u2571     \u2572\
+    \          \n  X[7] \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\
+    \u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\
+    \u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2593\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25BA X[7]\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n                      Math - Convolution                     \n\"\"\"\n\
+    \n\ndef fwht(A: list, N: int):\n    Z = len(A)\n    for i in range(N):\n     \
+    \   m = b = 1<<i\n        while m < Z:\n            a0, a1 = A[m^b], A[m]\n  \
+    \          A[m^b], A[m] = a0+a1, a0-a1\n            m = m+1|b\n    return A\n\n\
+    def fwht_inv(A: list, N: int, mod: int):\n    fwht(A, N)\n    inv = pow(len(A),\
+    \ -1, mod)\n    for i, a in enumerate(A): A[i] = a%mod * inv%mod\n    return A\n\
+    \ndef fwht_pair(A: list[int], B: list[int], N: int):\n    Z = len(A)\n    for\
+    \ i in range(N):\n        m = b = 1<<i\n        while m < Z:\n            a0,\
+    \ a1, b0, b1 = A[m^b], A[m], B[m^b], B[m]\n            A[m^b], A[m], B[m^b], B[m]\
+    \ = a0+a1, a0-a1, b0+b1, b0-b1\n            m = m+1|b\n    return A, B\n\ndef\
+    \ ixor_conv(A: list[int], B: list[int], N: int, mod: int) -> list[int]:\n    assert\
+    \ len(A) == len(B)\n    fwht_pair(A, B, N)\n    for i, b in enumerate(B): A[i]\
+    \ = A[i]%mod * (b%mod) % mod\n    fwht_inv(A, N, mod)\n    return A\n\ndef xor_conv(A:\
+    \ list[int], B: list[int], N: int, mod: int) -> list[int]:\n    return ixor_conv(A[:],\
+    \ B[:], N, mod)\n\nfrom atexit import register\nfrom os import read, write\nimport\
+    \ sys\nfrom __pypy__ import builders\nclass Fastio:\n    ibuf = bytes()\n    pil\
+    \ = pir = 0\n    sb = builders.StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += read(0, 20738704)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush(self): write(1, self.sb.build().encode())\n\
+    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
+    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
+    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
+    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
+    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \ x\n    def fastout(self, x): self.sb.append(str(x))\n    def fastoutln(self,\
+    \ x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin;\
+    \ wt = fastio.fastout; wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\n\
+    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
+    def wtnl(l): wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_xor_convolution\n\
     \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    C =\
     \ xor_conv(A, B, N, 998244353)\n    wtnl(C)\n\nfrom cp_library.math.conv.mod.xor_conv_fn\
@@ -73,12 +132,14 @@ data:
     def wtnl(l): wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/math/conv/mod/xor_conv_fn.py
+  - cp_library/math/conv/mod/ixor_conv_fn.py
+  - cp_library/math/conv/mod/fwht_inv_fn.py
   - cp_library/math/conv/fwht_pair_fn.py
   - cp_library/math/conv/fwht_fn.py
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_xor_convolution.test.py
   requiredBy: []
-  timestamp: '2025-03-03 00:10:01+09:00'
+  timestamp: '2025-03-09 09:15:44+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_xor_convolution.test.py
