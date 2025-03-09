@@ -528,7 +528,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   requiredBy: []
-  timestamp: '2025-03-09 09:15:44+09:00'
+  timestamp: '2025-03-09 20:40:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/fast/graph_weighted_meta_cls.py

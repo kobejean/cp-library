@@ -679,7 +679,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   requiredBy: []
-  timestamp: '2025-03-09 09:15:44+09:00'
+  timestamp: '2025-03-09 20:40:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py

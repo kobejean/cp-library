@@ -349,7 +349,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/grid_graph_cls.py
   requiredBy: []
-  timestamp: '2025-03-09 09:15:44+09:00'
+  timestamp: '2025-03-09 20:40:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
