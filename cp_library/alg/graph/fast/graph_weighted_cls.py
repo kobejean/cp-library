@@ -3,27 +3,23 @@ from cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase
 
 class GraphWeighted(GraphWeightedBase):
     def __init__(G, N: int, U: list[int], V: list[int], W: list[int]):
-        M2 = (M := len(U)) << 1
-        deg, Ea, Ua, Va, Wa = u32f(N), i32f(M2), u32f(M2), u32f(M2), [0]*M2
+        Ma, deg = 0, u32f(N)
+        for e in range(M := len(U)):
+            distinct = (u := U[e]) != (v := V[e])
+            deg[u] += 1; deg[v] += distinct; Ma += 1+distinct
+        Ea, Ua, Va, Wa = u32f(Ma), u32f(Ma), u32f(Ma), [0]*Ma
         
-        for u in U:
-            deg[u] += 1
-        for v in V:
-            deg[v] += 1
-            
-        La, idx = u32f(N), 0
-        for u in range(N): 
-            La[u], idx = idx, idx + deg[u]
+        La, i = u32f(N), 0
+        for u,d in enumerate(deg): 
+            La[u], i = i, i + d
         Ra = La[:]
 
-        # place edge data using R to track
         for e in range(M):
             u, v, w = U[e], V[e], W[e]
             i, j = Ra[u], Ra[v]
-            Ua[i], Va[i], Wa[i], Ea[i] = u, v, w, e
-            Ra[u] += 1
-            Ua[j], Va[j], Wa[j], Ea[j] = v, u, w, e
-            Ra[v] += 1
+            Ra[u],Ua[i],Va[i],Wa[i],Ea[i] = i+1,u,v,w,e
+            if i == j: continue # don't add self loops twice
+            Ra[v],Ua[j],Va[j],Wa[j],Ea[j] = j+1,v,u,w,e
 
         super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)
 

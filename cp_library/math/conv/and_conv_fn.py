@@ -1,7 +1,9 @@
-import cp_library.math.conv.__header__
+import cp_library.__header__
+import cp_library.math.__header__
 import operator
 from typing import Callable
 from cp_library.misc.typing import _T
+import cp_library.math.conv.__header__
 from cp_library.math.conv.superset_transform_fn import superset_transform
 
 def and_conv(A: list[_T], B: list[_T], N: int,

@@ -16,7 +16,7 @@ def main():
     tin = [0]*N
     tout = [0]*N
     
-    def down(p,u):
+    def down(p,u,i):
         depth[u] = depth[p]+1
 
     def enter(u):

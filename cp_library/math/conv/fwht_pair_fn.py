@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.conv.__header__
 
 def fwht_pair(A: list[int], B: list[int], N: int):

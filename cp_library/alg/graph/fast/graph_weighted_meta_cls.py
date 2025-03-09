@@ -6,7 +6,7 @@ class GraphWeightedMeta(GraphWeighted):
     def __init__(G, N: int, U: list[int], V: list[int], W: list[int],
                  X: list[int] = None, Y: list[int] = None, Z: list[int] = None):
         super().__init__(N, U, V, W)
-        M2 = (M := len(U)) << 1
+        M2 = len(G.Ea)
         if X is not None:
             Xa = [0]*M2
             for i,e in enumerate(G.Ea):

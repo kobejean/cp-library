@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.conv.__header__
 from cp_library.math.conv.superset_zeta_pair_fn import superset_zeta_pair
 from cp_library.math.conv.superset_mobius_fn import superset_mobius

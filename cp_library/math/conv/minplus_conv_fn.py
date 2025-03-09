@@ -1,5 +1,7 @@
-import cp_library.math.conv.__header__
+import cp_library.__header__
 from cp_library.alg.dp.monotone_minima_fn import monotone_minima
+import cp_library.math.__header__
+import cp_library.math.conv.__header__
 
 def minplus_conv_arb_cnvx(arb: list[int], cnvx: list[int]) -> list[int]:
     N, M = len(cnvx), len(arb)

@@ -150,13 +150,22 @@ class GraphBase(Sequence, Parsable):
                     vis[v] = 1; order.append(i); stack.append(v)
         return order
 
-    def dfs(G, s: Union[int,list] = None, /, connect_roots = False, backtrack = False, max_depth = None, enter_fn: Callable[[int],None] = None, leave_fn: Callable[[int],None] = None, max_depth_fn: Callable[[int],None] = None, down_fn: Callable[[int,int],None] = None, back_fn: Callable[[int,int],None] = None, cross_fn: Callable[[int,int],None] = None, up_fn: Callable[[int,int],None] = None):
+    def dfs(G, s: Union[int,list] = None, /, 
+            backtrack = False,
+            max_depth = None,
+            enter_fn: Callable[[int],None] = None,
+            leave_fn: Callable[[int],None] = None,
+            max_depth_fn: Callable[[int],None] = None,
+            down_fn: Callable[[int,int,int],None] = None,
+            back_fn: Callable[[int,int,int],None] = None,
+            cross_fn: Callable[[int,int,int],None] = None,
+            up_fn: Callable[[int,int,int],None] = None):
         Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]
         G.state, G.stack = state, stack = u8f(G.N), elist(G.N if max_depth is None else max_depth+1)
+        G.back = back = i32f(G.N, -2)
         for s in G.starts(s):
             if state[s]: continue
-            stack.append(s)
-            if connect_roots and down_fn: down_fn(-1,s)
+            back[s] = -1; stack.append(s)
             while stack:
                 if state[u := stack[-1]] == 0:
                     state[u] = 1
@@ -167,32 +176,31 @@ class GraphBase(Sequence, Parsable):
                 if (i := I[u]) < Ra[u]:
                     I[u] += 1
                     if (s := state[v := Va[i]]) == 0:
+                        back[v] = i
                         stack.append(v)
-                        if down_fn: down_fn(u,v)
-                    elif back_fn and s == 1: back_fn(u,v)
-                    elif cross_fn and s == 2: cross_fn(u,v)
+                        if down_fn: down_fn(u,v,i)
+                    elif back_fn and s == 1: back_fn(u,v,i)
+                    elif cross_fn and s == 2: cross_fn(u,v,i)
                 else:
                     stack.pop()
                     state[u] = 2
                     if backtrack: state[u], I[u] = 0, La[u]
                     if leave_fn: leave_fn(u)
-                    if up_fn and stack: up_fn(u, stack[-1])
-            if connect_roots and up_fn: up_fn(s, -1)
+                    if up_fn and stack: up_fn(u, stack[-1], ~back[u])
     
     def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:
         N, Ra, Va, I = G.N, G.Ra, G.Va, G.La[:]
-        stack, par, plst = elist(N), i32f(N,-1), PacketList(order := elist(2*N), N-1)
-        G.par, ENTER, LEAVE = par, int(DFSEvent.ENTER) << plst.shift, int(DFSEvent.LEAVE) << plst.shift
+        stack, back, plst = elist(N), i32f(N,-2), PacketList(order := elist(2*N), N-1)
+        G.back, ENTER, LEAVE = back, int(DFSEvent.ENTER) << plst.shift, int(DFSEvent.LEAVE) << plst.shift
         for s in G.starts(s):
-            if par[s] >= 0: continue
-            par[s] = s
+            if back[s] >= -1: continue
+            back[s] = -1
             order.append(ENTER | s), stack.append(s)
             while stack:
                 if (i := I[u := stack[-1]]) < Ra[u]:
                     I[u] += 1
-                    if par[v := Va[i]] >= 0: continue
-                    par[v] = u
-                    order.append(ENTER | v); stack.append(v)
+                    if back[v := Va[i]] >= -1: continue
+                    back[v] = i; order.append(ENTER | v); stack.append(v)
                 else:
                     order.append(LEAVE | u); stack.pop()
         return plst

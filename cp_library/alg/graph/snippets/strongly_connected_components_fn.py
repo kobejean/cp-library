@@ -19,7 +19,7 @@ def strongly_connected_components(G) -> Iterator[list[int]]:
         order.append(u)
         on_stack[u] = 1
 
-    def back_or_cross(u,v):
+    def back_or_cross(u,v,i):
         if on_stack[v]: chmin(low, u, tin[v])
 
     def leave(u):
@@ -30,7 +30,7 @@ def strongly_connected_components(G) -> Iterator[list[int]]:
                 on_stack[v := order.pop()] = 0
                 sccs.append(v)
 
-    def up(u,v):
+    def up(u,v,i):
         chmin(low, v, low[u])
 
     G.dfs(enter_fn=enter, back_fn=back_or_cross, cross_fn=back_or_cross, leave_fn=leave, up_fn=up)

@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.conv.__header__
 from cp_library.math.conv.subset_zeta_fn import subset_zeta
 from cp_library.math.conv.subset_mobius_fn import subset_mobius

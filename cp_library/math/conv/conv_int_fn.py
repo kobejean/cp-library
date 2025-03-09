@@ -1,7 +1,7 @@
-import cp_library.math.__header__
+import cp_library.__header__
 from typing import Union
-from cp_library.math.nt.ntt_cls import NTT
-from cp_library.math.nt.mod_inv_fn import mod_inv
+import cp_library.math.__header__
+import cp_library.math.conv.__header__
 
 def conv_int(A: list[int], B: list[int], N: Union[int, None] = None) -> list[int]:
     n,m = len(A),len(B)
@@ -14,3 +14,6 @@ def conv_int(A: list[int], B: list[int], N: Union[int, None] = None) -> list[int
     for i in range(N):
         C[i] = (C1[i]*i1%m1*m2m3+C2[i]*i2%m2*m1m3+C3[i]*i3%m3*m1m2)%m1m2m3
     return C
+
+from cp_library.math.nt.ntt_cls import NTT
+from cp_library.math.nt.mod_inv_fn import mod_inv

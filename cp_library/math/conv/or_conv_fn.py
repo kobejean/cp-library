@@ -1,8 +1,10 @@
-import cp_library.math.conv.__header__
-from cp_library.math.conv.subset_transform_fn import subset_transform
+import cp_library.__header__
 import operator
 from typing import Callable
 from cp_library.misc.typing import _T
+import cp_library.math.__header__
+import cp_library.math.conv.__header__
+from cp_library.math.conv.subset_transform_fn import subset_transform
 
 def or_conv(A: list[_T], B: list[_T], N: int,
             mul: Callable[[_T,_T],_T] = operator.mul,
