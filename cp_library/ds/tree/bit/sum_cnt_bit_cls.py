@@ -1,13 +1,24 @@
-
+from cp_library.bit.pack_sm_fn import pack_sm
+import cp_library.__header__
+from typing import Union
 import cp_library.ds.__header__
+import cp_library.ds.tree.__header__
+import cp_library.ds.tree.bit.__header__
+from cp_library.ds.tree.bit import BIT
 
-class BIT:
-    def __init__(bit, d):
-        bit.d, bit.n = d, len(d)
-        for i in range(bit.n):
-            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]
+class SumCountBIT(BIT):
+    def __init__(bit, v: Union[int, list[int]]):
+        if not isinstance(v, int):
+            s, m = pack_sm(len(v))
+            for i,d in enumerate(v):
+                v[i] = d << s | 1
+        else:
+            s, m = pack_sm(v)
+        super().__init__(v)
+        bit.s, bit.m = s, m
 
     def add(bit, i, x):
+        
         while i < bit.n:
             bit.d[i] += x
             i |= i+1
@@ -45,7 +56,7 @@ class BIT:
         return bit.bisect_right(v-1) if v>0 else 0
     
     def bisect_right(bit, v) -> int:
-        i, ni = s, m = 0, bit.lb
+        i = s = 0; ni = m = bit.lb
         while m:
             if ni <= bit.n and (ns:=s+bit.d[ni-1]) <= v: s, i = ns, ni
             ni = (m:=m>>1)|i

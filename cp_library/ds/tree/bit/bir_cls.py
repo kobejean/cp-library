@@ -1,5 +1,8 @@
+import cp_library.__header__
+from typing import Sequence
 import cp_library.ds.__header__
-from typing import Sequence, Union
+import cp_library.ds.tree.__header__
+import cp_library.ds.tree.bit.__header__
 
 class BIR(Sequence[int]):
     def __init__(bir, size: int):
@@ -31,4 +34,4 @@ class BIR(Sequence[int]):
         bir.add(i, i+1, x - bir.get(i))
     __setitem__ = set
         
-from cp_library.ds.tree.bit_cls import BIT
+from cp_library.ds.tree.bit.bit_cls import BIT

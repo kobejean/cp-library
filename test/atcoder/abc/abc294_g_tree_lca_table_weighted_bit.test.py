@@ -33,7 +33,7 @@ def main():
 
 from cp_library.alg.tree.tree_weighted_cls import TreeWeighted
 from cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted
-from cp_library.ds.tree.bit_cls import BIT
+from cp_library.ds.tree.bit.bit_cls import BIT
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

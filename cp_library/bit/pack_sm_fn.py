@@ -9,3 +9,6 @@ def pack_enc(a: int, b: int, s: int):
     
 def pack_dec(ab: int, s: int, m: int):
     return ab >> s, ab & m
+
+def pack_indices(A, s):
+    return [a << s | i for i,a in enumerate(A)]

@@ -8,8 +8,8 @@ from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 class GraphWeightedBase(GraphBase):
     def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int], 
                  deg: list[int], La: list[int], Ra: list[int],
-                 Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int]):
-        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)
+                 Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int], twin: list[int] = None):
+        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)
         self.W = W
         self.Wa = Wa
         """Wa[i] lists weights to edges from u for La[u] <= i < Ra[u]."""

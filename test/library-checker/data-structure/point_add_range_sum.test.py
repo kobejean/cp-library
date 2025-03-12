@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_add_range_sum
 import io,os
-from cp_library.ds.tree.bit_cls import BIT
+from cp_library.ds.tree.bit.bit_cls import BIT
 
 input = io.BytesIO(os.read(0,os.fstat(0).st_size)).readline
 MI = lambda : map(int, input().split())

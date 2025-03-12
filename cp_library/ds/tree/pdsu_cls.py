@@ -1,6 +1,8 @@
+import cp_library.__header__
 import operator
 from cp_library.io.parser_cls import Parsable, TokenStream
 import cp_library.ds.__header__
+import cp_library.ds.tree.__header__
 
 class PDSU(Parsable):
     """PDSU[N: int, M: int, op=operator.sub, inv=operator.neg, e=0, shift=-1]"""

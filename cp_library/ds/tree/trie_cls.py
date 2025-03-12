@@ -1,6 +1,8 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 from collections import deque
 from typing import Dict, List, Optional
+import cp_library.ds.__header__
+import cp_library.ds.tree.__header__
 
 class Trie:
     __slots__ = 'dic', 'parent', 'last', 'count', 'word'

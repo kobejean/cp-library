@@ -10,7 +10,7 @@ from cp_library.alg.graph.dfs_options_cls import DFSEvent
 class GraphBase(Sequence, Parsable):
     def __init__(G, N: int, M: int, U: list[int], V: list[int], 
                  deg: list[int], La: list[int], Ra: list[int],
-                 Ua: list[int], Va: list[int], Ea: list[int]):
+                 Ua: list[int], Va: list[int], Ea: list[int], twin: list[int] = None):
         G.N = N
         """The number of vertices."""
         G.M = M
@@ -33,6 +33,8 @@ class GraphBase(Sequence, Parsable):
         """Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].
         For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].
         """
+        G.twin = twin if twin is not None else range(len(Ua))
+        """twin[i] in undirected graphs stores index j of the same edge but with u and v swapped."""
         G.stack: list[int] = None
         G.order: list[int] = None
         G.vis: list[int] = None
@@ -158,14 +160,16 @@ class GraphBase(Sequence, Parsable):
             max_depth_fn: Callable[[int],None] = None,
             down_fn: Callable[[int,int,int],None] = None,
             back_fn: Callable[[int,int,int],None] = None,
+            forward_fn: Callable[[int,int,int],None] = None,
             cross_fn: Callable[[int,int,int],None] = None,
             up_fn: Callable[[int,int,int],None] = None):
-        Va, La, Ra, I = G.Va, G.La, G.Ra, G.La[:]
+        Va, La, Ra, I, twin, tin, time = G.Va, G.La, G.Ra, G.La[:], G.twin, i32f(G.N, -1), -1
         G.state, G.stack = state, stack = u8f(G.N), elist(G.N if max_depth is None else max_depth+1)
         G.back = back = i32f(G.N, -2)
+        G.tin = tin
         for s in G.starts(s):
             if state[s]: continue
-            back[s] = -1; stack.append(s)
+            back[s], tin[s] = -1, (time := time+1); stack.append(s)
             while stack:
                 if state[u := stack[-1]] == 0:
                     state[u] = 1
@@ -176,17 +180,18 @@ class GraphBase(Sequence, Parsable):
                 if (i := I[u]) < Ra[u]:
                     I[u] += 1
                     if (s := state[v := Va[i]]) == 0:
-                        back[v] = i
-                        stack.append(v)
+                        back[v], tin[v] = i, (time := time+1); stack.append(v)
                         if down_fn: down_fn(u,v,i)
-                    elif back_fn and s == 1: back_fn(u,v,i)
-                    elif cross_fn and s == 2: cross_fn(u,v,i)
+                    elif back_fn and s == 1 and back[u] != twin[i]: back_fn(u,v,i)
+                    elif (cross_fn or forward_fn) and s == 2:
+                        if forward_fn and tin[u] < tin[v]: forward_fn(u,v,i)
+                        elif cross_fn: cross_fn(u,v,i)
                 else:
                     stack.pop()
                     state[u] = 2
                     if backtrack: state[u], I[u] = 0, La[u]
                     if leave_fn: leave_fn(u)
-                    if up_fn and stack: up_fn(u, stack[-1], ~back[u])
+                    if up_fn and stack: up_fn(u, stack[-1], back[u])
     
     def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:
         N, Ra, Va, I = G.N, G.Ra, G.Va, G.La[:]

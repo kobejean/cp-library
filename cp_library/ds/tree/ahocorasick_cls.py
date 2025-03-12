@@ -1,4 +1,6 @@
+import cp_library.__header__
 import cp_library.ds.__header__
+import cp_library.ds.tree.__header__
 from cp_library.ds.tree.trie_cls import Trie
 
 class AhoCorasick(Trie):

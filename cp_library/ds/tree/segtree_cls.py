@@ -1,6 +1,8 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 from typing import Callable, Generic, Union
 from cp_library.misc.typing import _T
+import cp_library.ds.__header__
+import cp_library.ds.tree.__header__
 
 class SegTree(Generic[_T]):
     def __init__(self, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) -> None:
