@@ -195,7 +195,7 @@ data:
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/kruskal_sort_fn.py
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py

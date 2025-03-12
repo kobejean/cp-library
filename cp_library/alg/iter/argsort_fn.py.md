@@ -79,7 +79,8 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \n\ndef pack_sm(N: int):\n    s = N.bit_length()\n    return s, (1<<s)-1\n\ndef\
     \ pack_enc(a: int, b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab:\
-    \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef argsort(A: list[int],\
+    \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n\
+    \    return [a << s | i for i,a in enumerate(A)]\n\ndef argsort(A: list[int],\
     \ reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|i^m\
     \ for i,a in enumerate(A)]\n        I.sort(reverse=True)\n        for i,ai in\
     \ enumerate(I): I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n\
@@ -105,7 +106,7 @@ data:
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/iter/sort_parallel_copies_fn.py
   - cp_library/alg/iter/sort_parallel_fn.py
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py

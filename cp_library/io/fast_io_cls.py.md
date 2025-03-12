@@ -66,6 +66,15 @@ data:
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+    title: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+    title: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+    title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/func_graph_cls.py
     title: cp_library/alg/graph/func_graph_cls.py
   - icon: ':heavy_check_mark:'
@@ -241,8 +250,14 @@ data:
     path: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
     title: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+    title: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_a_graph_articulation_points.test.py
     title: test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+    title: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_b_graph_bridges.test.py
     title: test/aoj/grl/grl_3_b_graph_bridges.test.py
@@ -592,6 +607,9 @@ data:
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+  - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+  - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
   - cp_library/alg/graph/fast/graph_cls.py
@@ -627,7 +645,7 @@ data:
   - cp_library/ds/grid.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/queries_cls.py
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
@@ -636,6 +654,7 @@ data:
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py
+  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_1_a_dijkstra.test.py
@@ -651,6 +670,7 @@ data:
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
+  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

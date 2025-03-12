@@ -18,12 +18,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Callable, Generic, Union\nfrom typing import TypeVar\n_T =\
-    \ TypeVar('T')\n\nclass SegTree(Generic[_T]):\n    def __init__(self, op: Callable[[_T,\
-    \ _T], _T], e: _T, v: Union[int, list[_T]]) -> None:\n        if isinstance(v,\
-    \ int): v = [e] * v\n        self.op, self.e, self.n = op, e, (n := len(v))\n\
-    \        self.log, self.sz, self.d = (log := (n-1).bit_length()+1), (sz := 1 <<\
-    \ log), [e] * (sz << 1)\n        for i in range(n): self.d[sz + i] = v[i]\n  \
-    \      for i in range(sz-1,0,-1): self.d[i] = op(self.d[i<<1], self.d[i<<1|1])\n\
+    \ TypeVar('T')\n\n\n\nclass SegTree(Generic[_T]):\n    def __init__(self, op:\
+    \ Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) -> None:\n        if\
+    \ isinstance(v, int): v = [e] * v\n        self.op, self.e, self.n = op, e, (n\
+    \ := len(v))\n        self.log, self.sz, self.d = (log := (n-1).bit_length()+1),\
+    \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): self.d[sz + i]\
+    \ = v[i]\n        for i in range(sz-1,0,-1): self.d[i] = op(self.d[i<<1], self.d[i<<1|1])\n\
     \n    def set(self, p: int, x: _T) -> None:\n        assert 0 <= p < self.n\n\
     \        (d := self.d)[p := p + self.sz], op = x, self.op\n        for _ in range(self.log):\
     \ d[p:=p>>1] = op(d[p:=p^(p&1)], d[p|1])\n    __setitem__ = set\n\n    def get(self,\
@@ -48,11 +48,12 @@ data:
     \  while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm, r = op(d[r],\
     \ sm), r-1\n                return r + 1 - sz\n            sm = op(d[r], sm)\n\
     \            if (r & -r) == r: return 0\n"
-  code: "import cp_library.ds.__header__\nfrom typing import Callable, Generic, Union\n\
-    from cp_library.misc.typing import _T\n\nclass SegTree(Generic[_T]):\n    def\
-    \ __init__(self, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) ->\
-    \ None:\n        if isinstance(v, int): v = [e] * v\n        self.op, self.e,\
-    \ self.n = op, e, (n := len(v))\n        self.log, self.sz, self.d = (log := (n-1).bit_length()+1),\
+  code: "import cp_library.__header__\nfrom typing import Callable, Generic, Union\n\
+    from cp_library.misc.typing import _T\nimport cp_library.ds.__header__\nimport\
+    \ cp_library.ds.tree.__header__\n\nclass SegTree(Generic[_T]):\n    def __init__(self,\
+    \ op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) -> None:\n     \
+    \   if isinstance(v, int): v = [e] * v\n        self.op, self.e, self.n = op,\
+    \ e, (n := len(v))\n        self.log, self.sz, self.d = (log := (n-1).bit_length()+1),\
     \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): self.d[sz + i]\
     \ = v[i]\n        for i in range(sz-1,0,-1): self.d[i] = op(self.d[i<<1], self.d[i<<1|1])\n\
     \n    def set(self, p: int, x: _T) -> None:\n        assert 0 <= p < self.n\n\
@@ -83,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/segtree_cls.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py

@@ -128,7 +128,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution_fast.test.py

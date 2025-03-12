@@ -108,7 +108,7 @@ data:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py

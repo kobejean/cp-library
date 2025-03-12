@@ -15,15 +15,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Reversible\n\ndef enumerate_rev(A: Reversible, start: int =\
-    \ 0):\n    A = list(enumerate(reversed(A), start))\n    return A\n"
+    \ 0):\n    start -= 1\n    for i in range(len(A)-1,-1,-1):\n        yield (start:=start+1),\
+    \ A[i]\n"
   code: "import cp_library.alg.iter.__header__\nfrom typing import Reversible\n\n\
-    def enumerate_rev(A: Reversible, start: int = 0):\n    A = list(enumerate(reversed(A),\
-    \ start))\n    return A"
+    def enumerate_rev(A: Reversible, start: int = 0):\n    start -= 1\n    for i in\
+    \ range(len(A)-1,-1,-1):\n        yield (start:=start+1), A[i]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/enumerate_rev_fn.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/enumerate_rev_fn.py

@@ -147,31 +147,33 @@ data:
     \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
     \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
     \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
-    \ Va: list[int], Ea: list[int]):\n        G.N = N\n        \"\"\"The number of\
-    \ vertices.\"\"\"\n        G.M = M\n        \"\"\"The number of edges.\"\"\"\n\
-    \        G.U = U\n        \"\"\"A list of source vertices in the original edge\
-    \ list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination vertices in\
-    \ the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\"deg[u] is\
-    \ the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\"La[u] stores\
-    \ the start index of the list of adjacent vertices from u.\"\"\"\n        G.Ra\
-    \ = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent vertices\
-    \ from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u],\
-    \ useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\"Va[i] lists\
-    \ adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n  \
-    \      \"\"\"Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].\n\
-    \        For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M]\
-    \ -> U[e-M].\n        \"\"\"\n        G.stack: list[int] = None\n        G.order:\
-    \ list[int] = None\n        G.vis: list[int] = None\n\n    def __len__(G) -> int:\
-    \ return G.N\n    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])\n\
-    \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
-    \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
-    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
-    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
-    \ None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\n    def\
-    \ shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf: return\
-    \ None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while\
-    \ v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n \
-    \   \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
+    \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
+    \      \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The\
+    \ number of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices\
+    \ in the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
+    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
+    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
+    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
+    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
+    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
+    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
+    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
+    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
+    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
+    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.twin = twin if twin\
+    \ is not None else range(len(Ua))\n        \"\"\"twin[i] in undirected graphs\
+    \ stores index j of the same edge but with u and v swapped.\"\"\"\n        G.stack:\
+    \ list[int] = None\n        G.order: list[int] = None\n        G.vis: list[int]\
+    \ = None\n\n    def __len__(G) -> int: return G.N\n    def __getitem__(G, u):\
+    \ return islice(G.Va,G.La[u],G.Ra[u])\n    def range(G, u): return range(G.La[u],G.Ra[u])\n\
+    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    if s == None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\
+    \n    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf:\
+    \ return None\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)\n  \
+    \      while v != s: vertices.append(v := Ua[back[v]])\n        return vertices[::-1]\n\
+    \    \n    def shortest_path_edge_ids(G, s: int, t: int):\n        if G.distance(s,\
     \ t) >= inf: return None\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back,\
     \ u32f(0), t\n        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n\
     \        return edges[::-1]\n    \n    @overload\n    def bfs(G, s: Union[int,list]\
@@ -223,24 +225,28 @@ data:
     \ = None,\n            enter_fn: Callable[[int],None] = None,\n            leave_fn:\
     \ Callable[[int],None] = None,\n            max_depth_fn: Callable[[int],None]\
     \ = None,\n            down_fn: Callable[[int,int,int],None] = None,\n       \
-    \     back_fn: Callable[[int,int,int],None] = None,\n            cross_fn: Callable[[int,int,int],None]\
-    \ = None,\n            up_fn: Callable[[int,int,int],None] = None):\n        Va,\
-    \ La, Ra, I = G.Va, G.La, G.Ra, G.La[:]\n        G.state, G.stack = state, stack\
-    \ = u8f(G.N), elist(G.N if max_depth is None else max_depth+1)\n        G.back\
-    \ = back = i32f(G.N, -2)\n        for s in G.starts(s):\n            if state[s]:\
-    \ continue\n            back[s] = -1; stack.append(s)\n            while stack:\n\
-    \                if state[u := stack[-1]] == 0:\n                    state[u]\
-    \ = 1\n                    if enter_fn: enter_fn(u)\n                    if max_depth\
+    \     back_fn: Callable[[int,int,int],None] = None,\n            forward_fn: Callable[[int,int,int],None]\
+    \ = None,\n            cross_fn: Callable[[int,int,int],None] = None,\n      \
+    \      up_fn: Callable[[int,int,int],None] = None):\n        Va, La, Ra, I, twin,\
+    \ tin, time = G.Va, G.La, G.Ra, G.La[:], G.twin, i32f(G.N, -1), -1\n        G.state,\
+    \ G.stack = state, stack = u8f(G.N), elist(G.N if max_depth is None else max_depth+1)\n\
+    \        G.back = back = i32f(G.N, -2)\n        G.tin = tin\n        for s in\
+    \ G.starts(s):\n            if state[s]: continue\n            back[s], tin[s]\
+    \ = -1, (time := time+1); stack.append(s)\n            while stack:\n        \
+    \        if state[u := stack[-1]] == 0:\n                    state[u] = 1\n  \
+    \                  if enter_fn: enter_fn(u)\n                    if max_depth\
     \ is not None and len(stack) > max_depth:\n                        I[u] = Ra[u]\n\
     \                        if max_depth_fn: max_depth_fn(u)\n                if\
     \ (i := I[u]) < Ra[u]:\n                    I[u] += 1\n                    if\
-    \ (s := state[v := Va[i]]) == 0:\n                        back[v] = i\n      \
-    \                  stack.append(v)\n                        if down_fn: down_fn(u,v,i)\n\
-    \                    elif back_fn and s == 1: back_fn(u,v,i)\n               \
-    \     elif cross_fn and s == 2: cross_fn(u,v,i)\n                else:\n     \
-    \               stack.pop()\n                    state[u] = 2\n              \
-    \      if backtrack: state[u], I[u] = 0, La[u]\n                    if leave_fn:\
-    \ leave_fn(u)\n                    if up_fn and stack: up_fn(u, stack[-1], ~back[u])\n\
+    \ (s := state[v := Va[i]]) == 0:\n                        back[v], tin[v] = i,\
+    \ (time := time+1); stack.append(v)\n                        if down_fn: down_fn(u,v,i)\n\
+    \                    elif back_fn and s == 1 and back[u] != twin[i]: back_fn(u,v,i)\n\
+    \                    elif (cross_fn or forward_fn) and s == 2:\n             \
+    \           if forward_fn and tin[u] < tin[v]: forward_fn(u,v,i)\n           \
+    \             elif cross_fn: cross_fn(u,v,i)\n                else:\n        \
+    \            stack.pop()\n                    state[u] = 2\n                 \
+    \   if backtrack: state[u], I[u] = 0, La[u]\n                    if leave_fn:\
+    \ leave_fn(u)\n                    if up_fn and stack: up_fn(u, stack[-1], back[u])\n\
     \    \n    def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:\n\
     \        N, Ra, Va, I = G.N, G.Ra, G.Va, G.La[:]\n        stack, back, plst =\
     \ elist(N), i32f(N,-2), PacketList(order := elist(2*N), N-1)\n        G.back,\
@@ -301,16 +307,17 @@ data:
     \ x & lst.mask\n\nclass Graph(GraphBase):\n    def __init__(G, N: int, U: list[int],\
     \ V: list[int]):\n        M, Ma, deg = len(U), 0, u32f(N)\n        for e in range(M\
     \ := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n           \
-    \ deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        Ea, Ua, Va, La, Ra,\
-    \ i = i32f(Ma), u32f(Ma), u32f(Ma), u32f(N), u32f(N), 0\n        for u in range(N):\
-    \ La[u], Ra[u], i = i, i, i+deg[u]\n        for e in range(M):\n            i,\
-    \ j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i] = i+1,\
-    \ u, v, e\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j]\
-    \ = j+1, v, u, e\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\
-    \n\nfrom typing import Iterable, Type, Union, overload\n\n@overload\ndef read()\
-    \ -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
-    def read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \ deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea, Ua, Va,\
+    \ La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma), u32f(Ma), u32f(N), u32f(N), 0\n  \
+    \      for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]\n        for e in range(M):\n\
+    \            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i],\
+    \ Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n        \
+    \    Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\n\nfrom typing import Iterable, Type,\
+    \ Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
+    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
+    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
     \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
@@ -341,7 +348,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/cycle_detection_undirected.test.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/cycle_detection_undirected.test.py

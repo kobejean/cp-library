@@ -19,7 +19,8 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \n\ndef pack_sm(N: int):\n    s = N.bit_length()\n    return s, (1<<s)-1\n\ndef\
     \ pack_enc(a: int, b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab:\
-    \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef iargsort(A: list[int],\
+    \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n\
+    \    return [a << s | i for i,a in enumerate(A)]\n\ndef iargsort(A: list[int],\
     \ reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n        for i,a\
     \ in enumerate(A): A[i] = a<<s|i^m\n        A.sort(reverse=True)\n        for\
     \ i,a in enumerate(A): A[i] = (a^m)&m\n    else:\n        for i,a in enumerate(A):\
@@ -36,7 +37,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/iargsort_fn.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/iargsort_fn.py

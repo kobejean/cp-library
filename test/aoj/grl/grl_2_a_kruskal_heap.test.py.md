@@ -196,7 +196,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_a_kruskal_heap.test.py

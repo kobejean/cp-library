@@ -86,7 +86,7 @@ data:
   path: cp_library/math/conv/superset_transform_fn.py
   requiredBy:
   - cp_library/math/conv/and_conv_fn.py
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_and_convolution.test.py

@@ -110,7 +110,7 @@ data:
   path: cp_library/alg/graph/dfs_events_fn.py
   requiredBy:
   - cp_library/alg/graph/articulation_points_fn.py
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py

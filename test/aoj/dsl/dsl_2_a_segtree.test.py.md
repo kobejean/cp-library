@@ -32,10 +32,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
     \              \n'''\nfrom typing import Callable, Generic, Union\nfrom typing\
-    \ import TypeVar\n_T = TypeVar('T')\n\nclass SegTree(Generic[_T]):\n    def __init__(self,\
-    \ op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) -> None:\n     \
-    \   if isinstance(v, int): v = [e] * v\n        self.op, self.e, self.n = op,\
-    \ e, (n := len(v))\n        self.log, self.sz, self.d = (log := (n-1).bit_length()+1),\
+    \ import TypeVar\n_T = TypeVar('T')\n\n\n\nclass SegTree(Generic[_T]):\n    def\
+    \ __init__(self, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) ->\
+    \ None:\n        if isinstance(v, int): v = [e] * v\n        self.op, self.e,\
+    \ self.n = op, e, (n := len(v))\n        self.log, self.sz, self.d = (log := (n-1).bit_length()+1),\
     \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): self.d[sz + i]\
     \ = v[i]\n        for i in range(sz-1,0,-1): self.d[i] = op(self.d[i<<1], self.d[i<<1|1])\n\
     \n    def set(self, p: int, x: _T) -> None:\n        assert 0 <= p < self.n\n\
@@ -107,7 +107,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/dsl_2_a_segtree.test.py

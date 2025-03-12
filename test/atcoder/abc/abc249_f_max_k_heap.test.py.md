@@ -143,44 +143,45 @@ data:
     \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nfrom typing import Reversible\n\ndef rev_enumerate(A: Reversible, start: int\
-    \ = 0):\n    A = list(enumerate(A, start))\n    return A[::-1]\n\n\nfrom collections\
-    \ import UserList\nfrom heapq import heapify, heappop, heappush, heappushpop,\
-    \ heapreplace\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
-    \    def pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
-    \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MinHeap(HeapProtocol[_T],\
-    \ UserList[_T]):\n    def __init__(self, iterable: Iterable = None):\n       \
-    \ super().__init__(iterable)\n        heapify(self.data)\n    \n    def pop(self):\
-    \ return heappop(self.data)\n    def push(self, item: _T): heappush(self.data,\
-    \ item)\n    def pushpop(self, item: _T): return heappushpop(self.data, item)\n\
-    \    def replace(self, item: _T): return heapreplace(self.data, item)\n\n\nclass\
-    \ KHeapMixin(HeapProtocol[_T], Parsable):\n    \"\"\"KHeapMixin[K: int, T: type,\
-    \ N: Union[int,None]]\"\"\"\n    def __init__(heap, K: int):\n        heap.K =\
-    \ K\n\n    def added(heap, item: _T): ...\n\n    def removed(heap, item: _T):\
-    \ ...\n    \n    def pop(heap):\n        item = super().pop()\n        heap.removed(item)\n\
-    \        return item\n    \n    def push(heap, item: _T):\n        if len(heap)\
-    \ < heap._K:\n            heap.added(item)\n            super().push(item)\n \
-    \       elif heap._K:\n            assert len(heap) == heap._K, f'{len(heap)=}\
-    \ {heap._K}'\n            heap.pushpop(item)\n    \n    def pushpop(heap, item:\
-    \ _T):\n        if item != (remove := super().pushpop(item)):\n            heap.removed(remove)\n\
-    \            heap.added(item)\n            return remove\n        else:\n    \
-    \        return item\n    \n    def replace(heap, item: _T):\n        remove =\
-    \ super().replace(item)\n        heap.removed(remove)\n        heap.added(item)\n\
-    \        return remove\n    \n    \n    @property\n    def K(heap):\n        return\
-    \ heap._K\n\n    @K.setter\n    def K(heap, K):\n        heap._K = K\n       \
-    \ if K is not None:\n            while len(heap) > K:\n                heap.pop()\n\
-    \    \n    @classmethod\n    def compile(cls, K: int, T: type, N: Union[int,None]\
-    \ = None):\n        elm = Parser.compile(T)\n        if N is None:\n         \
-    \   def parse(ts: TokenStream):\n                return cls(K, (elm(ts) for _\
-    \ in ts.wait()))\n        else:\n            def parse(ts: TokenStream):\n   \
-    \             return cls(K, (elm(ts) for _ in range(N)))\n        return parse\n\
-    \nclass MaxKHeap(KHeapMixin[_T], MinHeap[_T]):\n    \"\"\"MaxKHeap[K: int, T:\
-    \ type, N: Union[int,None]]\"\"\"\n\n    def __init__(self, K: int, iterable:\
-    \ Iterable[_T] = None):\n        MinHeap.__init__(self, iterable)\n        KHeapMixin.__init__(self,\
-    \ K)\n\nclass BadOps(MaxKHeap[int]):\n    def __init__(self, K: int, x: int):\n\
-    \        super().__init__(K)\n        self.x = x\n        self.ans = x\n\n   \
-    \ def added(self, y):\n        self.x += y\n        self.ans = max(self.ans, self.x)\n\
-    \    \n    def removed(self, y):\n        self.x -= y\n        self.ans = max(self.ans,\
-    \ self.x)\n\nif __name__ == \"__main__\":\n    main()\n"
+    \ = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n        yield\
+    \ (start:=start-1), A[i]\n\n\nfrom collections import UserList\nfrom heapq import\
+    \ heapify, heappop, heappush, heappushpop, heapreplace\nfrom typing import Generic\n\
+    \nclass HeapProtocol(Generic[_T]):\n    def pop(self) -> _T: ...\n    def push(self,\
+    \ item: _T): ...\n    def pushpop(self, item: _T) -> _T: ...\n    def replace(self,\
+    \ item: _T) -> _T: ...\n\nclass MinHeap(HeapProtocol[_T], UserList[_T]):\n   \
+    \ def __init__(self, iterable: Iterable = None):\n        super().__init__(iterable)\n\
+    \        heapify(self.data)\n    \n    def pop(self): return heappop(self.data)\n\
+    \    def push(self, item: _T): heappush(self.data, item)\n    def pushpop(self,\
+    \ item: _T): return heappushpop(self.data, item)\n    def replace(self, item:\
+    \ _T): return heapreplace(self.data, item)\n\n\nclass KHeapMixin(HeapProtocol[_T],\
+    \ Parsable):\n    \"\"\"KHeapMixin[K: int, T: type, N: Union[int,None]]\"\"\"\n\
+    \    def __init__(heap, K: int):\n        heap.K = K\n\n    def added(heap, item:\
+    \ _T): ...\n\n    def removed(heap, item: _T): ...\n    \n    def pop(heap):\n\
+    \        item = super().pop()\n        heap.removed(item)\n        return item\n\
+    \    \n    def push(heap, item: _T):\n        if len(heap) < heap._K:\n      \
+    \      heap.added(item)\n            super().push(item)\n        elif heap._K:\n\
+    \            assert len(heap) == heap._K, f'{len(heap)=} {heap._K}'\n        \
+    \    heap.pushpop(item)\n    \n    def pushpop(heap, item: _T):\n        if item\
+    \ != (remove := super().pushpop(item)):\n            heap.removed(remove)\n  \
+    \          heap.added(item)\n            return remove\n        else:\n      \
+    \      return item\n    \n    def replace(heap, item: _T):\n        remove = super().replace(item)\n\
+    \        heap.removed(remove)\n        heap.added(item)\n        return remove\n\
+    \    \n    \n    @property\n    def K(heap):\n        return heap._K\n\n    @K.setter\n\
+    \    def K(heap, K):\n        heap._K = K\n        if K is not None:\n       \
+    \     while len(heap) > K:\n                heap.pop()\n    \n    @classmethod\n\
+    \    def compile(cls, K: int, T: type, N: Union[int,None] = None):\n        elm\
+    \ = Parser.compile(T)\n        if N is None:\n            def parse(ts: TokenStream):\n\
+    \                return cls(K, (elm(ts) for _ in ts.wait()))\n        else:\n\
+    \            def parse(ts: TokenStream):\n                return cls(K, (elm(ts)\
+    \ for _ in range(N)))\n        return parse\n\nclass MaxKHeap(KHeapMixin[_T],\
+    \ MinHeap[_T]):\n    \"\"\"MaxKHeap[K: int, T: type, N: Union[int,None]]\"\"\"\
+    \n\n    def __init__(self, K: int, iterable: Iterable[_T] = None):\n        MinHeap.__init__(self,\
+    \ iterable)\n        KHeapMixin.__init__(self, K)\n\nclass BadOps(MaxKHeap[int]):\n\
+    \    def __init__(self, K: int, x: int):\n        super().__init__(K)\n      \
+    \  self.x = x\n        self.ans = x\n\n    def added(self, y):\n        self.x\
+    \ += y\n        self.ans = max(self.ans, self.x)\n    \n    def removed(self,\
+    \ y):\n        self.x -= y\n        self.ans = max(self.ans, self.x)\n\nif __name__\
+    \ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc249/tasks/abc249_f\n\
     \n\ndef main():\n    N, K = read(tuple[int, ...])\n    ops = read(list[tuple[int,\
     \ ...], N])\n    diff = []\n    x = 0\n    for t, y in ops:\n        match t:\n\
@@ -211,7 +212,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc249_f_max_k_heap.test.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc249_f_max_k_heap.test.py

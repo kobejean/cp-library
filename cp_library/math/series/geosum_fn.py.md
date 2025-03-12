@@ -14,14 +14,14 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef geosum(a, r, n):\n    if r == 1: return a*n\n    return a*(pow(r,n)-1)//(r-1)\n"
-  code: "import cp_library.math.series.__header__\n\ndef geosum(a, r, n):\n    if\
-    \ r == 1: return a*n\n    return a*(pow(r,n)-1)//(r-1)\n"
+    \ndef geosum(a, r, n):\n    return a*n if r == 1 else a*(pow(r,n)-1)//(r-1)\n"
+  code: "import cp_library.math.series.__header__\n\ndef geosum(a, r, n):\n    return\
+    \ a*n if r == 1 else a*(pow(r,n)-1)//(r-1)\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/series/geosum_fn.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/series/geosum_fn.py

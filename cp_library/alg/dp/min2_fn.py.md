@@ -2,10 +2,13 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+    title: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -21,9 +24,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/min2_fn.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2025-03-12 22:12:43+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
 documentation_of: cp_library/alg/dp/min2_fn.py
 layout: document
 redirect_from:

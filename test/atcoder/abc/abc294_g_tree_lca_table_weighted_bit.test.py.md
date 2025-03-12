@@ -56,8 +56,8 @@ data:
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/tree/bit_cls.py
-    title: cp_library/ds/tree/bit_cls.py
+    path: cp_library/ds/tree/bit/bit_cls.py
+    title: cp_library/ds/tree/bit/bit_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -745,38 +745,86 @@ data:
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n        T.Wpar\
     \ = Wpar\n\n\nclass TreeWeighted(TreeWeightedProtocol, GraphWeighted):\n    @classmethod\n\
     \    def compile(cls, N: int, E: Union[type,int] = EdgeWeighted[-1]):\n      \
-    \  return GraphWeighted.compile.__func__(cls, N, N-1, E)\nfrom typing import Sequence\n\
-    \nclass BIT(Sequence[int]):\n    def __init__(bit, v):\n        if isinstance(v,\
-    \ int): bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n        bit.lb =\
-    \ 1<<(bit.n.bit_length()-1)\n\n    def build(bit, data):\n        bit.d, bit.n\
-    \ = data, len(data)\n        for i in range(bit.n):\n            if (r := i|i+1)\
-    \ < bit.n: bit.d[r] += bit.d[i]\n\n    def add(bit, i, x):\n        assert 0 <=\
-    \ i <= bit.n\n        while i < bit.n:\n            bit.d[i] += x\n          \
-    \  i |= i+1\n\n    def sum(bit, r: int) -> int:\n        assert 0 <= r <= bit.n\n\
-    \        s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n        return s\n\
-    \n    def range_sum(bit, l, r):\n        assert 0 <= l <= r <= bit.n\n       \
-    \ s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n        while l: s, l =\
-    \ s-bit.d[l-1], l&l-1\n        return s\n\n    def __len__(bit) -> int:\n    \
-    \    return bit.n\n    \n    def __getitem__(bit, i: int) -> int:\n        s,\
-    \ l = bit.d[i], i&(i+1)\n        while l != i: s, i = s-bit.d[i-1], i-(i&-i)\n\
-    \        return s\n    get = __getitem__\n    \n    def __setitem__(bit, i: int,\
-    \ x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\n  \
-    \  def prelist(bit) -> list[int]:\n        pre = [0]+bit.d\n        for i in range(bit.n+1):\
-    \ pre[i] += pre[i&i-1]\n        return pre\n\n    def bisect_left(bit, v) -> int:\n\
-    \        return bit.bisect_right(v-1) if v>0 else 0\n    \n    def bisect_right(bit,\
-    \ v) -> int:\n        i, ni = s, m = 0, bit.lb\n        while m:\n           \
-    \ if ni <= bit.n and (ns:=s+bit.d[ni-1]) <= v: s, i = ns, ni\n            ni =\
-    \ (m:=m>>1)|i\n        return i\n\nfrom typing import Iterable, Type, Union, overload\n\
-    \n@overload\ndef read() -> Iterable[int]: ...\n@overload\ndef read(spec: int)\
-    \ -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False)\
-    \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
-    \ char and spec is None: return map(int, TokenStream.default.line())\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
-    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the values\
-    \ to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \  return GraphWeighted.compile.__func__(cls, N, N-1, E)\n\n\"\"\"\n\u257A\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n            \u250F\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\
+    \            \n            \u2503                                    7 \u2503\
+    \            \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u252F\u2501\u251B            \n            \u250F\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2513                 \u2502              \n            \u2503  \
+    \              3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n            \u2517\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u252F\u2501\u251B                 \u2502              \n  \
+    \          \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513      \
+    \ \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502\
+    \              \n            \u2503      1 \u2503\u25C4\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\
+    \u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\
+    \u251B       \u2502              \n            \u250F\u2501\u2501\u2501\u2513\
+    \  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513\
+    \  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502              \n            \u2503\
+    \ 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\
+    \u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524              \n        \
+    \    \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
+    \  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
+    \              \n              \u2502    \u2502    \u2502    \u2502    \u2502\
+    \    \u2502    \u2502    \u2502              \n              \u25BC    \u25BC\
+    \    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC              \n\
+    \            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\
+    \u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\
+    \u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\
+    \u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503 1 \u2503\u2503\
+    \ 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6 \u2503\u2503 7\
+    \ \u2503            \n            \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\
+    \u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\
+    \u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\
+    \u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data Structure - Tree -\
+    \ Binary Index Tree            \n\"\"\"\n\nclass BIT:\n    def __init__(bit, v:\
+    \ Union[int, list[int]]):\n        if isinstance(v, int): bit.d, bit.n = [0]*v,\
+    \ v\n        else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\n\
+    \    def build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for\
+    \ i in range(bit.n):\n            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\
+    \n    def add(bit, i, x):\n        while i < bit.n:\n            bit.d[i] += x\n\
+    \            i |= i+1\n\n    def sum(bit, n: int) -> int:\n        s = 0\n   \
+    \     while n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n    def range_sum(bit,\
+    \ l, r):\n        s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n       \
+    \ while l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n    def __len__(bit)\
+    \ -> int:\n        return bit.n\n    \n    def __getitem__(bit, i: int) -> int:\n\
+    \        s, l = bit.d[i], i&(i+1)\n        while l != i: s, i = s-bit.d[i-1],\
+    \ i-(i&-i)\n        return s\n    get = __getitem__\n    \n    def __setitem__(bit,\
+    \ i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\
+    \n    def prelist(bit) -> list[int]:\n        pre = [0]+bit.d\n        for i in\
+    \ range(bit.n+1): pre[i] += pre[i&i-1]\n        return pre\n\n    def bisect_left(bit,\
+    \ v) -> int:\n        return bit.bisect_right(v-1) if v>0 else 0\n    \n    def\
+    \ bisect_right(bit, v) -> int:\n        i = s = 0; ni = m = bit.lb\n        while\
+    \ m:\n            if ni <= bit.n and (ns:=s+bit.d[ni-1]) <= v: s, i = ns, ni\n\
+    \            ni = (m:=m>>1)|i\n        return i\n\nfrom typing import Iterable,\
+    \ Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
+    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
+    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
+    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
+    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
@@ -791,13 +839,13 @@ data:
     \ 1, i, w:\n                    update(i-1,w)\n                case 2, u, v:\n\
     \                    query(u-1,v-1)\n    answer()\n\nfrom cp_library.alg.tree.tree_weighted_cls\
     \ import TreeWeighted\nfrom cp_library.alg.tree.lca_table_weighted_iterative_cls\
-    \ import LCATableWeighted\nfrom cp_library.ds.tree.bit_cls import BIT\nfrom cp_library.io.read_fn\
-    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
-    :\n    main()"
+    \ import LCATableWeighted\nfrom cp_library.ds.tree.bit.bit_cls import BIT\nfrom\
+    \ cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
+    \nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  - cp_library/ds/tree/bit_cls.py
+  - cp_library/ds/tree/bit/bit_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/alg/graph/edge_weighted_cls.py
@@ -821,7 +869,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py

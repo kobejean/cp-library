@@ -128,7 +128,7 @@ data:
     \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
     \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nfrom typing import Dict, List, Optional\n\nclass Trie:\n    __slots__ = 'dic',\
+    \n\nfrom typing import Dict, List, Optional\n\nclass Trie:\n    __slots__ = 'dic',\
     \ 'parent', 'last', 'count', 'word'\n\n    def __init__(self):\n        self.dic:\
     \ Dict[str, Trie] = {}\n        self.parent: Optional[Trie] = None\n        self.last:\
     \ str = \"\"\n        self.count: int = 0\n        self.word: bool = False\n \
@@ -178,7 +178,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py

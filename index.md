@@ -31,10 +31,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/dp2d_cls.py
       title: cp_library/alg/dp/dp2d_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/max2_fn.py
       title: cp_library/alg/dp/max2_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/min2_fn.py
       title: cp_library/alg/dp/min2_fn.py
     - icon: ':heavy_check_mark:'
@@ -203,11 +203,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
       title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - name: cp_library/alg/graph/snippets
+  - name: cp_library/alg/graph/fast/snippets
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
-      title: cp_library/alg/graph/snippets/strongly_connected_components_fn.py
+      path: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+      title: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+      title: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+      title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - name: cp_library/alg/iter
     pages:
     - icon: ':warning:'
@@ -492,21 +498,6 @@ data:
       path: cp_library/ds/tree/ahocorasick_cls.py
       title: cp_library/ds/tree/ahocorasick_cls.py
     - icon: ':warning:'
-      path: cp_library/ds/tree/bir_cls.py
-      title: cp_library/ds/tree/bir_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/tree/bit_cls.py
-      title: cp_library/ds/tree/bit_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/tree/bit_fast_cls.py
-      title: cp_library/ds/tree/bit_fast_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/tree/bit_group_cls.py
-      title: cp_library/ds/tree/bit_group_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/tree/bit_monoid_cls.py
-      title: cp_library/ds/tree/bit_monoid_cls.py
-    - icon: ':warning:'
       path: cp_library/ds/tree/pdsu_cls.py
       title: cp_library/ds/tree/pdsu_cls.py
     - icon: ':heavy_check_mark:'
@@ -515,6 +506,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/trie_cls.py
       title: cp_library/ds/tree/trie_cls.py
+  - name: cp_library/ds/tree/bit
+    pages:
+    - icon: ':warning:'
+      path: cp_library/ds/tree/bit/bir_cls.py
+      title: cp_library/ds/tree/bit/bir_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bit/bit_cls.py
+      title: cp_library/ds/tree/bit/bit_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/bit/bit_monoid_cls.py
+      title: cp_library/ds/tree/bit/bit_monoid_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
+      title: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - name: cp_library/io
     pages:
     - icon: ':warning:'
@@ -651,6 +656,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/subset_sum_fn.py
       title: cp_library/math/subset_sum_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/sumprod_fn.py
+      title: cp_library/math/sumprod_fn.py
   - name: cp_library/math/fps
     pages:
     - icon: ':heavy_check_mark:'
@@ -725,6 +733,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_ntt_cls.py
       title: cp_library/math/mod/mint_ntt_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/mod/sumprod_fn.py
+      title: cp_library/math/mod/sumprod_fn.py
   - name: cp_library/math/nt
     pages:
     - icon: ':warning:'
@@ -739,14 +750,8 @@ data:
   - name: cp_library/math/series
     pages:
     - icon: ':warning:'
-      path: cp_library/math/series/arithmetic_series_fn.py
-      title: cp_library/math/series/arithmetic_series_fn.py
-    - icon: ':warning:'
       path: cp_library/math/series/arthsum_fn.py
       title: cp_library/math/series/arthsum_fn.py
-    - icon: ':warning:'
-      path: cp_library/math/series/geometic_series_fn.py
-      title: cp_library/math/series/geometic_series_fn.py
     - icon: ':warning:'
       path: cp_library/math/series/geosum_fn.py
       title: cp_library/math/series/geosum_fn.py
@@ -758,6 +763,9 @@ data:
       title: cp_library/math/series/sum_of_squares_fn.py
   - name: cp_library/math/series/mod
     pages:
+    - icon: ':warning:'
+      path: cp_library/math/series/mod/arthsum_fn.py
+      title: cp_library/math/series/mod/arthsum_fn.py
     - icon: ':warning:'
       path: cp_library/math/series/mod/geosum_fn.py
       title: cp_library/math/series/mod/geosum_fn.py
@@ -928,8 +936,14 @@ data:
       path: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
       title: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
     - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+      title: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/grl_3_a_graph_articulation_points.test.py
       title: test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+      title: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/grl_3_b_graph_bridges.test.py
       title: test/aoj/grl/grl_3_b_graph_bridges.test.py
@@ -1225,5 +1239,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/set-power-series/subset_convolution_snippet.test.py
       title: test/library-checker/set-power-series/subset_convolution_snippet.test.py
+  - name: test/library-checker/tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
+      title: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
 layout: toppage
 ---

@@ -177,7 +177,7 @@ data:
   - cp_library/math/fps/fps_iinteg_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

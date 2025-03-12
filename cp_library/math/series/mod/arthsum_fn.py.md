@@ -14,21 +14,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef geometric_series(r, n, a=1):\n    if r == 1: return a * n\n    else: return\
-    \ a * (1 - r**n) // (1 - r)\n"
-  code: "import cp_library.math.series.__header__\n\ndef geometric_series(r, n, a=1):\n\
-    \    if r == 1: return a * n\n    else: return a * (1 - r**n) // (1 - r)\n"
+    \ndef arthsum(d, a, n, mod):\n    return (((n-1)*d+(a<<1)) % mod * n >> 1) % mod\n"
+  code: "import cp_library.math.series.__header__\n\ndef arthsum(d, a, n, mod):\n\
+    \    return (((n-1)*d+(a<<1)) % mod * n >> 1) % mod"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/series/geometic_series_fn.py
+  path: cp_library/math/series/mod/arthsum_fn.py
   requiredBy: []
-  timestamp: '2025-03-09 20:40:43+09:00'
+  timestamp: '2025-03-12 22:12:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: cp_library/math/series/geometic_series_fn.py
+documentation_of: cp_library/math/series/mod/arthsum_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/series/geometic_series_fn.py
-- /library/cp_library/math/series/geometic_series_fn.py.html
-title: cp_library/math/series/geometic_series_fn.py
+- /library/cp_library/math/series/mod/arthsum_fn.py
+- /library/cp_library/math/series/mod/arthsum_fn.py.html
+title: cp_library/math/series/mod/arthsum_fn.py
 ---
