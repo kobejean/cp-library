@@ -41,7 +41,7 @@ def main():
 
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
-from cp_library.math.vec.vec2d_cls import Vec2D
+from cp_library.math.linalg.vec.vec2d_cls import Vec2D
 
 if __name__ == "__main__":
     main()

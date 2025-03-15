@@ -1,9 +1,9 @@
-import cp_library.math.vec.__header__
+import cp_library.math.linalg.__header__
 
 import operator
 from numbers import Number
 from typing import Sequence
-from cp_library.math.vec.elm_wise_mixin import ElmWiseMixin
+from cp_library.math.linalg.elm_wise_mixin import ElmWiseMixin
 
 class ElmWiseInPlaceMixin(ElmWiseMixin):
     def ielm_wise(self, other, op):
