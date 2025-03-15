@@ -144,7 +144,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
   requiredBy: []
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py

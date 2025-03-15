@@ -4,12 +4,15 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':warning:'
     path: cp_library/math/linalg/elm_wise_in_place_mixin.py
     title: cp_library/math/linalg/elm_wise_in_place_mixin.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/elm_wise_mixin.py
+    title: cp_library/math/linalg/elm_wise_mixin.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -102,27 +105,45 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\n\n\nimport cp_library.math.vec.__header__\n\
-    \nimport operator\nfrom typing import Sequence\nfrom cp_library.math.vec.elm_wise_mixin\
-    \ import ElmWiseMixin\n\nclass ElmWiseInPlaceMixin(ElmWiseMixin):\n    def ielm_wise(self,\
-    \ other, op):\n        if isinstance(other, Number):\n            for i in range(len(self)):\n\
-    \                self[i] = op(self[i], other)\n        elif isinstance(other,\
-    \ Sequence) and len(self) == len(other):\n            for i in range(len(self)):\n\
-    \                self[i] = op(self[i], other[i])\n        else:\n            raise\
-    \ ValueError(\"Operand must be a number or a list of the same length\")\n    \
-    \    return self\n    \n    def __iadd__(self, other): return self.ielm_wise(other,\
-    \ operator.add)\n    def __isub__(self, other): return self.ielm_wise(other, operator.sub)\n\
-    \    def __imul__(self, other): return self.ielm_wise(other, operator.mul)\n \
-    \   def __itruediv__(self, other): return self.ielm_wise(other, operator.truediv)\n\
-    \    def __ifloordiv__(self, other): return self.ielm_wise(other, operator.floordiv)\n\
-    \    def __imod__(self, other): return self.ielm_wise(other, operator.mod)\n\n\
-    class MutVec(list, ElmWiseInPlaceMixin, Parsable):\n    def __init__(self, *args):\n\
-    \        super().__init__(args[0] if len(args) == 1 and isinstance(args[0], Iterable)\
-    \ else args)\n    \n    @classmethod\n    def compile(cls, T: type = int, N =\
-    \ None):\n        elm = Parser.compile(T)\n        if N is None:\n           \
-    \ def parse(ts: TokenStream): return cls(elm(ts) for _ in ts.wait())\n       \
-    \ else:\n            def parse(ts: TokenStream):  return cls(elm(ts) for _ in\
-    \ range(N))\n        return parse\n    \n"
+    \ return cls(next(ts))\n        return parser\n\n\n\n\n\nimport operator\nfrom\
+    \ typing import Sequence\nfrom math import hypot\n\n\nclass ElmWiseMixin:\n  \
+    \  def elm_wise(self, other, op):\n        if isinstance(other, Number):\n   \
+    \         return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
+    \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
+    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
+    )\n\n    def __add__(self, other): return self.elm_wise(other, operator.add)\n\
+    \    def __radd__(self, other): return self.elm_wise(other, operator.add)\n  \
+    \  def __sub__(self, other): return self.elm_wise(other, operator.sub)\n    def\
+    \ __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
+    \    def __mul__(self, other): return self.elm_wise(other, operator.mul)\n   \
+    \ def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n    def\
+    \ __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n  \
+    \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
+    \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
+    \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
+    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
+    \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
+    \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
+    \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
+    \  return vec / vec.magnitude()\n\nclass ElmWiseInPlaceMixin(ElmWiseMixin):\n\
+    \    def ielm_wise(self, other, op):\n        if isinstance(other, Number):\n\
+    \            for i in range(len(self)):\n                self[i] = op(self[i],\
+    \ other)\n        elif isinstance(other, Sequence) and len(self) == len(other):\n\
+    \            for i in range(len(self)):\n                self[i] = op(self[i],\
+    \ other[i])\n        else:\n            raise ValueError(\"Operand must be a number\
+    \ or a list of the same length\")\n        return self\n    \n    def __iadd__(self,\
+    \ other): return self.ielm_wise(other, operator.add)\n    def __isub__(self, other):\
+    \ return self.ielm_wise(other, operator.sub)\n    def __imul__(self, other): return\
+    \ self.ielm_wise(other, operator.mul)\n    def __itruediv__(self, other): return\
+    \ self.ielm_wise(other, operator.truediv)\n    def __ifloordiv__(self, other):\
+    \ return self.ielm_wise(other, operator.floordiv)\n    def __imod__(self, other):\
+    \ return self.ielm_wise(other, operator.mod)\n\nclass MutVec(list, ElmWiseInPlaceMixin,\
+    \ Parsable):\n    def __init__(self, *args):\n        super().__init__(args[0]\
+    \ if len(args) == 1 and isinstance(args[0], Iterable) else args)\n    \n    @classmethod\n\
+    \    def compile(cls, T: type = int, N = None):\n        elm = Parser.compile(T)\n\
+    \        if N is None:\n            def parse(ts: TokenStream): return cls(elm(ts)\
+    \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\
+    \  return cls(elm(ts) for _ in range(N))\n        return parse\n    \n"
   code: "import cp_library.__header__\nfrom typing import Iterable\nfrom cp_library.io.parser_cls\
     \ import Parsable, Parser, TokenStream\nimport cp_library.math.__header__\nimport\
     \ cp_library.math.linalg.__header__\nimport cp_library.math.linalg.mat.__header__\n\
@@ -138,10 +159,11 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/math/linalg/elm_wise_in_place_mixin.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/math/linalg/elm_wise_mixin.py
   isVerificationFile: false
   path: cp_library/math/linalg/vec/mutvec_cls.py
   requiredBy: []
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/vec/mutvec_cls.py

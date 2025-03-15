@@ -4,20 +4,29 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/elm_wise_mixin.py
+    title: cp_library/math/linalg/elm_wise_mixin.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/vec/vec2d_cls.py
+    title: cp_library/math/linalg/vec/vec2d_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/vec/vec_cls.py
+    title: cp_library/math/linalg/vec/vec_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc189/tasks/abc189_e
     links:
@@ -132,8 +141,58 @@ data:
     \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
     \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    from cp_library.math.vec.vec2d_cls import Vec2D\n\nif __name__ == \"__main__\"\
-    :\n    main()\n"
+    \nfrom typing import Sequence\nfrom math import gcd, sqrt\n\n\nfrom math import\
+    \ hypot\n\nimport operator\n\nclass ElmWiseMixin:\n    def elm_wise(self, other,\
+    \ op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
+    \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
+    \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
+    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
+    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
+    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
+    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
+    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
+    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
+    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
+    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
+    \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
+    \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
+    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
+    \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
+    \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
+    \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
+    \  return vec / vec.magnitude()\n\nclass Vec(ElmWiseMixin, tuple, Parsable):\n\
+    \    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ Iterable):\n            return super().__new__(cls, args[0])\n        return\
+    \ super().__new__(cls, args)\n\n    @classmethod\n    def compile(cls, T: type\
+    \ = int, N = None):\n        elm = Parser.compile(T)\n        if N is None:\n\
+    \            def parse(ts: TokenStream):\n                return cls(elm(ts) for\
+    \ _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n  \
+    \              return cls(elm(ts) for _ in range(N))\n        return parse\n \
+    \ \n\nclass Vec2D(Vec):\n    def __new__(cls, *args):\n        if len(args) ==\
+    \ 0:\n            return super().__new__(cls, (0,0))\n        return super().__new__(cls,\
+    \ *args)\n\n    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n\
+    \            return Vec2D(op(self[0], other), op(self[1], other))\n        if\
+    \ isinstance(other, Sequence):\n            return Vec2D(op(self[0], other[0]),\
+    \ op(self[1], other[1]))\n        raise ValueError(\"Operand must be a number\
+    \ or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n\
+    \        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
+    \    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0],\
+    \ v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec: 'Vec'):\n\
+    \        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
+    \ 'Vec'):\n        x, y = vec\n        return x*x+y*y\n    \n    def rot90(vec):\n\
+    \        x,y = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n \
+    \       x,y = vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n \
+    \       x,y = vec\n        return Vec2D(y,-x)\n    \n    def flip_x(vec):\n  \
+    \      x,y = vec\n        return Vec2D(-x,y)\n    \n    def flip_y(vec):\n   \
+    \     x,y = vec\n        return Vec2D(x,-y)\n    \n    def cross(vec, other):\n\
+    \        return vec[0]*other[1] - vec[1]*other[0]\n    \n    def slope_norm(vec):\n\
+    \        x,y = vec\n        if x == 0 and y == 0: return vec\n        if x ==\
+    \ 0: return Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n        if y == 0: return\
+    \ Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return\
+    \ Vec2D((x//g,y//g))\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
+    \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(elm(ts), elm(ts))\n        return parse\n\n\nif __name__ ==\
+    \ \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc189/tasks/abc189_e\n\
     \ndef main():\n    N = read(int)\n    pts = read(list[Vec2D, N])\n    \n    dx,dy\
     \ = Vec2D(1,0), Vec2D(0,1)\n    origin = Vec2D(0,0)\n    \n    M = read(int)\n\
@@ -149,18 +208,21 @@ data:
     \        \n    Q = read(int)\n    for _ in range(Q):\n        A, B = read(tuple[int,-1])\n\
     \        x,y = pts[B]\n        dx,dy,origin = states[A]\n        ans = x*dx+y*dy\
     \ + origin\n        write(*ans)\n\nfrom cp_library.io.read_fn import read\nfrom\
-    \ cp_library.io.write_fn import write\nfrom cp_library.math.vec.vec2d_cls import\
-    \ Vec2D\n\nif __name__ == \"__main__\":\n    main()"
+    \ cp_library.io.write_fn import write\nfrom cp_library.math.linalg.vec.vec2d_cls\
+    \ import Vec2D\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
+  - cp_library/math/linalg/vec/vec2d_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/math/linalg/vec/vec_cls.py
+  - cp_library/math/linalg/elm_wise_mixin.py
   isVerificationFile: true
   path: test/atcoder/abc/abc189_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2025-03-15 12:29:05+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-03-15 19:36:13+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc189_e_vec2d.test.py
 layout: document

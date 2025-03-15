@@ -57,7 +57,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/dsl/dsl_2_c_kdtree.test.py

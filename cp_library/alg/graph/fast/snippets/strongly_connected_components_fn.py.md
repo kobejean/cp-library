@@ -28,7 +28,7 @@ data:
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -371,7 +371,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/scc_strongly_connected_components.test.py

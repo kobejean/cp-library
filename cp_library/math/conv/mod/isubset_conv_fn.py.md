@@ -119,7 +119,7 @@ data:
   path: cp_library/math/conv/mod/isubset_conv_fn.py
   requiredBy:
   - cp_library/math/conv/mod/subset_conv_fn.py
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py

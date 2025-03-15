@@ -187,7 +187,7 @@ data:
   - cp_library/ds/heap/min_heap_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/heap/k_heap_mixin.py
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py

@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: cp_library/alg/divcon
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/fbisect_fn.py
       title: cp_library/alg/divcon/fbisect_fn.py
     - icon: ':heavy_check_mark:'
@@ -543,13 +543,13 @@ data:
     - icon: ':question:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
     - icon: ':x:'
@@ -711,7 +711,7 @@ data:
     - icon: ':warning:'
       path: cp_library/math/linalg/elm_wise_in_place_mixin.py
       title: cp_library/math/linalg/elm_wise_in_place_mixin.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/elm_wise_mixin.py
       title: cp_library/math/linalg/elm_wise_mixin.py
   - name: cp_library/math/linalg/mat
@@ -756,13 +756,13 @@ data:
     - icon: ':warning:'
       path: cp_library/math/linalg/vec/slope_cls.py
       title: cp_library/math/linalg/vec/slope_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/vec/vec2d_cls.py
       title: cp_library/math/linalg/vec/vec2d_cls.py
     - icon: ':warning:'
       path: cp_library/math/linalg/vec/vec3d_cls.py
       title: cp_library/math/linalg/vec/vec3d_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/vec/vec_cls.py
       title: cp_library/math/linalg/vec/vec_cls.py
   - name: cp_library/math/mod
@@ -981,7 +981,7 @@ data:
       title: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   - name: test/atcoder/abc
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc151_f_fbisect_left.test.py
       title: test/atcoder/abc/abc151_f_fbisect_left.test.py
     - icon: ':heavy_check_mark:'
@@ -1002,7 +1002,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc186_e_gcd_ex.test.py
       title: test/atcoder/abc/abc186_e_gcd_ex.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc189_e_vec2d.test.py
       title: test/atcoder/abc/abc189_e_vec2d.test.py
     - icon: ':heavy_check_mark:'
@@ -1050,7 +1050,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
       title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc274_e_vec2d.test.py
       title: test/atcoder/abc/abc274_e_vec2d.test.py
     - icon: ':heavy_check_mark:'

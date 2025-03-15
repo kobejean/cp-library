@@ -1,26 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/divcon/fbisect_fn.py
     title: cp_library/alg/divcon/fbisect_fn.py
   - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/elm_wise_mixin.py
+    title: cp_library/math/linalg/elm_wise_mixin.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/vec/vec2d_cls.py
+    title: cp_library/math/linalg/vec/vec2d_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/vec/vec_cls.py
+    title: cp_library/math/linalg/vec/vec_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     ERROR: 1e-6
     PROBLEM: https://atcoder.jp/contests/abc151/tasks/abc151_f
@@ -50,17 +59,17 @@ data:
     \      hi = mid\n        else:\n            lo = mid\n            \n    return\
     \ lo\n\ndef fbisect_right(key, hi, x=False, lo=0.0, tol=1e-9):\n    while hi -\
     \ lo > tol:\n        mid = (lo + hi) / 2\n        if key(mid) > x:\n         \
-    \   hi = mid\n        else:\n            lo = mid\n    return hi\nfrom cp_library.math.vec.vec2d_cls\
-    \ import Vec2D\n\n\nfrom typing import Iterable, Type, Union, overload\nimport\
-    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
-    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \   hi = mid\n        else:\n            lo = mid\n    return hi\n\nfrom numbers\
+    \ import Number\nfrom typing import Sequence\nfrom math import gcd, sqrt\n\nimport\
+    \ typing\nfrom collections import deque\nfrom types import GenericAlias \nfrom\
+    \ typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -130,10 +139,62 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
-    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \ return cls(next(ts))\n        return parser\n\n\nfrom typing import Iterable\
+    \ \nfrom math import hypot\n\nimport operator\n\nclass ElmWiseMixin:\n    def\
+    \ elm_wise(self, other, op):\n        if isinstance(other, Number):\n        \
+    \    return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
+    \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
+    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
+    )\n\n    def __add__(self, other): return self.elm_wise(other, operator.add)\n\
+    \    def __radd__(self, other): return self.elm_wise(other, operator.add)\n  \
+    \  def __sub__(self, other): return self.elm_wise(other, operator.sub)\n    def\
+    \ __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
+    \    def __mul__(self, other): return self.elm_wise(other, operator.mul)\n   \
+    \ def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n    def\
+    \ __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n  \
+    \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
+    \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
+    \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
+    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
+    \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
+    \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
+    \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
+    \  return vec / vec.magnitude()\n\nclass Vec(ElmWiseMixin, tuple, Parsable):\n\
+    \    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ Iterable):\n            return super().__new__(cls, args[0])\n        return\
+    \ super().__new__(cls, args)\n\n    @classmethod\n    def compile(cls, T: type\
+    \ = int, N = None):\n        elm = Parser.compile(T)\n        if N is None:\n\
+    \            def parse(ts: TokenStream):\n                return cls(elm(ts) for\
+    \ _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n  \
+    \              return cls(elm(ts) for _ in range(N))\n        return parse\n \
+    \ \n\nclass Vec2D(Vec):\n    def __new__(cls, *args):\n        if len(args) ==\
+    \ 0:\n            return super().__new__(cls, (0,0))\n        return super().__new__(cls,\
+    \ *args)\n\n    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n\
+    \            return Vec2D(op(self[0], other), op(self[1], other))\n        if\
+    \ isinstance(other, Sequence):\n            return Vec2D(op(self[0], other[0]),\
+    \ op(self[1], other[1]))\n        raise ValueError(\"Operand must be a number\
+    \ or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n\
+    \        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
+    \    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0],\
+    \ v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec: 'Vec'):\n\
+    \        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
+    \ 'Vec'):\n        x, y = vec\n        return x*x+y*y\n    \n    def rot90(vec):\n\
+    \        x,y = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n \
+    \       x,y = vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n \
+    \       x,y = vec\n        return Vec2D(y,-x)\n    \n    def flip_x(vec):\n  \
+    \      x,y = vec\n        return Vec2D(-x,y)\n    \n    def flip_y(vec):\n   \
+    \     x,y = vec\n        return Vec2D(x,-y)\n    \n    def cross(vec, other):\n\
+    \        return vec[0]*other[1] - vec[1]*other[0]\n    \n    def slope_norm(vec):\n\
+    \        x,y = vec\n        if x == 0 and y == 0: return vec\n        if x ==\
+    \ 0: return Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n        if y == 0: return\
+    \ Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return\
+    \ Vec2D((x//g,y//g))\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
+    \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(elm(ts), elm(ts))\n        return parse\n\n\nfrom typing import\
+    \ Iterable, Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n\
+    @overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
+    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
+    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
     \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
@@ -155,20 +216,23 @@ data:
     \n    def f(r):\n        for candidate in candidates(r):\n            if all(candidate.distance(point)\
     \ <= r+1e-9 for point in points):\n                return True\n        return\
     \ False\n    \n    ans = fbisect_left(f, 2000.0)\n    write(f'{ans:0.18f}')\n\n\
-    \nfrom cp_library.alg.divcon.fbisect_fn import fbisect_left\nfrom cp_library.math.vec.vec2d_cls\
+    \nfrom cp_library.alg.divcon.fbisect_fn import fbisect_left\nfrom cp_library.math.linalg.vec.vec2d_cls\
     \ import Vec2D\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
     \ import write\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/alg/divcon/fbisect_fn.py
+  - cp_library/math/linalg/vec/vec2d_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
+  - cp_library/math/linalg/vec/vec_cls.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/math/linalg/elm_wise_mixin.py
   isVerificationFile: true
   path: test/atcoder/abc/abc151_f_fbisect_left.test.py
   requiredBy: []
-  timestamp: '2025-03-15 12:29:05+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-03-15 19:36:13+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc151_f_fbisect_left.test.py
 layout: document

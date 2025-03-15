@@ -185,13 +185,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/legacy/read_fn.py
     title: cp_library/io/legacy/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':question:'
@@ -209,13 +209,13 @@ data:
   - icon: ':warning:'
     path: cp_library/math/linalg/vec/slope_cls.py
     title: cp_library/math/linalg/vec/slope_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/linalg/vec/vec2d_cls.py
     title: cp_library/math/linalg/vec/vec2d_cls.py
   - icon: ':warning:'
     path: cp_library/math/linalg/vec/vec3d_cls.py
     title: cp_library/math/linalg/vec/vec3d_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/linalg/vec/vec_cls.py
     title: cp_library/math/linalg/vec/vec_cls.py
   _extendedVerifiedWith:
@@ -288,7 +288,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
     title: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc151_f_fbisect_left.test.py
     title: test/atcoder/abc/abc151_f_fbisect_left.test.py
   - icon: ':heavy_check_mark:'
@@ -309,7 +309,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc186_e_gcd_ex.test.py
     title: test/atcoder/abc/abc186_e_gcd_ex.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc189_e_vec2d.test.py
     title: test/atcoder/abc/abc189_e_vec2d.test.py
   - icon: ':heavy_check_mark:'
@@ -357,7 +357,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
     title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc274_e_vec2d.test.py
     title: test/atcoder/abc/abc274_e_vec2d.test.py
   - icon: ':heavy_check_mark:'
@@ -670,7 +670,7 @@ data:
   - cp_library/ds/grid.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/queries_cls.py
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py

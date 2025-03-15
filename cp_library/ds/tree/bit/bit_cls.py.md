@@ -137,7 +137,7 @@ data:
   requiredBy:
   - cp_library/math/invcnt_fn.py
   - cp_library/ds/tree/bit/bir_cls.py
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_add_range_sum.test.py

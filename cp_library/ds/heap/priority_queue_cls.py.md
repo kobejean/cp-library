@@ -246,7 +246,7 @@ data:
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2025-03-15 12:29:05+09:00'
+  timestamp: '2025-03-15 19:36:13+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py

@@ -3,21 +3,42 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':warning:'
+    path: cp_library/math/linalg/elm_wise_in_place_mixin.py
+    title: cp_library/math/linalg/elm_wise_in_place_mixin.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/mat/mat_cls.py
+    title: cp_library/math/linalg/mat/mat_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/mat/mod/mat_cls.py
+    title: cp_library/math/linalg/mat/mod/mat_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/vec/mutvec_cls.py
+    title: cp_library/math/linalg/vec/mutvec_cls.py
+  - icon: ':warning:'
     path: cp_library/math/linalg/vec/slope_cls.py
     title: cp_library/math/linalg/vec/slope_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/linalg/vec/vec2d_cls.py
     title: cp_library/math/linalg/vec/vec2d_cls.py
   - icon: ':warning:'
     path: cp_library/math/linalg/vec/vec3d_cls.py
     title: cp_library/math/linalg/vec/vec3d_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/linalg/vec/vec_cls.py
     title: cp_library/math/linalg/vec/vec_cls.py
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc151_f_fbisect_left.test.py
+    title: test/atcoder/abc/abc151_f_fbisect_left.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc189_e_vec2d.test.py
+    title: test/atcoder/abc/abc189_e_vec2d.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc274_e_vec2d.test.py
+    title: test/atcoder/abc/abc274_e_vec2d.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "from math import hypot\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -71,13 +92,20 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/elm_wise_mixin.py
   requiredBy:
+  - cp_library/math/linalg/elm_wise_in_place_mixin.py
+  - cp_library/math/linalg/mat/mod/mat_cls.py
+  - cp_library/math/linalg/mat/mat_cls.py
+  - cp_library/math/linalg/vec/mutvec_cls.py
   - cp_library/math/linalg/vec/vec_cls.py
   - cp_library/math/linalg/vec/vec2d_cls.py
   - cp_library/math/linalg/vec/slope_cls.py
   - cp_library/math/linalg/vec/vec3d_cls.py
-  timestamp: '2025-03-15 12:29:05+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2025-03-15 19:36:13+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/atcoder/abc/abc151_f_fbisect_left.test.py
+  - test/atcoder/abc/abc189_e_vec2d.test.py
+  - test/atcoder/abc/abc274_e_vec2d.test.py
 documentation_of: cp_library/math/linalg/elm_wise_mixin.py
 layout: document
 redirect_from:
