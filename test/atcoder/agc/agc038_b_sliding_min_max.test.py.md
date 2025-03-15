@@ -28,16 +28,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/slidingminmax_cls.py
     title: cp_library/ds/slidingminmax_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -55,8 +55,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
-    \ math import gcd\nfrom typing import Iterable\n\nimport typing\nfrom collections\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
+    from math import gcd\nfrom typing import Iterable\n\nimport typing\nfrom collections\
     \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
     from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
     from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
@@ -275,7 +275,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/agc/agc038_b_sliding_min_max.test.py

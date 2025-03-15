@@ -36,12 +36,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
     title: test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -57,8 +57,8 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_int_fn.py
   requiredBy: []
-  timestamp: '2025-03-12 22:12:43+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-15 12:29:05+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/dsl/dsl_2_c_kdtree.test.py
   - test/aoj/dsl/dsl_2_a_segtree.test.py

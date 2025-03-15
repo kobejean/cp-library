@@ -141,6 +141,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_diameter.test.py
+    title: test/library-checker/tree/tree_diameter.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -184,7 +187,7 @@ data:
   - cp_library/ds/heap/min_heap_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/heap/k_heap_mixin.py
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
@@ -199,6 +202,7 @@ data:
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py

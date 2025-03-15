@@ -1,17 +1,14 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
-    title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -200,16 +197,15 @@ data:
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   isVerificationFile: false
-  path: cp_library/math/mat/mod/modmat_cls.py
+  path: cp_library/math/linalg/mat/mod/modmat_cls.py
   requiredBy: []
-  timestamp: '2025-03-12 22:12:43+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
-documentation_of: cp_library/math/mat/mod/modmat_cls.py
+  timestamp: '2025-03-15 12:29:05+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: cp_library/math/linalg/mat/mod/modmat_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/math/mat/mod/modmat_cls.py
-- /library/cp_library/math/mat/mod/modmat_cls.py.html
-title: cp_library/math/mat/mod/modmat_cls.py
+- /library/cp_library/math/linalg/mat/mod/modmat_cls.py
+- /library/cp_library/math/linalg/mat/mod/modmat_cls.py.html
+title: cp_library/math/linalg/mat/mod/modmat_cls.py
 ---

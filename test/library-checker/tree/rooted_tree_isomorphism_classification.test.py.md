@@ -99,7 +99,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   requiredBy: []
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py

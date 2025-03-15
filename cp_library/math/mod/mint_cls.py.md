@@ -33,11 +33,14 @@ data:
     path: cp_library/math/fps/fps_tayler_shift_fn.py
     title: cp_library/math/fps/fps_tayler_shift_fn.py
   - icon: ':warning:'
-    path: cp_library/math/mat/mat_cls.py
-    title: cp_library/math/mat/mat_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/mat/mod/modmat_cls.py
-    title: cp_library/math/mat/mod/modmat_cls.py
+    path: cp_library/math/linalg/mat/mat_cls.py
+    title: cp_library/math/linalg/mat/mat_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/mat/mod/mat_cls.py
+    title: cp_library/math/linalg/mat/mod/mat_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/mat/mod/modmat_cls.py
+    title: cp_library/math/linalg/mat/mod/modmat_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_ntt_cls.py
     title: cp_library/math/mod/mint_ntt_cls.py
@@ -75,10 +78,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - icon: ':heavy_check_mark:'
@@ -99,9 +102,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution_all.test.py
     title: test/library-checker/set-power-series/subset_convolution_all.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -164,9 +167,10 @@ data:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/modcomb_cls.py
   - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/mat/mod/modmat_cls.py
-  - cp_library/math/mat/mat_cls.py
   - cp_library/math/mod/mint_ntt_cls.py
+  - cp_library/math/linalg/mat/mod/modmat_cls.py
+  - cp_library/math/linalg/mat/mod/mat_cls.py
+  - cp_library/math/linalg/mat/mat_cls.py
   - cp_library/math/fps/fps_ideriv_k_fn.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_inv_fn.py
@@ -177,8 +181,8 @@ data:
   - cp_library/math/fps/fps_iinteg_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-03-12 22:12:43+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-15 12:29:05+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

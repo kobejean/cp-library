@@ -13,10 +13,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -367,7 +367,7 @@ data:
   path: cp_library/alg/graph/lazy_grid_graph_cls.py
   requiredBy:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc184_e_grid_graph.test.py

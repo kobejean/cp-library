@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   _extendedRequiredBy:
@@ -84,7 +84,7 @@ data:
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

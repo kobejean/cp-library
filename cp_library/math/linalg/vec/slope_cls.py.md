@@ -1,35 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec/elm_wise_mixin.py
-    title: cp_library/math/vec/elm_wise_mixin.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec/vec_cls.py
-    title: cp_library/math/vec/vec_cls.py
-  _extendedRequiredBy:
   - icon: ':warning:'
-    path: cp_library/math/vec/slope_cls.py
-    title: cp_library/math/vec/slope_cls.py
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc151_f_fbisect_left.test.py
-    title: test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc189_e_vec2d.test.py
-    title: test/atcoder/abc/abc189_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc274_e_vec2d.test.py
-    title: test/atcoder/abc/abc274_e_vec2d.test.py
+    path: cp_library/math/linalg/elm_wise_mixin.py
+    title: cp_library/math/linalg/elm_wise_mixin.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/vec/vec2d_cls.py
+    title: cp_library/math/linalg/vec/vec2d_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/vec/vec_cls.py
+    title: cp_library/math/linalg/vec/vec_cls.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -38,7 +29,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    from math import gcd\n\n\n\nfrom numbers import Number\nfrom typing import Sequence\n\
+    from math import gcd, sqrt\n\nimport typing\nfrom collections import deque\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
@@ -116,8 +108,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nfrom math import hypot\n\nimport\
-    \ operator\nfrom typing import Sequence\n\nclass ElmWiseMixin:\n    def elm_wise(self,\
+    \ return cls(next(ts))\n        return parser\nfrom typing import Iterable \n\
+    from math import hypot\n\nimport operator\n\nclass ElmWiseMixin:\n    def elm_wise(self,\
     \ other, op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
     \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
     \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
@@ -135,25 +127,25 @@ data:
     \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
     \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
     \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
-    \  return vec / vec.magnitude()\nfrom typing import Iterable \n\nclass Vec(ElmWiseMixin,\
-    \ tuple, Parsable):\n    def __new__(cls, *args):\n        if len(args) == 1 and\
-    \ isinstance(args[0], Iterable):\n            return super().__new__(cls, args[0])\n\
-    \        return super().__new__(cls, args)\n\n    @classmethod\n    def compile(cls,\
-    \ T: type = int, N = None):\n        elm = Parser.compile(T)\n        if N is\
-    \ None:\n            def parse(ts: TokenStream):\n                return cls(elm(ts)\
-    \ for _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n\
-    \                return cls(elm(ts) for _ in range(N))\n        return parse\n\
-    \  \nfrom math import gcd, sqrt\n\nclass Vec2D(Vec):\n    def __new__(cls, *args):\n\
-    \        if len(args) == 0:\n            return super().__new__(cls, (0,0))\n\
-    \        return super().__new__(cls, *args)\n\n    def elm_wise(self, other, op):\n\
-    \        if isinstance(other, Number):\n            return Vec2D(op(self[0], other),\
-    \ op(self[1], other))\n        if isinstance(other, Sequence):\n            return\
-    \ Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n        raise ValueError(\"\
-    Operand must be a number or a tuple of the same length\")\n\n    def distance(v1:\
-    \ 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return\
-    \ sqrt(dx*dx+dy*dy)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx,\
-    \ dy = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec:\
-    \ 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
+    \  return vec / vec.magnitude()\n\nclass Vec(ElmWiseMixin, tuple, Parsable):\n\
+    \    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ Iterable):\n            return super().__new__(cls, args[0])\n        return\
+    \ super().__new__(cls, args)\n\n    @classmethod\n    def compile(cls, T: type\
+    \ = int, N = None):\n        elm = Parser.compile(T)\n        if N is None:\n\
+    \            def parse(ts: TokenStream):\n                return cls(elm(ts) for\
+    \ _ in ts.wait())\n        else:\n            def parse(ts: TokenStream):\n  \
+    \              return cls(elm(ts) for _ in range(N))\n        return parse\n \
+    \ \n\nclass Vec2D(Vec):\n    def __new__(cls, *args):\n        if len(args) ==\
+    \ 0:\n            return super().__new__(cls, (0,0))\n        return super().__new__(cls,\
+    \ *args)\n\n    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n\
+    \            return Vec2D(op(self[0], other), op(self[1], other))\n        if\
+    \ isinstance(other, Sequence):\n            return Vec2D(op(self[0], other[0]),\
+    \ op(self[1], other[1]))\n        raise ValueError(\"Operand must be a number\
+    \ or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n\
+    \        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
+    \    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0],\
+    \ v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec: 'Vec'):\n\
+    \        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
     \ 'Vec'):\n        x, y = vec\n        return x*x+y*y\n    \n    def rot90(vec):\n\
     \        x,y = vec\n        return Vec2D(-y,x)\n    \n    def rot180(vec):\n \
     \       x,y = vec\n        return Vec2D(-x,-y)\n    \n    def rot270(vec):\n \
@@ -166,53 +158,46 @@ data:
     \ Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return\
     \ Vec2D((x//g,y//g))\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
     \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
-    \      return cls(elm(ts), elm(ts))\n        return parse\n\n"
-  code: "import cp_library.math.__header__\nfrom cp_library.io.parser_cls import Parser,\
-    \ TokenStream\nfrom cp_library.math.vec.vec_cls import Vec\nfrom numbers import\
-    \ Number\nfrom typing import Sequence\nfrom math import gcd, sqrt\n\nclass Vec2D(Vec):\n\
-    \    def __new__(cls, *args):\n        if len(args) == 0:\n            return\
-    \ super().__new__(cls, (0,0))\n        return super().__new__(cls, *args)\n\n\
-    \    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n \
-    \           return Vec2D(op(self[0], other), op(self[1], other))\n        if isinstance(other,\
-    \ Sequence):\n            return Vec2D(op(self[0], other[0]), op(self[1], other[1]))\n\
-    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
-    )\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n\
-    \        return sqrt(dx*dx+dy*dy)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n\
-    \        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n\
-    \    def magnitude(vec: 'Vec'):\n        x, y = vec\n        return sqrt(x*x+y*y)\n\
-    \    \n    def magnitude2(vec: 'Vec'):\n        x, y = vec\n        return x*x+y*y\n\
-    \    \n    def rot90(vec):\n        x,y = vec\n        return Vec2D(-y,x)\n  \
-    \  \n    def rot180(vec):\n        x,y = vec\n        return Vec2D(-x,-y)\n  \
-    \  \n    def rot270(vec):\n        x,y = vec\n        return Vec2D(y,-x)\n   \
-    \ \n    def flip_x(vec):\n        x,y = vec\n        return Vec2D(-x,y)\n    \n\
-    \    def flip_y(vec):\n        x,y = vec\n        return Vec2D(x,-y)\n    \n \
-    \   def cross(vec, other):\n        return vec[0]*other[1] - vec[1]*other[0]\n\
-    \    \n    def slope_norm(vec):\n        x,y = vec\n        if x == 0 and y ==\
-    \ 0: return vec\n        if x == 0: return Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n\
-    \        if y == 0: return Vec2D((1,0)) if x > 0 else Vec2D((-1,0))\n        g\
-    \ = gcd(x,y)\n        return Vec2D((x//g,y//g))\n    \n    @classmethod\n    def\
-    \ compile(cls, T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts:\
-    \ TokenStream):\n            return cls(elm(ts), elm(ts))\n        return parse\n\
-    \n"
+    \      return cls(elm(ts), elm(ts))\n        return parse\n\n\nclass Slope(Vec2D):\n\
+    \    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ tuple):\n            x,y = args[0]\n        else:\n            x,y = args\n\
+    \        if x == 0 and y == 0: tup = 0, 0\n        elif x == 0: tup = (0,1) if\
+    \ y > 0 else (0,-1)\n        elif y == 0: tup = (1,0) if x > 0 else (-1,0)\n \
+    \       else:\n            g = gcd(x,y)\n            tup = (x//g,y//g)\n     \
+    \   return super().__new__(cls, tup)\n    \n    def __lt__(slope, other):\n  \
+    \      q1, q2 = slope.quadrant(), other.quadrant()\n        return q1 < q2 or\
+    \ (q1 == q2 and slope.cross(other) > 0)\n    \n    def quadrant(vec):\n      \
+    \  if vec[0] > 0 and vec[1] >= 0: return 1\n        elif vec[1] > 0: return 2\n\
+    \        elif vec[0] < 0: return 3\n        else: return 4\n\n"
+  code: "import cp_library.__header__\nfrom math import gcd\nimport cp_library.math.__header__\n\
+    import cp_library.math.linalg.__header__\nimport cp_library.math.linalg.vec.__header__\n\
+    from cp_library.math.linalg.vec.vec2d_cls import Vec2D\n\nclass Slope(Vec2D):\n\
+    \    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ tuple):\n            x,y = args[0]\n        else:\n            x,y = args\n\
+    \        if x == 0 and y == 0: tup = 0, 0\n        elif x == 0: tup = (0,1) if\
+    \ y > 0 else (0,-1)\n        elif y == 0: tup = (1,0) if x > 0 else (-1,0)\n \
+    \       else:\n            g = gcd(x,y)\n            tup = (x//g,y//g)\n     \
+    \   return super().__new__(cls, tup)\n    \n    def __lt__(slope, other):\n  \
+    \      q1, q2 = slope.quadrant(), other.quadrant()\n        return q1 < q2 or\
+    \ (q1 == q2 and slope.cross(other) > 0)\n    \n    def quadrant(vec):\n      \
+    \  if vec[0] > 0 and vec[1] >= 0: return 1\n        elif vec[1] > 0: return 2\n\
+    \        elif vec[0] < 0: return 3\n        else: return 4\n\n"
   dependsOn:
+  - cp_library/math/linalg/vec/vec2d_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/math/vec/vec_cls.py
-  - cp_library/math/vec/elm_wise_mixin.py
+  - cp_library/math/linalg/vec/vec_cls.py
+  - cp_library/math/linalg/elm_wise_mixin.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
-  path: cp_library/math/vec/vec2d_cls.py
-  requiredBy:
-  - cp_library/math/vec/slope_cls.py
-  timestamp: '2025-03-12 22:12:43+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - test/atcoder/abc/abc189_e_vec2d.test.py
-  - test/atcoder/abc/abc274_e_vec2d.test.py
-documentation_of: cp_library/math/vec/vec2d_cls.py
+  path: cp_library/math/linalg/vec/slope_cls.py
+  requiredBy: []
+  timestamp: '2025-03-15 12:29:05+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: cp_library/math/linalg/vec/slope_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/math/vec/vec2d_cls.py
-- /library/cp_library/math/vec/vec2d_cls.py.html
-title: cp_library/math/vec/vec2d_cls.py
+- /library/cp_library/math/linalg/vec/slope_cls.py
+- /library/cp_library/math/linalg/vec/slope_cls.py.html
+title: cp_library/math/linalg/vec/slope_cls.py
 ---

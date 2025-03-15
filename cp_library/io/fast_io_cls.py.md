@@ -66,14 +66,23 @@ data:
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+    title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
     title: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
     title: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
+    title: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
     title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
+    title: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/func_graph_cls.py
     title: cp_library/alg/graph/func_graph_cls.py
@@ -176,36 +185,39 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/legacy/read_fn.py
     title: cp_library/io/legacy/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':warning:'
-    path: cp_library/math/mat/mat_cls.py
-    title: cp_library/math/mat/mat_cls.py
+    path: cp_library/math/linalg/mat/mat_cls.py
+    title: cp_library/math/linalg/mat/mat_cls.py
   - icon: ':warning:'
-    path: cp_library/math/vec/mutvec_cls.py
-    title: cp_library/math/vec/mutvec_cls.py
+    path: cp_library/math/linalg/mat/mod/mat_cls.py
+    title: cp_library/math/linalg/mat/mod/mat_cls.py
   - icon: ':warning:'
-    path: cp_library/math/vec/slope_cls.py
-    title: cp_library/math/vec/slope_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec/vec2d_cls.py
-    title: cp_library/math/vec/vec2d_cls.py
+    path: cp_library/math/linalg/vec/mutvec_cls.py
+    title: cp_library/math/linalg/vec/mutvec_cls.py
   - icon: ':warning:'
-    path: cp_library/math/vec/vec3d_cls.py
-    title: cp_library/math/vec/vec3d_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec/vec_cls.py
-    title: cp_library/math/vec/vec_cls.py
+    path: cp_library/math/linalg/vec/slope_cls.py
+    title: cp_library/math/linalg/vec/slope_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/vec/vec2d_cls.py
+    title: cp_library/math/linalg/vec/vec2d_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/vec/vec3d_cls.py
+    title: cp_library/math/linalg/vec/vec3d_cls.py
+  - icon: ':warning:'
+    path: cp_library/math/linalg/vec/vec_cls.py
+    title: cp_library/math/linalg/vec/vec_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/dsl_2_a_segtree.test.py
@@ -276,7 +288,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
     title: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc151_f_fbisect_left.test.py
     title: test/atcoder/abc/abc151_f_fbisect_left.test.py
   - icon: ':heavy_check_mark:'
@@ -297,7 +309,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc186_e_gcd_ex.test.py
     title: test/atcoder/abc/abc186_e_gcd_ex.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc189_e_vec2d.test.py
     title: test/atcoder/abc/abc189_e_vec2d.test.py
   - icon: ':heavy_check_mark:'
@@ -345,7 +357,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
     title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/atcoder/abc/abc274_e_vec2d.test.py
     title: test/atcoder/abc/abc274_e_vec2d.test.py
   - icon: ':heavy_check_mark:'
@@ -460,6 +472,9 @@ data:
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/biconnected_components.test.py
+    title: test/library-checker/graph/biconnected_components.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/chromatic_number.test.py
     title: test/library-checker/graph/chromatic_number.test.py
   - icon: ':heavy_check_mark:'
@@ -490,9 +505,12 @@ data:
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/two_edge_connected_components.test.py
+    title: test/library-checker/graph/two_edge_connected_components.test.py
+  - icon: ':x:'
     path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - icon: ':heavy_check_mark:'
@@ -513,9 +531,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution_all.test.py
     title: test/library-checker/set-power-series/subset_convolution_all.test.py
-  _isVerificationFailed: false
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_diameter.test.py
+    title: test/library-checker/tree/tree_diameter.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -577,12 +598,13 @@ data:
   isVerificationFile: false
   path: cp_library/io/fast_io_cls.py
   requiredBy:
-  - cp_library/math/mat/mat_cls.py
-  - cp_library/math/vec/mutvec_cls.py
-  - cp_library/math/vec/vec_cls.py
-  - cp_library/math/vec/vec2d_cls.py
-  - cp_library/math/vec/slope_cls.py
-  - cp_library/math/vec/vec3d_cls.py
+  - cp_library/math/linalg/mat/mod/mat_cls.py
+  - cp_library/math/linalg/mat/mat_cls.py
+  - cp_library/math/linalg/vec/mutvec_cls.py
+  - cp_library/math/linalg/vec/vec_cls.py
+  - cp_library/math/linalg/vec/vec2d_cls.py
+  - cp_library/math/linalg/vec/slope_cls.py
+  - cp_library/math/linalg/vec/vec3d_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/legacy/read_fn.py
   - cp_library/io/bye_fn.py
@@ -607,8 +629,11 @@ data:
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+  - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
@@ -645,8 +670,8 @@ data:
   - cp_library/ds/grid.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/queries_cls.py
-  timestamp: '2025-03-12 22:12:43+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-15 12:29:05+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
@@ -680,6 +705,7 @@ data:
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/polynomial/inv_of_formal_power_series.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
+  - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/data-structure/unionfind.test.py
   - test/library-checker/data-structure/unionfind_with_potential.test.py
   - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
@@ -700,7 +726,9 @@ data:
   - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/chromatic_number.test.py
+  - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

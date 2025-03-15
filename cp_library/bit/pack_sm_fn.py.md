@@ -78,6 +78,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_diameter.test.py
+    title: test/library-checker/tree/tree_diameter.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -115,7 +118,7 @@ data:
   - cp_library/alg/iter/iargsort_fn.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -123,6 +126,7 @@ data:
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py

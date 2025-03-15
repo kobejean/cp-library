@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   - icon: ':heavy_check_mark:'
@@ -173,7 +173,7 @@ data:
   path: cp_library/math/fps/fps_tayler_shift_fn.py
   requiredBy:
   - cp_library/math/table/stirling1_n_fn.py
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: cp_library/alg/divcon
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/alg/divcon/fbisect_fn.py
       title: cp_library/alg/divcon/fbisect_fn.py
     - icon: ':heavy_check_mark:'
@@ -31,6 +31,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/dp2d_cls.py
       title: cp_library/alg/dp/dp2d_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/dp/lis_fn.py
+      title: cp_library/alg/dp/lis_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/max2_fn.py
       title: cp_library/alg/dp/max2_fn.py
@@ -206,14 +209,23 @@ data:
   - name: cp_library/alg/graph/fast/snippets
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+      title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
       title: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
       title: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
+      title: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
       title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
+      title: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
   - name: cp_library/alg/iter
     pages:
     - icon: ':warning:'
@@ -528,25 +540,25 @@ data:
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/legacy
@@ -694,40 +706,68 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/fps/fps_tayler_shift_fn.py
       title: cp_library/math/fps/fps_tayler_shift_fn.py
-  - name: cp_library/math/mat
+  - name: cp_library/math/linalg
     pages:
     - icon: ':warning:'
-      path: cp_library/math/mat/mat_cls.py
-      title: cp_library/math/mat/mat_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mat/mat_id_fn.py
-      title: cp_library/math/mat/mat_id_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mat/mat_mul_fn.py
-      title: cp_library/math/mat/mat_mul_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mat/mat_pow_fn.py
-      title: cp_library/math/mat/mat_pow_fn.py
-  - name: cp_library/math/mat/mod
+      path: cp_library/math/linalg/elm_wise_in_place_mixin.py
+      title: cp_library/math/linalg/elm_wise_in_place_mixin.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/elm_wise_mixin.py
+      title: cp_library/math/linalg/elm_wise_mixin.py
+  - name: cp_library/math/linalg/mat
     pages:
     - icon: ':warning:'
-      path: cp_library/math/mat/mod/mat_add_fn.py
-      title: cp_library/math/mat/mod/mat_add_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mat/mod/mat_mul_fn.py
-      title: cp_library/math/mat/mod/mat_mul_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mat/mod/mat_pow_fn.py
-      title: cp_library/math/mat/mod/mat_pow_fn.py
+      path: cp_library/math/linalg/mat/mat_cls.py
+      title: cp_library/math/linalg/mat/mat_cls.py
     - icon: ':warning:'
-      path: cp_library/math/mat/mod/mat_sub_fn.py
-      title: cp_library/math/mat/mod/mat_sub_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/mat/mod/modmat_cls.py
-      title: cp_library/math/mat/mod/modmat_cls.py
+      path: cp_library/math/linalg/mat/mat_id_fn.py
+      title: cp_library/math/linalg/mat/mat_id_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/mat/mat_mul_fn.py
+      title: cp_library/math/linalg/mat/mat_mul_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/mat/mat_pow_fn.py
+      title: cp_library/math/linalg/mat/mat_pow_fn.py
+  - name: cp_library/math/linalg/mat/mod
+    pages:
+    - icon: ':warning:'
+      path: cp_library/math/linalg/mat/mod/mat_add_fn.py
+      title: cp_library/math/linalg/mat/mod/mat_add_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/mat/mod/mat_cls.py
+      title: cp_library/math/linalg/mat/mod/mat_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/mat/mod/mat_mul_fn.py
+      title: cp_library/math/linalg/mat/mod/mat_mul_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/mat/mod/mat_pow_fn.py
+      title: cp_library/math/linalg/mat/mod/mat_pow_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/mat/mod/mat_sub_fn.py
+      title: cp_library/math/linalg/mat/mod/mat_sub_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/mat/mod/modmat_cls.py
+      title: cp_library/math/linalg/mat/mod/modmat_cls.py
+  - name: cp_library/math/linalg/vec
+    pages:
+    - icon: ':warning:'
+      path: cp_library/math/linalg/vec/mutvec_cls.py
+      title: cp_library/math/linalg/vec/mutvec_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/vec/slope_cls.py
+      title: cp_library/math/linalg/vec/slope_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/vec/vec2d_cls.py
+      title: cp_library/math/linalg/vec/vec2d_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/vec/vec3d_cls.py
+      title: cp_library/math/linalg/vec/vec3d_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/linalg/vec/vec_cls.py
+      title: cp_library/math/linalg/vec/vec_cls.py
   - name: cp_library/math/mod
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
@@ -828,29 +868,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/math/table/unique_factors_cls.py
       title: cp_library/math/table/unique_factors_cls.py
-  - name: cp_library/math/vec
-    pages:
-    - icon: ':warning:'
-      path: cp_library/math/vec/elm_wise_in_place_mixin.py
-      title: cp_library/math/vec/elm_wise_in_place_mixin.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/vec/elm_wise_mixin.py
-      title: cp_library/math/vec/elm_wise_mixin.py
-    - icon: ':warning:'
-      path: cp_library/math/vec/mutvec_cls.py
-      title: cp_library/math/vec/mutvec_cls.py
-    - icon: ':warning:'
-      path: cp_library/math/vec/slope_cls.py
-      title: cp_library/math/vec/slope_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/vec/vec2d_cls.py
-      title: cp_library/math/vec/vec2d_cls.py
-    - icon: ':warning:'
-      path: cp_library/math/vec/vec3d_cls.py
-      title: cp_library/math/vec/vec3d_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/math/vec/vec_cls.py
-      title: cp_library/math/vec/vec_cls.py
   - name: cp_library/misc/decorators
     pages:
     - icon: ':warning:'
@@ -964,7 +981,7 @@ data:
       title: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   - name: test/atcoder/abc
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/atcoder/abc/abc151_f_fbisect_left.test.py
       title: test/atcoder/abc/abc151_f_fbisect_left.test.py
     - icon: ':heavy_check_mark:'
@@ -985,7 +1002,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc186_e_gcd_ex.test.py
       title: test/atcoder/abc/abc186_e_gcd_ex.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/atcoder/abc/abc189_e_vec2d.test.py
       title: test/atcoder/abc/abc189_e_vec2d.test.py
     - icon: ':heavy_check_mark:'
@@ -1033,7 +1050,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
       title: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/atcoder/abc/abc274_e_vec2d.test.py
       title: test/atcoder/abc/abc274_e_vec2d.test.py
     - icon: ':heavy_check_mark:'
@@ -1171,6 +1188,9 @@ data:
   - name: test/library-checker/graph
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/biconnected_components.test.py
+      title: test/library-checker/graph/biconnected_components.test.py
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/chromatic_number.test.py
       title: test/library-checker/graph/chromatic_number.test.py
     - icon: ':heavy_check_mark:'
@@ -1203,14 +1223,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/shortest_path_min_heap.test.py
       title: test/library-checker/graph/shortest_path_min_heap.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/two_edge_connected_components.test.py
+      title: test/library-checker/graph/two_edge_connected_components.test.py
   - name: test/library-checker/linear-algebra
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
       title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
       title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+  - name: test/library-checker/other
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/other/longest_increasing_sequence.test.py
+      title: test/library-checker/other/longest_increasing_sequence.test.py
   - name: test/library-checker/polynomial
     pages:
     - icon: ':heavy_check_mark:'
@@ -1244,5 +1272,8 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
       title: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/tree_diameter.test.py
+      title: test/library-checker/tree/tree_diameter.test.py
 layout: toppage
 ---

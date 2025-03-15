@@ -16,10 +16,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -41,7 +41,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from math import gcd\nfrom typing import Iterable\n\nimport typing\nfrom collections\
+    \n\nfrom math import gcd\nfrom typing import Iterable\n\nimport typing\nfrom collections\
     \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
     from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
     from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
@@ -175,10 +175,10 @@ data:
     \        return []\nelist = newlist_hint\n    \n\nclass PermGraph(FuncGraph):\n\
     \    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n \
     \           Pinv[p] = i\n        return type(P)(Pinv)\n"
-  code: "import cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.func_graph_cls\
-    \ import FuncGraph\n\nclass PermGraph(FuncGraph):\n    def inv(P):\n        Pinv\
-    \ = [0]*P.N\n        for i,p in enumerate(P):\n            Pinv[p] = i\n     \
-    \   return type(P)(Pinv)\n"
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.graph.__header__\n\
+    from cp_library.alg.graph.func_graph_cls import FuncGraph\n\nclass PermGraph(FuncGraph):\n\
+    \    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n \
+    \           Pinv[p] = i\n        return type(P)(Pinv)\n"
   dependsOn:
   - cp_library/alg/graph/func_graph_cls.py
   - cp_library/io/parser_cls.py
@@ -190,7 +190,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/perm_graph_cls.py
   requiredBy: []
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

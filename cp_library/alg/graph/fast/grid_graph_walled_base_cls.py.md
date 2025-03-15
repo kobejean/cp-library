@@ -22,10 +22,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -163,18 +163,21 @@ data:
     \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
     \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
-    \        else: return G.bfs(s, g)\n\n    def shortest_path(G, s: int, t: int):\n\
-    \        if G.distance(s, t) >= inf: return None\n        Ua, back, vertices =\
-    \ G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n\
-    \        return vertices[::-1]\n    \n    def shortest_path_edge_ids(G, s: int,\
-    \ t: int):\n        if G.distance(s, t) >= inf: return None\n        Ea, Ua, back,\
-    \ edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v != s: edges.append(Ea[i\
-    \ := back[v]]), (v := Ua[i])\n        return edges[::-1]\n    \n    @overload\n\
-    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
-    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int =\
-    \ 0, g: int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N,\
-    \ -1), [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n\
-    \        que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
+    \        else: return G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua,\
+    \ back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v\
+    \ := Ua[back[v]])\n        return vertices\n    \n    def recover_path_edge_ids(G,\
+    \ s, t):\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n  \
+    \      while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return\
+    \ edges\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
+    \ t) >= inf: return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
+    \        return vertices\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n\
+    \        if G.distance(s, t) >= inf: return None\n        edges = G.recover_path_edge_ids(s,\
+    \ t)\n        edges.reverse()\n        return edges\n    \n    @overload\n   \
+    \ def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def\
+    \ bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int = 0, g:\
+    \ int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N, -1),\
+    \ [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n     \
+    \   que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
     \            if u == g: return nd-1\n            for i in G.range(u):\n      \
     \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
     \                    que.append(v)\n        return D if g is None else inf \n\n\
@@ -340,7 +343,7 @@ data:
   path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   requiredBy:
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

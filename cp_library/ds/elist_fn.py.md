@@ -48,14 +48,23 @@ data:
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+    title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
     title: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
     title: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
+    title: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
     title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
+    title: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/func_graph_cls.py
     title: cp_library/alg/graph/func_graph_cls.py
@@ -292,6 +301,9 @@ data:
     path: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
     title: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/biconnected_components.test.py
+    title: test/library-checker/graph/biconnected_components.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/cycle_detection.test.py
     title: test/library-checker/graph/cycle_detection.test.py
   - icon: ':heavy_check_mark:'
@@ -321,6 +333,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/two_edge_connected_components.test.py
+    title: test/library-checker/graph/two_edge_connected_components.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_diameter.test.py
+    title: test/library-checker/tree/tree_diameter.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -360,8 +378,11 @@ data:
   - cp_library/alg/graph/graph_cls.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+  - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
@@ -390,7 +411,7 @@ data:
   - cp_library/ds/heap/skew_heap_forest_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
@@ -411,6 +432,7 @@ data:
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
@@ -421,7 +443,9 @@ data:
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/atcoder/abc/abc245_f_digraph.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py

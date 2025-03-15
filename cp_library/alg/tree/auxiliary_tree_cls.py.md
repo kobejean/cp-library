@@ -129,7 +129,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2025-03-12 22:12:43+09:00'
+  timestamp: '2025-03-15 12:29:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

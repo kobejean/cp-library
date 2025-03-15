@@ -3,36 +3,21 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: cp_library/math/vec/elm_wise_in_place_mixin.py
-    title: cp_library/math/vec/elm_wise_in_place_mixin.py
+    path: cp_library/math/linalg/vec/slope_cls.py
+    title: cp_library/math/linalg/vec/slope_cls.py
   - icon: ':warning:'
-    path: cp_library/math/vec/mutvec_cls.py
-    title: cp_library/math/vec/mutvec_cls.py
+    path: cp_library/math/linalg/vec/vec2d_cls.py
+    title: cp_library/math/linalg/vec/vec2d_cls.py
   - icon: ':warning:'
-    path: cp_library/math/vec/slope_cls.py
-    title: cp_library/math/vec/slope_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec/vec2d_cls.py
-    title: cp_library/math/vec/vec2d_cls.py
+    path: cp_library/math/linalg/vec/vec3d_cls.py
+    title: cp_library/math/linalg/vec/vec3d_cls.py
   - icon: ':warning:'
-    path: cp_library/math/vec/vec3d_cls.py
-    title: cp_library/math/vec/vec3d_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/vec/vec_cls.py
-    title: cp_library/math/vec/vec_cls.py
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc151_f_fbisect_left.test.py
-    title: test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc189_e_vec2d.test.py
-    title: test/atcoder/abc/abc189_e_vec2d.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc274_e_vec2d.test.py
-    title: test/atcoder/abc/abc274_e_vec2d.test.py
+    path: cp_library/math/linalg/vec/vec_cls.py
+    title: cp_library/math/linalg/vec/vec_cls.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "from math import hypot\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -84,24 +69,19 @@ data:
     \  return vec / vec.magnitude()\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/vec/elm_wise_mixin.py
+  path: cp_library/math/linalg/elm_wise_mixin.py
   requiredBy:
-  - cp_library/math/vec/elm_wise_in_place_mixin.py
-  - cp_library/math/vec/mutvec_cls.py
-  - cp_library/math/vec/vec_cls.py
-  - cp_library/math/vec/vec2d_cls.py
-  - cp_library/math/vec/slope_cls.py
-  - cp_library/math/vec/vec3d_cls.py
-  timestamp: '2025-03-12 22:12:43+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - test/atcoder/abc/abc189_e_vec2d.test.py
-  - test/atcoder/abc/abc274_e_vec2d.test.py
-documentation_of: cp_library/math/vec/elm_wise_mixin.py
+  - cp_library/math/linalg/vec/vec_cls.py
+  - cp_library/math/linalg/vec/vec2d_cls.py
+  - cp_library/math/linalg/vec/slope_cls.py
+  - cp_library/math/linalg/vec/vec3d_cls.py
+  timestamp: '2025-03-15 12:29:05+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: cp_library/math/linalg/elm_wise_mixin.py
 layout: document
 redirect_from:
-- /library/cp_library/math/vec/elm_wise_mixin.py
-- /library/cp_library/math/vec/elm_wise_mixin.py.html
-title: cp_library/math/vec/elm_wise_mixin.py
+- /library/cp_library/math/linalg/elm_wise_mixin.py
+- /library/cp_library/math/linalg/elm_wise_mixin.py.html
+title: cp_library/math/linalg/elm_wise_mixin.py
 ---
