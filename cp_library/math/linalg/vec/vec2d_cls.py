@@ -1,9 +1,12 @@
 import cp_library.math.__header__
-from cp_library.io.parser_cls import Parser, TokenStream
-from cp_library.math.vec.vec_cls import Vec
 from numbers import Number
 from typing import Sequence
 from math import gcd, sqrt
+from cp_library.io.parser_cls import Parser, TokenStream
+import cp_library.math.__header__
+import cp_library.math.linalg.__header__
+import cp_library.math.linalg.vec.__header__
+from cp_library.math.linalg.vec.vec_cls import Vec
 
 class Vec2D(Vec):
     def __new__(cls, *args):

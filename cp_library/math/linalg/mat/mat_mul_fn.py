@@ -1,4 +1,7 @@
+import cp_library.__header__
 import cp_library.math.__header__
+import cp_library.math.linalg.__header__
+import cp_library.math.linalg.mat.__header__
 
 def mat_mul(A,B):
     assert len(A[0]) == len(B)

@@ -1,6 +1,9 @@
-import cp_library.math.__header__
-from cp_library.math.vec.vec2d_cls import Vec2D
+import cp_library.__header__
 from math import gcd
+import cp_library.math.__header__
+import cp_library.math.linalg.__header__
+import cp_library.math.linalg.vec.__header__
+from cp_library.math.linalg.vec.vec2d_cls import Vec2D
 
 class Slope(Vec2D):
     def __new__(cls, *args):

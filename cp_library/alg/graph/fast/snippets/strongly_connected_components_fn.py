@@ -1,13 +1,14 @@
 import cp_library.__header__
 from typing import Iterator
+
 import cp_library.alg.__header__
 from cp_library.alg.dp.chmin_fn import chmin
-from cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse
+
 import cp_library.alg.graph.__header__
 import cp_library.alg.graph.fast.__header__
-from cp_library.alg.graph.fast.graph_base_cls import GraphBase
+import cp_library.alg.graph.fast.snippets.__header__
 
-def strongly_connected_components(G: GraphBase) -> Iterator[list[int]]:
+def strongly_connected_components(G: 'DiGraph') -> Iterator[list[int]]:
     """
     Finds strongly connected sccs in directed graph using Tarjan's algorithm.
     Returns sccs in topological order.
@@ -36,5 +37,7 @@ def strongly_connected_components(G: GraphBase) -> Iterator[list[int]]:
     G.dfs(enter_fn=enter, back_fn=back_or_cross, cross_fn=back_or_cross, leave_fn=leave, up_fn=up)
     return SliceIteratorReverse(sccs, L)
 
+from cp_library.alg.graph.fast.digraph_cls import DiGraph
+from cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse
 from cp_library.ds.elist_fn import elist
 from cp_library.ds.array_init_fn import u32f, u8f

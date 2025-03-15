@@ -53,17 +53,27 @@ class GraphBase(Sequence, Parsable):
         if s == None: return G.floyd_warshall()
         else: return G.bfs(s, g)
 
-    def shortest_path(G, s: int, t: int):
-        if G.distance(s, t) >= inf: return None
+    def recover_path(G, s, t):
         Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)
         while v != s: vertices.append(v := Ua[back[v]])
-        return vertices[::-1]
+        return vertices
+    
+    def recover_path_edge_ids(G, s, t):
+        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t
+        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])
+        return edges
+
+    def shortest_path(G, s: int, t: int):
+        if G.distance(s, t) >= inf: return None
+        vertices = G.recover_path(s, t)
+        vertices.reverse()
+        return vertices
     
     def shortest_path_edge_ids(G, s: int, t: int):
         if G.distance(s, t) >= inf: return None
-        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t
-        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])
-        return edges[::-1]
+        edges = G.recover_path_edge_ids(s, t)
+        edges.reverse()
+        return edges
     
     @overload
     def bfs(G, s: Union[int,list] = 0) -> list[int]: ...
