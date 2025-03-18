@@ -1,10 +1,13 @@
-from cp_library.alg.dp.chmin_fn import chmin
-import cp_library.alg.graph.__header__
+import cp_library.__header__
 from math import inf
-from itertools import islice
-from typing import Callable, Sequence, Union, overload
 from collections import deque
+from typing import Callable, Sequence, Union, overload
 from cp_library.io.parser_cls import Parsable, TokenStream
+
+import cp_library.alg.__header__
+from cp_library.alg.dp.chmin_fn import chmin
+
+import cp_library.alg.graph.__header__
 from cp_library.alg.graph.dfs_options_cls import DFSEvent
 
 class GraphBase(Sequence, Parsable):
@@ -35,12 +38,12 @@ class GraphBase(Sequence, Parsable):
         """
         G.twin = twin if twin is not None else range(len(Ua))
         """twin[i] in undirected graphs stores index j of the same edge but with u and v swapped."""
-        G.stack: list[int] = None
+        G.st: list[int] = None
         G.order: list[int] = None
         G.vis: list[int] = None
 
     def __len__(G) -> int: return G.N
-    def __getitem__(G, u): return islice(G.Va,G.La[u],G.Ra[u])
+    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]
     def range(G, u): return range(G.La[u],G.Ra[u])
     
     @overload
@@ -107,18 +110,18 @@ class GraphBase(Sequence, Parsable):
 
     def find_cycle_indices(G, s: Union[int, None] = None):
         Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)
-        G.vis, G.back, stack = vis, back, elist(N)
+        G.vis, G.back, st = vis, back, elist(N)
         for s in G.starts(s):
             if vis[s]: continue
-            stack.append(s)
-            while stack:
-                if not vis[u := stack.pop()]:
-                    stack.append(u)
+            st.append(s)
+            while st:
+                if not vis[u := st.pop()]:
+                    st.append(u)
                     vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max
                     for i in G.range(u):
                         if not vis[v := Va[i]]:
                             back[v] = i
-                            stack.append(v)
+                            st.append(v)
                         elif vis[v] == 1 and pe != Ea[i]:
                             I = u32f(1,i)
                             while v != u: I.append(i := back[u]), (u := Ua[i])
@@ -149,17 +152,30 @@ class GraphBase(Sequence, Parsable):
                 if D[v] < u32_max: continue
                 D[v], par[v] = D[u]+1, u; que.append(v)
 
+    def prep_vis(G):
+        if G.vis is None: G.vis = u8f(G.N)
+        return G.vis
+    
+    def prep_st(G):
+        if G.st is None: G.st = elist(G.N)
+        else: G.st.clear()
+        return G.st
+    
+    def prep_order(G):
+        if G.order is None: G.order = elist(G.N)
+        else: G.order.clear()
+        return G.order
+
     def dfs_topdown(G, s: Union[int,list] = None) -> list[int]:
         '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
-        N = G.N
-        G.vis, G.stack, G.order = vis, stack, order = u8f(N), G.stack or elist(N), G.order or elist(N)
+        vis, st, order = G.prep_vis(), G.prep_st(), G.prep_order()
         for s in G.starts(s):
             if vis[s]: continue
-            vis[s] = 1; stack.append(s) 
-            while stack:
-                for i in G.range(stack.pop()):
+            vis[s] = 1; st.append(s) 
+            while st:
+                for i in G.range(st.pop()):
                     if vis[v := G.Va[i]]: continue
-                    vis[v] = 1; order.append(i); stack.append(v)
+                    vis[v] = 1; order.append(i); st.append(v)
         return order
 
     def dfs(G, s: Union[int,list] = None, /, 
@@ -173,66 +189,49 @@ class GraphBase(Sequence, Parsable):
             forward_fn: Callable[[int,int,int],None] = None,
             cross_fn: Callable[[int,int,int],None] = None,
             up_fn: Callable[[int,int,int],None] = None):
-        Va, La, Ra, I, twin, tin, time = G.Va, G.La, G.Ra, G.La[:], G.twin, i32f(G.N, -1), -1
-        G.state, G.stack = state, stack = u8f(G.N), elist(G.N if max_depth is None else max_depth+1)
-        G.back = back = i32f(G.N, -2)
-        G.tin = tin
+        I, time, vis, st, back, tin = G.La[:], -1, u8f(G.N), elist(G.N), i32f(G.N, -2), i32f(G.N, -1)
+        G.vis, G.st, G.back, G.tin = vis, st, back, tin
         for s in G.starts(s):
-            if state[s]: continue
-            back[s], tin[s] = -1, (time := time+1); stack.append(s)
-            while stack:
-                if state[u := stack[-1]] == 0:
-                    state[u] = 1
+            if vis[s]: continue
+            back[s], tin[s] = -1, (time := time+1); st.append(s)
+            while st:
+                if vis[u := st[-1]] == 0:
+                    vis[u] = 1
                     if enter_fn: enter_fn(u)
-                    if max_depth is not None and len(stack) > max_depth:
-                        I[u] = Ra[u]
+                    if max_depth is not None and len(st) > max_depth:
+                        I[u] = G.Ra[u]
                         if max_depth_fn: max_depth_fn(u)
-                if (i := I[u]) < Ra[u]:
+                if (i := I[u]) < G.Ra[u]:
                     I[u] += 1
-                    if (s := state[v := Va[i]]) == 0:
-                        back[v], tin[v] = i, (time := time+1); stack.append(v)
+                    if (s := vis[v := G.Va[i]]) == 0:
+                        back[v], tin[v] = i, (time := time+1); st.append(v)
                         if down_fn: down_fn(u,v,i)
-                    elif back_fn and s == 1 and back[u] != twin[i]: back_fn(u,v,i)
+                    elif back_fn and s == 1 and back[u] != G.twin[i]: back_fn(u,v,i)
                     elif (cross_fn or forward_fn) and s == 2:
                         if forward_fn and tin[u] < tin[v]: forward_fn(u,v,i)
                         elif cross_fn: cross_fn(u,v,i)
                 else:
-                    stack.pop()
-                    state[u] = 2
-                    if backtrack: state[u], I[u] = 0, La[u]
+                    vis[u] = 2; st.pop()
+                    if backtrack: vis[u], I[u] = 0, G.La[u]
                     if leave_fn: leave_fn(u)
-                    if up_fn and stack: up_fn(u, stack[-1], back[u])
+                    if up_fn and st: up_fn(u, st[-1], back[u])
     
     def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:
-        N, Ra, Va, I = G.N, G.Ra, G.Va, G.La[:]
-        stack, back, plst = elist(N), i32f(N,-2), PacketList(order := elist(2*N), N-1)
+        N, I = G.N, G.La[:]
+        st, back, plst = elist(N), i32f(N,-2), PacketList(order := elist(2*N), N-1)
         G.back, ENTER, LEAVE = back, int(DFSEvent.ENTER) << plst.shift, int(DFSEvent.LEAVE) << plst.shift
         for s in G.starts(s):
             if back[s] >= -1: continue
             back[s] = -1
-            order.append(ENTER | s), stack.append(s)
-            while stack:
-                if (i := I[u := stack[-1]]) < Ra[u]:
+            order.append(ENTER | s), st.append(s)
+            while st:
+                if (i := I[u := st[-1]]) < G.Ra[u]:
                     I[u] += 1
-                    if back[v := Va[i]] >= -1: continue
-                    back[v] = i; order.append(ENTER | v); stack.append(v)
+                    if back[v := G.Va[i]] >= -1: continue
+                    back[v] = i; order.append(ENTER | v); st.append(v)
                 else:
-                    order.append(LEAVE | u); stack.pop()
+                    order.append(LEAVE | u); st.pop()
         return plst
-    
-    def is_bipartite(G):
-        Va, que, color = G.Va, deque(), u8f(N := G.N)                
-        for s in range(N):
-            if color[s]: continue
-            color[s] = 1
-            que.append(s)
-            while que:
-                for i in G.range(u := que.popleft()):
-                    if color[v := Va[i]] == 0:
-                        color[v] = color[u] ^ 2
-                        que.append(v)
-                    elif color[v] == color[u]: return False
-        return True
     
     def starts(G, s: Union[int,list[int],None]) -> list[int]:
         if isinstance(s, int): return [s]

@@ -28,17 +28,17 @@ class TreeBase(GraphBase):
         return (diam, s, g) if endpoints else diam
     
     def dfs_distance(T, s: int, g: Union[int,None] = None):
-        stack, Va = elist(N := T.N), T.Va
+        st, Va = elist(N := T.N), T.Va
         T.D, T.back = D, back = [inf]*N, i32f(N, -1)
         D[s] = 0
-        stack.append(s)
-        while stack:
-            nd = D[u := stack.pop()]+1
+        st.append(s)
+        while st:
+            nd = D[u := st.pop()]+1
             if u == g: return nd-1
             for i in T.range(u):
                 if nd < D[v := Va[i]]:
                     D[v], back[v] = nd, i
-                    stack.append(v)
+                    st.append(v)
         return D if g is None else inf
 
     def rerooting_dp(T, e: _T, 
@@ -70,17 +70,15 @@ class TreeBase(GraphBase):
         tin, tout, par, back = [-1]*N,[-1]*N,[-1]*N,[0]*N
         order, delta = elist(2*N), elist(2*N)
         
-        stack = elist(N)
-        stack.append(s)
-        while stack:
-            p = par[u := stack.pop()]
+        st = elist(N); st.append(s)
+        while st:
+            p = par[u := st.pop()]
             if tin[u] == -1:
                 tin[u] = len(order)
                 for i in T.range(u):
                     if (v := Va[i]) != p:
                         par[v], back[v] = u, i
-                        stack.append(u)
-                        stack.append(v)
+                        st.append(u); st.append(v)
                 delta.append(1)
             else:
                 delta.append(-1)
@@ -95,18 +93,15 @@ class TreeBase(GraphBase):
         N, time, Va = T.N, 0, T.Va
         tin, tout, size = [0]*N, [0]*N, [1]*N+[0]
         par, heavy, head = [-1]*N, [-1]*N, [r]*N
-        depth, order, state = [0]*N, [0]*N, [0]*N
-        stack = elist(N)
-        stack.append(r)
-        while stack:
-            if (s := state[v := stack.pop()]) == 0: # dfs down
-                p, state[v] = par[v], 1
-                stack.append(v)
+        depth, order, vis = [0]*N, [0]*N, [0]*N
+        st = elist(N)
+        st.append(r)
+        while st:
+            if (s := vis[v := st.pop()]) == 0: # dfs down
+                p, vis[v] = par[v], 1; st.append(v)
                 for i in T.range(v):
                     if (c := Va[i]) != p:
-                        depth[c], par[c] = depth[v]+1, v
-                        stack.append(c)
-
+                        depth[c], par[c] = depth[v]+1, v; st.append(c)
             elif s == 1: # dfs up
                 p, l = par[v], -1
                 for i in T.range(v):
@@ -116,23 +111,23 @@ class TreeBase(GraphBase):
                             l = c
                 heavy[v] = l
                 if p == -1:
-                    state[v] = 2
-                    stack.append(v)
+                    vis[v] = 2
+                    st.append(v)
 
             elif s == 2: # decompose down
                 p, h, l = par[v], head[v], heavy[v]
-                tin[v], order[time], state[v] = time, v, 3
+                tin[v], order[time], vis[v] = time, v, 3
                 time += 1
-                stack.append(v)
+                st.append(v)
                 
                 for i in T.range(v):
                     if (c := Va[i]) != p and c != l:
-                        head[c], state[c] = c, 2
-                        stack.append(c)
+                        head[c], vis[c] = c, 2
+                        st.append(c)
 
                 if l != -1:
-                    head[l], state[l] = h, 2
-                    stack.append(l)
+                    head[l], vis[l] = h, 2
+                    st.append(l)
 
             elif s == 3: # decompose up
                 tout[v] = time

@@ -10,15 +10,13 @@ def main():
     def update(i,w):
         u,v = U[i], V[i]
         c = u if T.par[u] == v else v
-        l,r = lca.start[c], lca.stop[c]
+        l,r = T.tin[c], T.tout[c]
         bit.set(l,w)
         bit.set(r,-w)
     
     def query(u,v):
         a,_ = lca.query(u,v)
-        ans = bit.sum(lca.stop[u]) + \
-            bit.sum(lca.stop[v]) - \
-            2*bit.sum(lca.stop[a])
+        ans = bit.sum(T.tout[u]) + bit.sum(T.tout[v]) - 2*bit.sum(T.tout[a])
         write(ans)
     
     def answer():

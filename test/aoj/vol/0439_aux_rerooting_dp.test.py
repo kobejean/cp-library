@@ -1,0 +1,21 @@
+# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0439
+
+from cp_library.alg.dp.min2_fn import min2
+from cp_library.alg.tree.fast.aux_tree_cls import AuxTree
+
+def main():
+    N = read(int)
+    C = read(list[-1, N])
+    T = read(AuxTree[N])
+
+    def edge(s, i, p, u, c):
+        return T.Wa[i] if C[u] == c else s+T.Wa[i]
+    
+    ans = T.rerooting_dp(C, N, min2, edge)
+    write(*ans, sep='\n')
+
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
+
+if __name__ == '__main__':
+    main()

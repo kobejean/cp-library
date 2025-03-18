@@ -1,5 +1,7 @@
-import cp_library.alg.tree.__header__
+import cp_library.__header__
 from typing import Sequence
+import cp_library.alg.__header__
+import cp_library.alg.tree.__header__
 
 class HLD(Sequence[int]):
     def __init__(self, T, r=0):

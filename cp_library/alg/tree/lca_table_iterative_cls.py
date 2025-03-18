@@ -1,15 +1,18 @@
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.tree.__header__
+from cp_library.alg.dp.sort2_fn import sort2
 from cp_library.alg.iter.presum_fn import presum
 from cp_library.ds.min_sparse_table_cls import MinSparseTable
 
 class LCATable(MinSparseTable):
-    def __init__(self, T, root = 0):
+    def __init__(lca, T, root = 0):
         N = len(T)
         T.euler_tour(root)
-        self.depth = depth = presum(T.delta)
-        self.start, self.stop = T.tin, T.tout
-        self.mask = (1 << (shift := N.bit_length()))-1
-        self.shift = shift
+        lca.depth = depth = presum(T.delta)
+        lca.tin, lca.tout = T.tin[:], T.tout[:]
+        lca.mask = (1 << (shift := N.bit_length()))-1
+        lca.shift = shift
         order = T.order
         M = len(order)
         packets = [0]*M
@@ -17,22 +20,22 @@ class LCATable(MinSparseTable):
             packets[i] = depth[i] << shift | order[i] 
         super().__init__(packets)
 
-    def _query(self, u, v):
-        start = self.start
-        l,r = min(start[u], start[v]), max(start[u], start[v])+1
+    def _query(lca, u, v):
+        tin = lca.tin
+        l, r = sort2(tin[u], tin[v]); r += 1
         da = super().query(l, r)
-        return l, r, da & self.mask, da >> self.shift
+        return l, r, da & lca.mask, da >> lca.shift
 
-    def query(self, u, v) -> tuple[int,int]:
-        l, r, a, d = self._query(u, v)
+    def query(lca, u, v) -> tuple[int,int]:
+        l, r, a, d = lca._query(u, v)
         return a, d
     
-    def distance(self, u, v) -> int:
-        l, r, a, d = self._query(u, v)
-        return self.depth[l] + self.depth[r] - 2*d
+    def distance(lca, u, v) -> int:
+        l, r, a, d = lca._query(u, v)
+        return lca.depth[l] + lca.depth[r-1] - 2*d
     
-    def path(self, u, v):
-        path, par, lca, c = [], self.T.par, self.query(u, v)[0], u
+    def path(lca, u, v):
+        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u
         while c != lca:
             path.append(c)
             c = par[c]
