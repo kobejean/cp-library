@@ -74,7 +74,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/other/longest_increasing_sequence.test.py
   requiredBy: []
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/other/longest_increasing_sequence.test.py

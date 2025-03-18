@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/sort2_fn.py
+    title: cp_library/alg/dp/sort2_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -44,9 +47,6 @@ data:
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/heapq_max_import.py
-    title: cp_library/ds/heap/heapq_max_import.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
   - icon: ':heavy_check_mark:'
@@ -63,12 +63,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_a_diameter.test.py
     title: test/aoj/grl/grl_5_a_diameter.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-    title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
@@ -532,56 +526,22 @@ data:
     \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
     \        return self.decode(heappushpop(self.data, self.encode(id, priority)))\n\
     \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
-    \ self.encode(id, priority)))\n\ndef heappop_max(heap: list[_T], /) -> _T: ...\n\
-    def heapsiftdown_max(heap: list[_T], root: int, pos: int): ...\ndef heapsiftup_max(heap:\
-    \ list[_T], pos: int): ...\ndef heapsiftdown(heap: list[_T], root: int, pos: int):\
-    \ ...\ndef heapsiftup(heap: list[_T], pos: int): ...\n\nfrom heapq import (\n\
-    \    _heapify_max as heapify_max, \n    _heappop_max as heappop_max, \n    _siftdown_max\
-    \ as heapsiftdown_max,\n    _siftup_max as heapsiftup_max,\n    _siftdown as heapsiftdown,\n\
-    \    _siftup as heapsiftup\n)\n\ndef heappush_max(heap: list[_T], item: _T):\n\
-    \    \"\"\"Push item onto heap, maintaining the heap invariant.\"\"\"\n    heap.append(item)\n\
-    \    heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list[_T],\
-    \ item: _T) -> _T:\n    \"\"\"Pop and return the current largest value, and add\
-    \ the new item.\n\n    This is more efficient than heappop_max() followed by heappush_max(),\
-    \ and can be\n    more appropriate when using a fixed-size heap.  Note that the\
-    \ value\n    returned may be larger than item!  That constrains reasonable uses\
-    \ of\n    this routine unless written as part of a conditional replacement:\n\n\
-    \        if item > heap[0]:\n            item = heapreplace_max(heap, item)\n\
-    \    \"\"\"\n    returnitem = heap[0]\n    heap[0] = item\n    heapsiftup_max(heap,\
-    \ 0)\n    return returnitem\n\ndef heappushpop_max(heap: list[_T], item: _T) ->\
-    \ _T:\n    \"\"\"Fast version of a heappush_max followed by a heappop_max.\"\"\
-    \"\n    if heap and heap[0] > item:\n        item, heap[0] = heap[0], item\n \
-    \       heapsiftup_max(heap, 0)\n    return item\n\n\nclass MaxPriorityQueue(HeapProtocol[int],\
-    \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
-    \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
-    \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            super().__init__()\n\
-    \        elif priorities is None:\n            heapify_max(ids)\n            self.data\
-    \ = ids\n        else:\n            M = len(ids)\n            data = [0]*M\n \
-    \           for i in range(M):\n                data[i] = self.encode(ids[i],\
-    \ priorities[i]) \n            heapify_max(data)\n            self.data = data\n\
-    \n    def encode(self, id, priority):\n        return priority << self.shift |\
-    \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
-    \ encoded >> self.shift\n    \n    def pop(self):\n        return self.decode(heappop_max(self.data))\n\
-    \    \n    def push(self, id: int, priority: int):\n        heappush_max(self.data,\
-    \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
-    \        return self.decode(heappushpop_max(self.data, self.encode(id, priority)))\n\
-    \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace_max(self.data,\
-    \ self.encode(id, priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n\
-    \    \n\nclass GraphWeighted(GraphWeightedProtocol):\n    def __init__(G, N: int,\
-    \ E=[]):\n        super().__init__(N, E, ([] for _ in range(N)))\n        G.E\
-    \ = E\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n         \
-    \   G[v].append((u,*w))\n    \n    def edge_ids(G) -> list[list[int]]:\n     \
-    \   Eid = [[] for _ in range(G.N)]\n        for e,(u,v,*w) in enumerate(G.E):\n\
+    \ self.encode(id, priority)))\n    \n\nclass GraphWeighted(GraphWeightedProtocol):\n\
+    \    def __init__(G, N: int, E=[]):\n        super().__init__(N, E, ([] for _\
+    \ in range(N)))\n        G.E = E\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n\
+    \            G[v].append((u,*w))\n    \n    def edge_ids(G) -> list[list[int]]:\n\
+    \        Eid = [[] for _ in range(G.N)]\n        for e,(u,v,*w) in enumerate(G.E):\n\
     \            Eid[u].append(e)\n            Eid[v].append(e)\n        return Eid\n\
     \    \n    @classmethod\n    def compile(cls, N: int, M: int, E: Union[type,int]\
     \ = EdgeWeighted[-1]):\n        if isinstance(E, int): E = EdgeWeighted[E]\n \
     \       return super().compile(N, M, E)\n\nfrom functools import cached_property\n\
-    \nfrom typing import overload, Literal, Union\n\nfrom itertools import accumulate\n\
-    \ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
-    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
-    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
-    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
-    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
+    \nfrom typing import overload, Literal, Union\n\n\ndef sort2(a, b):\n    return\
+    \ (a,b) if a < b else (b,a)\n\nfrom itertools import accumulate\n\ndef presum(iter:\
+    \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
+    \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
+    \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
+    \            func = operator.add\n        A = list(iter)\n        if initial is\
+    \ not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
     \            A[i] = func(A[i], A[i-step])\n        return A\nfrom itertools import\
     \ pairwise\nfrom typing import Any, List\n\nclass MinSparseTable:\n    def __init__(self,\
     \ arr: List[Any]):\n        self.N = N = len(arr)\n        self.log = N.bit_length()\n\
@@ -598,46 +558,45 @@ data:
     \ i in range(log):\n            start = offsets[i]\n            end = offsets[i+1]\
     \ if i+1 < log else len(st)\n            rows.append(f\"{i:<2d} {st[start:end]}\"\
     )\n        return '\\n'.join(rows)\n\nclass LCATable(MinSparseTable):\n    def\
-    \ __init__(self, T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n\
-    \        self.depth = depth = presum(T.delta)\n        self.start, self.stop =\
-    \ T.tin, T.tout\n        self.mask = (1 << (shift := N.bit_length()))-1\n    \
-    \    self.shift = shift\n        order = T.order\n        M = len(order)\n   \
-    \     packets = [0]*M\n        for i in range(M):\n            packets[i] = depth[i]\
-    \ << shift | order[i] \n        super().__init__(packets)\n\n    def _query(self,\
-    \ u, v):\n        start = self.start\n        l,r = min(start[u], start[v]), max(start[u],\
-    \ start[v])+1\n        da = super().query(l, r)\n        return l, r, da & self.mask,\
-    \ da >> self.shift\n\n    def query(self, u, v) -> tuple[int,int]:\n        l,\
-    \ r, a, d = self._query(u, v)\n        return a, d\n    \n    def distance(self,\
-    \ u, v) -> int:\n        l, r, a, d = self._query(u, v)\n        return self.depth[l]\
-    \ + self.depth[r] - 2*d\n    \n    def path(self, u, v):\n        path, par, lca,\
-    \ c = [], self.T.par, self.query(u, v)[0], u\n        while c != lca:\n      \
-    \      path.append(c)\n            c = par[c]\n        path.append(lca)\n    \
-    \    rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
-    \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
-    \ path\n\nclass TreeProtocol(GraphProtocol):\n\n    @cached_property\n    def\
-    \ lca(T):\n        return LCATable(T)\n    \n    @overload\n    def diameter(T)\
-    \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
-    \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        mask\
-    \ = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift | v for\
-    \ v,d in enumerate(T.distance(0))) & mask\n        dg = max(d << shift | v for\
-    \ v,d in enumerate(T.distance(s))) \n        diam, g = dg >> shift, dg & mask\n\
-    \        return (diam, s, g) if endpoints else diam\n    \n    @overload\n   \
-    \ def distance(T) -> list[list[int]]: ...\n    @overload\n    def distance(T,\
-    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T, s: int, g:\
-    \ int) -> int: ...\n    def distance(T, s = None, g = None):\n        if s ==\
-    \ None:\n            return [T.dfs(u) for u in range(T.N)]\n        else:\n  \
-    \          return T.dfs(s, g)\n            \n    @overload\n    def dfs(T, s:\
-    \ int = 0) -> list[int]: ...\n    @overload\n    def dfs(T, s: int, g: int) ->\
-    \ int: ...\n    def dfs(T, s = 0, g = None):\n        D = [inf for _ in range(T.N)]\n\
-    \        D[s] = 0\n        state = [True for _ in range(T.N)]\n        stack =\
-    \ [s]\n\n        while stack:\n            u = stack.pop()\n            if u ==\
-    \ g: return D[u]\n            state[u] = False\n            for v in T[u]:\n \
-    \               if state[v]:\n                    D[v] = D[u]+1\n            \
-    \        stack.append(v)\n        return D if g is None else inf \n\n\n    def\
-    \ dfs_events(G, flags: DFSFlags, s: int = 0):         \n        events = []\n\
-    \        stack = [(s,-1)]\n        adj = [None]*G.N\n\n\n        while stack:\n\
-    \            u, p = stack[-1]\n            \n            if adj[u] is None:\n\
-    \                adj[u] = iter(G.neighbors(u))\n                if DFSFlags.ENTER\
+    \ __init__(lca, T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n\
+    \        lca.depth = depth = presum(T.delta)\n        lca.tin, lca.tout = T.tin[:],\
+    \ T.tout[:]\n        lca.mask = (1 << (shift := N.bit_length()))-1\n        lca.shift\
+    \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
+    \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
+    \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
+    \        tin = lca.tin\n        l, r = sort2(tin[u], tin[v]); r += 1\n       \
+    \ da = super().query(l, r)\n        return l, r, da & lca.mask, da >> lca.shift\n\
+    \n    def query(lca, u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u,\
+    \ v)\n        return a, d\n    \n    def distance(lca, u, v) -> int:\n       \
+    \ l, r, a, d = lca._query(u, v)\n        return lca.depth[l] + lca.depth[r-1]\
+    \ - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca, c = [], lca.T.par,\
+    \ lca.query(u, v)[0], u\n        while c != lca:\n            path.append(c)\n\
+    \            c = par[c]\n        path.append(lca)\n        rev_path, c = [], v\n\
+    \        while c != lca:\n            rev_path.append(c)\n            c = par[c]\n\
+    \        path.extend(reversed(rev_path))\n        return path\n\nclass TreeProtocol(GraphProtocol):\n\
+    \n    @cached_property\n    def lca(T):\n        return LCATable(T)\n    \n  \
+    \  @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
+    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
+    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
+    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
+    \    \n    @overload\n    def distance(T) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T,\
+    \ s: int, g: int) -> int: ...\n    def distance(T, s = None, g = None):\n    \
+    \    if s == None:\n            return [T.dfs(u) for u in range(T.N)]\n      \
+    \  else:\n            return T.dfs(s, g)\n            \n    @overload\n    def\
+    \ dfs(T, s: int = 0) -> list[int]: ...\n    @overload\n    def dfs(T, s: int,\
+    \ g: int) -> int: ...\n    def dfs(T, s = 0, g = None):\n        D = [inf for\
+    \ _ in range(T.N)]\n        D[s] = 0\n        state = [True for _ in range(T.N)]\n\
+    \        stack = [s]\n\n        while stack:\n            u = stack.pop()\n  \
+    \          if u == g: return D[u]\n            state[u] = False\n            for\
+    \ v in T[u]:\n                if state[v]:\n                    D[v] = D[u]+1\n\
+    \                    stack.append(v)\n        return D if g is None else inf \n\
+    \n\n    def dfs_events(G, flags: DFSFlags, s: int = 0):         \n        events\
+    \ = []\n        stack = [(s,-1)]\n        adj = [None]*G.N\n\n\n        while\
+    \ stack:\n            u, p = stack[-1]\n            \n            if adj[u] is\
+    \ None:\n                adj[u] = iter(G.neighbors(u))\n                if DFSFlags.ENTER\
     \ in flags:\n                    events.append((DFSEvent.ENTER, u))\n        \
     \    \n            if (v := next(adj[u], None)) is not None:\n               \
     \ if v == p:\n                    if DFSFlags.BACK in flags:\n               \
@@ -757,19 +716,17 @@ data:
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/iter/presum_fn.py
   - cp_library/ds/heap/heap_proto.py
-  - cp_library/ds/heap/heapq_max_import.py
+  - cp_library/alg/dp/sort2_fn.py
   - cp_library/ds/min_sparse_table_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/tree/tree_weighted_cls.py
 layout: document
 redirect_from:

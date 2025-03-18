@@ -69,6 +69,9 @@ data:
     path: cp_library/alg/graph/strongly_connected_components_fn.py
     title: cp_library/alg/graph/strongly_connected_components_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/aux_tree_cls.py
+    title: cp_library/alg/tree/fast/aux_tree_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -102,6 +105,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_b_fast_height.test.py
     title: test/aoj/grl/grl_5_b_fast_height.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_dijkstra.test.py
+    title: test/aoj/vol/0439_aux_dijkstra.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_rerooting_dp.test.py
+    title: test/aoj/vol/0439_aux_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
@@ -281,6 +290,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/array_init_fn.py
   requiredBy:
+  - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
@@ -307,9 +317,11 @@ data:
   - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py

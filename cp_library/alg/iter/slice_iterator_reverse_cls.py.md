@@ -68,7 +68,7 @@ data:
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/digraph_cls.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/cycle_detection.test.py

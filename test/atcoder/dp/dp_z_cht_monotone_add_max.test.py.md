@@ -91,7 +91,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
   requiredBy: []
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_z_cht_monotone_add_max.test.py

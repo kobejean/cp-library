@@ -95,7 +95,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/and_conv_fn.py
   requiredBy: []
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_and_convolution.test.py

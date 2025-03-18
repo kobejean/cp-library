@@ -35,9 +35,6 @@ data:
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/heapq_max_import.py
-    title: cp_library/ds/heap/heapq_max_import.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
   - icon: ':question:'
@@ -535,51 +532,16 @@ data:
     \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
     \        return self.decode(heappushpop(self.data, self.encode(id, priority)))\n\
     \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
-    \ self.encode(id, priority)))\n\ndef heappop_max(heap: list[_T], /) -> _T: ...\n\
-    def heapsiftdown_max(heap: list[_T], root: int, pos: int): ...\ndef heapsiftup_max(heap:\
-    \ list[_T], pos: int): ...\ndef heapsiftdown(heap: list[_T], root: int, pos: int):\
-    \ ...\ndef heapsiftup(heap: list[_T], pos: int): ...\n\nfrom heapq import (\n\
-    \    _heapify_max as heapify_max, \n    _heappop_max as heappop_max, \n    _siftdown_max\
-    \ as heapsiftdown_max,\n    _siftup_max as heapsiftup_max,\n    _siftdown as heapsiftdown,\n\
-    \    _siftup as heapsiftup\n)\n\ndef heappush_max(heap: list[_T], item: _T):\n\
-    \    \"\"\"Push item onto heap, maintaining the heap invariant.\"\"\"\n    heap.append(item)\n\
-    \    heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list[_T],\
-    \ item: _T) -> _T:\n    \"\"\"Pop and return the current largest value, and add\
-    \ the new item.\n\n    This is more efficient than heappop_max() followed by heappush_max(),\
-    \ and can be\n    more appropriate when using a fixed-size heap.  Note that the\
-    \ value\n    returned may be larger than item!  That constrains reasonable uses\
-    \ of\n    this routine unless written as part of a conditional replacement:\n\n\
-    \        if item > heap[0]:\n            item = heapreplace_max(heap, item)\n\
-    \    \"\"\"\n    returnitem = heap[0]\n    heap[0] = item\n    heapsiftup_max(heap,\
-    \ 0)\n    return returnitem\n\ndef heappushpop_max(heap: list[_T], item: _T) ->\
-    \ _T:\n    \"\"\"Fast version of a heappush_max followed by a heappop_max.\"\"\
-    \"\n    if heap and heap[0] > item:\n        item, heap[0] = heap[0], item\n \
-    \       heapsiftup_max(heap, 0)\n    return item\n\n\nclass MaxPriorityQueue(HeapProtocol[int],\
-    \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
-    \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
-    \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            super().__init__()\n\
-    \        elif priorities is None:\n            heapify_max(ids)\n            self.data\
-    \ = ids\n        else:\n            M = len(ids)\n            data = [0]*M\n \
-    \           for i in range(M):\n                data[i] = self.encode(ids[i],\
-    \ priorities[i]) \n            heapify_max(data)\n            self.data = data\n\
-    \n    def encode(self, id, priority):\n        return priority << self.shift |\
-    \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
-    \ encoded >> self.shift\n    \n    def pop(self):\n        return self.decode(heappop_max(self.data))\n\
-    \    \n    def push(self, id: int, priority: int):\n        heappush_max(self.data,\
-    \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
-    \        return self.decode(heappushpop_max(self.data, self.encode(id, priority)))\n\
-    \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace_max(self.data,\
-    \ self.encode(id, priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n\
-    \    \n\nfrom operator import itemgetter\n\nclass DiGraphWeighted(GraphWeightedProtocol):\n\
-    \    def __init__(G, N, E: list = []):\n        super().__init__(N, E, ([] for\
-    \ _ in range(N)))\n        for u,v,*w in G.E:\n            G[u].append((v,*w))\n\
-    \    \n    def edge_ids(G) -> list[list[int]]:\n        Eid = [[] for _ in range(G.N)]\n\
-    \        for e,(u,v,*w) in enumerate(G.E):\n            Eid[u].append(e)\n   \
-    \     return Eid\n    \n    def neighbors(G, v: int) -> Iterable[int]:\n     \
-    \   return map(itemgetter(0), G[v])\n    \n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, E: Union[type,int] = EdgeWeighted[-1]):\n        if isinstance(E,\
-    \ int): E = EdgeWeighted[E]\n        return super().compile(N, M, E)\n\nif __name__\
-    \ == '__main__':\n    main()\n"
+    \ self.encode(id, priority)))\n    \n\nfrom operator import itemgetter\n\nclass\
+    \ DiGraphWeighted(GraphWeightedProtocol):\n    def __init__(G, N, E: list = []):\n\
+    \        super().__init__(N, E, ([] for _ in range(N)))\n        for u,v,*w in\
+    \ G.E:\n            G[u].append((v,*w))\n    \n    def edge_ids(G) -> list[list[int]]:\n\
+    \        Eid = [[] for _ in range(G.N)]\n        for e,(u,v,*w) in enumerate(G.E):\n\
+    \            Eid[u].append(e)\n        return Eid\n    \n    def neighbors(G,\
+    \ v: int) -> Iterable[int]:\n        return map(itemgetter(0), G[v])\n    \n \
+    \   @classmethod\n    def compile(cls, N: int, M: int, E: Union[type,int] = EdgeWeighted[-1]):\n\
+    \        if isinstance(E, int): E = EdgeWeighted[E]\n        return super().compile(N,\
+    \ M, E)\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/1/GRL/all/GRL_1_A\n\
     \nfrom math import inf\n\ndef main():\n    N, M, r = read()\n    G = read(DiGraphWeighted[N,\
     \ M, 0])\n    D = dijkstra(G, r)\n    write(*('INF' if d == inf else d for d in\
@@ -603,11 +565,10 @@ data:
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/heap/heap_proto.py
-  - cp_library/ds/heap/heapq_max_import.py
   isVerificationFile: true
   path: test/aoj/grl/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_a_dijkstra.test.py

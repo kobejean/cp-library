@@ -98,7 +98,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py

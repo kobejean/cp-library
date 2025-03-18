@@ -99,6 +99,9 @@ data:
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/aux_tree_cls.py
+    title: cp_library/alg/tree/fast/aux_tree_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -178,6 +181,12 @@ data:
     path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
     title: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_dijkstra.test.py
+    title: test/aoj/vol/0439_aux_dijkstra.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_rerooting_dp.test.py
+    title: test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc184_e_grid_graph.test.py
     title: test/atcoder/abc/abc184_e_grid_graph.test.py
   - icon: ':heavy_check_mark:'
@@ -213,12 +222,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-    title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
@@ -318,6 +321,7 @@ data:
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
+  - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
@@ -355,9 +359,11 @@ data:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/dag_cls.py
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -400,9 +406,7 @@ data:
   - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py

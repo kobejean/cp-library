@@ -61,12 +61,6 @@ data:
     path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
     title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-    title: test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
   - icon: ':heavy_check_mark:'
@@ -196,7 +190,7 @@ data:
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2025-03-15 19:36:13+09:00'
+  timestamp: '2025-03-19 01:19:38+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
@@ -213,8 +207,6 @@ data:
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - test/atcoder/abc/abc294_g_tree_heavy_light_decomposition.test.py
-  - test/atcoder/abc/abc294_g_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
 documentation_of: cp_library/alg/graph/edge_weighted_cls.py
 layout: document
