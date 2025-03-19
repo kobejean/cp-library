@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+# run test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 

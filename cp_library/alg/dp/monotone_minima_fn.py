@@ -2,7 +2,7 @@ import cp_library.alg.dp.__header__
 from typing import Callable
 
 def monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):
-    """
+    '''
     Finds row minima in a totally monotone N×M matrix using the SMAWK algorithm.
     The matrix is defined implicitly through the comparison function.
     
@@ -22,7 +22,7 @@ def monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):
     Example:
         # Find minima where each element is (i-j)²
         min_indices = monotone_minima(5, 5, lambda i,j,k: (i-j)**2 < (i-k)**2)
-    """
+    '''
     min_j, st = [0] * N, elist(N)
     st.append((0, N, 0, M))
     while st:

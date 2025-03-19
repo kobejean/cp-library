@@ -9,10 +9,10 @@ import cp_library.alg.graph.fast.__header__
 import cp_library.alg.graph.fast.snippets.__header__
 
 def strongly_connected_components(G: 'DiGraph') -> Iterator[list[int]]:
-    """
+    '''
     Finds strongly connected sccs in directed graph using Tarjan's algorithm.
     Returns sccs in topological order.
-    """
+    '''
     low, on, st, sccs, L = u32f(N := G.N), u8f(N), elist(N), elist(N), elist(N)
     
     def enter(u):

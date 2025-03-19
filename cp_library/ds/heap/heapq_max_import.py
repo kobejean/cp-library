@@ -16,12 +16,12 @@ from heapq import (
 )
 
 def heappush_max(heap: list[_T], item: _T):
-    """Push item onto heap, maintaining the heap invariant."""
+    '''Push item onto heap, maintaining the heap invariant.'''
     heap.append(item)
     heapsiftdown_max(heap, 0, len(heap)-1)
 
 def heapreplace_max(heap: list[_T], item: _T) -> _T:
-    """Pop and return the current largest value, and add the new item.
+    '''Pop and return the current largest value, and add the new item.
 
     This is more efficient than heappop_max() followed by heappush_max(), and can be
     more appropriate when using a fixed-size heap.  Note that the value
@@ -30,14 +30,14 @@ def heapreplace_max(heap: list[_T], item: _T) -> _T:
 
         if item > heap[0]:
             item = heapreplace_max(heap, item)
-    """
+    '''
     returnitem = heap[0]
     heap[0] = item
     heapsiftup_max(heap, 0)
     return returnitem
 
 def heappushpop_max(heap: list[_T], item: _T) -> _T:
-    """Fast version of a heappush_max followed by a heappop_max."""
+    '''Fast version of a heappush_max followed by a heappop_max.'''
     if heap and heap[0] > item:
         item, heap[0] = heap[0], item
         heapsiftup_max(heap, 0)

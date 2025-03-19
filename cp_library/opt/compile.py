@@ -6,7 +6,7 @@ import zlib
 from cffi import FFI
 
 # Embed your C source code as a string
-C_SOURCE = """
+C_SOURCE = '''
 #include <stdio.h>
 
 int add(int a, int b) {
@@ -17,7 +17,7 @@ int fibonacci(int n) {
     if (n <= 1) return n;
     return fibonacci(n-1) + fibonacci(n-2);
 }
-"""
+'''
 
 def compile_c_code(source_code):
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -52,10 +52,10 @@ def load_library(lib_data):
             tmp.write(lib_data)
         
         ffi = FFI()
-        ffi.cdef("""
+        ffi.cdef('''
             int add(int a, int b);
             int fibonacci(int n);
-        """)
+        ''')
         
         return ffi.dlopen(path)
     except Exception as e:

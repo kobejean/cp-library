@@ -4,7 +4,7 @@ import typing
 from cp_library.ds.bidirectional_array_cls import BidirectionalArray
 
 class ReRootingDP():
-    """ A class implementation of the Re-rooting Dynamic Programming technique. """
+    ''' A class implementation of the Re-rooting Dynamic Programming technique. '''
     S = typing.TypeVar('S')
     MergeOp = typing.Callable[[S, S], S]
     AddNodeOp = typing.Callable[[int, S], S]
@@ -14,13 +14,13 @@ class ReRootingDP():
                  merge: MergeOp, 
                  add_node: AddNodeOp = lambda u,s:s, 
                  add_edge: AddEdgeOp = lambda u,v,s:s):
-        """
+        '''
         T: list[list[int]] - Adjacency list representation of the tree.
         e: S - Identity element for the merge operation.
         merge: (S,S) -> S - Function to merge two states.
         add_node: (int,S) -> S - Function to incorporate a node into the state.
         add_edge: (int,int,S) -> S - Function to incorporate an edge into the state.
-        """
+        '''
         self.T = T
         self.e = e
         self.merge = merge

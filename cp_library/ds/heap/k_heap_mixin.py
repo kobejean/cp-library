@@ -6,7 +6,7 @@ from cp_library.ds.heap.heap_proto import HeapProtocol
 from cp_library.misc.typing import _T
 
 class KHeapMixin(HeapProtocol[_T], Parsable):
-    """KHeapMixin[K: int, T: type, N: Union[int,None]]"""
+    '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''
     def __init__(heap, K: int):
         heap.K = K
 

@@ -12,23 +12,23 @@ class DiGraphWeightedMeta(DiGraphWeighted):
             for i,e in enumerate(G.Ea):
                 Xa[i] = X[e]
             G.X = X
-            """A parallel lists of edge meta data from the original edge list."""
+            '''A parallel lists of edge meta data from the original edge list.'''
             G.Xa = Xa
-            """Xa[i] parallel lists of adjacent meta data to u for La[u] <= i < Ra[u]."""
+            '''Xa[i] parallel lists of adjacent meta data to u for La[u] <= i < Ra[u].'''
         if Y is not None:
             Ya = [0]*M
             for i,e in enumerate(G.Ea): Ya[i] = Y[e]
             G.Y = Y
-            """A parallel lists of edge meta data from the original edge list."""
+            '''A parallel lists of edge meta data from the original edge list.'''
             G.Ya = Ya
-            """Ya[i] parallel lists of adjacent meta data to u for La[u] <= i < Ra[u]."""
+            '''Ya[i] parallel lists of adjacent meta data to u for La[u] <= i < Ra[u].'''
         if Z is not None:
             Za = [0]*M
             for i,e in enumerate(G.Ea): Za[i] = Z[e]
             G.Z = Z
-            """A parallel lists of edge meta data from the original edge list."""
+            '''A parallel lists of edge meta data from the original edge list.'''
             G.Za = Za
-            """Za[i] parallel lists of adjacent meta data to u for La[u] <= i < Ra[u]."""
+            '''Za[i] parallel lists of adjacent meta data to u for La[u] <= i < Ra[u].'''
 
     @classmethod
     def compile(cls, N: int, M: int, T: list[type] = [-1,-1,int,int]):

@@ -11,10 +11,10 @@ from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 import cp_library.alg.graph.fast.snippets.__header__
 
 def cut_edges(G: GraphBase, s: Union[int,list,None] = None):
-    """
+    '''
     Find cut edges in an undirected graph using DFS edge types.
     Returns a list of adjacency indices where the edge is a cut edge.
-    """
+    '''
     low, I = [N := G.N]*N, elist(G.M)
 
     def enter(v):

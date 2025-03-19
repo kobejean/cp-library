@@ -15,33 +15,57 @@ class GraphBase(Sequence, Parsable):
                  deg: list[int], La: list[int], Ra: list[int],
                  Ua: list[int], Va: list[int], Ea: list[int], twin: list[int] = None):
         G.N = N
-        """The number of vertices."""
+        '''The number of vertices.'''
         G.M = M
-        """The number of edges."""
+        '''The number of edges.'''
         G.U = U
-        """A list of source vertices in the original edge list."""
+        '''A list of source vertices in the original edge list.'''
         G.V = V
-        """A list of destination vertices in the original edge list."""
+        '''A list of destination vertices in the original edge list.'''
         G.deg = deg
-        """deg[u] is the out degree of vertex u."""
+        '''deg[u] is the out degree of vertex u.'''
         G.La = La
-        """La[u] stores the start index of the list of adjacent vertices from u."""
+        '''La[u] stores the start index of the list of adjacent vertices from u.'''
         G.Ra = Ra
-        """Ra[u] stores the stop index of the list of adjacent vertices from u."""
+        '''Ra[u] stores the stop index of the list of adjacent vertices from u.'''
         G.Ua = Ua
-        """Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking."""
+        '''Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.'''
         G.Va = Va
-        """Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u]."""
+        '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''
         G.Ea = Ea
-        """Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].
+        '''Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].
         For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].
-        """
+        '''
         G.twin = twin if twin is not None else range(len(Ua))
-        """twin[i] in undirected graphs stores index j of the same edge but with u and v swapped."""
+        '''twin[i] in undirected graphs stores index j of the same edge but with u and v swapped.'''
         G.st: list[int] = None
         G.order: list[int] = None
         G.vis: list[int] = None
+        G.back: list[int] = None
+        G.tin: list[int] = None
 
+    def prep_vis(G):
+        if G.vis is None: G.vis = u8f(G.N)
+        return G.vis
+    
+    def prep_st(G):
+        if G.st is None: G.st = elist(G.N)
+        else: G.st.clear()
+        return G.st
+    
+    def prep_order(G):
+        if G.order is None: G.order = elist(G.N)
+        else: G.order.clear()
+        return G.order
+    
+    def prep_back(G):
+        if G.back is None: G.back = i32f(G.N, -2)
+        return G.back
+    
+    def prep_tin(G):
+        if G.tin is None: G.tin = i32f(G.N, -1)
+        return G.tin
+    
     def __len__(G) -> int: return G.N
     def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]
     def range(G, u): return range(G.La[u],G.Ra[u])
@@ -97,14 +121,13 @@ class GraphBase(Sequence, Parsable):
         return D if g is None else inf 
 
     def floyd_warshall(G) -> list[list[int]]:
-        Ua, Va, N = G.Ua, G.Va, G.N
-        G.D = D = [[inf]*N for _ in range(N)]
-        for u in range(N): D[u][u] = 0
-        for i in range(len(Ua)): D[Ua[i]][Va[i]] = 1
+        G.D = D = [[inf]*G.N for _ in range(G.N)]
+        for u in range(G.N): D[u][u] = 0
+        for i in range(len(G.Ua)): D[G.Ua[i]][G.Va[i]] = 1
         for k, Dk in enumerate(D):
             for Di in D:
                 if (Dik := Di[k]) == inf: continue
-                for j in range(N):
+                for j in range(G.N):
                     chmin(Di, j, Dik+Dk[j])
         return D
 
@@ -152,20 +175,6 @@ class GraphBase(Sequence, Parsable):
                 if D[v] < u32_max: continue
                 D[v], par[v] = D[u]+1, u; que.append(v)
 
-    def prep_vis(G):
-        if G.vis is None: G.vis = u8f(G.N)
-        return G.vis
-    
-    def prep_st(G):
-        if G.st is None: G.st = elist(G.N)
-        else: G.st.clear()
-        return G.st
-    
-    def prep_order(G):
-        if G.order is None: G.order = elist(G.N)
-        else: G.order.clear()
-        return G.order
-
     def dfs_topdown(G, s: Union[int,list] = None) -> list[int]:
         '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
         vis, st, order = G.prep_vis(), G.prep_st(), G.prep_order()
@@ -189,8 +198,7 @@ class GraphBase(Sequence, Parsable):
             forward_fn: Callable[[int,int,int],None] = None,
             cross_fn: Callable[[int,int,int],None] = None,
             up_fn: Callable[[int,int,int],None] = None):
-        I, time, vis, st, back, tin = G.La[:], -1, u8f(G.N), elist(G.N), i32f(G.N, -2), i32f(G.N, -1)
-        G.vis, G.st, G.back, G.tin = vis, st, back, tin
+        I, time, vis, st, back, tin = G.La[:], -1, G.prep_vis(), G.prep_st(), G.prep_back(), G.prep_tin()
         for s in G.starts(s):
             if vis[s]: continue
             back[s], tin[s] = -1, (time := time+1); st.append(s)

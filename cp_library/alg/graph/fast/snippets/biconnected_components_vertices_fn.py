@@ -9,10 +9,10 @@ from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 from typing import Iterable, Union
 
 def biconnected_components(G: GraphBase, s: Union[int,list,None] = None) -> Iterable[list[int]]:
-    """
+    '''
     Returns an iterator of vertex lists, each representing a biconnected component.
     Isolated vertices are included as single-vertex components.
-    """
+    '''
     low, st, bccs, L = [N := G.N]*N, elist(G.M), elist(G.M), elist(G.M)
 
     def back(u,v,i):

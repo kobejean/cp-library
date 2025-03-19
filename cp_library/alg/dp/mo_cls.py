@@ -3,7 +3,7 @@ from math import isqrt
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
 class Mo(list, Parsable):
-    """Mo[Q: int, N: int, T: type = tuple[int, int]]"""
+    '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''
     def __init__(self, L: list[int], R: list[int], N: int):
         self.Q = len(L)
         self.qbits = self.Q.bit_length()
@@ -23,7 +23,7 @@ class Mo(list, Parsable):
             self.R[i] = R[j]
 
     def packet(self, i: int, l: int, r: int) -> int:
-        """Pack query information into a single integer."""
+        '''Pack query information into a single integer.'''
         b = l//self.B
         if b & 1:
             return (((b << self.nbits) + self.nmask - r) << self.qbits) + i
@@ -31,15 +31,15 @@ class Mo(list, Parsable):
             return (((b << self.nbits) + r) << self.qbits) + i
 
     def add(self, i: int):
-        """Add element at index i to current range."""
+        '''Add element at index i to current range.'''
         pass
 
     def remove(self, i: int):
-        """Remove element at index i from current range."""
+        '''Remove element at index i from current range.'''
         pass
 
     def answer(self, i: int, l: int, r: int) -> int:
-        """Compute answer for current range."""
+        '''Compute answer for current range.'''
         pass
     
     def solve(self) -> list[int]:

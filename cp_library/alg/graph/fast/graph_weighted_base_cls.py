@@ -12,7 +12,7 @@ class GraphWeightedBase(GraphBase):
         super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)
         self.W = W
         self.Wa = Wa
-        """Wa[i] lists weights to edges from u for La[u] <= i < Ra[u]."""
+        '''Wa[i] lists weights to edges from u for La[u] <= i < Ra[u].'''
         
     def __getitem__(G, u):
         l,r = G.La[u],G.Ra[u]

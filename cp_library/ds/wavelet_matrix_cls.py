@@ -57,9 +57,9 @@ class WaveletMatrix:
         return i - self.start[val]
          
     def select(self, val: int, k: int) -> int:
-        """
+        '''
         Find the 0-indexed position of the `k+1`-th occurance of `val`.
-        """
+        '''
         if k < 0 or val not in self.start:
             return -1
         
@@ -72,10 +72,10 @@ class WaveletMatrix:
         return idx
 
     def quantile(self, l: int, r: int, k: int) -> int:
-        """
+        '''
         Find the k-th smallest element in the range [l, r).
         k is 0-indexed, so k=0 returns the minimum element in the range.
-        """
+        '''
         if r > self.n or l >= r or k >= r - l:
             return -1
 
@@ -95,14 +95,14 @@ class WaveletMatrix:
         return val
 
     def topk(self, l: int, r: int, k: int) -> list[tuple[int, int]]:
-        """
+        '''
         Find the k most frequent elements in the range [l, r).
         
         :param l: start of the range (inclusive)
         :param r: end of the range (exclusive)
         :param k: number of top elements to return
         :return: list of (value, frequency) pairs, sorted by frequency (descending), then by value (descending)
-        """
+        '''
         if r > self.n or l >= r or k <= 0:
             return []
 

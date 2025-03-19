@@ -4,10 +4,10 @@ from cp_library.alg.graph.dfs_events_fn import DFSEvent, DFSFlags, dfs_events
 from math import inf
 
 def articulation_points(G, s: Union[int,list,None] = None):
-    """
+    '''
     Find articulation points in an undirected graph using DFS events.
     Returns a boolean list that is True for indices where the vertex is an articulation point.
-    """
+    '''
     N = G.N
     if s is None: s = range(N)
     low, disc, children, ap, time = [inf]*N, [-1]*N, [0]*N, [False]*N, 0    

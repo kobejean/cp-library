@@ -16,7 +16,7 @@ class MoOp(IntFlag):
     REMOVE = REMOVE_LEFT | REMOVE_RIGHT
 
 # def hilbert(x: int, y: int, n: int) -> int:
-#     """Convert (x,y) to Hilbert curve distance for given n (power of 2)."""
+#     '''Convert (x,y) to Hilbert curve distance for given n (power of 2).'''
 #     d = 0
 #     for s in range(n.bit_length() - 1, -1, -1):
 #         rx = (x >> s) & 1
@@ -30,13 +30,13 @@ class MoOp(IntFlag):
 #     return d
 
 class QueriesMoOps(tuple[list[int], ...],Parsable):
-    """
+    '''
     QueriesMoOps[Q: int, N: int, T: type = tuple[int, int]]
     Orders queries using Mo's algorithm and generates a sequence of operations to process them efficiently.
     Each operation is either moving pointers or answering a query.
     
     Uses half-interval convention: [left, right)
-    """
+    '''
     
     def __new__(cls, L: list[int], R: list[int], N: int, B: int = None):
         Q = len(L)

@@ -180,10 +180,10 @@ class GraphProtocol(list, Parsable):
         return bridges
 
     def articulation_points(G):
-        """
+        '''
         Find articulation points in an undirected graph using DFS events.
         Returns a boolean list that is True for indices where the vertex is an articulation point.
-        """
+        '''
         N = G.N
         order = [-1] * N
         low = [-1] * N

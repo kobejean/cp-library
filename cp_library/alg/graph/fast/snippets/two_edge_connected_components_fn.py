@@ -10,9 +10,9 @@ import cp_library.alg.graph.fast.__header__
 from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 
 def two_edge_connected_components(G: GraphBase, s: Union[int,list,None] = None) -> Iterable[list[int]]:
-    """
+    '''
     Returns an iterator of vertex lists, each representing a two-edge-connected component.
-    """
+    '''
     low, st, e2ccs, L = [N := G.N]*N, elist(G.M), elist(G.M), elist(G.M)
 
     def enter(u):

@@ -12,7 +12,7 @@ class Transition2D(Generic[_T]):
     dj: int
     
     def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:
-        """Override this to implement transition logic"""
+        '''Override this to implement transition logic'''
         return src  # Default no-op
     
     @classmethod

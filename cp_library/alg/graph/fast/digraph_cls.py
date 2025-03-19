@@ -11,10 +11,10 @@ class DiGraph(GraphBase):
         super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)
 
     def scc(G) -> Iterator[list[int]]:
-        """
+        '''
         Finds strongly connected sccs in directed graph using Tarjan's algorithm.
         Returns sccs in topological order.
-        """
+        '''
         Ra, tin, low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N), u8f(N), G.La[:], -1
         order, stack, sccs, L = elist(N), elist(N), elist(N), elist(N)
         for u in range(N):

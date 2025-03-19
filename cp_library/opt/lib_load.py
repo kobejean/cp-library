@@ -27,9 +27,9 @@ def load_library(lib_data, ffi_instance):
         os.unlink(path)
 
 ffi = FFI()
-ffi.cdef("""
+ffi.cdef('''
     int64_t mod_inv(int64_t a, int64_t mod);
-""")
+''')
 decoded_lib_data = decode_and_decompress_library(ENCODED_BINARY)
 lib = load_library(decoded_lib_data, ffi)
 

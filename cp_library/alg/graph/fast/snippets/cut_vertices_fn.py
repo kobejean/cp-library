@@ -9,10 +9,10 @@ import cp_library.alg.graph.fast.__header__
 from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 
 def cut_vertices(G: GraphBase, s: Union[int,list,None] = None):
-    """
+    '''
     Find cut vertices in an undirected graph using DFS edge types.
     Returns a boolean list that is True for indices of cut vertices.
-    """
+    '''
     low, children, ap = [N := G.N]*N, [0]*N, [False]*N
 
     def enter(v):

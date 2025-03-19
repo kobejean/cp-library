@@ -49,7 +49,7 @@ class modcomb():
 
     @staticmethod
     def perm(n: int, k: int, /) -> mint:
-        """Returns P(n,k) mod p"""
+        '''Returns P(n,k) mod p'''
         if n < k: return mint.zero
         return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])
     nPk = perm
