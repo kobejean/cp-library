@@ -216,21 +216,21 @@ data:
     \           low[v] = min(low[v], tin[child])\n            elif vis[v] == 1:\n\
     \                vis[v] = 2\n                if p != -1:\n                   \
     \ low[p] = min(low[p], low[v])\n                    if low[v] > tin[p]: bridges.append(in_edge[v])\n\
-    \        return bridges\n\n    def articulation_points(G):\n        \"\"\"\n \
-    \       Find articulation points in an undirected graph using DFS events.\n  \
-    \      Returns a boolean list that is True for indices where the vertex is an\
-    \ articulation point.\n        \"\"\"\n        N = G.N\n        order = [-1] *\
-    \ N\n        low = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n\
-    \        children = [0] * N\n        ap = [False] * N\n        time = 0\n    \
-    \    stack = list(range(N))\n\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            if state[v] == 0:\n                state[v]\
-    \ = 1\n                order[v] = low[v] = time\n                time += 1\n \
-    \           \n                stack.append(v)\n                for child in G[v]:\n\
-    \                    if order[child] == -1:\n                        par[child]\
-    \ = v\n                        stack.append(child)\n                    elif child\
-    \ != p:\n                        low[v] = min(low[v], order[child])\n        \
-    \        if p != -1:\n                    children[p] += 1\n            elif state[v]\
-    \ == 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
+    \        return bridges\n\n    def articulation_points(G):\n        '''\n    \
+    \    Find articulation points in an undirected graph using DFS events.\n     \
+    \   Returns a boolean list that is True for indices where the vertex is an articulation\
+    \ point.\n        '''\n        N = G.N\n        order = [-1] * N\n        low\
+    \ = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n        children\
+    \ = [0] * N\n        ap = [False] * N\n        time = 0\n        stack = list(range(N))\n\
+    \n        while stack:\n            v = stack.pop()\n            p = par[v]\n\
+    \            if state[v] == 0:\n                state[v] = 1\n               \
+    \ order[v] = low[v] = time\n                time += 1\n            \n        \
+    \        stack.append(v)\n                for child in G[v]:\n               \
+    \     if order[child] == -1:\n                        par[child] = v\n       \
+    \                 stack.append(child)\n                    elif child != p:\n\
+    \                        low[v] = min(low[v], order[child])\n                if\
+    \ p != -1:\n                    children[p] += 1\n            elif state[v] ==\
+    \ 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
     \ > 1\n                if p != -1:\n                    low[p] = min(low[p], low[v])\n\
     \                    ap[p] |= par[p] != -1 and low[v] >= order[p]\n\n        return\
     \ ap\n    \n    def dfs_events(G, flags: DFSFlags, s: Union[int,list,None] = None,\
@@ -371,7 +371,7 @@ data:
   - cp_library/alg/graph/grid_direction_graph_cls.py
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc184_e_grid_graph.test.py

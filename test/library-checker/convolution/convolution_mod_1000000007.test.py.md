@@ -39,7 +39,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nfrom typing import Union\n\n\"\"\"\n\u257A\u2501\u2501\u2501\
+    \               \n'''\nfrom typing import Union\n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -91,13 +91,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n                      Math - Convolution           \
-    \          \n\"\"\"\n\ndef conv_int(A: list[int], B: list[int], N: Union[int,\
-    \ None] = None) -> list[int]:\n    n,m = len(A),len(B)\n    N = n+m-1 if N is\
-    \ None else N\n    m1, m2, m3 = 754974721, 167772161, 469762049\n    m2m3, m1m3,\
-    \ m1m2, m1m2m3 = m2*m3, m1*m3, m1*m2, m1*m2*m3\n    i1, i2, i3 = mod_inv(m2m3,\
-    \ m1), mod_inv(m1m3, m2), mod_inv(m1m2, m3)\n    ntt1, ntt2, ntt3 = NTT(m1), NTT(m2),\
-    \ NTT(m3)\n    C,C1,C2,C3 = [0]*N, ntt1.conv(A, B), ntt2.conv(A, B), ntt3.conv(A,\
-    \ B)\n    for i in range(N):\n        C[i] = (C1[i]*i1%m1*m2m3+C2[i]*i2%m2*m1m3+C3[i]*i3%m3*m1m2)%m1m2m3\n\
+    \          \n'''\n\ndef conv_int(A: list[int], B: list[int], N: Union[int, None]\
+    \ = None) -> list[int]:\n    n,m = len(A),len(B)\n    N = n+m-1 if N is None else\
+    \ N\n    m1, m2, m3 = 754974721, 167772161, 469762049\n    m2m3, m1m3, m1m2, m1m2m3\
+    \ = m2*m3, m1*m3, m1*m2, m1*m2*m3\n    i1, i2, i3 = mod_inv(m2m3, m1), mod_inv(m1m3,\
+    \ m2), mod_inv(m1m2, m3)\n    ntt1, ntt2, ntt3 = NTT(m1), NTT(m2), NTT(m3)\n \
+    \   C,C1,C2,C3 = [0]*N, ntt1.conv(A, B), ntt2.conv(A, B), ntt3.conv(A, B)\n  \
+    \  for i in range(N):\n        C[i] = (C1[i]*i1%m1*m2m3+C2[i]*i2%m2*m1m3+C3[i]*i3%m3*m1m2)%m1m2m3\n\
     \    return C\n\n\n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while\
     \ b:\n        a,b,s,t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise\
     \ ValueError(f\"{x} is not invertible in mod {mod}\")\n\nclass NTT:\n    def __init__(self,\
@@ -249,11 +249,11 @@ data:
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/convolution_mod_1000000007\n\
@@ -272,7 +272,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/convolution_mod_1000000007.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/convolution_mod_1000000007.test.py

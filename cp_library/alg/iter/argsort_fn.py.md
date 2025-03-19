@@ -30,8 +30,14 @@ data:
     path: cp_library/alg/tree/auxiliary_tree_cls.py
     title: cp_library/alg/tree/auxiliary_tree_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/aux_tree_base_cls.py
+    title: cp_library/alg/tree/fast/aux_tree_base_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/aux_tree_cls.py
     title: cp_library/alg/tree/fast/aux_tree_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+    title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
@@ -60,6 +66,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+    title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
@@ -108,8 +117,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/argsort_fn.py
   requiredBy:
+  - cp_library/alg/tree/fast/aux_tree_base_cls.py
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
+  - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
@@ -119,11 +130,12 @@ data:
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/iter/sort_parallel_copies_fn.py
   - cp_library/alg/iter/sort_parallel_fn.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py

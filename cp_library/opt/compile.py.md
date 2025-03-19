@@ -10,9 +10,9 @@ data:
     links: []
   bundledCode: "import os\nimport tempfile\nimport subprocess\nimport base64\nimport\
     \ zlib\nfrom cffi import FFI\n\n# Embed your C source code as a string\nC_SOURCE\
-    \ = \"\"\"\n#include <stdio.h>\n\nint add(int a, int b) {\n    return a + b;\n\
-    }\n\nint fibonacci(int n) {\n    if (n <= 1) return n;\n    return fibonacci(n-1)\
-    \ + fibonacci(n-2);\n}\n\"\"\"\n\ndef compile_c_code(source_code):\n    with tempfile.TemporaryDirectory()\
+    \ = '''\n#include <stdio.h>\n\nint add(int a, int b) {\n    return a + b;\n}\n\
+    \nint fibonacci(int n) {\n    if (n <= 1) return n;\n    return fibonacci(n-1)\
+    \ + fibonacci(n-2);\n}\n'''\n\ndef compile_c_code(source_code):\n    with tempfile.TemporaryDirectory()\
     \ as tmpdir:\n        source_path = os.path.join(tmpdir, \"source.c\")\n     \
     \   with open(source_path, \"w\") as f:\n            f.write(source_code)\n  \
     \      \n        lib_path = os.path.join(tmpdir, \"lib.so\")\n        compile_command\
@@ -26,10 +26,10 @@ data:
     \    compressed_data = base64.b64decode(encoded_data)\n    return zlib.decompress(compressed_data)\n\
     \ndef load_library(lib_data):\n    fd, path = tempfile.mkstemp(suffix='.so')\n\
     \    try:\n        with os.fdopen(fd, 'wb') as tmp:\n            tmp.write(lib_data)\n\
-    \        \n        ffi = FFI()\n        ffi.cdef(\"\"\"\n            int add(int\
-    \ a, int b);\n            int fibonacci(int n);\n        \"\"\")\n        \n \
-    \       return ffi.dlopen(path)\n    except Exception as e:\n        print(f\"\
-    Error loading library: {e}\")\n        return None\n    finally:\n        os.unlink(path)\n\
+    \        \n        ffi = FFI()\n        ffi.cdef('''\n            int add(int\
+    \ a, int b);\n            int fibonacci(int n);\n        ''')\n        \n    \
+    \    return ffi.dlopen(path)\n    except Exception as e:\n        print(f\"Error\
+    \ loading library: {e}\")\n        return None\n    finally:\n        os.unlink(path)\n\
     \ndef main():\n    # Compile the C code\n    lib_data = compile_c_code(C_SOURCE)\n\
     \    if lib_data is None:\n        return 1\n\n    # Compress, encode, and print\
     \ the library data\n    encoded_lib = compress_and_encode_library(lib_data)\n\
@@ -43,10 +43,10 @@ data:
     )\n\n    result_fib = lib.fibonacci(10)\n    print(f\"10th Fibonacci number =\
     \ {result_fib}\")\n\n    return 0\n\nif __name__ == \"__main__\":\n    exit(main())\n"
   code: "import os\nimport tempfile\nimport subprocess\nimport base64\nimport zlib\n\
-    from cffi import FFI\n\n# Embed your C source code as a string\nC_SOURCE = \"\"\
-    \"\n#include <stdio.h>\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint\
-    \ fibonacci(int n) {\n    if (n <= 1) return n;\n    return fibonacci(n-1) + fibonacci(n-2);\n\
-    }\n\"\"\"\n\ndef compile_c_code(source_code):\n    with tempfile.TemporaryDirectory()\
+    from cffi import FFI\n\n# Embed your C source code as a string\nC_SOURCE = '''\n\
+    #include <stdio.h>\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint fibonacci(int\
+    \ n) {\n    if (n <= 1) return n;\n    return fibonacci(n-1) + fibonacci(n-2);\n\
+    }\n'''\n\ndef compile_c_code(source_code):\n    with tempfile.TemporaryDirectory()\
     \ as tmpdir:\n        source_path = os.path.join(tmpdir, \"source.c\")\n     \
     \   with open(source_path, \"w\") as f:\n            f.write(source_code)\n  \
     \      \n        lib_path = os.path.join(tmpdir, \"lib.so\")\n        compile_command\
@@ -60,10 +60,10 @@ data:
     \    compressed_data = base64.b64decode(encoded_data)\n    return zlib.decompress(compressed_data)\n\
     \ndef load_library(lib_data):\n    fd, path = tempfile.mkstemp(suffix='.so')\n\
     \    try:\n        with os.fdopen(fd, 'wb') as tmp:\n            tmp.write(lib_data)\n\
-    \        \n        ffi = FFI()\n        ffi.cdef(\"\"\"\n            int add(int\
-    \ a, int b);\n            int fibonacci(int n);\n        \"\"\")\n        \n \
-    \       return ffi.dlopen(path)\n    except Exception as e:\n        print(f\"\
-    Error loading library: {e}\")\n        return None\n    finally:\n        os.unlink(path)\n\
+    \        \n        ffi = FFI()\n        ffi.cdef('''\n            int add(int\
+    \ a, int b);\n            int fibonacci(int n);\n        ''')\n        \n    \
+    \    return ffi.dlopen(path)\n    except Exception as e:\n        print(f\"Error\
+    \ loading library: {e}\")\n        return None\n    finally:\n        os.unlink(path)\n\
     \ndef main():\n    # Compile the C code\n    lib_data = compile_c_code(C_SOURCE)\n\
     \    if lib_data is None:\n        return 1\n\n    # Compress, encode, and print\
     \ the library data\n    encoded_lib = compress_and_encode_library(lib_data)\n\
@@ -80,7 +80,7 @@ data:
   isVerificationFile: false
   path: cp_library/opt/compile.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/opt/compile.py

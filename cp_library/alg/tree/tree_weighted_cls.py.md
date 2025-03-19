@@ -249,21 +249,21 @@ data:
     \           low[v] = min(low[v], tin[child])\n            elif vis[v] == 1:\n\
     \                vis[v] = 2\n                if p != -1:\n                   \
     \ low[p] = min(low[p], low[v])\n                    if low[v] > tin[p]: bridges.append(in_edge[v])\n\
-    \        return bridges\n\n    def articulation_points(G):\n        \"\"\"\n \
-    \       Find articulation points in an undirected graph using DFS events.\n  \
-    \      Returns a boolean list that is True for indices where the vertex is an\
-    \ articulation point.\n        \"\"\"\n        N = G.N\n        order = [-1] *\
-    \ N\n        low = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n\
-    \        children = [0] * N\n        ap = [False] * N\n        time = 0\n    \
-    \    stack = list(range(N))\n\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            if state[v] == 0:\n                state[v]\
-    \ = 1\n                order[v] = low[v] = time\n                time += 1\n \
-    \           \n                stack.append(v)\n                for child in G[v]:\n\
-    \                    if order[child] == -1:\n                        par[child]\
-    \ = v\n                        stack.append(child)\n                    elif child\
-    \ != p:\n                        low[v] = min(low[v], order[child])\n        \
-    \        if p != -1:\n                    children[p] += 1\n            elif state[v]\
-    \ == 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
+    \        return bridges\n\n    def articulation_points(G):\n        '''\n    \
+    \    Find articulation points in an undirected graph using DFS events.\n     \
+    \   Returns a boolean list that is True for indices where the vertex is an articulation\
+    \ point.\n        '''\n        N = G.N\n        order = [-1] * N\n        low\
+    \ = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n        children\
+    \ = [0] * N\n        ap = [False] * N\n        time = 0\n        stack = list(range(N))\n\
+    \n        while stack:\n            v = stack.pop()\n            p = par[v]\n\
+    \            if state[v] == 0:\n                state[v] = 1\n               \
+    \ order[v] = low[v] = time\n                time += 1\n            \n        \
+    \        stack.append(v)\n                for child in G[v]:\n               \
+    \     if order[child] == -1:\n                        par[child] = v\n       \
+    \                 stack.append(child)\n                    elif child != p:\n\
+    \                        low[v] = min(low[v], order[child])\n                if\
+    \ p != -1:\n                    children[p] += 1\n            elif state[v] ==\
+    \ 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
     \ > 1\n                if p != -1:\n                    low[p] = min(low[p], low[v])\n\
     \                    ap[p] |= par[p] != -1 and low[v] >= order[p]\n\n        return\
     \ ap\n    \n    def dfs_events(G, flags: DFSFlags, s: Union[int,list,None] = None,\
@@ -639,40 +639,39 @@ data:
     \n            elif s == 3: # decompose up\n                tout[v] = time\n  \
     \      T.size, T.depth = size, depth\n        T.order, T.tin, T.tout = order,\
     \ tin, tout\n        T.par, T.heavy, T.head = par, heavy, head\n\nclass LCATableWeighted(LCATable):\n\
-    \    def __init__(self, T, root = 0):\n        super().__init__(T, root)\n   \
-    \     self.weights = T.Wdelta\n        self.weighted_depth = None\n\n    def distance(self,\
-    \ u, v) -> int:\n        if self.weighted_depth is None:\n            self.weighted_depth\
-    \ = presum(self.weights)\n        l, r, a, _ = self._query(u, v)\n        m =\
-    \ self.start[a]\n        return self.weighted_depth[l] + self.weighted_depth[r]\
-    \ - 2*self.weighted_depth[m]\n\nclass TreeWeightedProtocol(GraphWeightedProtocol,\
-    \ TreeProtocol):\n\n    @cached_property\n    def lca(T):\n        return LCATableWeighted(T)\n\
-    \    \n    @overload\n    def dfs(T, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def dfs(T, s: int, g: int) -> int: ...\n    def dfs(T, s = 0, g = None):\n\
-    \        D = [inf for _ in range(T.N)]\n        D[s] = 0\n        state = [True\
-    \ for _ in range(T.N)]\n        stack = [s]\n\n        while stack:\n        \
-    \    u = stack.pop()\n            if u == g: return D[u]\n            state[u]\
-    \ = False\n            for v, w, *_ in T[u]:\n                if state[v]:\n \
-    \                   D[v] = D[u]+w\n                    stack.append(v)\n     \
-    \   return D if g is None else inf\n    \n    def euler_tour(T, s = 0):\n    \
-    \    N = len(T)\n        T.tin = tin = [-1] * N\n        T.tout = tout = [-1]\
-    \ * N\n        T.par = par = [-1] * N\n        T.order = order = elist(2*N)\n\
-    \        T.delta = delta = elist(2*N)\n        T.Wdelta = Wdelta = elist(2*N)\n\
-    \        stack = elist(N)\n        Wstack = elist(N)\n        stack.append(s)\n\
-    \        Wstack.append(0)\n\n        while stack:\n            u = stack.pop()\n\
-    \            wd = Wstack.pop()\n            p = par[u]\n            \n       \
-    \     if tin[u] == -1:\n                tin[u] = len(order)\n                \n\
-    \                for v,w,*_ in T[u]:\n                    if v != p:\n       \
-    \                 par[v] = u\n                        stack.append(u)\n      \
-    \                  stack.append(v)\n                        Wstack.append(-w)\n\
-    \                        Wstack.append(w)\n                delta.append(1)\n \
-    \           else:\n                delta.append(-1)\n            \n          \
-    \  Wdelta.append(wd)\n            order.append(u)\n            tout[u] = len(order)\n\
-    \        delta[0] = delta[-1] = 0\n\n    def hld_precomp(T, r = 0):\n        N,\
-    \ time = T.N, 0\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par,\
-    \ heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, state = [0]*N, [0]*N,\
-    \ [0]*N\n        Wpar = [0]*N\n        stack = elist(N)\n        stack.append(r)\n\
-    \        while stack:\n            if (s := state[v := stack.pop()]) == 0: # dfs\
-    \ down\n                p, state[v] = par[v], 1\n                stack.append(v)\n\
+    \    def __init__(lca, T, root = 0):\n        super().__init__(T, root)\n    \
+    \    lca.weights = T.Wdelta\n        lca.weighted_depth = None\n\n    def distance(lca,\
+    \ u, v) -> int:\n        if lca.weighted_depth is None:\n            lca.weighted_depth\
+    \ = presum(lca.weights)\n        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n\
+    \        return lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n\
+    \nclass TreeWeightedProtocol(GraphWeightedProtocol, TreeProtocol):\n\n    @cached_property\n\
+    \    def lca(T):\n        return LCATableWeighted(T)\n    \n    @overload\n  \
+    \  def dfs(T, s: int = 0) -> list[int]: ...\n    @overload\n    def dfs(T, s:\
+    \ int, g: int) -> int: ...\n    def dfs(T, s = 0, g = None):\n        D = [inf\
+    \ for _ in range(T.N)]\n        D[s] = 0\n        state = [True for _ in range(T.N)]\n\
+    \        stack = [s]\n\n        while stack:\n            u = stack.pop()\n  \
+    \          if u == g: return D[u]\n            state[u] = False\n            for\
+    \ v, w, *_ in T[u]:\n                if state[v]:\n                    D[v] =\
+    \ D[u]+w\n                    stack.append(v)\n        return D if g is None else\
+    \ inf\n    \n    def euler_tour(T, s = 0):\n        N = len(T)\n        T.tin\
+    \ = tin = [-1] * N\n        T.tout = tout = [-1] * N\n        T.par = par = [-1]\
+    \ * N\n        T.order = order = elist(2*N)\n        T.delta = delta = elist(2*N)\n\
+    \        T.Wdelta = Wdelta = elist(2*N)\n        stack = elist(N)\n        Wstack\
+    \ = elist(N)\n        stack.append(s)\n        Wstack.append(0)\n\n        while\
+    \ stack:\n            u = stack.pop()\n            wd = Wstack.pop()\n       \
+    \     p = par[u]\n            \n            if tin[u] == -1:\n               \
+    \ tin[u] = len(order)\n                \n                for v,w,*_ in T[u]:\n\
+    \                    if v != p:\n                        par[v] = u\n        \
+    \                stack.append(u)\n                        stack.append(v)\n  \
+    \                      Wstack.append(-w)\n                        Wstack.append(w)\n\
+    \                delta.append(1)\n            else:\n                delta.append(-1)\n\
+    \            \n            Wdelta.append(wd)\n            order.append(u)\n  \
+    \          tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n\n    def hld_precomp(T,\
+    \ r = 0):\n        N, time = T.N, 0\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n\
+    \        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, state\
+    \ = [0]*N, [0]*N, [0]*N\n        Wpar = [0]*N\n        stack = elist(N)\n    \
+    \    stack.append(r)\n        while stack:\n            if (s := state[v := stack.pop()])\
+    \ == 0: # dfs down\n                p, state[v] = par[v], 1\n                stack.append(v)\n\
     \                for c, w, *_ in T[v]:\n                    if c != p:\n     \
     \                   depth[c], par[c], Wpar[c] = depth[v]+1, v, w\n           \
     \             stack.append(c)\n\n            elif s == 1: # dfs up\n         \
@@ -722,7 +721,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_a_diameter.test.py

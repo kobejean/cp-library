@@ -124,30 +124,30 @@ data:
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \n\ndef monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):\n\
-    \    \"\"\"\n    Finds row minima in a totally monotone N\xD7M matrix using the\
-    \ SMAWK algorithm.\n    The matrix is defined implicitly through the comparison\
-    \ function.\n    \n    A matrix is totally monotone if the minimum in row i occurs\
-    \ at column j,\n    then the minimum in row i+1 must occur at column j' where\
-    \ j \u2264 j'.\n    \n    Time: O(N log M), Space: O(N)\n    \n    Args:\n   \
-    \     N: Number of rows\n        M: Number of columns\n        func(i,j,k): Returns\
-    \ True if element (i,j) < element (i,k)\n    \n    Returns:\n        List of column\
-    \ indices containing the minimum value for each row\n    \n    Example:\n    \
-    \    # Find minima where each element is (i-j)\xB2\n        min_indices = monotone_minima(5,\
-    \ 5, lambda i,j,k: (i-j)**2 < (i-k)**2)\n    \"\"\"\n    min_j, st = [0] * N,\
-    \ elist(N)\n    st.append((0, N, 0, M))\n    while st:\n        li, ri, lj, rj\
-    \ = st.pop()\n        if li == ri: continue\n        mi, mj = li + ri >> 1, lj\n\
-    \        for j in range(lj + 1, rj):\n            if func(mi, mj, j): mj = j\n\
-    \        min_j[mi] = mj\n        st.append((li, mi, lj, mj+1))\n        st.append((mi+1,\
-    \ ri, mj, rj))\n    return min_j\n\n\n\ndef elist(est_len: int) -> list: ...\n\
-    try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\n\"\"\"\n\u257A\u2501\u2501\u2501\
+    \    '''\n    Finds row minima in a totally monotone N\xD7M matrix using the SMAWK\
+    \ algorithm.\n    The matrix is defined implicitly through the comparison function.\n\
+    \    \n    A matrix is totally monotone if the minimum in row i occurs at column\
+    \ j,\n    then the minimum in row i+1 must occur at column j' where j \u2264 j'.\n\
+    \    \n    Time: O(N log M), Space: O(N)\n    \n    Args:\n        N: Number of\
+    \ rows\n        M: Number of columns\n        func(i,j,k): Returns True if element\
+    \ (i,j) < element (i,k)\n    \n    Returns:\n        List of column indices containing\
+    \ the minimum value for each row\n    \n    Example:\n        # Find minima where\
+    \ each element is (i-j)\xB2\n        min_indices = monotone_minima(5, 5, lambda\
+    \ i,j,k: (i-j)**2 < (i-k)**2)\n    '''\n    min_j, st = [0] * N, elist(N)\n  \
+    \  st.append((0, N, 0, M))\n    while st:\n        li, ri, lj, rj = st.pop()\n\
+    \        if li == ri: continue\n        mi, mj = li + ri >> 1, lj\n        for\
+    \ j in range(lj + 1, rj):\n            if func(mi, mj, j): mj = j\n        min_j[mi]\
+    \ = mj\n        st.append((li, mi, lj, mj+1))\n        st.append((mi+1, ri, mj,\
+    \ rj))\n    return min_j\n\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n \
+    \   from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -199,7 +199,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n                      Math - Convolution           \
-    \          \n\"\"\"\n\ndef minplus_conv_arb_cnvx(arb: list[int], cnvx: list[int])\
+    \          \n'''\n\ndef minplus_conv_arb_cnvx(arb: list[int], cnvx: list[int])\
     \ -> list[int]:\n    N, M = len(cnvx), len(arb)\n    def cmp(i, j, k):\n     \
     \   return i >= k and (i-j >= N or (cnvx[i-j] + arb[j] >= cnvx[i-k] + arb[k]))\n\
     \    cols = monotone_minima(N+M-1, M, cmp)\n    return [arb[j] + cnvx[i-j] for\
@@ -228,7 +228,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py

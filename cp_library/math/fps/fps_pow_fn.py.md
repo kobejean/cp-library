@@ -200,13 +200,13 @@ data:
     \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
     \ nCk, res = modcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k),\
     \ n-k\n        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /)\
-    \ -> mint:\n        \"\"\"Returns P(n,k) mod p\"\"\"\n        if n < k: return\
-    \ mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n  \
-    \  nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
-    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\ndef fps_normalize(P:\
-    \ list, deg) -> list:\n    if (N:=len(P)) < deg: P[N:] = [0]*(deg-N)\n    del\
-    \ P[deg:]\n    return P\n\ndef fps_pow(P: list, k: int, deg = -1) -> list:\n \
-    \   deg, mod = (len(P) if deg<0 else deg), mint.mod\n    if k == 0: return [1]+[0]*(deg-1)\
+    \ -> mint:\n        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n\
+    \        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n    nPk = perm\n\
+    \    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return\
+    \ mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\ndef fps_normalize(P: list,\
+    \ deg) -> list:\n    if (N:=len(P)) < deg: P[N:] = [0]*(deg-N)\n    del P[deg:]\n\
+    \    return P\n\ndef fps_pow(P: list, k: int, deg = -1) -> list:\n    deg, mod\
+    \ = (len(P) if deg<0 else deg), mint.mod\n    if k == 0: return [1]+[0]*(deg-1)\
     \ if deg else []\n    i = next((i for i, c in enumerate(P) if c), default=deg)\n\
     \    if i * k >= deg: return [0] * deg\n    inv, alpha = mod_inv(P[i],mod), pow(P[i],\
     \ k, mod)\n    R = fps_log([P[j]*inv%mod for j in range(i,deg)])\n    for j,r\
@@ -242,7 +242,7 @@ data:
   requiredBy:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

@@ -91,34 +91,34 @@ data:
     \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
     \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
     \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\
-    \n\nclass NTT:\n    def __init__(self, mod = 998244353) -> None:\n        self.mod\
-    \ = m = mod\n        self.g = g = self.primitive_root(m)\n        self.rank2 =\
-    \ rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root = root = [0] * (rank2\
-    \ + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n        self.iroot\
-    \ = iroot = [0] * (rank2 + 1)\n        iroot[rank2] = pow(root[rank2], m - 2,\
-    \ m)\n        for i in range(rank2 - 1, -1, -1):\n            root[i] = root[i+1]\
-    \ * root[i+1] % m\n            iroot[i] = iroot[i+1] * iroot[i+1] % m\n      \
-    \  def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1), [0]*max(0,rank2-s+1)\n\
-    \            p = ip = 1\n            for i in range(rank2-s+1):\n            \
-    \    r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]= p*ir%m,ip*r%m,r*p%m,ir*ip%m\n\
-    \            return r8, ir8\n        self.rate2, self.irate2 = rates(2)\n    \
-    \    self.rate3, self.irate3 = rates(3)\n \n    def primitive_root(self, m):\n\
-    \        if m == 2: return 1\n        if m == 167772161: return 3\n        if\
-    \ m == 469762049: return 3\n        if m == 754974721: return 11\n        if m\
-    \ == 998244353: return 3\n        divs = [0] * 20\n        cnt, divs[0], x = 1,\
-    \ 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n        i=3\n        while\
-    \ i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt = i,cnt+1\n\
-    \                while x%i==0:x//=i\n            i+=2\n        if x > 1: divs[cnt],cnt\
-    \ = x,cnt+1\n        for g in range(2,m):\n            for i in range(cnt):\n\
-    \                if pow(g,(m-1)//divs[i],m)==1:break\n            else:return\
-    \ g\n    \n    def fntt(self, A: list[int]):\n        im, r8, m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n\
-    \        for L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n         \
-    \   for s in range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n\
-    \                for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\n\nclass NTT:\n\
+    \    def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
+    \        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
+    \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
+    \ (m - 1) >> rank2, m)\n        self.iroot = iroot = [0] * (rank2 + 1)\n     \
+    \   iroot[rank2] = pow(root[rank2], m - 2, m)\n        for i in range(rank2 -\
+    \ 1, -1, -1):\n            root[i] = root[i+1] * root[i+1] % m\n            iroot[i]\
+    \ = iroot[i+1] * iroot[i+1] % m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1),\
+    \ [0]*max(0,rank2-s+1)\n            p = ip = 1\n            for i in range(rank2-s+1):\n\
+    \                r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]=\
+    \ p*ir%m,ip*r%m,r*p%m,ir*ip%m\n            return r8, ir8\n        self.rate2,\
+    \ self.irate2 = rates(2)\n        self.rate3, self.irate3 = rates(3)\n \n    def\
+    \ primitive_root(self, m):\n        if m == 2: return 1\n        if m == 167772161:\
+    \ return 3\n        if m == 469762049: return 3\n        if m == 754974721: return\
+    \ 11\n        if m == 998244353: return 3\n        divs = [0] * 20\n        cnt,\
+    \ divs[0], x = 1, 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n       \
+    \ i=3\n        while i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt\
+    \ = i,cnt+1\n                while x%i==0:x//=i\n            i+=2\n        if\
+    \ x > 1: divs[cnt],cnt = x,cnt+1\n        for g in range(2,m):\n            for\
+    \ i in range(cnt):\n                if pow(g,(m-1)//divs[i],m)==1:break\n    \
+    \        else:return g\n    \n    def fntt(self, A: list[int]):\n        im, r8,\
+    \ m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n        for\
+    \ L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n            for s in\
+    \ range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n           \
+    \     for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
     \                    a0,a1,a2,a3 = A[i0],A[i1]*r,A[i2]*r2,A[i3]*r3\n         \
     \           a0,a1,a2,a3 = a0+a2,a1+a3,a0-a2,(a1-a3)%m*im\n                   \
     \ A[i0],A[i1],A[i2],A[i3] = (a0+a1)%m,(a0-a1)%m,(a2+a3)%m,(a2-a3)%m\n        \
@@ -251,11 +251,11 @@ data:
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/polynomial_taylor_shift\n\
@@ -279,7 +279,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/polynomial_taylor_shift.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/polynomial_taylor_shift.test.py

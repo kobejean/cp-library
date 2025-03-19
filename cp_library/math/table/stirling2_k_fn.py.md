@@ -99,29 +99,28 @@ data:
     \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
     \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
     \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\
-    \n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod for\
-    \ i in range(1,len(P))]\n\n\ndef fps_integ(P: list) -> list:\n    N, mod = len(P),\
-    \ mint.mod\n    res = [0] * (N+1)\n    if N:\n        res[1] = 1\n    for i in\
-    \ range(2, N+1):\n        j, k = divmod(mod, i)\n        res[i] = (-res[k] * j)\
-    \ % mod\n    for i, x in enumerate(P, start=1):\n        res[i] = res[i] * x %\
-    \ mod\n    return res\n\n\ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt,\
-    \ [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while\
-    \ d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz],\
-    \ g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n      \
-    \  f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
-    \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\n\n\nclass\
-    \ NTT:\n    def __init__(self, mod = 998244353) -> None:\n        self.mod = m\
-    \ = mod\n        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2\
-    \ = ((m-1)&(1-m)).bit_length() - 1\n        self.root = root = [0] * (rank2 +\
-    \ 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n        self.iroot =\
-    \ iroot = [0] * (rank2 + 1)\n        iroot[rank2] = pow(root[rank2], m - 2, m)\n\
-    \        for i in range(rank2 - 1, -1, -1):\n            root[i] = root[i+1] *\
-    \ root[i+1] % m\n            iroot[i] = iroot[i+1] * iroot[i+1] % m\n        def\
-    \ rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1), [0]*max(0,rank2-s+1)\n\
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\n\ndef fps_deriv(P:\
+    \ list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod for i in range(1,len(P))]\n\
+    \n\ndef fps_integ(P: list) -> list:\n    N, mod = len(P), mint.mod\n    res =\
+    \ [0] * (N+1)\n    if N:\n        res[1] = 1\n    for i in range(2, N+1):\n  \
+    \      j, k = divmod(mod, i)\n        res[i] = (-res[k] * j) % mod\n    for i,\
+    \ x in enumerate(P, start=1):\n        res[i] = res[i] * x % mod\n    return res\n\
+    \n\ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)),\
+    \ 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while d < deg:\n       \
+    \ sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n\
+    \        ntt.conv_half(f,gres:=ntt.fntt(g))\n        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n\
+    \        for j in range(d,sz): inv[j] = mod-f[j] if f[j] else 0\n        d = z\n\
+    \    return inv\n\n\n\nclass NTT:\n    def __init__(self, mod = 998244353) ->\
+    \ None:\n        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n\
+    \        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root\
+    \ = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n\
+    \        self.iroot = iroot = [0] * (rank2 + 1)\n        iroot[rank2] = pow(root[rank2],\
+    \ m - 2, m)\n        for i in range(rank2 - 1, -1, -1):\n            root[i] =\
+    \ root[i+1] * root[i+1] % m\n            iroot[i] = iroot[i+1] * iroot[i+1] %\
+    \ m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1), [0]*max(0,rank2-s+1)\n\
     \            p = ip = 1\n            for i in range(rank2-s+1):\n            \
     \    r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]= p*ir%m,ip*r%m,r*p%m,ir*ip%m\n\
     \            return r8, ir8\n        self.rate2, self.irate2 = rates(2)\n    \
@@ -230,7 +229,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling2_k_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

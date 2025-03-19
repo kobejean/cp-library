@@ -133,11 +133,11 @@ data:
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n\
     \        def parse(ts: TokenStream):\n            u,v = ts.line()\n          \
@@ -200,7 +200,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_a_kruskal_sort.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_a_kruskal_sort.test.py

@@ -130,48 +130,47 @@ data:
     from math import isqrt\n\nclass MoOp(IntFlag):\n    ADD_LEFT = auto()\n    ADD_RIGHT\
     \ = auto()\n    REMOVE_LEFT = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER =\
     \ auto()\n    \n    ADD = ADD_LEFT | ADD_RIGHT\n    REMOVE = REMOVE_LEFT | REMOVE_RIGHT\n\
-    \n# def hilbert(x: int, y: int, n: int) -> int:\n#     \"\"\"Convert (x,y) to\
-    \ Hilbert curve distance for given n (power of 2).\"\"\"\n#     d = 0\n#     for\
-    \ s in range(n.bit_length() - 1, -1, -1):\n#         rx = (x >> s) & 1\n#    \
-    \     ry = (y >> s) & 1\n#         d += n * n * ((3 * rx) ^ ry) >> 2\n#      \
-    \   if ry == 0:\n#             if rx == 1:\n#                 x = n-1 - x\n# \
-    \                y = n-1 - y\n#             x, y = y, x\n#     return d\n\nclass\
-    \ QueriesMoOps(tuple[list[int], ...],Parsable):\n    \"\"\"\n    QueriesMoOps[Q:\
-    \ int, N: int, T: type = tuple[int, int]]\n    Orders queries using Mo's algorithm\
-    \ and generates a sequence of operations to process them efficiently.\n    Each\
-    \ operation is either moving pointers or answering a query.\n    \n    Uses half-interval\
-    \ convention: [left, right)\n    \"\"\"\n    \n    def __new__(cls, L: list[int],\
-    \ R: list[int], N: int, B: int = None):\n        Q = len(L)\n        qbits = Q.bit_length()\n\
-    \        nbits = (N+1).bit_length()\n        qmask = qmask = (1 << qbits)-1\n\
-    \        nmask = (1 << nbits)-1\n        B = max(1,N//isqrt(max(1,Q)) )if B is\
-    \ None else B\n        order = [0]*Q\n        for i in range(Q):\n           \
-    \ l, r = L[i], R[i]\n            b = l//B\n            r = nmask - r if b & 1\
-    \ else r\n            order[i] = (((b << nbits) + r) << qbits) + i\n        #\
-    \ n = 1 << nbits\n        # for i in range(Q):\n        #     l, r = L[i], R[i]\n\
-    \        #     # Use Hilbert curve mapping for the 2D point (l,r)\n        # \
-    \    h = hilbert(l, r, n)\n        #     order[i] = (h << qbits) + i\n       \
-    \ order.sort()\n        \n        ops = elist(3*Q)\n        A1 = elist(3*Q)\n\
-    \        A2 = elist(3*Q)\n        A3 = elist(3*Q)\n\n        nl = nr = 0\n   \
-    \     \n        for i in order:\n            i &= qmask\n            l, r = L[i],\
-    \ R[i]\n            if l < nl:\n                ops.append(MoOp.ADD_LEFT)\n  \
-    \              A1.append(nl-1)\n                A2.append(l-1)\n             \
-    \   A3.append(-1)\n                \n            elif l > nl:\n              \
-    \  ops.append(MoOp.REMOVE_LEFT)\n                A1.append(nl)\n             \
-    \   A2.append(l)\n                A3.append(1)\n                \n           \
-    \ if r > nr:\n                ops.append(MoOp.ADD_RIGHT)\n                A1.append(nr)\n\
-    \                A2.append(r)\n                A3.append(1)\n                \n\
-    \            elif r < nr:\n                ops.append(MoOp.REMOVE_RIGHT)\n   \
-    \             A1.append(nr-1)\n                A2.append(r-1)\n              \
-    \  A3.append(-1)\n                \n            ops.append(MoOp.ANSWER)\n    \
-    \        A1.append(i)\n            A2.append(l)\n            A3.append(r)\n  \
-    \          \n            nl, nr = l, r\n        return super().__new__(cls, (ops,\
-    \ A1, A2, A3))\n\n    @classmethod\n    def compile(cls, Q: int, N: int, T: type\
-    \ = tuple[-1, int], B: int = None):\n        if T == tuple[-1, int]:\n       \
-    \     query = Parser.compile(T)\n            def parse(ts: TokenStream):\n   \
-    \             L, R = [0]*Q, [0]*Q\n                for i in range(Q):\n      \
-    \              L[i], R[i] = map(int,ts.line())\n                    L[i] -= 1\n\
-    \                return cls(L, R, N, B)\n            return parse\n        else:\n\
+    \n# def hilbert(x: int, y: int, n: int) -> int:\n#     '''Convert (x,y) to Hilbert\
+    \ curve distance for given n (power of 2).'''\n#     d = 0\n#     for s in range(n.bit_length()\
+    \ - 1, -1, -1):\n#         rx = (x >> s) & 1\n#         ry = (y >> s) & 1\n# \
+    \        d += n * n * ((3 * rx) ^ ry) >> 2\n#         if ry == 0:\n#         \
+    \    if rx == 1:\n#                 x = n-1 - x\n#                 y = n-1 - y\n\
+    #             x, y = y, x\n#     return d\n\nclass QueriesMoOps(tuple[list[int],\
+    \ ...],Parsable):\n    '''\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int,\
+    \ int]]\n    Orders queries using Mo's algorithm and generates a sequence of operations\
+    \ to process them efficiently.\n    Each operation is either moving pointers or\
+    \ answering a query.\n    \n    Uses half-interval convention: [left, right)\n\
+    \    '''\n    \n    def __new__(cls, L: list[int], R: list[int], N: int, B: int\
+    \ = None):\n        Q = len(L)\n        qbits = Q.bit_length()\n        nbits\
+    \ = (N+1).bit_length()\n        qmask = qmask = (1 << qbits)-1\n        nmask\
+    \ = (1 << nbits)-1\n        B = max(1,N//isqrt(max(1,Q)) )if B is None else B\n\
+    \        order = [0]*Q\n        for i in range(Q):\n            l, r = L[i], R[i]\n\
+    \            b = l//B\n            r = nmask - r if b & 1 else r\n           \
+    \ order[i] = (((b << nbits) + r) << qbits) + i\n        # n = 1 << nbits\n   \
+    \     # for i in range(Q):\n        #     l, r = L[i], R[i]\n        #     # Use\
+    \ Hilbert curve mapping for the 2D point (l,r)\n        #     h = hilbert(l, r,\
+    \ n)\n        #     order[i] = (h << qbits) + i\n        order.sort()\n      \
+    \  \n        ops = elist(3*Q)\n        A1 = elist(3*Q)\n        A2 = elist(3*Q)\n\
+    \        A3 = elist(3*Q)\n\n        nl = nr = 0\n        \n        for i in order:\n\
+    \            i &= qmask\n            l, r = L[i], R[i]\n            if l < nl:\n\
+    \                ops.append(MoOp.ADD_LEFT)\n                A1.append(nl-1)\n\
+    \                A2.append(l-1)\n                A3.append(-1)\n             \
+    \   \n            elif l > nl:\n                ops.append(MoOp.REMOVE_LEFT)\n\
+    \                A1.append(nl)\n                A2.append(l)\n               \
+    \ A3.append(1)\n                \n            if r > nr:\n                ops.append(MoOp.ADD_RIGHT)\n\
+    \                A1.append(nr)\n                A2.append(r)\n               \
+    \ A3.append(1)\n                \n            elif r < nr:\n                ops.append(MoOp.REMOVE_RIGHT)\n\
+    \                A1.append(nr-1)\n                A2.append(r-1)\n           \
+    \     A3.append(-1)\n                \n            ops.append(MoOp.ANSWER)\n \
+    \           A1.append(i)\n            A2.append(l)\n            A3.append(r)\n\
+    \            \n            nl, nr = l, r\n        return super().__new__(cls,\
+    \ (ops, A1, A2, A3))\n\n    @classmethod\n    def compile(cls, Q: int, N: int,\
+    \ T: type = tuple[-1, int], B: int = None):\n        if T == tuple[-1, int]:\n\
     \            query = Parser.compile(T)\n            def parse(ts: TokenStream):\n\
+    \                L, R = [0]*Q, [0]*Q\n                for i in range(Q):\n   \
+    \                 L[i], R[i] = map(int,ts.line())\n                    L[i] -=\
+    \ 1\n                return cls(L, R, N, B)\n            return parse\n      \
+    \  else:\n            query = Parser.compile(T)\n            def parse(ts: TokenStream):\n\
     \                L, R = [0]*Q, [0]*Q\n                for i in range(Q):\n   \
     \                 L[i], R[i] = query(ts)\n                return cls(L, R, N,\
     \ B)\n            return parse\n\nfrom typing import Iterable, Type, Union, overload\n\
@@ -180,8 +179,8 @@ data:
     \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
     \ char and spec is None: return map(int, TokenStream.default.line())\n    parser:\
     \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
-    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the values\
-    \ to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints the values\
+    \ to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
     sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
     \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
     \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
@@ -211,7 +210,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_queries_mo_ops.test.py

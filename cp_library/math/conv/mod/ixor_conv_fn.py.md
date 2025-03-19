@@ -29,7 +29,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -80,7 +80,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n\"\"\"\n\n\ndef fwht(A: list, N: int):\n    Z = len(A)\n\
+    \                     \n'''\n\n\ndef fwht(A: list, N: int):\n    Z = len(A)\n\
     \    for i in range(N):\n        m = b = 1<<i\n        while m < Z:\n        \
     \    a0, a1 = A[m^b], A[m]\n            A[m^b], A[m] = a0+a1, a0-a1\n        \
     \    m = m+1|b\n    return A\n\ndef fwht_inv(A: list[int], N: int, mod: int) ->\
@@ -107,7 +107,7 @@ data:
   path: cp_library/math/conv/mod/ixor_conv_fn.py
   requiredBy:
   - cp_library/math/conv/mod/xor_conv_fn.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_xor_convolution.test.py

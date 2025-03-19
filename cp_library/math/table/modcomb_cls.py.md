@@ -110,10 +110,10 @@ data:
     \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
     \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
     \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n"
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n"
   code: "import cp_library.math.table.__header__\nfrom cp_library.math.mod.mint_cls\
     \ import mint\nfrom cp_library.math.nt.mod_inv_fn import mod_inv\nfrom itertools\
     \ import accumulate\n\nclass modcomb():\n    fact: list[int]\n    fact_inv: list[int]\n\
@@ -133,10 +133,10 @@ data:
     \ modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n\
     \    def multinom(n: int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n\
     \        for k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n"
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/nt/mod_inv_fn.py
@@ -151,7 +151,7 @@ data:
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

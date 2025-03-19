@@ -156,12 +156,12 @@ data:
     \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
     \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
     \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
-    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
-    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
-    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
-    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
-    flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
     \ndef main():\n    mint.set_mod(998244353)\n    N, K = read()\n    A = ModMat([read()\
     \ for _ in range(N)])\n    B = A**K\n    write(B)\n\nfrom cp_library.math.mod.mint_cls\
@@ -177,7 +177,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py

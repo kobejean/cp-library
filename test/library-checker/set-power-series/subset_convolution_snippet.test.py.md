@@ -24,7 +24,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \               \n'''\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -75,7 +75,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n               \
-    \  Algorithms - DP - Butterfly                     \n\"\"\"\n\ndef butterfly_masks(N,\
+    \  Algorithms - DP - Butterfly                     \n'''\n\ndef butterfly_masks(N,\
     \ Z):\n    for i in range(N):\n        m = b = 1<<i\n        while m < Z:\n  \
     \          yield m^b, m\n            m = (m+1)|b\n\ndef fwht(A: list, N: int):\n\
     \    for m0, m1 in butterfly_masks(N, len(A)):\n        a0, a1 = A[m0], A[m1]\n\
@@ -152,7 +152,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution_snippet.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution_snippet.test.py

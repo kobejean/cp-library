@@ -50,7 +50,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_sort_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_kruskal_sort.test.py

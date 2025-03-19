@@ -243,7 +243,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mat_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/mat/mat_cls.py

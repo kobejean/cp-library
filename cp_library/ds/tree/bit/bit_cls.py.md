@@ -35,16 +35,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Union\n\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
+    from typing import Union\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513            \n            \u2503\
-    \                                    7 \u2503            \n            \u2517\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2513            \n            \u2503   \
+    \                                 7 \u2503            \n            \u2517\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
@@ -84,9 +84,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data\
-    \ Structure - Tree - Binary Index Tree            \n\"\"\"\n\nclass BIT:\n   \
-    \ def __init__(bit, v: Union[int, list[int]]):\n        if isinstance(v, int):\
-    \ bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\
+    \ Structure - Tree - Binary Index Tree            \n'''\n\nclass BIT:\n    def\
+    \ __init__(bit, v: Union[int, list[int]]):\n        if isinstance(v, int): bit.d,\
+    \ bit.n = [0]*v, v\n        else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\
     \n    def build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for\
     \ i in range(bit.n):\n            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\
     \n    def add(bit, i, x):\n        while i < bit.n:\n            bit.d[i] += x\n\
@@ -131,7 +131,7 @@ data:
   requiredBy:
   - cp_library/math/invcnt_fn.py
   - cp_library/ds/tree/bit/bir_cls.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_add_range_sum.test.py

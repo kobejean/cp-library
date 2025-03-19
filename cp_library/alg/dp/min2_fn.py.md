@@ -9,6 +9,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+    title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -27,10 +30,11 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/min2_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
 documentation_of: cp_library/alg/dp/min2_fn.py
 layout: document

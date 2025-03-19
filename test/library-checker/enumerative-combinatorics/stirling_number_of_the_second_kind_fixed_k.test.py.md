@@ -115,15 +115,15 @@ data:
     \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
     \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
     \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\
-    from typing import SupportsIndex\n\n\ndef fps_deriv(P: list[int]):\n    mod =\
-    \ mint.mod\n    return [P[i]*i%mod for i in range(1,len(P))]\n\n\ndef fps_integ(P:\
-    \ list) -> list:\n    N, mod = len(P), mint.mod\n    res = [0] * (N+1)\n    if\
-    \ N:\n        res[1] = 1\n    for i in range(2, N+1):\n        j, k = divmod(mod,\
-    \ i)\n        res[i] = (-res[k] * j) % mod\n    for i, x in enumerate(P, start=1):\n\
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\nfrom typing\
+    \ import SupportsIndex\n\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n\
+    \    return [P[i]*i%mod for i in range(1,len(P))]\n\n\ndef fps_integ(P: list)\
+    \ -> list:\n    N, mod = len(P), mint.mod\n    res = [0] * (N+1)\n    if N:\n\
+    \        res[1] = 1\n    for i in range(2, N+1):\n        j, k = divmod(mod, i)\n\
+    \        res[i] = (-res[k] * j) % mod\n    for i, x in enumerate(P, start=1):\n\
     \        res[i] = res[i] * x % mod\n    return res\n\n\ndef fps_inv(P: list) ->\
     \ list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0],\
     \ mod := mint.mod)\n    while d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z,\
@@ -307,11 +307,11 @@ data:
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind_fixed_k\n\
@@ -343,7 +343,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

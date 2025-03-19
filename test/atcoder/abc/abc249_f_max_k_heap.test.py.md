@@ -136,11 +136,11 @@ data:
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nfrom typing import Reversible\n\ndef rev_enumerate(A: Reversible, start: int\
     \ = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n        yield\
@@ -154,12 +154,12 @@ data:
     \    def push(self, item: _T): heappush(self.data, item)\n    def pushpop(self,\
     \ item: _T): return heappushpop(self.data, item)\n    def replace(self, item:\
     \ _T): return heapreplace(self.data, item)\n\n\nclass KHeapMixin(HeapProtocol[_T],\
-    \ Parsable):\n    \"\"\"KHeapMixin[K: int, T: type, N: Union[int,None]]\"\"\"\n\
-    \    def __init__(heap, K: int):\n        heap.K = K\n\n    def added(heap, item:\
-    \ _T): ...\n\n    def removed(heap, item: _T): ...\n    \n    def pop(heap):\n\
-    \        item = super().pop()\n        heap.removed(item)\n        return item\n\
-    \    \n    def push(heap, item: _T):\n        if len(heap) < heap._K:\n      \
-    \      heap.added(item)\n            super().push(item)\n        elif heap._K:\n\
+    \ Parsable):\n    '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''\n    def\
+    \ __init__(heap, K: int):\n        heap.K = K\n\n    def added(heap, item: _T):\
+    \ ...\n\n    def removed(heap, item: _T): ...\n    \n    def pop(heap):\n    \
+    \    item = super().pop()\n        heap.removed(item)\n        return item\n \
+    \   \n    def push(heap, item: _T):\n        if len(heap) < heap._K:\n       \
+    \     heap.added(item)\n            super().push(item)\n        elif heap._K:\n\
     \            assert len(heap) == heap._K, f'{len(heap)=} {heap._K}'\n        \
     \    heap.pushpop(item)\n    \n    def pushpop(heap, item: _T):\n        if item\
     \ != (remove := super().pushpop(item)):\n            heap.removed(remove)\n  \
@@ -174,8 +174,8 @@ data:
     \                return cls(K, (elm(ts) for _ in ts.wait()))\n        else:\n\
     \            def parse(ts: TokenStream):\n                return cls(K, (elm(ts)\
     \ for _ in range(N)))\n        return parse\n\nclass MaxKHeap(KHeapMixin[_T],\
-    \ MinHeap[_T]):\n    \"\"\"MaxKHeap[K: int, T: type, N: Union[int,None]]\"\"\"\
-    \n\n    def __init__(self, K: int, iterable: Iterable[_T] = None):\n        MinHeap.__init__(self,\
+    \ MinHeap[_T]):\n    '''MaxKHeap[K: int, T: type, N: Union[int,None]]'''\n\n \
+    \   def __init__(self, K: int, iterable: Iterable[_T] = None):\n        MinHeap.__init__(self,\
     \ iterable)\n        KHeapMixin.__init__(self, K)\n\nclass BadOps(MaxKHeap[int]):\n\
     \    def __init__(self, K: int, x: int):\n        super().__init__(K)\n      \
     \  self.x = x\n        self.ans = x\n\n    def added(self, y):\n        self.x\
@@ -212,7 +212,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc249_f_max_k_heap.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc249_f_max_k_heap.test.py

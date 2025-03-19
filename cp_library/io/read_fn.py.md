@@ -67,6 +67,9 @@ data:
     path: test/aoj/vol/0439_aux_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+    title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc151_f_fbisect_left.test.py
     title: test/atcoder/abc/abc151_f_fbisect_left.test.py
   - icon: ':heavy_check_mark:'
@@ -390,11 +393,12 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py

@@ -33,7 +33,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \               \n'''\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -84,7 +84,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n               \
-    \       Math - Convolution                     \n\"\"\"\n\n\n\ndef popcnts(N):\n\
+    \       Math - Convolution                     \n'''\n\n\n\ndef popcnts(N):\n\
     \    P = [0]*(1 << N)\n    for i in range(N):\n        for m in range(b := 1<<i):\n\
     \            P[m^b] = P[m] + 1\n    return P\n\ndef subset_zeta_pair(A: list[int],\
     \ B: list[int], N: int):\n    Z = len(A)\n    for i in range(N):\n        m =\
@@ -143,7 +143,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution.test.py

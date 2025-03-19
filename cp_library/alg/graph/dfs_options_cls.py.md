@@ -99,8 +99,14 @@ data:
     path: cp_library/alg/graph/lazy_grid_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_graph_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/aux_tree_base_cls.py
+    title: cp_library/alg/tree/fast/aux_tree_base_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/aux_tree_cls.py
     title: cp_library/alg/tree/fast/aux_tree_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+    title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
@@ -186,6 +192,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+    title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc184_e_grid_graph.test.py
     title: test/atcoder/abc/abc184_e_grid_graph.test.py
@@ -321,9 +330,11 @@ data:
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_cls.py
+  - cp_library/alg/tree/fast/aux_tree_base_cls.py
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
+  - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
@@ -359,11 +370,12 @@ data:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/dag_cls.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py

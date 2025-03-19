@@ -36,21 +36,21 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\ndef ext_gcd(a, b):\n    \"\"\" Returns (x, y, d) where: ax +\
-    \ by = d = gcd(a,b) \"\"\"\n    if a and b:\n        x,y,r,s = 1,0,0,1\n     \
-    \   while b:\n            q, c = divmod(a,b)\n            a, b, r, s, x, y = b,\
-    \ c, x - q*r, y - q*s, r, s\n        return x, y, a\n    elif a: return 1, 0,\
-    \ a\n    elif b: return 0, 1, b\n    else: return 0, 1, 0\n\n\nfrom typing import\
-    \ Iterable, Type, Union, overload\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \        \n'''\n\ndef ext_gcd(a, b):\n    ''' Returns (x, y, d) where: ax + by\
+    \ = d = gcd(a,b) '''\n    if a and b:\n        x,y,r,s = 1,0,0,1\n        while\
+    \ b:\n            q, c = divmod(a,b)\n            a, b, r, s, x, y = b, c, x -\
+    \ q*r, y - q*s, r, s\n        return x, y, a\n    elif a: return 1, 0, a\n   \
+    \ elif b: return 0, 1, b\n    else: return 0, 1, 0\n\n\nfrom typing import Iterable,\
+    \ Type, Union, overload\nimport typing\nfrom collections import deque\nfrom numbers\
+    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -125,11 +125,11 @@ data:
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc186/tasks/abc186_e\n\
@@ -149,7 +149,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc186_e_gcd_ex.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc186_e_gcd_ex.test.py

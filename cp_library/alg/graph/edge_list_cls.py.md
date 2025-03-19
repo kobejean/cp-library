@@ -148,7 +148,7 @@ data:
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py

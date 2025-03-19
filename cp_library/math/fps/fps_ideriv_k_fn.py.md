@@ -68,10 +68,10 @@ data:
     \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
     \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
     \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n"
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n"
   code: "import cp_library.math.fps.__header__\n\ndef fps_ideriv_k(P: list[int], k:\
     \ int):\n    fact, inv, mod = modcomb.fact, modcomb.fact_inv, mint.mod\n    for\
     \ i in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n    del P[-k:]\n\
@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_ideriv_k_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_ideriv_k_fn.py

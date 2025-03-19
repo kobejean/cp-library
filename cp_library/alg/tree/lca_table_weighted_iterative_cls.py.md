@@ -15,6 +15,9 @@ data:
     title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+    title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
@@ -24,6 +27,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_a_diameter.test.py
     title: test/aoj/grl/grl_5_a_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+    title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -41,7 +47,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport operator\nfrom itertools import accumulate\nfrom typing import Callable,\
+    \n\n\nimport operator\nfrom itertools import accumulate\nfrom typing import Callable,\
     \ Iterable, TypeVar\n_T = TypeVar('T')\n\ndef presum(iter: Iterable[_T], func:\
     \ Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:\n  \
     \  if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
@@ -81,20 +87,19 @@ data:
     \            c = par[c]\n        path.append(lca)\n        rev_path, c = [], v\n\
     \        while c != lca:\n            rev_path.append(c)\n            c = par[c]\n\
     \        path.extend(reversed(rev_path))\n        return path\n\nclass LCATableWeighted(LCATable):\n\
-    \    def __init__(self, T, root = 0):\n        super().__init__(T, root)\n   \
-    \     self.weights = T.Wdelta\n        self.weighted_depth = None\n\n    def distance(self,\
-    \ u, v) -> int:\n        if self.weighted_depth is None:\n            self.weighted_depth\
-    \ = presum(self.weights)\n        l, r, a, _ = self._query(u, v)\n        m =\
-    \ self.start[a]\n        return self.weighted_depth[l] + self.weighted_depth[r]\
-    \ - 2*self.weighted_depth[m]\n"
-  code: "import cp_library.alg.tree.__header__\nfrom cp_library.alg.iter.presum_fn\
-    \ import presum\nfrom cp_library.alg.tree.lca_table_iterative_cls import LCATable\n\
-    \nclass LCATableWeighted(LCATable):\n    def __init__(self, T, root = 0):\n  \
-    \      super().__init__(T, root)\n        self.weights = T.Wdelta\n        self.weighted_depth\
-    \ = None\n\n    def distance(self, u, v) -> int:\n        if self.weighted_depth\
-    \ is None:\n            self.weighted_depth = presum(self.weights)\n        l,\
-    \ r, a, _ = self._query(u, v)\n        m = self.start[a]\n        return self.weighted_depth[l]\
-    \ + self.weighted_depth[r] - 2*self.weighted_depth[m]"
+    \    def __init__(lca, T, root = 0):\n        super().__init__(T, root)\n    \
+    \    lca.weights = T.Wdelta\n        lca.weighted_depth = None\n\n    def distance(lca,\
+    \ u, v) -> int:\n        if lca.weighted_depth is None:\n            lca.weighted_depth\
+    \ = presum(lca.weights)\n        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n\
+    \        return lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n"
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.tree.__header__\n\
+    from cp_library.alg.iter.presum_fn import presum\nfrom cp_library.alg.tree.lca_table_iterative_cls\
+    \ import LCATable\n\nclass LCATableWeighted(LCATable):\n    def __init__(lca,\
+    \ T, root = 0):\n        super().__init__(T, root)\n        lca.weights = T.Wdelta\n\
+    \        lca.weighted_depth = None\n\n    def distance(lca, u, v) -> int:\n  \
+    \      if lca.weighted_depth is None:\n            lca.weighted_depth = presum(lca.weights)\n\
+    \        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n        return\
+    \ lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]"
   dependsOn:
   - cp_library/alg/iter/presum_fn.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
@@ -104,10 +109,12 @@ data:
   path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_proto.py
+  - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

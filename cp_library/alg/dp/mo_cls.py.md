@@ -103,7 +103,7 @@ data:
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
     \ return cls(next(ts))\n        return parser\n\nclass Mo(list, Parsable):\n \
-    \   \"\"\"Mo[Q: int, N: int, T: type = tuple[int, int]]\"\"\"\n    def __init__(self,\
+    \   '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n    def __init__(self,\
     \ L: list[int], R: list[int], N: int):\n        self.Q = len(L)\n        self.qbits\
     \ = self.Q.bit_length()\n        self.nbits = N.bit_length()\n        self.qmask\
     \ = (1 << self.qbits) - 1\n        self.nmask = (1 << self.nbits) - 1\n      \
@@ -112,59 +112,58 @@ data:
     \        self.R = [0]*self.Q\n        for i,j in enumerate(self.order):\n    \
     \        j &= self.qmask\n            self.order[i] = j\n            self.L[i]\
     \ = L[j]\n            self.R[i] = R[j]\n\n    def packet(self, i: int, l: int,\
-    \ r: int) -> int:\n        \"\"\"Pack query information into a single integer.\"\
-    \"\"\n        b = l//self.B\n        if b & 1:\n            return (((b << self.nbits)\
+    \ r: int) -> int:\n        '''Pack query information into a single integer.'''\n\
+    \        b = l//self.B\n        if b & 1:\n            return (((b << self.nbits)\
     \ + self.nmask - r) << self.qbits) + i\n        else:\n            return (((b\
     \ << self.nbits) + r) << self.qbits) + i\n\n    def add(self, i: int):\n     \
-    \   \"\"\"Add element at index i to current range.\"\"\"\n        pass\n\n   \
-    \ def remove(self, i: int):\n        \"\"\"Remove element at index i from current\
-    \ range.\"\"\"\n        pass\n\n    def answer(self, i: int, l: int, r: int) ->\
-    \ int:\n        \"\"\"Compute answer for current range.\"\"\"\n        pass\n\
-    \    \n    def solve(self) -> list[int]:\n        curr_l = curr_r = 0\n      \
-    \  ans = [0] * self.Q\n        order, L, R = self.order, self.L, self.R\n    \
-    \    \n        for i in range(self.Q):\n            qid, l, r = order[i], L[i],\
-    \ R[i]\n            \n            if r > curr_r:\n                for i in range(curr_r,\
-    \ r):\n                    self.add(i)\n\n            if l < curr_l:\n       \
-    \         for i in range(curr_l-1, l-1, -1):\n                    self.add(i)\n\
-    \n            if l > curr_l:\n                for i in range(curr_l, l):\n   \
-    \                 self.remove(i)\n\n            if r < curr_r:\n             \
-    \   for i in range(curr_r-1, r-1, -1):\n                    self.remove(i)\n \
-    \                   \n            ans[qid] = self.answer(qid, l, r)\n        \
-    \    curr_l, curr_r = l, r\n            \n        return ans\n\n    @classmethod\n\
-    \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
-    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
-    \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
-    \ \n            return cls(L, R, N)\n        return parse\n"
+    \   '''Add element at index i to current range.'''\n        pass\n\n    def remove(self,\
+    \ i: int):\n        '''Remove element at index i from current range.'''\n    \
+    \    pass\n\n    def answer(self, i: int, l: int, r: int) -> int:\n        '''Compute\
+    \ answer for current range.'''\n        pass\n    \n    def solve(self) -> list[int]:\n\
+    \        curr_l = curr_r = 0\n        ans = [0] * self.Q\n        order, L, R\
+    \ = self.order, self.L, self.R\n        \n        for i in range(self.Q):\n  \
+    \          qid, l, r = order[i], L[i], R[i]\n            \n            if r >\
+    \ curr_r:\n                for i in range(curr_r, r):\n                    self.add(i)\n\
+    \n            if l < curr_l:\n                for i in range(curr_l-1, l-1, -1):\n\
+    \                    self.add(i)\n\n            if l > curr_l:\n             \
+    \   for i in range(curr_l, l):\n                    self.remove(i)\n\n       \
+    \     if r < curr_r:\n                for i in range(curr_r-1, r-1, -1):\n   \
+    \                 self.remove(i)\n                    \n            ans[qid] =\
+    \ self.answer(qid, l, r)\n            curr_l, curr_r = l, r\n            \n  \
+    \      return ans\n\n    @classmethod\n    def compile(cls, Q: int, N: int, T:\
+    \ type = tuple[-1, int]):\n        query = Parser.compile(T)\n        def parse(ts:\
+    \ TokenStream):\n            L, R = [0]*Q, [0]*Q\n            for i in range(Q):\n\
+    \                L[i], R[i] = query(ts) \n            return cls(L, R, N)\n  \
+    \      return parse\n"
   code: "import cp_library.alg.dp.__header__\nfrom math import isqrt\nfrom cp_library.io.parser_cls\
-    \ import Parsable, Parser, TokenStream\n\nclass Mo(list, Parsable):\n    \"\"\"\
-    Mo[Q: int, N: int, T: type = tuple[int, int]]\"\"\"\n    def __init__(self, L:\
-    \ list[int], R: list[int], N: int):\n        self.Q = len(L)\n        self.qbits\
-    \ = self.Q.bit_length()\n        self.nbits = N.bit_length()\n        self.qmask\
-    \ = (1 << self.qbits) - 1\n        self.nmask = (1 << self.nbits) - 1\n      \
-    \  \n        self.B = isqrt(N)\n        self.order = [self.packet(i, L[i], R[i])\
-    \ for i in range(self.Q)]\n        self.order.sort()\n        self.L = [0]*self.Q\n\
-    \        self.R = [0]*self.Q\n        for i,j in enumerate(self.order):\n    \
-    \        j &= self.qmask\n            self.order[i] = j\n            self.L[i]\
-    \ = L[j]\n            self.R[i] = R[j]\n\n    def packet(self, i: int, l: int,\
-    \ r: int) -> int:\n        \"\"\"Pack query information into a single integer.\"\
-    \"\"\n        b = l//self.B\n        if b & 1:\n            return (((b << self.nbits)\
-    \ + self.nmask - r) << self.qbits) + i\n        else:\n            return (((b\
-    \ << self.nbits) + r) << self.qbits) + i\n\n    def add(self, i: int):\n     \
-    \   \"\"\"Add element at index i to current range.\"\"\"\n        pass\n\n   \
-    \ def remove(self, i: int):\n        \"\"\"Remove element at index i from current\
-    \ range.\"\"\"\n        pass\n\n    def answer(self, i: int, l: int, r: int) ->\
-    \ int:\n        \"\"\"Compute answer for current range.\"\"\"\n        pass\n\
-    \    \n    def solve(self) -> list[int]:\n        curr_l = curr_r = 0\n      \
-    \  ans = [0] * self.Q\n        order, L, R = self.order, self.L, self.R\n    \
-    \    \n        for i in range(self.Q):\n            qid, l, r = order[i], L[i],\
-    \ R[i]\n            \n            if r > curr_r:\n                for i in range(curr_r,\
-    \ r):\n                    self.add(i)\n\n            if l < curr_l:\n       \
-    \         for i in range(curr_l-1, l-1, -1):\n                    self.add(i)\n\
-    \n            if l > curr_l:\n                for i in range(curr_l, l):\n   \
-    \                 self.remove(i)\n\n            if r < curr_r:\n             \
-    \   for i in range(curr_r-1, r-1, -1):\n                    self.remove(i)\n \
-    \                   \n            ans[qid] = self.answer(qid, l, r)\n        \
-    \    curr_l, curr_r = l, r\n            \n        return ans\n\n    @classmethod\n\
+    \ import Parsable, Parser, TokenStream\n\nclass Mo(list, Parsable):\n    '''Mo[Q:\
+    \ int, N: int, T: type = tuple[int, int]]'''\n    def __init__(self, L: list[int],\
+    \ R: list[int], N: int):\n        self.Q = len(L)\n        self.qbits = self.Q.bit_length()\n\
+    \        self.nbits = N.bit_length()\n        self.qmask = (1 << self.qbits) -\
+    \ 1\n        self.nmask = (1 << self.nbits) - 1\n        \n        self.B = isqrt(N)\n\
+    \        self.order = [self.packet(i, L[i], R[i]) for i in range(self.Q)]\n  \
+    \      self.order.sort()\n        self.L = [0]*self.Q\n        self.R = [0]*self.Q\n\
+    \        for i,j in enumerate(self.order):\n            j &= self.qmask\n    \
+    \        self.order[i] = j\n            self.L[i] = L[j]\n            self.R[i]\
+    \ = R[j]\n\n    def packet(self, i: int, l: int, r: int) -> int:\n        '''Pack\
+    \ query information into a single integer.'''\n        b = l//self.B\n       \
+    \ if b & 1:\n            return (((b << self.nbits) + self.nmask - r) << self.qbits)\
+    \ + i\n        else:\n            return (((b << self.nbits) + r) << self.qbits)\
+    \ + i\n\n    def add(self, i: int):\n        '''Add element at index i to current\
+    \ range.'''\n        pass\n\n    def remove(self, i: int):\n        '''Remove\
+    \ element at index i from current range.'''\n        pass\n\n    def answer(self,\
+    \ i: int, l: int, r: int) -> int:\n        '''Compute answer for current range.'''\n\
+    \        pass\n    \n    def solve(self) -> list[int]:\n        curr_l = curr_r\
+    \ = 0\n        ans = [0] * self.Q\n        order, L, R = self.order, self.L, self.R\n\
+    \        \n        for i in range(self.Q):\n            qid, l, r = order[i],\
+    \ L[i], R[i]\n            \n            if r > curr_r:\n                for i\
+    \ in range(curr_r, r):\n                    self.add(i)\n\n            if l <\
+    \ curr_l:\n                for i in range(curr_l-1, l-1, -1):\n              \
+    \      self.add(i)\n\n            if l > curr_l:\n                for i in range(curr_l,\
+    \ l):\n                    self.remove(i)\n\n            if r < curr_r:\n    \
+    \            for i in range(curr_r-1, r-1, -1):\n                    self.remove(i)\n\
+    \                    \n            ans[qid] = self.answer(qid, l, r)\n       \
+    \     curr_l, curr_r = l, r\n            \n        return ans\n\n    @classmethod\n\
     \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
     \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
     \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
@@ -175,7 +174,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/mo_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc261_g_mo.test.py

@@ -49,26 +49,26 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Iterator\n\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
     \    return ch\n\n\n\n\n\ndef strongly_connected_components(G: 'DiGraph') -> Iterator[list[int]]:\n\
-    \    \"\"\"\n    Finds strongly connected sccs in directed graph using Tarjan's\
-    \ algorithm.\n    Returns sccs in topological order.\n    \"\"\"\n    low, on,\
-    \ st, sccs, L = u32f(N := G.N), u8f(N), elist(N), elist(N), elist(N)\n    \n \
-    \   def enter(u):\n        low[u] = G.tin[u]\n        st.append(u)\n        on[u]\
-    \ = 1\n\n    def back_or_cross(u,v,i):\n        if on[v]: chmin(low, u, G.tin[v])\n\
-    \n    def leave(u):\n        if low[u] == G.tin[u]:\n            L.append(len(sccs))\n\
-    \            v = -1\n            while v != u:\n                on[v := st.pop()]\
-    \ = 0\n                sccs.append(v)\n\n    def up(u,v,i):\n        chmin(low,\
-    \ v, low[u])\n\n    G.dfs(enter_fn=enter, back_fn=back_or_cross, cross_fn=back_or_cross,\
-    \ leave_fn=leave, up_fn=up)\n    return SliceIteratorReverse(sccs, L)\n\nfrom\
-    \ math import inf\nfrom collections import deque\nfrom typing import Callable,\
-    \ Sequence, Union, overload\n\nimport typing\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \    '''\n    Finds strongly connected sccs in directed graph using Tarjan's algorithm.\n\
+    \    Returns sccs in topological order.\n    '''\n    low, on, st, sccs, L = u32f(N\
+    \ := G.N), u8f(N), elist(N), elist(N), elist(N)\n    \n    def enter(u):\n   \
+    \     low[u] = G.tin[u]\n        st.append(u)\n        on[u] = 1\n\n    def back_or_cross(u,v,i):\n\
+    \        if on[v]: chmin(low, u, G.tin[v])\n\n    def leave(u):\n        if low[u]\
+    \ == G.tin[u]:\n            L.append(len(sccs))\n            v = -1\n        \
+    \    while v != u:\n                on[v := st.pop()] = 0\n                sccs.append(v)\n\
+    \n    def up(u,v,i):\n        chmin(low, v, low[u])\n\n    G.dfs(enter_fn=enter,\
+    \ back_fn=back_or_cross, cross_fn=back_or_cross, leave_fn=leave, up_fn=up)\n \
+    \   return SliceIteratorReverse(sccs, L)\n\nfrom math import inf\nfrom collections\
+    \ import deque\nfrom typing import Callable, Sequence, Union, overload\n\nimport\
+    \ typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
+    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -152,30 +152,37 @@ data:
     \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
     \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
     \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
-    \      \"\"\"The number of vertices.\"\"\"\n        G.M = M\n        \"\"\"The\
-    \ number of edges.\"\"\"\n        G.U = U\n        \"\"\"A list of source vertices\
-    \ in the original edge list.\"\"\"\n        G.V = V\n        \"\"\"A list of destination\
-    \ vertices in the original edge list.\"\"\"\n        G.deg = deg\n        \"\"\
-    \"deg[u] is the out degree of vertex u.\"\"\"\n        G.La = La\n        \"\"\
-    \"La[u] stores the start index of the list of adjacent vertices from u.\"\"\"\n\
-    \        G.Ra = Ra\n        \"\"\"Ra[u] stores the stop index of the list of adjacent\
-    \ vertices from u.\"\"\"\n        G.Ua = Ua\n        \"\"\"Ua[i] = u for La[u]\
-    \ <= i < Ra[u], useful for backtracking.\"\"\"\n        G.Va = Va\n        \"\"\
-    \"Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].\"\"\"\n        G.Ea\
-    \ = Ea\n        \"\"\"Ea[i] lists the edge ids that start from u for La[u] <=\
-    \ i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
-    \ edges from V[e-M] -> U[e-M].\n        \"\"\"\n        G.twin = twin if twin\
-    \ is not None else range(len(Ua))\n        \"\"\"twin[i] in undirected graphs\
-    \ stores index j of the same edge but with u and v swapped.\"\"\"\n        G.st:\
+    \      '''The number of vertices.'''\n        G.M = M\n        '''The number of\
+    \ edges.'''\n        G.U = U\n        '''A list of source vertices in the original\
+    \ edge list.'''\n        G.V = V\n        '''A list of destination vertices in\
+    \ the original edge list.'''\n        G.deg = deg\n        '''deg[u] is the out\
+    \ degree of vertex u.'''\n        G.La = La\n        '''La[u] stores the start\
+    \ index of the list of adjacent vertices from u.'''\n        G.Ra = Ra\n     \
+    \   '''Ra[u] stores the stop index of the list of adjacent vertices from u.'''\n\
+    \        G.Ua = Ua\n        '''Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.'''\n\
+    \        G.Va = Va\n        '''Va[i] lists adjacent vertices to u for La[u] <=\
+    \ i < Ra[u].'''\n        G.Ea = Ea\n        '''Ea[i] lists the edge ids that start\
+    \ from u for La[u] <= i < Ra[u].\n        For undirected graphs, edge ids in range\
+    \ M<= e <2*M are edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin\
+    \ if twin is not None else range(len(Ua))\n        '''twin[i] in undirected graphs\
+    \ stores index j of the same edge but with u and v swapped.'''\n        G.st:\
     \ list[int] = None\n        G.order: list[int] = None\n        G.vis: list[int]\
-    \ = None\n\n    def __len__(G) -> int: return G.N\n    def __getitem__(G, u):\
-    \ return G.Va[G.La[u]:G.Ra[u]]\n    def range(G, u): return range(G.La[u],G.Ra[u])\n\
-    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
-    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
-    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
-    \    if s == None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\
-    \n    def recover_path(G, s, t):\n        Ua, back, vertices = G.Ua, G.back, u32f(1,\
-    \ v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n        return\
+    \ = None\n        G.back: list[int] = None\n        G.tin: list[int] = None\n\n\
+    \    def prep_vis(G):\n        if G.vis is None: G.vis = u8f(G.N)\n        return\
+    \ G.vis\n    \n    def prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n\
+    \        else: G.st.clear()\n        return G.st\n    \n    def prep_order(G):\n\
+    \        if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
+    \        return G.order\n    \n    def prep_back(G):\n        if G.back is None:\
+    \ G.back = i32f(G.N, -2)\n        return G.back\n    \n    def prep_tin(G):\n\
+    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n    \n\
+    \    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
+    \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
+    \ None: return G.floyd_warshall()\n        else: return G.bfs(s, g)\n\n    def\
+    \ recover_path(G, s, t):\n        Ua, back, vertices = G.Ua, G.back, u32f(1, v\
+    \ := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n        return\
     \ vertices\n    \n    def recover_path_edge_ids(G, s, t):\n        Ea, Ua, back,\
     \ edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v != s: edges.append(Ea[i\
     \ := back[v]]), (v := Ua[i])\n        return edges\n\n    def shortest_path(G,\
@@ -192,40 +199,35 @@ data:
     \ u == g: return nd-1\n            for i in G.range(u):\n                if nd\
     \ < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n              \
     \      que.append(v)\n        return D if g is None else inf \n\n    def floyd_warshall(G)\
-    \ -> list[list[int]]:\n        Ua, Va, N = G.Ua, G.Va, G.N\n        G.D = D =\
-    \ [[inf]*N for _ in range(N)]\n        for u in range(N): D[u][u] = 0\n      \
-    \  for i in range(len(Ua)): D[Ua[i]][Va[i]] = 1\n        for k, Dk in enumerate(D):\n\
-    \            for Di in D:\n                if (Dik := Di[k]) == inf: continue\n\
-    \                for j in range(N):\n                    chmin(Di, j, Dik+Dk[j])\n\
-    \        return D\n\n    def find_cycle_indices(G, s: Union[int, None] = None):\n\
-    \        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n\
-    \        G.vis, G.back, st = vis, back, elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            st.append(s)\n            while\
-    \ st:\n                if not vis[u := st.pop()]:\n                    st.append(u)\n\
-    \                    vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max\n\
-    \                    for i in G.range(u):\n                        if not vis[v\
-    \ := Va[i]]:\n                            back[v] = i\n                      \
-    \      st.append(v)\n                        elif vis[v] == 1 and pe != Ea[i]:\n\
-    \                            I = u32f(1,i)\n                            while\
-    \ v != u: I.append(i := back[u]), (u := Ua[i])\n                            I.reverse()\n\
-    \                            return I\n                else:\n               \
-    \     vis[u] = 2\n        # check for self loops\n        for i in range(len(Ua)):\n\
-    \            if Ua[i] == Va[i]:\n                return u32f(1,i)\n    \n    def\
-    \ find_cycle(G, s: Union[int, None] = None):\n        if I := G.find_cycle_indices(s):\
-    \ return [G.Ua[i] for i in I]\n    \n    def find_cycle_edge_ids(G, s: Union[int,\
-    \ None] = None):\n        if I := G.find_cycle_indices(s): return [G.Ea[i] for\
-    \ i in I]\n\n    def find_minimal_cycle(G, s=0):\n        D, par, que, Va = u32f(N\
-    \ := G.N, u32_max), i32f(N, -1), deque([s]), G.Va\n        D[s] = 0\n        while\
-    \ que:\n            for i in G.range(u := que.popleft()):\n                if\
-    \ (v := Va[i]) == s:  # Found cycle back to start\n                    cycle =\
-    \ [u]\n                    while u != s: cycle.append(u := par[u])\n         \
-    \           return cycle\n                if D[v] < u32_max: continue\n      \
-    \          D[v], par[v] = D[u]+1, u; que.append(v)\n\n    def prep_vis(G):\n \
-    \       if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def\
-    \ prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n\
-    \        return G.st\n    \n    def prep_order(G):\n        if G.order is None:\
-    \ G.order = elist(G.N)\n        else: G.order.clear()\n        return G.order\n\
-    \n    def dfs_topdown(G, s: Union[int,list] = None) -> list[int]:\n        '''Returns\
+    \ -> list[list[int]]:\n        G.D = D = [[inf]*G.N for _ in range(G.N)]\n   \
+    \     for u in range(G.N): D[u][u] = 0\n        for i in range(len(G.Ua)): D[G.Ua[i]][G.Va[i]]\
+    \ = 1\n        for k, Dk in enumerate(D):\n            for Di in D:\n        \
+    \        if (Dik := Di[k]) == inf: continue\n                for j in range(G.N):\n\
+    \                    chmin(Di, j, Dik+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
+    \ s: Union[int, None] = None):\n        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va,\
+    \ u8f(N := G.N), u32f(N, i32_max)\n        G.vis, G.back, st = vis, back, elist(N)\n\
+    \        for s in G.starts(s):\n            if vis[s]: continue\n            st.append(s)\n\
+    \            while st:\n                if not vis[u := st.pop()]:\n         \
+    \           st.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
+    \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
+    \                if not vis[v := Va[i]]:\n                            back[v]\
+    \ = i\n                            st.append(v)\n                        elif\
+    \ vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n  \
+    \                          while v != u: I.append(i := back[u]), (u := Ua[i])\n\
+    \                            I.reverse()\n                            return I\n\
+    \                else:\n                    vis[u] = 2\n        # check for self\
+    \ loops\n        for i in range(len(Ua)):\n            if Ua[i] == Va[i]:\n  \
+    \              return u32f(1,i)\n    \n    def find_cycle(G, s: Union[int, None]\
+    \ = None):\n        if I := G.find_cycle_indices(s): return [G.Ua[i] for i in\
+    \ I]\n    \n    def find_cycle_edge_ids(G, s: Union[int, None] = None):\n    \
+    \    if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]\n\n    def find_minimal_cycle(G,\
+    \ s=0):\n        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), deque([s]),\
+    \ G.Va\n        D[s] = 0\n        while que:\n            for i in G.range(u :=\
+    \ que.popleft()):\n                if (v := Va[i]) == s:  # Found cycle back to\
+    \ start\n                    cycle = [u]\n                    while u != s: cycle.append(u\
+    \ := par[u])\n                    return cycle\n                if D[v] < u32_max:\
+    \ continue\n                D[v], par[v] = D[u]+1, u; que.append(v)\n\n    def\
+    \ dfs_topdown(G, s: Union[int,list] = None) -> list[int]:\n        '''Returns\
     \ lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''\n\
     \        vis, st, order = G.prep_vis(), G.prep_st(), G.prep_order()\n        for\
     \ s in G.starts(s):\n            if vis[s]: continue\n            vis[s] = 1;\
@@ -239,25 +241,25 @@ data:
     \     back_fn: Callable[[int,int,int],None] = None,\n            forward_fn: Callable[[int,int,int],None]\
     \ = None,\n            cross_fn: Callable[[int,int,int],None] = None,\n      \
     \      up_fn: Callable[[int,int,int],None] = None):\n        I, time, vis, st,\
-    \ back, tin = G.La[:], -1, u8f(G.N), elist(G.N), i32f(G.N, -2), i32f(G.N, -1)\n\
-    \        G.vis, G.st, G.back, G.tin = vis, st, back, tin\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            back[s], tin[s] = -1, (time := time+1);\
-    \ st.append(s)\n            while st:\n                if vis[u := st[-1]] ==\
-    \ 0:\n                    vis[u] = 1\n                    if enter_fn: enter_fn(u)\n\
-    \                    if max_depth is not None and len(st) > max_depth:\n     \
-    \                   I[u] = G.Ra[u]\n                        if max_depth_fn: max_depth_fn(u)\n\
-    \                if (i := I[u]) < G.Ra[u]:\n                    I[u] += 1\n  \
-    \                  if (s := vis[v := G.Va[i]]) == 0:\n                       \
-    \ back[v], tin[v] = i, (time := time+1); st.append(v)\n                      \
-    \  if down_fn: down_fn(u,v,i)\n                    elif back_fn and s == 1 and\
-    \ back[u] != G.twin[i]: back_fn(u,v,i)\n                    elif (cross_fn or\
-    \ forward_fn) and s == 2:\n                        if forward_fn and tin[u] <\
-    \ tin[v]: forward_fn(u,v,i)\n                        elif cross_fn: cross_fn(u,v,i)\n\
-    \                else:\n                    vis[u] = 2; st.pop()\n           \
-    \         if backtrack: vis[u], I[u] = 0, G.La[u]\n                    if leave_fn:\
-    \ leave_fn(u)\n                    if up_fn and st: up_fn(u, st[-1], back[u])\n\
-    \    \n    def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:\n\
-    \        N, I = G.N, G.La[:]\n        st, back, plst = elist(N), i32f(N,-2), PacketList(order\
+    \ back, tin = G.La[:], -1, G.prep_vis(), G.prep_st(), G.prep_back(), G.prep_tin()\n\
+    \        for s in G.starts(s):\n            if vis[s]: continue\n            back[s],\
+    \ tin[s] = -1, (time := time+1); st.append(s)\n            while st:\n       \
+    \         if vis[u := st[-1]] == 0:\n                    vis[u] = 1\n        \
+    \            if enter_fn: enter_fn(u)\n                    if max_depth is not\
+    \ None and len(st) > max_depth:\n                        I[u] = G.Ra[u]\n    \
+    \                    if max_depth_fn: max_depth_fn(u)\n                if (i :=\
+    \ I[u]) < G.Ra[u]:\n                    I[u] += 1\n                    if (s :=\
+    \ vis[v := G.Va[i]]) == 0:\n                        back[v], tin[v] = i, (time\
+    \ := time+1); st.append(v)\n                        if down_fn: down_fn(u,v,i)\n\
+    \                    elif back_fn and s == 1 and back[u] != G.twin[i]: back_fn(u,v,i)\n\
+    \                    elif (cross_fn or forward_fn) and s == 2:\n             \
+    \           if forward_fn and tin[u] < tin[v]: forward_fn(u,v,i)\n           \
+    \             elif cross_fn: cross_fn(u,v,i)\n                else:\n        \
+    \            vis[u] = 2; st.pop()\n                    if backtrack: vis[u], I[u]\
+    \ = 0, G.La[u]\n                    if leave_fn: leave_fn(u)\n               \
+    \     if up_fn and st: up_fn(u, st[-1], back[u])\n    \n    def dfs_enter_leave(G,\
+    \ s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:\n   \
+    \     N, I = G.N, G.La[:]\n        st, back, plst = elist(N), i32f(N,-2), PacketList(order\
     \ := elist(2*N), N-1)\n        G.back, ENTER, LEAVE = back, int(DFSEvent.ENTER)\
     \ << plst.shift, int(DFSEvent.LEAVE) << plst.shift\n        for s in G.starts(s):\n\
     \            if back[s] >= -1: continue\n            back[s] = -1\n          \
@@ -312,44 +314,43 @@ data:
     \     for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]\n        for e in range(M):\
     \ Ra[u], Ua[i], Va[i], Ea[i] = (i := Ra[u := U[e]])+1, u, V[e], e\n        super().__init__(N,\
     \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n\
-    \        \"\"\"\n        Finds strongly connected sccs in directed graph using\
-    \ Tarjan's algorithm.\n        Returns sccs in topological order.\n        \"\"\
-    \"\n        Ra, tin, low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N),\
-    \ u8f(N), G.La[:], -1\n        order, stack, sccs, L = elist(N), elist(N), elist(N),\
-    \ elist(N)\n        for u in range(N):\n            if tin[u] >= 0: continue\n\
-    \            stack.append(u)\n            while stack:\n                if tin[u\
-    \ := stack[-1]] < 0:\n                    tin[u] = low[u] = (time := time+1)\n\
-    \                    order.append(u)\n                    on_stack[u] = 1\n  \
-    \              if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n      \
-    \              if tin[v := G.Va[i]] < 0: stack.append(v)\n                   \
-    \ elif on_stack[v]: chmin(low, u, tin[v])\n                else:\n           \
-    \         stack.pop()\n                    if low[u] == tin[u]:\n            \
-    \            v = -1; L.append(len(sccs))\n                        while v != u:\n\
-    \                            on_stack[v := order.pop()] = 0\n                \
-    \            sccs.append(v)\n                    if stack: chmin(low, stack[-1],\
-    \ low[u])\n        return SliceIteratorReverse(sccs, L)\n    \n\nfrom typing import\
-    \ Iterator, SupportsIndex\n\nclass SliceIteratorReverse(Iterator[_T]):\n    def\
-    \ __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A, self.L,\
-    \ self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
-    \        L = self.L\n        if not L: raise StopIteration\n        self.r, r\
-    \ = (l := L.pop()), self.r\n        return self.A[l:r]\n"
+    \        '''\n        Finds strongly connected sccs in directed graph using Tarjan's\
+    \ algorithm.\n        Returns sccs in topological order.\n        '''\n      \
+    \  Ra, tin, low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N), u8f(N),\
+    \ G.La[:], -1\n        order, stack, sccs, L = elist(N), elist(N), elist(N), elist(N)\n\
+    \        for u in range(N):\n            if tin[u] >= 0: continue\n          \
+    \  stack.append(u)\n            while stack:\n                if tin[u := stack[-1]]\
+    \ < 0:\n                    tin[u] = low[u] = (time := time+1)\n             \
+    \       order.append(u)\n                    on_stack[u] = 1\n               \
+    \ if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n                   \
+    \ if tin[v := G.Va[i]] < 0: stack.append(v)\n                    elif on_stack[v]:\
+    \ chmin(low, u, tin[v])\n                else:\n                    stack.pop()\n\
+    \                    if low[u] == tin[u]:\n                        v = -1; L.append(len(sccs))\n\
+    \                        while v != u:\n                            on_stack[v\
+    \ := order.pop()] = 0\n                            sccs.append(v)\n          \
+    \          if stack: chmin(low, stack[-1], low[u])\n        return SliceIteratorReverse(sccs,\
+    \ L)\n    \n\nfrom typing import Iterator, SupportsIndex\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
+    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
+    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n"
   code: "import cp_library.__header__\nfrom typing import Iterator\n\nimport cp_library.alg.__header__\n\
     from cp_library.alg.dp.chmin_fn import chmin\n\nimport cp_library.alg.graph.__header__\n\
     import cp_library.alg.graph.fast.__header__\nimport cp_library.alg.graph.fast.snippets.__header__\n\
     \ndef strongly_connected_components(G: 'DiGraph') -> Iterator[list[int]]:\n  \
-    \  \"\"\"\n    Finds strongly connected sccs in directed graph using Tarjan's\
-    \ algorithm.\n    Returns sccs in topological order.\n    \"\"\"\n    low, on,\
-    \ st, sccs, L = u32f(N := G.N), u8f(N), elist(N), elist(N), elist(N)\n    \n \
-    \   def enter(u):\n        low[u] = G.tin[u]\n        st.append(u)\n        on[u]\
-    \ = 1\n\n    def back_or_cross(u,v,i):\n        if on[v]: chmin(low, u, G.tin[v])\n\
-    \n    def leave(u):\n        if low[u] == G.tin[u]:\n            L.append(len(sccs))\n\
-    \            v = -1\n            while v != u:\n                on[v := st.pop()]\
-    \ = 0\n                sccs.append(v)\n\n    def up(u,v,i):\n        chmin(low,\
-    \ v, low[u])\n\n    G.dfs(enter_fn=enter, back_fn=back_or_cross, cross_fn=back_or_cross,\
-    \ leave_fn=leave, up_fn=up)\n    return SliceIteratorReverse(sccs, L)\n\nfrom\
-    \ cp_library.alg.graph.fast.digraph_cls import DiGraph\nfrom cp_library.alg.iter.slice_iterator_reverse_cls\
-    \ import SliceIteratorReverse\nfrom cp_library.ds.elist_fn import elist\nfrom\
-    \ cp_library.ds.array_init_fn import u32f, u8f"
+    \  '''\n    Finds strongly connected sccs in directed graph using Tarjan's algorithm.\n\
+    \    Returns sccs in topological order.\n    '''\n    low, on, st, sccs, L = u32f(N\
+    \ := G.N), u8f(N), elist(N), elist(N), elist(N)\n    \n    def enter(u):\n   \
+    \     low[u] = G.tin[u]\n        st.append(u)\n        on[u] = 1\n\n    def back_or_cross(u,v,i):\n\
+    \        if on[v]: chmin(low, u, G.tin[v])\n\n    def leave(u):\n        if low[u]\
+    \ == G.tin[u]:\n            L.append(len(sccs))\n            v = -1\n        \
+    \    while v != u:\n                on[v := st.pop()] = 0\n                sccs.append(v)\n\
+    \n    def up(u,v,i):\n        chmin(low, v, low[u])\n\n    G.dfs(enter_fn=enter,\
+    \ back_fn=back_or_cross, cross_fn=back_or_cross, leave_fn=leave, up_fn=up)\n \
+    \   return SliceIteratorReverse(sccs, L)\n\nfrom cp_library.alg.graph.fast.digraph_cls\
+    \ import DiGraph\nfrom cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse\n\
+    from cp_library.ds.elist_fn import elist\nfrom cp_library.ds.array_init_fn import\
+    \ u32f, u8f"
   dependsOn:
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/fast/digraph_cls.py
@@ -364,7 +365,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/scc_strongly_connected_components.test.py

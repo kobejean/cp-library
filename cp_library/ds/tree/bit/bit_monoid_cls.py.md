@@ -15,7 +15,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Callable, Generic, Union\nfrom typing import TypeVar\n_T =\
-    \ TypeVar('T')\n\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ TypeVar('T')\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -64,7 +64,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data\
-    \ Structure - Tree - Binary Index Tree            \n\"\"\"\n\nclass BITMonoid(Generic[_T]):\n\
+    \ Structure - Tree - Binary Index Tree            \n'''\n\nclass BITMonoid(Generic[_T]):\n\
     \    def __init__(bit, op: Callable[[_T,_T],_T], e: _T, v: Union[int,list[_T]]):\n\
     \        if isinstance(v, int): bit.d, bit.n = [e]*v, v\n        else: bit.build(v)\n\
     \        bit.op, bit.e = op, e\n\n    def __len__(bit) -> int:\n        return\
@@ -108,7 +108,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bit_monoid_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/tree/bit/bit_monoid_cls.py

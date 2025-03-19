@@ -207,35 +207,42 @@ data:
     \ Parsable):\n    def __init__(G, N: int, M: int, U: list[int], V: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
     \        Ua: list[int], Va: list[int], Ea: list[int], twin: list[int] = None):\n\
-    \        G.N = N\n        \"\"\"The number of vertices.\"\"\"\n        G.M = M\n\
-    \        \"\"\"The number of edges.\"\"\"\n        G.U = U\n        \"\"\"A list\
-    \ of source vertices in the original edge list.\"\"\"\n        G.V = V\n     \
-    \   \"\"\"A list of destination vertices in the original edge list.\"\"\"\n  \
-    \      G.deg = deg\n        \"\"\"deg[u] is the out degree of vertex u.\"\"\"\n\
-    \        G.La = La\n        \"\"\"La[u] stores the start index of the list of\
-    \ adjacent vertices from u.\"\"\"\n        G.Ra = Ra\n        \"\"\"Ra[u] stores\
-    \ the stop index of the list of adjacent vertices from u.\"\"\"\n        G.Ua\
-    \ = Ua\n        \"\"\"Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.\"\
-    \"\"\n        G.Va = Va\n        \"\"\"Va[i] lists adjacent vertices to u for\
-    \ La[u] <= i < Ra[u].\"\"\"\n        G.Ea = Ea\n        \"\"\"Ea[i] lists the\
-    \ edge ids that start from u for La[u] <= i < Ra[u].\n        For undirected graphs,\
-    \ edge ids in range M<= e <2*M are edges from V[e-M] -> U[e-M].\n        \"\"\"\
-    \n        G.twin = twin if twin is not None else range(len(Ua))\n        \"\"\"\
-    twin[i] in undirected graphs stores index j of the same edge but with u and v\
-    \ swapped.\"\"\"\n        G.st: list[int] = None\n        G.order: list[int] =\
-    \ None\n        G.vis: list[int] = None\n\n    def __len__(G) -> int: return G.N\n\
-    \    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G, u):\
-    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
-    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
-    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua, back, vertices =\
-    \ G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n\
-    \        return vertices\n    \n    def recover_path_edge_ids(G, s, t):\n    \
-    \    Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v\
-    \ != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return edges\n\n\
-    \    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf:\
-    \ return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
+    \        G.N = N\n        '''The number of vertices.'''\n        G.M = M\n   \
+    \     '''The number of edges.'''\n        G.U = U\n        '''A list of source\
+    \ vertices in the original edge list.'''\n        G.V = V\n        '''A list of\
+    \ destination vertices in the original edge list.'''\n        G.deg = deg\n  \
+    \      '''deg[u] is the out degree of vertex u.'''\n        G.La = La\n      \
+    \  '''La[u] stores the start index of the list of adjacent vertices from u.'''\n\
+    \        G.Ra = Ra\n        '''Ra[u] stores the stop index of the list of adjacent\
+    \ vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i] = u for La[u] <= i\
+    \ < Ra[u], useful for backtracking.'''\n        G.Va = Va\n        '''Va[i] lists\
+    \ adjacent vertices to u for La[u] <= i < Ra[u].'''\n        G.Ea = Ea\n     \
+    \   '''Ea[i] lists the edge ids that start from u for La[u] <= i < Ra[u].\n  \
+    \      For undirected graphs, edge ids in range M<= e <2*M are edges from V[e-M]\
+    \ -> U[e-M].\n        '''\n        G.twin = twin if twin is not None else range(len(Ua))\n\
+    \        '''twin[i] in undirected graphs stores index j of the same edge but with\
+    \ u and v swapped.'''\n        G.st: list[int] = None\n        G.order: list[int]\
+    \ = None\n        G.vis: list[int] = None\n        G.back: list[int] = None\n\
+    \        G.tin: list[int] = None\n\n    def prep_vis(G):\n        if G.vis is\
+    \ None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def prep_st(G):\n  \
+    \      if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n      \
+    \  return G.st\n    \n    def prep_order(G):\n        if G.order is None: G.order\
+    \ = elist(G.N)\n        else: G.order.clear()\n        return G.order\n    \n\
+    \    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n  \
+    \      return G.back\n    \n    def prep_tin(G):\n        if G.tin is None: G.tin\
+    \ = i32f(G.N, -1)\n        return G.tin\n    \n    def __len__(G) -> int: return\
+    \ G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G,\
+    \ u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
+    \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
+    \        else: return G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua,\
+    \ back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v\
+    \ := Ua[back[v]])\n        return vertices\n    \n    def recover_path_edge_ids(G,\
+    \ s, t):\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n  \
+    \      while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return\
+    \ edges\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
+    \ t) >= inf: return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
     \        return vertices\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n\
     \        if G.distance(s, t) >= inf: return None\n        edges = G.recover_path_edge_ids(s,\
     \ t)\n        edges.reverse()\n        return edges\n    \n    @overload\n   \
@@ -247,73 +254,67 @@ data:
     \            if u == g: return nd-1\n            for i in G.range(u):\n      \
     \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
     \                    que.append(v)\n        return D if g is None else inf \n\n\
-    \    def floyd_warshall(G) -> list[list[int]]:\n        Ua, Va, N = G.Ua, G.Va,\
-    \ G.N\n        G.D = D = [[inf]*N for _ in range(N)]\n        for u in range(N):\
-    \ D[u][u] = 0\n        for i in range(len(Ua)): D[Ua[i]][Va[i]] = 1\n        for\
-    \ k, Dk in enumerate(D):\n            for Di in D:\n                if (Dik :=\
-    \ Di[k]) == inf: continue\n                for j in range(N):\n              \
-    \      chmin(Di, j, Dik+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
-    \ s: Union[int, None] = None):\n        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va,\
-    \ u8f(N := G.N), u32f(N, i32_max)\n        G.vis, G.back, st = vis, back, elist(N)\n\
-    \        for s in G.starts(s):\n            if vis[s]: continue\n            st.append(s)\n\
-    \            while st:\n                if not vis[u := st.pop()]:\n         \
-    \           st.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
-    \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
-    \                if not vis[v := Va[i]]:\n                            back[v]\
-    \ = i\n                            st.append(v)\n                        elif\
-    \ vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n  \
-    \                          while v != u: I.append(i := back[u]), (u := Ua[i])\n\
-    \                            I.reverse()\n                            return I\n\
-    \                else:\n                    vis[u] = 2\n        # check for self\
-    \ loops\n        for i in range(len(Ua)):\n            if Ua[i] == Va[i]:\n  \
-    \              return u32f(1,i)\n    \n    def find_cycle(G, s: Union[int, None]\
-    \ = None):\n        if I := G.find_cycle_indices(s): return [G.Ua[i] for i in\
-    \ I]\n    \n    def find_cycle_edge_ids(G, s: Union[int, None] = None):\n    \
-    \    if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]\n\n    def find_minimal_cycle(G,\
-    \ s=0):\n        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), deque([s]),\
-    \ G.Va\n        D[s] = 0\n        while que:\n            for i in G.range(u :=\
-    \ que.popleft()):\n                if (v := Va[i]) == s:  # Found cycle back to\
-    \ start\n                    cycle = [u]\n                    while u != s: cycle.append(u\
-    \ := par[u])\n                    return cycle\n                if D[v] < u32_max:\
-    \ continue\n                D[v], par[v] = D[u]+1, u; que.append(v)\n\n    def\
-    \ prep_vis(G):\n        if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n\
-    \    \n    def prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n     \
-    \   else: G.st.clear()\n        return G.st\n    \n    def prep_order(G):\n  \
-    \      if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
-    \        return G.order\n\n    def dfs_topdown(G, s: Union[int,list] = None) ->\
-    \ list[int]:\n        '''Returns lists of indices i where Ua[i] -> Va[i] are edges\
-    \ in order of top down discovery'''\n        vis, st, order = G.prep_vis(), G.prep_st(),\
-    \ G.prep_order()\n        for s in G.starts(s):\n            if vis[s]: continue\n\
-    \            vis[s] = 1; st.append(s) \n            while st:\n              \
-    \  for i in G.range(st.pop()):\n                    if vis[v := G.Va[i]]: continue\n\
-    \                    vis[v] = 1; order.append(i); st.append(v)\n        return\
-    \ order\n\n    def dfs(G, s: Union[int,list] = None, /, \n            backtrack\
-    \ = False,\n            max_depth = None,\n            enter_fn: Callable[[int],None]\
-    \ = None,\n            leave_fn: Callable[[int],None] = None,\n            max_depth_fn:\
-    \ Callable[[int],None] = None,\n            down_fn: Callable[[int,int,int],None]\
-    \ = None,\n            back_fn: Callable[[int,int,int],None] = None,\n       \
-    \     forward_fn: Callable[[int,int,int],None] = None,\n            cross_fn:\
-    \ Callable[[int,int,int],None] = None,\n            up_fn: Callable[[int,int,int],None]\
-    \ = None):\n        I, time, vis, st, back, tin = G.La[:], -1, u8f(G.N), elist(G.N),\
-    \ i32f(G.N, -2), i32f(G.N, -1)\n        G.vis, G.st, G.back, G.tin = vis, st,\
-    \ back, tin\n        for s in G.starts(s):\n            if vis[s]: continue\n\
-    \            back[s], tin[s] = -1, (time := time+1); st.append(s)\n          \
-    \  while st:\n                if vis[u := st[-1]] == 0:\n                    vis[u]\
-    \ = 1\n                    if enter_fn: enter_fn(u)\n                    if max_depth\
-    \ is not None and len(st) > max_depth:\n                        I[u] = G.Ra[u]\n\
-    \                        if max_depth_fn: max_depth_fn(u)\n                if\
-    \ (i := I[u]) < G.Ra[u]:\n                    I[u] += 1\n                    if\
-    \ (s := vis[v := G.Va[i]]) == 0:\n                        back[v], tin[v] = i,\
-    \ (time := time+1); st.append(v)\n                        if down_fn: down_fn(u,v,i)\n\
-    \                    elif back_fn and s == 1 and back[u] != G.twin[i]: back_fn(u,v,i)\n\
-    \                    elif (cross_fn or forward_fn) and s == 2:\n             \
-    \           if forward_fn and tin[u] < tin[v]: forward_fn(u,v,i)\n           \
-    \             elif cross_fn: cross_fn(u,v,i)\n                else:\n        \
-    \            vis[u] = 2; st.pop()\n                    if backtrack: vis[u], I[u]\
-    \ = 0, G.La[u]\n                    if leave_fn: leave_fn(u)\n               \
-    \     if up_fn and st: up_fn(u, st[-1], back[u])\n    \n    def dfs_enter_leave(G,\
-    \ s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:\n   \
-    \     N, I = G.N, G.La[:]\n        st, back, plst = elist(N), i32f(N,-2), PacketList(order\
+    \    def floyd_warshall(G) -> list[list[int]]:\n        G.D = D = [[inf]*G.N for\
+    \ _ in range(G.N)]\n        for u in range(G.N): D[u][u] = 0\n        for i in\
+    \ range(len(G.Ua)): D[G.Ua[i]][G.Va[i]] = 1\n        for k, Dk in enumerate(D):\n\
+    \            for Di in D:\n                if (Dik := Di[k]) == inf: continue\n\
+    \                for j in range(G.N):\n                    chmin(Di, j, Dik+Dk[j])\n\
+    \        return D\n\n    def find_cycle_indices(G, s: Union[int, None] = None):\n\
+    \        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n\
+    \        G.vis, G.back, st = vis, back, elist(N)\n        for s in G.starts(s):\n\
+    \            if vis[s]: continue\n            st.append(s)\n            while\
+    \ st:\n                if not vis[u := st.pop()]:\n                    st.append(u)\n\
+    \                    vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max\n\
+    \                    for i in G.range(u):\n                        if not vis[v\
+    \ := Va[i]]:\n                            back[v] = i\n                      \
+    \      st.append(v)\n                        elif vis[v] == 1 and pe != Ea[i]:\n\
+    \                            I = u32f(1,i)\n                            while\
+    \ v != u: I.append(i := back[u]), (u := Ua[i])\n                            I.reverse()\n\
+    \                            return I\n                else:\n               \
+    \     vis[u] = 2\n        # check for self loops\n        for i in range(len(Ua)):\n\
+    \            if Ua[i] == Va[i]:\n                return u32f(1,i)\n    \n    def\
+    \ find_cycle(G, s: Union[int, None] = None):\n        if I := G.find_cycle_indices(s):\
+    \ return [G.Ua[i] for i in I]\n    \n    def find_cycle_edge_ids(G, s: Union[int,\
+    \ None] = None):\n        if I := G.find_cycle_indices(s): return [G.Ea[i] for\
+    \ i in I]\n\n    def find_minimal_cycle(G, s=0):\n        D, par, que, Va = u32f(N\
+    \ := G.N, u32_max), i32f(N, -1), deque([s]), G.Va\n        D[s] = 0\n        while\
+    \ que:\n            for i in G.range(u := que.popleft()):\n                if\
+    \ (v := Va[i]) == s:  # Found cycle back to start\n                    cycle =\
+    \ [u]\n                    while u != s: cycle.append(u := par[u])\n         \
+    \           return cycle\n                if D[v] < u32_max: continue\n      \
+    \          D[v], par[v] = D[u]+1, u; que.append(v)\n\n    def dfs_topdown(G, s:\
+    \ Union[int,list] = None) -> list[int]:\n        '''Returns lists of indices i\
+    \ where Ua[i] -> Va[i] are edges in order of top down discovery'''\n        vis,\
+    \ st, order = G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in G.starts(s):\n\
+    \            if vis[s]: continue\n            vis[s] = 1; st.append(s) \n    \
+    \        while st:\n                for i in G.range(st.pop()):\n            \
+    \        if vis[v := G.Va[i]]: continue\n                    vis[v] = 1; order.append(i);\
+    \ st.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list] = None,\
+    \ /, \n            backtrack = False,\n            max_depth = None,\n       \
+    \     enter_fn: Callable[[int],None] = None,\n            leave_fn: Callable[[int],None]\
+    \ = None,\n            max_depth_fn: Callable[[int],None] = None,\n          \
+    \  down_fn: Callable[[int,int,int],None] = None,\n            back_fn: Callable[[int,int,int],None]\
+    \ = None,\n            forward_fn: Callable[[int,int,int],None] = None,\n    \
+    \        cross_fn: Callable[[int,int,int],None] = None,\n            up_fn: Callable[[int,int,int],None]\
+    \ = None):\n        I, time, vis, st, back, tin = G.La[:], -1, G.prep_vis(), G.prep_st(),\
+    \ G.prep_back(), G.prep_tin()\n        for s in G.starts(s):\n            if vis[s]:\
+    \ continue\n            back[s], tin[s] = -1, (time := time+1); st.append(s)\n\
+    \            while st:\n                if vis[u := st[-1]] == 0:\n          \
+    \          vis[u] = 1\n                    if enter_fn: enter_fn(u)\n        \
+    \            if max_depth is not None and len(st) > max_depth:\n             \
+    \           I[u] = G.Ra[u]\n                        if max_depth_fn: max_depth_fn(u)\n\
+    \                if (i := I[u]) < G.Ra[u]:\n                    I[u] += 1\n  \
+    \                  if (s := vis[v := G.Va[i]]) == 0:\n                       \
+    \ back[v], tin[v] = i, (time := time+1); st.append(v)\n                      \
+    \  if down_fn: down_fn(u,v,i)\n                    elif back_fn and s == 1 and\
+    \ back[u] != G.twin[i]: back_fn(u,v,i)\n                    elif (cross_fn or\
+    \ forward_fn) and s == 2:\n                        if forward_fn and tin[u] <\
+    \ tin[v]: forward_fn(u,v,i)\n                        elif cross_fn: cross_fn(u,v,i)\n\
+    \                else:\n                    vis[u] = 2; st.pop()\n           \
+    \         if backtrack: vis[u], I[u] = 0, G.La[u]\n                    if leave_fn:\
+    \ leave_fn(u)\n                    if up_fn and st: up_fn(u, st[-1], back[u])\n\
+    \    \n    def dfs_enter_leave(G, s: Union[int,list[int],None] = None) -> Sequence[tuple[DFSEvent,int]]:\n\
+    \        N, I = G.N, G.La[:]\n        st, back, plst = elist(N), i32f(N,-2), PacketList(order\
     \ := elist(2*N), N-1)\n        G.back, ENTER, LEAVE = back, int(DFSEvent.ENTER)\
     \ << plst.shift, int(DFSEvent.LEAVE) << plst.shift\n        for s in G.starts(s):\n\
     \            if back[s] >= -1: continue\n            back[s] = -1\n          \
@@ -367,22 +368,22 @@ data:
     \  deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
     \ Va: list[int], Wa: list[int], Ea: list[int], twin: list[int] = None):\n    \
     \    super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n        self.W\
-    \ = W\n        self.Wa = Wa\n        \"\"\"Wa[i] lists weights to edges from u\
-    \ for La[u] <= i < Ra[u].\"\"\"\n        \n    def __getitem__(G, u):\n      \
-    \  l,r = G.La[u],G.Ra[u]\n        return zip(G.Va[l:r], G.Wa[l:r])\n    \n   \
-    \ @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n    def\
-    \ distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
-    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
-    \    if s == None: return G.floyd_warshall()\n        else: return G.dijkstra(s,\
-    \ g)\n\n    def dijkstra(G, s: int, t: int = None):\n        N, S, Va, Wa = G.N,\
-    \ G.starts(s), G.Va, G.Wa\n        G.back, G.D  = back, D = i32f(N, -1), [inf]*N\n\
-    \        for s in S: D[s] = 0\n        que = PriorityQueue(N, S)\n        while\
-    \ que:\n            u, d = que.pop()\n            if d > D[u]: continue\n    \
-    \        if u == t: return d\n            for i in G.range(u): \n            \
-    \    if chmin(D, v := Va[i], nd := d + Wa[i]):\n                    back[v] =\
-    \ i\n                    que.push(v, nd)\n        return D if t is None else inf\
-    \ \n\n    def kruskal(G):\n        U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N\
-    \ := G.N), [0]*(N-1), N-1\n        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
+    \ = W\n        self.Wa = Wa\n        '''Wa[i] lists weights to edges from u for\
+    \ La[u] <= i < Ra[u].'''\n        \n    def __getitem__(G, u):\n        l,r =\
+    \ G.La[u],G.Ra[u]\n        return zip(G.Va[l:r], G.Wa[l:r])\n    \n    @overload\n\
+    \    def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
+    \ None: return G.floyd_warshall()\n        else: return G.dijkstra(s, g)\n\n \
+    \   def dijkstra(G, s: int, t: int = None):\n        N, S, Va, Wa = G.N, G.starts(s),\
+    \ G.Va, G.Wa\n        G.back, G.D  = back, D = i32f(N, -1), [inf]*N\n        for\
+    \ s in S: D[s] = 0\n        que = PriorityQueue(N, S)\n        while que:\n  \
+    \          u, d = que.pop()\n            if d > D[u]: continue\n            if\
+    \ u == t: return d\n            for i in G.range(u): \n                if chmin(D,\
+    \ v := Va[i], nd := d + Wa[i]):\n                    back[v] = i\n           \
+    \         que.push(v, nd)\n        return D if t is None else inf \n\n    def\
+    \ kruskal(G):\n        U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N),\
+    \ [0]*(N-1), N-1\n        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
     \            if u != v:\n                MST[need := need-1] = e\n           \
     \     if not need: break\n        return None if need else MST\n    \n    def\
     \ kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n       \
@@ -603,64 +604,64 @@ data:
     \            c = par[c]\n        path.append(lca)\n        rev_path, c = [], v\n\
     \        while c != lca:\n            rev_path.append(c)\n            c = par[c]\n\
     \        path.extend(reversed(rev_path))\n        return path\n\nclass LCATableWeighted(LCATable):\n\
-    \    def __init__(self, T, root = 0):\n        super().__init__(T, root)\n   \
-    \     self.weights = T.Wdelta\n        self.weighted_depth = None\n\n    def distance(self,\
-    \ u, v) -> int:\n        if self.weighted_depth is None:\n            self.weighted_depth\
-    \ = presum(self.weights)\n        l, r, a, _ = self._query(u, v)\n        m =\
-    \ self.start[a]\n        return self.weighted_depth[l] + self.weighted_depth[r]\
-    \ - 2*self.weighted_depth[m]\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
+    \    def __init__(lca, T, root = 0):\n        super().__init__(T, root)\n    \
+    \    lca.weights = T.Wdelta\n        lca.weighted_depth = None\n\n    def distance(lca,\
+    \ u, v) -> int:\n        if lca.weighted_depth is None:\n            lca.weighted_depth\
+    \ = presum(lca.weights)\n        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n\
+    \        return lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513            \n            \u2503\
-    \                                    7 \u2503            \n            \u2517\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
+    \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
-    \       \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513                 \u2502\
-    \              \n            \u2503                3 \u2503\u25C4\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
-    \            \u2502              \n            \u250F\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2513       \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2513       \u2502              \n            \u2503      1 \u2503\
-    \u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2524              \n            \u2517\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u252F\u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u252F\u2501\u251B       \u2502              \n            \u250F\
-    \u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\
-    \u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502     \
-    \         \n            \u2503 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\
-    \u2500\u2524  \u2503 4 \u2503\u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524\
-    \              \n            \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\
-    \u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\
-    \u252F\u2501\u251B  \u2502              \n              \u2502    \u2502    \u2502\
-    \    \u2502    \u2502    \u2502    \u2502    \u2502              \n          \
-    \    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC\
-    \              \n            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\
-    \u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\
-    \u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\
-    \u250F\u2501\u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503\
-    \ 1 \u2503\u2503 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6\
-    \ \u2503\u2503 7 \u2503            \n            \u2517\u2501\u2501\u2501\u251B\
+    \u2501\u2501\u2513            \n            \u2503                           \
+    \         7 \u2503            \n            \u2517\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B            \n            \u250F\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2513                 \u2502              \n  \
+    \          \u2503                3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524           \
+    \   \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B                 \u2502\
+    \              \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2513       \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\
+    \       \u2502              \n            \u2503      1 \u2503\u25C4\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u252F\u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u252F\u2501\u251B       \u2502              \n            \u250F\u2501\u2501\u2501\
+    \u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\
+    \u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502              \n       \
+    \     \u2503 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503\
+    \ 4 \u2503\u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524              \n\
+    \            \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B\
+    \  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B\
+    \  \u2502              \n              \u2502    \u2502    \u2502    \u2502  \
+    \  \u2502    \u2502    \u2502    \u2502              \n              \u25BC  \
+    \  \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC        \
+    \      \n            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\
+    \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\
+    \u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\
+    \u2501\u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503 1 \u2503\
+    \u2503 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6 \u2503\u2503\
+    \ 7 \u2503            \n            \u2517\u2501\u2501\u2501\u251B\u2517\u2501\
+    \u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\
     \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\
-    \u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\
-    \u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\
+    \u2501\u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data\
-    \ Structure - Tree - Binary Index Tree            \n\"\"\"\n\nclass BIT:\n   \
-    \ def __init__(bit, v: Union[int, list[int]]):\n        if isinstance(v, int):\
-    \ bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\
-    \n    def build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data Structure -\
+    \ Tree - Binary Index Tree            \n'''\n\nclass BIT:\n    def __init__(bit,\
+    \ v: Union[int, list[int]]):\n        if isinstance(v, int): bit.d, bit.n = [0]*v,\
+    \ v\n        else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\n\
+    \    def build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for\
     \ i in range(bit.n):\n            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\
     \n    def add(bit, i, x):\n        while i < bit.n:\n            bit.d[i] += x\n\
     \            i |= i+1\n\n    def sum(bit, n: int) -> int:\n        s = 0\n   \
@@ -682,11 +683,11 @@ data:
     \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
     \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
@@ -734,7 +735,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

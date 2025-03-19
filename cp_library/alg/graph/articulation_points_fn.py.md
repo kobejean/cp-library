@@ -68,10 +68,10 @@ data:
     \    ret = tuple((events,)) if DFSFlags.RETURN_ALL & flags else events\n    if\
     \ DFSFlags.RETURN_PARENTS in flags:\n        ret += (parents,)\n    if DFSFlags.RETURN_DEPTHS\
     \ in flags:\n        ret += (depths,)\n    return ret\nfrom math import inf\n\n\
-    def articulation_points(G, s: Union[int,list,None] = None):\n    \"\"\"\n    Find\
+    def articulation_points(G, s: Union[int,list,None] = None):\n    '''\n    Find\
     \ articulation points in an undirected graph using DFS events.\n    Returns a\
     \ boolean list that is True for indices where the vertex is an articulation point.\n\
-    \    \"\"\"\n    N = G.N\n    if s is None: s = range(N)\n    low, disc, children,\
+    \    '''\n    N = G.N\n    if s is None: s = range(N)\n    low, disc, children,\
     \ ap, time = [inf]*N, [-1]*N, [0]*N, [False]*N, 0    \n    flags = DFSFlags.DOWN\
     \ | DFSFlags.BACK | DFSFlags.UP | DFSFlags.RETURN_PARENTS\n    events, parent\
     \ = dfs_events(G, flags, s)\n    for event in events:\n        match event:\n\
@@ -85,10 +85,10 @@ data:
     \    \n    return ap\n"
   code: "import cp_library.alg.graph.__header__\nfrom typing import Union\nfrom cp_library.alg.graph.dfs_events_fn\
     \ import DFSEvent, DFSFlags, dfs_events\nfrom math import inf\n\ndef articulation_points(G,\
-    \ s: Union[int,list,None] = None):\n    \"\"\"\n    Find articulation points in\
-    \ an undirected graph using DFS events.\n    Returns a boolean list that is True\
-    \ for indices where the vertex is an articulation point.\n    \"\"\"\n    N =\
-    \ G.N\n    if s is None: s = range(N)\n    low, disc, children, ap, time = [inf]*N,\
+    \ s: Union[int,list,None] = None):\n    '''\n    Find articulation points in an\
+    \ undirected graph using DFS events.\n    Returns a boolean list that is True\
+    \ for indices where the vertex is an articulation point.\n    '''\n    N = G.N\n\
+    \    if s is None: s = range(N)\n    low, disc, children, ap, time = [inf]*N,\
     \ [-1]*N, [0]*N, [False]*N, 0    \n    flags = DFSFlags.DOWN | DFSFlags.BACK |\
     \ DFSFlags.UP | DFSFlags.RETURN_PARENTS\n    events, parent = dfs_events(G, flags,\
     \ s)\n    for event in events:\n        match event:\n            case DFSEvent.DOWN,\
@@ -105,7 +105,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/articulation_points_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py

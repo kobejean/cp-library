@@ -33,24 +33,24 @@ data:
     \ left(self, l): return self.prefix[l]\n    def right(self, r): return self.suffix[r]\n\
     \    def all(self): return self.prefix[-1]\n    def out(self, l, r=None):\n  \
     \      r = l+1 if r is None else r\n        return self.op(self.prefix[l], self.suffix[r])\n\
-    \nclass ReRootingDP():\n    \"\"\" A class implementation of the Re-rooting Dynamic\
-    \ Programming technique. \"\"\"\n    S = typing.TypeVar('S')\n    MergeOp = typing.Callable[[S,\
+    \nclass ReRootingDP():\n    ''' A class implementation of the Re-rooting Dynamic\
+    \ Programming technique. '''\n    S = typing.TypeVar('S')\n    MergeOp = typing.Callable[[S,\
     \ S], S]\n    AddNodeOp = typing.Callable[[int, S], S]\n    AddEdgeOp = typing.Callable[[int,\
     \ int, S], S]\n\n    def __init__(self, T: list[list[int]], e: S,\n          \
     \       merge: MergeOp, \n                 add_node: AddNodeOp = lambda u,s:s,\
-    \ \n                 add_edge: AddEdgeOp = lambda u,v,s:s):\n        \"\"\"\n\
-    \        T: list[list[int]] - Adjacency list representation of the tree.\n   \
-    \     e: S - Identity element for the merge operation.\n        merge: (S,S) ->\
-    \ S - Function to merge two states.\n        add_node: (int,S) -> S - Function\
-    \ to incorporate a node into the state.\n        add_edge: (int,int,S) -> S -\
-    \ Function to incorporate an edge into the state.\n        \"\"\"\n        self.T\
-    \ = T\n        self.e = e\n        self.merge = merge\n        self.add_node =\
-    \ add_node\n        self.add_edge = add_edge\n    \n    def solve(self) -> list[S]:\n\
-    \        dp = [[self.e]*len(adj) for adj in self.T]\n        ans = [None for _\
-    \ in range(len(self.T))]\n\n        def dfs_up(u, p=None):\n            res =\
-    \ self.e\n            for i,v in enumerate(self.T[u]):\n                if v !=\
-    \ p:\n                    dp[u][i] = self.add_edge(u, v, dfs_up(v, u))\n     \
-    \               res = self.merge(res, dp[u][i])\n            return self.add_node(u,\
+    \ \n                 add_edge: AddEdgeOp = lambda u,v,s:s):\n        '''\n   \
+    \     T: list[list[int]] - Adjacency list representation of the tree.\n      \
+    \  e: S - Identity element for the merge operation.\n        merge: (S,S) -> S\
+    \ - Function to merge two states.\n        add_node: (int,S) -> S - Function to\
+    \ incorporate a node into the state.\n        add_edge: (int,int,S) -> S - Function\
+    \ to incorporate an edge into the state.\n        '''\n        self.T = T\n  \
+    \      self.e = e\n        self.merge = merge\n        self.add_node = add_node\n\
+    \        self.add_edge = add_edge\n    \n    def solve(self) -> list[S]:\n   \
+    \     dp = [[self.e]*len(adj) for adj in self.T]\n        ans = [None for _ in\
+    \ range(len(self.T))]\n\n        def dfs_up(u, p=None):\n            res = self.e\n\
+    \            for i,v in enumerate(self.T[u]):\n                if v != p:\n  \
+    \                  dp[u][i] = self.add_edge(u, v, dfs_up(v, u))\n            \
+    \        res = self.merge(res, dp[u][i])\n            return self.add_node(u,\
     \ res)\n\n        def dfs_down(u, p=None):\n            ba = BidirectionalArray(self.e,\
     \ self.merge, dp[u])\n            for i,v in enumerate(self.T[u]):\n         \
     \       if v != p:\n                    dp[v][self.T[v].index(u)] = self.add_edge(v,\
@@ -59,24 +59,24 @@ data:
     \ ans\n"
   code: "import cp_library.alg.dp.__header__\nimport cp_library.misc.setrecursionlimit\n\
     import typing\nfrom cp_library.ds.bidirectional_array_cls import BidirectionalArray\n\
-    \nclass ReRootingDP():\n    \"\"\" A class implementation of the Re-rooting Dynamic\
-    \ Programming technique. \"\"\"\n    S = typing.TypeVar('S')\n    MergeOp = typing.Callable[[S,\
+    \nclass ReRootingDP():\n    ''' A class implementation of the Re-rooting Dynamic\
+    \ Programming technique. '''\n    S = typing.TypeVar('S')\n    MergeOp = typing.Callable[[S,\
     \ S], S]\n    AddNodeOp = typing.Callable[[int, S], S]\n    AddEdgeOp = typing.Callable[[int,\
     \ int, S], S]\n\n    def __init__(self, T: list[list[int]], e: S,\n          \
     \       merge: MergeOp, \n                 add_node: AddNodeOp = lambda u,s:s,\
-    \ \n                 add_edge: AddEdgeOp = lambda u,v,s:s):\n        \"\"\"\n\
-    \        T: list[list[int]] - Adjacency list representation of the tree.\n   \
-    \     e: S - Identity element for the merge operation.\n        merge: (S,S) ->\
-    \ S - Function to merge two states.\n        add_node: (int,S) -> S - Function\
-    \ to incorporate a node into the state.\n        add_edge: (int,int,S) -> S -\
-    \ Function to incorporate an edge into the state.\n        \"\"\"\n        self.T\
-    \ = T\n        self.e = e\n        self.merge = merge\n        self.add_node =\
-    \ add_node\n        self.add_edge = add_edge\n    \n    def solve(self) -> list[S]:\n\
-    \        dp = [[self.e]*len(adj) for adj in self.T]\n        ans = [None for _\
-    \ in range(len(self.T))]\n\n        def dfs_up(u, p=None):\n            res =\
-    \ self.e\n            for i,v in enumerate(self.T[u]):\n                if v !=\
-    \ p:\n                    dp[u][i] = self.add_edge(u, v, dfs_up(v, u))\n     \
-    \               res = self.merge(res, dp[u][i])\n            return self.add_node(u,\
+    \ \n                 add_edge: AddEdgeOp = lambda u,v,s:s):\n        '''\n   \
+    \     T: list[list[int]] - Adjacency list representation of the tree.\n      \
+    \  e: S - Identity element for the merge operation.\n        merge: (S,S) -> S\
+    \ - Function to merge two states.\n        add_node: (int,S) -> S - Function to\
+    \ incorporate a node into the state.\n        add_edge: (int,int,S) -> S - Function\
+    \ to incorporate an edge into the state.\n        '''\n        self.T = T\n  \
+    \      self.e = e\n        self.merge = merge\n        self.add_node = add_node\n\
+    \        self.add_edge = add_edge\n    \n    def solve(self) -> list[S]:\n   \
+    \     dp = [[self.e]*len(adj) for adj in self.T]\n        ans = [None for _ in\
+    \ range(len(self.T))]\n\n        def dfs_up(u, p=None):\n            res = self.e\n\
+    \            for i,v in enumerate(self.T[u]):\n                if v != p:\n  \
+    \                  dp[u][i] = self.add_edge(u, v, dfs_up(v, u))\n            \
+    \        res = self.merge(res, dp[u][i])\n            return self.add_node(u,\
     \ res)\n\n        def dfs_down(u, p=None):\n            ba = BidirectionalArray(self.e,\
     \ self.merge, dp[u])\n            for i,v in enumerate(self.T[u]):\n         \
     \       if v != p:\n                    dp[v][self.T[v].index(u)] = self.add_edge(v,\
@@ -89,7 +89,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/rerooting_recursive_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

@@ -105,8 +105,8 @@ data:
     \ return cls(next(ts))\n        return parser\nfrom dataclasses import dataclass\n\
     from math import inf\n\n_T = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[_T]):\n\
     \    di: int\n    dj: int\n    \n    def __call__(self, i: int, j: int, src: _T,\
-    \ dest: _T) -> _T:\n        \"\"\"Override this to implement transition logic\"\
-    \"\"\n        return src  # Default no-op\n    \n    @classmethod\n    def make(cls,\
+    \ dest: _T) -> _T:\n        '''Override this to implement transition logic'''\n\
+    \        return src  # Default no-op\n    \n    @classmethod\n    def make(cls,\
     \ func):\n        class Transition(cls):\n            def __call__(self, i: int,\
     \ j: int, src: _T, dest: _T) -> _T:\n                return func(i,j,src,dest)\n\
     \        return Transition\n\nclass DynamicProgramming2D(Generic[_T], Parsable,\
@@ -131,20 +131,19 @@ data:
     from dataclasses import dataclass\nfrom math import inf\n\n_T = TypeVar('T')\n\
     \n@dataclass\nclass Transition2D(Generic[_T]):\n    di: int\n    dj: int\n   \
     \ \n    def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n       \
-    \ \"\"\"Override this to implement transition logic\"\"\"\n        return src\
-    \  # Default no-op\n    \n    @classmethod\n    def make(cls, func):\n       \
-    \ class Transition(cls):\n            def __call__(self, i: int, j: int, src:\
-    \ _T, dest: _T) -> _T:\n                return func(i,j,src,dest)\n        return\
-    \ Transition\n\nclass DynamicProgramming2D(Generic[_T], Parsable, Container):\n\
-    \    def __init__(self, rows: int, cols: int, default: _T = inf):\n        self.rows\
-    \ = rows\n        self.cols = cols\n        self.table = default if isinstance(default,\
-    \ list) else [[default] * cols for _ in range(rows)]\n    \n    def __getitem__(self,\
-    \ pos: tuple[int, int]) -> _T:\n        i, j = pos\n        return self.table[i][j]\n\
-    \    \n    def __setitem__(self, pos: tuple[int, int], value: _T) -> None:\n \
-    \       i, j = pos\n        self.table[i][j] = value\n\n    def __contains__(self,\
-    \ x: object) -> bool:\n        return any(x in row for row in self.table)\n  \
-    \  \n    \n    def solve(self, transitions: list[Transition2D[_T]]) -> None:\n\
-    \        for i in range(self.rows):\n            for j in range(self.cols):\n\
+    \ '''Override this to implement transition logic'''\n        return src  # Default\
+    \ no-op\n    \n    @classmethod\n    def make(cls, func):\n        class Transition(cls):\n\
+    \            def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n  \
+    \              return func(i,j,src,dest)\n        return Transition\n\nclass DynamicProgramming2D(Generic[_T],\
+    \ Parsable, Container):\n    def __init__(self, rows: int, cols: int, default:\
+    \ _T = inf):\n        self.rows = rows\n        self.cols = cols\n        self.table\
+    \ = default if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
+    \    \n    def __getitem__(self, pos: tuple[int, int]) -> _T:\n        i, j =\
+    \ pos\n        return self.table[i][j]\n    \n    def __setitem__(self, pos: tuple[int,\
+    \ int], value: _T) -> None:\n        i, j = pos\n        self.table[i][j] = value\n\
+    \n    def __contains__(self, x: object) -> bool:\n        return any(x in row\
+    \ for row in self.table)\n    \n    \n    def solve(self, transitions: list[Transition2D[_T]])\
+    \ -> None:\n        for i in range(self.rows):\n            for j in range(self.cols):\n\
     \                curr_val = self.table[i][j]\n                for trans in transitions:\n\
     \                    ni, nj = i + trans.di, j + trans.dj\n                   \
     \ if 0 <= ni < self.rows and 0 <= nj < self.cols:\n                        self.table[ni][nj]\
@@ -158,7 +157,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/dp2d_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc185_e_dp2d.test.py

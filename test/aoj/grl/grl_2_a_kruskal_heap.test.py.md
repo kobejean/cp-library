@@ -130,8 +130,8 @@ data:
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
     \ return cls(next(ts))\n        return parser\n\ndef write(*args, **kwargs):\n\
-    \    \"\"\"Prints the values to a stream, or to stdout_fast by default.\"\"\"\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
@@ -196,7 +196,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_a_kruskal_heap.test.py

@@ -86,12 +86,12 @@ data:
     \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
     \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
     \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\
-    \n\ndef read(shift=0, base=10):\n    return [int(s, base) + shift for s in input().split()]\n\
-    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\n\ndef read(shift=0,\
+    \ base=10):\n    return [int(s, base) + shift for s in input().split()]\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -114,8 +114,8 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the\
-    \ values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    \ = IOWrapper(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values\
+    \ to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
     sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
     \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
     \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
@@ -144,7 +144,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py

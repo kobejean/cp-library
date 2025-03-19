@@ -79,22 +79,22 @@ data:
     \ = op(self.suffix[i-1], self.suffix[i])\n    def left(self, l): return self.prefix[l]\n\
     \    def right(self, r): return self.suffix[r]\n    def all(self): return self.prefix[-1]\n\
     \    def out(self, l, r=None):\n        r = l+1 if r is None else r\n        return\
-    \ self.op(self.prefix[l], self.suffix[r])\n\nclass ReRootingDP():\n    \"\"\"\
-    \ A class implementation of the Re-rooting Dynamic Programming technique. \"\"\
-    \"\n    \n    S = TypeVar('S')\n    MergeOp = Callable[[S, S], S]\n    AddNodeOp\
-    \ = Callable[[int, S], S]\n    AddEdgeOp = Callable[[int, int, S], S]\n\n    def\
-    \ __init__(self, T: list[list[int]], e: S,\n                 merge: MergeOp, \n\
-    \                 add_node: AddNodeOp = lambda u,s:s, \n                 add_edge:\
-    \ AddEdgeOp = lambda u,v,s:s):\n        \"\"\"\n        T: list[list[int]] - Adjacency\
-    \ list representation of the tree.\n        e: S - Identity element for the merge\
-    \ operation.\n        merge: (S,S) -> S - Function to merge two states.\n    \
-    \    add_node: (int,S) -> S - Function to incorporate a node into the state.\n\
-    \        add_edge: (int,int,S) -> S - Function to incorporate an edge into the\
-    \ state.\n        \"\"\"\n        self.T = T\n        self.e = e\n        self.merge\
-    \ = merge\n        self.add_node = add_node\n        self.add_edge = add_edge\n\
-    \n    def solve(self) -> list[S]:\n        dp = [[self.e]*len(adj) for adj in\
-    \ self.T]\n        ans = [self.e for _ in range(len(self.T))]\n        parent_idx\
-    \ = [None for _ in range(len(self.T))]\n        child_idx = [None for _ in range(len(self.T))]\n\
+    \ self.op(self.prefix[l], self.suffix[r])\n\nclass ReRootingDP():\n    ''' A class\
+    \ implementation of the Re-rooting Dynamic Programming technique. '''\n    \n\
+    \    S = TypeVar('S')\n    MergeOp = Callable[[S, S], S]\n    AddNodeOp = Callable[[int,\
+    \ S], S]\n    AddEdgeOp = Callable[[int, int, S], S]\n\n    def __init__(self,\
+    \ T: list[list[int]], e: S,\n                 merge: MergeOp, \n             \
+    \    add_node: AddNodeOp = lambda u,s:s, \n                 add_edge: AddEdgeOp\
+    \ = lambda u,v,s:s):\n        '''\n        T: list[list[int]] - Adjacency list\
+    \ representation of the tree.\n        e: S - Identity element for the merge operation.\n\
+    \        merge: (S,S) -> S - Function to merge two states.\n        add_node:\
+    \ (int,S) -> S - Function to incorporate a node into the state.\n        add_edge:\
+    \ (int,int,S) -> S - Function to incorporate an edge into the state.\n       \
+    \ '''\n        self.T = T\n        self.e = e\n        self.merge = merge\n  \
+    \      self.add_node = add_node\n        self.add_edge = add_edge\n\n    def solve(self)\
+    \ -> list[S]:\n        dp = [[self.e]*len(adj) for adj in self.T]\n        ans\
+    \ = [self.e for _ in range(len(self.T))]\n        parent_idx = [None for _ in\
+    \ range(len(self.T))]\n        child_idx = [None for _ in range(len(self.T))]\n\
     \        stack = [(2,0,None),(0,0,None)]\n        while stack:\n            phase,\
     \ u, p = stack.pop()\n            match phase:\n                case 0:  # Visit\
     \ children\n                    if p is not None:\n                        stack.append((1,u,p))\n\
@@ -275,21 +275,21 @@ data:
     \           low[v] = min(low[v], tin[child])\n            elif vis[v] == 1:\n\
     \                vis[v] = 2\n                if p != -1:\n                   \
     \ low[p] = min(low[p], low[v])\n                    if low[v] > tin[p]: bridges.append(in_edge[v])\n\
-    \        return bridges\n\n    def articulation_points(G):\n        \"\"\"\n \
-    \       Find articulation points in an undirected graph using DFS events.\n  \
-    \      Returns a boolean list that is True for indices where the vertex is an\
-    \ articulation point.\n        \"\"\"\n        N = G.N\n        order = [-1] *\
-    \ N\n        low = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n\
-    \        children = [0] * N\n        ap = [False] * N\n        time = 0\n    \
-    \    stack = list(range(N))\n\n        while stack:\n            v = stack.pop()\n\
-    \            p = par[v]\n            if state[v] == 0:\n                state[v]\
-    \ = 1\n                order[v] = low[v] = time\n                time += 1\n \
-    \           \n                stack.append(v)\n                for child in G[v]:\n\
-    \                    if order[child] == -1:\n                        par[child]\
-    \ = v\n                        stack.append(child)\n                    elif child\
-    \ != p:\n                        low[v] = min(low[v], order[child])\n        \
-    \        if p != -1:\n                    children[p] += 1\n            elif state[v]\
-    \ == 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
+    \        return bridges\n\n    def articulation_points(G):\n        '''\n    \
+    \    Find articulation points in an undirected graph using DFS events.\n     \
+    \   Returns a boolean list that is True for indices where the vertex is an articulation\
+    \ point.\n        '''\n        N = G.N\n        order = [-1] * N\n        low\
+    \ = [-1] * N\n        par = [-1] * N\n        state = [0] * N\n        children\
+    \ = [0] * N\n        ap = [False] * N\n        time = 0\n        stack = list(range(N))\n\
+    \n        while stack:\n            v = stack.pop()\n            p = par[v]\n\
+    \            if state[v] == 0:\n                state[v] = 1\n               \
+    \ order[v] = low[v] = time\n                time += 1\n            \n        \
+    \        stack.append(v)\n                for child in G[v]:\n               \
+    \     if order[child] == -1:\n                        par[child] = v\n       \
+    \                 stack.append(child)\n                    elif child != p:\n\
+    \                        low[v] = min(low[v], order[child])\n                if\
+    \ p != -1:\n                    children[p] += 1\n            elif state[v] ==\
+    \ 1:\n                state[v] = 2\n                ap[v] |= p == -1 and children[v]\
     \ > 1\n                if p != -1:\n                    low[p] = min(low[p], low[v])\n\
     \                    ap[p] |= par[p] != -1 and low[v] >= order[p]\n\n        return\
     \ ap\n    \n    def dfs_events(G, flags: DFSFlags, s: Union[int,list,None] = None,\
@@ -514,11 +514,11 @@ data:
     def read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_v\n\
@@ -549,7 +549,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

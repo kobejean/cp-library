@@ -85,6 +85,9 @@ data:
     path: test/aoj/vol/0439_aux_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+    title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc151_f_fbisect_left.test.py
     title: test/atcoder/abc/abc151_f_fbisect_left.test.py
   - icon: ':heavy_check_mark:'
@@ -352,31 +355,32 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints the\
-    \ values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"\
+    \ = IOWrapper(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values\
+    \ to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
     sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
     \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
     \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n"
   code: "import cp_library.io.__header__\nfrom cp_library.io.fast_io_cls import IOWrapper\n\
-    \ndef write(*args, **kwargs):\n    \"\"\"Prints the values to a stream, or to\
-    \ stdout_fast by default.\"\"\"\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"\
-    file\", IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if\
-    \ not at_start:\n            file.write(sep)\n        file.write(str(x))\n   \
-    \     at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
-    flush\", False):\n        file.flush()"
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()"
   dependsOn:
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/io/write_fn.py
   requiredBy:
   - cp_library/io/bye_fn.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py

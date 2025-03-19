@@ -338,8 +338,14 @@ data:
   - name: cp_library/alg/tree/fast
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/fast/aux_tree_base_cls.py
+      title: cp_library/alg/tree/fast/aux_tree_base_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/aux_tree_cls.py
       title: cp_library/alg/tree/fast/aux_tree_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+      title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_base_cls.py
       title: cp_library/alg/tree/fast/tree_base_cls.py
@@ -419,7 +425,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/packet_list_cls.py
       title: cp_library/ds/packet_list_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/parallel_cls.py
       title: cp_library/ds/parallel_cls.py
     - icon: ':warning:'
@@ -993,6 +999,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/aoj/vol/0439_aux_rerooting_dp.test.py
       title: test/aoj/vol/0439_aux_rerooting_dp.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+      title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - name: test/atcoder/abc
     pages:
     - icon: ':heavy_check_mark:'

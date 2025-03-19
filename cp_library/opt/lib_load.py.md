@@ -17,8 +17,8 @@ data:
     \    try:\n        with os.fdopen(fd, 'wb') as tmp:\n            tmp.write(lib_data)\n\
     \        \n        return ffi_instance.dlopen(path)\n    except Exception as e:\n\
     \        # print(f\"Error loading library: {e}\")\n        return None\n    finally:\n\
-    \        os.unlink(path)\n\nffi = FFI()\nffi.cdef(\"\"\"\n    int64_t mod_inv(int64_t\
-    \ a, int64_t mod);\n\"\"\")\ndecoded_lib_data = decode_and_decompress_library(ENCODED_BINARY)\n\
+    \        os.unlink(path)\n\nffi = FFI()\nffi.cdef('''\n    int64_t mod_inv(int64_t\
+    \ a, int64_t mod);\n''')\ndecoded_lib_data = decode_and_decompress_library(ENCODED_BINARY)\n\
     lib = load_library(decoded_lib_data, ffi)\n\ndef mod_inv(a, mod):\n    if inv\
     \ := lib.mod_inv(a, mod):\n        return inv\n    raise ValueError(\"No inverse!\"\
     )\n\ndef test(a, mod):\n    x = mod_inv(a, mod)\n    y = pow(a,-1,mod)\n    assert\
@@ -32,8 +32,8 @@ data:
     \    try:\n        with os.fdopen(fd, 'wb') as tmp:\n            tmp.write(lib_data)\n\
     \        \n        return ffi_instance.dlopen(path)\n    except Exception as e:\n\
     \        # print(f\"Error loading library: {e}\")\n        return None\n    finally:\n\
-    \        os.unlink(path)\n\nffi = FFI()\nffi.cdef(\"\"\"\n    int64_t mod_inv(int64_t\
-    \ a, int64_t mod);\n\"\"\")\ndecoded_lib_data = decode_and_decompress_library(ENCODED_BINARY)\n\
+    \        os.unlink(path)\n\nffi = FFI()\nffi.cdef('''\n    int64_t mod_inv(int64_t\
+    \ a, int64_t mod);\n''')\ndecoded_lib_data = decode_and_decompress_library(ENCODED_BINARY)\n\
     lib = load_library(decoded_lib_data, ffi)\n\ndef mod_inv(a, mod):\n    if inv\
     \ := lib.mod_inv(a, mod):\n        return inv\n    raise ValueError(\"No inverse!\"\
     )\n\ndef test(a, mod):\n    x = mod_inv(a, mod)\n    y = pow(a,-1,mod)\n    assert\
@@ -42,7 +42,7 @@ data:
   isVerificationFile: false
   path: cp_library/opt/lib_load.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/opt/lib_load.py

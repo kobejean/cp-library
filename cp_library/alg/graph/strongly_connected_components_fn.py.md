@@ -61,10 +61,10 @@ data:
     \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
     \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
     i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef strongly_connected_components(G)\
-    \ -> Iterator[list[int]]:\n    \"\"\"\n    Finds strongly connected sccs in directed\
+    \ -> Iterator[list[int]]:\n    '''\n    Finds strongly connected sccs in directed\
     \ graph using Tarjan's algorithm.\n    Returns sccs in topological order.\n  \
-    \  \"\"\"\n    tin, low, on_stack, time = i32f(N := G.N, -1), u32f(N), u8f(N),\
-    \ 0\n    order, sccs, L = elist(N), elist(N), elist(N)\n    \n    def enter(u):\n\
+    \  '''\n    tin, low, on_stack, time = i32f(N := G.N, -1), u32f(N), u8f(N), 0\n\
+    \    order, sccs, L = elist(N), elist(N), elist(N)\n    \n    def enter(u):\n\
     \        nonlocal time\n        tin[u] = low[u] = (time := time+1)\n        order.append(u)\n\
     \        on_stack[u] = 1\n\n    def back_or_cross(u,v):\n        if on_stack[v]:\
     \ chmin(low, u, tin[v])\n\n    def leave(u):\n        if low[u] == tin[u]:\n \
@@ -77,10 +77,10 @@ data:
     \ cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse\n\
     from cp_library.alg.dp.chmin_fn import chmin\nfrom cp_library.ds.elist_fn import\
     \ elist\nfrom cp_library.ds.array_init_fn import i32f, u32f, u8f\n\ndef strongly_connected_components(G)\
-    \ -> Iterator[list[int]]:\n    \"\"\"\n    Finds strongly connected sccs in directed\
+    \ -> Iterator[list[int]]:\n    '''\n    Finds strongly connected sccs in directed\
     \ graph using Tarjan's algorithm.\n    Returns sccs in topological order.\n  \
-    \  \"\"\"\n    tin, low, on_stack, time = i32f(N := G.N, -1), u32f(N), u8f(N),\
-    \ 0\n    order, sccs, L = elist(N), elist(N), elist(N)\n    \n    def enter(u):\n\
+    \  '''\n    tin, low, on_stack, time = i32f(N := G.N, -1), u32f(N), u8f(N), 0\n\
+    \    order, sccs, L = elist(N), elist(N), elist(N)\n    \n    def enter(u):\n\
     \        nonlocal time\n        tin[u] = low[u] = (time := time+1)\n        order.append(u)\n\
     \        on_stack[u] = 1\n\n    def back_or_cross(u,v):\n        if on_stack[v]:\
     \ chmin(low, u, tin[v])\n\n    def leave(u):\n        if low[u] == tin[u]:\n \
@@ -97,7 +97,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/strongly_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/strongly_connected_components_fn.py

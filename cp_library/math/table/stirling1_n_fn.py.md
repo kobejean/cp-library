@@ -144,18 +144,18 @@ data:
     \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
     \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
     \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\
-    \ndef fps_tayler_shift(P, t: int) -> list[int]:\n    fact, fact_inv, inv, N, mod\
-    \ = modcomb.fact, modcomb.fact_inv, modcomb.inv, len(P), mint.mod\n    modcomb.extend_inv(N)\n\
-    \    R, B = [P[i]*fact[i]%mod for i in range(N-1,-1,-1)], [0]*N\n    B[0] = 1\n\
-    \    for i in range(1,N): B[i] = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R,\
-    \ B, N)\n    return [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\n\n\
-    \ndef stirling1_n(n: SupportsIndex, signed = True):\n    conv,res,t,d = mint.ntt.conv,[1],0,(-1\
-    \ if signed else 1)\n    for i in range(n.bit_length()-1,-1,-1):\n        res,t\
-    \ = conv(res,fps_tayler_shift(res,t)),t<<1\n        if n>>i&1:res,t = conv(res,[t,1]),t+d\n\
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\ndef fps_tayler_shift(P,\
+    \ t: int) -> list[int]:\n    fact, fact_inv, inv, N, mod = modcomb.fact, modcomb.fact_inv,\
+    \ modcomb.inv, len(P), mint.mod\n    modcomb.extend_inv(N)\n    R, B = [P[i]*fact[i]%mod\
+    \ for i in range(N-1,-1,-1)], [0]*N\n    B[0] = 1\n    for i in range(1,N): B[i]\
+    \ = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R, B, N)\n    return\
+    \ [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\n\n\ndef stirling1_n(n:\
+    \ SupportsIndex, signed = True):\n    conv,res,t,d = mint.ntt.conv,[1],0,(-1 if\
+    \ signed else 1)\n    for i in range(n.bit_length()-1,-1,-1):\n        res,t =\
+    \ conv(res,fps_tayler_shift(res,t)),t<<1\n        if n>>i&1:res,t = conv(res,[t,1]),t+d\n\
     \    return [mint(res[k]) for k in range(n+1)]\n"
   code: "import cp_library.math.table.__header__\nfrom typing import SupportsIndex\n\
     from cp_library.math.mod.mint_ntt_cls import mint\nfrom cp_library.math.fps.fps_tayler_shift_fn\
@@ -173,7 +173,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling1_n_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

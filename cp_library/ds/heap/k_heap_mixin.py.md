@@ -117,11 +117,11 @@ data:
     \ return cls(next(ts))\n        return parser\nfrom typing import Generic\n\n\
     class HeapProtocol(Generic[_T]):\n    def pop(self) -> _T: ...\n    def push(self,\
     \ item: _T): ...\n    def pushpop(self, item: _T) -> _T: ...\n    def replace(self,\
-    \ item: _T) -> _T: ...\n\nclass KHeapMixin(HeapProtocol[_T], Parsable):\n    \"\
-    \"\"KHeapMixin[K: int, T: type, N: Union[int,None]]\"\"\"\n    def __init__(heap,\
-    \ K: int):\n        heap.K = K\n\n    def added(heap, item: _T): ...\n\n    def\
-    \ removed(heap, item: _T): ...\n    \n    def pop(heap):\n        item = super().pop()\n\
-    \        heap.removed(item)\n        return item\n    \n    def push(heap, item:\
+    \ item: _T) -> _T: ...\n\nclass KHeapMixin(HeapProtocol[_T], Parsable):\n    '''KHeapMixin[K:\
+    \ int, T: type, N: Union[int,None]]'''\n    def __init__(heap, K: int):\n    \
+    \    heap.K = K\n\n    def added(heap, item: _T): ...\n\n    def removed(heap,\
+    \ item: _T): ...\n    \n    def pop(heap):\n        item = super().pop()\n   \
+    \     heap.removed(item)\n        return item\n    \n    def push(heap, item:\
     \ _T):\n        if len(heap) < heap._K:\n            heap.added(item)\n      \
     \      super().push(item)\n        elif heap._K:\n            assert len(heap)\
     \ == heap._K, f'{len(heap)=} {heap._K}'\n            heap.pushpop(item)\n    \n\
@@ -141,12 +141,12 @@ data:
   code: "import cp_library.ds.heap.__header__\nfrom typing import Union\n\nfrom cp_library.io.parser_cls\
     \ import Parser, Parsable, TokenStream\nfrom cp_library.ds.heap.heap_proto import\
     \ HeapProtocol\nfrom cp_library.misc.typing import _T\n\nclass KHeapMixin(HeapProtocol[_T],\
-    \ Parsable):\n    \"\"\"KHeapMixin[K: int, T: type, N: Union[int,None]]\"\"\"\n\
-    \    def __init__(heap, K: int):\n        heap.K = K\n\n    def added(heap, item:\
-    \ _T): ...\n\n    def removed(heap, item: _T): ...\n    \n    def pop(heap):\n\
-    \        item = super().pop()\n        heap.removed(item)\n        return item\n\
-    \    \n    def push(heap, item: _T):\n        if len(heap) < heap._K:\n      \
-    \      heap.added(item)\n            super().push(item)\n        elif heap._K:\n\
+    \ Parsable):\n    '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''\n    def\
+    \ __init__(heap, K: int):\n        heap.K = K\n\n    def added(heap, item: _T):\
+    \ ...\n\n    def removed(heap, item: _T): ...\n    \n    def pop(heap):\n    \
+    \    item = super().pop()\n        heap.removed(item)\n        return item\n \
+    \   \n    def push(heap, item: _T):\n        if len(heap) < heap._K:\n       \
+    \     heap.added(item)\n            super().push(item)\n        elif heap._K:\n\
     \            assert len(heap) == heap._K, f'{len(heap)=} {heap._K}'\n        \
     \    heap.pushpop(item)\n    \n    def pushpop(heap, item: _T):\n        if item\
     \ != (remove := super().pushpop(item)):\n            heap.removed(remove)\n  \
@@ -170,7 +170,7 @@ data:
   requiredBy:
   - cp_library/ds/heap/max_k_heap_cls.py
   - cp_library/ds/heap/min_k_heap_cls.py
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_max_k_heap.test.py

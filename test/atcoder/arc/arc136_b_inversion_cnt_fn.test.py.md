@@ -41,37 +41,37 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\nfrom typing import Union\n\n\n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\
+    \  \n'''\nfrom typing import Union\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513            \n   \
-    \         \u2503                                    7 \u2503            \n   \
-    \         \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513            \n         \
+    \   \u2503                                    7 \u2503            \n         \
+    \   \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\
+    \u251B            \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513     \
+    \            \u2502              \n            \u2503                3 \u2503\u25C4\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2524              \n            \u2517\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\
-    \u2501\u251B            \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\
-    \                 \u2502              \n            \u2503                3 \u2503\
-    \u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2524              \n            \u2517\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u252F\u2501\u251B                 \u2502              \n            \u250F\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502  \u250F\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502              \n      \
-    \      \u2503      1 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524  \u2503\
-    \      5 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n\
-    \            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B    \
-    \   \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
-    \  \u2502              \n            \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\
-    \u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\
-    \u2501\u2501\u2501\u2513  \u2502              \n            \u2503 0 \u2503\u25C4\
-    \u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\u25C4\u2500\u2524\
-    \  \u2503 6 \u2503\u25C4\u2500\u2524              \n            \u2517\u2501\u252F\
+    \u2501\u251B                 \u2502              \n            \u250F\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502  \u250F\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2513       \u2502              \n            \u2503\
+    \      1 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524  \u2503      5\
+    \ \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n     \
+    \       \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B       \u2502\
+    \  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B       \u2502 \
+    \             \n            \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\
+    \u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\
+    \u2501\u2501\u2513  \u2502              \n            \u2503 0 \u2503\u25C4\u2500\
+    \u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\u25C4\u2500\u2524 \
+    \ \u2503 6 \u2503\u25C4\u2500\u2524              \n            \u2517\u2501\u252F\
     \u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\
     \u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502              \n \
     \             \u2502    \u2502    \u2502    \u2502    \u2502    \u2502    \u2502\
@@ -91,7 +91,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n           Data Structure - Tree - Binary Index Tree     \
-    \       \n\"\"\"\n\nclass BIT:\n    def __init__(bit, v: Union[int, list[int]]):\n\
+    \       \n'''\n\nclass BIT:\n    def __init__(bit, v: Union[int, list[int]]):\n\
     \        if isinstance(v, int): bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n\
     \        bit.lb = 1<<(bit.n.bit_length()-1)\n\n    def build(bit, data):\n   \
     \     bit.d, bit.n = data, len(data)\n        for i in range(bit.n):\n       \
@@ -201,11 +201,11 @@ data:
     \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
     \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    \"\"\"Prints\
-    \ the values to a stream, or to stdout_fast by default.\"\"\"\n    sep, file =\
-    \ kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
+    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
+    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == \"__main__\":\n    ans = main()\n    write(\"Yes\" if ans else\
     \ \"No\")\n    \n"
@@ -227,7 +227,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

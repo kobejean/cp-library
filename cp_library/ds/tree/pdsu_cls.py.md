@@ -100,8 +100,8 @@ data:
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
     \ return cls(next(ts))\n        return parser\n\n\n\nclass PDSU(Parsable):\n \
-    \   \"\"\"PDSU[N: int, M: int, op=operator.sub, inv=operator.neg, e=0, shift=-1]\"\
-    \"\"\n\n    def __init__(self, op, inv, e, v) -> None:\n        n = v if isinstance(v,\
+    \   '''PDSU[N: int, M: int, op=operator.sub, inv=operator.neg, e=0, shift=-1]'''\n\
+    \n    def __init__(self, op, inv, e, v) -> None:\n        n = v if isinstance(v,\
     \ int) else len(v)\n        self.n = n\n        self.par = [-1] * n\n        self.op\
     \ = op\n        self.inv = inv\n        self.e = e\n        self.pot = [e] * n\
     \ if isinstance(v, int) else v\n        self.valid = [True] * n\n\n    def leader(self,\
@@ -135,9 +135,9 @@ data:
     \ v, w)\n            return pdsu\n        return parse\n"
   code: "import cp_library.__header__\nimport operator\nfrom cp_library.io.parser_cls\
     \ import Parsable, TokenStream\nimport cp_library.ds.__header__\nimport cp_library.ds.tree.__header__\n\
-    \nclass PDSU(Parsable):\n    \"\"\"PDSU[N: int, M: int, op=operator.sub, inv=operator.neg,\
-    \ e=0, shift=-1]\"\"\"\n\n    def __init__(self, op, inv, e, v) -> None:\n   \
-    \     n = v if isinstance(v, int) else len(v)\n        self.n = n\n        self.par\
+    \nclass PDSU(Parsable):\n    '''PDSU[N: int, M: int, op=operator.sub, inv=operator.neg,\
+    \ e=0, shift=-1]'''\n\n    def __init__(self, op, inv, e, v) -> None:\n      \
+    \  n = v if isinstance(v, int) else len(v)\n        self.n = n\n        self.par\
     \ = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e = e\n\
     \        self.pot = [e] * n if isinstance(v, int) else v\n        self.valid =\
     \ [True] * n\n\n    def leader(self, x: int) -> int:\n        assert 0 <= x <\
@@ -175,7 +175,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/pdsu_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/tree/pdsu_cls.py

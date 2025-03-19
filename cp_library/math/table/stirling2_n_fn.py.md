@@ -141,11 +141,11 @@ data:
     \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
     \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
     \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        \"\"\"Returns P(n,k) mod p\"\
-    \"\"\n        if n < k: return mint.zero\n        return mint(modcomb.fact[n]\
-    \ * modcomb.fact_inv[n-k])\n    nPk = perm\n    \n    @staticmethod\n    def catalan(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\
-    \ndef stirling2_n(n: SupportsIndex):\n    inv,conv,sign = modcomb.fact_inv,mint.ntt.conv,(mod:=mint.mod)-1\n\
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\ndef stirling2_n(n:\
+    \ SupportsIndex):\n    inv,conv,sign = modcomb.fact_inv,mint.ntt.conv,(mod:=mint.mod)-1\n\
     \    A = [inv[t]*pow(t,n,mod)%mod for t in range(n+1)]\n    B = [inv[t]*(sign:=mod-sign)%mod\
     \ for t in range(n+1)]\n    return [mint(x) for x in conv(A, B, n+1)]\n"
   code: "import cp_library.math.table.__header__\nfrom typing import SupportsIndex\n\
@@ -162,7 +162,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling2_n_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py

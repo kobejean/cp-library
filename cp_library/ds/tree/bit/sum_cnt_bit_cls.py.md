@@ -21,7 +21,7 @@ data:
     \ pack_enc(a: int, b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab:\
     \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n\
     \    return [a << s | i for i,a in enumerate(A)]\nfrom typing import Union\n\n\
-    \n\"\"\"\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -70,7 +70,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data Structure -\
-    \ Tree - Binary Index Tree            \n\"\"\"\nfrom cp_library.ds.tree.bit import\
+    \ Tree - Binary Index Tree            \n'''\nfrom cp_library.ds.tree.bit import\
     \ BIT\n\nclass SumCountBIT(BIT):\n    def __init__(bit, v: Union[int, list[int]]):\n\
     \        if not isinstance(v, int):\n            s, m = pack_sm(len(v))\n    \
     \        for i,d in enumerate(v):\n                v[i] = d << s | 1\n       \
@@ -117,7 +117,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 07:50:34+07:00'
+  timestamp: '2025-03-19 15:35:53+07:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
