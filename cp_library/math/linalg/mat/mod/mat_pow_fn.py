@@ -9,5 +9,5 @@ def mat_pow(A,K,mod):
             ret = mat_mul(ret,A,mod) 
     return ret 
 
-from cp_library.math.mat.mod.mat_mul_fn import mat_mul
-from cp_library.math.mat.mat_id_fn import mat_id
+from cp_library.math.linalg.mat.mod.mat_mul_fn import mat_mul
+from cp_library.math.linalg.mat.mat_id_fn import mat_id
