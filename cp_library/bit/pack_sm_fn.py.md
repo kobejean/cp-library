@@ -128,7 +128,7 @@ data:
   - cp_library/alg/iter/iargsort_fn.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
-  timestamp: '2025-03-19 01:19:38+07:00'
+  timestamp: '2025-03-19 07:50:34+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py

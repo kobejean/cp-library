@@ -27,7 +27,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/min2_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 01:19:38+07:00'
+  timestamp: '2025-03-19 07:50:34+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_rerooting_dp.test.py

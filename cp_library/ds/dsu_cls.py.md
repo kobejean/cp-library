@@ -202,7 +202,7 @@ data:
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/kruskal_sort_fn.py
-  timestamp: '2025-03-19 01:19:38+07:00'
+  timestamp: '2025-03-19 07:50:34+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py

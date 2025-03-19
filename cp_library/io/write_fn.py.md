@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   _extendedRequiredBy:
@@ -291,10 +291,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/two_edge_connected_components.test.py
     title: test/library-checker/graph/two_edge_connected_components.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - icon: ':heavy_check_mark:'
@@ -318,9 +318,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -371,8 +371,8 @@ data:
   path: cp_library/io/write_fn.py
   requiredBy:
   - cp_library/io/bye_fn.py
-  timestamp: '2025-03-19 01:19:38+07:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-03-19 07:50:34+07:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py

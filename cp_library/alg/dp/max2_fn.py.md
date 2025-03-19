@@ -31,7 +31,7 @@ data:
   path: cp_library/alg/dp/max2_fn.py
   requiredBy:
   - cp_library/alg/dp/lis_fn.py
-  timestamp: '2025-03-19 01:19:38+07:00'
+  timestamp: '2025-03-19 07:50:34+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py

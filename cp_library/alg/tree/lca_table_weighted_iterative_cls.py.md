@@ -105,7 +105,7 @@ data:
   requiredBy:
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2025-03-19 01:19:38+07:00'
+  timestamp: '2025-03-19 07:50:34+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_a_diameter.test.py

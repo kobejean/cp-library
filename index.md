@@ -546,7 +546,7 @@ data:
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
     - icon: ':heavy_check_mark:'
@@ -558,13 +558,13 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_func_fn.py
       title: cp_library/io/read_func_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/legacy
@@ -725,13 +725,13 @@ data:
     - icon: ':warning:'
       path: cp_library/math/linalg/mat/mat_cls.py
       title: cp_library/math/linalg/mat/mat_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/mat/mat_id_fn.py
       title: cp_library/math/linalg/mat/mat_id_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/mat/mat_mul_fn.py
       title: cp_library/math/linalg/mat/mat_mul_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/mat/mat_pow_fn.py
       title: cp_library/math/linalg/mat/mat_pow_fn.py
   - name: cp_library/math/linalg/mat/mod
@@ -742,16 +742,16 @@ data:
     - icon: ':warning:'
       path: cp_library/math/linalg/mat/mod/mat_cls.py
       title: cp_library/math/linalg/mat/mod/mat_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/mat/mod/mat_mul_fn.py
       title: cp_library/math/linalg/mat/mod/mat_mul_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/mat/mod/mat_pow_fn.py
       title: cp_library/math/linalg/mat/mod/mat_pow_fn.py
     - icon: ':warning:'
       path: cp_library/math/linalg/mat/mod/mat_sub_fn.py
       title: cp_library/math/linalg/mat/mod/mat_sub_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/linalg/mat/mod/modmat_cls.py
       title: cp_library/math/linalg/mat/mod/modmat_cls.py
   - name: cp_library/math/linalg/vec
@@ -773,7 +773,7 @@ data:
       title: cp_library/math/linalg/vec/vec_cls.py
   - name: cp_library/math/mod
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
     - icon: ':heavy_check_mark:'
@@ -1236,10 +1236,10 @@ data:
       title: test/library-checker/graph/two_edge_connected_components.test.py
   - name: test/library-checker/linear-algebra
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
       title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
       title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - name: test/library-checker/other

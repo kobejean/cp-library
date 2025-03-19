@@ -71,7 +71,7 @@ data:
   path: cp_library/ds/heap/max_heap_cls.py
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
-  timestamp: '2025-03-19 01:19:38+07:00'
+  timestamp: '2025-03-19 07:50:34+07:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_min_k_heap.test.py

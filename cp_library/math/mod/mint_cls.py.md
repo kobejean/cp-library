@@ -38,7 +38,7 @@ data:
   - icon: ':warning:'
     path: cp_library/math/linalg/mat/mod/mat_cls.py
     title: cp_library/math/linalg/mat/mod/mat_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/linalg/mat/mod/modmat_cls.py
     title: cp_library/math/linalg/mat/mod/modmat_cls.py
   - icon: ':heavy_check_mark:'
@@ -78,10 +78,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - icon: ':heavy_check_mark:'
@@ -102,9 +102,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution_all.test.py
     title: test/library-checker/set-power-series/subset_convolution_all.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -181,8 +181,8 @@ data:
   - cp_library/math/fps/fps_iinteg_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-03-19 01:19:38+07:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-03-19 07:50:34+07:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

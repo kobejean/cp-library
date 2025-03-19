@@ -1,11 +1,17 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/mat/mod/mat_pow_fn.py
+    title: cp_library/math/linalg/mat/mod/mat_pow_fn.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
+    title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -26,10 +32,12 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mod/mat_mul_fn.py
-  requiredBy: []
-  timestamp: '2025-03-19 01:19:38+07:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy:
+  - cp_library/math/linalg/mat/mod/mat_pow_fn.py
+  timestamp: '2025-03-19 07:50:34+07:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
 documentation_of: cp_library/math/linalg/mat/mod/mat_mul_fn.py
 layout: document
 redirect_from:

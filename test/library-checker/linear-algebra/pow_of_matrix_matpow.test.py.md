@@ -1,41 +1,119 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_func_fn.py
     title: cp_library/io/read_func_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/mat/mat_id_fn.py
+    title: cp_library/math/linalg/mat/mat_id_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/mat/mat_mul_fn.py
+    title: cp_library/math/linalg/mat/mat_mul_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/mat/mat_pow_fn.py
+    title: cp_library/math/linalg/mat/mat_pow_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/mat/mod/mat_mul_fn.py
+    title: cp_library/math/linalg/mat/mod/mat_mul_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/linalg/mat/mod/mat_pow_fn.py
+    title: cp_library/math/linalg/mat/mod/mat_pow_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/mod/mint_cls.py
     title: cp_library/math/mod/mint_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://judge.yosupo.jp/problem/pow_of_matrix
     links:
     - https://judge.yosupo.jp/problem/pow_of_matrix
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
     \n\ndef main():\n    mod = 998244353\n    N, K = read()\n    if N < 10:\n    \
-    \    from cp_library.math.mat.mat_pow_fn import mat_pow\n        '''\n       \
-    \ \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \    '''\n        \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \                  https://kobejean.github.io/cp-library               \n    \
-    \    '''\n            \n        class mint(int):\n            mod: int\n     \
-    \       zero: 'mint'\n            one: 'mint'\n            two: 'mint'\n     \
-    \       cache: list['mint']\n        \n            def __new__(cls, *args, **kwargs):\n\
-    \                if 0<= (x := int(*args, **kwargs)) <= 2:\n                  \
-    \  return cls.cache[x]\n                else:\n                    return cls.fix(x)\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n                     https://kobejean.github.io/cp-library     \
+    \          \n        '''\n        '''\n        \u257A\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        '''\n        \u257A\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        def mat_pow(A,K):\n         \
+    \   R = A if K & 1 else mat_id(len(A))\n            for i in range(1,K.bit_length()):\n\
+    \                A = mat_mul(A,A) \n                if K >> i & 1: R = mat_mul(R,A)\
+    \ \n            return R \n        \n        '''\n        \u257A\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        '''\n        \u257A\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        '''\n        \u257A\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        def mat_mul(A,B):\n         \
+    \   assert len(A[0]) == len(B)\n            R = [[0]*len(B[0]) for _ in range(len(A))]\
+    \ \n            for i,Ri in enumerate(R):\n                for k,Aik in enumerate(A[i]):\n\
+    \                    for j,Bkj in enumerate(B[k]):\n                        Ri[j]\
+    \ = Bkj*Aik + Ri[j]  \n            return R \n        '''\n        \u257A\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n               \
+    \      https://kobejean.github.io/cp-library               \n        '''\n   \
+    \     '''\n        \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n                     https://kobejean.github.io/cp-library     \
+    \          \n        '''\n        \n        '''\n        \u257A\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        def mat_id(N):\n            return\
+    \ [[int(i==j) for j in range(N)] for i in range(N)]\n        '''\n        \u257A\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \            https://kobejean.github.io/cp-library               \n        '''\n\
+    \            \n        class mint(int):\n            mod: int\n            zero:\
+    \ 'mint'\n            one: 'mint'\n            two: 'mint'\n            cache:\
+    \ list['mint']\n        \n            def __new__(cls, *args, **kwargs):\n   \
+    \             if 0<= (x := int(*args, **kwargs)) <= 2:\n                    return\
+    \ cls.cache[x]\n                else:\n                    return cls.fix(x)\n\
     \        \n            @classmethod\n            def set_mod(cls, mod: int):\n\
     \                mint.mod = cls.mod = mod\n                mint.zero = cls.zero\
     \ = cls.cast(0)\n                mint.one = cls.one = cls.fix(1)\n           \
@@ -60,17 +138,57 @@ data:
     \ self.mod))\n            def __neg__(self): return mint.mod-self\n          \
     \  def __pos__(self): return self\n            def __abs__(self): return self\n\
     \        mint.set_mod(998244353)\n\n        A = [read(mint) for _ in range(N)]\n\
-    \        B = mat_pow(A, K)\n    else:\n        from cp_library.math.mat.mod.mat_pow_fn\
-    \ import mat_pow\n\n        A = [read() for _ in range(N)]\n        B = mat_pow(A,\
-    \ K, mod)\n\n    for row in B:\n        write(*row)\n\n'''\n\u257A\u2501\u2501\
+    \        B = mat_pow(A, K)\n    else:\n        '''\n        \u257A\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\ndef read(func=0, /):\n    if callable(func): return [func(s)\
-    \ for s in input().split()]\n    return [int(s)+func for s in input().split()]\n\
-    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        def mat_pow(A,K,mod):\n     \
+    \       N = len(A)\n            ret = A if K & 1 else mat_id(N)\n            for\
+    \ i in range(1,K.bit_length()):\n                A = mat_mul(A,A,mod) \n     \
+    \           if K >> i & 1:\n                    ret = mat_mul(ret,A,mod) \n  \
+    \          return ret \n        \n        '''\n        \u257A\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        def mat_mul(A,B,mod):\n     \
+    \       assert len(A[0]) == len(B)\n            R = [[0]*len(B[0]) for _ in range(len(A))]\
+    \ \n            for i,Ri in enumerate(R):\n                for k,Aik in enumerate(A[i]):\n\
+    \                    for j,Bkj in enumerate(B[k]):\n                        Ri[j]\
+    \ = (Ri[j] + Aik*Bkj) % mod\n            return R\n        '''\n        \u257A\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \            https://kobejean.github.io/cp-library               \n        '''\n\
+    \        '''\n        \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n                     https://kobejean.github.io/cp-library     \
+    \          \n        '''\n        \n        '''\n        \u257A\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     https://kobejean.github.io/cp-library\
+    \               \n        '''\n        \n        def mat_id(N):\n            return\
+    \ [[int(i==j) for j in range(N)] for i in range(N)]\n\n        A = [read() for\
+    \ _ in range(N)]\n        B = mat_pow(A, K, mod)\n\n    for row in B:\n      \
+    \  write(*row)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\n\ndef read(func=0, /):\n    if callable(func): return [func(s) for s\
+    \ in input().split()]\n    return [int(s)+func for s in input().split()]\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -102,23 +220,28 @@ data:
     \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/pow_of_matrix\n\
     \n\ndef main():\n    mod = 998244353\n    N, K = read()\n    if N < 10:\n    \
-    \    from cp_library.math.mat.mat_pow_fn import mat_pow\n        from cp_library.math.mod.mint_cls\
+    \    from cp_library.math.linalg.mat.mat_pow_fn import mat_pow\n        from cp_library.math.mod.mint_cls\
     \ import mint\n        mint.set_mod(998244353)\n\n        A = [read(mint) for\
-    \ _ in range(N)]\n        B = mat_pow(A, K)\n    else:\n        from cp_library.math.mat.mod.mat_pow_fn\
+    \ _ in range(N)]\n        B = mat_pow(A, K)\n    else:\n        from cp_library.math.linalg.mat.mod.mat_pow_fn\
     \ import mat_pow\n\n        A = [read() for _ in range(N)]\n        B = mat_pow(A,\
     \ K, mod)\n\n    for row in B:\n        write(*row)\n\nfrom cp_library.io.read_func_fn\
     \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n\
     \    main()"
   dependsOn:
+  - cp_library/math/linalg/mat/mat_pow_fn.py
   - cp_library/math/mod/mint_cls.py
+  - cp_library/math/linalg/mat/mod/mat_pow_fn.py
   - cp_library/io/read_func_fn.py
   - cp_library/io/write_fn.py
+  - cp_library/math/linalg/mat/mat_mul_fn.py
+  - cp_library/math/linalg/mat/mat_id_fn.py
+  - cp_library/math/linalg/mat/mod/mat_mul_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2025-03-19 01:19:38+07:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-03-19 07:50:34+07:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
 layout: document
