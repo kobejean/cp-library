@@ -114,5 +114,6 @@
 "test/library-checker/set-power-series/subset_convolution_all.test.py": "2025-03-27 22:10:43 +0900",
 "test/library-checker/set-power-series/subset_convolution_snippet.test.py": "2025-03-27 22:10:43 +0900",
 "test/library-checker/tree/rooted_tree_isomorphism_classification.test.py": "2025-03-27 22:10:43 +0900",
-"test/library-checker/tree/tree_diameter.test.py": "2025-03-27 22:10:43 +0900"
+"test/library-checker/tree/tree_diameter.test.py": "2025-03-27 22:10:43 +0900",
+"test/yukicoder/3407.test.py": "2025-03-27 22:10:43 +0900"
 }
