@@ -1,22 +1,51 @@
-from cp_library.alg.tree.fast.tree_base_cls import TreeBase
+from cp_library.alg.tree.fast.tree_weighted_base_cls import TreeWeightedBase
 from cp_library.alg.tree.lca_table_iterative_cls import LCATable
 from cp_library.ds.elist_fn import elist
 from cp_library.alg.iter.argsort_fn import argsort
 from typing import Callable
 from cp_library.misc.typing import _T
 
-class AuxTreeBase(TreeBase):
+class AuxTreeBase(TreeWeightedBase):
 
     def __init__(T, lca: LCATable):
         T.lca = lca
+        T.Vset = elist(T.N)
+        T.post = elist(T.N-1)
+        T.Ra = T.La[:]
 
     def add(T, u, v):
         w = T.lca.distance(u,v)
         i, j = T.Ra[u], T.Ra[v]
-        T.Ua[i], T.Va[i], T.Wa[i], T.Ua[j], T.Va[j], T.Wa[j] = u, v, w, v, u, w
-        T.twin[i], T.twin[j] = j, i
-        T.Ra[u], T.Ra[v] = i+1, j+1
+        T.Ua[i], T.Va[i], T.Wa[i], T.twin[i], T.Ra[u] = u, v, w, j, i+1
+        if i == j: return j
+        T.Ua[j], T.Va[j], T.Wa[j], T.twin[j], T.Ra[v] = v, u, w, i, j+1
         return j
+
+    def tree(T, U: list[int], sort=True):
+        if sort: U = sorted(U, key = T.tin.__getitem__)
+        st = T.prep_st()
+        lca, tin, V, post = T.lca, T.tin, T.Vset, T.post
+        # reset
+        while V:
+            T.Ra[u] = T.La[u := V.pop()]
+            if T.vis: T.vis[u] = 0
+        post.clear()
+
+        st.append(U[0])
+        for j in range(len(U)-1):
+            u, v = U[j], U[j+1]
+            a, _ = lca.query(u, v)
+            if a != u:
+                l = st.pop()
+                while st and tin[t := st[-1]] > tin[a]:
+                    V.append(l); post.append(T.add(l, l := st.pop()))
+                if not st or t != a: st.append(a)
+                V.append(l); post.append(T.add(l, a))
+            st.append(v)
+        l = st.pop()
+        while st: V.append(l); post.append(T.add(l, l := st.pop()))
+        V.append(l)
+        return V, post
 
     def trees(T, C: list[int]):
         lca, N = T.lca, T.N
@@ -64,7 +93,7 @@ class AuxTreeBase(TreeBase):
 
             # up
             for i in post:
-                u,v = T.Ua[i], T.Va[i]
+                u, v = T.Ua[i], T.Va[i]
                 # subtree v finished up pass, store value to accumulate for u
                 dp[v] = new = edge_op(dp[v], i, u, v, c)
                 dp[u] = merge(dp[u], new)

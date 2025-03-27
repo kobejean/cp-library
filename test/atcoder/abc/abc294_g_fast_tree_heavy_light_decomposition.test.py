@@ -12,24 +12,24 @@ def main():
     def query(l, r):
         nonlocal ans
         ans += bit.range_sum(l,r) 
+    I = [0]*N
+    for i in hld.back:
+        if i == -1: continue
+        I[T.Ea[i]] = hld[T.Va[i]]
 
     Q = read(int)
     for q in read(list[tuple[int, int, int], Q]):
         match q:
             case 1, i, w:
-                i -= 1  # Convert to 0-based index
-                u, v = T.U[i], T.V[i]
-                idx = hld[u if hld.par[u] == v else v]
-                bit.set(idx, w)
+                bit[I[i-1]] = w
             case 2, u, v:
-                u, v = u - 1, v - 1
                 ans = 0
-                hld.path(u,v, query, True)
+                hld.path(u-1, v-1, query, True)
                 write(ans)
 
 from cp_library.ds.tree.bit.bit_cls import BIT
 from cp_library.alg.tree.fast.tree_weighted_cls import TreeWeighted
-from cp_library.alg.tree.heavy_light_decomposition_weighted_cls import HLDWeighted
+from cp_library.alg.tree.fast.hld_weighted_cls import HLDWeighted
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

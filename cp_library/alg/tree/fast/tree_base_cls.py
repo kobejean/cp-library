@@ -89,52 +89,6 @@ class TreeBase(GraphBase):
         T.tin, T.tout, T.par, T.back = tin, tout, par, back
         T.order, T.delta = order, delta
 
-    def hld_precomp(T, r = 0):
-        N, time, Va = T.N, 0, T.Va
-        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]
-        par, heavy, head = [-1]*N, [-1]*N, [r]*N
-        depth, order, vis = [0]*N, [0]*N, [0]*N
-        st = elist(N)
-        st.append(r)
-        while st:
-            if (s := vis[v := st.pop()]) == 0: # dfs down
-                p, vis[v] = par[v], 1; st.append(v)
-                for i in T.range(v):
-                    if (c := Va[i]) != p:
-                        depth[c], par[c] = depth[v]+1, v; st.append(c)
-            elif s == 1: # dfs up
-                p, l = par[v], -1
-                for i in T.range(v):
-                    if (c := Va[i]) != p:
-                        size[v] += size[c]
-                        if size[c] > size[l]:
-                            l = c
-                heavy[v] = l
-                if p == -1:
-                    vis[v] = 2
-                    st.append(v)
-
-            elif s == 2: # decompose down
-                p, h, l = par[v], head[v], heavy[v]
-                tin[v], order[time], vis[v] = time, v, 3
-                time += 1
-                st.append(v)
-                
-                for i in T.range(v):
-                    if (c := Va[i]) != p and c != l:
-                        head[c], vis[c] = c, 2
-                        st.append(c)
-
-                if l != -1:
-                    head[l], vis[l] = h, 2
-                    st.append(l)
-
-            elif s == 3: # decompose up
-                tout[v] = time
-        T.size, T.depth = size, depth
-        T.order, T.tin, T.tout = order, tin, tout
-        T.par, T.heavy, T.head = par, heavy, head
-
     @classmethod
     def compile(cls, N: int, shift: int = -1):
         return GraphBase.compile.__func__(cls, N, N-1, shift)

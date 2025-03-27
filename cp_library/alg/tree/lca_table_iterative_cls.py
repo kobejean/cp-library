@@ -21,8 +21,7 @@ class LCATable(MinSparseTable):
         super().__init__(packets)
 
     def _query(lca, u, v):
-        tin = lca.tin
-        l, r = sort2(tin[u], tin[v]); r += 1
+        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1
         da = super().query(l, r)
         return l, r, da & lca.mask, da >> lca.shift
 
