@@ -25,7 +25,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/chmax_fn.py
       title: cp_library/alg/dp/chmax_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/chmin_fn.py
       title: cp_library/alg/dp/chmin_fn.py
     - icon: ':heavy_check_mark:'
@@ -52,7 +52,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/rerooting_recursive_cls.py
       title: cp_library/alg/dp/rerooting_recursive_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/sort2_fn.py
       title: cp_library/alg/dp/sort2_fn.py
   - name: cp_library/alg/graph
@@ -78,7 +78,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dfs_events_fn.py
       title: cp_library/alg/graph/dfs_events_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/dfs_options_cls.py
       title: cp_library/alg/graph/dfs_options_cls.py
     - icon: ':heavy_check_mark:'
@@ -185,16 +185,16 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
       title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_base_cls.py
       title: cp_library/alg/graph/fast/graph_base_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_cls.py
       title: cp_library/alg/graph/fast/graph_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
       title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_weighted_cls.py
       title: cp_library/alg/graph/fast/graph_weighted_cls.py
     - icon: ':warning:'
@@ -237,7 +237,7 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/iter/argmin_fn.py
       title: cp_library/alg/iter/argmin_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/argsort_fn.py
       title: cp_library/alg/iter/argsort_fn.py
     - icon: ':warning:'
@@ -258,7 +258,7 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/iter/presum2d_fn.py
       title: cp_library/alg/iter/presum2d_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/presum_fn.py
       title: cp_library/alg/iter/presum_fn.py
     - icon: ':heavy_check_mark:'
@@ -314,13 +314,13 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
       title: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_iterative_cls.py
       title: cp_library/alg/tree/lca_table_iterative_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_recursive_cls.py
       title: cp_library/alg/tree/lca_table_recursive_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
       title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     - icon: ':heavy_check_mark:'
@@ -337,13 +337,13 @@ data:
       title: cp_library/alg/tree/tree_weighted_proto.py
   - name: cp_library/alg/tree/fast
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/aux_tree_base_cls.py
       title: cp_library/alg/tree/fast/aux_tree_base_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/aux_tree_cls.py
       title: cp_library/alg/tree/fast/aux_tree_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
       title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     - icon: ':heavy_check_mark:'
@@ -352,16 +352,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/hld_weighted_cls.py
       title: cp_library/alg/tree/fast/hld_weighted_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_base_cls.py
       title: cp_library/alg/tree/fast/tree_base_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_cls.py
       title: cp_library/alg/tree/fast/tree_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
       title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_weighted_cls.py
       title: cp_library/alg/tree/fast/tree_weighted_cls.py
   - name: cp_library/bit
@@ -381,7 +381,7 @@ data:
     - icon: ':warning:'
       path: cp_library/bit/ctz_fn.py
       title: cp_library/bit/ctz_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/bit/pack_sm_fn.py
       title: cp_library/bit/pack_sm_fn.py
     - icon: ':heavy_check_mark:'
@@ -395,7 +395,7 @@ data:
       title: cp_library/bit/popcnts_fn.py
   - name: cp_library/ds
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/array_init_fn.py
       title: cp_library/ds/array_init_fn.py
     - icon: ':heavy_check_mark:'
@@ -413,10 +413,10 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/disjoint_sparse_table_cls.py
       title: cp_library/ds/disjoint_sparse_table_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/elist_fn.py
       title: cp_library/ds/elist_fn.py
     - icon: ':warning:'
@@ -425,10 +425,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/kdtree_cls.py
       title: cp_library/ds/kdtree_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/min_sparse_table_cls.py
       title: cp_library/ds/min_sparse_table_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/packet_list_cls.py
       title: cp_library/ds/packet_list_cls.py
     - icon: ':heavy_check_mark:'
@@ -475,7 +475,7 @@ data:
       title: cp_library/ds/wavelet_matrix_cls.py
   - name: cp_library/ds/heap
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/heap_proto.py
       title: cp_library/ds/heap/heap_proto.py
     - icon: ':heavy_check_mark:'
@@ -502,7 +502,7 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/heap/min_multiset_cls.py
       title: cp_library/ds/heap/min_multiset_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/priority_queue_cls.py
       title: cp_library/ds/heap/priority_queue_cls.py
     - icon: ':warning:'
@@ -558,16 +558,16 @@ data:
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
     - icon: ':heavy_check_mark:'
@@ -576,7 +576,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/legacy
@@ -1303,7 +1303,7 @@ data:
       title: test/library-checker/tree/tree_diameter.test.py
   - name: test/yukicoder
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/yukicoder/3407.test.py
       title: test/yukicoder/3407.test.py
 layout: toppage
