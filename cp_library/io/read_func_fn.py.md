@@ -26,7 +26,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_func_fn.py
   requiredBy: []
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

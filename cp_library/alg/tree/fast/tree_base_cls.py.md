@@ -1,47 +1,53 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/aux_tree_base_cls.py
     title: cp_library/alg/tree/fast/aux_tree_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/aux_tree_cls.py
     title: cp_library/alg/tree/fast/aux_tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_cls.py
+    title: cp_library/alg/tree/fast/hld_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_weighted_cls.py
+    title: cp_library/alg/tree/fast/hld_weighted_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
   _extendedVerifiedWith:
@@ -73,14 +79,20 @@ data:
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+    title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/yukicoder/3407.test.py
+    title: test/yukicoder/3407.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -379,31 +391,9 @@ data:
     \                delta.append(1)\n            else:\n                delta.append(-1)\n\
     \            \n            order.append(u)\n            tout[u] = len(order)\n\
     \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
-    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    def hld_precomp(T,\
-    \ r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N,\
-    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
-    \ depth, order, vis = [0]*N, [0]*N, [0]*N\n        st = elist(N)\n        st.append(r)\n\
-    \        while st:\n            if (s := vis[v := st.pop()]) == 0: # dfs down\n\
-    \                p, vis[v] = par[v], 1; st.append(v)\n                for i in\
-    \ T.range(v):\n                    if (c := Va[i]) != p:\n                   \
-    \     depth[c], par[c] = depth[v]+1, v; st.append(c)\n            elif s == 1:\
-    \ # dfs up\n                p, l = par[v], -1\n                for i in T.range(v):\n\
-    \                    if (c := Va[i]) != p:\n                        size[v] +=\
-    \ size[c]\n                        if size[c] > size[l]:\n                   \
-    \         l = c\n                heavy[v] = l\n                if p == -1:\n \
-    \                   vis[v] = 2\n                    st.append(v)\n\n         \
-    \   elif s == 2: # decompose down\n                p, h, l = par[v], head[v],\
-    \ heavy[v]\n                tin[v], order[time], vis[v] = time, v, 3\n       \
-    \         time += 1\n                st.append(v)\n                \n        \
-    \        for i in T.range(v):\n                    if (c := Va[i]) != p and c\
-    \ != l:\n                        head[c], vis[c] = c, 2\n                    \
-    \    st.append(c)\n\n                if l != -1:\n                    head[l],\
-    \ vis[l] = h, 2\n                    st.append(l)\n\n            elif s == 3:\
-    \ # decompose up\n                tout[v] = time\n        T.size, T.depth = size,\
-    \ depth\n        T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy,\
-    \ T.head = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ shift: int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
-    \    \n"
+    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    @classmethod\n\
+    \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
+    \ N, N-1, shift)\n    \n"
   code: "import cp_library.alg.tree.fast.__header__\nfrom typing import Callable,\
     \ Literal, TypeVar, Union, overload\nfrom cp_library.alg.graph.fast.graph_base_cls\
     \ import GraphBase\nfrom cp_library.misc.typing import _T\n\nclass TreeBase(GraphBase):\n\
@@ -446,31 +436,9 @@ data:
     \                delta.append(1)\n            else:\n                delta.append(-1)\n\
     \            \n            order.append(u)\n            tout[u] = len(order)\n\
     \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
-    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    def hld_precomp(T,\
-    \ r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N,\
-    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
-    \ depth, order, vis = [0]*N, [0]*N, [0]*N\n        st = elist(N)\n        st.append(r)\n\
-    \        while st:\n            if (s := vis[v := st.pop()]) == 0: # dfs down\n\
-    \                p, vis[v] = par[v], 1; st.append(v)\n                for i in\
-    \ T.range(v):\n                    if (c := Va[i]) != p:\n                   \
-    \     depth[c], par[c] = depth[v]+1, v; st.append(c)\n            elif s == 1:\
-    \ # dfs up\n                p, l = par[v], -1\n                for i in T.range(v):\n\
-    \                    if (c := Va[i]) != p:\n                        size[v] +=\
-    \ size[c]\n                        if size[c] > size[l]:\n                   \
-    \         l = c\n                heavy[v] = l\n                if p == -1:\n \
-    \                   vis[v] = 2\n                    st.append(v)\n\n         \
-    \   elif s == 2: # decompose down\n                p, h, l = par[v], head[v],\
-    \ heavy[v]\n                tin[v], order[time], vis[v] = time, v, 3\n       \
-    \         time += 1\n                st.append(v)\n                \n        \
-    \        for i in T.range(v):\n                    if (c := Va[i]) != p and c\
-    \ != l:\n                        head[c], vis[c] = c, 2\n                    \
-    \    st.append(c)\n\n                if l != -1:\n                    head[l],\
-    \ vis[l] = h, 2\n                    st.append(l)\n\n            elif s == 3:\
-    \ # decompose up\n                tout[v] = time\n        T.size, T.depth = size,\
-    \ depth\n        T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy,\
-    \ T.head = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ shift: int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
-    \    \nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.ds.array_init_fn\
+    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    @classmethod\n\
+    \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
+    \ N, N-1, shift)\n    \nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.ds.array_init_fn\
     \ import u32f, i32f\nfrom math import inf"
   dependsOn:
   - cp_library/alg/graph/fast/graph_base_cls.py
@@ -487,11 +455,13 @@ data:
   - cp_library/alg/tree/fast/aux_tree_base_cls.py
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
+  - cp_library/alg/tree/fast/hld_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
+  - cp_library/alg/tree/fast/hld_weighted_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
-  timestamp: '2025-03-19 15:35:53+07:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-27 22:10:43+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
@@ -499,7 +469,9 @@ data:
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/library-checker/tree/tree_diameter.test.py
+  - test/yukicoder/3407.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

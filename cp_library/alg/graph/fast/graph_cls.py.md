@@ -1,28 +1,28 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -42,6 +42,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+    title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
@@ -350,7 +353,7 @@ data:
   path: cp_library/alg/graph/fast/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
@@ -358,6 +361,7 @@ data:
   - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py

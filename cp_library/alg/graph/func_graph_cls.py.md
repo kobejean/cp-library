@@ -7,16 +7,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/roll_fn.py
     title: cp_library/alg/iter/roll_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -213,7 +213,7 @@ data:
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

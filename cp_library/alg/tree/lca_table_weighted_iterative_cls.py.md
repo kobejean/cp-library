@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/sort2_fn.py
     title: cp_library/alg/dp/sort2_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
@@ -36,9 +36,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/yukicoder/3407.test.py
+    title: test/yukicoder/3407.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -77,21 +80,21 @@ data:
     \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
     \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
     \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        tin = lca.tin\n        l, r = sort2(tin[u], tin[v]); r += 1\n       \
-    \ da = super().query(l, r)\n        return l, r, da & lca.mask, da >> lca.shift\n\
-    \n    def query(lca, u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return a, d\n    \n    def distance(lca, u, v) -> int:\n       \
-    \ l, r, a, d = lca._query(u, v)\n        return lca.depth[l] + lca.depth[r-1]\
-    \ - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca, c = [], lca.T.par,\
-    \ lca.query(u, v)[0], u\n        while c != lca:\n            path.append(c)\n\
-    \            c = par[c]\n        path.append(lca)\n        rev_path, c = [], v\n\
-    \        while c != lca:\n            rev_path.append(c)\n            c = par[c]\n\
-    \        path.extend(reversed(rev_path))\n        return path\n\nclass LCATableWeighted(LCATable):\n\
-    \    def __init__(lca, T, root = 0):\n        super().__init__(T, root)\n    \
-    \    lca.weights = T.Wdelta\n        lca.weighted_depth = None\n\n    def distance(lca,\
-    \ u, v) -> int:\n        if lca.weighted_depth is None:\n            lca.weighted_depth\
-    \ = presum(lca.weights)\n        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n\
-    \        return lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n"
+    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
+    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
+    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
+    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
+    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
+    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
+    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
+    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
+    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
+    \        return path\n\nclass LCATableWeighted(LCATable):\n    def __init__(lca,\
+    \ T, root = 0):\n        super().__init__(T, root)\n        lca.weights = T.Wdelta\n\
+    \        lca.weighted_depth = None\n\n    def distance(lca, u, v) -> int:\n  \
+    \      if lca.weighted_depth is None:\n            lca.weighted_depth = presum(lca.weights)\n\
+    \        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n        return\
+    \ lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n"
   code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.tree.__header__\n\
     from cp_library.alg.iter.presum_fn import presum\nfrom cp_library.alg.tree.lca_table_iterative_cls\
     \ import LCATable\n\nclass LCATableWeighted(LCATable):\n    def __init__(lca,\
@@ -111,11 +114,12 @@ data:
   - cp_library/alg/tree/tree_weighted_proto.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2025-03-19 15:35:53+07:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-27 22:10:43+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/yukicoder/3407.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/tree/lca_table_weighted_iterative_cls.py

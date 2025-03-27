@@ -40,7 +40,7 @@ data:
   requiredBy:
   - cp_library/math/median_fn.py
   - cp_library/alg/divcon/qselect_fn.py
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py

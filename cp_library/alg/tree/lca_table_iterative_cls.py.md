@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/sort2_fn.py
     title: cp_library/alg/dp/sort2_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy:
   - icon: ':warning:'
     path: cp_library/alg/tree/auxiliary_tree_cls.py
     title: cp_library/alg/tree/auxiliary_tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/aux_tree_base_cls.py
     title: cp_library/alg/tree/fast/aux_tree_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/aux_tree_cls.py
     title: cp_library/alg/tree/fast/aux_tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - icon: ':heavy_check_mark:'
@@ -72,9 +72,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/yukicoder/3407.test.py
+    title: test/yukicoder/3407.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -112,10 +115,10 @@ data:
     \        lca.mask = (1 << (shift := N.bit_length()))-1\n        lca.shift = shift\n\
     \        order = T.order\n        M = len(order)\n        packets = [0]*M\n  \
     \      for i in range(M):\n            packets[i] = depth[i] << shift | order[i]\
-    \ \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n        tin\
-    \ = lca.tin\n        l, r = sort2(tin[u], tin[v]); r += 1\n        da = super().query(l,\
-    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
-    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
+    \ \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n        l,\
+    \ r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l, r)\n\
+    \        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca, u,\
+    \ v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
     \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
     \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
     \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
@@ -132,11 +135,11 @@ data:
     \ := N.bit_length()))-1\n        lca.shift = shift\n        order = T.order\n\
     \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
     \            packets[i] = depth[i] << shift | order[i] \n        super().__init__(packets)\n\
-    \n    def _query(lca, u, v):\n        tin = lca.tin\n        l, r = sort2(tin[u],\
-    \ tin[v]); r += 1\n        da = super().query(l, r)\n        return l, r, da &\
-    \ lca.mask, da >> lca.shift\n\n    def query(lca, u, v) -> tuple[int,int]:\n \
-    \       l, r, a, d = lca._query(u, v)\n        return a, d\n    \n    def distance(lca,\
-    \ u, v) -> int:\n        l, r, a, d = lca._query(u, v)\n        return lca.depth[l]\
+    \n    def _query(lca, u, v):\n        l, r = sort2(lca.tin[u], lca.tin[v]); r\
+    \ += 1\n        da = super().query(l, r)\n        return l, r, da & lca.mask,\
+    \ da >> lca.shift\n\n    def query(lca, u, v) -> tuple[int,int]:\n        l, r,\
+    \ a, d = lca._query(u, v)\n        return a, d\n    \n    def distance(lca, u,\
+    \ v) -> int:\n        l, r, a, d = lca._query(u, v)\n        return lca.depth[l]\
     \ + lca.depth[r-1] - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca,\
     \ c = [], lca.T.par, lca.query(u, v)[0], u\n        while c != lca:\n        \
     \    path.append(c)\n            c = par[c]\n        path.append(lca)\n      \
@@ -159,14 +162,15 @@ data:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2025-03-19 15:35:53+07:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-27 22:10:43+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/yukicoder/3407.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py

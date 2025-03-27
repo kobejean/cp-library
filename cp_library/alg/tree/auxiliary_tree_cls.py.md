@@ -1,25 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/sort2_fn.py
     title: cp_library/alg/dp/sort2_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/bit/pack_sm_fn.py
     title: cp_library/bit/pack_sm_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy: []
@@ -65,31 +65,30 @@ data:
     \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
     \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
     \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        tin = lca.tin\n        l, r = sort2(tin[u], tin[v]); r += 1\n       \
-    \ da = super().query(l, r)\n        return l, r, da & lca.mask, da >> lca.shift\n\
-    \n    def query(lca, u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return a, d\n    \n    def distance(lca, u, v) -> int:\n       \
-    \ l, r, a, d = lca._query(u, v)\n        return lca.depth[l] + lca.depth[r-1]\
-    \ - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca, c = [], lca.T.par,\
-    \ lca.query(u, v)[0], u\n        while c != lca:\n            path.append(c)\n\
-    \            c = par[c]\n        path.append(lca)\n        rev_path, c = [], v\n\
-    \        while c != lca:\n            rev_path.append(c)\n            c = par[c]\n\
-    \        path.extend(reversed(rev_path))\n        return path\n\n\ndef pack_sm(N:\
-    \ int):\n    s = N.bit_length()\n    return s, (1<<s)-1\n\ndef pack_enc(a: int,\
-    \ b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab: int, s: int,\
-    \ m: int):\n    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n    return\
-    \ [a << s | i for i,a in enumerate(A)]\n\ndef argsort(A: list[int], reverse=False):\n\
-    \    s, m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|i^m for i,a in\
-    \ enumerate(A)]\n        I.sort(reverse=True)\n        for i,ai in enumerate(I):\
-    \ I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n \
-    \       I.sort()\n        for i,ai in enumerate(I): I[i] = ai&m\n    return I\n\
-    \nclass AuxiliaryTree(LCATable):\n\n    def __init__(self, T, root=0):\n     \
-    \   super().__init__(T, root)\n        self.par = [-1]*T.N\n\n    def bucketize(self,\
-    \ K, A):\n        self.pre_all = pre_all = argsort(self.start)\n        self.buckets\
-    \ = buckets = [[] for _ in range(K)]\n        for u in pre_all:\n            buckets[A[u]].append(u)\n\
-    \        return buckets\n\n    def build_postorder(self, V, sort = False):\n \
-    \       if sort:\n            V = sorted(V, key=self.start.__getitem__)\n    \
-    \    L = len(V)\n        post, stc, start, par = elist(L<<1), elist(L), self.start,\
+    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
+    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
+    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
+    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
+    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
+    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
+    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
+    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
+    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
+    \        return path\n\n\ndef pack_sm(N: int):\n    s = N.bit_length()\n    return\
+    \ s, (1<<s)-1\n\ndef pack_enc(a: int, b: int, s: int):\n    return a << s | b\n\
+    \    \ndef pack_dec(ab: int, s: int, m: int):\n    return ab >> s, ab & m\n\n\
+    def pack_indices(A, s):\n    return [a << s | i for i,a in enumerate(A)]\n\ndef\
+    \ argsort(A: list[int], reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n\
+    \        I = [a<<s|i^m for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
+    \        for i,ai in enumerate(I): I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i\
+    \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
+    \ I[i] = ai&m\n    return I\n\nclass AuxiliaryTree(LCATable):\n\n    def __init__(self,\
+    \ T, root=0):\n        super().__init__(T, root)\n        self.par = [-1]*T.N\n\
+    \n    def bucketize(self, K, A):\n        self.pre_all = pre_all = argsort(self.start)\n\
+    \        self.buckets = buckets = [[] for _ in range(K)]\n        for u in pre_all:\n\
+    \            buckets[A[u]].append(u)\n        return buckets\n\n    def build_postorder(self,\
+    \ V, sort = False):\n        if sort:\n            V = sorted(V, key=self.start.__getitem__)\n\
+    \        L = len(V)\n        post, stc, start, par = elist(L<<1), elist(L), self.start,\
     \ self.par\n        stc.append(V[0])\n        par[V[0]] = -1\n        for u, v\
     \ in pairwise(V):\n            lca, _ = self.query(u, v)\n            if lca !=\
     \ u:\n                last = stc.pop()\n                while stc and start[top\
@@ -134,7 +133,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

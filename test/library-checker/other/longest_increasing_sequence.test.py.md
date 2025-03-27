@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
@@ -74,7 +74,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/other/longest_increasing_sequence.test.py
   requiredBy: []
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/other/longest_increasing_sequence.test.py

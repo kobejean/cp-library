@@ -89,7 +89,7 @@ data:
   requiredBy:
   - cp_library/math/conv/xor_conv_fn.py
   - cp_library/math/conv/ixor_conv_fn.py
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/fwht_inv_fn.py

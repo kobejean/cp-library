@@ -1,76 +1,76 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/sort2_fn.py
     title: cp_library/alg/dp/sort2_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/aux_tree_base_cls.py
     title: cp_library/alg/tree/fast/aux_tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/bit/pack_sm_fn.py
     title: cp_library/bit/pack_sm_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -78,9 +78,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/yukicoder/3407.test.py
+    title: test/yukicoder/3407.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -197,28 +200,28 @@ data:
     \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
     \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
     \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        tin = lca.tin\n        l, r = sort2(tin[u], tin[v]); r += 1\n       \
-    \ da = super().query(l, r)\n        return l, r, da & lca.mask, da >> lca.shift\n\
-    \n    def query(lca, u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return a, d\n    \n    def distance(lca, u, v) -> int:\n       \
-    \ l, r, a, d = lca._query(u, v)\n        return lca.depth[l] + lca.depth[r-1]\
-    \ - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca, c = [], lca.T.par,\
-    \ lca.query(u, v)[0], u\n        while c != lca:\n            path.append(c)\n\
-    \            c = par[c]\n        path.append(lca)\n        rev_path, c = [], v\n\
-    \        while c != lca:\n            rev_path.append(c)\n            c = par[c]\n\
-    \        path.extend(reversed(rev_path))\n        return path\n\nclass LCATableWeighted(LCATable):\n\
-    \    def __init__(lca, T, root = 0):\n        super().__init__(T, root)\n    \
-    \    lca.weights = T.Wdelta\n        lca.weighted_depth = None\n\n    def distance(lca,\
-    \ u, v) -> int:\n        if lca.weighted_depth is None:\n            lca.weighted_depth\
-    \ = presum(lca.weights)\n        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n\
-    \        return lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n\
-    \n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\nfrom\
-    \ typing import overload\n\n\ndef pack_sm(N: int):\n    s = N.bit_length()\n \
-    \   return s, (1<<s)-1\n\ndef pack_enc(a: int, b: int, s: int):\n    return a\
-    \ << s | b\n    \ndef pack_dec(ab: int, s: int, m: int):\n    return ab >> s,\
-    \ ab & m\n\ndef pack_indices(A, s):\n    return [a << s | i for i,a in enumerate(A)]\n\
-    \ndef argsort(A: list[int], reverse=False):\n    s, m = pack_sm(len(A))\n    if\
-    \ reverse:\n        I = [a<<s|i^m for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
+    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
+    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
+    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
+    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
+    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
+    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
+    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
+    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
+    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
+    \        return path\n\nclass LCATableWeighted(LCATable):\n    def __init__(lca,\
+    \ T, root = 0):\n        super().__init__(T, root)\n        lca.weights = T.Wdelta\n\
+    \        lca.weighted_depth = None\n\n    def distance(lca, u, v) -> int:\n  \
+    \      if lca.weighted_depth is None:\n            lca.weighted_depth = presum(lca.weights)\n\
+    \        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n        return\
+    \ lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n\n\
+    \n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\nfrom typing\
+    \ import overload\n\n\ndef pack_sm(N: int):\n    s = N.bit_length()\n    return\
+    \ s, (1<<s)-1\n\ndef pack_enc(a: int, b: int, s: int):\n    return a << s | b\n\
+    \    \ndef pack_dec(ab: int, s: int, m: int):\n    return ab >> s, ab & m\n\n\
+    def pack_indices(A, s):\n    return [a << s | i for i,a in enumerate(A)]\n\ndef\
+    \ argsort(A: list[int], reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n\
+    \        I = [a<<s|i^m for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
     \        for i,ai in enumerate(I): I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i\
     \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
     \ I[i] = ai&m\n    return I\nfrom math import inf\nfrom typing import Callable,\
@@ -525,119 +528,87 @@ data:
     \                delta.append(1)\n            else:\n                delta.append(-1)\n\
     \            \n            order.append(u)\n            tout[u] = len(order)\n\
     \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
-    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    def hld_precomp(T,\
-    \ r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N,\
-    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
-    \ depth, order, vis = [0]*N, [0]*N, [0]*N\n        st = elist(N)\n        st.append(r)\n\
-    \        while st:\n            if (s := vis[v := st.pop()]) == 0: # dfs down\n\
-    \                p, vis[v] = par[v], 1; st.append(v)\n                for i in\
-    \ T.range(v):\n                    if (c := Va[i]) != p:\n                   \
-    \     depth[c], par[c] = depth[v]+1, v; st.append(c)\n            elif s == 1:\
-    \ # dfs up\n                p, l = par[v], -1\n                for i in T.range(v):\n\
-    \                    if (c := Va[i]) != p:\n                        size[v] +=\
-    \ size[c]\n                        if size[c] > size[l]:\n                   \
-    \         l = c\n                heavy[v] = l\n                if p == -1:\n \
-    \                   vis[v] = 2\n                    st.append(v)\n\n         \
-    \   elif s == 2: # decompose down\n                p, h, l = par[v], head[v],\
-    \ heavy[v]\n                tin[v], order[time], vis[v] = time, v, 3\n       \
-    \         time += 1\n                st.append(v)\n                \n        \
-    \        for i in T.range(v):\n                    if (c := Va[i]) != p and c\
-    \ != l:\n                        head[c], vis[c] = c, 2\n                    \
-    \    st.append(c)\n\n                if l != -1:\n                    head[l],\
-    \ vis[l] = h, 2\n                    st.append(l)\n\n            elif s == 3:\
-    \ # decompose up\n                tout[v] = time\n        T.size, T.depth = size,\
-    \ depth\n        T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy,\
-    \ T.head = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ shift: int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
-    \    \n\nclass TreeWeightedBase(TreeBase, GraphWeightedBase):\n\n    def dfs_distance(T,\
-    \ s: int, g: Optional[int] = None):\n        st, Wa, Va = elist(N := T.N), T.Wa,\
-    \ T.Va\n        T.D, T.back = D, back = [inf]*N, i32f(N, -1)\n        D[s] = 0;\
-    \ st.append(s)\n        while st:\n            d = D[u := st.pop()]\n        \
-    \    if u == g: return d\n            for i in T.range(u):\n                if\
-    \ (nd := d+Wa[i]) < D[v := Va[i]]:\n                    D[v], back[v] = nd, i;\
-    \ st.append(v)\n        return D if g is None else inf \n    \n    def euler_tour(T,\
-    \ s = 0):\n        N, Va, Wa = len(T), T.Va, T.Wa\n        tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n\
-    \        order, delta, Wdelta = elist(2*N), elist(2*N), elist(2*N)\n        st,\
-    \ Wst = elist(N), elist(N)\n        st.append(s); Wst.append(0)\n        while\
-    \ st:\n            p, wd = par[u := st.pop()], Wst.pop()\n            if tin[u]\
-    \ == -1:\n                tin[u] = len(order)\n                for i in T.range(u):\n\
-    \                    if (v := Va[i]) != p:\n                        w, par[v]\
-    \ = Wa[i], u\n                        st.append(u); st.append(v); Wst.append(-w);\
-    \ Wst.append(w)\n                delta.append(1)\n            else:\n        \
-    \        delta.append(-1)\n            Wdelta.append(wd); order.append(u)\n  \
-    \          tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n        T.tin,\
-    \ T.tout, T.par = tin, tout, par\n        T.order, T.delta, T.Wdelta = order,\
-    \ delta, Wdelta\n\n    def hld_precomp(T, r = 0):\n        N, time, Va, Wa = T.N,\
-    \ 0, T.Va, T.Wa\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par,\
-    \ heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, vis = [0]*N, [0]*N,\
-    \ [0]*N\n        Wpar = [0]*N\n        st = elist(N)\n        st.append(r)\n \
-    \       while st:\n            if (s := vis[v := st.pop()]) == 0: # dfs down\n\
-    \                p, vis[v] = par[v], 1\n                st.append(v)\n       \
-    \         for i in T.range(v):\n                    if (c := Va[i]) != p:\n  \
-    \                      depth[c], par[c], Wpar[c] = depth[v]+1, v, Wa[i]\n    \
-    \                    st.append(c)\n\n            elif s == 1: # dfs up\n     \
-    \           p, l = par[v], -1\n                for i in T.range(v):\n        \
-    \            if (c := Va[i]) != p:\n                        size[v] += size[c]\n\
-    \                        if size[c] > size[l]:\n                            l\
-    \ = c\n                heavy[v] = l\n                if p == -1:\n           \
-    \         vis[v] = 2\n                    st.append(v)\n\n            elif s ==\
-    \ 2: # decompose down\n                p, h, l = par[v], head[v], heavy[v]\n \
-    \               tin[v], order[time], vis[v] = time, v, 3\n                time\
-    \ += 1\n                st.append(v)\n                \n                for i\
-    \ in T.range(v):\n                    if (c := Va[i]) != p and c != l:\n     \
-    \                   head[c], vis[c] = c, 2\n                        st.append(c)\n\
-    \n                if l != -1:\n                    head[l], vis[l] = h, 2\n  \
-    \                  st.append(l)\n\n            elif s == 3: # decompose up\n \
-    \               tout[v] = time\n        T.size, T.depth = size, depth\n      \
-    \  T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy, T.head =\
-    \ par, heavy, head\n        T.Wpar = Wpar\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, shift: int = -1):\n        return GraphWeightedBase.compile.__func__(cls,\
+    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    @classmethod\n\
+    \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
+    \ N, N-1, shift)\n    \n\nclass TreeWeightedBase(TreeBase, GraphWeightedBase):\n\
+    \n    def dfs_distance(T, s: int, g: Optional[int] = None):\n        st, Wa, Va\
+    \ = elist(N := T.N), T.Wa, T.Va\n        T.D, T.back = D, back = [inf]*N, i32f(N,\
+    \ -1)\n        D[s] = 0; st.append(s)\n        while st:\n            d = D[u\
+    \ := st.pop()]\n            if u == g: return d\n            for i in T.range(u):\n\
+    \                if (nd := d+Wa[i]) < D[v := Va[i]]:\n                    D[v],\
+    \ back[v] = nd, i; st.append(v)\n        return D if g is None else inf \n   \
+    \ \n    def euler_tour(T, s = 0):\n        N, Va, Wa = len(T), T.Va, T.Wa\n  \
+    \      tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n        order, delta, Wdelta = elist(2*N),\
+    \ elist(2*N), elist(2*N)\n        st, Wst = elist(N), elist(N)\n        st.append(s);\
+    \ Wst.append(0)\n        while st:\n            p, wd = par[u := st.pop()], Wst.pop()\n\
+    \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
+    \       for i in T.range(u):\n                    if (v := Va[i]) != p:\n    \
+    \                    w, par[v] = Wa[i], u\n                        st.append(u);\
+    \ st.append(v); Wst.append(-w); Wst.append(w)\n                delta.append(1)\n\
+    \            else:\n                delta.append(-1)\n            Wdelta.append(wd);\
+    \ order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
+    \ = 0\n        T.tin, T.tout, T.par = tin, tout, par\n        T.order, T.delta,\
+    \ T.Wdelta = order, delta, Wdelta\n\n    @classmethod\n    def compile(cls, N:\
+    \ int, shift: int = -1):\n        return GraphWeightedBase.compile.__func__(cls,\
     \ N, N-1, shift)\n    \n\nclass TreeWeighted(TreeWeightedBase, GraphWeighted):\n\
-    \    pass\n\n\nclass AuxTreeBase(TreeBase):\n\n    def __init__(T, lca: LCATable):\n\
-    \        T.lca = lca\n\n    def add(T, u, v):\n        w = T.lca.distance(u,v)\n\
-    \        i, j = T.Ra[u], T.Ra[v]\n        T.Ua[i], T.Va[i], T.Wa[i], T.Ua[j],\
-    \ T.Va[j], T.Wa[j] = u, v, w, v, u, w\n        T.twin[i], T.twin[j] = j, i\n \
-    \       T.Ra[u], T.Ra[v] = i+1, j+1\n        return j\n\n    def trees(T, C: list[int]):\n\
-    \        lca, N = T.lca, T.N\n        T.Ra, cnt, order = T.La[:], [0]*N, argsort(T.tin)\n\
-    \        for c in C: cnt[c] += 1\n        L = [0]*N\n        for i in range(N-1):\
-    \ L[i+1] = L[i]+cnt[i]\n        R, G = L[:], [0]*N\n        \n        for i in\
-    \ order: c = C[i]; G[R[c]] = i; R[c] += 1\n        st, V, post = elist(N), elist(N),\
-    \ elist(N)\n        La, Ra, tin = T.La, T.Ra, T.tin\n\n        for c in range(N):\n\
-    \            l, r = L[c], R[c]\n            if l == r: continue\n            st.append(G[l])\n\
-    \            for j in range(l,r-1):\n                u, v = G[j], G[j+1]\n   \
-    \             a, _ = lca.query(u, v)\n                if a != u:\n           \
-    \         l = st.pop()\n                    while st and tin[t := st[-1]] > tin[a]:\n\
-    \                        V.append(l); post.append(T.add(l, l := st.pop()))\n \
-    \                   if not st or t != a: st.append(a)\n                    V.append(l);\
-    \ post.append(T.add(l, a))\n                st.append(v)\n            l = st.pop()\n\
-    \            while st: V.append(l); post.append(T.add(l, l := st.pop()))\n   \
-    \         V.append(l)\n            yield c, V, post\n            while V:\n  \
-    \              Ra[u] = La[u := V.pop()]\n                if T.vis: T.vis[u] =\
-    \ 0\n            post.clear()\n\n    def rerooting_dp(T, C: list[int], e: _T,\
-    \ \n                     merge: Callable[[_T,_T],_T], \n                     edge_op:\
-    \ Callable[[_T,int,int,int,int],_T] = lambda s,i,p,u,c:s):\n        ans, dp, suf,\
-    \ I = [e]*T.N, [e]*T.N, [e]*len(T.Ua), T.La[:]\n\n        for c, V, post in T.trees(C):\n\
-    \            r = V[-1]\n            for v in V: I[v] = T.Ra[v]\n\n           \
-    \ # up\n            for i in post:\n                u,v = T.Ua[i], T.Va[i]\n \
-    \               # subtree v finished up pass, store value to accumulate for u\n\
-    \                dp[v] = new = edge_op(dp[v], i, u, v, c)\n                dp[u]\
-    \ = merge(dp[u], new)\n                # suffix accumulation\n               \
-    \ if (j:=I[u]-1) > T.La[u]: suf[j-1] = merge(suf[j], new)\n                I[u]\
-    \ = j\n            # down\n            dp[r] = e # at this point dp stores values\
-    \ to be merged in parent\n            for i in reversed(post):\n             \
-    \   u,v = T.Ua[i], T.Va[i]\n                dp[u] = merge(pre := dp[u], dp[v])\n\
-    \                dp[v] = edge_op(merge(suf[I[u]], pre), i, v, u, c)\n        \
-    \        I[u] += 1\n            \n            # store ans and reset\n        \
-    \    for v in V:\n                if C[v] == c: ans[v] = dp[v]\n             \
-    \   dp[v] = e\n            for i in post:\n                suf[i] = e\n      \
-    \  return ans\n\nclass AuxTreeWeighted(AuxTreeBase, TreeWeighted):\n\n    def\
-    \ __init__(T, N, U, V, W, root=0):\n        TreeWeighted.__init__(T, N, U, V,\
-    \ W)\n        AuxTreeBase.__init__(T, LCATableWeighted(T, root))\n\n    @classmethod\n\
-    \    def compile(cls, N: int, shift: int = -1, root=0):\n        M = N-1\n   \
-    \     def parse(ts: TokenStream):\n            U, V, W = u32f(M), u32f(M), [0]*M\n\
-    \            for i in range(M):\n                u, v, w = ts._line()\n      \
-    \          U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)\n           \
-    \ return cls(N, U, V, W, root)\n        return parse\n\n"
+    \    pass\n\n\nclass AuxTreeBase(TreeWeightedBase):\n\n    def __init__(T, lca:\
+    \ LCATable):\n        T.lca = lca\n        T.Vset = elist(T.N)\n        T.post\
+    \ = elist(T.N-1)\n        T.Ra = T.La[:]\n\n    def add(T, u, v):\n        w =\
+    \ T.lca.distance(u,v)\n        i, j = T.Ra[u], T.Ra[v]\n        T.Ua[i], T.Va[i],\
+    \ T.Wa[i], T.twin[i], T.Ra[u] = u, v, w, j, i+1\n        if i == j: return j\n\
+    \        T.Ua[j], T.Va[j], T.Wa[j], T.twin[j], T.Ra[v] = v, u, w, i, j+1\n   \
+    \     return j\n\n    def tree(T, U: list[int], sort=True):\n        if sort:\
+    \ U = sorted(U, key = T.tin.__getitem__)\n        st = T.prep_st()\n        lca,\
+    \ tin, V, post = T.lca, T.tin, T.Vset, T.post\n        # reset\n        while\
+    \ V:\n            T.Ra[u] = T.La[u := V.pop()]\n            if T.vis: T.vis[u]\
+    \ = 0\n        post.clear()\n\n        st.append(U[0])\n        for j in range(len(U)-1):\n\
+    \            u, v = U[j], U[j+1]\n            a, _ = lca.query(u, v)\n       \
+    \     if a != u:\n                l = st.pop()\n                while st and tin[t\
+    \ := st[-1]] > tin[a]:\n                    V.append(l); post.append(T.add(l,\
+    \ l := st.pop()))\n                if not st or t != a: st.append(a)\n       \
+    \         V.append(l); post.append(T.add(l, a))\n            st.append(v)\n  \
+    \      l = st.pop()\n        while st: V.append(l); post.append(T.add(l, l :=\
+    \ st.pop()))\n        V.append(l)\n        return V, post\n\n    def trees(T,\
+    \ C: list[int]):\n        lca, N = T.lca, T.N\n        T.Ra, cnt, order = T.La[:],\
+    \ [0]*N, argsort(T.tin)\n        for c in C: cnt[c] += 1\n        L = [0]*N\n\
+    \        for i in range(N-1): L[i+1] = L[i]+cnt[i]\n        R, G = L[:], [0]*N\n\
+    \        \n        for i in order: c = C[i]; G[R[c]] = i; R[c] += 1\n        st,\
+    \ V, post = elist(N), elist(N), elist(N)\n        La, Ra, tin = T.La, T.Ra, T.tin\n\
+    \n        for c in range(N):\n            l, r = L[c], R[c]\n            if l\
+    \ == r: continue\n            st.append(G[l])\n            for j in range(l,r-1):\n\
+    \                u, v = G[j], G[j+1]\n                a, _ = lca.query(u, v)\n\
+    \                if a != u:\n                    l = st.pop()\n              \
+    \      while st and tin[t := st[-1]] > tin[a]:\n                        V.append(l);\
+    \ post.append(T.add(l, l := st.pop()))\n                    if not st or t !=\
+    \ a: st.append(a)\n                    V.append(l); post.append(T.add(l, a))\n\
+    \                st.append(v)\n            l = st.pop()\n            while st:\
+    \ V.append(l); post.append(T.add(l, l := st.pop()))\n            V.append(l)\n\
+    \            yield c, V, post\n            while V:\n                Ra[u] = La[u\
+    \ := V.pop()]\n                if T.vis: T.vis[u] = 0\n            post.clear()\n\
+    \n    def rerooting_dp(T, C: list[int], e: _T, \n                     merge: Callable[[_T,_T],_T],\
+    \ \n                     edge_op: Callable[[_T,int,int,int,int],_T] = lambda s,i,p,u,c:s):\n\
+    \        ans, dp, suf, I = [e]*T.N, [e]*T.N, [e]*len(T.Ua), T.La[:]\n\n      \
+    \  for c, V, post in T.trees(C):\n            r = V[-1]\n            for v in\
+    \ V: I[v] = T.Ra[v]\n\n            # up\n            for i in post:\n        \
+    \        u, v = T.Ua[i], T.Va[i]\n                # subtree v finished up pass,\
+    \ store value to accumulate for u\n                dp[v] = new = edge_op(dp[v],\
+    \ i, u, v, c)\n                dp[u] = merge(dp[u], new)\n                # suffix\
+    \ accumulation\n                if (j:=I[u]-1) > T.La[u]: suf[j-1] = merge(suf[j],\
+    \ new)\n                I[u] = j\n            # down\n            dp[r] = e #\
+    \ at this point dp stores values to be merged in parent\n            for i in\
+    \ reversed(post):\n                u,v = T.Ua[i], T.Va[i]\n                dp[u]\
+    \ = merge(pre := dp[u], dp[v])\n                dp[v] = edge_op(merge(suf[I[u]],\
+    \ pre), i, v, u, c)\n                I[u] += 1\n            \n            # store\
+    \ ans and reset\n            for v in V:\n                if C[v] == c: ans[v]\
+    \ = dp[v]\n                dp[v] = e\n            for i in post:\n           \
+    \     suf[i] = e\n        return ans\n\nclass AuxTreeWeighted(AuxTreeBase, TreeWeighted):\n\
+    \n    def __init__(T, N, U, V, W, root=0):\n        TreeWeighted.__init__(T, N,\
+    \ U, V, W)\n        AuxTreeBase.__init__(T, LCATableWeighted(T, root))\n\n   \
+    \ @classmethod\n    def compile(cls, N: int, shift: int = -1, root=0):\n     \
+    \   M = N-1\n        def parse(ts: TokenStream):\n            U, V, W = u32f(M),\
+    \ u32f(M), [0]*M\n            for i in range(M):\n                u, v, w = ts._line()\n\
+    \                U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)\n     \
+    \       return cls(N, U, V, W, root)\n        return parse\n\n"
   code: "import cp_library.__header__\nfrom cp_library.io.parser_cls import TokenStream\n\
     \nimport cp_library.alg.__header__\nimport cp_library.alg.tree.__header__\nfrom\
     \ cp_library.alg.tree.lca_table_weighted_iterative_cls import LCATableWeighted\n\
@@ -662,10 +633,10 @@ data:
   - cp_library/alg/tree/lca_table_iterative_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/alg/dp/sort2_fn.py
   - cp_library/ds/min_sparse_table_cls.py
   - cp_library/alg/dp/chmin_fn.py
@@ -680,10 +651,11 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 15:35:53+07:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-27 22:10:43+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/yukicoder/3407.test.py
 documentation_of: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
 layout: document
 redirect_from:

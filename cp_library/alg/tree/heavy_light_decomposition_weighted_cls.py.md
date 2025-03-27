@@ -5,13 +5,10 @@ data:
     path: cp_library/alg/tree/heavy_light_decomposition_cls.py
     title: cp_library/alg/tree/heavy_light_decomposition_cls.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -43,10 +40,9 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-03-19 15:35:53+07:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  timestamp: '2025-03-27 22:10:43+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
 layout: document
 redirect_from:

@@ -2,13 +2,10 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
     title: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
@@ -55,10 +52,9 @@ data:
   path: cp_library/alg/tree/heavy_light_decomposition_cls.py
   requiredBy:
   - cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
 documentation_of: cp_library/alg/tree/heavy_light_decomposition_cls.py
 layout: document

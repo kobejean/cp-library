@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/sort2_fn.py
     title: cp_library/alg/dp/sort2_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -22,13 +22,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/graph_weighted_proto.py
     title: cp_library/alg/graph/graph_weighted_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - icon: ':heavy_check_mark:'
@@ -40,31 +40,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -581,39 +581,39 @@ data:
     \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
     \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
     \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        tin = lca.tin\n        l, r = sort2(tin[u], tin[v]); r += 1\n       \
-    \ da = super().query(l, r)\n        return l, r, da & lca.mask, da >> lca.shift\n\
-    \n    def query(lca, u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return a, d\n    \n    def distance(lca, u, v) -> int:\n       \
-    \ l, r, a, d = lca._query(u, v)\n        return lca.depth[l] + lca.depth[r-1]\
-    \ - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca, c = [], lca.T.par,\
-    \ lca.query(u, v)[0], u\n        while c != lca:\n            path.append(c)\n\
-    \            c = par[c]\n        path.append(lca)\n        rev_path, c = [], v\n\
-    \        while c != lca:\n            rev_path.append(c)\n            c = par[c]\n\
-    \        path.extend(reversed(rev_path))\n        return path\n\nclass TreeProtocol(GraphProtocol):\n\
-    \n    @cached_property\n    def lca(T):\n        return LCATable(T)\n    \n  \
-    \  @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
-    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
-    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
-    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
-    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
-    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
-    \    \n    @overload\n    def distance(T) -> list[list[int]]: ...\n    @overload\n\
-    \    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T,\
-    \ s: int, g: int) -> int: ...\n    def distance(T, s = None, g = None):\n    \
-    \    if s == None:\n            return [T.dfs(u) for u in range(T.N)]\n      \
-    \  else:\n            return T.dfs(s, g)\n            \n    @overload\n    def\
-    \ dfs(T, s: int = 0) -> list[int]: ...\n    @overload\n    def dfs(T, s: int,\
-    \ g: int) -> int: ...\n    def dfs(T, s = 0, g = None):\n        D = [inf for\
-    \ _ in range(T.N)]\n        D[s] = 0\n        state = [True for _ in range(T.N)]\n\
-    \        stack = [s]\n\n        while stack:\n            u = stack.pop()\n  \
-    \          if u == g: return D[u]\n            state[u] = False\n            for\
-    \ v in T[u]:\n                if state[v]:\n                    D[v] = D[u]+1\n\
-    \                    stack.append(v)\n        return D if g is None else inf \n\
-    \n\n    def dfs_events(G, flags: DFSFlags, s: int = 0):         \n        events\
-    \ = []\n        stack = [(s,-1)]\n        adj = [None]*G.N\n\n\n        while\
-    \ stack:\n            u, p = stack[-1]\n            \n            if adj[u] is\
-    \ None:\n                adj[u] = iter(G.neighbors(u))\n                if DFSFlags.ENTER\
+    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
+    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
+    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
+    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
+    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
+    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
+    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
+    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
+    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
+    \        return path\n\nclass TreeProtocol(GraphProtocol):\n\n    @cached_property\n\
+    \    def lca(T):\n        return LCATable(T)\n    \n    @overload\n    def diameter(T)\
+    \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
+    \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        mask\
+    \ = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift | v for\
+    \ v,d in enumerate(T.distance(0))) & mask\n        dg = max(d << shift | v for\
+    \ v,d in enumerate(T.distance(s))) \n        diam, g = dg >> shift, dg & mask\n\
+    \        return (diam, s, g) if endpoints else diam\n    \n    @overload\n   \
+    \ def distance(T) -> list[list[int]]: ...\n    @overload\n    def distance(T,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T, s: int, g:\
+    \ int) -> int: ...\n    def distance(T, s = None, g = None):\n        if s ==\
+    \ None:\n            return [T.dfs(u) for u in range(T.N)]\n        else:\n  \
+    \          return T.dfs(s, g)\n            \n    @overload\n    def dfs(T, s:\
+    \ int = 0) -> list[int]: ...\n    @overload\n    def dfs(T, s: int, g: int) ->\
+    \ int: ...\n    def dfs(T, s = 0, g = None):\n        D = [inf for _ in range(T.N)]\n\
+    \        D[s] = 0\n        state = [True for _ in range(T.N)]\n        stack =\
+    \ [s]\n\n        while stack:\n            u = stack.pop()\n            if u ==\
+    \ g: return D[u]\n            state[u] = False\n            for v in T[u]:\n \
+    \               if state[v]:\n                    D[v] = D[u]+1\n            \
+    \        stack.append(v)\n        return D if g is None else inf \n\n\n    def\
+    \ dfs_events(G, flags: DFSFlags, s: int = 0):         \n        events = []\n\
+    \        stack = [(s,-1)]\n        adj = [None]*G.N\n\n\n        while stack:\n\
+    \            u, p = stack[-1]\n            \n            if adj[u] is None:\n\
+    \                adj[u] = iter(G.neighbors(u))\n                if DFSFlags.ENTER\
     \ in flags:\n                    events.append((DFSEvent.ENTER, u))\n        \
     \    \n            if (v := next(adj[u], None)) is not None:\n               \
     \ if v == p:\n                    if DFSFlags.BACK in flags:\n               \
@@ -741,7 +741,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_a_diameter.test.py
   requiredBy: []
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_a_diameter.test.py

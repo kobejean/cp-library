@@ -1,43 +1,43 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -359,35 +359,13 @@ data:
     \                delta.append(1)\n            else:\n                delta.append(-1)\n\
     \            \n            order.append(u)\n            tout[u] = len(order)\n\
     \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
-    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    def hld_precomp(T,\
-    \ r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N,\
-    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
-    \ depth, order, vis = [0]*N, [0]*N, [0]*N\n        st = elist(N)\n        st.append(r)\n\
-    \        while st:\n            if (s := vis[v := st.pop()]) == 0: # dfs down\n\
-    \                p, vis[v] = par[v], 1; st.append(v)\n                for i in\
-    \ T.range(v):\n                    if (c := Va[i]) != p:\n                   \
-    \     depth[c], par[c] = depth[v]+1, v; st.append(c)\n            elif s == 1:\
-    \ # dfs up\n                p, l = par[v], -1\n                for i in T.range(v):\n\
-    \                    if (c := Va[i]) != p:\n                        size[v] +=\
-    \ size[c]\n                        if size[c] > size[l]:\n                   \
-    \         l = c\n                heavy[v] = l\n                if p == -1:\n \
-    \                   vis[v] = 2\n                    st.append(v)\n\n         \
-    \   elif s == 2: # decompose down\n                p, h, l = par[v], head[v],\
-    \ heavy[v]\n                tin[v], order[time], vis[v] = time, v, 3\n       \
-    \         time += 1\n                st.append(v)\n                \n        \
-    \        for i in T.range(v):\n                    if (c := Va[i]) != p and c\
-    \ != l:\n                        head[c], vis[c] = c, 2\n                    \
-    \    st.append(c)\n\n                if l != -1:\n                    head[l],\
-    \ vis[l] = h, 2\n                    st.append(l)\n\n            elif s == 3:\
-    \ # decompose up\n                tout[v] = time\n        T.size, T.depth = size,\
-    \ depth\n        T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy,\
-    \ T.head = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ shift: int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
-    \    \n\nclass Tree(TreeBase, Graph):\n    pass\n\n\nfrom typing import Iterable,\
-    \ Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
-    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    @classmethod\n\
+    \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
+    \ N, N-1, shift)\n    \n\nclass Tree(TreeBase, Graph):\n    pass\n\n\nfrom typing\
+    \ import Iterable, Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]:\
+    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
     \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
@@ -420,7 +398,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   requiredBy: []
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py

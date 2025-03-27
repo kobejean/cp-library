@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -163,6 +163,9 @@ data:
     path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+    title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
   - icon: ':heavy_check_mark:'
@@ -282,9 +285,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/yukicoder/3407.test.py
+    title: test/yukicoder/3407.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -393,8 +399,8 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-03-19 15:35:53+07:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-27 22:10:43+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
@@ -446,9 +452,11 @@ data:
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/yukicoder/3407.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   - test/atcoder/abc/abc245_f_digraph.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc261_g_mo.test.py
   - test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py

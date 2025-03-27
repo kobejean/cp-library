@@ -1,82 +1,82 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/sort2_fn.py
     title: cp_library/alg/dp/sort2_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_iterative_cls.py
     title: cp_library/alg/tree/lca_table_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
     title: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/bit/pack_sm_fn.py
     title: cp_library/bit/pack_sm_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -497,73 +497,28 @@ data:
     \                delta.append(1)\n            else:\n                delta.append(-1)\n\
     \            \n            order.append(u)\n            tout[u] = len(order)\n\
     \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
-    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    def hld_precomp(T,\
-    \ r = 0):\n        N, time, Va = T.N, 0, T.Va\n        tin, tout, size = [0]*N,\
-    \ [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N, [-1]*N, [r]*N\n       \
-    \ depth, order, vis = [0]*N, [0]*N, [0]*N\n        st = elist(N)\n        st.append(r)\n\
-    \        while st:\n            if (s := vis[v := st.pop()]) == 0: # dfs down\n\
-    \                p, vis[v] = par[v], 1; st.append(v)\n                for i in\
-    \ T.range(v):\n                    if (c := Va[i]) != p:\n                   \
-    \     depth[c], par[c] = depth[v]+1, v; st.append(c)\n            elif s == 1:\
-    \ # dfs up\n                p, l = par[v], -1\n                for i in T.range(v):\n\
-    \                    if (c := Va[i]) != p:\n                        size[v] +=\
-    \ size[c]\n                        if size[c] > size[l]:\n                   \
-    \         l = c\n                heavy[v] = l\n                if p == -1:\n \
-    \                   vis[v] = 2\n                    st.append(v)\n\n         \
-    \   elif s == 2: # decompose down\n                p, h, l = par[v], head[v],\
-    \ heavy[v]\n                tin[v], order[time], vis[v] = time, v, 3\n       \
-    \         time += 1\n                st.append(v)\n                \n        \
-    \        for i in T.range(v):\n                    if (c := Va[i]) != p and c\
-    \ != l:\n                        head[c], vis[c] = c, 2\n                    \
-    \    st.append(c)\n\n                if l != -1:\n                    head[l],\
-    \ vis[l] = h, 2\n                    st.append(l)\n\n            elif s == 3:\
-    \ # decompose up\n                tout[v] = time\n        T.size, T.depth = size,\
-    \ depth\n        T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy,\
-    \ T.head = par, heavy, head\n\n    @classmethod\n    def compile(cls, N: int,\
-    \ shift: int = -1):\n        return GraphBase.compile.__func__(cls, N, N-1, shift)\n\
-    \    \n\nclass TreeWeightedBase(TreeBase, GraphWeightedBase):\n\n    def dfs_distance(T,\
-    \ s: int, g: Optional[int] = None):\n        st, Wa, Va = elist(N := T.N), T.Wa,\
-    \ T.Va\n        T.D, T.back = D, back = [inf]*N, i32f(N, -1)\n        D[s] = 0;\
-    \ st.append(s)\n        while st:\n            d = D[u := st.pop()]\n        \
-    \    if u == g: return d\n            for i in T.range(u):\n                if\
-    \ (nd := d+Wa[i]) < D[v := Va[i]]:\n                    D[v], back[v] = nd, i;\
-    \ st.append(v)\n        return D if g is None else inf \n    \n    def euler_tour(T,\
-    \ s = 0):\n        N, Va, Wa = len(T), T.Va, T.Wa\n        tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n\
-    \        order, delta, Wdelta = elist(2*N), elist(2*N), elist(2*N)\n        st,\
-    \ Wst = elist(N), elist(N)\n        st.append(s); Wst.append(0)\n        while\
-    \ st:\n            p, wd = par[u := st.pop()], Wst.pop()\n            if tin[u]\
-    \ == -1:\n                tin[u] = len(order)\n                for i in T.range(u):\n\
-    \                    if (v := Va[i]) != p:\n                        w, par[v]\
-    \ = Wa[i], u\n                        st.append(u); st.append(v); Wst.append(-w);\
-    \ Wst.append(w)\n                delta.append(1)\n            else:\n        \
-    \        delta.append(-1)\n            Wdelta.append(wd); order.append(u)\n  \
-    \          tout[u] = len(order)\n        delta[0] = delta[-1] = 0\n        T.tin,\
-    \ T.tout, T.par = tin, tout, par\n        T.order, T.delta, T.Wdelta = order,\
-    \ delta, Wdelta\n\n    def hld_precomp(T, r = 0):\n        N, time, Va, Wa = T.N,\
-    \ 0, T.Va, T.Wa\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par,\
-    \ heavy, head = [-1]*N, [-1]*N, [r]*N\n        depth, order, vis = [0]*N, [0]*N,\
-    \ [0]*N\n        Wpar = [0]*N\n        st = elist(N)\n        st.append(r)\n \
-    \       while st:\n            if (s := vis[v := st.pop()]) == 0: # dfs down\n\
-    \                p, vis[v] = par[v], 1\n                st.append(v)\n       \
-    \         for i in T.range(v):\n                    if (c := Va[i]) != p:\n  \
-    \                      depth[c], par[c], Wpar[c] = depth[v]+1, v, Wa[i]\n    \
-    \                    st.append(c)\n\n            elif s == 1: # dfs up\n     \
-    \           p, l = par[v], -1\n                for i in T.range(v):\n        \
-    \            if (c := Va[i]) != p:\n                        size[v] += size[c]\n\
-    \                        if size[c] > size[l]:\n                            l\
-    \ = c\n                heavy[v] = l\n                if p == -1:\n           \
-    \         vis[v] = 2\n                    st.append(v)\n\n            elif s ==\
-    \ 2: # decompose down\n                p, h, l = par[v], head[v], heavy[v]\n \
-    \               tin[v], order[time], vis[v] = time, v, 3\n                time\
-    \ += 1\n                st.append(v)\n                \n                for i\
-    \ in T.range(v):\n                    if (c := Va[i]) != p and c != l:\n     \
-    \                   head[c], vis[c] = c, 2\n                        st.append(c)\n\
-    \n                if l != -1:\n                    head[l], vis[l] = h, 2\n  \
-    \                  st.append(l)\n\n            elif s == 3: # decompose up\n \
-    \               tout[v] = time\n        T.size, T.depth = size, depth\n      \
-    \  T.order, T.tin, T.tout = order, tin, tout\n        T.par, T.heavy, T.head =\
-    \ par, heavy, head\n        T.Wpar = Wpar\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, shift: int = -1):\n        return GraphWeightedBase.compile.__func__(cls,\
+    \ tout, par, back\n        T.order, T.delta = order, delta\n\n    @classmethod\n\
+    \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
+    \ N, N-1, shift)\n    \n\nclass TreeWeightedBase(TreeBase, GraphWeightedBase):\n\
+    \n    def dfs_distance(T, s: int, g: Optional[int] = None):\n        st, Wa, Va\
+    \ = elist(N := T.N), T.Wa, T.Va\n        T.D, T.back = D, back = [inf]*N, i32f(N,\
+    \ -1)\n        D[s] = 0; st.append(s)\n        while st:\n            d = D[u\
+    \ := st.pop()]\n            if u == g: return d\n            for i in T.range(u):\n\
+    \                if (nd := d+Wa[i]) < D[v := Va[i]]:\n                    D[v],\
+    \ back[v] = nd, i; st.append(v)\n        return D if g is None else inf \n   \
+    \ \n    def euler_tour(T, s = 0):\n        N, Va, Wa = len(T), T.Va, T.Wa\n  \
+    \      tin, tout, par = [-1]*N,[-1]*N,[-1]*N\n        order, delta, Wdelta = elist(2*N),\
+    \ elist(2*N), elist(2*N)\n        st, Wst = elist(N), elist(N)\n        st.append(s);\
+    \ Wst.append(0)\n        while st:\n            p, wd = par[u := st.pop()], Wst.pop()\n\
+    \            if tin[u] == -1:\n                tin[u] = len(order)\n         \
+    \       for i in T.range(u):\n                    if (v := Va[i]) != p:\n    \
+    \                    w, par[v] = Wa[i], u\n                        st.append(u);\
+    \ st.append(v); Wst.append(-w); Wst.append(w)\n                delta.append(1)\n\
+    \            else:\n                delta.append(-1)\n            Wdelta.append(wd);\
+    \ order.append(u)\n            tout[u] = len(order)\n        delta[0] = delta[-1]\
+    \ = 0\n        T.tin, T.tout, T.par = tin, tout, par\n        T.order, T.delta,\
+    \ T.Wdelta = order, delta, Wdelta\n\n    @classmethod\n    def compile(cls, N:\
+    \ int, shift: int = -1):\n        return GraphWeightedBase.compile.__func__(cls,\
     \ N, N-1, shift)\n    \n\nclass TreeWeighted(TreeWeightedBase, GraphWeighted):\n\
     \    pass\n\nimport operator\nfrom itertools import accumulate\n\ndef presum(iter:\
     \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
@@ -594,40 +549,40 @@ data:
     \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
     \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
     \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        tin = lca.tin\n        l, r = sort2(tin[u], tin[v]); r += 1\n       \
-    \ da = super().query(l, r)\n        return l, r, da & lca.mask, da >> lca.shift\n\
-    \n    def query(lca, u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return a, d\n    \n    def distance(lca, u, v) -> int:\n       \
-    \ l, r, a, d = lca._query(u, v)\n        return lca.depth[l] + lca.depth[r-1]\
-    \ - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca, c = [], lca.T.par,\
-    \ lca.query(u, v)[0], u\n        while c != lca:\n            path.append(c)\n\
-    \            c = par[c]\n        path.append(lca)\n        rev_path, c = [], v\n\
-    \        while c != lca:\n            rev_path.append(c)\n            c = par[c]\n\
-    \        path.extend(reversed(rev_path))\n        return path\n\nclass LCATableWeighted(LCATable):\n\
-    \    def __init__(lca, T, root = 0):\n        super().__init__(T, root)\n    \
-    \    lca.weights = T.Wdelta\n        lca.weighted_depth = None\n\n    def distance(lca,\
-    \ u, v) -> int:\n        if lca.weighted_depth is None:\n            lca.weighted_depth\
-    \ = presum(lca.weights)\n        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n\
-    \        return lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n\
-    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
+    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
+    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
+    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
+    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
+    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
+    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
+    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
+    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
+    \        return path\n\nclass LCATableWeighted(LCATable):\n    def __init__(lca,\
+    \ T, root = 0):\n        super().__init__(T, root)\n        lca.weights = T.Wdelta\n\
+    \        lca.weighted_depth = None\n\n    def distance(lca, u, v) -> int:\n  \
+    \      if lca.weighted_depth is None:\n            lca.weighted_depth = presum(lca.weights)\n\
+    \        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n        return\
+    \ lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n\n\
+    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \         \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2513            \n            \u2503                           \
-    \         7 \u2503            \n            \u2517\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2513            \n            \u2503                                 \
+    \   7 \u2503            \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B            \n            \u250F\
+    \u2501\u2501\u2501\u2501\u252F\u2501\u251B            \n            \u250F\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2513                 \u2502              \n  \
-    \          \u2503                3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524           \
-    \   \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B                 \u2502\
+    \u2501\u2501\u2501\u2501\u2513                 \u2502              \n        \
+    \    \u2503                3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n \
+    \           \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B                 \u2502\
     \              \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2513       \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\
     \       \u2502              \n            \u2503      1 \u2503\u25C4\u2500\u2500\
@@ -735,7 +690,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2025-03-19 15:35:53+07:00'
+  timestamp: '2025-03-27 22:10:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
