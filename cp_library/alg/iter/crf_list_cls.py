@@ -1,4 +1,3 @@
-from itertools import pairwise
 import cp_library.alg.iter.__header__
 from typing import Generic
 from cp_library.misc.typing import _T

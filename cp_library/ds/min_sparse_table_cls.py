@@ -1,5 +1,4 @@
 import cp_library.ds.__header__
-from itertools import pairwise
 from typing import Any, List
 
 class MinSparseTable:
@@ -14,8 +13,8 @@ class MinSparseTable:
         self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1)) + 1)
         st[:N] = arr 
         
-        for i,ni in pairwise(range(self.log)):
-            start, nxt, d = offsets[i], offsets[ni], 1 << i
+        for i in range(self.log-1):
+            start, nxt, d = offsets[i], offsets[ni:=i+1], 1 << i
             for j in range(N - (1 << ni) + 1):
                 st[nxt+j] = min(st[k := start+j], st[k + d])
 

@@ -34,28 +34,25 @@ class GraphWeightedMeta(GraphWeighted):
 
 
     @classmethod
-    def compile(cls, N: int, M: int, T: list[type] = [-1,-1,int,int]):
-        u, v, *w = map(Parser.compile, T)
-        if len(w) == 2:
-            w, x = w
+    def compile(cls, N: int, M: int, D = 2, T: list[type] = [-1,-1,int,int]):
+        parse_fn = Parser.compile(T)
+        if D == 2:
             def parse(ts: TokenStream):
                 U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M
                 for i in range(M):
-                    U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts), x(ts)
+                    U[i], V[i], W[i], X[i] = parse_fn(ts)
                 return cls(N, U, V, W, X)
-        elif len(w) == 3:
-            w, x, y = w
+        elif D == 3:
             def parse(ts: TokenStream):
                 U, V, W, X, Y = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M
                 for i in range(M):
-                    U[i], V[i], W[i], X[i], Y[i] = u(ts), v(ts), w(ts), x(ts), y(ts)
+                    U[i], V[i], W[i], X[i], Y[i] = parse_fn(ts)
                 return cls(N, U, V, W, X, Y)
         else:
-            w, x, y, z = w
             def parse(ts: TokenStream):
                 U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M, [0]*M
                 for i in range(M):
-                    U[i], V[i], W[i], X[i], Y[i], Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)
+                    U[i], V[i], W[i], X[i], Y[i], Z[i] = parse_fn(ts)
                 return cls(N, U, V, W, X, Y, Z)
         return parse
 
