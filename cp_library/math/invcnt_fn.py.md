@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack_sm_fn.py
     title: cp_library/bit/pack_sm_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
   _extendedRequiredBy: []
@@ -110,7 +110,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/invcnt_fn.py
   requiredBy: []
-  timestamp: '2025-03-28 19:21:24+09:00'
+  timestamp: '2025-03-28 21:58:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

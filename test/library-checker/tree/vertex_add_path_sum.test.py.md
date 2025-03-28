@@ -1,80 +1,84 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_cls.py
     title: cp_library/alg/tree/fast/hld_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':question:'
-    path: cp_library/ds/parallel_cls.py
-    title: cp_library/ds/parallel_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://judge.yosupo.jp/problem/vertex_add_path_sum
     links:
     - https://judge.yosupo.jp/problem/vertex_add_path_sum
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/vertex_add_path_sum\n\
-    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    def main():\n    N, Q = read()\n    A = read(list[int])\n    T = read(Tree[N,0])\n\
+    \    hld = HLD(T)\n    B = [0]*N\n    for u in range(N):\n        B[hld.tin[u]]\
+    \ = A[u]\n    bit = BIT(B)\n    ans = 0\n    def query(l, r):\n        nonlocal\
+    \ ans\n        ans += bit.range_sum(l,r)\n    for _ in range(Q):\n        t, u,\
+    \ v = read()\n        if t == 0:\n            bit.add(hld.tin[u], v)\n       \
+    \ else:\n            hld.path(u, v, query)\n            write(ans)\n         \
+    \   ans = 0\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
-    \ typing import Union\n\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\nfrom typing import Sequence\n\n\n\nfrom typing import Callable, Literal,\
+    \ TypeVar, Union, overload\nfrom math import inf\nfrom collections import deque\n\
+    \nimport typing\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -91,12 +95,12 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \ = IOWrapper(sys.stdout)\n_T = TypeVar('T')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -144,63 +148,41 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass Parallel(tuple, Parsable):\n\
-    \    def __new__(cls, N, K=2):\n        return super().__new__(cls, ([0]*N for\
-    \ _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int, K: int = 2,\
-    \ T: Union[type,int] = int):\n        if T is int:\n            def parse(ts:\
-    \ TokenStream):\n                P = cls(N, K)\n                for i in range(N):\n\
-    \                    for k,val in enumerate(map(T, ts.line())):\n            \
-    \            P[k][i] = val\n                return P\n        elif isinstance(shift\
-    \ := T, int):\n            def parse(ts: TokenStream):\n                P = cls(N,\
-    \ K)\n                for i in range(N):\n                    for k,val in enumerate(map(int,\
-    \ ts.line())):\n                        P[k][i] = val+shift\n                return\
-    \ P\n        else:\n            row = Parser.compile(T)\n            def parse(ts:\
-    \ TokenStream):\n                P = cls(N, K)\n                for i in range(N):\n\
-    \                    for k, val in enumerate(row(ts)):\n                     \
-    \   P[k][i] = val\n                return P\n        return parse\n\n\ndef main():\n\
-    \    mod = 998244353\n    N, Q = read()\n    A, B = read(Parallel[N])\n    T =\
-    \ read(Tree[N,0])\n    hld = HLD(T)\n    S = [0]*N\n    for u in range(N):\n \
-    \       t = hld.tin[u]\n        S[t] = A[u]*mod+B[u]\n    bit = BIT(B)\n    ans\
-    \ = 0\n    def query(l, r):\n        nonlocal ans\n        ans += bit.range_sum(l,r)\n\
-    \    for _ in range(Q):\n        t, u, v = read()\n        if t == 0:\n      \
-    \      bit.add(hld.tin[u], v)\n        else:\n            hld.path(u, v, query)\n\
-    \            write(ans)\n            ans = 0\n\nfrom typing import Sequence\n\n\
-    \n\nfrom typing import Callable, Literal, TypeVar, Union, overload\nfrom math\
-    \ import inf\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return\
-    \ ch\n\n\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
-    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
-    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
-    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
-    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
-    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
-    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
-    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
-    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G, N: int, M:\
-    \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
-    \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int],\
-    \ twin: list[int] = None):\n        G.N = N\n        '''The number of vertices.'''\n\
-    \        G.M = M\n        '''The number of edges.'''\n        G.U = U\n      \
-    \  '''A list of source vertices in the original edge list.'''\n        G.V = V\n\
-    \        '''A list of destination vertices in the original edge list.'''\n   \
-    \     G.deg = deg\n        '''deg[u] is the out degree of vertex u.'''\n     \
-    \   G.La = La\n        '''La[u] stores the start index of the list of adjacent\
-    \ vertices from u.'''\n        G.Ra = Ra\n        '''Ra[u] stores the stop index\
-    \ of the list of adjacent vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i]\
-    \ = u for La[u] <= i < Ra[u], useful for backtracking.'''\n        G.Va = Va\n\
-    \        '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''\n  \
-    \      G.Ea = Ea\n        '''Ea[i] lists the edge ids that start from u for La[u]\
-    \ <= i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
-    \ edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin if twin is\
-    \ not None else range(len(Ua))\n        '''twin[i] in undirected graphs stores\
-    \ index j of the same edge but with u and v swapped.'''\n        G.st: list[int]\
-    \ = None\n        G.order: list[int] = None\n        G.vis: list[int] = None\n\
-    \        G.back: list[int] = None\n        G.tin: list[int] = None\n\n    def\
-    \ prep_vis(G):\n        if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n\
-    \    \n    def prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n     \
-    \   else: G.st.clear()\n        return G.st\n    \n    def prep_order(G):\n  \
-    \      if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
+    \ return cls(next(ts))\n        return parser\n\n\n\ndef chmin(dp, i, v):\n  \
+    \  if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\n\nfrom enum import auto, IntFlag,\
+    \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
+    \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
+    \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
+    \    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n\
+    \    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL\
+    \ = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n\
+    \    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n\
+    \    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK\
+    \ \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP\
+    \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
+    \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
+    \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
+    \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
+    \      '''The number of vertices.'''\n        G.M = M\n        '''The number of\
+    \ edges.'''\n        G.U = U\n        '''A list of source vertices in the original\
+    \ edge list.'''\n        G.V = V\n        '''A list of destination vertices in\
+    \ the original edge list.'''\n        G.deg = deg\n        '''deg[u] is the out\
+    \ degree of vertex u.'''\n        G.La = La\n        '''La[u] stores the start\
+    \ index of the list of adjacent vertices from u.'''\n        G.Ra = Ra\n     \
+    \   '''Ra[u] stores the stop index of the list of adjacent vertices from u.'''\n\
+    \        G.Ua = Ua\n        '''Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.'''\n\
+    \        G.Va = Va\n        '''Va[i] lists adjacent vertices to u for La[u] <=\
+    \ i < Ra[u].'''\n        G.Ea = Ea\n        '''Ea[i] lists the edge ids that start\
+    \ from u for La[u] <= i < Ra[u].\n        For undirected graphs, edge ids in range\
+    \ M<= e <2*M are edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin\
+    \ if twin is not None else range(len(Ua))\n        '''twin[i] in undirected graphs\
+    \ stores index j of the same edge but with u and v swapped.'''\n        G.st:\
+    \ list[int] = None\n        G.order: list[int] = None\n        G.vis: list[int]\
+    \ = None\n        G.back: list[int] = None\n        G.tin: list[int] = None\n\n\
+    \    def prep_vis(G):\n        if G.vis is None: G.vis = u8f(G.N)\n        return\
+    \ G.vis\n    \n    def prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n\
+    \        else: G.st.clear()\n        return G.st\n    \n    def prep_order(G):\n\
+    \        if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
     \        return G.order\n    \n    def prep_back(G):\n        if G.back is None:\
     \ G.back = i32f(G.N, -2)\n        return G.back\n    \n    def prep_tin(G):\n\
     \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n    \n\
@@ -303,7 +285,7 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\ndef elist(est_len:\
+    \            return cls(N, U, V)\n        return parse\n    \n\n\ndef elist(est_len:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
     \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
     \ typing import Iterable\nfrom array import array\n\ndef i8f(N: int, elm: int\
@@ -502,28 +484,26 @@ data:
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
     \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/vertex_add_path_sum\n\
-    \nfrom cp_library.ds.parallel_cls import Parallel\n\n\ndef main():\n    mod =\
-    \ 998244353\n    N, Q = read()\n    A, B = read(Parallel[N])\n    T = read(Tree[N,0])\n\
-    \    hld = HLD(T)\n    S = [0]*N\n    for u in range(N):\n        t = hld.tin[u]\n\
-    \        S[t] = A[u]*mod+B[u]\n    bit = BIT(B)\n    ans = 0\n    def query(l,\
-    \ r):\n        nonlocal ans\n        ans += bit.range_sum(l,r)\n    for _ in range(Q):\n\
-    \        t, u, v = read()\n        if t == 0:\n            bit.add(hld.tin[u],\
-    \ v)\n        else:\n            hld.path(u, v, query)\n            write(ans)\n\
-    \            ans = 0\n\nfrom cp_library.alg.tree.fast.hld_cls import HLD\nfrom\
-    \ cp_library.alg.tree.fast.tree_cls import Tree\nfrom cp_library.ds.tree.bit.bit_cls\
-    \ import BIT\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
-    \ import write\n\nif __name__ == '__main__':\n    main()\n"
+    def main():\n    N, Q = read()\n    A = read(list[int])\n    T = read(Tree[N,0])\n\
+    \    hld = HLD(T)\n    B = [0]*N\n    for u in range(N):\n        B[hld.tin[u]]\
+    \ = A[u]\n    bit = BIT(B)\n    ans = 0\n    def query(l, r):\n        nonlocal\
+    \ ans\n        ans += bit.range_sum(l,r)\n    for _ in range(Q):\n        t, u,\
+    \ v = read()\n        if t == 0:\n            bit.add(hld.tin[u], v)\n       \
+    \ else:\n            hld.path(u, v, query)\n            write(ans)\n         \
+    \   ans = 0\n\nfrom cp_library.alg.tree.fast.hld_cls import HLD\nfrom cp_library.alg.tree.fast.tree_cls\
+    \ import Tree\nfrom cp_library.ds.tree.bit.bit_cls import BIT\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   dependsOn:
-  - cp_library/ds/parallel_cls.py
   - cp_library/alg/tree/fast/hld_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/ds/tree/bit/bit_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/io/parser_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/alg/graph/fast/graph_cls.py
+  - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/array_init_fn.py
@@ -533,8 +513,8 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/vertex_add_path_sum.test.py
   requiredBy: []
-  timestamp: '2025-03-28 19:21:24+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-03-28 21:58:31+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/vertex_add_path_sum.test.py
 layout: document

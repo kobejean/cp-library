@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   _extendedRequiredBy:
@@ -348,7 +348,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_path_composite_sum.test.py
     title: test/library-checker/tree/tree_path_composite_sum.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/vertex_add_path_sum.test.py
     title: test/library-checker/tree/vertex_add_path_sum.test.py
   - icon: ':heavy_check_mark:'
@@ -357,9 +357,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -410,8 +410,8 @@ data:
   path: cp_library/io/write_fn.py
   requiredBy:
   - cp_library/io/bye_fn.py
-  timestamp: '2025-03-28 19:21:24+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-03-28 21:58:31+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py

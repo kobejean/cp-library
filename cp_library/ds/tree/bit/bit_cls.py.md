@@ -27,15 +27,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_add_range_sum.test.py
     title: test/library-checker/data-structure/point_add_range_sum.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/vertex_add_path_sum.test.py
     title: test/library-checker/tree/vertex_add_path_sum.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/vertex_add_subtree_sum.test.py
     title: test/library-checker/tree/vertex_add_subtree_sum.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -140,8 +140,8 @@ data:
   requiredBy:
   - cp_library/math/invcnt_fn.py
   - cp_library/ds/tree/bit/bir_cls.py
-  timestamp: '2025-03-28 19:21:24+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-03-28 21:58:31+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/vertex_add_path_sum.test.py
   - test/library-checker/tree/vertex_add_subtree_sum.test.py
