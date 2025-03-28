@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/slice_iterator_reverse_cls.py
     title: cp_library/alg/iter/slice_iterator_reverse_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   _extendedRequiredBy: []
@@ -97,7 +97,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/strongly_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-03-28 15:11:08+09:00'
+  timestamp: '2025-03-28 19:21:24+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/strongly_connected_components_fn.py

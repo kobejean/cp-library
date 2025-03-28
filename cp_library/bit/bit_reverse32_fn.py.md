@@ -31,7 +31,7 @@ data:
   path: cp_library/bit/bit_reverse32_fn.py
   requiredBy:
   - cp_library/bit/clz32_fn.py
-  timestamp: '2025-03-28 15:11:08+09:00'
+  timestamp: '2025-03-28 19:21:24+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/bit/bit_reverse32_fn.py

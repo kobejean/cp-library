@@ -4,16 +4,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/reserve_fn.py
     title: cp_library/ds/reserve_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
@@ -334,7 +334,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
   requiredBy: []
-  timestamp: '2025-03-28 15:11:08+09:00'
+  timestamp: '2025-03-28 19:21:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/pow_of_formal_power_series.test.py

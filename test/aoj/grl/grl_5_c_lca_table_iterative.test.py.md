@@ -2,9 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/min2_fn.py
+    title: cp_library/alg/dp/min2_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/sort2_fn.py
     title: cp_library/alg/dp/sort2_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -28,22 +31,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
@@ -363,39 +366,33 @@ data:
     \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
     \            func = operator.add\n        A = list(iter)\n        if initial is\
     \ not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\nfrom typing import\
-    \ Any, List\n\nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n\
-    \        self.N = N = len(arr)\n        self.log = N.bit_length()\n        \n\
-    \        self.offsets = offsets = [0]\n        for i in range(1, self.log):\n\
-    \            offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n            \n\
-    \        self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1)) + 1)\n  \
-    \      st[:N] = arr \n        \n        for i in range(self.log-1):\n        \
-    \    start, nxt, d = offsets[i], offsets[ni:=i+1], 1 << i\n            for j in\
-    \ range(N - (1 << ni) + 1):\n                st[nxt+j] = min(st[k := start+j],\
-    \ st[k + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
-    \ - 1\n        start, st = self.offsets[k], self.st\n        return min(st[start\
-    \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
-    \    rows, offsets, log, st = [], self.offsets, self.log, self.st\n        for\
-    \ i in range(log):\n            start = offsets[i]\n            end = offsets[i+1]\
-    \ if i+1 < log else len(st)\n            rows.append(f\"{i:<2d} {st[start:end]}\"\
-    )\n        return '\\n'.join(rows)\n\nclass LCATable(MinSparseTable):\n    def\
-    \ __init__(lca, T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n\
-    \        lca.depth = depth = presum(T.delta)\n        lca.tin, lca.tout = T.tin[:],\
-    \ T.tout[:]\n        lca.mask = (1 << (shift := N.bit_length()))-1\n        lca.shift\
-    \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
-    \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
-    \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
-    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
-    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
-    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
-    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
-    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
-    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
-    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
-    \        return path\n\nclass TreeProtocol(GraphProtocol):\n\n    @cached_property\n\
-    \    def lca(T):\n        return LCATable(T)\n    \n    @overload\n    def diameter(T)\
+    \            A[i] = func(A[i], A[i-step])\n        return A\n# from typing import\
+    \ Generic\n# from cp_library.misc.typing import _T\n\ndef min2(a, b):\n    return\
+    \ a if a < b else b\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n\
+    \        st.N = N = len(arr)\n        st.log = N.bit_length()\n        st.data\
+    \ = data = [0] * (st.log*N)\n        data[:N] = arr \n        for i in range(1,st.log):\n\
+    \            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j\
+    \ in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j], data[c+j])\n\
+    \n    def query(st, l: int, r: int):\n        k = (r-l).bit_length() - 1\n   \
+    \     return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n    \n\n\
+    class LCATable(MinSparseTable):\n    def __init__(lca, T, root = 0):\n       \
+    \ N = len(T)\n        T.euler_tour(root)\n        lca.depth = depth = presum(T.delta)\n\
+    \        lca.tin, lca.tout = T.tin[:], T.tout[:]\n        lca.mask = (1 << (shift\
+    \ := N.bit_length()))-1\n        lca.shift = shift\n        order = T.order\n\
+    \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
+    \            packets[i] = depth[i] << shift | order[i] \n        super().__init__(packets)\n\
+    \n    def _query(lca, u, v):\n        l, r = sort2(lca.tin[u], lca.tin[v]); r\
+    \ += 1\n        da = super().query(l, r)\n        return l, r, da & lca.mask,\
+    \ da >> lca.shift\n\n    def query(lca, u, v) -> tuple[int,int]:\n        l, r,\
+    \ a, d = lca._query(u, v)\n        return a, d\n    \n    def distance(lca, u,\
+    \ v) -> int:\n        l, r, a, d = lca._query(u, v)\n        return lca.depth[l]\
+    \ + lca.depth[r-1] - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca,\
+    \ c = [], lca.T.par, lca.query(u, v)[0], u\n        while c != lca:\n        \
+    \    path.append(c)\n            c = par[c]\n        path.append(lca)\n      \
+    \  rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
+    \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
+    \ path\n\nclass TreeProtocol(GraphProtocol):\n\n    @cached_property\n    def\
+    \ lca(T):\n        return LCATable(T)\n    \n    @overload\n    def diameter(T)\
     \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
     \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        mask\
     \ = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift | v for\
@@ -495,10 +492,11 @@ data:
   - cp_library/alg/dp/sort2_fn.py
   - cp_library/alg/iter/presum_fn.py
   - cp_library/ds/min_sparse_table_cls.py
+  - cp_library/alg/dp/min2_fn.py
   isVerificationFile: true
   path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   requiredBy: []
-  timestamp: '2025-03-28 15:11:08+09:00'
+  timestamp: '2025-03-28 19:21:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_c_lca_table_iterative.test.py

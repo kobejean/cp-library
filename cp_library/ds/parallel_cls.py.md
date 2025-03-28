@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -12,9 +12,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/library-checker/tree/vertex_add_path_sum.test.py
+    title: test/library-checker/tree/vertex_add_path_sum.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -137,10 +140,11 @@ data:
   isVerificationFile: false
   path: cp_library/ds/parallel_cls.py
   requiredBy: []
-  timestamp: '2025-03-28 15:11:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-28 19:21:24+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/library-checker/tree/vertex_add_path_sum.test.py
 documentation_of: cp_library/ds/parallel_cls.py
 layout: document
 redirect_from:

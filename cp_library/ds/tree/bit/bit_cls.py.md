@@ -27,12 +27,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_add_range_sum.test.py
     title: test/library-checker/data-structure/point_add_range_sum.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/tree/vertex_add_path_sum.test.py
     title: test/library-checker/tree/vertex_add_path_sum.test.py
-  _isVerificationFailed: false
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_subtree_sum.test.py
+    title: test/library-checker/tree/vertex_add_subtree_sum.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -137,10 +140,11 @@ data:
   requiredBy:
   - cp_library/math/invcnt_fn.py
   - cp_library/ds/tree/bit/bir_cls.py
-  timestamp: '2025-03-28 15:11:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-28 19:21:24+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/data-structure/point_add_range_sum.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py

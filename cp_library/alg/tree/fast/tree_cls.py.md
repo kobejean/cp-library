@@ -1,34 +1,34 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -51,12 +51,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/lca.test.py
     title: test/library-checker/tree/lca.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/tree/vertex_add_path_sum.test.py
     title: test/library-checker/tree/vertex_add_path_sum.test.py
-  _isVerificationFailed: false
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_subtree_sum.test.py
+    title: test/library-checker/tree/vertex_add_subtree_sum.test.py
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -385,11 +388,12 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/tree_cls.py
   requiredBy: []
-  timestamp: '2025-03-28 15:11:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-28 19:21:24+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/library-checker/tree/lca.test.py
   - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/tree/jump_on_tree.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py

@@ -1,16 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/min2_fn.py
+    title: cp_library/alg/dp/min2_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/sort2_fn.py
     title: cp_library/alg/dp/sort2_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -22,7 +25,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -34,13 +37,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack_sm_fn.py
     title: cp_library/bit/pack_sm_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
@@ -52,13 +55,13 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
@@ -502,87 +505,82 @@ data:
     \    else:\n        assert step >= 2\n        if func is None:\n            func\
     \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
     \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
-    \   A[i] = func(A[i], A[i-step])\n        return A\nfrom typing import Any, List\n\
-    \nclass MinSparseTable:\n    def __init__(self, arr: List[Any]):\n        self.N\
-    \ = N = len(arr)\n        self.log = N.bit_length()\n        \n        self.offsets\
-    \ = offsets = [0]\n        for i in range(1, self.log):\n            offsets.append(offsets[-1]\
-    \ + N - (1 << (i-1)) + 1)\n            \n        self.st = st = [0] * (offsets[-1]\
-    \ + N - (1 << (self.log-1)) + 1)\n        st[:N] = arr \n        \n        for\
-    \ i in range(self.log-1):\n            start, nxt, d = offsets[i], offsets[ni:=i+1],\
-    \ 1 << i\n            for j in range(N - (1 << ni) + 1):\n                st[nxt+j]\
-    \ = min(st[k := start+j], st[k + d])\n\n    def query(self, l: int, r: int) ->\
-    \ Any:\n        k = (r-l).bit_length() - 1\n        start, st = self.offsets[k],\
-    \ self.st\n        return min(st[start + l], st[start + r - (1 << k)])\n    \n\
-    \    def __repr__(self) -> str:\n        rows, offsets, log, st = [], self.offsets,\
-    \ self.log, self.st\n        for i in range(log):\n            start = offsets[i]\n\
-    \            end = offsets[i+1] if i+1 < log else len(st)\n            rows.append(f\"\
-    {i:<2d} {st[start:end]}\")\n        return '\\n'.join(rows)\n\nclass LCATable(MinSparseTable):\n\
-    \    def __init__(lca, T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n\
-    \        lca.depth = depth = presum(T.delta)\n        lca.tin, lca.tout = T.tin[:],\
-    \ T.tout[:]\n        lca.mask = (1 << (shift := N.bit_length()))-1\n        lca.shift\
-    \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
-    \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
-    \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
-    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
-    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
-    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
-    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
-    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
-    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
-    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
-    \        return path\n\nclass AuxTreeBase(TreeWeightedBase):\n\n    def __init__(T,\
-    \ lca: LCATable):\n        T.lca = lca\n        T.Vset = elist(T.N)\n        T.post\
-    \ = elist(T.N-1)\n        T.Ra = T.La[:]\n\n    def add(T, u, v):\n        w =\
-    \ T.lca.distance(u,v)\n        i, j = T.Ra[u], T.Ra[v]\n        T.Ua[i], T.Va[i],\
-    \ T.Wa[i], T.twin[i], T.Ra[u] = u, v, w, j, i+1\n        if i == j: return j\n\
-    \        T.Ua[j], T.Va[j], T.Wa[j], T.twin[j], T.Ra[v] = v, u, w, i, j+1\n   \
-    \     return j\n\n    def tree(T, U: list[int], sort=True):\n        if sort:\
-    \ U = sorted(U, key = T.tin.__getitem__)\n        st = T.prep_st()\n        lca,\
-    \ tin, V, post = T.lca, T.tin, T.Vset, T.post\n        # reset\n        while\
-    \ V:\n            T.Ra[u] = T.La[u := V.pop()]\n            if T.vis: T.vis[u]\
-    \ = 0\n        post.clear()\n\n        st.append(U[0])\n        for j in range(len(U)-1):\n\
-    \            u, v = U[j], U[j+1]\n            a, _ = lca.query(u, v)\n       \
-    \     if a != u:\n                l = st.pop()\n                while st and tin[t\
-    \ := st[-1]] > tin[a]:\n                    V.append(l); post.append(T.add(l,\
-    \ l := st.pop()))\n                if not st or t != a: st.append(a)\n       \
-    \         V.append(l); post.append(T.add(l, a))\n            st.append(v)\n  \
-    \      l = st.pop()\n        while st: V.append(l); post.append(T.add(l, l :=\
-    \ st.pop()))\n        V.append(l)\n        return V, post\n\n    def trees(T,\
-    \ C: list[int]):\n        lca, N = T.lca, T.N\n        T.Ra, cnt, order = T.La[:],\
-    \ [0]*N, argsort(T.tin)\n        for c in C: cnt[c] += 1\n        L = [0]*N\n\
-    \        for i in range(N-1): L[i+1] = L[i]+cnt[i]\n        R, G = L[:], [0]*N\n\
-    \        \n        for i in order: c = C[i]; G[R[c]] = i; R[c] += 1\n        st,\
-    \ V, post = elist(N), elist(N), elist(N)\n        La, Ra, tin = T.La, T.Ra, T.tin\n\
-    \n        for c in range(N):\n            l, r = L[c], R[c]\n            if l\
-    \ == r: continue\n            st.append(G[l])\n            for j in range(l,r-1):\n\
-    \                u, v = G[j], G[j+1]\n                a, _ = lca.query(u, v)\n\
-    \                if a != u:\n                    l = st.pop()\n              \
-    \      while st and tin[t := st[-1]] > tin[a]:\n                        V.append(l);\
-    \ post.append(T.add(l, l := st.pop()))\n                    if not st or t !=\
-    \ a: st.append(a)\n                    V.append(l); post.append(T.add(l, a))\n\
-    \                st.append(v)\n            l = st.pop()\n            while st:\
-    \ V.append(l); post.append(T.add(l, l := st.pop()))\n            V.append(l)\n\
-    \            yield c, V, post\n            while V:\n                Ra[u] = La[u\
-    \ := V.pop()]\n                if T.vis: T.vis[u] = 0\n            post.clear()\n\
-    \n    def rerooting_dp(T, C: list[int], e: _T, \n                     merge: Callable[[_T,_T],_T],\
-    \ \n                     edge_op: Callable[[_T,int,int,int,int],_T] = lambda s,i,p,u,c:s):\n\
-    \        ans, dp, suf, I = [e]*T.N, [e]*T.N, [e]*len(T.Ua), T.La[:]\n\n      \
-    \  for c, V, post in T.trees(C):\n            r = V[-1]\n            for v in\
-    \ V: I[v] = T.Ra[v]\n\n            # up\n            for i in post:\n        \
-    \        u, v = T.Ua[i], T.Va[i]\n                # subtree v finished up pass,\
-    \ store value to accumulate for u\n                dp[v] = new = edge_op(dp[v],\
-    \ i, u, v, c)\n                dp[u] = merge(dp[u], new)\n                # suffix\
-    \ accumulation\n                if (j:=I[u]-1) > T.La[u]: suf[j-1] = merge(suf[j],\
-    \ new)\n                I[u] = j\n            # down\n            dp[r] = e #\
-    \ at this point dp stores values to be merged in parent\n            for i in\
-    \ reversed(post):\n                u,v = T.Ua[i], T.Va[i]\n                dp[u]\
-    \ = merge(pre := dp[u], dp[v])\n                dp[v] = edge_op(merge(suf[I[u]],\
-    \ pre), i, v, u, c)\n                I[u] += 1\n            \n            # store\
-    \ ans and reset\n            for v in V:\n                if C[v] == c: ans[v]\
-    \ = dp[v]\n                dp[v] = e\n            for i in post:\n           \
-    \     suf[i] = e\n        return ans\n"
+    \   A[i] = func(A[i], A[i-step])\n        return A\n# from typing import Generic\n\
+    # from cp_library.misc.typing import _T\n\ndef min2(a, b):\n    return a if a\
+    \ < b else b\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n  \
+    \      st.N = N = len(arr)\n        st.log = N.bit_length()\n        st.data =\
+    \ data = [0] * (st.log*N)\n        data[:N] = arr \n        for i in range(1,st.log):\n\
+    \            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j\
+    \ in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j], data[c+j])\n\
+    \n    def query(st, l: int, r: int):\n        k = (r-l).bit_length() - 1\n   \
+    \     return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n    \n\n\
+    class LCATable(MinSparseTable):\n    def __init__(lca, T, root = 0):\n       \
+    \ N = len(T)\n        T.euler_tour(root)\n        lca.depth = depth = presum(T.delta)\n\
+    \        lca.tin, lca.tout = T.tin[:], T.tout[:]\n        lca.mask = (1 << (shift\
+    \ := N.bit_length()))-1\n        lca.shift = shift\n        order = T.order\n\
+    \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
+    \            packets[i] = depth[i] << shift | order[i] \n        super().__init__(packets)\n\
+    \n    def _query(lca, u, v):\n        l, r = sort2(lca.tin[u], lca.tin[v]); r\
+    \ += 1\n        da = super().query(l, r)\n        return l, r, da & lca.mask,\
+    \ da >> lca.shift\n\n    def query(lca, u, v) -> tuple[int,int]:\n        l, r,\
+    \ a, d = lca._query(u, v)\n        return a, d\n    \n    def distance(lca, u,\
+    \ v) -> int:\n        l, r, a, d = lca._query(u, v)\n        return lca.depth[l]\
+    \ + lca.depth[r-1] - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca,\
+    \ c = [], lca.T.par, lca.query(u, v)[0], u\n        while c != lca:\n        \
+    \    path.append(c)\n            c = par[c]\n        path.append(lca)\n      \
+    \  rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
+    \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
+    \ path\n\nclass AuxTreeBase(TreeWeightedBase):\n\n    def __init__(T, lca: LCATable):\n\
+    \        T.lca = lca\n        T.Vset = elist(T.N)\n        T.post = elist(T.N-1)\n\
+    \        T.Ra = T.La[:]\n\n    def add(T, u, v):\n        w = T.lca.distance(u,v)\n\
+    \        i, j = T.Ra[u], T.Ra[v]\n        T.Ua[i], T.Va[i], T.Wa[i], T.twin[i],\
+    \ T.Ra[u] = u, v, w, j, i+1\n        if i == j: return j\n        T.Ua[j], T.Va[j],\
+    \ T.Wa[j], T.twin[j], T.Ra[v] = v, u, w, i, j+1\n        return j\n\n    def tree(T,\
+    \ U: list[int], sort=True):\n        if sort: U = sorted(U, key = T.tin.__getitem__)\n\
+    \        st = T.prep_st()\n        lca, tin, V, post = T.lca, T.tin, T.Vset, T.post\n\
+    \        # reset\n        while V:\n            T.Ra[u] = T.La[u := V.pop()]\n\
+    \            if T.vis: T.vis[u] = 0\n        post.clear()\n\n        st.append(U[0])\n\
+    \        for j in range(len(U)-1):\n            u, v = U[j], U[j+1]\n        \
+    \    a, _ = lca.query(u, v)\n            if a != u:\n                l = st.pop()\n\
+    \                while st and tin[t := st[-1]] > tin[a]:\n                   \
+    \ V.append(l); post.append(T.add(l, l := st.pop()))\n                if not st\
+    \ or t != a: st.append(a)\n                V.append(l); post.append(T.add(l, a))\n\
+    \            st.append(v)\n        l = st.pop()\n        while st: V.append(l);\
+    \ post.append(T.add(l, l := st.pop()))\n        V.append(l)\n        return V,\
+    \ post\n\n    def trees(T, C: list[int]):\n        lca, N = T.lca, T.N\n     \
+    \   T.Ra, cnt, order = T.La[:], [0]*N, argsort(T.tin)\n        for c in C: cnt[c]\
+    \ += 1\n        L = [0]*N\n        for i in range(N-1): L[i+1] = L[i]+cnt[i]\n\
+    \        R, G = L[:], [0]*N\n        \n        for i in order: c = C[i]; G[R[c]]\
+    \ = i; R[c] += 1\n        st, V, post = elist(N), elist(N), elist(N)\n       \
+    \ La, Ra, tin = T.La, T.Ra, T.tin\n\n        for c in range(N):\n            l,\
+    \ r = L[c], R[c]\n            if l == r: continue\n            st.append(G[l])\n\
+    \            for j in range(l,r-1):\n                u, v = G[j], G[j+1]\n   \
+    \             a, _ = lca.query(u, v)\n                if a != u:\n           \
+    \         l = st.pop()\n                    while st and tin[t := st[-1]] > tin[a]:\n\
+    \                        V.append(l); post.append(T.add(l, l := st.pop()))\n \
+    \                   if not st or t != a: st.append(a)\n                    V.append(l);\
+    \ post.append(T.add(l, a))\n                st.append(v)\n            l = st.pop()\n\
+    \            while st: V.append(l); post.append(T.add(l, l := st.pop()))\n   \
+    \         V.append(l)\n            yield c, V, post\n            while V:\n  \
+    \              Ra[u] = La[u := V.pop()]\n                if T.vis: T.vis[u] =\
+    \ 0\n            post.clear()\n\n    def rerooting_dp(T, C: list[int], e: _T,\
+    \ \n                     merge: Callable[[_T,_T],_T], \n                     edge_op:\
+    \ Callable[[_T,int,int,int,int],_T] = lambda s,i,p,u,c:s):\n        ans, dp, suf,\
+    \ I = [e]*T.N, [e]*T.N, [e]*len(T.Ua), T.La[:]\n\n        for c, V, post in T.trees(C):\n\
+    \            r = V[-1]\n            for v in V: I[v] = T.Ra[v]\n\n           \
+    \ # up\n            for i in post:\n                u, v = T.Ua[i], T.Va[i]\n\
+    \                # subtree v finished up pass, store value to accumulate for u\n\
+    \                dp[v] = new = edge_op(dp[v], i, u, v, c)\n                dp[u]\
+    \ = merge(dp[u], new)\n                # suffix accumulation\n               \
+    \ if (j:=I[u]-1) > T.La[u]: suf[j-1] = merge(suf[j], new)\n                I[u]\
+    \ = j\n            # down\n            dp[r] = e # at this point dp stores values\
+    \ to be merged in parent\n            for i in reversed(post):\n             \
+    \   u,v = T.Ua[i], T.Va[i]\n                dp[u] = merge(pre := dp[u], dp[v])\n\
+    \                dp[v] = edge_op(merge(suf[I[u]], pre), i, v, u, c)\n        \
+    \        I[u] += 1\n            \n            # store ans and reset\n        \
+    \    for v in V:\n                if C[v] == c: ans[v] = dp[v]\n             \
+    \   dp[v] = e\n            for i in post:\n                suf[i] = e\n      \
+    \  return ans\n"
   code: "from cp_library.alg.tree.fast.tree_weighted_base_cls import TreeWeightedBase\n\
     from cp_library.alg.tree.lca_table_iterative_cls import LCATable\nfrom cp_library.ds.elist_fn\
     \ import elist\nfrom cp_library.alg.iter.argsort_fn import argsort\nfrom typing\
@@ -653,6 +651,7 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
+  - cp_library/alg/dp/min2_fn.py
   - cp_library/bit/pack_sm_fn.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/alg/graph/dfs_options_cls.py
@@ -663,7 +662,7 @@ data:
   requiredBy:
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  timestamp: '2025-03-28 15:11:08+09:00'
+  timestamp: '2025-03-28 19:21:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py

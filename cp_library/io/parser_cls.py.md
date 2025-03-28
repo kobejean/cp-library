@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   _extendedRequiredBy:
@@ -44,10 +44,10 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/graph/fast/graph_cls.py
     title: cp_library/alg/graph/fast/graph_cls.py
   - icon: ':heavy_check_mark:'
@@ -137,16 +137,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/hld_cls.py
     title: cp_library/alg/tree/fast/hld_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_weighted_cls.py
     title: cp_library/alg/tree/fast/hld_weighted_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
   - icon: ':heavy_check_mark:'
@@ -185,7 +185,7 @@ data:
   - icon: ':warning:'
     path: cp_library/ds/list/ordlist_cls.py
     title: cp_library/ds/list/ordlist_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/parallel_cls.py
     title: cp_library/ds/parallel_cls.py
   - icon: ':warning:'
@@ -206,7 +206,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_edges_weighted_fn.py
     title: cp_library/io/read_edges_weighted_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
   - icon: ':warning:'
@@ -451,6 +451,12 @@ data:
     path: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
     title: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/point_set_range_composite.test.py
+    title: test/library-checker/data-structure/point_set_range_composite.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/static_range_sum.test.py
+    title: test/library-checker/data-structure/static_range_sum.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   - icon: ':heavy_check_mark:'
@@ -514,6 +520,15 @@ data:
     path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
     title: test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/sample/aplusb.test.py
+    title: test/library-checker/sample/aplusb.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/sample/many_aplusb.test.py
+    title: test/library-checker/sample/many_aplusb.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/sample/many_aplusb_128bit.test.py
+    title: test/library-checker/sample/many_aplusb_128bit.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution_all.test.py
     title: test/library-checker/set-power-series/subset_convolution_all.test.py
   - icon: ':heavy_check_mark:'
@@ -528,15 +543,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_path_composite_sum.test.py
     title: test/library-checker/tree/tree_path_composite_sum.test.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/library-checker/tree/vertex_add_path_sum.test.py
     title: test/library-checker/tree/vertex_add_path_sum.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_subtree_sum.test.py
+    title: test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -761,8 +779,8 @@ data:
   - cp_library/ds/grid.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/queries_cls.py
-  timestamp: '2025-03-28 15:11:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-03-28 19:21:24+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
@@ -800,8 +818,11 @@ data:
   - test/library-checker/tree/lca.test.py
   - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/tree/jump_on_tree.test.py
   - test/library-checker/tree/tree_diameter.test.py
+  - test/library-checker/data-structure/point_set_range_composite.test.py
+  - test/library-checker/data-structure/static_range_sum.test.py
   - test/library-checker/convolution/gcd_convolution.test.py
   - test/library-checker/convolution/bitwise_and_convolution.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
@@ -823,6 +844,9 @@ data:
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/sample/aplusb.test.py
+  - test/library-checker/sample/many_aplusb_128bit.test.py
+  - test/library-checker/sample/many_aplusb.test.py
   - test/yukicoder/3407.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   - test/atcoder/abc/abc245_f_digraph.test.py
