@@ -53,7 +53,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
@@ -152,6 +152,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+    title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_cls.py
     title: cp_library/alg/tree/tree_cls.py
@@ -553,8 +556,20 @@ data:
     path: test/library-checker/set-power-series/subset_convolution_all.test.py
     title: test/library-checker/set-power-series/subset_convolution_all.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/jump_on_tree.test.py
+    title: test/library-checker/tree/jump_on_tree.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/lca.test.py
+    title: test/library-checker/tree/lca.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_path_composite_sum.test.py
+    title: test/library-checker/tree/tree_path_composite_sum.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum.test.py
+    title: test/library-checker/tree/vertex_add_path_sum.test.py
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
@@ -646,6 +661,7 @@ data:
   - cp_library/alg/tree/fast/hld_weighted_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/graph/bit_graph_cls.py
@@ -699,7 +715,7 @@ data:
   - cp_library/ds/grid.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/queries_cls.py
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
@@ -737,6 +753,10 @@ data:
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/polynomial/inv_of_formal_power_series.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
   - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/data-structure/unionfind.test.py
   - test/library-checker/data-structure/unionfind_with_potential.test.py

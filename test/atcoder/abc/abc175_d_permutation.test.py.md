@@ -158,48 +158,47 @@ data:
     \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
     \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
     \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
-    \ Parser.compile_repeat(cls, shift, N)\n\nfrom itertools import pairwise\nfrom\
-    \ typing import Generic\n\nclass CRFList(Generic[_T]):\n    def __init__(crf,\
-    \ A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S = len(S), A, S\n  \
-    \      S.append(len(A))\n\n    def __len__(crf) -> int: return crf.N\n\n    def\
-    \ __getitem__(crf, i: int) -> list[_T]:\n        return crf.A[crf.S[i]:crf.S[i+1]]\n\
-    \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
-    \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
-    \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
-    \    return A\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):   \
-    \   return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):\
-    \      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int\
-    \ = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm:\
-    \ int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N: int,\
-    \ elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N: int,\
-    \ elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
-    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nclass PermGraph(FuncGraph):\n\
-    \    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n \
-    \           Pinv[p] = i\n        return type(P)(Pinv)\n\nfrom typing import Iterable,\
-    \ Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
-    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \ Parser.compile_repeat(cls, shift, N)\n\nfrom typing import Generic\n\nclass\
+    \ CRFList(Generic[_T]):\n    def __init__(crf, A: list[_T], S: list[int]):\n \
+    \       crf.N, crf.A, crf.S = len(S), A, S\n        S.append(len(A))\n\n    def\
+    \ __len__(crf) -> int: return crf.N\n\n    def __getitem__(crf, i: int) -> list[_T]:\n\
+    \        return crf.A[crf.S[i]:crf.S[i+1]]\n    \n    def get(crf, i: int, j:\
+    \ int) -> _T:\n        return crf.A[crf.S[i]+j]\n    \n    def len(crf, i: int)\
+    \ -> int:\n        return crf.S[i+1] - crf.S[i]\n\ndef roll(A: list, t: int):\n\
+    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\n\nfrom array\
+    \ import array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N\
+    \  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\n# def u64f(N: int, elm: int = 0):     return array('Q',\
+    \ (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return\
+    \ array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d',\
+    \ (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if init is None\
+    \ else array('b', init)  # signed char\ndef u8a(init = None):  return array('B')\
+    \ if init is None else array('B', init)  # unsigned char\ndef i16a(init = None):\
+    \ return array('h') if init is None else array('h', init)  # signed short\ndef\
+    \ u16a(init = None): return array('H') if init is None else array('H', init) \
+    \ # unsigned short\ndef i32a(init = None): return array('i') if init is None else\
+    \ array('i', init)  # signed int\ndef u32a(init = None): return array('I') if\
+    \ init is None else array('I', init)  # unsigned int\ndef i64a(init = None): return\
+    \ array('q') if init is None else array('q', init)  # signed long long\n# def\
+    \ u64a(init = None): return array('Q') if init is None else array('Q', init) \
+    \ # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
+    \ else array('f', init)  # float\ndef f64a(init = None): return array('d') if\
+    \ init is None else array('d', init)  # double\n\ni8_max = (1 << 7)-1\nu8_max\
+    \ = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 <<\
+    \ 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\
+    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n\nclass PermGraph(FuncGraph):\n    def inv(P):\n        Pinv = [0]*P.N\n\
+    \        for i,p in enumerate(P):\n            Pinv[p] = i\n        return type(P)(Pinv)\n\
+    \nfrom typing import Iterable, Type, Union, overload\n\n@overload\ndef read()\
+    \ -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
     \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
@@ -234,7 +233,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc175_d_permutation.test.py

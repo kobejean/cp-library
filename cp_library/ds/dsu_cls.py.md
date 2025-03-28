@@ -20,7 +20,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
@@ -53,6 +53,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+    title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_cls.py
     title: cp_library/alg/tree/tree_weighted_cls.py
@@ -151,6 +154,9 @@ data:
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_path_composite_sum.test.py
+    title: test/library-checker/tree/tree_path_composite_sum.test.py
+  - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
   _isVerificationFailed: false
@@ -207,6 +213,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/graph/kruskal_heap_fn.py
@@ -220,7 +227,7 @@ data:
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/kruskal_sort_fn.py
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -241,6 +248,7 @@ data:
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/data-structure/unionfind.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py

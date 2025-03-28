@@ -39,6 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum.test.py
+    title: test/library-checker/tree/vertex_add_path_sum.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -423,9 +426,10 @@ data:
   path: cp_library/alg/tree/fast/hld_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/hld_weighted_cls.py
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/tree/vertex_add_path_sum.test.py
   - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
 documentation_of: cp_library/alg/tree/fast/hld_cls.py

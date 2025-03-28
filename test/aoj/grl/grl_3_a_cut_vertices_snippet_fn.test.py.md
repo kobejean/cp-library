@@ -360,7 +360,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   requiredBy: []
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py

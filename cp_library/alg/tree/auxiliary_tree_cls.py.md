@@ -49,9 +49,9 @@ data:
     \     self.offsets = offsets = [0]\n        for i in range(1, self.log):\n   \
     \         offsets.append(offsets[-1] + N - (1 << (i-1)) + 1)\n            \n \
     \       self.st = st = [0] * (offsets[-1] + N - (1 << (self.log-1)) + 1)\n   \
-    \     st[:N] = arr \n        \n        for i,ni in pairwise(range(self.log)):\n\
-    \            start, nxt, d = offsets[i], offsets[ni], 1 << i\n            for\
-    \ j in range(N - (1 << ni) + 1):\n                st[nxt+j] = min(st[k := start+j],\
+    \     st[:N] = arr \n        \n        for i in range(self.log-1):\n         \
+    \   start, nxt, d = offsets[i], offsets[ni:=i+1], 1 << i\n            for j in\
+    \ range(N - (1 << ni) + 1):\n                st[nxt+j] = min(st[k := start+j],\
     \ st[k + d])\n\n    def query(self, l: int, r: int) -> Any:\n        k = (r-l).bit_length()\
     \ - 1\n        start, st = self.offsets[k], self.st\n        return min(st[start\
     \ + l], st[start + r - (1 << k)])\n    \n    def __repr__(self) -> str:\n    \
@@ -133,7 +133,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/auxiliary_tree_cls.py
   requiredBy: []
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/tree/auxiliary_tree_cls.py

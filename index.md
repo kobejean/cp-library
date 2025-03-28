@@ -197,7 +197,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_weighted_cls.py
       title: cp_library/alg/graph/fast/graph_weighted_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
       title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     - icon: ':heavy_check_mark:'
@@ -364,6 +364,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/tree_weighted_cls.py
       title: cp_library/alg/tree/fast/tree_weighted_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+      title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - name: cp_library/bit
     pages:
     - icon: ':warning:'
@@ -1296,11 +1299,23 @@ data:
   - name: test/library-checker/tree
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/jump_on_tree.test.py
+      title: test/library-checker/tree/jump_on_tree.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/lca.test.py
+      title: test/library-checker/tree/lca.test.py
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
       title: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/tree/tree_diameter.test.py
       title: test/library-checker/tree/tree_diameter.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/tree_path_composite_sum.test.py
+      title: test/library-checker/tree/tree_path_composite_sum.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/vertex_add_path_sum.test.py
+      title: test/library-checker/tree/vertex_add_path_sum.test.py
   - name: test/yukicoder
     pages:
     - icon: ':heavy_check_mark:'

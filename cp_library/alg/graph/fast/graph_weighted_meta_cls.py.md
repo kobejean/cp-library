@@ -46,11 +46,17 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+    title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_path_composite_sum.test.py
+    title: test/library-checker/tree/tree_path_composite_sum.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -428,21 +434,19 @@ data:
     \  G.Z = Z\n            '''A parallel lists of edge meta data from the original\
     \ edge list.'''\n            G.Za = Za\n            '''Za[i] parallel lists of\
     \ adjacent meta data to u for La[u] <= i < Ra[u].'''\n\n\n    @classmethod\n \
-    \   def compile(cls, N: int, M: int, T: list[type] = [-1,-1,int,int]):\n     \
-    \   u, v, *w = map(Parser.compile, T)\n        if len(w) == 2:\n            w,\
-    \ x = w\n            def parse(ts: TokenStream):\n                U, V, W, X =\
-    \ u32f(M), u32f(M), [0]*M, [0]*M\n                for i in range(M):\n       \
-    \             U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts), x(ts)\n          \
-    \      return cls(N, U, V, W, X)\n        elif len(w) == 3:\n            w, x,\
-    \ y = w\n            def parse(ts: TokenStream):\n                U, V, W, X,\
-    \ Y = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M\n                for i in range(M):\n\
-    \                    U[i], V[i], W[i], X[i], Y[i] = u(ts), v(ts), w(ts), x(ts),\
-    \ y(ts)\n                return cls(N, U, V, W, X, Y)\n        else:\n       \
-    \     w, x, y, z = w\n            def parse(ts: TokenStream):\n              \
-    \  U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M, [0]*M\n         \
-    \       for i in range(M):\n                    U[i], V[i], W[i], X[i], Y[i],\
-    \ Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)\n                return cls(N,\
-    \ U, V, W, X, Y, Z)\n        return parse\n\n"
+    \   def compile(cls, N: int, M: int, D = 2, T: list[type] = [-1,-1,int,int]):\n\
+    \        parse_fn = Parser.compile(T)\n        if D == 2:\n            def parse(ts:\
+    \ TokenStream):\n                U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M\n\
+    \                for i in range(M):\n                    U[i], V[i], W[i], X[i]\
+    \ = parse_fn(ts)\n                return cls(N, U, V, W, X)\n        elif D ==\
+    \ 3:\n            def parse(ts: TokenStream):\n                U, V, W, X, Y =\
+    \ u32f(M), u32f(M), [0]*M, [0]*M, [0]*M\n                for i in range(M):\n\
+    \                    U[i], V[i], W[i], X[i], Y[i] = parse_fn(ts)\n           \
+    \     return cls(N, U, V, W, X, Y)\n        else:\n            def parse(ts: TokenStream):\n\
+    \                U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M, [0]*M\n\
+    \                for i in range(M):\n                    U[i], V[i], W[i], X[i],\
+    \ Y[i], Z[i] = parse_fn(ts)\n                return cls(N, U, V, W, X, Y, Z)\n\
+    \        return parse\n\n"
   code: "import cp_library.alg.graph.fast.__header__\nfrom cp_library.io.parser_cls\
     \ import Parser, TokenStream\nfrom cp_library.alg.graph.fast.graph_weighted_cls\
     \ import GraphWeighted\n\nclass GraphWeightedMeta(GraphWeighted):\n    def __init__(G,\
@@ -462,22 +466,19 @@ data:
     \  G.Z = Z\n            '''A parallel lists of edge meta data from the original\
     \ edge list.'''\n            G.Za = Za\n            '''Za[i] parallel lists of\
     \ adjacent meta data to u for La[u] <= i < Ra[u].'''\n\n\n    @classmethod\n \
-    \   def compile(cls, N: int, M: int, T: list[type] = [-1,-1,int,int]):\n     \
-    \   u, v, *w = map(Parser.compile, T)\n        if len(w) == 2:\n            w,\
-    \ x = w\n            def parse(ts: TokenStream):\n                U, V, W, X =\
-    \ u32f(M), u32f(M), [0]*M, [0]*M\n                for i in range(M):\n       \
-    \             U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts), x(ts)\n          \
-    \      return cls(N, U, V, W, X)\n        elif len(w) == 3:\n            w, x,\
-    \ y = w\n            def parse(ts: TokenStream):\n                U, V, W, X,\
-    \ Y = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M\n                for i in range(M):\n\
-    \                    U[i], V[i], W[i], X[i], Y[i] = u(ts), v(ts), w(ts), x(ts),\
-    \ y(ts)\n                return cls(N, U, V, W, X, Y)\n        else:\n       \
-    \     w, x, y, z = w\n            def parse(ts: TokenStream):\n              \
-    \  U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M, [0]*M\n         \
-    \       for i in range(M):\n                    U[i], V[i], W[i], X[i], Y[i],\
-    \ Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)\n                return cls(N,\
-    \ U, V, W, X, Y, Z)\n        return parse\n\nfrom cp_library.ds.array_init_fn\
-    \ import u32f\n"
+    \   def compile(cls, N: int, M: int, D = 2, T: list[type] = [-1,-1,int,int]):\n\
+    \        parse_fn = Parser.compile(T)\n        if D == 2:\n            def parse(ts:\
+    \ TokenStream):\n                U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M\n\
+    \                for i in range(M):\n                    U[i], V[i], W[i], X[i]\
+    \ = parse_fn(ts)\n                return cls(N, U, V, W, X)\n        elif D ==\
+    \ 3:\n            def parse(ts: TokenStream):\n                U, V, W, X, Y =\
+    \ u32f(M), u32f(M), [0]*M, [0]*M, [0]*M\n                for i in range(M):\n\
+    \                    U[i], V[i], W[i], X[i], Y[i] = parse_fn(ts)\n           \
+    \     return cls(N, U, V, W, X, Y)\n        else:\n            def parse(ts: TokenStream):\n\
+    \                U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M, [0]*M\n\
+    \                for i in range(M):\n                    U[i], V[i], W[i], X[i],\
+    \ Y[i], Z[i] = parse_fn(ts)\n                return cls(N, U, V, W, X, Y, Z)\n\
+    \        return parse\n\nfrom cp_library.ds.array_init_fn import u32f\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
@@ -496,10 +497,12 @@ data:
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  requiredBy: []
-  timestamp: '2025-03-27 22:10:43+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy:
+  - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+  timestamp: '2025-03-28 15:11:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/tree/tree_path_composite_sum.test.py
 documentation_of: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
 layout: document
 redirect_from:

@@ -102,6 +102,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution_all.test.py
     title: test/library-checker/set-power-series/subset_convolution_all.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_path_composite_sum.test.py
+    title: test/library-checker/tree/tree_path_composite_sum.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -181,7 +184,7 @@ data:
   - cp_library/math/fps/fps_iinteg_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
@@ -193,6 +196,7 @@ data:
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/polynomial/inv_of_formal_power_series.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/convolution/convolution.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py

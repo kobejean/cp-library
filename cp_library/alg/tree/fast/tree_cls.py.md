@@ -45,6 +45,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/jump_on_tree.test.py
+    title: test/library-checker/tree/jump_on_tree.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/lca.test.py
+    title: test/library-checker/tree/lca.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum.test.py
+    title: test/library-checker/tree/vertex_add_path_sum.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -376,9 +385,12 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/tree_cls.py
   requiredBy: []
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py

@@ -133,49 +133,48 @@ data:
     \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
     \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
     \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
-    \ Parser.compile_repeat(cls, shift, N)\n\nfrom itertools import pairwise\n\nfrom\
-    \ typing import Generic\n\nclass CRFList(Generic[_T]):\n    def __init__(crf,\
-    \ A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S = len(S), A, S\n  \
-    \      S.append(len(A))\n\n    def __len__(crf) -> int: return crf.N\n\n    def\
-    \ __getitem__(crf, i: int) -> list[_T]:\n        return crf.A[crf.S[i]:crf.S[i+1]]\n\
-    \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
-    \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
-    \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
-    \    return A\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):     \
-    \ return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0): \
-    \     return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int\
-    \ = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm:\
-    \ int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N: int,\
-    \ elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N: int,\
-    \ elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\nclass PartialFuncGraph(FuncGraph):\n\
-    \    def __init__(F, successors):\n        super().__init__(successors)\n    \
-    \    F.M = sum(f>=0 for f in F)\n\n    def find_cycle(F, root):\n        slow\
-    \ = fast = root\n        while F[fast] != -1 and F[F[fast]] != -1:\n         \
-    \   slow, fast = F[slow], F[F[fast]]\n            if slow == fast:\n         \
-    \       cyc = [slow]\n                while F[slow] != cyc[0]:\n             \
-    \       slow = F[slow]\n                    cyc.append(slow)\n               \
-    \ return cyc\n        return None\n    \n    def cycles(F):\n        vis, cycs,\
-    \ S = [False]*F.N, elist(F.N), elist(F.N)\n        for v in range(F.N):\n    \
-    \        slow = fast = v\n            while F[fast] != -1 and (fast := F[F[fast]])\
+    \ Parser.compile_repeat(cls, shift, N)\n\n\nfrom typing import Generic\n\nclass\
+    \ CRFList(Generic[_T]):\n    def __init__(crf, A: list[_T], S: list[int]):\n \
+    \       crf.N, crf.A, crf.S = len(S), A, S\n        S.append(len(A))\n\n    def\
+    \ __len__(crf) -> int: return crf.N\n\n    def __getitem__(crf, i: int) -> list[_T]:\n\
+    \        return crf.A[crf.S[i]:crf.S[i+1]]\n    \n    def get(crf, i: int, j:\
+    \ int) -> _T:\n        return crf.A[crf.S[i]+j]\n    \n    def len(crf, i: int)\
+    \ -> int:\n        return crf.S[i+1] - crf.S[i]\n\ndef roll(A: list, t: int):\n\
+    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\nfrom array import\
+    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
+    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\n# def u64f(N: int, elm: int = 0):     return array('Q',\
+    \ (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return\
+    \ array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d',\
+    \ (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if init is None\
+    \ else array('b', init)  # signed char\ndef u8a(init = None):  return array('B')\
+    \ if init is None else array('B', init)  # unsigned char\ndef i16a(init = None):\
+    \ return array('h') if init is None else array('h', init)  # signed short\ndef\
+    \ u16a(init = None): return array('H') if init is None else array('H', init) \
+    \ # unsigned short\ndef i32a(init = None): return array('i') if init is None else\
+    \ array('i', init)  # signed int\ndef u32a(init = None): return array('I') if\
+    \ init is None else array('I', init)  # unsigned int\ndef i64a(init = None): return\
+    \ array('q') if init is None else array('q', init)  # signed long long\n# def\
+    \ u64a(init = None): return array('Q') if init is None else array('Q', init) \
+    \ # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
+    \ else array('f', init)  # float\ndef f64a(init = None): return array('d') if\
+    \ init is None else array('d', init)  # double\n\ni8_max = (1 << 7)-1\nu8_max\
+    \ = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 <<\
+    \ 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\
+    \nclass PartialFuncGraph(FuncGraph):\n    def __init__(F, successors):\n     \
+    \   super().__init__(successors)\n        F.M = sum(f>=0 for f in F)\n\n    def\
+    \ find_cycle(F, root):\n        slow = fast = root\n        while F[fast] != -1\
+    \ and F[F[fast]] != -1:\n            slow, fast = F[slow], F[F[fast]]\n      \
+    \      if slow == fast:\n                cyc = [slow]\n                while F[slow]\
+    \ != cyc[0]:\n                    slow = F[slow]\n                    cyc.append(slow)\n\
+    \                return cyc\n        return None\n    \n    def cycles(F):\n \
+    \       vis, cycs, S = [False]*F.N, elist(F.N), elist(F.N)\n        for v in range(F.N):\n\
+    \            slow = fast = v\n            while F[fast] != -1 and (fast := F[F[fast]])\
     \ != -1 and not vis[fast]:\n                slow, fast = F[slow], F[F[fast]]\n\
     \                if slow == fast:\n                    S.append(len(cycs))\n \
     \                   cycs.append(slow)\n                    vis[slow] = True\n\
@@ -211,7 +210,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/partial_func_graph_cls.py
   requiredBy: []
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/partial_func_graph_cls.py

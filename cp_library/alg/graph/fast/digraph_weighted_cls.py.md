@@ -448,7 +448,7 @@ data:
   path: cp_library/alg/graph/fast/digraph_weighted_cls.py
   requiredBy:
   - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py

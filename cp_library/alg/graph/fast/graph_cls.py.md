@@ -57,6 +57,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/two_edge_connected_components.test.py
     title: test/library-checker/graph/two_edge_connected_components.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/jump_on_tree.test.py
+    title: test/library-checker/tree/jump_on_tree.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/lca.test.py
+    title: test/library-checker/tree/lca.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum.test.py
+    title: test/library-checker/tree/vertex_add_path_sum.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -353,11 +362,14 @@ data:
   path: cp_library/alg/graph/fast/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
   - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py

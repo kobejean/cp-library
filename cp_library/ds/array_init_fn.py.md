@@ -23,7 +23,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
@@ -95,6 +95,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+    title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -184,8 +187,20 @@ data:
     path: test/library-checker/graph/two_edge_connected_components.test.py
     title: test/library-checker/graph/two_edge_connected_components.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/jump_on_tree.test.py
+    title: test/library-checker/tree/jump_on_tree.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/lca.test.py
+    title: test/library-checker/tree/lca.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/tree_path_composite_sum.test.py
+    title: test/library-checker/tree/tree_path_composite_sum.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum.test.py
+    title: test/library-checker/tree/vertex_add_path_sum.test.py
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
@@ -319,6 +334,7 @@ data:
   - cp_library/alg/tree/fast/hld_weighted_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/graph/func_graph_cls.py
   - cp_library/alg/graph/partial_func_graph_cls.py
@@ -342,7 +358,7 @@ data:
   - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
-  timestamp: '2025-03-27 22:10:43+09:00'
+  timestamp: '2025-03-28 15:11:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -355,6 +371,10 @@ data:
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
   - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/cycle_detection.test.py
