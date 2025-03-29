@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/fast/fast_io_fn.py
+    title: cp_library/io/fast/fast_io_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/and_conv_fast_fn.py
     title: cp_library/math/conv/and_conv_fast_fn.py
   - icon: ':heavy_check_mark:'
@@ -87,48 +90,42 @@ data:
     \ A\n\ndef and_conv(A: list[int], B: list[int], N: int, mod) -> list[int]:\n \
     \   assert len(A) == len(B)\n    Z = 1 << N\n    superset_zeta_pair(A, B, N)\n\
     \    for i, b in enumerate(B): A[i] = A[i]*b%mod\n    superset_mobius(A, N)\n\
-    \    for i in range(Z): A[i] %= mod\n    return A\nfrom atexit import register\n\
-    from os import read, write\nimport sys\nfrom __pypy__ import builders\nclass Fastio:\n\
-    \    ibuf = bytes()\n    pil = pir = 0\n    sb = builders.StringBuilder()\n  \
-    \  def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n    def\
-    \ flush(self): write(1, self.sb.build().encode())\n    def fastin(self):\n   \
-    \     if self.pir - self.pil < 64: self.load()\n        minus = x = 0\n      \
-    \  while self.ibuf[self.pil] < 45: self.pil += 1\n        if self.ibuf[self.pil]\
-    \ == 45: minus = 1; self.pil += 1\n        while self.ibuf[self.pil] >= 48:\n\
-    \            x = x * 10 + (self.ibuf[self.pil] & 15)\n            self.pil +=\
-    \ 1\n        if minus: return -x\n        return x\n    def fastout(self, x):\
-    \ self.sb.append(str(x))\n    def fastoutln(self, x): self.sb.append(str(x));\
-    \ self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin; wt = fastio.fastout;\
-    \ wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\nsys.stdin = None;\
-    \ sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\ndef wtnl(l):\
-    \ wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
+    \    for i in range(Z): A[i] %= mod\n    return A\nfrom __pypy__.builders import\
+    \ StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
+    \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
+    \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
+    \ 64: self.load()\n            res.append(self.ibuf[self.pil])\n            self.pil\
+    \ += 1\n        return res\n    def fastout(self, x): self.sb.append(str(x))\n\
+    \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
+    \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
+    \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
+    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
+    def wtnl(l): wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
     \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    wtnl(and_conv(A,\
     \ B, N, 998244353))\n\nfrom cp_library.math.conv.and_conv_fast_fn import and_conv\n\
-    from atexit import register\nfrom os import read, write\nimport sys\nfrom __pypy__\
-    \ import builders\nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb\
-    \ = builders.StringBuilder()\n    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n\
-    \        self.ibuf += read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n\
-    \    def flush(self): write(1, self.sb.build().encode())\n    def fastin(self):\n\
-    \        if self.pir - self.pil < 64: self.load()\n        minus = x = 0\n   \
-    \     while self.ibuf[self.pil] < 45: self.pil += 1\n        if self.ibuf[self.pil]\
-    \ == 45: minus = 1; self.pil += 1\n        while self.ibuf[self.pil] >= 48:\n\
-    \            x = x * 10 + (self.ibuf[self.pil] & 15)\n            self.pil +=\
-    \ 1\n        if minus: return -x\n        return x\n    def fastout(self, x):\
-    \ self.sb.append(str(x))\n    def fastoutln(self, x): self.sb.append(str(x));\
-    \ self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin; wt = fastio.fastout;\
-    \ wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\nsys.stdin = None;\
-    \ sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\ndef wtnl(l):\
-    \ wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
+    from cp_library.io.fast.fast_io_fn import rd, rdl, wtnl\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   dependsOn:
   - cp_library/math/conv/and_conv_fast_fn.py
+  - cp_library/io/fast/fast_io_fn.py
   - cp_library/math/conv/superset_zeta_pair_fn.py
   - cp_library/math/conv/superset_mobius_fn.py
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution_fast.test.py

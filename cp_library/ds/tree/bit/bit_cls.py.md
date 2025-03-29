@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_bit_cls.py
+    title: cp_library/alg/tree/fast/hld_bit_cls.py
   - icon: ':warning:'
     path: cp_library/ds/tree/bit/bir_cls.py
     title: cp_library/ds/tree/bit/bir_cls.py
@@ -10,14 +13,17 @@ data:
     title: cp_library/math/invcnt_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+    title: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
@@ -28,8 +34,11 @@ data:
     path: test/library-checker/data-structure/point_add_range_sum.test.py
     title: test/library-checker/data-structure/point_add_range_sum.test.py
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/tree/vertex_add_path_sum.test.py
-    title: test/library-checker/tree/vertex_add_path_sum.test.py
+    path: test/library-checker/tree/vertex_add_path_sum_hld.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/vertex_add_subtree_sum.test.py
     title: test/library-checker/tree/vertex_add_subtree_sum.test.py
@@ -139,18 +148,21 @@ data:
   path: cp_library/ds/tree/bit/bit_cls.py
   requiredBy:
   - cp_library/math/invcnt_fn.py
+  - cp_library/alg/tree/fast/hld_bit_cls.py
   - cp_library/ds/tree/bit/bir_cls.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
   - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/data-structure/point_add_range_sum.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
 documentation_of: cp_library/ds/tree/bit/bit_cls.py
 layout: document
 redirect_from:

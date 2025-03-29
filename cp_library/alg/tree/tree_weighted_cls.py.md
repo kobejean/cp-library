@@ -719,7 +719,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_a_diameter.test.py

@@ -26,9 +26,6 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/iter/sort_parallel_fn.py
     title: cp_library/alg/iter/sort_parallel_fn.py
-  - icon: ':warning:'
-    path: cp_library/alg/tree/auxiliary_tree_cls.py
-    title: cp_library/alg/tree/auxiliary_tree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/aux_tree_base_cls.py
     title: cp_library/alg/tree/fast/aux_tree_base_cls.py
@@ -76,8 +73,11 @@ data:
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -136,7 +136,6 @@ data:
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
@@ -144,7 +143,7 @@ data:
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/iter/sort_parallel_copies_fn.py
   - cp_library/alg/iter/sort_parallel_fn.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -161,8 +160,9 @@ data:
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/yukicoder/3407.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
 documentation_of: cp_library/alg/iter/argsort_fn.py
 layout: document
 redirect_from:

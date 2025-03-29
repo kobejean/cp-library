@@ -49,9 +49,6 @@ data:
     path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
     title: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - icon: ':heavy_check_mark:'
@@ -485,11 +482,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_cls.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

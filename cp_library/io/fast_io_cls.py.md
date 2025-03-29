@@ -135,8 +135,20 @@ data:
     path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_base_cls.py
+    title: cp_library/alg/tree/fast/hld_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_bit_cls.py
+    title: cp_library/alg/tree/fast/hld_bit_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_cls.py
     title: cp_library/alg/tree/fast/hld_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_commutative_cls.py
+    title: cp_library/alg/tree/fast/hld_commutative_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_monoid_cls.py
+    title: cp_library/alg/tree/fast/hld_monoid_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_weighted_cls.py
     title: cp_library/alg/tree/fast/hld_weighted_cls.py
@@ -388,8 +400,11 @@ data:
     path: test/atcoder/abc/abc274_e_vec2d.test.py
     title: test/atcoder/abc/abc274_e_vec2d.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -406,8 +421,8 @@ data:
     path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
     title: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+    title: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
@@ -583,11 +598,23 @@ data:
     path: test/library-checker/tree/tree_path_composite_sum.test.py
     title: test/library-checker/tree/tree_path_composite_sum.test.py
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/tree/vertex_add_path_sum.test.py
-    title: test/library-checker/tree/vertex_add_path_sum.test.py
+    path: test/library-checker/tree/vertex_add_path_sum_hld.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/vertex_add_subtree_sum.test.py
     title: test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_set_path_composite.test.py
+    title: test/library-checker/tree/vertex_set_path_composite.test.py
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
@@ -674,6 +701,8 @@ data:
   - cp_library/alg/tree/fast/aux_tree_base_cls.py
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
+  - cp_library/alg/tree/fast/hld_base_cls.py
+  - cp_library/alg/tree/fast/hld_bit_cls.py
   - cp_library/alg/tree/fast/hld_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
@@ -681,6 +710,8 @@ data:
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/fast/hld_commutative_cls.py
+  - cp_library/alg/tree/fast/hld_monoid_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/graph/bit_graph_cls.py
   - cp_library/alg/graph/func_graph_cls.py
@@ -733,7 +764,7 @@ data:
   - cp_library/ds/grid.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/queries_cls.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
@@ -771,9 +802,13 @@ data:
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/polynomial/inv_of_formal_power_series.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
   - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
   - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/tree/jump_on_tree.test.py
   - test/library-checker/tree/tree_diameter.test.py
@@ -814,7 +849,6 @@ data:
   - test/atcoder/arc/arc122_b_insurance_median.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   - test/atcoder/abc/abc245_f_digraph.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc261_g_mo.test.py
@@ -824,14 +858,15 @@ data:
   - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   - test/atcoder/abc/abc304_f_mobius_inv.test.py
   - test/atcoder/abc/abc203_e_sort_groups.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc206_e_mobius_table.test.py
   - test/atcoder/abc/abc184_e_grid_graph.test.py
   - test/atcoder/abc/abc151_f_fbisect_left.test.py
   - test/atcoder/abc/abc218_f_shortest_path.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - test/atcoder/abc/abc301_e_grid_graph.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc249_f_max_k_heap.test.py
   - test/atcoder/abc/abc185_e_dp2d.test.py
@@ -842,6 +877,7 @@ data:
   - test/atcoder/abc/abc189_e_vec2d.test.py
   - test/atcoder/abc/abc186_e_gcd_ex.test.py
   - test/atcoder/abc/abc249_f_min_k_heap.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc184_f_subset_sum_fn.test.py
   - test/atcoder/abc/abc261_g_queries_mo_ops.test.py
   - test/atcoder/abc/abc274_e_vec2d.test.py

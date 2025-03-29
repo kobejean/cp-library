@@ -10,6 +10,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/max2_fn.py
     title: cp_library/alg/dp/max2_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/fast/fast_io_fn.py
+    title: cp_library/io/fast/fast_io_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -34,47 +37,41 @@ data:
     \ i,a in enumerate(A):\n        if chmin(dp, p := bisect_left(dp,a,hi=r+1), a):\n\
     \            idx[p], prev[i], r = i, idx[p-1], max2(r,p)\n    ans, i = [0]*r,\
     \ idx[r]\n    for j in range(r-1,-1,-1): ans[j], i = i, prev[i]\n    return ans\n\
-    \n    \n\n\nfrom atexit import register\nfrom os import read, write\nimport sys\n\
-    from __pypy__ import builders\nclass Fastio:\n    ibuf = bytes()\n    pil = pir\
-    \ = 0\n    sb = builders.StringBuilder()\n    def load(self):\n        self.ibuf\
-    \ = self.ibuf[self.pil:]\n        self.ibuf += read(0, 131072)\n        self.pil\
-    \ = 0; self.pir = len(self.ibuf)\n    def flush(self): write(1, self.sb.build().encode())\n\
+    \n    \n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import\
+    \ read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
+    \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
+    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
+    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
+    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
+    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
     \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
     \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
     \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
     \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
     \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
-    \ x\n    def fastout(self, x): self.sb.append(str(x))\n    def fastoutln(self,\
-    \ x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin;\
-    \ wt = fastio.fastout; wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\n\
+    \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
+    \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
+    \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
+    \ 64: self.load()\n            res.append(self.ibuf[self.pil])\n            self.pil\
+    \ += 1\n        return res\n    def fastout(self, x): self.sb.append(str(x))\n\
+    \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
+    \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
+    \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
     sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
     def wtnl(l): wtn(' '.join(map(str, l)))\n\nmain()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/longest_increasing_subsequence\n\
     def main():\n    N = rd()\n    A = rdl(N)\n    ans = lis(A)\n    wtn(len(ans))\n\
-    \    wtnl(ans)\n\nfrom cp_library.alg.dp.lis_fn import lis\n\nfrom atexit import\
-    \ register\nfrom os import read, write\nimport sys\nfrom __pypy__ import builders\n\
-    class Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = builders.StringBuilder()\n\
-    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n    def\
-    \ flush(self): write(1, self.sb.build().encode())\n    def fastin(self):\n   \
-    \     if self.pir - self.pil < 64: self.load()\n        minus = x = 0\n      \
-    \  while self.ibuf[self.pil] < 45: self.pil += 1\n        if self.ibuf[self.pil]\
-    \ == 45: minus = 1; self.pil += 1\n        while self.ibuf[self.pil] >= 48:\n\
-    \            x = x * 10 + (self.ibuf[self.pil] & 15)\n            self.pil +=\
-    \ 1\n        if minus: return -x\n        return x\n    def fastout(self, x):\
-    \ self.sb.append(str(x))\n    def fastoutln(self, x): self.sb.append(str(x));\
-    \ self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin; wt = fastio.fastout;\
-    \ wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\nsys.stdin = None;\
-    \ sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\ndef wtnl(l):\
-    \ wtn(' '.join(map(str, l)))\n\nmain()"
+    \    wtnl(ans)\n\nfrom cp_library.alg.dp.lis_fn import lis\nfrom cp_library.io.fast.fast_io_fn\
+    \ import rd, rdl, wtn, wtnl\n\nmain()"
   dependsOn:
   - cp_library/alg/dp/lis_fn.py
+  - cp_library/io/fast/fast_io_fn.py
   - cp_library/alg/dp/max2_fn.py
   - cp_library/alg/dp/chmin_fn.py
   isVerificationFile: true
   path: test/library-checker/other/longest_increasing_sequence.test.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/other/longest_increasing_sequence.test.py

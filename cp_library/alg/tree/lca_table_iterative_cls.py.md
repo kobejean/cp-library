@@ -14,9 +14,6 @@ data:
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/alg/tree/auxiliary_tree_cls.py
-    title: cp_library/alg/tree/auxiliary_tree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/aux_tree_base_cls.py
     title: cp_library/alg/tree/fast/aux_tree_base_cls.py
@@ -63,9 +60,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
@@ -163,9 +157,8 @@ data:
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
-  - cp_library/alg/tree/auxiliary_tree_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -177,7 +170,6 @@ data:
   - test/library-checker/tree/jump_on_tree.test.py
   - test/yukicoder/3407.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

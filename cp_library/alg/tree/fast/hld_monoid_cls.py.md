@@ -11,17 +11,11 @@ data:
     path: cp_library/alg/graph/fast/graph_base_cls.py
     title: cp_library/alg/graph/fast/graph_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_cls.py
-    title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_cls.py
-    title: cp_library/alg/tree/fast/hld_cls.py
+    path: cp_library/alg/tree/fast/hld_base_cls.py
+    title: cp_library/alg/tree/fast/hld_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_cls.py
-    title: cp_library/alg/tree/fast/tree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
@@ -32,53 +26,45 @@ data:
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/tree/bit/bit_cls.py
-    title: cp_library/ds/tree/bit/bit_cls.py
+    path: cp_library/ds/tree/segtree_cls.py
+    title: cp_library/ds/tree/segtree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_fn.py
-    title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/write_fn.py
-    title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_set_path_composite.test.py
+    title: test/library-checker/tree/vertex_set_path_composite.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    PROBLEM: https://judge.yosupo.jp/problem/vertex_add_path_sum
-    links:
-    - https://judge.yosupo.jp/problem/vertex_add_path_sum
-  bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/vertex_add_path_sum\n\
-    def main():\n    N, Q = read()\n    A = read(list[int])\n    T = read(Tree[N,0])\n\
-    \    hld = HLD(T)\n    B = [0]*N\n    for u in range(N):\n        B[hld.tin[u]]\
-    \ = A[u]\n    bit = BIT(B)\n    ans = 0\n    def query(l, r):\n        nonlocal\
-    \ ans\n        ans += bit.range_sum(l,r)\n    for _ in range(Q):\n        t, u,\
-    \ v = read()\n        if t == 0:\n            bit.add(hld.tin[u], v)\n       \
-    \ else:\n            hld.path(u, v, query)\n            write(ans)\n         \
-    \   ans = 0\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    links: []
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\nfrom typing import Sequence\n\n\n\nfrom typing import Callable, Literal,\
-    \ TypeVar, Union, overload\nfrom math import inf\nfrom collections import deque\n\
-    \nimport typing\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from typing import Callable, Generic\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
+    \n\n\n\nfrom typing import Callable, Literal, TypeVar, Union, overload\nfrom math\
+    \ import inf\nfrom collections import deque\nfrom typing import Callable, Sequence,\
+    \ Union, overload\n\nimport typing\nfrom numbers import Number\nfrom types import\
+    \ GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -95,12 +81,11 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n_T = TypeVar('T')\n\nclass TokenStream(Iterator):\n\
-    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
-    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
-    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
-    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \ = IOWrapper(sys.stdout)\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -185,8 +170,8 @@ data:
     \        if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
     \        return G.order\n    \n    def prep_back(G):\n        if G.back is None:\
     \ G.back = i32f(G.N, -2)\n        return G.back\n    \n    def prep_tin(G):\n\
-    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n    \n\
-    \    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n\n   \
+    \ def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -360,166 +345,117 @@ data:
     \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
     \ tout, par, back\n        T.order, T.delta = order, delta\n\n    @classmethod\n\
     \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
-    \ N, N-1, shift)\n    \n\nclass HLD(Sequence[int]):\n    def __init__(hld, T:\
-    \ TreeBase, r=0):\n        hld.N, hld.T = len(T), T\n        N, time, Va = T.N,\
-    \ 0, T.Va\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par, heavy,\
-    \ head = [-1]*N, [-1]*N, [r]*N\n        depth, order, vis = [0]*N, [0]*N, [0]*N\n\
-    \        st = elist(N)\n        st.append(r)\n        while st:\n            if\
-    \ (s := vis[v := st.pop()]) == 0: # dfs down\n                p, vis[v] = par[v],\
-    \ 1; st.append(v)\n                for i in T.range(v):\n                    if\
-    \ (c := Va[i]) != p:\n                        depth[c], par[c] = depth[v]+1, v;\
-    \ st.append(c)\n            elif s == 1: # dfs up\n                p, l = par[v],\
-    \ -1\n                for i in T.range(v):\n                    if (c := Va[i])\
-    \ != p:\n                        size[v] += size[c]\n                        if\
-    \ size[c] > size[l]:\n                            l = c\n                heavy[v]\
-    \ = l\n                if p == -1:\n                    vis[v] = 2\n         \
-    \           st.append(v)\n\n            elif s == 2: # decompose down\n      \
-    \          p, h, l = par[v], head[v], heavy[v]\n                tin[v], order[time],\
-    \ vis[v] = time, v, 3\n                time += 1\n                st.append(v)\n\
-    \                \n                for i in T.range(v):\n                    if\
-    \ (c := Va[i]) != p and c != l:\n                        head[c], vis[c] = c,\
-    \ 2\n                        st.append(c)\n\n                if l != -1:\n   \
-    \                 head[l], vis[l] = h, 2\n                    st.append(l)\n\n\
-    \            elif s == 3: # decompose up\n                tout[v] = time\n   \
-    \     hld.size, hld.depth = size, depth\n        hld.order, hld.tin, hld.tout\
-    \ = order, tin, tout\n        hld.par, hld.heavy, hld.head = par, heavy, head\n\
-    \n    def __getitem__(hld, key):\n        return hld.tin[key]\n    \n    def __len__(hld):\n\
-    \        return len(hld.tin)\n    \n    def __contains__(hld, value):\n      \
-    \  return hld.tin.__contains__(value)\n    \n    def subtree_range(hld, v):\n\
-    \        return hld.tin[v], hld.tout[v]\n\n    def path(hld, u, v, query_fn, edge=False):\n\
-    \        head, depth, par, tin = hld.head, hld.depth, hld.par, hld.tin\n     \
-    \   while head[u] != head[v]:\n            if depth[head[u]] < depth[head[v]]:\n\
-    \                u,v = v,u\n            query_fn(tin[head[u]], tin[u]+1)\n   \
-    \         u = par[head[u]]\n\n        if depth[u] < depth[v]:\n            u,v\
-    \ = v,u\n        query_fn(tin[v]+edge, tin[u]+1)\n\n\n\nclass Graph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M, Ma, deg\
-    \ = len(U), 0, u32f(N)\n        for e in range(M := len(U)):\n            distinct\
-    \ = (u := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v] += distinct; Ma\
-    \ += 1+distinct\n        twin, Ea, Ua, Va, La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma),\
-    \ u32f(Ma), u32f(N), u32f(N), 0\n        for u in range(N): La[u], Ra[u], i =\
-    \ i, i, i+deg[u]\n        for e in range(M):\n            i, j = Ra[u := U[e]],\
-    \ Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v,\
-    \ e, j\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j],\
-    \ twin[j] = j+1, v, u, e, i\n        super().__init__(N, M, U, V, deg, La, Ra,\
-    \ Ua, Va, Ea, twin)\n\n\nclass Tree(TreeBase, Graph):\n    pass\n\n\n'''\n\u257A\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \   \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2513            \n            \u2503                                    7 \u2503\
-    \            \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u252F\u2501\u251B            \n            \u250F\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2513                 \u2502              \n            \u2503  \
-    \              3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n            \u2517\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u252F\u2501\u251B                 \u2502              \n  \
-    \          \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513      \
-    \ \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502\
-    \              \n            \u2503      1 \u2503\u25C4\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\
-    \u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\
-    \u251B       \u2502              \n            \u250F\u2501\u2501\u2501\u2513\
-    \  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513\
-    \  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502              \n            \u2503\
-    \ 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\
-    \u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524              \n        \
-    \    \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
-    \  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
-    \              \n              \u2502    \u2502    \u2502    \u2502    \u2502\
-    \    \u2502    \u2502    \u2502              \n              \u25BC    \u25BC\
-    \    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC              \n\
-    \            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\
-    \u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\
-    \u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\
-    \u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503 1 \u2503\u2503\
-    \ 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6 \u2503\u2503 7\
-    \ \u2503            \n            \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\
-    \u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\
-    \u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\
-    \u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data Structure - Tree -\
-    \ Binary Index Tree            \n'''\n\nclass BIT:\n    def __init__(bit, v: Union[int,\
-    \ list[int]]):\n        if isinstance(v, int): bit.d, bit.n = [0]*v, v\n     \
-    \   else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\n    def\
-    \ build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for i in\
-    \ range(bit.n):\n            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\n\
-    \    def add(bit, i, x):\n        while i < bit.n:\n            bit.d[i] += x\n\
-    \            i |= i+1\n\n    def sum(bit, n: int) -> int:\n        s = 0\n   \
-    \     while n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n    def range_sum(bit,\
-    \ l, r):\n        s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n       \
-    \ while l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n    def __len__(bit)\
-    \ -> int:\n        return bit.n\n    \n    def __getitem__(bit, i: int) -> int:\n\
-    \        s, l = bit.d[i], i&(i+1)\n        while l != i: s, i = s-bit.d[i-1],\
-    \ i-(i&-i)\n        return s\n    get = __getitem__\n    \n    def __setitem__(bit,\
-    \ i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\
-    \n    def prelist(bit) -> list[int]:\n        pre = [0]+bit.d\n        for i in\
-    \ range(bit.n+1): pre[i] += pre[i&i-1]\n        return pre\n\n    def bisect_left(bit,\
-    \ v) -> int:\n        return bit.bisect_right(v-1) if v>0 else 0\n    \n    def\
-    \ bisect_right(bit, v) -> int:\n        i = s = 0; ni = m = bit.lb\n        while\
-    \ m:\n            if ni <= bit.n and (ns:=s+bit.d[ni-1]) <= v: s, i = ns, ni\n\
-    \            ni = (m:=m>>1)|i\n        return i\n\nfrom typing import Iterable,\
-    \ Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
-    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
-    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
-  code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/vertex_add_path_sum\n\
-    def main():\n    N, Q = read()\n    A = read(list[int])\n    T = read(Tree[N,0])\n\
-    \    hld = HLD(T)\n    B = [0]*N\n    for u in range(N):\n        B[hld.tin[u]]\
-    \ = A[u]\n    bit = BIT(B)\n    ans = 0\n    def query(l, r):\n        nonlocal\
-    \ ans\n        ans += bit.range_sum(l,r)\n    for _ in range(Q):\n        t, u,\
-    \ v = read()\n        if t == 0:\n            bit.add(hld.tin[u], v)\n       \
-    \ else:\n            hld.path(u, v, query)\n            write(ans)\n         \
-    \   ans = 0\n\nfrom cp_library.alg.tree.fast.hld_cls import HLD\nfrom cp_library.alg.tree.fast.tree_cls\
-    \ import Tree\nfrom cp_library.ds.tree.bit.bit_cls import BIT\nfrom cp_library.io.read_fn\
-    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n\
-    \    main()\n"
+    \ N, N-1, shift)\n    \n\nclass HLDBase:\n    def __init__(hld, T: TreeBase, r=0):\n\
+    \        hld.N, hld.T = len(T), T\n        N, time, Va = T.N, 0, T.Va\n      \
+    \  tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        back, heavy, head = [-1]*N,\
+    \ [-1]*N, [r]*N\n        depth, order, vis = [0]*N, [0]*N, [0]*N\n        st =\
+    \ elist(N); st.append(r)\n        while st:\n            if (s := vis[v := st.pop()])\
+    \ == 0: # dfs down\n                vis[v], j = 1, back[v]; st.append(v)\n   \
+    \             for i in T.range(v):\n                    if i != j:\n         \
+    \               depth[c := Va[i]], back[c] = depth[v]+1, T.twin[i]; st.append(c)\n\
+    \            elif s == 1: # dfs up\n                l, j = -1, back[v]\n     \
+    \           for i in T.range(v):\n                    if i != j:\n           \
+    \             size[v] += size[c := Va[i]]\n                        if size[c]\
+    \ > size[l]: l = c\n                heavy[v] = l\n                if j == -1:\
+    \ vis[v] = 2; st.append(v)\n\n            elif s == 2: # decompose down\n    \
+    \            h, l, j = head[v], heavy[v], back[v]\n                tin[v], order[time],\
+    \ vis[v] = time, v, 3\n                time += 1; st.append(v)\n             \
+    \   for i in T.range(v):\n                    if i != j and (c := Va[i]) != l:\n\
+    \                        head[c], vis[c] = c, 2; st.append(c)\n              \
+    \  if l != -1: head[l], vis[l] = h, 2; st.append(l)\n\n            elif s == 3:\
+    \ # decompose up\n                tout[v] = time\n        hld.up = [-1]*N\n  \
+    \      for u,h in enumerate(head):\n            if (j := back[h]) != -1:\n   \
+    \             hld.up[u] = T.Va[j]\n\n        hld.size, hld.depth = size, depth\n\
+    \        hld.order, hld.tin, hld.tout = order, tin, tout\n        hld.heavy, hld.head,\
+    \ hld.back = heavy, head, back\n\n    def subtree_range(hld, v):\n        return\
+    \ hld.tin[v], hld.tout[v]\n\n\nclass HLDMonoid(HLDBase, Generic[_T]):\n    def\
+    \ __init__(hld, T: TreeBase, op: Callable[[_T,_T],_T], e: _T, A: list[_T], r=0):\n\
+    \        super().__init__(T, r)\n        hld.op, hld.e = op, e\n        B = [A[u]\
+    \ for u in hld.order]\n        hld.pre = SegTree(op, e, B)\n        B.reverse()\n\
+    \        hld.suf = SegTree(op, e, B)\n    \n    def get(hld, u) -> _T:\n     \
+    \   return hld.pre.get(hld.tin[u])\n    __getitem__ = get\n    \n    def set(hld,\
+    \ u, x: _T):\n        hld.pre.set(hld.tin[u], x)\n        hld.suf.set(hld.N-1-hld.tin[u],\
+    \ x)\n    __setitem__ = set\n\n    def path_query(hld, u, v, edge=False):\n  \
+    \      us = vs = hld.e\n        while hld.head[u] != hld.head[v]:\n          \
+    \  if hld.depth[hld.head[u]] < hld.depth[hld.head[v]]:\n                vs = hld.op(hld.pre.prod(hld.tin[hld.head[v]],\
+    \ hld.tin[v]+1), vs)\n                v = hld.up[v]\n            else:\n     \
+    \           us = hld.op(us, hld.suf.prod(hld.N-1-hld.tin[u], hld.N-hld.tin[hld.head[u]]))\n\
+    \                u = hld.up[u]\n\n        if hld.depth[u] < hld.depth[v]:\n  \
+    \          vs = hld.op(hld.pre.prod(hld.tin[u]+edge, hld.tin[v]+1), vs)\n    \
+    \    else:\n            us = hld.op(us, hld.suf.prod(hld.N-1-hld.tin[u], hld.N-hld.tin[v]-edge))\n\
+    \        return hld.op(us, vs)\n\n\n\nclass SegTree(Generic[_T]):\n    def __init__(seg,\
+    \ op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) -> None:\n     \
+    \   if isinstance(v, int): v = [e] * v\n        seg.op, seg.e, seg.n = op, e,\
+    \ (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
+    \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): seg.d[sz + i]\
+    \ = v[i]\n        for i in range(sz-1,0,-1): seg.d[i] = op(seg.d[i<<1], seg.d[i<<1|1])\n\
+    \n    def set(seg, p: int, x: _T) -> None:\n        seg.d[p := p + seg.sz], op\
+    \ = x, seg.op\n        for _ in range(seg.log): seg.d[p:=p>>1] = op(seg.d[p:=p^(p&1)],\
+    \ seg.d[p|1])\n    __setitem__ = set\n\n    def get(seg, p: int) -> _T:\n    \
+    \    return seg.d[p + seg.sz]\n    __getitem__ = get\n\n    def prod(seg, l: int,\
+    \ r: int) -> _T:\n        sml = smr = seg.e\n        l, r = l+seg.sz, r+seg.sz\n\
+    \        while l < r:\n            if l&1: sml, l = seg.op(sml, seg.d[l]), l+1\n\
+    \            if r&1: smr = seg.op(seg.d[r:=r-1], smr)\n            l, r = l >>\
+    \ 1, r >> 1\n        return seg.op(sml, smr)\n\n    def all_prod(seg) -> _T:\n\
+    \        return seg.d[1]\n\n    def max_right(seg, l: int, f: Callable[[_T], bool])\
+    \ -> int:\n        assert 0 <= l <= seg.n\n        assert f(seg.e)\n        if\
+    \ l == seg.n: return seg.n\n        l, op, d, sm = l+(sz := seg.sz), seg.op, seg.d,\
+    \ seg.e\n        while True:\n            while l&1 == 0: l >>= 1\n          \
+    \  if not f(op(sm, d[l])):\n                while l < sz:\n                  \
+    \  if f(op(sm, d[l:=l<<1])): sm, l = op(sm, d[l]), l+1\n                return\
+    \ l - sz\n            sm, l = op(sm, d[l]), l+1\n            if l&-l == l: return\
+    \ seg.n\n\n    def min_left(seg, r: int, f: Callable[[_T], bool]) -> int:\n  \
+    \      assert 0 <= r <= seg.n\n        assert f(seg.e)\n        if r == 0: return\
+    \ 0\n        r, op, d, sm = r+(sz := seg.sz), seg.op, seg.d, seg.e\n        while\
+    \ True:\n            r -= 1\n            while r > 1 and r & 1: r >>= 1\n    \
+    \        if not f(op(d[r], sm)):\n                while r < sz:\n            \
+    \        if f(op(d[r:=r<<1|1], sm)): sm, r = op(d[r], sm), r-1\n             \
+    \   return r + 1 - sz\n            sm = op(d[r], sm)\n            if (r & -r)\
+    \ == r: return 0\n"
+  code: "import cp_library.__header__\nfrom typing import Callable, Generic\nfrom\
+    \ cp_library.misc.typing import _T\n\nimport cp_library.alg.__header__\nimport\
+    \ cp_library.alg.tree.__header__\nimport cp_library.alg.tree.fast.__header__\n\
+    from cp_library.alg.tree.fast.hld_base_cls import HLDBase\nfrom cp_library.alg.tree.fast.tree_base_cls\
+    \ import TreeBase\n\nclass HLDMonoid(HLDBase, Generic[_T]):\n    def __init__(hld,\
+    \ T: TreeBase, op: Callable[[_T,_T],_T], e: _T, A: list[_T], r=0):\n        super().__init__(T,\
+    \ r)\n        hld.op, hld.e = op, e\n        B = [A[u] for u in hld.order]\n \
+    \       hld.pre = SegTree(op, e, B)\n        B.reverse()\n        hld.suf = SegTree(op,\
+    \ e, B)\n    \n    def get(hld, u) -> _T:\n        return hld.pre.get(hld.tin[u])\n\
+    \    __getitem__ = get\n    \n    def set(hld, u, x: _T):\n        hld.pre.set(hld.tin[u],\
+    \ x)\n        hld.suf.set(hld.N-1-hld.tin[u], x)\n    __setitem__ = set\n\n  \
+    \  def path_query(hld, u, v, edge=False):\n        us = vs = hld.e\n        while\
+    \ hld.head[u] != hld.head[v]:\n            if hld.depth[hld.head[u]] < hld.depth[hld.head[v]]:\n\
+    \                vs = hld.op(hld.pre.prod(hld.tin[hld.head[v]], hld.tin[v]+1),\
+    \ vs)\n                v = hld.up[v]\n            else:\n                us =\
+    \ hld.op(us, hld.suf.prod(hld.N-1-hld.tin[u], hld.N-hld.tin[hld.head[u]]))\n \
+    \               u = hld.up[u]\n\n        if hld.depth[u] < hld.depth[v]:\n   \
+    \         vs = hld.op(hld.pre.prod(hld.tin[u]+edge, hld.tin[v]+1), vs)\n     \
+    \   else:\n            us = hld.op(us, hld.suf.prod(hld.N-1-hld.tin[u], hld.N-hld.tin[v]-edge))\n\
+    \        return hld.op(us, vs)\n\nfrom cp_library.ds.tree.segtree_cls import SegTree"
   dependsOn:
-  - cp_library/alg/tree/fast/hld_cls.py
-  - cp_library/alg/tree/fast/tree_cls.py
-  - cp_library/ds/tree/bit/bit_cls.py
-  - cp_library/io/read_fn.py
-  - cp_library/io/write_fn.py
+  - cp_library/alg/tree/fast/hld_base_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/ds/tree/segtree_cls.py
   - cp_library/ds/elist_fn.py
-  - cp_library/alg/graph/fast/graph_cls.py
-  - cp_library/io/parser_cls.py
-  - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/array_init_fn.py
+  - cp_library/io/parser_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/packet_list_cls.py
-  isVerificationFile: true
-  path: test/library-checker/tree/vertex_add_path_sum.test.py
+  - cp_library/io/fast_io_cls.py
+  isVerificationFile: false
+  path: cp_library/alg/tree/fast/hld_monoid_cls.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: test/library-checker/tree/vertex_add_path_sum.test.py
+  timestamp: '2025-03-29 18:58:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
+documentation_of: cp_library/alg/tree/fast/hld_monoid_cls.py
 layout: document
 redirect_from:
-- /verify/test/library-checker/tree/vertex_add_path_sum.test.py
-- /verify/test/library-checker/tree/vertex_add_path_sum.test.py.html
-title: test/library-checker/tree/vertex_add_path_sum.test.py
+- /library/cp_library/alg/tree/fast/hld_monoid_cls.py
+- /library/cp_library/alg/tree/fast/hld_monoid_cls.py.html
+title: cp_library/alg/tree/fast/hld_monoid_cls.py
 ---

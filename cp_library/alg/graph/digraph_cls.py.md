@@ -357,7 +357,7 @@ data:
   path: cp_library/alg/graph/digraph_cls.py
   requiredBy:
   - cp_library/alg/graph/dag_cls.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc245_f_digraph.test.py

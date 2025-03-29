@@ -297,9 +297,6 @@ data:
   - name: cp_library/alg/tree
     pages:
     - icon: ':warning:'
-      path: cp_library/alg/tree/auxiliary_tree_cls.py
-      title: cp_library/alg/tree/auxiliary_tree_cls.py
-    - icon: ':warning:'
       path: cp_library/alg/tree/centroid_decomposition_cls.py
       title: cp_library/alg/tree/centroid_decomposition_cls.py
     - icon: ':warning:'
@@ -308,12 +305,6 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/tree/find_centroid_recursive_fn.py
       title: cp_library/alg/tree/find_centroid_recursive_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/tree/heavy_light_decomposition_cls.py
-      title: cp_library/alg/tree/heavy_light_decomposition_cls.py
-    - icon: ':warning:'
-      path: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
-      title: cp_library/alg/tree/heavy_light_decomposition_weighted_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/lca_table_iterative_cls.py
       title: cp_library/alg/tree/lca_table_iterative_cls.py
@@ -347,8 +338,20 @@ data:
       path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
       title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/fast/hld_base_cls.py
+      title: cp_library/alg/tree/fast/hld_base_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/fast/hld_bit_cls.py
+      title: cp_library/alg/tree/fast/hld_bit_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/hld_cls.py
       title: cp_library/alg/tree/fast/hld_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/fast/hld_commutative_cls.py
+      title: cp_library/alg/tree/fast/hld_commutative_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/tree/fast/hld_monoid_cls.py
+      title: cp_library/alg/tree/fast/hld_monoid_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/tree/fast/hld_weighted_cls.py
       title: cp_library/alg/tree/fast/hld_weighted_cls.py
@@ -582,6 +585,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
+  - name: cp_library/io/fast
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/io/fast/fast_io_fn.py
+      title: cp_library/io/fast/fast_io_fn.py
   - name: cp_library/io/legacy
     pages:
     - icon: ':heavy_check_mark:'
@@ -1086,8 +1094,11 @@ data:
       path: test/atcoder/abc/abc274_e_vec2d.test.py
       title: test/atcoder/abc/abc274_e_vec2d.test.py
     - icon: ':heavy_check_mark:'
-      path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-      title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+      path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+      title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+      title: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
     - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
       title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -1104,8 +1115,8 @@ data:
       path: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
       title: test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
     - icon: ':heavy_check_mark:'
-      path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-      title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
+      path: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+      title: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
     - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
       title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
@@ -1337,11 +1348,23 @@ data:
       path: test/library-checker/tree/tree_path_composite_sum.test.py
       title: test/library-checker/tree/tree_path_composite_sum.test.py
     - icon: ':heavy_check_mark:'
-      path: test/library-checker/tree/vertex_add_path_sum.test.py
-      title: test/library-checker/tree/vertex_add_path_sum.test.py
+      path: test/library-checker/tree/vertex_add_path_sum_hld.test.py
+      title: test/library-checker/tree/vertex_add_path_sum_hld.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+      title: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+      title: test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+      title: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/tree/vertex_add_subtree_sum.test.py
       title: test/library-checker/tree/vertex_add_subtree_sum.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/tree/vertex_set_path_composite.test.py
+      title: test/library-checker/tree/vertex_set_path_composite.test.py
   - name: test/yukicoder
     pages:
     - icon: ':heavy_check_mark:'

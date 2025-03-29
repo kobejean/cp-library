@@ -109,8 +109,11 @@ data:
     path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
     title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -218,7 +221,7 @@ data:
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -244,10 +247,11 @@ data:
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/yukicoder/3407.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
 documentation_of: cp_library/ds/heap/priority_queue_cls.py
 layout: document

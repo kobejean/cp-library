@@ -121,9 +121,6 @@ data:
     path: test/atcoder/abc/abc301_e_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_grid_graph.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
-  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
   - icon: ':heavy_check_mark:'
@@ -652,7 +649,7 @@ data:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/dag_cls.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
@@ -674,7 +671,6 @@ data:
   - test/atcoder/abc/abc184_e_grid_graph.test.py
   - test/atcoder/abc/abc218_f_shortest_path.test.py
   - test/atcoder/abc/abc301_e_grid_graph.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
   - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py

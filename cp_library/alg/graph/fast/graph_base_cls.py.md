@@ -81,8 +81,20 @@ data:
     path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
     title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_base_cls.py
+    title: cp_library/alg/tree/fast/hld_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_bit_cls.py
+    title: cp_library/alg/tree/fast/hld_bit_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_cls.py
     title: cp_library/alg/tree/fast/hld_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_commutative_cls.py
+    title: cp_library/alg/tree/fast/hld_commutative_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_monoid_cls.py
+    title: cp_library/alg/tree/fast/hld_monoid_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_weighted_cls.py
     title: cp_library/alg/tree/fast/hld_weighted_cls.py
@@ -142,14 +154,20 @@ data:
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+    title: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
@@ -196,11 +214,23 @@ data:
     path: test/library-checker/tree/tree_path_composite_sum.test.py
     title: test/library-checker/tree/tree_path_composite_sum.test.py
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/tree/vertex_add_path_sum.test.py
-    title: test/library-checker/tree/vertex_add_path_sum.test.py
+    path: test/library-checker/tree/vertex_add_path_sum_hld.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/vertex_add_subtree_sum.test.py
     title: test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_set_path_composite.test.py
+    title: test/library-checker/tree/vertex_set_path_composite.test.py
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
@@ -331,8 +361,8 @@ data:
     \        if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
     \        return G.order\n    \n    def prep_back(G):\n        if G.back is None:\
     \ G.back = i32f(G.N, -2)\n        return G.back\n    \n    def prep_tin(G):\n\
-    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n    \n\
-    \    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n\n   \
+    \ def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -496,8 +526,8 @@ data:
     \        if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
     \        return G.order\n    \n    def prep_back(G):\n        if G.back is None:\
     \ G.back = i32f(G.N, -2)\n        return G.back\n    \n    def prep_tin(G):\n\
-    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n    \n\
-    \    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n\n   \
+    \ def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -613,6 +643,8 @@ data:
   - cp_library/alg/tree/fast/aux_tree_base_cls.py
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
+  - cp_library/alg/tree/fast/hld_base_cls.py
+  - cp_library/alg/tree/fast/hld_bit_cls.py
   - cp_library/alg/tree/fast/hld_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
@@ -620,6 +652,8 @@ data:
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/fast/hld_commutative_cls.py
+  - cp_library/alg/tree/fast/hld_monoid_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
@@ -636,7 +670,7 @@ data:
   - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -649,9 +683,13 @@ data:
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
   - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/tree/vertex_add_path_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
   - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/tree/jump_on_tree.test.py
   - test/library-checker/tree/tree_diameter.test.py
@@ -665,13 +703,15 @@ data:
   - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/yukicoder/3407.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
 documentation_of: cp_library/alg/graph/fast/graph_base_cls.py
 layout: document

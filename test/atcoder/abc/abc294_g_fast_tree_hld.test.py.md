@@ -20,6 +20,9 @@ data:
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_base_cls.py
+    title: cp_library/alg/tree/fast/hld_base_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_cls.py
     title: cp_library/alg/tree/fast/hld_cls.py
   - icon: ':heavy_check_mark:'
@@ -81,74 +84,74 @@ data:
     - https://atcoder.jp/contests/abc294/tasks/abc294_g
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
-    \    W = [hld.weights[i] for i in hld.order]\n    bit = BIT(W)\n    ans = 0\n\n\
-    \    def query(l, r):\n        nonlocal ans\n        ans += bit.range_sum(l,r)\
-    \ \n    I = [0]*N\n    for i in hld.back:\n        if i == -1: continue\n    \
-    \    I[T.Ea[i]] = hld[T.Va[i]]\n\n    Q = read(int)\n    for q in read(list[tuple[int,\
-    \ int, int], Q]):\n        match q:\n            case 1, i, w:\n             \
-    \   bit[I[i-1]] = w\n            case 2, u, v:\n                ans = 0\n    \
-    \            hld.path(u-1, v-1, query, True)\n                write(ans)\n\n'''\n\
-    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\nfrom typing\
-    \ import Union\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \    bit = BIT(hld.weights)\n    ans = 0\n\n    def query(l, r):\n        nonlocal\
+    \ ans\n        ans += bit.range_sum(l,r) \n    I = [0]*N\n    for i in hld.back:\n\
+    \        if i == -1: continue\n        I[T.Ea[i]] = hld.tin[T.Ua[i]]\n\n    Q\
+    \ = read(int)\n    for q in read(list[tuple[int, int, int], Q]):\n        match\
+    \ q:\n            case 1, i, w:\n                bit[I[i-1]] = w\n           \
+    \ case 2, u, v:\n                ans = 0\n                hld.path_query(u-1,\
+    \ v-1, query, True)\n                write(ans)\n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \               \n'''\nfrom typing import Union\n\n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2513            \n            \u2503         \
-    \                           7 \u2503            \n            \u2517\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B           \
-    \ \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513                 \u2502\
-    \              \n            \u2503                3 \u2503\u25C4\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
-    \            \u2502              \n            \u250F\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2513       \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2513       \u2502              \n            \u2503      1 \u2503\
-    \u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513           \
+    \ \n            \u2503                                    7 \u2503           \
+    \ \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u252F\u2501\u251B            \n            \u250F\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2513                 \u2502              \n            \u2503              \
+    \  3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u2500\u2524              \n            \u2517\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u252F\u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u252F\u2501\u251B       \u2502              \n            \u250F\
-    \u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\
-    \u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502     \
-    \         \n            \u2503 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\
-    \u2500\u2524  \u2503 4 \u2503\u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524\
-    \              \n            \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\
-    \u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\
-    \u252F\u2501\u251B  \u2502              \n              \u2502    \u2502    \u2502\
-    \    \u2502    \u2502    \u2502    \u2502    \u2502              \n          \
-    \    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC\
-    \              \n            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u252F\u2501\u251B                 \u2502              \n            \u250F\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502  \u250F\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502              \n\
+    \            \u2503      1 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524\
+    \  \u2503      5 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524      \
+    \        \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B\
+    \       \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B \
+    \      \u2502              \n            \u250F\u2501\u2501\u2501\u2513  \u2502\
+    \  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502\
+    \  \u250F\u2501\u2501\u2501\u2513  \u2502              \n            \u2503 0\
+    \ \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\
+    \u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524              \n        \
+    \    \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
+    \  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
+    \              \n              \u2502    \u2502    \u2502    \u2502    \u2502\
+    \    \u2502    \u2502    \u2502              \n              \u25BC    \u25BC\
+    \    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC              \n\
+    \            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\
+    \u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\
     \u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\
-    \u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\
-    \u250F\u2501\u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503\
-    \ 1 \u2503\u2503 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6\
-    \ \u2503\u2503 7 \u2503            \n            \u2517\u2501\u2501\u2501\u251B\
-    \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\
+    \u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503 1 \u2503\u2503\
+    \ 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6 \u2503\u2503 7\
+    \ \u2503            \n            \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\
     \u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\
-    \u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\
+    \u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\
+    \u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data\
-    \ Structure - Tree - Binary Index Tree            \n'''\n\nclass BIT:\n    def\
-    \ __init__(bit, v: Union[int, list[int]]):\n        if isinstance(v, int): bit.d,\
-    \ bit.n = [0]*v, v\n        else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\
-    \n    def build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for\
-    \ i in range(bit.n):\n            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\
-    \n    def add(bit, i, x):\n        while i < bit.n:\n            bit.d[i] += x\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data Structure - Tree -\
+    \ Binary Index Tree            \n'''\n\nclass BIT:\n    def __init__(bit, v: Union[int,\
+    \ list[int]]):\n        if isinstance(v, int): bit.d, bit.n = [0]*v, v\n     \
+    \   else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\n    def\
+    \ build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for i in\
+    \ range(bit.n):\n            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\n\
+    \    def add(bit, i, x):\n        while i < bit.n:\n            bit.d[i] += x\n\
     \            i |= i+1\n\n    def sum(bit, n: int) -> int:\n        s = 0\n   \
     \     while n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n    def range_sum(bit,\
     \ l, r):\n        s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n       \
@@ -288,19 +291,19 @@ data:
     \ = elist(G.N)\n        else: G.order.clear()\n        return G.order\n    \n\
     \    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n  \
     \      return G.back\n    \n    def prep_tin(G):\n        if G.tin is None: G.tin\
-    \ = i32f(G.N, -1)\n        return G.tin\n    \n    def __len__(G) -> int: return\
-    \ G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G,\
-    \ u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
-    \        else: return G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua,\
-    \ back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v\
-    \ := Ua[back[v]])\n        return vertices\n    \n    def recover_path_edge_ids(G,\
-    \ s, t):\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n  \
-    \      while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return\
-    \ edges\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
-    \ t) >= inf: return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
+    \ = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return G.N\n\
+    \    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G, u):\
+    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
+    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
+    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua, back, vertices =\
+    \ G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n\
+    \        return vertices\n    \n    def recover_path_edge_ids(G, s, t):\n    \
+    \    Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v\
+    \ != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return edges\n\n\
+    \    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf:\
+    \ return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
     \        return vertices\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n\
     \        if G.distance(s, t) >= inf: return None\n        edges = G.recover_path_edge_ids(s,\
     \ t)\n        edges.reverse()\n        return edges\n    \n    @overload\n   \
@@ -578,69 +581,43 @@ data:
     \ T.Wdelta = order, delta, Wdelta\n\n    @classmethod\n    def compile(cls, N:\
     \ int, shift: int = -1):\n        return GraphWeightedBase.compile.__func__(cls,\
     \ N, N-1, shift)\n    \n\nclass TreeWeighted(TreeWeightedBase, GraphWeighted):\n\
-    \    pass\n\n\nclass HLD(Sequence[int]):\n    def __init__(hld, T: TreeBase, r=0):\n\
-    \        hld.N, hld.T = len(T), T\n        N, time, Va = T.N, 0, T.Va\n      \
-    \  tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par, heavy, head = [-1]*N,\
-    \ [-1]*N, [r]*N\n        depth, order, vis = [0]*N, [0]*N, [0]*N\n        st =\
-    \ elist(N)\n        st.append(r)\n        while st:\n            if (s := vis[v\
-    \ := st.pop()]) == 0: # dfs down\n                p, vis[v] = par[v], 1; st.append(v)\n\
-    \                for i in T.range(v):\n                    if (c := Va[i]) !=\
-    \ p:\n                        depth[c], par[c] = depth[v]+1, v; st.append(c)\n\
-    \            elif s == 1: # dfs up\n                p, l = par[v], -1\n      \
-    \          for i in T.range(v):\n                    if (c := Va[i]) != p:\n \
-    \                       size[v] += size[c]\n                        if size[c]\
-    \ > size[l]:\n                            l = c\n                heavy[v] = l\n\
-    \                if p == -1:\n                    vis[v] = 2\n               \
-    \     st.append(v)\n\n            elif s == 2: # decompose down\n            \
-    \    p, h, l = par[v], head[v], heavy[v]\n                tin[v], order[time],\
-    \ vis[v] = time, v, 3\n                time += 1\n                st.append(v)\n\
-    \                \n                for i in T.range(v):\n                    if\
-    \ (c := Va[i]) != p and c != l:\n                        head[c], vis[c] = c,\
-    \ 2\n                        st.append(c)\n\n                if l != -1:\n   \
-    \                 head[l], vis[l] = h, 2\n                    st.append(l)\n\n\
-    \            elif s == 3: # decompose up\n                tout[v] = time\n   \
-    \     hld.size, hld.depth = size, depth\n        hld.order, hld.tin, hld.tout\
-    \ = order, tin, tout\n        hld.par, hld.heavy, hld.head = par, heavy, head\n\
-    \n    def __getitem__(hld, key):\n        return hld.tin[key]\n    \n    def __len__(hld):\n\
-    \        return len(hld.tin)\n    \n    def __contains__(hld, value):\n      \
-    \  return hld.tin.__contains__(value)\n    \n    def subtree_range(hld, v):\n\
-    \        return hld.tin[v], hld.tout[v]\n\n    def path(hld, u, v, query_fn, edge=False):\n\
-    \        head, depth, par, tin = hld.head, hld.depth, hld.par, hld.tin\n     \
-    \   while head[u] != head[v]:\n            if depth[head[u]] < depth[head[v]]:\n\
-    \                u,v = v,u\n            query_fn(tin[head[u]], tin[u]+1)\n   \
-    \         u = par[head[u]]\n\n        if depth[u] < depth[v]:\n            u,v\
-    \ = v,u\n        query_fn(tin[v]+edge, tin[u]+1)\n\n\nclass HLDWeighted(HLD):\n\
-    \    def __init__(hld, T: TreeWeightedBase, r=0):\n        N, time, Va, Wa = T.N,\
-    \ 0, T.Va, T.Wa\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        back,\
-    \ par, heavy, head = [-1]*N, [-1]*N, [-1]*N, [r]*N\n        depth, order, vis\
-    \ = [0]*N, [0]*N, [0]*N\n        weights = [0]*N\n        st = elist(N)\n    \
-    \    st.append(r)\n        while st:\n            if (s := vis[v := st.pop()])\
-    \ == 0: # dfs down\n                vis[v] = 1\n                j = T.twin[back[v]]\
-    \ if back[v] >= 0 else -1\n                st.append(v)\n                for i\
-    \ in T.range(v):\n                    if i != j:\n                        c =\
-    \ Va[i]\n                        depth[c], par[c], weights[c] = depth[v]+1, v,\
-    \ Wa[i]\n                        back[c] = i\n                        st.append(c)\n\
-    \n            elif s == 1: # dfs up\n                l = -1\n                j\
-    \ = T.twin[back[v]] if back[v] >= 0 else -1\n                for i in T.range(v):\n\
-    \                    if i != j:\n                        size[v] += size[c :=\
-    \ Va[i]]\n                        if size[c] > size[l]:\n                    \
-    \        l = c\n                heavy[v] = l\n                if j == -1:\n  \
-    \                  vis[v] = 2\n                    st.append(v)\n\n          \
-    \  elif s == 2: # decompose down\n                h, l = head[v], heavy[v]\n \
-    \               j = T.twin[back[v]] if back[v] >= 0 else -1\n                tin[v],\
-    \ order[time], vis[v] = time, v, 3\n                time += 1\n              \
-    \  st.append(v)\n                \n                for i in T.range(v):\n    \
-    \                if i != j and (c := Va[i]) != l:\n                        head[c],\
-    \ vis[c] = c, 2\n                        st.append(c)\n\n                if l\
-    \ != -1:\n                    head[l], vis[l] = h, 2\n                    st.append(l)\n\
-    \n            elif s == 3: # decompose up\n                tout[v] = time\n  \
-    \      hld.size, hld.depth = size, depth\n        hld.order, hld.tin, hld.tout\
-    \ = order, tin, tout\n        hld.par, hld.heavy, hld.head = par, heavy, head\n\
-    \        hld.weights = weights\n        hld.back = back\n\n\nfrom typing import\
-    \ Iterable, Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n\
-    @overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
-    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \    pass\n\n\nclass HLDBase:\n    def __init__(hld, T: TreeBase, r=0):\n    \
+    \    hld.N, hld.T = len(T), T\n        N, time, Va = T.N, 0, T.Va\n        tin,\
+    \ tout, size = [0]*N, [0]*N, [1]*N+[0]\n        back, heavy, head = [-1]*N, [-1]*N,\
+    \ [r]*N\n        depth, order, vis = [0]*N, [0]*N, [0]*N\n        st = elist(N);\
+    \ st.append(r)\n        while st:\n            if (s := vis[v := st.pop()]) ==\
+    \ 0: # dfs down\n                vis[v], j = 1, back[v]; st.append(v)\n      \
+    \          for i in T.range(v):\n                    if i != j:\n            \
+    \            depth[c := Va[i]], back[c] = depth[v]+1, T.twin[i]; st.append(c)\n\
+    \            elif s == 1: # dfs up\n                l, j = -1, back[v]\n     \
+    \           for i in T.range(v):\n                    if i != j:\n           \
+    \             size[v] += size[c := Va[i]]\n                        if size[c]\
+    \ > size[l]: l = c\n                heavy[v] = l\n                if j == -1:\
+    \ vis[v] = 2; st.append(v)\n\n            elif s == 2: # decompose down\n    \
+    \            h, l, j = head[v], heavy[v], back[v]\n                tin[v], order[time],\
+    \ vis[v] = time, v, 3\n                time += 1; st.append(v)\n             \
+    \   for i in T.range(v):\n                    if i != j and (c := Va[i]) != l:\n\
+    \                        head[c], vis[c] = c, 2; st.append(c)\n              \
+    \  if l != -1: head[l], vis[l] = h, 2; st.append(l)\n\n            elif s == 3:\
+    \ # decompose up\n                tout[v] = time\n        hld.up = [-1]*N\n  \
+    \      for u,h in enumerate(head):\n            if (j := back[h]) != -1:\n   \
+    \             hld.up[u] = T.Va[j]\n\n        hld.size, hld.depth = size, depth\n\
+    \        hld.order, hld.tin, hld.tout = order, tin, tout\n        hld.heavy, hld.head,\
+    \ hld.back = heavy, head, back\n\n    def subtree_range(hld, v):\n        return\
+    \ hld.tin[v], hld.tout[v]\n\n\nclass HLD(HLDBase):\n\n    def path_query(hld,\
+    \ u, v, query_fn, edge=False):\n        while hld.head[u] != hld.head[v]:\n  \
+    \          if hld.depth[hld.head[u]] < hld.depth[hld.head[v]]:\n             \
+    \   query_fn(hld.tin[hld.head[v]], hld.tin[v]+1)\n                v = hld.up[v]\n\
+    \            else:\n                query_fn(hld.tin[hld.head[u]], hld.tin[u]+1)\n\
+    \                u = hld.up[u]\n\n        if hld.depth[u] < hld.depth[v]:\n  \
+    \          query_fn(hld.tin[u]+edge, hld.tin[v]+1)\n        else:\n          \
+    \  query_fn(hld.tin[v]+edge, hld.tin[u]+1)\n\nclass HLDWeighted(HLD):\n    def\
+    \ __init__(hld, T: TreeWeightedBase, r=0):\n        super().__init__(T, r)\n \
+    \       hld.weights = [T.Wa[i] if (i := hld.back[u]) >= 0 else 0 for u in hld.order]\n\
+    \nfrom typing import Iterable, Type, Union, overload\n\n@overload\ndef read()\
+    \ -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
     \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
@@ -651,17 +628,17 @@ data:
     \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
-    \    W = [hld.weights[i] for i in hld.order]\n    bit = BIT(W)\n    ans = 0\n\n\
-    \    def query(l, r):\n        nonlocal ans\n        ans += bit.range_sum(l,r)\
-    \ \n    I = [0]*N\n    for i in hld.back:\n        if i == -1: continue\n    \
-    \    I[T.Ea[i]] = hld[T.Va[i]]\n\n    Q = read(int)\n    for q in read(list[tuple[int,\
-    \ int, int], Q]):\n        match q:\n            case 1, i, w:\n             \
-    \   bit[I[i-1]] = w\n            case 2, u, v:\n                ans = 0\n    \
-    \            hld.path(u-1, v-1, query, True)\n                write(ans)\n\nfrom\
-    \ cp_library.ds.tree.bit.bit_cls import BIT\nfrom cp_library.alg.tree.fast.tree_weighted_cls\
-    \ import TreeWeighted\nfrom cp_library.alg.tree.fast.hld_weighted_cls import HLDWeighted\n\
-    from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
-    \nif __name__ == \"__main__\":\n    main()"
+    \    bit = BIT(hld.weights)\n    ans = 0\n\n    def query(l, r):\n        nonlocal\
+    \ ans\n        ans += bit.range_sum(l,r) \n    I = [0]*N\n    for i in hld.back:\n\
+    \        if i == -1: continue\n        I[T.Ea[i]] = hld.tin[T.Ua[i]]\n\n    Q\
+    \ = read(int)\n    for q in read(list[tuple[int, int, int], Q]):\n        match\
+    \ q:\n            case 1, i, w:\n                bit[I[i-1]] = w\n           \
+    \ case 2, u, v:\n                ans = 0\n                hld.path_query(u-1,\
+    \ v-1, query, True)\n                write(ans)\n\nfrom cp_library.ds.tree.bit.bit_cls\
+    \ import BIT\nfrom cp_library.alg.tree.fast.tree_weighted_cls import TreeWeighted\n\
+    from cp_library.alg.tree.fast.hld_weighted_cls import HLDWeighted\nfrom cp_library.io.read_fn\
+    \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == \"__main__\"\
+    :\n    main()"
   dependsOn:
   - cp_library/ds/tree/bit/bit_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
@@ -671,12 +648,13 @@ data:
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/hld_cls.py
-  - cp_library/ds/elist_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/ds/array_init_fn.py
+  - cp_library/alg/tree/fast/hld_base_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/ds/elist_fn.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/alg/graph/fast/graph_base_cls.py
@@ -687,15 +665,15 @@ data:
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/packet_list_cls.py
   isVerificationFile: true
-  path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+documentation_of: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
 layout: document
 redirect_from:
-- /verify/test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-- /verify/test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py.html
-title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+- /verify/test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+- /verify/test/atcoder/abc/abc294_g_fast_tree_hld.test.py.html
+title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
 ---

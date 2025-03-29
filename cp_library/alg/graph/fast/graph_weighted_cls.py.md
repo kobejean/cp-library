@@ -76,8 +76,11 @@ data:
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
@@ -233,19 +236,19 @@ data:
     \ = elist(G.N)\n        else: G.order.clear()\n        return G.order\n    \n\
     \    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n  \
     \      return G.back\n    \n    def prep_tin(G):\n        if G.tin is None: G.tin\
-    \ = i32f(G.N, -1)\n        return G.tin\n    \n    def __len__(G) -> int: return\
-    \ G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G,\
-    \ u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
-    \        else: return G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua,\
-    \ back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v\
-    \ := Ua[back[v]])\n        return vertices\n    \n    def recover_path_edge_ids(G,\
-    \ s, t):\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n  \
-    \      while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return\
-    \ edges\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
-    \ t) >= inf: return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
+    \ = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return G.N\n\
+    \    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G, u):\
+    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
+    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
+    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua, back, vertices =\
+    \ G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n\
+    \        return vertices\n    \n    def recover_path_edge_ids(G, s, t):\n    \
+    \    Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v\
+    \ != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return edges\n\n\
+    \    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf:\
+    \ return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
     \        return vertices\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n\
     \        if G.distance(s, t) >= inf: return None\n        edges = G.recover_path_edge_ids(s,\
     \ t)\n        edges.reverse()\n        return edges\n    \n    @overload\n   \
@@ -496,7 +499,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -509,8 +512,9 @@ data:
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/yukicoder/3407.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
 documentation_of: cp_library/alg/graph/fast/graph_weighted_cls.py
 layout: document
 redirect_from:

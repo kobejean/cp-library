@@ -17,6 +17,9 @@ data:
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_base_cls.py
+    title: cp_library/alg/tree/fast/hld_base_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_cls.py
     title: cp_library/alg/tree/fast/hld_cls.py
   - icon: ':heavy_check_mark:'
@@ -55,8 +58,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
-    title: test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+    path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+    title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -68,17 +71,17 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nfrom typing import Sequence\nfrom typing import Callable, Literal, TypeVar,\
-    \ Union, overload\nfrom math import inf\nfrom collections import deque\n\nimport\
-    \ typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
-    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \n\n\nfrom typing import Callable, Literal, TypeVar, Union, overload\nfrom math\
+    \ import inf\nfrom collections import deque\nfrom typing import Callable, Sequence,\
+    \ Union, overload\n\nimport typing\nfrom numbers import Number\nfrom types import\
+    \ GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\nimport\
+    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -185,8 +188,8 @@ data:
     \        if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
     \        return G.order\n    \n    def prep_back(G):\n        if G.back is None:\
     \ G.back = i32f(G.N, -2)\n        return G.back\n    \n    def prep_tin(G):\n\
-    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n    \n\
-    \    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n\n   \
+    \ def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -360,46 +363,45 @@ data:
     \        delta[0] = delta[-1] = 0\n        T.tin, T.tout, T.par, T.back = tin,\
     \ tout, par, back\n        T.order, T.delta = order, delta\n\n    @classmethod\n\
     \    def compile(cls, N: int, shift: int = -1):\n        return GraphBase.compile.__func__(cls,\
-    \ N, N-1, shift)\n    \n\nclass HLD(Sequence[int]):\n    def __init__(hld, T:\
-    \ TreeBase, r=0):\n        hld.N, hld.T = len(T), T\n        N, time, Va = T.N,\
-    \ 0, T.Va\n        tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        par, heavy,\
-    \ head = [-1]*N, [-1]*N, [r]*N\n        depth, order, vis = [0]*N, [0]*N, [0]*N\n\
-    \        st = elist(N)\n        st.append(r)\n        while st:\n            if\
-    \ (s := vis[v := st.pop()]) == 0: # dfs down\n                p, vis[v] = par[v],\
-    \ 1; st.append(v)\n                for i in T.range(v):\n                    if\
-    \ (c := Va[i]) != p:\n                        depth[c], par[c] = depth[v]+1, v;\
-    \ st.append(c)\n            elif s == 1: # dfs up\n                p, l = par[v],\
-    \ -1\n                for i in T.range(v):\n                    if (c := Va[i])\
-    \ != p:\n                        size[v] += size[c]\n                        if\
-    \ size[c] > size[l]:\n                            l = c\n                heavy[v]\
-    \ = l\n                if p == -1:\n                    vis[v] = 2\n         \
-    \           st.append(v)\n\n            elif s == 2: # decompose down\n      \
-    \          p, h, l = par[v], head[v], heavy[v]\n                tin[v], order[time],\
-    \ vis[v] = time, v, 3\n                time += 1\n                st.append(v)\n\
-    \                \n                for i in T.range(v):\n                    if\
-    \ (c := Va[i]) != p and c != l:\n                        head[c], vis[c] = c,\
-    \ 2\n                        st.append(c)\n\n                if l != -1:\n   \
-    \                 head[l], vis[l] = h, 2\n                    st.append(l)\n\n\
-    \            elif s == 3: # decompose up\n                tout[v] = time\n   \
-    \     hld.size, hld.depth = size, depth\n        hld.order, hld.tin, hld.tout\
-    \ = order, tin, tout\n        hld.par, hld.heavy, hld.head = par, heavy, head\n\
-    \n    def __getitem__(hld, key):\n        return hld.tin[key]\n    \n    def __len__(hld):\n\
-    \        return len(hld.tin)\n    \n    def __contains__(hld, value):\n      \
-    \  return hld.tin.__contains__(value)\n    \n    def subtree_range(hld, v):\n\
-    \        return hld.tin[v], hld.tout[v]\n\n    def path(hld, u, v, query_fn, edge=False):\n\
-    \        head, depth, par, tin = hld.head, hld.depth, hld.par, hld.tin\n     \
-    \   while head[u] != head[v]:\n            if depth[head[u]] < depth[head[v]]:\n\
-    \                u,v = v,u\n            query_fn(tin[head[u]], tin[u]+1)\n   \
-    \         u = par[head[u]]\n\n        if depth[u] < depth[v]:\n            u,v\
-    \ = v,u\n        query_fn(tin[v]+edge, tin[u]+1)\n\nfrom typing import Optional\n\
-    \n\n\ndef pack_sm(N: int):\n    s = N.bit_length()\n    return s, (1<<s)-1\n\n\
-    def pack_enc(a: int, b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab:\
-    \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n\
-    \    return [a << s | i for i,a in enumerate(A)]\n\ndef argsort(A: list[int],\
-    \ reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|i^m\
-    \ for i,a in enumerate(A)]\n        I.sort(reverse=True)\n        for i,ai in\
-    \ enumerate(I): I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n\
-    \        I.sort()\n        for i,ai in enumerate(I): I[i] = ai&m\n    return I\n\
+    \ N, N-1, shift)\n    \n\nclass HLDBase:\n    def __init__(hld, T: TreeBase, r=0):\n\
+    \        hld.N, hld.T = len(T), T\n        N, time, Va = T.N, 0, T.Va\n      \
+    \  tin, tout, size = [0]*N, [0]*N, [1]*N+[0]\n        back, heavy, head = [-1]*N,\
+    \ [-1]*N, [r]*N\n        depth, order, vis = [0]*N, [0]*N, [0]*N\n        st =\
+    \ elist(N); st.append(r)\n        while st:\n            if (s := vis[v := st.pop()])\
+    \ == 0: # dfs down\n                vis[v], j = 1, back[v]; st.append(v)\n   \
+    \             for i in T.range(v):\n                    if i != j:\n         \
+    \               depth[c := Va[i]], back[c] = depth[v]+1, T.twin[i]; st.append(c)\n\
+    \            elif s == 1: # dfs up\n                l, j = -1, back[v]\n     \
+    \           for i in T.range(v):\n                    if i != j:\n           \
+    \             size[v] += size[c := Va[i]]\n                        if size[c]\
+    \ > size[l]: l = c\n                heavy[v] = l\n                if j == -1:\
+    \ vis[v] = 2; st.append(v)\n\n            elif s == 2: # decompose down\n    \
+    \            h, l, j = head[v], heavy[v], back[v]\n                tin[v], order[time],\
+    \ vis[v] = time, v, 3\n                time += 1; st.append(v)\n             \
+    \   for i in T.range(v):\n                    if i != j and (c := Va[i]) != l:\n\
+    \                        head[c], vis[c] = c, 2; st.append(c)\n              \
+    \  if l != -1: head[l], vis[l] = h, 2; st.append(l)\n\n            elif s == 3:\
+    \ # decompose up\n                tout[v] = time\n        hld.up = [-1]*N\n  \
+    \      for u,h in enumerate(head):\n            if (j := back[h]) != -1:\n   \
+    \             hld.up[u] = T.Va[j]\n\n        hld.size, hld.depth = size, depth\n\
+    \        hld.order, hld.tin, hld.tout = order, tin, tout\n        hld.heavy, hld.head,\
+    \ hld.back = heavy, head, back\n\n    def subtree_range(hld, v):\n        return\
+    \ hld.tin[v], hld.tout[v]\n\n\nclass HLD(HLDBase):\n\n    def path_query(hld,\
+    \ u, v, query_fn, edge=False):\n        while hld.head[u] != hld.head[v]:\n  \
+    \          if hld.depth[hld.head[u]] < hld.depth[hld.head[v]]:\n             \
+    \   query_fn(hld.tin[hld.head[v]], hld.tin[v]+1)\n                v = hld.up[v]\n\
+    \            else:\n                query_fn(hld.tin[hld.head[u]], hld.tin[u]+1)\n\
+    \                u = hld.up[u]\n\n        if hld.depth[u] < hld.depth[v]:\n  \
+    \          query_fn(hld.tin[u]+edge, hld.tin[v]+1)\n        else:\n          \
+    \  query_fn(hld.tin[v]+edge, hld.tin[u]+1)\nfrom typing import Optional\n\n\n\n\
+    def pack_sm(N: int):\n    s = N.bit_length()\n    return s, (1<<s)-1\n\ndef pack_enc(a:\
+    \ int, b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab: int, s:\
+    \ int, m: int):\n    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n    return\
+    \ [a << s | i for i,a in enumerate(A)]\n\ndef argsort(A: list[int], reverse=False):\n\
+    \    s, m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|i^m for i,a in\
+    \ enumerate(A)]\n        I.sort(reverse=True)\n        for i,ai in enumerate(I):\
+    \ I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n \
+    \       I.sort()\n        for i,ai in enumerate(I): I[i] = ai&m\n    return I\n\
     \nclass GraphWeightedBase(GraphBase):\n    def __init__(self, N: int, M: int,\
     \ U: list[int], V: list[int], W: list[int], \n                 deg: list[int],\
     \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
@@ -503,70 +505,21 @@ data:
     \ T.Wdelta = order, delta, Wdelta\n\n    @classmethod\n    def compile(cls, N:\
     \ int, shift: int = -1):\n        return GraphWeightedBase.compile.__func__(cls,\
     \ N, N-1, shift)\n    \n\nclass HLDWeighted(HLD):\n    def __init__(hld, T: TreeWeightedBase,\
-    \ r=0):\n        N, time, Va, Wa = T.N, 0, T.Va, T.Wa\n        tin, tout, size\
-    \ = [0]*N, [0]*N, [1]*N+[0]\n        back, par, heavy, head = [-1]*N, [-1]*N,\
-    \ [-1]*N, [r]*N\n        depth, order, vis = [0]*N, [0]*N, [0]*N\n        weights\
-    \ = [0]*N\n        st = elist(N)\n        st.append(r)\n        while st:\n  \
-    \          if (s := vis[v := st.pop()]) == 0: # dfs down\n                vis[v]\
-    \ = 1\n                j = T.twin[back[v]] if back[v] >= 0 else -1\n         \
-    \       st.append(v)\n                for i in T.range(v):\n                 \
-    \   if i != j:\n                        c = Va[i]\n                        depth[c],\
-    \ par[c], weights[c] = depth[v]+1, v, Wa[i]\n                        back[c] =\
-    \ i\n                        st.append(c)\n\n            elif s == 1: # dfs up\n\
-    \                l = -1\n                j = T.twin[back[v]] if back[v] >= 0 else\
-    \ -1\n                for i in T.range(v):\n                    if i != j:\n \
-    \                       size[v] += size[c := Va[i]]\n                        if\
-    \ size[c] > size[l]:\n                            l = c\n                heavy[v]\
-    \ = l\n                if j == -1:\n                    vis[v] = 2\n         \
-    \           st.append(v)\n\n            elif s == 2: # decompose down\n      \
-    \          h, l = head[v], heavy[v]\n                j = T.twin[back[v]] if back[v]\
-    \ >= 0 else -1\n                tin[v], order[time], vis[v] = time, v, 3\n   \
-    \             time += 1\n                st.append(v)\n                \n    \
-    \            for i in T.range(v):\n                    if i != j and (c := Va[i])\
-    \ != l:\n                        head[c], vis[c] = c, 2\n                    \
-    \    st.append(c)\n\n                if l != -1:\n                    head[l],\
-    \ vis[l] = h, 2\n                    st.append(l)\n\n            elif s == 3:\
-    \ # decompose up\n                tout[v] = time\n        hld.size, hld.depth\
-    \ = size, depth\n        hld.order, hld.tin, hld.tout = order, tin, tout\n   \
-    \     hld.par, hld.heavy, hld.head = par, heavy, head\n        hld.weights = weights\n\
-    \        hld.back = back\n\n"
+    \ r=0):\n        super().__init__(T, r)\n        hld.weights = [T.Wa[i] if (i\
+    \ := hld.back[u]) >= 0 else 0 for u in hld.order]\n"
   code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.tree.__header__\n\
     import cp_library.alg.tree.fast.__header__\nfrom cp_library.alg.tree.fast.hld_cls\
     \ import HLD\nfrom cp_library.alg.tree.fast.tree_weighted_base_cls import TreeWeightedBase\n\
     \nclass HLDWeighted(HLD):\n    def __init__(hld, T: TreeWeightedBase, r=0):\n\
-    \        N, time, Va, Wa = T.N, 0, T.Va, T.Wa\n        tin, tout, size = [0]*N,\
-    \ [0]*N, [1]*N+[0]\n        back, par, heavy, head = [-1]*N, [-1]*N, [-1]*N, [r]*N\n\
-    \        depth, order, vis = [0]*N, [0]*N, [0]*N\n        weights = [0]*N\n  \
-    \      st = elist(N)\n        st.append(r)\n        while st:\n            if\
-    \ (s := vis[v := st.pop()]) == 0: # dfs down\n                vis[v] = 1\n   \
-    \             j = T.twin[back[v]] if back[v] >= 0 else -1\n                st.append(v)\n\
-    \                for i in T.range(v):\n                    if i != j:\n      \
-    \                  c = Va[i]\n                        depth[c], par[c], weights[c]\
-    \ = depth[v]+1, v, Wa[i]\n                        back[c] = i\n              \
-    \          st.append(c)\n\n            elif s == 1: # dfs up\n               \
-    \ l = -1\n                j = T.twin[back[v]] if back[v] >= 0 else -1\n      \
-    \          for i in T.range(v):\n                    if i != j:\n            \
-    \            size[v] += size[c := Va[i]]\n                        if size[c] >\
-    \ size[l]:\n                            l = c\n                heavy[v] = l\n\
-    \                if j == -1:\n                    vis[v] = 2\n               \
-    \     st.append(v)\n\n            elif s == 2: # decompose down\n            \
-    \    h, l = head[v], heavy[v]\n                j = T.twin[back[v]] if back[v]\
-    \ >= 0 else -1\n                tin[v], order[time], vis[v] = time, v, 3\n   \
-    \             time += 1\n                st.append(v)\n                \n    \
-    \            for i in T.range(v):\n                    if i != j and (c := Va[i])\
-    \ != l:\n                        head[c], vis[c] = c, 2\n                    \
-    \    st.append(c)\n\n                if l != -1:\n                    head[l],\
-    \ vis[l] = h, 2\n                    st.append(l)\n\n            elif s == 3:\
-    \ # decompose up\n                tout[v] = time\n        hld.size, hld.depth\
-    \ = size, depth\n        hld.order, hld.tin, hld.tout = order, tin, tout\n   \
-    \     hld.par, hld.heavy, hld.head = par, heavy, head\n        hld.weights = weights\n\
-    \        hld.back = back\n\nfrom cp_library.ds.elist_fn import elist"
+    \        super().__init__(T, r)\n        hld.weights = [T.Wa[i] if (i := hld.back[u])\
+    \ >= 0 else 0 for u in hld.order]"
   dependsOn:
   - cp_library/alg/tree/fast/hld_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - cp_library/ds/elist_fn.py
-  - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/alg/tree/fast/hld_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/ds/elist_fn.py
   - cp_library/ds/array_init_fn.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/io/parser_cls.py
@@ -582,10 +535,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/hld_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc294_g_fast_tree_heavy_light_decomposition.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
 documentation_of: cp_library/alg/tree/fast/hld_weighted_cls.py
 layout: document
 redirect_from:

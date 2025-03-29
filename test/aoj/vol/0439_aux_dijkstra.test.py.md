@@ -255,8 +255,8 @@ data:
     \      if G.order is None: G.order = elist(G.N)\n        else: G.order.clear()\n\
     \        return G.order\n    \n    def prep_back(G):\n        if G.back is None:\
     \ G.back = i32f(G.N, -2)\n        return G.back\n    \n    def prep_tin(G):\n\
-    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n    \n\
-    \    def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
+    \        if G.tin is None: G.tin = i32f(G.N, -1)\n        return G.tin\n\n   \
+    \ def __len__(G) -> int: return G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n\
     \    def range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n   \
     \ def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
@@ -672,7 +672,7 @@ data:
   isVerificationFile: true
   path: test/aoj/vol/0439_aux_dijkstra.test.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/vol/0439_aux_dijkstra.test.py

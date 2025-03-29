@@ -1,7 +1,13 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_commutative_cls.py
+    title: cp_library/alg/tree/fast/hld_commutative_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/fast/hld_monoid_cls.py
+    title: cp_library/alg/tree/fast/hld_monoid_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/dsl_2_a_segtree.test.py
@@ -9,6 +15,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_set_range_composite.test.py
     title: test/library-checker/data-structure/point_set_range_composite.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+    title: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/vertex_set_path_composite.test.py
+    title: test/library-checker/tree/vertex_set_path_composite.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -84,11 +99,16 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/tree/segtree_cls.py
-  requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  requiredBy:
+  - cp_library/alg/tree/fast/hld_commutative_cls.py
+  - cp_library/alg/tree/fast/hld_monoid_cls.py
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/library-checker/data-structure/point_set_range_composite.test.py
 documentation_of: cp_library/ds/tree/segtree_cls.py
 layout: document

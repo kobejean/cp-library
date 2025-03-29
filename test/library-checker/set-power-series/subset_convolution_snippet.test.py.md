@@ -7,6 +7,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/popcnts_fn.py
     title: cp_library/bit/popcnts_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/fast/fast_io_fn.py
+    title: cp_library/io/fast/fast_io_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -104,22 +107,28 @@ data:
     \ Br[i] = Ar[i]%mod, Br[i]%mod\n    for i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n\
     \            ij = i+j\n            for k in range(M): Cr[ijk] = (Cr[ijk:=ij|k]\
     \ + Ar[i|k] * Br[j|k]) % mod\n    subset_mobius(Cr, N)\n    for i,p in enumerate(P):\
-    \ A[i] = Cr[p<<N|i] % mod\n    return A\n\nfrom atexit import register\nfrom os\
-    \ import read, write\nimport sys\nfrom __pypy__ import builders\nclass Fastio:\n\
-    \    ibuf = bytes()\n    pil = pir = 0\n    sb = builders.StringBuilder()\n  \
-    \  def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n    def\
-    \ flush(self): write(1, self.sb.build().encode())\n    def fastin(self):\n   \
-    \     if self.pir - self.pil < 64: self.load()\n        minus = x = 0\n      \
-    \  while self.ibuf[self.pil] < 45: self.pil += 1\n        if self.ibuf[self.pil]\
-    \ == 45: minus = 1; self.pil += 1\n        while self.ibuf[self.pil] >= 48:\n\
-    \            x = x * 10 + (self.ibuf[self.pil] & 15)\n            self.pil +=\
-    \ 1\n        if minus: return -x\n        return x\n    def fastout(self, x):\
-    \ self.sb.append(str(x))\n    def fastoutln(self, x): self.sb.append(str(x));\
-    \ self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin; wt = fastio.fastout;\
-    \ wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\nsys.stdin = None;\
-    \ sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\ndef wtnl(l):\
-    \ wtn(' '.join(map(str, l)))\n\nmain()\n"
+    \ A[i] = Cr[p<<N|i] % mod\n    return A\n\nfrom __pypy__.builders import StringBuilder\n\
+    import sys\nfrom os import read as os_read, write as os_write\nfrom atexit import\
+    \ register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil =\
+    \ pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf =\
+    \ self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
+    \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
+    \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
+    \ 64: self.load()\n            res.append(self.ibuf[self.pil])\n            self.pil\
+    \ += 1\n        return res\n    def fastout(self, x): self.sb.append(str(x))\n\
+    \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
+    \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
+    \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
+    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
+    def wtnl(l): wtn(' '.join(map(str, l)))\n\nmain()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
     \ndef main():\n    mod = 998244353\n    n = rd()\n    a = rdl(1 << n)\n    b =\
     \ rdl(1 << n)\n    wtnl(isubset_conv(a, b, n, mod))\n\nfrom cp_library.alg.dp.butterfly.butterfly_masks_fn\
@@ -131,28 +140,16 @@ data:
     \ i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n            ij = i+j\n\
     \            for k in range(M): Cr[ijk] = (Cr[ijk:=ij|k] + Ar[i|k] * Br[j|k])\
     \ % mod\n    subset_mobius(Cr, N)\n    for i,p in enumerate(P): A[i] = Cr[p<<N|i]\
-    \ % mod\n    return A\n\nfrom atexit import register\nfrom os import read, write\n\
-    import sys\nfrom __pypy__ import builders\nclass Fastio:\n    ibuf = bytes()\n\
-    \    pil = pir = 0\n    sb = builders.StringBuilder()\n    def load(self):\n \
-    \       self.ibuf = self.ibuf[self.pil:]\n        self.ibuf += read(0, 131072)\n\
-    \        self.pil = 0; self.pir = len(self.ibuf)\n    def flush(self): write(1,\
-    \ self.sb.build().encode())\n    def fastin(self):\n        if self.pir - self.pil\
-    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
-    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
-    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
-    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
-    \ x\n    def fastout(self, x): self.sb.append(str(x))\n    def fastoutln(self,\
-    \ x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio = Fastio()\nrd = fastio.fastin;\
-    \ wt = fastio.fastout; wtn = fastio.fastoutln; flush = fastio.flush\nregister(flush)\n\
-    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
-    def wtnl(l): wtn(' '.join(map(str, l)))\n\nmain()"
+    \ % mod\n    return A\n\nfrom cp_library.io.fast.fast_io_fn import rd, rdl, wtnl\n\
+    \nmain()"
   dependsOn:
   - cp_library/alg/dp/butterfly/butterfly_masks_fn.py
   - cp_library/bit/popcnts_fn.py
+  - cp_library/io/fast/fast_io_fn.py
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution_snippet.test.py
   requiredBy: []
-  timestamp: '2025-03-28 21:58:31+09:00'
+  timestamp: '2025-03-29 18:58:28+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution_snippet.test.py
