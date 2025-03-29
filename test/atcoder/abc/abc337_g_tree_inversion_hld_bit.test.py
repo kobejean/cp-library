@@ -3,29 +3,28 @@
 def main():
     N = read(int)
     T = read(Tree[N])
-    hld, bit, ans = HLD(T), BIT(N), [0]*(N+1)
+    hld, ans = HLDBIT(T, [0]*N), [0]*(N+1)
 
     def range_add(l,r,x):
         ans[l] += x
         ans[r] -= x
 
-    for u,t in enumerate(hld.tin):
+    for u in range(N):
         l,r = hld.subtree_range(u)
-        range_add(l,r,u-bit.range_sum(l,r))
+        range_add(l,r,u-hld.subtree_query(u))
         for i in T.range(u):
             if i != hld.back[u]:
                 l,r = hld.subtree_range(T.Va[i])
-                cnt = bit.range_sum(l,r)
+                cnt = hld.subtree_query(T.Va[i])
                 range_add(0,l,cnt)
                 range_add(r,N,cnt)
-        bit.add(t,1)
+        hld.add(u,1)
     ans = presum(ans)
     ans = [ans[i] for i in hld.tin]
     write(*ans)
 
-from cp_library.alg.tree.fast.hld_cls import HLD
+from cp_library.alg.tree.fast.hld_bit_cls import HLDBIT
 from cp_library.alg.tree.fast.tree_cls import Tree
-from cp_library.ds.tree.bit.bit_cls import BIT
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.alg.iter.presum_fn import presum

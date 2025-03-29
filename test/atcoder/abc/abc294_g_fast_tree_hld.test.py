@@ -5,8 +5,7 @@ def main():
     T = read(TreeWeighted[N])
 
     hld = HLDWeighted(T)
-    W = [hld.weights[i] for i in hld.order]
-    bit = BIT(W)
+    bit = BIT(hld.weights)
     ans = 0
 
     def query(l, r):
@@ -15,7 +14,7 @@ def main():
     I = [0]*N
     for i in hld.back:
         if i == -1: continue
-        I[T.Ea[i]] = hld[T.Va[i]]
+        I[T.Ea[i]] = hld.tin[T.Ua[i]]
 
     Q = read(int)
     for q in read(list[tuple[int, int, int], Q]):
@@ -24,7 +23,7 @@ def main():
                 bit[I[i-1]] = w
             case 2, u, v:
                 ans = 0
-                hld.path(u-1, v-1, query, True)
+                hld.path_query(u-1, v-1, query, True)
                 write(ans)
 
 from cp_library.ds.tree.bit.bit_cls import BIT

@@ -65,7 +65,7 @@ class GraphBase(Sequence, Parsable):
     def prep_tin(G):
         if G.tin is None: G.tin = i32f(G.N, -1)
         return G.tin
-    
+
     def __len__(G) -> int: return G.N
     def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]
     def range(G, u): return range(G.La[u],G.Ra[u])
