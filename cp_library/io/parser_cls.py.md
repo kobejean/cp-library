@@ -36,6 +36,9 @@ data:
     path: cp_library/alg/graph/edge_weighted_cls.py
     title: cp_library/alg/graph/edge_weighted_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/edmonds_fn.py
+    title: cp_library/alg/graph/edmonds_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_cls.py
     title: cp_library/alg/graph/fast/digraph_cls.py
   - icon: ':heavy_check_mark:'
@@ -114,6 +117,12 @@ data:
     path: cp_library/alg/graph/grid_graph_proto.py
     title: cp_library/alg/graph/grid_graph_proto.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/kruskal_heap_fn.py
+    title: cp_library/alg/graph/kruskal_heap_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/kruskal_sort_fn.py
+    title: cp_library/alg/graph/kruskal_sort_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
     title: cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - icon: ':heavy_check_mark:'
@@ -182,6 +191,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/dsu_cls.py
+    title: cp_library/ds/dsu_cls.py
   - icon: ':warning:'
     path: cp_library/ds/grid.py
     title: cp_library/ds/grid.py
@@ -471,6 +483,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/static_range_sum.test.py
     title: test/library-checker/data-structure/static_range_sum.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/unionfind.test.py
+    title: test/library-checker/data-structure/unionfind.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
@@ -763,6 +778,7 @@ data:
   - cp_library/alg/graph/func_graph_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/alg/graph/partial_func_graph_cls.py
+  - cp_library/alg/graph/kruskal_heap_fn.py
   - cp_library/alg/graph/lazy_grid_graph_cls.py
   - cp_library/alg/graph/graph_set_cls.py
   - cp_library/alg/graph/edge_list_cls.py
@@ -785,6 +801,7 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
+  - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/alg/graph/digraph_cls.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
@@ -795,6 +812,7 @@ data:
   - cp_library/alg/graph/edge_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
   - cp_library/alg/graph/grid_direction_graph_cls.py
+  - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/dag_cls.py
@@ -808,9 +826,10 @@ data:
   - cp_library/ds/tree/pdsu_cls.py
   - cp_library/ds/list/ordlist_cls.py
   - cp_library/ds/grid.py
+  - cp_library/ds/dsu_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/queries_cls.py
-  timestamp: '2025-03-29 18:58:28+09:00'
+  timestamp: '2025-03-30 20:17:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -857,6 +876,7 @@ data:
   - test/library-checker/tree/jump_on_tree.test.py
   - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/data-structure/point_set_range_composite.test.py
+  - test/library-checker/data-structure/unionfind.test.py
   - test/library-checker/data-structure/static_range_sum.test.py
   - test/library-checker/convolution/gcd_convolution.test.py
   - test/library-checker/convolution/bitwise_and_convolution.test.py

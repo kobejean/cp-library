@@ -239,7 +239,7 @@ data:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/dag_cls.py
-  timestamp: '2025-03-29 18:58:28+09:00'
+  timestamp: '2025-03-30 20:17:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_graph_bridges.test.py

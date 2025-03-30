@@ -28,7 +28,7 @@ data:
   isVerificationFile: false
   path: cp_library/misc/decorators/lazy_class_attribute_cls.py
   requiredBy: []
-  timestamp: '2025-03-29 18:58:28+09:00'
+  timestamp: '2025-03-30 20:17:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/misc/decorators/lazy_class_attribute_cls.py

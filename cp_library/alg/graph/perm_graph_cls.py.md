@@ -189,7 +189,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/perm_graph_cls.py
   requiredBy: []
-  timestamp: '2025-03-29 18:58:28+09:00'
+  timestamp: '2025-03-30 20:17:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py

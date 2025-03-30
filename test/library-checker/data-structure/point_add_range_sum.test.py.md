@@ -106,7 +106,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/point_add_range_sum.test.py
   requiredBy: []
-  timestamp: '2025-03-29 18:58:28+09:00'
+  timestamp: '2025-03-30 20:17:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_add_range_sum.test.py

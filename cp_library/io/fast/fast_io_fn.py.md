@@ -80,7 +80,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/fast/fast_io_fn.py
   requiredBy: []
-  timestamp: '2025-03-29 18:58:28+09:00'
+  timestamp: '2025-03-30 20:17:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py

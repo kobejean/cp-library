@@ -17,6 +17,9 @@ data:
     path: cp_library/alg/graph/kruskal_sort_fn.py
     title: cp_library/alg/graph/kruskal_sort_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/csr/csr_incremental_cls.py
+    title: cp_library/ds/csr/csr_incremental_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
@@ -158,27 +161,39 @@ data:
     \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
     \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
     \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
-    \    pass\n\n\nclass DSU:\n    def __init__(self, N):\n        self.N = N\n  \
-    \      self.par = [-1] * N\n\n    def merge(self, u, v, src = False):\n      \
-    \  assert 0 <= u < self.N\n        assert 0 <= v < self.N\n\n        x, y = self.leader(u),\
-    \ self.leader(v)\n        if x == y: return (x,y) if src else x\n\n        if\
-    \ self.par[x] > self.par[y]:\n            x, y = y, x\n\n        self.par[x] +=\
-    \ self.par[y]\n        self.par[y] = x\n\n        return (x,y) if src else x\n\
-    \n    def same(self, u: int, v: int):\n        assert 0 <= u < self.N\n      \
-    \  assert 0 <= v < self.N\n        return self.leader(u) == self.leader(v)\n\n\
-    \    def leader(self, i) -> int:\n        assert 0 <= i < self.N\n        par\
-    \ = self.par\n        p = par[i]\n        while p >= 0:\n            if par[p]\
-    \ < 0:\n                return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n\
-    \n        return i\n\n    def size(self, i) -> int:\n        assert 0 <= i < self.N\n\
-    \        \n        return -self.par[self.leader(i)]\n\n    def groups(self) ->\
-    \ list[list[int]]:\n        leader_buf = [self.leader(i) for i in range(self.N)]\n\
-    \n        result = [[] for _ in range(self.N)]\n        for i in range(self.N):\n\
-    \            result[leader_buf[i]].append(i)\n\n        return [r for r in result\
-    \ if r]\n\ndef kruskal(E, N):\n    E.sort(reverse=True)\n    dsu = DSU(N)\n  \
-    \  MST = []\n    need = N-1\n    while E and need > 0:\n        edge = E.pop()\n\
-    \        u,v,_ = edge\n        if not dsu.same(u,v):\n            dsu.merge(u,v)\n\
-    \            MST.append(edge)\n            need -= 1\n    return MST\n\nif __name__\
-    \ == '__main__':\n    main()\n"
+    \    pass\n\nfrom typing import Sequence\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
+    \    def __init__(csr, sizes: list[int]):\n        csr.L, N = [0]*len(sizes),\
+    \ 0\n        for i,sz in enumerate(sizes):\n            csr.L[i] = N; N += sz\n\
+    \        csr.R, csr.A = csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n\
+    \        csr.A[csr.R[i]] = x; csr.R[i] += 1\n    \n    def __iter__(csr):\n  \
+    \      for i,l in enumerate(csr.L):\n            yield csr.A[l:csr.R[i]]\n   \
+    \ \n    def __getitem__(csr, i: int) -> _T:\n        return csr.A[i]\n    \n \
+    \   def __len__(dsu):\n        return len(dsu.L)\n\n    def range(csr, i: int)\
+    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\nclass DSU(Parsable, Collection):\n\
+    \    def __init__(dsu, N):\n        dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n\n\
+    \    def merge(dsu, u, v, src = False):\n        x, y = dsu.leader(u), dsu.leader(v)\n\
+    \        if x == y: return (x,y) if src else x\n        if dsu.par[x] > dsu.par[y]:\
+    \ x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n\
+    \        return (x,y) if src else x\n\n    def same(dsu, u: int, v: int):\n  \
+    \      return dsu.leader(u) == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n\
+    \        p = (par := dsu.par)[i]\n        while p >= 0:\n            if par[p]\
+    \ < 0: return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n    \
+    \    return i\n\n    def size(dsu, i) -> int:\n        return -dsu.par[dsu.leader(i)]\n\
+    \n    def groups(dsu) -> CSRIncremental[int]:\n        sizes, row, p = [0]*dsu.cc,\
+    \ [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n            while dsu.par[p]\
+    \ >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p], i; p += 1\n      \
+    \  csr = CSRIncremental(sizes)\n        for i in range(dsu.N): csr.append(row[dsu.leader(i)],\
+    \ i)\n        return csr\n    \n    __iter__ = groups\n    \n    def __len__(dsu):\n\
+    \        return dsu.cc\n    \n    def __contains__(dsu, uv):\n        u, v = uv\n\
+    \        return dsu.same(u, v)\n    \n    @classmethod\n    def compile(cls, N:\
+    \ int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n        \
+    \    dsu = cls(N)\n            for _ in range(M):\n                u, v = ts._line()\n\
+    \                dsu.merge(int(u)+shift, int(v)+shift)\n            return dsu\n\
+    \        return parse_fn\n\ndef kruskal(E, N):\n    E.sort(reverse=True)\n   \
+    \ dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need > 0:\n    \
+    \    edge = E.pop()\n        u,v,_ = edge\n        if not dsu.same(u,v):\n   \
+    \         dsu.merge(u,v)\n            MST.append(edge)\n            need -= 1\n\
+    \    return MST\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A\n\
     \ndef main():\n    N, M = read((int,int))\n    E = read(EdgeListWeighted[M,0])\n\
     \    MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    write(ans)\n\n\
@@ -197,10 +212,11 @@ data:
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/ds/dsu_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/ds/csr/csr_incremental_cls.py
   isVerificationFile: true
   path: test/aoj/grl/grl_2_a_kruskal_sort.test.py
   requiredBy: []
-  timestamp: '2025-03-29 18:58:28+09:00'
+  timestamp: '2025-03-30 20:17:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_a_kruskal_sort.test.py

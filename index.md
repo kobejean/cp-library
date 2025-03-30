@@ -479,6 +479,11 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/wavelet_matrix_cls.py
       title: cp_library/ds/wavelet_matrix_cls.py
+  - name: cp_library/ds/csr
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/csr/csr_incremental_cls.py
+      title: cp_library/ds/csr/csr_incremental_cls.py
   - name: cp_library/ds/heap
     pages:
     - icon: ':heavy_check_mark:'

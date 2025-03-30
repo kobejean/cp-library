@@ -2,11 +2,17 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/csr/csr_incremental_cls.py
+    title: cp_library/ds/csr/csr_incremental_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parser_cls.py
+    title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_int_fn.py
     title: cp_library/io/read_int_fn.py
@@ -59,25 +65,92 @@ data:
     \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
     \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \n\nclass DSU:\n    def __init__(self, N):\n        self.N = N\n        self.par\
-    \ = [-1] * N\n\n    def merge(self, u, v, src = False):\n        assert 0 <= u\
-    \ < self.N\n        assert 0 <= v < self.N\n\n        x, y = self.leader(u), self.leader(v)\n\
-    \        if x == y: return (x,y) if src else x\n\n        if self.par[x] > self.par[y]:\n\
-    \            x, y = y, x\n\n        self.par[x] += self.par[y]\n        self.par[y]\
-    \ = x\n\n        return (x,y) if src else x\n\n    def same(self, u: int, v: int):\n\
-    \        assert 0 <= u < self.N\n        assert 0 <= v < self.N\n        return\
-    \ self.leader(u) == self.leader(v)\n\n    def leader(self, i) -> int:\n      \
-    \  assert 0 <= i < self.N\n        par = self.par\n        p = par[i]\n      \
-    \  while p >= 0:\n            if par[p] < 0:\n                return p\n     \
-    \       par[i], i, p = par[p], par[p], par[par[p]]\n\n        return i\n\n   \
-    \ def size(self, i) -> int:\n        assert 0 <= i < self.N\n        \n      \
-    \  return -self.par[self.leader(i)]\n\n    def groups(self) -> list[list[int]]:\n\
-    \        leader_buf = [self.leader(i) for i in range(self.N)]\n\n        result\
-    \ = [[] for _ in range(self.N)]\n        for i in range(self.N):\n           \
-    \ result[leader_buf[i]].append(i)\n\n        return [r for r in result if r]\n\
-    \nN, Q = read()\n\ndsu = DSU(N)\n\nfor _ in range(Q):\n    t, u, v = read()\n\
-    \    if t:\n        write(int(dsu.same(u, v)))\n    else:\n        dsu.merge(u,\
-    \ v)\n\n"
+    from typing import Collection\nimport typing\nfrom collections import deque\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, Union\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
+    \nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
+    \            self.queue.clear()\n            return A\n        return self._line()\n\
+    TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
+    \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
+    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
+    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
+    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
+    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\
+    \ return cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
+    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
+    \      return cls(next(ts))              \n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
+    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
+    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
+    \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
+    \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
+    \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
+    \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
+    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
+    \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
+    \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
+    \ _T, spec=int) -> ParseFn[_T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])\n\
+    \            return parse\n        else:\n            fn = Parser.compile(spec)\n\
+    \            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])\n\
+    \            return parse\n\n    @staticmethod\n    def compile_repeat(cls: _T,\
+    \ spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for _ in range(N)])\n        return parse\n\
+    \n    @staticmethod\n    def compile_children(cls: _T, specs) -> ParseFn[_T]:\n\
+    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
+    \ TokenStream): return cls([fn(ts) for fn in fns])  \n        return parse\n \
+    \           \n    @staticmethod\n    def compile_tuple(cls: type[_T], specs) ->\
+    \ ParseFn[_T]:\n        if isinstance(specs, (tuple,list)) and len(specs) == 2\
+    \ and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
+    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
+    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
+    \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
+    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and\
+    \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
+    \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
+    \ return cls(next(ts))\n        return parser\n\nfrom typing import Sequence\n\
+    \n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
+    \        csr.L, N = [0]*len(sizes), 0\n        for i,sz in enumerate(sizes):\n\
+    \            csr.L[i] = N; N += sz\n        csr.R, csr.A = csr.L[:], [0]*N\n\n\
+    \    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]] = x; csr.R[i] +=\
+    \ 1\n    \n    def __iter__(csr):\n        for i,l in enumerate(csr.L):\n    \
+    \        yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) -> _T:\n\
+    \        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
+    \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
+    \nclass DSU(Parsable, Collection):\n    def __init__(dsu, N):\n        dsu.N,\
+    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v, src = False):\n \
+    \       x, y = dsu.leader(u), dsu.leader(v)\n        if x == y: return (x,y) if\
+    \ src else x\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x]\
+    \ += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return (x,y) if src else\
+    \ x\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u) == dsu.leader(v)\n\
+    \n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
+    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
+    \ par[p], par[par[p]]\n        return i\n\n    def size(dsu, i) -> int:\n    \
+    \    return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
+    \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
+    \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
+    \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
+    \ csr.append(row[dsu.leader(i)], i)\n        return csr\n    \n    __iter__ =\
+    \ groups\n    \n    def __len__(dsu):\n        return dsu.cc\n    \n    def __contains__(dsu,\
+    \ uv):\n        u, v = uv\n        return dsu.same(u, v)\n    \n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
+    \            dsu = cls(N)\n            for _ in range(M):\n                u,\
+    \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
+    \        return dsu\n        return parse_fn\n\nN, Q = read()\n\ndsu = DSU(N)\n\
+    \nfor _ in range(Q):\n    t, u, v = read()\n    if t:\n        write(int(dsu.same(u,\
+    \ v)))\n    else:\n        dsu.merge(u, v)\n\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind\n\
     \nfrom cp_library.io.read_int_fn import read\nfrom cp_library.io.write_fn import\
     \ write\nfrom cp_library.ds.dsu_cls import DSU\n\nN, Q = read()\n\ndsu = DSU(N)\n\
@@ -88,10 +161,12 @@ data:
   - cp_library/io/write_fn.py
   - cp_library/ds/dsu_cls.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/io/parser_cls.py
+  - cp_library/ds/csr/csr_incremental_cls.py
   isVerificationFile: true
   path: test/library-checker/data-structure/unionfind.test.py
   requiredBy: []
-  timestamp: '2025-03-29 18:58:28+09:00'
+  timestamp: '2025-03-30 20:17:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/unionfind.test.py
