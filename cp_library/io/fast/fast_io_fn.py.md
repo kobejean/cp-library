@@ -16,6 +16,18 @@ data:
     path: test/library-checker/data-structure/staticrmq_general.test.py
     title: test/library-checker/data-structure/staticrmq_general.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/biconnected_components_scratch.test.py
+    title: test/library-checker/graph/biconnected_components_scratch.test.py
+  - icon: ':x:'
+    path: test/library-checker/graph/incremental_scc.test.py
+    title: test/library-checker/graph/incremental_scc.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
+    title: test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/two_edge_connected_components_scratch.test.py
+    title: test/library-checker/graph/two_edge_connected_components_scratch.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/other/longest_increasing_sequence.test.py
     title: test/library-checker/other/longest_increasing_sequence.test.py
   - icon: ':heavy_check_mark:'
@@ -27,9 +39,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
     title: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "from __pypy__.builders import StringBuilder\nimport sys\nfrom os import\
@@ -80,8 +92,8 @@ data:
   isVerificationFile: false
   path: cp_library/io/fast/fast_io_fn.py
   requiredBy: []
-  timestamp: '2025-03-30 20:17:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-04-02 01:29:15+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   - test/library-checker/data-structure/staticrmq_general.test.py
@@ -90,6 +102,10 @@ data:
   - test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
   - test/library-checker/set-power-series/subset_convolution_snippet.test.py
+  - test/library-checker/graph/biconnected_components_scratch.test.py
+  - test/library-checker/graph/incremental_scc.test.py
+  - test/library-checker/graph/two_edge_connected_components_scratch.test.py
+  - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
   - test/library-checker/other/longest_increasing_sequence.test.py
 documentation_of: cp_library/io/fast/fast_io_fn.py
 layout: document

@@ -219,7 +219,7 @@ data:
   - cp_library/ds/heap/min_heap_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/heap/k_heap_mixin.py
-  timestamp: '2025-03-30 20:17:47+09:00'
+  timestamp: '2025-04-02 01:29:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py

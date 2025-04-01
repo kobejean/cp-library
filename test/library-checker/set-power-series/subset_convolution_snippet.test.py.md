@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/popcnts_fn.py
     title: cp_library/bit/popcnts_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   _extendedRequiredBy: []
@@ -149,7 +149,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution_snippet.test.py
   requiredBy: []
-  timestamp: '2025-03-30 20:17:47+09:00'
+  timestamp: '2025-04-02 01:29:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution_snippet.test.py

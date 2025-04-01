@@ -102,7 +102,7 @@ data:
   requiredBy:
   - cp_library/alg/tree/fast/hld_commutative_cls.py
   - cp_library/alg/tree/fast/hld_monoid_cls.py
-  timestamp: '2025-03-30 20:17:47+09:00'
+  timestamp: '2025-04-02 01:29:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py

@@ -44,7 +44,7 @@ data:
   path: cp_library/alg/divcon/qselect_fn.py
   requiredBy:
   - cp_library/math/median_fn.py
-  timestamp: '2025-03-30 20:17:47+09:00'
+  timestamp: '2025-04-02 01:29:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py

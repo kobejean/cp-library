@@ -35,6 +35,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
+    title: cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
+    title: cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
     title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
@@ -263,6 +269,8 @@ data:
   - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
   - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
@@ -276,7 +284,7 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-03-30 20:17:47+09:00'
+  timestamp: '2025-04-02 01:29:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py

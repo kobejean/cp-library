@@ -69,7 +69,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/totient_cls.py
   requiredBy: []
-  timestamp: '2025-03-30 20:17:47+09:00'
+  timestamp: '2025-04-02 01:29:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/totient_cls.py

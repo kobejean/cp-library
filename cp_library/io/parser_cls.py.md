@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   _extendedRequiredBy:
@@ -71,6 +71,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
+    title: cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
+    title: cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
     title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
@@ -191,7 +197,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':warning:'
@@ -510,6 +516,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/cycle_detection_undirected.test.py
     title: test/library-checker/graph/cycle_detection_undirected.test.py
+  - icon: ':x:'
+    path: test/library-checker/graph/incremental_scc.test.py
+    title: test/library-checker/graph/incremental_scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
@@ -594,9 +603,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -788,6 +797,8 @@ data:
   - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
   - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
@@ -829,8 +840,8 @@ data:
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/queries_cls.py
-  timestamp: '2025-03-30 20:17:47+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2025-04-02 01:29:15+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
@@ -894,6 +905,7 @@ data:
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/graph/incremental_scc.test.py
   - test/library-checker/graph/chromatic_number.test.py
   - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
