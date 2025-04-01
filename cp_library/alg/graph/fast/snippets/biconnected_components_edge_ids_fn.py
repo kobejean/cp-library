@@ -9,16 +9,16 @@ import cp_library.alg.graph.fast.snippets.__header__
 
 def biconnected_components(G: GraphBase, s: Union[int,list,None] = None) -> Iterable[list[int]]:
     '''
-    Returns an iterator of vertex lists, each representing a biconnected component.
-    Isolated vertices are included as single-vertex components.
+    Returns an iterator of edge id lists, each representing a biconnected component.
     '''
     low, st, bccs, L = [N := G.N]*N, elist(G.M), elist(G.M), elist(G.M)
 
     def back(u,v,i):
+        st.append(i)
         chmin(low, u, G.tin[v])
 
     def down(u,v,i):
-        st.append(v)
+        st.append(i)
         low[v] = G.tin[v]
 
     def up(u,p,i):
@@ -26,18 +26,11 @@ def biconnected_components(G: GraphBase, s: Union[int,list,None] = None) -> Iter
         if low[u] >= G.tin[p]:
             # add new biconnected component
             L.append(len(bccs))
-            v = -1
-            while u != v:
-                bccs.append(v := st.pop())
-            bccs.append(p)
+            j = -1
+            while j != i: bccs.append(j := st.pop())
+            
     G.dfs(s, down_fn=down, back_fn=back, up_fn=up)
-    # give the lonely vertices their own components
-    for u,d in enumerate(G.deg):
-        if d == 0:
-            L.append(len(bccs))
-            bccs.append(u)
     return SliceIteratorReverse(bccs, L)
-
 two_vertex_connected_components = biconnected_components
 
 from cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse

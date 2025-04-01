@@ -43,6 +43,9 @@ class GraphBase(Sequence, Parsable):
         G.vis: list[int] = None
         G.back: list[int] = None
         G.tin: list[int] = None
+    
+    def clear(G):
+        G.vis = G.back = G.tin = None
 
     def prep_vis(G):
         if G.vis is None: G.vis = u8f(G.N)
