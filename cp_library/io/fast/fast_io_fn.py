@@ -1,3 +1,6 @@
+import cp_library.__header__
+import cp_library.io.__header__
+import cp_library.io.fast.__header__
 from __pypy__.builders import StringBuilder
 import sys
 from os import read as os_read, write as os_write

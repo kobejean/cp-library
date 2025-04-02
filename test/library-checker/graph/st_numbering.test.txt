@@ -1,0 +1,27 @@
+# verification-helper: PROBLEM https://judge.yosupo.jp/problem/st_numbering
+
+def solve():
+    N, M, s, t = read()
+    G = read(Graph[N,M,0])
+    bct = block_cut_tree(G, s)
+    # for v in bct.shortest_path(s, t):
+    #     if v >= N:
+    
+    return tin    
+
+def main():
+    T = read(int)
+    for _ in range(T):
+        ans = solve()
+        write("Yes" if ans is not None else "No")
+        if ans is not None:
+            write(*ans)
+
+from cp_library.alg.dp.max2_fn import max2
+from cp_library.alg.graph.fast.graph_cls import Graph
+from cp_library.alg.graph.fast.snippets.block_cut_tree_fn import block_cut_tree
+from cp_library.io.read_fn import read
+from cp_library.io.write_fn import write
+
+if __name__ == '__main__':
+    main()
