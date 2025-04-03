@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/rev_enumerate_fn.py
     title: cp_library/alg/iter/rev_enumerate_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   _extendedRequiredBy: []
@@ -38,7 +38,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Reversible\n\ndef rev_enumerate(A: Reversible,\
     \ start: int = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n\
-    \        yield (start:=start-1), A[i]\nfrom __pypy__.builders import StringBuilder\n\
+    \        yield (start:=start-1), A[i]\n\n\nfrom __pypy__.builders import StringBuilder\n\
     import sys\nfrom os import read as os_read, write as os_write\nfrom atexit import\
     \ register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil =\
     \ pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf =\
@@ -83,7 +83,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py

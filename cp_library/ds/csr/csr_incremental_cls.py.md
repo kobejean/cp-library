@@ -62,7 +62,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/tree_weighted_proto.py
     title: cp_library/alg/tree/tree_weighted_proto.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   _extendedVerifiedWith:
@@ -141,9 +141,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/unionfind.test.py
     title: test/library-checker/data-structure/unionfind.test.py
-  - icon: ':x:'
-    path: test/library-checker/graph/incremental_scc.test.py
-    title: test/library-checker/graph/incremental_scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
@@ -168,9 +165,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -223,8 +220,8 @@ data:
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/kruskal_sort_fn.py
   - cp_library/ds/dsu_cls.py
-  timestamp: '2025-04-02 01:29:15+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-04-03 08:59:41+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
@@ -251,7 +248,6 @@ data:
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
-  - test/library-checker/graph/incremental_scc.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/yukicoder/3407.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py

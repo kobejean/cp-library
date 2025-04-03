@@ -44,6 +44,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
     title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
+    title: cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
     title: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
@@ -382,6 +385,7 @@ data:
   - cp_library/alg/graph/func_graph_cls.py
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
   - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
   - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
@@ -403,7 +407,7 @@ data:
   - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
   - cp_library/alg/graph/strongly_connected_components_fn.py
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py

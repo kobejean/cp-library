@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/popcnts_fn.py
     title: cp_library/bit/popcnts_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   - icon: ':heavy_check_mark:'
@@ -103,9 +103,9 @@ data:
     \            ij = i+j\n            for k in range(M): Cr[ijk] = (Cr[ijk:=ij|k]\
     \ + Ar[i|k] * Br[j|k]) % mod\n    subset_mobius(Cr, N)\n    for i,p in enumerate(P):\
     \ A[i] = Cr[p<<N|i] % mod\n    return A\n\ndef subset_conv(A: list[int], B: list[int],\
-    \ N: int, mod: int) -> list[int]:\n    return isubset_conv(A[:], B, N, mod)\n\
-    from __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as\
-    \ os_read, write as os_write\nfrom atexit import register as atexist_register\n\
+    \ N: int, mod: int) -> list[int]:\n    return isubset_conv(A[:], B, N, mod)\n\n\
+    \nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import read\
+    \ as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
     \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
     \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
     \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
@@ -141,7 +141,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution.test.py

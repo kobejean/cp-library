@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   _extendedRequiredBy: []
@@ -35,11 +35,11 @@ data:
     \ (i-1)*N + (1 << (i-1))\n            for j in range(N - (1 << i) + 1):\n    \
     \            data[a+j] = min2(data[b+j], data[c+j])\n\n    def query(st, l: int,\
     \ r: int):\n        k = (r-l).bit_length() - 1\n        return min2(st.data[k*st.N\
-    \ + l], st.data[k*st.N + r - (1<<k)])\n    \nfrom __pypy__.builders import StringBuilder\n\
-    import sys\nfrom os import read as os_read, write as os_write\nfrom atexit import\
-    \ register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil =\
-    \ pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf =\
-    \ self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ + l], st.data[k*st.N + r - (1<<k)])\n    \n\n\nfrom __pypy__.builders import\
+    \ StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
     \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
     \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
     \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
@@ -69,7 +69,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/staticrmq.test.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/staticrmq.test.py

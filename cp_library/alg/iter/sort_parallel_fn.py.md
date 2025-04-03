@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack_sm_fn.py
     title: cp_library/bit/pack_sm_fn.py
   _extendedRequiredBy: []
@@ -45,7 +45,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort_parallel_fn.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/sort_parallel_fn.py

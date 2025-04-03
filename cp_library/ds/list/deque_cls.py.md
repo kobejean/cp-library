@@ -94,7 +94,7 @@ data:
   - cp_library/ds/slidingmin_cls.py
   - cp_library/ds/slidingmax_cls.py
   - cp_library/ds/slidingminmax_cls.py
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py

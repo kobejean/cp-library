@@ -10,7 +10,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/max2_fn.py
     title: cp_library/alg/dp/max2_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   _extendedRequiredBy: []
@@ -37,8 +37,8 @@ data:
     \ i,a in enumerate(A):\n        if chmin(dp, p := bisect_left(dp,a,hi=r+1), a):\n\
     \            idx[p], prev[i], r = i, idx[p-1], max2(r,p)\n    ans, i = [0]*r,\
     \ idx[r]\n    for j in range(r-1,-1,-1): ans[j], i = i, prev[i]\n    return ans\n\
-    \n    \n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import\
-    \ read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
+    \n    \n\n\n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os\
+    \ import read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
     \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
     \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
     \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
@@ -71,7 +71,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/other/longest_increasing_sequence.test.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/other/longest_increasing_sequence.test.py

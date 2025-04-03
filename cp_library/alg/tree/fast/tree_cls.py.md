@@ -19,19 +19,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/array_init_fn.py
     title: cp_library/ds/array_init_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
+    title: cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc202_e_fast_dfs.test.py
@@ -402,8 +405,9 @@ data:
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/fast/tree_cls.py
-  requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  requiredBy:
+  - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/vertex_add_path_sum_hld.test.py

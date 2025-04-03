@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
   - icon: ':warning:'
@@ -96,9 +96,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_set_range_composite.test.py
     title: test/library-checker/data-structure/point_set_range_composite.test.py
-  - icon: ':x:'
-    path: test/library-checker/graph/incremental_scc.test.py
-    title: test/library-checker/graph/incremental_scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
@@ -120,9 +117,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -161,8 +158,8 @@ data:
   - cp_library/alg/iter/iargsort_fn.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
-  timestamp: '2025-04-02 01:29:15+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-04-03 08:59:41+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
@@ -178,7 +175,6 @@ data:
   - test/library-checker/data-structure/point_set_range_composite.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/incremental_scc.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/yukicoder/3407.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

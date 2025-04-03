@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   - icon: ':heavy_check_mark:'
@@ -90,8 +90,8 @@ data:
     \ A\n\ndef and_conv(A: list[int], B: list[int], N: int, mod) -> list[int]:\n \
     \   assert len(A) == len(B)\n    Z = 1 << N\n    superset_zeta_pair(A, B, N)\n\
     \    for i, b in enumerate(B): A[i] = A[i]*b%mod\n    superset_mobius(A, N)\n\
-    \    for i in range(Z): A[i] %= mod\n    return A\nfrom __pypy__.builders import\
-    \ StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    \    for i in range(Z): A[i] %= mod\n    return A\n\n\nfrom __pypy__.builders\
+    \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
     from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
     \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
     \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
@@ -125,7 +125,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution_fast.test.py

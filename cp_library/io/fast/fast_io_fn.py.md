@@ -10,6 +10,9 @@ data:
     path: test/library-checker/convolution/bitwise_xor_convolution.test.py
     title: test/library-checker/convolution/bitwise_xor_convolution.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/double_ended_priority_queue.test.py
+    title: test/library-checker/data-structure/double_ended_priority_queue.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/staticrmq.test.py
     title: test/library-checker/data-structure/staticrmq.test.py
   - icon: ':heavy_check_mark:'
@@ -18,7 +21,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/biconnected_components_scratch.test.py
     title: test/library-checker/graph/biconnected_components_scratch.test.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/incremental_scc.test.py
     title: test/library-checker/graph/incremental_scc.test.py
   - icon: ':heavy_check_mark:'
@@ -39,13 +42,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
     title: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "from __pypy__.builders import StringBuilder\nimport sys\nfrom os import\
-    \ read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import read\
+    \ as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
     \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
     \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
     \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
@@ -66,8 +75,9 @@ data:
     \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
     sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
     def wtnl(l): wtn(' '.join(map(str, l)))\n"
-  code: "from __pypy__.builders import StringBuilder\nimport sys\nfrom os import read\
-    \ as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
+  code: "import cp_library.__header__\nimport cp_library.io.__header__\nimport cp_library.io.fast.__header__\n\
+    from __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as\
+    \ os_read, write as os_write\nfrom atexit import register as atexist_register\n\
     \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
     \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
     \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
@@ -92,11 +102,12 @@ data:
   isVerificationFile: false
   path: cp_library/io/fast/fast_io_fn.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-04-03 08:59:41+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   - test/library-checker/data-structure/staticrmq_general.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue.test.py
   - test/library-checker/data-structure/staticrmq.test.py
   - test/library-checker/convolution/bitwise_xor_convolution.test.py
   - test/library-checker/convolution/bitwise_and_convolution_fast.test.py

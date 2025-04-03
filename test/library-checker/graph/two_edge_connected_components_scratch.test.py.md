@@ -4,10 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   _extendedRequiredBy: []
@@ -46,11 +46,11 @@ data:
     \         while u != v: e2ccs.append(v := buf.pop())\n        L.append(len(e2ccs));\
     \ e2ccs.extend(buf); buf.clear()\n    return e2ccs, L\n\n\n\ndef elist(est_len:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as os_read,\
-    \ write as os_write\nfrom atexit import register as atexist_register\n\nclass\
-    \ Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n \
-    \   def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\n\
+    from __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as\
+    \ os_read, write as os_write\nfrom atexit import register as atexist_register\n\
+    \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
+    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
     \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
     \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
     \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
@@ -103,7 +103,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/two_edge_connected_components_scratch.test.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/two_edge_connected_components_scratch.test.py

@@ -220,6 +220,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
       title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
+      title: cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
       title: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
@@ -229,9 +232,9 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
       title: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
-    - icon: ':warning:'
-      path: cp_library/alg/graph/fast/snippets/scc_incremental.py
-      title: cp_library/alg/graph/fast/snippets/scc_incremental.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
+      title: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
       title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
@@ -246,7 +249,10 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/iter/argmin_fn.py
       title: cp_library/alg/iter/argmin_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/argsort_bounded_fn.py
+      title: cp_library/alg/iter/argsort_bounded_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/argsort_fn.py
       title: cp_library/alg/iter/argsort_fn.py
     - icon: ':warning:'
@@ -396,7 +402,7 @@ data:
     - icon: ':warning:'
       path: cp_library/bit/ctz_fn.py
       title: cp_library/bit/ctz_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/bit/pack_sm_fn.py
       title: cp_library/bit/pack_sm_fn.py
     - icon: ':heavy_check_mark:'
@@ -428,10 +434,10 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/disjoint_sparse_table_cls.py
       title: cp_library/ds/disjoint_sparse_table_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/elist_fn.py
       title: cp_library/ds/elist_fn.py
     - icon: ':warning:'
@@ -490,7 +496,7 @@ data:
       title: cp_library/ds/wavelet_matrix_cls.py
   - name: cp_library/ds/csr
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/csr/csr_incremental_cls.py
       title: cp_library/ds/csr/csr_incremental_cls.py
   - name: cp_library/ds/heap
@@ -501,6 +507,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/heapq_max_import.py
       title: cp_library/ds/heap/heapq_max_import.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/interval_heap_cls.py
+      title: cp_library/ds/heap/interval_heap_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/k_heap_mixin.py
       title: cp_library/ds/heap/k_heap_mixin.py
@@ -578,10 +587,10 @@ data:
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
@@ -601,7 +610,7 @@ data:
       title: cp_library/io/write_fn.py
   - name: cp_library/io/fast
     pages:
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/fast/fast_io_fn.py
       title: cp_library/io/fast/fast_io_fn.py
   - name: cp_library/io/legacy
@@ -1214,6 +1223,9 @@ data:
   - name: test/library-checker/data-structure
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/double_ended_priority_queue.test.py
+      title: test/library-checker/data-structure/double_ended_priority_queue.test.py
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/point_add_range_sum.test.py
       title: test/library-checker/data-structure/point_add_range_sum.test.py
     - icon: ':heavy_check_mark:'
@@ -1271,7 +1283,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/directedmst.test.py
       title: test/library-checker/graph/directedmst.test.py
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/incremental_scc.test.py
       title: test/library-checker/graph/incremental_scc.test.py
     - icon: ':heavy_check_mark:'

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   - icon: ':heavy_check_mark:'
@@ -101,8 +101,8 @@ data:
     \    fwht_pair(A, B, N)\n    for i, b in enumerate(B): A[i] = A[i]%mod * (b%mod)\
     \ % mod\n    fwht_inv(A, N, mod)\n    return A\n\ndef xor_conv(A: list[int], B:\
     \ list[int], N: int, mod: int) -> list[int]:\n    return ixor_conv(A[:], B[:],\
-    \ N, mod)\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import\
-    \ read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
+    \ N, mod)\n\n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os\
+    \ import read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
     \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
     \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
     \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
@@ -138,7 +138,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_xor_convolution.test.py
   requiredBy: []
-  timestamp: '2025-04-02 01:29:15+09:00'
+  timestamp: '2025-04-03 08:59:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_xor_convolution.test.py
