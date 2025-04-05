@@ -16,14 +16,11 @@ class SkewHeapForest(Generic[_T]):
             shf.A[u] = 0
 
     def merge(shf, u: int, v: int):
-        st, V, A, L, R = shf.st, shf.V, shf.A, shf.L, shf.R
         while u >= 0 and v >= 0:
-            if V[v]+A[v] < V[u]+A[u]: u, v = v, u
-            shf.propagate(u)
-            st.append(u)
-            R[u], u = L[u], R[u]
+            if shf.V[v]+shf.A[v] < shf.V[u]+shf.A[u]: u, v = v, u
+            shf.propagate(u); shf.st.append(u); shf.R[u], u = shf.L[u], shf.R[u]
         u = v if u == -1 else u
-        while st: L[u := st.pop()] = u
+        while shf.st: shf.L[u := shf.st.pop()] = u
         return u
     
     def min(shf, i: int):

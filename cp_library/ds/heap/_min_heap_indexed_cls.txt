@@ -2,8 +2,7 @@ import cp_library.ds.heap.__header__
 from collections import UserList
 from math import inf
 from typing import Generic, Iterable, Sequence, SupportsIndex, TypeVar
-from heapq import heapify, heappop
-from cp_library.ds.heap.heapq_max_import import heapsiftup, heapsiftdown
+from cp_library.ds.heap.fast_heapq  import heapify, heappop, heapsiftup, heapsiftdown
 from cp_library.ds.heap.heap_proto import HeapProtocol
 from cp_library.ds.elist_fn import elist
 

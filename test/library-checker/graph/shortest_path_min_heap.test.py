@@ -8,11 +8,10 @@ def main():
     if path is None:
         write("-1")
     else:
-        E = G.E
         X, Y = D[t], len(path)
         write(X, Y)
         for e in path:
-            u,v,_ = E[e]
+            u,v = G.U[e], G.V[e]
             write(u,v)
     
 from math import inf
@@ -24,21 +23,20 @@ def shortest_path(G, s: int, g: int) -> list[int]:
         return [], D
     par = [-1] * G.N
     par_edge = [-1] * G.N
-    Eid = G.edge_ids()
     heap = MinHeap()
     heap.push((0, s))
 
     while heap:
-        d, v = heap.pop()
-        if d > D[v]: continue
-        if v == g: break
-    
-        for i,(u, w, *_) in enumerate(G[v]):
-            if (nd := d + w) < D[u]:
-                D[u] = nd
-                par[u] = v
-                par_edge[u] = Eid[v][i]
-                heap.push((nd, u))
+        d, u = heap.pop()
+        if d > D[u]: continue
+        if u == g: break
+        i, r = G.La[u]-1, G.Ra[u]
+        while (i:=i+1) < r:
+            if (nd := d + G.Wa[i]) < D[v := G.Va[i]]:
+                D[v] = nd
+                par[v] = u
+                par_edge[v] = G.Ea[i]
+                heap.push((nd, v))
     
     if D[g] == inf:
         return None, D
@@ -51,7 +49,7 @@ def shortest_path(G, s: int, g: int) -> list[int]:
         
     return path[::-1], D
 
-from cp_library.alg.graph.digraph_weighted_cls import DiGraphWeighted
+from cp_library.alg.graph.fast.digraph_weighted_cls import DiGraphWeighted
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.ds.heap.min_heap_cls import MinHeap

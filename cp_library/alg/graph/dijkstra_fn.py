@@ -1,6 +1,6 @@
 import cp_library.alg.graph.__header__
 
-from heapq import heappop, heappush
+from cp_library.ds.heap.fast_heapq import heappop, heappush
 from typing import Union, overload
 from cp_library.alg.dp.chmin_fn import chmin
 from math import inf

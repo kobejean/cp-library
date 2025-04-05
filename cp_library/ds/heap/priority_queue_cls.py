@@ -1,7 +1,7 @@
 import cp_library.ds.heap.__header__
 
 from collections import UserList
-from heapq import heapify, heappop, heappush, heappushpop, heapreplace
+from cp_library.ds.heap.fast_heapq  import heapify, heappop, heappush, heappushpop, heapreplace
 from cp_library.ds.heap.heap_proto import HeapProtocol
 
 class PriorityQueue(HeapProtocol[int], UserList[int]):

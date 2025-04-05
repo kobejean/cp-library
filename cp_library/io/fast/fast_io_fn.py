@@ -43,5 +43,8 @@ fastio = Fastio()
 rd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout; wtn = fastio.fastoutln; flush = fastio.flush
 atexist_register(fastio.flush_atexit)
 sys.stdin = None; sys.stdout = None
-def rdl(n): return [rd() for _ in range(n)]
+def rdl(n):
+    lst = [0]*n
+    for i in range(n): lst[i] = rd()
+    return lst
 def wtnl(l): wtn(' '.join(map(str, l)))

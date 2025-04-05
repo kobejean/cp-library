@@ -9,12 +9,11 @@ def scc_incremental(N, M, U, V):
     E, F, sccs, st, buf, tin, low = [*range(M)], [*range(M)], [0]*N, [0]*N, [0]*N, [-1]*N, [-1]*N
 
     def build_csr(N, E, el, er):
-        u = tot = 0
-        while u < N: La[u], tin[u] = 0, -1; u += 1
+        tot = 0
+        for u in range(N): La[u], tin[u] = 0, -1
         i = el
         while i < er: La[U[e := E[i]]] += 1; i += 1
-        u = 0
-        while u < N: La[u] = Ra[u] = (tot := tot + La[u]); u += 1
+        for u in range(N): La[u] = Ra[u] = (tot := tot + La[u])
         i = el
         while i < er: La[u] = a = La[u := U[e := E[i]]]-1; Va[a] = V[e]; i += 1
 

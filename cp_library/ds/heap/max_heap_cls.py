@@ -1,7 +1,7 @@
 import cp_library.ds.heap.__header__
 from collections import UserList
 from typing import Iterable
-from cp_library.ds.heap.heapq_max_import import heapify_max, heappop_max, heappush_max, heapreplace_max, heappushpop_max
+from cp_library.ds.heap.fast_heapq import heapify_max, heappop_max, heappush_max, heapreplace_max, heappushpop_max
 from cp_library.ds.heap.heap_proto import HeapProtocol
 from cp_library.misc.typing import _T
 

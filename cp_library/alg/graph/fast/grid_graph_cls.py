@@ -10,22 +10,14 @@ class GridGraph(GridGraphWalledBase):
         N = H*W
         Mest = N*len(dirs)
         deg, La, Ra, Ua, Va = u32f(N), u32f(N), u32f(N), elist(Mest), elist(Mest)
-        super().__init__(
-            H, W, 0, S, Ua, Va, deg, La, Ra, Ua, Va, None, dirs, wall
-        )
-
+        super().__init__(H, W, 0, S, Ua, Va, deg, La, Ra, Ua, Va, None, dirs, wall)
         for i in range(H):
             for j in range(W):
                 La[u := i*W+j] = len(Ua)
-                if G.is_valid(i, j, u):
-                    for di,dj in dirs:
-                        if G.is_valid(ni:=i+di, nj:=j+dj, v:=ni*W+nj):
-                            deg[u] += 1
-                            Ua.append(u)
-                            Va.append(v)
+                for di,dj in dirs:
+                    if G.is_valid(ni:=i+di, nj:=j+dj, v:=ni*W+nj):
+                        Ua.append(u); Va.append(v); deg[u] += 1
                 Ra[u] = len(Ua)
-
-        G.M = len(Ua)
-        G.Ea = u32a(range(G.M))
+        G.M, G.Ea = len(Ua), u32a(range(G.M))
 
 from cp_library.ds.array_init_fn import u32f, u32a

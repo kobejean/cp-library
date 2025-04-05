@@ -1,7 +1,7 @@
 import cp_library.alg.graph.__header__
 
 from typing import Union, overload
-from heapq import heapify, heappop, heappush
+from cp_library.ds.heap.fast_heapq  import heapify, heappop, heappush
 import operator
 
 from cp_library.alg.graph.dfs_options_cls import DFSEvent, DFSFlags

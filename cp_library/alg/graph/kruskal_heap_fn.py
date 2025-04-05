@@ -1,6 +1,6 @@
 import cp_library.alg.graph.__header__
 
-from heapq import heapify, heappop
+from cp_library.ds.heap.fast_heapq  import heapify, heappop
 from cp_library.ds.dsu_cls import DSU
 
 def kruskal(E, N):

@@ -29,19 +29,18 @@ class GraphWeightedBase(GraphBase):
         else: return G.dijkstra(s, g)
 
     def dijkstra(G, s: int, t: int = None):
-        N, S, Va, Wa = G.N, G.starts(s), G.Va, G.Wa
-        G.back, G.D  = back, D = i32f(N, -1), [inf]*N
-        for s in S: D[s] = 0
-        que = PriorityQueue(N, S)
+        G.back, G.D, S = i32f(G.N, -1), [inf]*G.N, G.starts(s)
+        for s in S: G.D[s] = 0
+        que = PriorityQueue(G.N, S)
         while que:
             u, d = que.pop()
-            if d > D[u]: continue
+            if d > G.D[u]: continue
             if u == t: return d
-            for i in G.range(u): 
-                if chmin(D, v := Va[i], nd := d + Wa[i]):
-                    back[v] = i
-                    que.push(v, nd)
-        return D if t is None else inf 
+            i, r = G.La[u]-1, G.Ra[u]
+            while (i:=i+1)<r: 
+                if chmin(G.D, v := G.Va[i], nd := d + G.Wa[i]):
+                    G.back[v] = i; que.push(v, nd)
+        return G.D if t is None else inf 
 
     def kruskal(G):
         U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1
@@ -106,7 +105,6 @@ class GraphWeightedBase(GraphBase):
         return parse
 
 from cp_library.ds.dsu_cls import DSU
-from cp_library.ds.elist_fn import elist
-from cp_library.ds.array_init_fn import i32f, u32f, i64f
+from cp_library.ds.array_init_fn import i32f, u32f
 from cp_library.ds.heap.priority_queue_cls import PriorityQueue
 from math import inf

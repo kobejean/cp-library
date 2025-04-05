@@ -86,7 +86,7 @@ def directed_mst(n, edges, root):
         for v in processing:
             used[v] = 2
 
-    used_e = [False] * m
+    used_e = [0] * m
     tree = [-1] * n
     for idx in reversed(idxs):
         if used_e[idx]:
@@ -95,7 +95,7 @@ def directed_mst(n, edges, root):
         tree[to] = fr
         x = stem[to]
         while x != idx:
-            used_e[x] = True
+            used_e[x] = 1
             x = par_e[x]
     return res, tree
 

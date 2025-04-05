@@ -3,45 +3,48 @@ import cp_library.ds.__header__
 import cp_library.ds.heap.__header__
 
 class IntervalHeap:
-    def __init__(heap, x):
-        super().__init__()
-        heap._d = x
-        for i in range(len(x)): heap._up(0, i, i+1)
+    def __init__(heap, arr: list):
+        heap._d = arr
+        for k in range(len(arr)): heap._up(k)
 
-    def push(heap, v):
-        heap._d.append(v)
-        heap._up(0, len(heap._d)-1, len(heap._d))
+    def push(heap, item):
+        heap._d.append(item)
+        heap._up(len(heap._d)-1)
 
     def pop_min(heap):
-        v = heap._d.pop()
-        if heap._d: v, heap._d[0] = heap._d[0], v; heap._up(0, heap._down(0), len(heap._d))
-        return v
+        item = heap._d.pop()
+        if heap._d: item, heap._d[0] = heap._d[0], item; heap._down(0)
+        return item
 
     def pop_max(heap):
-        v = heap._d.pop()
-        if len(heap._d) >= 2: v, heap._d[1] = heap._d[1], v; heap._up(1, heap._down(1), len(heap._d))
-        return v
+        item = heap._d.pop()
+        if len(heap._d) >= 2: item, heap._d[1] = heap._d[1], item; heap._down(1)
+        return item
 
-    def _up(heap, rt, k, n):
-        v = (d := heap._d)[k]
-        if k|1 < n and d[k|1] < d[k&~1]: d[k] = d[k^1]; k ^= 1
-        while rt <= (p := (k>>1)-1&~1) and v < d[p]: d[k], k = d[p], p
-        while rt <= (p := (k>>1)-1|1) and d[p] < v: d[k], k = d[p], p
-        d[k] = v
+    def _up(heap, k):
+        v = heap._d[k]
+        if k&1 and heap._d[k] < heap._d[k-1]: heap._d[k] = heap._d[k-1]; k ^= 1
+        while 0 <= (p := (k>>1)-1&~1) and v < heap._d[p]: heap._d[k], k = heap._d[p], p
+        while 0 <= (p := (k>>1)-1|1) and heap._d[p] < v: heap._d[k], k = heap._d[p], p
+        heap._d[k] = v
 
     def _down(heap, k):
-        n, v = len(d := heap._d), d[k]
+        n, v, rt = len(d := heap._d)-2, d[k], k
         if k & 1: # max heap
             c = 2*k+1
-            while c < n:
-                if c+2 < n and d[c] < d[c+2]: c += 2
-                if v < d[c]: d[k], k, c = d[c], c, 2*c+1
-                else: break
+            while c < n and v < d[c := c+2 if d[c] < d[c+2] else c]: d[k], k, c = d[c], c, c<<1|1
+            if c < n+2 and v < d[c]: d[k], k = d[c], c
+            d[k] = v
+            if v < d[k-1]:
+                d[k] = d[k-1]; k ^= 1
+                while rt <= (p := (k>>1)-1&~1) and v < d[p]: d[k], k = d[p], p
+                d[k] = v
         else: # min heap
-            c = 2*k+2
-            while c < n:
-                if c+2 < n and d[c+2] < d[c]: c += 2
-                if d[c] < v: d[k], k, c = d[c], c, 2*c+2
-                else: break
-        d[k] = v
-        return k
+            c = (k+1)<<1
+            while c < n and d[c := c+2 if d[c+2] < d[c] else c] < v: d[k], k, c = d[c], c, (c+1)<<1
+            if c < n+2 and d[c] < v: d[k], k = d[c], c
+            d[k] = v
+            if k+1 < n+2 and d[k+1] < d[k]:
+                d[k] = d[k+1]; k ^= 1
+                while rt <= (p := (k>>1)-1|1) and d[p] < v: d[k], k = d[p], p
+                d[k] = v
