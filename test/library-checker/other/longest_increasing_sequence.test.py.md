@@ -57,8 +57,9 @@ data:
     \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
     \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
     \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
-    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
-    def wtnl(l): wtn(' '.join(map(str, l)))\n\nmain()\n"
+    sys.stdin = None; sys.stdout = None\ndef rdl(n):\n    lst = [0]*n\n    for i in\
+    \ range(n): lst[i] = rd()\n    return lst\ndef wtnl(l): wtn(' '.join(map(str,\
+    \ l)))\n\nmain()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/longest_increasing_subsequence\n\
     def main():\n    N = rd()\n    A = rdl(N)\n    ans = lis(A)\n    wtn(len(ans))\n\
     \    wtnl(ans)\n\nfrom cp_library.alg.dp.lis_fn import lis\nfrom cp_library.io.fast.fast_io_fn\
@@ -71,7 +72,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/other/longest_increasing_sequence.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/other/longest_increasing_sequence.test.py

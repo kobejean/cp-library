@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/heapq_max_import.py
-    title: cp_library/ds/heap/heapq_max_import.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/k_heap_mixin.py
     title: cp_library/ds/heap/k_heap_mixin.py
@@ -35,44 +35,59 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterable\nfrom collections import UserList\nfrom typing import\
-    \ TypeVar\n_T = TypeVar('T')\ndef heappop_max(heap: list[_T], /) -> _T: ...\n\
-    def heapsiftdown_max(heap: list[_T], root: int, pos: int): ...\ndef heapsiftup_max(heap:\
-    \ list[_T], pos: int): ...\ndef heapsiftdown(heap: list[_T], root: int, pos: int):\
-    \ ...\ndef heapsiftup(heap: list[_T], pos: int): ...\n\nfrom heapq import (\n\
-    \    _heapify_max as heapify_max, \n    _heappop_max as heappop_max, \n    _siftdown_max\
-    \ as heapsiftdown_max,\n    _siftup_max as heapsiftup_max,\n    _siftdown as heapsiftdown,\n\
-    \    _siftup as heapsiftup\n)\n\ndef heappush_max(heap: list[_T], item: _T):\n\
-    \    '''Push item onto heap, maintaining the heap invariant.'''\n    heap.append(item)\n\
-    \    heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list[_T],\
-    \ item: _T) -> _T:\n    '''Pop and return the current largest value, and add the\
-    \ new item.\n\n    This is more efficient than heappop_max() followed by heappush_max(),\
-    \ and can be\n    more appropriate when using a fixed-size heap.  Note that the\
-    \ value\n    returned may be larger than item!  That constrains reasonable uses\
-    \ of\n    this routine unless written as part of a conditional replacement:\n\n\
-    \        if item > heap[0]:\n            item = heapreplace_max(heap, item)\n\
-    \    '''\n    returnitem = heap[0]\n    heap[0] = item\n    heapsiftup_max(heap,\
-    \ 0)\n    return returnitem\n\ndef heappushpop_max(heap: list[_T], item: _T) ->\
-    \ _T:\n    '''Fast version of a heappush_max followed by a heappop_max.'''\n \
-    \   if heap and heap[0] > item:\n        item, heap[0] = heap[0], item\n     \
-    \   heapsiftup_max(heap, 0)\n    return item\n\nfrom typing import Generic\n\n\
-    class HeapProtocol(Generic[_T]):\n    def pop(self) -> _T: ...\n    def push(self,\
-    \ item: _T): ...\n    def pushpop(self, item: _T) -> _T: ...\n    def replace(self,\
-    \ item: _T) -> _T: ...\n\nclass MaxHeap(HeapProtocol[_T], UserList[_T]):\n   \
-    \ def __init__(self, iterable: Iterable[_T] = None):\n        super().__init__(iterable)\n\
-    \        heapify_max(self.data)\n    def pop(self): return heappop_max(self.data)\n\
-    \    def push(self, item: _T): heappush_max(self.data, item)\n    def pushpop(self,\
-    \ item: _T): return heappushpop_max(self.data, item)\n    def replace(self, item:\
-    \ _T): return heapreplace_max(self.data, item)\nfrom typing import Union\n\n\n\
-    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    from typing import Iterable\nfrom collections import UserList\n\ndef heappush(heap:\
+    \ list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\
+    \ndef heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Generic\nfrom typing\
+    \ import TypeVar\n_T = TypeVar('T')\n\nclass HeapProtocol(Generic[_T]):\n    def\
+    \ pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
+    \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MaxHeap(HeapProtocol[_T],\
+    \ UserList[_T]):\n    def __init__(self, iterable: Iterable[_T] = None):\n   \
+    \     super().__init__(iterable)\n        heapify_max(self.data)\n    def pop(self):\
+    \ return heappop_max(self.data)\n    def push(self, item: _T): heappush_max(self.data,\
+    \ item)\n    def pushpop(self, item: _T): return heappushpop_max(self.data, item)\n\
+    \    def replace(self, item: _T): return heapreplace_max(self.data, item)\nfrom\
+    \ typing import Union\n\n\nimport typing\nfrom collections import deque\nfrom\
+    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -174,14 +189,14 @@ data:
   dependsOn:
   - cp_library/ds/heap/max_heap_cls.py
   - cp_library/ds/heap/k_heap_mixin.py
-  - cp_library/ds/heap/heapq_max_import.py
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/ds/heap/min_k_heap_cls.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_min_k_heap.test.py

@@ -40,17 +40,16 @@ data:
     \ propagate(shf, u: int):\n        if (add := shf.A[u]):\n            if (l :=\
     \ shf.L[u]) != -1: shf.A[l] += add\n            if (r := shf.R[u]) != -1: shf.A[r]\
     \ += add\n            shf.V[u] += add\n            shf.A[u] = 0\n\n    def merge(shf,\
-    \ u: int, v: int):\n        st, V, A, L, R = shf.st, shf.V, shf.A, shf.L, shf.R\n\
-    \        while u >= 0 and v >= 0:\n            if V[v]+A[v] < V[u]+A[u]: u, v\
-    \ = v, u\n            shf.propagate(u)\n            st.append(u)\n           \
-    \ R[u], u = L[u], R[u]\n        u = v if u == -1 else u\n        while st: L[u\
-    \ := st.pop()] = u\n        return u\n    \n    def min(shf, i: int):\n      \
-    \  assert (root := shf.roots[i]) >= 0\n        shf.propagate(root)\n        return\
-    \ shf.V[root]\n\n    def push(shf, i: int, x: _T):\n        shf.id = (id := shf.id)+1\n\
-    \        shf.V[id] = x\n        shf.roots[i] = shf.merge(shf.roots[i], id)\n\n\
-    \    def pop(shf, i: int) -> _T:\n        assert (root := shf.roots[i]) >= 0\n\
-    \        shf.propagate(root := shf.roots[i])\n        val = shf.V[root]\n    \
-    \    shf.roots[i] = shf.merge(shf.L[root], shf.R[root])\n        return val\n\
+    \ u: int, v: int):\n        while u >= 0 and v >= 0:\n            if shf.V[v]+shf.A[v]\
+    \ < shf.V[u]+shf.A[u]: u, v = v, u\n            shf.propagate(u); shf.st.append(u);\
+    \ shf.R[u], u = shf.L[u], shf.R[u]\n        u = v if u == -1 else u\n        while\
+    \ shf.st: shf.L[u := shf.st.pop()] = u\n        return u\n    \n    def min(shf,\
+    \ i: int):\n        assert (root := shf.roots[i]) >= 0\n        shf.propagate(root)\n\
+    \        return shf.V[root]\n\n    def push(shf, i: int, x: _T):\n        shf.id\
+    \ = (id := shf.id)+1\n        shf.V[id] = x\n        shf.roots[i] = shf.merge(shf.roots[i],\
+    \ id)\n\n    def pop(shf, i: int) -> _T:\n        assert (root := shf.roots[i])\
+    \ >= 0\n        shf.propagate(root := shf.roots[i])\n        val = shf.V[root]\n\
+    \        shf.roots[i] = shf.merge(shf.L[root], shf.R[root])\n        return val\n\
     \    \n    def add(shf, i: int, val: _T): shf.A[shf.roots[i]] += val\n    def\
     \ empty(shf, i: int): return shf.roots[i] == -1\n    \n\ndef directed_mst(n, edges,\
     \ root):\n    OFFSET = 1 << 31\n    from_ = [0] * n\n    from_cost = [0] * n\n\
@@ -74,10 +73,10 @@ data:
     \ from_heap.roots[p])\n                    p = uf.root(from_[p])\n           \
     \         cycle += 1\n                    if p == v:\n                       \
     \ break\n            else:\n                v = from_[v]\n        for v in processing:\n\
-    \            used[v] = 2\n\n    used_e = [False] * m\n    tree = [-1] * n\n  \
-    \  for idx in reversed(idxs):\n        if used_e[idx]:\n            continue\n\
-    \        fr, to, cost = edges[idx]\n        tree[to] = fr\n        x = stem[to]\n\
-    \        while x != idx:\n            used_e[x] = True\n            x = par_e[x]\n\
+    \            used[v] = 2\n\n    used_e = [0] * m\n    tree = [-1] * n\n    for\
+    \ idx in reversed(idxs):\n        if used_e[idx]:\n            continue\n    \
+    \    fr, to, cost = edges[idx]\n        tree[to] = fr\n        x = stem[to]\n\
+    \        while x != idx:\n            used_e[x] = 1\n            x = par_e[x]\n\
     \    return res, tree\n\n\nn, m, root = map(int, input().split())\nedges = [[int(s)\
     \ for s in input().split()] for i in range(m)]\n\n\nres, par = directed_mst(n,\
     \ edges, root)\nif res == -1:\n    print(res)\nelse:\n    print(res)\n    print(*[p\
@@ -113,10 +112,10 @@ data:
     \ from_heap.roots[p])\n                    p = uf.root(from_[p])\n           \
     \         cycle += 1\n                    if p == v:\n                       \
     \ break\n            else:\n                v = from_[v]\n        for v in processing:\n\
-    \            used[v] = 2\n\n    used_e = [False] * m\n    tree = [-1] * n\n  \
-    \  for idx in reversed(idxs):\n        if used_e[idx]:\n            continue\n\
-    \        fr, to, cost = edges[idx]\n        tree[to] = fr\n        x = stem[to]\n\
-    \        while x != idx:\n            used_e[x] = True\n            x = par_e[x]\n\
+    \            used[v] = 2\n\n    used_e = [0] * m\n    tree = [-1] * n\n    for\
+    \ idx in reversed(idxs):\n        if used_e[idx]:\n            continue\n    \
+    \    fr, to, cost = edges[idx]\n        tree[to] = fr\n        x = stem[to]\n\
+    \        while x != idx:\n            used_e[x] = 1\n            x = par_e[x]\n\
     \    return res, tree\n\n\nn, m, root = map(int, input().split())\nedges = [[int(s)\
     \ for s in input().split()] for i in range(m)]\n\n\nres, par = directed_mst(n,\
     \ edges, root)\nif res == -1:\n    print(res)\nelse:\n    print(res)\n    print(*[p\
@@ -127,7 +126,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/directedmst.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/directedmst.test.py

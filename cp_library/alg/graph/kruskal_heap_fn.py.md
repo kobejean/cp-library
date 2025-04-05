@@ -8,6 +8,9 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -29,10 +32,43 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom heapq import heapify, heappop\nfrom typing import Collection\n\nimport\
-    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
-    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
+    \ 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Collection\n\n\
+    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -108,8 +144,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nfrom typing import Sequence\n\
-    \n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
+    \ return cls(next(ts))\n        return parser\nfrom typing import Sequence\n\n\
+    \nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
     \        csr.L, N = [0]*len(sizes), 0\n        for i,sz in enumerate(sizes):\n\
     \            csr.L[i] = N; N += sz\n        csr.R, csr.A = csr.L[:], [0]*N\n\n\
     \    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]] = x; csr.R[i] +=\
@@ -141,13 +177,14 @@ data:
     \   edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n \
     \           dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
     \ 1\n    return MST\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom heapq import heapify, heappop\n\
-    from cp_library.ds.dsu_cls import DSU\n\ndef kruskal(E, N):\n    heapify(E)\n\
-    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need:\n     \
-    \   edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n \
-    \           dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
-    \ 1\n    return MST\n"
+  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.ds.heap.fast_heapq\
+    \  import heapify, heappop\nfrom cp_library.ds.dsu_cls import DSU\n\ndef kruskal(E,\
+    \ N):\n    heapify(E)\n    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while\
+    \ E and need:\n        edge = heappop(E)\n        u,v,_ = edge\n        if not\
+    \ dsu.same(u,v):\n            dsu.merge(u,v)\n            MST.append(edge)\n \
+    \           need -= 1\n    return MST\n"
   dependsOn:
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/dsu_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
@@ -155,7 +192,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_heap_fn.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py

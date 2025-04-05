@@ -57,8 +57,9 @@ data:
     \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
     \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
     \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
-    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
-    def wtnl(l): wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
+    sys.stdin = None; sys.stdout = None\ndef rdl(n):\n    lst = [0]*n\n    for i in\
+    \ range(n): lst[i] = rd()\n    return lst\ndef wtnl(l): wtn(' '.join(map(str,\
+    \ l)))\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/staticrmq\n\
     \nfrom cp_library.alg.dp.min2_fn import min2\n\ndef main():\n    N, Q = rd(),\
     \ rd()\n    A = rdl(N)\n    st = SparseTable(min2, A)\n    for _ in range(Q):\n\
@@ -72,7 +73,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/staticrmq_general.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/staticrmq_general.test.py

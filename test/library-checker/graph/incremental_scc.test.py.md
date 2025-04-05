@@ -36,49 +36,49 @@ data:
     \ndef scc_incremental(N, M, U, V):\n    U, V, W, La, Ra, Va = U[:], V[:], [M]*M,\
     \ [0]*N, [0]*N, [0]*M\n    E, F, sccs, st, buf, tin, low = [*range(M)], [*range(M)],\
     \ [0]*N, [0]*N, [0]*N, [-1]*N, [-1]*N\n\n    def build_csr(N, E, el, er):\n  \
-    \      u = tot = 0\n        while u < N: La[u], tin[u] = 0, -1; u += 1\n     \
-    \   i = el\n        while i < er: La[U[e := E[i]]] += 1; i += 1\n        u = 0\n\
-    \        while u < N: La[u] = Ra[u] = (tot := tot + La[u]); u += 1\n        i\
-    \ = el\n        while i < er: La[u] = a = La[u := U[e := E[i]]]-1; Va[a] = V[e];\
-    \ i += 1\n\n    def scc_labels(N, E, el, em, er, La, Ra, Va):\n        t = cnt\
-    \ = -1; i = el\n        while i < em:\n            u = U[E[i]]; i += 1\n     \
-    \       if tin[u] < 0:\n                st[0] = u; d = b = 0\n               \
-    \ while d >= 0:\n                    if tin[u := st[d]] == -1: tin[u] = low[u]\
-    \ = (t:=t+1); buf[b] = u; b += 1\n                    if La[u] < Ra[u]:\n    \
-    \                    if (tv := tin[Va[La[u]]])== -1: st[d:=d+1] = Va[La[u]]\n\
-    \                        elif tv < low[u]: low[u] = tv\n                     \
-    \   La[u] += 1\n                    else:\n                        if (d:=d-1)\
-    \ >= 0 and low[u] < low[st[d]]: low[st[d]] = low[u]\n                        if\
-    \ low[u] == tin[u]:\n                            v, cnt = -1, cnt+1\n        \
-    \                    while u != v: tin[v := buf[b:=b-1]], sccs[buf[b]] = N, cnt\n\
-    \        while i < er:\n            u, v = U[E[i]], V[E[i]]; i += 1\n        \
-    \    if tin[u] < 0: tin[u], sccs[u] = N, (cnt:=cnt+1)\n            if tin[v] <\
-    \ 0: tin[v], sccs[v] = N, (cnt:=cnt+1)\n        return cnt+1\n    \n    def partition(el,\
-    \ er, tm):\n        i = em = el\n        while i < er:\n            if sccs[U[e\
-    \ := E[i]]] == sccs[V[e]]: W[e], F[em] = tm, e; em += 1\n            i += 1\n\
-    \        i, fm = el, em\n        while i < er:\n            if (u := sccs[U[e\
-    \ := E[i]]]) != (v := sccs[V[e]]): U[e], V[e], F[fm] = u, v, e; fm += 1\n    \
-    \        i += 1\n        return em\n    \n    def div_con(N, el, er, tl, tr):\n\
-    \        nonlocal E, F\n        if el == er: return\n        tm, em = (tl+tr)\
-    \ >> 1, el\n        while em < er and E[em] <= tm: em += 1\n        build_csr(N,\
-    \ E, el, em)\n        nN = scc_labels(N, E, el, em, er, La, Ra, Va)\n        em\
-    \ = partition(el, er, tm)\n        if tr-tl==1: return\n        E, F = F, E\n\
-    \        div_con(nN, em, er, tm, tr)\n        div_con(N, el, em, tl, tm)\n   \
-    \     E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\n\ndef argsort_bounded(A,\
-    \ mx):\n    I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n    for a in A: cnt[a] += 1\n\
-    \    for i in range(mx+1): cnt[i], t = t, t+cnt[i]\n    for i,a in enumerate(A):\
-    \ I[cnt[a]] = i; cnt[a] += 1\n    return I\n\n\nfrom __pypy__.builders import\
-    \ StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
-    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
-    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
-    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
-    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
-    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
-    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
-    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
-    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
-    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
-    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \      tot = 0\n        for u in range(N): La[u], tin[u] = 0, -1\n        i =\
+    \ el\n        while i < er: La[U[e := E[i]]] += 1; i += 1\n        for u in range(N):\
+    \ La[u] = Ra[u] = (tot := tot + La[u])\n        i = el\n        while i < er:\
+    \ La[u] = a = La[u := U[e := E[i]]]-1; Va[a] = V[e]; i += 1\n\n    def scc_labels(N,\
+    \ E, el, em, er, La, Ra, Va):\n        t = cnt = -1; i = el\n        while i <\
+    \ em:\n            u = U[E[i]]; i += 1\n            if tin[u] < 0:\n         \
+    \       st[0] = u; d = b = 0\n                while d >= 0:\n                \
+    \    if tin[u := st[d]] == -1: tin[u] = low[u] = (t:=t+1); buf[b] = u; b += 1\n\
+    \                    if La[u] < Ra[u]:\n                        if (tv := tin[Va[La[u]]])==\
+    \ -1: st[d:=d+1] = Va[La[u]]\n                        elif tv < low[u]: low[u]\
+    \ = tv\n                        La[u] += 1\n                    else:\n      \
+    \                  if (d:=d-1) >= 0 and low[u] < low[st[d]]: low[st[d]] = low[u]\n\
+    \                        if low[u] == tin[u]:\n                            v,\
+    \ cnt = -1, cnt+1\n                            while u != v: tin[v := buf[b:=b-1]],\
+    \ sccs[buf[b]] = N, cnt\n        while i < er:\n            u, v = U[E[i]], V[E[i]];\
+    \ i += 1\n            if tin[u] < 0: tin[u], sccs[u] = N, (cnt:=cnt+1)\n     \
+    \       if tin[v] < 0: tin[v], sccs[v] = N, (cnt:=cnt+1)\n        return cnt+1\n\
+    \    \n    def partition(el, er, tm):\n        i = em = el\n        while i <\
+    \ er:\n            if sccs[U[e := E[i]]] == sccs[V[e]]: W[e], F[em] = tm, e; em\
+    \ += 1\n            i += 1\n        i, fm = el, em\n        while i < er:\n  \
+    \          if (u := sccs[U[e := E[i]]]) != (v := sccs[V[e]]): U[e], V[e], F[fm]\
+    \ = u, v, e; fm += 1\n            i += 1\n        return em\n    \n    def div_con(N,\
+    \ el, er, tl, tr):\n        nonlocal E, F\n        if el == er: return\n     \
+    \   tm, em = (tl+tr) >> 1, el\n        while em < er and E[em] <= tm: em += 1\n\
+    \        build_csr(N, E, el, em)\n        nN = scc_labels(N, E, el, em, er, La,\
+    \ Ra, Va)\n        em = partition(el, er, tm)\n        if tr-tl==1: return\n \
+    \       E, F = F, E\n        div_con(nN, em, er, tm, tr)\n        div_con(N, el,\
+    \ em, tl, tm)\n        E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\
+    \n\ndef argsort_bounded(A, mx):\n    I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n \
+    \   for a in A: cnt[a] += 1\n    for i in range(mx+1): cnt[i], t = t, t+cnt[i]\n\
+    \    for i,a in enumerate(A): I[cnt[a]] = i; cnt[a] += 1\n    return I\n\n\nfrom\
+    \ __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as os_read,\
+    \ write as os_write\nfrom atexit import register as atexist_register\n\nclass\
+    \ Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n \
+    \   def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
+    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
+    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
+    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
+    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
+    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
+    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
+    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
+    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
     \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
     \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
     \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
@@ -87,8 +87,9 @@ data:
     \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
     \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
     \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
-    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
-    def wtnl(l): wtn(' '.join(map(str, l)))\n\nif __name__ == '__main__':\n    main()\n"
+    sys.stdin = None; sys.stdout = None\ndef rdl(n):\n    lst = [0]*n\n    for i in\
+    \ range(n): lst[i] = rd()\n    return lst\ndef wtnl(l): wtn(' '.join(map(str,\
+    \ l)))\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/incremental_scc\n\
     \ndef main():\n    N, M = rd(), rd()\n    X, U, V = rdl(N), [0]*M, [0]*M\n   \
     \ for e in range(M): U[e], V[e] = rd(), rd()\n    W, dsu, ans, mod = scc_incremental(N,\
@@ -107,7 +108,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc.test.py

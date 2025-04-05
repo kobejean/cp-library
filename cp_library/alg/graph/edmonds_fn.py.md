@@ -11,6 +11,9 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -35,7 +38,40 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from functools import reduce\nfrom heapq import heapify\n\n\nimport sys\nsys.setrecursionlimit(10**6)\n\
+    from functools import reduce\n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
+    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
+    \    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0] = heap[0],\
+    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap: list, item):\n\
+    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
+    \ 0)\n    return item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup(x, i)\n\ndef heapsiftdown(heap: list, root: int, pos: int):\n   \
+    \ item = heap[pos]\n    while root < pos and item < heap[p := (pos-1)>>1]: heap[pos],\
+    \ pos = heap[p], p\n    heap[pos] = item\n\ndef heapsiftup(heap: list, pos: int):\n\
+    \    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and heap[c\
+    \ := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1\n \
+    \   if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n    heap[pos] =\
+    \ item\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n    if heap: item,\
+    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapreplace_max(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n \
+    \   return item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup_max(x, i)\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
+    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n\
+    \    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\
+    \ndef heappushpop_max(heap: list, item):\n    if heap and heap[0] > item: item,\
+    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\n\n\nimport sys\nsys.setrecursionlimit(10**6)\n\
     import pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\")\nfrom typing import\
     \ Collection\n\nimport typing\nfrom collections import deque\nfrom numbers import\
     \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
@@ -115,8 +151,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nfrom typing import Sequence\n\
-    \n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
+    \ return cls(next(ts))\n        return parser\nfrom typing import Sequence\n\n\
+    \nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
     \        csr.L, N = [0]*len(sizes), 0\n        for i,sz in enumerate(sizes):\n\
     \            csr.L[i] = N; N += sz\n        csr.R, csr.A = csr.L[:], [0]*N\n\n\
     \    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]] = x; csr.R[i] +=\
@@ -172,32 +208,34 @@ data:
     \ return MCA\n        else:\n            return [edges[0][2] for edges in Gin\
     \ if edges]\n\n    return [E[id] for id in rec(Gin)]\n"
   code: "import cp_library.alg.graph.__header__\nfrom functools import reduce\nfrom\
-    \ heapq import heapify\nimport cp_library.misc.setrecursionlimit\nfrom cp_library.ds.dsu_cls\
-    \ import DSU\nfrom cp_library.alg.graph.floyds_cycle_fn import floyds_cycle\n\n\
-    def edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:\n    # obtain incoming\
-    \ edges\n    Gin = [[] for _ in range(N)]\n    for id,(u,v,w) in enumerate(E):\n\
-    \        if v != root:\n            Gin[v].append([w,u,id])\n    \n\n    # heapify\
-    \ for fast access to optimal edges\n    for v in range(N):\n        heapify(Gin[v])\n\
-    \n    groups = DSU(N)\n    active = set(range(N))\n    active.discard(root)\n\n\
-    \    def find_cycle(min_in):\n        for v in active:\n            cyc = floyds_cycle(min_in,\
-    \ v)\n            if cyc: return cyc\n        return None\n    \n    def contract(cyc):\n\
-    \        kickout = [-1]*len(E)\n        active.difference_update(cyc)\n      \
-    \  nv = reduce(groups.merge, cyc)\n        active.add(nv)\n        new_edges =\
-    \ []\n        \n        # Update Gin to reflect the contracted cycle\n       \
-    \ for v in cyc:\n            cw, _, cid = Gin[v][0]\n            for edge in Gin[v]:\n\
-    \                _, u, id = edge\n                if groups.leader(u) != nv:\n\
-    \                    edge[0] -= cw # update weight\n                    kickout[id]\
-    \ = cid\n                    new_edges.append(edge)\n                    if new_edges[-1][0]\
-    \ < new_edges[0][0]:\n                        new_edges[0], new_edges[-1] = new_edges[-1],\
-    \ new_edges[0]\n            Gin[v].clear()\n        Gin[nv] = new_edges\n    \
-    \    return kickout\n\n\n    def rec(Gin):\n        min_in = [groups.leader(Gin[v][0][1])\
-    \ if Gin[v] else -1 for v in range(N)]\n        cyc = find_cycle(min_in)\n   \
-    \     if cyc:\n            C = { Gin[v][0][2] for v in cyc }\n            kickout\
-    \ = contract(cyc)\n            MCA = rec(Gin)\n            for id in MCA:\n  \
-    \              C.discard(kickout[id])\n            MCA.extend(C)\n           \
-    \ return MCA\n        else:\n            return [edges[0][2] for edges in Gin\
-    \ if edges]\n\n    return [E[id] for id in rec(Gin)]\n"
+    \ cp_library.ds.heap.fast_heapq  import heapify\nimport cp_library.misc.setrecursionlimit\n\
+    from cp_library.ds.dsu_cls import DSU\nfrom cp_library.alg.graph.floyds_cycle_fn\
+    \ import floyds_cycle\n\ndef edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:\n\
+    \    # obtain incoming edges\n    Gin = [[] for _ in range(N)]\n    for id,(u,v,w)\
+    \ in enumerate(E):\n        if v != root:\n            Gin[v].append([w,u,id])\n\
+    \    \n\n    # heapify for fast access to optimal edges\n    for v in range(N):\n\
+    \        heapify(Gin[v])\n\n    groups = DSU(N)\n    active = set(range(N))\n\
+    \    active.discard(root)\n\n    def find_cycle(min_in):\n        for v in active:\n\
+    \            cyc = floyds_cycle(min_in, v)\n            if cyc: return cyc\n \
+    \       return None\n    \n    def contract(cyc):\n        kickout = [-1]*len(E)\n\
+    \        active.difference_update(cyc)\n        nv = reduce(groups.merge, cyc)\n\
+    \        active.add(nv)\n        new_edges = []\n        \n        # Update Gin\
+    \ to reflect the contracted cycle\n        for v in cyc:\n            cw, _, cid\
+    \ = Gin[v][0]\n            for edge in Gin[v]:\n                _, u, id = edge\n\
+    \                if groups.leader(u) != nv:\n                    edge[0] -= cw\
+    \ # update weight\n                    kickout[id] = cid\n                   \
+    \ new_edges.append(edge)\n                    if new_edges[-1][0] < new_edges[0][0]:\n\
+    \                        new_edges[0], new_edges[-1] = new_edges[-1], new_edges[0]\n\
+    \            Gin[v].clear()\n        Gin[nv] = new_edges\n        return kickout\n\
+    \n\n    def rec(Gin):\n        min_in = [groups.leader(Gin[v][0][1]) if Gin[v]\
+    \ else -1 for v in range(N)]\n        cyc = find_cycle(min_in)\n        if cyc:\n\
+    \            C = { Gin[v][0][2] for v in cyc }\n            kickout = contract(cyc)\n\
+    \            MCA = rec(Gin)\n            for id in MCA:\n                C.discard(kickout[id])\n\
+    \            MCA.extend(C)\n            return MCA\n        else:\n          \
+    \  return [edges[0][2] for edges in Gin if edges]\n\n    return [E[id] for id\
+    \ in rec(Gin)]\n"
   dependsOn:
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/dsu_cls.py
   - cp_library/alg/graph/floyds_cycle_fn.py
@@ -207,7 +245,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/edmonds_fn.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py

@@ -17,6 +17,9 @@ data:
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
   - icon: ':heavy_check_mark:'
@@ -75,9 +78,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_graph_weighted.test.py
     title: test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_min_heap.test.py
-    title: test/library-checker/graph/shortest_path_min_heap.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -89,23 +89,57 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Union, overload\nfrom heapq import heapify, heappop, heappush\n\
-    import operator\n\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
-    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
-    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
-    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
-    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
-    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
-    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
-    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
-    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
-    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \nfrom typing import Union, overload\n\n\n\ndef heappush(heap: list, item):\n\
+    \    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap:\
+    \ list):\n    item = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap,\
+    \ 0)\n    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap:\
+    \ list, item):\n    if heap and heap[0] < item: item, heap[0] = heap[0], item;\
+    \ heapsiftup(heap, 0)\n    return item\n\ndef heapify(x: list):\n    for i in\
+    \ reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and item <\
+    \ heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\nimport operator\n\n\nfrom enum import\
+    \ auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n   \
+    \ DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n \
+    \   UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
+    \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
+    \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
+    \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
+    \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
+    \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nimport\
+    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -178,8 +212,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\ndef elist(est_len: int) ->\
-    \ list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \ return cls(next(ts))\n        return parser\n\ndef elist(est_len: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
     \        return []\nelist = newlist_hint\n    \nfrom typing import Iterable, Union,\
     \ overload\nfrom math import inf\n\nclass GraphProtocol(list, Parsable):\n   \
     \ def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
@@ -522,11 +556,10 @@ data:
     \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
     \            dsu = cls(N)\n            for _ in range(M):\n                u,\
     \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
-    \        return dsu\n        return parse_fn\n\n\nfrom collections import UserList\n\
-    from heapq import heapify, heappop, heappush, heappushpop, heapreplace\nfrom typing\
-    \ import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self) -> _T:\
-    \ ...\n    def push(self, item: _T): ...\n    def pushpop(self, item: _T) -> _T:\
-    \ ...\n    def replace(self, item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
+    \        return dsu\n        return parse_fn\n\nfrom collections import UserList\n\
+    from typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self)\
+    \ -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self, item: _T)\
+    \ -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
     \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
     \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
     \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            self.data\
@@ -543,37 +576,37 @@ data:
     \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
     \ self.encode(id, priority)))\n    \n"
   code: "import cp_library.alg.graph.__header__\n\nfrom typing import Union, overload\n\
-    from heapq import heapify, heappop, heappush\nimport operator\n\nfrom cp_library.alg.graph.dfs_options_cls\
-    \ import DFSEvent, DFSFlags\nfrom cp_library.alg.graph.graph_proto import GraphProtocol\n\
-    \nclass GraphWeightedProtocol(GraphProtocol):\n\n    def neighbors(G, v: int):\n\
-    \        return map(operator.itemgetter(0), G[v])\n    \n    @overload\n    def\
-    \ distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int\
-    \ = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g: int) ->\
-    \ int: ...\n    def distance(G, s = None, g = None):\n        if s == None:\n\
-    \            return G.floyd_warshall()\n        else:\n            return G.dijkstra(s,\
-    \ g)\n    \n    def dijkstra(G, s = 0, g = None):\n        D = [inf for _ in range(G.N)]\n\
-    \        D[s] = 0\n        que = PriorityQueue(G.N)\n        que.push(s, 0)\n\
-    \        while que:\n            v, d = que.pop()\n            if v == g: return\
-    \ d\n            if d > D[v]: continue\n            for c, w, *_ in G[v]:\n  \
-    \              if (nd := d + w) < D[c]:\n                    D[c] = nd\n     \
-    \               que.push(c, nd)\n        return D if g is None else inf\n    \n\
-    \    @overload\n    def shortest_path(G, s: int, t: int) -> list[int]|None: ...\n\
-    \    @overload\n    def shortest_path(G, s: int, t: int, distances = True) ->\
-    \ tuple[list[int]|None,list[int]]: ...\n    def shortest_path(G, s: int, t: int,\
-    \ distances = False):\n        D = [inf] * G.N\n        D[s] = 0\n        if s\
-    \ == t:\n            return ([], D) if distances else []\n            \n     \
-    \   par = [-1] * G.N\n        down = [-1] * G.N\n        Eid = G.edge_ids()\n\
-    \        que = PriorityQueue(G.N)\n        que.push(s, 0)\n        \n        while\
-    \ que:\n            v, d = que.pop()\n            if v == t: break\n         \
-    \   if d > D[v]: continue\n                \n            for i in range(len(G[v])):\n\
-    \                c, w, *_ = G[v][i]\n                if (nd := d + w) < D[c]:\n\
-    \                    D[c] = nd\n                    par[c] = v\n             \
-    \       down[c] = Eid[v][i]\n                    que.push(c, nd)\n        \n \
-    \       if D[t] == inf:\n            return (None, D) if distances else None\n\
-    \            \n        path = []\n        v = t\n        while v != s:\n     \
-    \       path.append(down[v])\n            v = par[v]\n            \n        return\
-    \ (path[::-1], D) if distances else path[::-1]\n    \n    def kruskal(G):\n  \
-    \      E, N = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST\
+    from cp_library.ds.heap.fast_heapq  import heapify, heappop, heappush\nimport\
+    \ operator\n\nfrom cp_library.alg.graph.dfs_options_cls import DFSEvent, DFSFlags\n\
+    from cp_library.alg.graph.graph_proto import GraphProtocol\n\nclass GraphWeightedProtocol(GraphProtocol):\n\
+    \n    def neighbors(G, v: int):\n        return map(operator.itemgetter(0), G[v])\n\
+    \    \n    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n\
+    \    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    if s == None:\n            return G.floyd_warshall()\n        else:\n   \
+    \         return G.dijkstra(s, g)\n    \n    def dijkstra(G, s = 0, g = None):\n\
+    \        D = [inf for _ in range(G.N)]\n        D[s] = 0\n        que = PriorityQueue(G.N)\n\
+    \        que.push(s, 0)\n        while que:\n            v, d = que.pop()\n  \
+    \          if v == g: return d\n            if d > D[v]: continue\n          \
+    \  for c, w, *_ in G[v]:\n                if (nd := d + w) < D[c]:\n         \
+    \           D[c] = nd\n                    que.push(c, nd)\n        return D if\
+    \ g is None else inf\n    \n    @overload\n    def shortest_path(G, s: int, t:\
+    \ int) -> list[int]|None: ...\n    @overload\n    def shortest_path(G, s: int,\
+    \ t: int, distances = True) -> tuple[list[int]|None,list[int]]: ...\n    def shortest_path(G,\
+    \ s: int, t: int, distances = False):\n        D = [inf] * G.N\n        D[s] =\
+    \ 0\n        if s == t:\n            return ([], D) if distances else []\n   \
+    \         \n        par = [-1] * G.N\n        down = [-1] * G.N\n        Eid =\
+    \ G.edge_ids()\n        que = PriorityQueue(G.N)\n        que.push(s, 0)\n   \
+    \     \n        while que:\n            v, d = que.pop()\n            if v ==\
+    \ t: break\n            if d > D[v]: continue\n                \n            for\
+    \ i in range(len(G[v])):\n                c, w, *_ = G[v][i]\n               \
+    \ if (nd := d + w) < D[c]:\n                    D[c] = nd\n                  \
+    \  par[c] = v\n                    down[c] = Eid[v][i]\n                    que.push(c,\
+    \ nd)\n        \n        if D[t] == inf:\n            return (None, D) if distances\
+    \ else None\n            \n        path = []\n        v = t\n        while v !=\
+    \ s:\n            path.append(down[v])\n            v = par[v]\n            \n\
+    \        return (path[::-1], D) if distances else path[::-1]\n    \n    def kruskal(G):\n\
+    \        E, N = G.E, G.N\n        heapify(E)\n        dsu = DSU(N)\n        MST\
     \ = []\n        need = N-1\n        while E and need:\n            edge = heappop(E)\n\
     \            u,v,*_ = edge\n            u,v = dsu.merge(u,v,True)\n          \
     \  if u != v:\n                MST.append(edge)\n                need -= 1\n \
@@ -672,6 +705,7 @@ data:
     \ import DSU\nfrom cp_library.ds.heap.priority_queue_cls import PriorityQueue\n\
     from cp_library.ds.elist_fn import elist\nfrom math import inf"
   dependsOn:
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/dsu_cls.py
@@ -688,7 +722,7 @@ data:
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
@@ -699,7 +733,6 @@ data:
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py

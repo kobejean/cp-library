@@ -26,6 +26,9 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -171,9 +174,42 @@ data:
     \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
     \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
     \    pass\n\ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n\
-    from functools import reduce\nfrom heapq import heapify\n\n\nsys.setrecursionlimit(10**6)\n\
-    import pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\")\n\nfrom typing\
-    \ import Sequence\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr,\
+    from functools import reduce\n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
+    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
+    \    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0] = heap[0],\
+    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap: list, item):\n\
+    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
+    \ 0)\n    return item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup(x, i)\n\ndef heapsiftdown(heap: list, root: int, pos: int):\n   \
+    \ item = heap[pos]\n    while root < pos and item < heap[p := (pos-1)>>1]: heap[pos],\
+    \ pos = heap[p], p\n    heap[pos] = item\n\ndef heapsiftup(heap: list, pos: int):\n\
+    \    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and heap[c\
+    \ := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1\n \
+    \   if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n    heap[pos] =\
+    \ item\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n    if heap: item,\
+    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapreplace_max(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n \
+    \   return item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup_max(x, i)\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
+    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n\
+    \    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\
+    \ndef heappushpop_max(heap: list, item):\n    if heap and heap[0] > item: item,\
+    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\n\n\nsys.setrecursionlimit(10**6)\n\
+    import pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\")\nfrom typing import\
+    \ Sequence\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr,\
     \ sizes: list[int]):\n        csr.L, N = [0]*len(sizes), 0\n        for i,sz in\
     \ enumerate(sizes):\n            csr.L[i] = N; N += sz\n        csr.R, csr.A =\
     \ csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]]\
@@ -242,6 +278,7 @@ data:
   - cp_library/alg/graph/edmonds_fn.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/dsu_cls.py
   - cp_library/alg/graph/floyds_cycle_fn.py
@@ -253,7 +290,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_b_edmonds_branching.test.py

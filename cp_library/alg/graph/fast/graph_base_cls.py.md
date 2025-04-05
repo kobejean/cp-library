@@ -75,6 +75,9 @@ data:
     path: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
     title: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+    title: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
     title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - icon: ':heavy_check_mark:'
@@ -132,6 +135,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_c_scc.test.py
+    title: test/aoj/grl/grl_2_c_scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
     title: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
@@ -207,6 +213,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/shortest_path_min_heap.test.py
+    title: test/library-checker/graph/shortest_path_min_heap.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/two_edge_connected_components.test.py
     title: test/library-checker/graph/two_edge_connected_components.test.py
@@ -672,6 +681,7 @@ data:
   - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
+  - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
@@ -682,7 +692,7 @@ data:
   - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -694,6 +704,7 @@ data:
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/aoj/grl/grl_2_c_scc.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
@@ -710,6 +721,7 @@ data:
   - test/library-checker/graph/scc.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py

@@ -384,7 +384,7 @@ data:
   requiredBy:
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py

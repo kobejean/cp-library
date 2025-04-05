@@ -67,11 +67,12 @@ data:
     \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
     \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
     \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
-    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
-    def wtnl(l): wtn(' '.join(map(str, l)))\n\ndef fast_write_cc(A, L):\n    r = len(A);\
-    \ wtn(len(L))\n    while L:\n        l = L.pop(); wt(r-l)\n        while l < r:\
-    \ r -= 1; fastio.sb.append(' '); wt(A[r])\n        fastio.sb.append('\\n')\n\n\
-    if __name__ == '__main__':\n    main()\n"
+    sys.stdin = None; sys.stdout = None\ndef rdl(n):\n    lst = [0]*n\n    for i in\
+    \ range(n): lst[i] = rd()\n    return lst\ndef wtnl(l): wtn(' '.join(map(str,\
+    \ l)))\n\ndef fast_write_cc(A, L):\n    r = len(A); wtn(len(L))\n    while L:\n\
+    \        l = L.pop(); wt(r-l)\n        while l < r: r -= 1; fastio.sb.append('\
+    \ '); wt(A[r])\n        fastio.sb.append('\\n')\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/two_edge_connected_components\n\
     \ndef main():\n    N, M = rd(), rd()\n    La, Ra, Va, Ea = read_csr_graph(N, M)\n\
     \    e2ccs, L = two_edge_connected_components(N, M, La, Ra, Va, Ea)\n    fast_write_cc(e2ccs,\
@@ -103,7 +104,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/two_edge_connected_components_scratch.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/two_edge_connected_components_scratch.test.py

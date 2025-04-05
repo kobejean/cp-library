@@ -46,7 +46,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/bit_graph_cls.py
   - cp_library/bit/clz32_fn.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

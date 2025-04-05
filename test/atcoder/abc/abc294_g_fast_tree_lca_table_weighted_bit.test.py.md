@@ -59,6 +59,9 @@ data:
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
   - icon: ':heavy_check_mark:'
@@ -382,26 +385,26 @@ data:
     \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
     \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
     \ None: return G.floyd_warshall()\n        else: return G.dijkstra(s, g)\n\n \
-    \   def dijkstra(G, s: int, t: int = None):\n        N, S, Va, Wa = G.N, G.starts(s),\
-    \ G.Va, G.Wa\n        G.back, G.D  = back, D = i32f(N, -1), [inf]*N\n        for\
-    \ s in S: D[s] = 0\n        que = PriorityQueue(N, S)\n        while que:\n  \
-    \          u, d = que.pop()\n            if d > D[u]: continue\n            if\
-    \ u == t: return d\n            for i in G.range(u): \n                if chmin(D,\
-    \ v := Va[i], nd := d + Wa[i]):\n                    back[v] = i\n           \
-    \         que.push(v, nd)\n        return D if t is None else inf \n\n    def\
-    \ kruskal(G):\n        U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N),\
-    \ [0]*(N-1), N-1\n        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
-    \            if u != v:\n                MST[need := need-1] = e\n           \
-    \     if not need: break\n        return None if need else MST\n    \n    def\
-    \ kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n       \
-    \ que = PriorityQueue(M, list(range(M)), W)\n        dsu = DSU(N)\n        MST\
-    \ = [0]*(N-1)\n        need = N-1\n        while que and need:\n            e,\
-    \ _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n            if\
-    \ u != v:\n                MST[need := need-1] = e\n        return None if need\
-    \ else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n        Ua,\
-    \ Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n        for\
-    \ _ in range(N-1):\n            for i, u in enumerate(Ua):\n                if\
-    \ D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n        return D\n    \n    def bellman_ford_neg_cyc_check(G,\
+    \   def dijkstra(G, s: int, t: int = None):\n        G.back, G.D, S = i32f(G.N,\
+    \ -1), [inf]*G.N, G.starts(s)\n        for s in S: G.D[s] = 0\n        que = PriorityQueue(G.N,\
+    \ S)\n        while que:\n            u, d = que.pop()\n            if d > G.D[u]:\
+    \ continue\n            if u == t: return d\n            i, r = G.La[u]-1, G.Ra[u]\n\
+    \            while (i:=i+1)<r: \n                if chmin(G.D, v := G.Va[i], nd\
+    \ := d + G.Wa[i]):\n                    G.back[v] = i; que.push(v, nd)\n     \
+    \   return G.D if t is None else inf \n\n    def kruskal(G):\n        U, V, W,\
+    \ dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1\n        for e\
+    \ in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n            if\
+    \ u != v:\n                MST[need := need-1] = e\n                if not need:\
+    \ break\n        return None if need else MST\n    \n    def kruskal_heap(G):\n\
+    \        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que = PriorityQueue(M,\
+    \ list(range(M)), W)\n        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need\
+    \ = N-1\n        while que and need:\n            e, _ = que.pop()\n         \
+    \   u, v = dsu.merge(U[e],V[e],True)\n            if u != v:\n               \
+    \ MST[need := need-1] = e\n        return None if need else MST\n   \n    def\
+    \ bellman_ford(G, s: int = 0) -> list[int]:\n        Ua, Va, Wa, D = G.Ua, G.Va,\
+    \ G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n        for _ in range(N-1):\n   \
+    \         for i, u in enumerate(Ua):\n                if D[u] < inf: chmin(D,\
+    \ Va[i], D[u] + Wa[i])\n        return D\n    \n    def bellman_ford_neg_cyc_check(G,\
     \ s: int = 0) -> tuple[bool, list[int]]:\n        M, U, V, W, D = G.M, G.U, G.V,\
     \ G.W, G.bellman_ford(s)\n        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in\
     \ range(M) if D[U[i]] < inf)\n        return neg_cycle, D\n    \n    def floyd_warshall(G)\
@@ -445,9 +448,42 @@ data:
     \ int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n        \
     \    dsu = cls(N)\n            for _ in range(M):\n                u, v = ts._line()\n\
     \                dsu.merge(int(u)+shift, int(v)+shift)\n            return dsu\n\
-    \        return parse_fn\n\n\nfrom collections import UserList\nfrom heapq import\
-    \ heapify, heappop, heappush, heappushpop, heapreplace\nfrom typing import Generic\n\
-    \nclass HeapProtocol(Generic[_T]):\n    def pop(self) -> _T: ...\n    def push(self,\
+    \        return parse_fn\n\n\nfrom collections import UserList\n\ndef heappush(heap:\
+    \ list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\
+    \ndef heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Generic\n\nclass\
+    \ HeapProtocol(Generic[_T]):\n    def pop(self) -> _T: ...\n    def push(self,\
     \ item: _T): ...\n    def pushpop(self, item: _T) -> _T: ...\n    def replace(self,\
     \ item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int], UserList[int]):\n\
     \    \n    def __init__(self, N: int, ids: list[int] = None, priorities: list[int]\
@@ -698,13 +734,14 @@ data:
   - cp_library/alg/dp/min2_fn.py
   - cp_library/bit/pack_sm_fn.py
   - cp_library/ds/csr/csr_incremental_cls.py
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/packet_list_cls.py
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

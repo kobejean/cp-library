@@ -23,6 +23,9 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -138,14 +141,47 @@ data:
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\nfrom heapq import heapify, heappop\n\nfrom typing import\
-    \ Sequence\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr,\
-    \ sizes: list[int]):\n        csr.L, N = [0]*len(sizes), 0\n        for i,sz in\
-    \ enumerate(sizes):\n            csr.L[i] = N; N += sz\n        csr.R, csr.A =\
-    \ csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]]\
-    \ = x; csr.R[i] += 1\n    \n    def __iter__(csr):\n        for i,l in enumerate(csr.L):\n\
-    \            yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) ->\
-    \ _T:\n        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
+    \        file.flush()\n\n\n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
+    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
+    \    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0] = heap[0],\
+    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap: list, item):\n\
+    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
+    \ 0)\n    return item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup(x, i)\n\ndef heapsiftdown(heap: list, root: int, pos: int):\n   \
+    \ item = heap[pos]\n    while root < pos and item < heap[p := (pos-1)>>1]: heap[pos],\
+    \ pos = heap[p], p\n    heap[pos] = item\n\ndef heapsiftup(heap: list, pos: int):\n\
+    \    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and heap[c\
+    \ := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1\n \
+    \   if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n    heap[pos] =\
+    \ item\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n    if heap: item,\
+    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapreplace_max(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n \
+    \   return item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup_max(x, i)\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
+    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n\
+    \    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\
+    \ndef heappushpop_max(heap: list, item):\n    if heap and heap[0] > item: item,\
+    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Sequence\n\n\n\
+    class CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
+    \        csr.L, N = [0]*len(sizes), 0\n        for i,sz in enumerate(sizes):\n\
+    \            csr.L[i] = N; N += sz\n        csr.R, csr.A = csr.L[:], [0]*N\n\n\
+    \    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]] = x; csr.R[i] +=\
+    \ 1\n    \n    def __iter__(csr):\n        for i,l in enumerate(csr.L):\n    \
+    \        yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) -> _T:\n\
+    \        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
     \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
     \nclass DSU(Parsable, Collection):\n    def __init__(dsu, N):\n        dsu.N,\
     \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v, src = False):\n \
@@ -203,6 +239,7 @@ data:
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/dsu_cls.py
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
@@ -211,7 +248,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_a_kruskal_heap.test.py

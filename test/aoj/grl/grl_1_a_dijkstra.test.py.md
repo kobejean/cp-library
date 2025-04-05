@@ -35,6 +35,9 @@ data:
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
   - icon: ':heavy_check_mark:'
@@ -160,7 +163,40 @@ data:
     \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
     \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \n\nfrom heapq import heappop, heappush\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
+    \n\n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
+    \ 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
     \    return ch\n\n@overload\ndef dijkstra(G, s: int = 0) -> list[int]: ...\n@overload\n\
     def dijkstra(G, s: int, g: int) -> int: ...\ndef dijkstra(G, s = 0, g: Union[int,None]\
     \ = None):\n    N = len(G)\n    D = [inf for _ in range(N)]\n    D[s] = 0\n  \
@@ -175,66 +211,66 @@ data:
     \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
     \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
     \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
-    \       return parse\n\nfrom heapq import heapify, heappop, heappush\nimport operator\n\
-    \n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
-    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
-    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
-    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
-    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
-    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
-    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
-    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
-    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E: list = None,\
-    \ adj: Iterable = None):\n        G.N = N\n        if E is not None:\n       \
-    \     G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
-    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
-    \    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        if s == None:\n            return\
-    \ G.floyd_warshall()\n        else:\n            return G.bfs(s, g)\n\n    @overload\n\
-    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
-    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g\
-    \ = None):\n        D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s,\
-    \ int) else s)\n        for u in q: D[u] = 0\n        while q:\n            nd\
-    \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
-    \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
-    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \ \n\n    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
-    \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
-    \ -> tuple[Union[list[int],None],list[int]]: ...\n    def shortest_path(G, s:\
-    \ int, g: int, distances = False) -> list[int]:\n        D = [inf] * G.N\n   \
-    \     D[s] = 0\n        if s == g:\n            return ([], D) if distances else\
-    \ []\n            \n        par = [-1] * G.N\n        par_edge = [-1] * G.N\n\
-    \        Eid = G.edge_ids()\n        q = deque([s])\n        \n        while q:\n\
-    \            nd = D[u := q.popleft()] + 1\n            if u == g: break\n    \
-    \            \n            for v, eid in zip(G[u], Eid[u]):\n                if\
-    \ nd < D[v]:\n                    D[v] = nd\n                    par[v] = u\n\
-    \                    par_edge[v] = eid\n                    q.append(v)\n    \
-    \    \n        if D[g] == inf:\n            return (None, D) if distances else\
-    \ None\n            \n        path = []\n        current = g\n        while current\
-    \ != s:\n            path.append(par_edge[current])\n            current = par[current]\n\
-    \            \n        return (path[::-1], D) if distances else path[::-1]\n \
-    \           \n     \n            \n        \n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        D = [[inf]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
-    \            D[u][u] = 0\n            for v in G.neighbors(u):\n             \
-    \   D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n            for\
-    \ Di in D:\n                if Di[k] == inf: continue\n                for j in\
-    \ range(G.N):\n                    if Dk[j] == inf: continue\n               \
-    \     Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G,\
-    \ s = 0, vis = None, par = None):\n        N = G.N\n        vis = vis or [0] *\
-    \ N\n        par = par or [-1] * N\n        if vis[s]: return None\n        vis[s]\
-    \ = 1\n        stack = [(True, s)]\n        while stack:\n            forw, v\
-    \ = stack.pop()\n            if forw:\n                stack.append((False, v))\n\
-    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
-    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
-    \ detected\n                        cyc = [u]\n                        vis[u]\
-    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
-    \                            vis[v] = 2\n                            v = par[v]\n\
+    \       return parse\n\nimport operator\n\n\nfrom enum import auto, IntFlag, IntEnum\n\
+    \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
+    \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
+    \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
+    \ = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES\
+    \ = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n\
+    \    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
+    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
+    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
+    \    \n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
+    \ = newlist_hint\n    \n\nclass GraphProtocol(list, Parsable):\n    def __init__(G,\
+    \ N: int, E: list = None, adj: Iterable = None):\n        G.N = N\n        if\
+    \ E is not None:\n            G.M, G.E = len(E), E\n        if adj is not None:\n\
+    \            super().__init__(adj)\n\n    def neighbors(G, v: int) -> Iterable[int]:\n\
+    \        return G[v]\n    \n    def edge_ids(G) -> list[list[int]]: ...\n\n  \
+    \  @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n   \
+    \ def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    if s == None:\n            return G.floyd_warshall()\n        else:\n   \
+    \         return G.bfs(s, g)\n\n    @overload\n    def bfs(G, s: Union[int,list]\
+    \ = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g:\
+    \ int) -> int: ...\n    def bfs(G, s = 0, g = None):\n        D = [inf for _ in\
+    \ range(G.N)]\n        q = deque([s] if isinstance(s, int) else s)\n        for\
+    \ u in q: D[u] = 0\n        while q:\n            nd = D[u := q.popleft()]+1\n\
+    \            if u == g: return D[u]\n            for v in G.neighbors(u):\n  \
+    \              if nd < D[v]:\n                    D[v] = nd\n                \
+    \    q.append(v)\n        return D if g is None else inf \n\n    @overload\n \
+    \   def shortest_path(G, s: int, g: int) -> Union[list[int],None]: ...\n    @overload\n\
+    \    def shortest_path(G, s: int, g: int, distances = True) -> tuple[Union[list[int],None],list[int]]:\
+    \ ...\n    def shortest_path(G, s: int, g: int, distances = False) -> list[int]:\n\
+    \        D = [inf] * G.N\n        D[s] = 0\n        if s == g:\n            return\
+    \ ([], D) if distances else []\n            \n        par = [-1] * G.N\n     \
+    \   par_edge = [-1] * G.N\n        Eid = G.edge_ids()\n        q = deque([s])\n\
+    \        \n        while q:\n            nd = D[u := q.popleft()] + 1\n      \
+    \      if u == g: break\n                \n            for v, eid in zip(G[u],\
+    \ Eid[u]):\n                if nd < D[v]:\n                    D[v] = nd\n   \
+    \                 par[v] = u\n                    par_edge[v] = eid\n        \
+    \            q.append(v)\n        \n        if D[g] == inf:\n            return\
+    \ (None, D) if distances else None\n            \n        path = []\n        current\
+    \ = g\n        while current != s:\n            path.append(par_edge[current])\n\
+    \            current = par[current]\n            \n        return (path[::-1],\
+    \ D) if distances else path[::-1]\n            \n     \n            \n       \
+    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
+    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
+    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
+    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
+    \  if Di[k] == inf: continue\n                for j in range(G.N):\n         \
+    \           if Dk[j] == inf: continue\n                    Di[j] = min(Di[j],\
+    \ Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G, s = 0, vis = None,\
+    \ par = None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par\
+    \ or [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
+    \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
+    \         if forw:\n                stack.append((False, v))\n               \
+    \ vis[v] = 1\n                for u in G.neighbors(v):\n                    if\
+    \ vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n   \
+    \                     cyc = [u]\n                        vis[u] = 2\n        \
+    \                while v != u:\n                            cyc.append(v)\n  \
+    \                          vis[v] = 2\n                            v = par[v]\n\
     \                        return cyc\n                    elif vis[u] == 0:\n \
     \                       par[u] = v\n                        stack.append((True,\
     \ u))\n            else:\n                vis[v] = 2\n        return None\n\n\
@@ -528,11 +564,10 @@ data:
     \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
     \            dsu = cls(N)\n            for _ in range(M):\n                u,\
     \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
-    \        return dsu\n        return parse_fn\n\n\nfrom collections import UserList\n\
-    from heapq import heapify, heappop, heappush, heappushpop, heapreplace\nfrom typing\
-    \ import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self) -> _T:\
-    \ ...\n    def push(self, item: _T): ...\n    def pushpop(self, item: _T) -> _T:\
-    \ ...\n    def replace(self, item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
+    \        return dsu\n        return parse_fn\n\nfrom collections import UserList\n\
+    from typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self)\
+    \ -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self, item: _T)\
+    \ -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
     \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
     \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
     \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            self.data\
@@ -570,6 +605,7 @@ data:
   - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
@@ -584,7 +620,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_a_dijkstra.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_a_dijkstra.test.py

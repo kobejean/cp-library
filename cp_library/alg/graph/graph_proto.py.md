@@ -135,9 +135,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_graph_weighted.test.py
     title: test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_min_heap.test.py
-    title: test/library-checker/graph/shortest_path_min_heap.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -649,7 +646,7 @@ data:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/dag_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
@@ -664,7 +661,6 @@ data:
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/atcoder/abc/abc245_f_digraph.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py

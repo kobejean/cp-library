@@ -211,7 +211,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_mo_ops_cls.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc261_g_queries_mo_ops.test.py

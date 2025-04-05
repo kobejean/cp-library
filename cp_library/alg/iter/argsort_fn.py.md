@@ -91,6 +91,9 @@ data:
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/shortest_path_min_heap.test.py
+    title: test/library-checker/graph/shortest_path_min_heap.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
   - icon: ':heavy_check_mark:'
@@ -143,7 +146,7 @@ data:
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/iter/sort_parallel_copies_fn.py
   - cp_library/alg/iter/sort_parallel_fn.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -158,6 +161,7 @@ data:
   - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/yukicoder/3407.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py

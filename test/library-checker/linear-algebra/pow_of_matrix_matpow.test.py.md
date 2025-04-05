@@ -240,7 +240,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

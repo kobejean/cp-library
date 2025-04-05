@@ -106,6 +106,9 @@ data:
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/shortest_path_min_heap.test.py
+    title: test/library-checker/graph/shortest_path_min_heap.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
   - icon: ':heavy_check_mark:'
@@ -158,7 +161,7 @@ data:
   - cp_library/alg/iter/iargsort_fn.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -175,6 +178,7 @@ data:
   - test/library-checker/data-structure/point_set_range_composite.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/yukicoder/3407.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

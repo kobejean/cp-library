@@ -37,6 +37,9 @@ data:
     path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
     title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_c_scc.test.py
+    title: test/aoj/grl/grl_2_c_scc.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
     title: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   - icon: ':heavy_check_mark:'
@@ -444,7 +447,7 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -465,6 +468,7 @@ data:
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
+  - test/aoj/grl/grl_2_c_scc.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

@@ -30,9 +30,15 @@ data:
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+    title: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
     title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_c_scc.test.py
+    title: test/aoj/grl/grl_2_c_scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
@@ -372,10 +378,12 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/digraph_cls.py
   requiredBy:
+  - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/grl_2_c_scc.test.py
   - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/scc.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py

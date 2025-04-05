@@ -41,44 +41,43 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "import sys\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    from typing import TypeVar\n_T = TypeVar('T')\n\nclass TokenStream(Iterator):\n\
-    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
-    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
-    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
-    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
+    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -298,28 +297,28 @@ data:
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
     \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
     \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
-    \ x & lst.mask\n\nclass GridGraphBase(GraphBase):\n\n    def __init__(G, H, W,\
-    \ M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
-    \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W\
-    \ = W\n        G.H = H\n        G.S = S\n        G.dirs = dirs\n\n    def vertex(G,\
-    \ key: tuple[int,int] | int):\n        if isinstance(key, tuple):\n          \
-    \  i,j = key\n            return i*G.W+j\n        else:\n            return key\n\
-    \n    def is_valid(G, i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W\n\
-    \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
-    \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
-    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n"
-  code: "import sys\nimport cp_library.alg.graph.__header__\n\nfrom cp_library.io.parser_cls\
-    \ import TokenStream\nfrom cp_library.alg.graph.fast.graph_base_cls import GraphBase\n\
-    \nclass GridGraphBase(GraphBase):\n\n    def __init__(G, H, W, M, S, U, V, deg,\
-    \ La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
-    \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W\
-    \ = W\n        G.H = H\n        G.S = S\n        G.dirs = dirs\n\n    def vertex(G,\
-    \ key: tuple[int,int] | int):\n        if isinstance(key, tuple):\n          \
-    \  i,j = key\n            return i*G.W+j\n        else:\n            return key\n\
-    \n    def is_valid(G, i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W\n\
-    \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
-    \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
-    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n"
+    \ x & lst.mask\n\nclass GridGraphBase(GraphBase):\n    def __init__(G, H, W, M,\
+    \ S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
+    \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W,\
+    \ G.H, G.S, G.dirs = W, H, S, dirs\n\n    def vertex(G, key: tuple[int,int] |\
+    \ int):\n        if isinstance(key, tuple): i,j = key; return i*G.W+j\n      \
+    \  else: return key\n    \n    def check_bounds(G, i, j, v):\n        return 0\
+    \ <= i < G.H and 0 <= j < G.W\n    \n    is_valid = check_bounds\n    \n    @classmethod\n\
+    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
+    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
+    \          return cls(H, W, S, *args)\n        return parse\n"
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.graph.__header__\n\
+    from cp_library.io.parser_cls import TokenStream\nfrom cp_library.alg.graph.fast.graph_base_cls\
+    \ import GraphBase\n\nclass GridGraphBase(GraphBase):\n    def __init__(G, H,\
+    \ W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
+    \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W,\
+    \ G.H, G.S, G.dirs = W, H, S, dirs\n\n    def vertex(G, key: tuple[int,int] |\
+    \ int):\n        if isinstance(key, tuple): i,j = key; return i*G.W+j\n      \
+    \  else: return key\n    \n    def check_bounds(G, i, j, v):\n        return 0\
+    \ <= i < G.H and 0 <= j < G.W\n    \n    is_valid = check_bounds\n    \n    @classmethod\n\
+    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
+    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
+    \          return cls(H, W, S, *args)\n        return parse\n"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
@@ -334,7 +333,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

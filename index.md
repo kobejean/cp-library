@@ -236,6 +236,9 @@ data:
       path: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
       title: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+      title: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
       title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
     - icon: ':heavy_check_mark:'
@@ -502,11 +505,11 @@ data:
   - name: cp_library/ds/heap
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/fast_heapq.py
+      title: cp_library/ds/heap/fast_heapq.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/heap_proto.py
       title: cp_library/ds/heap/heap_proto.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/heap/heapq_max_import.py
-      title: cp_library/ds/heap/heapq_max_import.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/interval_heap_cls.py
       title: cp_library/ds/heap/interval_heap_cls.py
@@ -551,6 +554,11 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/list/ordlist_cls.py
       title: cp_library/ds/list/ordlist_cls.py
+  - name: cp_library/ds/que
+    pages:
+    - icon: ':warning:'
+      path: cp_library/ds/que/que01_cls.py
+      title: cp_library/ds/que/que01_cls.py
   - name: cp_library/ds/tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -1002,6 +1010,12 @@ data:
       path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
       title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
     - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/grl_2_c_scc.test.py
+      title: test/aoj/grl/grl_2_c_scc.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/grl_2_c_scc_fast.test.py
+      title: test/aoj/grl/grl_2_c_scc_fast.test.py
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
       title: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
     - icon: ':heavy_check_mark:'
@@ -1225,6 +1239,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/double_ended_priority_queue.test.py
       title: test/library-checker/data-structure/double_ended_priority_queue.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
+      title: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/point_add_range_sum.test.py
       title: test/library-checker/data-structure/point_add_range_sum.test.py

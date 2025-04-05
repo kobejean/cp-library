@@ -69,9 +69,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_graph_weighted.test.py
     title: test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_min_heap.test.py
-    title: test/library-checker/graph/shortest_path_min_heap.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -190,7 +187,7 @@ data:
   - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
   - cp_library/alg/graph/digraph_weighted_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
@@ -204,7 +201,6 @@ data:
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py

@@ -115,7 +115,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/list/ordlist_cls.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/list/ordlist_cls.py

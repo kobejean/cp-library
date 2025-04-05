@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_c_scc_fast.test.py
+    title: test/aoj/grl/grl_2_c_scc_fast.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
     title: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   - icon: ':heavy_check_mark:'
@@ -12,6 +15,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/double_ended_priority_queue.test.py
     title: test/library-checker/data-structure/double_ended_priority_queue.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
+    title: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/staticrmq.test.py
     title: test/library-checker/data-structure/staticrmq.test.py
@@ -73,8 +79,9 @@ data:
     \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
     \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
     \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
-    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
-    def wtnl(l): wtn(' '.join(map(str, l)))\n"
+    sys.stdin = None; sys.stdout = None\ndef rdl(n):\n    lst = [0]*n\n    for i in\
+    \ range(n): lst[i] = rd()\n    return lst\ndef wtnl(l): wtn(' '.join(map(str,\
+    \ l)))\n"
   code: "import cp_library.__header__\nimport cp_library.io.__header__\nimport cp_library.io.fast.__header__\n\
     from __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as\
     \ os_read, write as os_write\nfrom atexit import register as atexist_register\n\
@@ -96,16 +103,19 @@ data:
     \    def fastoutln(self, x): self.sb.append(str(x)); self.sb.append('\\n')\nfastio\
     \ = Fastio()\nrd = fastio.fastin; rds = fastio.fastin_string; wt = fastio.fastout;\
     \ wtn = fastio.fastoutln; flush = fastio.flush\natexist_register(fastio.flush_atexit)\n\
-    sys.stdin = None; sys.stdout = None\ndef rdl(n): return [rd() for _ in range(n)]\n\
-    def wtnl(l): wtn(' '.join(map(str, l)))\n"
+    sys.stdin = None; sys.stdout = None\ndef rdl(n):\n    lst = [0]*n\n    for i in\
+    \ range(n): lst[i] = rd()\n    return lst\ndef wtnl(l): wtn(' '.join(map(str,\
+    \ l)))\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/io/fast/fast_io_fn.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/grl_2_c_scc_fast.test.py
   - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   - test/library-checker/data-structure/staticrmq_general.test.py
   - test/library-checker/data-structure/double_ended_priority_queue.test.py
   - test/library-checker/data-structure/staticrmq.test.py

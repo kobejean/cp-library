@@ -371,7 +371,7 @@ data:
   path: cp_library/alg/graph/graph_cls.py
   requiredBy:
   - cp_library/alg/tree/tree_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_graph_bridges.test.py

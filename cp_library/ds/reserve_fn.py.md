@@ -46,6 +46,12 @@ data:
     path: test/library-checker/convolution/lcm_convolution.test.py
     title: test/library-checker/convolution/lcm_convolution.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/double_ended_priority_queue.test.py
+    title: test/library-checker/data-structure/double_ended_priority_queue.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
+    title: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
@@ -90,13 +96,15 @@ data:
   - cp_library/math/conv/lcm_conv_fn.py
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue.test.py
   - test/library-checker/convolution/gcd_convolution.test.py
   - test/library-checker/convolution/lcm_convolution.test.py
 documentation_of: cp_library/ds/reserve_fn.py

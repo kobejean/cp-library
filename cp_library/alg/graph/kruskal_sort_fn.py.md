@@ -154,7 +154,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_sort_fn.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_kruskal_sort.test.py

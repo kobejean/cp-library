@@ -29,6 +29,9 @@ data:
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/fast_heapq.py
+    title: cp_library/ds/heap/fast_heapq.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
   - icon: ':heavy_check_mark:'
@@ -164,18 +167,51 @@ data:
     \ other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
     \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
     \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
-    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nfrom heapq\
-    \ import heapify, heappop, heappush\nimport operator\n\n\nfrom enum import auto,\
-    \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
-    \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
-    \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\n\n\n\ndef\
+    \ heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0,\
+    \ len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
+    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
+    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
+    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
+    \ pos = heap[c], c\n#     heap[pos] = item\nimport operator\n\n\nfrom enum import\
+    \ auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n   \
+    \ DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n \
+    \   UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
     \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
     \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
     \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
     \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
     \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
     \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\ndef elist(est_len:\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\ndef elist(est_len:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
     \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
     \ math import inf\n\nclass GraphProtocol(list, Parsable):\n    def __init__(G,\
@@ -519,11 +555,10 @@ data:
     \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
     \            dsu = cls(N)\n            for _ in range(M):\n                u,\
     \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
-    \        return dsu\n        return parse_fn\n\n\nfrom collections import UserList\n\
-    from heapq import heapify, heappop, heappush, heappushpop, heapreplace\nfrom typing\
-    \ import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self) -> _T:\
-    \ ...\n    def push(self, item: _T): ...\n    def pushpop(self, item: _T) -> _T:\
-    \ ...\n    def replace(self, item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
+    \        return dsu\n        return parse_fn\n\nfrom collections import UserList\n\
+    from typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self)\
+    \ -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self, item: _T)\
+    \ -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
     \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
     \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
     \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            self.data\
@@ -565,6 +600,7 @@ data:
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/alg/graph/graph_weighted_proto.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/ds/heap/fast_heapq.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/alg/graph/graph_proto.py
   - cp_library/ds/dsu_cls.py
@@ -575,7 +611,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc375_g_find_bridges.test.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc375_g_find_bridges.test.py

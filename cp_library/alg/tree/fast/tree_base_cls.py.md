@@ -517,7 +517,7 @@ data:
   - cp_library/alg/tree/fast/hld_commutative_cls.py
   - cp_library/alg/tree/fast/hld_monoid_cls.py
   - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py

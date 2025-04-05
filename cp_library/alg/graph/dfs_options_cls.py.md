@@ -72,6 +72,9 @@ data:
     path: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
     title: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+    title: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
     title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - icon: ':heavy_check_mark:'
@@ -189,6 +192,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
     title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_c_scc.test.py
+    title: test/aoj/grl/grl_2_c_scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
     title: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
@@ -425,6 +431,7 @@ data:
   - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
+  - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
@@ -446,7 +453,7 @@ data:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/dag_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -469,6 +476,7 @@ data:
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
+  - test/aoj/grl/grl_2_c_scc.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py

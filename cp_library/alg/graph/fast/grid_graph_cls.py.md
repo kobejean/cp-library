@@ -128,7 +128,7 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nfrom math import inf\nfrom typing\
+    \ return cls(next(ts))\n        return parser\nfrom math import inf\nfrom typing\
     \ import Callable, Sequence, Union, overload\n\n\n\ndef chmin(dp, i, v):\n   \
     \ if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\nfrom enum import auto, IntFlag, IntEnum\n\
     \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
@@ -298,48 +298,43 @@ data:
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
     \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
     \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
-    \ x & lst.mask\n\nclass GridGraphBase(GraphBase):\n\n    def __init__(G, H, W,\
-    \ M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
-    \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W\
-    \ = W\n        G.H = H\n        G.S = S\n        G.dirs = dirs\n\n    def vertex(G,\
-    \ key: tuple[int,int] | int):\n        if isinstance(key, tuple):\n          \
-    \  i,j = key\n            return i*G.W+j\n        else:\n            return key\n\
-    \n    def is_valid(G, i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W\n\
-    \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
-    \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
-    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
-    \nclass GridGraphWalledBase(GridGraphBase):\n\n    def __init__(G, H, W, M, S,\
-    \ U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)],\
-    \ wall = '#'):\n        super().__init__(H, W, M, S, U, V, deg, La, Ra, Ua, Va,\
-    \ Ea, dirs)\n        G.wall = wall\n\n    def is_valid(G, i, j, v):\n        return\
-    \ super().is_valid(i, j, v) and G.S[v] != G.wall\n    \n    @classmethod\n   \
-    \ def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
+    \ x & lst.mask\n\nclass GridGraphBase(GraphBase):\n    def __init__(G, H, W, M,\
+    \ S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
+    \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W,\
+    \ G.H, G.S, G.dirs = W, H, S, dirs\n\n    def vertex(G, key: tuple[int,int] |\
+    \ int):\n        if isinstance(key, tuple): i,j = key; return i*G.W+j\n      \
+    \  else: return key\n    \n    def check_bounds(G, i, j, v):\n        return 0\
+    \ <= i < G.H and 0 <= j < G.W\n    \n    is_valid = check_bounds\n    \n    @classmethod\n\
+    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
     \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
-    \          return cls(H, W, S, *args)\n        return parse\n\nclass GridGraph(GridGraphWalledBase):\n\
-    \n    def __init__(G, H, W, S=[], dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n\
-    \        N = H*W\n        Mest = N*len(dirs)\n        deg, La, Ra, Ua, Va = u32f(N),\
-    \ u32f(N), u32f(N), elist(Mest), elist(Mest)\n        super().__init__(\n    \
-    \        H, W, 0, S, Ua, Va, deg, La, Ra, Ua, Va, None, dirs, wall\n        )\n\
-    \n        for i in range(H):\n            for j in range(W):\n               \
-    \ La[u := i*W+j] = len(Ua)\n                if G.is_valid(i, j, u):\n        \
-    \            for di,dj in dirs:\n                        if G.is_valid(ni:=i+di,\
-    \ nj:=j+dj, v:=ni*W+nj):\n                            deg[u] += 1\n          \
-    \                  Ua.append(u)\n                            Va.append(v)\n  \
-    \              Ra[u] = len(Ua)\n\n        G.M = len(Ua)\n        G.Ea = u32a(range(G.M))\n\
-    \n"
+    \          return cls(H, W, S, *args)\n        return parse\n\nclass GridGraphWalledBase(GridGraphBase):\n\
+    \n    def __init__(G, H, W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n           \
+    \ dirs: list = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n        super().__init__(H,\
+    \ W, M, S, U, V, deg, La, Ra, Ua, Va, Ea, dirs)\n        G.wall = wall\n\n   \
+    \ def is_valid(G, i, j, v):\n        return super().is_valid(i, j, v) and G.S[v]\
+    \ != G.wall\n    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n\
+    \        def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
+    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
+    \nclass GridGraph(GridGraphWalledBase):\n\n    def __init__(G, H, W, S=[], dirs\
+    \ = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n        N = H*W\n        Mest =\
+    \ N*len(dirs)\n        deg, La, Ra, Ua, Va = u32f(N), u32f(N), u32f(N), elist(Mest),\
+    \ elist(Mest)\n        super().__init__(H, W, 0, S, Ua, Va, deg, La, Ra, Ua, Va,\
+    \ None, dirs, wall)\n        for i in range(H):\n            for j in range(W):\n\
+    \                La[u := i*W+j] = len(Ua)\n                for di,dj in dirs:\n\
+    \                    if G.is_valid(ni:=i+di, nj:=j+dj, v:=ni*W+nj):\n        \
+    \                Ua.append(u); Va.append(v); deg[u] += 1\n                Ra[u]\
+    \ = len(Ua)\n        G.M, G.Ea = len(Ua), u32a(range(G.M))\n\n"
   code: "\nimport cp_library.alg.graph.__header__\nimport sys\nfrom cp_library.ds.elist_fn\
     \ import elist\nfrom cp_library.alg.graph.fast.grid_graph_walled_base_cls import\
     \ GridGraphWalledBase\n\nclass GridGraph(GridGraphWalledBase):\n\n    def __init__(G,\
     \ H, W, S=[], dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n        N = H*W\n\
     \        Mest = N*len(dirs)\n        deg, La, Ra, Ua, Va = u32f(N), u32f(N), u32f(N),\
-    \ elist(Mest), elist(Mest)\n        super().__init__(\n            H, W, 0, S,\
-    \ Ua, Va, deg, La, Ra, Ua, Va, None, dirs, wall\n        )\n\n        for i in\
-    \ range(H):\n            for j in range(W):\n                La[u := i*W+j] =\
-    \ len(Ua)\n                if G.is_valid(i, j, u):\n                    for di,dj\
-    \ in dirs:\n                        if G.is_valid(ni:=i+di, nj:=j+dj, v:=ni*W+nj):\n\
-    \                            deg[u] += 1\n                            Ua.append(u)\n\
-    \                            Va.append(v)\n                Ra[u] = len(Ua)\n\n\
-    \        G.M = len(Ua)\n        G.Ea = u32a(range(G.M))\n\nfrom cp_library.ds.array_init_fn\
+    \ elist(Mest), elist(Mest)\n        super().__init__(H, W, 0, S, Ua, Va, deg,\
+    \ La, Ra, Ua, Va, None, dirs, wall)\n        for i in range(H):\n            for\
+    \ j in range(W):\n                La[u := i*W+j] = len(Ua)\n                for\
+    \ di,dj in dirs:\n                    if G.is_valid(ni:=i+di, nj:=j+dj, v:=ni*W+nj):\n\
+    \                        Ua.append(u); Va.append(v); deg[u] += 1\n           \
+    \     Ra[u] = len(Ua)\n        G.M, G.Ea = len(Ua), u32a(range(G.M))\n\nfrom cp_library.ds.array_init_fn\
     \ import u32f, u32a"
   dependsOn:
   - cp_library/ds/elist_fn.py
@@ -355,7 +350,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/grid_graph_cls.py
   requiredBy: []
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

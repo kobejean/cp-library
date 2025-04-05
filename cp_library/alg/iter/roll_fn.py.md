@@ -44,7 +44,7 @@ data:
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
-  timestamp: '2025-04-03 08:59:41+09:00'
+  timestamp: '2025-04-06 08:06:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc175_d_permutation.test.py
