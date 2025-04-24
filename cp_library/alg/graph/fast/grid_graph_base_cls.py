@@ -8,7 +8,9 @@ class GridGraphBase(GraphBase):
     def __init__(G, H, W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,
             dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):
         super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)
-        G.W, G.H, G.S, G.dirs = W, H, S, dirs
+        G.W, G.H, G.dirs = W, H, dirs
+        G.S: list[str] = S
+        G.dirs: list[tuple[int,int]] = dirs
 
     def vertex(G, key: tuple[int,int] | int):
         if isinstance(key, tuple): i,j = key; return i*G.W+j

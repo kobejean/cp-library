@@ -7,7 +7,6 @@ def fbisect_left(key, hi, x = True, lo = 0.0, tol=1e-9):
             hi = mid
         else:
             lo = mid
-            
     return lo
 
 def fbisect_right(key, hi, x=False, lo=0.0, tol=1e-9):

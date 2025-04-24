@@ -1,6 +1,4 @@
-
 import cp_library.alg.graph.__header__
-import sys
 from cp_library.ds.elist_fn import elist
 from cp_library.alg.graph.fast.grid_graph_walled_base_cls import GridGraphWalledBase
 
@@ -18,6 +16,11 @@ class GridGraph(GridGraphWalledBase):
                     if G.is_valid(ni:=i+di, nj:=j+dj, v:=ni*W+nj):
                         Ua.append(u); Va.append(v); deg[u] += 1
                 Ra[u] = len(Ua)
+        G.twin = [*range(len(G.Va))]
+        for i,u in enumerate(G.Ua):
+            for j in G.range(G.Va[i]):
+                if G.Va[j] == u:
+                    G.twin[i] = j
         G.M, G.Ea = len(Ua), u32a(range(G.M))
 
 from cp_library.ds.array_init_fn import u32f, u32a

@@ -1,6 +1,6 @@
-from math import gcd
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
-from typing import Iterable
 from cp_library.io.parser_cls import Parsable, Parser
 
 class FuncGraph(list[int], Parsable):

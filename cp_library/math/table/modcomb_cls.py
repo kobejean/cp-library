@@ -31,7 +31,7 @@ class modcomb():
     @staticmethod
     def comb(n: int, k: int, /) -> mint:
         inv, mod = modcomb.fact_inv, mint.mod
-        if n < k: return mint.zero
+        if n < k or k < 0: return mint.zero
         return mint(inv[k] * inv[n-k] % mod * modcomb.fact[n])
     nCk = binom = comb
     
