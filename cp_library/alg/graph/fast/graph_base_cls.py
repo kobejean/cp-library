@@ -3,10 +3,8 @@ from math import inf
 from collections import deque
 from typing import Callable, Sequence, Union, overload
 from cp_library.io.parser_cls import Parsable, TokenStream
-
 import cp_library.alg.__header__
 from cp_library.alg.dp.chmin_fn import chmin
-
 import cp_library.alg.graph.__header__
 from cp_library.alg.graph.dfs_options_cls import DFSEvent
 
@@ -260,6 +258,6 @@ class GraphBase(Sequence, Parsable):
             return cls(N, U, V)
         return parse
     
-from cp_library.ds.elist_fn import elist
 from cp_library.ds.array_init_fn import u8f, u32f, i32f, u32_max, i32_max
+from cp_library.ds.elist_fn import elist
 from cp_library.ds.packet_list_cls import PacketList

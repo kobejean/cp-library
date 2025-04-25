@@ -1,5 +1,7 @@
+import cp_library.__header__
+import cp_library.alg.__header__
+import cp_library.alg.graph.__header__
 import cp_library.alg.graph.fast.__header__
-from cp_library.io.parser_cls import Parser, TokenStream
 from cp_library.alg.graph.fast.digraph_weighted_cls import DiGraphWeighted
 
 class DiGraphWeightedMeta(DiGraphWeighted):
@@ -65,3 +67,4 @@ class DiGraphWeightedMeta(DiGraphWeighted):
         return parse
 
 from cp_library.ds.array_init_fn import u32f
+from cp_library.io.parser_cls import Parser, TokenStream

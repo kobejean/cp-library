@@ -1,5 +1,7 @@
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
-from cp_library.ds.elist_fn import elist
+import cp_library.alg.graph.fast.__header__
 from cp_library.alg.graph.fast.grid_graph_walled_base_cls import GridGraphWalledBase
 
 class GridGraph(GridGraphWalledBase):
@@ -24,3 +26,4 @@ class GridGraph(GridGraphWalledBase):
         G.M, G.Ea = len(Ua), u32a(range(G.M))
 
 from cp_library.ds.array_init_fn import u32f, u32a
+from cp_library.ds.elist_fn import elist

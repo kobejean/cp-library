@@ -1,5 +1,5 @@
 import cp_library.__header__
-from typing import Iterable, Union
+from typing import Union
 import cp_library.alg.__header__
 from cp_library.alg.dp.chmin_fn import chmin
 import cp_library.alg.graph.__header__

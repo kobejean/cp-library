@@ -1,8 +1,11 @@
-import cp_library.alg.graph.__header__
-from cp_library.alg.dp.chmin_fn import chmin
+import cp_library.__header__
+from math import inf
 from typing import overload
-from cp_library.io.parser_cls import TokenStream
+import cp_library.alg.__header__
+from cp_library.alg.dp.chmin_fn import chmin
 from cp_library.alg.iter.argsort_fn import argsort
+import cp_library.alg.graph.__header__
+import cp_library.alg.graph.fast.__header__
 from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 
 class GraphWeightedBase(GraphBase):
@@ -53,10 +56,7 @@ class GraphWeightedBase(GraphBase):
     
     def kruskal_heap(G):
         N, M, U, V, W = G.N, G.M, G.U, G.V, G.W 
-        que = PriorityQueue(M, list(range(M)), W)
-        dsu = DSU(N)
-        MST = [0]*(N-1)
-        need = N-1
+        que, dsu, MST = PriorityQueue(M, list(range(M)), W), DSU(N), [0]*(need := N-1)
         while que and need:
             e, _ = que.pop()
             u, v = dsu.merge(U[e],V[e],True)
@@ -104,7 +104,7 @@ class GraphWeightedBase(GraphBase):
             return cls(N, U, V, W)
         return parse
 
-from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.array_init_fn import i32f, u32f
+from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.heap.priority_queue_cls import PriorityQueue
-from math import inf
+from cp_library.io.parser_cls import TokenStream

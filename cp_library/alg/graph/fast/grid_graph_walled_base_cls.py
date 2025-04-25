@@ -1,5 +1,7 @@
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
-from cp_library.io.parser_cls import TokenStream
+import cp_library.alg.graph.fast.__header__
 from cp_library.alg.graph.fast.grid_graph_base_cls import GridGraphBase
 
 class GridGraphWalledBase(GridGraphBase):
@@ -18,3 +20,5 @@ class GridGraphWalledBase(GridGraphBase):
             S = ''.join(ts.stream.readline().rstrip() for _ in range(H))
             return cls(H, W, S, *args)
         return parse
+
+from cp_library.io.parser_cls import TokenStream

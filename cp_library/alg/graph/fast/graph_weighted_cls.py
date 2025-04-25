@@ -1,3 +1,6 @@
+import cp_library.__header__
+import cp_library.alg.__header__
+import cp_library.alg.graph.__header__
 import cp_library.alg.graph.fast.__header__
 from cp_library.alg.graph.fast.graph_weighted_base_cls import GraphWeightedBase
 
@@ -23,4 +26,4 @@ class GraphWeighted(GraphWeightedBase):
 
         super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea, twin)
 
-from cp_library.ds.array_init_fn import u32f, i32f
+from cp_library.ds.array_init_fn import u32f
