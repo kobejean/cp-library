@@ -13,10 +13,20 @@ jobs:
     steps:
     - name: Free disk space
       run: |
+        # More aggressive cleanup
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /usr/local/lib/android
         sudo rm -rf /opt/ghc
         sudo rm -rf /opt/hostedtoolcache
+        sudo rm -rf /usr/local/share/boost
+        sudo rm -rf /usr/lib/jvm
+        sudo rm -rf /var/lib/apt/lists/*
+        sudo apt clean
+        # Display disk space before and after cleanup
+        echo "Before cleanup:"
+        df -h
+        du -sh /usr /var /opt /home || true
+        echo "After cleanup:"
         df -h
     
     - name: Configure swap and system resources
@@ -43,16 +53,6 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 'pypy3.10'
-
-    # Restore cache with static key
-    - name: Restore verify-helper cache
-      uses: actions/cache/restore@v4
-      id: cache-restore
-      with:
-        path: |
-          .verify-helper/cache
-          ~/.cache/pip
-        key: verify-helper-static-v1
 
     - name: Install dependencies
       run: |
@@ -84,12 +84,3 @@ jobs:
         # Run tests with reduced parallelism and increased timeouts
         git pull && oj-verify all --tle 15 --timeout 7200 --jobs 6
 
-    # Save cache with static key
-    - name: Save verify-helper cache
-      uses: actions/cache/save@v4
-      if: always()
-      with:
-        path: |
-          .verify-helper/cache
-          ~/.cache/pip
-        key: verify-helper-static-v1
