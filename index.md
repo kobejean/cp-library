@@ -7,6 +7,9 @@ data:
       path: cp_library/alg/divcon/fbisect_fn.py
       title: cp_library/alg/divcon/fbisect_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/divcon/median_of_three_fn.py
+      title: cp_library/alg/divcon/median_of_three_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/partition_fn.py
       title: cp_library/alg/divcon/partition_fn.py
     - icon: ':heavy_check_mark:'
@@ -185,6 +188,9 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
       title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/fast/edge_list_cls.py
+      title: cp_library/alg/graph/fast/edge_list_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/graph_base_cls.py
       title: cp_library/alg/graph/fast/graph_base_cls.py
@@ -258,6 +264,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/argsort_fn.py
       title: cp_library/alg/iter/argsort_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/coord_compress_fn.py
+      title: cp_library/alg/iter/coord_compress_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/counter_fn.py
       title: cp_library/alg/iter/counter_fn.py

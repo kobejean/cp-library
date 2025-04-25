@@ -87,13 +87,13 @@ data:
     \     j, k = divmod(mod, len(inv))\n            inv.append(-inv[k] * j % mod)\n\
     \n    @staticmethod\n    def factorial(n: int, /) -> mint:\n        return mint(modcomb.fact[n])\n\
     \n    @staticmethod\n    def comb(n: int, k: int, /) -> mint:\n        inv, mod\
-    \ = modcomb.fact_inv, mint.mod\n        if n < k: return mint.zero\n        return\
-    \ mint(inv[k] * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom = comb\n  \
-    \  \n    @staticmethod\n    def comb_with_replacement(n: int, k: int, /) -> mint:\n\
-    \        if n <= 0: return mint.zero\n        return modcomb.nCk(n + k - 1, k)\n\
-    \    nHk = comb_with_replacement\n    \n    @staticmethod\n    def multinom(n:\
-    \ int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n        for\
-    \ k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
+    \ = modcomb.fact_inv, mint.mod\n        if n < k or k < 0: return mint.zero\n\
+    \        return mint(inv[k] * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom\
+    \ = comb\n    \n    @staticmethod\n    def comb_with_replacement(n: int, k: int,\
+    \ /) -> mint:\n        if n <= 0: return mint.zero\n        return modcomb.nCk(n\
+    \ + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n    def\
+    \ multinom(n: int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n\
+    \        for k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
     \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
     \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
     \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
@@ -285,7 +285,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

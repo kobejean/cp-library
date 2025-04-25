@@ -125,7 +125,7 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\n\nfrom enum import auto, IntFlag,\
+    \ return cls(next(ts))\n        return parser\n\nfrom enum import auto, IntFlag,\
     \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
     \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
     \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
@@ -261,59 +261,59 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ array import array\n\ndef i8f(N: int, elm: int = 0):      return array('b',\
-    \ (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B',\
-    \ (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h',\
-    \ (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H',\
-    \ (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i',\
-    \ (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I',\
-    \ (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q',\
-    \ (elm,))*N  # signed long long\n# def u64f(N: int, elm: int = 0):     return\
-    \ array('Q', (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0):\
-    \ return array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return\
-    \ array('d', (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if\
-    \ init is None else array('b', init)  # signed char\ndef u8a(init = None):  return\
-    \ array('B') if init is None else array('B', init)  # unsigned char\ndef i16a(init\
-    \ = None): return array('h') if init is None else array('h', init)  # signed short\n\
-    def u16a(init = None): return array('H') if init is None else array('H', init)\
-    \  # unsigned short\ndef i32a(init = None): return array('i') if init is None\
-    \ else array('i', init)  # signed int\ndef u32a(init = None): return array('I')\
-    \ if init is None else array('I', init)  # unsigned int\ndef i64a(init = None):\
-    \ return array('q') if init is None else array('q', init)  # signed long long\n\
-    # def u64a(init = None): return array('Q') if init is None else array('Q', init)\
-    \  # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
+    \            return cls(N, U, V)\n        return parse\n    \n\nfrom array import\
+    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
+    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\n# def u64f(N: int, elm: int = 0):     return array('Q',\
+    \ (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return\
+    \ array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d',\
+    \ (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if init is None\
+    \ else array('b', init)  # signed char\ndef u8a(init = None):  return array('B')\
+    \ if init is None else array('B', init)  # unsigned char\ndef i16a(init = None):\
+    \ return array('h') if init is None else array('h', init)  # signed short\ndef\
+    \ u16a(init = None): return array('H') if init is None else array('H', init) \
+    \ # unsigned short\ndef i32a(init = None): return array('i') if init is None else\
+    \ array('i', init)  # signed int\ndef u32a(init = None): return array('I') if\
+    \ init is None else array('I', init)  # unsigned int\ndef i64a(init = None): return\
+    \ array('q') if init is None else array('q', init)  # signed long long\n# def\
+    \ u64a(init = None): return array('Q') if init is None else array('Q', init) \
+    \ # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
     \ else array('f', init)  # float\ndef f64a(init = None): return array('d') if\
     \ init is None else array('d', init)  # double\n\ni8_max = (1 << 7)-1\nu8_max\
     \ = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 <<\
     \ 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\
-    \nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\n\ndef biconnected_components(G:\
-    \ GraphBase, s: Union[int,list,None] = None) -> Iterable[list[int]]:\n    '''\n\
-    \    Returns an iterator of vertex lists, each representing a biconnected component.\n\
-    \    Isolated vertices are included as single-vertex components.\n    '''\n  \
-    \  low, st, bccs, L = [N := G.N]*N, elist(G.M), elist(G.M), elist(G.M)\n\n   \
-    \ def back(u,v,i):\n        chmin(low, u, G.tin[v])\n\n    def down(u,v,i):\n\
-    \        st.append(v)\n        low[v] = G.tin[v]\n\n    def up(u,p,i):\n     \
-    \   chmin(low, p, low[u])\n        if low[u] >= G.tin[p]:\n            # add new\
-    \ biconnected component\n            L.append(len(bccs))\n            v = -1\n\
-    \            while u != v:\n                bccs.append(v := st.pop())\n     \
-    \       bccs.append(p)\n    G.dfs(s, down_fn=down, back_fn=back, up_fn=up)\n \
-    \   # give the lonely vertices their own components\n    for u,d in enumerate(G.deg):\n\
-    \        if d == 0:\n            L.append(len(bccs))\n            bccs.append(u)\n\
-    \    return SliceIteratorReverse(bccs, L)\n\ntwo_vertex_connected_components =\
-    \ biconnected_components\n\n\nfrom typing import Iterator, SupportsIndex\n\nclass\
-    \ SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T], L:\
-    \ list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n    def\
-    \ __len__(self): return len(self.L)\n    def __next__(self):\n        L = self.L\n\
-    \        if not L: raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n\
-    \        return self.A[l:r]\n"
+    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n\nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A:\
+    \ list[int], max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift :=\
+    \ (max1).bit_length())) - 1\n        lst.shift = shift\n    def __len__(lst):\
+    \ return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]): return\
+    \ lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst, key)\
+    \ -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift, x\
+    \ & lst.mask\n\n\ndef biconnected_components(G: GraphBase, s: Union[int,list,None]\
+    \ = None) -> Iterable[list[int]]:\n    '''\n    Returns an iterator of vertex\
+    \ lists, each representing a biconnected component.\n    Isolated vertices are\
+    \ included as single-vertex components.\n    '''\n    low, st, bccs, L = [N :=\
+    \ G.N]*N, elist(G.M), elist(G.M), elist(G.M)\n\n    def back(u,v,i):\n       \
+    \ chmin(low, u, G.tin[v])\n\n    def down(u,v,i):\n        st.append(v)\n    \
+    \    low[v] = G.tin[v]\n\n    def up(u,p,i):\n        chmin(low, p, low[u])\n\
+    \        if low[u] >= G.tin[p]:\n            # add new biconnected component\n\
+    \            L.append(len(bccs))\n            v = -1\n            while u != v:\n\
+    \                bccs.append(v := st.pop())\n            bccs.append(p)\n    G.dfs(s,\
+    \ down_fn=down, back_fn=back, up_fn=up)\n    # give the lonely vertices their\
+    \ own components\n    for u,d in enumerate(G.deg):\n        if d == 0:\n     \
+    \       L.append(len(bccs))\n            bccs.append(u)\n    return SliceIteratorReverse(bccs,\
+    \ L)\n\ntwo_vertex_connected_components = biconnected_components\n\n\nfrom typing\
+    \ import Iterator, SupportsIndex\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
+    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
+    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n"
   code: "import cp_library.__header__\nfrom typing import Iterable, Union\nimport\
     \ cp_library.alg.__header__\nfrom cp_library.alg.dp.chmin_fn import chmin\nimport\
     \ cp_library.alg.graph.__header__\nimport cp_library.alg.graph.fast.__header__\n\
@@ -346,7 +346,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/biconnected_components.test.py

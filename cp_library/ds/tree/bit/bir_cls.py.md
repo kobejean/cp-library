@@ -80,24 +80,26 @@ data:
     \  '''Set the value at index i to x'''\n        bir.add(i, i+1, x - bir.get(i))\n\
     \    __setitem__ = set\n        \nfrom typing import Union\n\nclass BIT:\n   \
     \ def __init__(bit, v: Union[int, list[int]]):\n        if isinstance(v, int):\
-    \ bit.d, bit.n = [0]*v, v\n        else: bit.build(v)\n        bit.lb = 1<<(bit.n.bit_length()-1)\n\
-    \n    def build(bit, data):\n        bit.d, bit.n = data, len(data)\n        for\
-    \ i in range(bit.n):\n            if (r := i|i+1) < bit.n: bit.d[r] += bit.d[i]\n\
-    \n    def add(bit, i, x):\n        while i < bit.n:\n            bit.d[i] += x\n\
-    \            i |= i+1\n\n    def sum(bit, n: int) -> int:\n        s = 0\n   \
-    \     while n: s, n = s+bit.d[n-1], n&n-1\n        return s\n\n    def range_sum(bit,\
-    \ l, r):\n        s = 0\n        while r: s, r = s+bit.d[r-1], r&r-1\n       \
-    \ while l: s, l = s-bit.d[l-1], l&l-1\n        return s\n\n    def __len__(bit)\
-    \ -> int:\n        return bit.n\n    \n    def __getitem__(bit, i: int) -> int:\n\
-    \        s, l = bit.d[i], i&(i+1)\n        while l != i: s, i = s-bit.d[i-1],\
+    \ bit._d, bit._n = [0]*v, v\n        else: bit.build(v)\n        bit._lb = 1<<bit._n.bit_length()\n\
+    \n    def build(bit, data):\n        bit._d, bit._n = data, len(data)\n      \
+    \  for i in range(bit._n):\n            if (r := i|i+1) < bit._n: bit._d[r] +=\
+    \ bit._d[i]\n\n    def add(bit, i, x):\n        while i < bit._n: bit._d[i] +=\
+    \ x; i |= i+1\n\n    def sum(bit, n: int) -> int:\n        s = 0\n        while\
+    \ n: s, n = s+bit._d[n-1], n&n-1\n        return s\n\n    def range_sum(bit, l,\
+    \ r):\n        s = 0\n        while r: s, r = s+bit._d[r-1], r&r-1\n        while\
+    \ l: s, l = s-bit._d[l-1], l&l-1\n        return s\n\n    def __len__(bit) ->\
+    \ int:\n        return bit._n\n    \n    def __getitem__(bit, i: int) -> int:\n\
+    \        s, l = bit._d[i], i&(i+1)\n        while l != i: s, i = s-bit._d[i-1],\
     \ i-(i&-i)\n        return s\n    get = __getitem__\n    \n    def __setitem__(bit,\
     \ i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\
-    \n    def prelist(bit) -> list[int]:\n        pre = [0]+bit.d\n        for i in\
-    \ range(bit.n+1): pre[i] += pre[i&i-1]\n        return pre\n\n    def bisect_left(bit,\
+    \n    def prelist(bit) -> list[int]:\n        pre = [0]+bit._d\n        for i\
+    \ in range(bit._n+1): pre[i] += pre[i&i-1]\n        return pre\n\n    def bisect_left(bit,\
     \ v) -> int:\n        return bit.bisect_right(v-1) if v>0 else 0\n    \n    def\
-    \ bisect_right(bit, v) -> int:\n        i = s = 0; ni = m = bit.lb\n        while\
-    \ m:\n            if ni <= bit.n and (ns:=s+bit.d[ni-1]) <= v: s, i = ns, ni\n\
-    \            ni = (m:=m>>1)|i\n        return i\n"
+    \ bisect_right(bit, v, key=None) -> int:\n        i = s = 0; m = bit._lb\n   \
+    \     if key:\n            while m := m>>1:\n                if (ni := m|i) <=\
+    \ bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        else:\n    \
+    \        while m := m>>1:\n                if (ni := m|i) <= bit._n and (ns:=s+bit._d[ni-1])\
+    \ <= v: s, i = ns, ni\n        return i\n"
   code: "import cp_library.__header__\nfrom typing import Sequence\nimport cp_library.ds.__header__\n\
     import cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bit.__header__\n\
     \nclass BIR(Sequence[int]):\n    def __init__(bir, size: int):\n        bir.size,\
@@ -118,7 +120,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bir_cls.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/tree/bit/bir_cls.py

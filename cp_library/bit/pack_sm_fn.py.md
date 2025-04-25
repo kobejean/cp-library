@@ -21,6 +21,9 @@ data:
     path: cp_library/alg/iter/argsort_fn.py
     title: cp_library/alg/iter/argsort_fn.py
   - icon: ':warning:'
+    path: cp_library/alg/iter/coord_compress_fn.py
+    title: cp_library/alg/iter/coord_compress_fn.py
+  - icon: ':warning:'
     path: cp_library/alg/iter/iargsort_fn.py
     title: cp_library/alg/iter/iargsort_fn.py
   - icon: ':warning:'
@@ -143,44 +146,45 @@ data:
   isVerificationFile: false
   path: cp_library/bit/pack_sm_fn.py
   requiredBy:
-  - cp_library/math/invcnt_fn.py
-  - cp_library/alg/tree/fast/aux_tree_base_cls.py
-  - cp_library/alg/tree/fast/aux_tree_cls.py
+  - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
+  - cp_library/alg/tree/fast/aux_tree_base_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - cp_library/alg/iter/sort_parallel_copies_fn.py
   - cp_library/alg/iter/sort_parallel_fn.py
+  - cp_library/alg/iter/sort_parallel_copies_fn.py
   - cp_library/alg/iter/iargsort_fn.py
   - cp_library/alg/iter/argsort_fn.py
-  - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
-  timestamp: '2025-04-06 08:06:21+09:00'
+  - cp_library/alg/iter/coord_compress_fn.py
+  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/math/invcnt_fn.py
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yukicoder/3407.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/library-checker/tree/vertex_set_path_composite.test.py
-  - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/tree/tree_diameter.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/library-checker/data-structure/point_set_range_composite.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
+  - test/library-checker/tree/tree_diameter.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/yukicoder/3407.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

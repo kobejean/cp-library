@@ -187,7 +187,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_mo.test.py

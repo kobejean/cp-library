@@ -65,7 +65,7 @@ data:
     \    return a if a < b else b\n\n\ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n\
     \    E = elist(M)\n    for i in cut_edges(G):\n        u, v = min2(G.Ua[i], G.Va[i]),\
     \ max2(G.Ua[i], G.Va[i])\n        E.append((u, v))\n    E.sort()\n    for u, v\
-    \ in E:\n        write(u, v)\n\n\nfrom math import inf\nfrom collections import\
+    \ in E:\n        write(u, v)\n\n\n\nfrom math import inf\nfrom collections import\
     \ deque\nfrom typing import Callable, Sequence, Union, overload\n\nimport typing\n\
     from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
     \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
@@ -145,8 +145,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\ndef chmin(dp, i, v):\n    if\
-    \ ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\nfrom enum import auto, IntFlag, IntEnum\n\
+    \ return cls(next(ts))\n        return parser\n\ndef chmin(dp, i, v):\n    if\
+    \ ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom enum import auto, IntFlag, IntEnum\n\
     \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
     \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
     \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
@@ -319,7 +319,7 @@ data:
     \ := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n           \
     \ deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea, Ua, Va,\
     \ La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma), u32f(Ma), u32f(N), u32f(N), 0\n  \
-    \      for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]\n        for e in range(M):\n\
+    \      for u in range(N): La[u] = Ra[u] = i; i = i+deg[u]\n        for e in range(M):\n\
     \            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i],\
     \ Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n        \
     \    Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
@@ -370,7 +370,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py

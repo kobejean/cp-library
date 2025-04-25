@@ -56,20 +56,20 @@ data:
     \n             https://kobejean.github.io/cp-library               \n'''\n\ndef\
     \ fbisect_left(key, hi, x = True, lo = 0.0, tol=1e-9):\n    while hi - lo > tol:\
     \            \n        mid = (lo + hi) / 2\n        if key(mid) >= x:\n      \
-    \      hi = mid\n        else:\n            lo = mid\n            \n    return\
-    \ lo\n\ndef fbisect_right(key, hi, x=False, lo=0.0, tol=1e-9):\n    while hi -\
-    \ lo > tol:\n        mid = (lo + hi) / 2\n        if key(mid) > x:\n         \
-    \   hi = mid\n        else:\n            lo = mid\n    return hi\n\nfrom numbers\
-    \ import Number\nfrom typing import Sequence\nfrom math import gcd, sqrt\n\nimport\
-    \ typing\nfrom collections import deque\nfrom types import GenericAlias \nfrom\
-    \ typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \      hi = mid\n        else:\n            lo = mid\n    return lo\n\ndef fbisect_right(key,\
+    \ hi, x=False, lo=0.0, tol=1e-9):\n    while hi - lo > tol:\n        mid = (lo\
+    \ + hi) / 2\n        if key(mid) > x:\n            hi = mid\n        else:\n \
+    \           lo = mid\n    return hi\n\nfrom numbers import Number\nfrom typing\
+    \ import Sequence\nfrom math import gcd, sqrt\n\nimport typing\nfrom collections\
+    \ import deque\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -231,7 +231,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc151_f_fbisect_left.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc151_f_fbisect_left.test.py

@@ -193,8 +193,8 @@ data:
     \            inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def factorial(n:\
     \ int, /) -> mint:\n        return mint(modcomb.fact[n])\n\n    @staticmethod\n\
     \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = modcomb.fact_inv,\
-    \ mint.mod\n        if n < k: return mint.zero\n        return mint(inv[k] * inv[n-k]\
-    \ % mod * modcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
+    \ mint.mod\n        if n < k or k < 0: return mint.zero\n        return mint(inv[k]\
+    \ * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
     \    def comb_with_replacement(n: int, k: int, /) -> mint:\n        if n <= 0:\
     \ return mint.zero\n        return modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
     \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
@@ -242,7 +242,7 @@ data:
   requiredBy:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

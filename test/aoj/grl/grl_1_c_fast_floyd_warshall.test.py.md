@@ -163,17 +163,17 @@ data:
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
-    \    return ch\nfrom typing import overload\n\n\n\ndef pack_sm(N: int):\n    s\
-    \ = N.bit_length()\n    return s, (1<<s)-1\n\ndef pack_enc(a: int, b: int, s:\
-    \ int):\n    return a << s | b\n    \ndef pack_dec(ab: int, s: int, m: int):\n\
+    \        file.flush()\n\n\n\nfrom typing import overload\n\n\ndef chmin(dp, i,\
+    \ v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\n\ndef pack_sm(N: int):\n\
+    \    s = N.bit_length()\n    return s, (1<<s)-1\n\ndef pack_enc(a: int, b: int,\
+    \ s: int):\n    return a << s | b\n    \ndef pack_dec(ab: int, s: int, m: int):\n\
     \    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n    return [a << s | i\
     \ for i,a in enumerate(A)]\n\ndef argsort(A: list[int], reverse=False):\n    s,\
     \ m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|i^m for i,a in enumerate(A)]\n\
     \        I.sort(reverse=True)\n        for i,ai in enumerate(I): I[i] = (ai^m)&m\n\
     \    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n        I.sort()\n \
     \       for i,ai in enumerate(I): I[i] = ai&m\n    return I\nfrom typing import\
-    \ Callable, Sequence, Union, overload\n\n\n\nfrom enum import auto, IntFlag, IntEnum\n\
+    \ Callable, Sequence, Union, overload\n\nfrom enum import auto, IntFlag, IntEnum\n\
     \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
     \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
     \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
@@ -309,35 +309,35 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ typing import Iterable\nfrom array import array\n\ndef i8f(N: int, elm: int\
-    \ = 0):      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm:\
-    \ int = 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int,\
-    \ elm: int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N:\
-    \ int, elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \            return cls(N, U, V)\n        return parse\n    \nfrom typing import\
+    \ Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):      return\
+    \ array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return\
+    \ array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return\
+    \ array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return\
+    \ array('H', (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):    \
+    \ return array('i', (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0): \
+    \    return array('I', (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int =\
+    \ 0):     return array('q', (elm,))*N  # signed long long\n# def u64f(N: int,\
+    \ elm: int = 0):     return array('Q', (elm,))*N  # unsigned long long\ndef f32f(N:\
+    \ int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef f64f(N: int,\
+    \ elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef i8a(init = None):\
+    \  return array('b') if init is None else array('b', init)  # signed char\ndef\
+    \ u8a(init = None):  return array('B') if init is None else array('B', init) \
+    \ # unsigned char\ndef i16a(init = None): return array('h') if init is None else\
+    \ array('h', init)  # signed short\ndef u16a(init = None): return array('H') if\
+    \ init is None else array('H', init)  # unsigned short\ndef i32a(init = None):\
+    \ return array('i') if init is None else array('i', init)  # signed int\ndef u32a(init\
+    \ = None): return array('I') if init is None else array('I', init)  # unsigned\
+    \ int\ndef i64a(init = None): return array('q') if init is None else array('q',\
+    \ init)  # signed long long\n# def u64a(init = None): return array('Q') if init\
+    \ is None else array('Q', init)  # unsigned long long\ndef f32a(init = None):\
+    \ return array('f') if init is None else array('f', init)  # float\ndef f64a(init\
+    \ = None): return array('d') if init is None else array('d', init)  # double\n\
+    \ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1\
+    \ << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\n\
+    u64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
     \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
     \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
@@ -366,31 +366,30 @@ data:
     \ in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n            if\
     \ u != v:\n                MST[need := need-1] = e\n                if not need:\
     \ break\n        return None if need else MST\n    \n    def kruskal_heap(G):\n\
-    \        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que = PriorityQueue(M,\
-    \ list(range(M)), W)\n        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need\
-    \ = N-1\n        while que and need:\n            e, _ = que.pop()\n         \
-    \   u, v = dsu.merge(U[e],V[e],True)\n            if u != v:\n               \
-    \ MST[need := need-1] = e\n        return None if need else MST\n   \n    def\
-    \ bellman_ford(G, s: int = 0) -> list[int]:\n        Ua, Va, Wa, D = G.Ua, G.Va,\
-    \ G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n        for _ in range(N-1):\n   \
-    \         for i, u in enumerate(Ua):\n                if D[u] < inf: chmin(D,\
-    \ Va[i], D[u] + Wa[i])\n        return D\n    \n    def bellman_ford_neg_cyc_check(G,\
-    \ s: int = 0) -> tuple[bool, list[int]]:\n        M, U, V, W, D = G.M, G.U, G.V,\
-    \ G.W, G.bellman_ford(s)\n        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in\
-    \ range(M) if D[U[i]] < inf)\n        return neg_cycle, D\n    \n    def floyd_warshall(G)\
-    \ -> list[list[int]]:\n        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n       \
-    \ D = [[inf]*N for _ in range(N)]\n        for u in range(N): D[u][u] = 0\n  \
-    \      for i in range(len(Ua)): chmin(D[Ua[i]], Va[i], Wa[i])\n        for k,\
-    \ Dk in enumerate(D):\n            for Di in D:\n                if Di[k] >= inf:\
-    \ continue\n                for j in range(N):\n                    if Dk[j] >=\
-    \ inf: continue\n                    chmin(Di, j, Di[k]+Dk[j])\n        return\
-    \ D\n        \n    def floyd_warshall_neg_cyc_check(G):\n        D = G.floyd_warshall()\n\
-    \        return any(D[i][i] < 0 for i in range(G.N)), D\n    \n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, shift: int = -1):\n        def parse(ts:\
-    \ TokenStream):\n            U, V, W = u32f(M), u32f(M), [0]*M\n            for\
-    \ i in range(M):\n                u, v, w = ts._line()\n                U[i],\
-    \ V[i], W[i] = int(u)+shift, int(v)+shift, int(w)\n            return cls(N, U,\
-    \ V, W)\n        return parse\n\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
+    \        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que, dsu, MST = PriorityQueue(M,\
+    \ list(range(M)), W), DSU(N), [0]*(need := N-1)\n        while que and need:\n\
+    \            e, _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n\
+    \            if u != v:\n                MST[need := need-1] = e\n        return\
+    \ None if need else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n\
+    \        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n\
+    \        for _ in range(N-1):\n            for i, u in enumerate(Ua):\n      \
+    \          if D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n        return D\n  \
+    \  \n    def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:\n\
+    \        M, U, V, W, D = G.M, G.U, G.V, G.W, G.bellman_ford(s)\n        neg_cycle\
+    \ = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inf)\n        return\
+    \ neg_cycle, D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        N,\
+    \ Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n        D = [[inf]*N for _ in range(N)]\n\
+    \        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)): chmin(D[Ua[i]],\
+    \ Va[i], Wa[i])\n        for k, Dk in enumerate(D):\n            for Di in D:\n\
+    \                if Di[k] >= inf: continue\n                for j in range(N):\n\
+    \                    if Dk[j] >= inf: continue\n                    chmin(Di,\
+    \ j, Di[k]+Dk[j])\n        return D\n        \n    def floyd_warshall_neg_cyc_check(G):\n\
+    \        D = G.floyd_warshall()\n        return any(D[i][i] < 0 for i in range(G.N)),\
+    \ D\n    \n    @classmethod\n    def compile(cls, N: int, M: int, shift: int =\
+    \ -1):\n        def parse(ts: TokenStream):\n            U, V, W = u32f(M), u32f(M),\
+    \ [0]*M\n            for i in range(M):\n                u, v, w = ts._line()\n\
+    \                U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)\n     \
+    \       return cls(N, U, V, W)\n        return parse\n\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
     \    def __init__(csr, sizes: list[int]):\n        csr.L, N = [0]*len(sizes),\
     \ 0\n        for i,sz in enumerate(sizes):\n            csr.L[i] = N; N += sz\n\
     \        csr.R, csr.A = csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n\
@@ -472,13 +471,12 @@ data:
     \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
     \ self.encode(id, priority)))\n    \n\nclass DiGraphWeighted(GraphWeightedBase):\n\
     \    def __init__(G, N: int, U: list[int], V: list[int], W: list[int]):\n    \
-    \    M = len(U)\n        deg, Ea, Ua, Va, Wa = u32f(N), u32f(M), u32f(M), u32f(M),\
-    \ [0]*M\n        for u in U: deg[u] += 1\n        La, i = u32f(N), 0\n       \
-    \ for u in range(N): La[u], i = i, i+deg[u]\n        Ra = La[:]\n        for e\
-    \ in range(M):\n            i = Ra[u := U[e]]\n            Ua[i], Va[i], Wa[i],\
-    \ Ea[i] = U[e], V[e], W[e], e\n            Ra[u] += 1\n        super().__init__(N,\
-    \ M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)\n\n\nif __name__ == '__main__':\n \
-    \   main()\n"
+    \    deg, Ea, Ua, Va, Wa = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), [0]*M\n\
+    \        for u in U: deg[u] += 1\n        La, i = u32f(N), 0\n        for u in\
+    \ range(N): La[u], i = i, i+deg[u]\n        Ra = La[:]\n        for e in range(M):\n\
+    \            i = Ra[u := U[e]]\n            Ua[i], Va[i], Wa[i], Ea[i], Ra[u]\
+    \ = U[e], V[e], W[e], e, i+1\n        super().__init__(N, M, U, V, W, deg, La,\
+    \ Ra, Ua, Va, Wa, Ea)\n\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C\n\
     from math import inf\n\ndef main():\n    N, M = read((int,int))\n    G = read(DiGraphWeighted[N,M,0])\n\
     \    neg_cycle, D = G.floyd_warshall_neg_cyc_check()\n\n    if neg_cycle:\n  \
@@ -509,7 +507,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py

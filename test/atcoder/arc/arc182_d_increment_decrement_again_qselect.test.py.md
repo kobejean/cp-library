@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/divcon/median_of_three_fn.py
+    title: cp_library/alg/divcon/median_of_three_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/divcon/partition_fn.py
     title: cp_library/alg/divcon/partition_fn.py
   - icon: ':heavy_check_mark:'
@@ -40,19 +43,23 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \    https://kobejean.github.io/cp-library               \n'''\nfrom random import\
-    \ randint\n\ndef partition(A, l, r, p) -> int:\n    '''Partition subarray [l,r)'''\n\
-    \    A[p], A[r], p = A[r := r-1], A[p], l\n    for j in range(l, r):\n       \
-    \ if A[j] <= A[r]: A[p], A[j], p = A[j], A[p], p+1\n    A[p], A[r] = A[r], A[p]\n\
-    \    return p\n\ndef qselect(A, k, l=0, r=None):\n    '''Find kth element in subarray\
-    \ [l,r)'''\n    if r is None: r = len(A)\n    while l != r-1:\n        if k <\
-    \ (p := partition(A, l, r, randint(l,r-1))): r = p\n        elif k > p: l = p+1\n\
-    \        else: return A[k]\n    return A[k]\n\n\ndef read(shift=0, base=10):\n\
-    \    return [int(s, base) + shift for s in input().split()]\nimport os\nimport\
-    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \    https://kobejean.github.io/cp-library               \n'''\n\ndef median_of_three(A,\
+    \ l, r):\n    '''Select pivot as median of first, middle, and last elements'''\n\
+    \    if r - l < 3: return l\n    mid = (l+r) >> 1\n    if A[mid] < A[l]:\n   \
+    \     A[l], A[mid] = A[mid], A[l]\n    if A[r-1] < A[mid]:\n        A[mid], A[r-1]\
+    \ = A[r-1], A[mid]\n        if A[mid] < A[l]:\n            A[l], A[mid] = A[mid],\
+    \ A[l]\n    return mid\n\ndef partition(A, l, r, p) -> int:\n    '''Partition\
+    \ subarray [l,r)'''\n    A[p], A[r], p = A[r := r-1], A[p], l\n    for j in range(l,\
+    \ r):\n        if A[j] <= A[r]: A[p], A[j], p = A[j], A[p], p+1\n    A[p], A[r]\
+    \ = A[r], A[p]\n    return p\n\ndef qselect(A, k, l=0, r=None):\n    '''Find kth\
+    \ element in subarray [l,r)'''\n    if r is None: r = len(A)\n    while l != r-1:\n\
+    \        if k < (p := partition(A, l, r, median_of_three(A,l,r))): r = p\n   \
+    \     elif k > p: l = p+1\n        else: return A[k]\n    return A[k]\n\n\ndef\
+    \ read(shift=0, base=10):\n    return [int(s, base) + shift for s in input().split()]\n\
+    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -95,12 +102,13 @@ data:
   - cp_library/alg/divcon/qselect_fn.py
   - cp_library/io/read_int_fn.py
   - cp_library/io/write_fn.py
+  - cp_library/alg/divcon/median_of_three_fn.py
   - cp_library/alg/divcon/partition_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py

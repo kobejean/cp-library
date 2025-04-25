@@ -206,12 +206,12 @@ data:
   path: cp_library/math/linalg/vec/vec2d_cls.py
   requiredBy:
   - cp_library/math/linalg/vec/slope_cls.py
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc151_f_fbisect_left.test.py
   - test/atcoder/abc/abc189_e_vec2d.test.py
   - test/atcoder/abc/abc274_e_vec2d.test.py
+  - test/atcoder/abc/abc151_f_fbisect_left.test.py
 documentation_of: cp_library/math/linalg/vec/vec2d_cls.py
 layout: document
 redirect_from:

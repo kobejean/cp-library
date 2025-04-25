@@ -14,16 +14,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef sumprod(A, B):\n    assert len(A) == len(B)\n    ret = 0\n    for i in range(len(A)):\n\
-    \        ret += A[i]*B[i]\n    return ret\n"
+    \ndef sumprod(A, B):\n    assert len(A) == len(B)\n    ret = 0\n    for i,a in\
+    \ enumerate(A):\n        ret += a*B[i]\n    return ret\n"
   code: "import cp_library.math.__header__\n\ndef sumprod(A, B):\n    assert len(A)\
-    \ == len(B)\n    ret = 0\n    for i in range(len(A)):\n        ret += A[i]*B[i]\n\
+    \ == len(B)\n    ret = 0\n    for i,a in enumerate(A):\n        ret += a*B[i]\n\
     \    return ret"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/sumprod_fn.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sumprod_fn.py

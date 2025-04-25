@@ -165,42 +165,42 @@ data:
   isVerificationFile: false
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
-  - cp_library/math/table/stirling1_n_fn.py
-  - cp_library/math/table/stirling2_n_fn.py
   - cp_library/math/table/stirling2_k_fn.py
-  - cp_library/math/table/modcomb_cls.py
+  - cp_library/math/table/stirling1_n_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/mod/mint_ntt_cls.py
-  - cp_library/math/linalg/mat/mod/modmat_cls.py
-  - cp_library/math/linalg/mat/mod/mat_cls.py
+  - cp_library/math/table/stirling2_n_fn.py
+  - cp_library/math/table/modcomb_cls.py
   - cp_library/math/linalg/mat/mat_cls.py
-  - cp_library/math/fps/fps_ideriv_k_fn.py
-  - cp_library/math/fps/fps_log_fn.py
-  - cp_library/math/fps/fps_inv_fn.py
+  - cp_library/math/linalg/mat/mod/mat_cls.py
+  - cp_library/math/linalg/mat/mod/modmat_cls.py
+  - cp_library/math/mod/mint_ntt_cls.py
   - cp_library/math/fps/fps_integ_fn.py
-  - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/fps/fps_iinteg_fn.py
+  - cp_library/math/fps/fps_inv_fn.py
+  - cp_library/math/fps/fps_ideriv_k_fn.py
   - cp_library/math/fps/fps_deriv_fn.py
   - cp_library/math/fps/fps_ideriv_fn.py
-  - cp_library/math/fps/fps_iinteg_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
+  - cp_library/math/fps/fps_log_fn.py
+  - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
+  - test/library-checker/polynomial/inv_of_formal_power_series.test.py
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/polynomial/log_of_formal_power_series.test.py
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py
-  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - test/library-checker/polynomial/inv_of_formal_power_series.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
-  - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/convolution/convolution.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
-  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
+  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+  - test/library-checker/convolution/convolution.test.py
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
 documentation_of: cp_library/math/mod/mint_cls.py
 layout: document

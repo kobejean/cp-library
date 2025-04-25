@@ -215,23 +215,23 @@ data:
     \    path.append(c)\n            c = par[c]\n        path.append(lca)\n      \
     \  rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
     \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
-    \ path\n\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\
-    from typing import overload\n\n\ndef pack_sm(N: int):\n    s = N.bit_length()\n\
-    \    return s, (1<<s)-1\n\ndef pack_enc(a: int, b: int, s: int):\n    return a\
-    \ << s | b\n    \ndef pack_dec(ab: int, s: int, m: int):\n    return ab >> s,\
-    \ ab & m\n\ndef pack_indices(A, s):\n    return [a << s | i for i,a in enumerate(A)]\n\
-    \ndef argsort(A: list[int], reverse=False):\n    s, m = pack_sm(len(A))\n    if\
-    \ reverse:\n        I = [a<<s|i^m for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
-    \        for i,ai in enumerate(I): I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i\
-    \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
-    \ I[i] = ai&m\n    return I\nfrom math import inf\nfrom typing import Callable,\
-    \ Sequence, Union, overload\n\n\n\nfrom enum import auto, IntFlag, IntEnum\n\n\
-    class DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n\
-    \    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\
-    \n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n\
-    \    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN\
-    \ | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n \
-    \   TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
+    \ path\n\n\n\n\nfrom math import inf\nfrom typing import overload\n\ndef chmin(dp,\
+    \ i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\ndef pack_sm(N: int):\n\
+    \    s = N.bit_length()\n    return s, (1<<s)-1\n\ndef pack_enc(a: int, b: int,\
+    \ s: int):\n    return a << s | b\n    \ndef pack_dec(ab: int, s: int, m: int):\n\
+    \    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n    return [a << s | i\
+    \ for i,a in enumerate(A)]\n\ndef argsort(A: list[int], reverse=False):\n    s,\
+    \ m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|i^m for i,a in enumerate(A)]\n\
+    \        I.sort(reverse=True)\n        for i,ai in enumerate(I): I[i] = (ai^m)&m\n\
+    \    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n        I.sort()\n \
+    \       for i,ai in enumerate(I): I[i] = ai&m\n    return I\nfrom typing import\
+    \ Callable, Sequence, Union, overload\n\nfrom enum import auto, IntFlag, IntEnum\n\
+    \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
+    \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
+    \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
+    \ = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES\
+    \ = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n\
+    \    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
     \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
     \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
@@ -361,87 +361,87 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ array import array\n\ndef i8f(N: int, elm: int = 0):      return array('b',\
-    \ (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B',\
-    \ (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h',\
-    \ (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H',\
-    \ (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i',\
-    \ (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I',\
-    \ (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q',\
-    \ (elm,))*N  # signed long long\n# def u64f(N: int, elm: int = 0):     return\
-    \ array('Q', (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0):\
-    \ return array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return\
-    \ array('d', (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if\
-    \ init is None else array('b', init)  # signed char\ndef u8a(init = None):  return\
-    \ array('B') if init is None else array('B', init)  # unsigned char\ndef i16a(init\
-    \ = None): return array('h') if init is None else array('h', init)  # signed short\n\
-    def u16a(init = None): return array('H') if init is None else array('H', init)\
-    \  # unsigned short\ndef i32a(init = None): return array('i') if init is None\
-    \ else array('i', init)  # signed int\ndef u32a(init = None): return array('I')\
-    \ if init is None else array('I', init)  # unsigned int\ndef i64a(init = None):\
-    \ return array('q') if init is None else array('q', init)  # signed long long\n\
-    # def u64a(init = None): return array('Q') if init is None else array('Q', init)\
-    \  # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
+    \            return cls(N, U, V)\n        return parse\n    \nfrom array import\
+    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
+    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\n# def u64f(N: int, elm: int = 0):     return array('Q',\
+    \ (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return\
+    \ array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d',\
+    \ (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if init is None\
+    \ else array('b', init)  # signed char\ndef u8a(init = None):  return array('B')\
+    \ if init is None else array('B', init)  # unsigned char\ndef i16a(init = None):\
+    \ return array('h') if init is None else array('h', init)  # signed short\ndef\
+    \ u16a(init = None): return array('H') if init is None else array('H', init) \
+    \ # unsigned short\ndef i32a(init = None): return array('i') if init is None else\
+    \ array('i', init)  # signed int\ndef u32a(init = None): return array('I') if\
+    \ init is None else array('I', init)  # unsigned int\ndef i64a(init = None): return\
+    \ array('q') if init is None else array('q', init)  # signed long long\n# def\
+    \ u64a(init = None): return array('Q') if init is None else array('Q', init) \
+    \ # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
     \ else array('f', init)  # float\ndef f64a(init = None): return array('d') if\
     \ init is None else array('d', init)  # double\n\ni8_max = (1 << 7)-1\nu8_max\
     \ = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 <<\
     \ 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\
-    \nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass GraphWeightedBase(GraphBase):\n\
-    \    def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int],\
-    \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int], twin: list[int]\
-    \ = None):\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\
-    \        self.W = W\n        self.Wa = Wa\n        '''Wa[i] lists weights to edges\
-    \ from u for La[u] <= i < Ra[u].'''\n        \n    def __getitem__(G, u):\n  \
-    \      l,r = G.La[u],G.Ra[u]\n        return zip(G.Va[l:r], G.Wa[l:r])\n    \n\
-    \    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n \
-    \   def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
-    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
-    \    if s == None: return G.floyd_warshall()\n        else: return G.dijkstra(s,\
-    \ g)\n\n    def dijkstra(G, s: int, t: int = None):\n        G.back, G.D, S =\
-    \ i32f(G.N, -1), [inf]*G.N, G.starts(s)\n        for s in S: G.D[s] = 0\n    \
-    \    que = PriorityQueue(G.N, S)\n        while que:\n            u, d = que.pop()\n\
-    \            if d > G.D[u]: continue\n            if u == t: return d\n      \
-    \      i, r = G.La[u]-1, G.Ra[u]\n            while (i:=i+1)<r: \n           \
-    \     if chmin(G.D, v := G.Va[i], nd := d + G.Wa[i]):\n                    G.back[v]\
-    \ = i; que.push(v, nd)\n        return G.D if t is None else inf \n\n    def kruskal(G):\n\
-    \        U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1\n\
-    \        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
-    \            if u != v:\n                MST[need := need-1] = e\n           \
-    \     if not need: break\n        return None if need else MST\n    \n    def\
-    \ kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n       \
-    \ que = PriorityQueue(M, list(range(M)), W)\n        dsu = DSU(N)\n        MST\
-    \ = [0]*(N-1)\n        need = N-1\n        while que and need:\n            e,\
-    \ _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n            if\
-    \ u != v:\n                MST[need := need-1] = e\n        return None if need\
-    \ else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n        Ua,\
-    \ Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n        for\
-    \ _ in range(N-1):\n            for i, u in enumerate(Ua):\n                if\
-    \ D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n        return D\n    \n    def bellman_ford_neg_cyc_check(G,\
-    \ s: int = 0) -> tuple[bool, list[int]]:\n        M, U, V, W, D = G.M, G.U, G.V,\
-    \ G.W, G.bellman_ford(s)\n        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in\
-    \ range(M) if D[U[i]] < inf)\n        return neg_cycle, D\n    \n    def floyd_warshall(G)\
-    \ -> list[list[int]]:\n        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n       \
-    \ D = [[inf]*N for _ in range(N)]\n        for u in range(N): D[u][u] = 0\n  \
-    \      for i in range(len(Ua)): chmin(D[Ua[i]], Va[i], Wa[i])\n        for k,\
-    \ Dk in enumerate(D):\n            for Di in D:\n                if Di[k] >= inf:\
-    \ continue\n                for j in range(N):\n                    if Dk[j] >=\
-    \ inf: continue\n                    chmin(Di, j, Di[k]+Dk[j])\n        return\
-    \ D\n        \n    def floyd_warshall_neg_cyc_check(G):\n        D = G.floyd_warshall()\n\
-    \        return any(D[i][i] < 0 for i in range(G.N)), D\n    \n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, shift: int = -1):\n        def parse(ts:\
-    \ TokenStream):\n            U, V, W = u32f(M), u32f(M), [0]*M\n            for\
-    \ i in range(M):\n                u, v, w = ts._line()\n                U[i],\
-    \ V[i], W[i] = int(u)+shift, int(v)+shift, int(w)\n            return cls(N, U,\
-    \ V, W)\n        return parse\n\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
+    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n\nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A:\
+    \ list[int], max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift :=\
+    \ (max1).bit_length())) - 1\n        lst.shift = shift\n    def __len__(lst):\
+    \ return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]): return\
+    \ lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst, key)\
+    \ -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift, x\
+    \ & lst.mask\n\nclass GraphWeightedBase(GraphBase):\n    def __init__(self, N:\
+    \ int, M: int, U: list[int], V: list[int], W: list[int], \n                 deg:\
+    \ list[int], La: list[int], Ra: list[int],\n                 Ua: list[int], Va:\
+    \ list[int], Wa: list[int], Ea: list[int], twin: list[int] = None):\n        super().__init__(N,\
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n        self.W = W\n        self.Wa\
+    \ = Wa\n        '''Wa[i] lists weights to edges from u for La[u] <= i < Ra[u].'''\n\
+    \        \n    def __getitem__(G, u):\n        l,r = G.La[u],G.Ra[u]\n       \
+    \ return zip(G.Va[l:r], G.Wa[l:r])\n    \n    @overload\n    def distance(G) ->\
+    \ list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
+    \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
+    \        else: return G.dijkstra(s, g)\n\n    def dijkstra(G, s: int, t: int =\
+    \ None):\n        G.back, G.D, S = i32f(G.N, -1), [inf]*G.N, G.starts(s)\n   \
+    \     for s in S: G.D[s] = 0\n        que = PriorityQueue(G.N, S)\n        while\
+    \ que:\n            u, d = que.pop()\n            if d > G.D[u]: continue\n  \
+    \          if u == t: return d\n            i, r = G.La[u]-1, G.Ra[u]\n      \
+    \      while (i:=i+1)<r: \n                if chmin(G.D, v := G.Va[i], nd := d\
+    \ + G.Wa[i]):\n                    G.back[v] = i; que.push(v, nd)\n        return\
+    \ G.D if t is None else inf \n\n    def kruskal(G):\n        U, V, W, dsu, MST,\
+    \ need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1\n        for e in argsort(W):\n\
+    \            u, v = dsu.merge(U[e],V[e],True)\n            if u != v:\n      \
+    \          MST[need := need-1] = e\n                if not need: break\n     \
+    \   return None if need else MST\n    \n    def kruskal_heap(G):\n        N, M,\
+    \ U, V, W = G.N, G.M, G.U, G.V, G.W \n        que, dsu, MST = PriorityQueue(M,\
+    \ list(range(M)), W), DSU(N), [0]*(need := N-1)\n        while que and need:\n\
+    \            e, _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n\
+    \            if u != v:\n                MST[need := need-1] = e\n        return\
+    \ None if need else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n\
+    \        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n\
+    \        for _ in range(N-1):\n            for i, u in enumerate(Ua):\n      \
+    \          if D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n        return D\n  \
+    \  \n    def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:\n\
+    \        M, U, V, W, D = G.M, G.U, G.V, G.W, G.bellman_ford(s)\n        neg_cycle\
+    \ = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inf)\n        return\
+    \ neg_cycle, D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        N,\
+    \ Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n        D = [[inf]*N for _ in range(N)]\n\
+    \        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)): chmin(D[Ua[i]],\
+    \ Va[i], Wa[i])\n        for k, Dk in enumerate(D):\n            for Di in D:\n\
+    \                if Di[k] >= inf: continue\n                for j in range(N):\n\
+    \                    if Dk[j] >= inf: continue\n                    chmin(Di,\
+    \ j, Di[k]+Dk[j])\n        return D\n        \n    def floyd_warshall_neg_cyc_check(G):\n\
+    \        D = G.floyd_warshall()\n        return any(D[i][i] < 0 for i in range(G.N)),\
+    \ D\n    \n    @classmethod\n    def compile(cls, N: int, M: int, shift: int =\
+    \ -1):\n        def parse(ts: TokenStream):\n            U, V, W = u32f(M), u32f(M),\
+    \ [0]*M\n            for i in range(M):\n                u, v, w = ts._line()\n\
+    \                U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)\n     \
+    \       return cls(N, U, V, W)\n        return parse\n\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
     \    def __init__(csr, sizes: list[int]):\n        csr.L, N = [0]*len(sizes),\
     \ 0\n        for i,sz in enumerate(sizes):\n            csr.L[i] = N; N += sz\n\
     \        csr.R, csr.A = csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n\
@@ -709,7 +709,7 @@ data:
   isVerificationFile: true
   path: test/aoj/vol/0439_aux_rerooting_dp.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/vol/0439_aux_rerooting_dp.test.py

@@ -44,9 +44,9 @@ data:
   isVerificationFile: false
   path: cp_library/bit/ctz32_fn.py
   requiredBy:
-  - cp_library/alg/graph/bit_graph_cls.py
   - cp_library/bit/clz32_fn.py
-  timestamp: '2025-04-06 08:06:21+09:00'
+  - cp_library/alg/graph/bit_graph_cls.py
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

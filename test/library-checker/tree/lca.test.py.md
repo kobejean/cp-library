@@ -106,36 +106,37 @@ data:
     \    path.append(c)\n            c = par[c]\n        path.append(lca)\n      \
     \  rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
     \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
-    \ path\n\n\nfrom math import inf\nfrom collections import deque\nfrom typing import\
-    \ Callable, Sequence, Union, overload\n\nimport typing\nfrom numbers import Number\n\
-    from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \ path\n\n\n\nfrom math import inf\nfrom collections import deque\nfrom typing\
+    \ import Callable, Sequence, Union, overload\n\nimport typing\nfrom numbers import\
+    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
+    \ Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
+    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
+    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
+    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
+    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
+    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
+    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
+    \nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
+    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
+    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
+    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
@@ -184,8 +185,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\ndef chmin(dp, i, v):\n    if\
-    \ ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\nfrom enum import auto, IntFlag, IntEnum\n\
+    \ return cls(next(ts))\n        return parser\n\ndef chmin(dp, i, v):\n    if\
+    \ ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom enum import auto, IntFlag, IntEnum\n\
     \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
     \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
     \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
@@ -321,74 +322,75 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ array import array\n\ndef i8f(N: int, elm: int = 0):      return array('b',\
-    \ (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B',\
-    \ (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h',\
-    \ (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H',\
-    \ (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i',\
-    \ (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I',\
-    \ (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q',\
-    \ (elm,))*N  # signed long long\n# def u64f(N: int, elm: int = 0):     return\
-    \ array('Q', (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0):\
-    \ return array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return\
-    \ array('d', (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if\
-    \ init is None else array('b', init)  # signed char\ndef u8a(init = None):  return\
-    \ array('B') if init is None else array('B', init)  # unsigned char\ndef i16a(init\
-    \ = None): return array('h') if init is None else array('h', init)  # signed short\n\
-    def u16a(init = None): return array('H') if init is None else array('H', init)\
-    \  # unsigned short\ndef i32a(init = None): return array('i') if init is None\
-    \ else array('i', init)  # signed int\ndef u32a(init = None): return array('I')\
-    \ if init is None else array('I', init)  # unsigned int\ndef i64a(init = None):\
-    \ return array('q') if init is None else array('q', init)  # signed long long\n\
-    # def u64a(init = None): return array('Q') if init is None else array('Q', init)\
-    \  # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
+    \            return cls(N, U, V)\n        return parse\n    \nfrom array import\
+    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
+    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\n# def u64f(N: int, elm: int = 0):     return array('Q',\
+    \ (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return\
+    \ array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d',\
+    \ (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if init is None\
+    \ else array('b', init)  # signed char\ndef u8a(init = None):  return array('B')\
+    \ if init is None else array('B', init)  # unsigned char\ndef i16a(init = None):\
+    \ return array('h') if init is None else array('h', init)  # signed short\ndef\
+    \ u16a(init = None): return array('H') if init is None else array('H', init) \
+    \ # unsigned short\ndef i32a(init = None): return array('i') if init is None else\
+    \ array('i', init)  # signed int\ndef u32a(init = None): return array('I') if\
+    \ init is None else array('I', init)  # unsigned int\ndef i64a(init = None): return\
+    \ array('q') if init is None else array('q', init)  # signed long long\n# def\
+    \ u64a(init = None): return array('Q') if init is None else array('Q', init) \
+    \ # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
     \ else array('f', init)  # float\ndef f64a(init = None): return array('d') if\
     \ init is None else array('d', init)  # double\n\ni8_max = (1 << 7)-1\nu8_max\
     \ = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 <<\
     \ 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\
-    \nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass Graph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M, Ma, deg\
-    \ = len(U), 0, u32f(N)\n        for e in range(M := len(U)):\n            distinct\
-    \ = (u := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v] += distinct; Ma\
-    \ += 1+distinct\n        twin, Ea, Ua, Va, La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma),\
-    \ u32f(Ma), u32f(N), u32f(N), 0\n        for u in range(N): La[u], Ra[u], i =\
-    \ i, i, i+deg[u]\n        for e in range(M):\n            i, j = Ra[u := U[e]],\
-    \ Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v,\
-    \ e, j\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j],\
-    \ twin[j] = j+1, v, u, e, i\n        super().__init__(N, M, U, V, deg, La, Ra,\
-    \ Ua, Va, Ea, twin)\n\nfrom typing import Callable, Literal, TypeVar, Union, overload\n\
-    \nclass TreeBase(GraphBase):\n    @overload\n    def distance(T) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(T, s: int, g: int) -> int: ...\n    def distance(T, s = None,\
-    \ g = None):\n        if s == None:\n            return [T.dfs_distance(u) for\
-    \ u in range(T.N)]\n        else:\n            return T.dfs_distance(s, g)\n\n\
-    \    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
-    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
-    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
-    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
-    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
-    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
-    \    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        st,\
-    \ Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = [inf]*N, i32f(N,\
-    \ -1)\n        D[s] = 0\n        st.append(s)\n        while st:\n           \
-    \ nd = D[u := st.pop()]+1\n            if u == g: return nd-1\n            for\
-    \ i in T.range(u):\n                if nd < D[v := Va[i]]:\n                 \
-    \   D[v], back[v] = nd, i\n                    st.append(v)\n        return D\
-    \ if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n                 \
-    \    merge: Callable[[_T,_T],_T], \n                     edge_op: Callable[[_T,int,int,int],_T]\
-    \ = lambda s,i,p,u:s,\n                     s: int = 0):\n        La, Ua, Va =\
-    \ T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua),\
-    \ T.Ra[:]\n        # up\n        for i in order[::-1]:\n            u,v = Ua[i],\
-    \ Va[i]\n            # subtree v finished up pass, store value to accumulate for\
-    \ u\n            dp[v] = new = edge_op(dp[v], i, u, v)\n            dp[u] = merge(dp[u],\
+    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n\nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A:\
+    \ list[int], max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift :=\
+    \ (max1).bit_length())) - 1\n        lst.shift = shift\n    def __len__(lst):\
+    \ return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]): return\
+    \ lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst, key)\
+    \ -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift, x\
+    \ & lst.mask\n\nclass Graph(GraphBase):\n    def __init__(G, N: int, U: list[int],\
+    \ V: list[int]):\n        M, Ma, deg = len(U), 0, u32f(N)\n        for e in range(M\
+    \ := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n           \
+    \ deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea, Ua, Va,\
+    \ La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma), u32f(Ma), u32f(N), u32f(N), 0\n  \
+    \      for u in range(N): La[u] = Ra[u] = i; i = i+deg[u]\n        for e in range(M):\n\
+    \            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i],\
+    \ Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n        \
+    \    Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\nfrom typing import Callable, Literal,\
+    \ TypeVar, Union, overload\n\nclass TreeBase(GraphBase):\n    @overload\n    def\
+    \ distance(T) -> list[list[int]]: ...\n    @overload\n    def distance(T, s: int\
+    \ = 0) -> list[int]: ...\n    @overload\n    def distance(T, s: int, g: int) ->\
+    \ int: ...\n    def distance(T, s = None, g = None):\n        if s == None:\n\
+    \            return [T.dfs_distance(u) for u in range(T.N)]\n        else:\n \
+    \           return T.dfs_distance(s, g)\n\n    @overload\n    def diameter(T)\
+    \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
+    \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        mask\
+    \ = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift | v for\
+    \ v,d in enumerate(T.distance(0))) & mask\n        dg = max(d << shift | v for\
+    \ v,d in enumerate(T.distance(s))) \n        diam, g = dg >> shift, dg & mask\n\
+    \        return (diam, s, g) if endpoints else diam\n    \n    def dfs_distance(T,\
+    \ s: int, g: Union[int,None] = None):\n        st, Va = elist(N := T.N), T.Va\n\
+    \        T.D, T.back = D, back = [inf]*N, i32f(N, -1)\n        D[s] = 0\n    \
+    \    st.append(s)\n        while st:\n            nd = D[u := st.pop()]+1\n  \
+    \          if u == g: return nd-1\n            for i in T.range(u):\n        \
+    \        if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n \
+    \                   st.append(v)\n        return D if g is None else inf\n\n \
+    \   def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
+    \ \n                     edge_op: Callable[[_T,int,int,int],_T] = lambda s,i,p,u:s,\n\
+    \                     s: int = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n  \
+    \      order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]\n \
+    \       # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
+    \            # subtree v finished up pass, store value to accumulate for u\n \
+    \           dp[v] = new = edge_op(dp[v], i, u, v)\n            dp[u] = merge(dp[u],\
     \ new)\n            # suffix accumulation\n            if (c:=I[u]-1) > La[u]:\
     \ suf[c-1] = merge(suf[c], new)\n            I[u] = c\n        # down\n      \
     \  dp[s] = e # at this point dp stores values to be merged in parent\n       \
@@ -448,7 +450,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/lca.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/lca.test.py

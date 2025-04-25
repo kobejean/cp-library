@@ -157,38 +157,38 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\n\ndef chmin(dp, i, v):\n  \
-    \  if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\n\nfrom enum import auto, IntFlag,\
-    \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
-    \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
-    \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
-    \    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n\
-    \    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL\
-    \ = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n\
-    \    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n\
-    \    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK\
-    \ \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP\
-    \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
-    \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
-    \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
-    \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
-    \      '''The number of vertices.'''\n        G.M = M\n        '''The number of\
-    \ edges.'''\n        G.U = U\n        '''A list of source vertices in the original\
-    \ edge list.'''\n        G.V = V\n        '''A list of destination vertices in\
-    \ the original edge list.'''\n        G.deg = deg\n        '''deg[u] is the out\
-    \ degree of vertex u.'''\n        G.La = La\n        '''La[u] stores the start\
-    \ index of the list of adjacent vertices from u.'''\n        G.Ra = Ra\n     \
-    \   '''Ra[u] stores the stop index of the list of adjacent vertices from u.'''\n\
-    \        G.Ua = Ua\n        '''Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.'''\n\
-    \        G.Va = Va\n        '''Va[i] lists adjacent vertices to u for La[u] <=\
-    \ i < Ra[u].'''\n        G.Ea = Ea\n        '''Ea[i] lists the edge ids that start\
-    \ from u for La[u] <= i < Ra[u].\n        For undirected graphs, edge ids in range\
-    \ M<= e <2*M are edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin\
-    \ if twin is not None else range(len(Ua))\n        '''twin[i] in undirected graphs\
-    \ stores index j of the same edge but with u and v swapped.'''\n        G.st:\
-    \ list[int] = None\n        G.order: list[int] = None\n        G.vis: list[int]\
-    \ = None\n        G.back: list[int] = None\n        G.tin: list[int] = None\n\
-    \    \n    def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
+    \ return cls(next(ts))\n        return parser\n\n\ndef chmin(dp, i, v):\n    if\
+    \ ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\nfrom enum import auto, IntFlag, IntEnum\n\
+    \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
+    \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
+    \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
+    \ = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES\
+    \ = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n\
+    \    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
+    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
+    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
+    \    \n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G, N: int, M:\
+    \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
+    \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int],\
+    \ twin: list[int] = None):\n        G.N = N\n        '''The number of vertices.'''\n\
+    \        G.M = M\n        '''The number of edges.'''\n        G.U = U\n      \
+    \  '''A list of source vertices in the original edge list.'''\n        G.V = V\n\
+    \        '''A list of destination vertices in the original edge list.'''\n   \
+    \     G.deg = deg\n        '''deg[u] is the out degree of vertex u.'''\n     \
+    \   G.La = La\n        '''La[u] stores the start index of the list of adjacent\
+    \ vertices from u.'''\n        G.Ra = Ra\n        '''Ra[u] stores the stop index\
+    \ of the list of adjacent vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i]\
+    \ = u for La[u] <= i < Ra[u], useful for backtracking.'''\n        G.Va = Va\n\
+    \        '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''\n  \
+    \      G.Ea = Ea\n        '''Ea[i] lists the edge ids that start from u for La[u]\
+    \ <= i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
+    \ edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin if twin is\
+    \ not None else range(len(Ua))\n        '''twin[i] in undirected graphs stores\
+    \ index j of the same edge but with u and v swapped.'''\n        G.st: list[int]\
+    \ = None\n        G.order: list[int] = None\n        G.vis: list[int] = None\n\
+    \        G.back: list[int] = None\n        G.tin: list[int] = None\n    \n   \
+    \ def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
     \        if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def\
     \ prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n\
     \        return G.st\n    \n    def prep_order(G):\n        if G.order is None:\
@@ -294,35 +294,35 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ typing import Iterable\nfrom array import array\n\ndef i8f(N: int, elm: int\
-    \ = 0):      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm:\
-    \ int = 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int,\
-    \ elm: int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N:\
-    \ int, elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \            return cls(N, U, V)\n        return parse\n    \nfrom typing import\
+    \ Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):      return\
+    \ array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return\
+    \ array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return\
+    \ array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return\
+    \ array('H', (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):    \
+    \ return array('i', (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0): \
+    \    return array('I', (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int =\
+    \ 0):     return array('q', (elm,))*N  # signed long long\n# def u64f(N: int,\
+    \ elm: int = 0):     return array('Q', (elm,))*N  # unsigned long long\ndef f32f(N:\
+    \ int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef f64f(N: int,\
+    \ elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef i8a(init = None):\
+    \  return array('b') if init is None else array('b', init)  # signed char\ndef\
+    \ u8a(init = None):  return array('B') if init is None else array('B', init) \
+    \ # unsigned char\ndef i16a(init = None): return array('h') if init is None else\
+    \ array('h', init)  # signed short\ndef u16a(init = None): return array('H') if\
+    \ init is None else array('H', init)  # unsigned short\ndef i32a(init = None):\
+    \ return array('i') if init is None else array('i', init)  # signed int\ndef u32a(init\
+    \ = None): return array('I') if init is None else array('I', init)  # unsigned\
+    \ int\ndef i64a(init = None): return array('q') if init is None else array('q',\
+    \ init)  # signed long long\n# def u64a(init = None): return array('Q') if init\
+    \ is None else array('Q', init)  # unsigned long long\ndef f32a(init = None):\
+    \ return array('f') if init is None else array('f', init)  # float\ndef f64a(init\
+    \ = None): return array('d') if init is None else array('d', init)  # double\n\
+    \ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1\
+    \ << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\n\
+    u64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
     \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
     \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
@@ -408,7 +408,7 @@ data:
     \ enumerate(A)]\n        I.sort(reverse=True)\n        for i,ai in enumerate(I):\
     \ I[i] = (ai^m)&m\n    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n \
     \       I.sort()\n        for i,ai in enumerate(I): I[i] = ai&m\n    return I\n\
-    \nclass GraphWeightedBase(GraphBase):\n    def __init__(self, N: int, M: int,\
+    \n\nclass GraphWeightedBase(GraphBase):\n    def __init__(self, N: int, M: int,\
     \ U: list[int], V: list[int], W: list[int], \n                 deg: list[int],\
     \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
     \ Wa: list[int], Ea: list[int], twin: list[int] = None):\n        super().__init__(N,\
@@ -431,9 +431,9 @@ data:
     \            u, v = dsu.merge(U[e],V[e],True)\n            if u != v:\n      \
     \          MST[need := need-1] = e\n                if not need: break\n     \
     \   return None if need else MST\n    \n    def kruskal_heap(G):\n        N, M,\
-    \ U, V, W = G.N, G.M, G.U, G.V, G.W \n        que = PriorityQueue(M, list(range(M)),\
-    \ W)\n        dsu = DSU(N)\n        MST = [0]*(N-1)\n        need = N-1\n    \
-    \    while que and need:\n            e, _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n\
+    \ U, V, W = G.N, G.M, G.U, G.V, G.W \n        que, dsu, MST = PriorityQueue(M,\
+    \ list(range(M)), W), DSU(N), [0]*(need := N-1)\n        while que and need:\n\
+    \            e, _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n\
     \            if u != v:\n                MST[need := need-1] = e\n        return\
     \ None if need else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n\
     \        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n\
@@ -572,11 +572,11 @@ data:
   - cp_library/ds/elist_fn.py
   - cp_library/ds/array_init_fn.py
   - cp_library/alg/dp/chmin_fn.py
-  - cp_library/io/parser_cls.py
   - cp_library/alg/iter/argsort_fn.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
+  - cp_library/io/parser_cls.py
   - cp_library/bit/pack_sm_fn.py
   - cp_library/ds/csr/csr_incremental_cls.py
   - cp_library/ds/heap/fast_heapq.py
@@ -587,7 +587,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/hld_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py

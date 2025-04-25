@@ -123,13 +123,13 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_fn.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py
-  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
 documentation_of: cp_library/io/legacy/read_fn.py
 layout: document
 redirect_from:

@@ -56,16 +56,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
-    from math import gcd\nfrom typing import Iterable\n\nimport typing\nfrom collections\
-    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -159,53 +158,54 @@ data:
     \        return crf.A[crf.S[i]:crf.S[i+1]]\n    \n    def get(crf, i: int, j:\
     \ int) -> _T:\n        return crf.A[crf.S[i]+j]\n    \n    def len(crf, i: int)\
     \ -> int:\n        return crf.S[i+1] - crf.S[i]\n\ndef roll(A: list, t: int):\n\
-    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\n\nfrom array\
-    \ import array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N\
-    \  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
-    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
-    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
-    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
-    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
-    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
-    \  # signed long long\n# def u64f(N: int, elm: int = 0):     return array('Q',\
-    \ (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return\
-    \ array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d',\
-    \ (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if init is None\
-    \ else array('b', init)  # signed char\ndef u8a(init = None):  return array('B')\
-    \ if init is None else array('B', init)  # unsigned char\ndef i16a(init = None):\
-    \ return array('h') if init is None else array('h', init)  # signed short\ndef\
-    \ u16a(init = None): return array('H') if init is None else array('H', init) \
-    \ # unsigned short\ndef i32a(init = None): return array('i') if init is None else\
-    \ array('i', init)  # signed int\ndef u32a(init = None): return array('I') if\
-    \ init is None else array('I', init)  # unsigned int\ndef i64a(init = None): return\
-    \ array('q') if init is None else array('q', init)  # signed long long\n# def\
-    \ u64a(init = None): return array('Q') if init is None else array('Q', init) \
-    \ # unsigned long long\ndef f32a(init = None): return array('f') if init is None\
-    \ else array('f', init)  # float\ndef f64a(init = None): return array('d') if\
-    \ init is None else array('d', init)  # double\n\ni8_max = (1 << 7)-1\nu8_max\
-    \ = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 <<\
-    \ 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nclass PermGraph(FuncGraph):\n    def inv(P):\n        Pinv = [0]*P.N\n\
-    \        for i,p in enumerate(P):\n            Pinv[p] = i\n        return type(P)(Pinv)\n\
-    \ndef main():\n    N, K = read(tuple[int,int])\n    P = read(PermGraph[N,0])\n\
-    \    win = SlidingMinMax(maxlen=K)\n    win.extend(P[:K])\n    ans = 1 - (unchanged\
-    \ := len(win.minq) == K)\n    for i in range(K,N):\n        p = win.popleft()\n\
-    \        win.append(P[i])\n        unchanged |= (is_sorted:=len(win.minq) == K)\n\
-    \        ans += not is_sorted and (p > win.min or P[i] < win.max)\n        \n\
-    \    ans += unchanged\n    write(ans)\n    \n\n\ndef list_find(lst: list, value,\
-    \ start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value, start,\
-    \ stop)\n    except:\n        return -1\nfrom typing import MutableSequence, SupportsIndex\n\
-    \nclass Deque(MutableSequence[_T]):\n    def __init__(que, A = tuple(), *, maxlen=-1):\n\
-    \        super().__init__()\n        data = [0]*maxlen\n        que._sz = que._t\
-    \ = len(A)\n        for i,a in enumerate(A): data[i] = a\n        que._h, que.maxlen,\
-    \ que.data = 0, maxlen, data\n\n    def __len__(que):\n        return que._sz\
-    \ \n    \n    def __contains__(que, x):\n        if que._h >= que._t:\n      \
-    \      return (list_find(que.data, x, 0, que._t) != -1\n                or list_find(que.data,\
-    \ x, que._h, que.maxlen) != -1)\n        else:\n            return list_find(que.data,\
-    \ x, que._h, que._t) != -1\n        \n    def __getitem__(que, i: SupportsIndex)\
-    \ -> _T:\n        assert -que._sz <= i < que._sz\n        if i >= 0: return que.data[(que._h+i)%que.maxlen]\n\
+    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\nfrom typing\
+    \ import Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):\
+    \      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int =\
+    \ 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm:\
+    \ int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int,\
+    \ elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
+    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
+    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
+    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
+    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
+    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
+    def i8a(init = None):  return array('b') if init is None else array('b', init)\
+    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
+    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
+    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
+    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
+    def i32a(init = None): return array('i') if init is None else array('i', init)\
+    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
+    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
+    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
+    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
+    def f32a(init = None): return array('f') if init is None else array('f', init)\
+    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
+    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
+    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
+    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\nclass PermGraph(FuncGraph):\n\
+    \    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n \
+    \           Pinv[p] = i\n        return type(P)(Pinv)\n\ndef main():\n    N, K\
+    \ = read(tuple[int,int])\n    P = read(PermGraph[N,0])\n    win = SlidingMinMax(maxlen=K)\n\
+    \    win.extend(P[:K])\n    ans = 1 - (unchanged := len(win.minq) == K)\n    for\
+    \ i in range(K,N):\n        p = win.popleft()\n        win.append(P[i])\n    \
+    \    unchanged |= (is_sorted:=len(win.minq) == K)\n        ans += not is_sorted\
+    \ and (p > win.min or P[i] < win.max)\n        \n    ans += unchanged\n    write(ans)\n\
+    \    \n\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n \
+    \   try:\n        return lst.index(value, start, stop)\n    except:\n        return\
+    \ -1\nfrom typing import MutableSequence, SupportsIndex\n\nclass Deque(MutableSequence[_T]):\n\
+    \    def __init__(que, A = tuple(), *, maxlen=-1):\n        super().__init__()\n\
+    \        data = [0]*maxlen\n        que._sz = que._t = len(A)\n        for i,a\
+    \ in enumerate(A): data[i] = a\n        que._h, que.maxlen, que.data = 0, maxlen,\
+    \ data\n\n    def __len__(que):\n        return que._sz \n    \n    def __contains__(que,\
+    \ x):\n        if que._h >= que._t:\n            return (list_find(que.data, x,\
+    \ 0, que._t) != -1\n                or list_find(que.data, x, que._h, que.maxlen)\
+    \ != -1)\n        else:\n            return list_find(que.data, x, que._h, que._t)\
+    \ != -1\n        \n    def __getitem__(que, i: SupportsIndex) -> _T:\n       \
+    \ assert -que._sz <= i < que._sz\n        if i >= 0: return que.data[(que._h+i)%que.maxlen]\n\
     \        else: return que.data[(que._t+i)%que.maxlen]\n        \n    def __setitem__(que,\
     \ i: SupportsIndex, x):\n        assert -que._sz <= i < que._sz\n        if i\
     \ >= 0: que.data[(que._h+i)%que.maxlen] = x\n        else: que.data[(que._t+i)%que.maxlen]\
@@ -274,7 +274,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/agc/agc038_b_sliding_min_max.test.py

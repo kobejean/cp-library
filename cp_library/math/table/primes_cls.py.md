@@ -102,18 +102,18 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/primes_cls.py
   requiredBy:
-  - cp_library/math/table/linear_sieve_cnts_cls.py
-  - cp_library/math/table/totient_cls.py
-  - cp_library/math/table/sieve_cls.py
-  - cp_library/math/table/sieve_proto.py
-  - cp_library/math/table/linear_sieve_cls.py
-  - cp_library/math/conv/gcd_conv_fn.py
   - cp_library/math/conv/lcm_conv_fn.py
-  timestamp: '2025-04-06 08:06:21+09:00'
+  - cp_library/math/conv/gcd_conv_fn.py
+  - cp_library/math/table/sieve_proto.py
+  - cp_library/math/table/sieve_cls.py
+  - cp_library/math/table/linear_sieve_cnts_cls.py
+  - cp_library/math/table/linear_sieve_cls.py
+  - cp_library/math/table/totient_cls.py
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/convolution/gcd_convolution.test.py
   - test/library-checker/convolution/lcm_convolution.test.py
+  - test/library-checker/convolution/gcd_convolution.test.py
 documentation_of: cp_library/math/table/primes_cls.py
 layout: document
 redirect_from:

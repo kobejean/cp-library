@@ -342,8 +342,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\n\n\ndef chmin(dp, i, v):\n\
-    \    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\n\nfrom enum import auto, IntFlag,\
+    \ return cls(next(ts))\n        return parser\n\n\n\ndef chmin(dp, i, v):\n  \
+    \  if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\nfrom enum import auto, IntFlag,\
     \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
     \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
     \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
@@ -479,35 +479,35 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ typing import Iterable\nfrom array import array\n\ndef i8f(N: int, elm: int\
-    \ = 0):      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm:\
-    \ int = 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int,\
-    \ elm: int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N:\
-    \ int, elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \            return cls(N, U, V)\n        return parse\n    \nfrom typing import\
+    \ Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):      return\
+    \ array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return\
+    \ array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return\
+    \ array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return\
+    \ array('H', (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):    \
+    \ return array('i', (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0): \
+    \    return array('I', (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int =\
+    \ 0):     return array('q', (elm,))*N  # signed long long\n# def u64f(N: int,\
+    \ elm: int = 0):     return array('Q', (elm,))*N  # unsigned long long\ndef f32f(N:\
+    \ int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef f64f(N: int,\
+    \ elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef i8a(init = None):\
+    \  return array('b') if init is None else array('b', init)  # signed char\ndef\
+    \ u8a(init = None):  return array('B') if init is None else array('B', init) \
+    \ # unsigned char\ndef i16a(init = None): return array('h') if init is None else\
+    \ array('h', init)  # signed short\ndef u16a(init = None): return array('H') if\
+    \ init is None else array('H', init)  # unsigned short\ndef i32a(init = None):\
+    \ return array('i') if init is None else array('i', init)  # signed int\ndef u32a(init\
+    \ = None): return array('I') if init is None else array('I', init)  # unsigned\
+    \ int\ndef i64a(init = None): return array('q') if init is None else array('q',\
+    \ init)  # signed long long\n# def u64a(init = None): return array('Q') if init\
+    \ is None else array('Q', init)  # unsigned long long\ndef f32a(init = None):\
+    \ return array('f') if init is None else array('f', init)  # float\ndef f64a(init\
+    \ = None): return array('d') if init is None else array('d', init)  # double\n\
+    \ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1\
+    \ << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\n\
+    u64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
     \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
     \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
@@ -516,8 +516,8 @@ data:
     \ x & lst.mask\n"
   code: "import cp_library.__header__\nfrom math import inf\nfrom collections import\
     \ deque\nfrom typing import Callable, Sequence, Union, overload\nfrom cp_library.io.parser_cls\
-    \ import Parsable, TokenStream\n\nimport cp_library.alg.__header__\nfrom cp_library.alg.dp.chmin_fn\
-    \ import chmin\n\nimport cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.dfs_options_cls\
+    \ import Parsable, TokenStream\nimport cp_library.alg.__header__\nfrom cp_library.alg.dp.chmin_fn\
+    \ import chmin\nimport cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.dfs_options_cls\
     \ import DFSEvent\n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G,\
     \ N: int, M: int, U: list[int], V: list[int], \n                 deg: list[int],\
     \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
@@ -644,98 +644,98 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \nfrom cp_library.ds.elist_fn\
-    \ import elist\nfrom cp_library.ds.array_init_fn import u8f, u32f, i32f, u32_max,\
-    \ i32_max\nfrom cp_library.ds.packet_list_cls import PacketList"
+    \            return cls(N, U, V)\n        return parse\n    \nfrom cp_library.ds.array_init_fn\
+    \ import u8f, u32f, i32f, u32_max, i32_max\nfrom cp_library.ds.elist_fn import\
+    \ elist\nfrom cp_library.ds.packet_list_cls import PacketList"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
-  - cp_library/ds/elist_fn.py
   - cp_library/ds/array_init_fn.py
+  - cp_library/ds/elist_fn.py
   - cp_library/ds/packet_list_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/fast/graph_base_cls.py
   requiredBy:
-  - cp_library/alg/tree/fast/aux_tree_base_cls.py
-  - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
-  - cp_library/alg/tree/fast/hld_base_cls.py
-  - cp_library/alg/tree/fast/hld_bit_cls.py
-  - cp_library/alg/tree/fast/hld_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
+  - cp_library/alg/tree/fast/aux_tree_base_cls.py
+  - cp_library/alg/tree/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/fast/hld_monoid_cls.py
+  - cp_library/alg/tree/fast/hld_commutative_cls.py
+  - cp_library/alg/tree/fast/hld_bit_cls.py
+  - cp_library/alg/tree/fast/hld_cls.py
+  - cp_library/alg/tree/fast/hld_base_cls.py
+  - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/tree/fast/hld_commutative_cls.py
-  - cp_library/alg/tree/fast/hld_monoid_cls.py
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
-  - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
-  - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
-  - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
-  - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
-  - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
-  - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/grid_graph_base_cls.py
   - cp_library/alg/graph/fast/graph_cls.py
+  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/graph/fast/digraph_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
+  - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+  - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
+  - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
+  - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+  - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
   - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/fast/digraph_weighted_cls.py
+  - cp_library/alg/graph/fast/grid_graph_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-04-06 08:06:21+09:00'
+  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/yukicoder/3407.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_2_c_scc.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
   - test/library-checker/tree/vertex_set_path_composite.test.py
-  - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
-  - test/library-checker/tree/vertex_add_subtree_sum.test.py
-  - test/library-checker/tree/jump_on_tree.test.py
   - test/library-checker/tree/tree_diameter.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/biconnected_components.test.py
+  - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
-  - test/library-checker/graph/biconnected_components.test.py
-  - test/library-checker/graph/cycle_detection_undirected.test.py
-  - test/library-checker/graph/two_edge_connected_components.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/yukicoder/3407.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
 documentation_of: cp_library/alg/graph/fast/graph_base_cls.py
 layout: document

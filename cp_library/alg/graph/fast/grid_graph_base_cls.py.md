@@ -47,7 +47,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nimport typing\nfrom collections import deque\nfrom numbers import Number\n\
+    \n\n\nfrom math import inf\nfrom collections import deque\nfrom typing import\
+    \ Callable, Sequence, Union, overload\n\nimport typing\nfrom numbers import Number\n\
     from types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
@@ -125,9 +126,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\nfrom math import inf\nfrom typing\
-    \ import Callable, Sequence, Union, overload\n\n\n\ndef chmin(dp, i, v):\n   \
-    \ if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\nfrom enum import auto, IntFlag, IntEnum\n\
+    \ return cls(next(ts))\n        return parser\n\n\ndef chmin(dp, i, v):\n    if\
+    \ ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom enum import auto, IntFlag, IntEnum\n\
     \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
     \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
     \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
@@ -263,35 +263,35 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ typing import Iterable\nfrom array import array\n\ndef i8f(N: int, elm: int\
-    \ = 0):      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm:\
-    \ int = 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int,\
-    \ elm: int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N:\
-    \ int, elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \            return cls(N, U, V)\n        return parse\n    \nfrom typing import\
+    \ Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):      return\
+    \ array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return\
+    \ array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return\
+    \ array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return\
+    \ array('H', (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):    \
+    \ return array('i', (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0): \
+    \    return array('I', (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int =\
+    \ 0):     return array('q', (elm,))*N  # signed long long\n# def u64f(N: int,\
+    \ elm: int = 0):     return array('Q', (elm,))*N  # unsigned long long\ndef f32f(N:\
+    \ int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef f64f(N: int,\
+    \ elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef i8a(init = None):\
+    \  return array('b') if init is None else array('b', init)  # signed char\ndef\
+    \ u8a(init = None):  return array('B') if init is None else array('B', init) \
+    \ # unsigned char\ndef i16a(init = None): return array('h') if init is None else\
+    \ array('h', init)  # signed short\ndef u16a(init = None): return array('H') if\
+    \ init is None else array('H', init)  # unsigned short\ndef i32a(init = None):\
+    \ return array('i') if init is None else array('i', init)  # signed int\ndef u32a(init\
+    \ = None): return array('I') if init is None else array('I', init)  # unsigned\
+    \ int\ndef i64a(init = None): return array('q') if init is None else array('q',\
+    \ init)  # signed long long\n# def u64a(init = None): return array('Q') if init\
+    \ is None else array('Q', init)  # unsigned long long\ndef f32a(init = None):\
+    \ return array('f') if init is None else array('f', init)  # float\ndef f64a(init\
+    \ = None): return array('d') if init is None else array('d', init)  # double\n\
+    \ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1\
+    \ << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\n\
+    u64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
+    \ return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
     \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
     \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
@@ -300,32 +300,34 @@ data:
     \ x & lst.mask\n\nclass GridGraphBase(GraphBase):\n    def __init__(G, H, W, M,\
     \ S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
     \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W,\
-    \ G.H, G.S, G.dirs = W, H, S, dirs\n\n    def vertex(G, key: tuple[int,int] |\
-    \ int):\n        if isinstance(key, tuple): i,j = key; return i*G.W+j\n      \
-    \  else: return key\n    \n    def check_bounds(G, i, j, v):\n        return 0\
-    \ <= i < G.H and 0 <= j < G.W\n    \n    is_valid = check_bounds\n    \n    @classmethod\n\
-    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
-    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
-    \          return cls(H, W, S, *args)\n        return parse\n"
+    \ G.H, G.dirs = W, H, dirs\n        G.S: list[str] = S\n        G.dirs: list[tuple[int,int]]\
+    \ = dirs\n\n    def vertex(G, key: tuple[int,int] | int):\n        if isinstance(key,\
+    \ tuple): i,j = key; return i*G.W+j\n        else: return key\n    \n    def check_bounds(G,\
+    \ i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W\n    \n    is_valid\
+    \ = check_bounds\n    \n    @classmethod\n    def compile(cls, H: int, W: int,\
+    \ *args):\n        def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
+    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
+    \n"
   code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.graph.__header__\n\
-    from cp_library.io.parser_cls import TokenStream\nfrom cp_library.alg.graph.fast.graph_base_cls\
+    import cp_library.alg.graph.fast.__header__\nfrom cp_library.alg.graph.fast.graph_base_cls\
     \ import GraphBase\n\nclass GridGraphBase(GraphBase):\n    def __init__(G, H,\
     \ W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
     \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W,\
-    \ G.H, G.S, G.dirs = W, H, S, dirs\n\n    def vertex(G, key: tuple[int,int] |\
-    \ int):\n        if isinstance(key, tuple): i,j = key; return i*G.W+j\n      \
-    \  else: return key\n    \n    def check_bounds(G, i, j, v):\n        return 0\
-    \ <= i < G.H and 0 <= j < G.W\n    \n    is_valid = check_bounds\n    \n    @classmethod\n\
-    \    def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
-    \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
-    \          return cls(H, W, S, *args)\n        return parse\n"
+    \ G.H, G.dirs = W, H, dirs\n        G.S: list[str] = S\n        G.dirs: list[tuple[int,int]]\
+    \ = dirs\n\n    def vertex(G, key: tuple[int,int] | int):\n        if isinstance(key,\
+    \ tuple): i,j = key; return i*G.W+j\n        else: return key\n    \n    def check_bounds(G,\
+    \ i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W\n    \n    is_valid\
+    \ = check_bounds\n    \n    @classmethod\n    def compile(cls, H: int, W: int,\
+    \ *args):\n        def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
+    \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
+    \nfrom cp_library.io.parser_cls import TokenStream"
   dependsOn:
-  - cp_library/io/parser_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/io/parser_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
-  - cp_library/ds/elist_fn.py
   - cp_library/ds/array_init_fn.py
+  - cp_library/ds/elist_fn.py
   - cp_library/ds/packet_list_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
@@ -333,7 +335,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

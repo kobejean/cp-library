@@ -90,7 +90,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_c_scc_fast.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_c_scc_fast.test.py

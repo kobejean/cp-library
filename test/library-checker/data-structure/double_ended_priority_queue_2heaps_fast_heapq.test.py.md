@@ -130,7 +130,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   requiredBy: []
-  timestamp: '2025-04-06 08:06:21+09:00'
+  timestamp: '2025-04-25 16:40:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
