@@ -3,16 +3,16 @@
 def main():
     S = read(str)
     Q = read(int)
-    ac = AhoCorasick()
+    A = AhoCorasick()
     queries = []
     for _ in range(Q):
         T = input()
-        ac.add(T)
+        A.add(T)
         queries.append(T)
 
-    freq_dict = ac.count_freq(S)
+    freq_dict = A.freq_table(S)
     for query in queries:
-        write(freq_dict.get(query, 0))
+        write(freq_dict[query])
 
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
