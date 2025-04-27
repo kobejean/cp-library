@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   _extendedRequiredBy:
@@ -186,9 +186,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - icon: ':x:'
-    path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-    title: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
+    title: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
@@ -375,9 +375,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -428,8 +428,8 @@ data:
   path: cp_library/io/write_fn.py
   requiredBy:
   - cp_library/io/bye_fn.py
-  timestamp: '2025-04-28 04:02:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2025-04-28 05:45:14+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
@@ -523,13 +523,13 @@ data:
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - test/atcoder/abc/abc189_e_vec2d.test.py
+  - test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc184_f_subset_sum_fn.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
   - test/atcoder/abc/abc274_e_vec2d.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
   - test/atcoder/abc/abc218_f_shortest_path.test.py
   - test/atcoder/abc/abc151_f_fbisect_left.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py

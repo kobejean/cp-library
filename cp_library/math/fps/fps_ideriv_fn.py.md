@@ -49,7 +49,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_ideriv_fn.py
   requiredBy: []
-  timestamp: '2025-04-28 04:02:31+09:00'
+  timestamp: '2025-04-28 05:45:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_ideriv_fn.py

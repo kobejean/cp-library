@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/trie_cls.py
     title: cp_library/ds/tree/trie_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
-    path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-    title: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-  _isVerificationFailed: true
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
+    title: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -85,10 +85,10 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/ahocorasick_cls.py
   requiredBy: []
-  timestamp: '2025-04-28 04:02:31+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2025-04-28 05:45:14+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
+  - test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
 documentation_of: cp_library/ds/tree/ahocorasick_cls.py
 layout: document
 redirect_from:

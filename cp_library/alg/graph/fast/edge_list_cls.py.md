@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -118,7 +118,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/edge_list_cls.py
   requiredBy: []
-  timestamp: '2025-04-28 04:02:31+09:00'
+  timestamp: '2025-04-28 05:45:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/fast/edge_list_cls.py

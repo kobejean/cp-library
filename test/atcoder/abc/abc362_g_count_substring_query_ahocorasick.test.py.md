@@ -1,43 +1,43 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/ahocorasick_cls.py
     title: cp_library/ds/tree/ahocorasick_cls.py
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/trie_cls.py
     title: cp_library/ds/tree/trie_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc362/tasks/abc362_g
     links:
     - https://atcoder.jp/contests/abc362/tasks/abc362_g
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
-    \ndef main():\n    S = read(str)\n    Q = read(int)\n    ac = AhoCorasick()\n\
-    \    queries = []\n    for _ in range(Q):\n        T = input()\n        ac.add(T)\n\
-    \        queries.append(T)\n\n    freq_dict = ac.count_freq(S)\n    for query\
-    \ in queries:\n        write(freq_dict.get(query, 0))\n\n'''\n\u257A\u2501\u2501\
+    \ndef main():\n    S = read(str)\n    Q = read(int)\n    A = AhoCorasick()\n \
+    \   queries = []\n    for _ in range(Q):\n        T = input()\n        A.add(T)\n\
+    \        queries.append(T)\n\n    freq_dict = A.freq_table(S)\n    for query in\
+    \ queries:\n        write(freq_dict[query])\n\n'''\n\u257A\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\n\nfrom typing import Iterable, Type, Union, overload\n\
     import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
@@ -170,11 +170,11 @@ data:
     \            que.extend(sub)\n        return order\n\nif __name__ == '__main__':\n\
     \    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
-    \ndef main():\n    S = read(str)\n    Q = read(int)\n    ac = AhoCorasick()\n\
-    \    queries = []\n    for _ in range(Q):\n        T = input()\n        ac.add(T)\n\
-    \        queries.append(T)\n\n    freq_dict = ac.count_freq(S)\n    for query\
-    \ in queries:\n        write(freq_dict.get(query, 0))\n\nfrom cp_library.io.read_fn\
-    \ import read\nfrom cp_library.io.write_fn import write\nfrom cp_library.ds.tree.ahocorasick_cls\
+    \ndef main():\n    S = read(str)\n    Q = read(int)\n    A = AhoCorasick()\n \
+    \   queries = []\n    for _ in range(Q):\n        T = input()\n        A.add(T)\n\
+    \        queries.append(T)\n\n    freq_dict = A.freq_table(S)\n    for query in\
+    \ queries:\n        write(freq_dict[query])\n\nfrom cp_library.io.read_fn import\
+    \ read\nfrom cp_library.io.write_fn import write\nfrom cp_library.ds.tree.ahocorasick_cls\
     \ import AhoCorasick\n\nif __name__ == '__main__':\n    main()"
   dependsOn:
   - cp_library/io/read_fn.py
@@ -184,15 +184,15 @@ data:
   - cp_library/io/fast_io_cls.py
   - cp_library/ds/tree/trie_cls.py
   isVerificationFile: true
-  path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
+  path: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2025-04-28 04:02:31+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2025-04-28 05:45:14+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
+documentation_of: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
 layout: document
 redirect_from:
-- /verify/test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
-- /verify/test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py.html
-title: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
+- /verify/test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
+- /verify/test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py.html
+title: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
 ---

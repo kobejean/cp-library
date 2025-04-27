@@ -67,7 +67,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_recursive_cls.py
   requiredBy: []
-  timestamp: '2025-04-28 04:02:31+09:00'
+  timestamp: '2025-04-28 05:45:14+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
