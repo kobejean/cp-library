@@ -1,44 +1,53 @@
 import cp_library.__header__
+from typing import Optional
+from collections import Counter, deque
 import cp_library.ds.__header__
 import cp_library.ds.tree.__header__
 from cp_library.ds.tree.trie_cls import Trie
 
 class AhoCorasick(Trie):
-    __slots__ = 'failed',
+    __slots__ = 'failed', 'freq'
 
-    def __init__(self):
+    def __init__(T):
         super().__init__()
-        self.failed: 'AhoCorasick' = None
+        T.failed: Optional['AhoCorasick'] = None
+        T.freq: int = 0
 
-    def build_fail(self):
-        arr_bfs = self.bfs()
-        for p in arr_bfs:
-            curr = p.parent
-            if curr:
-                c = p.last
-                while curr.failed:
-                    if c in curr.failed.dic:
-                        p.failed = curr.failed.dic[c]
-                        break
-                    curr = curr.failed
-                else:
-                    p.failed = self
-        self.failed = self
-        return arr_bfs
+    def build(T):
+        order: list[AhoCorasick] = T.bfs()
+        for node in order:
+            now: AhoCorasick = node.par
+            chr = node.chr
+            while now.failed:
+                if chr in now.failed.sub:
+                    node.failed = now.failed.sub[chr]
+                    break
+                now = now.failed
+            else:
+                node.failed = T
+        T.failed = T
+        return order
 
-    def count_freq(self, text: str) -> dict[str, int]:
-        arr_bfs = self.build_fail()
-        p = self
-        for c in text:
-            while p != self and c not in p.dic:
-                p = p.failed
-            p = p.dic.get(c, self)
-            p.count += 1
+    def freq_table(T, text: str) -> Counter[str, int]:
+        order = T.build()
+        order.reverse()
+        node: AhoCorasick = T
+        for chr in text:
+            while node != T and chr not in node.sub:
+                node = node.failed
+            node = node.sub.get(chr, T)
+            node.freq += 1
 
-        output = {}
-        for i in range(len(arr_bfs) - 1, 0, -1):
-            p = arr_bfs[i]
-            p.failed.count += p.count
-            if p.word:
-                output[p.prefix()] = p.count
+        output = Counter()
+        for node in order:
+            node.failed.freq += node.freq
+            if node.word:
+                output[str(node)] = node.freq
         return output
+
+    def bfs(T) -> list['Trie']:
+        order, que = [], deque([T])
+        while que:
+            order.extend(sub := que.popleft().sub.values())
+            que.extend(sub)
+        return order

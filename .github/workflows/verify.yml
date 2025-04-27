@@ -22,12 +22,6 @@ jobs:
         sudo rm -rf /usr/lib/jvm
         sudo rm -rf /var/lib/apt/lists/*
         sudo apt clean
-        # Display disk space before and after cleanup
-        echo "Before cleanup:"
-        df -h
-        du -sh /usr /var /opt /home || true
-        echo "After cleanup:"
-        df -h
     
     - name: Configure swap and system resources
       run: |
