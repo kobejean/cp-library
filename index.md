@@ -570,7 +570,7 @@ data:
       title: cp_library/ds/que/que01_cls.py
   - name: cp_library/ds/tree
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/ds/tree/ahocorasick_cls.py
       title: cp_library/ds/tree/ahocorasick_cls.py
     - icon: ':warning:'
@@ -579,7 +579,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/segtree_cls.py
       title: cp_library/ds/tree/segtree_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: cp_library/ds/tree/trie_cls.py
       title: cp_library/ds/tree/trie_cls.py
   - name: cp_library/ds/tree/bit
@@ -604,16 +604,16 @@ data:
     - icon: ':warning:'
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/fast_io_cls.py
       title: cp_library/io/fast_io_cls.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_edges_weighted_fn.py
       title: cp_library/io/read_edges_weighted_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
     - icon: ':heavy_check_mark:'
@@ -622,7 +622,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_int_fn.py
       title: cp_library/io/read_int_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
   - name: cp_library/io/fast
@@ -1169,7 +1169,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/atcoder/abc/abc361_e_tree_diameter.test.py
       title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
       title: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
     - icon: ':heavy_check_mark:'

@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -170,7 +170,7 @@ data:
   - cp_library/math/linalg/vec/slope_cls.py
   - cp_library/math/linalg/vec/vec2d_cls.py
   - cp_library/math/linalg/vec/vec3d_cls.py
-  timestamp: '2025-04-25 16:40:50+09:00'
+  timestamp: '2025-04-28 04:02:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc189_e_vec2d.test.py

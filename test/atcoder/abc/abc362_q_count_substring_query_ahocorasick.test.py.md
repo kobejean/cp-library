@@ -1,29 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/tree/ahocorasick_cls.py
     title: cp_library/ds/tree/ahocorasick_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: cp_library/ds/tree/trie_cls.py
     title: cp_library/ds/tree/trie_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     PROBLEM: https://atcoder.jp/contests/abc362/tasks/abc362_g
     links:
@@ -128,39 +128,47 @@ data:
     \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
     \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
     end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \n\nfrom typing import Dict, List, Optional\n\nclass Trie:\n    __slots__ = 'dic',\
-    \ 'parent', 'last', 'count', 'word'\n\n    def __init__(self):\n        self.dic:\
-    \ Dict[str, Trie] = {}\n        self.parent: Optional[Trie] = None\n        self.last:\
-    \ str = \"\"\n        self.count: int = 0\n        self.word: bool = False\n \
-    \   \n    def add(self, word: str) -> None:\n        p = self\n        for c in\
-    \ word:\n            if c not in p.dic:   \n                p.dic[c] = type(self)()\n\
-    \            parent = p\n            p = p.dic[c]\n            p.parent = parent\n\
-    \            p.last = c\n        p.word = True\n    \n    def find(self, prefix:\
-    \ str) -> 'Trie':\n        node = self\n        for char in prefix:\n        \
-    \    if char not in node.dic:\n                return None\n            node =\
-    \ node.dic[char]\n        return node\n    \n    def search(self, word: str) ->\
-    \ bool:\n        node = self.find(word)\n        return node.word if node is not\
-    \ None else False\n\n    def bfs(self) -> List['Trie']:\n        output = []\n\
-    \        queue = deque([self])\n        while queue:\n            p = queue.popleft()\n\
-    \            output.append(p)\n            queue.extend(p.dic.values())\n    \
-    \    return output\n    \n    def prefix(self) -> str:\n        output = []\n\
-    \        curr = self\n        while curr.parent is not None:\n            output.append(curr.last)\n\
-    \            curr = curr.parent\n        return \"\".join(reversed(output))\n\n\
-    class AhoCorasick(Trie):\n    __slots__ = 'failed',\n\n    def __init__(self):\n\
-    \        super().__init__()\n        self.failed: 'AhoCorasick' = None\n\n   \
-    \ def build_fail(self):\n        arr_bfs = self.bfs()\n        for p in arr_bfs:\n\
-    \            curr = p.parent\n            if curr:\n                c = p.last\n\
-    \                while curr.failed:\n                    if c in curr.failed.dic:\n\
-    \                        p.failed = curr.failed.dic[c]\n                     \
-    \   break\n                    curr = curr.failed\n                else:\n   \
-    \                 p.failed = self\n        self.failed = self\n        return\
-    \ arr_bfs\n\n    def count_freq(self, text: str) -> dict[str, int]:\n        arr_bfs\
-    \ = self.build_fail()\n        p = self\n        for c in text:\n            while\
-    \ p != self and c not in p.dic:\n                p = p.failed\n            p =\
-    \ p.dic.get(c, self)\n            p.count += 1\n\n        output = {}\n      \
-    \  for i in range(len(arr_bfs) - 1, 0, -1):\n            p = arr_bfs[i]\n    \
-    \        p.failed.count += p.count\n            if p.word:\n                output[p.prefix()]\
-    \ = p.count\n        return output\n\nif __name__ == '__main__':\n    main()\n"
+    from typing import Optional\nfrom collections import Counter, deque\n\n\n\nclass\
+    \ Trie:\n    __slots__ = 'sub', 'par', 'chr', 'cnt', 'word'\n\n    def __init__(T):\n\
+    \        T.sub: dict[str, Trie] = {}\n        T.par: Optional[Trie] = None\n \
+    \       T.chr: str = \"\"\n        T.cnt: int = 0\n        T.word: bool = False\n\
+    \n    def add(T, word: str):\n        (node := T).cnt += 1\n        for chr in\
+    \ word:\n            if chr not in node.sub:   \n                node.sub[chr]\
+    \ = T.__class__()\n            par, node = node, node.sub[chr]\n            node.par,\
+    \ node.chr = par, chr\n            node.cnt += 1\n        node.word = True\n\n\
+    \    def remove(T, word: str):\n        node = T.find(word)\n        assert node\
+    \ and node.cnt >= 1\n        if node.cnt == 1 and node.par:\n            del node.par.sub[node.chr]\n\
+    \        while node:\n            node.cnt -= 1\n            node = node.par\n\
+    \    \n    def discard(T, word: str):\n        node = T.find(word)\n        if\
+    \ node:\n            if node.par:\n                del node.par.sub[node.chr]\n\
+    \            cnt = node.cnt\n            while node:\n                node.cnt\
+    \ -= cnt\n                node = node.par\n\n    def find(T, prefix: str, full\
+    \ = True) -> Optional['Trie']:\n        node = T\n        for chr in prefix:\n\
+    \            if chr not in node.sub: return None if full else node\n         \
+    \   node = node.sub[chr]\n        return node\n    \n    def __contains__(T, word:\
+    \ str) -> bool:\n        node = T.find(word)\n        return node.word if node\
+    \ is not None else False\n\n    def __len__(T):\n        return T.cnt\n\n    def\
+    \ __str__(T) -> str:\n        ret, node = [], T\n        while node.par:\n   \
+    \         ret.append(node.chr); node = node.par\n        ret.reverse()\n     \
+    \   return \"\".join(ret)\n    \n\nclass AhoCorasick(Trie):\n    __slots__ = 'failed',\
+    \ 'freq'\n\n    def __init__(T):\n        super().__init__()\n        T.failed:\
+    \ Optional['AhoCorasick'] = None\n        T.freq: int = 0\n\n    def build(T):\n\
+    \        order: list[AhoCorasick] = T.bfs()\n        for node in order:\n    \
+    \        now: AhoCorasick = node.par\n            chr = node.chr\n           \
+    \ while now.failed:\n                if chr in now.failed.sub:\n             \
+    \       node.failed = now.failed.sub[chr]\n                    break\n       \
+    \         now = now.failed\n            else:\n                node.failed = T\n\
+    \        T.failed = T\n        return order\n\n    def freq_table(T, text: str)\
+    \ -> Counter[str, int]:\n        order = T.build()\n        order.reverse()\n\
+    \        node: AhoCorasick = T\n        for chr in text:\n            while node\
+    \ != T and chr not in node.sub:\n                node = node.failed\n        \
+    \    node = node.sub.get(chr, T)\n            node.freq += 1\n\n        output\
+    \ = Counter()\n        for node in order:\n            node.failed.freq += node.freq\n\
+    \            if node.word:\n                output[str(node)] = node.freq\n  \
+    \      return output\n\n    def bfs(T) -> list['Trie']:\n        order, que =\
+    \ [], deque([T])\n        while que:\n            order.extend(sub := que.popleft().sub.values())\n\
+    \            que.extend(sub)\n        return order\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
     \ndef main():\n    S = read(str)\n    Q = read(int)\n    ac = AhoCorasick()\n\
     \    queries = []\n    for _ in range(Q):\n        T = input()\n        ac.add(T)\n\
@@ -178,8 +186,8 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2025-04-25 16:40:50+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-04-28 04:02:31+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc362_q_count_substring_query_ahocorasick.test.py
 layout: document

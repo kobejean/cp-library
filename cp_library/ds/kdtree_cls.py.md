@@ -89,7 +89,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/kdtree_cls.py
   requiredBy: []
-  timestamp: '2025-04-25 16:40:50+09:00'
+  timestamp: '2025-04-28 04:02:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_c_kdtree.test.py

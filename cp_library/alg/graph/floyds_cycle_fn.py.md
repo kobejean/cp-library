@@ -35,7 +35,7 @@ data:
   path: cp_library/alg/graph/floyds_cycle_fn.py
   requiredBy:
   - cp_library/alg/graph/edmonds_fn.py
-  timestamp: '2025-04-25 16:40:50+09:00'
+  timestamp: '2025-04-28 04:02:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py

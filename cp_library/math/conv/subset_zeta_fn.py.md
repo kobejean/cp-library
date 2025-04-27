@@ -80,7 +80,7 @@ data:
   path: cp_library/math/conv/subset_zeta_fn.py
   requiredBy:
   - cp_library/math/conv/or_conv_fast_fn.py
-  timestamp: '2025-04-25 16:40:50+09:00'
+  timestamp: '2025-04-28 04:02:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/subset_zeta_fn.py

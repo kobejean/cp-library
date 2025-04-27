@@ -100,7 +100,7 @@ data:
   - cp_library/math/linalg/vec/vec2d_cls.py
   - cp_library/math/linalg/vec/mutvec_cls.py
   - cp_library/math/linalg/vec/vec3d_cls.py
-  timestamp: '2025-04-25 16:40:50+09:00'
+  timestamp: '2025-04-28 04:02:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc189_e_vec2d.test.py
