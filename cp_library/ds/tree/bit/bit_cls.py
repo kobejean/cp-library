@@ -1,11 +1,10 @@
 import cp_library.__header__
-from typing import Union
 import cp_library.ds.__header__
 import cp_library.ds.tree.__header__
 import cp_library.ds.tree.bit.__header__
 
 class BIT:
-    def __init__(bit, v: Union[int, list[int]]):
+    def __init__(bit, v):
         if isinstance(v, int): bit._d, bit._n = [0]*v, v
         else: bit.build(v)
         bit._lb = 1<<bit._n.bit_length()
@@ -48,7 +47,7 @@ class BIT:
         return pre
 
     def bisect_left(bit, v) -> int:
-        return bit.bisect_right(v-1) if v>0 else 0
+        return bit.bisect_right(v-1) if v>0 else -1
     
     def bisect_right(bit, v, key=None) -> int:
         i = s = 0; m = bit._lb

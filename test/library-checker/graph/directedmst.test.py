@@ -31,9 +31,9 @@ from cp_library.ds.heap.skew_heap_forest_cls import SkewHeapForest
 
 def directed_mst(n, edges, root):
     OFFSET = 1 << 31
-    from_ = [0] * n
     from_cost = [0] * n
     from_heap = SkewHeapForest(n, len(edges))
+    from_ = [0] * n
 
     uf = UnionFind(n)
     par_e = [-1] * m

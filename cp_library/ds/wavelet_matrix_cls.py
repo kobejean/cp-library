@@ -1,143 +1,105 @@
 import cp_library.ds.__header__
-from bisect import bisect_left
-import heapq
-from bitarray import bitarray
+
+class BitArray:
+    def __init__(B, N: int, H: int):
+        B.N, B.Z, B.H = N, (N+31)>>5, H
+        B.bits, B.pre = u32f(B.Z), u32f(B.Z+1)
+    def build(B):
+        for i,b in enumerate(B.bits): B.pre[i+1] = B.pre[i]+popcnt32(b)
+        B.bits.append(0)
+        B.T0, B.T1 = B.N-B.pre[-1], B.pre[-1]
+    def __len__(B): return B.N
+    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1
+    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))
+    def set1(B, i: int): B.bits[i>>5]|=1<<31-(i&31)
+    def rank0(B, r: int): return r-B.rank1(r)
+    def rank1(B, r: int): return B.pre[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))
+    def select0(B, k: int):
+        if not 0<=k<B.N-B.pre[-1]: return -1
+        l,r,k=0,B.Z,k+1
+        while 1<r-l:
+            if B.rank0(m:=(l+r)>>1)<k:l=m
+            else:r=m
+        return l
+    def select1(B, k: int):
+        if not 0<=k<B.pre[-1]: return -1
+        l,r,k=0,B.Z,k+1
+        while 1<r-l:
+            if B.rank1(m:=(l+r)>>1)<k:l=m
+            else:r=m
+        return l
+
+    def next_range(B, bit: int, l: int, r: int):
+        if bit: return B.T0+B.rank1(l), B.T0+B.rank1(r)
+        else: return B.rank0(l), B.rank0(r)
 
 class WaveletMatrix:
+    def __init__(W,A):
+        A,W.V = icoord_compress(A)
+        W.N=N=len(A); W.H=(len(W.V)-1).bit_length()
+        W.L,B=[BitArray(N, H) for H in range(W.H-1,-1,-1)],[0]*N
+        for L in W.L:
+            x,y,j=-1,N-1,N
+            while j:y-=A[j:=j-1]>>L.H&1
+            for j,k in enumerate(A):
+                if k>>L.H&1:B[y:=y+1]=k;L.set1(j)
+                else:B[x:=x+1]=k
+            A,B=B,A;L.build()
 
-    class Level(bitarray):
-        def select(self, bit: int, k: int) -> int:
-            def key(i):
-                return self.count(bit, 0, i+1)
-            index = bisect_left(range(len(self)), k+1, key=key)
-            return -1 if index >= len(self) else index
+    def _fval(W, x: int, upper: bool = False):
+        l,r=-1,len(W.V)
+        while 1<r-l:
+            if W.V[m:=(l+r)>>1]<=x:l=m
+            else:r=m
+        return l + (upper and W.V[l] != x)
 
-    def __init__(self, data: list[int]):
-        self.n = len(data)
-        self.height = max(data).bit_length()
-        self.rows = []
-        self.start = dict()
+    def __contains__(W, x: int):
+        return W.V and W.V[W._fval(x)] == x
 
-        for h in range(self.height - 1, -1, -1):
-            bits = WaveletMatrix.Level(self.n)
-            left, right = [], []
+    def kth(W, l: int, r: int, k: int):
+        if k < 0: k = r-l+k
+        s=0
+        for L in W.L:
+            l, r = l-(l1:=L.rank1(l)), r-(r1:=L.rank1(r))
+            if k>=r-l:s|=1<<L.H;k-=r-l;l,r=L.T0+l1,L.T0+r1
+        return W.V[s]
 
-            for i, num in enumerate(data):
-                if num >> h & 1:
-                    bits[i] = 1
-                    right.append(num)
-                else:
-                    bits[i] = 0
-                    left.append(num)
-
-            self.rows.append((h,bits))
-            data = left + right
-        
-        for i in range(self.n-1,-1,-1):
-            self.start[data[i]] = i 
+    def rank(W, x: int, r: int): return W.range_rank(0, r, x)
+    def range_rank(W, l: int, r: int, x: int):
+        if l >= r or not W.V or x != W.V[x := W._fval(x)]: return -1
+        for L in W.L: l, r = L.next_range(L[x], l, r)
+        return r-l
     
-    def access(self, i: int) -> int:
-        if i < 0 or i >= self.n:
-            raise IndexError("Index out of range")
+    def range_freq(W, l: int, r: int, x: int):
+        """
+        l, r: Range in the original array (0-indexed, half-open)
 
-        val = 0
-        for _, row in self.rows:
-            bit, val = row[i], (val << 1) | row[i]
-            i = row.count(bit, 0, i) + row.count(0)*bit
+        x: Value
 
-        return val
+        Returns: Number of elements in the range equal to x
+        """
+        if l >= r or not W.V or x != W.V[x := W._fval(x)]: return 0
+        return W._rect_freq(l, r, x+1)-W._rect_freq(l, r, x)
+    
+    def rect_freq(W, l: int, r: int, a: int, b: int):
+        """
+        l, r: Range in the original array (0-indexed, half-open)
 
-    def count(self, val: int, i: int) -> int:
-        if i <= 0 or val not in self.start: return 0
+        a, b: Value range (half-open)
 
-        for h, row in self.rows:
-            bit = val >> h & 1
-            i = row.count(bit, 0, i) + row.count(0)*bit
+        Returns: Number of elements in the range satisfying the condition
+        """
+        if l >= r or not W.V or (a := W._fval(a, True)) >= (b := W._fval(b, True)): return 0
+        return W._rect_freq(l, r, b)-W._rect_freq(l, r, a)
 
-        return i - self.start[val]
-         
-    def select(self, val: int, k: int) -> int:
-        '''
-        Find the 0-indexed position of the `k+1`-th occurance of `val`.
-        '''
-        if k < 0 or val not in self.start:
-            return -1
-        
-        idx = self.start[val]+k
-        for h, row in reversed(self.rows):
-            bit = val >> h & 1
-            idx = row.select(bit, idx - row.count(0)*bit)
-            if idx == -1: return -1
+    def _rect_freq(W, l: int, r: int, u: int):
+        if u.bit_length() > W.H: return r-l
+        cnt = 0
+        for L in W.L:
+            l, r = l-(l1:=L.rank1(l)), r-(r1:=L.rank1(r))
+            if u>>L.H&1:cnt+=r-l;l,r=L.T0+l1,L.T0+r1
+        return cnt
 
-        return idx
-
-    def quantile(self, l: int, r: int, k: int) -> int:
-        '''
-        Find the k-th smallest element in the range [l, r).
-        k is 0-indexed, so k=0 returns the minimum element in the range.
-        '''
-        if r > self.n or l >= r or k >= r - l:
-            return -1
-
-        val = 0
-        for _, row in self.rows:
-            cnt0lr = row.count(0, l, r)
-            bit = 0 if k < cnt0lr else 1
-            if bit:
-                k -= cnt0lr
-                cnt0l = row.count(0, l)
-                l += cnt0l         # add 0s in [l,N)
-                r += cnt0l+cnt0lr  # add 0s in [l,N)
-            else:
-                l = row.count(0, 0, l) # 0s in [0,l)
-                r = l+cnt0lr           # 0s in [0,r)
-            val = (val << 1) | bit
-        return val
-
-    def topk(self, l: int, r: int, k: int) -> list[tuple[int, int]]:
-        '''
-        Find the k most frequent elements in the range [l, r).
-        
-        :param l: start of the range (inclusive)
-        :param r: end of the range (exclusive)
-        :param k: number of top elements to return
-        :return: list of (value, frequency) pairs, sorted by frequency (descending), then by value (descending)
-        '''
-        if r > self.n or l >= r or k <= 0:
-            return []
-
-        heap = []
-        
-        def dfs(l: int, r: int, depth: int, val: int):
-            if l >= r:
-                return
-            
-            if depth == self.height:
-                count = r - l
-                heapq.heappush(heap, (-count, -val, val, count))
-                return
-
-            h, row = self.rows[depth]
-            cnt0 = row.count(0, l, r)
-            cnt1 = r - l - cnt0
-
-            # Process 1-bits (larger values) first
-            if cnt1 > 0:
-                next_l = row.count(0, 0, l) + row.count(0)
-                next_r = next_l + cnt1
-                dfs(next_l, next_r, depth + 1, val | (1 << (self.height - depth - 1)))
-
-            # Then process 0-bits
-            if cnt0 > 0:
-                next_l = row.count(0, 0, l)
-                next_r = next_l + cnt0
-                dfs(next_l, next_r, depth + 1, val)
-
-        dfs(l, r, 0, 0)
-        
-        result = []
-        while heap and len(result) < k:
-            _, _, val, count = heapq.heappop(heap)
-            result.append((val, count))
-        
-        return result
+from cp_library.alg.iter.icoord_compress_fn import icoord_compress
+from cp_library.bit.popcnt32_fn import popcnt32
+from cp_library.ds.array_init_fn import u32f
