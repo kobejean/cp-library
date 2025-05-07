@@ -170,7 +170,7 @@ data:
   - cp_library/math/linalg/vec/slope_cls.py
   - cp_library/math/linalg/vec/vec2d_cls.py
   - cp_library/math/linalg/vec/vec3d_cls.py
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc189_e_vec2d.test.py

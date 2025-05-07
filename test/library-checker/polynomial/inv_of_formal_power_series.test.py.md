@@ -251,7 +251,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/inv_of_formal_power_series.test.py
   requiredBy: []
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/inv_of_formal_power_series.test.py

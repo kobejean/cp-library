@@ -292,35 +292,34 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \nfrom typing import\
-    \ Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):      return\
-    \ array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return\
-    \ array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return\
-    \ array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return\
-    \ array('H', (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):    \
-    \ return array('i', (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0): \
-    \    return array('I', (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int =\
-    \ 0):     return array('q', (elm,))*N  # signed long long\n# def u64f(N: int,\
-    \ elm: int = 0):     return array('Q', (elm,))*N  # unsigned long long\ndef f32f(N:\
-    \ int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef f64f(N: int,\
-    \ elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef i8a(init = None):\
-    \  return array('b') if init is None else array('b', init)  # signed char\ndef\
-    \ u8a(init = None):  return array('B') if init is None else array('B', init) \
-    \ # unsigned char\ndef i16a(init = None): return array('h') if init is None else\
-    \ array('h', init)  # signed short\ndef u16a(init = None): return array('H') if\
-    \ init is None else array('H', init)  # unsigned short\ndef i32a(init = None):\
-    \ return array('i') if init is None else array('i', init)  # signed int\ndef u32a(init\
-    \ = None): return array('I') if init is None else array('I', init)  # unsigned\
-    \ int\ndef i64a(init = None): return array('q') if init is None else array('q',\
-    \ init)  # signed long long\n# def u64a(init = None): return array('Q') if init\
-    \ is None else array('Q', init)  # unsigned long long\ndef f32a(init = None):\
-    \ return array('f') if init is None else array('f', init)  # float\ndef f64a(init\
-    \ = None): return array('d') if init is None else array('d', init)  # double\n\
-    \ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1\
-    \ << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\n\
-    u64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
-    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
-    \ return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \            return cls(N, U, V)\n        return parse\n    \n\nfrom array import\
+    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
+    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N\
+    \  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return array('f',\
+    \ (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N\
+    \  # double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
+    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
+    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
+    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
+    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
+    def i32a(init = None): return array('i') if init is None else array('i', init)\
+    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
+    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
+    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
+    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
+    def f32a(init = None): return array('f') if init is None else array('f', init)\
+    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
+    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
+    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
+    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
     \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
     \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
@@ -461,56 +460,55 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data\
     \ Structure - Tree - Binary Index Tree            \n'''\n\nclass BIT:\n    def\
-    \ __init__(bit, v: Union[int, list[int]]):\n        if isinstance(v, int): bit._d,\
-    \ bit._n = [0]*v, v\n        else: bit.build(v)\n        bit._lb = 1<<bit._n.bit_length()\n\
-    \n    def build(bit, data):\n        bit._d, bit._n = data, len(data)\n      \
-    \  for i in range(bit._n):\n            if (r := i|i+1) < bit._n: bit._d[r] +=\
-    \ bit._d[i]\n\n    def add(bit, i, x):\n        while i < bit._n: bit._d[i] +=\
-    \ x; i |= i+1\n\n    def sum(bit, n: int) -> int:\n        s = 0\n        while\
-    \ n: s, n = s+bit._d[n-1], n&n-1\n        return s\n\n    def range_sum(bit, l,\
-    \ r):\n        s = 0\n        while r: s, r = s+bit._d[r-1], r&r-1\n        while\
-    \ l: s, l = s-bit._d[l-1], l&l-1\n        return s\n\n    def __len__(bit) ->\
-    \ int:\n        return bit._n\n    \n    def __getitem__(bit, i: int) -> int:\n\
-    \        s, l = bit._d[i], i&(i+1)\n        while l != i: s, i = s-bit._d[i-1],\
-    \ i-(i&-i)\n        return s\n    get = __getitem__\n    \n    def __setitem__(bit,\
-    \ i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\
-    \n    def prelist(bit) -> list[int]:\n        pre = [0]+bit._d\n        for i\
-    \ in range(bit._n+1): pre[i] += pre[i&i-1]\n        return pre\n\n    def bisect_left(bit,\
-    \ v) -> int:\n        return bit.bisect_right(v-1) if v>0 else 0\n    \n    def\
-    \ bisect_right(bit, v, key=None) -> int:\n        i = s = 0; m = bit._lb\n   \
-    \     if key:\n            while m := m>>1:\n                if (ni := m|i) <=\
-    \ bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        else:\n    \
-    \        while m := m>>1:\n                if (ni := m|i) <= bit._n and (ns:=s+bit._d[ni-1])\
-    \ <= v: s, i = ns, ni\n        return i\n\n\nclass Graph(GraphBase):\n    def\
-    \ __init__(G, N: int, U: list[int], V: list[int]):\n        M, Ma, deg = len(U),\
-    \ 0, u32f(N)\n        for e in range(M := len(U)):\n            distinct = (u\
-    \ := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v] += distinct; Ma +=\
-    \ 1+distinct\n        twin, Ea, Ua, Va, La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma),\
-    \ u32f(Ma), u32f(N), u32f(N), 0\n        for u in range(N): La[u] = Ra[u] = i;\
-    \ i = i+deg[u]\n        for e in range(M):\n            i, j = Ra[u := U[e]],\
-    \ Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v,\
-    \ e, j\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j],\
-    \ twin[j] = j+1, v, u, e, i\n        super().__init__(N, M, U, V, deg, La, Ra,\
-    \ Ua, Va, Ea, twin)\n\n\nclass Tree(TreeBase, Graph):\n    pass\n\n\nfrom typing\
-    \ import Iterable, Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]:\
-    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
-    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nimport operator\nfrom itertools import accumulate\n\ndef presum(iter: Iterable[_T],\
-    \ func: Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:\n\
-    \    if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
-    \    else:\n        assert step >= 2\n        if func is None:\n            func\
-    \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
-    \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
-    \   A[i] = func(A[i], A[i-step])\n        return A\n\nif __name__ == \"__main__\"\
-    :\n    main()\n"
+    \ __init__(bit, v):\n        if isinstance(v, int): bit._d, bit._n = [0]*v, v\n\
+    \        else: bit.build(v)\n        bit._lb = 1<<bit._n.bit_length()\n\n    def\
+    \ build(bit, data):\n        bit._d, bit._n = data, len(data)\n        for i in\
+    \ range(bit._n):\n            if (r := i|i+1) < bit._n: bit._d[r] += bit._d[i]\n\
+    \n    def add(bit, i, x):\n        while i < bit._n: bit._d[i] += x; i |= i+1\n\
+    \n    def sum(bit, n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1],\
+    \ n&n-1\n        return s\n\n    def range_sum(bit, l, r):\n        s = 0\n  \
+    \      while r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1],\
+    \ l&l-1\n        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n\
+    \    \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
+    \        while l != i: s, i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get\
+    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None:\n   \
+    \     bit.add(i, x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n\
+    \        pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
+    \        return pre\n\n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)\
+    \ if v>0 else -1\n    \n    def bisect_right(bit, v, key=None) -> int:\n     \
+    \   i = s = 0; m = bit._lb\n        if key:\n            while m := m>>1:\n  \
+    \              if (ni := m|i) <= bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i\
+    \ = ns, ni\n        else:\n            while m := m>>1:\n                if (ni\
+    \ := m|i) <= bit._n and (ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        return\
+    \ i\n\n\nclass Graph(GraphBase):\n    def __init__(G, N: int, U: list[int], V:\
+    \ list[int]):\n        M, Ma, deg = len(U), 0, u32f(N)\n        for e in range(M\
+    \ := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n           \
+    \ deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea, Ua, Va,\
+    \ La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma), u32f(Ma), u32f(N), u32f(N), 0\n  \
+    \      for u in range(N): La[u] = Ra[u] = i; i = i+deg[u]\n        for e in range(M):\n\
+    \            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i],\
+    \ Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n        \
+    \    Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\n\nclass Tree(TreeBase, Graph):\n\
+    \    pass\n\n\nfrom typing import Iterable, Type, Union, overload\n\n@overload\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None: return map(int, TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n\
+    \    return parser(CharStream.default if char else TokenStream.default)\n\ndef\
+    \ write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nimport operator\nfrom itertools import accumulate\n\n\
+    def presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
+    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
+    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
+    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
+    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
+    \            A[i] = func(A[i], A[i-step])\n        return A\n\nif __name__ ==\
+    \ \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc337/tasks/abc337_g\n\
     \ndef main():\n    N = read(int)\n    T = read(Tree[N])\n    hld, ans = HLDBIT(T,\
     \ [0]*N), [0]*(N+1)\n\n    def range_add(l,r,x):\n        ans[l] += x\n      \
@@ -544,7 +542,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   requiredBy: []
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py

@@ -32,6 +32,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bitset_tree_cls.py
+    title: cp_library/ds/tree/bitset_tree_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
@@ -67,6 +70,9 @@ data:
     path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/predecessor_problem.test.py
+    title: test/library-checker/data-structure/predecessor_problem.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/staticrmq.test.py
     title: test/library-checker/data-structure/staticrmq.test.py
   - icon: ':heavy_check_mark:'
@@ -100,6 +106,7 @@ data:
   path: cp_library/alg/dp/min2_fn.py
   requiredBy:
   - cp_library/ds/min_sparse_table_cls.py
+  - cp_library/ds/tree/bitset_tree_cls.py
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
@@ -109,7 +116,7 @@ data:
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/tree_proto.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -119,6 +126,7 @@ data:
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/library-checker/data-structure/predecessor_problem.test.py
   - test/library-checker/data-structure/staticrmq.test.py
   - test/library-checker/data-structure/staticrmq_general.test.py
   - test/library-checker/tree/jump_on_tree.test.py

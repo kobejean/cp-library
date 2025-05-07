@@ -14,15 +14,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef debug(*args, **kwargs):\n    if debug.on:\n        print(*args, **kwargs)\n\
-    debug.on = False\n"
-  code: "import cp_library.vis.__header__\n\ndef debug(*args, **kwargs):\n    if debug.on:\n\
-    \        print(*args, **kwargs)\ndebug.on = False"
+    import sys\n\n\ndef debug(*args, **kwargs):\n    if debug.on:\n        kwargs.setdefault('file',\
+    \ sys.stderr)\n        print(*args, **kwargs)\ndebug.on = False\n"
+  code: "import cp_library.__header__\nimport sys\nimport cp_library.vis.__header__\n\
+    \ndef debug(*args, **kwargs):\n    if debug.on:\n        kwargs.setdefault('file',\
+    \ sys.stderr)\n        print(*args, **kwargs)\ndebug.on = False"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/vis/debug_fn.py
   requiredBy: []
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/vis/debug_fn.py

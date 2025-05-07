@@ -104,7 +104,7 @@ data:
   - cp_library/math/conv/mod/xor_conv_fn.py
   - cp_library/math/conv/mod/fwht_inv_fn.py
   - cp_library/math/conv/fwht_inv_fn.py
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_xor_convolution.test.py

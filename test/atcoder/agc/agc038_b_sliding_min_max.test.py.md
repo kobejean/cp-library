@@ -158,27 +158,26 @@ data:
     \        return crf.A[crf.S[i]:crf.S[i+1]]\n    \n    def get(crf, i: int, j:\
     \ int) -> _T:\n        return crf.A[crf.S[i]+j]\n    \n    def len(crf, i: int)\
     \ -> int:\n        return crf.S[i+1] - crf.S[i]\n\ndef roll(A: list, t: int):\n\
-    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\nfrom typing\
-    \ import Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):\
-    \      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int =\
-    \ 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm:\
-    \ int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int,\
-    \ elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
+    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\n\nfrom array\
+    \ import array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N\
+    \  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N\
+    \  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return array('f',\
+    \ (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N\
+    \  # double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
+    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
+    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
     \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
     \ return array('H') if init is None else array('H', init)  # unsigned short\n\
     def i32a(init = None): return array('i') if init is None else array('i', init)\
     \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
     \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
+    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
     \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
     def f32a(init = None): return array('f') if init is None else array('f', init)\
     \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
@@ -221,32 +220,32 @@ data:
     \ \"Deque is empty\"\n        que._t = (que._t-1)%que.maxlen\n        que._sz\
     \ -= 1\n        return que.data[que._t]\n    \n    def popleft(que) -> _T:\n \
     \       assert que._sz, \"Deque is empty\"\n        x = que.data[h := que._h]\n\
-    \        que._h = (h+1)%que.maxlen\n        que._sz -= 1\n        return x\n\n\
-    class SlidingMinMax(Deque[_T]):\n    def __init__(self, *, maxlen):\n        super().__init__(maxlen=maxlen)\n\
-    \        self.minq = Deque(maxlen=maxlen)\n        self.maxq = Deque(maxlen=maxlen)\n\
-    \n    def append(self, x: _T) -> None:\n        while self.minq and x < self.minq.tail():\
-    \ self.minq.pop()\n        self.minq.append(x)\n        while self.maxq and self.maxq.tail()\
-    \ < x: self.maxq.pop()\n        self.maxq.append(x)\n        super().append(x)\n\
-    \    \n    def appendleft(self, x: _T) -> None:\n        raise NotImplemented\n\
-    \    \n    def extend(self, iterable: Iterable) -> None:\n        for x in iterable:\
-    \ self.append(x)\n\n    def extendleft(self, iterable: Iterable) -> None:\n  \
-    \      raise NotImplemented\n\n    def popleft(self) -> _T:\n        x = super().popleft()\n\
-    \        if x == self.minq.head(): self.minq.popleft()\n        if x == self.maxq.head():\
-    \ self.maxq.popleft()\n        return x\n    \n    def pop(self) -> _T: raise\
-    \ NotImplemented\n\n    @property\n    def min(self) -> _T: return self.minq.head()\n\
-    \n    @property\n    def max(self) -> _T: return self.maxq.head()\n\nfrom typing\
-    \ import Iterable, Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]:\
-    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
-    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    \        que._h = (h+1)%que.maxlen\n        que._sz -= 1\n        return x\nfrom\
+    \ typing import Iterable\n\nclass SlidingMinMax(Deque[_T]):\n    def __init__(self,\
+    \ *, maxlen):\n        super().__init__(maxlen=maxlen)\n        self.minq = Deque(maxlen=maxlen)\n\
+    \        self.maxq = Deque(maxlen=maxlen)\n\n    def append(self, x: _T) -> None:\n\
+    \        while self.minq and x < self.minq.tail(): self.minq.pop()\n        self.minq.append(x)\n\
+    \        while self.maxq and self.maxq.tail() < x: self.maxq.pop()\n        self.maxq.append(x)\n\
+    \        super().append(x)\n    \n    def appendleft(self, x: _T) -> None:\n \
+    \       raise NotImplemented\n    \n    def extend(self, iterable: Iterable) ->\
+    \ None:\n        for x in iterable: self.append(x)\n\n    def extendleft(self,\
+    \ iterable: Iterable) -> None:\n        raise NotImplemented\n\n    def popleft(self)\
+    \ -> _T:\n        x = super().popleft()\n        if x == self.minq.head(): self.minq.popleft()\n\
+    \        if x == self.maxq.head(): self.maxq.popleft()\n        return x\n   \
+    \ \n    def pop(self) -> _T: raise NotImplemented\n\n    @property\n    def min(self)\
+    \ -> _T: return self.minq.head()\n\n    @property\n    def max(self) -> _T: return\
+    \ self.maxq.head()\n\nfrom typing import Iterable, Type, Union, overload\n\n@overload\n\
+    def read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) -> _T: ...\n\
+    def read(spec: Union[Type[_T],_T] = None, char=False):\n    if not char and spec\
+    \ is None: return map(int, TokenStream.default.line())\n    parser: _T = Parser.compile(spec)\n\
+    \    return parser(CharStream.default if char else TokenStream.default)\n\ndef\
+    \ write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/agc038/tasks/agc038_b\n\
     \nfrom cp_library.alg.graph.perm_graph_cls import PermGraph\n\ndef main():\n \
     \   N, K = read(tuple[int,int])\n    P = read(PermGraph[N,0])\n    win = SlidingMinMax(maxlen=K)\n\
@@ -274,7 +273,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/agc/agc038_b_sliding_min_max.test.py

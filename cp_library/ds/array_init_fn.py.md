@@ -122,6 +122,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bitset_tree_cls.py
+    title: cp_library/ds/tree/bitset_tree_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet_matrix_cls.py
+    title: cp_library/ds/wavelet_matrix_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -193,6 +199,18 @@ data:
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/predecessor_problem.test.py
+    title: test/library-checker/data-structure/predecessor_problem.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/predecessor_problem_bit.test.py
+    title: test/library-checker/data-structure/predecessor_problem_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/range_kth_smallest.test.py
+    title: test/library-checker/data-structure/range_kth_smallest.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+    title: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/biconnected_components.test.py
     title: test/library-checker/graph/biconnected_components.test.py
   - icon: ':heavy_check_mark:'
@@ -260,41 +278,38 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "from typing import Iterable\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):\
-    \      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int =\
-    \ 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm:\
-    \ int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int,\
-    \ elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n"
-  code: 'from typing import Iterable
-
-    import cp_library.ds.__header__
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from array import array\n\ndef i8f(N: int, elm: int = 0):      return array('b',\
+    \ (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B',\
+    \ (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h',\
+    \ (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H',\
+    \ (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i',\
+    \ (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I',\
+    \ (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q',\
+    \ (elm,))*N  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q',\
+    \ (elm,))*N  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return\
+    \ array('f', (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d',\
+    \ (elm,))*N  # double\n\ndef i8a(init = None):  return array('b') if init is None\
+    \ else array('b', init)  # signed char\ndef u8a(init = None):  return array('B')\
+    \ if init is None else array('B', init)  # unsigned char\ndef i16a(init = None):\
+    \ return array('h') if init is None else array('h', init)  # signed short\ndef\
+    \ u16a(init = None): return array('H') if init is None else array('H', init) \
+    \ # unsigned short\ndef i32a(init = None): return array('i') if init is None else\
+    \ array('i', init)  # signed int\ndef u32a(init = None): return array('I') if\
+    \ init is None else array('I', init)  # unsigned int\ndef i64a(init = None): return\
+    \ array('q') if init is None else array('q', init)  # signed long long\ndef u64a(init\
+    \ = None): return array('Q') if init is None else array('Q', init)  # unsigned\
+    \ long long\ndef f32a(init = None): return array('f') if init is None else array('f',\
+    \ init)  # float\ndef f64a(init = None): return array('d') if init is None else\
+    \ array('d', init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max\
+    \ = (1 << 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 <<\
+    \ 32)-1\ni64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n"
+  code: 'import cp_library.ds.__header__
 
     from array import array
 
@@ -317,7 +332,7 @@ data:
     def i64f(N: int, elm: int = 0):     return array(''q'', (elm,))*N  # signed long
     long
 
-    # def u64f(N: int, elm: int = 0):     return array(''Q'', (elm,))*N  # unsigned
+    def u64f(N: int, elm: int = 0):     return array(''Q'', (elm,))*N  # unsigned
     long long
 
     def f32f(N: int, elm: float = 0.0): return array(''f'', (elm,))*N  # float
@@ -346,8 +361,8 @@ data:
     def i64a(init = None): return array(''q'') if init is None else array(''q'', init)  #
     signed long long
 
-    # def u64a(init = None): return array(''Q'') if init is None else array(''Q'',
-    init)  # unsigned long long
+    def u64a(init = None): return array(''Q'') if init is None else array(''Q'', init)  #
+    unsigned long long
 
     def f32a(init = None): return array(''f'') if init is None else array(''f'', init)  #
     float
@@ -377,6 +392,8 @@ data:
   isVerificationFile: false
   path: cp_library/ds/array_init_fn.py
   requiredBy:
+  - cp_library/ds/wavelet_matrix_cls.py
+  - cp_library/ds/tree/bitset_tree_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
@@ -417,7 +434,7 @@ data:
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/alg/graph/func_graph_cls.py
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -432,6 +449,10 @@ data:
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+  - test/library-checker/data-structure/predecessor_problem.test.py
+  - test/library-checker/data-structure/predecessor_problem_bit.test.py
+  - test/library-checker/data-structure/range_kth_smallest.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test.py
   - test/library-checker/tree/vertex_set_path_composite.test.py

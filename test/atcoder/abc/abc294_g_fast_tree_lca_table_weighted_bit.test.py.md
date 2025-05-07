@@ -338,35 +338,34 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \nfrom typing import\
-    \ Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):      return\
-    \ array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0):      return\
-    \ array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int = 0):     return\
-    \ array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm: int = 0):     return\
-    \ array('H', (elm,))*N  # unsigned short\ndef i32f(N: int, elm: int = 0):    \
-    \ return array('i', (elm,))*N  # signed int\ndef u32f(N: int, elm: int = 0): \
-    \    return array('I', (elm,))*N  # unsigned int\ndef i64f(N: int, elm: int =\
-    \ 0):     return array('q', (elm,))*N  # signed long long\n# def u64f(N: int,\
-    \ elm: int = 0):     return array('Q', (elm,))*N  # unsigned long long\ndef f32f(N:\
-    \ int, elm: float = 0.0): return array('f', (elm,))*N  # float\ndef f64f(N: int,\
-    \ elm: float = 0.0): return array('d', (elm,))*N  # double\n\ndef i8a(init = None):\
-    \  return array('b') if init is None else array('b', init)  # signed char\ndef\
-    \ u8a(init = None):  return array('B') if init is None else array('B', init) \
-    \ # unsigned char\ndef i16a(init = None): return array('h') if init is None else\
-    \ array('h', init)  # signed short\ndef u16a(init = None): return array('H') if\
-    \ init is None else array('H', init)  # unsigned short\ndef i32a(init = None):\
-    \ return array('i') if init is None else array('i', init)  # signed int\ndef u32a(init\
-    \ = None): return array('I') if init is None else array('I', init)  # unsigned\
-    \ int\ndef i64a(init = None): return array('q') if init is None else array('q',\
-    \ init)  # signed long long\n# def u64a(init = None): return array('Q') if init\
-    \ is None else array('Q', init)  # unsigned long long\ndef f32a(init = None):\
-    \ return array('f') if init is None else array('f', init)  # float\ndef f64a(init\
-    \ = None): return array('d') if init is None else array('d', init)  # double\n\
-    \ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 << 15)-1\nu16_max = (1\
-    \ << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\ni64_max = (1 << 63)-1\n\
-    u64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
-    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
-    \ return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \            return cls(N, U, V)\n        return parse\n    \n\nfrom array import\
+    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
+    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N\
+    \  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return array('f',\
+    \ (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N\
+    \  # double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
+    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
+    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
+    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
+    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
+    def i32a(init = None): return array('i') if init is None else array('i', init)\
+    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
+    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
+    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
+    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
+    def f32a(init = None): return array('f') if init is None else array('f', init)\
+    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
+    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
+    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
+    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
     \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
     \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
@@ -573,118 +572,118 @@ data:
     \ T.Wdelta = order, delta, Wdelta\n\n    @classmethod\n    def compile(cls, N:\
     \ int, shift: int = -1):\n        return GraphWeightedBase.compile.__func__(cls,\
     \ N, N-1, shift)\n    \n\nclass TreeWeighted(TreeWeightedBase, GraphWeighted):\n\
-    \    pass\n\nimport operator\nfrom itertools import accumulate\n\ndef presum(iter:\
-    \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
-    \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
-    \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
-    \            func = operator.add\n        A = list(iter)\n        if initial is\
-    \ not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\n\ndef sort2(a, b):\n\
-    \    return (a,b) if a < b else (b,a)\n# from typing import Generic\n# from cp_library.misc.typing\
-    \ import _T\n\ndef min2(a, b):\n    return a if a < b else b\n\n\nclass MinSparseTable:\n\
-    \    def __init__(st, arr: list):\n        st.N = N = len(arr)\n        st.log\
-    \ = N.bit_length()\n        st.data = data = [0] * (st.log*N)\n        data[:N]\
-    \ = arr \n        for i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N,\
-    \ (i-1)*N + (1 << (i-1))\n            for j in range(N - (1 << i) + 1):\n    \
-    \            data[a+j] = min2(data[b+j], data[c+j])\n\n    def query(st, l: int,\
-    \ r: int):\n        k = (r-l).bit_length() - 1\n        return min2(st.data[k*st.N\
-    \ + l], st.data[k*st.N + r - (1<<k)])\n    \n\nclass LCATable(MinSparseTable):\n\
-    \    def __init__(lca, T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n\
-    \        lca.depth = depth = presum(T.delta)\n        lca.tin, lca.tout = T.tin[:],\
-    \ T.tout[:]\n        lca.mask = (1 << (shift := N.bit_length()))-1\n        lca.shift\
-    \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
-    \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
-    \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
-    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
-    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
-    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
-    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
-    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
-    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
-    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
-    \        return path\n\nclass LCATableWeighted(LCATable):\n    def __init__(lca,\
-    \ T, root = 0):\n        super().__init__(T, root)\n        lca.weights = T.Wdelta\n\
-    \        lca.weighted_depth = None\n\n    def distance(lca, u, v) -> int:\n  \
-    \      if lca.weighted_depth is None:\n            lca.weighted_depth = presum(lca.weights)\n\
-    \        l, r, a, _ = lca._query(u, v)\n        m = lca.tin[a]\n        return\
-    \ lca.weighted_depth[l] + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n\n\
-    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \         \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2513            \n            \u2503                                 \
-    \   7 \u2503            \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u252F\u2501\u251B            \n            \u250F\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2513                 \u2502              \n        \
-    \    \u2503                3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n \
-    \           \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B                 \u2502\
-    \              \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2513       \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\
-    \       \u2502              \n            \u2503      1 \u2503\u25C4\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u252F\u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u252F\u2501\u251B       \u2502              \n            \u250F\u2501\u2501\u2501\
-    \u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\
-    \u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502              \n       \
-    \     \u2503 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503\
-    \ 4 \u2503\u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524              \n\
-    \            \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B\
-    \  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B\
-    \  \u2502              \n              \u2502    \u2502    \u2502    \u2502  \
-    \  \u2502    \u2502    \u2502    \u2502              \n              \u25BC  \
-    \  \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC        \
-    \      \n            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\
-    \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\
-    \u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\
-    \u2501\u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503 1 \u2503\
-    \u2503 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6 \u2503\u2503\
-    \ 7 \u2503            \n            \u2517\u2501\u2501\u2501\u251B\u2517\u2501\
-    \u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\
-    \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\
-    \u2501\u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\u2501\u2501\
+    \    pass\n\nimport operator\nfrom itertools import accumulate\nfrom typing import\
+    \ Callable, Iterable, TypeVar\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T]\
+    \ = None, initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n    \
+    \    return list(accumulate(iter, func, initial=initial))\n    else:\n       \
+    \ assert step >= 2\n        if func is None:\n            func = operator.add\n\
+    \        A = list(iter)\n        if initial is not None:\n            A = [initial]\
+    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
+    \        return A\n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\n\
+    # from typing import Generic\n# from cp_library.misc.typing import _T\n\ndef min2(a,\
+    \ b):\n    return a if a < b else b\n\n\nclass MinSparseTable:\n    def __init__(st,\
+    \ arr: list):\n        st.N = N = len(arr)\n        st.log = N.bit_length()\n\
+    \        st.data = data = [0] * (st.log*N)\n        data[:N] = arr \n        for\
+    \ i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n\
+    \            for j in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j],\
+    \ data[c+j])\n\n    def query(st, l: int, r: int):\n        k = (r-l).bit_length()\
+    \ - 1\n        return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n\
+    \    \n\nclass LCATable(MinSparseTable):\n    def __init__(lca, T, root = 0):\n\
+    \        N = len(T)\n        T.euler_tour(root)\n        lca.depth = depth = presum(T.delta)\n\
+    \        lca.tin, lca.tout = T.tin[:], T.tout[:]\n        lca.mask = (1 << (shift\
+    \ := N.bit_length()))-1\n        lca.shift = shift\n        order = T.order\n\
+    \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
+    \            packets[i] = depth[i] << shift | order[i] \n        super().__init__(packets)\n\
+    \n    def _query(lca, u, v):\n        l, r = sort2(lca.tin[u], lca.tin[v]); r\
+    \ += 1\n        da = super().query(l, r)\n        return l, r, da & lca.mask,\
+    \ da >> lca.shift\n\n    def query(lca, u, v) -> tuple[int,int]:\n        l, r,\
+    \ a, d = lca._query(u, v)\n        return a, d\n    \n    def distance(lca, u,\
+    \ v) -> int:\n        l, r, a, d = lca._query(u, v)\n        return lca.depth[l]\
+    \ + lca.depth[r-1] - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca,\
+    \ c = [], lca.T.par, lca.query(u, v)[0], u\n        while c != lca:\n        \
+    \    path.append(c)\n            c = par[c]\n        path.append(lca)\n      \
+    \  rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
+    \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
+    \ path\n\nclass LCATableWeighted(LCATable):\n    def __init__(lca, T, root = 0):\n\
+    \        super().__init__(T, root)\n        lca.weights = T.Wdelta\n        lca.weighted_depth\
+    \ = None\n\n    def distance(lca, u, v) -> int:\n        if lca.weighted_depth\
+    \ is None:\n            lca.weighted_depth = presum(lca.weights)\n        l, r,\
+    \ a, _ = lca._query(u, v)\n        m = lca.tin[a]\n        return lca.weighted_depth[l]\
+    \ + lca.weighted_depth[r-1] - 2*lca.weighted_depth[m]\n\n'''\n\u257A\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data Structure -\
-    \ Tree - Binary Index Tree            \n'''\n\nclass BIT:\n    def __init__(bit,\
-    \ v: Union[int, list[int]]):\n        if isinstance(v, int): bit._d, bit._n =\
-    \ [0]*v, v\n        else: bit.build(v)\n        bit._lb = 1<<bit._n.bit_length()\n\
-    \n    def build(bit, data):\n        bit._d, bit._n = data, len(data)\n      \
-    \  for i in range(bit._n):\n            if (r := i|i+1) < bit._n: bit._d[r] +=\
-    \ bit._d[i]\n\n    def add(bit, i, x):\n        while i < bit._n: bit._d[i] +=\
-    \ x; i |= i+1\n\n    def sum(bit, n: int) -> int:\n        s = 0\n        while\
-    \ n: s, n = s+bit._d[n-1], n&n-1\n        return s\n\n    def range_sum(bit, l,\
-    \ r):\n        s = 0\n        while r: s, r = s+bit._d[r-1], r&r-1\n        while\
-    \ l: s, l = s-bit._d[l-1], l&l-1\n        return s\n\n    def __len__(bit) ->\
-    \ int:\n        return bit._n\n    \n    def __getitem__(bit, i: int) -> int:\n\
-    \        s, l = bit._d[i], i&(i+1)\n        while l != i: s, i = s-bit._d[i-1],\
-    \ i-(i&-i)\n        return s\n    get = __getitem__\n    \n    def __setitem__(bit,\
-    \ i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n    set = __setitem__\n\
-    \n    def prelist(bit) -> list[int]:\n        pre = [0]+bit._d\n        for i\
-    \ in range(bit._n+1): pre[i] += pre[i&i-1]\n        return pre\n\n    def bisect_left(bit,\
-    \ v) -> int:\n        return bit.bisect_right(v-1) if v>0 else 0\n    \n    def\
-    \ bisect_right(bit, v, key=None) -> int:\n        i = s = 0; m = bit._lb\n   \
-    \     if key:\n            while m := m>>1:\n                if (ni := m|i) <=\
-    \ bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        else:\n    \
-    \        while m := m>>1:\n                if (ni := m|i) <= bit._n and (ns:=s+bit._d[ni-1])\
-    \ <= v: s, i = ns, ni\n        return i\n\nfrom typing import Iterable, Type,\
-    \ Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
-    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513     \
+    \       \n            \u2503                                    7 \u2503     \
+    \       \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u252F\u2501\u251B            \n            \u250F\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2513                 \u2502              \n            \u2503        \
+    \        3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n            \u2517\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u252F\u2501\u251B                 \u2502              \n        \
+    \    \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502\
+    \  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502 \
+    \             \n            \u2503      1 \u2503\u25C4\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\
+    \u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\
+    \u251B       \u2502              \n            \u250F\u2501\u2501\u2501\u2513\
+    \  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513\
+    \  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502              \n            \u2503\
+    \ 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\
+    \u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524              \n        \
+    \    \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
+    \  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
+    \              \n              \u2502    \u2502    \u2502    \u2502    \u2502\
+    \    \u2502    \u2502    \u2502              \n              \u25BC    \u25BC\
+    \    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC              \n\
+    \            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\
+    \u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\
+    \u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\
+    \u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503 1 \u2503\u2503\
+    \ 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6 \u2503\u2503 7\
+    \ \u2503            \n            \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\
+    \u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\
+    \u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\
+    \u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data Structure - Tree -\
+    \ Binary Index Tree            \n'''\n\nclass BIT:\n    def __init__(bit, v):\n\
+    \        if isinstance(v, int): bit._d, bit._n = [0]*v, v\n        else: bit.build(v)\n\
+    \        bit._lb = 1<<bit._n.bit_length()\n\n    def build(bit, data):\n     \
+    \   bit._d, bit._n = data, len(data)\n        for i in range(bit._n):\n      \
+    \      if (r := i|i+1) < bit._n: bit._d[r] += bit._d[i]\n\n    def add(bit, i,\
+    \ x):\n        while i < bit._n: bit._d[i] += x; i |= i+1\n\n    def sum(bit,\
+    \ n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1], n&n-1\n\
+    \        return s\n\n    def range_sum(bit, l, r):\n        s = 0\n        while\
+    \ r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1], l&l-1\n\
+    \        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n   \
+    \ \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
+    \        while l != i: s, i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get\
+    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None:\n   \
+    \     bit.add(i, x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n\
+    \        pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
+    \        return pre\n\n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)\
+    \ if v>0 else -1\n    \n    def bisect_right(bit, v, key=None) -> int:\n     \
+    \   i = s = 0; m = bit._lb\n        if key:\n            while m := m>>1:\n  \
+    \              if (ni := m|i) <= bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i\
+    \ = ns, ni\n        else:\n            while m := m>>1:\n                if (ni\
+    \ := m|i) <= bit._n and (ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        return\
+    \ i\n\nfrom typing import Iterable, Type, Union, overload\n\n@overload\ndef read()\
+    \ -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
+    def read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
+    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
     \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
     \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
     \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
@@ -741,7 +740,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

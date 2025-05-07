@@ -279,6 +279,9 @@ data:
     - icon: ':warning:'
       path: cp_library/alg/iter/iargsort_fn.py
       title: cp_library/alg/iter/iargsort_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/icoord_compress_fn.py
+      title: cp_library/alg/iter/icoord_compress_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/ishift_fn.py
       title: cp_library/alg/iter/ishift_fn.py
@@ -503,7 +506,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/sparse_table_cls.py
       title: cp_library/ds/sparse_table_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/wavelet_matrix_cls.py
       title: cp_library/ds/wavelet_matrix_cls.py
   - name: cp_library/ds/csr
@@ -546,9 +549,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/priority_queue_cls.py
       title: cp_library/ds/heap/priority_queue_cls.py
-    - icon: ':warning:'
-      path: cp_library/ds/heap/skew_heap_forest_cls copy.py
-      title: cp_library/ds/heap/skew_heap_forest_cls copy.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/skew_heap_forest_cls.py
       title: cp_library/ds/heap/skew_heap_forest_cls.py
@@ -573,12 +573,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/ahocorasick_cls.py
       title: cp_library/ds/tree/ahocorasick_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bitset_tree_cls.py
+      title: cp_library/ds/tree/bitset_tree_cls.py
     - icon: ':warning:'
       path: cp_library/ds/tree/pdsu_cls.py
       title: cp_library/ds/tree/pdsu_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/segtree_cls.py
       title: cp_library/ds/tree/segtree_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/tree/treap_monoid_cls.py
+      title: cp_library/ds/tree/treap_monoid_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/trie_cls.py
       title: cp_library/ds/tree/trie_cls.py
@@ -1257,6 +1263,21 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/point_set_range_composite.test.py
       title: test/library-checker/data-structure/point_set_range_composite.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/predecessor_problem.test.py
+      title: test/library-checker/data-structure/predecessor_problem.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/predecessor_problem_bit.test.py
+      title: test/library-checker/data-structure/predecessor_problem_bit.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/range_kth_smallest.test.py
+      title: test/library-checker/data-structure/range_kth_smallest.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/static_range_frequency.test.py
+      title: test/library-checker/data-structure/static_range_frequency.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+      title: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/static_range_sum.test.py
       title: test/library-checker/data-structure/static_range_sum.test.py

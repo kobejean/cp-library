@@ -20,53 +20,57 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \nfrom typing import Generic\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
-    \nclass SkewHeapForest(Generic[_T]):\n    def __init__(shf, N, M, e: _T = 0):\n\
-    \        shf.V, shf.A, shf.L, shf.R, shf.roots = [e]*M, [e]*M, [-1]*M, [-1]*M,\
-    \ [-1]*N\n        shf.id, shf.st = 0, elist(M)\n    \n    def propagate(shf, u:\
-    \ int):\n        if (add := shf.A[u]):\n            if (l := shf.L[u]) != -1:\
-    \ shf.A[l] += add\n            if (r := shf.R[u]) != -1: shf.A[r] += add\n   \
-    \         shf.V[u] += add\n            shf.A[u] = 0\n\n    def merge(shf, u: int,\
-    \ v: int):\n        while u >= 0 and v >= 0:\n            if shf.V[v]+shf.A[v]\
-    \ < shf.V[u]+shf.A[u]: u, v = v, u\n            shf.propagate(u); shf.st.append(u);\
-    \ shf.R[u], u = shf.L[u], shf.R[u]\n        u = v if u == -1 else u\n        while\
-    \ shf.st: shf.L[u := shf.st.pop()] = u\n        return u\n    \n    def min(shf,\
-    \ i: int):\n        assert (root := shf.roots[i]) >= 0\n        shf.propagate(root)\n\
-    \        return shf.V[root]\n\n    def push(shf, i: int, x: _T):\n        shf.id\
+    import operator\nfrom typing import Generic\nfrom typing import TypeVar\n_T =\
+    \ TypeVar('T')\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\n\nclass SkewHeapForest(Generic[_T]):\n    def __init__(shf,\
+    \ N, M, e: _T = 0, op = operator.add):\n        shf.V, shf.A, shf.L, shf.R, shf.roots\
+    \ = [e]*M, [e]*M, [-1]*M, [-1]*M, [-1]*N\n        shf.id, shf.st, shf.e, shf.op\
+    \ = 0, elist(M), e, op\n    \n    def propagate(shf, u: int):\n        if (a :=\
+    \ shf.A[u]) != shf.e:\n            if (l := shf.L[u]) != -1: shf.A[l] = shf.op(shf.A[l],\
+    \ a)\n            if (r := shf.R[u]) != -1: shf.A[r] = shf.op(shf.A[r], a)\n \
+    \           shf.V[u] = shf.op(shf.V[u], a); shf.A[u] = shf.e\n\n    def merge(shf,\
+    \ u: int, v: int):\n        while u >= 0 and v >= 0:\n            shf.propagate(u);\
+    \ shf.propagate(v)\n            if shf.V[v] < shf.V[u]: u, v = v, u\n        \
+    \    shf.st.append(u); shf.R[u], u = shf.L[u], shf.R[u]\n        u = v if u ==\
+    \ -1 else u\n        while shf.st: shf.L[u := shf.st.pop()] = u\n        return\
+    \ u\n    \n    def min(shf, i: int):\n        assert (root := shf.roots[i]) >=\
+    \ 0\n        shf.propagate(root)\n        return shf.V[root]\n\n    def push(shf,\
+    \ i: int, x: _T):\n        shf.id = (id := shf.id)+1\n        shf.V[id] = x\n\
+    \        shf.roots[i] = shf.merge(shf.roots[i], id)\n\n    def pop(shf, i: int)\
+    \ -> _T:\n        assert (root := shf.roots[i]) >= 0\n        shf.propagate(root\
+    \ := shf.roots[i])\n        val = shf.V[root]\n        shf.roots[i] = shf.merge(shf.L[root],\
+    \ shf.R[root])\n        return val\n    \n    def add(shf, i: int, val: _T): shf.A[shf.roots[i]]\
+    \ = shf.op(shf.A[shf.roots[i]], val)\n    def empty(shf, i: int): return shf.roots[i]\
+    \ == -1\n    \n"
+  code: "import cp_library.__header__\nimport operator\nfrom typing import Generic\n\
+    from cp_library.misc.typing import _T\nimport cp_library.ds.__header__\nfrom cp_library.ds.elist_fn\
+    \ import elist\nimport cp_library.ds.heap.__header__\n\nclass SkewHeapForest(Generic[_T]):\n\
+    \    def __init__(shf, N, M, e: _T = 0, op = operator.add):\n        shf.V, shf.A,\
+    \ shf.L, shf.R, shf.roots = [e]*M, [e]*M, [-1]*M, [-1]*M, [-1]*N\n        shf.id,\
+    \ shf.st, shf.e, shf.op = 0, elist(M), e, op\n    \n    def propagate(shf, u:\
+    \ int):\n        if (a := shf.A[u]) != shf.e:\n            if (l := shf.L[u])\
+    \ != -1: shf.A[l] = shf.op(shf.A[l], a)\n            if (r := shf.R[u]) != -1:\
+    \ shf.A[r] = shf.op(shf.A[r], a)\n            shf.V[u] = shf.op(shf.V[u], a);\
+    \ shf.A[u] = shf.e\n\n    def merge(shf, u: int, v: int):\n        while u >=\
+    \ 0 and v >= 0:\n            shf.propagate(u); shf.propagate(v)\n            if\
+    \ shf.V[v] < shf.V[u]: u, v = v, u\n            shf.st.append(u); shf.R[u], u\
+    \ = shf.L[u], shf.R[u]\n        u = v if u == -1 else u\n        while shf.st:\
+    \ shf.L[u := shf.st.pop()] = u\n        return u\n    \n    def min(shf, i: int):\n\
+    \        assert (root := shf.roots[i]) >= 0\n        shf.propagate(root)\n   \
+    \     return shf.V[root]\n\n    def push(shf, i: int, x: _T):\n        shf.id\
     \ = (id := shf.id)+1\n        shf.V[id] = x\n        shf.roots[i] = shf.merge(shf.roots[i],\
     \ id)\n\n    def pop(shf, i: int) -> _T:\n        assert (root := shf.roots[i])\
     \ >= 0\n        shf.propagate(root := shf.roots[i])\n        val = shf.V[root]\n\
     \        shf.roots[i] = shf.merge(shf.L[root], shf.R[root])\n        return val\n\
-    \    \n    def add(shf, i: int, val: _T): shf.A[shf.roots[i]] += val\n    def\
-    \ empty(shf, i: int): return shf.roots[i] == -1\n    \n"
-  code: "import cp_library.ds.heap.__header__\nfrom cp_library.ds.elist_fn import\
-    \ elist\nfrom typing import Generic\nfrom cp_library.misc.typing import _T\n\n\
-    class SkewHeapForest(Generic[_T]):\n    def __init__(shf, N, M, e: _T = 0):\n\
-    \        shf.V, shf.A, shf.L, shf.R, shf.roots = [e]*M, [e]*M, [-1]*M, [-1]*M,\
-    \ [-1]*N\n        shf.id, shf.st = 0, elist(M)\n    \n    def propagate(shf, u:\
-    \ int):\n        if (add := shf.A[u]):\n            if (l := shf.L[u]) != -1:\
-    \ shf.A[l] += add\n            if (r := shf.R[u]) != -1: shf.A[r] += add\n   \
-    \         shf.V[u] += add\n            shf.A[u] = 0\n\n    def merge(shf, u: int,\
-    \ v: int):\n        while u >= 0 and v >= 0:\n            if shf.V[v]+shf.A[v]\
-    \ < shf.V[u]+shf.A[u]: u, v = v, u\n            shf.propagate(u); shf.st.append(u);\
-    \ shf.R[u], u = shf.L[u], shf.R[u]\n        u = v if u == -1 else u\n        while\
-    \ shf.st: shf.L[u := shf.st.pop()] = u\n        return u\n    \n    def min(shf,\
-    \ i: int):\n        assert (root := shf.roots[i]) >= 0\n        shf.propagate(root)\n\
-    \        return shf.V[root]\n\n    def push(shf, i: int, x: _T):\n        shf.id\
-    \ = (id := shf.id)+1\n        shf.V[id] = x\n        shf.roots[i] = shf.merge(shf.roots[i],\
-    \ id)\n\n    def pop(shf, i: int) -> _T:\n        assert (root := shf.roots[i])\
-    \ >= 0\n        shf.propagate(root := shf.roots[i])\n        val = shf.V[root]\n\
-    \        shf.roots[i] = shf.merge(shf.L[root], shf.R[root])\n        return val\n\
-    \    \n    def add(shf, i: int, val: _T): shf.A[shf.roots[i]] += val\n    def\
-    \ empty(shf, i: int): return shf.roots[i] == -1\n    "
+    \    \n    def add(shf, i: int, val: _T): shf.A[shf.roots[i]] = shf.op(shf.A[shf.roots[i]],\
+    \ val)\n    def empty(shf, i: int): return shf.roots[i] == -1\n    "
   dependsOn:
   - cp_library/ds/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/heap/skew_heap_forest_cls.py
   requiredBy: []
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/directedmst.test.py

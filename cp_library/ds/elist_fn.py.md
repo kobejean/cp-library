@@ -182,9 +182,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
-  - icon: ':warning:'
-    path: cp_library/ds/heap/skew_heap_forest_cls copy.py
-    title: cp_library/ds/heap/skew_heap_forest_cls copy.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/skew_heap_forest_cls.py
     title: cp_library/ds/heap/skew_heap_forest_cls.py
@@ -461,7 +458,6 @@ data:
   requiredBy:
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/heap/skew_heap_forest_cls.py
-  - cp_library/ds/heap/skew_heap_forest_cls copy.py
   - cp_library/ds/que/que01_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/alg/tree/tree_cls.py
@@ -525,7 +521,7 @@ data:
   - cp_library/alg/dp/monotone_minima_fn.py
   - cp_library/math/conv/minplus_conv_fn.py
   - cp_library/math/table/submasks_cls.py
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

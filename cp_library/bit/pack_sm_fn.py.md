@@ -26,6 +26,9 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/iter/iargsort_fn.py
     title: cp_library/alg/iter/iargsort_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/icoord_compress_fn.py
+    title: cp_library/alg/iter/icoord_compress_fn.py
   - icon: ':warning:'
     path: cp_library/alg/iter/sort_parallel_copies_fn.py
     title: cp_library/alg/iter/sort_parallel_copies_fn.py
@@ -56,6 +59,9 @@ data:
   - icon: ':warning:'
     path: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
     title: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet_matrix_cls.py
+    title: cp_library/ds/wavelet_matrix_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/invcnt_fn.py
     title: cp_library/math/invcnt_fn.py
@@ -99,6 +105,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_set_range_composite.test.py
     title: test/library-checker/data-structure/point_set_range_composite.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/range_kth_smallest.test.py
+    title: test/library-checker/data-structure/range_kth_smallest.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/static_range_frequency.test.py
+    title: test/library-checker/data-structure/static_range_frequency.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+    title: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
@@ -146,6 +161,7 @@ data:
   isVerificationFile: false
   path: cp_library/bit/pack_sm_fn.py
   requiredBy:
+  - cp_library/ds/wavelet_matrix_cls.py
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
@@ -154,6 +170,7 @@ data:
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+  - cp_library/alg/iter/icoord_compress_fn.py
   - cp_library/alg/iter/sort_parallel_fn.py
   - cp_library/alg/iter/sort_parallel_copies_fn.py
   - cp_library/alg/iter/iargsort_fn.py
@@ -165,7 +182,7 @@ data:
   - cp_library/alg/graph/fast/digraph_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - cp_library/math/invcnt_fn.py
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -177,7 +194,10 @@ data:
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+  - test/library-checker/data-structure/static_range_frequency.test.py
   - test/library-checker/data-structure/point_set_range_composite.test.py
+  - test/library-checker/data-structure/range_kth_smallest.test.py
   - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/tree/tree_path_composite_sum.test.py

@@ -11,10 +11,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/ctz32_fn.py
     title: cp_library/bit/ctz32_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet_matrix_cls.py
+    title: cp_library/ds/wavelet_matrix_cls.py
   - icon: ':warning:'
     path: cp_library/math/table/submasks_cls.py
     title: cp_library/math/table/submasks_cls.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/predecessor_problem_bit.test.py
+    title: test/library-checker/data-structure/predecessor_problem_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/range_kth_smallest.test.py
+    title: test/library-checker/data-structure/range_kth_smallest.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+    title: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/chromatic_number.test.py
     title: test/library-checker/graph/chromatic_number.test.py
@@ -42,13 +54,17 @@ data:
   isVerificationFile: false
   path: cp_library/bit/popcnt32_fn.py
   requiredBy:
+  - cp_library/ds/wavelet_matrix_cls.py
   - cp_library/bit/ctz32_fn.py
   - cp_library/bit/clz32_fn.py
   - cp_library/alg/graph/bit_graph_cls.py
   - cp_library/math/table/submasks_cls.py
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+  - test/library-checker/data-structure/predecessor_problem_bit.test.py
+  - test/library-checker/data-structure/range_kth_smallest.test.py
   - test/library-checker/graph/chromatic_number.test.py
 documentation_of: cp_library/bit/popcnt32_fn.py
 layout: document

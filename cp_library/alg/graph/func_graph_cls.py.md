@@ -149,27 +149,26 @@ data:
     \        return crf.A[crf.S[i]:crf.S[i+1]]\n    \n    def get(crf, i: int, j:\
     \ int) -> _T:\n        return crf.A[crf.S[i]+j]\n    \n    def len(crf, i: int)\
     \ -> int:\n        return crf.S[i+1] - crf.S[i]\n\ndef roll(A: list, t: int):\n\
-    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\nfrom typing\
-    \ import Iterable\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):\
-    \      return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int =\
-    \ 0):      return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm:\
-    \ int = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int,\
-    \ elm: int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N:\
-    \ int, elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\n# def\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
+    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\n\nfrom array\
+    \ import array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N\
+    \  # signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
+    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
+    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
+    \  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N\
+    \  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return array('f',\
+    \ (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N\
+    \  # double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
+    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
+    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
     \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
     \ return array('H') if init is None else array('H', init)  # unsigned short\n\
     def i32a(init = None): return array('i') if init is None else array('i', init)\
     \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
     \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\n# def u64a(init = None):\
+    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
     \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
     def f32a(init = None): return array('f') if init is None else array('f', init)\
     \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
@@ -212,7 +211,7 @@ data:
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
-  timestamp: '2025-04-28 05:45:14+09:00'
+  timestamp: '2025-05-06 22:58:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py
