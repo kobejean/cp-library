@@ -1,7 +1,7 @@
 from cp_library.alg.tree.fast.tree_weighted_base_cls import TreeWeightedBase
 from cp_library.alg.tree.lca_table_iterative_cls import LCATable
 from cp_library.ds.elist_fn import elist
-from cp_library.alg.iter.argsort_fn import argsort
+from cp_library.alg.iter.arg.argsort_fn import argsort
 from typing import Callable
 from cp_library.misc.typing import _T
 

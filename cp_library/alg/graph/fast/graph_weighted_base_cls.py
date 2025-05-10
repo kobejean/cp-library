@@ -3,7 +3,7 @@ from math import inf
 from typing import overload
 import cp_library.alg.__header__
 from cp_library.alg.dp.chmin_fn import chmin
-from cp_library.alg.iter.argsort_fn import argsort
+from cp_library.alg.iter.arg.argsort_fn import argsort
 import cp_library.alg.graph.__header__
 import cp_library.alg.graph.fast.__header__
 from cp_library.alg.graph.fast.graph_base_cls import GraphBase

@@ -58,6 +58,8 @@ class IOWrapper(IOBase):
     
     def readline(self):
         return self.buffer.readline().decode("ascii")
-
-sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)
-sys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)
+try:
+    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)
+    sys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)
+except:
+    pass

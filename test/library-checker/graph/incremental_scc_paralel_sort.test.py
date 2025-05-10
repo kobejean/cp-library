@@ -5,9 +5,10 @@ def main():
     X, U, V = rdl(N), [0]*M, [0]*M
     for e in range(M): U[e], V[e] = rd(), rd()
     W, dsu, ans, mod = scc_incremental(N, M, U, V), [*range(N)], [0]*M, 998244353; cur = t = 0
-    for e in argsort_bounded(W,M):
-        while t < W[e]: ans[t] = cur; t += 1
-        u, v = U[e], V[e]
+    isort_parallel(W, U, V)
+    for e in range(M):
+        u, v, w = U[e], V[e], W[e]
+        while t < w: ans[t] = cur; t += 1
         while u != dsu[u]: dsu[u] = u = dsu[dsu[u]]
         while v != dsu[v]: dsu[v] = v = dsu[dsu[v]]
         if u != v: dsu[v], cur, X[u] = u, (cur+X[u]*X[v])%mod, (X[u]+X[v])%mod
@@ -15,7 +16,7 @@ def main():
     wtnl(ans)
 
 from cp_library.alg.graph.fast.snippets.scc_incremental_fn import scc_incremental
-from cp_library.alg.iter.arg.argsort_bounded_fn import argsort_bounded
+from cp_library.alg.iter.sort.isort_parallel_fn import isort_parallel
 from cp_library.io.fast.fast_io_fn import rd, rdl, wtnl
 
 if __name__ == '__main__':

@@ -3,13 +3,13 @@
 def main():
     N, Q = map(int, input().split())
     A = [int(s) for s in input().split()]
-    W = WaveletMatrix(A)
+    W = CompressedWaveletMatrix(A)
     for _ in range(Q):
         l, r, x = input().split()
-        append(str(W.range_freq(int(l), int(r), int(x)))); append('\n')
+        append(str(W.count(int(x), int(l), int(r)))); append('\n')
     os.write(1, sb.build().encode())
 
-from cp_library.ds.wavelet_matrix_cls import WaveletMatrix
+from cp_library.ds.tree.wavelet.compressed_wavelet_matrix_cls import CompressedWaveletMatrix
 import sys,os
 from __pypy__ import builders
 sb = builders.StringBuilder()

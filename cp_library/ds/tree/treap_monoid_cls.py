@@ -4,85 +4,159 @@ from cp_library.ds.reserve_fn import reserve
 import cp_library.ds.tree.__header__
 
 class TreapMonoid:
-    __slots__ = 'key', 'val', 'acc', 'prior', 'sub', 'e', 'op', 'rand', 'st1', 'st2'
-    def __init__(T, e, op):
-        T.key = [-1]
-        T.val = [e]
-        T.acc = [e]
-        T.prior = [42]
-        T.sub = [-1, -1]
-        T.e = e
-        T.op = op
-        T.st1, T.st2 = [], []
+    __slots__ = 'op', 'e', 'root', 'cnt'
+    # class attributes
+    K, V, A, P = [-1], [-1], [-1], [42]
+    par, sub, st = [-1], [-1, -1], []
 
-    def reserve(T, hint: int):
-        hint += 1
-        reserve(T.key, hint)
-        reserve(T.val, hint)
-        reserve(T.acc, hint)
-        reserve(T.prior, hint)
-        reserve(T.sub, hint << 1)
+    def __init__(T, op, e = -1):
+        T.op, T.e, T.cnt = op, e, -1
+        T.root = T.new_node(-1, e)
 
-    def new_node(T, key, value, left = -1, right = -1):
-        id = len(T.key)
-        T.key.append(key)
-        T.val.append(value)
-        T.acc.append(value)
-        T.prior.append((T.prior[-1] * 1103515245 + 12345) & 0x7fffffff)
-        T.sub.append(left); T.sub.append(right)
+    def prod(T, l: int, r: int):
+        # find_node common ancestor
+        a = T.sub[T.root<<1]
+        while ~a and not l <= T.K[a] < r: a = T.sub[a<<1|(T.K[a]<l)]
+        if a < 0: return T.e
+        # left subtreap
+        acc, i = T.V[a], T.sub[a<<1]
+        while ~i:
+            if not (T.K[i]<l):
+                if ~T.sub[i<<1|1]: acc = T.op(T.A[T.sub[i<<1|1]], acc)
+                acc = T.op(T.V[i], acc)
+            i = T.sub[i<<1|(T.K[i]<l)]
+        # right subtreap
+        i = T.sub[a<<1|1]
+        while ~i:
+            if T.K[i]<r:
+                if ~T.sub[i<<1]: acc = T.op(acc, T.A[T.sub[i<<1]])
+                acc = T.op(acc, T.V[i])
+            i = T.sub[i<<1|(T.K[i]<r)]
+        return acc
+
+    def all_prod(T): return T.A[T.root]
+    
+    def insert(T, key, val):
+        T.insert_node(T.root<<1, nid := T.new_node(key, val))
+        return nid
+    
+    def split(T, key):
+        T.K[0] = key
+        T.split_node(T.sub[T.root<<1], 0)
+        S = T.__class__(T.op, T.e)
+        if ~S.sub[0]: S.attach_node(S.root<<1, T.sub[0])
+        if ~T.sub[1]: T.attach_node(T.root<<1, T.sub[1])
+        T._repair()
+        return S, T
+    
+    def get(T, key): return T.V[id] if ~(id:=T.find_node(key)) else T.e
+
+    def pop(T, key):
+        if ~(id:=T.find_node(key)): T.del_node(id); return T.V[id]
+        return T.e
+
+    def __delitem__(T, key):
+        if ~(id:=T.find_node(key)): T.del_node(id)
+    
+    def __setitem__(T, key, val):
+        if ~(id:=T.find_node(key)): T.set_node(id, val)
+        else: T.insert(key, val)
+    
+    def __getitem__(T, key):
+        if isinstance(key, int): return T.get(key)
+        elif isinstance(key, slice): return T.prod(key.start, key.stop)
+    
+    def __contains__(T, key): return 0 <= T.find_node(key)
+
+    def __len__(T): return T.cnt
+
+    def new_node(T, key, val):
+        id = len(T.K)
+        T.K.append(key); T.V.append(val); T.A.append(val)
+        T.P.append((T.P[-1] * 1103515245 + 12345) & 0x7fffffff)
+        T.par.append(-1); T.sub.append(-1); T.sub.append(-1)
+        T.cnt += 1
+        return id
+
+    def find_node(T, key: int):
+        id = T.sub[T.root<<1]
+        while ~id and T.K[id] != key: id = T.sub[id<<1|(T.K[id]<key)]
         return id
     
-    def update(T, id):
-        T.acc[id] = T.val[id]
-        if (l := T.sub[id << 1]) >= 0:
-            T.acc[id] = T.op(T.acc[l], T.acc[id])
-        if (r := T.sub[id<<1|1]) >= 0:
-            T.acc[id] = T.op(T.acc[id], T.acc[r])
+    def insert_node(T, sid, nid):
+        while ~T.sub[sid] and T.P[id:=T.sub[sid]]<T.P[nid]:sid=id<<1|(T.K[id]<T.K[nid])
+        id = T.sub[sid]; T.attach_node(sid, nid)
+        if ~id: T.split_node(id, nid)
+        T._repair()
+    
+    def split_node(T, id, nid):
+        l, r = nid<<1, nid<<1|1
+        while ~id:
+            if T.K[id] < T.K[nid]: T.attach_node(l, id); id = T.sub[l := id<<1|1]
+            else: T.attach_node(r, id); id = T.sub[r := id<<1]
+        T.st.append(l>>1); T.st.append(r>>1)
+        T.sub[l] = T.sub[r] = -1
+        T._repair()
 
-    def split(T, id, key, l, r):
-        while True:
-            if id < 0: T.sub[l] = T.sub[r] = -1; break
-            if T.key[id] < key:
-                m = id << 1 | 1
-                T.st1.append((id, l))
-                id, l, r = T.sub[m], m, r
-            else:
-                m = id << 1
-                T.st1.append((id, r))
-                id, l, r = T.sub[m], l, m
-        while T.st1:
-            id, sid = T.st1.pop()
-            T.sub[sid] = id
-            T.update(id)
-        # if id < 0: T.sub[l] = T.sub[r] = -1; return
-        # elif T.key[id] < key:
-        #     m = id << 1 | 1
-        #     T.split(T.sub[m], key, m, r); T.sub[l] = id
-        # else:
-        #     m = id << 1
-        #     T.split(T.sub[m], key, l, m); T.sub[r] = id
-        # T.update(id)
+    def set_node(T, id: int, val): T.V[id] = val; T._propagate(id)
 
-    def insert(T, sid, nid):
-        while True:
-            if T.sub[sid] < 0:
-                T.sub[sid] = nid; break
-            elif T.prior[nid] < T.prior[id := T.sub[sid]]:
-                T.split(id, T.key[nid], nid<<1, nid<<1|1); T.sub[sid] = nid; T.update(nid); break
-            else:
-                T.st2.append(id)
-                sid, nid = id << 1 | (T.key[id] < T.key[nid]), nid
-        while T.st2:
-            T.update(T.st2.pop())
+    def merge_nodes(T, sid: int, l: int, r: int):
+        while ~l and ~r:
+            if T.P[l]<T.P[r]: T.attach_node(sid, l); l = T.sub[sid := l<<1|1]
+            else: T.attach_node(sid, r); r = T.sub[sid := r<<1]
+        if ~l: T.attach_node(sid, l)
+        elif ~r: T.attach_node(sid, r)
+        T._repair()
 
-        # if T.sub[sid] < 0: T.sub[sid] = nid
-        # elif T.prior[nid] < T.prior[id := T.sub[sid]]:
-        #     T.split(id, T.key[nid], nid<<1, nid<<1|1); T.sub[sid] = nid; T.update(nid)
-        # else:
-        #     T.insert(id << 1 | (T.key[id] < T.key[nid]), nid); T.update(id)
+    def del_node(T, id: int):
+        sid, l, r = T.par[id], T.sub[id<<1], T.sub[id<<1|1]
+        T.detach_node(id)
+        T.merge_nodes(sid, l, r)
+        T.cnt -= 1
+    
+    def detach_node(T, id: int):
+        assert ~T.par[id]
+        T.st.append(T.par[id]>>1)
+        T.sub[T.par[id]] = T.par[id] = -1
+    
+    def attach_node(T, sid: int, id: int):
+        T.st.append(sid>>1)
+        T.sub[sid], T.par[id] = id, sid
 
-    def add(T, key, value):
-        T.insert(0, T.new_node(key, value))
+    @classmethod
+    def reserve(cls, hint: int):
+        hint += 1
+        reserve(cls.K, hint); reserve(cls.V, hint); reserve(cls.A, hint); reserve(cls.P, hint)
+        reserve(cls.par, hint); reserve(cls.sub, hint << 1); reserve(cls.st, hint.bit_length() << 1)
+    
+    def _update(T, id):
+        T.A[id] = T.V[id]
+        if ~(l := T.sub[id << 1]): T.A[id] = T.op(T.A[l], T.A[id])
+        if ~(r := T.sub[id<<1|1]): T.A[id] = T.op(T.A[id], T.A[r])
+        
+    def _propagate(T, id):
+        while ~T.par[id]: T._update(id); id = T.par[id]>>1
+        T._update(id)
 
-    def all_prod(T):
-        return T.acc[T.sub[0]] if T.sub[0] >= 0 else T.e
+    def _repair(T):
+        if T.st:
+            while T.st: T._update(id := T.st.pop())
+            if id != T.root: T._propagate(T.par[id]>>1)
+    
+    def _validate(T, id = None):
+        if id is None:
+            assert T.all_prod() == (acc := T._validate(id) if ~(id := T.sub[T.root<<1]) else T.e)
+            return acc
+        assert ~T.par[id]
+        assert T.sub[T.par[id]] == id
+        acc = T.V[id]
+        if ~(l:=T.sub[id<<1]):
+            assert T.P[id] <= T.P[l]
+            assert T.K[l] <= T.K[id]
+            acc = T.op(T._validate(l), acc)
+        if ~(r:=T.sub[id<<1|1]):
+            assert T.P[id] <= T.P[r]
+            assert T.K[id] <= T.K[r]
+            acc = T.op(acc, T._validate(r))
+        assert T.A[id] == acc
+        return acc

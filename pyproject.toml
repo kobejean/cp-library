@@ -11,8 +11,16 @@ python = "^3.10"
 online-judge-verify-helper = {git = "https://github.com/kobejean/verification-helper.git"}
 ac-library-python = {git = "https://github.com/not522/ac-library-python"}
 requests = "^2.32.3"
-
+pytest = "^8.3.5"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["test/unittests"]
+addopts = "-v"
+python_files = ["*.py"]
+python_functions = ["test_*"]
+python_classes = ["Test*"]

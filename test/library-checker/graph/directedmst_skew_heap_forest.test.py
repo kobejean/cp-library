@@ -27,12 +27,12 @@ class UnionFind:
     def same(self, x, y):
         return self.root(x) == self.root(y)
 
-from cp_library.ds.heap.skew_heap_cls import SkewHeap
+from cp_library.ds.heap.skew_heap_forest_cls import SkewHeapForest
 
 def directed_mst(n, edges, root):
     OFFSET = 1 << 31
     from_cost = [0] * n
-    from_heap = [SkewHeap() for _ in range(n)]
+    from_heap = SkewHeapForest(n, len(edges))
     from_ = [0] * n
 
     uf = UnionFind(n)
@@ -43,7 +43,7 @@ def directed_mst(n, edges, root):
     idxs = []
 
     for idx, (fr, to, cost) in enumerate(edges):
-        from_heap[to].push(cost << 31 | idx)
+        from_heap.push(to, cost << 31 | idx)
 
     res = 0
     for v in range(n):
@@ -55,12 +55,14 @@ def directed_mst(n, edges, root):
         while used[v] != 2:
             used[v] = 1
             processing.append(v)
-            if from_heap[v].empty(): return -1, par
-            from_cost[v], idx = divmod(from_heap[v].pop(), OFFSET)
+            if from_heap.empty(v):
+               return -1, par
+            from_cost[v], idx = divmod(from_heap.pop(v), OFFSET)
             from_[v] = uf.root(edges[idx][0])
             if stem[v] == -1:
                 stem[v] = idx
-            if from_[v] == v: continue
+            if from_[v] == v:
+                continue
             res += from_cost[v]
             idxs.append(idx)
             while cycle:
@@ -70,22 +72,25 @@ def directed_mst(n, edges, root):
             if used[from_[v]] == 1:
                 p = v
                 while True:
-                    if from_heap[p]: from_heap[p].add(-from_cost[p] << 31)
+                    if not from_heap.empty(p):
+                        from_heap.add(p, -from_cost[p] << 31)
                     if p != v:
                         uf.merge(v, p)
-                        from_heap[v].merge(from_heap[p])
+                        from_heap.roots[v] = from_heap.merge(from_heap.roots[v], from_heap.roots[p])
                     p = uf.root(from_[p])
                     cycle += 1
                     if p == v:
                         break
             else:
                 v = from_[v]
-        for v in processing: used[v] = 2
+        for v in processing:
+            used[v] = 2
 
     used_e = [0] * m
     tree = [-1] * n
     for idx in reversed(idxs):
-        if used_e[idx]: continue
+        if used_e[idx]:
+            continue
         fr, to, cost = edges[idx]
         tree[to] = fr
         x = stem[to]

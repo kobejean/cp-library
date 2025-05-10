@@ -1,6 +1,5 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/static_range_frequency
 
-
 def main():
     N, Q = map(int, input().split())
     A = [int(s) for s in input().split()]
@@ -25,7 +24,6 @@ def main():
     os.write(1, sb.build().encode())
 
 from cp_library.bit.pack_sm_fn import pack_dec, pack_sm
-
 
 def coord_compress(A: list[int]):
     s, m = pack_sm((N := len(A))-1)

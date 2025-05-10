@@ -1,41 +1,38 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/double_ended_priority_queue
 # modified from abUma: https://judge.yosupo.jp/submission/144329
 from cp_library.ds.reserve_fn import reserve
-from cp_library.ds.heap.fast_heapq import heappop, heappush, heapify
+from cp_library.ds.heap.fast_heapq import heapify_max, heappop, heappop_max, heappush, heapify, heappush_max
 
 class DoubleEndedPriorityQueue:
     def __init__(self, n: int, q: int, arr: list[int]=None) -> None:
-        self.hq1 = arr
-        self.hq2 = [0]*n
-        reserve(self.hq1, n+q)
-        reserve(self.hq2, n+q)
+        self.mnq, self.mxq = arr or [0]*n, [0]*n
+        reserve(self.mnq, n+q); reserve(self.mxq, n+q)
         self.used = bytearray(n+q)
         if arr:
-            for i, x in enumerate(S):
-                self.hq1[i] = tmp = x << 28 | i
-                self.hq2[i] = ~tmp
-        heapify(self.hq1)
-        heapify(self.hq2)
+            for i, x in enumerate(arr):
+                self.mnq[i] = self.mxq[i] = x << 28 | i
+        heapify(self.mnq)
+        heapify_max(self.mxq)
     
     def pop_min(self):
-        while 1:
-            tmp = heappop(self.hq1)
+        while True:
+            tmp = heappop(self.mnq)
             x, i = tmp >> 28, tmp & 0xfffffff
             if self.used[i]: continue
             self.used[i] = 1
             return x
         
     def pop_max(self):
-        while 1:
-            tmp = ~heappop(self.hq2)
+        while True:
+            tmp = heappop_max(self.mxq)
             x, i = tmp >> 28, tmp & 0xfffffff
             if self.used[i]: continue
             self.used[i] = 1
             return x
         
     def push(self, x: int, i: int) -> None:
-        heappush(self.hq1, tmp := x << 28 | i)
-        heappush(self.hq2, ~tmp)
+        heappush(self.mnq, tmp := x << 28 | i)
+        heappush_max(self.mxq, tmp)
 
 from cp_library.io.fast.fast_io_fn import rd, rdl, wtn
 

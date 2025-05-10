@@ -1,7 +1,7 @@
 import cp_library.alg.iter.__header__
 import operator
 from itertools import accumulate
-from typing import Callable, Iterable, TypeVar
+from typing import Callable, Iterable
 from cp_library.misc.typing import _T
 
 def presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:

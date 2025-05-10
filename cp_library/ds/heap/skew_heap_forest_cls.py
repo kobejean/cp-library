@@ -13,21 +13,21 @@ class SkewHeapForest(Generic[_T]):
     
     def propagate(shf, u: int):
         if (a := shf.A[u]) != shf.e:
-            if (l := shf.L[u]) != -1: shf.A[l] = shf.op(shf.A[l], a)
-            if (r := shf.R[u]) != -1: shf.A[r] = shf.op(shf.A[r], a)
+            if ~(l := shf.L[u]): shf.A[l] = shf.op(shf.A[l], a)
+            if ~(r := shf.R[u]): shf.A[r] = shf.op(shf.A[r], a)
             shf.V[u] = shf.op(shf.V[u], a); shf.A[u] = shf.e
 
     def merge(shf, u: int, v: int):
-        while u >= 0 and v >= 0:
+        while ~u and ~v:
             shf.propagate(u); shf.propagate(v)
             if shf.V[v] < shf.V[u]: u, v = v, u
             shf.st.append(u); shf.R[u], u = shf.L[u], shf.R[u]
-        u = v if u == -1 else u
+        u = u if ~u else v
         while shf.st: shf.L[u := shf.st.pop()] = u
         return u
     
     def min(shf, i: int):
-        assert (root := shf.roots[i]) >= 0
+        assert ~(root := shf.roots[i])
         shf.propagate(root)
         return shf.V[root]
 
@@ -37,10 +37,9 @@ class SkewHeapForest(Generic[_T]):
         shf.roots[i] = shf.merge(shf.roots[i], id)
 
     def pop(shf, i: int) -> _T:
-        assert (root := shf.roots[i]) >= 0
-        shf.propagate(root := shf.roots[i])
-        val = shf.V[root]
-        shf.roots[i] = shf.merge(shf.L[root], shf.R[root])
+        assert ~(root := shf.roots[i])
+        shf.propagate(root)
+        val, shf.roots[i] = shf.V[root], shf.merge(shf.L[root], shf.R[root])
         return val
     
     def add(shf, i: int, val: _T): shf.A[shf.roots[i]] = shf.op(shf.A[shf.roots[i]], val)
