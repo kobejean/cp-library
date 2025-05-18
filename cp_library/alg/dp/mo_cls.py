@@ -4,71 +4,50 @@ from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
 class Mo(list, Parsable):
     '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''
-    def __init__(self, L: list[int], R: list[int], N: int):
-        self.Q = len(L)
-        self.qbits = self.Q.bit_length()
-        self.nbits = N.bit_length()
-        self.qmask = (1 << self.qbits) - 1
-        self.nmask = (1 << self.nbits) - 1
+    def __init__(mo, L: list[int], R: list[int], N: int):
+        mo.Q = len(L)
+        mo.qbits = mo.Q.bit_length()
+        mo.nbits = N.bit_length()
+        mo.qmask = (1 << mo.qbits) - 1
+        mo.nmask = (1 << mo.nbits) - 1
         
-        self.B = isqrt(N)
-        self.order = [self.packet(i, L[i], R[i]) for i in range(self.Q)]
-        self.order.sort()
-        self.L = [0]*self.Q
-        self.R = [0]*self.Q
-        for i,j in enumerate(self.order):
-            j &= self.qmask
-            self.order[i] = j
-            self.L[i] = L[j]
-            self.R[i] = R[j]
+        mo.B = isqrt(N)
+        mo.order = [mo.packet(i, L[i], R[i]) for i in range(mo.Q)]
+        mo.order.sort()
+        mo.L = [0]*mo.Q
+        mo.R = [0]*mo.Q
+        for i,j in enumerate(mo.order):
+            j &= mo.qmask
+            mo.order[i] = j
+            mo.L[i] = L[j]
+            mo.R[i] = R[j]
 
-    def packet(self, i: int, l: int, r: int) -> int:
-        '''Pack query information into a single integer.'''
-        b = l//self.B
-        if b & 1:
-            return (((b << self.nbits) + self.nmask - r) << self.qbits) + i
-        else:
-            return (((b << self.nbits) + r) << self.qbits) + i
+    def packet(mo, i: int, l: int, r: int) -> int:
+        b = l//mo.B
+        if b & 1: r = mo.nmask - r
+        return (b << mo.nbits | r) << mo.qbits | i
 
-    def add(self, i: int):
+    def add(mo, i: int):
         '''Add element at index i to current range.'''
         pass
 
-    def remove(self, i: int):
+    def remove(mo, i: int):
         '''Remove element at index i from current range.'''
         pass
 
-    def answer(self, i: int, l: int, r: int) -> int:
+    def answer(mo, i: int, l: int, r: int) -> int:
         '''Compute answer for current range.'''
         pass
     
-    def solve(self) -> list[int]:
-        curr_l = curr_r = 0
-        ans = [0] * self.Q
-        order, L, R = self.order, self.L, self.R
-        
-        for i in range(self.Q):
-            qid, l, r = order[i], L[i], R[i]
-            
-            if r > curr_r:
-                for i in range(curr_r, r):
-                    self.add(i)
-
-            if l < curr_l:
-                for i in range(curr_l-1, l-1, -1):
-                    self.add(i)
-
-            if l > curr_l:
-                for i in range(curr_l, l):
-                    self.remove(i)
-
-            if r < curr_r:
-                for i in range(curr_r-1, r-1, -1):
-                    self.remove(i)
-                    
-            ans[qid] = self.answer(qid, l, r)
-            curr_l, curr_r = l, r
-            
+    def solve(mo) -> list[int]:
+        ans = [0]*mo.Q; l = r = 0
+        for i in range(mo.Q):
+            qid, nl, nr = mo.order[i], mo.L[i], mo.R[i]
+            while r < nr: mo.add(r); r += 1
+            while nl < l: mo.add(l:=l-1)
+            while l < nl: mo.remove(l); l += 1
+            while nr < r: mo.remove(r:=r-1)
+            ans[qid] = mo.answer(qid, l, r)
         return ans
 
     @classmethod

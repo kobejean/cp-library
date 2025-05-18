@@ -1,6 +1,7 @@
 import cp_library.__header__
 import cp_library.alg.__header__
 import cp_library.alg.iter.__header__
+import cp_library.alg.iter.cmpr.__header__
 
 def coord_compress(A: list[int], distinct = False):
     s, m = pack_sm((N := len(A))-1); R, V = [0]*N, [a<<s|i for i,a in enumerate(A)]; V.sort()

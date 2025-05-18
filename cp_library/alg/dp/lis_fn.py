@@ -6,6 +6,7 @@ from cp_library.alg.dp.max2_fn import max2
 from cp_library.alg.dp.chmin_fn import chmin
 
 def lis(A: list):
+    '''Returns indices of a longest increasing sequence'''
     N = len(A)
     mn, mx = min(A), max(A)
     dp, idx, prev = [mx+1]*(N+1), [-1]*(N+1), [-1]*N

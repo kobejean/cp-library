@@ -5,7 +5,6 @@ def main():
     N, Q = read(tuple[int, ...])
     A = read(list[int])
     mo = read(TripletQueries[Q, N])
-    
     write(*mo.solve(A), sep='\n')
 
 from cp_library.alg.dp.mo_cls import Mo
@@ -18,23 +17,23 @@ class TripletQueries(Mo):
     triples = 0
     A: list[int] = None
 
-    def add(self, i):
-        v = self.A[i]
-        self.triples += self.pairs[v]    
-        self.pairs[v] += self.cnt[v]     
-        self.cnt[v] += 1 
+    def add(mo, i):
+        v = mo.A[i]
+        mo.triples += mo.pairs[v]    
+        mo.pairs[v] += mo.cnt[v]     
+        mo.cnt[v] += 1 
     
-    def remove(self, i):
-        v = self.A[i]
-        self.cnt[v] -= 1 
-        self.pairs[v] -= self.cnt[v]     
-        self.triples -= self.pairs[v]   
+    def remove(mo, i):
+        v = mo.A[i]
+        mo.cnt[v] -= 1 
+        mo.pairs[v] -= mo.cnt[v]     
+        mo.triples -= mo.pairs[v]   
 
-    def answer(self, i, l, r):
-        return self.triples 
+    def answer(mo, i, l, r):
+        return mo.triples 
     
-    def solve(self, A):
-        self.A = A
+    def solve(mo, A):
+        mo.A = A
         return super().solve()
 
 if __name__ == "__main__":

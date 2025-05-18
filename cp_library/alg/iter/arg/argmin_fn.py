@@ -1,4 +1,7 @@
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.iter.__header__
+import cp_library.alg.iter.arg.__header__
 
 def argmin(A, l = 0, r=None):
     if r is None: r = len(A)

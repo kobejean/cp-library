@@ -1,5 +1,8 @@
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.iter.__header__
 from cp_library.alg.iter.arg.argsort_fn import argsort
+import cp_library.alg.iter.sort.__header__
 
 def sort_parallel(*L: list, reverse=False):
     N, K, order = len(L[0]), len(L), argsort(L[0], reverse)

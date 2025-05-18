@@ -1,4 +1,7 @@
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.iter.__header__
+import cp_library.alg.iter.arg.__header__
 
 def argsort_bounded(A, mx):
     I, cnt, t = [0]*len(A), [0]*(mx+1), 0
