@@ -76,14 +76,14 @@ jobs:
         sudo sh -c 'sync; echo 3 > /proc/sys/vm/drop_caches'
         
         git pull
-        oj-verify run test/atcoder/**/*.py --tle 15 --timeout 7200 --jobs 6
+        oj-verify run test/atcoder/**/*.py --tle 15 --timeout 7200 --jobs 4
         rm -rf .verify-helper/cache /tmp/*
         git restore .verify-helper/cache
-        oj-verify run test/aoj/**/*.py --tle 15 --timeout 7200 --jobs 6
+        oj-verify run test/aoj/**/*.py --tle 15 --timeout 7200 --jobs 4
         rm -rf .verify-helper/cache /tmp/*
         git restore .verify-helper/cache
-        oj-verify run test/library-checker/**/*.py --tle 15 --timeout 7200 --jobs 6
+        oj-verify run test/library-checker/**/*.py --tle 15 --timeout 7200 --jobs 4
         rm -rf .verify-helper/cache /tmp/*
         git restore .verify-helper/cache
-        oj-verify all --tle 15 --timeout 7200 --jobs 6
+        oj-verify all --tle 15 --timeout 7200 --jobs 4
 
