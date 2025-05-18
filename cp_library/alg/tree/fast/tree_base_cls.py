@@ -1,5 +1,6 @@
 import cp_library.alg.tree.fast.__header__
-from typing import Callable, Literal, TypeVar, Union, overload
+from math import inf
+from typing import Callable, Literal, Union, overload
 from cp_library.alg.graph.fast.graph_base_cls import GraphBase
 from cp_library.misc.typing import _T
 
@@ -94,5 +95,4 @@ class TreeBase(GraphBase):
         return GraphBase.compile.__func__(cls, N, N-1, shift)
     
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.array_init_fn import u32f, i32f
-from math import inf
+from cp_library.ds.array.i32f_fn import i32f

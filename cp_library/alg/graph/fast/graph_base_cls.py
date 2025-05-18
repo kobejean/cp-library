@@ -257,7 +257,10 @@ class GraphBase(Sequence, Parsable):
                 U[i], V[i] = int(u)+shift, int(v)+shift
             return cls(N, U, V)
         return parse
-    
-from cp_library.ds.array_init_fn import u8f, u32f, i32f, u32_max, i32_max
+from cp_library.bit.masks.u32_max_cnst import u32_max
+from cp_library.bit.masks.i32_max_cnst import i32_max
+from cp_library.ds.array.u8f_fn import u8f
+from cp_library.ds.array.u32f_fn import u32f
+from cp_library.ds.array.i32f_fn import i32f
 from cp_library.ds.elist_fn import elist
 from cp_library.ds.packet_list_cls import PacketList

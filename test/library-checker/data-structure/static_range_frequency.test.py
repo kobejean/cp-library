@@ -22,9 +22,8 @@ def main():
         else:
             append('0\n')
     os.write(1, sb.build().encode())
-
-from cp_library.bit.pack_sm_fn import pack_dec, pack_sm
-
+from cp_library.bit.pack.pack_dec_fn import pack_dec
+from cp_library.bit.pack.pack_sm_fn import pack_sm
 def coord_compress(A: list[int]):
     s, m = pack_sm((N := len(A))-1)
     R, V = [0]*N, [0]*N

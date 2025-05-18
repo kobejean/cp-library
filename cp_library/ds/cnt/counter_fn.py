@@ -1,4 +1,6 @@
-import cp_library.alg.iter.__header__
+import cp_library.__header__
+import cp_library.ds.__header__
+import cp_library.ds.cnt.__header__
 from typing import Iterable, Union
 
 def counter(A: Iterable[int] = tuple(), N: Union[int,list[int],None] = None):

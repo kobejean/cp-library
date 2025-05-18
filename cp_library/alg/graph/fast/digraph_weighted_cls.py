@@ -15,5 +15,4 @@ class DiGraphWeighted(GraphWeightedBase):
             i = Ra[u := U[e]]
             Ua[i], Va[i], Wa[i], Ea[i], Ra[u] = U[e], V[e], W[e], e, i+1
         super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea)
-
-from cp_library.ds.array_init_fn import u32f
+from cp_library.ds.array.u32f_fn import u32f

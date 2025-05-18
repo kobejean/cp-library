@@ -17,7 +17,7 @@ def main():
             bit.add(T.tin[u], x)
         else:
             u, = q
-            write(bit.range_sum(T.tin[u], T.tout[u]))
+            write(bit.sum_range(T.tin[u], T.tout[u]))
 
 from cp_library.alg.tree.fast.tree_cls import Tree
 from cp_library.ds.tree.bit.bit_cls import BIT

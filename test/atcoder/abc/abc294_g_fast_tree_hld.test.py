@@ -10,7 +10,7 @@ def main():
 
     def query(l, r):
         nonlocal ans
-        ans += bit.range_sum(l,r) 
+        ans += bit.sum_range(l,r) 
     I = [0]*N
     for i in hld.back:
         if i == -1: continue

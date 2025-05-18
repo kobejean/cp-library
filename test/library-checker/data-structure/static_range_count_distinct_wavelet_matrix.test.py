@@ -1,17 +1,20 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/static_range_count_distinct
 
-from cp_library.bit.pack_sm_fn import pack_dec, pack_sm
 
 def main():
     N, Q = map(int, input().split())
     A = [int(s) for s in input().split()]
-    W = WaveletMatrix(jumps(A), N)
+    J = jumps(A)
+    wm = WMStatic(J[:], N)
     for _ in range(Q):
         l, r = input().split()
         l, r = int(l), int(r)
-        append(str(W.count_below(l+1, l, r))); append('\n')
+        append(str(wm.count_below(l+1, l, r))); append('\n')
     os.write(1, sb.build().encode())
 
+from cp_library.ds.wavelet.wm_static_cls import WMStatic
+from cp_library.bit.pack.pack_sm_fn import pack_sm
+from cp_library.bit.pack.pack_dec_fn import pack_dec
 def jumps(A: list[int]):
     s, m = pack_sm((N := len(A))-1)
     R, V = [0]*N, [0]*N
@@ -24,7 +27,6 @@ def jumps(A: list[int]):
         R[i], V[r] = V[r], i+1
     return R
 
-from cp_library.ds.tree.wavelet.wavelet_matrix_cls import WaveletMatrix
 import sys,os
 from __pypy__ import builders # type: ignore
 sb = builders.StringBuilder()

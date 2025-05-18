@@ -3,7 +3,7 @@ from math import inf
 from typing import Iterable
 
 def main():
-    H, W = read(tuple[int, ...])
+    H, W = read(int, int)
     G = read(TeleportGraph[H,W])
     s = g = None
     for v,c in enumerate(G.S):

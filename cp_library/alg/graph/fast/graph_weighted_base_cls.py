@@ -103,8 +103,8 @@ class GraphWeightedBase(GraphBase):
                 U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)
             return cls(N, U, V, W)
         return parse
-
-from cp_library.ds.array_init_fn import i32f, u32f
+from cp_library.ds.array.i32f_fn import i32f
+from cp_library.ds.array.u32f_fn import u32f
 from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.heap.priority_queue_cls import PriorityQueue
 from cp_library.io.parser_cls import TokenStream

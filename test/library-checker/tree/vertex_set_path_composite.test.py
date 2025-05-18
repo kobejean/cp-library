@@ -32,10 +32,11 @@ def main():
     hld = HLDMonoid(T, op, e, S)
     ans(Q, hld, shift, mask, mod)
 
-
 from cp_library.alg.tree.fast.hld_monoid_cls import HLDMonoid
 from cp_library.alg.tree.fast.tree_cls import Tree
-from cp_library.bit.pack_sm_fn import pack_dec, pack_enc, pack_sm
+from cp_library.bit.pack.pack_sm_fn import pack_sm
+from cp_library.bit.pack.pack_enc_fn import pack_enc
+from cp_library.bit.pack.pack_dec_fn import pack_dec
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

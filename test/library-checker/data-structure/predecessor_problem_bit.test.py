@@ -62,7 +62,7 @@ def main():
     os.write(1, sb.build().encode())
 
 from cp_library.bit.popcnt32_fn import popcnt32
-from cp_library.ds.array_init_fn import u32f
+from cp_library.ds.array.u32f_fn import u32f
 from cp_library.ds.tree.bit.bit_cls import BIT
 
 import os

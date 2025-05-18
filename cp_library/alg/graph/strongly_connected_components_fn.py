@@ -3,7 +3,9 @@ from typing import Iterator
 from cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse
 from cp_library.alg.dp.chmin_fn import chmin
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.array_init_fn import i32f, u32f, u8f
+from cp_library.ds.array.i32f_fn import i32f
+from cp_library.ds.array.u8f_fn import u8f
+from cp_library.ds.array.u32f_fn import u32f
 
 def strongly_connected_components(G) -> Iterator[list[int]]:
     '''

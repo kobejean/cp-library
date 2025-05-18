@@ -76,7 +76,7 @@ class Parser:
             return parse
         elif isinstance(args := spec, tuple):      
             return Parser.compile_tuple(type(spec), args)
-        elif isinstance(args := spec, Collection):  
+        elif isinstance(args := spec, Collection):
             return Parser.compile_collection(type(spec), args)
         elif isinstance(fn := spec, Callable): 
             def parse(ts: TokenStream): return fn(next(ts))

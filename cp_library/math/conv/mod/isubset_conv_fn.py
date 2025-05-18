@@ -10,7 +10,9 @@ def isubset_conv(A: list[int], B: list[int], N: int, mod: int) -> list[int]:
     assert len(A) == len(B)
     Z = (N+1)*(M := 1<<N)
     Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)
-    for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]
+    for i,p in enumerate(P):
+        P[i] = p = p<<N|i
+        Ar[p], Br[p] = A[i], B[i]
     subset_zeta_pair(Ar, Br, N)
     for i in range(Z): Ar[i], Br[i] = Ar[i]%mod, Br[i]%mod
     for i in range(0,Z,M):
@@ -18,5 +20,5 @@ def isubset_conv(A: list[int], B: list[int], N: int, mod: int) -> list[int]:
             ij = i+j
             for k in range(M): Cr[ijk] = (Cr[ijk:=ij|k] + Ar[i|k] * Br[j|k]) % mod
     subset_mobius(Cr, N)
-    for i,p in enumerate(P): A[i] = Cr[p<<N|i] % mod
+    for i,p in enumerate(P): A[i] = Cr[p] % mod
     return A

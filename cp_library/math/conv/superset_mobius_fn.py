@@ -6,7 +6,5 @@ def superset_mobius(A, N: int):
     Z = len(A)
     for i in range(N):
         m = b = 1<<i
-        while m < Z:
-            A[m^b] -= A[m]
-            m = m+1|b
+        while m < Z: A[m^b] -= A[m]; m = m+1|b
     return A

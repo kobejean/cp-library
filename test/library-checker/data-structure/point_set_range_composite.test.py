@@ -28,7 +28,8 @@ def main():
             a, b = pack_dec(seg.prod(l, r), shift, mask)
             write((a*x+b)%mod)
 
-from cp_library.bit.pack_sm_fn import pack_dec, pack_enc
+from cp_library.bit.pack.pack_enc_fn import pack_enc
+from cp_library.bit.pack.pack_dec_fn import pack_dec
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

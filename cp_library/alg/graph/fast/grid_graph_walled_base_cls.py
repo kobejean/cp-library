@@ -20,5 +20,4 @@ class GridGraphWalledBase(GridGraphBase):
             S = ''.join(ts.stream.readline().rstrip() for _ in range(H))
             return cls(H, W, S, *args)
         return parse
-
 from cp_library.io.parser_cls import TokenStream

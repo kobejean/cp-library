@@ -45,5 +45,5 @@ class TreeWeightedBase(TreeBase, GraphWeightedBase):
         return GraphWeightedBase.compile.__func__(cls, N, N-1, shift)
     
 from cp_library.ds.elist_fn import elist
-from cp_library.ds.array_init_fn import i32f
+from cp_library.ds.array.i32f_fn import i32f
 from math import inf

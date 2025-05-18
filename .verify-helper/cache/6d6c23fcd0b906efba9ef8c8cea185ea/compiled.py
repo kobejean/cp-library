@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc301_e_grid_graph.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc301_e_fast_grid_graph.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/atcoder/abc/abc301_e_grid_graph.test.py
+# run test/atcoder/abc/abc301_e_fast_grid_graph.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 

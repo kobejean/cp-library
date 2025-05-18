@@ -35,7 +35,8 @@ def main():
 from cp_library.alg.iter.cmpr.icoord_compress_multi_fn import icoord_compress_multi
 from cp_library.ds.tree.segtree_cls import SegTree
 from cp_library.ds.elist_fn import elist
-from cp_library.bit.pack_sm_fn import pack_dec, pack_enc
+from cp_library.bit.pack.pack_enc_fn import pack_enc
+from cp_library.bit.pack.pack_dec_fn import pack_dec
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

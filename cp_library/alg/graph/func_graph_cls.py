@@ -45,5 +45,5 @@ class FuncGraph(list[int], Parsable):
 
 from cp_library.alg.iter.crf_list_cls import CRFList
 from cp_library.alg.iter.roll_fn import roll
-from cp_library.ds.array_init_fn import u8f
+from cp_library.ds.array.u8f_fn import u8f
 from cp_library.ds.elist_fn import elist

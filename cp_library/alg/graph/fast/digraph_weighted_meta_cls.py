@@ -65,6 +65,5 @@ class DiGraphWeightedMeta(DiGraphWeighted):
                     U[i], V[i], W[i], X[i], Y[i], Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)
                 return cls(N, U, V, W, X, Y, Z)
         return parse
-
-from cp_library.ds.array_init_fn import u32f
+from cp_library.ds.array.u32f_fn import u32f
 from cp_library.io.parser_cls import Parser, TokenStream

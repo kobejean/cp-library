@@ -3,7 +3,7 @@
 from math import inf
 
 def main():
-    N, M, r = read()
+    N, M, r = read(int, int, int)
     G = read(DiGraphWeighted[N, M, 0])
     D = G.distance(r)
     write(*('INF' if d == inf else d for d in D), sep='\n')

@@ -18,4 +18,4 @@ def is_bipartite(G: GraphBase, s: Union[int,list,None] = None):
     G.dfs(s, down_fn=down, back_fn=visited, cross_fn=visited, forward_fn=visited)
     return ret
 
-from cp_library.ds.array_init_fn import u8f
+from cp_library.ds.array.u8f_fn import u8f

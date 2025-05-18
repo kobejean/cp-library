@@ -22,7 +22,7 @@ class BIT:
         while n: s, n = s+bit._d[n-1], n&n-1
         return s
 
-    def range_sum(bit, l, r):
+    def sum_range(bit, l, r):
         s = 0
         while r: s, r = s+bit._d[r-1], r&r-1
         while l: s, l = s-bit._d[l-1], l&l-1

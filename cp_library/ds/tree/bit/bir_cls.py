@@ -13,14 +13,14 @@ class BIR(Sequence[int]):
 
     def add(bir, l, r, x) -> None:
         '''Add x to all elements in range [l, r)'''
-        bir.bit1.add(l, x), bir.bit1.add(r, -x)
-        bir.bit2.add(l, x * l), bir.bit2.add(r, -x * r)
+        bir.bit1.add(l, x); bir.bit1.add(r, -x)
+        bir.bit2.add(l, x * l); bir.bit2.add(r, -x * r)
 
     def sum(bir, i):
         '''Get sum of elements in range [0, i)'''
         return i * bir.bit1.sum(i) - bir.bit2.sum(i)
 
-    def range_sum(bir, l, r):
+    def sum_range(bir, l, r):
         '''Get sum of elements in range [l, r)'''
         return bir.sum(r) - bir.sum(l)
 

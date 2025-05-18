@@ -37,7 +37,8 @@ def main():
     for p in range(Q): T.insert(0, 0)
 
 from cp_library.ds.tree.treap_monoid_cls import TreapMonoid
-from cp_library.bit.pack_sm_fn import pack_dec, pack_enc
+from cp_library.bit.pack.pack_enc_fn import pack_enc
+from cp_library.bit.pack.pack_dec_fn import pack_dec
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

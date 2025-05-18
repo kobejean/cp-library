@@ -14,7 +14,7 @@ bit = BIT(a)
 ans = []
 for i in range(q):
     t,p,x = MI()
-    if t: ans.append(bit.range_sum(p,x))
+    if t: ans.append(bit.sum_range(p,x))
     else: bit.add(p,x)
 
 os.write(1," ".join(map(str,ans)).encode())

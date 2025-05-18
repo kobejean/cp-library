@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc185/tasks/abc185_e
 
 def main():
-    N, M = read(tuple[int, ...])
+    N, M = read(int, int)
     A = read(list[int,N])
     B = read(list[int,M])
     

@@ -24,6 +24,6 @@ class GridGraph(GridGraphWalledBase):
                 if G.Va[j] == u:
                     G.twin[i] = j
         G.M, G.Ea = len(Ua), u32a(range(G.M))
-
-from cp_library.ds.array_init_fn import u32f, u32a
+from cp_library.ds.array.u32a_fn import u32a
+from cp_library.ds.array.u32f_fn import u32f
 from cp_library.ds.elist_fn import elist

@@ -36,21 +36,21 @@ class HLDBIT(HLDBase):
 
     def subtree_query(hld, u):
         l, r = hld.subtree_range(u)
-        return hld.bit.range_sum(l, r)
+        return hld.bit.sum_range(l, r)
 
     def path_query(hld, u, v):
         us = uv = 0
         while hld.head[u] != hld.head[v]:
             if hld.depth[hld.head[u]] < hld.depth[hld.head[v]]:
-                uv += hld.bit.range_sum(hld.tin[hld.head[v]], hld.tin[v]+1)
+                uv += hld.bit.sum_range(hld.tin[hld.head[v]], hld.tin[v]+1)
                 v = hld.up[v]
             else:
-                us += hld.bit.range_sum(hld.tin[hld.head[u]], hld.tin[u]+1)
+                us += hld.bit.sum_range(hld.tin[hld.head[u]], hld.tin[u]+1)
                 u = hld.up[u]
 
         if hld.depth[u] < hld.depth[v]:
-            return us+hld.bit.range_sum(hld.tin[u]+hld.edge_queries, hld.tin[v]+1)+uv
+            return us+hld.bit.sum_range(hld.tin[u]+hld.edge_queries, hld.tin[v]+1)+uv
         else:
-            return us+hld.bit.range_sum(hld.tin[v]+hld.edge_queries, hld.tin[u]+1)+uv
+            return us+hld.bit.sum_range(hld.tin[v]+hld.edge_queries, hld.tin[u]+1)+uv
 
 from cp_library.ds.tree.bit.bit_cls import BIT

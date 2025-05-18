@@ -24,7 +24,7 @@ def max_lim(X, lim):
     return 0
 
 def main():
-    N, T = read(tuple[int, ...])
+    N, T = read(int, int)
     A = sorted(read(list[int, N]))
     ans = solve(N, T, A)
     write(ans)

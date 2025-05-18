@@ -6,7 +6,7 @@ from cp_library.alg.tree.fast.aux_tree_weighted_cls import AuxTreeWeighted
 def main():
     N = read(int)
     C = read(list[-1, N])
-    U, V = read(Parallel[N-1,2,-1])
+    U, V = read(Parallel[N-1,[-1,-1]])
     W = [1]*(N-1)
     T = AuxTreeWeighted(N, U, V, W)
 

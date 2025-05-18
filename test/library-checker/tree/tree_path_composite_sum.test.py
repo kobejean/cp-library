@@ -20,9 +20,10 @@ def main():
     dp = T.rerooting_dp(0, merge, edge)
     ans = [((d >> shift) + A[u])%mod for u,d in enumerate(dp)]
     write(*ans)
-
 from cp_library.math.mod.mint_cls import mint
-from cp_library.bit.pack_sm_fn import pack_dec, pack_enc, pack_sm
+from cp_library.bit.pack.pack_sm_fn import pack_sm
+from cp_library.bit.pack.pack_enc_fn import pack_enc
+from cp_library.bit.pack.pack_dec_fn import pack_dec
 from cp_library.alg.tree.fast.tree_weighted_meta_cls import TreeWeightedMeta
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write

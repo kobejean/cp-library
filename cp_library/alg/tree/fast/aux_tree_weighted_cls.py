@@ -25,5 +25,4 @@ class AuxTreeWeighted(AuxTreeBase, TreeWeighted):
                 U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)
             return cls(N, U, V, W, root)
         return parse
-
-from cp_library.ds.array_init_fn import u32f
+from cp_library.ds.array.u32f_fn import u32f

@@ -8,7 +8,7 @@ class mint(int):
     cache: list['mint']
 
     def __new__(cls, *args, **kwargs):
-        if 0<= (x := int(*args, **kwargs)) <= 2:
+        if 0 <= (x := int(*args, **kwargs)) < 64:
             return cls.cache[x]
         else:
             return cls.fix(x)
@@ -20,6 +20,7 @@ class mint(int):
         mint.one = cls.one = cls.fix(1)
         mint.two = cls.two = cls.fix(2)
         mint.cache = cls.cache = [cls.zero, cls.one, cls.two]
+        for x in range(3,64): mint.cache.append(cls.fix(x))
 
     @classmethod
     def fix(cls, x): return cls.cast(x%cls.mod)
@@ -52,3 +53,4 @@ class mint(int):
     def __neg__(self): return mint.mod-self
     def __pos__(self): return self
     def __abs__(self): return self
+    def __class_getitem__(self, x: int): return self.cache[x]

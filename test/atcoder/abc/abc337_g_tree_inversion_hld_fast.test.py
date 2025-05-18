@@ -11,11 +11,11 @@ def main():
 
     for u,t in enumerate(hld.tin):
         l,r = hld.subtree_range(u)
-        range_add(l,r,u-bit.range_sum(l,r))
+        range_add(l,r,u-bit.sum_range(l,r))
         for i in T.range(u):
             if i != hld.back[u]:
                 l,r = hld.subtree_range(T.Va[i])
-                cnt = bit.range_sum(l,r)
+                cnt = bit.sum_range(l,r)
                 range_add(0,l,cnt)
                 range_add(r,N,cnt)
         bit.add(t,1)

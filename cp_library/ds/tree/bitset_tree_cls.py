@@ -1,6 +1,6 @@
-from cp_library.ds.array_init_fn import u32f
 import cp_library.__header__
 from cp_library.alg.dp.min2_fn import min2
+from cp_library.ds.array.u32f_fn import u32f
 import cp_library.ds.__header__
 import cp_library.ds.tree.__header__
 

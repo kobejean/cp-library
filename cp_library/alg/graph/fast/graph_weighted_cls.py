@@ -25,5 +25,4 @@ class GraphWeighted(GraphWeightedBase):
             Ra[v],Ua[j],Va[j],Wa[j],Ea[j],twin[j] = j+1,v,u,w,e,i
 
         super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea, twin)
-
-from cp_library.ds.array_init_fn import u32f
+from cp_library.ds.array.u32f_fn import u32f

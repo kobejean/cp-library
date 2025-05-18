@@ -18,5 +18,5 @@ class Graph(GraphBase):
             if i == j: continue
             Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i
         super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)
-
-from cp_library.ds.array_init_fn import u32f, i32f
+from cp_library.ds.array.i32f_fn import i32f
+from cp_library.ds.array.u32f_fn import u32f
