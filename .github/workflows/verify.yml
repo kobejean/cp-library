@@ -77,13 +77,13 @@ jobs:
         
         git pull
         oj-verify run test/atcoder/**/*.py --tle 15 --timeout 7200 --jobs 6
-        rm -rf .verify-helper/cache
+        rm -rf .verify-helper/cache /tmp/*
         git restore .verify-helper/cache
         oj-verify run test/aoj/**/*.py --tle 15 --timeout 7200 --jobs 6
-        rm -rf .verify-helper/cache
+        rm -rf .verify-helper/cache /tmp/*
         git restore .verify-helper/cache
         oj-verify run test/library-checker/**/*.py --tle 15 --timeout 7200 --jobs 6
-        rm -rf .verify-helper/cache
+        rm -rf .verify-helper/cache /tmp/*
         git restore .verify-helper/cache
         oj-verify all --tle 15 --timeout 7200 --jobs 6
-        
+
