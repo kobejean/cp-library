@@ -75,6 +75,11 @@ jobs:
         # Clear system caches
         sudo sh -c 'sync; echo 3 > /proc/sys/vm/drop_caches'
         
-        # Run tests with reduced parallelism and increased timeouts
-        git pull && oj-verify all --tle 15 --timeout 7200 --jobs 6
-
+        git pull
+        oj-verify run test/atcoder/**/*.py --tle 15 --timeout 7200 --jobs 6
+        rm -rf .verify-helper/cache
+        oj-verify run test/aoj/**/*.py --tle 15 --timeout 7200 --jobs 6
+        rm -rf .verify-helper/cache
+        oj-verify run test/library-checker/**/*.py --tle 15 --timeout 7200 --jobs 6
+        rm -rf .verify-helper/cache
+        oj-verify all --tle 15 --timeout 7200 --jobs 6
