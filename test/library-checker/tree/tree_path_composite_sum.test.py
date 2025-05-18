@@ -4,7 +4,7 @@ def main():
     mint.set_mod(mod := 998244353)
     N = read(int)
     A = read(list[int])
-    T = read(TreeWeightedMeta[N,2,tuple[int,int,int,int]])
+    T = read(TreeWeightedMeta[N,tuple[int,int,int,int]])
     shift, mask = pack_sm(N)
     smod = mod << shift
 

@@ -1,3 +1,4 @@
+import typing
 import cp_library.__header__
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
@@ -37,7 +38,7 @@ class GraphWeightedMeta(GraphWeighted):
 
     @classmethod
     def compile(cls, N: int, M: int, T: list[type] = [-1,-1,int,int]):
-        u, v, *w = map(Parser.compile, T)
+        u, v, *w = map(Parser.compile, typing.get_args(T) or T)
         if len(w) == 2:
             if T == [-1,-1,int,int]:
                 def parse(ts: TokenStream):

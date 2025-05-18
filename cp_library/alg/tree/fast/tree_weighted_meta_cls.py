@@ -8,6 +8,6 @@ from cp_library.alg.tree.fast.tree_weighted_base_cls import TreeWeightedBase
 
 class TreeWeightedMeta(TreeWeightedBase, GraphWeightedMeta):
     @classmethod
-    def compile(cls, N: int, D = 2, T: list[type] = [-1,-1,int,int]):
-        return GraphWeightedMeta.compile.__func__(cls, N, N-1, D, T)
+    def compile(cls, N: int, T: list[type] = [-1,-1,int,int]):
+        return GraphWeightedMeta.compile.__func__(cls, N, N-1, T)
 
