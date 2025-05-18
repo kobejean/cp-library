@@ -4,6 +4,18 @@ data:
   - name: cp_library/alg/divcon
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/divcon/bisect_left_fn.py
+      title: cp_library/alg/divcon/bisect_left_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/divcon/bisect_right_fn.py
+      title: cp_library/alg/divcon/bisect_right_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/divcon/divcon_dp_max_fn.py
+      title: cp_library/alg/divcon/divcon_dp_max_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/divcon/divcon_dp_min_fn.py
+      title: cp_library/alg/divcon/divcon_dp_min_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/fbisect_fn.py
       title: cp_library/alg/divcon/fbisect_fn.py
     - icon: ':heavy_check_mark:'
@@ -250,26 +262,42 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
       title: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
-  - name: cp_library/alg/iter
+  - name: cp_library/alg/iter/arg
     pages:
     - icon: ':warning:'
-      path: cp_library/alg/iter/argmax_fn.py
-      title: cp_library/alg/iter/argmax_fn.py
+      path: cp_library/alg/iter/arg/argmax_fn.py
+      title: cp_library/alg/iter/arg/argmax_fn.py
     - icon: ':warning:'
-      path: cp_library/alg/iter/argmin_fn.py
-      title: cp_library/alg/iter/argmin_fn.py
+      path: cp_library/alg/iter/arg/argmin_fn.py
+      title: cp_library/alg/iter/arg/argmin_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/iter/argsort_bounded_fn.py
-      title: cp_library/alg/iter/argsort_bounded_fn.py
+      path: cp_library/alg/iter/arg/argsort_bounded_fn.py
+      title: cp_library/alg/iter/arg/argsort_bounded_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/iter/argsort_fn.py
-      title: cp_library/alg/iter/argsort_fn.py
+      path: cp_library/alg/iter/arg/argsort_fn.py
+      title: cp_library/alg/iter/arg/argsort_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/arg/argsort_multi_fn.py
+      title: cp_library/alg/iter/arg/argsort_multi_fn.py
     - icon: ':warning:'
-      path: cp_library/alg/iter/coord_compress_fn.py
-      title: cp_library/alg/iter/coord_compress_fn.py
+      path: cp_library/alg/iter/arg/iargsort_fn.py
+      title: cp_library/alg/iter/arg/iargsort_fn.py
+  - name: cp_library/alg/iter/cmpr
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/cmpr/coord_compress_fn.py
+      title: cp_library/alg/iter/cmpr/coord_compress_fn.py
     - icon: ':warning:'
-      path: cp_library/alg/iter/counter_fn.py
-      title: cp_library/alg/iter/counter_fn.py
+      path: cp_library/alg/iter/cmpr/icoord_compress_fn.py
+      title: cp_library/alg/iter/cmpr/icoord_compress_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/cmpr/icoord_compress_multi_fn.py
+      title: cp_library/alg/iter/cmpr/icoord_compress_multi_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
+      title: cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
+  - name: cp_library/alg/iter
+    pages:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/crf_list_cls.py
       title: cp_library/alg/iter/crf_list_cls.py
@@ -277,14 +305,11 @@ data:
       path: cp_library/alg/iter/enumerate_rev_fn.py
       title: cp_library/alg/iter/enumerate_rev_fn.py
     - icon: ':warning:'
-      path: cp_library/alg/iter/iargsort_fn.py
-      title: cp_library/alg/iter/iargsort_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/iter/icoord_compress_fn.py
-      title: cp_library/alg/iter/icoord_compress_fn.py
-    - icon: ':warning:'
       path: cp_library/alg/iter/ishift_fn.py
       title: cp_library/alg/iter/ishift_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/minmax_fn.py
+      title: cp_library/alg/iter/minmax_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/presum2d_fn.py
       title: cp_library/alg/iter/presum2d_fn.py
@@ -307,23 +332,25 @@ data:
       path: cp_library/alg/iter/slice_iterator_reverse_cls.py
       title: cp_library/alg/iter/slice_iterator_reverse_cls.py
     - icon: ':warning:'
-      path: cp_library/alg/iter/sort_buckets_fn.py
-      title: cp_library/alg/iter/sort_buckets_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/iter/sort_groups_fn.py
-      title: cp_library/alg/iter/sort_groups_fn.py
-    - icon: ':warning:'
-      path: cp_library/alg/iter/sort_parallel_copies_fn.py
-      title: cp_library/alg/iter/sort_parallel_copies_fn.py
-    - icon: ':warning:'
-      path: cp_library/alg/iter/sort_parallel_fn.py
-      title: cp_library/alg/iter/sort_parallel_fn.py
-    - icon: ':warning:'
       path: cp_library/alg/iter/sufsum_fn.py
       title: cp_library/alg/iter/sufsum_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/sum_range_fn.py
       title: cp_library/alg/iter/sum_range_fn.py
+  - name: cp_library/alg/iter/sort
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/sort/isort_parallel_fn.py
+      title: cp_library/alg/iter/sort/isort_parallel_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/sort/sort_buckets_fn.py
+      title: cp_library/alg/iter/sort/sort_buckets_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/sort/sort_groups_fn.py
+      title: cp_library/alg/iter/sort/sort_groups_fn.py
+    - icon: ':warning:'
+      path: cp_library/alg/iter/sort/sort_parallel_fn.py
+      title: cp_library/alg/iter/sort/sort_parallel_fn.py
   - name: cp_library/alg/tree
     pages:
     - icon: ':warning:'
@@ -417,7 +444,7 @@ data:
     - icon: ':warning:'
       path: cp_library/bit/ctz_fn.py
       title: cp_library/bit/ctz_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/bit/pack_sm_fn.py
       title: cp_library/bit/pack_sm_fn.py
     - icon: ':heavy_check_mark:'
@@ -429,9 +456,93 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/bit/popcnts_fn.py
       title: cp_library/bit/popcnts_fn.py
-  - name: cp_library/ds
+  - name: cp_library/bit/masks
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/bit/masks/i32_max_cnst.py
+      title: cp_library/bit/masks/i32_max_cnst.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/bit/masks/u32_max_cnst.py
+      title: cp_library/bit/masks/u32_max_cnst.py
+  - name: cp_library/bit/pack
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/bit/pack/pack_dec_fn.py
+      title: cp_library/bit/pack/pack_dec_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/bit/pack/pack_enc_fn.py
+      title: cp_library/bit/pack/pack_enc_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/bit/pack/pack_indices_fn.py
+      title: cp_library/bit/pack/pack_indices_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/bit/pack/pack_sm_fn.py
+      title: cp_library/bit/pack/pack_sm_fn.py
+  - name: cp_library/ds/array
+    pages:
+    - icon: ':warning:'
+      path: cp_library/ds/array/f32a_fn.py
+      title: cp_library/ds/array/f32a_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/f32f_fn.py
+      title: cp_library/ds/array/f32f_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/f64a_fn.py
+      title: cp_library/ds/array/f64a_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/f64f_fn.py
+      title: cp_library/ds/array/f64f_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/i16a_fn.py
+      title: cp_library/ds/array/i16a_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/i16f_fn.py
+      title: cp_library/ds/array/i16f_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/i32a_fn.py
+      title: cp_library/ds/array/i32a_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/array/i32f_fn.py
+      title: cp_library/ds/array/i32f_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/i64a_fn.py
+      title: cp_library/ds/array/i64a_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/i64f_fn.py
+      title: cp_library/ds/array/i64f_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/i8a_fn.py
+      title: cp_library/ds/array/i8a_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/i8f_fn.py
+      title: cp_library/ds/array/i8f_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/u16a_fn.py
+      title: cp_library/ds/array/u16a_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/u16f_fn.py
+      title: cp_library/ds/array/u16f_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/array/u32a_fn.py
+      title: cp_library/ds/array/u32a_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/array/u32f_fn.py
+      title: cp_library/ds/array/u32f_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/u64a_fn.py
+      title: cp_library/ds/array/u64a_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/u64f_fn.py
+      title: cp_library/ds/array/u64f_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/array/u8a_fn.py
+      title: cp_library/ds/array/u8a_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/array/u8f_fn.py
+      title: cp_library/ds/array/u8f_fn.py
+  - name: cp_library/ds
+    pages:
+    - icon: ':warning:'
       path: cp_library/ds/array_init_fn.py
       title: cp_library/ds/array_init_fn.py
     - icon: ':heavy_check_mark:'
@@ -506,9 +617,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/sparse_table_cls.py
       title: cp_library/ds/sparse_table_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/wavelet_matrix_cls.py
-      title: cp_library/ds/wavelet_matrix_cls.py
+  - name: cp_library/ds/cnt
+    pages:
+    - icon: ':warning:'
+      path: cp_library/ds/cnt/counter_fn.py
+      title: cp_library/ds/cnt/counter_fn.py
+    - icon: ':warning:'
+      path: cp_library/ds/cnt/distinct_counter_cls.py
+      title: cp_library/ds/cnt/distinct_counter_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/cnt/range_distinct_counter_cls.py
+      title: cp_library/ds/cnt/range_distinct_counter_cls.py
   - name: cp_library/ds/csr
     pages:
     - icon: ':heavy_check_mark:'
@@ -550,6 +669,9 @@ data:
       path: cp_library/ds/heap/priority_queue_cls.py
       title: cp_library/ds/heap/priority_queue_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/skew_heap_cls.py
+      title: cp_library/ds/heap/skew_heap_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/skew_heap_forest_cls.py
       title: cp_library/ds/heap/skew_heap_forest_cls.py
   - name: cp_library/ds/list
@@ -563,6 +685,9 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/list/ordlist_cls.py
       title: cp_library/ds/list/ordlist_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/presum_cls.py
+      title: cp_library/ds/list/presum_cls.py
   - name: cp_library/ds/que
     pages:
     - icon: ':warning:'
@@ -577,12 +702,15 @@ data:
       path: cp_library/ds/tree/bitset_tree_cls.py
       title: cp_library/ds/tree/bitset_tree_cls.py
     - icon: ':warning:'
+      path: cp_library/ds/tree/lazy_segtree_cls.py
+      title: cp_library/ds/tree/lazy_segtree_cls.py
+    - icon: ':warning:'
       path: cp_library/ds/tree/pdsu_cls.py
       title: cp_library/ds/tree/pdsu_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/segtree_cls.py
       title: cp_library/ds/tree/segtree_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/treap_monoid_cls.py
       title: cp_library/ds/tree/treap_monoid_cls.py
     - icon: ':heavy_check_mark:'
@@ -596,12 +724,74 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/bit/bit_cls.py
       title: cp_library/ds/tree/bit/bit_cls.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/bit/bit_monoid_cls.py
       title: cp_library/ds/tree/bit/bit_monoid_cls.py
     - icon: ':warning:'
       path: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
       title: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
+  - name: cp_library/ds/wavelet
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/bit_array_cls.py
+      title: cp_library/ds/wavelet/bit_array_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/wavelet/bit_list_cls.py
+      title: cp_library/ds/wavelet/bit_list_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_bit_cls.py
+      title: cp_library/ds/wavelet/wm_bit_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_bit_compressed_cls.py
+      title: cp_library/ds/wavelet/wm_bit_compressed_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_bit_points_cls.py
+      title: cp_library/ds/wavelet/wm_bit_points_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_compressed_cls.py
+      title: cp_library/ds/wavelet/wm_compressed_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_group_cls.py
+      title: cp_library/ds/wavelet/wm_group_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_group_compressed_cls.py
+      title: cp_library/ds/wavelet/wm_group_compressed_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_group_points_cls.py
+      title: cp_library/ds/wavelet/wm_group_points_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_monoid_cls.py
+      title: cp_library/ds/wavelet/wm_monoid_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_monoid_compressed_cls.py
+      title: cp_library/ds/wavelet/wm_monoid_compressed_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_monoid_points_cls.py
+      title: cp_library/ds/wavelet/wm_monoid_points_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_points_cls.py
+      title: cp_library/ds/wavelet/wm_points_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_segtree_cls.py
+      title: cp_library/ds/wavelet/wm_segtree_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_segtree_compressed_cls.py
+      title: cp_library/ds/wavelet/wm_segtree_compressed_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_segtree_points_cls.py
+      title: cp_library/ds/wavelet/wm_segtree_points_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_static_cls.py
+      title: cp_library/ds/wavelet/wm_static_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_weighted_cls.py
+      title: cp_library/ds/wavelet/wm_weighted_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_weighted_compressed_cls.py
+      title: cp_library/ds/wavelet/wm_weighted_compressed_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/wavelet/wm_weighted_points_cls.py
+      title: cp_library/ds/wavelet/wm_weighted_points_cls.py
   - name: cp_library/io
     pages:
     - icon: ':warning:'
@@ -842,6 +1032,9 @@ data:
       title: cp_library/math/linalg/vec/vec_cls.py
   - name: cp_library/math/mod
     pages:
+    - icon: ':warning:'
+      path: cp_library/math/mod/lemire_fn.py
+      title: cp_library/math/mod/lemire_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
@@ -904,6 +1097,9 @@ data:
     - icon: ':warning:'
       path: cp_library/math/table/linear_sieve_cnts_cls.py
       title: cp_library/math/table/linear_sieve_cnts_cls.py
+    - icon: ':warning:'
+      path: cp_library/math/table/lucas_cls.py
+      title: cp_library/math/table/lucas_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/table/mobius_cls.py
       title: cp_library/math/table/mobius_cls.py
@@ -977,6 +1173,23 @@ data:
     - icon: ':warning:'
       path: play.py
       title: play.py
+  - name: test/library-checker/data-structure
+    pages:
+    - icon: ':warning:'
+      path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
+        copy.py
+      title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
+        copy.py
+  - name: test/library-checker/tree
+    pages:
+    - icon: ':warning:'
+      path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
+      title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
+  - name: test/unittests/ds/wavelet
+    pages:
+    - icon: ':warning:'
+      path: test/unittests/ds/wavelet/wm_static_cls.py
+      title: test/unittests/ds/wavelet/wm_static_cls.py
   verificationCategories:
   - name: test/aoj/dsl
     pages:
@@ -1261,8 +1474,23 @@ data:
       path: test/library-checker/data-structure/point_add_range_sum.test.py
       title: test/library-checker/data-structure/point_add_range_sum.test.py
     - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
+      title: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
+      title: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
+      title: test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/point_set_range_composite.test.py
       title: test/library-checker/data-structure/point_set_range_composite.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/point_set_range_composite_large_array.test.py
+      title: test/library-checker/data-structure/point_set_range_composite_large_array.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+      title: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/predecessor_problem.test.py
       title: test/library-checker/data-structure/predecessor_problem.test.py
@@ -1270,8 +1498,56 @@ data:
       path: test/library-checker/data-structure/predecessor_problem_bit.test.py
       title: test/library-checker/data-structure/predecessor_problem_bit.test.py
     - icon: ':heavy_check_mark:'
-      path: test/library-checker/data-structure/range_kth_smallest.test.py
-      title: test/library-checker/data-structure/range_kth_smallest.test.py
+      path: test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py
+      title: test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/range_kth_smallest_wm_points.test.py
+      title: test/library-checker/data-structure/range_kth_smallest_wm_points.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
+      title: test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
+      title: test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_group.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_group.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_weighted.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_weighted.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/rectangle_sum_wm_weighted_points.test.py
+      title: test/library-checker/data-structure/rectangle_sum_wm_weighted_points.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/static_range_count_distinct_wavelet_matrix.test.py
+      title: test/library-checker/data-structure/static_range_count_distinct_wavelet_matrix.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/static_range_frequency.test.py
       title: test/library-checker/data-structure/static_range_frequency.test.py
@@ -1281,6 +1557,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/static_range_sum.test.py
       title: test/library-checker/data-structure/static_range_sum.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+      title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/staticrmq.test.py
       title: test/library-checker/data-structure/staticrmq.test.py
@@ -1331,8 +1610,14 @@ data:
       path: test/library-checker/graph/directedmst.test.py
       title: test/library-checker/graph/directedmst.test.py
     - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/directedmst_skew_heap_forest.test.py
+      title: test/library-checker/graph/directedmst_skew_heap_forest.test.py
+    - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/incremental_scc.test.py
       title: test/library-checker/graph/incremental_scc.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
+      title: test/library-checker/graph/incremental_scc_paralel_sort.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
       title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py

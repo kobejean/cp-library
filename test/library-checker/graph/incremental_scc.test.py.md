@@ -5,8 +5,8 @@ data:
     path: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
     title: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/argsort_bounded_fn.py
-    title: cp_library/alg/iter/argsort_bounded_fn.py
+    path: cp_library/alg/iter/arg/argsort_bounded_fn.py
+    title: cp_library/alg/iter/arg/argsort_bounded_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
@@ -65,7 +65,7 @@ data:
     \       E, F = F, E\n        div_con(nN, em, er, tm, tr)\n        div_con(N, el,\
     \ em, tl, tm)\n        E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\
     \n\ndef argsort_bounded(A, mx):\n    I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n \
-    \   for a in A: cnt[a] += 1\n    for i in range(mx+1): cnt[i], t = t, t+cnt[i]\n\
+    \   for a in A: cnt[a] += 1\n    for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n\
     \    for i,a in enumerate(A): I[cnt[a]] = i; cnt[a] += 1\n    return I\n\n\nfrom\
     \ __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as os_read,\
     \ write as os_write\nfrom atexit import register as atexist_register\n\nclass\
@@ -99,16 +99,16 @@ data:
     \ dsu[v] = v = dsu[dsu[v]]\n        if u != v: dsu[v], cur, X[u] = u, (cur+X[u]*X[v])%mod,\
     \ (X[u]+X[v])%mod\n    while t < M: ans[t] = cur; t += 1\n    wtnl(ans)\n\nfrom\
     \ cp_library.alg.graph.fast.snippets.scc_incremental_fn import scc_incremental\n\
-    from cp_library.alg.iter.argsort_bounded_fn import argsort_bounded\nfrom cp_library.io.fast.fast_io_fn\
+    from cp_library.alg.iter.arg.argsort_bounded_fn import argsort_bounded\nfrom cp_library.io.fast.fast_io_fn\
     \ import rd, rdl, wtnl\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
-  - cp_library/alg/iter/argsort_bounded_fn.py
+  - cp_library/alg/iter/arg/argsort_bounded_fn.py
   - cp_library/io/fast/fast_io_fn.py
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc.test.py

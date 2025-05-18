@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/divcon/bisect_left_fn.py
+    title: cp_library/alg/divcon/bisect_left_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
@@ -30,25 +33,25 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\nfrom bisect import bisect_left\n\n\n\ndef max2(a, b):\n    return a\
-    \ if a > b else b\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return\
-    \ ch\n\ndef lis(A: list):\n    N = len(A)\n    mn, mx = min(A), max(A)\n    dp,\
-    \ idx, prev = [mx+1]*(N+1), [-1]*(N+1), [-1]*N\n    dp[0], r = mn-1, 0\n    for\
-    \ i,a in enumerate(A):\n        if chmin(dp, p := bisect_left(dp,a,hi=r+1), a):\n\
-    \            idx[p], prev[i], r = i, idx[p-1], max2(r,p)\n    ans, i = [0]*r,\
-    \ idx[r]\n    for j in range(r-1,-1,-1): ans[j], i = i, prev[i]\n    return ans\n\
-    \n    \n\n\n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os\
-    \ import read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
-    \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
-    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
-    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
-    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
-    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
-    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
-    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
-    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
-    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \  \n'''\n\n\n\ndef bisect_left(A, x, l, r):\n    while l<r:\n        if A[m:=(l+r)>>1]<x:l=m+1\n\
+    \        else:r=m\n    return l\n\n\ndef max2(a, b):\n    return a if a > b else\
+    \ b\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\ndef\
+    \ lis(A: list):\n    N = len(A)\n    mn, mx = min(A), max(A)\n    dp, idx, prev\
+    \ = [mx+1]*(N+1), [-1]*(N+1), [-1]*N\n    dp[0], r = mn-1, 0\n    for i,a in enumerate(A):\n\
+    \        if chmin(dp, p := bisect_left(dp,a,0,r+1), a):\n            idx[p], prev[i],\
+    \ r = i, idx[p-1], max2(r,p)\n    ans, i = [0]*r, idx[r]\n    for j in range(r-1,-1,-1):\
+    \ ans[j], i = i, prev[i]\n    return ans\n\n    \n\n\n\nfrom __pypy__.builders\
+    \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
     \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
     \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
     \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
@@ -67,12 +70,13 @@ data:
   dependsOn:
   - cp_library/alg/dp/lis_fn.py
   - cp_library/io/fast/fast_io_fn.py
+  - cp_library/alg/divcon/bisect_left_fn.py
   - cp_library/alg/dp/max2_fn.py
   - cp_library/alg/dp/chmin_fn.py
   isVerificationFile: true
   path: test/library-checker/other/longest_increasing_sequence.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/other/longest_increasing_sequence.test.py

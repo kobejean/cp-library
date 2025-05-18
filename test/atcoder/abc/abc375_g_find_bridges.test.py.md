@@ -95,13 +95,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -125,7 +126,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -149,50 +150,52 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
-    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
-    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n\
-    \        def parse(ts: TokenStream):\n            u,v = ts.line()\n          \
-    \  return cls((int(u)+I,int(v)+I))\n        return parse\n\nfrom functools import\
-    \ total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def __lt__(self,\
-    \ other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
-    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
-    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
-    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\n\n\n\ndef\
-    \ heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0,\
-    \ len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
-    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
-    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
-    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
-    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
-    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
+    def read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T],\
+    \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
+    \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
+    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
+    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
+    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
+    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
+    \ parse\n\nfrom functools import total_ordering \n\n@total_ordering\nclass EdgeWeighted(Edge):\n\
+    \    def __lt__(self, other: tuple) -> bool:\n        a = self[2],self[0],self[1]\n\
+    \        b = other[2],other[0],other[1]\n        return a < b\n    \n    @classmethod\n\
+    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
+    \  u,v,w = ts.line()\n            return cls((int(u)+I, int(v)+I, int(w)))\n \
+    \       return parse\n\n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
+    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
+    \    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0] = heap[0],\
+    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap: list, item):\n\
+    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
+    \ 0)\n    return item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup(x, i)\n\ndef heapsiftdown(heap: list, root: int, pos: int):\n   \
+    \ item = heap[pos]\n    while root < pos and item < heap[p := (pos-1)>>1]: heap[pos],\
+    \ pos = heap[p], p\n    heap[pos] = item\n\ndef heapsiftup(heap: list, pos: int):\n\
+    \    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and heap[c\
+    \ := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1\n \
+    \   if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n    heap[pos] =\
+    \ item\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n    if heap: item,\
+    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapreplace_max(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n \
+    \   return item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup_max(x, i)\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
+    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n\
+    \    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\
+    \ndef heappushpop_max(heap: list, item):\n    if heap and heap[0] > item: item,\
+    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap:\
     \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
-    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
-    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
-    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
-    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
-    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
-    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
-    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
-    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
-    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
-    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
@@ -611,7 +614,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc375_g_find_bridges.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc375_g_find_bridges.test.py

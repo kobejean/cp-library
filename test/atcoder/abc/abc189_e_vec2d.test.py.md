@@ -76,13 +76,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -106,7 +107,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -130,30 +131,33 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
-    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
-    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nfrom typing import Sequence\nfrom math import gcd, sqrt\n\n\nfrom math import\
-    \ hypot\n\nimport operator\n\nclass ElmWiseMixin:\n    def elm_wise(self, other,\
-    \ op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
-    \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
-    \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
-    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
-    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
-    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
-    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
-    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
-    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
-    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
-    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
+    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
+    def read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T],\
+    \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
+    \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
+    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
+    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nfrom typing import Sequence\nfrom math import gcd, sqrt\n\
+    \n\nfrom math import hypot\n\nimport operator\n\nclass ElmWiseMixin:\n    def\
+    \ elm_wise(self, other, op):\n        if isinstance(other, Number):\n        \
+    \    return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
+    \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
+    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
+    )\n\n    def __add__(self, other): return self.elm_wise(other, operator.add)\n\
+    \    def __radd__(self, other): return self.elm_wise(other, operator.add)\n  \
+    \  def __sub__(self, other): return self.elm_wise(other, operator.sub)\n    def\
+    \ __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
+    \    def __mul__(self, other): return self.elm_wise(other, operator.mul)\n   \
+    \ def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n    def\
+    \ __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n  \
+    \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
     \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
     \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
     \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
@@ -221,7 +225,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc189_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc189_e_vec2d.test.py

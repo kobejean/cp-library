@@ -54,13 +54,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -84,7 +85,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -175,26 +176,28 @@ data:
     \        return '\\n'.join(' '.join(str(elm) for elm in row) for row in self)\n\
     \n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n\
     \    two: 'mint'\n    cache: list['mint']\n\n    def __new__(cls, *args, **kwargs):\n\
-    \        if 0<= (x := int(*args, **kwargs)) <= 2:\n            return cls.cache[x]\n\
+    \        if 0 <= (x := int(*args, **kwargs)) < 64:\n            return cls.cache[x]\n\
     \        else:\n            return cls.fix(x)\n\n    @classmethod\n    def set_mod(cls,\
     \ mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero = cls.zero =\
     \ cls.cast(0)\n        mint.one = cls.one = cls.fix(1)\n        mint.two = cls.two\
     \ = cls.fix(2)\n        mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n\
-    \n    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n\
-    \    def cast(cls, x): return super().__new__(cls,x)\n\n    @classmethod\n   \
-    \ def mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while\
-    \ b: a,b,s,t = b,a%b,t,s-a//b*t\n        if a == 1: return cls.fix(s)\n      \
-    \  raise ValueError(f\"{x} is not invertible in mod {cls.mod}\")\n    \n    @property\n\
-    \    def inv(self): return mint.mod_inv(self)\n\n    def __add__(self, x): return\
-    \ mint.fix(super().__add__(x))\n    def __radd__(self, x): return mint.fix(super().__radd__(x))\n\
-    \    def __sub__(self, x): return mint.fix(super().__sub__(x))\n    def __rsub__(self,\
-    \ x): return mint.fix(super().__rsub__(x))\n    def __mul__(self, x): return mint.fix(super().__mul__(x))\n\
-    \    def __rmul__(self, x): return mint.fix(super().__rmul__(x))\n    def __floordiv__(self,\
-    \ x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv\
-    \ * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
+    \        for x in range(3,64): mint.cache.append(cls.fix(x))\n\n    @classmethod\n\
+    \    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def\
+    \ cast(cls, x): return super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls,\
+    \ x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
+    \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
+    \ invertible in mod {cls.mod}\")\n    \n    @property\n    def inv(self): return\
+    \ mint.mod_inv(self)\n\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
+    \    def __radd__(self, x): return mint.fix(super().__radd__(x))\n    def __sub__(self,\
+    \ x): return mint.fix(super().__sub__(x))\n    def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n\
+    \    def __mul__(self, x): return mint.fix(super().__mul__(x))\n    def __rmul__(self,\
+    \ x): return mint.fix(super().__rmul__(x))\n    def __floordiv__(self, x): return\
+    \ self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv * x\n\
+    \    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
     \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
     \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
-    \ return self\n    def __abs__(self): return self\n"
+    \ return self\n    def __abs__(self): return self\n    def __class_getitem__(self,\
+    \ x: int): return self.cache[x]\n"
   code: "import cp_library.__header__\nfrom typing import Container, Sequence\nfrom\
     \ numbers import Number\nfrom cp_library.io.parser_cls import Parsable, Parser,\
     \ TokenStream\nimport cp_library.math.__header__\nimport cp_library.math.linalg.__header__\n\
@@ -243,7 +246,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mat_cls.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/mat/mat_cls.py

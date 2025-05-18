@@ -17,7 +17,7 @@ data:
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
     \  \n'''\nfrom math import ceil, sqrt\nfrom bisect import bisect_left, bisect_right\n\
     from typing import Iterable, Iterator, MutableSet\nfrom typing import TypeVar\n\
-    _T = TypeVar('T')\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py\n\
     \nclass SortedSet(MutableSet[_T]):\n    BUCKET_RATIO = 16\n    SPLIT_RATIO = 24\n\
     \    \n    def __init__(self, a: Iterable[_T] = []) -> None:\n        \"Make a\
     \ new SortedSet from iterable. / O(N) if sorted and unique / O(N log N)\"\n  \
@@ -149,7 +149,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/sorted_set_cls.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/sorted_set_cls.py

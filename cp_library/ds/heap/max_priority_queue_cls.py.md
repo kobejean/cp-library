@@ -54,8 +54,8 @@ data:
     \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
     \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Generic\nfrom typing\
-    \ import TypeVar\n_T = TypeVar('T')\n\nclass HeapProtocol(Generic[_T]):\n    def\
-    \ pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
+    \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass HeapProtocol(Generic[_T]):\n\
+    \    def pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
     \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MaxPriorityQueue(HeapProtocol[int],\
     \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
     \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
@@ -97,7 +97,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/max_priority_queue_cls.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/max_priority_queue_cls.py

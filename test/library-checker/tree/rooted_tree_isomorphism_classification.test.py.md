@@ -30,19 +30,19 @@ data:
     \nfrom random import randint\n\ndef gen(N: int):\n    seed = randint(0, 0xffffffff)\n\
     \    H = [0]*N\n    for i in range(N):\n        seed ^= seed<<13&0xFFFFFFFF\n\
     \        seed ^= seed>>17&0xFFFFFFFF\n        seed ^= seed<<5&0xFFFFFFFF\n   \
-    \     H[i] = seed &0xFFFFFFFF\n    return H\n\n'''\n\u257A\u2501\u2501\u2501\u2501\
+    \     H[i] = seed &0xFFFFFFFF\n    return H\n\n\nfrom typing import Reversible\n\
+    \ndef rev_enumerate(A: Reversible, start: int = 0):\n    start += (N := len(A))\n\
+    \    for i in range(N-1,-1,-1):\n        yield (start:=start-1), A[i]\n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nfrom typing import Reversible\n\ndef rev_enumerate(A: Reversible,\
-    \ start: int = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n\
-    \        yield (start:=start-1), A[i]\n\n\nfrom __pypy__.builders import StringBuilder\n\
-    import sys\nfrom os import read as os_read, write as os_write\nfrom atexit import\
-    \ register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil =\
-    \ pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf =\
-    \ self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \    https://kobejean.github.io/cp-library               \n'''\n\n\nfrom __pypy__.builders\
+    \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
     \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
     \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
     \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
@@ -84,7 +84,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py

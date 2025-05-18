@@ -61,8 +61,8 @@ data:
     \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
     \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Generic\nfrom typing\
-    \ import TypeVar\n_T = TypeVar('T')\n\nclass HeapProtocol(Generic[_T]):\n    def\
-    \ pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
+    \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass HeapProtocol(Generic[_T]):\n\
+    \    def pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
     \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MaxHeap(HeapProtocol[_T],\
     \ UserList[_T]):\n    def __init__(self, iterable: Iterable[_T] = None):\n   \
     \     super().__init__(iterable)\n        heapify_max(self.data)\n    def pop(self):\
@@ -85,7 +85,7 @@ data:
   path: cp_library/ds/heap/max_heap_cls.py
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_min_k_heap.test.py

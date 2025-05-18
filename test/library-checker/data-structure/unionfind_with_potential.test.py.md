@@ -78,17 +78,17 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values\
-    \ to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nmod = 998244353\nN, Q = read()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef\
-    \ inv(x):\n    return (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\nfor _\
-    \ in range(Q):\n    t, *q = read()\n    if t:\n        u, v = q\n        ans =\
-    \ pdsu.diff(u, v) if pdsu.same(u, v) else -1\n        write(ans)\n    else:\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nmod = 998244353\nN, Q = read()\n\ndef op(x,y):\n    return\
+    \ (x+y)%mod\n\ndef inv(x):\n    return (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\
+    \nfor _ in range(Q):\n    t, *q = read()\n    if t:\n        u, v = q\n      \
+    \  ans = pdsu.diff(u, v) if pdsu.same(u, v) else -1\n        write(ans)\n    else:\n\
     \        u, v, x = q\n        write(int(pdsu.consistent(u,v,x)))\n        pdsu.merge(u,\
     \ v, x)\n\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential\n\
@@ -107,7 +107,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/unionfind_with_potential.test.py

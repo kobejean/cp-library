@@ -77,11 +77,12 @@ data:
     \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
     \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
     \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    from typing import TypeVar\n_T = TypeVar('T')\n\nclass TokenStream(Iterator):\n\
-    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
-    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.buffer.readline().decode(\"ascii\")\ntry:\n    sys.stdin\
+    \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import TypeVar\n_T =\
+    \ TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n    stream\
+    \ = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue = deque()\n\
+    \n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
     \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
     \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
@@ -108,7 +109,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -371,13 +372,13 @@ data:
   - cp_library/alg/graph/grid_graph_cls.py
   - cp_library/alg/graph/lazy_grid_graph_cls.py
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc184_e_grid_graph.test.py
   - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
-  - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
   - test/atcoder/abc/abc301_e_grid_graph.test.py
+  - test/atcoder/abc/abc184_e_grid_graph.test.py
+  - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
 documentation_of: cp_library/alg/graph/grid_graph_proto.py
 layout: document
 redirect_from:

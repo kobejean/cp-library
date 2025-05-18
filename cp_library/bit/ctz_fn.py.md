@@ -14,18 +14,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef ctz(x): return (~x & (x - 1)).bit_count()\n"
+    \ndef ctz(x): return (~x&(x-1)).bit_count()\n"
   code: 'import cp_library.bit.__header__
 
 
-    def ctz(x): return (~x & (x - 1)).bit_count()
+    def ctz(x): return (~x&(x-1)).bit_count()
 
     '
   dependsOn: []
   isVerificationFile: false
   path: cp_library/bit/ctz_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/bit/ctz_fn.py

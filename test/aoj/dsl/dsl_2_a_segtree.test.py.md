@@ -32,10 +32,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
     \              \n'''\nfrom typing import Callable, Generic, Union\nfrom typing\
-    \ import TypeVar\n_T = TypeVar('T')\n\n\n\nclass SegTree(Generic[_T]):\n    def\
-    \ __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) ->\
-    \ None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e, seg.n\
-    \ = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
+    \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\n\nclass SegTree(Generic[_T]):\n\
+    \    def __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]])\
+    \ -> None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e,\
+    \ seg.n = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
     \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): seg.d[sz + i]\
     \ = v[i]\n        for i in range(sz-1,0,-1): seg.d[i] = op(seg.d[i<<1], seg.d[i<<1|1])\n\
     \n    def set(seg, p: int, x: _T) -> None:\n        seg.d[p := p + seg.sz], op\
@@ -84,14 +84,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values\
-    \ to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A\n\
     \ndef main():\n    N, Q = read()\n    seg = SegTree(min, 2147483647, N)\n    for\
     \ _ in range(Q):\n        com, x, y = read()\n        if com: write(seg.prod(x,y+1))\n\
@@ -106,7 +106,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/dsl_2_a_segtree.test.py

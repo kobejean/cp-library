@@ -20,8 +20,20 @@ data:
     path: cp_library/alg/iter/slice_iterator_reverse_cls.py
     title: cp_library/alg/iter/slice_iterator_reverse_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/array_init_fn.py
-    title: cp_library/ds/array_init_fn.py
+    path: cp_library/bit/masks/i32_max_cnst.py
+    title: cp_library/bit/masks/i32_max_cnst.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/masks/u32_max_cnst.py
+    title: cp_library/bit/masks/u32_max_cnst.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/i32f_fn.py
+    title: cp_library/ds/array/i32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u32f_fn.py
+    title: cp_library/ds/array/u32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u8f_fn.py
+    title: cp_library/ds/array/u8f_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
@@ -83,13 +95,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -113,7 +126,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -274,80 +287,61 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\nfrom array import\
-    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
-    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
-    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
-    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
-    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
-    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
-    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
-    \  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N\
-    \  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return array('f',\
-    \ (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N\
-    \  # double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
-    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
-    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
-    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
-    \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
-    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
-    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
-    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
-    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
-    \ x & lst.mask\n\nclass Graph(GraphBase):\n    def __init__(G, N: int, U: list[int],\
-    \ V: list[int]):\n        M, Ma, deg = len(U), 0, u32f(N)\n        for e in range(M\
-    \ := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n           \
-    \ deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea, Ua, Va,\
-    \ La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma), u32f(Ma), u32f(N), u32f(N), 0\n  \
-    \      for u in range(N): La[u] = Ra[u] = i; i = i+deg[u]\n        for e in range(M):\n\
-    \            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i],\
-    \ Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n        \
-    \    Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
-    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\nfrom typing import Iterable, Union\n\
-    \n\ndef biconnected_components(G: GraphBase, s: Union[int,list,None] = None) ->\
-    \ Iterable[list[int]]:\n    '''\n    Returns an iterator of vertex lists, each\
-    \ representing a biconnected component.\n    Isolated vertices are included as\
-    \ single-vertex components.\n    '''\n    low, st, bccs, L = [N := G.N]*N, elist(G.M),\
-    \ elist(G.M), elist(G.M)\n\n    def back(u,v,i):\n        chmin(low, u, G.tin[v])\n\
-    \n    def down(u,v,i):\n        st.append(v)\n        low[v] = G.tin[v]\n\n  \
-    \  def up(u,p,i):\n        chmin(low, p, low[u])\n        if low[u] >= G.tin[p]:\n\
-    \            # add new biconnected component\n            L.append(len(bccs))\n\
-    \            v = -1\n            while u != v:\n                bccs.append(v\
-    \ := st.pop())\n            bccs.append(p)\n    G.dfs(s, down_fn=down, back_fn=back,\
-    \ up_fn=up)\n    # give the lonely vertices their own components\n    for u,d\
-    \ in enumerate(G.deg):\n        if d == 0:\n            L.append(len(bccs))\n\
-    \            bccs.append(u)\n    return SliceIteratorReverse(bccs, L)\n\ntwo_vertex_connected_components\
-    \ = biconnected_components\n\n\nfrom typing import Iterator, SupportsIndex\n\n\
-    class SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T],\
-    \ L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n  \
-    \  def __len__(self): return len(self.L)\n    def __next__(self):\n        L =\
-    \ self.L\n        if not L: raise StopIteration\n        self.r, r = (l := L.pop()),\
-    \ self.r\n        return self.A[l:r]\n\nfrom typing import Iterable, Type, Union,\
-    \ overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\ndef read(spec:\
-    \ int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False)\
-    \ -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
-    \ char and spec is None: return map(int, TokenStream.default.line())\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
-    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints the values\
-    \ to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \            return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
+    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
+    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
+    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
+    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
+    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
+    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
+    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass Graph(GraphBase):\n\
+    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M, Ma, deg\
+    \ = len(U), 0, u32f(N)\n        for e in range(M := len(U)):\n            distinct\
+    \ = (u := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v] += distinct; Ma\
+    \ += 1+distinct\n        twin, Ea, Ua, Va, La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma),\
+    \ u32f(Ma), u32f(N), u32f(N), 0\n        for u in range(N): La[u] = Ra[u] = i;\
+    \ i = i+deg[u]\n        for e in range(M):\n            i, j = Ra[u := U[e]],\
+    \ Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v,\
+    \ e, j\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j],\
+    \ twin[j] = j+1, v, u, e, i\n        super().__init__(N, M, U, V, deg, La, Ra,\
+    \ Ua, Va, Ea, twin)\nfrom typing import Iterable, Union\n\n\ndef biconnected_components(G:\
+    \ GraphBase, s: Union[int,list,None] = None) -> Iterable[list[int]]:\n    '''\n\
+    \    Returns an iterator of vertex lists, each representing a biconnected component.\n\
+    \    Isolated vertices are included as single-vertex components.\n    '''\n  \
+    \  low, st, bccs, L = [N := G.N]*N, elist(G.M), elist(G.M), elist(G.M)\n\n   \
+    \ def back(u,v,i):\n        chmin(low, u, G.tin[v])\n\n    def down(u,v,i):\n\
+    \        st.append(v)\n        low[v] = G.tin[v]\n\n    def up(u,p,i):\n     \
+    \   chmin(low, p, low[u])\n        if low[u] >= G.tin[p]:\n            # add new\
+    \ biconnected component\n            L.append(len(bccs))\n            v = -1\n\
+    \            while u != v:\n                bccs.append(v := st.pop())\n     \
+    \       bccs.append(p)\n    G.dfs(s, down_fn=down, back_fn=back, up_fn=up)\n \
+    \   # give the lonely vertices their own components\n    for u,d in enumerate(G.deg):\n\
+    \        if d == 0:\n            L.append(len(bccs))\n            bccs.append(u)\n\
+    \    return SliceIteratorReverse(bccs, L)\n\ntwo_vertex_connected_components =\
+    \ biconnected_components\n\n\nfrom typing import Iterator, SupportsIndex\n\nclass\
+    \ SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T], L:\
+    \ list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n    def\
+    \ __len__(self): return len(self.L)\n    def __next__(self):\n        L = self.L\n\
+    \        if not L: raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n\
+    \        return self.A[l:r]\n\nfrom typing import Iterable, Type, Union, overload\n\
+    \n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
+    \ char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n\
+    @overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\n\
+    def read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
+    \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
+    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/biconnected_components\n\
     def main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    bccs = biconnected_components(G)\n\
     \    write(len(bccs))\n    for bcc in bccs:\n        write(len(bcc), *bcc)\n \
@@ -360,18 +354,22 @@ data:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/alg/graph/fast/graph_base_cls.py
-  - cp_library/ds/array_init_fn.py
+  - cp_library/ds/array/i32f_fn.py
+  - cp_library/ds/array/u32f_fn.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/iter/slice_iterator_reverse_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/bit/masks/u32_max_cnst.py
+  - cp_library/bit/masks/i32_max_cnst.py
+  - cp_library/ds/array/u8f_fn.py
   - cp_library/ds/packet_list_cls.py
   isVerificationFile: true
   path: test/library-checker/graph/biconnected_components.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/biconnected_components.test.py

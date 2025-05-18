@@ -8,16 +8,10 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import operator\nfrom itertools import accumulate\nfrom typing import Callable,\
-    \ Reversible\nfrom typing import TypeVar\n_T = TypeVar('T')\n\ndef sufsum(iter:\
-    \ Reversible[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step\
-    \ = 1) -> list[_T]:\n    if step == 1:\n        A = list(accumulate(reversed(iter),\
+  bundledCode: "\nimport operator\nfrom itertools import accumulate\nfrom typing import\
+    \ Callable, Reversible\nfrom typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
+    \ndef sufsum(iter: Reversible[_T], func: Callable[[_T,_T],_T] = None, initial:\
+    \ _T = None, step = 1) -> list[_T]:\n    if step == 1:\n        A = list(accumulate(reversed(iter),\
     \ func, initial=initial))\n        A.reverse()\n        return A   \n    else:\n\
     \        assert step >= 2\n        if func is None:\n            func = operator.add\n\
     \        A = list(reversed(iter))\n        if initial is not None:\n         \
@@ -36,7 +30,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sufsum_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/sufsum_fn.py

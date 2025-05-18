@@ -76,7 +76,7 @@ data:
     \ range(bit._n):\n            if (r := i|i+1) < bit._n: bit._d[r] += bit._d[i]\n\
     \n    def add(bit, i, x):\n        while i < bit._n: bit._d[i] += x; i |= i+1\n\
     \n    def sum(bit, n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1],\
-    \ n&n-1\n        return s\n\n    def range_sum(bit, l, r):\n        s = 0\n  \
+    \ n&n-1\n        return s\n\n    def sum_range(bit, l, r):\n        s = 0\n  \
     \      while r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1],\
     \ l&l-1\n        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n\
     \    \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
@@ -94,21 +94,21 @@ data:
     \ : map(int, input().split())\n\nn,q = MI()\na = [int(s) for s in input().split()]\n\
     # b = a.copy()\nbit = BIT(a)\n# for i in range(n):\n#     assert b[i] == bit[i],\
     \ f\"{a[i]} != {bit[i]}\"\nans = []\nfor i in range(q):\n    t,p,x = MI()\n  \
-    \  if t: ans.append(bit.range_sum(p,x))\n    else: bit.add(p,x)\n\nos.write(1,\"\
+    \  if t: ans.append(bit.sum_range(p,x))\n    else: bit.add(p,x)\n\nos.write(1,\"\
     \ \".join(map(str,ans)).encode())\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_add_range_sum\n\
     import io,os\nfrom cp_library.ds.tree.bit.bit_cls import BIT\n\ninput = io.BytesIO(os.read(0,os.fstat(0).st_size)).readline\n\
     MI = lambda : map(int, input().split())\n\nn,q = MI()\na = [int(s) for s in input().split()]\n\
     # b = a.copy()\nbit = BIT(a)\n# for i in range(n):\n#     assert b[i] == bit[i],\
     \ f\"{a[i]} != {bit[i]}\"\nans = []\nfor i in range(q):\n    t,p,x = MI()\n  \
-    \  if t: ans.append(bit.range_sum(p,x))\n    else: bit.add(p,x)\n\nos.write(1,\"\
+    \  if t: ans.append(bit.sum_range(p,x))\n    else: bit.add(p,x)\n\nos.write(1,\"\
     \ \".join(map(str,ans)).encode())"
   dependsOn:
   - cp_library/ds/tree/bit/bit_cls.py
   isVerificationFile: true
   path: test/library-checker/data-structure/point_add_range_sum.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_add_range_sum.test.py

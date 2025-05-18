@@ -59,13 +59,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -89,7 +90,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -146,25 +147,27 @@ data:
     \ TokenStream):\n            L, R = [0]*Q, [0]*Q\n            for i in range(Q):\n\
     \                L[i], R[i] = query(ts) \n            return cls(L, R, N)\n  \
     \      return parse\n\nfrom typing import Iterable, Type, Union, overload\n\n\
-    @overload\ndef read() -> Iterable[int]: ...\n@overload\ndef read(spec: int) ->\
-    \ list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T], char=False) ->\
-    \ _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n    if not\
-    \ char and spec is None: return map(int, TokenStream.default.line())\n    parser:\
-    \ _T = Parser.compile(spec)\n    return parser(CharStream.default if char else\
-    \ TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints the values\
-    \ to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nclass TripletQueries(Mo):\n    cnt = [0]*200001      \n    pairs = [0]*200001\
-    \    \n    triples = 0\n    A: list[int] = None\n\n    def add(self, i):\n   \
-    \     v = self.A[i]\n        self.triples += self.pairs[v]    \n        self.pairs[v]\
-    \ += self.cnt[v]     \n        self.cnt[v] += 1 \n    \n    def remove(self, i):\n\
-    \        v = self.A[i]\n        self.cnt[v] -= 1 \n        self.pairs[v] -= self.cnt[v]\
-    \     \n        self.triples -= self.pairs[v]   \n\n    def answer(self, i, l,\
-    \ r):\n        return self.triples \n    \n    def solve(self, A):\n        self.A\
-    \ = A\n        return super().solve()\n\nif __name__ == \"__main__\":\n    main()\n"
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
+    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
+    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
+    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
+    \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
+    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nclass TripletQueries(Mo):\n    cnt = [0]*200001     \
+    \ \n    pairs = [0]*200001    \n    triples = 0\n    A: list[int] = None\n\n \
+    \   def add(self, i):\n        v = self.A[i]\n        self.triples += self.pairs[v]\
+    \    \n        self.pairs[v] += self.cnt[v]     \n        self.cnt[v] += 1 \n\
+    \    \n    def remove(self, i):\n        v = self.A[i]\n        self.cnt[v] -=\
+    \ 1 \n        self.pairs[v] -= self.cnt[v]     \n        self.triples -= self.pairs[v]\
+    \   \n\n    def answer(self, i, l, r):\n        return self.triples \n    \n \
+    \   def solve(self, A):\n        self.A = A\n        return super().solve()\n\n\
+    if __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
     \n\ndef main():\n    N, Q = read(tuple[int, ...])\n    A = read(list[int])\n \
     \   mo = read(TripletQueries[Q, N])\n    \n    write(*mo.solve(A), sep='\\n')\n\
@@ -187,7 +190,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_mo.test.py

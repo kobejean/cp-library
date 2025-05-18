@@ -38,13 +38,13 @@ data:
   isVerificationFile: false
   path: cp_library/alg/divcon/partition_fn.py
   requiredBy:
-  - cp_library/alg/divcon/qselect_fn.py
   - cp_library/math/median_fn.py
-  timestamp: '2025-05-06 22:58:43+09:00'
+  - cp_library/alg/divcon/qselect_fn.py
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/arc/arc122_b_insurance_median.test.py
   - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
+  - test/atcoder/arc/arc122_b_insurance_median.test.py
 documentation_of: cp_library/alg/divcon/partition_fn.py
 layout: document
 redirect_from:

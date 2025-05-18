@@ -1,0 +1,273 @@
+---
+data:
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/divcon/bisect_left_fn.py
+    title: cp_library/alg/divcon/bisect_left_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/cmpr/coord_compress_fn.py
+    title: cp_library/alg/iter/cmpr/coord_compress_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_dec_fn.py
+    title: cp_library/bit/pack/pack_dec_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_sm_fn.py
+    title: cp_library/bit/pack/pack_sm_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/popcnt32_fn.py
+    title: cp_library/bit/popcnt32_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u32f_fn.py
+    title: cp_library/ds/array/u32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/segtree_cls.py
+    title: cp_library/ds/tree/segtree_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/bit_array_cls.py
+    title: cp_library/ds/wavelet/bit_array_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/wm_compressed_cls.py
+    title: cp_library/ds/wavelet/wm_compressed_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/wm_monoid_cls.py
+    title: cp_library/ds/wavelet/wm_monoid_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/wm_monoid_compressed_cls.py
+    title: cp_library/ds/wavelet/wm_monoid_compressed_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/wm_monoid_points_cls.py
+    title: cp_library/ds/wavelet/wm_monoid_points_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/wm_points_cls.py
+    title: cp_library/ds/wavelet/wm_points_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/wm_segtree_cls.py
+    title: cp_library/ds/wavelet/wm_segtree_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/wm_segtree_compressed_cls.py
+    title: cp_library/ds/wavelet/wm_segtree_compressed_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/wavelet/wm_static_cls.py
+    title: cp_library/ds/wavelet/wm_static_cls.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
+    title: test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
+  _isVerificationFailed: false
+  _pathExtension: py
+  _verificationStatusIcon: ':heavy_check_mark:'
+  attributes:
+    links: []
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\n\n\n\ndef coord_compress(A: list[int], distinct = False):\n    s, m = pack_sm((N\
+    \ := len(A))-1); R, V = [0]*N, [a<<s|i for i,a in enumerate(A)]; V.sort()\n  \
+    \  if distinct:\n        for r, ai in enumerate(V): a, i = pack_dec(ai, s, m);\
+    \ R[i], V[r] = r, a\n    else:\n        r = p = -1\n        for ai in V:\n   \
+    \         a, i = pack_dec(ai, s, m)\n            if a != p: r = r+1; V[r] = p\
+    \ = a\n            R[i] = r\n        del V[r+1:]\n    return R, V\n\n\n\ndef pack_dec(ab:\
+    \ int, s: int, m: int): return ab>>s,ab&m\ndef pack_sm(N: int): s=N.bit_length();\
+    \ return s,(1<<s)-1\nfrom typing import Callable, Generic, Union\nfrom typing\
+    \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SegTree(Generic[_T]):\n\
+    \    def __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]])\
+    \ -> None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e,\
+    \ seg.n = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
+    \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): seg.d[sz + i]\
+    \ = v[i]\n        for i in range(sz-1,0,-1): seg.d[i] = op(seg.d[i<<1], seg.d[i<<1|1])\n\
+    \n    def set(seg, p: int, x: _T) -> None:\n        seg.d[p := p + seg.sz], op\
+    \ = x, seg.op\n        for _ in range(seg.log): seg.d[p:=p>>1] = op(seg.d[p:=p^(p&1)],\
+    \ seg.d[p|1])\n    __setitem__ = set\n\n    def get(seg, p: int) -> _T:\n    \
+    \    return seg.d[p + seg.sz]\n    __getitem__ = get\n\n    def prod(seg, l: int,\
+    \ r: int) -> _T:\n        sml = smr = seg.e\n        l, r = l+seg.sz, r+seg.sz\n\
+    \        while l < r:\n            if l&1: sml, l = seg.op(sml, seg.d[l]), l+1\n\
+    \            if r&1: smr = seg.op(seg.d[r:=r-1], smr)\n            l, r = l >>\
+    \ 1, r >> 1\n        return seg.op(sml, smr)\n\n    def all_prod(seg) -> _T:\n\
+    \        return seg.d[1]\n\n    def max_right(seg, l: int, f: Callable[[_T], bool])\
+    \ -> int:\n        assert 0 <= l <= seg.n\n        assert f(seg.e)\n        if\
+    \ l == seg.n: return seg.n\n        l, op, d, sm = l+(sz := seg.sz), seg.op, seg.d,\
+    \ seg.e\n        while True:\n            while l&1 == 0: l >>= 1\n          \
+    \  if not f(op(sm, d[l])):\n                while l < sz:\n                  \
+    \  if f(op(sm, d[l:=l<<1])): sm, l = op(sm, d[l]), l+1\n                return\
+    \ l - sz\n            sm, l = op(sm, d[l]), l+1\n            if l&-l == l: return\
+    \ seg.n\n\n    def min_left(seg, r: int, f: Callable[[_T], bool]) -> int:\n  \
+    \      assert 0 <= r <= seg.n\n        assert f(seg.e)\n        if r == 0: return\
+    \ 0\n        r, op, d, sm = r+(sz := seg.sz), seg.op, seg.d, seg.e\n        while\
+    \ True:\n            r -= 1\n            while r > 1 and r & 1: r >>= 1\n    \
+    \        if not f(op(d[r], sm)):\n                while r < sz:\n            \
+    \        if f(op(d[r:=r<<1|1], sm)): sm, r = op(d[r], sm), r-1\n             \
+    \   return r + 1 - sz\n            sm = op(d[r], sm)\n            if (r & -r)\
+    \ == r: return 0\nfrom abc import abstractmethod\n\nclass BitArray:\n    def __init__(B,\
+    \ N: int):\n        B.N, B.Z = N, (N+31)>>5\n        B.bits, B.cnt = u32f(B.Z+1),\
+    \ u32f(B.Z+1)\n    def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits):\
+    \ B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n    def __len__(B):\
+    \ return B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n\
+    \    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
+    \ B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int): return r-B.count1(r)\n\
+    \    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
+    \    def select0(B, k: int):\n        if not 0<=k<B.N-B.cnt[-1]: return -1\n \
+    \       l,r,k=0,B.N,k+1\n        while 1<r-l:\n            if B.count0(m:=(l+r)>>1)<k:l=m\n\
+    \            else:r=m\n        return l\n    def select1(B, k: int):\n       \
+    \ if not 0<=k<B.cnt[-1]: return -1\n        l,r,k=0,B.N,k+1\n        while 1<r-l:\n\
+    \            if B.count1(m:=(l+r)>>1)<k:l=m\n            else:r=m\n        return\
+    \ l\n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n\
+    \    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
+    \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
+    \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
+    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\nfrom array import array\ndef\
+    \ u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
+    \nclass WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int,\
+    \ H: int):\n            super().__init__(N)\n            L.H = H\n        def\
+    \ build(L):\n            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1],\
+    \ L.cnt[-1]\n        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if\
+    \ bit else L.count0(i)\n        def pos2(L, bit: int, i: int, j: int): return\
+    \ (L.T0+L.count1(i), L.T0+L.count1(j)) if bit else (L.count0(i), L.count0(j))\n\
+    \    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
+    \ Amax is None else Amax)\n    def _build(wm, A, nA, Amax):wm.N,wm.H=len(A),Amax.bit_length();wm._build_levels(A,nA)\n\
+    \    def _build_levels(wm, A, nA):\n        wm.up=[wm.Level(wm.N,H) for H in range(wm.H)];wm.down=wm.up[::-1]\n\
+    \        for L in wm.down:\n            x,y,i=-1,wm.N-1,wm.N\n            while\
+    \ i:y-=A[i:=i-1]>>L.H&1\n            for i,a in enumerate(A):\n              \
+    \  if a>>L.H&1:nA[y:=y+1]=a;L.set1(i)\n                else:nA[x:=x+1]=a\n   \
+    \         A,nA=nA,A;L.build()\n    def __getitem__(wm,i):\n        y=0\n     \
+    \   for L in wm.down:y=y<<1|(bit:=L[i]);i=L.pos(bit,i)\n        return y\n   \
+    \ def kth(wm, k: int, l: int, r: int):\n        '''Returns the `k+1`-th value\
+    \ in sorted order of values in range `[l, r)`'''\n        s=0\n        for L in\
+    \ wm.down:\n            l,r=l-(l1:=L.count1(l)),r-(r1:=L.count1(r))\n        \
+    \    if k>=r-l:s|=1<<L.H;k-=r-l;l,r=L.T0+l1,L.T0+r1\n        return s\n    def\
+    \ select(wm, y: int, k: int, l: int = 0, r: int = -1):\n        '''Returns the\
+    \ index of the `k+1`-th occurance of `y` in range `[l, r)`'''\n        if not(0<=y<1<<wm.H):return-1\n\
+    \        if r==-1:r=wm.N-1\n        for L in wm.down:l,r=L.pos2(L[y],l,r)\n  \
+    \      if not l<=(i:=l+k)<r:return-1\n        for L in wm.up:\n            if\
+    \ y>>L.H&1:i=L.select1(i-L.T0)\n            else:i=L.select0(i)\n        return\
+    \ i\n    def rank(wm, y: int, r: int): return wm.rank_range(y, 0, r)\n    def\
+    \ rank_range(wm, y: int, l: int, r: int):\n        if l >= r: return 0\n     \
+    \   for L in wm.down:l,r=L.pos2(L[y],l,r)\n        return r-l\n    def count_at(wm,\
+    \ y: int, l: int, r: int):\n        '''Count how many `y` values are in range\
+    \ `[l,r)` '''\n        if l >= r: return 0\n        return wm._cnt(y+1, l, r)-wm._cnt(y,\
+    \ l, r)\n    def count_below(wm, u: int, l: int, r: int):\n        '''Count `i`'s\
+    \ in `[l,r)` such that `A[i] < u` '''\n        return wm._cnt(u, l, r)\n    def\
+    \ count_between(wm, d: int, u: int, l: int, r: int):\n        '''Count `i`'s in\
+    \ `[l,r)` such that `d <= A[i] < u` '''\n        if l >= r or d >= u: return 0\n\
+    \        return wm._cnt(u, l, r)-wm._cnt(d, l, r)\n    def _cnt(wm, u: int, l:\
+    \ int, r: int):\n        if u<=0:return 0\n        if wm.H<u.bit_length():return\
+    \ r-l\n        cnt=0\n        for L in wm.down:\n            l,r=l-(l1:=L.count1(l)),r-(r1:=L.count1(r))\n\
+    \            if u>>L.H&1:cnt+=r-l;l,r=L.T0+l1,L.T0+r1\n        return cnt\n  \
+    \  def prev_val(wm,u:int,l:int,r:int):return wm.kth(cnt-1, l, r)if(cnt:=wm._cnt(u,l,r))else-1\n\
+    \    def next_val(wm,d:int,l:int,r:int):return wm.kth(cnt, l, r)if(cnt:=wm._cnt(d,l,r))<r-l\
+    \ else-1\n\nclass WMMonoid(WMStatic):\n    def __init__(wm,op,e,A:list[int],W:list[int],Amax:int=None):wm._build(op,e,A,W,[0]*len(A),[0]*len(A),max(A,default=0)if\
+    \ Amax is None else Amax)\n    def _build(wm,op,e,A,W,nA,nW,Amax):wm.N,wm.H,wm.op,wm.e=len(A),Amax.bit_length(),op,e;wm._build_base(W);wm._build_levels(A,W,nA,nW)\n\
+    \    @abstractmethod\n    def _build_base(wm,W):...\n    @abstractmethod\n   \
+    \ def _build_level(wm,L,W):...\n    def _build_levels(wm,A,W,nA,nW):\n       \
+    \ wm.up=[wm.Level(wm.N,H)for H in range(wm.H)];wm.down=wm.up[::-1]\n        for\
+    \ L in wm.down:\n            x,y,i=-1,wm.N-1,wm.N\n            while i:y-=A[i:=i-1]>>L.H&1\n\
+    \            for i,a in enumerate(A):\n                if a>>L.H&1:nA[y:=y+1],nW[y]=a,W[i];L.set1(i)\n\
+    \                else:nA[x:=x+1],nW[x]=a,W[i]\n            A,nA,W,nW=nA,A,nW,W;wm._build_level(L,W)\n\
+    \    def prod_range(wm,l:int,r:int):return wm._prod_range(l,r)if l<r else wm.e\n\
+    \    def prod_at(wm,y:int,l:int,r:int):return wm._prod_rect(y,y+1,l,r)if l<r else\
+    \ wm.e\n    def prod_below(wm,u:int,l:int,r:int):return wm._prod_below(u,l,r)if\
+    \ l<r else wm.e\n    def prod_above(wm,d:int,l:int,r:int):return wm._prod_above(d,l,r)if\
+    \ l<r else wm.e\n    def prod_between(wm,d:int,u:int,l:int,r:int):return wm._prod_rect(d,u,l,r)if\
+    \ l<r and d<u else wm.e\n    def prod_corner(wm,r:int,u:int):return wm._prod_below(u,0,r)if\
+    \ 0<r else wm.e\n    def prod_rect(wm,l:int,d:int,r:int,u:int):return wm._prod_rect(d,u,l,r)if\
+    \ l<r and d<u else wm.e\n    @abstractmethod\n    def _prod_range(wm,l,r):...\n\
+    \    def _prod_below(wm,u,l,r):\n        if u<=0:return wm.e\n        elif wm.H<u.bit_length():return\
+    \ wm._prod_range(l,r)\n        prod=wm.e\n        for L in wm.down:\n        \
+    \    l,r=l-(l1:=L.count1(l)),r-(r1:=L.count1(r))\n            if u>>L.H&1:prod=wm.op(prod,L.prod(l,r));l,r=L.T0+l1,L.T0+r1\n\
+    \        return prod\n    def _prod_above(wm,d,l,r):\n        if d<=0: return\
+    \ wm._prod_range(l, r)\n        elif d.bit_length() > wm.H: return wm.e\n    \
+    \    prod, d = wm.e, d-1\n        for L in wm.down:\n            l0,r0=l-(l:=L.T0+L.count1(l)),r-(r:=L.T0+L.count1(r))\n\
+    \            if d>>L.H&1==0:prod=wm.op(L.prod(l,r),prod);l,r=L.T0+l0,L.T0+r0\n\
+    \        return prod\n    def _prod_rect(wm,d,u,l,r):\n        if u<=0 or wm.H<d.bit_length():return\
+    \ wm.e\n        elif d<=0:return wm._prod_below(u,l,r)\n        elif wm.H<u.bit_length():return\
+    \ wm._prod_above(d,l,r)\n        same,prod,d=1,wm.e,d-1\n        for L in wm.down:\n\
+    \            db,ub,l,r=d>>L.H&1,u>>L.H&1,l-(l1:=L.count1(l)),r-(r1:=L.count1(r))\n\
+    \            if same:\n                if db!=ub:same,dl,dr,l,r=0,l,r,L.T0+l1,L.T0+r1\n\
+    \                elif db:l,r=L.T0+l1,L.T0+r1\n            else:\n            \
+    \    if ub:prod=wm.op(prod,L.prod(l,r));l,r=L.T0+l1,L.T0+r1\n                dl0,dr0=dl-(dl:=L.T0+L.count1(dl)),dr-(dr:=L.T0+L.count1(dr))\n\
+    \                if not db:prod=wm.op(L.prod(dl,dr),prod);dl,dr=L.T0+dl0,L.T0+dr0\n\
+    \        return prod\n\nclass WMSegTree(WMMonoid):\n    class Level(WMStatic.Level):\n\
+    \        def build(L, op, e, W):super().build();L.W=SegTree(op,e,W)\n        def\
+    \ prod(L,l:int,r:int):return L.W.prod(l,r)\n    def _build_base(wm,W):wm.W=SegTree(wm.op,wm.e,W)\n\
+    \    def _build_level(wm,L,W):L.build(wm.op,wm.e,W)\n    def _prod_range(wm,l:int,r:int):return\
+    \ wm.W.prod(l,r)\n    def set(wm,i:int,w:int):\n        wm.W.set(i,w)\n      \
+    \  for L in wm.down:L.W.set(i:=L.pos(L[i],i),w)\n    def get(wm,i:int):return\
+    \ wm.W.get(i)\n\n\ndef bisect_left(A, x, l, r):\n    while l<r:\n        if A[m:=(l+r)>>1]<x:l=m+1\n\
+    \        else:r=m\n    return l\n\nclass WMCompressed(WMStatic):\n    def __init__(wm,A):A,wm.Y=coord_compress(A);super().__init__(A,len(wm.Y)-1)\n\
+    \    def _didx(wm,y:int):return bisect_left(wm.Y,y,0,len(wm.Y))\n    def _yidx(wm,y:int):return\
+    \ i if(i:=wm._didx(y))<len(wm.Y)and wm.Y[i]==y else-1\n    def __contains__(wm,y:int):return(i:=wm._didx(y))<len(wm.Y)and\
+    \ wm.Y[i]==y\n    def kth(wm,k,l,r):return wm.Y[super().kth(k,l,r)]\n    def select(wm,y,k,l=0,r=-1):return\
+    \ super().select(y,k,l,r)if~(y:=wm._yidx(y))else-1\n    def rank_range(wm,y,l,r):return\
+    \ super().rank_range(y,l,r)if~(y:=wm._yidx(y))else 0\n    def count_at(wm,y,l,r):return\
+    \ super().count_at(y,l,r)if~(y:=wm._yidx(y))else 0\n    def count_below(wm,u,l,r):return\
+    \ super().count_below(wm._didx(u),l,r)\n    def count_between(wm,d,u,l,r):return\
+    \ super().count_between(wm._didx(d),wm._didx(u),l,r)\n    def prev_val(wm,u,l,r):return\
+    \ super().prev_val(wm._didx(u),l,r)\n    def next_val(wm,d,l,r):return super().next_val(wm._didx(d),l,r)\n\
+    \nclass WMMonoidCompressed(WMMonoid, WMCompressed):\n    def __init__(wm,op,e,A:list[int],W:list[int]):A,wm.Y=coord_compress(A);WMMonoid.__init__(wm,op,e,A,W,len(wm.Y)-1)\n\
+    \    def prod_at(wm,y,l,r):return super().prod_at(y,l,r)if~(y:=wm._yidx(y))else\
+    \ 0\n    def prod_below(wm,u,l,r):return super().prod_below(wm._didx(u),l,r)\n\
+    \    def prod_between(wm,d,u,l,r):return super().prod_between(wm._didx(d),wm._didx(u),l,r)\n\
+    \    def prod_corner(wm,r,u):return super().prod_corner(r,wm._didx(u))\n    def\
+    \ prod_rect(wm,l,d,r,u):return super().prod_rect(l,wm._didx(d),r,wm._didx(u))\n\
+    \nclass WMSegTreeCompressed(WMSegTree,WMMonoidCompressed):pass\n\nclass WMPoints(WMCompressed):\n\
+    \    def __init__(wm,X,Y):\n        wm.I,wm.X=coord_compress(X,distinct=True);A,wm.Y=coord_compress(Y);nA=[0]*len(Y)\n\
+    \        for i,j in enumerate(wm.I):nA[j]=A[i]\n        wm._build(nA,A,len(wm.Y)-1)\n\
+    \    def _lidx(wm,x):return bisect_left(wm.X,x,0,len(wm.X))\n    def __getitem__(wm,i):return\
+    \ super().__getitem__(wm.I[i])\n    def kth(wm,k,l,r):return super().kth(k,wm._lidx(l),wm._lidx(r))\n\
+    \    def select(wm,y,k,l=0,r=-1):return super().select(y,k,wm._lidx(l),wm._lidx(r))\n\
+    \    def rank_range(wm,y,l,r):return super().rank_range(y,wm._lidx(l),wm._lidx(r))\n\
+    \    def count_at(wm,y,l,r):return super().count_at(y,wm._lidx(l),wm._lidx(r))\n\
+    \    def count_below(wm,u,l,r):return super().count_below(u,wm._lidx(l),wm._lidx(r))\n\
+    \    def count_between(wm,d,u,l,r):return super().count_between(d,u,wm._lidx(l),wm._lidx(r))\n\
+    \    def prev_val(wm,u,l,r):return super().prev_val(u,wm._lidx(l),wm._lidx(r))\n\
+    \    def next_val(wm,d,l,r):return super().next_val(d,wm._lidx(l),wm._lidx(r))\n\
+    \nclass WMMonoidPoints(WMMonoidCompressed,WMPoints):\n    def __init__(wm,op,e,X:list[int],Y:list[int],W:list[int]):\n\
+    \        wm.I,wm.X=coord_compress(X,distinct=True);A,wm.Y=coord_compress(Y);nA,nW=[0]*(N:=len(A)),[0]*N\n\
+    \        for i,j in enumerate(wm.I):nA[j],nW[j]=A[i],W[i]\n        wm._build(op,e,nA,nW,A,W,len(wm.Y)-1)\n\
+    \    def prod_range(wm,l,r):return super().prod_range(wm._lidx(l),wm._lidx(r))\n\
+    \    def prod_at(wm,y,l,r):return super().prod_at(y,wm._lidx(l),wm._lidx(r))\n\
+    \    def prod_below(wm,u,l,r):return super().prod_below(u,wm._lidx(l),wm._lidx(r))\n\
+    \    def prod_between(wm,d,u,l,r):return super().prod_between(d,u,wm._lidx(l),wm._lidx(r))\n\
+    \    def prod_corner(wm,r,u):return super().prod_corner(wm._lidx(r),u)\n    def\
+    \ prod_rect(wm,l,d,r,u):return super().prod_rect(wm._lidx(l),d,wm._lidx(r),u)\n\
+    \nclass WMSegTreePoints(WMSegTreeCompressed,WMMonoidPoints):\n    def set(wm,i:int,w:int):super().set(wm.I[i],w)\n\
+    \    def get(wm,i:int):super().get(wm.I[i])\n"
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nimport cp_library.ds.wavelet.__header__\n\
+    from cp_library.ds.wavelet.wm_segtree_compressed_cls import WMSegTreeCompressed\n\
+    from cp_library.ds.wavelet.wm_monoid_points_cls import WMMonoidPoints\n\nclass\
+    \ WMSegTreePoints(WMSegTreeCompressed,WMMonoidPoints):\n    def set(wm,i:int,w:int):super().set(wm.I[i],w)\n\
+    \    def get(wm,i:int):super().get(wm.I[i])"
+  dependsOn:
+  - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
+  - cp_library/ds/wavelet/wm_monoid_points_cls.py
+  - cp_library/alg/iter/cmpr/coord_compress_fn.py
+  - cp_library/ds/wavelet/wm_segtree_cls.py
+  - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
+  - cp_library/ds/wavelet/wm_points_cls.py
+  - cp_library/ds/tree/segtree_cls.py
+  - cp_library/ds/wavelet/wm_monoid_cls.py
+  - cp_library/ds/wavelet/wm_compressed_cls.py
+  - cp_library/alg/divcon/bisect_left_fn.py
+  - cp_library/ds/wavelet/wm_static_cls.py
+  - cp_library/bit/pack/pack_dec_fn.py
+  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/ds/wavelet/bit_array_cls.py
+  - cp_library/bit/popcnt32_fn.py
+  - cp_library/ds/array/u32f_fn.py
+  isVerificationFile: false
+  path: cp_library/ds/wavelet/wm_segtree_points_cls.py
+  requiredBy: []
+  timestamp: '2025-05-19 01:45:33+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
+documentation_of: cp_library/ds/wavelet/wm_segtree_points_cls.py
+layout: document
+redirect_from:
+- /library/cp_library/ds/wavelet/wm_segtree_points_cls.py
+- /library/cp_library/ds/wavelet/wm_segtree_points_cls.py.html
+title: cp_library/ds/wavelet/wm_segtree_points_cls.py
+---

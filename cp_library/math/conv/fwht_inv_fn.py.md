@@ -87,9 +87,9 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/fwht_inv_fn.py
   requiredBy:
-  - cp_library/math/conv/ixor_conv_fn.py
   - cp_library/math/conv/xor_conv_fn.py
-  timestamp: '2025-05-06 22:58:43+09:00'
+  - cp_library/math/conv/ixor_conv_fn.py
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/fwht_inv_fn.py

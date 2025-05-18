@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/popcnt32_fn.py
     title: cp_library/bit/popcnt32_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/array_init_fn.py
-    title: cp_library/ds/array_init_fn.py
+    path: cp_library/ds/array/u32f_fn.py
+    title: cp_library/ds/array/u32f_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
@@ -50,104 +50,80 @@ data:
     \ (x & 0x55555555)\n    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x\
     \ = ((x >> 4)  & 0x0f0f0f0f) + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff)\
     \ + (x & 0x00ff00ff)\n    x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n  \
-    \  return x\n\nfrom array import array\n\ndef i8f(N: int, elm: int = 0):     \
-    \ return array('b', (elm,))*N  # signed char\ndef u8f(N: int, elm: int = 0): \
-    \     return array('B', (elm,))*N  # unsigned char\ndef i16f(N: int, elm: int\
-    \ = 0):     return array('h', (elm,))*N  # signed short\ndef u16f(N: int, elm:\
-    \ int = 0):     return array('H', (elm,))*N  # unsigned short\ndef i32f(N: int,\
-    \ elm: int = 0):     return array('i', (elm,))*N  # signed int\ndef u32f(N: int,\
-    \ elm: int = 0):     return array('I', (elm,))*N  # unsigned int\ndef i64f(N:\
-    \ int, elm: int = 0):     return array('q', (elm,))*N  # signed long long\ndef\
-    \ u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N  # unsigned long\
-    \ long\ndef f32f(N: int, elm: float = 0.0): return array('f', (elm,))*N  # float\n\
-    def f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N  # double\n\n\
-    def i8a(init = None):  return array('b') if init is None else array('b', init)\
-    \  # signed char\ndef u8a(init = None):  return array('B') if init is None else\
-    \ array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\n'''\n\u257A\u2501\u2501\u2501\u2501\
+    \  return x\nif hasattr(int, 'bit_count'):\n    popcnt32 = int.bit_count\n\n\n\
+    from array import array\ndef u32f(N: int, elm: int = 0):     return array('I',\
+    \ (elm,))*N  # unsigned int\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513            \n   \
-    \         \u2503                                    7 \u2503            \n   \
-    \         \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513            \n            \u2503\
+    \                                    7 \u2503            \n            \u2517\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\
-    \u2501\u251B            \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\
-    \                 \u2502              \n            \u2503                3 \u2503\
-    \u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2524              \n            \u2517\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u252F\u2501\u251B                 \u2502              \n            \u250F\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502  \u250F\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502              \n      \
-    \      \u2503      1 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524  \u2503\
-    \      5 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n\
-    \            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B    \
-    \   \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
-    \  \u2502              \n            \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
+    \       \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513                 \u2502\
+    \              \n            \u2503                3 \u2503\u25C4\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
+    \            \u2502              \n            \u250F\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2513       \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2513       \u2502              \n            \u2503      1 \u2503\
+    \u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2524              \n            \u2517\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u252F\u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u252F\u2501\u251B       \u2502              \n            \u250F\
     \u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\
-    \u2501\u2501\u2501\u2513  \u2502              \n            \u2503 0 \u2503\u25C4\
-    \u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\u25C4\u2500\u2524\
-    \  \u2503 6 \u2503\u25C4\u2500\u2524              \n            \u2517\u2501\u252F\
-    \u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\
-    \u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502              \n \
-    \             \u2502    \u2502    \u2502    \u2502    \u2502    \u2502    \u2502\
-    \    \u2502              \n              \u25BC    \u25BC    \u25BC    \u25BC\
-    \    \u25BC    \u25BC    \u25BC    \u25BC              \n            \u250F\u2501\
+    \u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502     \
+    \         \n            \u2503 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\
+    \u2500\u2524  \u2503 4 \u2503\u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524\
+    \              \n            \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\
+    \u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\
+    \u252F\u2501\u251B  \u2502              \n              \u2502    \u2502    \u2502\
+    \    \u2502    \u2502    \u2502    \u2502    \u2502              \n          \
+    \    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC    \u25BC\
+    \              \n            \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\
+    \u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\
     \u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\
-    \u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\
-    \u2501\u2513\u250F\u2501\u2501\u2501\u2513\u250F\u2501\u2501\u2501\u2513     \
-    \       \n            \u2503 0 \u2503\u2503 1 \u2503\u2503 2 \u2503\u2503 3 \u2503\
-    \u2503 4 \u2503\u2503 5 \u2503\u2503 6 \u2503\u2503 7 \u2503            \n   \
-    \         \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\
-    \u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\
+    \u250F\u2501\u2501\u2501\u2513            \n            \u2503 0 \u2503\u2503\
+    \ 1 \u2503\u2503 2 \u2503\u2503 3 \u2503\u2503 4 \u2503\u2503 5 \u2503\u2503 6\
+    \ \u2503\u2503 7 \u2503            \n            \u2517\u2501\u2501\u2501\u251B\
     \u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\
-    \u2501\u251B            \n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B\u2517\
+    \u2501\u2501\u2501\u251B\u2517\u2501\u2501\u2501\u251B            \n\u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n           Data Structure - Tree - Binary Index Tree     \
-    \       \n'''\n\nclass BIT:\n    def __init__(bit, v):\n        if isinstance(v,\
-    \ int): bit._d, bit._n = [0]*v, v\n        else: bit.build(v)\n        bit._lb\
-    \ = 1<<bit._n.bit_length()\n\n    def build(bit, data):\n        bit._d, bit._n\
-    \ = data, len(data)\n        for i in range(bit._n):\n            if (r := i|i+1)\
-    \ < bit._n: bit._d[r] += bit._d[i]\n\n    def add(bit, i, x):\n        while i\
-    \ < bit._n: bit._d[i] += x; i |= i+1\n\n    def sum(bit, n: int) -> int:\n   \
-    \     s = 0\n        while n: s, n = s+bit._d[n-1], n&n-1\n        return s\n\n\
-    \    def range_sum(bit, l, r):\n        s = 0\n        while r: s, r = s+bit._d[r-1],\
-    \ r&r-1\n        while l: s, l = s-bit._d[l-1], l&l-1\n        return s\n\n  \
-    \  def __len__(bit) -> int:\n        return bit._n\n    \n    def __getitem__(bit,\
-    \ i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n        while l != i: s,\
-    \ i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get = __getitem__\n    \n\
-    \    def __setitem__(bit, i: int, x: int) -> None:\n        bit.add(i, x-bit[i])\n\
-    \    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n        pre = [0]+bit._d\n\
-    \        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n        return pre\n\n\
-    \    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1) if\
-    \ v>0 else -1\n    \n    def bisect_right(bit, v, key=None) -> int:\n        i\
-    \ = s = 0; m = bit._lb\n        if key:\n            while m := m>>1:\n      \
-    \          if (ni := m|i) <= bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i = ns,\
-    \ ni\n        else:\n            while m := m>>1:\n                if (ni := m|i)\
-    \ <= bit._n and (ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        return i\n\n\
-    import os\nfrom __pypy__ import builders\nsb = builders.StringBuilder()\nappend\
-    \ = sb.append\nimport sys\n\nif __name__ == \"__main__\":\n    main()\n"
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data\
+    \ Structure - Tree - Binary Index Tree            \n'''\n\nclass BIT:\n    def\
+    \ __init__(bit, v):\n        if isinstance(v, int): bit._d, bit._n = [0]*v, v\n\
+    \        else: bit.build(v)\n        bit._lb = 1<<bit._n.bit_length()\n\n    def\
+    \ build(bit, data):\n        bit._d, bit._n = data, len(data)\n        for i in\
+    \ range(bit._n):\n            if (r := i|i+1) < bit._n: bit._d[r] += bit._d[i]\n\
+    \n    def add(bit, i, x):\n        while i < bit._n: bit._d[i] += x; i |= i+1\n\
+    \n    def sum(bit, n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1],\
+    \ n&n-1\n        return s\n\n    def sum_range(bit, l, r):\n        s = 0\n  \
+    \      while r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1],\
+    \ l&l-1\n        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n\
+    \    \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
+    \        while l != i: s, i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get\
+    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None:\n   \
+    \     bit.add(i, x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n\
+    \        pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
+    \        return pre\n\n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)\
+    \ if v>0 else -1\n    \n    def bisect_right(bit, v, key=None) -> int:\n     \
+    \   i = s = 0; m = bit._lb\n        if key:\n            while m := m>>1:\n  \
+    \              if (ni := m|i) <= bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i\
+    \ = ns, ni\n        else:\n            while m := m>>1:\n                if (ni\
+    \ := m|i) <= bit._n and (ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        return\
+    \ i\n\nimport os\nfrom __pypy__ import builders\nsb = builders.StringBuilder()\n\
+    append = sb.append\nimport sys\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/predecessor_problem\n\
     \ndef main():\n    N, Q = map(int, sys.stdin.readline().split())\n    T = sys.stdin.readline()\n\
     \n    def construct(T):\n        B = u32f((M := (len(T)+31)>>5))\n        for\
@@ -170,17 +146,17 @@ data:
     n')\n        elif c == '3':\n            append(str(ge(b, r)))\n            append('\\\
     n')\n        elif c == '4':\n            append(str(le(b, r)))\n            append('\\\
     n')\n    os.write(1, sb.build().encode())\n\nfrom cp_library.bit.popcnt32_fn import\
-    \ popcnt32\nfrom cp_library.ds.array_init_fn import u32f\nfrom cp_library.ds.tree.bit.bit_cls\
+    \ popcnt32\nfrom cp_library.ds.array.u32f_fn import u32f\nfrom cp_library.ds.tree.bit.bit_cls\
     \ import BIT\n\nimport os\nfrom __pypy__ import builders\nsb = builders.StringBuilder()\n\
     append = sb.append\nimport sys\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/bit/popcnt32_fn.py
-  - cp_library/ds/array_init_fn.py
+  - cp_library/ds/array/u32f_fn.py
   - cp_library/ds/tree/bit/bit_cls.py
   isVerificationFile: true
   path: test/library-checker/data-structure/predecessor_problem_bit.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/predecessor_problem_bit.test.py

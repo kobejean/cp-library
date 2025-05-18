@@ -23,14 +23,14 @@ data:
     \n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n  \
     \  x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
-    \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\n\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class Submasks(list[list[int]]):\n    def __init__(S,N):\n        Z = 1 << N\n\
-    \        super().__init__([elist(popcnt32(m)) for m in range(Z)])\n        for\
-    \ s in range(Z):\n            sub = S[t := s]\n            while t:\n        \
-    \        sub.append(t)\n                t = (t-1)&s\n            sub.append(0)\n\
-    \            sub.reverse()\n        \n"
+    \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
+    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\n\ndef elist(est_len: int) ->\
+    \ list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\nclass Submasks(list[list[int]]):\n\
+    \    def __init__(S,N):\n        Z = 1 << N\n        super().__init__([elist(popcnt32(m))\
+    \ for m in range(Z)])\n        for s in range(Z):\n            sub = S[t := s]\n\
+    \            while t:\n                sub.append(t)\n                t = (t-1)&s\n\
+    \            sub.append(0)\n            sub.reverse()\n        \n"
   code: "import cp_library.math.table.__header__\nfrom cp_library.bit.popcnt32_fn\
     \ import popcnt32\nfrom cp_library.ds.elist_fn import elist\n\nclass Submasks(list[list[int]]):\n\
     \    def __init__(S,N):\n        Z = 1 << N\n        super().__init__([elist(popcnt32(m))\
@@ -43,7 +43,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/submasks_cls.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/submasks_cls.py

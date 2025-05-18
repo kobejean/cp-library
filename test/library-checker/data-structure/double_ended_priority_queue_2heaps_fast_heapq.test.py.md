@@ -65,30 +65,29 @@ data:
     \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
     \ pos = heap[c], c\n#     heap[pos] = item\n\nclass DoubleEndedPriorityQueue:\n\
     \    def __init__(self, n: int, q: int, arr: list[int]=None) -> None:\n      \
-    \  self.hq1 = arr\n        self.hq2 = [0]*n\n        reserve(self.hq1, n+q)\n\
-    \        reserve(self.hq2, n+q)\n        self.used = bytearray(n+q)\n        if\
-    \ arr:\n            for i, x in enumerate(S):\n                self.hq1[i] = tmp\
-    \ = x << 28 | i\n                self.hq2[i] = ~tmp\n        heapify(self.hq1)\n\
-    \        heapify(self.hq2)\n    \n    def pop_min(self):\n        while 1:\n \
-    \           tmp = heappop(self.hq1)\n            x, i = tmp >> 28, tmp & 0xfffffff\n\
-    \            if self.used[i]: continue\n            self.used[i] = 1\n       \
-    \     return x\n        \n    def pop_max(self):\n        while 1:\n         \
-    \   tmp = ~heappop(self.hq2)\n            x, i = tmp >> 28, tmp & 0xfffffff\n\
-    \            if self.used[i]: continue\n            self.used[i] = 1\n       \
-    \     return x\n        \n    def push(self, x: int, i: int) -> None:\n      \
-    \  heappush(self.hq1, tmp := x << 28 | i)\n        heappush(self.hq2, ~tmp)\n\n\
-    \n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import read\
-    \ as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
-    \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
-    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
-    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
-    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
-    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
-    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
-    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
-    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
-    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \  self.mnq, self.mxq = arr or [0]*n, [0]*n\n        reserve(self.mnq, n+q); reserve(self.mxq,\
+    \ n+q)\n        self.used = bytearray(n+q)\n        if arr:\n            for i,\
+    \ x in enumerate(arr):\n                self.mnq[i] = self.mxq[i] = x << 28 |\
+    \ i\n        heapify(self.mnq)\n        heapify_max(self.mxq)\n    \n    def pop_min(self):\n\
+    \        while True:\n            tmp = heappop(self.mnq)\n            x, i =\
+    \ tmp >> 28, tmp & 0xfffffff\n            if self.used[i]: continue\n        \
+    \    self.used[i] = 1\n            return x\n        \n    def pop_max(self):\n\
+    \        while True:\n            tmp = heappop_max(self.mxq)\n            x,\
+    \ i = tmp >> 28, tmp & 0xfffffff\n            if self.used[i]: continue\n    \
+    \        self.used[i] = 1\n            return x\n        \n    def push(self,\
+    \ x: int, i: int) -> None:\n        heappush(self.mnq, tmp := x << 28 | i)\n \
+    \       heappush_max(self.mxq, tmp)\n\n\n\nfrom __pypy__.builders import StringBuilder\n\
+    import sys\nfrom os import read as os_read, write as os_write\nfrom atexit import\
+    \ register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil =\
+    \ pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf =\
+    \ self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
     \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
     \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
     \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
@@ -105,24 +104,25 @@ data:
     \    else:\n        wtn(depq.pop_max())\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/double_ended_priority_queue\n\
     # modified from abUma: https://judge.yosupo.jp/submission/144329\nfrom cp_library.ds.reserve_fn\
-    \ import reserve\nfrom cp_library.ds.heap.fast_heapq import heappop, heappush,\
-    \ heapify\n\nclass DoubleEndedPriorityQueue:\n    def __init__(self, n: int, q:\
-    \ int, arr: list[int]=None) -> None:\n        self.hq1 = arr\n        self.hq2\
-    \ = [0]*n\n        reserve(self.hq1, n+q)\n        reserve(self.hq2, n+q)\n  \
-    \      self.used = bytearray(n+q)\n        if arr:\n            for i, x in enumerate(S):\n\
-    \                self.hq1[i] = tmp = x << 28 | i\n                self.hq2[i]\
-    \ = ~tmp\n        heapify(self.hq1)\n        heapify(self.hq2)\n    \n    def\
-    \ pop_min(self):\n        while 1:\n            tmp = heappop(self.hq1)\n    \
-    \        x, i = tmp >> 28, tmp & 0xfffffff\n            if self.used[i]: continue\n\
-    \            self.used[i] = 1\n            return x\n        \n    def pop_max(self):\n\
-    \        while 1:\n            tmp = ~heappop(self.hq2)\n            x, i = tmp\
-    \ >> 28, tmp & 0xfffffff\n            if self.used[i]: continue\n            self.used[i]\
-    \ = 1\n            return x\n        \n    def push(self, x: int, i: int) -> None:\n\
-    \        heappush(self.hq1, tmp := x << 28 | i)\n        heappush(self.hq2, ~tmp)\n\
-    \nfrom cp_library.io.fast.fast_io_fn import rd, rdl, wtn\n\nN, Q = rd(), rd()\n\
-    S = rdl(N)\ndepq = DoubleEndedPriorityQueue(N, Q, S)\nfor i in range(Q):\n   \
-    \ cmd = rd()\n    if cmd == 0:\n        x = rd()\n        depq.push(x, i + N)\n\
-    \    elif cmd == 1:\n        wtn(depq.pop_min())\n    else:\n        wtn(depq.pop_max())"
+    \ import reserve\nfrom cp_library.ds.heap.fast_heapq import heapify_max, heappop,\
+    \ heappop_max, heappush, heapify, heappush_max\n\nclass DoubleEndedPriorityQueue:\n\
+    \    def __init__(self, n: int, q: int, arr: list[int]=None) -> None:\n      \
+    \  self.mnq, self.mxq = arr or [0]*n, [0]*n\n        reserve(self.mnq, n+q); reserve(self.mxq,\
+    \ n+q)\n        self.used = bytearray(n+q)\n        if arr:\n            for i,\
+    \ x in enumerate(arr):\n                self.mnq[i] = self.mxq[i] = x << 28 |\
+    \ i\n        heapify(self.mnq)\n        heapify_max(self.mxq)\n    \n    def pop_min(self):\n\
+    \        while True:\n            tmp = heappop(self.mnq)\n            x, i =\
+    \ tmp >> 28, tmp & 0xfffffff\n            if self.used[i]: continue\n        \
+    \    self.used[i] = 1\n            return x\n        \n    def pop_max(self):\n\
+    \        while True:\n            tmp = heappop_max(self.mxq)\n            x,\
+    \ i = tmp >> 28, tmp & 0xfffffff\n            if self.used[i]: continue\n    \
+    \        self.used[i] = 1\n            return x\n        \n    def push(self,\
+    \ x: int, i: int) -> None:\n        heappush(self.mnq, tmp := x << 28 | i)\n \
+    \       heappush_max(self.mxq, tmp)\n\nfrom cp_library.io.fast.fast_io_fn import\
+    \ rd, rdl, wtn\n\nN, Q = rd(), rd()\nS = rdl(N)\ndepq = DoubleEndedPriorityQueue(N,\
+    \ Q, S)\nfor i in range(Q):\n    cmd = rd()\n    if cmd == 0:\n        x = rd()\n\
+    \        depq.push(x, i + N)\n    elif cmd == 1:\n        wtn(depq.pop_min())\n\
+    \    else:\n        wtn(depq.pop_max())"
   dependsOn:
   - cp_library/ds/reserve_fn.py
   - cp_library/ds/heap/fast_heapq.py
@@ -130,7 +130,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py

@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/treap_monoid_cls.py
     title: cp_library/ds/tree/treap_monoid_cls.py
   - icon: ':warning:'
@@ -55,6 +55,9 @@ data:
     path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
     title: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+    title: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
@@ -88,29 +91,30 @@ data:
   path: cp_library/ds/reserve_fn.py
   requiredBy:
   - cp_library/ds/tree/treap_monoid_cls.py
-  - cp_library/math/conv/lcm_conv_fn.py
-  - cp_library/math/conv/gcd_conv_fn.py
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/sieve_proto.py
-  - cp_library/math/table/sieve_cls.py
   - cp_library/math/table/primes_cls.py
-  - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/table/linear_sieve_cnts_cls.py
   - cp_library/math/table/linear_sieve_cls.py
+  - cp_library/math/table/linear_sieve_cnts_cls.py
+  - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/table/totient_cls.py
-  - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/table/sieve_cls.py
   - cp_library/math/fps/fps_exp_fn.py
-  timestamp: '2025-05-06 22:58:43+09:00'
+  - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/conv/gcd_conv_fn.py
+  - cp_library/math/conv/lcm_conv_fn.py
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
+  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   - test/library-checker/data-structure/double_ended_priority_queue.test.py
   - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   - test/library-checker/convolution/lcm_convolution.test.py
   - test/library-checker/convolution/gcd_convolution.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
+  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
 documentation_of: cp_library/ds/reserve_fn.py
 layout: document
 redirect_from:

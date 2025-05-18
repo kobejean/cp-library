@@ -2,8 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack_sm_fn.py
-    title: cp_library/bit/pack_sm_fn.py
+    path: cp_library/bit/pack/pack_indices_fn.py
+    title: cp_library/bit/pack/pack_indices_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_sm_fn.py
+    title: cp_library/bit/pack/pack_sm_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
@@ -79,7 +82,7 @@ data:
     \            if (r := i|i+1) < bit._n: bit._d[r] += bit._d[i]\n\n    def add(bit,\
     \ i, x):\n        while i < bit._n: bit._d[i] += x; i |= i+1\n\n    def sum(bit,\
     \ n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1], n&n-1\n\
-    \        return s\n\n    def range_sum(bit, l, r):\n        s = 0\n        while\
+    \        return s\n\n    def sum_range(bit, l, r):\n        s = 0\n        while\
     \ r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1], l&l-1\n\
     \        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n   \
     \ \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
@@ -93,25 +96,24 @@ data:
     \              if (ni := m|i) <= bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i\
     \ = ns, ni\n        else:\n            while m := m>>1:\n                if (ni\
     \ := m|i) <= bit._n and (ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        return\
-    \ i\n\n\ndef pack_sm(N: int):\n    s = N.bit_length()\n    return s, (1<<s)-1\n\
-    \ndef pack_enc(a: int, b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab:\
-    \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n\
-    \    return [a << s | i for i,a in enumerate(A)]\n\ndef invcnt(A: list[int]):\n\
-    \    s, m = pack_sm(N := len(A))\n    bit, cnt, I = BIT(N), 0, pack_indices(A,\
-    \ s)\n    I.sort(reverse=True)\n    for i in I:\n        cnt += bit.sum(i&m)\n\
-    \        bit.add(i&m, 1)\n    return cnt\n"
+    \ i\n\ndef invcnt(A: list[int]):\n    s, m = pack_sm(N := len(A))\n    bit, cnt,\
+    \ I = BIT(N), 0, pack_indices(A, s); I.sort(reverse=True)\n    for i in I: cnt\
+    \ += bit.sum(i&m); bit.add(i&m, 1)\n    return cnt\n\n\ndef pack_indices(A, s):\
+    \ return [a<<s|i for i,a in enumerate(A)]\ndef pack_sm(N: int): s=N.bit_length();\
+    \ return s,(1<<s)-1\n"
   code: "import cp_library.math.__header__\nfrom cp_library.ds.tree.bit.bit_cls import\
-    \ BIT\nfrom cp_library.bit.pack_sm_fn import pack_sm, pack_indices\n\ndef invcnt(A:\
-    \ list[int]):\n    s, m = pack_sm(N := len(A))\n    bit, cnt, I = BIT(N), 0, pack_indices(A,\
-    \ s)\n    I.sort(reverse=True)\n    for i in I:\n        cnt += bit.sum(i&m)\n\
-    \        bit.add(i&m, 1)\n    return cnt"
+    \ BIT\n\ndef invcnt(A: list[int]):\n    s, m = pack_sm(N := len(A))\n    bit,\
+    \ cnt, I = BIT(N), 0, pack_indices(A, s); I.sort(reverse=True)\n    for i in I:\
+    \ cnt += bit.sum(i&m); bit.add(i&m, 1)\n    return cnt\nfrom cp_library.bit.pack.pack_indices_fn\
+    \ import pack_indices\nfrom cp_library.bit.pack.pack_sm_fn import pack_sm"
   dependsOn:
   - cp_library/ds/tree/bit/bit_cls.py
-  - cp_library/bit/pack_sm_fn.py
+  - cp_library/bit/pack/pack_indices_fn.py
+  - cp_library/bit/pack/pack_sm_fn.py
   isVerificationFile: false
   path: cp_library/math/invcnt_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

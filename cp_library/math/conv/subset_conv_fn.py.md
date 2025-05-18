@@ -81,12 +81,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
     \                     \n'''\n\ndef subset_zeta_pair(A: list[int], B: list[int],\
     \ N: int):\n    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n   \
-    \     while m < Z:\n            A[m] += A[m^b]\n            B[m] += B[m^b]\n \
-    \           m = m+1|b\n    return A, B\n\ndef subset_mobius(A: list[int], N: int):\n\
-    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
-    \ < Z:\n            A[m] -= A[m^b]\n            m = m+1|b\n    return A\n\ndef\
-    \ subset_conv(A,B,N):\n    assert len(A) == len(B)\n    Z = (N+1)*(M := 1<<N)\n\
-    \    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n    for i,p in enumerate(P):\
+    \     while m < Z: A[m] += A[m^b]; B[m] += B[m^b]; m = m+1|b\n    return A, B\n\
+    \ndef subset_mobius(A: list[int], N: int):\n    Z = len(A)\n    for i in range(N):\n\
+    \        m = b = 1<<i\n        while m < Z: A[m] -= A[m^b]; m = m+1|b\n    return\
+    \ A\n\ndef subset_conv(A,B,N):\n    assert len(A) == len(B)\n    Z = (N+1)*(M\
+    \ := 1<<N)\n    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n    for i,p in enumerate(P):\
     \ Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    subset_zeta_pair(Ar, Br, N)\n    for\
     \ i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n            ij = i+j\n\
     \            for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]\n    subset_mobius(Cr,\
@@ -108,7 +107,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/subset_conv_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution_all.test.py

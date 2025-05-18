@@ -29,16 +29,15 @@ data:
     \ min2(a, b):\n    return a if a < b else b\n\ndef main():\n    N, Q = rd(), rd()\n\
     \    A = rdl(N)\n    st = SparseTable(min2, A)\n    for _ in range(Q):\n     \
     \   wtn(st.query(rd(),rd()))\n\nfrom typing import Generic, Callable\nfrom typing\
-    \ import TypeVar\n_T = TypeVar('T')\n\n\n\nclass SparseTable(Generic[_T]):\n \
-    \   def __init__(st, op: Callable[[_T,_T],_T], arr: list[_T]):\n        st.N =\
-    \ N = len(arr)\n        st.log = N.bit_length()\n        st.op = op\n        st.data\
-    \ = data = [0] * (st.log*N)\n        data[:N] = arr\n        for i in range(1,st.log):\n\
-    \            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j\
-    \ in range(N - (1 << i) + 1):\n                data[a+j] = op(data[b+j], data[c+j])\n\
-    \n    def query(st, l: int, r: int) -> _T:\n        k = (r-l).bit_length() - 1\n\
-    \        return st.op(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n\n\n\
-    from __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as\
-    \ os_read, write as os_write\nfrom atexit import register as atexist_register\n\
+    \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SparseTable(Generic[_T]):\n\
+    \    def __init__(st, op: Callable[[_T,_T],_T], arr: list[_T]):\n        st.N\
+    \ = N = len(arr)\n        st.log, st.op = N.bit_length(), op\n        st.data\
+    \ = [0] * (st.log*N)\n        st.data[:N] = arr\n        for i in range(1,st.log):\n\
+    \            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n            for j in range(N-(1<<i)+1):\n\
+    \                st.data[a+j] = op(st.data[b+j], st.data[c+j])\n\n    def query(st,\
+    \ l: int, r: int) -> _T:\n        k = (r-l).bit_length()-1\n        return st.op(st.data[k*st.N+l],st.data[k*st.N+r-(1<<k)])\n\
+    \n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import read\
+    \ as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
     \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
     \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
     \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
@@ -73,7 +72,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/staticrmq_general.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/staticrmq_general.test.py

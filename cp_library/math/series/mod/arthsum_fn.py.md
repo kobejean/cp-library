@@ -21,7 +21,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/series/mod/arthsum_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/series/mod/arthsum_fn.py

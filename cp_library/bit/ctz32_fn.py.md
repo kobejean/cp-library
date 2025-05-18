@@ -29,14 +29,14 @@ data:
     \ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n    x\
     \ = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
-    \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\n\ndef ctz32(x):\
-    \ return popcnt32(~x & (x - 1))\n"
+    \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
+    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\ndef ctz32(x): return popcnt32(~x&(x-1))\n"
   code: 'import cp_library.bit.__header__
 
     from cp_library.bit.popcnt32_fn import popcnt32
 
 
-    def ctz32(x): return popcnt32(~x & (x - 1))
+    def ctz32(x): return popcnt32(~x&(x-1))
 
     '
   dependsOn:
@@ -46,7 +46,7 @@ data:
   requiredBy:
   - cp_library/bit/clz32_fn.py
   - cp_library/alg/graph/bit_graph_cls.py
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

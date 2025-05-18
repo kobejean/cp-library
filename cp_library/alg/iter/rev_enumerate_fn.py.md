@@ -17,15 +17,9 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Reversible\n\ndef rev_enumerate(A: Reversible, start: int =\
-    \ 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n        yield\
-    \ (start:=start-1), A[i]\n"
+  bundledCode: "\nfrom typing import Reversible\n\ndef rev_enumerate(A: Reversible,\
+    \ start: int = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n\
+    \        yield (start:=start-1), A[i]\n"
   code: "import cp_library.alg.iter.__header__\nfrom typing import Reversible\n\n\
     def rev_enumerate(A: Reversible, start: int = 0):\n    start += (N := len(A))\n\
     \    for i in range(N-1,-1,-1):\n        yield (start:=start-1), A[i]"
@@ -33,12 +27,12 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/rev_enumerate_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
-  - test/atcoder/abc/abc249_f_max_k_heap.test.py
   - test/atcoder/abc/abc249_f_min_k_heap.test.py
+  - test/atcoder/abc/abc249_f_max_k_heap.test.py
 documentation_of: cp_library/alg/iter/rev_enumerate_fn.py
 layout: document
 redirect_from:

@@ -50,18 +50,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterator, SupportsIndex\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
-    \nclass SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T],\
-    \ L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n  \
-    \  def __len__(self): return len(self.L)\n    def __next__(self):\n        L =\
-    \ self.L\n        if not L: raise StopIteration\n        self.r, r = (l := L.pop()),\
-    \ self.r\n        return self.A[l:r]\n"
+  bundledCode: "\nfrom typing import Iterator, SupportsIndex\nfrom typing import TypeVar\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
+    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
+    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n"
   code: "import cp_library.alg.iter.__header__\nfrom typing import Iterator, SupportsIndex\n\
     from cp_library.misc.typing import _T\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
     \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
@@ -74,21 +68,21 @@ data:
   requiredBy:
   - cp_library/alg/graph/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/digraph_cls.py
-  - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
   - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
-  timestamp: '2025-05-06 22:58:43+09:00'
+  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_2_c_scc.test.py
+  - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/scc.test.py
   - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
-  - test/library-checker/graph/cycle_detection.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/aoj/grl/grl_2_c_scc.test.py
 documentation_of: cp_library/alg/iter/slice_iterator_reverse_cls.py
 layout: document
 redirect_from:

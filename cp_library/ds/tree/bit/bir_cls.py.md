@@ -70,10 +70,10 @@ data:
     \    def __init__(bir, size: int):\n        bir.size, bir.bit1, bir.bit2  = size,\
     \ BIT(size), BIT(size)\n    \n    def __len__(bir):\n        return bir.size\n\
     \n    def add(bir, l, r, x) -> None:\n        '''Add x to all elements in range\
-    \ [l, r)'''\n        bir.bit1.add(l, x), bir.bit1.add(r, -x)\n        bir.bit2.add(l,\
-    \ x * l), bir.bit2.add(r, -x * r)\n\n    def sum(bir, i):\n        '''Get sum\
+    \ [l, r)'''\n        bir.bit1.add(l, x); bir.bit1.add(r, -x)\n        bir.bit2.add(l,\
+    \ x * l); bir.bit2.add(r, -x * r)\n\n    def sum(bir, i):\n        '''Get sum\
     \ of elements in range [0, i)'''\n        return i * bir.bit1.sum(i) - bir.bit2.sum(i)\n\
-    \n    def range_sum(bir, l, r):\n        '''Get sum of elements in range [l, r)'''\n\
+    \n    def sum_range(bir, l, r):\n        '''Get sum of elements in range [l, r)'''\n\
     \        return bir.sum(r) - bir.sum(l)\n\n    def get(bir, i):\n        '''Get\
     \ the value at index i'''\n        return (i+1) * bir.bit1.sum(i+1) - i*bir.bit1.sum(i)\
     \ - bir.bit2.get(i)\n    __getitem__ = get\n\n    def set(bir, i, x):\n      \
@@ -85,7 +85,7 @@ data:
     \      if (r := i|i+1) < bit._n: bit._d[r] += bit._d[i]\n\n    def add(bit, i,\
     \ x):\n        while i < bit._n: bit._d[i] += x; i |= i+1\n\n    def sum(bit,\
     \ n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1], n&n-1\n\
-    \        return s\n\n    def range_sum(bit, l, r):\n        s = 0\n        while\
+    \        return s\n\n    def sum_range(bit, l, r):\n        s = 0\n        while\
     \ r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1], l&l-1\n\
     \        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n   \
     \ \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
@@ -105,10 +105,10 @@ data:
     \nclass BIR(Sequence[int]):\n    def __init__(bir, size: int):\n        bir.size,\
     \ bir.bit1, bir.bit2  = size, BIT(size), BIT(size)\n    \n    def __len__(bir):\n\
     \        return bir.size\n\n    def add(bir, l, r, x) -> None:\n        '''Add\
-    \ x to all elements in range [l, r)'''\n        bir.bit1.add(l, x), bir.bit1.add(r,\
-    \ -x)\n        bir.bit2.add(l, x * l), bir.bit2.add(r, -x * r)\n\n    def sum(bir,\
+    \ x to all elements in range [l, r)'''\n        bir.bit1.add(l, x); bir.bit1.add(r,\
+    \ -x)\n        bir.bit2.add(l, x * l); bir.bit2.add(r, -x * r)\n\n    def sum(bir,\
     \ i):\n        '''Get sum of elements in range [0, i)'''\n        return i * bir.bit1.sum(i)\
-    \ - bir.bit2.sum(i)\n\n    def range_sum(bir, l, r):\n        '''Get sum of elements\
+    \ - bir.bit2.sum(i)\n\n    def sum_range(bir, l, r):\n        '''Get sum of elements\
     \ in range [l, r)'''\n        return bir.sum(r) - bir.sum(l)\n\n    def get(bir,\
     \ i):\n        '''Get the value at index i'''\n        return (i+1) * bir.bit1.sum(i+1)\
     \ - i*bir.bit1.sum(i) - bir.bit2.get(i)\n    __getitem__ = get\n\n    def set(bir,\
@@ -120,7 +120,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bir_cls.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/tree/bit/bir_cls.py

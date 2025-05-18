@@ -57,15 +57,16 @@ data:
     \               \n'''\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n  \
     \  return [P[i]*i%mod for i in range(1,len(P))]\n\n\n    \nclass mint(int):\n\
     \    mod: int\n    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache:\
-    \ list['mint']\n\n    def __new__(cls, *args, **kwargs):\n        if 0<= (x :=\
-    \ int(*args, **kwargs)) <= 2:\n            return cls.cache[x]\n        else:\n\
+    \ list['mint']\n\n    def __new__(cls, *args, **kwargs):\n        if 0 <= (x :=\
+    \ int(*args, **kwargs)) < 64:\n            return cls.cache[x]\n        else:\n\
     \            return cls.fix(x)\n\n    @classmethod\n    def set_mod(cls, mod:\
     \ int):\n        mint.mod = cls.mod = mod\n        mint.zero = cls.zero = cls.cast(0)\n\
     \        mint.one = cls.one = cls.fix(1)\n        mint.two = cls.two = cls.fix(2)\n\
-    \        mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n\n    @classmethod\n\
-    \    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def\
-    \ cast(cls, x): return super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls,\
-    \ x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
+    \        mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n        for x\
+    \ in range(3,64): mint.cache.append(cls.fix(x))\n\n    @classmethod\n    def fix(cls,\
+    \ x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def cast(cls, x): return\
+    \ super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls, x):\n     \
+    \   a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
     \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
     \ invertible in mod {cls.mod}\")\n    \n    @property\n    def inv(self): return\
     \ mint.mod_inv(self)\n\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
@@ -77,11 +78,12 @@ data:
     \    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
     \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
     \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
-    \ return self\n    def __abs__(self): return self\n\ndef fps_exp(P: list) -> list:\n\
-    \    max_sz = 1 << ((deg := len(P))-1).bit_length()\n    modcomb.extend_inv(max_sz)\n\
-    \    inv, mod, ntt = modcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half\
-    \ = ntt.fntt, ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n\
-    \    R, E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz),\
+    \ return self\n    def __abs__(self): return self\n    def __class_getitem__(self,\
+    \ x: int): return self.cache[x]\n\ndef fps_exp(P: list) -> list:\n    max_sz =\
+    \ 1 << ((deg := len(P))-1).bit_length()\n    modcomb.extend_inv(max_sz)\n    inv,\
+    \ mod, ntt = modcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt,\
+    \ ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n    R,\
+    \ E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz),\
     \ reserve(E, max_sz)\n    p = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n\
     \        x = ifntt([Rres[i]*-e%mod for i, e in enumerate(Eres)])\n        x[:h]\
     \ = [0]*(h:=p>>1)\n        E[h:] = conv_half(x, Eres)[h:]\n        Eres = fntt(E\
@@ -207,13 +209,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -237,7 +240,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -261,18 +264,20 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> Iterable[int]:\
-    \ ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
-    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
+    def read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T],\
+    \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
+    \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
+    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
+    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/exp_of_formal_power_series\n\
     \ndef main():\n    N = read(int)\n    mint.set_mod(998244353)\n    A = read(list[int])\n\
     \    B = fps_exp(A)\n    write(*B)\n\nfrom cp_library.math.fps.fps_exp_fn import\
@@ -295,7 +300,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/exp_of_formal_power_series.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/exp_of_formal_power_series.test.py

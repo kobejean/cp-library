@@ -83,14 +83,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n               \
     \       Math - Convolution                     \n'''\n\ndef superset_zeta_pair(A:\
     \ list[int], B: list[int], N: int):\n    Z = len(A)\n    for i in range(N):\n\
-    \        m = b = 1<<i\n        while m < Z:\n            A[m ^ b] += A[m]\n  \
-    \          B[m ^ b] += B[m]\n            m = m+1|b\n    return A\n\ndef superset_mobius(A,\
-    \ N: int):\n    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n   \
-    \     while m < Z:\n            A[m^b] -= A[m]\n            m = m+1|b\n    return\
-    \ A\n\ndef and_conv(A: list[int], B: list[int], N: int, mod) -> list[int]:\n \
-    \   assert len(A) == len(B)\n    Z = 1 << N\n    superset_zeta_pair(A, B, N)\n\
-    \    for i, b in enumerate(B): A[i] = A[i]*b%mod\n    superset_mobius(A, N)\n\
-    \    for i in range(Z): A[i] %= mod\n    return A\n\n\nfrom __pypy__.builders\
+    \        m = b = 1<<i\n        while m < Z: A[m^b] += A[m]; B[m^b] += B[m]; m\
+    \ = m+1|b\n    return A\n\ndef superset_mobius(A, N: int):\n    Z = len(A)\n \
+    \   for i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m^b] -= A[m];\
+    \ m = m+1|b\n    return A\n\ndef and_conv(A: list[int], B: list[int], N: int,\
+    \ mod) -> list[int]:\n    assert len(A) == len(B)\n    Z = 1 << N\n    superset_zeta_pair(A,\
+    \ B, N)\n    for i, b in enumerate(B): A[i] = A[i]*b%mod\n    superset_mobius(A,\
+    \ N)\n    for i in range(Z): A[i] %= mod\n    return A\n\n\nfrom __pypy__.builders\
     \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
     from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
     \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
@@ -126,7 +125,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution_fast.test.py

@@ -17,8 +17,23 @@ data:
     path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
     title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/array_init_fn.py
-    title: cp_library/ds/array_init_fn.py
+    path: cp_library/bit/masks/i32_max_cnst.py
+    title: cp_library/bit/masks/i32_max_cnst.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/masks/u32_max_cnst.py
+    title: cp_library/bit/masks/u32_max_cnst.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/i32f_fn.py
+    title: cp_library/ds/array/i32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u32a_fn.py
+    title: cp_library/ds/array/u32a_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u32f_fn.py
+    title: cp_library/ds/array/u32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u8f_fn.py
+    title: cp_library/ds/array/u8f_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
@@ -72,13 +87,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -102,7 +118,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -263,48 +279,28 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\nfrom array import\
-    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
-    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
-    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
-    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
-    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
-    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
-    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
-    \  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N\
-    \  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return array('f',\
-    \ (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N\
-    \  # double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
-    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
-    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
-    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
-    \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
-    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
-    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
-    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
-    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
-    \ x & lst.mask\n\nclass GridGraphBase(GraphBase):\n    def __init__(G, H, W, M,\
-    \ S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)]):\n\
-    \        super().__init__(H*W, M, U, V, deg, La, Ra, Ua, Va, Ea)\n        G.W,\
-    \ G.H, G.dirs = W, H, dirs\n        G.S: list[str] = S\n        G.dirs: list[tuple[int,int]]\
-    \ = dirs\n\n    def vertex(G, key: tuple[int,int] | int):\n        if isinstance(key,\
-    \ tuple): i,j = key; return i*G.W+j\n        else: return key\n    \n    def check_bounds(G,\
-    \ i, j, v):\n        return 0 <= i < G.H and 0 <= j < G.W\n    \n    is_valid\
-    \ = check_bounds\n    \n    @classmethod\n    def compile(cls, H: int, W: int,\
-    \ *args):\n        def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
+    \            return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
+    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
+    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
+    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
+    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
+    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
+    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
+    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass GridGraphBase(GraphBase):\n\
+    \    def __init__(G, H, W, M, S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs:\
+    \ list = [(-1,0),(0,1),(1,0),(0,-1)]):\n        super().__init__(H*W, M, U, V,\
+    \ deg, La, Ra, Ua, Va, Ea)\n        G.W, G.H, G.dirs = W, H, dirs\n        G.S:\
+    \ list[str] = S\n        G.dirs: list[tuple[int,int]] = dirs\n\n    def vertex(G,\
+    \ key: tuple[int,int] | int):\n        if isinstance(key, tuple): i,j = key; return\
+    \ i*G.W+j\n        else: return key\n    \n    def check_bounds(G, i, j, v):\n\
+    \        return 0 <= i < G.H and 0 <= j < G.W\n    \n    is_valid = check_bounds\n\
+    \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
+    \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
     \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
     \n\nclass GridGraphWalledBase(GridGraphBase):\n\n    def __init__(G, H, W, M,\
     \ S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)],\
@@ -313,7 +309,7 @@ data:
     \ super().is_valid(i, j, v) and G.S[v] != G.wall\n    \n    @classmethod\n   \
     \ def compile(cls, H: int, W: int, *args):\n        def parse(ts: TokenStream):\n\
     \            S = ''.join(ts.stream.readline().rstrip() for _ in range(H))\n  \
-    \          return cls(H, W, S, *args)\n        return parse\n\n\nclass GridGraph(GridGraphWalledBase):\n\
+    \          return cls(H, W, S, *args)\n        return parse\n\nclass GridGraph(GridGraphWalledBase):\n\
     \n    def __init__(G, H, W, S=[], dirs = [(-1,0),(0,1),(1,0),(0,-1)], wall = '#'):\n\
     \        N = H*W\n        Mest = N*len(dirs)\n        deg, La, Ra, Ua, Va = u32f(N),\
     \ u32f(N), u32f(N), elist(Mest), elist(Mest)\n        super().__init__(H, W, 0,\
@@ -324,7 +320,8 @@ data:
     \ deg[u] += 1\n                Ra[u] = len(Ua)\n        G.twin = [*range(len(G.Va))]\n\
     \        for i,u in enumerate(G.Ua):\n            for j in G.range(G.Va[i]):\n\
     \                if G.Va[j] == u:\n                    G.twin[i] = j\n       \
-    \ G.M, G.Ea = len(Ua), u32a(range(G.M))\n\n"
+    \ G.M, G.Ea = len(Ua), u32a(range(G.M))\ndef u32a(init = None): return array('I')\
+    \ if init is None else array('I', init)  # unsigned int\n"
   code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.graph.__header__\n\
     import cp_library.alg.graph.fast.__header__\nfrom cp_library.alg.graph.fast.grid_graph_walled_base_cls\
     \ import GridGraphWalledBase\n\nclass GridGraph(GridGraphWalledBase):\n\n    def\
@@ -338,23 +335,29 @@ data:
     \ deg[u] += 1\n                Ra[u] = len(Ua)\n        G.twin = [*range(len(G.Va))]\n\
     \        for i,u in enumerate(G.Ua):\n            for j in G.range(G.Va[i]):\n\
     \                if G.Va[j] == u:\n                    G.twin[i] = j\n       \
-    \ G.M, G.Ea = len(Ua), u32a(range(G.M))\n\nfrom cp_library.ds.array_init_fn import\
-    \ u32f, u32a\nfrom cp_library.ds.elist_fn import elist"
+    \ G.M, G.Ea = len(Ua), u32a(range(G.M))\nfrom cp_library.ds.array.u32a_fn import\
+    \ u32a\nfrom cp_library.ds.array.u32f_fn import u32f\nfrom cp_library.ds.elist_fn\
+    \ import elist"
   dependsOn:
   - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-  - cp_library/ds/array_init_fn.py
+  - cp_library/ds/array/u32a_fn.py
+  - cp_library/ds/array/u32f_fn.py
   - cp_library/ds/elist_fn.py
   - cp_library/alg/graph/fast/grid_graph_base_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/bit/masks/u32_max_cnst.py
+  - cp_library/bit/masks/i32_max_cnst.py
+  - cp_library/ds/array/u8f_fn.py
+  - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/packet_list_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/fast/grid_graph_cls.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

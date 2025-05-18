@@ -6,6 +6,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/incremental_scc.test.py
     title: test/library-checker/graph/incremental_scc.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
+    title: test/library-checker/graph/incremental_scc_paralel_sort.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -86,9 +89,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/graph/incremental_scc_paralel_sort.test.py
   - test/library-checker/graph/incremental_scc.test.py
 documentation_of: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
 layout: document

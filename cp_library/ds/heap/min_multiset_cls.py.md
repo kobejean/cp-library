@@ -52,8 +52,8 @@ data:
     \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
     \ pos = heap[c], c\n#     heap[pos] = item\nfrom collections import Counter, UserList\n\
     from typing import Iterable\nfrom math import inf\nfrom typing import TypeVar\n\
-    _T = TypeVar('T')\n\nclass MinMultiset(UserList[_T]):\n    def __init__(self,\
-    \ iterable: Iterable = None, default = -inf):\n        super().__init__(iterable)\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\nclass MinMultiset(UserList[_T]):\n   \
+    \ def __init__(self, iterable: Iterable = None, default = -inf):\n        super().__init__(iterable)\n\
     \        self.default = default\n        self.counter = Counter(self.data)\n\n\
     \    def add(self, x: _T):\n        self.counter[x] += 1\n        heappush(self.data,\
     \ x)\n    \n    def remove(self, x: _T):\n        cnt, data = self.counter, self.data\n\
@@ -74,7 +74,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/min_multiset_cls.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/min_multiset_cls.py

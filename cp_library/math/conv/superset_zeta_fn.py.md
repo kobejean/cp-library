@@ -66,17 +66,17 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
     \                     \n'''\n\ndef superset_zeta(A, N: int):\n    Z = len(A)\n\
-    \    for i in range(N):\n        m = b = 1<<i\n        while m < Z:\n        \
-    \    A[m^b] += A[m]\n            m = m+1|b\n    return A\n"
+    \    for i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m^b] +=\
+    \ A[m]; m = m+1|b\n    return A\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
     \ndef superset_zeta(A, N: int):\n    Z = len(A)\n    for i in range(N):\n    \
-    \    m = b = 1<<i\n        while m < Z:\n            A[m^b] += A[m]\n        \
-    \    m = m+1|b\n    return A\n"
+    \    m = b = 1<<i\n        while m < Z: A[m^b] += A[m]; m = m+1|b\n    return\
+    \ A\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/conv/superset_zeta_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/superset_zeta_fn.py

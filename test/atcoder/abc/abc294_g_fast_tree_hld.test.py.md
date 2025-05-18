@@ -17,8 +17,8 @@ data:
     path: cp_library/alg/graph/fast/graph_weighted_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/argsort_fn.py
-    title: cp_library/alg/iter/argsort_fn.py
+    path: cp_library/alg/iter/arg/argsort_fn.py
+    title: cp_library/alg/iter/arg/argsort_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/hld_base_cls.py
     title: cp_library/alg/tree/fast/hld_base_cls.py
@@ -38,11 +38,23 @@ data:
     path: cp_library/alg/tree/fast/tree_weighted_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack_sm_fn.py
-    title: cp_library/bit/pack_sm_fn.py
+    path: cp_library/bit/masks/i32_max_cnst.py
+    title: cp_library/bit/masks/i32_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/array_init_fn.py
-    title: cp_library/ds/array_init_fn.py
+    path: cp_library/bit/masks/u32_max_cnst.py
+    title: cp_library/bit/masks/u32_max_cnst.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_sm_fn.py
+    title: cp_library/bit/pack/pack_sm_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/i32f_fn.py
+    title: cp_library/ds/array/i32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u32f_fn.py
+    title: cp_library/ds/array/u32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u8f_fn.py
+    title: cp_library/ds/array/u8f_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/csr/csr_incremental_cls.py
     title: cp_library/ds/csr/csr_incremental_cls.py
@@ -91,7 +103,7 @@ data:
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
     \    bit = BIT(hld.weights)\n    ans = 0\n\n    def query(l, r):\n        nonlocal\
-    \ ans\n        ans += bit.range_sum(l,r) \n    I = [0]*N\n    for i in hld.back:\n\
+    \ ans\n        ans += bit.sum_range(l,r) \n    I = [0]*N\n    for i in hld.back:\n\
     \        if i == -1: continue\n        I[T.Ea[i]] = hld.tin[T.Ua[i]]\n\n    Q\
     \ = read(int)\n    for q in read(list[tuple[int, int, int], Q]):\n        match\
     \ q:\n            case 1, i, w:\n                bit[I[i-1]] = w\n           \
@@ -158,7 +170,7 @@ data:
     \ range(bit._n):\n            if (r := i|i+1) < bit._n: bit._d[r] += bit._d[i]\n\
     \n    def add(bit, i, x):\n        while i < bit._n: bit._d[i] += x; i |= i+1\n\
     \n    def sum(bit, n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1],\
-    \ n&n-1\n        return s\n\n    def range_sum(bit, l, r):\n        s = 0\n  \
+    \ n&n-1\n        return s\n\n    def sum_range(bit, l, r):\n        s = 0\n  \
     \      while r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1],\
     \ l&l-1\n        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n\
     \    \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
@@ -173,15 +185,12 @@ data:
     \ = ns, ni\n        else:\n            while m := m>>1:\n                if (ni\
     \ := m|i) <= bit._n and (ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        return\
     \ i\n\n\n\nfrom math import inf\nfrom typing import overload\n\n\ndef chmin(dp,\
-    \ i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\n\ndef pack_sm(N: int):\n\
-    \    s = N.bit_length()\n    return s, (1<<s)-1\n\ndef pack_enc(a: int, b: int,\
-    \ s: int):\n    return a << s | b\n    \ndef pack_dec(ab: int, s: int, m: int):\n\
-    \    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n    return [a << s | i\
-    \ for i,a in enumerate(A)]\n\ndef argsort(A: list[int], reverse=False):\n    s,\
-    \ m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|i^m for i,a in enumerate(A)]\n\
-    \        I.sort(reverse=True)\n        for i,ai in enumerate(I): I[i] = (ai^m)&m\n\
-    \    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n        I.sort()\n \
-    \       for i,ai in enumerate(I): I[i] = ai&m\n    return I\nfrom collections\
+    \ i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\n\ndef argsort(A: list[int],\
+    \ reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n        I = [a<<s|m^i\
+    \ for i,a in enumerate(A)]\n        I.sort(reverse=True)\n        for i,ai in\
+    \ enumerate(I): I[i] = m^ai&m\n    else:\n        I = [a<<s|i for i,a in enumerate(A)]\n\
+    \        I.sort()\n        for i,ai in enumerate(I): I[i] = ai&m\n    return I\n\
+    \n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\nfrom collections\
     \ import deque\nfrom typing import Callable, Sequence, Union, overload\n\nimport\
     \ typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
     \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
@@ -207,13 +216,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -237,7 +247,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -397,86 +407,65 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \nfrom array import\
-    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
-    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
-    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
-    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
-    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
-    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
-    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
-    \  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N\
-    \  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return array('f',\
-    \ (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N\
-    \  # double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
-    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
-    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
-    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
-    \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
-    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
-    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
-    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
-    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
-    \ x & lst.mask\n\nclass GraphWeightedBase(GraphBase):\n    def __init__(self,\
-    \ N: int, M: int, U: list[int], V: list[int], W: list[int], \n               \
-    \  deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
-    \ Va: list[int], Wa: list[int], Ea: list[int], twin: list[int] = None):\n    \
-    \    super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n        self.W\
-    \ = W\n        self.Wa = Wa\n        '''Wa[i] lists weights to edges from u for\
-    \ La[u] <= i < Ra[u].'''\n        \n    def __getitem__(G, u):\n        l,r =\
-    \ G.La[u],G.Ra[u]\n        return zip(G.Va[l:r], G.Wa[l:r])\n    \n    @overload\n\
-    \    def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
-    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
-    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
-    \ None: return G.floyd_warshall()\n        else: return G.dijkstra(s, g)\n\n \
-    \   def dijkstra(G, s: int, t: int = None):\n        G.back, G.D, S = i32f(G.N,\
-    \ -1), [inf]*G.N, G.starts(s)\n        for s in S: G.D[s] = 0\n        que = PriorityQueue(G.N,\
-    \ S)\n        while que:\n            u, d = que.pop()\n            if d > G.D[u]:\
-    \ continue\n            if u == t: return d\n            i, r = G.La[u]-1, G.Ra[u]\n\
-    \            while (i:=i+1)<r: \n                if chmin(G.D, v := G.Va[i], nd\
-    \ := d + G.Wa[i]):\n                    G.back[v] = i; que.push(v, nd)\n     \
-    \   return G.D if t is None else inf \n\n    def kruskal(G):\n        U, V, W,\
-    \ dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1\n        for e\
-    \ in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n            if\
-    \ u != v:\n                MST[need := need-1] = e\n                if not need:\
-    \ break\n        return None if need else MST\n    \n    def kruskal_heap(G):\n\
-    \        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que, dsu, MST = PriorityQueue(M,\
-    \ list(range(M)), W), DSU(N), [0]*(need := N-1)\n        while que and need:\n\
-    \            e, _ = que.pop()\n            u, v = dsu.merge(U[e],V[e],True)\n\
-    \            if u != v:\n                MST[need := need-1] = e\n        return\
-    \ None if need else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n\
-    \        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n\
-    \        for _ in range(N-1):\n            for i, u in enumerate(Ua):\n      \
-    \          if D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n        return D\n  \
-    \  \n    def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:\n\
-    \        M, U, V, W, D = G.M, G.U, G.V, G.W, G.bellman_ford(s)\n        neg_cycle\
-    \ = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inf)\n        return\
-    \ neg_cycle, D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        N,\
-    \ Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n        D = [[inf]*N for _ in range(N)]\n\
-    \        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)): chmin(D[Ua[i]],\
-    \ Va[i], Wa[i])\n        for k, Dk in enumerate(D):\n            for Di in D:\n\
-    \                if Di[k] >= inf: continue\n                for j in range(N):\n\
-    \                    if Dk[j] >= inf: continue\n                    chmin(Di,\
-    \ j, Di[k]+Dk[j])\n        return D\n        \n    def floyd_warshall_neg_cyc_check(G):\n\
+    \            return cls(N, U, V)\n        return parse\n\nu32_max = (1<<32)-1\n\
+    i32_max = (1<<31)-1\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
+    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
+    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
+    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
+    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
+    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
+    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass GraphWeightedBase(GraphBase):\n\
+    \    def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int],\
+    \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
+    \        Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int], twin: list[int]\
+    \ = None):\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\
+    \        self.W = W\n        self.Wa = Wa\n        '''Wa[i] lists weights to edges\
+    \ from u for La[u] <= i < Ra[u].'''\n        \n    def __getitem__(G, u):\n  \
+    \      l,r = G.La[u],G.Ra[u]\n        return zip(G.Va[l:r], G.Wa[l:r])\n    \n\
+    \    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n \
+    \   def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
+    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
+    \    if s == None: return G.floyd_warshall()\n        else: return G.dijkstra(s,\
+    \ g)\n\n    def dijkstra(G, s: int, t: int = None):\n        G.back, G.D, S =\
+    \ i32f(G.N, -1), [inf]*G.N, G.starts(s)\n        for s in S: G.D[s] = 0\n    \
+    \    que = PriorityQueue(G.N, S)\n        while que:\n            u, d = que.pop()\n\
+    \            if d > G.D[u]: continue\n            if u == t: return d\n      \
+    \      i, r = G.La[u]-1, G.Ra[u]\n            while (i:=i+1)<r: \n           \
+    \     if chmin(G.D, v := G.Va[i], nd := d + G.Wa[i]):\n                    G.back[v]\
+    \ = i; que.push(v, nd)\n        return G.D if t is None else inf \n\n    def kruskal(G):\n\
+    \        U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1\n\
+    \        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
+    \            if u != v:\n                MST[need := need-1] = e\n           \
+    \     if not need: break\n        return None if need else MST\n    \n    def\
+    \ kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n       \
+    \ que, dsu, MST = PriorityQueue(M, list(range(M)), W), DSU(N), [0]*(need := N-1)\n\
+    \        while que and need:\n            e, _ = que.pop()\n            u, v =\
+    \ dsu.merge(U[e],V[e],True)\n            if u != v:\n                MST[need\
+    \ := need-1] = e\n        return None if need else MST\n   \n    def bellman_ford(G,\
+    \ s: int = 0) -> list[int]:\n        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N\
+    \ := G.N)\n        D[s] = 0\n        for _ in range(N-1):\n            for i,\
+    \ u in enumerate(Ua):\n                if D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n\
+    \        return D\n    \n    def bellman_ford_neg_cyc_check(G, s: int = 0) ->\
+    \ tuple[bool, list[int]]:\n        M, U, V, W, D = G.M, G.U, G.V, G.W, G.bellman_ford(s)\n\
+    \        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inf)\n\
+    \        return neg_cycle, D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n\
+    \        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n        D = [[inf]*N for _ in\
+    \ range(N)]\n        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)):\
+    \ chmin(D[Ua[i]], Va[i], Wa[i])\n        for k, Dk in enumerate(D):\n        \
+    \    for Di in D:\n                if Di[k] >= inf: continue\n               \
+    \ for j in range(N):\n                    if Dk[j] >= inf: continue\n        \
+    \            chmin(Di, j, Di[k]+Dk[j])\n        return D\n        \n    def floyd_warshall_neg_cyc_check(G):\n\
     \        D = G.floyd_warshall()\n        return any(D[i][i] < 0 for i in range(G.N)),\
     \ D\n    \n    @classmethod\n    def compile(cls, N: int, M: int, shift: int =\
     \ -1):\n        def parse(ts: TokenStream):\n            U, V, W = u32f(M), u32f(M),\
     \ [0]*M\n            for i in range(M):\n                u, v, w = ts._line()\n\
     \                U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)\n     \
-    \       return cls(N, U, V, W)\n        return parse\n\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
+    \       return cls(N, U, V, W)\n        return parse\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
     \    def __init__(csr, sizes: list[int]):\n        csr.L, N = [0]*len(sizes),\
     \ 0\n        for i,sz in enumerate(sizes):\n            csr.L[i] = N; N += sz\n\
     \        csr.R, csr.A = csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n\
@@ -567,13 +556,13 @@ data:
     \         Ra[u],Ua[i],Va[i],Wa[i],Ea[i],twin[i] = i+1,u,v,w,e,j\n            if\
     \ i == j: continue # don't add self loops twice\n            Ra[v],Ua[j],Va[j],Wa[j],Ea[j],twin[j]\
     \ = j+1,v,u,w,e,i\n\n        super().__init__(N, M, U, V, W, deg, La, Ra, Ua,\
-    \ Va, Wa, Ea, twin)\n\nfrom typing import Optional\nfrom typing import Callable,\
-    \ Literal, TypeVar, Union, overload\n\nclass TreeBase(GraphBase):\n    @overload\n\
-    \    def distance(T) -> list[list[int]]: ...\n    @overload\n    def distance(T,\
-    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T, s: int, g:\
-    \ int) -> int: ...\n    def distance(T, s = None, g = None):\n        if s ==\
-    \ None:\n            return [T.dfs_distance(u) for u in range(T.N)]\n        else:\n\
-    \            return T.dfs_distance(s, g)\n\n    @overload\n    def diameter(T)\
+    \ Va, Wa, Ea, twin)\nfrom typing import Optional\nfrom typing import Callable,\
+    \ Literal, Union, overload\n\nclass TreeBase(GraphBase):\n    @overload\n    def\
+    \ distance(T) -> list[list[int]]: ...\n    @overload\n    def distance(T, s: int\
+    \ = 0) -> list[int]: ...\n    @overload\n    def distance(T, s: int, g: int) ->\
+    \ int: ...\n    def distance(T, s = None, g = None):\n        if s == None:\n\
+    \            return [T.dfs_distance(u) for u in range(T.N)]\n        else:\n \
+    \           return T.dfs_distance(s, g)\n\n    @overload\n    def diameter(T)\
     \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
     \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        mask\
     \ = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift | v for\
@@ -665,21 +654,23 @@ data:
     \ __init__(hld, T: TreeWeightedBase, r=0):\n        super().__init__(T, r)\n \
     \       hld.weights = [T.Wa[i] if (i := hld.back[u]) >= 0 else 0 for u in hld.order]\n\
     \nfrom typing import Iterable, Type, Union, overload\n\n@overload\ndef read()\
-    \ -> Iterable[int]: ...\n@overload\ndef read(spec: int) -> list[int]: ...\n@overload\n\
-    def read(spec: Union[Type[_T],_T], char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T]\
-    \ = None, char=False):\n    if not char and spec is None: return map(int, TokenStream.default.line())\n\
-    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    \ -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n\
+    @overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs:\
+    \ Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U,\
+    \ char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
+    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
+    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc294/tasks/abc294_g\n\
     \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N])\n\n    hld = HLDWeighted(T)\n\
     \    bit = BIT(hld.weights)\n    ans = 0\n\n    def query(l, r):\n        nonlocal\
-    \ ans\n        ans += bit.range_sum(l,r) \n    I = [0]*N\n    for i in hld.back:\n\
+    \ ans\n        ans += bit.sum_range(l,r) \n    I = [0]*N\n    for i in hld.back:\n\
     \        if i == -1: continue\n        I[T.Ea[i]] = hld.tin[T.Ua[i]]\n\n    Q\
     \ = read(int)\n    for q in read(list[tuple[int, int, int], Q]):\n        match\
     \ q:\n            case 1, i, w:\n                bit[I[i-1]] = w\n           \
@@ -701,25 +692,29 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/ds/array_init_fn.py
+  - cp_library/ds/array/u32f_fn.py
   - cp_library/alg/tree/fast/hld_base_cls.py
   - cp_library/alg/tree/fast/tree_base_cls.py
   - cp_library/ds/elist_fn.py
+  - cp_library/ds/array/i32f_fn.py
   - cp_library/alg/dp/chmin_fn.py
-  - cp_library/alg/iter/argsort_fn.py
+  - cp_library/alg/iter/arg/argsort_fn.py
   - cp_library/alg/graph/fast/graph_base_cls.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
-  - cp_library/bit/pack_sm_fn.py
+  - cp_library/bit/pack/pack_sm_fn.py
   - cp_library/ds/csr/csr_incremental_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/bit/masks/u32_max_cnst.py
+  - cp_library/bit/masks/i32_max_cnst.py
+  - cp_library/ds/array/u8f_fn.py
   - cp_library/ds/packet_list_cls.py
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_fast_tree_hld.test.py

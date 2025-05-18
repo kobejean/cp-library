@@ -23,7 +23,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Union\n\nimport typing\nfrom collections import deque\nfrom\
+    import typing\nfrom typing import Union\n\nfrom collections import deque\nfrom\
     \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
     \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
@@ -48,13 +48,14 @@ data:
     \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\n\nsys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nfrom typing import TypeVar\n_T = TypeVar('T')\n\nclass\
-    \ TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -78,7 +79,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -104,40 +105,30 @@ data:
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
     \ return cls(next(ts))\n        return parser\n\nclass Parallel(tuple, Parsable):\n\
     \    def __new__(cls, N, K=2):\n        return super().__new__(cls, ([0]*N for\
-    \ _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int, K: int = 2,\
-    \ T: Union[type,int] = int):\n        if T is int:\n            def parse(ts:\
-    \ TokenStream):\n                P = cls(N, K)\n                for i in range(N):\n\
-    \                    for k,val in enumerate(map(T, ts.line())):\n            \
-    \            P[k][i] = val\n                return P\n        elif isinstance(shift\
-    \ := T, int):\n            def parse(ts: TokenStream):\n                P = cls(N,\
-    \ K)\n                for i in range(N):\n                    for k,val in enumerate(map(int,\
-    \ ts.line())):\n                        P[k][i] = val+shift\n                return\
-    \ P\n        else:\n            row = Parser.compile(T)\n            def parse(ts:\
-    \ TokenStream):\n                P = cls(N, K)\n                for i in range(N):\n\
-    \                    for k, val in enumerate(row(ts)):\n                     \
-    \   P[k][i] = val\n                return P\n        return parse\n"
-  code: "import cp_library.ds.__header__\nfrom typing import Union\nfrom cp_library.io.parser_cls\
-    \ import Parsable, Parser, TokenStream\n\nclass Parallel(tuple, Parsable):\n \
-    \   def __new__(cls, N, K=2):\n        return super().__new__(cls, ([0]*N for\
-    \ _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int, K: int = 2,\
-    \ T: Union[type,int] = int):\n        if T is int:\n            def parse(ts:\
-    \ TokenStream):\n                P = cls(N, K)\n                for i in range(N):\n\
-    \                    for k,val in enumerate(map(T, ts.line())):\n            \
-    \            P[k][i] = val\n                return P\n        elif isinstance(shift\
-    \ := T, int):\n            def parse(ts: TokenStream):\n                P = cls(N,\
-    \ K)\n                for i in range(N):\n                    for k,val in enumerate(map(int,\
-    \ ts.line())):\n                        P[k][i] = val+shift\n                return\
-    \ P\n        else:\n            row = Parser.compile(T)\n            def parse(ts:\
-    \ TokenStream):\n                P = cls(N, K)\n                for i in range(N):\n\
-    \                    for k, val in enumerate(row(ts)):\n                     \
-    \   P[k][i] = val\n                return P\n        return parse\n"
+    \ _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int, T: Union[type,list[type]]\
+    \ = tuple[int, int], K = -1):\n        if K==-1:\n            T = typing.get_args(T)\
+    \ or T\n            K = len(row := [Parser.compile(t) for t in T])\n        else:\n\
+    \            row = [Parser.compile(T)]*K\n        def parse(ts: TokenStream):\n\
+    \            P = cls(N, K)\n            for i in range(N):\n                for\
+    \ k, parse in enumerate(row):\n                    P[k][i] = parse(ts)\n     \
+    \       return P\n        return parse\n"
+  code: "import cp_library.ds.__header__\nimport typing\nfrom typing import Union\n\
+    from cp_library.io.parser_cls import Parsable, Parser, TokenStream\n\nclass Parallel(tuple,\
+    \ Parsable):\n    def __new__(cls, N, K=2):\n        return super().__new__(cls,\
+    \ ([0]*N for _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ T: Union[type,list[type]] = tuple[int, int], K = -1):\n        if K==-1:\n \
+    \           T = typing.get_args(T) or T\n            K = len(row := [Parser.compile(t)\
+    \ for t in T])\n        else:\n            row = [Parser.compile(T)]*K\n     \
+    \   def parse(ts: TokenStream):\n            P = cls(N, K)\n            for i\
+    \ in range(N):\n                for k, parse in enumerate(row):\n            \
+    \        P[k][i] = parse(ts)\n            return P\n        return parse"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/ds/parallel_cls.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py

@@ -30,8 +30,9 @@ data:
     \    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n    x = ((x >> 2)  & 0x33333333)\
     \ + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f) + (x & 0x0f0f0f0f)\n  \
     \  x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n    x = ((x >> 16) & 0x0000ffff)\
-    \ + (x & 0x0000ffff)\n    return x\n\ndef ctz32(x): return popcnt32(~x & (x -\
-    \ 1))\n\ndef clz32(x): return ctz32(bit_reverse32(x))\n"
+    \ + (x & 0x0000ffff)\n    return x\nif hasattr(int, 'bit_count'):\n    popcnt32\
+    \ = int.bit_count\n\ndef ctz32(x): return popcnt32(~x&(x-1))\n\ndef clz32(x):\
+    \ return ctz32(bit_reverse32(x))\n"
   code: 'import cp_library.bit.__header__
 
     from cp_library.bit.bit_reverse32_fn import bit_reverse32
@@ -49,7 +50,7 @@ data:
   isVerificationFile: false
   path: cp_library/bit/clz32_fn.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/bit/clz32_fn.py

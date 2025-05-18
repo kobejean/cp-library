@@ -29,55 +29,55 @@ data:
     links:
     - https://judge.yosupo.jp/problem/subset_convolution
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
-    \ndef main():\n    mod = 998244353\n    n = rd()\n    a = rdl(1 << n)\n    b =\
-    \ rdl(1 << n)\n    wtnl(subset_conv(a, b, n, mod))\n\n'''\n\u257A\u2501\u2501\u2501\
+    \ndef main():\n    mod, n = 998244353, rd()\n    wtnl(subset_conv(rdl(1<<n), rdl(1<<n),\
+    \ n, mod))\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2578\n    x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25BA X\u2080\n                \u2573          \u2572 \u2571\
-    \          \u2572     \u2571          \n    x\u2084 \u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u2572\u2500\u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25BA X\u2081\n                           \u2573\
-    \ \u2573          \u2572 \u2572 \u2571 \u2571          \n    x\u2082 \u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\u2573\u2500\u2571\u2500\u25CF\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2082\n             \
-    \   \u2573          \u2571 \u2572          \u2572 \u2573 \u2573 \u2571       \
-    \   \n    x\u2086 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u2578\n    x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
     \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
-    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\
-    \u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25BA X\u2083\n                                        \u2573 \u2573 \u2573 \u2573\
-    \         \n    x\u2081 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\
-    \u2500\u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25BA X\u2084\n                \u2573          \u2572 \u2571          \u2571\
-    \ \u2573 \u2573 \u2572          \n    x\u2085 \u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25CF\u2500\u2571\u2500\u2573\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25BA X\u2085\n                           \u2573 \u2573\
-    \          \u2571 \u2571 \u2572 \u2572          \n    x\u2083 \u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u2571\u2500\u2500\u2500\u2572\u2500\u25CF\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2086\n                \u2573\
-    \          \u2571 \u2572          \u2571     \u2572          \n    x\u2087 \u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25BA X\u2080\n                \u2573          \u2572 \u2571          \u2572\
+    \     \u2571          \n    x\u2084 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
+    \u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
+    \u2500\u2572\u2500\u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X\u2081\n                           \u2573 \u2573   \
+    \       \u2572 \u2572 \u2571 \u2571          \n    x\u2082 \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u2572\u2500\u2573\u2500\u2571\u2500\u25CF\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2082\n                \u2573   \
+    \       \u2571 \u2572          \u2572 \u2573 \u2573 \u2571          \n    x\u2086\
+    \ \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\u2500\u2573\
+    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2083\n \
+    \                                       \u2573 \u2573 \u2573 \u2573         \n\
+    \    x\u2081 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\
+    \u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X\u2084\n                \u2573          \u2572 \u2571          \u2571 \u2573\
+    \ \u2573 \u2572          \n    x\u2085 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
+    \u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
+    \u2500\u2571\u2500\u2573\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X\u2085\n                           \u2573 \u2573   \
+    \       \u2571 \u2571 \u2572 \u2572          \n    x\u2083 \u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u2571\u2500\u2500\u2500\u2572\u2500\u25CF\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2086\n                \u2573   \
+    \       \u2571 \u2572          \u2571     \u2572          \n    x\u2087 \u2500\
     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
@@ -91,31 +91,30 @@ data:
     \    P = [0]*(1 << N)\n    for i in range(N):\n        for m in range(b := 1<<i):\n\
     \            P[m^b] = P[m] + 1\n    return P\n\ndef subset_zeta_pair(A: list[int],\
     \ B: list[int], N: int):\n    Z = len(A)\n    for i in range(N):\n        m =\
-    \ b = 1<<i\n        while m < Z:\n            A[m] += A[m^b]\n            B[m]\
-    \ += B[m^b]\n            m = m+1|b\n    return A, B\n\ndef subset_mobius(A: list[int],\
-    \ N: int):\n    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n   \
-    \     while m < Z:\n            A[m] -= A[m^b]\n            m = m+1|b\n    return\
-    \ A\n\ndef isubset_conv(A: list[int], B: list[int], N: int, mod: int) -> list[int]:\n\
-    \    assert len(A) == len(B)\n    Z = (N+1)*(M := 1<<N)\n    Ar,Br,Cr,P = [0]*Z,\
-    \ [0]*Z, [0]*Z, popcnts(N)\n    for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i]\
-    \ = A[i], B[i]\n    subset_zeta_pair(Ar, Br, N)\n    for i in range(Z): Ar[i],\
-    \ Br[i] = Ar[i]%mod, Br[i]%mod\n    for i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n\
-    \            ij = i+j\n            for k in range(M): Cr[ijk] = (Cr[ijk:=ij|k]\
-    \ + Ar[i|k] * Br[j|k]) % mod\n    subset_mobius(Cr, N)\n    for i,p in enumerate(P):\
-    \ A[i] = Cr[p<<N|i] % mod\n    return A\n\ndef subset_conv(A: list[int], B: list[int],\
-    \ N: int, mod: int) -> list[int]:\n    return isubset_conv(A[:], B, N, mod)\n\n\
-    \nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import read\
-    \ as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
-    \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
-    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
-    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
-    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
-    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
-    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
-    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
-    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
-    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \ b = 1<<i\n        while m < Z: A[m] += A[m^b]; B[m] += B[m^b]; m = m+1|b\n \
+    \   return A, B\n\ndef subset_mobius(A: list[int], N: int):\n    Z = len(A)\n\
+    \    for i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m] -= A[m^b];\
+    \ m = m+1|b\n    return A\n\ndef isubset_conv(A: list[int], B: list[int], N: int,\
+    \ mod: int) -> list[int]:\n    assert len(A) == len(B)\n    Z = (N+1)*(M := 1<<N)\n\
+    \    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n    for i,p in enumerate(P):\n\
+    \        P[i] = p = p<<N|i\n        Ar[p], Br[p] = A[i], B[i]\n    subset_zeta_pair(Ar,\
+    \ Br, N)\n    for i in range(Z): Ar[i], Br[i] = Ar[i]%mod, Br[i]%mod\n    for\
+    \ i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n            ij = i+j\n\
+    \            for k in range(M): Cr[ijk] = (Cr[ijk:=ij|k] + Ar[i|k] * Br[j|k])\
+    \ % mod\n    subset_mobius(Cr, N)\n    for i,p in enumerate(P): A[i] = Cr[p] %\
+    \ mod\n    return A\n\ndef subset_conv(A: list[int], B: list[int], N: int, mod:\
+    \ int) -> list[int]:\n    return isubset_conv(A[:], B, N, mod)\n\n\nfrom __pypy__.builders\
+    \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
     \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
     \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
     \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
@@ -128,10 +127,9 @@ data:
     \ range(n): lst[i] = rd()\n    return lst\ndef wtnl(l): wtn(' '.join(map(str,\
     \ l)))\n\nmain()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
-    \ndef main():\n    mod = 998244353\n    n = rd()\n    a = rdl(1 << n)\n    b =\
-    \ rdl(1 << n)\n    wtnl(subset_conv(a, b, n, mod))\n\nfrom cp_library.math.conv.mod.subset_conv_fn\
-    \ import subset_conv\nfrom cp_library.io.fast.fast_io_fn import rd, rdl, wtnl\n\
-    \nmain()"
+    \ndef main():\n    mod, n = 998244353, rd()\n    wtnl(subset_conv(rdl(1<<n), rdl(1<<n),\
+    \ n, mod))\n\nfrom cp_library.math.conv.mod.subset_conv_fn import subset_conv\n\
+    from cp_library.io.fast.fast_io_fn import rd, rdl, wtnl\n\nmain()"
   dependsOn:
   - cp_library/math/conv/mod/subset_conv_fn.py
   - cp_library/io/fast/fast_io_fn.py
@@ -142,7 +140,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution.test.py

@@ -26,11 +26,29 @@ data:
     path: cp_library/alg/tree/fast/tree_cls.py
     title: cp_library/alg/tree/fast/tree_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack_sm_fn.py
-    title: cp_library/bit/pack_sm_fn.py
+    path: cp_library/bit/masks/i32_max_cnst.py
+    title: cp_library/bit/masks/i32_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/array_init_fn.py
-    title: cp_library/ds/array_init_fn.py
+    path: cp_library/bit/masks/u32_max_cnst.py
+    title: cp_library/bit/masks/u32_max_cnst.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_dec_fn.py
+    title: cp_library/bit/pack/pack_dec_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_enc_fn.py
+    title: cp_library/bit/pack/pack_enc_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_sm_fn.py
+    title: cp_library/bit/pack/pack_sm_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/i32f_fn.py
+    title: cp_library/ds/array/i32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u32f_fn.py
+    title: cp_library/ds/array/u32f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u8f_fn.py
+    title: cp_library/ds/array/u8f_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
@@ -73,46 +91,47 @@ data:
     \n    def op(a, b):\n        ac, ad = pack_dec(a, shift, mask)\n        bc, bd\
     \ = pack_dec(b, shift, mask)\n        return pack_enc((ac*bc)%mod, (bc*ad+bd)%mod,\
     \ shift)\n    e = 1 << shift\n    hld = HLDMonoid(T, op, e, S)\n    ans(Q, hld,\
-    \ shift, mask, mod)\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ shift, mask, mod)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
-    \              \n'''\nfrom typing import Callable, Generic\nfrom typing import\
-    \ TypeVar\n_T = TypeVar('T')\n\n\n\n\nfrom typing import Callable, Literal, TypeVar,\
-    \ Union, overload\nfrom math import inf\nfrom collections import deque\nfrom typing\
-    \ import Callable, Sequence, Union, overload\n\nimport typing\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\n\nsys.stdin = IOWrapper.stdin\
-    \ = IOWrapper(sys.stdin)\nsys.stdout = IOWrapper.stdout = IOWrapper(sys.stdout)\n\
-    \nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
+    \        \n'''\nfrom typing import Callable, Generic\nfrom typing import TypeVar\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\n\n\nfrom math import inf\nfrom typing\
+    \ import Callable, Literal, Union, overload\nfrom collections import deque\nfrom\
+    \ typing import Callable, Sequence, Union, overload\n\nimport typing\nfrom numbers\
+    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -136,7 +155,7 @@ data:
     \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
     \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
     \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):  \n            return Parser.compile_collection(type(spec),\
+    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
     \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
     \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
     \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
@@ -297,63 +316,43 @@ data:
     \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
     \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
     \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n    \n\nfrom array import\
-    \ array\n\ndef i8f(N: int, elm: int = 0):      return array('b', (elm,))*N  #\
-    \ signed char\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
-    \  # unsigned char\ndef i16f(N: int, elm: int = 0):     return array('h', (elm,))*N\
-    \  # signed short\ndef u16f(N: int, elm: int = 0):     return array('H', (elm,))*N\
-    \  # unsigned short\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
-    \  # signed int\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
-    \  # unsigned int\ndef i64f(N: int, elm: int = 0):     return array('q', (elm,))*N\
-    \  # signed long long\ndef u64f(N: int, elm: int = 0):     return array('Q', (elm,))*N\
-    \  # unsigned long long\ndef f32f(N: int, elm: float = 0.0): return array('f',\
-    \ (elm,))*N  # float\ndef f64f(N: int, elm: float = 0.0): return array('d', (elm,))*N\
-    \  # double\n\ndef i8a(init = None):  return array('b') if init is None else array('b',\
-    \ init)  # signed char\ndef u8a(init = None):  return array('B') if init is None\
-    \ else array('B', init)  # unsigned char\ndef i16a(init = None): return array('h')\
-    \ if init is None else array('h', init)  # signed short\ndef u16a(init = None):\
-    \ return array('H') if init is None else array('H', init)  # unsigned short\n\
-    def i32a(init = None): return array('i') if init is None else array('i', init)\
-    \  # signed int\ndef u32a(init = None): return array('I') if init is None else\
-    \ array('I', init)  # unsigned int\ndef i64a(init = None): return array('q') if\
-    \ init is None else array('q', init)  # signed long long\ndef u64a(init = None):\
-    \ return array('Q') if init is None else array('Q', init)  # unsigned long long\n\
-    def f32a(init = None): return array('f') if init is None else array('f', init)\
-    \  # float\ndef f64a(init = None): return array('d') if init is None else array('d',\
-    \ init)  # double\n\ni8_max = (1 << 7)-1\nu8_max = (1 << 8)-1\ni16_max = (1 <<\
-    \ 15)-1\nu16_max = (1 << 16)-1\ni32_max = (1 << 31)-1\nu32_max = (1 << 32)-1\n\
-    i64_max = (1 << 63)-1\nu64_max = (1 << 64)-1\n\ndef elist(est_len: int) -> list:\
-    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
-    \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
-    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
-    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
-    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
-    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
-    \ x & lst.mask\n\nclass TreeBase(GraphBase):\n    @overload\n    def distance(T)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(T, s: int, g: int) -> int: ...\n    def\
-    \ distance(T, s = None, g = None):\n        if s == None:\n            return\
-    \ [T.dfs_distance(u) for u in range(T.N)]\n        else:\n            return T.dfs_distance(s,\
-    \ g)\n\n    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def\
-    \ diameter(T, endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T,\
-    \ endpoints = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n\
-    \        s = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n\
-    \        dg = max(d << shift | v for v,d in enumerate(T.distance(s))) \n     \
-    \   diam, g = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints\
-    \ else diam\n    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n\
-    \        st, Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = [inf]*N,\
-    \ i32f(N, -1)\n        D[s] = 0\n        st.append(s)\n        while st:\n   \
-    \         nd = D[u := st.pop()]+1\n            if u == g: return nd-1\n      \
-    \      for i in T.range(u):\n                if nd < D[v := Va[i]]:\n        \
-    \            D[v], back[v] = nd, i\n                    st.append(v)\n       \
-    \ return D if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n        \
-    \             merge: Callable[[_T,_T],_T], \n                     edge_op: Callable[[_T,int,int,int],_T]\
-    \ = lambda s,i,p,u:s,\n                     s: int = 0):\n        La, Ua, Va =\
-    \ T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua),\
-    \ T.Ra[:]\n        # up\n        for i in order[::-1]:\n            u,v = Ua[i],\
-    \ Va[i]\n            # subtree v finished up pass, store value to accumulate for\
-    \ u\n            dp[v] = new = edge_op(dp[v], i, u, v)\n            dp[u] = merge(dp[u],\
+    \            return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
+    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
+    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
+    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
+    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
+    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
+    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
+    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass TreeBase(GraphBase):\n\
+    \    @overload\n    def distance(T) -> list[list[int]]: ...\n    @overload\n \
+    \   def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(T,\
+    \ s: int, g: int) -> int: ...\n    def distance(T, s = None, g = None):\n    \
+    \    if s == None:\n            return [T.dfs_distance(u) for u in range(T.N)]\n\
+    \        else:\n            return T.dfs_distance(s, g)\n\n    @overload\n   \
+    \ def diameter(T) -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True])\
+    \ -> tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n      \
+    \  mask = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift |\
+    \ v for v,d in enumerate(T.distance(0))) & mask\n        dg = max(d << shift |\
+    \ v for v,d in enumerate(T.distance(s))) \n        diam, g = dg >> shift, dg &\
+    \ mask\n        return (diam, s, g) if endpoints else diam\n    \n    def dfs_distance(T,\
+    \ s: int, g: Union[int,None] = None):\n        st, Va = elist(N := T.N), T.Va\n\
+    \        T.D, T.back = D, back = [inf]*N, i32f(N, -1)\n        D[s] = 0\n    \
+    \    st.append(s)\n        while st:\n            nd = D[u := st.pop()]+1\n  \
+    \          if u == g: return nd-1\n            for i in T.range(u):\n        \
+    \        if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n \
+    \                   st.append(v)\n        return D if g is None else inf\n\n \
+    \   def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
+    \ \n                     edge_op: Callable[[_T,int,int,int],_T] = lambda s,i,p,u:s,\n\
+    \                     s: int = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n  \
+    \      order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]\n \
+    \       # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
+    \            # subtree v finished up pass, store value to accumulate for u\n \
+    \           dp[v] = new = edge_op(dp[v], i, u, v)\n            dp[u] = merge(dp[u],\
     \ new)\n            # suffix accumulation\n            if (c:=I[u]-1) > La[u]:\
     \ suf[c-1] = merge(suf[c], new)\n            I[u] = c\n        # down\n      \
     \  dp[s] = e # at this point dp stores values to be merged in parent\n       \
@@ -446,23 +445,23 @@ data:
     \ in range(M):\n            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u],\
     \ Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n\
     \            Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
-    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\n\nclass Tree(TreeBase, Graph):\n\
-    \    pass\n\n\n\ndef pack_sm(N: int):\n    s = N.bit_length()\n    return s, (1<<s)-1\n\
-    \ndef pack_enc(a: int, b: int, s: int):\n    return a << s | b\n    \ndef pack_dec(ab:\
-    \ int, s: int, m: int):\n    return ab >> s, ab & m\n\ndef pack_indices(A, s):\n\
-    \    return [a << s | i for i,a in enumerate(A)]\n\nfrom typing import Iterable,\
-    \ Type, Union, overload\n\n@overload\ndef read() -> Iterable[int]: ...\n@overload\n\
-    def read(spec: int) -> list[int]: ...\n@overload\ndef read(spec: Union[Type[_T],_T],\
-    \ char=False) -> _T: ...\ndef read(spec: Union[Type[_T],_T] = None, char=False):\n\
-    \    if not char and spec is None: return map(int, TokenStream.default.line())\n\
-    \    parser: _T = Parser.compile(spec)\n    return parser(CharStream.default if\
-    \ char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\nclass Tree(TreeBase, Graph):\n  \
+    \  pass\n\n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\ndef pack_enc(a:\
+    \ int, b: int, s: int): return a<<s|b\ndef pack_dec(ab: int, s: int, m: int):\
+    \ return ab>>s,ab&m\n\nfrom typing import Iterable, Type, Union, overload\n\n\
+    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
+    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
+    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
+    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
+    \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
+    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
+    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
+    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
+    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
+    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/vertex_set_path_composite\n\
     \ndef set(hld, p, c, d, shift):\n    hld.set(p, pack_enc(c, d, shift))\n\ndef\
     \ query(hld, u, v, x, shift, mask, mod):\n    a, b = pack_dec(hld.path_query(u,\
@@ -475,14 +474,17 @@ data:
     \n    def op(a, b):\n        ac, ad = pack_dec(a, shift, mask)\n        bc, bd\
     \ = pack_dec(b, shift, mask)\n        return pack_enc((ac*bc)%mod, (bc*ad+bd)%mod,\
     \ shift)\n    e = 1 << shift\n    hld = HLDMonoid(T, op, e, S)\n    ans(Q, hld,\
-    \ shift, mask, mod)\n\n\nfrom cp_library.alg.tree.fast.hld_monoid_cls import HLDMonoid\n\
-    from cp_library.alg.tree.fast.tree_cls import Tree\nfrom cp_library.bit.pack_sm_fn\
-    \ import pack_dec, pack_enc, pack_sm\nfrom cp_library.io.read_fn import read\n\
-    from cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n    main()\n"
+    \ shift, mask, mod)\n\nfrom cp_library.alg.tree.fast.hld_monoid_cls import HLDMonoid\n\
+    from cp_library.alg.tree.fast.tree_cls import Tree\nfrom cp_library.bit.pack.pack_sm_fn\
+    \ import pack_sm\nfrom cp_library.bit.pack.pack_enc_fn import pack_enc\nfrom cp_library.bit.pack.pack_dec_fn\
+    \ import pack_dec\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/alg/tree/fast/hld_monoid_cls.py
   - cp_library/alg/tree/fast/tree_cls.py
-  - cp_library/bit/pack_sm_fn.py
+  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/bit/pack/pack_enc_fn.py
+  - cp_library/bit/pack/pack_dec_fn.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/alg/tree/fast/hld_base_cls.py
@@ -493,14 +495,18 @@ data:
   - cp_library/io/fast_io_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/alg/graph/fast/graph_base_cls.py
-  - cp_library/ds/array_init_fn.py
+  - cp_library/ds/array/i32f_fn.py
+  - cp_library/ds/array/u32f_fn.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/bit/masks/u32_max_cnst.py
+  - cp_library/bit/masks/i32_max_cnst.py
+  - cp_library/ds/array/u8f_fn.py
   - cp_library/ds/packet_list_cls.py
   isVerificationFile: true
   path: test/library-checker/tree/vertex_set_path_composite.test.py
   requiredBy: []
-  timestamp: '2025-05-06 22:58:43+09:00'
+  timestamp: '2025-05-19 01:45:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/vertex_set_path_composite.test.py
