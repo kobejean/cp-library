@@ -64,8 +64,8 @@ data:
     \ Ra, Va)\n        em = partition(el, er, tm)\n        if tr-tl==1: return\n \
     \       E, F = F, E\n        div_con(nN, em, er, tm, tr)\n        div_con(N, el,\
     \ em, tl, tm)\n        E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\
-    \n\ndef argsort_bounded(A, mx):\n    I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n \
-    \   for a in A: cnt[a] += 1\n    for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n\
+    \n\n\ndef argsort_bounded(A, mx):\n    I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n\
+    \    for a in A: cnt[a] += 1\n    for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n\
     \    for i,a in enumerate(A): I[cnt[a]] = i; cnt[a] += 1\n    return I\n\n\nfrom\
     \ __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as os_read,\
     \ write as os_write\nfrom atexit import register as atexist_register\n\nclass\
@@ -108,7 +108,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc.test.py

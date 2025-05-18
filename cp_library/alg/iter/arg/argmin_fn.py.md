@@ -8,17 +8,24 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "\n\ndef argmin(A, l = 0, r=None):\n    if r is None: r = len(A)\n\
-    \    if l == r: return -1\n    m = l\n    while (l:=l+1)<r:\n        if A[l] <\
-    \ A[m]: m = l\n    return m\n"
-  code: "import cp_library.alg.iter.__header__\n\ndef argmin(A, l = 0, r=None):\n\
-    \    if r is None: r = len(A)\n    if l == r: return -1\n    m = l\n    while\
-    \ (l:=l+1)<r:\n        if A[l] < A[m]: m = l\n    return m"
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\n\n\ndef argmin(A, l = 0, r=None):\n    if r is None: r = len(A)\n    if l\
+    \ == r: return -1\n    m = l\n    while (l:=l+1)<r:\n        if A[l] < A[m]: m\
+    \ = l\n    return m\n"
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.iter.__header__\n\
+    import cp_library.alg.iter.arg.__header__\n\ndef argmin(A, l = 0, r=None):\n \
+    \   if r is None: r = len(A)\n    if l == r: return -1\n    m = l\n    while (l:=l+1)<r:\n\
+    \        if A[l] < A[m]: m = l\n    return m"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/arg/argmin_fn.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/arg/argmin_fn.py

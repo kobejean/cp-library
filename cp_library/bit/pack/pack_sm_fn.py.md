@@ -107,11 +107,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/invcnt_fn.py
     title: cp_library/math/invcnt_fn.py
-  - icon: ':warning:'
-    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-      copy.py
-    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-      copy.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -216,6 +211,9 @@ data:
     path: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
     title: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
+    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
     title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   - icon: ':heavy_check_mark:'
@@ -303,9 +301,7 @@ data:
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_fn.py
   - cp_library/alg/iter/cmpr/coord_compress_fn.py
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-    copy.py
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_range_frequency.test.py
@@ -324,6 +320,7 @@ data:
   - test/library-checker/data-structure/rectangle_sum_wm_group.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_weighted.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit.test.py

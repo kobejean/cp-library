@@ -10,8 +10,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
-    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
+    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -47,10 +47,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
 documentation_of: cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
 layout: document
 redirect_from:

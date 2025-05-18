@@ -52,7 +52,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
     \              \n'''\n\n\n\ndef bisect_left(A, x, l, r):\n    while l<r:\n   \
-    \     if A[m:=(l+r)>>1]<x:l=m+1\n        else:r=m\n    return l\n\n\ndef coord_compress(A:\
+    \     if A[m:=(l+r)>>1]<x:l=m+1\n        else:r=m\n    return l\n\n\n\ndef coord_compress(A:\
     \ list[int], distinct = False):\n    s, m = pack_sm((N := len(A))-1); R, V = [0]*N,\
     \ [a<<s|i for i,a in enumerate(A)]; V.sort()\n    if distinct:\n        for r,\
     \ ai in enumerate(V): a, i = pack_dec(ai, s, m); R[i], V[r] = r, a\n    else:\n\
@@ -161,7 +161,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/range_kth_smallest_wm_points.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/range_kth_smallest_wm_points.test.py

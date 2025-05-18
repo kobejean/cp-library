@@ -80,7 +80,7 @@ data:
   - cp_library/math/linalg/vec/mutvec_cls.py
   - cp_library/math/linalg/mat/mod/mat_cls.py
   - cp_library/math/linalg/mat/mat_cls.py
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/elm_wise_in_place_mixin.py

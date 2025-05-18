@@ -17,33 +17,34 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\n\n\ndef argsort(A: list[int], reverse=False):\n    s, m = pack_sm(len(A))\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\n\n\ndef argsort(A: list[int], reverse=False):\n    s, m = pack_sm(len(A))\n\
     \    if reverse:\n        I = [a<<s|m^i for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
     \        for i,ai in enumerate(I): I[i] = m^ai&m\n    else:\n        I = [a<<s|i\
     \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
     \ I[i] = ai&m\n    return I\n\n\ndef pack_sm(N: int): s=N.bit_length(); return\
-    \ s,(1<<s)-1\n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order =\
-    \ [0]*len(L[0]), argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order):\
-    \ inv[j] = i\n    for i, j in enumerate(order):\n        for A in L: A[i], A[j]\
-    \ = A[j], A[i]\n        order[inv[i]], inv[j] = j, inv[i]\n    return L\n"
-  code: "import cp_library.alg.iter.__header__\nfrom cp_library.alg.iter.arg.argsort_fn\
-    \ import argsort\n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order\
+    \ s,(1<<s)-1\n\n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order\
     \ = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order):\
     \ inv[j] = i\n    for i, j in enumerate(order):\n        for A in L: A[i], A[j]\
     \ = A[j], A[i]\n        order[inv[i]], inv[j] = j, inv[i]\n    return L\n"
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.iter.__header__\n\
+    from cp_library.alg.iter.arg.argsort_fn import argsort\nimport cp_library.alg.iter.sort.__header__\n\
+    \ndef isort_parallel(*L: list, reverse=False):\n    inv, order = [0]*len(L[0]),\
+    \ argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order): inv[j] = i\n\
+    \    for i, j in enumerate(order):\n        for A in L: A[i], A[j] = A[j], A[i]\n\
+    \        order[inv[i]], inv[j] = j, inv[i]\n    return L\n"
   dependsOn:
   - cp_library/alg/iter/arg/argsort_fn.py
   - cp_library/bit/pack/pack_sm_fn.py
   isVerificationFile: false
   path: cp_library/alg/iter/sort/isort_parallel_fn.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py

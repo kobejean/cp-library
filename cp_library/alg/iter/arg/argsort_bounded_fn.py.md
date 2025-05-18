@@ -1,12 +1,7 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-      copy.py
-    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-      copy.py
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/incremental_scc.test.py
@@ -16,20 +11,25 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\n\ndef argsort_bounded(A, mx):\n    I, cnt, t = [0]*len(A), [0]*(mx+1),\
-    \ 0\n    for a in A: cnt[a] += 1\n    for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\n\n\ndef argsort_bounded(A, mx):\n    I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n\
+    \    for a in A: cnt[a] += 1\n    for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n\
     \    for i,a in enumerate(A): I[cnt[a]] = i; cnt[a] += 1\n    return I\n"
-  code: "import cp_library.alg.iter.__header__\n\ndef argsort_bounded(A, mx):\n  \
-    \  I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n    for a in A: cnt[a] += 1\n    for\
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.iter.__header__\n\
+    import cp_library.alg.iter.arg.__header__\n\ndef argsort_bounded(A, mx):\n   \
+    \ I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n    for a in A: cnt[a] += 1\n    for\
     \ a in range(mx+1): cnt[a], t = t, t+cnt[a]\n    for i,a in enumerate(A): I[cnt[a]]\
     \ = i; cnt[a] += 1\n    return I"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/arg/argsort_bounded_fn.py
-  requiredBy:
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-    copy.py
-  timestamp: '2025-05-19 01:45:33+09:00'
+  requiredBy: []
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/incremental_scc.test.py

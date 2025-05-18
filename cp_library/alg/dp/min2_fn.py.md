@@ -128,7 +128,7 @@ data:
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - cp_library/alg/divcon/divcon_dp_min_fn.py
   - cp_library/alg/divcon/divcon_dp_max_fn.py
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/predecessor_problem.test.py

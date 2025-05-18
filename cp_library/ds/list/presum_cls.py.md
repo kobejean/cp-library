@@ -11,11 +11,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/wavelet/wm_group_points_cls.py
     title: cp_library/ds/wavelet/wm_group_points_cls.py
-  - icon: ':warning:'
-    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-      copy.py
-    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-      copy.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/rectangle_sum_wm_group.test.py
@@ -26,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
     title: test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -53,14 +51,13 @@ data:
   - cp_library/ds/wavelet/wm_group_compressed_cls.py
   - cp_library/ds/wavelet/wm_group_cls.py
   - cp_library/ds/wavelet/wm_group_points_cls.py
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-    copy.py
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_group.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
 documentation_of: cp_library/ds/list/presum_cls.py
 layout: document
 redirect_from:

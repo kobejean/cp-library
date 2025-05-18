@@ -81,12 +81,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
-    \ndef coord_compress(A: list[int], distinct = False):\n    s, m = pack_sm((N :=\
-    \ len(A))-1); R, V = [0]*N, [a<<s|i for i,a in enumerate(A)]; V.sort()\n    if\
-    \ distinct:\n        for r, ai in enumerate(V): a, i = pack_dec(ai, s, m); R[i],\
-    \ V[r] = r, a\n    else:\n        r = p = -1\n        for ai in V:\n         \
-    \   a, i = pack_dec(ai, s, m)\n            if a != p: r = r+1; V[r] = p = a\n\
-    \            R[i] = r\n        del V[r+1:]\n    return R, V\n\n\n\ndef pack_dec(ab:\
+    \n\ndef coord_compress(A: list[int], distinct = False):\n    s, m = pack_sm((N\
+    \ := len(A))-1); R, V = [0]*N, [a<<s|i for i,a in enumerate(A)]; V.sort()\n  \
+    \  if distinct:\n        for r, ai in enumerate(V): a, i = pack_dec(ai, s, m);\
+    \ R[i], V[r] = r, a\n    else:\n        r = p = -1\n        for ai in V:\n   \
+    \         a, i = pack_dec(ai, s, m)\n            if a != p: r = r+1; V[r] = p\
+    \ = a\n            R[i] = r\n        del V[r+1:]\n    return R, V\n\n\n\ndef pack_dec(ab:\
     \ int, s: int, m: int): return ab>>s,ab&m\ndef pack_sm(N: int): s=N.bit_length();\
     \ return s,(1<<s)-1\n\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -339,7 +339,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py

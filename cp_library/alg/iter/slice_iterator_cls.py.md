@@ -8,25 +8,31 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "\nfrom typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    from typing import Iterator, SupportsIndex\n\nclass SliceIterator(Iterator[_T]):\n\
-    \    def __init__(self, A: list[_T], R: list[SupportsIndex]):\n        self.A,\
-    \ self.R, self.l, self.i = A, R, 0, 0\n    def __len__(self): return len(self.R)-self.i\n\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\nfrom typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\nfrom typing\
+    \ import Iterator, SupportsIndex\n\nclass SliceIterator(Iterator[_T]):\n    def\
+    \ __init__(self, A: list[_T], R: list[SupportsIndex]):\n        self.A, self.R,\
+    \ self.l, self.i = A, R, 0, 0\n    def __len__(self): return len(self.R)-self.i\n\
     \    def __next__(self):\n        R = self.R\n        if self.i >= len(R): raise\
     \ StopIteration\n        self.l, l = (r := R[self.i]), self.l\n        self.i\
     \ += 1\n        return self.A[l:r]\n"
-  code: "import cp_library.alg.iter.__header__\nfrom cp_library.misc.typing import\
-    \ _T\nfrom typing import Iterator, SupportsIndex\n\nclass SliceIterator(Iterator[_T]):\n\
-    \    def __init__(self, A: list[_T], R: list[SupportsIndex]):\n        self.A,\
-    \ self.R, self.l, self.i = A, R, 0, 0\n    def __len__(self): return len(self.R)-self.i\n\
-    \    def __next__(self):\n        R = self.R\n        if self.i >= len(R): raise\
-    \ StopIteration\n        self.l, l = (r := R[self.i]), self.l\n        self.i\
-    \ += 1\n        return self.A[l:r]"
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.iter.__header__\n\
+    from cp_library.misc.typing import _T\nfrom typing import Iterator, SupportsIndex\n\
+    \nclass SliceIterator(Iterator[_T]):\n    def __init__(self, A: list[_T], R: list[SupportsIndex]):\n\
+    \        self.A, self.R, self.l, self.i = A, R, 0, 0\n    def __len__(self): return\
+    \ len(self.R)-self.i\n    def __next__(self):\n        R = self.R\n        if\
+    \ self.i >= len(R): raise StopIteration\n        self.l, l = (r := R[self.i]),\
+    \ self.l\n        self.i += 1\n        return self.A[l:r]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/slice_iterator_cls.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/slice_iterator_cls.py

@@ -235,7 +235,7 @@ data:
     \       def build(L,W:list[int]):super().build();L.W=BIT(W[:])\n        def sum(L,l:int,r:int):return\
     \ L.W.sum_range(l,r)\n    def _build_base(wm,W):wm.W=BIT(W[:])\n    def _sum_range(wm,l,r):return\
     \ wm.W.sum_range(l,r)\n    def add(wm,i:int,w:int):\n        wm.W.add(i,w)\n \
-    \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\n\n\ndef coord_compress(A:\
+    \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\n\n\n\ndef coord_compress(A:\
     \ list[int], distinct = False):\n    s, m = pack_sm((N := len(A))-1); R, V = [0]*N,\
     \ [a<<s|i for i,a in enumerate(A)]; V.sort()\n    if distinct:\n        for r,\
     \ ai in enumerate(V): a, i = pack_dec(ai, s, m); R[i], V[r] = r, a\n    else:\n\
@@ -310,7 +310,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py

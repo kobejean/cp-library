@@ -27,30 +27,31 @@ data:
     - https://judge.yosupo.jp/problem/static_range_sum
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/static_range_sum\n\
     \ndef main():\n    N, Q = read()\n    A = read()\n    S = presum(A, initial=0)\n\
-    \    for _ in range(Q):\n        l, r = read()\n        write(S[r]-S[l])\n\n\n\
-    import operator\nfrom itertools import accumulate\nfrom typing import Callable,\
-    \ Iterable\nfrom typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    \ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
-    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
-    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
-    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
-    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\n'''\n\u257A\u2501\
+    \    for _ in range(Q):\n        l, r = read()\n        write(S[r]-S[l])\n\n'''\n\
+    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nfrom typing import Iterable, Type, Union, overload\n\
-    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
+    \          https://kobejean.github.io/cp-library               \n'''\n\n\nimport\
+    \ operator\nfrom itertools import accumulate\nfrom typing import Callable, Iterable\n\
+    from typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\ndef presum(iter:\
+    \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
+    \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
+    \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
+    \            func = operator.add\n        A = list(iter)\n        if initial is\
+    \ not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
+    \            A[i] = func(A[i], A[i-step])\n        return A\n\n\nfrom typing import\
+    \ Iterable, Type, Union, overload\nimport typing\nfrom collections import deque\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -149,7 +150,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_range_sum.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_range_sum.test.py

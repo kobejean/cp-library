@@ -50,22 +50,22 @@ data:
     \        loop = sum(A)\n        A = presum(A*3)\n        m, k = divmod(K, L)\n\
     \        if m:\n            k += L\n            m -= 1\n        rem = max(A[i+j+1]\
     \ - A[i] for i in range(L) for j in range(k))\n        cost = max(m*loop + rem,\
-    \ rem)\n        ans = max(ans, cost)\n\n    write(ans)\n    \n\nimport operator\n\
-    from itertools import accumulate\nfrom typing import Callable, Iterable\nfrom\
-    \ typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\ndef presum(iter:\
-    \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
-    \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
-    \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
-    \            func = operator.add\n        A = list(iter)\n        if initial is\
-    \ not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\n'''\n\u257A\u2501\
+    \ rem)\n        ans = max(ans, cost)\n\n    write(ans)\n    \n'''\n\u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n\n\nimport typing\nfrom collections import deque\nfrom\
-    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \               \n'''\n\n\nimport operator\nfrom itertools import accumulate\n\
+    from typing import Callable, Iterable\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
+    _U = TypeVar('U')\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T]\
+    \ = None, initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n    \
+    \    return list(accumulate(iter, func, initial=initial))\n    else:\n       \
+    \ assert step >= 2\n        if func is None:\n            func = operator.add\n\
+    \        A = list(iter)\n        if initial is not None:\n            A = [initial]\
+    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
+    \        return A\n\n\nimport typing\nfrom collections import deque\nfrom numbers\
+    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
     \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
     \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
@@ -214,7 +214,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc175_d_permutation.test.py

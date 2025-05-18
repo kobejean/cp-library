@@ -65,7 +65,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\n\ndef coord_compress(A: list[int], distinct = False):\n    s, m = pack_sm((N\
+    \n\n\n\n\n\ndef coord_compress(A: list[int], distinct = False):\n    s, m = pack_sm((N\
     \ := len(A))-1); R, V = [0]*N, [a<<s|i for i,a in enumerate(A)]; V.sort()\n  \
     \  if distinct:\n        for r, ai in enumerate(V): a, i = pack_dec(ai, s, m);\
     \ R[i], V[r] = r, a\n    else:\n        r = p = -1\n        for ai in V:\n   \
@@ -260,7 +260,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/wavelet/wm_segtree_points_cls.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py

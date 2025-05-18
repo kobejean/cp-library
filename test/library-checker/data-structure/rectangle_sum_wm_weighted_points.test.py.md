@@ -59,21 +59,22 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\n\n\n\ndef\
-    \ coord_compress(A: list[int], distinct = False):\n    s, m = pack_sm((N := len(A))-1);\
-    \ R, V = [0]*N, [a<<s|i for i,a in enumerate(A)]; V.sort()\n    if distinct:\n\
-    \        for r, ai in enumerate(V): a, i = pack_dec(ai, s, m); R[i], V[r] = r,\
-    \ a\n    else:\n        r = p = -1\n        for ai in V:\n            a, i = pack_dec(ai,\
-    \ s, m)\n            if a != p: r = r+1; V[r] = p = a\n            R[i] = r\n\
-    \        del V[r+1:]\n    return R, V\n\n\n\ndef pack_dec(ab: int, s: int, m:\
-    \ int): return ab>>s,ab&m\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\
-    \n\n\nclass BitArray:\n    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n\
-    \        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n       \
-    \ B.bits.pop()\n        for i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n\
-    \        B.bits.append(1)\n    def __len__(B): return B.N\n    def __getitem__(B,\
-    \ i: int): return B.bits[i>>5]>>(31-(i&31))&1\n    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n\
-    \    def set1(B, i: int): B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int):\
-    \ return r-B.count1(r)\n    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
+    \          https://kobejean.github.io/cp-library               \n'''\n\n\n\n\n\
+    def coord_compress(A: list[int], distinct = False):\n    s, m = pack_sm((N :=\
+    \ len(A))-1); R, V = [0]*N, [a<<s|i for i,a in enumerate(A)]; V.sort()\n    if\
+    \ distinct:\n        for r, ai in enumerate(V): a, i = pack_dec(ai, s, m); R[i],\
+    \ V[r] = r, a\n    else:\n        r = p = -1\n        for ai in V:\n         \
+    \   a, i = pack_dec(ai, s, m)\n            if a != p: r = r+1; V[r] = p = a\n\
+    \            R[i] = r\n        del V[r+1:]\n    return R, V\n\n\n\ndef pack_dec(ab:\
+    \ int, s: int, m: int): return ab>>s,ab&m\ndef pack_sm(N: int): s=N.bit_length();\
+    \ return s,(1<<s)-1\n\n\n\nclass BitArray:\n    def __init__(B, N: int):\n   \
+    \     B.N, B.Z = N, (N+31)>>5\n        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
+    \    def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits):\
+    \ B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n    def __len__(B):\
+    \ return B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n\
+    \    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
+    \ B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int): return r-B.count1(r)\n\
+    \    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
     \    def select0(B, k: int):\n        if not 0<=k<B.N-B.cnt[-1]: return -1\n \
     \       l,r,k=0,B.N,k+1\n        while 1<r-l:\n            if B.count0(m:=(l+r)>>1)<k:l=m\n\
     \            else:r=m\n        return l\n    def select1(B, k: int):\n       \
@@ -225,7 +226,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_weighted_points.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_weighted_points.test.py

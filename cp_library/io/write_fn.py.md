@@ -9,11 +9,6 @@ data:
     path: cp_library/io/bye_fn.py
     title: cp_library/io/bye_fn.py
   - icon: ':warning:'
-    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-      copy.py
-    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-      copy.py
-  - icon: ':warning:'
     path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
     title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - icon: ':warning:'
@@ -270,6 +265,9 @@ data:
     path: test/library-checker/data-structure/static_range_sum.test.py
     title: test/library-checker/data-structure/static_range_sum.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
+    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
     title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   - icon: ':heavy_check_mark:'
@@ -449,11 +447,9 @@ data:
   path: cp_library/io/write_fn.py
   requiredBy:
   - cp_library/io/bye_fn.py
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-    copy.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - test/unittests/ds/wavelet/wm_static_cls.py
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
@@ -465,6 +461,7 @@ data:
   - test/library-checker/data-structure/unionfind.test.py
   - test/library-checker/data-structure/unionfind_with_potential.test.py
   - test/library-checker/data-structure/static_range_sum.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   - test/library-checker/data-structure/point_set_range_composite.test.py
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   - test/library-checker/sample/many_aplusb_128bit.test.py

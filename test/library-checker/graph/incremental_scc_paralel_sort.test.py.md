@@ -76,8 +76,8 @@ data:
     \        for i,ai in enumerate(I): I[i] = m^ai&m\n    else:\n        I = [a<<s|i\
     \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
     \ I[i] = ai&m\n    return I\n\n\ndef pack_sm(N: int): s=N.bit_length(); return\
-    \ s,(1<<s)-1\n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order =\
-    \ [0]*len(L[0]), argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order):\
+    \ s,(1<<s)-1\n\n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order\
+    \ = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order):\
     \ inv[j] = i\n    for i, j in enumerate(order):\n        for A in L: A[i], A[j]\
     \ = A[j], A[i]\n        order[inv[i]], inv[j] = j, inv[i]\n    return L\n\n\n\
     from __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as\
@@ -124,7 +124,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc_paralel_sort.test.py

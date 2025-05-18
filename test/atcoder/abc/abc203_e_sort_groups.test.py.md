@@ -138,10 +138,10 @@ data:
     , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
     \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
     \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nfrom itertools import groupby\nfrom operator import itemgetter\n\
-    \ndef sort_groups(A, key=0):\n    if isinstance(key,int):\n        key = itemgetter(key)\n\
-    \    A.sort(key=key)\n    return sorted((k,list(g)) for k,g in groupby(A, key=key))\n\
-    \n    \nif __name__ == \"__main__\":\n    main()\n"
+    \        file.flush()\n\n\n\nfrom itertools import groupby\nfrom operator import\
+    \ itemgetter\n\ndef sort_groups(A, key=0):\n    if isinstance(key,int):\n    \
+    \    key = itemgetter(key)\n    A.sort(key=key)\n    return sorted((k,list(g))\
+    \ for k,g in groupby(A, key=key))\n\n    \nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
     \    XY = read(list[tuple[int, ...], M])\n    XY = sort_groups(XY, 0)\n    \n\
@@ -164,7 +164,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc203_e_sort_groups.test.py
   requiredBy: []
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc203_e_sort_groups.test.py

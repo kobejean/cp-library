@@ -1173,13 +1173,6 @@ data:
     - icon: ':warning:'
       path: play.py
       title: play.py
-  - name: test/library-checker/data-structure
-    pages:
-    - icon: ':warning:'
-      path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-        copy.py
-      title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test
-        copy.py
   - name: test/library-checker/tree
     pages:
     - icon: ':warning:'
@@ -1557,6 +1550,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/static_range_sum.test.py
       title: test/library-checker/data-structure/static_range_sum.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
+      title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
       title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py

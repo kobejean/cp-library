@@ -46,8 +46,8 @@ data:
     path: test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
     title: test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
-    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+    path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
+    title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/other/longest_increasing_sequence.test.py
     title: test/library-checker/other/longest_increasing_sequence.test.py
@@ -71,7 +71,7 @@ data:
   requiredBy:
   - cp_library/alg/dp/lis_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
-  timestamp: '2025-05-19 01:45:33+09:00'
+  timestamp: '2025-05-19 05:52:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/other/longest_increasing_sequence.test.py
@@ -82,11 +82,11 @@ data:
   - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_group.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_weighted.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
 documentation_of: cp_library/alg/dp/max2_fn.py
 layout: document
