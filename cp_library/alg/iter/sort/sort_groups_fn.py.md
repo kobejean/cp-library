@@ -17,19 +17,19 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nfrom itertools import groupby\nfrom operator import itemgetter\n\ndef sort_groups(A,\
+    from itertools import groupby\nfrom operator import itemgetter\n\n\n\n\ndef sort_groups(A,\
     \ key=0):\n    if isinstance(key,int):\n        key = itemgetter(key)\n    A.sort(key=key)\n\
     \    return sorted((k,list(g)) for k,g in groupby(A, key=key))\n\n    \n"
-  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.iter.__header__\n\
-    import cp_library.alg.iter.sort.__header__\nfrom itertools import groupby\nfrom\
-    \ operator import itemgetter\n\ndef sort_groups(A, key=0):\n    if isinstance(key,int):\n\
-    \        key = itemgetter(key)\n    A.sort(key=key)\n    return sorted((k,list(g))\
-    \ for k,g in groupby(A, key=key))\n\n    "
+  code: "import cp_library.__header__\nfrom itertools import groupby\nfrom operator\
+    \ import itemgetter\nimport cp_library.alg.__header__\nimport cp_library.alg.iter.__header__\n\
+    import cp_library.alg.iter.sort.__header__\n\ndef sort_groups(A, key=0):\n   \
+    \ if isinstance(key,int):\n        key = itemgetter(key)\n    A.sort(key=key)\n\
+    \    return sorted((k,list(g)) for k,g in groupby(A, key=key))\n\n    "
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/sort/sort_groups_fn.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc203_e_sort_groups.test.py

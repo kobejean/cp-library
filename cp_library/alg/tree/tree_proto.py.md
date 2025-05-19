@@ -356,9 +356,9 @@ data:
     \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
     \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
     \ _ in range(M)])\n        return parse\n    \n\n\ndef sort2(a, b):\n    return\
-    \ (a,b) if a < b else (b,a)\n\nimport operator\nfrom itertools import accumulate\n\
-    \ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
-    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
+    \ (a,b) if a < b else (b,a)\nimport operator\nfrom itertools import accumulate\n\
+    \n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial:\
+    \ _T = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
     \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
     \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
     \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
@@ -540,7 +540,7 @@ data:
   - cp_library/alg/tree/tree_cls.py
   - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py

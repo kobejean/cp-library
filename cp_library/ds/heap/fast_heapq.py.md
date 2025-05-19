@@ -301,7 +301,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py

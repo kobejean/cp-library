@@ -275,7 +275,7 @@ data:
       title: cp_library/alg/iter/arg/argsort_bounded_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/arg/argsort_fn.py
-      title: cp_library/alg/iter/arg/argsort_fn.py
+      title: argsort
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/arg/argsort_multi_fn.py
       title: cp_library/alg/iter/arg/argsort_multi_fn.py

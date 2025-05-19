@@ -56,19 +56,19 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nfrom typing import Iterator, SupportsIndex\nfrom typing import TypeVar\n_T\
-    \ = TypeVar('T')\n_U = TypeVar('U')\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    from typing import Iterator, SupportsIndex\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
+    _U = TypeVar('U')\n\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n    def __init__(self,\
+    \ A: list[_T], L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L,\
+    \ len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
+    \        L = self.L\n        if not L: raise StopIteration\n        self.r, r\
+    \ = (l := L.pop()), self.r\n        return self.A[l:r]\n"
+  code: "import cp_library.__header__\nfrom typing import Iterator, SupportsIndex\n\
+    from cp_library.misc.typing import _T\nimport cp_library.alg.__header__\nimport\
+    \ cp_library.alg.iter.__header__\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
     \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
     \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
     \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
-    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n"
-  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.iter.__header__\n\
-    from typing import Iterator, SupportsIndex\nfrom cp_library.misc.typing import\
-    \ _T\n\nclass SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T],\
-    \ L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n  \
-    \  def __len__(self): return len(self.L)\n    def __next__(self):\n        L =\
-    \ self.L\n        if not L: raise StopIteration\n        self.r, r = (l := L.pop()),\
-    \ self.r\n        return self.A[l:r]"
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/iter/slice_iterator_reverse_cls.py
@@ -80,7 +80,7 @@ data:
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/cycle_detection.test.py

@@ -33,7 +33,7 @@ data:
   requiredBy:
   - cp_library/math/linalg/mat/mod/mat_pow_fn.py
   - cp_library/math/linalg/mat/mat_pow_fn.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

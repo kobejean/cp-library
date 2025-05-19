@@ -152,7 +152,7 @@ data:
     \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
     \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
     \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
-    \ Parser.compile_repeat(cls, shift, N)\n\n\nfrom typing import Generic\n\nclass\
+    \ Parser.compile_repeat(cls, shift, N)\n\nfrom typing import Generic\n\n\nclass\
     \ CRFList(Generic[_T]):\n    def __init__(crf, A: list[_T], S: list[int]):\n \
     \       crf.N, crf.A, crf.S = len(S), A, S\n        S.append(len(A))\n\n    def\
     \ __len__(crf) -> int: return crf.N\n\n    def __getitem__(crf, i: int) -> list[_T]:\n\
@@ -254,7 +254,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/agc/agc038_b_sliding_min_max.test.py

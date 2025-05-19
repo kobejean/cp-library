@@ -610,7 +610,7 @@ data:
     \ = EdgeWeighted[-1]):\n        if isinstance(E, int): E = EdgeWeighted[E]\n \
     \       return super().compile(N, M, E)\n\nfrom functools import cached_property\n\
     \nfrom typing import overload, Literal, Union\n\n\ndef sort2(a, b):\n    return\
-    \ (a,b) if a < b else (b,a)\n\nfrom itertools import accumulate\n\ndef presum(iter:\
+    \ (a,b) if a < b else (b,a)\nfrom itertools import accumulate\n\n\ndef presum(iter:\
     \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
     \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
     \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
@@ -796,7 +796,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc361_e_tree_diameter.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc361_e_tree_diameter.test.py

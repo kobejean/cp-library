@@ -496,7 +496,7 @@ data:
     , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
     \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
     \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nimport operator\nfrom itertools import accumulate\n\n\
+    \        file.flush()\nimport operator\nfrom itertools import accumulate\n\n\n\
     def presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
     \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
     \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
@@ -541,7 +541,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py

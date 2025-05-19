@@ -309,10 +309,10 @@ data:
     \ Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v,\
     \ e, j\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j],\
     \ twin[j] = j+1, v, u, e, i\n        super().__init__(N, M, U, V, deg, La, Ra,\
-    \ Ua, Va, Ea, twin)\nfrom typing import Iterable, Union\n\nfrom typing import\
-    \ Iterator, SupportsIndex\n\nclass SliceIteratorReverse(Iterator[_T]):\n    def\
-    \ __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A, self.L,\
-    \ self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
+    \ Ua, Va, Ea, twin)\nfrom typing import Iterable, Union\nfrom typing import Iterator,\
+    \ SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n    def __init__(self,\
+    \ A: list[_T], L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L,\
+    \ len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
     \        L = self.L\n        if not L: raise StopIteration\n        self.r, r\
     \ = (l := L.pop()), self.r\n        return self.A[l:r]\n\n\ndef two_edge_connected_components(G:\
     \ GraphBase, s: Union[int,list,None] = None) -> Iterable[list[int]]:\n    '''\n\
@@ -368,7 +368,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/two_edge_connected_components.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/two_edge_connected_components.test.py

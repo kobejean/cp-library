@@ -15,7 +15,7 @@ data:
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_fn.py
-    title: cp_library/alg/iter/arg/argsort_fn.py
+    title: argsort
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_base_cls.py
     title: cp_library/alg/tree/fast/tree_base_cls.py
@@ -608,7 +608,7 @@ data:
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/tree_path_composite_sum.test.py

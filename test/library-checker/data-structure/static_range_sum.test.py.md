@@ -33,8 +33,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\n\n\nimport\
-    \ operator\nfrom itertools import accumulate\nfrom typing import Callable, Iterable\n\
+    \          https://kobejean.github.io/cp-library               \n'''\nimport operator\n\
+    from itertools import accumulate\nfrom typing import Callable, Iterable\n\n\n\
     from typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\ndef presum(iter:\
     \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
     \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
@@ -150,7 +150,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_range_sum.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_range_sum.test.py

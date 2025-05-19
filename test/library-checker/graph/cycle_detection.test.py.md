@@ -319,7 +319,7 @@ data:
     \                     while v != u:\n                            on_stack[v :=\
     \ order.pop()] = 0\n                            sccs.append(v)\n             \
     \       if stack: chmin(low, stack[-1], low[u])\n        return SliceIteratorReverse(sccs,\
-    \ L)\n    \n\nfrom typing import Iterator, SupportsIndex\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    \ L)\n    \nfrom typing import Iterator, SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
     \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
     \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
     \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
@@ -364,7 +364,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/cycle_detection.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/cycle_detection.test.py

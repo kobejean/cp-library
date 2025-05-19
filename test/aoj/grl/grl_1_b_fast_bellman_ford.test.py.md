@@ -18,7 +18,7 @@ data:
     title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_fn.py
-    title: cp_library/alg/iter/arg/argsort_fn.py
+    title: argsort
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/masks/i32_max_cnst.py
     title: cp_library/bit/masks/i32_max_cnst.py
@@ -505,7 +505,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py

@@ -89,8 +89,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\n\nimport operator\n\
-    from itertools import accumulate\nfrom typing import Callable, Iterable\nfrom\
+    \n\n\n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\nimport operator\n\
+    from itertools import accumulate\nfrom typing import Callable, Iterable\n\nfrom\
     \ typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\ndef presum(iter:\
     \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
     \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
@@ -159,7 +159,7 @@ data:
   - cp_library/alg/tree/fast/aux_tree_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/lca.test.py

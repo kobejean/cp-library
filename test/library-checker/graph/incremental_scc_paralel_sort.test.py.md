@@ -6,7 +6,7 @@ data:
     title: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_fn.py
-    title: cp_library/alg/iter/arg/argsort_fn.py
+    title: argsort
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/sort/isort_parallel_fn.py
     title: cp_library/alg/iter/sort/isort_parallel_fn.py
@@ -124,7 +124,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc_paralel_sort.test.py

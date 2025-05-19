@@ -19,7 +19,7 @@ data:
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_fn.py
-    title: cp_library/alg/iter/arg/argsort_fn.py
+    title: argsort
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_multi_fn.py
     title: cp_library/alg/iter/arg/argsort_multi_fn.py
@@ -301,7 +301,7 @@ data:
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_fn.py
   - cp_library/alg/iter/cmpr/coord_compress_fn.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_range_frequency.test.py

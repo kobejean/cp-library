@@ -564,13 +564,13 @@ data:
     \        return self.decode(heappushpop(self.data, self.encode(id, priority)))\n\
     \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
     \ self.encode(id, priority)))\n    \n\nfrom typing import overload, Literal, Union\n\
-    \n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\n\nfrom itertools import\
-    \ accumulate\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None,\
-    \ initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n        return\
-    \ list(accumulate(iter, func, initial=initial))\n    else:\n        assert step\
-    \ >= 2\n        if func is None:\n            func = operator.add\n        A =\
-    \ list(iter)\n        if initial is not None:\n            A = [initial] + A\n\
-    \        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
+    \n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\nfrom itertools import\
+    \ accumulate\n\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] =\
+    \ None, initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n      \
+    \  return list(accumulate(iter, func, initial=initial))\n    else:\n        assert\
+    \ step >= 2\n        if func is None:\n            func = operator.add\n     \
+    \   A = list(iter)\n        if initial is not None:\n            A = [initial]\
+    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
     \        return A\n# from typing import Generic\n# from cp_library.misc.typing\
     \ import _T\n\ndef min2(a, b):\n    return a if a < b else b\n\n\nclass MinSparseTable:\n\
     \    def __init__(st, arr: list):\n        st.N = N = len(arr)\n        st.log\
@@ -785,7 +785,7 @@ data:
   path: cp_library/alg/tree/tree_weighted_proto.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc361_e_tree_diameter.test.py

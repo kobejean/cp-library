@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/max2_fn.py
+    title: cp_library/alg/dp/max2_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
@@ -23,16 +26,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from math import isqrt\n\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    from math import isqrt\n\n\n\ndef max2(a, b):\n    return a if a > b else b\n\n\
+    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -107,34 +110,8 @@ data:
     \   '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n    def __init__(mo,\
     \ L: list[int], R: list[int], N: int):\n        mo.Q = len(L)\n        mo.qbits\
     \ = mo.Q.bit_length()\n        mo.nbits = N.bit_length()\n        mo.qmask = (1\
-    \ << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n        \n       \
-    \ mo.B = isqrt(N)\n        mo.order = [mo.packet(i, L[i], R[i]) for i in range(mo.Q)]\n\
-    \        mo.order.sort()\n        mo.L = [0]*mo.Q\n        mo.R = [0]*mo.Q\n \
-    \       for i,j in enumerate(mo.order):\n            j &= mo.qmask\n         \
-    \   mo.order[i] = j\n            mo.L[i] = L[j]\n            mo.R[i] = R[j]\n\n\
-    \    def packet(mo, i: int, l: int, r: int) -> int:\n        b = l//mo.B\n   \
-    \     if b & 1: r = mo.nmask - r\n        return (b << mo.nbits | r) << mo.qbits\
-    \ | i\n\n    def add(mo, i: int):\n        '''Add element at index i to current\
-    \ range.'''\n        pass\n\n    def remove(mo, i: int):\n        '''Remove element\
-    \ at index i from current range.'''\n        pass\n\n    def answer(mo, i: int,\
-    \ l: int, r: int) -> int:\n        '''Compute answer for current range.'''\n \
-    \       pass\n    \n    def solve(mo) -> list[int]:\n        ans = [0]*mo.Q; l\
-    \ = r = 0\n        for i in range(mo.Q):\n            qid, nl, nr = mo.order[i],\
-    \ mo.L[i], mo.R[i]\n            while r < nr: mo.add(r); r += 1\n            while\
-    \ nl < l: mo.add(l:=l-1)\n            while l < nl: mo.remove(l); l += 1\n   \
-    \         while nr < r: mo.remove(r:=r-1)\n            ans[qid] = mo.answer(qid,\
-    \ l, r)\n        return ans\n\n    @classmethod\n    def compile(cls, Q: int,\
-    \ N: int, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n    \
-    \    def parse(ts: TokenStream):\n            L, R = [0]*Q, [0]*Q\n          \
-    \  for i in range(Q):\n                L[i], R[i] = query(ts) \n            return\
-    \ cls(L, R, N)\n        return parse\n"
-  code: "import cp_library.alg.dp.__header__\nfrom math import isqrt\nfrom cp_library.io.parser_cls\
-    \ import Parsable, Parser, TokenStream\n\nclass Mo(list, Parsable):\n    '''Mo[Q:\
-    \ int, N: int, T: type = tuple[int, int]]'''\n    def __init__(mo, L: list[int],\
-    \ R: list[int], N: int):\n        mo.Q = len(L)\n        mo.qbits = mo.Q.bit_length()\n\
-    \        mo.nbits = N.bit_length()\n        mo.qmask = (1 << mo.qbits) - 1\n \
-    \       mo.nmask = (1 << mo.nbits) - 1\n        \n        mo.B = isqrt(N)\n  \
-    \      mo.order = [mo.packet(i, L[i], R[i]) for i in range(mo.Q)]\n        mo.order.sort()\n\
+    \ << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))\n\
+    \        mo.order = [mo.packet(i, L[i], R[i]) for i in range(mo.Q)]\n        mo.order.sort()\n\
     \        mo.L = [0]*mo.Q\n        mo.R = [0]*mo.Q\n        for i,j in enumerate(mo.order):\n\
     \            j &= mo.qmask\n            mo.order[i] = j\n            mo.L[i] =\
     \ L[j]\n            mo.R[i] = R[j]\n\n    def packet(mo, i: int, l: int, r: int)\
@@ -152,14 +129,42 @@ data:
     \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
     \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
     \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
+    \ \n            return cls(L, R, N)\n        return parse\n"
+  code: "import cp_library.__header__\nfrom math import isqrt\nimport cp_library.alg.__header__\n\
+    import cp_library.alg.dp.__header__\nfrom cp_library.alg.dp.max2_fn import max2\n\
+    from cp_library.io.parser_cls import Parsable, Parser, TokenStream\n\nclass Mo(list,\
+    \ Parsable):\n    '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n    def\
+    \ __init__(mo, L: list[int], R: list[int], N: int):\n        mo.Q = len(L)\n \
+    \       mo.qbits = mo.Q.bit_length()\n        mo.nbits = N.bit_length()\n    \
+    \    mo.qmask = (1 << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n\
+    \        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))\n        mo.order = [mo.packet(i,\
+    \ L[i], R[i]) for i in range(mo.Q)]\n        mo.order.sort()\n        mo.L = [0]*mo.Q\n\
+    \        mo.R = [0]*mo.Q\n        for i,j in enumerate(mo.order):\n          \
+    \  j &= mo.qmask\n            mo.order[i] = j\n            mo.L[i] = L[j]\n  \
+    \          mo.R[i] = R[j]\n\n    def packet(mo, i: int, l: int, r: int) -> int:\n\
+    \        b = l//mo.B\n        if b & 1: r = mo.nmask - r\n        return (b <<\
+    \ mo.nbits | r) << mo.qbits | i\n\n    def add(mo, i: int):\n        '''Add element\
+    \ at index i to current range.'''\n        pass\n\n    def remove(mo, i: int):\n\
+    \        '''Remove element at index i from current range.'''\n        pass\n\n\
+    \    def answer(mo, i: int, l: int, r: int) -> int:\n        '''Compute answer\
+    \ for current range.'''\n        pass\n    \n    def solve(mo) -> list[int]:\n\
+    \        ans = [0]*mo.Q; l = r = 0\n        for i in range(mo.Q):\n          \
+    \  qid, nl, nr = mo.order[i], mo.L[i], mo.R[i]\n            while r < nr: mo.add(r);\
+    \ r += 1\n            while nl < l: mo.add(l:=l-1)\n            while l < nl:\
+    \ mo.remove(l); l += 1\n            while nr < r: mo.remove(r:=r-1)\n        \
+    \    ans[qid] = mo.answer(qid, l, r)\n        return ans\n\n    @classmethod\n\
+    \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
+    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
+    \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
     \ \n            return cls(L, R, N)\n        return parse"
   dependsOn:
+  - cp_library/alg/dp/max2_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/dp/mo_cls.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc261_g_mo.test.py

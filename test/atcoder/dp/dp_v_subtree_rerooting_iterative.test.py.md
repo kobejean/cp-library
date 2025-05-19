@@ -407,7 +407,7 @@ data:
     \ Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n        return super().compile(N,\
     \ M, E)\n\n    \n\nfrom typing import overload, Literal, Union\nfrom functools\
     \ import cached_property\n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\n\
-    \nimport operator\nfrom itertools import accumulate\n\ndef presum(iter: Iterable[_T],\
+    import operator\nfrom itertools import accumulate\n\n\ndef presum(iter: Iterable[_T],\
     \ func: Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:\n\
     \    if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
     \    else:\n        assert step >= 2\n        if func is None:\n            func\
@@ -549,7 +549,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py

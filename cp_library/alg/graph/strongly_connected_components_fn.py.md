@@ -32,8 +32,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterator\n\nfrom typing import Iterator, SupportsIndex\nfrom\
-    \ typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    from typing import Iterator\nfrom typing import Iterator, SupportsIndex\nfrom\
+    \ typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
     \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
     \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
     \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/strongly_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/strongly_connected_components_fn.py

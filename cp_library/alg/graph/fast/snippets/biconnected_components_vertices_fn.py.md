@@ -300,7 +300,7 @@ data:
     \   # give the lonely vertices their own components\n    for u,d in enumerate(G.deg):\n\
     \        if d == 0:\n            L.append(len(bccs))\n            bccs.append(u)\n\
     \    return SliceIteratorReverse(bccs, L)\n\ntwo_vertex_connected_components =\
-    \ biconnected_components\n\n\nfrom typing import Iterator, SupportsIndex\n\nclass\
+    \ biconnected_components\n\nfrom typing import Iterator, SupportsIndex\n\n\nclass\
     \ SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T], L:\
     \ list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n    def\
     \ __len__(self): return len(self.L)\n    def __next__(self):\n        L = self.L\n\
@@ -342,7 +342,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/biconnected_components.test.py

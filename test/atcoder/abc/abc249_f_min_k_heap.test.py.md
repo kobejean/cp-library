@@ -148,7 +148,7 @@ data:
     , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
     \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
     \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\nfrom typing import Reversible\n\ndef rev_enumerate(A:\
+    \        file.flush()\nfrom typing import Reversible\n\n\n\ndef rev_enumerate(A:\
     \ Reversible, start: int = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n\
     \        yield (start:=start-1), A[i]\n\nfrom collections import UserList\n\n\
     def heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
@@ -252,7 +252,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc249_f_min_k_heap.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc249_f_min_k_heap.test.py

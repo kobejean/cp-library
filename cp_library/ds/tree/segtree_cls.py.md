@@ -129,7 +129,7 @@ data:
   - cp_library/ds/wavelet/wm_segtree_cls.py
   - cp_library/alg/tree/fast/hld_commutative_cls.py
   - cp_library/alg/tree/fast/hld_monoid_cls.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py

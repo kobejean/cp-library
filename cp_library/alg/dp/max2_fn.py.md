@@ -6,12 +6,18 @@ data:
     path: cp_library/alg/dp/lis_fn.py
     title: cp_library/alg/dp/lis_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/mo_cls.py
+    title: cp_library/alg/dp/mo_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
     title: cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
     title: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc261_g_mo.test.py
+    title: test/atcoder/abc/abc261_g_mo.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
     title: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
@@ -69,9 +75,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/max2_fn.py
   requiredBy:
+  - cp_library/alg/dp/mo_cls.py
   - cp_library/alg/dp/lis_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/other/longest_increasing_sequence.test.py
@@ -87,6 +94,7 @@ data:
   - test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
+  - test/atcoder/abc/abc261_g_mo.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
 documentation_of: cp_library/alg/dp/max2_fn.py
 layout: document

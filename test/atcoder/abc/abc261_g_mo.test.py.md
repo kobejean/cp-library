@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/dp/max2_fn.py
+    title: cp_library/alg/dp/max2_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/mo_cls.py
     title: cp_library/alg/dp/mo_cls.py
   - icon: ':heavy_check_mark:'
@@ -34,36 +37,36 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\nfrom math\
-    \ import isqrt\n\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n         \
-    \       break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\ntry:\n    sys.stdin\
-    \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import TypeVar\n_T =\
-    \ TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n    stream\
-    \ = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue = deque()\n\
-    \n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \ import isqrt\n\n\n\ndef max2(a, b):\n    return a if a > b else b\n\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
+    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
+    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
+    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
+    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
+    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
+    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
+    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
+    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
+    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
+    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
     \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
     \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
@@ -118,48 +121,48 @@ data:
     \   '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n    def __init__(mo,\
     \ L: list[int], R: list[int], N: int):\n        mo.Q = len(L)\n        mo.qbits\
     \ = mo.Q.bit_length()\n        mo.nbits = N.bit_length()\n        mo.qmask = (1\
-    \ << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n        \n       \
-    \ mo.B = isqrt(N)\n        mo.order = [mo.packet(i, L[i], R[i]) for i in range(mo.Q)]\n\
-    \        mo.order.sort()\n        mo.L = [0]*mo.Q\n        mo.R = [0]*mo.Q\n \
-    \       for i,j in enumerate(mo.order):\n            j &= mo.qmask\n         \
-    \   mo.order[i] = j\n            mo.L[i] = L[j]\n            mo.R[i] = R[j]\n\n\
-    \    def packet(mo, i: int, l: int, r: int) -> int:\n        b = l//mo.B\n   \
-    \     if b & 1: r = mo.nmask - r\n        return (b << mo.nbits | r) << mo.qbits\
-    \ | i\n\n    def add(mo, i: int):\n        '''Add element at index i to current\
-    \ range.'''\n        pass\n\n    def remove(mo, i: int):\n        '''Remove element\
-    \ at index i from current range.'''\n        pass\n\n    def answer(mo, i: int,\
-    \ l: int, r: int) -> int:\n        '''Compute answer for current range.'''\n \
-    \       pass\n    \n    def solve(mo) -> list[int]:\n        ans = [0]*mo.Q; l\
-    \ = r = 0\n        for i in range(mo.Q):\n            qid, nl, nr = mo.order[i],\
-    \ mo.L[i], mo.R[i]\n            while r < nr: mo.add(r); r += 1\n            while\
-    \ nl < l: mo.add(l:=l-1)\n            while l < nl: mo.remove(l); l += 1\n   \
-    \         while nr < r: mo.remove(r:=r-1)\n            ans[qid] = mo.answer(qid,\
-    \ l, r)\n        return ans\n\n    @classmethod\n    def compile(cls, Q: int,\
-    \ N: int, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n    \
-    \    def parse(ts: TokenStream):\n            L, R = [0]*Q, [0]*Q\n          \
-    \  for i in range(Q):\n                L[i], R[i] = query(ts) \n            return\
-    \ cls(L, R, N)\n        return parse\n\nfrom typing import Iterable, Type, Union,\
-    \ overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False)\
-    \ -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]:\
-    \ ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef\
-    \ read(*specs: Union[Type[_T],_U], char=False):\n    if not char and not specs:\
-    \ return [int(s) for s in TokenStream.default.line()]\n    parser: _T = Parser.compile(specs)\n\
-    \    ret = parser(CharStream.default if char else TokenStream.default)\n    return\
-    \ ret[0] if len(specs) == 1 else ret\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nclass TripletQueries(Mo):\n    cnt = [0]*200001      \n    pairs = [0]*200001\
-    \    \n    triples = 0\n    A: list[int] = None\n\n    def add(mo, i):\n     \
-    \   v = mo.A[i]\n        mo.triples += mo.pairs[v]    \n        mo.pairs[v] +=\
-    \ mo.cnt[v]     \n        mo.cnt[v] += 1 \n    \n    def remove(mo, i):\n    \
-    \    v = mo.A[i]\n        mo.cnt[v] -= 1 \n        mo.pairs[v] -= mo.cnt[v]  \
-    \   \n        mo.triples -= mo.pairs[v]   \n\n    def answer(mo, i, l, r):\n \
-    \       return mo.triples \n    \n    def solve(mo, A):\n        mo.A = A\n  \
-    \      return super().solve()\n\nif __name__ == \"__main__\":\n    main()\n"
+    \ << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))\n\
+    \        mo.order = [mo.packet(i, L[i], R[i]) for i in range(mo.Q)]\n        mo.order.sort()\n\
+    \        mo.L = [0]*mo.Q\n        mo.R = [0]*mo.Q\n        for i,j in enumerate(mo.order):\n\
+    \            j &= mo.qmask\n            mo.order[i] = j\n            mo.L[i] =\
+    \ L[j]\n            mo.R[i] = R[j]\n\n    def packet(mo, i: int, l: int, r: int)\
+    \ -> int:\n        b = l//mo.B\n        if b & 1: r = mo.nmask - r\n        return\
+    \ (b << mo.nbits | r) << mo.qbits | i\n\n    def add(mo, i: int):\n        '''Add\
+    \ element at index i to current range.'''\n        pass\n\n    def remove(mo,\
+    \ i: int):\n        '''Remove element at index i from current range.'''\n    \
+    \    pass\n\n    def answer(mo, i: int, l: int, r: int) -> int:\n        '''Compute\
+    \ answer for current range.'''\n        pass\n    \n    def solve(mo) -> list[int]:\n\
+    \        ans = [0]*mo.Q; l = r = 0\n        for i in range(mo.Q):\n          \
+    \  qid, nl, nr = mo.order[i], mo.L[i], mo.R[i]\n            while r < nr: mo.add(r);\
+    \ r += 1\n            while nl < l: mo.add(l:=l-1)\n            while l < nl:\
+    \ mo.remove(l); l += 1\n            while nr < r: mo.remove(r:=r-1)\n        \
+    \    ans[qid] = mo.answer(qid, l, r)\n        return ans\n\n    @classmethod\n\
+    \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
+    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
+    \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
+    \ \n            return cls(L, R, N)\n        return parse\n\nfrom typing import\
+    \ Iterable, Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n\
+    @overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec:\
+    \ _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False)\
+    \ -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U,\
+    \ ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n    if not char\
+    \ and not specs: return [int(s) for s in TokenStream.default.line()]\n    parser:\
+    \ _T = Parser.compile(specs)\n    ret = parser(CharStream.default if char else\
+    \ TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nclass TripletQueries(Mo):\n    cnt = [0]*200001     \
+    \ \n    pairs = [0]*200001    \n    triples = 0\n    A: list[int] = None\n\n \
+    \   def add(mo, i):\n        v = mo.A[i]\n        mo.triples += mo.pairs[v]  \
+    \  \n        mo.pairs[v] += mo.cnt[v]     \n        mo.cnt[v] += 1 \n    \n  \
+    \  def remove(mo, i):\n        v = mo.A[i]\n        mo.cnt[v] -= 1 \n        mo.pairs[v]\
+    \ -= mo.cnt[v]     \n        mo.triples -= mo.pairs[v]   \n\n    def answer(mo,\
+    \ i, l, r):\n        return mo.triples \n    \n    def solve(mo, A):\n       \
+    \ mo.A = A\n        return super().solve()\n\nif __name__ == \"__main__\":\n \
+    \   main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
     \n\ndef main():\n    N, Q = read(tuple[int, ...])\n    A = read(list[int])\n \
     \   mo = read(TripletQueries[Q, N])\n    write(*mo.solve(A), sep='\\n')\n\nfrom\
@@ -177,12 +180,13 @@ data:
   - cp_library/alg/dp/mo_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
+  - cp_library/alg/dp/max2_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_mo.test.py

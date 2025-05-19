@@ -3,7 +3,7 @@ data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_fn.py
-    title: cp_library/alg/iter/arg/argsort_fn.py
+    title: argsort
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack/pack_sm_fn.py
     title: cp_library/bit/pack/pack_sm_fn.py
@@ -41,7 +41,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort/sort_parallel_fn.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/sort/sort_parallel_fn.py

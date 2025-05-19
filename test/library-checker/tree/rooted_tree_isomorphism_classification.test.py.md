@@ -36,7 +36,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n\nfrom typing import Reversible\n\ndef rev_enumerate(A:\
+    \               \n'''\nfrom typing import Reversible\n\n\n\ndef rev_enumerate(A:\
     \ Reversible, start: int = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n\
     \        yield (start:=start-1), A[i]\n\n\nfrom __pypy__.builders import StringBuilder\n\
     import sys\nfrom os import read as os_read, write as os_write\nfrom atexit import\
@@ -84,7 +84,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   requiredBy: []
-  timestamp: '2025-05-19 05:52:10+09:00'
+  timestamp: '2025-05-20 05:03:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
