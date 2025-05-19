@@ -1,10 +1,10 @@
 import cp_library.__header__
-import cp_library.alg.__header__
-import cp_library.alg.iter.__header__
 import operator
 from itertools import accumulate
 from typing import Callable, Reversible
 from cp_library.misc.typing import _T
+import cp_library.alg.__header__
+import cp_library.alg.iter.__header__
 
 def sufsum(iter: Reversible[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:
     if step == 1:

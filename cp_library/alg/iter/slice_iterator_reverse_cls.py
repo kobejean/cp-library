@@ -1,8 +1,8 @@
 import cp_library.__header__
-import cp_library.alg.__header__
-import cp_library.alg.iter.__header__
 from typing import Iterator, SupportsIndex
 from cp_library.misc.typing import _T
+import cp_library.alg.__header__
+import cp_library.alg.iter.__header__
 
 class SliceIteratorReverse(Iterator[_T]):
     def __init__(self, A: list[_T], L: list[SupportsIndex]):

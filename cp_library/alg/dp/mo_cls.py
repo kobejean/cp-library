@@ -1,5 +1,8 @@
-import cp_library.alg.dp.__header__
+import cp_library.__header__
 from math import isqrt
+import cp_library.alg.__header__
+import cp_library.alg.dp.__header__
+from cp_library.alg.dp.max2_fn import max2
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
 class Mo(list, Parsable):
@@ -10,8 +13,7 @@ class Mo(list, Parsable):
         mo.nbits = N.bit_length()
         mo.qmask = (1 << mo.qbits) - 1
         mo.nmask = (1 << mo.nbits) - 1
-        
-        mo.B = isqrt(N)
+        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))
         mo.order = [mo.packet(i, L[i], R[i]) for i in range(mo.Q)]
         mo.order.sort()
         mo.L = [0]*mo.Q

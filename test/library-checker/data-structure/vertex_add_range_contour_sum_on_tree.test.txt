@@ -1,0 +1,37 @@
+# verification-helper: PROBLEM https://judge.yosupo.jp/problem/vertex_add_range_contour_sum_on_tree
+
+from cp_library.alg.dp.chmin_fn import chmin
+from cp_library.alg.tree.fast.tree_cls import Tree
+
+
+def main():
+    N, Q = read()
+    A = read(list[int])
+    T = read(Tree[N])
+    order = T.dfs_topdown(0)
+    tin, tout, depth, B = [0]*N, [0]*N, [0]*N, [0]*N
+    B[0] = A[0]
+    for t, i in enumerate(order, 1):
+        B[t] = A[T.Va[i]]
+        tin[T.Va[i]] = t
+        tout[T.Va[i]] = t+1
+        depth[t] = depth[tin[T.Ua[i]]]+1
+    tout = tin[:]
+    order.reverse()
+    for i in order: chmin(tout, T.Ua[i], tout[T.Va[i]])
+    wm = WMBIT(depth, B)
+    for _ in range(Q):
+        t, *q = read()
+        if t == 0:
+            p, x = q
+            wm.add(tin[p], x)
+        else:
+            p, l, r = q
+            
+    
+from cp_library.ds.wavelet.wm_bit_cls import WMBIT
+from cp_library.io.write_fn import write
+from cp_library.io.read_fn import read
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,8 @@
-import cp_library.alg.iter.__header__
+import cp_library.__header__
 from typing import Generic
 from cp_library.misc.typing import _T
+import cp_library.alg.__header__
+import cp_library.alg.iter.__header__
 
 class CRFList(Generic[_T]):
     def __init__(crf, A: list[_T], S: list[int]):
