@@ -21,17 +21,17 @@ class TreapMonoid:
         # left subtreap
         acc, i = T.V[a], T.sub[a<<1]
         while ~i:
-            if not (T.K[i]<l):
+            if not (b:=T.K[i]<l):
                 if ~T.sub[i<<1|1]: acc = T.op(T.A[T.sub[i<<1|1]], acc)
                 acc = T.op(T.V[i], acc)
-            i = T.sub[i<<1|(T.K[i]<l)]
+            i = T.sub[i<<1|b]
         # right subtreap
         i = T.sub[a<<1|1]
         while ~i:
-            if T.K[i]<r:
+            if b:=T.K[i]<r:
                 if ~T.sub[i<<1]: acc = T.op(acc, T.A[T.sub[i<<1]])
                 acc = T.op(acc, T.V[i])
-            i = T.sub[i<<1|(T.K[i]<r)]
+            i = T.sub[i<<1|b]
         return acc
 
     def all_prod(T): return T.A[T.root]

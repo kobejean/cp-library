@@ -21,25 +21,7 @@ indices = argsort(array, reverse=True)
 
 ## Implementation Details
 
-The function uses bit-packing to combine array values with their indices before sorting:
-
-```python
-def argsort(A: list[int], reverse=False):
-    s, m = pack_sm(len(A))
-    if reverse:
-        I = [a<<s|m^i for i,a in enumerate(A)]
-        I.sort(reverse=True)
-        for i,ai in enumerate(I): I[i] = m^ai&m
-    else:
-        I = [a<<s|i for i,a in enumerate(A)]
-        I.sort()
-        for i,ai in enumerate(I): I[i] = ai&m
-    return I
-```
-
-This approach requires only a single sorting operation, with no costly key functions or multiple passes.
-
-## Compatibility with Negative Numbers
+The function uses bit-packing to combine array values with their indices before sorting.  This approach requires only a single sorting operation, with no costly key functions or multiple passes.
 
 Despite using bit operations, `argsort` correctly handles negative integers. This works because Python's left shift operation preserves the relative ordering of numbers, and the bit masking cleanly extracts just the index portion.
 
@@ -53,13 +35,11 @@ The implementation excels when run with PyPy due to:
 
 ## Performance Comparison
 
-![Argsort Benchmark Results]({{ site.baseurl }}/static/media/argsort_benchmarks.png)
+![Argsort Benchmark Results]({{ site.baseurl }}/media/argsort_benchmarks.png)
 
 As the benchmark shows, `argsort` significantly outperforms alternatives:
 - ~3-4x faster than `argsort_by_key`
 - ~10x faster than `argsort_by_tuple` for large arrays
-
-## Alternative Implementations
 
 For reference, here are the slower but more intuitive alternatives:
 

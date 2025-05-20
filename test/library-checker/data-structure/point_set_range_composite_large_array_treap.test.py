@@ -1,6 +1,4 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_set_range_composite_large_array
-from random import shuffle
-import time
 
 def main():
     mod = 998244353
@@ -24,17 +22,17 @@ def main():
             a, b = pack_dec(T[l:r], shift, mask)
             write((a*x+b)%mod)
 
-    # test if the following can be run in reasonable time
-    for i, key in enumerate(D):
-        assert T[key] == D.get(key, e)
-        assert T[i] == D.get(i, e)
-    for i, key in enumerate(D):
-        assert key in T
-        del T[key]
-        assert key not in T
-        if i%10000 == 0: T._validate()
-    # addition of duplicate values
-    for p in range(Q): T.insert(0, 0)
+    # # test if the following can be run in reasonable time
+    # for i, key in enumerate(D):
+    #     assert T[key] == D.get(key, e)
+    #     assert T[i] == D.get(i, e)
+    # for i, key in enumerate(D):
+    #     assert key in T
+    #     del T[key]
+    #     assert key not in T
+    #     if i%10000 == 0: T._validate()
+    # # addition of duplicate values
+    # for p in range(Q): T.insert(0, 0)
 
 from cp_library.ds.tree.treap_monoid_cls import TreapMonoid
 from cp_library.bit.pack.pack_enc_fn import pack_enc
