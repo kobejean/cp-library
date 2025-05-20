@@ -78,7 +78,7 @@ data:
   - cp_library/alg/dp/mo_cls.py
   - cp_library/alg/dp/lis_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
-  timestamp: '2025-05-20 05:03:21+09:00'
+  timestamp: '2025-05-20 13:05:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/other/longest_increasing_sequence.test.py

@@ -735,7 +735,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   requiredBy: []
-  timestamp: '2025-05-20 05:03:21+09:00'
+  timestamp: '2025-05-20 13:05:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py

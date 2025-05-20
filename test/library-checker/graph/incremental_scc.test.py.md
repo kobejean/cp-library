@@ -8,6 +8,12 @@ data:
     path: cp_library/alg/iter/arg/argsort_bounded_fn.py
     title: cp_library/alg/iter/arg/argsort_bounded_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/arg/argsort_fn.py
+    title: argsort
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_sm_fn.py
+    title: cp_library/bit/pack/pack_sm_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   _extendedRequiredBy: []
@@ -64,21 +70,28 @@ data:
     \ Ra, Va)\n        em = partition(el, er, tm)\n        if tr-tl==1: return\n \
     \       E, F = F, E\n        div_con(nN, em, er, tm, tr)\n        div_con(N, el,\
     \ em, tl, tm)\n        E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\
-    \n\n\ndef argsort_bounded(A, mx):\n    I, cnt, t = [0]*len(A), [0]*(mx+1), 0\n\
-    \    for a in A: cnt[a] += 1\n    for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n\
-    \    for i,a in enumerate(A): I[cnt[a]] = i; cnt[a] += 1\n    return I\n\n\nfrom\
-    \ __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as os_read,\
-    \ write as os_write\nfrom atexit import register as atexist_register\n\nclass\
-    \ Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n \
-    \   def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
-    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
-    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
-    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
-    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
-    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
-    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
-    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \n\n\ndef argsort(A: list[int], reverse=False):\n    s, m = pack_sm(len(A))\n\
+    \    if reverse:\n        I = [a<<s|m^i for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
+    \        for i,ai in enumerate(I): I[i] = m^ai&m\n    else:\n        I = [a<<s|i\
+    \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
+    \ I[i] = ai&m\n    return I\n\n\ndef pack_sm(N: int): s=N.bit_length(); return\
+    \ s,(1<<s)-1\n\ndef argsort_bounded(A, mx=None, reverse=False):\n    N = len(A)\n\
+    \    if mx is None: mx = max(A)\n    if N*N.bit_length() < mx or mx < 1000: return\
+    \ argsort(A, reverse)\n    I, cnt, t = [0]*N, [0]*(mx+1), 0\n    for a in A: cnt[a]\
+    \ += 1\n    if reverse:\n        for a in range(mx+1): cnt[~a], t = t, t+cnt[~a]\n\
+    \    else:\n        for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n    for i,a\
+    \ in enumerate(A): I[cnt[a]] = i; cnt[a] += 1\n    return I\n\n\nfrom __pypy__.builders\
+    \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
     \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
     \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
     \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
@@ -105,10 +118,12 @@ data:
   - cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
   - cp_library/alg/iter/arg/argsort_bounded_fn.py
   - cp_library/io/fast/fast_io_fn.py
+  - cp_library/alg/iter/arg/argsort_fn.py
+  - cp_library/bit/pack/pack_sm_fn.py
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc.test.py
   requiredBy: []
-  timestamp: '2025-05-20 05:03:21+09:00'
+  timestamp: '2025-05-20 13:05:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc.test.py

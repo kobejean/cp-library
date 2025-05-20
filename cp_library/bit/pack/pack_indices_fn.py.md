@@ -33,7 +33,7 @@ data:
   path: cp_library/bit/pack/pack_indices_fn.py
   requiredBy:
   - cp_library/math/invcnt_fn.py
-  timestamp: '2025-05-20 05:03:21+09:00'
+  timestamp: '2025-05-20 13:05:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

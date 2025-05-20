@@ -18,6 +18,9 @@ data:
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/arg/argsort_bounded_fn.py
+    title: cp_library/alg/iter/arg/argsort_bounded_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_fn.py
     title: argsort
   - icon: ':heavy_check_mark:'
@@ -217,6 +220,9 @@ data:
     path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
     title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/incremental_scc.test.py
+    title: test/library-checker/graph/incremental_scc.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
     title: test/library-checker/graph/incremental_scc_paralel_sort.test.py
   - icon: ':heavy_check_mark:'
@@ -294,6 +300,7 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/iter/arg/iargsort_fn.py
   - cp_library/alg/iter/arg/argsort_multi_fn.py
+  - cp_library/alg/iter/arg/argsort_bounded_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
   - cp_library/alg/iter/sort/sort_parallel_fn.py
   - cp_library/alg/iter/sort/isort_parallel_fn.py
@@ -301,7 +308,7 @@ data:
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_fn.py
   - cp_library/alg/iter/cmpr/coord_compress_fn.py
-  timestamp: '2025-05-20 05:03:21+09:00'
+  timestamp: '2025-05-20 13:05:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_range_frequency.test.py
@@ -329,6 +336,7 @@ data:
   - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py
+  - test/library-checker/graph/incremental_scc.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py

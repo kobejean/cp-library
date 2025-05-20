@@ -95,7 +95,7 @@ data:
   requiredBy:
   - cp_library/math/conv/mod/xor_conv_fn.py
   - cp_library/math/conv/mod/ixor_conv_fn.py
-  timestamp: '2025-05-20 05:03:21+09:00'
+  timestamp: '2025-05-20 13:05:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_xor_convolution.test.py

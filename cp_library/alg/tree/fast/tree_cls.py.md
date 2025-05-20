@@ -406,7 +406,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  timestamp: '2025-05-20 05:03:21+09:00'
+  timestamp: '2025-05-20 13:05:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py

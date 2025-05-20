@@ -21,6 +21,9 @@ data:
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/arg/argsort_bounded_fn.py
+    title: cp_library/alg/iter/arg/argsort_bounded_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/sort/isort_parallel_fn.py
     title: cp_library/alg/iter/sort/isort_parallel_fn.py
   - icon: ':warning:'
@@ -81,6 +84,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/incremental_scc.test.py
+    title: test/library-checker/graph/incremental_scc.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
     title: test/library-checker/graph/incremental_scc_paralel_sort.test.py
@@ -146,12 +152,14 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
+  - cp_library/alg/iter/arg/argsort_bounded_fn.py
   - cp_library/alg/iter/sort/sort_parallel_fn.py
   - cp_library/alg/iter/sort/isort_parallel_fn.py
-  timestamp: '2025-05-20 05:03:21+09:00'
+  timestamp: '2025-05-20 13:05:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py
+  - test/library-checker/graph/incremental_scc.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
@@ -193,25 +201,7 @@ indices = argsort(array, reverse=True)
 
 ## Implementation Details
 
-The function uses bit-packing to combine array values with their indices before sorting:
-
-```python
-def argsort(A: list[int], reverse=False):
-    s, m = pack_sm(len(A))
-    if reverse:
-        I = [a<<s|m^i for i,a in enumerate(A)]
-        I.sort(reverse=True)
-        for i,ai in enumerate(I): I[i] = m^ai&m
-    else:
-        I = [a<<s|i for i,a in enumerate(A)]
-        I.sort()
-        for i,ai in enumerate(I): I[i] = ai&m
-    return I
-```
-
-This approach requires only a single sorting operation, with no costly key functions or multiple passes.
-
-## Compatibility with Negative Numbers
+The function uses bit-packing to combine array values with their indices before sorting.  This approach requires only a single sorting operation, with no costly key functions or multiple passes.
 
 Despite using bit operations, `argsort` correctly handles negative integers. This works because Python's left shift operation preserves the relative ordering of numbers, and the bit masking cleanly extracts just the index portion.
 
@@ -225,13 +215,11 @@ The implementation excels when run with PyPy due to:
 
 ## Performance Comparison
 
-![Argsort Benchmark Results]({{ site.baseurl }}/static/media/argsort_benchmarks.png)
+![Argsort Benchmark Results]({{ site.baseurl }}/media/argsort_benchmarks.png)
 
 As the benchmark shows, `argsort` significantly outperforms alternatives:
 - ~3-4x faster than `argsort_by_key`
 - ~10x faster than `argsort_by_tuple` for large arrays
-
-## Alternative Implementations
 
 For reference, here are the slower but more intuitive alternatives:
 
