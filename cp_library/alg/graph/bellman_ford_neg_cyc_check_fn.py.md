@@ -38,7 +38,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/bellman_ford_neg_cyc_check_fn.py
   requiredBy: []
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_b_bellman_ford.test.py

@@ -120,7 +120,7 @@ data:
   - cp_library/ds/wavelet/wm_compressed_cls.py
   - cp_library/ds/wavelet/wm_bit_points_cls.py
   - cp_library/alg/dp/lis_fn.py
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/other/longest_increasing_sequence.test.py

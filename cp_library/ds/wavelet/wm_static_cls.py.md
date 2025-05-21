@@ -62,9 +62,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/wavelet/wm_weighted_points_cls.py
     title: cp_library/ds/wavelet/wm_weighted_points_cls.py
-  - icon: ':warning:'
-    path: test/unittests/ds/wavelet/wm_static_cls.py
-    title: test/unittests/ds/wavelet/wm_static_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
@@ -132,6 +129,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
     title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/wavelet/wm_static_cls_test.py
+    title: test/unittests/ds/wavelet/wm_static_cls_test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -264,8 +264,7 @@ data:
   - cp_library/ds/wavelet/wm_bit_points_cls.py
   - cp_library/ds/wavelet/wm_bit_cls.py
   - cp_library/ds/wavelet/wm_segtree_cls.py
-  - test/unittests/ds/wavelet/wm_static_cls.py
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
@@ -290,6 +289,7 @@ data:
   - test/library-checker/data-structure/static_range_count_distinct_wavelet_matrix.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+  - test/unittests/ds/wavelet/wm_static_cls_test.py
 documentation_of: cp_library/ds/wavelet/wm_static_cls.py
 layout: document
 redirect_from:

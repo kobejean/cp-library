@@ -29,7 +29,7 @@ data:
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     PROBLEM: https://judge.yosupo.jp/problem/aplusb
     links:
@@ -346,16 +346,16 @@ data:
   - cp_library/io/fast_io_cls.py
   - cp_library/bit/popcnt32_fn.py
   - cp_library/ds/array/u32f_fn.py
-  isVerificationFile: false
-  path: test/unittests/ds/wavelet/wm_static_cls.py
+  isVerificationFile: true
+  path: test/unittests/ds/wavelet/wm_static_cls_test.py
   requiredBy: []
-  timestamp: '2025-05-20 13:05:58+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
+  timestamp: '2025-05-21 18:01:52+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/unittests/ds/wavelet/wm_static_cls.py
+documentation_of: test/unittests/ds/wavelet/wm_static_cls_test.py
 layout: document
 redirect_from:
-- /library/test/unittests/ds/wavelet/wm_static_cls.py
-- /library/test/unittests/ds/wavelet/wm_static_cls.py.html
-title: test/unittests/ds/wavelet/wm_static_cls.py
+- /verify/test/unittests/ds/wavelet/wm_static_cls_test.py
+- /verify/test/unittests/ds/wavelet/wm_static_cls_test.py.html
+title: test/unittests/ds/wavelet/wm_static_cls_test.py
 ---

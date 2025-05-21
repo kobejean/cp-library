@@ -111,7 +111,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bit_monoid_cls.py
   requiredBy: []
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py

@@ -558,7 +558,7 @@ data:
   path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   requiredBy:
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/tree_path_composite_sum.test.py

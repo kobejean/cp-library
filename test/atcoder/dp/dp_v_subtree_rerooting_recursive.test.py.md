@@ -548,7 +548,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   requiredBy: []
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py

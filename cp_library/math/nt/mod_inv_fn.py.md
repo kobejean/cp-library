@@ -128,7 +128,7 @@ data:
   - cp_library/math/conv/conv_int_fn.py
   - cp_library/math/nt/ntt_cls.py
   - cp_library/math/nt/chinese_remainder_theorem_fn.py
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution.test.py

@@ -74,9 +74,6 @@ data:
   - icon: ':warning:'
     path: cp_library/math/table/submasks_cls.py
     title: cp_library/math/table/submasks_cls.py
-  - icon: ':warning:'
-    path: test/unittests/ds/wavelet/wm_static_cls.py
-    title: test/unittests/ds/wavelet/wm_static_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
@@ -150,6 +147,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/chromatic_number.test.py
     title: test/library-checker/graph/chromatic_number.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/wavelet/wm_static_cls_test.py
+    title: test/unittests/ds/wavelet/wm_static_cls_test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -199,8 +199,7 @@ data:
   - cp_library/bit/ctz32_fn.py
   - cp_library/math/table/submasks_cls.py
   - cp_library/alg/graph/bit_graph_cls.py
-  - test/unittests/ds/wavelet/wm_static_cls.py
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
@@ -227,6 +226,7 @@ data:
   - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   - test/library-checker/graph/chromatic_number.test.py
+  - test/unittests/ds/wavelet/wm_static_cls_test.py
 documentation_of: cp_library/bit/popcnt32_fn.py
 layout: document
 redirect_from:

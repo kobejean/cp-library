@@ -106,7 +106,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/dsl_2_a_segtree.test.py
   requiredBy: []
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/dsl_2_a_segtree.test.py

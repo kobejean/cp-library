@@ -176,9 +176,6 @@ data:
   - icon: ':warning:'
     path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
     title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  - icon: ':warning:'
-    path: test/unittests/ds/wavelet/wm_static_cls.py
-    title: test/unittests/ds/wavelet/wm_static_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -376,6 +373,9 @@ data:
     path: test/library-checker/tree/vertex_set_path_composite.test.py
     title: test/library-checker/tree/vertex_set_path_composite.test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/wavelet/wm_static_cls_test.py
+    title: test/unittests/ds/wavelet/wm_static_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
   _isVerificationFailed: false
@@ -463,8 +463,7 @@ data:
   - cp_library/alg/tree/fast/hld_monoid_cls.py
   - cp_library/alg/tree/fast/hld_cls.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  - test/unittests/ds/wavelet/wm_static_cls.py
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
@@ -522,6 +521,7 @@ data:
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - test/yukicoder/3407.test.py
+  - test/unittests/ds/wavelet/wm_static_cls_test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py

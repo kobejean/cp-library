@@ -128,7 +128,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/parallel_cls.py
   requiredBy: []
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py

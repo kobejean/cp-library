@@ -444,7 +444,7 @@ data:
     - icon: ':warning:'
       path: cp_library/bit/ctz_fn.py
       title: cp_library/bit/ctz_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/bit/pack_sm_fn.py
       title: cp_library/bit/pack_sm_fn.py
     - icon: ':heavy_check_mark:'
@@ -461,6 +461,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/bit/masks/i32_max_cnst.py
       title: cp_library/bit/masks/i32_max_cnst.py
+    - icon: ':warning:'
+      path: cp_library/bit/masks/i64_max_cnst.py
+      title: cp_library/bit/masks/i64_max_cnst.py
     - icon: ':heavy_check_mark:'
       path: cp_library/bit/masks/u32_max_cnst.py
       title: cp_library/bit/masks/u32_max_cnst.py
@@ -711,9 +714,6 @@ data:
       path: cp_library/ds/tree/segtree_cls.py
       title: cp_library/ds/tree/segtree_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/tree/treap_monoid_cls.py
-      title: cp_library/ds/tree/treap_monoid_cls.py
-    - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/trie_cls.py
       title: cp_library/ds/tree/trie_cls.py
   - name: cp_library/ds/tree/bit
@@ -730,6 +730,20 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
       title: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
+  - name: cp_library/ds/tree/bst
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/bst_cls.py
+      title: cp_library/ds/tree/bst/bst_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/cartesian_tree_cls.py
+      title: cp_library/ds/tree/bst/cartesian_tree_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/treap_cls.py
+      title: cp_library/ds/tree/bst/treap_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/treap_monoid_cls.py
+      title: cp_library/ds/tree/bst/treap_monoid_cls.py
   - name: cp_library/ds/wavelet
     pages:
     - icon: ':heavy_check_mark:'
@@ -1178,11 +1192,6 @@ data:
     - icon: ':warning:'
       path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
       title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  - name: test/unittests/ds/wavelet
-    pages:
-    - icon: ':warning:'
-      path: test/unittests/ds/wavelet/wm_static_cls.py
-      title: test/unittests/ds/wavelet/wm_static_cls.py
   verificationCategories:
   - name: test/aoj/dsl
     pages:
@@ -1731,6 +1740,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/tree/vertex_set_path_composite.test.py
       title: test/library-checker/tree/vertex_set_path_composite.test.py
+  - name: test/unittests/ds/tree/bst
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+      title: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - name: test/unittests/ds/wavelet
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/wavelet/wm_static_cls_test.py
+      title: test/unittests/ds/wavelet/wm_static_cls_test.py
   - name: test/yukicoder
     pages:
     - icon: ':heavy_check_mark:'

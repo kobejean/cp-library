@@ -373,7 +373,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_3_b_graph_bridges.test.py
   requiredBy: []
-  timestamp: '2025-05-20 13:05:58+09:00'
+  timestamp: '2025-05-21 18:01:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_3_b_graph_bridges.test.py
