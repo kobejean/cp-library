@@ -14,7 +14,7 @@ class TestTreapMonoid:
         T = TreapMonoid(add_op, e=0)
         assert T.e == 0
         assert T.op == add_op
-        assert T.root >= 0
+        assert T.r >= 0
         assert T.all_prod() == 0  # Empty treap should return identity element
 
     def test_insert_and_get(self):
@@ -33,13 +33,15 @@ class TestTreapMonoid:
         assert T.get(5) == 10
         assert T.get(3) == 20
         assert T.get(7) == 30
-        assert T.get(1) == 0  # Non-existent key should return identity
+        with pytest.raises(KeyError):
+            assert T.get(1) == 0 # Non-existent key
         
         # Test __getitem__ for direct key access
         assert T[5] == 10
         assert T[3] == 20
         assert T[7] == 30
-        assert T[1] == 0
+        with pytest.raises(KeyError):
+            assert T[1] == 0 # Non-existent key
 
     def test_set_and_update(self):
         def add_op(a, b):
@@ -185,8 +187,8 @@ class TestTreapMonoid:
         T.insert(11, 11)
         T.pop(7)
         
-        # Verify treap integrity with _validate
-        T._validate()
+        # Verify treap integrity with _v
+        T._v()
         
         # Check values after modifications
         assert 5 not in T
@@ -248,7 +250,7 @@ class TestTreapMonoid:
         
         # Final verification
         assert T.all_prod() == expected_sum
-        T._validate()
+        T._v()
 
     def test_with_negative_values(self):
         def add_op(a, b):
@@ -413,7 +415,7 @@ class TestTreapMonoid:
         assert R.all_prod() == original_sum
         
         # Validate integrity
-        R._validate()
+        R._v()
 
     def test_multiple_splits(self):
         def add_op(a, b):
@@ -448,9 +450,9 @@ class TestTreapMonoid:
         assert S2.all_prod() + S1.all_prod() + T.all_prod() == original_sum
         
         # Validate integrity of each piece
-        S1._validate()
-        S2._validate()
-        T._validate()
+        S1._v()
+        S2._v()
+        T._v()
 
     def test_split_with_complex_monoid(self):
         # Test with min operation
@@ -487,7 +489,7 @@ class TestTreapMonoid:
             T.insert(k, v)
         
         original_sum = T.all_prod()
-        T._validate()
+        T._v()
         
         # Do a series of random splits and merges
         treaps = [T]
@@ -522,7 +524,7 @@ class TestTreapMonoid:
             
             # Validate each piece
             for t in [left, right]:
-                t._validate()
+                t._v()
         
         # Sum all pieces to ensure we still have all data
         total_sum = sum(t.all_prod() for t in treaps)
@@ -537,7 +539,7 @@ class TestTreapMonoid:
                     break
         
         assert final_treap.all_prod() == original_sum
-        final_treap._validate()
+        final_treap._v()
 
     def test_custom_pack_format_with_split(self):
         mod = 998244353

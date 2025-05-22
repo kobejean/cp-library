@@ -10,7 +10,7 @@ def main():
         ac, ad = pack_dec(a, shift, mask)
         bc, bd = pack_dec(b, shift, mask)
         return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)
-    T = TreapMonoid(op, e := 1 << shift)
+    T = TreapMonoid(op, 1<<shift)
     D = {}
     for _ in range(Q):
         t, *q = read()
@@ -25,15 +25,14 @@ def main():
             write((a*x+b)%mod)
 
     # test if the following can be run in reasonable time
-    for i, key in enumerate(D):
-        assert T[key] == D.get(key, e)
-        assert T[i] == D.get(i, e)
+    for key in D:
+        assert T[key] == D[key]
     for i, key in enumerate(D):
         assert key in T
         del T[key]
         assert key not in T
-        if i%10000 == 0: T._validate()
-    # addition of duplicate values
+        if i%10000 == 0: T._v()
+    # addition of duplicate keys/values
     for p in range(Q): T.insert(0, 0)
 
 from cp_library.ds.tree.bst.treap_monoid_cls import TreapMonoid
