@@ -232,7 +232,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   requiredBy: []
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

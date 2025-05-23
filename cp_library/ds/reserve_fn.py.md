@@ -67,6 +67,9 @@ data:
     path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
     title: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/range_reverse_range_sum.test.py
+    title: test/library-checker/data-structure/range_reverse_range_sum.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
     title: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - icon: ':heavy_check_mark:'
@@ -118,11 +121,12 @@ data:
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/conv/gcd_conv_fn.py
   - cp_library/math/conv/lcm_conv_fn.py
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   - test/library-checker/data-structure/double_ended_priority_queue.test.py
+  - test/library-checker/data-structure/range_reverse_range_sum.test.py
   - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   - test/library-checker/convolution/lcm_convolution.test.py
   - test/library-checker/convolution/gcd_convolution.test.py

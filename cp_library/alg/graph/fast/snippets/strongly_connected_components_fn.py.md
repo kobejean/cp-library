@@ -361,7 +361,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/scc_strongly_connected_components.test.py

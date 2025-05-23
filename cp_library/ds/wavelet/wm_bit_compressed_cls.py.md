@@ -287,7 +287,7 @@ data:
   path: cp_library/ds/wavelet/wm_bit_compressed_cls.py
   requiredBy:
   - cp_library/ds/wavelet/wm_bit_points_cls.py
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py

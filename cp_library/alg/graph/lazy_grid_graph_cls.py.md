@@ -368,7 +368,7 @@ data:
   path: cp_library/alg/graph/lazy_grid_graph_cls.py
   requiredBy:
   - cp_library/alg/graph/lazy_grid_direction_graph_cls.py
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc246_e_grid_direction_graph.test.py

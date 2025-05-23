@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/bit/masks/i64_max_cnst.py
+    title: cp_library/bit/masks/i64_max_cnst.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack/pack_dec_fn.py
     title: cp_library/bit/pack/pack_dec_fn.py
   - icon: ':heavy_check_mark:'
@@ -48,119 +51,179 @@ data:
     \ = read()\n    TreapMonoid.reserve(1+2*Q)\n    \n    def op(a,b):\n        ac,\
     \ ad = pack_dec(a, shift, mask)\n        bc, bd = pack_dec(b, shift, mask)\n \
     \       return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)\n    T = TreapMonoid(op,\
-    \ e := 1 << shift)\n    D = {}\n    for _ in range(Q):\n        t, *q = read()\n\
-    \        if t == 0:\n            p, c, d = q\n            # T[p] = pack_enc(c,\
-    \ d, shift)\n            T[p] = D[p] = pack_enc(c, d, shift)\n        else:\n\
-    \            l, r, x = q\n            # a, b = pack_dec(T.prod(l,r), shift, mask)\n\
+    \ 1<<shift)\n    D = {}\n    for _ in range(Q):\n        t, *q = read()\n    \
+    \    if t == 0:\n            p, c, d = q\n            # T[p] = pack_enc(c, d,\
+    \ shift)\n            T[p] = D[p] = pack_enc(c, d, shift)\n        else:\n   \
+    \         l, r, x = q\n            # a, b = pack_dec(T.prod(l,r), shift, mask)\n\
     \            a, b = pack_dec(T[l:r], shift, mask)\n            write((a*x+b)%mod)\n\
-    \n    # test if the following can be run in reasonable time\n    for i, key in\
-    \ enumerate(D):\n        assert T[key] == D.get(key, e)\n        assert T[i] ==\
-    \ D.get(i, e)\n    for i, key in enumerate(D):\n        assert key in T\n    \
-    \    del T[key]\n        assert key not in T\n        if i%10000 == 0: T._validate()\n\
-    \    # addition of duplicate values\n    for p in range(Q): T.insert(0, 0)\n\n\
-    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \n    # test if the following can be run in reasonable time\n    for key in D:\n\
+    \        assert T[key] == D[key]\n    for i, key in enumerate(D):\n        assert\
+    \ key in T\n        del T[key]\n        assert key not in T\n        if i%10000\
+    \ == 0: T._v()\n    # addition of duplicate keys/values\n    for p in range(Q):\
+    \ T.insert(0, 0)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\n\n\ndef\
-    \ reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import\
-    \ resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
-    \        pass\nreserve = resizelist_hint\n\n\n\nclass BST:\n    __slots__ = 'root'\n\
-    \    K, sub, st = [-1], [-1, -1], []\n\n    def __init__(T): T.root = T._new_node(-1)\n\
-    \n    def _new_tree(T): return T.__class__()\n\n    def _new_node(T, key):\n \
-    \       id = len(T.K); T.K.append(key); T.sub.append(-1); T.sub.append(-1)\n \
-    \       return id\n\n    def insert(T, key):\n        T.st.append(T.root); T._insert(T.root<<1,\
-    \ nid := T._new_node(key)); T._repair()\n        return nid\n\n    def pop(T,\
-    \ key):\n        if ~(id:=T._trace(key)): T._del(id); T._repair(); return id\n\
-    \        else: T.st.clear(); raise KeyError\n\n    def __delitem__(T, key):\n\
-    \        if ~(id:=T._trace(key)): T._del(id); T._repair()\n        else: T.st.clear();\
-    \ raise KeyError\n\n    def __contains__(T, key): return 0 <= T._find(key)\n\n\
-    \    def _find(T, key):\n        id = T.sub[T.root<<1]\n        while ~id and\
-    \ T.K[id] != key: id = T.sub[id<<1|(T.K[id]<key)]\n        return id\n\n    def\
-    \ _trace(T, key):\n        id = T.sub[T.root<<1]; T.st.append(T.root)\n      \
-    \  while ~id and T.K[id] != key: T.st.append(id); id = T.sub[id<<1|(T.K[id]<key)]\n\
-    \        return id\n\n    def _insert(T, sid, nid):\n        while ~T.sub[sid]:\
-    \ T.st.append(id:=T.sub[sid]); sid=id<<1|(T.K[id]<T.K[nid])\n        id, T.sub[sid]\
-    \ = T.sub[sid], nid\n\n    def _del(T, id): raise NotImplemented\n\n    def _repair(T):\
-    \ T.st.clear()\n\n    @classmethod\n    def reserve(cls, hint: int):\n       \
-    \ hint += 1\n        reserve(cls.K, hint); reserve(cls.sub, hint << 1); reserve(cls.st,\
-    \ hint.bit_length() << 1)\n\nclass CartesianTree(BST):\n    K, P, sub, st = [-1],\
-    \ [42], [-1, -1], []\n\n    def _new_node(T, key, prior = -1): T.P.append(prior);\
-    \ return super()._new_node(key)\n\n    def get(T, key):\n        if ~(id:=T._find(key)):\
-    \ return T.P[id]\n        raise KeyError\n\n    def split(T, key):\n        S\
-    \ = T._new_tree(); T.st.append(T.root); T.st.append(S.root); \n        T._split(T.sub[T.root<<1],\
-    \ key, S.root<<1, T.root<<1); T._repair()\n        return S, T\n\n    def insert(T,\
-    \ key, prior):\n        T.st.append(T.root); T._insert(T.root<<1, nid := T._new_node(key,\
-    \ prior)); T._repair()\n        return nid\n\n    def pop(T, key): return T.P[super().pop(key)]\n\
-    \n    def __getitem__(T, key): return T.get(key)\n\n    def _insert(T, sid, nid):\n\
-    \        while ~T.sub[sid] and T.P[id:=T.sub[sid]]<T.P[nid]: T.st.append(id);\
-    \ sid=id<<1|(T.K[id]<T.K[nid])\n        id, T.sub[sid] = T.sub[sid], nid\n   \
-    \     if ~id: T.st.append(nid); T._split(id, T.K[nid], nid<<1, nid<<1|1)\n\n \
-    \   def _split(T, id, key, l, r):\n        while ~id:\n            T.st.append(id)\n\
-    \            if T.K[id] < key: T.sub[l] = id; id = T.sub[l := id<<1|1]\n     \
-    \       else: T.sub[r] = id; id = T.sub[r := id<<1]\n        T.sub[l] = T.sub[r]\
-    \ = -1\n\n    def _merge(T, sid, l, r):\n        T.st.append(sid>>1)\n       \
-    \ while ~l and ~r:\n            if T.P[l]<T.P[r]: T.st.append(l); T.sub[sid] =\
-    \ l; l = T.sub[sid:=l<<1|1]\n            else: T.st.append(r); T.sub[sid] = r;\
-    \ r = T.sub[sid:=r<<1]\n        T.sub[sid] = l if ~l else r\n\n    def _del(T,\
-    \ id):\n        pid = T.st[-1]\n        T._merge(pid<<1|(pid!=T.root and T.K[pid]<T.K[id]),\
-    \ T.sub[id<<1], T.sub[id<<1|1])\n\n    @classmethod\n    def reserve(cls, hint:\
-    \ int): super(CartesianTree, cls).reserve(hint); reserve(cls.P, hint+1)\n\nclass\
-    \ Treap(CartesianTree):\n    K, V, P, sub, st = [-1], [-1], [42], [-1, -1], []\n\
-    \n    def __init__(T, e = 0):\n        T.e = e\n        T.root = T._new_node(-1,\
-    \ e)\n        T.P[T.root] = -1\n        \n    def _new_tree(T): return T.__class__(T.e)\n\
-    \n    def _new_node(T, key, val):\n        T.V.append(val)\n        return super()._new_node(key,\
-    \ (T.P[-1] * 1103515245 + 12345) & 0x7fffffff)\n\n    def insert(T, key, val):\
-    \ return super().insert(key, val)\n    \n    def get(T, key): return T.V[id] if\
-    \ ~(id:=T._find(key)) else T.e\n    \n    def set(T, key, val): T.set_node(key,\
-    \ val); T._repair()\n\n    def pop(T, key): return T.V[BST.pop(T, key)]\n\n  \
-    \  def __setitem__(T, key, val): T.set(key, val)\n    \n    def set_node(T, key,\
-    \ val):\n        if ~(id:=T._trace(key)): T.V[id] = val; T.st.append(id)\n   \
-    \     else:\n            nid = T._new_node(key, val)\n            while T.P[nid]<T.P[id:=T.st[-1]]:\
-    \ T.st.pop()\n            id, T.sub[sid] = T.sub[sid := id<<1|(id!=T.root and\
-    \ T.K[id]<key)], nid\n            if ~id: T.st.append(nid); T._split(id, key,\
-    \ nid<<1, nid<<1|1)\n\n    @classmethod\n    def reserve(cls, hint: int): super(Treap,\
-    \ cls).reserve(hint); reserve(cls.V, hint+1)\n\nclass TreapMonoid(Treap):\n  \
-    \  __slots__ = 'op', 'e'\n    K, V, A, P, sub, st = [-1], [-1], [-1], [42], [-1,\
-    \ -1], []\n    def __init__(T, op, e = -1): T.op = op; super().__init__(e)\n \
-    \   def _new_tree(T): return T.__class__(T.op, T.e)\n    def _new_node(T, key,\
-    \ val): T.A.append(val); return super()._new_node(key, val)\n\n    def prod(T,\
-    \ l: int, r: int):\n        # find common ancestor\n        a = T.sub[T.root<<1]\n\
-    \        while ~a and not l <= T.K[a] < r: a = T.sub[a<<1|(T.K[a]<l)]\n      \
-    \  if a < 0: return T.e\n        # left subtreap\n        acc, i = T.V[a], T.sub[a<<1]\n\
-    \        while ~i:\n            if not (b:=T.K[i]<l):\n                if ~T.sub[i<<1|1]:\
-    \ acc = T.op(T.A[T.sub[i<<1|1]], acc)\n                acc = T.op(T.V[i], acc)\n\
-    \            i = T.sub[i<<1|b]\n        # right subtreap\n        i = T.sub[a<<1|1]\n\
-    \        while ~i:\n            if b:=T.K[i]<r:\n                if ~T.sub[i<<1]:\
-    \ acc = T.op(acc, T.A[T.sub[i<<1]])\n                acc = T.op(acc, T.V[i])\n\
-    \            i = T.sub[i<<1|b]\n        return acc\n\n    def all_prod(T): return\
-    \ T.A[T.root]\n    \n    def __getitem__(T, key):\n        if isinstance(key,\
-    \ int): return T.get(key)\n        elif isinstance(key, slice): return T.prod(key.start,\
-    \ key.stop)\n    \n    @classmethod\n    def reserve(cls, hint: int): super(TreapMonoid,\
-    \ cls).reserve(hint); reserve(cls.A, hint+1)\n    \n    def _repair(T):\n    \
-    \    while T.st:\n            T.A[id] = T.V[id := T.st.pop()]\n            if\
-    \ ~(l := T.sub[id << 1]): T.A[id] = T.op(T.A[l], T.A[id])\n            if ~(r\
-    \ := T.sub[id<<1|1]): T.A[id] = T.op(T.A[id], T.A[r])\n        assert id == T.root\n\
-    \n    def _validate(T, id = None):\n        if id is None:\n            assert\
-    \ T.all_prod() == (acc := T._validate(id) if ~(id := T.sub[T.root<<1]) else T.e)\n\
-    \            return acc\n        acc = T.V[id]\n        if ~(l:=T.sub[id<<1]):\n\
-    \            assert T.P[id] <= T.P[l]\n            assert T.K[l] <= T.K[id]\n\
-    \            acc = T.op(T._validate(l), acc)\n        if ~(r:=T.sub[id<<1|1]):\n\
-    \            assert T.P[id] <= T.P[r]\n            assert T.K[id] <= T.K[r]\n\
-    \            acc = T.op(acc, T._validate(r))\n        assert T.A[id] == acc\n\
-    \        return acc\n\n\ndef pack_enc(a: int, b: int, s: int): return a<<s|b\n\
-    def pack_dec(ab: int, s: int, m: int): return ab>>s,ab&m\n\n\nfrom typing import\
-    \ Iterable, Type, Union, overload\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
+    \        \n'''\n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n  \
+    \  from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list,\
+    \ est_len: int):\n        pass\nreserve = resizelist_hint\n\n\n\n\ni64_max = (1<<63)-1\n\
+    \nclass BST:\n    __slots__ = 'r'\n    K,sub,st=[-1],[-1,-1],[]\n    def __init__(T):T.r=T._nr()\n\
+    \    def _nt(T):return T.__class__()\n    def _nr(T):r=len(T.K);T.K.append(i64_max);T.sub.append(-1);T.sub.append(-1);return\
+    \ r\n    def _nn(T,k):n=len(T.K);T.K.append(k);T.sub.append(-1);T.sub.append(-1);return\
+    \ n\n    def insert(T,k):T._i(T.r<<1,k,n:=T._nn(k));T._r();return n\n    def get(T,k):\n\
+    \        if~(i:=T._f(T.r<<1,k)):return i\n        raise KeyError\n    def pop(T,k):\n\
+    \        if ~(i:=T._t(T.r<<1,k)):T._d(i,T.st[-1]);T._r();return i\n        else:T.st.clear();raise\
+    \ KeyError\n    def __delitem__(T,k):\n        if~(i:=T._t(T.r<<1,k)):T._d(i,T.st[-1]);T._r()\n\
+    \        else:T.st.clear();raise KeyError\n    def __contains__(T,k):return 0<=T._f(T.r<<1,k)\n\
+    \    def _f(T,s,k):\n        i = T.sub[s]\n        while~i and T.K[i]!=k:T._p(i);i=T.sub[i<<1|(T.K[i]<k)]\n\
+    \        return i\n    def _t(T,s,k):\n        T.st.append(s)\n        while~(i:=T.sub[s])and\
+    \ T.K[i]!=k:T._p(i);T.st.append(s:=i<<1|(T.K[i]<k))\n        return i\n    def\
+    \ _i(T,s,k,n):\n        T.st.append(s)\n        while ~T.sub[s]:T._p(i:=T.sub[s]);T.st.append(s:=i<<1|(T.K[i]<k))\n\
+    \        i,T.sub[s]=T.sub[s],n\n    def _d(T,i,s): raise NotImplemented\n    def\
+    \ _r(T):T.st.clear()\n    def _p(T,i): pass\n    @classmethod\n    def reserve(cls,sz):sz+=1;reserve(cls.K,sz);reserve(cls.sub,sz<<1);reserve(cls.st,sz.bit_length()<<1)\n\
+    \    def _node_str(T, i): return f\"{T.K[i]}\"\n\n    def __str__(T):\n      \
+    \  def rec(i, pre=\"\", is_right=False):\n            if i == -1: return \"\"\n\
+    \            ret = \"\";T._p(i)\n            if ~(r:=T.sub[i<<1|1]):ret+=rec(r,pre+(\"\
+    \   \"if is_right else\"\u2502  \"),True)\n            ret+=pre+(\"\u250C\u2500\
+    \ \"if is_right else\"\u2514\u2500 \")+T._node_str(i)+\"\\n\"\n            if\
+    \ ~(l:=T.sub[i<<1]):ret+=rec(l,pre+(\"   \"if not is_right else\"\u2502  \"),False)\n\
+    \            return ret\n        return rec(T.sub[T.r<<1]).rstrip()\n\nclass BSTUpdates(BST):\n\
+    \    def _u(T,i): pass\n    def _r(T):\n        while T.st:T._u(T.st.pop()>>1)\n\
+    \nclass BSTSized(BSTUpdates):\n    K,sz,sub,st=[-1],[0,0],[-1,-1],[]\n    def\
+    \ _nr(T):T.sz.append(0);T.sz.append(0);return super()._nr()\n    def _nn(T,k):T.sz.append(0);T.sz.append(0);return\
+    \ super()._nn(k)\n    def kth(T,k):\n        if 0<=k<len(T):return T._k(T.r<<1,k)\n\
+    \        raise KeyError\n    def __len__(T):return T.sz[T.r<<1]\n    def _k(T,s,k):\n\
+    \        while ~k:\n            T._p(T.sub[s])\n            if (sz:=T.sz[s:=T.sub[s]<<1])<=k:k-=1+sz;s^=1\n\
+    \        return s>>1\n    def _kt(T,s,k):\n        while ~k:\n            T._p(T.sub[s]);T.st.append(s)\n\
+    \            if (sz:=T.sz[s:=T.sub[s]<<1])<=k:k-=1+sz;s^=1\n        return s>>1\n\
+    \    def _u(T,i):\n        T.sz[s]=T.sz[l<<1]+1+T.sz[l<<1|1] if~(l:=T.sub[s:=i<<1])\
+    \ else 0\n        T.sz[s]=T.sz[r<<1]+1+T.sz[r<<1|1] if~(r:=T.sub[s:=i<<1|1]) else\
+    \ 0\n    @classmethod\n    def reserve(cls,sz):super().reserve(sz);reserve(cls.sz,(sz+1)<<1)\n\
+    \nclass BSTImplicit(BSTSized):\n    K,sz,sub,st=None,[0,0],[-1,-1],[]\n    def\
+    \ _nr(T):r=len(T.sz)>>1;T.sz.append(0);T.sz.append(0);T.sub.append(-1);T.sub.append(-1);return\
+    \ r\n    def _nn(T,k):n=len(T.sz)>>1;T.sz.append(0);T.sz.append(0);T.sub.append(-1);T.sub.append(-1);return\
+    \ n\n    def pop(T,k):\n        if 0<=k<len(T):T._d(i:=T._kt(T.r<<1,k),T.st[-1]);T._r();return\
+    \ i\n        else:raise KeyError\n    def __contains__(T,k):raise NotImplemented\n\
+    \    def __delitem__(T,k):\n        if 0<=k<len(T):T._d(T._kt(T.r<<1,k),T.st[-1]);T._r()\n\
+    \        else:raise KeyError\n    def _f(T,s,k):return T._k(s,k)\n    def _t(T,s,k):return\
+    \ T._kt(s,k)\n    def _i(T,s,k,n):T.sub[T._kt(s,k)]=n\n    @classmethod\n    def\
+    \ reserve(cls,sz):sz+=1;reserve(cls.st,sz.bit_length()<<1);reserve(cls.sz,sz<<1);reserve(cls.sub,sz<<1)\n\
+    \nclass BSTReversible(BSTImplicit):\n    K,rev,sz,sub,st=None,[0],[0,0],[-1,-1],[]\n\
+    \    def _nr(T):T.rev.append(0);return super()._nr()\n    def _nn(T,k):T.rev.append(0);return\
+    \ super()._nn(k)\n    def _p(T,i):\n        if T.rev[i]:\n            T.sub[l],T.sub[r],T.sz[l],T.sz[r]=T.sub[r:=i<<1|1],T.sub[l:=i<<1],T.sz[r],T.sz[l]\n\
+    \            if~(l:=T.sub[l]):T.rev[l]^=1\n            if~(r:=T.sub[r]):T.rev[r]^=1\n\
+    \            T.rev[i]=0\n    @classmethod\n    def reserve(cls,sz):super().reserve(sz);reserve(cls.rev,sz+1)\n\
+    \nclass CartesianTree(BST):\n    K,P,sub,st=[-1],[42],[-1,-1],[]\n    def _nr(T):T.P.append(-1);return\
+    \ super()._nr()\n    def _nn(T,k,p=-1):T.P.append(p);return super()._nn(k)\n \
+    \   def get(T,k):return T.P[BST.get(T,k)]\n    def pop(T,k):return T.P[BST.pop(T,k)]\n\
+    \    def split(T,k):S=T._nt();T._sp(T.sub[T.r<<1],k,S.r<<1,T.r<<1);T._r();return\
+    \ S,T\n    def insert(T,k,p):T._i(T.r<<1,k,n:=T._nn(k,p));T._r();return n\n  \
+    \  def __getitem__(T,k):return T.get(k)\n    def _i(T,s,k,n):\n        T.st.append(s)\n\
+    \        while~T.sub[s]and T.P[i:=T.sub[s]]<T.P[n]:T._p(i);T.st.append(s:=i<<1|(T.K[i]<k))\n\
+    \        i,T.sub[s]=T.sub[s],n\n        if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _sp(T,i,k,l,r):\n\
+    \        T.st.append(l)\n        if 1<l^r:T.st.append(r)\n        while~i:\n \
+    \           T._p(i)\n            if T.K[i]<k:T.sub[l]=i;i=T.sub[l:=i<<1|1];T.st.append(l)\n\
+    \            else:T.sub[r]=i;i=T.sub[r:=i<<1];T.st.append(r)\n        T.sub[l]=T.sub[r]=-1\n\
+    \    def _m(T,s,l,r):\n        T.st.append(s)\n        while~l and~r:\n      \
+    \      if T.P[l]<T.P[r]:T._p(l);T.sub[s]=l;l=T.sub[s:=l<<1|1]\n            else:T._p(r);T.sub[s]=r;r=T.sub[s:=r<<1]\n\
+    \            T.st.append(s)\n        T.sub[s]=l if~l else r\n    def _d(T,i,s):T._p(i);T._m(s,T.sub[i<<1],T.sub[i<<1|1])\n\
+    \    @classmethod\n    def reserve(cls,sz):super(CartesianTree,cls).reserve(sz);reserve(cls.P,sz+1)\n\
+    \nclass CartesianTreeSized(CartesianTree, BSTSized):\n    K,P,sz,sub,st=[-1],[42],[0,0],[-1,-1],[]\n\
+    \    def kth(T,k): return T.P[BSTSized.kth(T,k)]\n\nclass CartesianTreeImplicit(CartesianTreeSized,BSTImplicit):\n\
+    \    K,P,sz,sub,st=None,[42],[0,0],[-1,-1],[]\n    def _nr(T):T.P.append((T.P[-1]*1103515245+12345)&0x7fffffff);return\
+    \ BSTImplicit._nr(T)\n    def _nn(T,k,p):T.P.append(p);return BSTImplicit._nn(T,k)\n\
+    \    def _i(T,s,k,n):\n        T.st.append(s)\n        while ~k and ~T.sub[s]\
+    \ and T.P[i:=T.sub[s]]<T.P[n]:\n            T._p(i)\n            if (sz:=T.sz[s:=i<<1])<k:k-=1+sz;s^=1\n\
+    \            T.st.append(s)\n        i,T.sub[s]=T.sub[s],n\n        if~i:T._sp(i,k,n<<1,n<<1|1)\n\
+    \    def _sp(T,i,k,l,r):\n        T.st.append(l)\n        if 1<l^r:T.st.append(r)\n\
+    \        while~i:\n            T._p(i)\n            if (sz:=T.sz[i<<1])<k:k-=1+sz;T.sub[l]=i;i=T.sub[l:=i<<1|1];T.st.append(l)\n\
+    \            else:T.sub[r]=i;i=T.sub[r:=i<<1];T.st.append(r)\n        T.sub[l]=T.sub[r]=-1\n\
+    \n    def _node_str(T, i): return f\"{T.P[i]}\"\n\nclass CartesianTreeReversible(CartesianTreeSized,BSTReversible):\n\
+    \    def _nr(T):T.P.append((T.P[-1]*1103515245+12345)&0x7fffffff);return BSTReversible._nr(T)\n\
+    \    def _nn(T,k,v):T.P.append(v);return BSTReversible._nn(T,k)\n    def reverse(T,l,r):\n\
+    \        if l>=r:return\n        lo,hi = l>0,r<len(T)\n        s = T.r<<1\n  \
+    \      if hi:T._sp(T.sub[s],r,s,1);T._r()\n        if lo:T._sp(T.sub[s],l,0,s);T._r()\n\
+    \        T.rev[T.sub[s]]^=1\n        if hi:T._m(s,T.sub[s],T.sub[1]);T._r()\n\
+    \        if lo:T._m(s,T.sub[0],T.sub[s]);T._r()\n\nclass Treap(CartesianTree):\n\
+    \    __slots__='e'\n    K,V,P,sub,st=[-1],[-1],[42],[-1,-1],[]\n    def __init__(T,e=-1):T.e=e;super().__init__()\n\
+    \    def _nt(T):return T.__class__(T.e)\n    def _nr(T):T.V.append(T.e);return\
+    \ super()._nr()\n    def _nn(T,k,v):T.V.append(v);return super()._nn(k,(T.P[-1]*1103515245+12345)&0x7fffffff)\n\
+    \    def insert(T,k,v):return super().insert(k,v)\n    def get(T,k):return T.V[BST.get(T,k)]\n\
+    \    def pop(T,k):return T.V[BST.pop(T,k)]\n    def set(T,k,v):T._s(T.r<<1,k,v);T._r()\n\
+    \    def __setitem__(T,k,v):T.set(k,v)\n    def _s(T,s,k,v):\n        if ~(i:=T._t(s,k)):T.V[i]=v;T.st.append(i<<1)\n\
+    \        else:\n            n=T._nn(k,v)\n            while T.P[n]<T.P[i:=T.st[-1]>>1]:T._p(T.st.pop())\n\
+    \            T._p(i)\n            i,T.sub[s]=T.sub[s:=i<<1|(i!=T.r and T.K[i]<k)],n\n\
+    \            if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _node_str(T, i): return f\"\
+    {T.K[i]}:{T.V[i]}\"\n    @classmethod\n    def reserve(cls,hint):super(Treap,cls).reserve(hint);reserve(cls.V,hint+1)\n\
+    \nclass TreapSized(Treap, CartesianTreeSized):\n    K,V,P,sz,sub,st=[-1],[-1],[42],[0,0],[-1,-1],[]\n\
+    \    def kth(T,k): return T.V[BSTSized.kth(T,k)]\n\nclass TreapImplicit(TreapSized,CartesianTreeImplicit):\n\
+    \    K,V,P,sz,sub,st=None,[-1],[42],[0,0],[-1,-1],[]\n    def _nr(T):T.V.append(T.e);return\
+    \ CartesianTreeImplicit._nr(T)\n    def _nn(T,k,v):T.V.append(v);return CartesianTreeImplicit._nn(T,k,(T.P[-1]*1103515245+12345)&0x7fffffff)\n\
+    \    def set(T,k,v):T._s(T.r<<1,k,v);T._r()\n    def _i(T,s,k,n):\n        T.st.append(s)\n\
+    \        while ~k and ~T.sub[s] and T.P[i:=T.sub[s]]<T.P[n]:\n            T._p(i)\n\
+    \            if (sz:=T.sz[s:=i<<1])<k:k-=1+sz;s^=1\n            T.st.append(s)\n\
+    \        i,T.sub[s]=T.sub[s],n\n        if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _sp(T,i,k,l,r):\n\
+    \        T.st.append(l)\n        if 1<l^r:T.st.append(r)\n        while~i:\n \
+    \           T._p(i)\n            if (sz:=T.sz[i<<1])<k:k-=1+sz;T.sub[l]=i;i=T.sub[l:=i<<1|1];T.st.append(l)\n\
+    \            else:T.sub[r]=i;i=T.sub[r:=i<<1];T.st.append(r)\n        T.sub[l]=T.sub[r]=-1\n\
+    \    def _s(T,s,k,v):T.V[i:=T._t(s,k)]=v;T.st.append(i<<1)\n    def _node_str(T,\
+    \ i): return f\"{T.V[i]}\"\n\nclass TreapReversible(TreapImplicit,CartesianTreeReversible):\n\
+    \    K,V,P,sz,sub,st=None,[-1],[42],[0,0],[-1,-1],[]\n    def _nr(T):T.V.append(T.e);return\
+    \ CartesianTreeReversible._nr(T)\n    def _nn(T,k,v):T.V.append(v);return CartesianTreeReversible._nn(T,k,(T.P[-1]*1103515245+12345)&0x7fffffff)\n\
+    \nclass TreapMonoid(Treap, BSTUpdates):\n    __slots__='op'\n    K,V,A,P,sub,st=[-1],[-1],[-1],[42],[-1,-1],[]\n\
+    \    def __init__(T,op,e=-1):T.op=op;super().__init__(e)\n    def _nt(T):return\
+    \ T.__class__(T.op,T.e)\n    def _nr(T):T.A.append(T.e);return super()._nr()\n\
+    \    def _nn(T,k,v):T.A.append(v);return super()._nn(k, v)\n    def prod(T,l,r):\n\
+    \        # find common ancestor\n        a=T.sub[T.r<<1]\n        while~a and\
+    \ not l<=T.K[a]<r:T._p(a);a=T.sub[a<<1|(T.K[a]<l)]\n        if a<0:return T.e\n\
+    \        # left subtreap\n        ac,i=T.V[a],T.sub[a<<1]\n        while~i:\n\
+    \            T._p(i)\n            if not(b:=T.K[i]<l):\n                if~(j:=T.sub[i<<1|1]):ac=T.op(T.A[j],ac)\n\
+    \                ac=T.op(T.V[i],ac)\n            i=T.sub[i<<1|b]\n        # right\
+    \ subtreap\n        i=T.sub[a<<1|1]\n        while~i:\n            T._p(i)\n \
+    \           if b:=T.K[i]<r:\n                if~(j:=T.sub[i<<1]):ac=T.op(ac,T.A[j])\n\
+    \                ac=T.op(ac,T.V[i])\n            i=T.sub[i<<1|b]\n        return\
+    \ ac\n    def all_prod(T):return T.A[T.r]\n    def __getitem__(T,k):\n       \
+    \ if isinstance(k,int):return T.get(k)\n        elif isinstance(k,slice):return\
+    \ T.prod(k.start,k.stop)\n    @classmethod\n    def reserve(cls,sz):super(TreapMonoid,cls).reserve(sz);reserve(cls.A,sz+1)\n\
+    \    def _u(T,i):\n        T.A[i]=T.V[i]\n        if~(l:=T.sub[i<<1]):T.A[i]=T.op(T.A[l],T.A[i])\n\
+    \        if~(r:=T.sub[i<<1|1]):T.A[i]=T.op(T.A[i],T.A[r])\n    def _v(T,i=None):\n\
+    \        if i is None:\n            assert T.all_prod() == (ac := T._v(i) if ~(i\
+    \ := T.sub[T.r<<1]) else T.e)\n            return ac\n        T._p(i);ac = T.V[i]\n\
+    \        if ~(l:=T.sub[i<<1]):\n            assert T.P[i] <= T.P[l]\n        \
+    \    assert T.K[l] <= T.K[i]\n            ac = T.op(T._v(l), ac)\n        if ~(r:=T.sub[i<<1|1]):\n\
+    \            assert T.P[i] <= T.P[r]\n            assert T.K[i] <= T.K[r]\n  \
+    \          ac = T.op(ac, T._v(r))\n        assert T.A[i] == ac\n        return\
+    \ ac\n\nclass TreapMonoidReversibe(TreapMonoid,TreapReversible):\n    __slots__='op'\n\
+    \    K,V,A,P,rev,sz,sub,st=None,[-1],[-1],[42],[0],[0,0],[-1,-1],[]\n    def _nr(T):T.A.append(T.e);return\
+    \ TreapReversible._nr(T)\n    def _nn(T,k,v):T.A.append(v);return TreapReversible._nn(T,k,v)\n\
+    \    def prod(T,l,r):\n        # find common ancestor\n        a=T.sub[T.r<<1]\n\
+    \        while~a:\n            T._p(a)\n            if l<=(sz:=T.sz[s:=a<<1])<r:break\n\
+    \            if sz<l:l-=1+sz;r-=1+sz;s^=1\n            a=T.sub[s]\n        if\
+    \ a<0:return T.e\n        r-=T.sz[a<<1]+1\n        # left subtreap\n        ac,i=T.V[a],T.sub[a<<1]\n\
+    \        while~i and ~l:\n            T._p(i)\n            if (sz:=T.sz[s:=i<<1])<l:l-=1+sz;s^=1\n\
+    \            else:\n                if~(j:=T.sub[i<<1|1]):ac=T.op(T.A[j],ac)\n\
+    \                ac=T.op(T.V[i],ac)\n            i=T.sub[s]\n        # right subtreap\n\
+    \        i=T.sub[a<<1|1]\n        while~i and ~r:\n            T._p(i)\n     \
+    \       if (sz:=T.sz[s:=i<<1])<r:\n                if~(j:=T.sub[s]):ac=T.op(ac,T.A[j])\n\
+    \                ac=T.op(ac,T.V[i])\n                r-=1+sz;s^=1\n          \
+    \  i=T.sub[s]\n        return ac\n    @classmethod\n    def reserve(cls,sz):TreapReversible.reserve.__call__(sz);reserve(cls.A,sz+1)\n\
+    \    def _u(T,i):\n        T.A[i]=T.V[i]\n        T.sz[s]=T.sz[l<<1]+1+T.sz[l<<1|1]\
+    \ if~(l:=T.sub[s:=i<<1]) else 0\n        T.sz[s]=T.sz[r<<1]+1+T.sz[r<<1|1] if~(r:=T.sub[s:=i<<1|1])\
+    \ else 0\n        if~(l:=T.sub[i<<1]):T.A[i]=T.op(T.A[l],T.A[i])\n        if~(r:=T.sub[i<<1|1]):T.A[i]=T.op(T.A[i],T.A[r])\n\
+    \    def _node_str(T, i): return f\"{i=} {T.V[i]}({T.A[i]})\"\n\ndef pack_enc(a:\
+    \ int, b: int, s: int): return a<<s|b\ndef pack_dec(ab: int, s: int, m: int):\
+    \ return ab>>s,ab&m\n\n\nfrom typing import Iterable, Type, Union, overload\n\
+    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -250,20 +313,19 @@ data:
     \ = read()\n    TreapMonoid.reserve(1+2*Q)\n    \n    def op(a,b):\n        ac,\
     \ ad = pack_dec(a, shift, mask)\n        bc, bd = pack_dec(b, shift, mask)\n \
     \       return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)\n    T = TreapMonoid(op,\
-    \ e := 1 << shift)\n    D = {}\n    for _ in range(Q):\n        t, *q = read()\n\
-    \        if t == 0:\n            p, c, d = q\n            # T[p] = pack_enc(c,\
-    \ d, shift)\n            T[p] = D[p] = pack_enc(c, d, shift)\n        else:\n\
-    \            l, r, x = q\n            # a, b = pack_dec(T.prod(l,r), shift, mask)\n\
+    \ 1<<shift)\n    D = {}\n    for _ in range(Q):\n        t, *q = read()\n    \
+    \    if t == 0:\n            p, c, d = q\n            # T[p] = pack_enc(c, d,\
+    \ shift)\n            T[p] = D[p] = pack_enc(c, d, shift)\n        else:\n   \
+    \         l, r, x = q\n            # a, b = pack_dec(T.prod(l,r), shift, mask)\n\
     \            a, b = pack_dec(T[l:r], shift, mask)\n            write((a*x+b)%mod)\n\
-    \n    # test if the following can be run in reasonable time\n    for i, key in\
-    \ enumerate(D):\n        assert T[key] == D.get(key, e)\n        assert T[i] ==\
-    \ D.get(i, e)\n    for i, key in enumerate(D):\n        assert key in T\n    \
-    \    del T[key]\n        assert key not in T\n        if i%10000 == 0: T._validate()\n\
-    \    # addition of duplicate values\n    for p in range(Q): T.insert(0, 0)\n\n\
-    from cp_library.ds.tree.bst.treap_monoid_cls import TreapMonoid\nfrom cp_library.bit.pack.pack_enc_fn\
-    \ import pack_enc\nfrom cp_library.bit.pack.pack_dec_fn import pack_dec\nfrom\
-    \ cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \n    # test if the following can be run in reasonable time\n    for key in D:\n\
+    \        assert T[key] == D[key]\n    for i, key in enumerate(D):\n        assert\
+    \ key in T\n        del T[key]\n        assert key not in T\n        if i%10000\
+    \ == 0: T._v()\n    # addition of duplicate keys/values\n    for p in range(Q):\
+    \ T.insert(0, 0)\n\nfrom cp_library.ds.tree.bst.treap_monoid_cls import TreapMonoid\n\
+    from cp_library.bit.pack.pack_enc_fn import pack_enc\nfrom cp_library.bit.pack.pack_dec_fn\
+    \ import pack_dec\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/ds/tree/bst/treap_monoid_cls.py
   - cp_library/bit/pack/pack_enc_fn.py
@@ -271,15 +333,16 @@ data:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/ds/reserve_fn.py
+  - cp_library/ds/tree/bst/bst_cls.py
   - cp_library/ds/tree/bst/treap_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
-  - cp_library/ds/tree/bst/bst_cls.py
   - cp_library/ds/tree/bst/cartesian_tree_cls.py
+  - cp_library/bit/masks/i64_max_cnst.py
   isVerificationFile: true
   path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   requiredBy: []
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py

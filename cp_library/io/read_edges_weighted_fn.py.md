@@ -160,7 +160,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/read_edges_weighted_fn.py
   requiredBy: []
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py

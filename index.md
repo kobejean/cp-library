@@ -461,7 +461,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/bit/masks/i32_max_cnst.py
       title: cp_library/bit/masks/i32_max_cnst.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/bit/masks/i64_max_cnst.py
       title: cp_library/bit/masks/i64_max_cnst.py
     - icon: ':heavy_check_mark:'
@@ -1508,6 +1508,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
       title: test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
+    - icon: ':heavy_check_mark:'
+      path: test/library-checker/data-structure/range_reverse_range_sum.test.py
+      title: test/library-checker/data-structure/range_reverse_range_sum.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
       title: test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py

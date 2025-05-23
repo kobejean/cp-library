@@ -1,11 +1,32 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bst/bst_cls.py
+    title: cp_library/ds/tree/bst/bst_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bst/cartesian_tree_cls.py
+    title: cp_library/ds/tree/bst/cartesian_tree_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bst/treap_cls.py
+    title: cp_library/ds/tree/bst/treap_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bst/treap_monoid_cls.py
+    title: cp_library/ds/tree/bst/treap_monoid_cls.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+    title: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/range_reverse_range_sum.test.py
+    title: test/library-checker/data-structure/range_reverse_range_sum.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+    title: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -25,10 +46,17 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: cp_library/bit/masks/i64_max_cnst.py
-  requiredBy: []
-  timestamp: '2025-05-21 18:01:52+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy:
+  - cp_library/ds/tree/bst/treap_monoid_cls.py
+  - cp_library/ds/tree/bst/cartesian_tree_cls.py
+  - cp_library/ds/tree/bst/treap_cls.py
+  - cp_library/ds/tree/bst/bst_cls.py
+  timestamp: '2025-05-23 09:29:26+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+  - test/library-checker/data-structure/range_reverse_range_sum.test.py
+  - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
 documentation_of: cp_library/bit/masks/i64_max_cnst.py
 layout: document
 redirect_from:

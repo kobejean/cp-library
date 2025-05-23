@@ -508,6 +508,9 @@ data:
     path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
     title: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/range_reverse_range_sum.test.py
+    title: test/library-checker/data-structure/range_reverse_range_sum.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/static_range_sum.test.py
     title: test/library-checker/data-structure/static_range_sum.test.py
   - icon: ':heavy_check_mark:'
@@ -875,11 +878,12 @@ data:
   - cp_library/alg/tree/fast/hld_monoid_cls.py
   - cp_library/alg/tree/fast/hld_cls.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution_all.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+  - test/library-checker/data-structure/range_reverse_range_sum.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
   - test/library-checker/data-structure/unionfind.test.py
   - test/library-checker/data-structure/static_range_sum.test.py

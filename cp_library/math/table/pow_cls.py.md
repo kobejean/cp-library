@@ -30,7 +30,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/pow_cls.py
   requiredBy: []
-  timestamp: '2025-05-21 18:01:52+09:00'
+  timestamp: '2025-05-23 09:29:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc304_f_mobius_inv.test.py
