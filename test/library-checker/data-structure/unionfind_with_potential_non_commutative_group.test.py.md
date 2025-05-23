@@ -115,7 +115,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
   requiredBy: []
-  timestamp: '2025-05-23 09:29:26+09:00'
+  timestamp: '2025-05-23 18:57:17+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py

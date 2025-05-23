@@ -529,7 +529,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   requiredBy: []
-  timestamp: '2025-05-23 09:29:26+09:00'
+  timestamp: '2025-05-23 18:57:17+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py

@@ -302,7 +302,7 @@ data:
   - cp_library/alg/tree/fast/hld_monoid_cls.py
   - cp_library/alg/tree/fast/hld_cls.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  timestamp: '2025-05-23 09:29:26+09:00'
+  timestamp: '2025-05-23 18:57:17+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py

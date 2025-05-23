@@ -15,8 +15,20 @@ data:
     title: cp_library/ds/tree/bst/cartesian_tree_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bst/treap_implicit_cls.py
+    title: cp_library/ds/tree/bst/treap_implicit_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/treap_monoid_cls.py
     title: cp_library/ds/tree/bst/treap_monoid_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
+    title: cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bst/treap_reversible_cls.py
+    title: cp_library/ds/tree/bst/treap_reversible_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bst/treap_sized_cls.py
+    title: cp_library/ds/tree/bst/treap_sized_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
@@ -55,42 +67,16 @@ data:
     \ _i(T,s,k,n):\n        T.st.append(s)\n        while ~T.sub[s]:T._p(i:=T.sub[s]);T.st.append(s:=i<<1|(T.K[i]<k))\n\
     \        i,T.sub[s]=T.sub[s],n\n    def _d(T,i,s): raise NotImplemented\n    def\
     \ _r(T):T.st.clear()\n    def _p(T,i): pass\n    @classmethod\n    def reserve(cls,sz):sz+=1;reserve(cls.K,sz);reserve(cls.sub,sz<<1);reserve(cls.st,sz.bit_length()<<1)\n\
-    \    def _node_str(T, i): return f\"{T.K[i]}\"\n\n    def __str__(T):\n      \
-    \  def rec(i, pre=\"\", is_right=False):\n            if i == -1: return \"\"\n\
-    \            ret = \"\";T._p(i)\n            if ~(r:=T.sub[i<<1|1]):ret+=rec(r,pre+(\"\
+    \    def _node_str(T, i): return f\"{T.K[i]}\"\n    def __str__(T):\n        def\
+    \ rec(i, pre=\"\", is_right=False):\n            if i == -1: return \"\"\n   \
+    \         ret = \"\";T._p(i)\n            if ~(r:=T.sub[i<<1|1]):ret+=rec(r,pre+(\"\
     \   \"if is_right else\"\u2502  \"),True)\n            ret+=pre+(\"\u250C\u2500\
     \ \"if is_right else\"\u2514\u2500 \")+T._node_str(i)+\"\\n\"\n            if\
     \ ~(l:=T.sub[i<<1]):ret+=rec(l,pre+(\"   \"if not is_right else\"\u2502  \"),False)\n\
-    \            return ret\n        return rec(T.sub[T.r<<1]).rstrip()\n\nclass BSTUpdates(BST):\n\
-    \    def _u(T,i): pass\n    def _r(T):\n        while T.st:T._u(T.st.pop()>>1)\n\
-    \nclass BSTSized(BSTUpdates):\n    K,sz,sub,st=[-1],[0,0],[-1,-1],[]\n    def\
-    \ _nr(T):T.sz.append(0);T.sz.append(0);return super()._nr()\n    def _nn(T,k):T.sz.append(0);T.sz.append(0);return\
-    \ super()._nn(k)\n    def kth(T,k):\n        if 0<=k<len(T):return T._k(T.r<<1,k)\n\
-    \        raise KeyError\n    def __len__(T):return T.sz[T.r<<1]\n    def _k(T,s,k):\n\
-    \        while ~k:\n            T._p(T.sub[s])\n            if (sz:=T.sz[s:=T.sub[s]<<1])<=k:k-=1+sz;s^=1\n\
-    \        return s>>1\n    def _kt(T,s,k):\n        while ~k:\n            T._p(T.sub[s]);T.st.append(s)\n\
-    \            if (sz:=T.sz[s:=T.sub[s]<<1])<=k:k-=1+sz;s^=1\n        return s>>1\n\
-    \    def _u(T,i):\n        T.sz[s]=T.sz[l<<1]+1+T.sz[l<<1|1] if~(l:=T.sub[s:=i<<1])\
-    \ else 0\n        T.sz[s]=T.sz[r<<1]+1+T.sz[r<<1|1] if~(r:=T.sub[s:=i<<1|1]) else\
-    \ 0\n    @classmethod\n    def reserve(cls,sz):super().reserve(sz);reserve(cls.sz,(sz+1)<<1)\n\
-    \nclass BSTImplicit(BSTSized):\n    K,sz,sub,st=None,[0,0],[-1,-1],[]\n    def\
-    \ _nr(T):r=len(T.sz)>>1;T.sz.append(0);T.sz.append(0);T.sub.append(-1);T.sub.append(-1);return\
-    \ r\n    def _nn(T,k):n=len(T.sz)>>1;T.sz.append(0);T.sz.append(0);T.sub.append(-1);T.sub.append(-1);return\
-    \ n\n    def pop(T,k):\n        if 0<=k<len(T):T._d(i:=T._kt(T.r<<1,k),T.st[-1]);T._r();return\
-    \ i\n        else:raise KeyError\n    def __contains__(T,k):raise NotImplemented\n\
-    \    def __delitem__(T,k):\n        if 0<=k<len(T):T._d(T._kt(T.r<<1,k),T.st[-1]);T._r()\n\
-    \        else:raise KeyError\n    def _f(T,s,k):return T._k(s,k)\n    def _t(T,s,k):return\
-    \ T._kt(s,k)\n    def _i(T,s,k,n):T.sub[T._kt(s,k)]=n\n    @classmethod\n    def\
-    \ reserve(cls,sz):sz+=1;reserve(cls.st,sz.bit_length()<<1);reserve(cls.sz,sz<<1);reserve(cls.sub,sz<<1)\n\
-    \nclass BSTReversible(BSTImplicit):\n    K,rev,sz,sub,st=None,[0],[0,0],[-1,-1],[]\n\
-    \    def _nr(T):T.rev.append(0);return super()._nr()\n    def _nn(T,k):T.rev.append(0);return\
-    \ super()._nn(k)\n    def _p(T,i):\n        if T.rev[i]:\n            T.sub[l],T.sub[r],T.sz[l],T.sz[r]=T.sub[r:=i<<1|1],T.sub[l:=i<<1],T.sz[r],T.sz[l]\n\
-    \            if~(l:=T.sub[l]):T.rev[l]^=1\n            if~(r:=T.sub[r]):T.rev[r]^=1\n\
-    \            T.rev[i]=0\n    @classmethod\n    def reserve(cls,sz):super().reserve(sz);reserve(cls.rev,sz+1)\n\
-    \nclass CartesianTree(BST):\n    K,P,sub,st=[-1],[42],[-1,-1],[]\n    def _nr(T):T.P.append(-1);return\
-    \ super()._nr()\n    def _nn(T,k,p=-1):T.P.append(p);return super()._nn(k)\n \
-    \   def get(T,k):return T.P[BST.get(T,k)]\n    def pop(T,k):return T.P[BST.pop(T,k)]\n\
-    \    def split(T,k):S=T._nt();T._sp(T.sub[T.r<<1],k,S.r<<1,T.r<<1);T._r();return\
+    \            return ret\n        return rec(T.sub[T.r<<1]).rstrip()\n\nclass CartesianTree(BST):\n\
+    \    K,P,sub,st=[-1],[42],[-1,-1],[]\n    def _nr(T):T.P.append(-1);return super()._nr()\n\
+    \    def _nn(T,k,p=-1):T.P.append(p);return super()._nn(k)\n    def get(T,k):return\
+    \ T.P[BST.get(T,k)]\n    def pop(T,k):return T.P[BST.pop(T,k)]\n    def split(T,k):S=T._nt();T._sp(T.sub[T.r<<1],k,S.r<<1,T.r<<1);T._r();return\
     \ S,T\n    def insert(T,k,p):T._i(T.r<<1,k,n:=T._nn(k,p));T._r();return n\n  \
     \  def __getitem__(T,k):return T.get(k)\n    def _i(T,s,k,n):\n        T.st.append(s)\n\
     \        while~T.sub[s]and T.P[i:=T.sub[s]]<T.P[n]:T._p(i);T.st.append(s:=i<<1|(T.K[i]<k))\n\
@@ -102,52 +88,6 @@ data:
     \      if T.P[l]<T.P[r]:T._p(l);T.sub[s]=l;l=T.sub[s:=l<<1|1]\n            else:T._p(r);T.sub[s]=r;r=T.sub[s:=r<<1]\n\
     \            T.st.append(s)\n        T.sub[s]=l if~l else r\n    def _d(T,i,s):T._p(i);T._m(s,T.sub[i<<1],T.sub[i<<1|1])\n\
     \    @classmethod\n    def reserve(cls,sz):super(CartesianTree,cls).reserve(sz);reserve(cls.P,sz+1)\n\
-    \nclass CartesianTreeSized(CartesianTree, BSTSized):\n    K,P,sz,sub,st=[-1],[42],[0,0],[-1,-1],[]\n\
-    \    def kth(T,k): return T.P[BSTSized.kth(T,k)]\n\nclass CartesianTreeImplicit(CartesianTreeSized,BSTImplicit):\n\
-    \    K,P,sz,sub,st=None,[42],[0,0],[-1,-1],[]\n    def _nr(T):T.P.append((T.P[-1]*1103515245+12345)&0x7fffffff);return\
-    \ BSTImplicit._nr(T)\n    def _nn(T,k,p):T.P.append(p);return BSTImplicit._nn(T,k)\n\
-    \    def _i(T,s,k,n):\n        T.st.append(s)\n        while ~k and ~T.sub[s]\
-    \ and T.P[i:=T.sub[s]]<T.P[n]:\n            T._p(i)\n            if (sz:=T.sz[s:=i<<1])<k:k-=1+sz;s^=1\n\
-    \            T.st.append(s)\n        i,T.sub[s]=T.sub[s],n\n        if~i:T._sp(i,k,n<<1,n<<1|1)\n\
-    \    def _sp(T,i,k,l,r):\n        T.st.append(l)\n        if 1<l^r:T.st.append(r)\n\
-    \        while~i:\n            T._p(i)\n            if (sz:=T.sz[i<<1])<k:k-=1+sz;T.sub[l]=i;i=T.sub[l:=i<<1|1];T.st.append(l)\n\
-    \            else:T.sub[r]=i;i=T.sub[r:=i<<1];T.st.append(r)\n        T.sub[l]=T.sub[r]=-1\n\
-    \n    def _node_str(T, i): return f\"{T.P[i]}\"\n\nclass CartesianTreeReversible(CartesianTreeSized,BSTReversible):\n\
-    \    def _nr(T):T.P.append((T.P[-1]*1103515245+12345)&0x7fffffff);return BSTReversible._nr(T)\n\
-    \    def _nn(T,k,v):T.P.append(v);return BSTReversible._nn(T,k)\n    def reverse(T,l,r):\n\
-    \        if l>=r:return\n        lo,hi = l>0,r<len(T)\n        s = T.r<<1\n  \
-    \      if hi:T._sp(T.sub[s],r,s,1);T._r()\n        if lo:T._sp(T.sub[s],l,0,s);T._r()\n\
-    \        T.rev[T.sub[s]]^=1\n        if hi:T._m(s,T.sub[s],T.sub[1]);T._r()\n\
-    \        if lo:T._m(s,T.sub[0],T.sub[s]);T._r()\n\nclass Treap(CartesianTree):\n\
-    \    __slots__='e'\n    K,V,P,sub,st=[-1],[-1],[42],[-1,-1],[]\n    def __init__(T,e=-1):T.e=e;super().__init__()\n\
-    \    def _nt(T):return T.__class__(T.e)\n    def _nr(T):T.V.append(T.e);return\
-    \ super()._nr()\n    def _nn(T,k,v):T.V.append(v);return super()._nn(k,(T.P[-1]*1103515245+12345)&0x7fffffff)\n\
-    \    def insert(T,k,v):return super().insert(k,v)\n    def get(T,k):return T.V[BST.get(T,k)]\n\
-    \    def pop(T,k):return T.V[BST.pop(T,k)]\n    def set(T,k,v):T._s(T.r<<1,k,v);T._r()\n\
-    \    def __setitem__(T,k,v):T.set(k,v)\n    def _s(T,s,k,v):\n        if ~(i:=T._t(s,k)):T.V[i]=v;T.st.append(i<<1)\n\
-    \        else:\n            n=T._nn(k,v)\n            while T.P[n]<T.P[i:=T.st[-1]>>1]:T._p(T.st.pop())\n\
-    \            T._p(i)\n            i,T.sub[s]=T.sub[s:=i<<1|(i!=T.r and T.K[i]<k)],n\n\
-    \            if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _node_str(T, i): return f\"\
-    {T.K[i]}:{T.V[i]}\"\n    @classmethod\n    def reserve(cls,hint):super(Treap,cls).reserve(hint);reserve(cls.V,hint+1)\n\
-    \nclass TreapSized(Treap, CartesianTreeSized):\n    K,V,P,sz,sub,st=[-1],[-1],[42],[0,0],[-1,-1],[]\n\
-    \    def kth(T,k): return T.V[BSTSized.kth(T,k)]\n\nclass TreapImplicit(TreapSized,CartesianTreeImplicit):\n\
-    \    K,V,P,sz,sub,st=None,[-1],[42],[0,0],[-1,-1],[]\n    def _nr(T):T.V.append(T.e);return\
-    \ CartesianTreeImplicit._nr(T)\n    def _nn(T,k,v):T.V.append(v);return CartesianTreeImplicit._nn(T,k,(T.P[-1]*1103515245+12345)&0x7fffffff)\n\
-    \    def set(T,k,v):T._s(T.r<<1,k,v);T._r()\n    def _i(T,s,k,n):\n        T.st.append(s)\n\
-    \        while ~k and ~T.sub[s] and T.P[i:=T.sub[s]]<T.P[n]:\n            T._p(i)\n\
-    \            if (sz:=T.sz[s:=i<<1])<k:k-=1+sz;s^=1\n            T.st.append(s)\n\
-    \        i,T.sub[s]=T.sub[s],n\n        if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _sp(T,i,k,l,r):\n\
-    \        T.st.append(l)\n        if 1<l^r:T.st.append(r)\n        while~i:\n \
-    \           T._p(i)\n            if (sz:=T.sz[i<<1])<k:k-=1+sz;T.sub[l]=i;i=T.sub[l:=i<<1|1];T.st.append(l)\n\
-    \            else:T.sub[r]=i;i=T.sub[r:=i<<1];T.st.append(r)\n        T.sub[l]=T.sub[r]=-1\n\
-    \    def _s(T,s,k,v):T.V[i:=T._t(s,k)]=v;T.st.append(i<<1)\n    def _node_str(T,\
-    \ i): return f\"{T.V[i]}\"\n\nclass TreapReversible(TreapImplicit,CartesianTreeReversible):\n\
-    \    K,V,P,sz,sub,st=None,[-1],[42],[0,0],[-1,-1],[]\n    def _nr(T):T.V.append(T.e);return\
-    \ CartesianTreeReversible._nr(T)\n    def _nn(T,k,v):T.V.append(v);return CartesianTreeReversible._nn(T,k,(T.P[-1]*1103515245+12345)&0x7fffffff)\n"
-  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn\
-    \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
-    from cp_library.ds.tree.bst.bst_cls import BST, BSTSized\nfrom cp_library.ds.tree.bst.cartesian_tree_cls\
-    \ import CartesianTree, CartesianTreeSized, CartesianTreeImplicit, CartesianTreeReversible\n\
     \nclass Treap(CartesianTree):\n    __slots__='e'\n    K,V,P,sub,st=[-1],[-1],[42],[-1,-1],[]\n\
     \    def __init__(T,e=-1):T.e=e;super().__init__()\n    def _nt(T):return T.__class__(T.e)\n\
     \    def _nr(T):T.V.append(T.e);return super()._nr()\n    def _nn(T,k,v):T.V.append(v);return\
@@ -158,22 +98,21 @@ data:
     \        else:\n            n=T._nn(k,v)\n            while T.P[n]<T.P[i:=T.st[-1]>>1]:T._p(T.st.pop())\n\
     \            T._p(i)\n            i,T.sub[s]=T.sub[s:=i<<1|(i!=T.r and T.K[i]<k)],n\n\
     \            if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _node_str(T, i): return f\"\
-    {T.K[i]}:{T.V[i]}\"\n    @classmethod\n    def reserve(cls,hint):super(Treap,cls).reserve(hint);reserve(cls.V,hint+1)\n\
-    \nclass TreapSized(Treap, CartesianTreeSized):\n    K,V,P,sz,sub,st=[-1],[-1],[42],[0,0],[-1,-1],[]\n\
-    \    def kth(T,k): return T.V[BSTSized.kth(T,k)]\n\nclass TreapImplicit(TreapSized,CartesianTreeImplicit):\n\
-    \    K,V,P,sz,sub,st=None,[-1],[42],[0,0],[-1,-1],[]\n    def _nr(T):T.V.append(T.e);return\
-    \ CartesianTreeImplicit._nr(T)\n    def _nn(T,k,v):T.V.append(v);return CartesianTreeImplicit._nn(T,k,(T.P[-1]*1103515245+12345)&0x7fffffff)\n\
-    \    def set(T,k,v):T._s(T.r<<1,k,v);T._r()\n    def _i(T,s,k,n):\n        T.st.append(s)\n\
-    \        while ~k and ~T.sub[s] and T.P[i:=T.sub[s]]<T.P[n]:\n            T._p(i)\n\
-    \            if (sz:=T.sz[s:=i<<1])<k:k-=1+sz;s^=1\n            T.st.append(s)\n\
-    \        i,T.sub[s]=T.sub[s],n\n        if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _sp(T,i,k,l,r):\n\
-    \        T.st.append(l)\n        if 1<l^r:T.st.append(r)\n        while~i:\n \
-    \           T._p(i)\n            if (sz:=T.sz[i<<1])<k:k-=1+sz;T.sub[l]=i;i=T.sub[l:=i<<1|1];T.st.append(l)\n\
-    \            else:T.sub[r]=i;i=T.sub[r:=i<<1];T.st.append(r)\n        T.sub[l]=T.sub[r]=-1\n\
-    \    def _s(T,s,k,v):T.V[i:=T._t(s,k)]=v;T.st.append(i<<1)\n    def _node_str(T,\
-    \ i): return f\"{T.V[i]}\"\n\nclass TreapReversible(TreapImplicit,CartesianTreeReversible):\n\
-    \    K,V,P,sz,sub,st=None,[-1],[42],[0,0],[-1,-1],[]\n    def _nr(T):T.V.append(T.e);return\
-    \ CartesianTreeReversible._nr(T)\n    def _nn(T,k,v):T.V.append(v);return CartesianTreeReversible._nn(T,k,(T.P[-1]*1103515245+12345)&0x7fffffff)"
+    {T.K[i]}:{T.V[i]}\"\n    @classmethod\n    def reserve(cls,hint):super(Treap,cls).reserve(hint);reserve(cls.V,hint+1)\n"
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn\
+    \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
+    from cp_library.ds.tree.bst.bst_cls import BST\nfrom cp_library.ds.tree.bst.cartesian_tree_cls\
+    \ import CartesianTree\n\nclass Treap(CartesianTree):\n    __slots__='e'\n   \
+    \ K,V,P,sub,st=[-1],[-1],[42],[-1,-1],[]\n    def __init__(T,e=-1):T.e=e;super().__init__()\n\
+    \    def _nt(T):return T.__class__(T.e)\n    def _nr(T):T.V.append(T.e);return\
+    \ super()._nr()\n    def _nn(T,k,v):T.V.append(v);return super()._nn(k,(T.P[-1]*1103515245+12345)&0x7fffffff)\n\
+    \    def insert(T,k,v):return super().insert(k,v)\n    def get(T,k):return T.V[BST.get(T,k)]\n\
+    \    def pop(T,k):return T.V[BST.pop(T,k)]\n    def set(T,k,v):T._s(T.r<<1,k,v);T._r()\n\
+    \    def __setitem__(T,k,v):T.set(k,v)\n    def _s(T,s,k,v):\n        if ~(i:=T._t(s,k)):T.V[i]=v;T.st.append(i<<1)\n\
+    \        else:\n            n=T._nn(k,v)\n            while T.P[n]<T.P[i:=T.st[-1]>>1]:T._p(T.st.pop())\n\
+    \            T._p(i)\n            i,T.sub[s]=T.sub[s:=i<<1|(i!=T.r and T.K[i]<k)],n\n\
+    \            if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _node_str(T, i): return f\"\
+    {T.K[i]}:{T.V[i]}\"\n    @classmethod\n    def reserve(cls,hint):super(Treap,cls).reserve(hint);reserve(cls.V,hint+1)"
   dependsOn:
   - cp_library/ds/reserve_fn.py
   - cp_library/ds/tree/bst/bst_cls.py
@@ -182,8 +121,12 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bst/treap_cls.py
   requiredBy:
+  - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
+  - cp_library/ds/tree/bst/treap_sized_cls.py
   - cp_library/ds/tree/bst/treap_monoid_cls.py
-  timestamp: '2025-05-23 09:29:26+09:00'
+  - cp_library/ds/tree/bst/treap_implicit_cls.py
+  - cp_library/ds/tree/bst/treap_reversible_cls.py
+  timestamp: '2025-05-23 18:57:17+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py

@@ -212,7 +212,7 @@ data:
   path: cp_library/ds/wavelet/wm_group_compressed_cls.py
   requiredBy:
   - cp_library/ds/wavelet/wm_group_points_cls.py
-  timestamp: '2025-05-23 09:29:26+09:00'
+  timestamp: '2025-05-23 18:57:17+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py

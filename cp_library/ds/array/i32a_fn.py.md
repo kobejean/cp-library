@@ -30,7 +30,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/array/i32a_fn.py
   requiredBy: []
-  timestamp: '2025-05-23 09:29:26+09:00'
+  timestamp: '2025-05-23 18:57:17+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/array/i32a_fn.py

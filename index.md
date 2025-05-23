@@ -736,14 +736,47 @@ data:
       path: cp_library/ds/tree/bst/bst_cls.py
       title: cp_library/ds/tree/bst/bst_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/bst_implicit_cls.py
+      title: cp_library/ds/tree/bst/bst_implicit_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/bst_reversible_cls.py
+      title: cp_library/ds/tree/bst/bst_reversible_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/bst_sized_cls.py
+      title: cp_library/ds/tree/bst/bst_sized_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/bst_updates_cls.py
+      title: cp_library/ds/tree/bst/bst_updates_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/bst/cartesian_tree_cls.py
       title: cp_library/ds/tree/bst/cartesian_tree_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/cartesian_tree_implicit_cls.py
+      title: cp_library/ds/tree/bst/cartesian_tree_implicit_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/cartesian_tree_reversible_cls.py
+      title: cp_library/ds/tree/bst/cartesian_tree_reversible_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/cartesian_tree_sized_cls.py
+      title: cp_library/ds/tree/bst/cartesian_tree_sized_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/bst/treap_cls.py
       title: cp_library/ds/tree/bst/treap_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/treap_implicit_cls.py
+      title: cp_library/ds/tree/bst/treap_implicit_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/bst/treap_monoid_cls.py
       title: cp_library/ds/tree/bst/treap_monoid_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
+      title: cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/treap_reversible_cls.py
+      title: cp_library/ds/tree/bst/treap_reversible_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bst/treap_sized_cls.py
+      title: cp_library/ds/tree/bst/treap_sized_cls.py
   - name: cp_library/ds/wavelet
     pages:
     - icon: ':heavy_check_mark:'
