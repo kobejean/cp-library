@@ -186,10 +186,10 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/func_graph_cls.py
   requiredBy:
-  - cp_library/alg/graph/mut_perm_graph_cls.py
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
-  timestamp: '2025-05-23 18:57:17+09:00'
+  - cp_library/alg/graph/mut_perm_graph_cls.py
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py

@@ -162,7 +162,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/bit_graph_cls.py
   requiredBy: []
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

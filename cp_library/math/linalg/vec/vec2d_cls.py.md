@@ -152,8 +152,9 @@ data:
     \            return Vec2D(op(self[0], other), op(self[1], other))\n        if\
     \ isinstance(other, Sequence):\n            return Vec2D(op(self[0], other[0]),\
     \ op(self[1], other[1]))\n        raise ValueError(\"Operand must be a number\
-    \ or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n\
-    \        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
+    \ or a tuple of the same length\")\n    \n    def manhat(v1: 'Vec', v2: 'Vec'):\n\
+    \        return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1])\n\n    def distance(v1: 'Vec',\
+    \ v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
     \    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0],\
     \ v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec: 'Vec'):\n\
     \        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
@@ -180,8 +181,9 @@ data:
     \            return Vec2D(op(self[0], other), op(self[1], other))\n        if\
     \ isinstance(other, Sequence):\n            return Vec2D(op(self[0], other[0]),\
     \ op(self[1], other[1]))\n        raise ValueError(\"Operand must be a number\
-    \ or a tuple of the same length\")\n\n    def distance(v1: 'Vec', v2: 'Vec'):\n\
-    \        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
+    \ or a tuple of the same length\")\n    \n    def manhat(v1: 'Vec', v2: 'Vec'):\n\
+    \        return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1])\n\n    def distance(v1: 'Vec',\
+    \ v2: 'Vec'):\n        dx, dy = v2[0]-v1[0], v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy)\n\
     \    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n        dx, dy = v2[0]-v1[0],\
     \ v2[1]-v1[1]\n        return dx*dx+dy*dy\n    \n    def magnitude(vec: 'Vec'):\n\
     \        x, y = vec\n        return sqrt(x*x+y*y)\n    \n    def magnitude2(vec:\
@@ -207,12 +209,12 @@ data:
   path: cp_library/math/linalg/vec/vec2d_cls.py
   requiredBy:
   - cp_library/math/linalg/vec/slope_cls.py
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/atcoder/abc/abc151_f_fbisect_left.test.py
   - test/atcoder/abc/abc189_e_vec2d.test.py
   - test/atcoder/abc/abc274_e_vec2d.test.py
-  - test/atcoder/abc/abc151_f_fbisect_left.test.py
 documentation_of: cp_library/math/linalg/vec/vec2d_cls.py
 layout: document
 redirect_from:

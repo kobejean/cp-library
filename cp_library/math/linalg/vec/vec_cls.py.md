@@ -168,15 +168,15 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/vec/vec_cls.py
   requiredBy:
+  - cp_library/math/linalg/vec/slope_cls.py
   - cp_library/math/linalg/vec/vec2d_cls.py
   - cp_library/math/linalg/vec/vec3d_cls.py
-  - cp_library/math/linalg/vec/slope_cls.py
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/atcoder/abc/abc151_f_fbisect_left.test.py
   - test/atcoder/abc/abc189_e_vec2d.test.py
   - test/atcoder/abc/abc274_e_vec2d.test.py
-  - test/atcoder/abc/abc151_f_fbisect_left.test.py
 documentation_of: cp_library/math/linalg/vec/vec_cls.py
 layout: document
 redirect_from:

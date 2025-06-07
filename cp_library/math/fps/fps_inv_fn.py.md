@@ -166,18 +166,18 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_inv_fn.py
   requiredBy:
+  - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/fps/fps_log_fn.py
-  - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/polynomial/inv_of_formal_power_series.test.py
-  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/polynomial/log_of_formal_power_series.test.py
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
 documentation_of: cp_library/math/fps/fps_inv_fn.py
 layout: document
 redirect_from:

@@ -140,15 +140,17 @@ data:
     \ Number):\n            return Vec3D(op(self[0], other), op(self[1], other), op(self[2],\
     \ other))\n        if isinstance(other, Sequence):\n            return Vec3D(op(self[0],\
     \ other[0]), op(self[1], other[1]), op(self[2], other[2]))\n        raise ValueError(\"\
-    Operand must be a number or a tuple of the same length\")\n\n    def distance(v1:\
+    Operand must be a number or a tuple of the same length\")\n\n    def manhat(v1:\
+    \ 'Vec', v2: 'Vec'):\n        return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1]) + abs(v2[2]-v1[2])\n\
+    \    \n    def distance(v1: 'Vec', v2: 'Vec'):\n        dx, dy, dz = v2[0]-v1[0],\
+    \ v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy+dz*dz)\n    \n    def distance2(v1:\
     \ 'Vec', v2: 'Vec'):\n        dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]\n        return\
-    \ sqrt(dx*dx+dy*dy+dz*dz)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n  \
-    \      dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy+dz*dz\n\
-    \    \n    def magnitude(vec: 'Vec'):\n        x, y, z = vec\n        return sqrt(x*x+y*y+z*z)\n\
-    \    \n    def magnitude2(vec: 'Vec'):\n        x, y, z = vec\n        return\
-    \ x*x+y*y+z*z\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
-    \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
-    \      return cls(elm(ts), elm(ts), elm(ts))\n        return parse\n"
+    \ dx*dx+dy*dy+dz*dz\n    \n    def magnitude(vec: 'Vec'):\n        x, y, z = vec\n\
+    \        return sqrt(x*x+y*y+z*z)\n    \n    def magnitude2(vec: 'Vec'):\n   \
+    \     x, y, z = vec\n        return x*x+y*y+z*z\n    \n    @classmethod\n    def\
+    \ compile(cls, T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(elm(ts), elm(ts), elm(ts))\n        return\
+    \ parse\n"
   code: "import cp_library.__header__\nfrom numbers import Number\nfrom typing import\
     \ Sequence\nfrom math import sqrt\nfrom cp_library.io.parser_cls import Parser,\
     \ TokenStream\nimport cp_library.math.__header__\nimport cp_library.math.linalg.__header__\n\
@@ -159,15 +161,17 @@ data:
     \ Number):\n            return Vec3D(op(self[0], other), op(self[1], other), op(self[2],\
     \ other))\n        if isinstance(other, Sequence):\n            return Vec3D(op(self[0],\
     \ other[0]), op(self[1], other[1]), op(self[2], other[2]))\n        raise ValueError(\"\
-    Operand must be a number or a tuple of the same length\")\n\n    def distance(v1:\
+    Operand must be a number or a tuple of the same length\")\n\n    def manhat(v1:\
+    \ 'Vec', v2: 'Vec'):\n        return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1]) + abs(v2[2]-v1[2])\n\
+    \    \n    def distance(v1: 'Vec', v2: 'Vec'):\n        dx, dy, dz = v2[0]-v1[0],\
+    \ v2[1]-v1[1]\n        return sqrt(dx*dx+dy*dy+dz*dz)\n    \n    def distance2(v1:\
     \ 'Vec', v2: 'Vec'):\n        dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]\n        return\
-    \ sqrt(dx*dx+dy*dy+dz*dz)\n    \n    def distance2(v1: 'Vec', v2: 'Vec'):\n  \
-    \      dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]\n        return dx*dx+dy*dy+dz*dz\n\
-    \    \n    def magnitude(vec: 'Vec'):\n        x, y, z = vec\n        return sqrt(x*x+y*y+z*z)\n\
-    \    \n    def magnitude2(vec: 'Vec'):\n        x, y, z = vec\n        return\
-    \ x*x+y*y+z*z\n    \n    @classmethod\n    def compile(cls, T: type = int):\n\
-    \        elm = Parser.compile(T)\n        def parse(ts: TokenStream):\n      \
-    \      return cls(elm(ts), elm(ts), elm(ts))\n        return parse"
+    \ dx*dx+dy*dy+dz*dz\n    \n    def magnitude(vec: 'Vec'):\n        x, y, z = vec\n\
+    \        return sqrt(x*x+y*y+z*z)\n    \n    def magnitude2(vec: 'Vec'):\n   \
+    \     x, y, z = vec\n        return x*x+y*y+z*z\n    \n    @classmethod\n    def\
+    \ compile(cls, T: type = int):\n        elm = Parser.compile(T)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(elm(ts), elm(ts), elm(ts))\n        return\
+    \ parse"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/math/linalg/vec/vec_cls.py
@@ -176,7 +180,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/vec/vec3d_cls.py
   requiredBy: []
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/vec/vec3d_cls.py

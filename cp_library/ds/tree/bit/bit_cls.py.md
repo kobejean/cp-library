@@ -187,34 +187,34 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bit_cls.py
   requiredBy:
+  - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
+  - cp_library/math/invcnt_fn.py
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - cp_library/ds/tree/bit/bir_cls.py
   - cp_library/ds/wavelet/wm_bit_compressed_cls.py
-  - cp_library/ds/wavelet/wm_bit_points_cls.py
   - cp_library/ds/wavelet/wm_bit_cls.py
-  - cp_library/math/invcnt_fn.py
+  - cp_library/ds/wavelet/wm_bit_points_cls.py
   - cp_library/alg/tree/fast/hld_bit_cls.py
-  - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/data-structure/predecessor_problem_bit.test.py
-  - test/library-checker/data-structure/point_add_range_sum.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
   - test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
+  - test/library-checker/data-structure/predecessor_problem_bit.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
+  - test/library-checker/data-structure/point_add_range_sum.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test.py
-  - test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
-  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
 documentation_of: cp_library/ds/tree/bit/bit_cls.py
 layout: document
 redirect_from:

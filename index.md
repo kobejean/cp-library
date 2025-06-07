@@ -3,6 +3,9 @@ data:
   libraryCategories:
   - name: cp_library/alg/divcon
     pages:
+    - icon: ':warning:'
+      path: cp_library/alg/divcon/binary_search_fn.py
+      title: cp_library/alg/divcon/binary_search_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/divcon/bisect_left_fn.py
       title: cp_library/alg/divcon/bisect_left_fn.py

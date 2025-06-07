@@ -150,7 +150,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_range_sum.test.py
   requiredBy: []
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_range_sum.test.py

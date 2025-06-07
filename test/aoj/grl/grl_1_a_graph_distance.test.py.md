@@ -608,7 +608,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_a_graph_distance.test.py
   requiredBy: []
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_a_graph_distance.test.py

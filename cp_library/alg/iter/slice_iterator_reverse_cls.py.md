@@ -74,22 +74,22 @@ data:
   path: cp_library/alg/iter/slice_iterator_reverse_cls.py
   requiredBy:
   - cp_library/alg/graph/strongly_connected_components_fn.py
-  - cp_library/alg/graph/fast/digraph_cls.py
-  - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
   - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
-  timestamp: '2025-05-23 18:57:17+09:00'
+  - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
+  - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/fast/digraph_cls.py
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/grl_2_c_scc.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/cycle_detection.test.py
-  - test/library-checker/graph/scc.test.py
   - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
-  - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/library-checker/graph/scc.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/aoj/grl/grl_2_c_scc.test.py
 documentation_of: cp_library/alg/iter/slice_iterator_reverse_cls.py
 layout: document
 redirect_from:

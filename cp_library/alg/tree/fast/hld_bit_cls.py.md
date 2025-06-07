@@ -499,12 +499,12 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/hld_bit_cls.py
   requiredBy: []
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
 documentation_of: cp_library/alg/tree/fast/hld_bit_cls.py
 layout: document
 redirect_from:

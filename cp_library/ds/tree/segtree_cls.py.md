@@ -127,21 +127,21 @@ data:
   - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
   - cp_library/ds/wavelet/wm_segtree_cls.py
-  - cp_library/alg/tree/fast/hld_commutative_cls.py
   - cp_library/alg/tree/fast/hld_monoid_cls.py
-  timestamp: '2025-05-23 18:57:17+09:00'
+  - cp_library/alg/tree/fast/hld_commutative_cls.py
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
-  - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
+  - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/library-checker/data-structure/point_set_range_composite.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
+  - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
   - test/library-checker/tree/vertex_set_path_composite.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
-  - test/aoj/dsl/dsl_2_a_segtree.test.py
 documentation_of: cp_library/ds/tree/segtree_cls.py
 layout: document
 redirect_from:

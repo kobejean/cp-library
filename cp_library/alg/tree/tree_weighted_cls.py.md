@@ -772,11 +772,11 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-05-23 18:57:17+09:00'
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
 documentation_of: cp_library/alg/tree/tree_weighted_cls.py
 layout: document
 redirect_from:

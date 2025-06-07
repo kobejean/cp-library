@@ -145,24 +145,24 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/modcomb_cls.py
   requiredBy:
-  - cp_library/math/table/stirling2_k_fn.py
-  - cp_library/math/table/stirling1_n_fn.py
-  - cp_library/math/table/stirling2_n_fn.py
-  - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  - cp_library/math/fps/fps_tayler_shift_fn.py
+  - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_ideriv_k_fn.py
-  timestamp: '2025-05-23 18:57:17+09:00'
+  - cp_library/math/fps/fps_tayler_shift_fn.py
+  - cp_library/math/table/stirling2_n_fn.py
+  - cp_library/math/table/stirling1_n_fn.py
+  - cp_library/math/table/stirling2_k_fn.py
+  - cp_library/math/table/stirling1_k_fn.py
+  timestamp: '2025-06-08 03:08:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
+  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
 documentation_of: cp_library/math/table/modcomb_cls.py
 layout: document
