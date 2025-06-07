@@ -20,6 +20,9 @@ class Vec2D(Vec):
         if isinstance(other, Sequence):
             return Vec2D(op(self[0], other[0]), op(self[1], other[1]))
         raise ValueError("Operand must be a number or a tuple of the same length")
+    
+    def manhat(v1: 'Vec', v2: 'Vec'):
+        return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1])
 
     def distance(v1: 'Vec', v2: 'Vec'):
         dx, dy = v2[0]-v1[0], v2[1]-v1[1]

@@ -21,6 +21,9 @@ class Vec3D(Vec):
             return Vec3D(op(self[0], other[0]), op(self[1], other[1]), op(self[2], other[2]))
         raise ValueError("Operand must be a number or a tuple of the same length")
 
+    def manhat(v1: 'Vec', v2: 'Vec'):
+        return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1]) + abs(v2[2]-v1[2])
+    
     def distance(v1: 'Vec', v2: 'Vec'):
         dx, dy, dz = v2[0]-v1[0], v2[1]-v1[1]
         return sqrt(dx*dx+dy*dy+dz*dz)
