@@ -66,14 +66,3 @@ def heapsiftup_max(heap: list, pos: int):
     while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos], pos, c = heap[c], c, c<<1|1
     if c == n and item < heap[c]: heap[pos], pos = heap[c], c
     heap[pos] = item
-
-# def heapsiftdown(heap: list, root: int, pos: int):
-#     item = heap[pos]
-#     while root < pos and item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p
-#     heap[pos] = item
-
-# def heapsiftup(heap: list, pos: int):
-#     n, item, c = len(heap)-1, heap[pos], pos<<1|1
-#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1
-#     if c == n and heap[c] < item: heap[pos], pos = heap[c], c
-#     heap[pos] = item
