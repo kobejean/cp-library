@@ -23,17 +23,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from math import inf\n\nfrom collections import UserList\nfrom typing import Iterable\n\
-    \ndef heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
-    \ 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
-    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
-    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
-    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
-    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
-    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
-    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    from math import inf\nfrom typing import Iterable\nfrom typing import TypeVar\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\n\ndef heappush(heap: list, item):\n\
+    \    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap:\
+    \ list):\n    item = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap,\
+    \ 0)\n    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap:\
+    \ list, item):\n    if heap and heap[0] < item: item, heap[0] = heap[0], item;\
+    \ heapsiftup(heap, 0)\n    return item\n\ndef heapify(x: list):\n    for i in\
+    \ reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and item <\
+    \ heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
@@ -51,25 +52,21 @@ data:
     def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
-    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
-    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
-    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
-    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Generic\nfrom typing\
-    \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass HeapProtocol(Generic[_T]):\n\
-    \    def pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
-    \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MinHeap(HeapProtocol[_T],\
-    \ UserList[_T]):\n    def __init__(self, iterable: Iterable = None):\n       \
-    \ super().__init__(iterable)\n        heapify(self.data)\n    \n    def pop(self):\
-    \ return heappop(self.data)\n    def push(self, item: _T): heappush(self.data,\
-    \ item)\n    def pushpop(self, item: _T): return heappushpop(self.data, item)\n\
-    \    def replace(self, item: _T): return heapreplace(self.data, item)\n\ndef shortest_path(G,\
-    \ s: int, g: int) -> tuple[list[int]|None,list[int]]:\n    D = [inf] * G.N\n \
-    \   D[s] = 0\n    if s == g:\n        return [], D\n    par = [-1] * G.N\n   \
-    \ par_edge = [-1] * G.N\n    Eid = G.edge_ids()\n    heap = MinHeap()\n    heap.push((0,\
-    \ s))\n\n    while heap:\n        d, v = heap.pop()\n        if d > D[v]: continue\n\
+    \ = heap[c], c\n    heap[pos] = item\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
+    \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
+    \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
+    \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
+    \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
+    \    def clear(heap): heap.data.clear()\n\nclass MinHeap(HeapProtocol[_T]):\n\
+    \    def __init__(self, iterable: Iterable = None): self.data = list(iterable)\
+    \ if iterable else []; heapify(self.data)\n    def pop(self): return heappop(self.data)\n\
+    \    def push(self, item: _T): heappush(self.data, item)\n    def pushpop(self,\
+    \ item: _T): return heappushpop(self.data, item)\n    def replace(self, item:\
+    \ _T): return heapreplace(self.data, item)\n\ndef shortest_path(G, s: int, g:\
+    \ int) -> tuple[list[int]|None,list[int]]:\n    D = [inf] * G.N\n    D[s] = 0\n\
+    \    if s == g:\n        return [], D\n    par = [-1] * G.N\n    par_edge = [-1]\
+    \ * G.N\n    Eid = G.edge_ids()\n    heap = MinHeap()\n    heap.push((0, s))\n\
+    \n    while heap:\n        d, v = heap.pop()\n        if d > D[v]: continue\n\
     \        if v == g: break\n    \n        for i,(u, w, *_) in enumerate(G[v]):\n\
     \            if (nd := d + w) < D[u]:\n                D[u] = nd\n           \
     \     par[u] = v\n                par_edge[u] = Eid[v][i]\n                heap.push((nd,\
@@ -95,7 +92,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/shortest_path_fn.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/shortest_path_fn.py

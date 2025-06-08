@@ -379,7 +379,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_c_scc.test.py

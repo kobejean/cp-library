@@ -145,7 +145,7 @@ data:
   - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
   - cp_library/alg/iter/cmpr/icoord_compress_fn.py
   - cp_library/alg/iter/cmpr/coord_compress_fn.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py

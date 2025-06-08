@@ -205,14 +205,8 @@ data:
     \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
-    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
-    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
-    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
-    \ pos = heap[c], c\n#     heap[pos] = item\n\n\nsys.setrecursionlimit(10**6)\n\
-    import pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\")\nfrom typing import\
+    \ = heap[c], c\n    heap[pos] = item\n\n\nsys.setrecursionlimit(10**6)\nimport\
+    \ pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\")\nfrom typing import\
     \ Sequence\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr,\
     \ sizes: list[int]):\n        csr.L, N = [0]*len(sizes), 0\n        for i,sz in\
     \ enumerate(sizes):\n            csr.L[i] = N; N += sz\n        csr.R, csr.A =\
@@ -294,7 +288,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_b_edmonds_branching.test.py

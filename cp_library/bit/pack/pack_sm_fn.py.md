@@ -3,6 +3,9 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/digraph_weighted_cls.py
+    title: cp_library/alg/graph/digraph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/digraph_weighted_cls.py
     title: cp_library/alg/graph/fast/digraph_weighted_cls.py
   - icon: ':warning:'
@@ -17,6 +20,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
     title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_cls.py
+    title: cp_library/alg/graph/graph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/graph_weighted_proto.py
+    title: cp_library/alg/graph/graph_weighted_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_bounded_fn.py
     title: cp_library/alg/iter/arg/argsort_bounded_fn.py
@@ -68,6 +77,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
     title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/tree_weighted_cls.py
+    title: cp_library/alg/tree/tree_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/tree/tree_weighted_proto.py
+    title: cp_library/alg/tree/tree_weighted_proto.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/priority_queue_cls.py
+    title: cp_library/ds/heap/priority_queue_cls.py
   - icon: ':warning:'
     path: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
     title: cp_library/ds/tree/bit/sum_cnt_bit_cls.py
@@ -112,14 +130,35 @@ data:
     title: cp_library/math/invcnt_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_1_a_dijkstra.test.py
+    title: test/aoj/grl/grl_1_a_dijkstra.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
     title: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_1_a_graph_distance.test.py
+    title: test/aoj/grl/grl_1_a_graph_distance.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_1_b_bellman_ford.test.py
+    title: test/aoj/grl/grl_1_b_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
     title: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
+    title: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_1_c_floyd_warshall.test.py
+    title: test/aoj/grl/grl_1_c_floyd_warshall.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
+    title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_5_a_diameter.test.py
+    title: test/aoj/grl/grl_5_a_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_a_fast_diameter.test.py
     title: test/aoj/grl/grl_5_a_fast_diameter.test.py
@@ -136,6 +175,9 @@ data:
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
+    title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - icon: ':heavy_check_mark:'
@@ -144,6 +186,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc361_e_tree_diameter.test.py
+    title: test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc375_g_find_bridges.test.py
+    title: test/atcoder/abc/abc375_g_find_bridges.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
     title: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
@@ -235,6 +283,9 @@ data:
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/shortest_path_graph_weighted.test.py
+    title: test/library-checker/graph/shortest_path_graph_weighted.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
   - icon: ':heavy_check_mark:'
@@ -273,6 +324,7 @@ data:
   path: cp_library/bit/pack/pack_sm_fn.py
   requiredBy:
   - cp_library/math/invcnt_fn.py
+  - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - cp_library/ds/wavelet/wm_group_points_cls.py
   - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
@@ -286,6 +338,9 @@ data:
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
   - cp_library/ds/wavelet/wm_bit_points_cls.py
   - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
+  - cp_library/alg/graph/graph_weighted_cls.py
+  - cp_library/alg/graph/graph_weighted_proto.py
+  - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
   - cp_library/alg/graph/fast/graph_weighted_cls.py
   - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
@@ -301,6 +356,8 @@ data:
   - cp_library/alg/iter/cmpr/icoord_compress_multi_fn.py
   - cp_library/alg/iter/cmpr/coord_compress_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
+  - cp_library/alg/tree/tree_weighted_proto.py
+  - cp_library/alg/tree/tree_weighted_cls.py
   - cp_library/alg/tree/fast/tree_weighted_base_cls.py
   - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   - cp_library/alg/tree/fast/aux_tree_base_cls.py
@@ -308,21 +365,29 @@ data:
   - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
   - cp_library/alg/tree/fast/tree_weighted_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/aoj/grl/grl_1_a_dijkstra.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_5_a_diameter.test.py
+  - test/aoj/grl/grl_1_b_bellman_ford.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py
   - test/library-checker/graph/incremental_scc.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
@@ -355,8 +420,11 @@ data:
   - test/yukicoder/3407.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
 documentation_of: cp_library/bit/pack/pack_sm_fn.py
 layout: document
 redirect_from:

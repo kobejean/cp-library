@@ -50,15 +50,9 @@ data:
     def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
-    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
-    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
-    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
-    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Union, overload\n\
-    \n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\nfrom math\
-    \ import inf\n\n@overload\ndef dijkstra(G, s: int = 0) -> list[int]: ...\n@overload\n\
+    \ = heap[c], c\n    heap[pos] = item\nfrom typing import Union, overload\n\n\n\
+    def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\nfrom math import\
+    \ inf\n\n@overload\ndef dijkstra(G, s: int = 0) -> list[int]: ...\n@overload\n\
     def dijkstra(G, s: int, g: int) -> int: ...\ndef dijkstra(G, s = 0, g: Union[int,None]\
     \ = None):\n    N = len(G)\n    D = [inf for _ in range(N)]\n    D[s] = 0\n  \
     \  q = [(0, s)]\n    while q:\n        d, v = heappop(q)\n        if d > D[v]:\
@@ -80,7 +74,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/dijkstra_fn.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_a_dijkstra.test.py

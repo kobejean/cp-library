@@ -89,7 +89,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py

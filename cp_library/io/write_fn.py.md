@@ -454,7 +454,7 @@ data:
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/io/bye_fn.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py

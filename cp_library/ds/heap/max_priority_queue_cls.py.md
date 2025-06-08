@@ -2,6 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack_sm_fn.py
+    title: cp_library/bit/pack_sm_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/elist_fn.py
+    title: cp_library/ds/elist_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/fast_heapq.py
     title: cp_library/ds/heap/fast_heapq.py
   - icon: ':heavy_check_mark:'
@@ -20,84 +26,84 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom collections import UserList\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
-    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
-    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
-    \    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0] = heap[0],\
-    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap: list, item):\n\
-    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
-    \ 0)\n    return item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
-    \ heapsiftup(x, i)\n\ndef heapsiftdown(heap: list, root: int, pos: int):\n   \
-    \ item = heap[pos]\n    while root < pos and item < heap[p := (pos-1)>>1]: heap[pos],\
-    \ pos = heap[p], p\n    heap[pos] = item\n\ndef heapsiftup(heap: list, pos: int):\n\
-    \    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and heap[c\
-    \ := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1\n \
-    \   if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n    heap[pos] =\
-    \ item\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n    if heap: item,\
-    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapreplace_max(heap:\
-    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n \
-    \   return item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
-    \ heapsiftup_max(x, i)\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
-    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n\
-    \    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\
-    \ndef heappushpop_max(heap: list, item):\n    if heap and heap[0] > item: item,\
-    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap:\
+    \ndef pack_sm(N: int): s=N.bit_length(); return s, (1<<s)-1\ndef pack_enc(a: int,\
+    \ b: int, s: int): return a<<s|b\ndef pack_dec(ab: int, s: int, m: int): return\
+    \ ab>>s,ab&m\ndef pack_indices(A, s): return [a<<s|i for i,a in enumerate(A)]\n\
+    \n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
+    \ 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
     \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
-    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
-    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
-    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
-    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Generic\nfrom typing\
+    \ = heap[c], c\n    heap[pos] = item\nfrom typing import Generic\nfrom typing\
     \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass HeapProtocol(Generic[_T]):\n\
-    \    def pop(self) -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self,\
-    \ item: _T) -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass MaxPriorityQueue(HeapProtocol[int],\
-    \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
-    \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
-    \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            super().__init__()\n\
-    \        elif priorities is None:\n            heapify_max(ids)\n            self.data\
-    \ = ids\n        else:\n            M = len(ids)\n            data = [0]*M\n \
-    \           for i in range(M):\n                data[i] = self.encode(ids[i],\
-    \ priorities[i]) \n            heapify_max(data)\n            self.data = data\n\
-    \n    def encode(self, id, priority):\n        return priority << self.shift |\
-    \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
-    \ encoded >> self.shift\n    \n    def pop(self):\n        return self.decode(heappop_max(self.data))\n\
-    \    \n    def push(self, id: int, priority: int):\n        heappush_max(self.data,\
-    \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
-    \        return self.decode(heappushpop_max(self.data, self.encode(id, priority)))\n\
-    \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace_max(self.data,\
-    \ self.encode(id, priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])\n"
-  code: "import cp_library.ds.heap.__header__\n\nfrom collections import UserList\n\
-    from cp_library.ds.heap.fast_heapq import heapify_max, heappop_max, heappush_max,\
-    \ heappushpop_max, heapreplace_max\nfrom cp_library.ds.heap.heap_proto import\
-    \ HeapProtocol\n\nclass MaxPriorityQueue(HeapProtocol[int], UserList[int]):\n\
-    \    \n    def __init__(self, N: int, ids: list[int] = None, priorities: list[int]\
-    \ = None, /):\n        self.shift = N.bit_length()\n        self.mask = (1 <<\
-    \ self.shift)-1\n        if ids is None:\n            super().__init__()\n   \
-    \     elif priorities is None:\n            heapify_max(ids)\n            self.data\
-    \ = ids\n        else:\n            M = len(ids)\n            data = [0]*M\n \
-    \           for i in range(M):\n                data[i] = self.encode(ids[i],\
-    \ priorities[i]) \n            heapify_max(data)\n            self.data = data\n\
-    \n    def encode(self, id, priority):\n        return priority << self.shift |\
-    \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
-    \ encoded >> self.shift\n    \n    def pop(self):\n        return self.decode(heappop_max(self.data))\n\
-    \    \n    def push(self, id: int, priority: int):\n        heappush_max(self.data,\
-    \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
-    \        return self.decode(heappushpop_max(self.data, self.encode(id, priority)))\n\
-    \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace_max(self.data,\
-    \ self.encode(id, priority)))\n\n    def peek(self):\n        return self.decode(self.data[0])"
+    \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
+    \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
+    \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
+    \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
+    \    def clear(heap): heap.data.clear()\n\nclass MaxPriorityQueue(HeapProtocol[int]):\n\
+    \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
+    \ None, /):\n        que.shift, que.mask = pack_sm(N)\n        if ids is None:\
+    \ que.data = elist(N)\n        elif priorities is None: heapify_max(ids); que.data\
+    \ = ids\n        else:\n            que.data = [0]*(M := len(ids))\n         \
+    \   for i in range(M): que.data[i] = que.encode(ids[i], priorities[i]) \n    \
+    \        heapify_max(que.data)\n    def encode(que, id, priority): return priority\
+    \ << que.shift | id\n    def decode(que, encoded): return que.mask & encoded,\
+    \ encoded >> que.shift\n    def pop(que): return que.decode(heappop_max(que.data))\n\
+    \    def push(que, id: int, priority: int): heappush_max(que.data, que.encode(id,\
+    \ priority))\n    def pushpop(que, id: int, priority: int): return que.decode(heappushpop_max(que.data,\
+    \ que.encode(id, priority)))\n    def replace(que, id: int, priority: int): return\
+    \ que.decode(heapreplace_max(que.data, que.encode(id, priority)))\n    def peek(que):\
+    \ return que.decode(que.data[0])\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
+    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n"
+  code: "import cp_library.__header__\nfrom cp_library.bit.pack_sm_fn import pack_sm\n\
+    import cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\nfrom cp_library.ds.heap.fast_heapq\
+    \ import heapify_max, heappop_max, heappush_max, heappushpop_max, heapreplace_max\n\
+    from cp_library.ds.heap.heap_proto import HeapProtocol\n\nclass MaxPriorityQueue(HeapProtocol[int]):\n\
+    \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
+    \ None, /):\n        que.shift, que.mask = pack_sm(N)\n        if ids is None:\
+    \ que.data = elist(N)\n        elif priorities is None: heapify_max(ids); que.data\
+    \ = ids\n        else:\n            que.data = [0]*(M := len(ids))\n         \
+    \   for i in range(M): que.data[i] = que.encode(ids[i], priorities[i]) \n    \
+    \        heapify_max(que.data)\n    def encode(que, id, priority): return priority\
+    \ << que.shift | id\n    def decode(que, encoded): return que.mask & encoded,\
+    \ encoded >> que.shift\n    def pop(que): return que.decode(heappop_max(que.data))\n\
+    \    def push(que, id: int, priority: int): heappush_max(que.data, que.encode(id,\
+    \ priority))\n    def pushpop(que, id: int, priority: int): return que.decode(heappushpop_max(que.data,\
+    \ que.encode(id, priority)))\n    def replace(que, id: int, priority: int): return\
+    \ que.decode(heapreplace_max(que.data, que.encode(id, priority)))\n    def peek(que):\
+    \ return que.decode(que.data[0])\nfrom cp_library.ds.elist_fn import elist"
   dependsOn:
+  - cp_library/bit/pack_sm_fn.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
+  - cp_library/ds/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/heap/max_priority_queue_cls.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/max_priority_queue_cls.py

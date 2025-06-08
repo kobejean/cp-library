@@ -57,15 +57,9 @@ data:
     def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
-    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
-    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
-    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
-    \ pos = heap[c], c\n#     heap[pos] = item\n\nclass DoubleEndedPriorityQueue:\n\
-    \    def __init__(self, n: int, q: int, arr: list[int]=None) -> None:\n      \
-    \  self.mnq, self.mxq = arr or [0]*n, [0]*n\n        reserve(self.mnq, n+q); reserve(self.mxq,\
+    \ = heap[c], c\n    heap[pos] = item\n\nclass DoubleEndedPriorityQueue:\n    def\
+    \ __init__(self, n: int, q: int, arr: list[int]=None) -> None:\n        self.mnq,\
+    \ self.mxq = arr or [0]*n, [0]*n\n        reserve(self.mnq, n+q); reserve(self.mxq,\
     \ n+q)\n        self.used = bytearray(n+q)\n        if arr:\n            for i,\
     \ x in enumerate(arr):\n                self.mnq[i] = self.mxq[i] = x << 28 |\
     \ i\n        heapify(self.mnq)\n        heapify_max(self.mxq)\n    \n    def pop_min(self):\n\
@@ -130,7 +124,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py

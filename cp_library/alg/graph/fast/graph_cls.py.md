@@ -385,7 +385,7 @@ data:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
   - cp_library/alg/tree/fast/tree_cls.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py

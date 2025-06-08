@@ -29,6 +29,9 @@ data:
     path: cp_library/alg/tree/tree_proto.py
     title: cp_library/alg/tree/tree_proto.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/pack_sm_fn.py
+    title: cp_library/bit/pack/pack_sm_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/csr/csr_incremental_cls.py
     title: cp_library/ds/csr/csr_incremental_cls.py
   - icon: ':heavy_check_mark:'
@@ -105,16 +108,10 @@ data:
     \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
-    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
-    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
-    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
-    \ pos = heap[c], c\n#     heap[pos] = item\nimport operator\n\n\nfrom enum import\
-    \ auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n   \
-    \ DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n \
-    \   UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    \ = heap[c], c\n    heap[pos] = item\nimport operator\n\n\nfrom enum import auto,\
+    \ IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN =\
+    \ auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP =\
+    \ auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
     \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
     \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
     \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
@@ -545,25 +542,26 @@ data:
     \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
     \            dsu = cls(N)\n            for _ in range(M):\n                u,\
     \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
-    \        return dsu\n        return parse_fn\n\nfrom collections import UserList\n\
-    from typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def pop(self)\
-    \ -> _T: ...\n    def push(self, item: _T): ...\n    def pushpop(self, item: _T)\
-    \ -> _T: ...\n    def replace(self, item: _T) -> _T: ...\n\nclass PriorityQueue(HeapProtocol[int],\
-    \ UserList[int]):\n    \n    def __init__(self, N: int, ids: list[int] = None,\
-    \ priorities: list[int] = None, /):\n        self.shift = N.bit_length()\n   \
-    \     self.mask = (1 << self.shift)-1\n        if ids is None:\n            self.data\
-    \ = elist(N)\n        elif priorities is None:\n            heapify(ids)\n   \
-    \         self.data = ids\n        else:\n            M = len(ids)\n         \
-    \   data = [0]*M\n            for i in range(M):\n                data[i] = self.encode(ids[i],\
-    \ priorities[i]) \n            heapify(data)\n            self.data = data\n\n\
-    \    def encode(self, id, priority):\n        return priority << self.shift |\
-    \ id\n    \n    def decode(self, encoded):\n        return self.mask & encoded,\
-    \ encoded >> self.shift\n    \n    def pop(self):\n        return self.decode(heappop(self.data))\n\
-    \    \n    def push(self, id: int, priority: int):\n        heappush(self.data,\
-    \ self.encode(id, priority))\n\n    def pushpop(self, id: int, priority: int):\n\
-    \        return self.decode(heappushpop(self.data, self.encode(id, priority)))\n\
-    \    \n    def replace(self, id: int, priority: int):\n        return self.decode(heapreplace(self.data,\
-    \ self.encode(id, priority)))\n    \n\nfrom typing import overload, Literal, Union\n\
+    \        return dsu\n        return parse_fn\n\n\ndef pack_sm(N: int): s=N.bit_length();\
+    \ return s,(1<<s)-1\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
+    \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
+    \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
+    \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
+    \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
+    \    def clear(heap): heap.data.clear()\n\nclass PriorityQueue(HeapProtocol[int]):\n\
+    \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
+    \ None, /):\n        que.shift, que.mask = pack_sm(N)\n        if ids is None:\
+    \ que.data = elist(N)\n        elif priorities is None: heapify(ids); que.data\
+    \ = ids\n        else:\n            que.data = [0]*(M:=len(ids))\n           \
+    \ for i in range(M): que.data[i] = que.encode(ids[i], priorities[i]) \n      \
+    \      heapify(que.data)\n    def encode(que, id, priority): return priority <<\
+    \ que.shift | id\n    def decode(que, encoded): return que.mask & encoded, encoded\
+    \ >> que.shift\n    def pop(que): return que.decode(heappop(que.data))\n    def\
+    \ push(que, id: int, priority: int): heappush(que.data, que.encode(id, priority))\n\
+    \    def pushpop(que, id: int, priority: int): return que.decode(heappushpop(que.data,\
+    \ que.encode(id, priority)))\n    def replace(que, id: int, priority: int): return\
+    \ que.decode(heapreplace(que.data, que.encode(id, priority)))\n    def peek(que):\
+    \ return que.decode(que.data[0])\n\nfrom typing import overload, Literal, Union\n\
     \n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\nfrom itertools import\
     \ accumulate\n\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] =\
     \ None, initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n      \
@@ -776,6 +774,7 @@ data:
   - cp_library/alg/iter/presum_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
+  - cp_library/bit/pack/pack_sm_fn.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/alg/dp/sort2_fn.py
   - cp_library/ds/min_sparse_table_cls.py
@@ -785,7 +784,7 @@ data:
   path: cp_library/alg/tree/tree_weighted_proto.py
   requiredBy:
   - cp_library/alg/tree/tree_weighted_cls.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_a_diameter.test.py

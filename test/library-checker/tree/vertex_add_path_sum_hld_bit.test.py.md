@@ -522,7 +522,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py

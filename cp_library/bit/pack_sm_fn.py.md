@@ -1,7 +1,10 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/ds/heap/max_priority_queue_cls.py
+    title: cp_library/ds/heap/max_priority_queue_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
@@ -32,8 +35,9 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: cp_library/bit/pack_sm_fn.py
-  requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  requiredBy:
+  - cp_library/ds/heap/max_priority_queue_cls.py
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/bst/treap_monoid_cls_test.py

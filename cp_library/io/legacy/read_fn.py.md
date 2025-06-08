@@ -121,7 +121,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_fn.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_c_floyd_warshall.test.py

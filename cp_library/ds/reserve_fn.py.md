@@ -165,7 +165,7 @@ data:
   - cp_library/ds/tree/bst/bst_implicit_cls.py
   - cp_library/ds/tree/bst/bst_updates_cls.py
   - cp_library/ds/tree/bst/cartesian_tree_sized_cls.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

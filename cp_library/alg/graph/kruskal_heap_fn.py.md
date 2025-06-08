@@ -59,16 +59,10 @@ data:
     def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
-    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
-    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
-    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
-    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Collection\n\n\
-    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \ = heap[c], c\n    heap[pos] = item\nfrom typing import Collection\n\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
+    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -193,7 +187,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_heap_fn.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py

@@ -480,7 +480,7 @@ data:
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_dijkstra.test.py

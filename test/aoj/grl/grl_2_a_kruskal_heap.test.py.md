@@ -175,58 +175,52 @@ data:
     \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n# def heapsiftdown(heap: list, root: int,\
-    \ pos: int):\n#     item = heap[pos]\n#     while root < pos and item < heap[p\
-    \ := (pos-1)>>1]: heap[pos], pos = heap[p], p\n#     heap[pos] = item\n\n# def\
-    \ heapsiftup(heap: list, pos: int):\n#     n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n#     while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n#     if c == n and heap[c] < item: heap[pos],\
-    \ pos = heap[c], c\n#     heap[pos] = item\nfrom typing import Sequence\n\n\n\
-    class CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
-    \        csr.L, N = [0]*len(sizes), 0\n        for i,sz in enumerate(sizes):\n\
-    \            csr.L[i] = N; N += sz\n        csr.R, csr.A = csr.L[:], [0]*N\n\n\
-    \    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]] = x; csr.R[i] +=\
-    \ 1\n    \n    def __iter__(csr):\n        for i,l in enumerate(csr.L):\n    \
-    \        yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) -> _T:\n\
-    \        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
-    \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
-    \nclass DSU(Parsable, Collection):\n    def __init__(dsu, N):\n        dsu.N,\
-    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v, src = False):\n \
-    \       x, y = dsu.leader(u), dsu.leader(v)\n        if x == y: return (x,y) if\
-    \ src else x\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x]\
-    \ += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return (x,y) if src else\
-    \ x\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u) == dsu.leader(v)\n\
-    \n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
-    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
-    \ par[p], par[par[p]]\n        return i\n\n    def size(dsu, i) -> int:\n    \
-    \    return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
-    \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
-    \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
-    \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
-    \ csr.append(row[dsu.leader(i)], i)\n        return csr\n    \n    __iter__ =\
-    \ groups\n    \n    def __len__(dsu):\n        return dsu.cc\n    \n    def __contains__(dsu,\
-    \ uv):\n        u, v = uv\n        return dsu.same(u, v)\n    \n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
-    \            dsu = cls(N)\n            for _ in range(M):\n                u,\
-    \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
-    \        return dsu\n        return parse_fn\n\ndef kruskal(E, N):\n    heapify(E)\n\
-    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need:\n     \
-    \   edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n \
-    \           dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
-    \ 1\n    return MST\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n  \
-    \  def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n            u,v\
-    \ = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return parse\n\
-    \nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n\
-    \    @classmethod\n    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I\
-    \ := E, int):\n            E = Edge[I]\n        edge = Parser.compile(E)\n   \
-    \     def parse(ts: TokenStream):\n            return cls(edge(ts) for _ in range(M))\n\
-    \        return parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\n\
-    class EdgeSet(EdgeCollection, set[E]):\n    pass\n\n\nfrom functools import total_ordering\
-    \ \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def __lt__(self, other:\
-    \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
-    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
-    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
-    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
+    \ = heap[c], c\n    heap[pos] = item\nfrom typing import Sequence\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
+    \    def __init__(csr, sizes: list[int]):\n        csr.L, N = [0]*len(sizes),\
+    \ 0\n        for i,sz in enumerate(sizes):\n            csr.L[i] = N; N += sz\n\
+    \        csr.R, csr.A = csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n\
+    \        csr.A[csr.R[i]] = x; csr.R[i] += 1\n    \n    def __iter__(csr):\n  \
+    \      for i,l in enumerate(csr.L):\n            yield csr.A[l:csr.R[i]]\n   \
+    \ \n    def __getitem__(csr, i: int) -> _T:\n        return csr.A[i]\n    \n \
+    \   def __len__(dsu):\n        return len(dsu.L)\n\n    def range(csr, i: int)\
+    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\nclass DSU(Parsable, Collection):\n\
+    \    def __init__(dsu, N):\n        dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n\n\
+    \    def merge(dsu, u, v, src = False):\n        x, y = dsu.leader(u), dsu.leader(v)\n\
+    \        if x == y: return (x,y) if src else x\n        if dsu.par[x] > dsu.par[y]:\
+    \ x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n\
+    \        return (x,y) if src else x\n\n    def same(dsu, u: int, v: int):\n  \
+    \      return dsu.leader(u) == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n\
+    \        p = (par := dsu.par)[i]\n        while p >= 0:\n            if par[p]\
+    \ < 0: return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n    \
+    \    return i\n\n    def size(dsu, i) -> int:\n        return -dsu.par[dsu.leader(i)]\n\
+    \n    def groups(dsu) -> CSRIncremental[int]:\n        sizes, row, p = [0]*dsu.cc,\
+    \ [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n            while dsu.par[p]\
+    \ >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p], i; p += 1\n      \
+    \  csr = CSRIncremental(sizes)\n        for i in range(dsu.N): csr.append(row[dsu.leader(i)],\
+    \ i)\n        return csr\n    \n    __iter__ = groups\n    \n    def __len__(dsu):\n\
+    \        return dsu.cc\n    \n    def __contains__(dsu, uv):\n        u, v = uv\n\
+    \        return dsu.same(u, v)\n    \n    @classmethod\n    def compile(cls, N:\
+    \ int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n        \
+    \    dsu = cls(N)\n            for _ in range(M):\n                u, v = ts._line()\n\
+    \                dsu.merge(int(u)+shift, int(v)+shift)\n            return dsu\n\
+    \        return parse_fn\n\ndef kruskal(E, N):\n    heapify(E)\n    dsu = DSU(N)\n\
+    \    MST = []\n    need = N-1\n    while E and need:\n        edge = heappop(E)\n\
+    \        u,v,_ = edge\n        if not dsu.same(u,v):\n            dsu.merge(u,v)\n\
+    \            MST.append(edge)\n            need -= 1\n    return MST\n\n\n\nclass\
+    \ Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n    \
+    \    def parse(ts: TokenStream):\n            u,v = ts.line()\n            return\
+    \ cls((int(u)+I,int(v)+I))\n        return parse\n\nE = TypeVar('E', bound=Edge)\n\
+    M = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n    @classmethod\n\
+    \    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I := E, int):\n\
+    \            E = Edge[I]\n        edge = Parser.compile(E)\n        def parse(ts:\
+    \ TokenStream):\n            return cls(edge(ts) for _ in range(M))\n        return\
+    \ parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
+    \ set[E]):\n    pass\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
+    class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
+    \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
+    \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
+    \   def parse(ts: TokenStream):\n            u,v,w = ts.line()\n            return\
+    \ cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
     \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
     \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
     \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
@@ -255,7 +249,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_a_kruskal_heap.test.py

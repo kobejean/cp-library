@@ -45,7 +45,7 @@ data:
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
   - cp_library/alg/graph/mut_perm_graph_cls.py
-  timestamp: '2025-06-08 03:08:21+09:00'
+  timestamp: '2025-06-08 23:28:30+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py
