@@ -506,7 +506,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/vertex_set_path_composite.test.py
   requiredBy: []
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/vertex_set_path_composite.test.py

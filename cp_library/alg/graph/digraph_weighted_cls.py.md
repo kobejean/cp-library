@@ -604,14 +604,14 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/digraph_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_1_a_dijkstra.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_bellman_ford.test.py
   - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
 documentation_of: cp_library/alg/graph/digraph_weighted_cls.py

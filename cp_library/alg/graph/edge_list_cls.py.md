@@ -146,14 +146,14 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/edge_list_cls.py
   requiredBy:
-  - cp_library/io/read_edges_weighted_fn.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
-  timestamp: '2025-06-08 23:28:30+09:00'
+  - cp_library/io/read_edges_weighted_fn.py
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/aoj/grl/grl_2_a_kruskal_sort.test.py
+  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
 documentation_of: cp_library/alg/graph/edge_list_cls.py
 layout: document

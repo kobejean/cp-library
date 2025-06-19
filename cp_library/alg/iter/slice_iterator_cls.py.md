@@ -33,7 +33,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/slice_iterator_cls.py
   requiredBy: []
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/slice_iterator_cls.py

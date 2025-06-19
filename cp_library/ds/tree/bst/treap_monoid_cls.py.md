@@ -158,12 +158,12 @@ data:
   path: cp_library/ds/tree/bst/treap_monoid_cls.py
   requiredBy:
   - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
   - test/library-checker/data-structure/range_reverse_range_sum.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
-  - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
 documentation_of: cp_library/ds/tree/bst/treap_monoid_cls.py
 layout: document
 redirect_from:

@@ -377,15 +377,15 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/digraph_cls.py
   requiredBy:
-  - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
-  timestamp: '2025-06-08 23:28:30+09:00'
+  - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_c_scc.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
-  - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/cycle_detection.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
 documentation_of: cp_library/alg/graph/fast/digraph_cls.py
 layout: document

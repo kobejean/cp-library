@@ -158,7 +158,14 @@ data:
     \                    vis[slow] = True\n                    while F[slow] != fast:\n\
     \                        slow = F[slow]\n                        cycs.append(slow)\n\
     \                        vis[slow] = True\n                    break\n       \
-    \ return CRFList(cycs, S)\n\n"
+    \ return CRFList(cycs, S)\n\n    def mark_finite(F):\n        vis, finite = [0]*F.N,\
+    \ [1]*F.N\n        for s in range(F.N):\n            if vis[s]: continue\n   \
+    \         slow = fast = s\n            while F[fast]>=0 and (fast:=F[F[fast]])>=0\
+    \ and not vis[fast]:\n                if (slow:=F[slow]) == fast:\n          \
+    \          finite[fast] = 0; break\n            fin = finite[fast] if fast >=\
+    \ 0 else 1\n            slow = s\n            while slow >= 0 and not vis[slow]:\n\
+    \                vis[slow], finite[slow] = 1, fin\n                slow = F[slow]\n\
+    \        return finite\n\n"
   code: "from cp_library.ds.elist_fn import elist\nimport cp_library.alg.graph.__header__\n\
     \nfrom cp_library.alg.graph.func_graph_cls import FuncGraph\n\nclass PartialFuncGraph(FuncGraph):\n\
     \    def __init__(F, successors):\n        super().__init__(successors)\n    \
@@ -175,7 +182,14 @@ data:
     \                   cycs.append(slow)\n                    vis[slow] = True\n\
     \                    while F[slow] != fast:\n                        slow = F[slow]\n\
     \                        cycs.append(slow)\n                        vis[slow]\
-    \ = True\n                    break\n        return CRFList(cycs, S)\n\nfrom cp_library.alg.iter.crf_list_cls\
+    \ = True\n                    break\n        return CRFList(cycs, S)\n\n    def\
+    \ mark_finite(F):\n        vis, finite = [0]*F.N, [1]*F.N\n        for s in range(F.N):\n\
+    \            if vis[s]: continue\n            slow = fast = s\n            while\
+    \ F[fast]>=0 and (fast:=F[F[fast]])>=0 and not vis[fast]:\n                if\
+    \ (slow:=F[slow]) == fast:\n                    finite[fast] = 0; break\n    \
+    \        fin = finite[fast] if fast >= 0 else 1\n            slow = s\n      \
+    \      while slow >= 0 and not vis[slow]:\n                vis[slow], finite[slow]\
+    \ = 1, fin\n                slow = F[slow]\n        return finite\n\nfrom cp_library.alg.iter.crf_list_cls\
     \ import CRFList"
   dependsOn:
   - cp_library/ds/elist_fn.py
@@ -188,7 +202,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/partial_func_graph_cls.py
   requiredBy: []
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/partial_func_graph_cls.py

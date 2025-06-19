@@ -438,23 +438,23 @@ data:
   path: cp_library/alg/tree/fast/hld_base_cls.py
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  - cp_library/alg/tree/fast/hld_monoid_cls.py
+  - cp_library/alg/tree/fast/hld_commutative_cls.py
   - cp_library/alg/tree/fast/hld_cls.py
   - cp_library/alg/tree/fast/hld_weighted_cls.py
   - cp_library/alg/tree/fast/hld_bit_cls.py
-  - cp_library/alg/tree/fast/hld_commutative_cls.py
-  timestamp: '2025-06-08 23:28:30+09:00'
+  - cp_library/alg/tree/fast/hld_monoid_cls.py
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
-  - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
 documentation_of: cp_library/alg/tree/fast/hld_base_cls.py
 layout: document
 redirect_from:

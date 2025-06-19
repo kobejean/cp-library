@@ -1092,6 +1092,9 @@ data:
       path: cp_library/math/mod/mint_ntt_cls.py
       title: cp_library/math/mod/mint_ntt_cls.py
     - icon: ':warning:'
+      path: cp_library/math/mod/mintlist_cls.py
+      title: cp_library/math/mod/mintlist_cls.py
+    - icon: ':warning:'
       path: cp_library/math/mod/sumprod_fn.py
       title: cp_library/math/mod/sumprod_fn.py
   - name: cp_library/math/nt

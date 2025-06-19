@@ -423,7 +423,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
   requiredBy: []
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc246_e_grid_direction_graph.test.py

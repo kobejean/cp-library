@@ -321,7 +321,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
   requiredBy: []
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py

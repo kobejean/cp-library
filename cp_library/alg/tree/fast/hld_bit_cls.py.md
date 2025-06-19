@@ -499,7 +499,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/hld_bit_cls.py
   requiredBy: []
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py

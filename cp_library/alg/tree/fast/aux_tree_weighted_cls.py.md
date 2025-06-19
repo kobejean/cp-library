@@ -687,11 +687,11 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-06-08 23:28:30+09:00'
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/yukicoder/3407.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
 documentation_of: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
 layout: document
 redirect_from:

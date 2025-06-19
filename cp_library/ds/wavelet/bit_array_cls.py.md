@@ -182,50 +182,50 @@ data:
   isVerificationFile: false
   path: cp_library/ds/wavelet/bit_array_cls.py
   requiredBy:
-  - cp_library/ds/wavelet/wm_group_points_cls.py
+  - cp_library/ds/wavelet/wm_bit_cls.py
   - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
-  - cp_library/ds/wavelet/wm_monoid_points_cls.py
+  - cp_library/ds/wavelet/wm_group_cls.py
+  - cp_library/ds/wavelet/wm_weighted_compressed_cls.py
+  - cp_library/ds/wavelet/wm_compressed_cls.py
+  - cp_library/ds/wavelet/wm_static_cls.py
+  - cp_library/ds/wavelet/wm_bit_points_cls.py
+  - cp_library/ds/wavelet/wm_points_cls.py
+  - cp_library/ds/wavelet/wm_bit_compressed_cls.py
+  - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
+  - cp_library/ds/wavelet/wm_group_points_cls.py
   - cp_library/ds/wavelet/wm_monoid_cls.py
   - cp_library/ds/wavelet/wm_group_compressed_cls.py
-  - cp_library/ds/wavelet/wm_weighted_compressed_cls.py
-  - cp_library/ds/wavelet/wm_static_cls.py
-  - cp_library/ds/wavelet/wm_weighted_points_cls.py
-  - cp_library/ds/wavelet/wm_compressed_cls.py
-  - cp_library/ds/wavelet/wm_weighted_cls.py
-  - cp_library/ds/wavelet/wm_bit_compressed_cls.py
-  - cp_library/ds/wavelet/wm_points_cls.py
-  - cp_library/ds/wavelet/wm_segtree_points_cls.py
-  - cp_library/ds/wavelet/wm_bit_cls.py
-  - cp_library/ds/wavelet/wm_bit_points_cls.py
   - cp_library/ds/wavelet/wm_segtree_cls.py
-  - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
-  - cp_library/ds/wavelet/wm_group_cls.py
-  timestamp: '2025-06-08 23:28:30+09:00'
+  - cp_library/ds/wavelet/wm_weighted_cls.py
+  - cp_library/ds/wavelet/wm_weighted_points_cls.py
+  - cp_library/ds/wavelet/wm_segtree_points_cls.py
+  - cp_library/ds/wavelet/wm_monoid_points_cls.py
+  timestamp: '2025-06-20 03:24:59+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
-  - test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_weighted_points.test.py
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
-  - test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
-  - test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
+  - test/unittests/ds/wavelet/wm_static_cls_test.py
   - test/library-checker/data-structure/static_range_count_distinct_wavelet_matrix.test.py
-  - test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_weighted.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_group.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
-  - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
   - test/library-checker/data-structure/range_kth_smallest_wm_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
+  - test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
+  - test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_weighted_points.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_weighted.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
+  - test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
-  - test/unittests/ds/wavelet/wm_static_cls_test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_group.test.py
+  - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
+  - test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
 documentation_of: cp_library/ds/wavelet/bit_array_cls.py
 layout: document
 redirect_from:
