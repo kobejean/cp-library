@@ -37,4 +37,19 @@ class PartialFuncGraph(FuncGraph):
                     break
         return CRFList(cycs, S)
 
+    def mark_finite(F):
+        vis, finite = [0]*F.N, [1]*F.N
+        for s in range(F.N):
+            if vis[s]: continue
+            slow = fast = s
+            while F[fast]>=0 and (fast:=F[F[fast]])>=0 and not vis[fast]:
+                if (slow:=F[slow]) == fast:
+                    finite[fast] = 0; break
+            fin = finite[fast] if fast >= 0 else 1
+            slow = s
+            while slow >= 0 and not vis[slow]:
+                vis[slow], finite[slow] = 1, fin
+                slow = F[slow]
+        return finite
+
 from cp_library.alg.iter.crf_list_cls import CRFList
