@@ -8,6 +8,11 @@ fi
 
 CXXFLAGS="-Wl,-stack_size,0x10000000 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -ftree-vectorize -fPIC -fstack-protector-strong -O2 -pipe -fvisibility-inlines-hidden -fmessage-length=0"
 
+#   export CXX=/usr/bin/clang++
+#   export CXXFLAGS="-Wl,-stack_size,0x10000000 -std=c++17 -O2"
+#   export CPPFLAGS=""
+#   export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
 # Get the test file path from the argument
 test_file="$1"
 

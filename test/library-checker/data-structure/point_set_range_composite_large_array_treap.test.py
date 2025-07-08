@@ -2,26 +2,26 @@
 
 def main():
     mod = 998244353
-    shift, mask = 30, (1<<30)-1
+    P = Packer((1<<30)-1)
     N, Q = read()
     TreapMonoid.reserve(1+2*Q)
     
     def op(a,b):
-        ac, ad = pack_dec(a, shift, mask)
-        bc, bd = pack_dec(b, shift, mask)
-        return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)
-    T = TreapMonoid(op, 1<<shift)
+        ac, ad = P.dec(a)
+        bc, bd = P.dec(b)
+        return P.enc(ac*bc%mod, (ad*bc+bd)%mod)
+    T = TreapMonoid(op, 1<<P.s)
     D = {}
     for _ in range(Q):
         t, *q = read()
         if t == 0:
             p, c, d = q
-            # T[p] = pack_enc(c, d, shift)
-            T[p] = D[p] = pack_enc(c, d, shift)
+            # T[p] = P.enc(c, d)
+            T[p] = D[p] = P.enc(c, d)
         else:
             l, r, x = q
-            # a, b = pack_dec(T.prod(l,r), shift, mask)
-            a, b = pack_dec(T[l:r], shift, mask)
+            # a, b = P.dec(T.prod(l,r))
+            a, b = P.dec(T[l:r])
             write((a*x+b)%mod)
 
     # test if the following can be run in reasonable time
@@ -36,8 +36,7 @@ def main():
     for p in range(Q): T.insert(0, 0)
 
 from cp_library.ds.tree.bst.treap_monoid_cls import TreapMonoid
-from cp_library.bit.pack.pack_enc_fn import pack_enc
-from cp_library.bit.pack.pack_dec_fn import pack_dec
+from cp_library.bit.pack.packer_cls import Packer
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

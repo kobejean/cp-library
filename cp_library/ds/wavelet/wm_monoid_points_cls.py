@@ -1,5 +1,5 @@
 import cp_library.__header__
-from cp_library.alg.iter.cmpr.coord_compress_fn import coord_compress
+from cp_library.alg.iter.rank.rank_fn import rank
 import cp_library.ds.__header__
 import cp_library.ds.wavelet.__header__
 from cp_library.ds.wavelet.wm_monoid_compressed_cls import WMMonoidCompressed
@@ -7,7 +7,7 @@ from cp_library.ds.wavelet.wm_points_cls import WMPoints
 
 class WMMonoidPoints(WMMonoidCompressed,WMPoints):
     def __init__(wm,op,e,X:list[int],Y:list[int],W:list[int]):
-        wm.I,wm.X=coord_compress(X,distinct=True);A,wm.Y=coord_compress(Y);nA,nW=[0]*(N:=len(A)),[0]*N
+        wm.I,wm.X=rank(X,distinct=True);A,wm.Y=rank(Y);nA,nW=[0]*(N:=len(A)),[0]*N
         for i,j in enumerate(wm.I):nA[j],nW[j]=A[i],W[i]
         wm._build(op,e,nA,nW,A,W,len(wm.Y)-1)
     def prod_range(wm,l,r):return super().prod_range(wm._lidx(l),wm._lidx(r))

@@ -1,12 +1,12 @@
 import cp_library.__header__
 from cp_library.alg.divcon.bisect_left_fn import bisect_left
-from cp_library.alg.iter.cmpr.coord_compress_fn import coord_compress
+from cp_library.alg.iter.rank.rank_fn import rank
 import cp_library.ds.__header__
 import cp_library.ds.wavelet.__header__
 from cp_library.ds.wavelet.wm_static_cls import WMStatic
 
 class WMCompressed(WMStatic):
-    def __init__(wm,A):A,wm.Y=coord_compress(A);super().__init__(A,len(wm.Y)-1)
+    def __init__(wm,A):A,wm.Y=rank(A);super().__init__(A,len(wm.Y)-1)
     def _didx(wm,y:int):return bisect_left(wm.Y,y,0,len(wm.Y))
     def _yidx(wm,y:int):return i if(i:=wm._didx(y))<len(wm.Y)and wm.Y[i]==y else-1
     def __contains__(wm,y:int):return(i:=wm._didx(y))<len(wm.Y)and wm.Y[i]==y

@@ -1,13 +1,13 @@
 import cp_library.__header__
 from cp_library.alg.divcon.bisect_left_fn import bisect_left
-from cp_library.alg.iter.cmpr.coord_compress_fn import coord_compress
+from cp_library.alg.iter.rank.rank_fn import rank
 import cp_library.ds.__header__
 import cp_library.ds.wavelet.__header__
 from cp_library.ds.wavelet.wm_compressed_cls import WMCompressed
 
 class WMPoints(WMCompressed):
     def __init__(wm,X,Y):
-        wm.I,wm.X=coord_compress(X,distinct=True);A,wm.Y=coord_compress(Y);nA=[0]*len(Y)
+        wm.I,wm.X=rank(X,distinct=True);A,wm.Y=rank(Y);nA=[0]*len(Y)
         for i,j in enumerate(wm.I):nA[j]=A[i]
         wm._build(nA,A,len(wm.Y)-1)
     def _lidx(wm,x):return bisect_left(wm.X,x,0,len(wm.X))

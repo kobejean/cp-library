@@ -5,13 +5,12 @@ def main():
     T = read(TreeWeighted[N])
     diam, s, g = T.diameter(True)
     assert diam == T.distance(s, g)
-    ans = sum(2*w for _, _, w in T.E) - diam
+    ans = 2*sum(T.W) - diam
     write(ans)
-    
 
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
-from cp_library.alg.tree.tree_weighted_cls import TreeWeighted
+from cp_library.alg.tree.fast.tree_weighted_cls import TreeWeighted
 
 if __name__ == '__main__':
     main()

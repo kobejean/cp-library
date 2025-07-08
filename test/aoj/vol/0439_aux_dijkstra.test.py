@@ -12,9 +12,9 @@ def main():
     D = [inf]*N
 
     def dist(s, c):
-        que.push(s, 0); clean.append(s); D[s] = 0
+        que.push(0, s); clean.append(s); D[s] = 0
         while que:
-            u, d = que.pop()
+            d, u = que.pop()
             if d > D[u]: continue
             if u != s and C[u] == c:
                 while clean: D[clean.pop()] = inf
@@ -23,7 +23,7 @@ def main():
             for i in T.range(u):
                 v, nd = T.Va[i], T.Wa[i]+d
                 if chmin(D, v, nd):
-                    que.push(v, nd); clean.append(v)
+                    que.push(nd, v); clean.append(v)
 
 
     for c, V, post in T.trees(C):

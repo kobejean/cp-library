@@ -84,10 +84,7 @@ class GraphProtocol(list, Parsable):
             current = par[current]
             
         return (path[::-1], D) if distances else path[::-1]
-            
-     
-            
-        
+
     def floyd_warshall(G) -> list[list[int]]:
         D = [[inf]*G.N for _ in range(G.N)]
 

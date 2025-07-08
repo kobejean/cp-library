@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/aplusb
 
-from cp_library.bit.pack_sm_fn import pack_dec, pack_enc
+from cp_library.bit.pack.packer_cls import Packer
 import pytest
 import random
 
@@ -272,44 +272,32 @@ class TestTreapMonoid:
         assert T.prod(-10, 0) == 10 + (-30)  # Sum of values at keys -7 and -5
         assert T.prod(-10, 10) == 10 + (-30) + (-20)  # Sum of all values
 
-    def test_pack_enc_dec(self):
-        # Test the pack_enc and pack_dec utility functions used in the original code
-        shift, mask = 30, (1<<30)-1
-        
-        a, b = 123, 456
-        packed = pack_enc(a, b, shift)
-        
-        # Verify pack_dec correctly extracts values
-        a_dec, b_dec = pack_dec(packed, shift, mask)
-        assert a_dec == a
-        assert b_dec == b
-
     def test_large_composite_operation(self):
         mod = 998244353
-        shift, mask = 30, (1<<30)-1
+        P = Packer((1<<30)-1)
         
         # Define the composite operation from the main function
         def op(a, b):
-            ac, ad = pack_dec(a, shift, mask)
-            bc, bd = pack_dec(b, shift, mask)
-            return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)
+            ac, ad = P.dec(a)
+            bc, bd = P.dec(b)
+            return P.enc(ac*bc%mod, (ad*bc+bd)%mod)
         
-        T = TreapMonoid(op, e=1 << shift)
+        T = TreapMonoid(op, e=1 << P.s)
         
         # Insert some values similar to those in the main function
         for i in range(10):
             c, d = random.randint(1, 100), random.randint(1, 100)
-            T[i] = pack_enc(c, d, shift)
+            T[i] = P.enc(c, d)
         
         # Test range query and composite operation
         l, r = 0, 5
         result = T.prod(l, r)
-        a_res, b_res = pack_dec(result, shift, mask)
+        a_res, b_res = P.dec(result)
         
         # Manually compute the expected result
         a_exp, b_exp = 1, 0  # Identity element for this operation
         for i in range(l, r):
-            c, d = pack_dec(T[i], shift, mask)
+            c, d = P.dec(T[i])
             a_exp = (a_exp * c) % mod
             b_exp = (b_exp * c + d) % mod
         
@@ -543,20 +531,19 @@ class TestTreapMonoid:
 
     def test_custom_pack_format_with_split(self):
         mod = 998244353
-        shift, mask = 30, (1<<30)-1
+        P = Packer((1<<30)-1)
         
         # Define composite operation from the main function
         def op(a, b):
-            ac, ad = pack_dec(a, shift, mask)
-            bc, bd = pack_dec(b, shift, mask)
-            return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)
-        
-        T = TreapMonoid(op, e=1 << shift)
+            ac, ad = P.dec(a)
+            bc, bd = P.dec(b)
+            return P.enc(ac*bc%mod, (ad*bc+bd)%mod)
+        T = TreapMonoid(op, e=1 << P.s)
         
         # Insert values with packed format
         for i in range(10):
             c, d = i+1, i*10
-            T[i] = pack_enc(c, d, shift)
+            T[i] = P.enc(c, d)
         
         # Perform split
         S, T = T.split(5)
@@ -564,13 +551,13 @@ class TestTreapMonoid:
         # Verify each part
         for i in range(5):
             assert i in S
-            c, d = pack_dec(S[i], shift, mask)
+            c, d = P.dec(S[i])
             assert c == i+1
             assert d == i*10
             
         for i in range(5, 10):
             assert i in T
-            c, d = pack_dec(T[i], shift, mask)
+            c, d = P.dec(T[i])
             assert c == i+1
             assert d == i*10
 

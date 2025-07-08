@@ -12,4 +12,4 @@ class WMGroup(WMMonoid):
     def _build(wm,op,e,diff,A,W,nA,nW,Amax):wm.diff=diff;super()._build(op, e, A, W, nA, nW, Amax)
     def _build_base(wm,W):wm.W=Presum(W,wm.op,wm.e,wm.diff)
     def _build_level(wm,L,W):L.build(wm.op,wm.e,wm.diff,W)
-    def _prod_range(wm,l:int,r:int):return wm.W.prod(l,r)
+    def _prod_range(wm,l,r):return wm.W.range_sum(l,r)

@@ -3,9 +3,30 @@ import cp_library.ds.__header__
 import cp_library.ds.__header__
 
 class BitArray:
-    def __init__(B, N: int):
-        B.N, B.Z = N, (N+31)>>5
-        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)
+    def __init__(B, N):
+        if isinstance(N, list):
+            # If N is a list, assume it's a list of 1s and 0s
+            B.N = len(N)
+            B.Z = (B.N+31)>>5
+            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)
+            # Set bits based on list values
+            for i, bit in enumerate(N):
+                if bit: B.set1(i)
+        elif isinstance(N, (bytes, bytearray)):
+            # If N is bytes, convert each byte to 8 bits
+            B.N = len(N) * 8
+            B.Z = (B.N+31)>>5
+            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)
+            # Set bits based on byte values (MSB first for each byte)
+            for byte_idx, byte_val in enumerate(N):
+                for bit_idx in range(8):
+                    if byte_val & (1 << (7 - bit_idx)):  # MSB first
+                        B.set1(byte_idx * 8 + bit_idx)
+        else:
+            # Original behavior: N is an integer
+            B.N = N
+            B.Z = (N+31)>>5
+            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)
     def build(B):
         B.bits.pop()
         for i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)

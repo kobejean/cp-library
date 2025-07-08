@@ -36,13 +36,13 @@ class GraphWeightedBase(GraphBase):
         for s in S: G.D[s] = 0
         que = PriorityQueue(G.N, S)
         while que:
-            u, d = que.pop()
+            d, u = que.pop()
             if d > G.D[u]: continue
             if u == t: return d
             i, r = G.La[u]-1, G.Ra[u]
             while (i:=i+1)<r: 
                 if chmin(G.D, v := G.Va[i], nd := d + G.Wa[i]):
-                    G.back[v] = i; que.push(v, nd)
+                    G.back[v] = i; que.push(nd, v)
         return G.D if t is None else inf 
 
     def kruskal(G):
@@ -58,7 +58,7 @@ class GraphWeightedBase(GraphBase):
         N, M, U, V, W = G.N, G.M, G.U, G.V, G.W 
         que, dsu, MST = PriorityQueue(M, list(range(M)), W), DSU(N), [0]*(need := N-1)
         while que and need:
-            e, _ = que.pop()
+            _, e = que.pop()
             u, v = dsu.merge(U[e],V[e])
             if u != v:
                 MST[need := need-1] = e

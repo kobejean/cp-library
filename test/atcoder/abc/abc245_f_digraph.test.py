@@ -28,7 +28,7 @@ def label_cycles(G):
     return cyc
 
 
-from cp_library.alg.graph.digraph_cls import DiGraph
+from cp_library.alg.graph.fast.digraph_cls import DiGraph
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
