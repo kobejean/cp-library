@@ -30,7 +30,7 @@ def edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:
     def contract(cyc):
         kickout = [-1]*len(E)
         active.difference_update(cyc)
-        nv = reduce(groups.merge, cyc)
+        nv = reduce(groups.merge_dest, cyc)
         active.add(nv)
         new_edges = []
         

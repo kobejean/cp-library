@@ -2,8 +2,8 @@
 def main():
     N, K = read()
     mint.set_mod(998244353)
-    modcomb.precomp(N)
-    multinom = modcomb.multinom
+    mcomb.precomp(N)
+    multinom = mcomb.multinom
     S = input()
     A, B, C = S.count('A'), S.count('B'), S.count('C')
 
@@ -25,7 +25,7 @@ def main():
     write(ans)
 
 from cp_library.math.mod.mint_cls import mint
-from cp_library.math.table.modcomb_cls import modcomb
+from cp_library.math.table.mcomb_cls import mcomb
 from cp_library.io.read_int_fn import read
 from cp_library.io.write_fn import write
 

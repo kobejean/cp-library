@@ -8,12 +8,14 @@ class DSU(Parsable, Collection):
     def __init__(dsu, N):
         dsu.N, dsu.cc, dsu.par = N, N, [-1]*N
 
-    def merge(dsu, u, v, src = False):
+    def merge(dsu, u, v):
         x, y = dsu.leader(u), dsu.leader(v)
-        if x == y: return (x,y) if src else x
+        if x == y: return x,y
         if dsu.par[x] > dsu.par[y]: x, y = y, x
         dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1
-        return (x,y) if src else x
+        return x,y
+    
+    def merge_dest(dsu, u, v): return dsu.merge(u, v)[0]
 
     def same(dsu, u: int, v: int):
         return dsu.leader(u) == dsu.leader(v)

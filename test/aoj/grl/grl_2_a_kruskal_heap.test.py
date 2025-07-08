@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A
 
 def main():
-    N, M = read([int])
+    N, M = read(list[int])
     E = read(EdgeListWeighted[M,0])
     MST = kruskal(E, N)
     ans = sum(w for *_,w in MST)

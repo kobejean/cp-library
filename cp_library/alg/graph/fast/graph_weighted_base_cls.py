@@ -48,7 +48,7 @@ class GraphWeightedBase(GraphBase):
     def kruskal(G):
         U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1
         for e in argsort(W):
-            u, v = dsu.merge(U[e],V[e],True)
+            u, v = dsu.merge(U[e],V[e])
             if u != v:
                 MST[need := need-1] = e
                 if not need: break
@@ -59,7 +59,7 @@ class GraphWeightedBase(GraphBase):
         que, dsu, MST = PriorityQueue(M, list(range(M)), W), DSU(N), [0]*(need := N-1)
         while que and need:
             e, _ = que.pop()
-            u, v = dsu.merge(U[e],V[e],True)
+            u, v = dsu.merge(U[e],V[e])
             if u != v:
                 MST[need := need-1] = e
         return None if need else MST

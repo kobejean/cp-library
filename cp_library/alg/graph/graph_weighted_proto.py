@@ -88,7 +88,7 @@ class GraphWeightedProtocol(GraphProtocol):
         while E and need:
             edge = heappop(E)
             u,v,*_ = edge
-            u,v = dsu.merge(u,v,True)
+            u,v = dsu.merge(u,v)
             if u != v:
                 MST.append(edge)
                 need -= 1

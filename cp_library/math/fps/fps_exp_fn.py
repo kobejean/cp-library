@@ -3,8 +3,8 @@ from cp_library.math.fps.fps_deriv_fn import fps_deriv
 
 def fps_exp(P: list) -> list:
     max_sz = 1 << ((deg := len(P))-1).bit_length()
-    modcomb.extend_inv(max_sz)
-    inv, mod, ntt = modcomb.inv, mint.mod, mint.ntt
+    mcomb.extend_inv(max_sz)
+    inv, mod, ntt = mcomb.inv, mint.mod, mint.ntt
     fntt, ifntt, conv_half = ntt.fntt, ntt.ifntt, ntt.conv_half
     dP = fps_deriv(P) + [0]*(max_sz-deg+1)
     R, E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]
@@ -28,5 +28,5 @@ def fps_exp(P: list) -> list:
     return R[:deg]
 
 from cp_library.ds.reserve_fn import reserve
-from cp_library.math.table.modcomb_cls import modcomb
+from cp_library.math.table.mcomb_cls import mcomb
 from cp_library.math.mod.mint_ntt_cls import mint

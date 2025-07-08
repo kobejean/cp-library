@@ -3,10 +3,10 @@
 def main():
     mint.set_mod(998244353)
     N, K = read()
-    modcomb.precomp(N)
+    mcomb.precomp(N)
     write(*stirling1_k(N, K))
 
-from cp_library.math.table.modcomb_cls import modcomb
+from cp_library.math.table.mcomb_cls import mcomb
 from cp_library.math.table.stirling1_k_fn import stirling1_k
 from cp_library.math.mod.mint_ntt_cls import mint
 from cp_library.io.read_fn import read

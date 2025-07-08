@@ -37,7 +37,6 @@ class CharStream(TokenStream):
         return TokenStream.stream.readline().rstrip()
 CharStream.default = CharStream()
 
-
 ParseFn = Callable[[TokenStream],_T]
 class Parser:
     def __init__(self, spec: Union[type[_T],_T]):
