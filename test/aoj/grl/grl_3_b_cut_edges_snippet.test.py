@@ -16,8 +16,8 @@ def main():
     for u, v in E:
         write(u, v)
 
-from cp_library.alg.graph.fast.graph_cls import Graph
-from cp_library.alg.graph.fast.snippets.cut_edges_fn import cut_edges
+from cp_library.alg.graph.csr.graph_cls import Graph
+from cp_library.alg.graph.csr.snippets.cut_edges_fn import cut_edges
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

@@ -14,8 +14,8 @@ def main():
         else:
             write(hld.path_query(u, v))
 
-from cp_library.alg.tree.fast.hld_commutative_cls import HLDCommutative
-from cp_library.alg.tree.fast.tree_cls import Tree
+from cp_library.alg.tree.csr.hld_commutative_cls import HLDCommutative
+from cp_library.alg.tree.csr.tree_cls import Tree
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

@@ -13,8 +13,8 @@ def main():
             case 2, u, v:
                 write(hld.path_query(u-1, v-1))
 
-from cp_library.alg.tree.fast.tree_weighted_cls import TreeWeighted
-from cp_library.alg.tree.fast.hld_bit_cls import HLDBIT
+from cp_library.alg.tree.csr.tree_weighted_cls import TreeWeighted
+from cp_library.alg.tree.csr.hld_bit_cls import HLDBIT
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

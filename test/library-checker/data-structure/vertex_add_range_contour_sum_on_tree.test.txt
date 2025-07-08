@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/vertex_add_range_contour_sum_on_tree
 
 from cp_library.alg.dp.chmin_fn import chmin
-from cp_library.alg.tree.fast.tree_cls import Tree
+from cp_library.alg.tree.csr.tree_cls import Tree
 
 
 def main():

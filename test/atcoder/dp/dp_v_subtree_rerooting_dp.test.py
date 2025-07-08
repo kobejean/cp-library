@@ -8,7 +8,7 @@ def main():
     ans = T.rerooting_dp(1, merge, add_node)
     write(*ans, sep='\n')
 
-from cp_library.alg.tree.fast.tree_cls import Tree
+from cp_library.alg.tree.csr.tree_cls import Tree
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

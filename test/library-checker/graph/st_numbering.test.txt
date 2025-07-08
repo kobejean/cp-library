@@ -18,8 +18,8 @@ def main():
             write(*ans)
 
 from cp_library.alg.dp.max2_fn import max2
-from cp_library.alg.graph.fast.graph_cls import Graph
-from cp_library.alg.graph.fast.snippets.block_cut_tree_fn import block_cut_tree
+from cp_library.alg.graph.csr.graph_cls import Graph
+from cp_library.alg.graph.csr.snippets.block_cut_tree_fn import block_cut_tree
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

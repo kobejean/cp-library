@@ -15,7 +15,7 @@ def main():
     while t < M: ans[t] = cur; t += 1
     wtnl(ans)
 
-from cp_library.alg.graph.fast.snippets.scc_incremental_fn import scc_incremental
+from cp_library.alg.graph.csr.snippets.scc_incremental_fn import scc_incremental
 from cp_library.alg.iter.sort.isort_parallel_fn import isort_parallel
 from cp_library.io.fast.fast_io_fn import rd, rdl, wtnl
 

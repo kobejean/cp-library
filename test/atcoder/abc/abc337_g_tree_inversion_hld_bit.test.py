@@ -23,8 +23,8 @@ def main():
     ans = [ans[i] for i in hld.tin]
     write(*ans)
 
-from cp_library.alg.tree.fast.hld_bit_cls import HLDBIT
-from cp_library.alg.tree.fast.tree_cls import Tree
+from cp_library.alg.tree.csr.hld_bit_cls import HLDBIT
+from cp_library.alg.tree.csr.tree_cls import Tree
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.alg.iter.presum_fn import presum

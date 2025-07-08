@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0439
 from cp_library.ds.parallel_cls import Parallel
 from cp_library.alg.dp.min2_fn import min2
-from cp_library.alg.tree.fast.aux_tree_weighted_cls import AuxTreeWeighted
+from cp_library.alg.tree.csr.aux_tree_weighted_cls import AuxTreeWeighted
 
 def main():
     N = read(int)

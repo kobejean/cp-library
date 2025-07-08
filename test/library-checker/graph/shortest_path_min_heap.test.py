@@ -49,7 +49,7 @@ def shortest_path(G, s: int, g: int) -> list[int]:
         
     return path[::-1], D
 
-from cp_library.alg.graph.fast.digraph_weighted_cls import DiGraphWeighted
+from cp_library.alg.graph.csr.digraph_weighted_cls import DiGraphWeighted
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.ds.heap.min_heap_cls import MinHeap

@@ -25,8 +25,8 @@ def main():
             write(ans)
             ans = 0
 
-from cp_library.alg.tree.fast.hld_cls import HLD
-from cp_library.alg.tree.fast.tree_cls import Tree
+from cp_library.alg.tree.csr.hld_cls import HLD
+from cp_library.alg.tree.csr.tree_cls import Tree
 from cp_library.ds.tree.bit.bit_cls import BIT
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write

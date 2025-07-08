@@ -8,8 +8,8 @@ def main():
     for e2cc in e2ccs:
         write(len(e2cc), *e2cc)
     
-from cp_library.alg.graph.fast.graph_cls import Graph
-from cp_library.alg.graph.fast.snippets.two_edge_connected_components_fn import two_edge_connected_components
+from cp_library.alg.graph.csr.graph_cls import Graph
+from cp_library.alg.graph.csr.snippets.two_edge_connected_components_fn import two_edge_connected_components
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

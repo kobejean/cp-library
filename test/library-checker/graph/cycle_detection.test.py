@@ -10,7 +10,7 @@ def main():
         write(len(cyc))
         write(*cyc, sep='\n')
     
-from cp_library.alg.graph.fast.digraph_cls import DiGraph
+from cp_library.alg.graph.csr.digraph_cls import DiGraph
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

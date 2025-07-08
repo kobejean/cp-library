@@ -12,7 +12,7 @@ def main():
         for i in range(Y):
             write(path[i],path[i+1])
     
-from cp_library.alg.graph.fast.digraph_weighted_cls import DiGraphWeighted
+from cp_library.alg.graph.csr.digraph_weighted_cls import DiGraphWeighted
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

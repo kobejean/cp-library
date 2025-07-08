@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/problems/0439
 
 from cp_library.alg.dp.min2_fn import min2
-from cp_library.alg.tree.fast.aux_tree_cls import AuxTree
+from cp_library.alg.tree.csr.aux_tree_cls import AuxTree
 
 def main():
     N = read(int)

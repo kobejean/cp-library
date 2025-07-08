@@ -7,8 +7,8 @@ def main():
         if is_ap:
             write(i)
 
-from cp_library.alg.graph.fast.snippets.cut_vertices_fn import cut_vertices
-from cp_library.alg.graph.fast.graph_cls import Graph
+from cp_library.alg.graph.csr.snippets.cut_vertices_fn import cut_vertices
+from cp_library.alg.graph.csr.graph_cls import Graph
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

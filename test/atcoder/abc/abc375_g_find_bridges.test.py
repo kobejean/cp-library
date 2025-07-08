@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/abc375/tasks/abc375_g
 
 from cp_library.alg.dp.min2_fn import min2
-from cp_library.alg.graph.fast.snippets.cut_edges_fn import cut_edges
+from cp_library.alg.graph.csr.snippets.cut_edges_fn import cut_edges
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
 
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
-from cp_library.alg.graph.fast.graph_weighted_cls import GraphWeighted
+from cp_library.alg.graph.csr.graph_weighted_cls import GraphWeighted
 
 if __name__ == "__main__":
     main()

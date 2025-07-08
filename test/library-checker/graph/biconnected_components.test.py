@@ -7,8 +7,8 @@ def main():
     for bcc in bccs:
         write(len(bcc), *bcc)
     
-from cp_library.alg.graph.fast.graph_cls import Graph
-from cp_library.alg.graph.fast.snippets.biconnected_components_vertices_fn import biconnected_components
+from cp_library.alg.graph.csr.graph_cls import Graph
+from cp_library.alg.graph.csr.snippets.biconnected_components_vertices_fn import biconnected_components
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

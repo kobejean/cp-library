@@ -6,9 +6,9 @@ def main():
     E = [sort2(G.Ua[i], G.Va[i]) for i in cut_edges(G)]; E.sort()
     for s, t in E: write(s, t)
 
-from cp_library.alg.graph.fast.graph_cls import Graph
+from cp_library.alg.graph.csr.graph_cls import Graph
 from cp_library.alg.dp.sort2_fn import sort2
-from cp_library.alg.graph.fast.snippets.cut_edges_fn import cut_edges
+from cp_library.alg.graph.csr.snippets.cut_edges_fn import cut_edges
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

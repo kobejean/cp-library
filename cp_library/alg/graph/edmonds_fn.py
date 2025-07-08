@@ -3,7 +3,7 @@ from functools import reduce
 from cp_library.ds.heap.fast_heapq  import heapify
 import cp_library.misc.setrecursionlimit
 from cp_library.ds.dsu_cls import DSU
-from cp_library.alg.graph.floyds_cycle_fn import floyds_cycle
+from cp_library.alg.graph.partial_func_graph_cls import PartialFuncGraph
 
 def edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:
     # obtain incoming edges
@@ -23,7 +23,7 @@ def edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:
 
     def find_cycle(min_in):
         for v in active:
-            cyc = floyds_cycle(min_in, v)
+            cyc = min_in.find_cycle(v)
             if cyc: return cyc
         return None
     
@@ -51,7 +51,7 @@ def edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:
 
 
     def rec(Gin):
-        min_in = [groups.leader(Gin[v][0][1]) if Gin[v] else -1 for v in range(N)]
+        min_in = PartialFuncGraph([groups.leader(Gin[v][0][1]) if Gin[v] else -1 for v in range(N)])
         cyc = find_cycle(min_in)
         if cyc:
             C = { Gin[v][0][2] for v in cyc }

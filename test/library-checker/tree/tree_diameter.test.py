@@ -9,7 +9,7 @@ def main():
     write(X, Y)
     write(*U)
 
-from cp_library.alg.tree.fast.tree_weighted_cls import TreeWeighted
+from cp_library.alg.tree.csr.tree_weighted_cls import TreeWeighted
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

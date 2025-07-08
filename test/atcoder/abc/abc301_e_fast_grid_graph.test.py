@@ -35,7 +35,7 @@ def solve():
             chmax(ans, 0, mask.bit_count()-2)
     return ans[0]
 
-from cp_library.alg.graph.fast.grid_graph_cls import GridGraph
+from cp_library.alg.graph.csr.grid_graph_cls import GridGraph
 from cp_library.alg.dp.chmin_fn import chmin
 from cp_library.alg.dp.chmax_fn import chmax
 from cp_library.io.read_fn import read

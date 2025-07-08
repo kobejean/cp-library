@@ -10,8 +10,8 @@ def main():
         u, v = read()
         write(int(sccs[u]==sccs[v]))
 
-from cp_library.alg.graph.fast.digraph_cls import DiGraph
-from cp_library.alg.graph.fast.snippets.scc_labels_fn import scc_labels
+from cp_library.alg.graph.csr.digraph_cls import DiGraph
+from cp_library.alg.graph.csr.snippets.scc_labels_fn import scc_labels
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
