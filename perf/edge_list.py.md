@@ -57,10 +57,11 @@ data:
     class BenchmarkConfig:\n    \"\"\"Configuration for benchmark runs\"\"\"\n   \
     \ name: str\n    sizes: List[int] = None\n    operations: List[str] = None\n \
     \   iterations: int = 10\n    warmup: int = 2\n    output_dir: str = \"./output/benchmark_results\"\
-    \n    save_results: bool = True\n    plot_results: bool = True\n    \n    def\
-    \ __post_init__(self):\n        if self.sizes is None:\n            self.sizes\
-    \ = [100, 1000, 10000, 100000]\n        if self.operations is None:\n        \
-    \    self.operations = ['default']\n\nclass Benchmark:\n    \"\"\"Declarative\
+    \n    save_results: bool = True\n    plot_results: bool = True\n    plot_scale:\
+    \ str = \"loglog\"  # Options: \"loglog\", \"linear\", \"semilogx\", \"semilogy\"\
+    \n    \n    def __post_init__(self):\n        if self.sizes is None:\n       \
+    \     self.sizes = [100, 1000, 10000, 100000]\n        if self.operations is None:\n\
+    \            self.operations = ['default']\n\nclass Benchmark:\n    \"\"\"Declarative\
     \ benchmark framework using decorators\"\"\"\n    \n    def __init__(self, config:\
     \ BenchmarkConfig):\n        self.config = config\n        self.data_generators\
     \ = {}\n        self.implementations = {}\n        self.validators = {}\n    \
@@ -166,8 +167,14 @@ data:
     \ impl_times, 'o-', label=impl)\n        \n        plt.xlabel('Input Size')\n\
     \        plt.ylabel('Time (ms)')\n        plt.title(f'{self.config.name} - {operation}\
     \ Operation')\n        plt.legend()\n        plt.grid(True, alpha=0.3)\n     \
-    \   plt.loglog()\n        \n        plot_file = output_dir / f\"{self.config.name}_{operation}_performance.png\"\
-    \n        plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
+    \   \n        # Apply the configured scaling\n        if self.config.plot_scale\
+    \ == \"loglog\":\n            plt.loglog()\n        elif self.config.plot_scale\
+    \ == \"linear\":\n            pass  # Default linear scale\n        elif self.config.plot_scale\
+    \ == \"semilogx\":\n            plt.semilogx()\n        elif self.config.plot_scale\
+    \ == \"semilogy\":\n            plt.semilogy()\n        else:\n            # Default\
+    \ to loglog if invalid option\n            plt.loglog()\n        \n        plot_file\
+    \ = output_dir / f\"{self.config.name}_{operation}_performance.png\"\n       \
+    \ plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
     \        print(f\"Plot saved: {plot_file}\")\n    \n    def _print_summary(self):\n\
     \        \"\"\"Print performance summary\"\"\"\n        print(\"\\n\" + \"=\"\
     *80)\n        print(\"PERFORMANCE SUMMARY\")\n        print(\"=\"*80)\n      \
@@ -368,86 +375,87 @@ data:
     \        return val\n    \n    def add(shf, i: int, val: _T): shf.A[shf.roots[i]]\
     \ = shf.op(shf.A[shf.roots[i]], val)\n    def empty(shf, i: int): return shf.roots[i]\
     \ == -1\n    \n\n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"\
-    edge_list\",\n    sizes=[100, 1000, 10000, 100000],\n    operations=['sum_weights',\
-    \ 'filter', 'degree_count', 'transform', 'sort', 'construction'],\n    iterations=10,\n\
-    \    warmup=2,\n    output_dir=\"./output/benchmark_results/edge_list\"\n)\n\n\
-    # Create benchmark instance\nbenchmark = Benchmark(config)\n\n# Data generators\n\
-    @benchmark.data_generator(\"default\")\ndef generate_edge_data(size: int, operation:\
-    \ str):\n    \"\"\"Generate edge list data in all formats\"\"\"\n    max_node\
-    \ = max(1, int(size ** 0.5) * 2)\n    \n    # Generate raw edge data\n    U =\
-    \ [random.randint(0, max_node) for _ in range(size)]\n    V = [random.randint(0,\
-    \ max_node) for _ in range(size)]\n    W = [random.randint(1, 1000) for _ in range(size)]\n\
-    \    \n    # Create different representations\n    edges_tuple = [(U[i], V[i],\
-    \ W[i]) for i in range(size)]\n    edge_list = EdgeListWeighted(max_node + 1,\
-    \ U, V, W)\n    \n    # Pre-initialize data for fair timing (exclude initialization)\n\
-    \    preinitialized = {\n        'edges_tuple': list(edges_tuple),\n        'edge_list':\
-    \ EdgeListWeighted(max_node + 1, list(U), list(V), list(W)),\n        'U': list(U),\
-    \ 'V': list(V), 'W': list(W),\n        'threshold': 500,\n        'max_node':\
-    \ max_node,\n        'degree_array': [0] * (max_node + 1)\n    }\n    \n    return\
-    \ {\n        'edges_tuple': edges_tuple,\n        'edge_list': edge_list,\n  \
-    \      'U': U, 'V': V, 'W': W,\n        'size': size,\n        'operation': operation,\n\
-    \        'threshold': 500,\n        'max_node': max_node,\n        'preinitialized':\
-    \ preinitialized\n    }\n\n# Construction benchmarks - all should do equivalent\
-    \ work\n@benchmark.implementation(\"construct_tuple\", \"construction\")\ndef\
-    \ construct_tuple_list(data):\n    \"\"\"Construct list of tuples from raw data\"\
-    \"\"\n    U, V, W = data['U'], data['V'], data['W']\n    return [(U[i], V[i],\
-    \ W[i]) for i in range(len(U))]\n\n@benchmark.implementation(\"construct_edge_list_ref\"\
-    , \"construction\")\ndef construct_edge_list_ref(data):\n    \"\"\"Construct EdgeListWeighted\
-    \ from raw data (reference assignment)\"\"\"\n    U, V, W = data['U'], data['V'],\
-    \ data['W']\n    return EdgeListWeighted(data['max_node'] + 1, U, V, W)\n\n@benchmark.implementation(\"\
-    construct_edge_list_copy\", \"construction\")\ndef construct_edge_list_copy(data):\n\
-    \    \"\"\"Construct EdgeListWeighted from copied data (fair comparison)\"\"\"\
-    \n    U, V, W = data['U'], data['V'], data['W']\n    return EdgeListWeighted(data['max_node']\
-    \ + 1, list(U), list(V), list(W))\n\n@benchmark.implementation(\"construct_separated\"\
-    , \"construction\")\ndef construct_separated_lists(data):\n    \"\"\"Create separated\
-    \ lists (copy data)\"\"\"\n    U, V, W = data['U'], data['V'], data['W']\n   \
-    \ return (list(U), list(V), list(W))\n\n# Sum weights operation\n@benchmark.implementation(\"\
-    tuple_direct\", \"sum_weights\")\ndef sum_weights_tuple_direct(data):\n    \"\"\
-    \"Sum weights using direct tuple iteration\"\"\"\n    return sum(w for u, v, w\
-    \ in data['edges_tuple'])\n\n@benchmark.implementation(\"edge_list_iter\", \"\
-    sum_weights\")\ndef sum_weights_edge_list_iter(data):\n    \"\"\"Sum weights using\
-    \ EdgeListWeighted iteration\"\"\"\n    return sum(w for u, v, w in data['edge_list'])\n\
-    \n@benchmark.implementation(\"edge_list_direct\", \"sum_weights\")\ndef sum_weights_edge_list_direct(data):\n\
-    \    \"\"\"Sum weights using EdgeListWeighted direct access\"\"\"\n    return\
-    \ sum(data['edge_list'].W)\n\n@benchmark.implementation(\"separated_lists\", \"\
-    sum_weights\")\ndef sum_weights_separated(data):\n    \"\"\"Sum weights using\
-    \ separated lists\"\"\"\n    return sum(data['W'])\n\n# Filter operation\n@benchmark.implementation(\"\
-    tuple_direct\", \"filter\")\ndef filter_tuple_direct(data):\n    \"\"\"Filter\
-    \ edges using tuple iteration\"\"\"\n    threshold = data['threshold']\n    return\
-    \ [(u, v, w) for u, v, w in data['edges_tuple'] if w > threshold]\n\n@benchmark.implementation(\"\
-    edge_list_iter\", \"filter\")\ndef filter_edge_list_iter(data):\n    \"\"\"Filter\
-    \ edges using EdgeListWeighted iteration\"\"\"\n    threshold = data['threshold']\n\
-    \    return [(u, v, w) for u, v, w in data['edge_list'] if w > threshold]\n\n\
-    @benchmark.implementation(\"edge_list_direct\", \"filter\")\ndef filter_edge_list_direct(data):\n\
-    \    \"\"\"Filter edges using EdgeListWeighted direct access\"\"\"\n    threshold\
-    \ = data['threshold']\n    edge_list = data['edge_list']\n    result = []\n  \
-    \  for i in range(len(edge_list)):\n        if edge_list.W[i] > threshold:\n \
-    \           result.append((edge_list.U[i], edge_list.V[i], edge_list.W[i]))\n\
-    \    return result\n\n@benchmark.implementation(\"separated_lists\", \"filter\"\
-    )\ndef filter_separated(data):\n    \"\"\"Filter edges using separated lists\"\
-    \"\"\n    threshold = data['threshold']\n    U, V, W = data['U'], data['V'], data['W']\n\
-    \    return [(U[i], V[i], W[i]) for i in range(len(W)) if W[i] > threshold]\n\n\
-    # Degree count operation\n@benchmark.implementation(\"tuple_direct\", \"degree_count\"\
-    )\ndef degree_count_tuple_direct(data):\n    \"\"\"Count degrees using tuple iteration\"\
-    \"\"\n    degree = [0] * (data['max_node'] + 1)\n    for u, v, w in data['edges_tuple']:\n\
-    \        degree[u] += 1\n    return degree\n\n@benchmark.implementation(\"edge_list_iter\"\
-    , \"degree_count\")\ndef degree_count_edge_list_iter(data):\n    \"\"\"Count degrees\
-    \ using EdgeListWeighted iteration\"\"\"\n    degree = [0] * (data['max_node']\
-    \ + 1)\n    for u, v, w in data['edge_list']:\n        degree[u] += 1\n    return\
-    \ degree\n\n@benchmark.implementation(\"edge_list_direct\", \"degree_count\")\n\
-    def degree_count_edge_list_direct(data):\n    \"\"\"Count degrees using EdgeListWeighted\
-    \ direct access\"\"\"\n    degree = [0] * (data['max_node'] + 1)\n    for u in\
-    \ data['edge_list'].U:\n        degree[u] += 1\n    return degree\n\n@benchmark.implementation(\"\
-    separated_lists\", \"degree_count\")\ndef degree_count_separated(data):\n    \"\
-    \"\"Count degrees using separated lists\"\"\"\n    degree = [0] * (data['max_node']\
-    \ + 1)\n    for u in data['U']:\n        degree[u] += 1\n    return degree\n\n\
-    # Transform operation\n@benchmark.implementation(\"tuple_direct\", \"transform\"\
-    )\ndef transform_tuple_direct(data):\n    \"\"\"Transform edges using tuple iteration\"\
-    \"\"\n    return [(u, v, w * 2) for u, v, w in data['edges_tuple']]\n\n@benchmark.implementation(\"\
-    edge_list_iter\", \"transform\")\ndef transform_edge_list_iter(data):\n    \"\"\
-    \"Transform edges using EdgeListWeighted iteration\"\"\"\n    return [(u, v, w\
-    \ * 2) for u, v, w in data['edge_list']]\n\n@benchmark.implementation(\"edge_list_direct\"\
-    , \"transform\")\ndef transform_edge_list_direct(data):\n    \"\"\"Transform edges\
+    edge_list\",\n    sizes=[1000000, 100000, 10000, 1000, 100, 10, 1],  # Reverse\
+    \ order to warm up JIT\n    operations=['sum_weights', 'filter', 'degree_count',\
+    \ 'transform', 'sort', 'construction'],\n    iterations=10,\n    warmup=2,\n \
+    \   output_dir=\"./output/benchmark_results/edge_list\"\n)\n\n# Create benchmark\
+    \ instance\nbenchmark = Benchmark(config)\n\n# Data generators\n@benchmark.data_generator(\"\
+    default\")\ndef generate_edge_data(size: int, operation: str):\n    \"\"\"Generate\
+    \ edge list data in all formats\"\"\"\n    max_node = max(1, int(size ** 0.5)\
+    \ * 2)\n    \n    # Generate raw edge data\n    U = [random.randint(0, max_node)\
+    \ for _ in range(size)]\n    V = [random.randint(0, max_node) for _ in range(size)]\n\
+    \    W = [random.randint(1, 1000) for _ in range(size)]\n    \n    # Create different\
+    \ representations\n    edges_tuple = [(U[i], V[i], W[i]) for i in range(size)]\n\
+    \    edge_list = EdgeListWeighted(max_node + 1, U, V, W)\n    \n    # Pre-initialize\
+    \ data for fair timing (exclude initialization)\n    preinitialized = {\n    \
+    \    'edges_tuple': list(edges_tuple),\n        'edge_list': EdgeListWeighted(max_node\
+    \ + 1, list(U), list(V), list(W)),\n        'U': list(U), 'V': list(V), 'W': list(W),\n\
+    \        'threshold': 500,\n        'max_node': max_node,\n        'degree_array':\
+    \ [0] * (max_node + 1)\n    }\n    \n    return {\n        'edges_tuple': edges_tuple,\n\
+    \        'edge_list': edge_list,\n        'U': U, 'V': V, 'W': W,\n        'size':\
+    \ size,\n        'operation': operation,\n        'threshold': 500,\n        'max_node':\
+    \ max_node,\n        'preinitialized': preinitialized\n    }\n\n# Construction\
+    \ benchmarks - all should do equivalent work\n@benchmark.implementation(\"construct_tuple\"\
+    , \"construction\")\ndef construct_tuple_list(data):\n    \"\"\"Construct list\
+    \ of tuples from raw data\"\"\"\n    U, V, W = data['U'], data['V'], data['W']\n\
+    \    return [(U[i], V[i], W[i]) for i in range(len(U))]\n\n@benchmark.implementation(\"\
+    construct_edge_list_ref\", \"construction\")\ndef construct_edge_list_ref(data):\n\
+    \    \"\"\"Construct EdgeListWeighted from raw data (reference assignment)\"\"\
+    \"\n    U, V, W = data['U'], data['V'], data['W']\n    return EdgeListWeighted(data['max_node']\
+    \ + 1, U, V, W)\n\n@benchmark.implementation(\"construct_edge_list_copy\", \"\
+    construction\")\ndef construct_edge_list_copy(data):\n    \"\"\"Construct EdgeListWeighted\
+    \ from copied data (fair comparison)\"\"\"\n    U, V, W = data['U'], data['V'],\
+    \ data['W']\n    return EdgeListWeighted(data['max_node'] + 1, list(U), list(V),\
+    \ list(W))\n\n@benchmark.implementation(\"construct_separated\", \"construction\"\
+    )\ndef construct_separated_lists(data):\n    \"\"\"Create separated lists (copy\
+    \ data)\"\"\"\n    U, V, W = data['U'], data['V'], data['W']\n    return (list(U),\
+    \ list(V), list(W))\n\n# Sum weights operation\n@benchmark.implementation(\"tuple_direct\"\
+    , \"sum_weights\")\ndef sum_weights_tuple_direct(data):\n    \"\"\"Sum weights\
+    \ using direct tuple iteration\"\"\"\n    return sum(w for u, v, w in data['edges_tuple'])\n\
+    \n@benchmark.implementation(\"edge_list_iter\", \"sum_weights\")\ndef sum_weights_edge_list_iter(data):\n\
+    \    \"\"\"Sum weights using EdgeListWeighted iteration\"\"\"\n    return sum(w\
+    \ for u, v, w in data['edge_list'])\n\n@benchmark.implementation(\"edge_list_direct\"\
+    , \"sum_weights\")\ndef sum_weights_edge_list_direct(data):\n    \"\"\"Sum weights\
+    \ using EdgeListWeighted direct access\"\"\"\n    return sum(data['edge_list'].W)\n\
+    \n@benchmark.implementation(\"separated_lists\", \"sum_weights\")\ndef sum_weights_separated(data):\n\
+    \    \"\"\"Sum weights using separated lists\"\"\"\n    return sum(data['W'])\n\
+    \n# Filter operation\n@benchmark.implementation(\"tuple_direct\", \"filter\")\n\
+    def filter_tuple_direct(data):\n    \"\"\"Filter edges using tuple iteration\"\
+    \"\"\n    threshold = data['threshold']\n    return [(u, v, w) for u, v, w in\
+    \ data['edges_tuple'] if w > threshold]\n\n@benchmark.implementation(\"edge_list_iter\"\
+    , \"filter\")\ndef filter_edge_list_iter(data):\n    \"\"\"Filter edges using\
+    \ EdgeListWeighted iteration\"\"\"\n    threshold = data['threshold']\n    return\
+    \ [(u, v, w) for u, v, w in data['edge_list'] if w > threshold]\n\n@benchmark.implementation(\"\
+    edge_list_direct\", \"filter\")\ndef filter_edge_list_direct(data):\n    \"\"\"\
+    Filter edges using EdgeListWeighted direct access\"\"\"\n    threshold = data['threshold']\n\
+    \    edge_list = data['edge_list']\n    result = []\n    for i in range(len(edge_list)):\n\
+    \        if edge_list.W[i] > threshold:\n            result.append((edge_list.U[i],\
+    \ edge_list.V[i], edge_list.W[i]))\n    return result\n\n@benchmark.implementation(\"\
+    separated_lists\", \"filter\")\ndef filter_separated(data):\n    \"\"\"Filter\
+    \ edges using separated lists\"\"\"\n    threshold = data['threshold']\n    U,\
+    \ V, W = data['U'], data['V'], data['W']\n    return [(U[i], V[i], W[i]) for i\
+    \ in range(len(W)) if W[i] > threshold]\n\n# Degree count operation\n@benchmark.implementation(\"\
+    tuple_direct\", \"degree_count\")\ndef degree_count_tuple_direct(data):\n    \"\
+    \"\"Count degrees using tuple iteration\"\"\"\n    degree = [0] * (data['max_node']\
+    \ + 1)\n    for u, v, w in data['edges_tuple']:\n        degree[u] += 1\n    return\
+    \ degree\n\n@benchmark.implementation(\"edge_list_iter\", \"degree_count\")\n\
+    def degree_count_edge_list_iter(data):\n    \"\"\"Count degrees using EdgeListWeighted\
+    \ iteration\"\"\"\n    degree = [0] * (data['max_node'] + 1)\n    for u, v, w\
+    \ in data['edge_list']:\n        degree[u] += 1\n    return degree\n\n@benchmark.implementation(\"\
+    edge_list_direct\", \"degree_count\")\ndef degree_count_edge_list_direct(data):\n\
+    \    \"\"\"Count degrees using EdgeListWeighted direct access\"\"\"\n    degree\
+    \ = [0] * (data['max_node'] + 1)\n    for u in data['edge_list'].U:\n        degree[u]\
+    \ += 1\n    return degree\n\n@benchmark.implementation(\"separated_lists\", \"\
+    degree_count\")\ndef degree_count_separated(data):\n    \"\"\"Count degrees using\
+    \ separated lists\"\"\"\n    degree = [0] * (data['max_node'] + 1)\n    for u\
+    \ in data['U']:\n        degree[u] += 1\n    return degree\n\n# Transform operation\n\
+    @benchmark.implementation(\"tuple_direct\", \"transform\")\ndef transform_tuple_direct(data):\n\
+    \    \"\"\"Transform edges using tuple iteration\"\"\"\n    return [(u, v, w *\
+    \ 2) for u, v, w in data['edges_tuple']]\n\n@benchmark.implementation(\"edge_list_iter\"\
+    , \"transform\")\ndef transform_edge_list_iter(data):\n    \"\"\"Transform edges\
+    \ using EdgeListWeighted iteration\"\"\"\n    return [(u, v, w * 2) for u, v,\
+    \ w in data['edge_list']]\n\n@benchmark.implementation(\"edge_list_direct\", \"\
+    transform\")\ndef transform_edge_list_direct(data):\n    \"\"\"Transform edges\
     \ using EdgeListWeighted direct access\"\"\"\n    edge_list = data['edge_list']\n\
     \    return [(edge_list.U[i], edge_list.V[i], edge_list.W[i] * 2) \n         \
     \   for i in range(len(edge_list))]\n\n@benchmark.implementation(\"separated_lists\"\
@@ -489,86 +497,87 @@ data:
     \"\"\"\n\nimport random\nimport sys\nimport os\nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\n\
     \nfrom cp_library.perf.benchmark import Benchmark, BenchmarkConfig\nfrom cp_library.alg.graph.edge.edge_list_weighted_cls\
     \ import EdgeListWeighted\n\n# Configure benchmark\nconfig = BenchmarkConfig(\n\
-    \    name=\"edge_list\",\n    sizes=[100, 1000, 10000, 100000],\n    operations=['sum_weights',\
-    \ 'filter', 'degree_count', 'transform', 'sort', 'construction'],\n    iterations=10,\n\
-    \    warmup=2,\n    output_dir=\"./output/benchmark_results/edge_list\"\n)\n\n\
-    # Create benchmark instance\nbenchmark = Benchmark(config)\n\n# Data generators\n\
-    @benchmark.data_generator(\"default\")\ndef generate_edge_data(size: int, operation:\
-    \ str):\n    \"\"\"Generate edge list data in all formats\"\"\"\n    max_node\
-    \ = max(1, int(size ** 0.5) * 2)\n    \n    # Generate raw edge data\n    U =\
-    \ [random.randint(0, max_node) for _ in range(size)]\n    V = [random.randint(0,\
-    \ max_node) for _ in range(size)]\n    W = [random.randint(1, 1000) for _ in range(size)]\n\
-    \    \n    # Create different representations\n    edges_tuple = [(U[i], V[i],\
-    \ W[i]) for i in range(size)]\n    edge_list = EdgeListWeighted(max_node + 1,\
-    \ U, V, W)\n    \n    # Pre-initialize data for fair timing (exclude initialization)\n\
-    \    preinitialized = {\n        'edges_tuple': list(edges_tuple),\n        'edge_list':\
-    \ EdgeListWeighted(max_node + 1, list(U), list(V), list(W)),\n        'U': list(U),\
-    \ 'V': list(V), 'W': list(W),\n        'threshold': 500,\n        'max_node':\
-    \ max_node,\n        'degree_array': [0] * (max_node + 1)\n    }\n    \n    return\
-    \ {\n        'edges_tuple': edges_tuple,\n        'edge_list': edge_list,\n  \
-    \      'U': U, 'V': V, 'W': W,\n        'size': size,\n        'operation': operation,\n\
-    \        'threshold': 500,\n        'max_node': max_node,\n        'preinitialized':\
-    \ preinitialized\n    }\n\n# Construction benchmarks - all should do equivalent\
-    \ work\n@benchmark.implementation(\"construct_tuple\", \"construction\")\ndef\
-    \ construct_tuple_list(data):\n    \"\"\"Construct list of tuples from raw data\"\
-    \"\"\n    U, V, W = data['U'], data['V'], data['W']\n    return [(U[i], V[i],\
-    \ W[i]) for i in range(len(U))]\n\n@benchmark.implementation(\"construct_edge_list_ref\"\
-    , \"construction\")\ndef construct_edge_list_ref(data):\n    \"\"\"Construct EdgeListWeighted\
-    \ from raw data (reference assignment)\"\"\"\n    U, V, W = data['U'], data['V'],\
-    \ data['W']\n    return EdgeListWeighted(data['max_node'] + 1, U, V, W)\n\n@benchmark.implementation(\"\
-    construct_edge_list_copy\", \"construction\")\ndef construct_edge_list_copy(data):\n\
-    \    \"\"\"Construct EdgeListWeighted from copied data (fair comparison)\"\"\"\
-    \n    U, V, W = data['U'], data['V'], data['W']\n    return EdgeListWeighted(data['max_node']\
-    \ + 1, list(U), list(V), list(W))\n\n@benchmark.implementation(\"construct_separated\"\
-    , \"construction\")\ndef construct_separated_lists(data):\n    \"\"\"Create separated\
-    \ lists (copy data)\"\"\"\n    U, V, W = data['U'], data['V'], data['W']\n   \
-    \ return (list(U), list(V), list(W))\n\n# Sum weights operation\n@benchmark.implementation(\"\
-    tuple_direct\", \"sum_weights\")\ndef sum_weights_tuple_direct(data):\n    \"\"\
-    \"Sum weights using direct tuple iteration\"\"\"\n    return sum(w for u, v, w\
-    \ in data['edges_tuple'])\n\n@benchmark.implementation(\"edge_list_iter\", \"\
-    sum_weights\")\ndef sum_weights_edge_list_iter(data):\n    \"\"\"Sum weights using\
-    \ EdgeListWeighted iteration\"\"\"\n    return sum(w for u, v, w in data['edge_list'])\n\
-    \n@benchmark.implementation(\"edge_list_direct\", \"sum_weights\")\ndef sum_weights_edge_list_direct(data):\n\
-    \    \"\"\"Sum weights using EdgeListWeighted direct access\"\"\"\n    return\
-    \ sum(data['edge_list'].W)\n\n@benchmark.implementation(\"separated_lists\", \"\
-    sum_weights\")\ndef sum_weights_separated(data):\n    \"\"\"Sum weights using\
-    \ separated lists\"\"\"\n    return sum(data['W'])\n\n# Filter operation\n@benchmark.implementation(\"\
-    tuple_direct\", \"filter\")\ndef filter_tuple_direct(data):\n    \"\"\"Filter\
-    \ edges using tuple iteration\"\"\"\n    threshold = data['threshold']\n    return\
-    \ [(u, v, w) for u, v, w in data['edges_tuple'] if w > threshold]\n\n@benchmark.implementation(\"\
-    edge_list_iter\", \"filter\")\ndef filter_edge_list_iter(data):\n    \"\"\"Filter\
-    \ edges using EdgeListWeighted iteration\"\"\"\n    threshold = data['threshold']\n\
-    \    return [(u, v, w) for u, v, w in data['edge_list'] if w > threshold]\n\n\
-    @benchmark.implementation(\"edge_list_direct\", \"filter\")\ndef filter_edge_list_direct(data):\n\
-    \    \"\"\"Filter edges using EdgeListWeighted direct access\"\"\"\n    threshold\
-    \ = data['threshold']\n    edge_list = data['edge_list']\n    result = []\n  \
-    \  for i in range(len(edge_list)):\n        if edge_list.W[i] > threshold:\n \
-    \           result.append((edge_list.U[i], edge_list.V[i], edge_list.W[i]))\n\
-    \    return result\n\n@benchmark.implementation(\"separated_lists\", \"filter\"\
-    )\ndef filter_separated(data):\n    \"\"\"Filter edges using separated lists\"\
-    \"\"\n    threshold = data['threshold']\n    U, V, W = data['U'], data['V'], data['W']\n\
-    \    return [(U[i], V[i], W[i]) for i in range(len(W)) if W[i] > threshold]\n\n\
-    # Degree count operation\n@benchmark.implementation(\"tuple_direct\", \"degree_count\"\
-    )\ndef degree_count_tuple_direct(data):\n    \"\"\"Count degrees using tuple iteration\"\
-    \"\"\n    degree = [0] * (data['max_node'] + 1)\n    for u, v, w in data['edges_tuple']:\n\
-    \        degree[u] += 1\n    return degree\n\n@benchmark.implementation(\"edge_list_iter\"\
-    , \"degree_count\")\ndef degree_count_edge_list_iter(data):\n    \"\"\"Count degrees\
-    \ using EdgeListWeighted iteration\"\"\"\n    degree = [0] * (data['max_node']\
-    \ + 1)\n    for u, v, w in data['edge_list']:\n        degree[u] += 1\n    return\
-    \ degree\n\n@benchmark.implementation(\"edge_list_direct\", \"degree_count\")\n\
-    def degree_count_edge_list_direct(data):\n    \"\"\"Count degrees using EdgeListWeighted\
-    \ direct access\"\"\"\n    degree = [0] * (data['max_node'] + 1)\n    for u in\
-    \ data['edge_list'].U:\n        degree[u] += 1\n    return degree\n\n@benchmark.implementation(\"\
-    separated_lists\", \"degree_count\")\ndef degree_count_separated(data):\n    \"\
-    \"\"Count degrees using separated lists\"\"\"\n    degree = [0] * (data['max_node']\
-    \ + 1)\n    for u in data['U']:\n        degree[u] += 1\n    return degree\n\n\
-    # Transform operation\n@benchmark.implementation(\"tuple_direct\", \"transform\"\
-    )\ndef transform_tuple_direct(data):\n    \"\"\"Transform edges using tuple iteration\"\
-    \"\"\n    return [(u, v, w * 2) for u, v, w in data['edges_tuple']]\n\n@benchmark.implementation(\"\
-    edge_list_iter\", \"transform\")\ndef transform_edge_list_iter(data):\n    \"\"\
-    \"Transform edges using EdgeListWeighted iteration\"\"\"\n    return [(u, v, w\
-    \ * 2) for u, v, w in data['edge_list']]\n\n@benchmark.implementation(\"edge_list_direct\"\
-    , \"transform\")\ndef transform_edge_list_direct(data):\n    \"\"\"Transform edges\
+    \    name=\"edge_list\",\n    sizes=[1000000, 100000, 10000, 1000, 100, 10, 1],\
+    \  # Reverse order to warm up JIT\n    operations=['sum_weights', 'filter', 'degree_count',\
+    \ 'transform', 'sort', 'construction'],\n    iterations=10,\n    warmup=2,\n \
+    \   output_dir=\"./output/benchmark_results/edge_list\"\n)\n\n# Create benchmark\
+    \ instance\nbenchmark = Benchmark(config)\n\n# Data generators\n@benchmark.data_generator(\"\
+    default\")\ndef generate_edge_data(size: int, operation: str):\n    \"\"\"Generate\
+    \ edge list data in all formats\"\"\"\n    max_node = max(1, int(size ** 0.5)\
+    \ * 2)\n    \n    # Generate raw edge data\n    U = [random.randint(0, max_node)\
+    \ for _ in range(size)]\n    V = [random.randint(0, max_node) for _ in range(size)]\n\
+    \    W = [random.randint(1, 1000) for _ in range(size)]\n    \n    # Create different\
+    \ representations\n    edges_tuple = [(U[i], V[i], W[i]) for i in range(size)]\n\
+    \    edge_list = EdgeListWeighted(max_node + 1, U, V, W)\n    \n    # Pre-initialize\
+    \ data for fair timing (exclude initialization)\n    preinitialized = {\n    \
+    \    'edges_tuple': list(edges_tuple),\n        'edge_list': EdgeListWeighted(max_node\
+    \ + 1, list(U), list(V), list(W)),\n        'U': list(U), 'V': list(V), 'W': list(W),\n\
+    \        'threshold': 500,\n        'max_node': max_node,\n        'degree_array':\
+    \ [0] * (max_node + 1)\n    }\n    \n    return {\n        'edges_tuple': edges_tuple,\n\
+    \        'edge_list': edge_list,\n        'U': U, 'V': V, 'W': W,\n        'size':\
+    \ size,\n        'operation': operation,\n        'threshold': 500,\n        'max_node':\
+    \ max_node,\n        'preinitialized': preinitialized\n    }\n\n# Construction\
+    \ benchmarks - all should do equivalent work\n@benchmark.implementation(\"construct_tuple\"\
+    , \"construction\")\ndef construct_tuple_list(data):\n    \"\"\"Construct list\
+    \ of tuples from raw data\"\"\"\n    U, V, W = data['U'], data['V'], data['W']\n\
+    \    return [(U[i], V[i], W[i]) for i in range(len(U))]\n\n@benchmark.implementation(\"\
+    construct_edge_list_ref\", \"construction\")\ndef construct_edge_list_ref(data):\n\
+    \    \"\"\"Construct EdgeListWeighted from raw data (reference assignment)\"\"\
+    \"\n    U, V, W = data['U'], data['V'], data['W']\n    return EdgeListWeighted(data['max_node']\
+    \ + 1, U, V, W)\n\n@benchmark.implementation(\"construct_edge_list_copy\", \"\
+    construction\")\ndef construct_edge_list_copy(data):\n    \"\"\"Construct EdgeListWeighted\
+    \ from copied data (fair comparison)\"\"\"\n    U, V, W = data['U'], data['V'],\
+    \ data['W']\n    return EdgeListWeighted(data['max_node'] + 1, list(U), list(V),\
+    \ list(W))\n\n@benchmark.implementation(\"construct_separated\", \"construction\"\
+    )\ndef construct_separated_lists(data):\n    \"\"\"Create separated lists (copy\
+    \ data)\"\"\"\n    U, V, W = data['U'], data['V'], data['W']\n    return (list(U),\
+    \ list(V), list(W))\n\n# Sum weights operation\n@benchmark.implementation(\"tuple_direct\"\
+    , \"sum_weights\")\ndef sum_weights_tuple_direct(data):\n    \"\"\"Sum weights\
+    \ using direct tuple iteration\"\"\"\n    return sum(w for u, v, w in data['edges_tuple'])\n\
+    \n@benchmark.implementation(\"edge_list_iter\", \"sum_weights\")\ndef sum_weights_edge_list_iter(data):\n\
+    \    \"\"\"Sum weights using EdgeListWeighted iteration\"\"\"\n    return sum(w\
+    \ for u, v, w in data['edge_list'])\n\n@benchmark.implementation(\"edge_list_direct\"\
+    , \"sum_weights\")\ndef sum_weights_edge_list_direct(data):\n    \"\"\"Sum weights\
+    \ using EdgeListWeighted direct access\"\"\"\n    return sum(data['edge_list'].W)\n\
+    \n@benchmark.implementation(\"separated_lists\", \"sum_weights\")\ndef sum_weights_separated(data):\n\
+    \    \"\"\"Sum weights using separated lists\"\"\"\n    return sum(data['W'])\n\
+    \n# Filter operation\n@benchmark.implementation(\"tuple_direct\", \"filter\")\n\
+    def filter_tuple_direct(data):\n    \"\"\"Filter edges using tuple iteration\"\
+    \"\"\n    threshold = data['threshold']\n    return [(u, v, w) for u, v, w in\
+    \ data['edges_tuple'] if w > threshold]\n\n@benchmark.implementation(\"edge_list_iter\"\
+    , \"filter\")\ndef filter_edge_list_iter(data):\n    \"\"\"Filter edges using\
+    \ EdgeListWeighted iteration\"\"\"\n    threshold = data['threshold']\n    return\
+    \ [(u, v, w) for u, v, w in data['edge_list'] if w > threshold]\n\n@benchmark.implementation(\"\
+    edge_list_direct\", \"filter\")\ndef filter_edge_list_direct(data):\n    \"\"\"\
+    Filter edges using EdgeListWeighted direct access\"\"\"\n    threshold = data['threshold']\n\
+    \    edge_list = data['edge_list']\n    result = []\n    for i in range(len(edge_list)):\n\
+    \        if edge_list.W[i] > threshold:\n            result.append((edge_list.U[i],\
+    \ edge_list.V[i], edge_list.W[i]))\n    return result\n\n@benchmark.implementation(\"\
+    separated_lists\", \"filter\")\ndef filter_separated(data):\n    \"\"\"Filter\
+    \ edges using separated lists\"\"\"\n    threshold = data['threshold']\n    U,\
+    \ V, W = data['U'], data['V'], data['W']\n    return [(U[i], V[i], W[i]) for i\
+    \ in range(len(W)) if W[i] > threshold]\n\n# Degree count operation\n@benchmark.implementation(\"\
+    tuple_direct\", \"degree_count\")\ndef degree_count_tuple_direct(data):\n    \"\
+    \"\"Count degrees using tuple iteration\"\"\"\n    degree = [0] * (data['max_node']\
+    \ + 1)\n    for u, v, w in data['edges_tuple']:\n        degree[u] += 1\n    return\
+    \ degree\n\n@benchmark.implementation(\"edge_list_iter\", \"degree_count\")\n\
+    def degree_count_edge_list_iter(data):\n    \"\"\"Count degrees using EdgeListWeighted\
+    \ iteration\"\"\"\n    degree = [0] * (data['max_node'] + 1)\n    for u, v, w\
+    \ in data['edge_list']:\n        degree[u] += 1\n    return degree\n\n@benchmark.implementation(\"\
+    edge_list_direct\", \"degree_count\")\ndef degree_count_edge_list_direct(data):\n\
+    \    \"\"\"Count degrees using EdgeListWeighted direct access\"\"\"\n    degree\
+    \ = [0] * (data['max_node'] + 1)\n    for u in data['edge_list'].U:\n        degree[u]\
+    \ += 1\n    return degree\n\n@benchmark.implementation(\"separated_lists\", \"\
+    degree_count\")\ndef degree_count_separated(data):\n    \"\"\"Count degrees using\
+    \ separated lists\"\"\"\n    degree = [0] * (data['max_node'] + 1)\n    for u\
+    \ in data['U']:\n        degree[u] += 1\n    return degree\n\n# Transform operation\n\
+    @benchmark.implementation(\"tuple_direct\", \"transform\")\ndef transform_tuple_direct(data):\n\
+    \    \"\"\"Transform edges using tuple iteration\"\"\"\n    return [(u, v, w *\
+    \ 2) for u, v, w in data['edges_tuple']]\n\n@benchmark.implementation(\"edge_list_iter\"\
+    , \"transform\")\ndef transform_edge_list_iter(data):\n    \"\"\"Transform edges\
+    \ using EdgeListWeighted iteration\"\"\"\n    return [(u, v, w * 2) for u, v,\
+    \ w in data['edge_list']]\n\n@benchmark.implementation(\"edge_list_direct\", \"\
+    transform\")\ndef transform_edge_list_direct(data):\n    \"\"\"Transform edges\
     \ using EdgeListWeighted direct access\"\"\"\n    edge_list = data['edge_list']\n\
     \    return [(edge_list.U[i], edge_list.V[i], edge_list.W[i] * 2) \n         \
     \   for i in range(len(edge_list))]\n\n@benchmark.implementation(\"separated_lists\"\
@@ -621,7 +630,7 @@ data:
   isVerificationFile: false
   path: perf/edge_list.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/edge_list.py

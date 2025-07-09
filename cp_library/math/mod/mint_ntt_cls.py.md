@@ -41,6 +41,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/stirling2_n_fn.py
     title: cp_library/math/table/stirling2_n_fn.py
+  - icon: ':warning:'
+    path: perf/modular_list.py
+    title: perf/modular_list.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/convolution/convolution.test.py
@@ -197,7 +200,8 @@ data:
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_n_fn.py
-  timestamp: '2025-07-10 00:37:15+09:00'
+  - perf/modular_list.py
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution.test.py

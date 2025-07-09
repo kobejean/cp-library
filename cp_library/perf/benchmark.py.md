@@ -18,6 +18,9 @@ data:
     path: perf/edge_list.py
     title: perf/edge_list.py
   - icon: ':warning:'
+    path: perf/modular_list.py
+    title: perf/modular_list.py
+  - icon: ':warning:'
     path: perf/rank.py
     title: perf/rank.py
   _extendedVerifiedWith: []
@@ -36,8 +39,9 @@ data:
     \ for benchmark runs\"\"\"\n    name: str\n    sizes: List[int] = None\n    operations:\
     \ List[str] = None\n    iterations: int = 10\n    warmup: int = 2\n    output_dir:\
     \ str = \"./output/benchmark_results\"\n    save_results: bool = True\n    plot_results:\
-    \ bool = True\n    \n    def __post_init__(self):\n        if self.sizes is None:\n\
-    \            self.sizes = [100, 1000, 10000, 100000]\n        if self.operations\
+    \ bool = True\n    plot_scale: str = \"loglog\"  # Options: \"loglog\", \"linear\"\
+    , \"semilogx\", \"semilogy\"\n    \n    def __post_init__(self):\n        if self.sizes\
+    \ is None:\n            self.sizes = [100, 1000, 10000, 100000]\n        if self.operations\
     \ is None:\n            self.operations = ['default']\n\nclass Benchmark:\n  \
     \  \"\"\"Declarative benchmark framework using decorators\"\"\"\n    \n    def\
     \ __init__(self, config: BenchmarkConfig):\n        self.config = config\n   \
@@ -144,8 +148,14 @@ data:
     \ impl_times, 'o-', label=impl)\n        \n        plt.xlabel('Input Size')\n\
     \        plt.ylabel('Time (ms)')\n        plt.title(f'{self.config.name} - {operation}\
     \ Operation')\n        plt.legend()\n        plt.grid(True, alpha=0.3)\n     \
-    \   plt.loglog()\n        \n        plot_file = output_dir / f\"{self.config.name}_{operation}_performance.png\"\
-    \n        plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
+    \   \n        # Apply the configured scaling\n        if self.config.plot_scale\
+    \ == \"loglog\":\n            plt.loglog()\n        elif self.config.plot_scale\
+    \ == \"linear\":\n            pass  # Default linear scale\n        elif self.config.plot_scale\
+    \ == \"semilogx\":\n            plt.semilogx()\n        elif self.config.plot_scale\
+    \ == \"semilogy\":\n            plt.semilogy()\n        else:\n            # Default\
+    \ to loglog if invalid option\n            plt.loglog()\n        \n        plot_file\
+    \ = output_dir / f\"{self.config.name}_{operation}_performance.png\"\n       \
+    \ plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
     \        print(f\"Plot saved: {plot_file}\")\n    \n    def _print_summary(self):\n\
     \        \"\"\"Print performance summary\"\"\"\n        print(\"\\n\" + \"=\"\
     *80)\n        print(\"PERFORMANCE SUMMARY\")\n        print(\"=\"*80)\n      \
@@ -171,10 +181,11 @@ data:
     class BenchmarkConfig:\n    \"\"\"Configuration for benchmark runs\"\"\"\n   \
     \ name: str\n    sizes: List[int] = None\n    operations: List[str] = None\n \
     \   iterations: int = 10\n    warmup: int = 2\n    output_dir: str = \"./output/benchmark_results\"\
-    \n    save_results: bool = True\n    plot_results: bool = True\n    \n    def\
-    \ __post_init__(self):\n        if self.sizes is None:\n            self.sizes\
-    \ = [100, 1000, 10000, 100000]\n        if self.operations is None:\n        \
-    \    self.operations = ['default']\n\nclass Benchmark:\n    \"\"\"Declarative\
+    \n    save_results: bool = True\n    plot_results: bool = True\n    plot_scale:\
+    \ str = \"loglog\"  # Options: \"loglog\", \"linear\", \"semilogx\", \"semilogy\"\
+    \n    \n    def __post_init__(self):\n        if self.sizes is None:\n       \
+    \     self.sizes = [100, 1000, 10000, 100000]\n        if self.operations is None:\n\
+    \            self.operations = ['default']\n\nclass Benchmark:\n    \"\"\"Declarative\
     \ benchmark framework using decorators\"\"\"\n    \n    def __init__(self, config:\
     \ BenchmarkConfig):\n        self.config = config\n        self.data_generators\
     \ = {}\n        self.implementations = {}\n        self.validators = {}\n    \
@@ -280,8 +291,14 @@ data:
     \ impl_times, 'o-', label=impl)\n        \n        plt.xlabel('Input Size')\n\
     \        plt.ylabel('Time (ms)')\n        plt.title(f'{self.config.name} - {operation}\
     \ Operation')\n        plt.legend()\n        plt.grid(True, alpha=0.3)\n     \
-    \   plt.loglog()\n        \n        plot_file = output_dir / f\"{self.config.name}_{operation}_performance.png\"\
-    \n        plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
+    \   \n        # Apply the configured scaling\n        if self.config.plot_scale\
+    \ == \"loglog\":\n            plt.loglog()\n        elif self.config.plot_scale\
+    \ == \"linear\":\n            pass  # Default linear scale\n        elif self.config.plot_scale\
+    \ == \"semilogx\":\n            plt.semilogx()\n        elif self.config.plot_scale\
+    \ == \"semilogy\":\n            plt.semilogy()\n        else:\n            # Default\
+    \ to loglog if invalid option\n            plt.loglog()\n        \n        plot_file\
+    \ = output_dir / f\"{self.config.name}_{operation}_performance.png\"\n       \
+    \ plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
     \        print(f\"Plot saved: {plot_file}\")\n    \n    def _print_summary(self):\n\
     \        \"\"\"Print performance summary\"\"\"\n        print(\"\\n\" + \"=\"\
     *80)\n        print(\"PERFORMANCE SUMMARY\")\n        print(\"=\"*80)\n      \
@@ -307,8 +324,9 @@ data:
   - cp_library/perf/plots.py
   - perf/edge_list.py
   - perf/bool_list.py
+  - perf/modular_list.py
   - perf/rank.py
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/benchmark.py

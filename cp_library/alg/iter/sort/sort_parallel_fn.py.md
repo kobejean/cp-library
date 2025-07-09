@@ -63,7 +63,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/edge/edge_list_weighted_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py

@@ -362,7 +362,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/scc_strongly_connected_components.test.py

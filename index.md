@@ -1163,6 +1163,9 @@ data:
       path: perf/edge_list.py
       title: perf/edge_list.py
     - icon: ':warning:'
+      path: perf/modular_list.py
+      title: perf/modular_list.py
+    - icon: ':warning:'
       path: perf/rank.py
       title: perf/rank.py
   - name: .

@@ -301,12 +301,12 @@ data:
     \ down_fn=down, back_fn=back, up_fn=up)\n    # give the lonely vertices their\
     \ own components\n    for u,d in enumerate(G.deg):\n        if d == 0:\n     \
     \       L.append(len(bccs))\n            bccs.append(u)\n    return SliceIteratorReverse(bccs,\
-    \ L)\n\ntwo_vertex_connected_components = biconnected_components\n\nfrom typing\
-    \ import Iterator, SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
-    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
-    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
-    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
-    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n"
+    \ L)\ntwo_vertex_connected_components = biconnected_components\nfrom typing import\
+    \ Iterator, SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n   \
+    \ def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A, self.L,\
+    \ self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
+    \        L = self.L\n        if not L: raise StopIteration\n        self.r, r\
+    \ = (l := L.pop()), self.r\n        return self.A[l:r]\n"
   code: "import cp_library.__header__\nfrom typing import Iterable, Union\nimport\
     \ cp_library.alg.__header__\nfrom cp_library.alg.dp.chmin_fn import chmin\nimport\
     \ cp_library.alg.graph.__header__\nimport cp_library.alg.graph.csr.__header__\n\
@@ -323,8 +323,8 @@ data:
     \ := st.pop())\n            bccs.append(p)\n    G.dfs(s, down_fn=down, back_fn=back,\
     \ up_fn=up)\n    # give the lonely vertices their own components\n    for u,d\
     \ in enumerate(G.deg):\n        if d == 0:\n            L.append(len(bccs))\n\
-    \            bccs.append(u)\n    return SliceIteratorReverse(bccs, L)\n\ntwo_vertex_connected_components\
-    \ = biconnected_components\n\nfrom cp_library.alg.iter.slice_iterator_reverse_cls\
+    \            bccs.append(u)\n    return SliceIteratorReverse(bccs, L)\ntwo_vertex_connected_components\
+    \ = biconnected_components\nfrom cp_library.alg.iter.slice_iterator_reverse_cls\
     \ import SliceIteratorReverse\nfrom cp_library.ds.elist_fn import elist"
   dependsOn:
   - cp_library/alg/dp/chmin_fn.py
@@ -343,7 +343,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/biconnected_components.test.py

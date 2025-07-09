@@ -165,7 +165,7 @@ data:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/sieve_proto.py
   - cp_library/math/table/linear_sieve_cnts_cls.py
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/bst/treap_monoid_cls_test.py

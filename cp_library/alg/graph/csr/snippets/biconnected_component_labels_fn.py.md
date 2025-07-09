@@ -292,7 +292,7 @@ data:
     \            j = -1; id += 1\n            while j != i:\n                bccs[j\
     \ := st.pop()] = bccs[G.twin[j]] = id\n            \n    G.dfs(s, down_fn=down,\
     \ back_fn=back, up_fn=up)\n    return bccs\ntwo_vertex_connected_component_labels\
-    \ = biconnected_component_labels\n\n"
+    \ = biconnected_component_labels\n"
   code: "import cp_library.__header__\nfrom typing import Iterable, Union\nimport\
     \ cp_library.alg.__header__\nfrom cp_library.alg.dp.chmin_fn import chmin\nimport\
     \ cp_library.alg.graph.__header__\nimport cp_library.alg.graph.csr.__header__\n\
@@ -307,7 +307,7 @@ data:
     \            j = -1; id += 1\n            while j != i:\n                bccs[j\
     \ := st.pop()] = bccs[G.twin[j]] = id\n            \n    G.dfs(s, down_fn=down,\
     \ back_fn=back, up_fn=up)\n    return bccs\ntwo_vertex_connected_component_labels\
-    \ = biconnected_component_labels\n\nfrom cp_library.ds.elist_fn import elist"
+    \ = biconnected_component_labels\nfrom cp_library.ds.elist_fn import elist"
   dependsOn:
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/csr/graph_base_cls.py
@@ -324,7 +324,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/snippets/biconnected_component_labels_fn.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/csr/snippets/biconnected_component_labels_fn.py

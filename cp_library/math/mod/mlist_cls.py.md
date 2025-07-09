@@ -13,7 +13,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/nt/ntt_cls.py
     title: cp_library/math/nt/ntt_cls.py
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: perf/modular_list.py
+    title: perf/modular_list.py
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
@@ -141,8 +144,9 @@ data:
   - cp_library/math/nt/mod_inv_fn.py
   isVerificationFile: false
   path: cp_library/math/mod/mlist_cls.py
-  requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  requiredBy:
+  - perf/modular_list.py
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/mod/mlist_cls.py

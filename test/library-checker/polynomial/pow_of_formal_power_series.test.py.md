@@ -340,7 +340,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/pow_of_formal_power_series.test.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/pow_of_formal_power_series.test.py

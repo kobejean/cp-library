@@ -323,17 +323,17 @@ data:
     \ := st.pop())\n            bccs.append(p)\n    G.dfs(s, down_fn=down, back_fn=back,\
     \ up_fn=up)\n    # give the lonely vertices their own components\n    for u,d\
     \ in enumerate(G.deg):\n        if d == 0:\n            L.append(len(bccs))\n\
-    \            bccs.append(u)\n    return SliceIteratorReverse(bccs, L)\n\ntwo_vertex_connected_components\
-    \ = biconnected_components\n\nfrom typing import Iterator, SupportsIndex\n\n\n\
-    class SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T],\
-    \ L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n  \
-    \  def __len__(self): return len(self.L)\n    def __next__(self):\n        L =\
-    \ self.L\n        if not L: raise StopIteration\n        self.r, r = (l := L.pop()),\
-    \ self.r\n        return self.A[l:r]\n\nfrom typing import Type, Union, overload\n\
-    \n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
-    \ char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n\
-    @overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\n\
-    def read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
+    \            bccs.append(u)\n    return SliceIteratorReverse(bccs, L)\ntwo_vertex_connected_components\
+    \ = biconnected_components\nfrom typing import Iterator, SupportsIndex\n\n\nclass\
+    \ SliceIteratorReverse(Iterator[_T]):\n    def __init__(self, A: list[_T], L:\
+    \ list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n    def\
+    \ __len__(self): return len(self.L)\n    def __next__(self):\n        L = self.L\n\
+    \        if not L: raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n\
+    \        return self.A[l:r]\n\nfrom typing import Type, Union, overload\n\n@overload\n\
+    def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
+    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
+    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
+    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
     \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
@@ -370,7 +370,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/biconnected_components.test.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/biconnected_components.test.py

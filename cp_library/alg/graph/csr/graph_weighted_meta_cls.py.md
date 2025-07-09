@@ -554,7 +554,7 @@ data:
   path: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   requiredBy:
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/tree_path_composite_sum.test.py

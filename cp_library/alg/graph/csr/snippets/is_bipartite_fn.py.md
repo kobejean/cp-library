@@ -283,18 +283,18 @@ data:
     \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
     \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
     \ x & lst.mask\n\ndef is_bipartite(G: GraphBase, s: Union[int,list,None] = None):\n\
-    \    color, ret = u8f(N := G.N), True\n\n    def visited(u,v,i):\n        nonlocal\
+    \    color, ret = u8f(G.N), True\n\n    def visited(u,v,i):\n        nonlocal\
     \ ret\n        ret &= color[u] != color[v]\n              \n    def down(u,v,i):\n\
     \        color[v] = color[u]^1\n\n    G.dfs(s, down_fn=down, back_fn=visited,\
     \ cross_fn=visited, forward_fn=visited)\n    return ret\n\n"
   code: "import cp_library.__header__\nfrom typing import Union\nimport cp_library.alg.__header__\n\
     import cp_library.alg.graph.__header__\nimport cp_library.alg.graph.csr.__header__\n\
     from cp_library.alg.graph.csr.graph_base_cls import GraphBase\n\ndef is_bipartite(G:\
-    \ GraphBase, s: Union[int,list,None] = None):\n    color, ret = u8f(N := G.N),\
-    \ True\n\n    def visited(u,v,i):\n        nonlocal ret\n        ret &= color[u]\
-    \ != color[v]\n              \n    def down(u,v,i):\n        color[v] = color[u]^1\n\
-    \n    G.dfs(s, down_fn=down, back_fn=visited, cross_fn=visited, forward_fn=visited)\n\
-    \    return ret\n\nfrom cp_library.ds.array.u8f_fn import u8f"
+    \ GraphBase, s: Union[int,list,None] = None):\n    color, ret = u8f(G.N), True\n\
+    \n    def visited(u,v,i):\n        nonlocal ret\n        ret &= color[u] != color[v]\n\
+    \              \n    def down(u,v,i):\n        color[v] = color[u]^1\n\n    G.dfs(s,\
+    \ down_fn=down, back_fn=visited, cross_fn=visited, forward_fn=visited)\n    return\
+    \ ret\n\nfrom cp_library.ds.array.u8f_fn import u8f"
   dependsOn:
   - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/ds/array/u8f_fn.py
@@ -311,7 +311,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/csr/snippets/is_bipartite_fn.py

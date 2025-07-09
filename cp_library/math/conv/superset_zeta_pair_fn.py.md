@@ -83,7 +83,7 @@ data:
   path: cp_library/math/conv/superset_zeta_pair_fn.py
   requiredBy:
   - cp_library/math/conv/and_conv_fast_fn.py
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_and_convolution_fast.test.py

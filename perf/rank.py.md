@@ -39,10 +39,11 @@ data:
     class BenchmarkConfig:\n    \"\"\"Configuration for benchmark runs\"\"\"\n   \
     \ name: str\n    sizes: List[int] = None\n    operations: List[str] = None\n \
     \   iterations: int = 10\n    warmup: int = 2\n    output_dir: str = \"./output/benchmark_results\"\
-    \n    save_results: bool = True\n    plot_results: bool = True\n    \n    def\
-    \ __post_init__(self):\n        if self.sizes is None:\n            self.sizes\
-    \ = [100, 1000, 10000, 100000]\n        if self.operations is None:\n        \
-    \    self.operations = ['default']\n\nclass Benchmark:\n    \"\"\"Declarative\
+    \n    save_results: bool = True\n    plot_results: bool = True\n    plot_scale:\
+    \ str = \"loglog\"  # Options: \"loglog\", \"linear\", \"semilogx\", \"semilogy\"\
+    \n    \n    def __post_init__(self):\n        if self.sizes is None:\n       \
+    \     self.sizes = [100, 1000, 10000, 100000]\n        if self.operations is None:\n\
+    \            self.operations = ['default']\n\nclass Benchmark:\n    \"\"\"Declarative\
     \ benchmark framework using decorators\"\"\"\n    \n    def __init__(self, config:\
     \ BenchmarkConfig):\n        self.config = config\n        self.data_generators\
     \ = {}\n        self.implementations = {}\n        self.validators = {}\n    \
@@ -148,8 +149,14 @@ data:
     \ impl_times, 'o-', label=impl)\n        \n        plt.xlabel('Input Size')\n\
     \        plt.ylabel('Time (ms)')\n        plt.title(f'{self.config.name} - {operation}\
     \ Operation')\n        plt.legend()\n        plt.grid(True, alpha=0.3)\n     \
-    \   plt.loglog()\n        \n        plot_file = output_dir / f\"{self.config.name}_{operation}_performance.png\"\
-    \n        plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
+    \   \n        # Apply the configured scaling\n        if self.config.plot_scale\
+    \ == \"loglog\":\n            plt.loglog()\n        elif self.config.plot_scale\
+    \ == \"linear\":\n            pass  # Default linear scale\n        elif self.config.plot_scale\
+    \ == \"semilogx\":\n            plt.semilogx()\n        elif self.config.plot_scale\
+    \ == \"semilogy\":\n            plt.semilogy()\n        else:\n            # Default\
+    \ to loglog if invalid option\n            plt.loglog()\n        \n        plot_file\
+    \ = output_dir / f\"{self.config.name}_{operation}_performance.png\"\n       \
+    \ plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
     \        print(f\"Plot saved: {plot_file}\")\n    \n    def _print_summary(self):\n\
     \        \"\"\"Print performance summary\"\"\"\n        print(\"\\n\" + \"=\"\
     *80)\n        print(\"PERFORMANCE SUMMARY\")\n        print(\"=\"*80)\n      \
@@ -201,106 +208,194 @@ data:
     \    for i,Ai in enumerate(A):\n                for j, a in enumerate(Ai):V[k]=P.enc(-a,\
     \ i, j);k+=1\n        else:\n            for i,Ai in enumerate(A):\n         \
     \       for j, a in enumerate(Ai):V[k]=P.enc(a, i, j);k+=1\n        return V\n\
-    \n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"rank\",\n    sizes=[100,\
-    \ 1000, 10000, 50000],\n    operations=['random', 'sorted', 'duplicates', 'reverse'],\n\
-    \    iterations=5,\n    warmup=2,\n    output_dir=\"./output/benchmark_results/rank\"\
-    \n)\n\n# Create benchmark instance\nbenchmark = Benchmark(config)\n\n# Data generator\n\
-    @benchmark.data_generator(\"default\")\ndef generate_rank_data(size: int, operation:\
-    \ str):\n    \"\"\"Generate ranking data in different patterns\"\"\"\n    if operation\
-    \ == 'random':\n        data = [random.randint(1, size) for _ in range(size)]\n\
-    \    elif operation == 'sorted':\n        data = list(range(size))\n    elif operation\
-    \ == 'duplicates':\n        # Many duplicates (10% unique values)\n        unique_count\
-    \ = max(1, size // 10)\n        data = [random.randint(1, unique_count) for _\
-    \ in range(size)]\n    elif operation == 'reverse':\n        data = list(range(size,\
-    \ 0, -1))\n    else:\n        raise ValueError(f\"Unknown operation: {operation}\"\
-    )\n    \n    return {\n        'data': data,\n        'distinct': False,\n   \
-    \     'size': size,\n        'operation': operation\n    }\n\n# Implementation:\
-    \ irank\n@benchmark.implementation(\"irank\", [\"random\", \"sorted\", \"duplicates\"\
-    , \"reverse\"])\ndef irank_implementation(data):\n    \"\"\"Standard irank implementation\"\
-    \"\"\n    return irank(data['data'].copy(), distinct=data['distinct'])\n\n# Implementation:\
-    \ irank_multi\n@benchmark.implementation(\"irank_multi\", [\"random\", \"sorted\"\
-    , \"duplicates\", \"reverse\"])\ndef irank_multi_implementation(data):\n    \"\
-    \"\"Multi-pass irank implementation\"\"\"\n    return irank_multi(data['data'].copy(),\
-    \ distinct=data['distinct'])\n\n# Additional benchmark with distinct=True\n@benchmark.data_generator(\"\
-    distinct\")\ndef generate_rank_data_distinct(size: int, operation: str):\n   \
-    \ \"\"\"Generate ranking data with distinct=True\"\"\"\n    base_data = generate_rank_data(size,\
-    \ operation)\n    base_data['distinct'] = True\n    return base_data\n\n@benchmark.implementation(\"\
-    irank_distinct\", [\"random\", \"sorted\", \"duplicates\", \"reverse\"])\ndef\
-    \ irank_distinct_implementation(data):\n    \"\"\"irank with distinct=True\"\"\
-    \"\n    return irank(data['data'].copy(), distinct=True)\n\n@benchmark.implementation(\"\
-    irank_multi_distinct\", [\"random\", \"sorted\", \"duplicates\", \"reverse\"])\n\
-    def irank_multi_distinct_implementation(data):\n    \"\"\"irank_multi with distinct=True\"\
-    \"\"\n    return irank_multi(data['data'].copy(), distinct=True)\n\n# Custom validator\
-    \ for rank results\n@benchmark.validator(\"default\")\ndef validate_rank_result(expected,\
-    \ actual):\n    \"\"\"Validate ranking results\"\"\"\n    if isinstance(expected,\
-    \ list) and isinstance(actual, list):\n        return len(expected) == len(actual)\
-    \ and all(\n            0 <= e < len(expected) and 0 <= a < len(actual) \n   \
-    \         for e, a in zip(expected, actual)\n        )\n    return expected ==\
-    \ actual\n\nif __name__ == \"__main__\":\n    # Run with default data generator\n\
-    \    print(\"Running rank benchmark with distinct=False...\")\n    benchmark.run()\n\
-    \    \n    # Create a separate benchmark for distinct=True\n    print(\"\\nRunning\
-    \ rank benchmark with distinct=True...\")\n    config_distinct = BenchmarkConfig(\n\
-    \        name=\"rank_distinct\",\n        sizes=[100, 1000, 10000, 50000],\n \
-    \       operations=['random', 'sorted', 'duplicates', 'reverse'],\n        iterations=5,\n\
-    \        warmup=2,\n        output_dir=\"./output/benchmark_results/rank_distinct\"\
+    \n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"rank\",\n    sizes=[1000000,\
+    \ 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT\n    operations=['construction',\
+    \ 'random', 'sorted', 'duplicates', 'reverse'],\n    iterations=5,\n    warmup=3,\n\
+    \    output_dir=\"./output/benchmark_results/rank\"\n)\n\n# Create benchmark instance\n\
+    benchmark = Benchmark(config)\n\n# Data generator\n@benchmark.data_generator(\"\
+    default\")\ndef generate_rank_data(size: int, operation: str):\n    \"\"\"Generate\
+    \ ranking data in different patterns\"\"\"\n    if operation == 'random':\n  \
+    \      data = [random.randint(1, size) for _ in range(size)]\n    elif operation\
+    \ == 'sorted':\n        data = list(range(size))\n    elif operation == 'duplicates':\n\
+    \        # Many duplicates (10% unique values)\n        unique_count = max(1,\
+    \ size // 10)\n        data = [random.randint(1, unique_count) for _ in range(size)]\n\
+    \    elif operation == 'reverse':\n        data = list(range(size, 0, -1))\n \
+    \   else:\n        raise ValueError(f\"Unknown operation: {operation}\")\n   \
+    \ \n    # Pre-initialize data for fair timing (exclude copy overhead)\n    preinitialized\
+    \ = {\n        'data_copy1': list(data),\n        'data_copy2': list(data),\n\
+    \        'distinct': False\n    }\n    \n    return {\n        'data': data,\n\
+    \        'distinct': False,\n        'size': size,\n        'operation': operation,\n\
+    \        'preinitialized': preinitialized\n    }\n\n# Construction operation\n\
+    @benchmark.implementation(\"irank\", \"construction\")\ndef construction_irank(data):\n\
+    \    \"\"\"Construct data copy for irank\"\"\"\n    data_copy = list(data['data'])\n\
+    \    checksum = 0\n    for x in data_copy:\n        checksum ^= x\n    return\
+    \ checksum\n\n@benchmark.implementation(\"irank_multi\", \"construction\")\ndef\
+    \ construction_irank_multi(data):\n    \"\"\"Construct data copy for irank_multi\"\
+    \"\"\n    data_copy = list(data['data'])\n    checksum = 0\n    for x in data_copy:\n\
+    \        checksum ^= x\n    return checksum\n\n# Random operation\n@benchmark.implementation(\"\
+    irank\", \"random\")\ndef random_irank(data):\n    \"\"\"Standard irank implementation\
+    \ for random data\"\"\"\n    pre = data['preinitialized']\n    result = irank(pre['data_copy1'],\
+    \ distinct=pre['distinct'])\n    checksum = 0\n    for x in result:\n        checksum\
+    \ ^= x\n    return checksum\n\n@benchmark.implementation(\"irank_multi\", \"random\"\
+    )\ndef random_irank_multi(data):\n    \"\"\"Multi-pass irank implementation for\
+    \ random data\"\"\"\n    pre = data['preinitialized']\n    result = irank_multi(pre['data_copy2'],\
+    \ distinct=pre['distinct'])\n    checksum = 0\n    for x in result:\n        checksum\
+    \ ^= x\n    return checksum\n\n# Sorted operation\n@benchmark.implementation(\"\
+    irank\", \"sorted\")\ndef sorted_irank(data):\n    \"\"\"Standard irank implementation\
+    \ for sorted data\"\"\"\n    pre = data['preinitialized']\n    result = irank(pre['data_copy1'],\
+    \ distinct=pre['distinct'])\n    checksum = 0\n    for x in result:\n        checksum\
+    \ ^= x\n    return checksum\n\n@benchmark.implementation(\"irank_multi\", \"sorted\"\
+    )\ndef sorted_irank_multi(data):\n    \"\"\"Multi-pass irank implementation for\
+    \ sorted data\"\"\"\n    pre = data['preinitialized']\n    result = irank_multi(pre['data_copy2'],\
+    \ distinct=pre['distinct'])\n    checksum = 0\n    for x in result:\n        checksum\
+    \ ^= x\n    return checksum\n\n# Duplicates operation\n@benchmark.implementation(\"\
+    irank\", \"duplicates\")\ndef duplicates_irank(data):\n    \"\"\"Standard irank\
+    \ implementation for data with duplicates\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank(pre['data_copy1'], distinct=pre['distinct'])\n    checksum\
+    \ = 0\n    for x in result:\n        checksum ^= x\n    return checksum\n\n@benchmark.implementation(\"\
+    irank_multi\", \"duplicates\")\ndef duplicates_irank_multi(data):\n    \"\"\"\
+    Multi-pass irank implementation for data with duplicates\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank_multi(pre['data_copy2'], distinct=pre['distinct'])\n    checksum\
+    \ = 0\n    for x in result:\n        checksum ^= x\n    return checksum\n\n# Reverse\
+    \ operation\n@benchmark.implementation(\"irank\", \"reverse\")\ndef reverse_irank(data):\n\
+    \    \"\"\"Standard irank implementation for reverse data\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank(pre['data_copy1'], distinct=pre['distinct'])\n    checksum\
+    \ = 0\n    for x in result:\n        checksum ^= x\n    return checksum\n\n@benchmark.implementation(\"\
+    irank_multi\", \"reverse\")\ndef reverse_irank_multi(data):\n    \"\"\"Multi-pass\
+    \ irank implementation for reverse data\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank_multi(pre['data_copy2'], distinct=pre['distinct'])\n    checksum\
+    \ = 0\n    for x in result:\n        checksum ^= x\n    return checksum\n\n# Additional\
+    \ benchmark with distinct=True\n@benchmark.data_generator(\"distinct\")\ndef generate_rank_data_distinct(size:\
+    \ int, operation: str):\n    \"\"\"Generate ranking data with distinct=True\"\"\
+    \"\n    base_data = generate_rank_data(size, operation)\n    base_data['distinct']\
+    \ = True\n    base_data['preinitialized']['distinct'] = True\n    return base_data\n\
+    \ndef irank_distinct_implementation(data):\n    \"\"\"irank with distinct=True\"\
+    \"\"\n    pre = data['preinitialized']\n    result = irank(pre['data_copy1'],\
+    \ distinct=True)\n    checksum = 0\n    for x in result:\n        checksum ^=\
+    \ x\n    return checksum\n\ndef irank_multi_distinct_implementation(data):\n \
+    \   \"\"\"irank_multi with distinct=True\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank_multi(pre['data_copy2'], distinct=True)\n    checksum = 0\n\
+    \    for x in result:\n        checksum ^= x\n    return checksum\n\n# Custom\
+    \ validator for rank results (now using XOR checksums)\n@benchmark.validator(\"\
+    default\")\ndef validate_rank_result(expected, actual):\n    \"\"\"Validate ranking\
+    \ results using XOR checksums\"\"\"\n    try:\n        # Compare XOR checksums\
+    \ directly\n        return int(expected) == int(actual)\n    except Exception:\n\
+    \        return False\n\nif __name__ == \"__main__\":\n    # Run with default\
+    \ data generator\n    print(\"Running rank benchmark with distinct=False...\"\
+    )\n    benchmark.run()\n    \n    # Create a separate benchmark for distinct=True\n\
+    \    print(\"\\nRunning rank benchmark with distinct=True...\")\n    config_distinct\
+    \ = BenchmarkConfig(\n        name=\"rank_distinct\",\n        sizes=[1000000,\
+    \ 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT\n        operations=['construction',\
+    \ 'random', 'sorted', 'duplicates', 'reverse'],\n        iterations=5,\n     \
+    \   warmup=3,\n        output_dir=\"./output/benchmark_results/rank_distinct\"\
     \n    )\n    benchmark_distinct = Benchmark(config_distinct)\n    benchmark_distinct.data_generators\
-    \ = {\"default\": generate_rank_data_distinct}\n    benchmark_distinct.implementations\
-    \ = {\n        \"irank_distinct\": irank_distinct_implementation,\n        \"\
-    irank_multi_distinct\": irank_multi_distinct_implementation\n    }\n    benchmark_distinct.validators\
-    \ = {\"default\": validate_rank_result}\n    benchmark_distinct.run()\n"
+    \ = {\"default\": generate_rank_data_distinct}\n    \n    # Register implementations\
+    \ properly for each operation\n    for operation in config_distinct.operations:\n\
+    \        if operation == \"construction\":\n            benchmark_distinct.implementations[operation]\
+    \ = {\n                \"irank_distinct\": lambda data: construction_irank(data),\n\
+    \                \"irank_multi_distinct\": lambda data: construction_irank_multi(data)\n\
+    \            }\n        else:\n            benchmark_distinct.implementations[operation]\
+    \ = {\n                \"irank_distinct\": irank_distinct_implementation,\n  \
+    \              \"irank_multi_distinct\": irank_multi_distinct_implementation\n\
+    \            }\n    \n    benchmark_distinct.validators = {\"default\": validate_rank_result}\n\
+    \    benchmark_distinct.run()\n"
   code: "#!/usr/bin/env python3\n\"\"\"\nSimple ranking benchmark using the new declarative\
     \ framework.\nCompares irank vs irank_multi performance across different data\
     \ patterns.\n\"\"\"\n\nimport random\nimport sys\nimport os\nsys.path.insert(0,\
     \ os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\n\nfrom cp_library.perf.benchmark\
     \ import Benchmark, BenchmarkConfig\nfrom cp_library.alg.iter.rank.irank_fn import\
     \ irank\nfrom cp_library.alg.iter.rank.irank_multi_fn import irank as irank_multi\n\
-    \n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"rank\",\n    sizes=[100,\
-    \ 1000, 10000, 50000],\n    operations=['random', 'sorted', 'duplicates', 'reverse'],\n\
-    \    iterations=5,\n    warmup=2,\n    output_dir=\"./output/benchmark_results/rank\"\
-    \n)\n\n# Create benchmark instance\nbenchmark = Benchmark(config)\n\n# Data generator\n\
-    @benchmark.data_generator(\"default\")\ndef generate_rank_data(size: int, operation:\
-    \ str):\n    \"\"\"Generate ranking data in different patterns\"\"\"\n    if operation\
-    \ == 'random':\n        data = [random.randint(1, size) for _ in range(size)]\n\
-    \    elif operation == 'sorted':\n        data = list(range(size))\n    elif operation\
-    \ == 'duplicates':\n        # Many duplicates (10% unique values)\n        unique_count\
-    \ = max(1, size // 10)\n        data = [random.randint(1, unique_count) for _\
-    \ in range(size)]\n    elif operation == 'reverse':\n        data = list(range(size,\
-    \ 0, -1))\n    else:\n        raise ValueError(f\"Unknown operation: {operation}\"\
-    )\n    \n    return {\n        'data': data,\n        'distinct': False,\n   \
-    \     'size': size,\n        'operation': operation\n    }\n\n# Implementation:\
-    \ irank\n@benchmark.implementation(\"irank\", [\"random\", \"sorted\", \"duplicates\"\
-    , \"reverse\"])\ndef irank_implementation(data):\n    \"\"\"Standard irank implementation\"\
-    \"\"\n    return irank(data['data'].copy(), distinct=data['distinct'])\n\n# Implementation:\
-    \ irank_multi\n@benchmark.implementation(\"irank_multi\", [\"random\", \"sorted\"\
-    , \"duplicates\", \"reverse\"])\ndef irank_multi_implementation(data):\n    \"\
-    \"\"Multi-pass irank implementation\"\"\"\n    return irank_multi(data['data'].copy(),\
-    \ distinct=data['distinct'])\n\n# Additional benchmark with distinct=True\n@benchmark.data_generator(\"\
-    distinct\")\ndef generate_rank_data_distinct(size: int, operation: str):\n   \
-    \ \"\"\"Generate ranking data with distinct=True\"\"\"\n    base_data = generate_rank_data(size,\
-    \ operation)\n    base_data['distinct'] = True\n    return base_data\n\n@benchmark.implementation(\"\
-    irank_distinct\", [\"random\", \"sorted\", \"duplicates\", \"reverse\"])\ndef\
-    \ irank_distinct_implementation(data):\n    \"\"\"irank with distinct=True\"\"\
-    \"\n    return irank(data['data'].copy(), distinct=True)\n\n@benchmark.implementation(\"\
-    irank_multi_distinct\", [\"random\", \"sorted\", \"duplicates\", \"reverse\"])\n\
-    def irank_multi_distinct_implementation(data):\n    \"\"\"irank_multi with distinct=True\"\
-    \"\"\n    return irank_multi(data['data'].copy(), distinct=True)\n\n# Custom validator\
-    \ for rank results\n@benchmark.validator(\"default\")\ndef validate_rank_result(expected,\
-    \ actual):\n    \"\"\"Validate ranking results\"\"\"\n    if isinstance(expected,\
-    \ list) and isinstance(actual, list):\n        return len(expected) == len(actual)\
-    \ and all(\n            0 <= e < len(expected) and 0 <= a < len(actual) \n   \
-    \         for e, a in zip(expected, actual)\n        )\n    return expected ==\
-    \ actual\n\nif __name__ == \"__main__\":\n    # Run with default data generator\n\
-    \    print(\"Running rank benchmark with distinct=False...\")\n    benchmark.run()\n\
-    \    \n    # Create a separate benchmark for distinct=True\n    print(\"\\nRunning\
-    \ rank benchmark with distinct=True...\")\n    config_distinct = BenchmarkConfig(\n\
-    \        name=\"rank_distinct\",\n        sizes=[100, 1000, 10000, 50000],\n \
-    \       operations=['random', 'sorted', 'duplicates', 'reverse'],\n        iterations=5,\n\
-    \        warmup=2,\n        output_dir=\"./output/benchmark_results/rank_distinct\"\
+    \n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"rank\",\n    sizes=[1000000,\
+    \ 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT\n    operations=['construction',\
+    \ 'random', 'sorted', 'duplicates', 'reverse'],\n    iterations=5,\n    warmup=3,\n\
+    \    output_dir=\"./output/benchmark_results/rank\"\n)\n\n# Create benchmark instance\n\
+    benchmark = Benchmark(config)\n\n# Data generator\n@benchmark.data_generator(\"\
+    default\")\ndef generate_rank_data(size: int, operation: str):\n    \"\"\"Generate\
+    \ ranking data in different patterns\"\"\"\n    if operation == 'random':\n  \
+    \      data = [random.randint(1, size) for _ in range(size)]\n    elif operation\
+    \ == 'sorted':\n        data = list(range(size))\n    elif operation == 'duplicates':\n\
+    \        # Many duplicates (10% unique values)\n        unique_count = max(1,\
+    \ size // 10)\n        data = [random.randint(1, unique_count) for _ in range(size)]\n\
+    \    elif operation == 'reverse':\n        data = list(range(size, 0, -1))\n \
+    \   else:\n        raise ValueError(f\"Unknown operation: {operation}\")\n   \
+    \ \n    # Pre-initialize data for fair timing (exclude copy overhead)\n    preinitialized\
+    \ = {\n        'data_copy1': list(data),\n        'data_copy2': list(data),\n\
+    \        'distinct': False\n    }\n    \n    return {\n        'data': data,\n\
+    \        'distinct': False,\n        'size': size,\n        'operation': operation,\n\
+    \        'preinitialized': preinitialized\n    }\n\n# Construction operation\n\
+    @benchmark.implementation(\"irank\", \"construction\")\ndef construction_irank(data):\n\
+    \    \"\"\"Construct data copy for irank\"\"\"\n    data_copy = list(data['data'])\n\
+    \    checksum = 0\n    for x in data_copy:\n        checksum ^= x\n    return\
+    \ checksum\n\n@benchmark.implementation(\"irank_multi\", \"construction\")\ndef\
+    \ construction_irank_multi(data):\n    \"\"\"Construct data copy for irank_multi\"\
+    \"\"\n    data_copy = list(data['data'])\n    checksum = 0\n    for x in data_copy:\n\
+    \        checksum ^= x\n    return checksum\n\n# Random operation\n@benchmark.implementation(\"\
+    irank\", \"random\")\ndef random_irank(data):\n    \"\"\"Standard irank implementation\
+    \ for random data\"\"\"\n    pre = data['preinitialized']\n    result = irank(pre['data_copy1'],\
+    \ distinct=pre['distinct'])\n    checksum = 0\n    for x in result:\n        checksum\
+    \ ^= x\n    return checksum\n\n@benchmark.implementation(\"irank_multi\", \"random\"\
+    )\ndef random_irank_multi(data):\n    \"\"\"Multi-pass irank implementation for\
+    \ random data\"\"\"\n    pre = data['preinitialized']\n    result = irank_multi(pre['data_copy2'],\
+    \ distinct=pre['distinct'])\n    checksum = 0\n    for x in result:\n        checksum\
+    \ ^= x\n    return checksum\n\n# Sorted operation\n@benchmark.implementation(\"\
+    irank\", \"sorted\")\ndef sorted_irank(data):\n    \"\"\"Standard irank implementation\
+    \ for sorted data\"\"\"\n    pre = data['preinitialized']\n    result = irank(pre['data_copy1'],\
+    \ distinct=pre['distinct'])\n    checksum = 0\n    for x in result:\n        checksum\
+    \ ^= x\n    return checksum\n\n@benchmark.implementation(\"irank_multi\", \"sorted\"\
+    )\ndef sorted_irank_multi(data):\n    \"\"\"Multi-pass irank implementation for\
+    \ sorted data\"\"\"\n    pre = data['preinitialized']\n    result = irank_multi(pre['data_copy2'],\
+    \ distinct=pre['distinct'])\n    checksum = 0\n    for x in result:\n        checksum\
+    \ ^= x\n    return checksum\n\n# Duplicates operation\n@benchmark.implementation(\"\
+    irank\", \"duplicates\")\ndef duplicates_irank(data):\n    \"\"\"Standard irank\
+    \ implementation for data with duplicates\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank(pre['data_copy1'], distinct=pre['distinct'])\n    checksum\
+    \ = 0\n    for x in result:\n        checksum ^= x\n    return checksum\n\n@benchmark.implementation(\"\
+    irank_multi\", \"duplicates\")\ndef duplicates_irank_multi(data):\n    \"\"\"\
+    Multi-pass irank implementation for data with duplicates\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank_multi(pre['data_copy2'], distinct=pre['distinct'])\n    checksum\
+    \ = 0\n    for x in result:\n        checksum ^= x\n    return checksum\n\n# Reverse\
+    \ operation\n@benchmark.implementation(\"irank\", \"reverse\")\ndef reverse_irank(data):\n\
+    \    \"\"\"Standard irank implementation for reverse data\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank(pre['data_copy1'], distinct=pre['distinct'])\n    checksum\
+    \ = 0\n    for x in result:\n        checksum ^= x\n    return checksum\n\n@benchmark.implementation(\"\
+    irank_multi\", \"reverse\")\ndef reverse_irank_multi(data):\n    \"\"\"Multi-pass\
+    \ irank implementation for reverse data\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank_multi(pre['data_copy2'], distinct=pre['distinct'])\n    checksum\
+    \ = 0\n    for x in result:\n        checksum ^= x\n    return checksum\n\n# Additional\
+    \ benchmark with distinct=True\n@benchmark.data_generator(\"distinct\")\ndef generate_rank_data_distinct(size:\
+    \ int, operation: str):\n    \"\"\"Generate ranking data with distinct=True\"\"\
+    \"\n    base_data = generate_rank_data(size, operation)\n    base_data['distinct']\
+    \ = True\n    base_data['preinitialized']['distinct'] = True\n    return base_data\n\
+    \ndef irank_distinct_implementation(data):\n    \"\"\"irank with distinct=True\"\
+    \"\"\n    pre = data['preinitialized']\n    result = irank(pre['data_copy1'],\
+    \ distinct=True)\n    checksum = 0\n    for x in result:\n        checksum ^=\
+    \ x\n    return checksum\n\ndef irank_multi_distinct_implementation(data):\n \
+    \   \"\"\"irank_multi with distinct=True\"\"\"\n    pre = data['preinitialized']\n\
+    \    result = irank_multi(pre['data_copy2'], distinct=True)\n    checksum = 0\n\
+    \    for x in result:\n        checksum ^= x\n    return checksum\n\n# Custom\
+    \ validator for rank results (now using XOR checksums)\n@benchmark.validator(\"\
+    default\")\ndef validate_rank_result(expected, actual):\n    \"\"\"Validate ranking\
+    \ results using XOR checksums\"\"\"\n    try:\n        # Compare XOR checksums\
+    \ directly\n        return int(expected) == int(actual)\n    except Exception:\n\
+    \        return False\n\nif __name__ == \"__main__\":\n    # Run with default\
+    \ data generator\n    print(\"Running rank benchmark with distinct=False...\"\
+    )\n    benchmark.run()\n    \n    # Create a separate benchmark for distinct=True\n\
+    \    print(\"\\nRunning rank benchmark with distinct=True...\")\n    config_distinct\
+    \ = BenchmarkConfig(\n        name=\"rank_distinct\",\n        sizes=[1000000,\
+    \ 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT\n        operations=['construction',\
+    \ 'random', 'sorted', 'duplicates', 'reverse'],\n        iterations=5,\n     \
+    \   warmup=3,\n        output_dir=\"./output/benchmark_results/rank_distinct\"\
     \n    )\n    benchmark_distinct = Benchmark(config_distinct)\n    benchmark_distinct.data_generators\
-    \ = {\"default\": generate_rank_data_distinct}\n    benchmark_distinct.implementations\
-    \ = {\n        \"irank_distinct\": irank_distinct_implementation,\n        \"\
-    irank_multi_distinct\": irank_multi_distinct_implementation\n    }\n    benchmark_distinct.validators\
-    \ = {\"default\": validate_rank_result}\n    benchmark_distinct.run()"
+    \ = {\"default\": generate_rank_data_distinct}\n    \n    # Register implementations\
+    \ properly for each operation\n    for operation in config_distinct.operations:\n\
+    \        if operation == \"construction\":\n            benchmark_distinct.implementations[operation]\
+    \ = {\n                \"irank_distinct\": lambda data: construction_irank(data),\n\
+    \                \"irank_multi_distinct\": lambda data: construction_irank_multi(data)\n\
+    \            }\n        else:\n            benchmark_distinct.implementations[operation]\
+    \ = {\n                \"irank_distinct\": irank_distinct_implementation,\n  \
+    \              \"irank_multi_distinct\": irank_multi_distinct_implementation\n\
+    \            }\n    \n    benchmark_distinct.validators = {\"default\": validate_rank_result}\n\
+    \    benchmark_distinct.run()"
   dependsOn:
   - cp_library/perf/benchmark.py
   - cp_library/alg/iter/rank/irank_fn.py
@@ -311,7 +406,7 @@ data:
   isVerificationFile: false
   path: perf/rank.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/rank.py

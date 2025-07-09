@@ -357,7 +357,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/snippets/scc_labels_fn.py
   requiredBy: []
-  timestamp: '2025-07-10 00:37:15+09:00'
+  timestamp: '2025-07-10 02:39:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_c_scc.test.py
