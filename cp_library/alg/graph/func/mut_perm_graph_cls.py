@@ -1,5 +1,5 @@
 import cp_library.alg.graph.__header__
-from cp_library.alg.graph.func_graph_cls import FuncGraph
+from cp_library.alg.graph.func.func_graph_cls import FuncGraph
   
 class MutPermGraph(FuncGraph):
     def __init__(P, successors: list[int]):

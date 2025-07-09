@@ -1,7 +1,7 @@
 from cp_library.ds.elist_fn import elist
 import cp_library.alg.graph.__header__
 
-from cp_library.alg.graph.func_graph_cls import FuncGraph
+from cp_library.alg.graph.func.func_graph_cls import FuncGraph
 
 class PartialFuncGraph(FuncGraph):
     def __init__(F, successors):

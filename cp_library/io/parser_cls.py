@@ -127,3 +127,7 @@ class Parsable:
     def compile(cls):
         def parser(ts: TokenStream): return cls(next(ts))
         return parser
+    
+    @classmethod
+    def __class_getitem__(cls, item):
+        return GenericAlias(cls, item)

@@ -1,7 +1,10 @@
-import cp_library.alg.graph.__header__
+import cp_library.__header__
 from typing import Union
+import cp_library.alg.__header__
+import cp_library.alg.graph.__header__
 from cp_library.alg.graph.edge_cls import Edge
-from cp_library.alg.graph.graph_proto import GraphProtocol
+import cp_library.alg.graph.set.__header__
+from cp_library.alg.graph.set.graph_proto import GraphProtocol
 
 class Graph(GraphProtocol):
     def __init__(G, N: int, edges=[]):

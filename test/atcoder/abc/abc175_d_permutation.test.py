@@ -24,7 +24,7 @@ def main():
     write(ans)
     
 from cp_library.alg.iter.presum_fn import presum
-from cp_library.alg.graph.perm_graph_cls import PermGraph
+from cp_library.alg.graph.func.perm_graph_cls import PermGraph
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

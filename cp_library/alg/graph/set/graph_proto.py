@@ -1,10 +1,12 @@
-import cp_library.alg.graph.__header__
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
-from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
-from cp_library.ds.elist_fn import elist
+import cp_library.__header__
 from typing import Iterable, Union, overload
 from collections import deque
 from math import inf
+from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+import cp_library.alg.__header__
+import cp_library.alg.graph.__header__
+from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
+import cp_library.alg.graph.set.__header__
 
 class GraphProtocol(list, Parsable):
     def __init__(G, N: int, E: list = None, adj: Iterable = None):
@@ -424,3 +426,4 @@ class GraphProtocol(list, Parsable):
             return cls(N, [edge(ts) for _ in range(M)])
         return parse
     
+from cp_library.ds.elist_fn import elist

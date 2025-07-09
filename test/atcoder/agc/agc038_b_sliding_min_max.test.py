@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://atcoder.jp/contests/agc038/tasks/agc038_b
 
-from cp_library.alg.graph.perm_graph_cls import PermGraph
+from cp_library.alg.graph.func.perm_graph_cls import PermGraph
 
 def main():
     N, K = read(tuple[int,int])

@@ -8,7 +8,7 @@ from cp_library.alg.dp.chmin_fn import chmin
 import cp_library.alg.graph.__header__
 from cp_library.alg.graph.dfs_options_cls import DFSEvent
 
-class GraphBase(Sequence, Parsable):
+class GraphBase(Parsable):
     def __init__(G, N: int, M: int, U: list[int], V: list[int], 
                  deg: list[int], La: list[int], Ra: list[int],
                  Ua: list[int], Va: list[int], Ea: list[int], twin: list[int] = None):
@@ -242,7 +242,7 @@ class GraphBase(Sequence, Parsable):
                     order.append(LEAVE | u); st.pop()
         return plst
     
-    def starts(G, s: Union[int,list[int],None]) -> list[int]:
+    def starts(G, s: Union[int,list[int],None] = None) -> list[int]:
         if isinstance(s, int): return [s]
         elif s is None: return range(G.N)
         elif isinstance(s, list): return s

@@ -6,7 +6,7 @@ import cp_library.ds.__header__
 from cp_library.ds.elist_fn import elist
 import cp_library.ds.heap.__header__
 
-class SkewHeapForest(Generic[_T]):
+class SkewHeapForrest(Generic[_T]):
     def __init__(shf, N, M, e: _T = 0, op = operator.add):
         shf.V, shf.A, shf.L, shf.R, shf.roots = [e]*M, [e]*M, [-1]*M, [-1]*M, [-1]*N
         shf.id, shf.st, shf.e, shf.op = 0, elist(M), e, op
@@ -32,9 +32,9 @@ class SkewHeapForest(Generic[_T]):
         return shf.V[root]
 
     def push(shf, i: int, x: _T):
-        shf.id = (id := shf.id)+1
-        shf.V[id] = x
-        shf.roots[i] = shf.merge(shf.roots[i], id)
+        shf.V[shf.id] = x
+        shf.roots[i] = shf.merge(shf.roots[i], shf.id)
+        shf.id += 1
 
     def pop(shf, i: int) -> _T:
         assert ~(root := shf.roots[i])

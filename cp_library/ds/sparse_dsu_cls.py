@@ -6,7 +6,7 @@ class SparseDSU:
         self.par = defaultdict(lambda:-1)
 
     def merge(self, u, v) -> int:
-        x, y = self.leader(u), self.leader(v)
+        x, y = self.root(u), self.root(v)
         if x == y: return x
 
         if -self.par[x] < -self.par[y]:
@@ -18,9 +18,9 @@ class SparseDSU:
         return x
 
     def same(self, u: int, v: int) -> bool:
-        return self.leader(u) == self.leader(v)
+        return self.root(u) == self.root(v)
 
-    def leader(self, i) -> int:
+    def root(self, i) -> int:
         p = self.par[i]
         while p >= 0:
             if self.par[p] < 0:
@@ -30,14 +30,14 @@ class SparseDSU:
         return i
 
     def size(self, i) -> int:
-        return -self.par[self.leader(i)]
+        return -self.par[self.root(i)]
 
     def groups(self) -> list[list[int]]:
         idx = list(self.par.keys())
-        leader_buf = [self.leader(i) for i in idx]
+        root_buf = [self.root(i) for i in idx]
 
         result = [[] for _ in idx]
         for i in idx:
-            result[leader_buf[i]].append(i)
+            result[root_buf[i]].append(i)
 
         return list(filter(lambda r: r, result))

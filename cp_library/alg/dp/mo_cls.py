@@ -5,7 +5,7 @@ import cp_library.alg.dp.__header__
 from cp_library.alg.dp.max2_fn import max2
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
 
-class Mo(list, Parsable):
+class Mo(Parsable):
     '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''
     def __init__(mo, L: list[int], R: list[int], N: int):
         mo.Q = len(L)

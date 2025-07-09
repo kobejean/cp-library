@@ -11,7 +11,7 @@ class PotentializedDSU:
         self.e = e
         self.pot = [e] * n if isinstance(v, int) else v
 
-    def leader(self, x: int) -> int:
+    def root(self, x: int) -> int:
         assert 0 <= x < self.n
         path = []
         while self.par[x] >= 0:
@@ -23,8 +23,8 @@ class PotentializedDSU:
         return x
     
     def consistent(self, x: int, y: int, w) -> bool:
-        rx = self.leader(x)
-        ry = self.leader(y)
+        rx = self.root(x)
+        ry = self.root(y)
         if rx == ry:
             return self.op(self.pot[x], self.inv(self.pot[y])) == w
         return True
@@ -32,8 +32,8 @@ class PotentializedDSU:
     def merge(self, x: int, y: int, w) -> tuple[int, int]:
         assert 0 <= x < self.n
         assert 0 <= y < self.n
-        rx = self.leader(x)
-        ry = self.leader(y)
+        rx = self.root(x)
+        ry = self.root(y)
         if rx != ry:
             par = self.par
             if par[rx] < par[ry]:
@@ -49,18 +49,18 @@ class PotentializedDSU:
     def same(self, x: int, y: int) -> bool:
         assert 0 <= x < self.n
         assert 0 <= y < self.n
-        return self.leader(x) == self.leader(y)
+        return self.root(x) == self.root(y)
     
     def size(self, x: int) -> int:
         assert 0 <= x < self.n
-        return -self.par[self.leader(x)]
+        return -self.par[self.root(x)]
     
     def groups(self):
-        leader_buf = [self.leader(i) for i in range(self.n)]
+        root_buf = [self.root(i) for i in range(self.n)]
 
         result = [[] for _ in range(self.n)]
         for i in range(self.n):
-            result[leader_buf[i]].append(i)
+            result[root_buf[i]].append(i)
 
         return list(filter(lambda r: r, result))
 

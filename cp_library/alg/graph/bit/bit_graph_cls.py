@@ -1,12 +1,13 @@
-import cp_library.alg.graph.__header__
+import cp_library.__header__
 from typing import Union
-from cp_library.bit.popcnt32_fn import popcnt32
-from cp_library.bit.ctz32_fn import ctz32
-from cp_library.alg.graph.edge_cls import Edge
 from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+import cp_library.alg.__header__
+import cp_library.alg.graph.__header__
+import cp_library.alg.graph.bit.__header__
+from cp_library.alg.graph.edge.edge_cls import Edge
 
 class BitGraph(list, Parsable):
-    def __init__(G, N: int, E: list[Edge]=[]):
+    def __init__(G, N: int, E: list['Edge']=[]):
         super().__init__([0]*N)
         G.E, G.N, G.M = E, N, len(E)
         for u,v in E:
@@ -41,5 +42,5 @@ class BitGraph(list, Parsable):
         def parse(ts: TokenStream):
             return cls(N, [edge(ts) for _ in range(M)])
         return parse
-
-    
+from cp_library.bit.popcnt32_fn import popcnt32
+from cp_library.bit.ctz32_fn import ctz32
