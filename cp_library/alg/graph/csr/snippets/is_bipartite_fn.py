@@ -6,7 +6,7 @@ import cp_library.alg.graph.csr.__header__
 from cp_library.alg.graph.csr.graph_base_cls import GraphBase
 
 def is_bipartite(G: GraphBase, s: Union[int,list,None] = None):
-    color, ret = u8f(N := G.N), True
+    color, ret = u8f(G.N), True
 
     def visited(u,v,i):
         nonlocal ret

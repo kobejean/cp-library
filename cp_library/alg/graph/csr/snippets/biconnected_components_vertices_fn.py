@@ -37,8 +37,6 @@ def biconnected_components(G: GraphBase, s: Union[int,list,None] = None) -> Iter
             L.append(len(bccs))
             bccs.append(u)
     return SliceIteratorReverse(bccs, L)
-
 two_vertex_connected_components = biconnected_components
-
 from cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse
 from cp_library.ds.elist_fn import elist

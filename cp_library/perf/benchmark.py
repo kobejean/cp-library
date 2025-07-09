@@ -28,6 +28,7 @@ class BenchmarkConfig:
     output_dir: str = "./output/benchmark_results"
     save_results: bool = True
     plot_results: bool = True
+    plot_scale: str = "loglog"  # Options: "loglog", "linear", "semilogx", "semilogy"
     
     def __post_init__(self):
         if self.sizes is None:
@@ -238,7 +239,19 @@ class Benchmark:
         plt.title(f'{self.config.name} - {operation} Operation')
         plt.legend()
         plt.grid(True, alpha=0.3)
-        plt.loglog()
+        
+        # Apply the configured scaling
+        if self.config.plot_scale == "loglog":
+            plt.loglog()
+        elif self.config.plot_scale == "linear":
+            pass  # Default linear scale
+        elif self.config.plot_scale == "semilogx":
+            plt.semilogx()
+        elif self.config.plot_scale == "semilogy":
+            plt.semilogy()
+        else:
+            # Default to loglog if invalid option
+            plt.loglog()
         
         plot_file = output_dir / f"{self.config.name}_{operation}_performance.png"
         plt.savefig(plot_file, dpi=300, bbox_inches='tight')

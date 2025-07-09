@@ -15,7 +15,7 @@ from cp_library.alg.graph.edge.edge_list_weighted_cls import EdgeListWeighted
 # Configure benchmark
 config = BenchmarkConfig(
     name="edge_list",
-    sizes=[100, 1000, 10000, 100000],
+    sizes=[1000000, 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT
     operations=['sum_weights', 'filter', 'degree_count', 'transform', 'sort', 'construction'],
     iterations=10,
     warmup=2,
