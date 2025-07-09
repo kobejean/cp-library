@@ -45,11 +45,11 @@ data:
     path: cp_library/math/mod/mint_ntt_cls.py
     title: cp_library/math/mod/mint_ntt_cls.py
   - icon: ':warning:'
-    path: cp_library/math/mod/mintlist_cls.py
-    title: cp_library/math/mod/mintlist_cls.py
+    path: cp_library/math/mod/mlist_cls.py
+    title: cp_library/math/mod/mlist_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/table/modcomb_cls.py
-    title: cp_library/math/table/modcomb_cls.py
+    path: cp_library/math/table/mcomb_cls.py
+    title: cp_library/math/table/mcomb_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/stirling1_k_fn.py
     title: cp_library/math/table/stirling1_k_fn.py
@@ -172,7 +172,7 @@ data:
   path: cp_library/math/mod/mint_cls.py
   requiredBy:
   - cp_library/math/mod/mint_ntt_cls.py
-  - cp_library/math/mod/mintlist_cls.py
+  - cp_library/math/mod/mlist_cls.py
   - cp_library/math/linalg/mat/mod/modmat_cls.py
   - cp_library/math/linalg/mat/mod/mat_cls.py
   - cp_library/math/linalg/mat/mat_cls.py
@@ -186,12 +186,12 @@ data:
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_ideriv_k_fn.py
   - cp_library/math/fps/fps_inv_fn.py
+  - cp_library/math/table/mcomb_cls.py
   - cp_library/math/table/stirling2_n_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/table/modcomb_cls.py
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_n_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution.test.py

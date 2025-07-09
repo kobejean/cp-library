@@ -10,9 +10,6 @@ data:
     path: test/library-checker/data-structure/point_set_range_composite_large_array.test.py
     title: test/library-checker/data-structure/point_set_range_composite_large_array.test.py
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
-    title: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
-  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_path_composite_sum.test.py
     title: test/library-checker/tree/tree_path_composite_sum.test.py
   - icon: ':heavy_check_mark:'
@@ -41,14 +38,13 @@ data:
   isVerificationFile: false
   path: cp_library/bit/pack/pack_enc_fn.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/library-checker/data-structure/point_set_range_composite.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
-  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
 documentation_of: cp_library/bit/pack/pack_enc_fn.py
 layout: document
 redirect_from:

@@ -8,20 +8,20 @@ data:
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_base_cls.py
+    title: cp_library/alg/graph/csr/graph_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/grid_graph_base_cls.py
+    title: cp_library/alg/graph/csr/grid_graph_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/grid_graph_cls.py
+    title: cp_library/alg/graph/csr/grid_graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
+    title: cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_base_cls.py
-    title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_base_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/masks/i32_max_cnst.py
     title: cp_library/bit/masks/i32_max_cnst.py
@@ -120,8 +120,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -323,8 +323,8 @@ data:
     \    \n    @classmethod\n    def compile(cls, H: int, W: int, *args):\n      \
     \  def parse(ts: TokenStream):\n            S = ''.join(ts.stream.readline().rstrip()\
     \ for _ in range(H))\n            return cls(H, W, S, *args)\n        return parse\n\
-    \n\nclass GridGraphWalledBase(GridGraphBase):\n\n    def __init__(G, H, W, M,\
-    \ S, U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)],\
+    \nclass GridGraphWalledBase(GridGraphBase):\n\n    def __init__(G, H, W, M, S,\
+    \ U, V, deg, La, Ra, Ua, Va, Ea,\n            dirs: list = [(-1,0),(0,1),(1,0),(0,-1)],\
     \ wall = '#'):\n        super().__init__(H, W, M, S, U, V, deg, La, Ra, Ua, Va,\
     \ Ea, dirs)\n        G.wall = wall\n\n    def is_valid(G, i, j, v):\n        return\
     \ super().is_valid(i, j, v) and G.S[v] != G.wall\n    \n    @classmethod\n   \
@@ -343,15 +343,15 @@ data:
     \                if G.Va[j] == u:\n                    G.twin[i] = j\n       \
     \ G.M, G.Ea = len(Ua), u32a(range(G.M))\ndef u32a(init = None): return array('I')\
     \ if init is None else array('I', init)  # unsigned int\n\ndef chmax(dp, i, v):\n\
-    \    if ch:=dp[i]<v:dp[i]=v\n    return ch\n\nfrom typing import Iterable, Type,\
-    \ Union, overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \    if ch:=dp[i]<v:dp[i]=v\n    return ch\n\nfrom typing import Type, Union,\
+    \ overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
     \ Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False)\
     \ -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]:\
     \ ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef\
     \ read(*specs: Union[Type[_T],_U], char=False):\n    if not char and not specs:\
-    \ return [int(s) for s in TokenStream.default.line()]\n    parser: _T = Parser.compile(specs)\n\
-    \    ret = parser(CharStream.default if char else TokenStream.default)\n    return\
-    \ ret[0] if len(specs) == 1 else ret\n\nif __name__ == \"__main__\":\n    print(solve())\n"
+    \ return [int(s) for s in TokenStream.default.line()]\n    parser: _T = Parser.compile(specs[0]\
+    \ if len(specs) == 1 else specs)\n    return parser(CharStream.default if char\
+    \ else TokenStream.default)\n\nif __name__ == \"__main__\":\n    print(solve())\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc301/tasks/abc301_e\n\
     \nfrom math import inf\n\n\ndef solve():\n    H, W, T = read(tuple[int, ...])\n\
     \    G = read(GridGraph[H, W])\n    s = G.S.find('S')\n    g = G.S.find('G')\n\
@@ -365,21 +365,21 @@ data:
     \                  nmask = mask | 1 << j\n                    if nmask == mask:\
     \ continue\n                    chmin(dp[nmask], j, val+Di[j])\n        if dp[mask][-1]\
     \ <= T:\n            chmax(ans, 0, mask.bit_count()-2)\n    return ans[0]\n\n\
-    from cp_library.alg.graph.fast.grid_graph_cls import GridGraph\nfrom cp_library.alg.dp.chmin_fn\
+    from cp_library.alg.graph.csr.grid_graph_cls import GridGraph\nfrom cp_library.alg.dp.chmin_fn\
     \ import chmin\nfrom cp_library.alg.dp.chmax_fn import chmax\nfrom cp_library.io.read_fn\
     \ import read\n\nif __name__ == \"__main__\":\n    print(solve())"
   dependsOn:
-  - cp_library/alg/graph/fast/grid_graph_cls.py
+  - cp_library/alg/graph/csr/grid_graph_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/dp/chmax_fn.py
   - cp_library/io/read_fn.py
-  - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
   - cp_library/ds/array/u32a_fn.py
   - cp_library/ds/array/u32f_fn.py
   - cp_library/ds/elist_fn.py
   - cp_library/io/parser_cls.py
-  - cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/alg/graph/csr/grid_graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/bit/masks/u32_max_cnst.py
   - cp_library/bit/masks/i32_max_cnst.py
@@ -390,7 +390,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc301_e_fast_grid_graph.test.py

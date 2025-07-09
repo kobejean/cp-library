@@ -50,17 +50,32 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nclass Presum:\n    def __init__(P, op, e, diff, A: list):\n        P.N = len(A);\
-    \ P.op, P.e, P.diff, P.pre = op, e, diff, [e]*(P.N+1)\n        for i,a in enumerate(A):P.pre[i+1]=op(P.pre[i],a)\n\
-    \    def __getitem__(P,i):return P.pre[i]\n    def prod(P,l:int,r:int):return\
-    \ P.diff(P.pre[r],P.pre[l])\n\nfrom abc import abstractmethod\n\nclass BitArray:\n\
-    \    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n        B.bits,\
-    \ B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n        B.bits.pop()\n\
-    \        for i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n   \
-    \     B.bits.append(1)\n    def __len__(B): return B.N\n    def __getitem__(B,\
-    \ i: int): return B.bits[i>>5]>>(31-(i&31))&1\n    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n\
-    \    def set1(B, i: int): B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int):\
-    \ return r-B.count1(r)\n    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
+    \nimport operator\n\nclass Presum:\n    def __init__(P, A: list, op=operator.add,\
+    \ e = 0, diff=operator.sub):\n        P.N = len(A); P.op, P.e, P.diff, P.pre =\
+    \ op, e, diff, [e]*(P.N+1)\n        for i,a in enumerate(A):P.pre[i+1]=op(P.pre[i],a)\n\
+    \    def __getitem__(srs, key): return srs.range_sum(key.start, key.stop) if isinstance(key,\
+    \ slice) else srs.sum(key)\n    def sum(srs, r: int): return srs.pre[r]\n    def\
+    \ range_sum(srs, l: int, r: int): return srs.diff(srs.pre[r], srs.pre[l])\n\n\
+    from abc import abstractmethod\n\nclass BitArray:\n    def __init__(B, N):\n \
+    \       if isinstance(N, list):\n            # If N is a list, assume it's a list\
+    \ of 1s and 0s\n            B.N = len(N)\n            B.Z = (B.N+31)>>5\n    \
+    \        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n            # Set bits based\
+    \ on list values\n            for i, bit in enumerate(N):\n                if\
+    \ bit: B.set1(i)\n        elif isinstance(N, (bytes, bytearray)):\n          \
+    \  # If N is bytes, convert each byte to 8 bits\n            B.N = len(N) * 8\n\
+    \            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
+    \            # Set bits based on byte values (MSB first for each byte)\n     \
+    \       for byte_idx, byte_val in enumerate(N):\n                for bit_idx in\
+    \ range(8):\n                    if byte_val & (1 << (7 - bit_idx)):  # MSB first\n\
+    \                        B.set1(byte_idx * 8 + bit_idx)\n        else:\n     \
+    \       # Original behavior: N is an integer\n            B.N = N\n          \
+    \  B.Z = (N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n   \
+    \ def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits): B.cnt[i+1]\
+    \ = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n    def __len__(B): return\
+    \ B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n  \
+    \  def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
+    \ B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int): return r-B.count1(r)\n\
+    \    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
     \    def select0(B, k: int):\n        if not 0<=k<B.N-B.cnt[-1]: return -1\n \
     \       l,r,k=0,B.N,k+1\n        while 1<r-l:\n            if B.count0(m:=(l+r)>>1)<k:l=m\n\
     \            else:r=m\n        return l\n    def select1(B, k: int):\n       \
@@ -142,21 +157,21 @@ data:
     \    if ub:prod=wm.op(prod,L.prod(l,r));l,r=L.T0+l1,L.T0+r1\n                dl0,dr0=dl-(dl:=L.T0+L.count1(dl)),dr-(dr:=L.T0+L.count1(dr))\n\
     \                if not db:prod=wm.op(L.prod(dl,dr),prod);dl,dr=L.T0+dl0,L.T0+dr0\n\
     \        return prod\n\nclass WMGroup(WMMonoid):\n    class Level(WMStatic.Level):\n\
-    \        def build(L, op, e, diff, W):super().build();L.W=Presum(op,e,diff,W)\n\
-    \        def prod(L,l:int,r:int):return L.W.prod(l,r)\n    def __init__(wm,op,e,diff,A,W,Amax=None):wm._build(op,e,diff,A,W,[0]*len(A),[0]*len(A),max(A,default=0)if\
+    \        def build(L, op, e, diff, W):super().build();L.W=Presum(W,op,e,diff)\n\
+    \        def prod(L,l:int,r:int):return L.W.range_sum(l,r)\n    def __init__(wm,op,e,diff,A,W,Amax=None):wm._build(op,e,diff,A,W,[0]*len(A),[0]*len(A),max(A,default=0)if\
     \ Amax is None else Amax)\n    def _build(wm,op,e,diff,A,W,nA,nW,Amax):wm.diff=diff;super()._build(op,\
-    \ e, A, W, nA, nW, Amax)\n    def _build_base(wm,W):wm.W=Presum(wm.op,wm.e,wm.diff,W)\n\
-    \    def _build_level(wm,L,W):L.build(wm.op,wm.e,wm.diff,W)\n    def _prod_range(wm,l:int,r:int):return\
-    \ wm.W.prod(l,r)\n"
+    \ e, A, W, nA, nW, Amax)\n    def _build_base(wm,W):wm.W=Presum(W,wm.op,wm.e,wm.diff)\n\
+    \    def _build_level(wm,L,W):L.build(wm.op,wm.e,wm.diff,W)\n    def _prod_range(wm,l,r):return\
+    \ wm.W.range_sum(l,r)\n"
   code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.presum_cls\
     \ import Presum\nimport cp_library.ds.wavelet.__header__\nfrom cp_library.ds.wavelet.wm_monoid_cls\
     \ import WMStatic, WMMonoid\n\nclass WMGroup(WMMonoid):\n    class Level(WMStatic.Level):\n\
-    \        def build(L, op, e, diff, W):super().build();L.W=Presum(op,e,diff,W)\n\
-    \        def prod(L,l:int,r:int):return L.W.prod(l,r)\n    def __init__(wm,op,e,diff,A,W,Amax=None):wm._build(op,e,diff,A,W,[0]*len(A),[0]*len(A),max(A,default=0)if\
+    \        def build(L, op, e, diff, W):super().build();L.W=Presum(W,op,e,diff)\n\
+    \        def prod(L,l:int,r:int):return L.W.range_sum(l,r)\n    def __init__(wm,op,e,diff,A,W,Amax=None):wm._build(op,e,diff,A,W,[0]*len(A),[0]*len(A),max(A,default=0)if\
     \ Amax is None else Amax)\n    def _build(wm,op,e,diff,A,W,nA,nW,Amax):wm.diff=diff;super()._build(op,\
-    \ e, A, W, nA, nW, Amax)\n    def _build_base(wm,W):wm.W=Presum(wm.op,wm.e,wm.diff,W)\n\
-    \    def _build_level(wm,L,W):L.build(wm.op,wm.e,wm.diff,W)\n    def _prod_range(wm,l:int,r:int):return\
-    \ wm.W.prod(l,r)"
+    \ e, A, W, nA, nW, Amax)\n    def _build_base(wm,W):wm.W=Presum(W,wm.op,wm.e,wm.diff)\n\
+    \    def _build_level(wm,L,W):L.build(wm.op,wm.e,wm.diff,W)\n    def _prod_range(wm,l,r):return\
+    \ wm.W.range_sum(l,r)"
   dependsOn:
   - cp_library/ds/list/presum_cls.py
   - cp_library/ds/wavelet/wm_monoid_cls.py
@@ -169,7 +184,7 @@ data:
   requiredBy:
   - cp_library/ds/wavelet/wm_group_points_cls.py
   - cp_library/ds/wavelet/wm_group_compressed_cls.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py

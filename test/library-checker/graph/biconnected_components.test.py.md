@@ -5,17 +5,17 @@ data:
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_base_cls.py
+    title: cp_library/alg/graph/csr/graph_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_cls.py
+    title: cp_library/alg/graph/csr/graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
+    title: cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_base_cls.py
-    title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_cls.py
-    title: cp_library/alg/graph/fast/graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
-    title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/slice_iterator_reverse_cls.py
     title: cp_library/alg/iter/slice_iterator_reverse_cls.py
@@ -107,8 +107,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -328,32 +328,32 @@ data:
     \ list[SupportsIndex]):\n        self.A, self.L, self.r = A, L, len(A)\n    def\
     \ __len__(self): return len(self.L)\n    def __next__(self):\n        L = self.L\n\
     \        if not L: raise StopIteration\n        self.r, r = (l := L.pop()), self.r\n\
-    \        return self.A[l:r]\n\nfrom typing import Iterable, Type, Union, overload\n\
-    \n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
-    \ char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n\
-    @overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\n\
-    def read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
+    \        return self.A[l:r]\n\nfrom typing import Type, Union, overload\n\n@overload\n\
+    def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
+    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
+    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
+    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
     \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/biconnected_components\n\
     def main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    bccs = biconnected_components(G)\n\
     \    write(len(bccs))\n    for bcc in bccs:\n        write(len(bcc), *bcc)\n \
-    \   \nfrom cp_library.alg.graph.fast.graph_cls import Graph\nfrom cp_library.alg.graph.fast.snippets.biconnected_components_vertices_fn\
+    \   \nfrom cp_library.alg.graph.csr.graph_cls import Graph\nfrom cp_library.alg.graph.csr.snippets.biconnected_components_vertices_fn\
     \ import biconnected_components\nfrom cp_library.io.read_fn import read\nfrom\
     \ cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
-  - cp_library/alg/graph/fast/graph_cls.py
-  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/csr/graph_cls.py
+  - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/array/u32f_fn.py
   - cp_library/alg/dp/chmin_fn.py
@@ -369,7 +369,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/biconnected_components.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/biconnected_components.test.py

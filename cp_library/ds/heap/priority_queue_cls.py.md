@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_sm_fn.py
-    title: cp_library/bit/pack/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
@@ -15,60 +15,42 @@ data:
     title: cp_library/ds/heap/heap_proto.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/digraph_weighted_cls.py
-    title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/digraph_weighted_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_cls.py
+    path: cp_library/alg/graph/csr/digraph_weighted_cls.py
+    title: cp_library/alg/graph/csr/digraph_weighted_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+    path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+    title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_base_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_proto.py
-    title: cp_library/alg/graph/graph_weighted_proto.py
+    path: cp_library/alg/tree/csr/aux_tree_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_base_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_base_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_cls.py
+    path: cp_library/alg/tree/csr/hld_weighted_cls.py
+    title: cp_library/alg/tree/csr/hld_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_base_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_weighted_cls.py
-    title: cp_library/alg/tree/fast/hld_weighted_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_cls.py
-    title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_proto.py
-    title: cp_library/alg/tree/tree_weighted_proto.py
+    path: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_a_dijkstra.test.py
-    title: test/aoj/grl/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
     title: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -76,26 +58,14 @@ data:
     path: test/aoj/grl/grl_1_a_graph_distance.test.py
     title: test/aoj/grl/grl_1_a_graph_distance.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
     title: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_c_floyd_warshall.test.py
-    title: test/aoj/grl/grl_1_c_floyd_warshall.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
     title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_5_a_diameter.test.py
-    title: test/aoj/grl/grl_5_a_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_a_fast_diameter.test.py
     title: test/aoj/grl/grl_5_a_fast_diameter.test.py
@@ -111,9 +81,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-    title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
@@ -139,9 +106,6 @@ data:
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_graph_weighted.test.py
-    title: test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
   - icon: ':heavy_check_mark:'
@@ -164,10 +128,17 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\n\n\ndef heappush(heap:\
-    \ list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\
-    \ndef heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0]\
-    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \n\n\nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
+    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
+    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
+    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
+    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
+    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
+    \n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
+    \ 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
     \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
     \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
     \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
@@ -200,63 +171,54 @@ data:
     \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
     \    def clear(heap): heap.data.clear()\n\nclass PriorityQueue(HeapProtocol[int]):\n\
     \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
-    \ None, /):\n        que.shift, que.mask = pack_sm(N)\n        if ids is None:\
-    \ que.data = elist(N)\n        elif priorities is None: heapify(ids); que.data\
-    \ = ids\n        else:\n            que.data = [0]*(M:=len(ids))\n           \
-    \ for i in range(M): que.data[i] = que.encode(ids[i], priorities[i]) \n      \
-    \      heapify(que.data)\n    def encode(que, id, priority): return priority <<\
-    \ que.shift | id\n    def decode(que, encoded): return que.mask & encoded, encoded\
-    \ >> que.shift\n    def pop(que): return que.decode(heappop(que.data))\n    def\
-    \ push(que, id: int, priority: int): heappush(que.data, que.encode(id, priority))\n\
-    \    def pushpop(que, id: int, priority: int): return que.decode(heappushpop(que.data,\
-    \ que.encode(id, priority)))\n    def replace(que, id: int, priority: int): return\
-    \ que.decode(heapreplace(que.data, que.encode(id, priority)))\n    def peek(que):\
-    \ return que.decode(que.data[0])\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
-    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n"
-  code: "import cp_library.__header__\nfrom cp_library.bit.pack.pack_sm_fn import\
-    \ pack_sm\nimport cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\n\
+    \ None, /):\n        que.pkr = Packer(N)\n        if ids is None: que.data = elist(N)\n\
+    \        elif priorities is None: heapify(ids); que.data = ids\n        else:\n\
+    \            que.data = [0]*(M := len(ids))\n            for i in range(M): que.data[i]\
+    \ = que.pkr.enc(priorities[i], ids[i]) \n            heapify(que.data)\n    def\
+    \ pop(que): return que.pkr.dec(heappop(que.data))\n    def push(que, priority:\
+    \ int, id: int): heappush(que.data, que.pkr.enc(priority, id))\n    def pushpop(que,\
+    \ priority: int, id: int): return que.pkr.dec(heappushpop(que.data, que.pkr.enc(priority,\
+    \ id)))\n    def replace(que, priority: int, id: int): return que.pkr.dec(heapreplace(que.data,\
+    \ que.pkr.enc(priority, id)))\n    def peek(que): return que.pkr.dec(que.data[0])\n\
+    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n"
+  code: "import cp_library.__header__\nfrom cp_library.bit.pack.packer_cls import\
+    \ Packer\nimport cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\n\
     from cp_library.ds.heap.fast_heapq  import heapify, heappop, heappush, heappushpop,\
     \ heapreplace\nfrom cp_library.ds.heap.heap_proto import HeapProtocol\n\nclass\
     \ PriorityQueue(HeapProtocol[int]):\n    def __init__(que, N: int, ids: list[int]\
-    \ = None, priorities: list[int] = None, /):\n        que.shift, que.mask = pack_sm(N)\n\
-    \        if ids is None: que.data = elist(N)\n        elif priorities is None:\
-    \ heapify(ids); que.data = ids\n        else:\n            que.data = [0]*(M:=len(ids))\n\
-    \            for i in range(M): que.data[i] = que.encode(ids[i], priorities[i])\
-    \ \n            heapify(que.data)\n    def encode(que, id, priority): return priority\
-    \ << que.shift | id\n    def decode(que, encoded): return que.mask & encoded,\
-    \ encoded >> que.shift\n    def pop(que): return que.decode(heappop(que.data))\n\
-    \    def push(que, id: int, priority: int): heappush(que.data, que.encode(id,\
-    \ priority))\n    def pushpop(que, id: int, priority: int): return que.decode(heappushpop(que.data,\
-    \ que.encode(id, priority)))\n    def replace(que, id: int, priority: int): return\
-    \ que.decode(heapreplace(que.data, que.encode(id, priority)))\n    def peek(que):\
-    \ return que.decode(que.data[0])\nfrom cp_library.ds.elist_fn import elist"
+    \ = None, priorities: list[int] = None, /):\n        que.pkr = Packer(N)\n   \
+    \     if ids is None: que.data = elist(N)\n        elif priorities is None: heapify(ids);\
+    \ que.data = ids\n        else:\n            que.data = [0]*(M := len(ids))\n\
+    \            for i in range(M): que.data[i] = que.pkr.enc(priorities[i], ids[i])\
+    \ \n            heapify(que.data)\n    def pop(que): return que.pkr.dec(heappop(que.data))\n\
+    \    def push(que, priority: int, id: int): heappush(que.data, que.pkr.enc(priority,\
+    \ id))\n    def pushpop(que, priority: int, id: int): return que.pkr.dec(heappushpop(que.data,\
+    \ que.pkr.enc(priority, id)))\n    def replace(que, priority: int, id: int): return\
+    \ que.pkr.dec(heapreplace(que.data, que.pkr.enc(priority, id)))\n    def peek(que):\
+    \ return que.pkr.dec(que.data[0])\nfrom cp_library.ds.elist_fn import elist"
   dependsOn:
-  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/heap/priority_queue_cls.py
   requiredBy:
-  - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/fast/aux_tree_base_cls.py
-  - cp_library/alg/tree/fast/hld_weighted_cls.py
-  - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - cp_library/alg/tree/fast/aux_tree_cls.py
-  - cp_library/alg/tree/tree_weighted_cls.py
-  - cp_library/alg/tree/tree_weighted_proto.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/graph/digraph_weighted_cls.py
-  - cp_library/alg/graph/graph_weighted_proto.py
-  - cp_library/alg/graph/graph_weighted_cls.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_cls.py
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -264,13 +226,8 @@ data:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_1_a_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -279,10 +236,8 @@ data:
   - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py

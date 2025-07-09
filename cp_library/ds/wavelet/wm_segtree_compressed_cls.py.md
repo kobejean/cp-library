@@ -5,14 +5,14 @@ data:
     path: cp_library/alg/divcon/bisect_left_fn.py
     title: cp_library/alg/divcon/bisect_left_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/cmpr/coord_compress_fn.py
-    title: cp_library/alg/iter/cmpr/coord_compress_fn.py
+    path: cp_library/alg/iter/rank/irank_fn.py
+    title: cp_library/alg/iter/rank/irank_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_dec_fn.py
-    title: cp_library/bit/pack/pack_dec_fn.py
+    path: cp_library/alg/iter/rank/rank_fn.py
+    title: cp_library/alg/iter/rank/rank_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_sm_fn.py
-    title: cp_library/bit/pack/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/popcnt32_fn.py
     title: cp_library/bit/popcnt32_fn.py
@@ -62,18 +62,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\ndef coord_compress(A: list[int], distinct = False):\n    s, m = pack_sm((N\
-    \ := len(A))-1); R, V = [0]*N, [a<<s|i for i,a in enumerate(A)]; V.sort()\n  \
-    \  if distinct:\n        for r, ai in enumerate(V): a, i = pack_dec(ai, s, m);\
-    \ R[i], V[r] = r, a\n    else:\n        r = p = -1\n        for ai in V:\n   \
-    \         a, i = pack_dec(ai, s, m)\n            if a != p: r = r+1; V[r] = p\
-    \ = a\n            R[i] = r\n        del V[r+1:]\n    return R, V\n\n\n\ndef pack_dec(ab:\
-    \ int, s: int, m: int): return ab>>s,ab&m\ndef pack_sm(N: int): s=N.bit_length();\
-    \ return s,(1<<s)-1\n\n\nfrom typing import Callable, Generic, Union\nfrom typing\
-    \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SegTree(Generic[_T]):\n\
-    \    def __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]])\
-    \ -> None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e,\
-    \ seg.n = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
+    \n\nfrom typing import Callable, Generic, Union\nfrom typing import TypeVar\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SegTree(Generic[_T]):\n    def\
+    \ __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) ->\
+    \ None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e, seg.n\
+    \ = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
     \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): seg.d[sz + i]\
     \ = v[i]\n        for i in range(sz-1,0,-1): seg.d[i] = op(seg.d[i<<1], seg.d[i<<1|1])\n\
     \n    def set(seg, p: int, x: _T) -> None:\n        seg.d[p := p + seg.sz], op\
@@ -99,8 +92,20 @@ data:
     \        if f(op(d[r:=r<<1|1], sm)): sm, r = op(d[r], sm), r-1\n             \
     \   return r + 1 - sz\n            sm = op(d[r], sm)\n            if (r & -r)\
     \ == r: return 0\nfrom abc import abstractmethod\n\nclass BitArray:\n    def __init__(B,\
-    \ N: int):\n        B.N, B.Z = N, (N+31)>>5\n        B.bits, B.cnt = u32f(B.Z+1),\
-    \ u32f(B.Z+1)\n    def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits):\
+    \ N):\n        if isinstance(N, list):\n            # If N is a list, assume it's\
+    \ a list of 1s and 0s\n            B.N = len(N)\n            B.Z = (B.N+31)>>5\n\
+    \            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n            # Set bits\
+    \ based on list values\n            for i, bit in enumerate(N):\n            \
+    \    if bit: B.set1(i)\n        elif isinstance(N, (bytes, bytearray)):\n    \
+    \        # If N is bytes, convert each byte to 8 bits\n            B.N = len(N)\
+    \ * 8\n            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1),\
+    \ u32f(B.Z+1)\n            # Set bits based on byte values (MSB first for each\
+    \ byte)\n            for byte_idx, byte_val in enumerate(N):\n               \
+    \ for bit_idx in range(8):\n                    if byte_val & (1 << (7 - bit_idx)):\
+    \  # MSB first\n                        B.set1(byte_idx * 8 + bit_idx)\n     \
+    \   else:\n            # Original behavior: N is an integer\n            B.N =\
+    \ N\n            B.Z = (N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
+    \    def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits):\
     \ B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n    def __len__(B):\
     \ return B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n\
     \    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
@@ -111,7 +116,7 @@ data:
     \            else:r=m\n        return l\n    def select1(B, k: int):\n       \
     \ if not 0<=k<B.cnt[-1]: return -1\n        l,r,k=0,B.N,k+1\n        while 1<r-l:\n\
     \            if B.count1(m:=(l+r)>>1)<k:l=m\n            else:r=m\n        return\
-    \ l\n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n\
+    \ l\n\n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n\
     \    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
     \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
@@ -192,8 +197,23 @@ data:
     \    def _build_level(wm,L,W):L.build(wm.op,wm.e,W)\n    def _prod_range(wm,l:int,r:int):return\
     \ wm.W.prod(l,r)\n    def set(wm,i:int,w:int):\n        wm.W.set(i,w)\n      \
     \  for L in wm.down:L.W.set(i:=L.pos(L[i],i),w)\n    def get(wm,i:int):return\
-    \ wm.W.get(i)\n\n\ndef bisect_left(A, x, l, r):\n    while l<r:\n        if A[m:=(l+r)>>1]<x:l=m+1\n\
-    \        else:r=m\n    return l\n\nclass WMCompressed(WMStatic):\n    def __init__(wm,A):A,wm.Y=coord_compress(A);super().__init__(A,len(wm.Y)-1)\n\
+    \ wm.W.get(i)\n\n\n\n\ndef irank(A: list[int], distinct = False):\n    P = Packer(len(A)-1);\
+    \ V = P.enumerate(A); V.sort()\n    if distinct:\n        for r, ai in enumerate(V):\
+    \ a, i = P.dec(ai); A[i], V[r] = r, a\n    elif V:\n        r, p = -1, V[-1]+1\
+    \ # set p to unique value to trigger `if a != p` on first elm\n        for ai\
+    \ in V:\n            a, i = P.dec(ai)\n            if a!=p: V[r:=r+1] = p = a\n\
+    \            A[i] = r\n        del V[r+1:]\n    return V\n\n\nclass Packer:\n\
+    \    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n        P.m = (1\
+    \ << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P,\
+    \ x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A,\
+    \ reverse=False): P.ienumerate(A:=A.copy(), reverse); return A\n    def ienumerate(P,\
+    \ A, reverse=False):\n        if reverse:\n            for i,a in enumerate(A):\
+    \ A[i] = P.enc(-a, i)\n        else:\n            for i,a in enumerate(A): A[i]\
+    \ = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy()); return\
+    \ A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\
+    def rank(A: list[int], distinct = False): return (R := A.copy()), irank(R, distinct)\n\
+    \n\ndef bisect_left(A, x, l, r):\n    while l<r:\n        if A[m:=(l+r)>>1]<x:l=m+1\n\
+    \        else:r=m\n    return l\n\nclass WMCompressed(WMStatic):\n    def __init__(wm,A):A,wm.Y=rank(A);super().__init__(A,len(wm.Y)-1)\n\
     \    def _didx(wm,y:int):return bisect_left(wm.Y,y,0,len(wm.Y))\n    def _yidx(wm,y:int):return\
     \ i if(i:=wm._didx(y))<len(wm.Y)and wm.Y[i]==y else-1\n    def __contains__(wm,y:int):return(i:=wm._didx(y))<len(wm.Y)and\
     \ wm.Y[i]==y\n    def kth(wm,k,l,r):return wm.Y[super().kth(k,l,r)]\n    def select(wm,y,k,l=0,r=-1):return\
@@ -203,7 +223,7 @@ data:
     \ super().count_below(wm._didx(u),l,r)\n    def count_between(wm,d,u,l,r):return\
     \ super().count_between(wm._didx(d),wm._didx(u),l,r)\n    def prev_val(wm,u,l,r):return\
     \ super().prev_val(wm._didx(u),l,r)\n    def next_val(wm,d,l,r):return super().next_val(wm._didx(d),l,r)\n\
-    \nclass WMMonoidCompressed(WMMonoid, WMCompressed):\n    def __init__(wm,op,e,A:list[int],W:list[int]):A,wm.Y=coord_compress(A);WMMonoid.__init__(wm,op,e,A,W,len(wm.Y)-1)\n\
+    \nclass WMMonoidCompressed(WMMonoid, WMCompressed):\n    def __init__(wm,op,e,A:list[int],W:list[int]):A,wm.Y=rank(A);WMMonoid.__init__(wm,op,e,A,W,len(wm.Y)-1)\n\
     \    def prod_at(wm,y,l,r):return super().prod_at(y,l,r)if~(y:=wm._yidx(y))else\
     \ 0\n    def prod_below(wm,u,l,r):return super().prod_below(wm._didx(u),l,r)\n\
     \    def prod_between(wm,d,u,l,r):return super().prod_between(wm._didx(d),wm._didx(u),l,r)\n\
@@ -211,8 +231,6 @@ data:
     \ prod_rect(wm,l,d,r,u):return super().prod_rect(l,wm._didx(d),r,wm._didx(u))\n\
     \nclass WMSegTreeCompressed(WMSegTree,WMMonoidCompressed):pass\n"
   code: 'import cp_library.__header__
-
-    from cp_library.alg.iter.cmpr.coord_compress_fn import coord_compress
 
     import cp_library.ds.__header__
 
@@ -225,24 +243,24 @@ data:
 
     class WMSegTreeCompressed(WMSegTree,WMMonoidCompressed):pass'
   dependsOn:
-  - cp_library/alg/iter/cmpr/coord_compress_fn.py
   - cp_library/ds/wavelet/wm_segtree_cls.py
   - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
   - cp_library/ds/tree/segtree_cls.py
   - cp_library/ds/wavelet/wm_monoid_cls.py
+  - cp_library/alg/iter/rank/rank_fn.py
   - cp_library/ds/wavelet/wm_compressed_cls.py
   - cp_library/alg/divcon/bisect_left_fn.py
   - cp_library/ds/wavelet/wm_static_cls.py
-  - cp_library/bit/pack/pack_dec_fn.py
-  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/alg/iter/rank/irank_fn.py
   - cp_library/ds/wavelet/bit_array_cls.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/bit/popcnt32_fn.py
   - cp_library/ds/array/u32f_fn.py
   isVerificationFile: false
   path: cp_library/ds/wavelet/wm_segtree_compressed_cls.py
   requiredBy:
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py

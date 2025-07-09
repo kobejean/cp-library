@@ -3,125 +3,125 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/digraph_cls.py
-    title: cp_library/alg/graph/fast/digraph_cls.py
+    path: cp_library/alg/graph/csr/digraph_cls.py
+    title: cp_library/alg/graph/csr/digraph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/digraph_weighted_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_cls.py
+    path: cp_library/alg/graph/csr/digraph_weighted_cls.py
+    title: cp_library/alg/graph/csr/digraph_weighted_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+    path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+    title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_base_cls.py
-    title: cp_library/alg/graph/fast/graph_base_cls.py
+    path: cp_library/alg/graph/csr/graph_base_cls.py
+    title: cp_library/alg/graph/csr/graph_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_cls.py
-    title: cp_library/alg/graph/fast/graph_cls.py
+    path: cp_library/alg/graph/csr/graph_cls.py
+    title: cp_library/alg/graph/csr/graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_base_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_base_cls.py
+    path: cp_library/alg/graph/csr/grid_graph_base_cls.py
+    title: cp_library/alg/graph/csr/grid_graph_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_cls.py
+    path: cp_library/alg/graph/csr/grid_graph_cls.py
+    title: cp_library/alg/graph/csr/grid_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+    path: cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
+    title: cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
-    title: cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
+    path: cp_library/alg/graph/csr/snippets/biconnected_component_labels_fn.py
+    title: cp_library/alg/graph/csr/snippets/biconnected_component_labels_fn.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
-    title: cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
+    path: cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
+    title: cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
-    title: cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
+    path: cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
+    title: cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
-    title: cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
+    path: cp_library/alg/graph/csr/snippets/block_cut_tree_fn.py
+    title: cp_library/alg/graph/csr/snippets/block_cut_tree_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
-    title: cp_library/alg/graph/fast/snippets/cut_edges_fn.py
+    path: cp_library/alg/graph/csr/snippets/cut_edges_fn.py
+    title: cp_library/alg/graph/csr/snippets/cut_edges_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
-    title: cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
+    path: cp_library/alg/graph/csr/snippets/cut_vertices_fn.py
+    title: cp_library/alg/graph/csr/snippets/cut_vertices_fn.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
-    title: cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
+    path: cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
+    title: cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
-    title: cp_library/alg/graph/fast/snippets/scc_labels_fn.py
+    path: cp_library/alg/graph/csr/snippets/scc_labels_fn.py
+    title: cp_library/alg/graph/csr/snippets/scc_labels_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
-    title: cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
+    path: cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
+    title: cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
-    title: cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
+    path: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
+    title: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/edmonds_fn.py
+    title: cp_library/alg/graph/edmonds_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/func_graph_cls.py
     title: cp_library/alg/graph/func_graph_cls.py
   - icon: ':warning:'
     path: cp_library/alg/graph/mut_perm_graph_cls.py
     title: cp_library/alg/graph/mut_perm_graph_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/partial_func_graph_cls.py
     title: cp_library/alg/graph/partial_func_graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/perm_graph_cls.py
     title: cp_library/alg/graph/perm_graph_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/strongly_connected_components_fn.py
-    title: cp_library/alg/graph/strongly_connected_components_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_base_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_base_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_base_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_base_cls.py
-    title: cp_library/alg/tree/fast/hld_base_cls.py
+    path: cp_library/alg/tree/csr/hld_base_cls.py
+    title: cp_library/alg/tree/csr/hld_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_bit_cls.py
-    title: cp_library/alg/tree/fast/hld_bit_cls.py
+    path: cp_library/alg/tree/csr/hld_bit_cls.py
+    title: cp_library/alg/tree/csr/hld_bit_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_cls.py
-    title: cp_library/alg/tree/fast/hld_cls.py
+    path: cp_library/alg/tree/csr/hld_cls.py
+    title: cp_library/alg/tree/csr/hld_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_commutative_cls.py
-    title: cp_library/alg/tree/fast/hld_commutative_cls.py
+    path: cp_library/alg/tree/csr/hld_commutative_cls.py
+    title: cp_library/alg/tree/csr/hld_commutative_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_monoid_cls.py
-    title: cp_library/alg/tree/fast/hld_monoid_cls.py
+    path: cp_library/alg/tree/csr/hld_monoid_cls.py
+    title: cp_library/alg/tree/csr/hld_monoid_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_weighted_cls.py
-    title: cp_library/alg/tree/fast/hld_weighted_cls.py
+    path: cp_library/alg/tree/csr/hld_weighted_cls.py
+    title: cp_library/alg/tree/csr/hld_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_base_cls.py
-    title: cp_library/alg/tree/fast/tree_base_cls.py
+    path: cp_library/alg/tree/csr/tree_base_cls.py
+    title: cp_library/alg/tree/csr/tree_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_cls.py
-    title: cp_library/alg/tree/fast/tree_cls.py
+    path: cp_library/alg/tree/csr/tree_cls.py
+    title: cp_library/alg/tree/csr/tree_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_base_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - icon: ':warning:'
     path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
     title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
@@ -130,11 +130,20 @@ data:
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
     title: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_1_a_graph_distance.test.py
+    title: test/aoj/grl/grl_1_a_graph_distance.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
     title: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
+    title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_c_scc.test.py
     title: test/aoj/grl/grl_2_c_scc.test.py
@@ -142,14 +151,23 @@ data:
     path: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
     title: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+    title: test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
     title: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_3_b_graph_bridges.test.py
+    title: test/aoj/grl/grl_3_b_graph_bridges.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_a_fast_diameter.test.py
     title: test/aoj/grl/grl_5_a_fast_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_b_fast_height.test.py
     title: test/aoj/grl/grl_5_b_fast_height.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+    title: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_dijkstra.test.py
     title: test/aoj/vol/0439_aux_dijkstra.test.py
@@ -163,6 +181,9 @@ data:
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
   - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+    title: test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc202_e_fast_dfs.test.py
     title: test/atcoder/abc/abc202_e_fast_dfs.test.py
   - icon: ':heavy_check_mark:'
@@ -171,6 +192,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc245_f_digraph.test.py
+    title: test/atcoder/abc/abc245_f_digraph.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
@@ -189,6 +213,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
     title: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc361_e_tree_diameter.test.py
+    title: test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc375_g_find_bridges.test.py
+    title: test/atcoder/abc/abc375_g_find_bridges.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
     title: test/atcoder/agc/agc038_b_sliding_min_max.test.py
@@ -286,47 +316,47 @@ data:
   path: cp_library/ds/array/u8f_fn.py
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  - cp_library/alg/tree/fast/hld_commutative_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/fast/aux_tree_base_cls.py
-  - cp_library/alg/tree/fast/tree_base_cls.py
-  - cp_library/alg/tree/fast/hld_cls.py
-  - cp_library/alg/tree/fast/hld_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_cls.py
-  - cp_library/alg/tree/fast/hld_bit_cls.py
-  - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/fast/hld_base_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - cp_library/alg/tree/fast/aux_tree_cls.py
-  - cp_library/alg/tree/fast/hld_monoid_cls.py
-  - cp_library/alg/graph/fast/graph_base_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/alg/graph/fast/digraph_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/graph/fast/snippets/two_edge_connected_components_fn.py
-  - cp_library/alg/graph/fast/snippets/scc_labels_fn.py
-  - cp_library/alg/graph/fast/snippets/cut_edges_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_component_labels_fn.py
-  - cp_library/alg/graph/fast/snippets/cut_vertices_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_components_edge_ids_fn.py
-  - cp_library/alg/graph/fast/snippets/is_bipartite_fn.py
-  - cp_library/alg/graph/fast/snippets/strongly_connected_components_fn.py
-  - cp_library/alg/graph/fast/snippets/block_cut_tree_fn.py
-  - cp_library/alg/graph/fast/snippets/biconnected_components_vertices_fn.py
-  - cp_library/alg/graph/fast/grid_graph_cls.py
-  - cp_library/alg/graph/fast/grid_graph_base_cls.py
-  - cp_library/alg/graph/fast/graph_cls.py
-  - cp_library/alg/graph/fast/grid_graph_walled_base_cls.py
+  - cp_library/alg/tree/csr/hld_commutative_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_cls.py
+  - cp_library/alg/tree/csr/hld_bit_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/hld_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
+  - cp_library/alg/tree/csr/hld_monoid_cls.py
+  - cp_library/alg/graph/edmonds_fn.py
+  - cp_library/alg/graph/csr/graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/digraph_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
+  - cp_library/alg/graph/csr/snippets/scc_labels_fn.py
+  - cp_library/alg/graph/csr/snippets/cut_edges_fn.py
+  - cp_library/alg/graph/csr/snippets/biconnected_component_labels_fn.py
+  - cp_library/alg/graph/csr/snippets/cut_vertices_fn.py
+  - cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
+  - cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
+  - cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
+  - cp_library/alg/graph/csr/snippets/block_cut_tree_fn.py
+  - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/csr/grid_graph_cls.py
+  - cp_library/alg/graph/csr/grid_graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_cls.py
+  - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
   - cp_library/alg/graph/perm_graph_cls.py
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/func_graph_cls.py
   - cp_library/alg/graph/mut_perm_graph_cls.py
-  - cp_library/alg/graph/strongly_connected_components_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -334,10 +364,16 @@ data:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/aoj/grl/grl_2_c_scc.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
@@ -363,13 +399,17 @@ data:
   - test/library-checker/graph/cycle_detection.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - test/atcoder/abc/abc245_f_digraph.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py

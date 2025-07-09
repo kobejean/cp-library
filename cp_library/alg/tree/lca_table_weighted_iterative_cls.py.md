@@ -18,27 +18,15 @@ data:
     title: cp_library/ds/min_sparse_table_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_cls.py
-    title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_proto.py
-    title: cp_library/alg/tree/tree_weighted_proto.py
+    path: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_5_a_diameter.test.py
-    title: test/aoj/grl/grl_5_a_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc361_e_tree_diameter.test.py
-    title: test/atcoder/abc/abc361_e_tree_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
@@ -109,16 +97,12 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   requiredBy:
-  - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/tree_weighted_cls.py
-  - cp_library/alg/tree/tree_weighted_proto.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
-  - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
 layout: document

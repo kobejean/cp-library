@@ -3,11 +3,11 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_commutative_cls.py
-    title: cp_library/alg/tree/fast/hld_commutative_cls.py
+    path: cp_library/alg/tree/csr/hld_commutative_cls.py
+    title: cp_library/alg/tree/csr/hld_commutative_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_monoid_cls.py
-    title: cp_library/alg/tree/fast/hld_monoid_cls.py
+    path: cp_library/alg/tree/csr/hld_monoid_cls.py
+    title: cp_library/alg/tree/csr/hld_monoid_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/wavelet/wm_segtree_cls.py
     title: cp_library/ds/wavelet/wm_segtree_cls.py
@@ -127,9 +127,9 @@ data:
   - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
   - cp_library/ds/wavelet/wm_segtree_cls.py
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
-  - cp_library/alg/tree/fast/hld_commutative_cls.py
-  - cp_library/alg/tree/fast/hld_monoid_cls.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  - cp_library/alg/tree/csr/hld_commutative_cls.py
+  - cp_library/alg/tree/csr/hld_monoid_cls.py
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py

@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
-    title: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
+    path: cp_library/alg/graph/csr/snippets/scc_incremental_fn.py
+    title: cp_library/alg/graph/csr/snippets/scc_incremental_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_bounded_fn.py
     title: cp_library/alg/iter/arg/argsort_bounded_fn.py
@@ -11,8 +11,8 @@ data:
     path: cp_library/alg/iter/arg/argsort_fn.py
     title: argsort
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_sm_fn.py
-    title: cp_library/bit/pack/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
@@ -70,17 +70,22 @@ data:
     \ Ra, Va)\n        em = partition(el, er, tm)\n        if tr-tl==1: return\n \
     \       E, F = F, E\n        div_con(nN, em, er, tm, tr)\n        div_con(N, el,\
     \ em, tl, tm)\n        E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\
-    \n\n\ndef argsort(A: list[int], reverse=False):\n    s, m = pack_sm(len(A))\n\
-    \    if reverse:\n        I = [a<<s|m^i for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
-    \        for i,ai in enumerate(I): I[i] = m^ai&m\n    else:\n        I = [a<<s|i\
-    \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
-    \ I[i] = ai&m\n    return I\n\n\ndef pack_sm(N: int): s=N.bit_length(); return\
-    \ s,(1<<s)-1\n\ndef argsort_bounded(A, mx=None, reverse=False):\n    N = len(A)\n\
-    \    if mx is None: mx = max(A)\n    if N*N.bit_length() < mx or mx < 1000: return\
-    \ argsort(A, reverse)\n    I, cnt, t = [0]*N, [0]*(mx+1), 0\n    for a in A: cnt[a]\
-    \ += 1\n    if reverse:\n        for a in range(mx+1): cnt[~a], t = t, t+cnt[~a]\n\
-    \    else:\n        for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n    for i,a\
-    \ in enumerate(A): I[cnt[a]] = i; cnt[a] += 1\n    return I\n\n\nfrom __pypy__.builders\
+    \n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I := A.copy())-1);\
+    \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass\
+    \ Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n    \
+    \    P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
+    \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
+    \ enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return A\n\
+    \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
+    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
+    \ndef argsort_bounded(A, mx=None, reverse=False):\n    N = len(A)\n    if mx is\
+    \ None: mx = max(A)\n    if N*N.bit_length() < mx or mx < 1000: return argsort(A,\
+    \ reverse)\n    I, cnt, t = [0]*N, [0]*(mx+1), 0\n    for a in A: cnt[a] += 1\n\
+    \    if reverse:\n        for a in range(mx+1): cnt[~a], t = t, t+cnt[~a]\n  \
+    \  else:\n        for a in range(mx+1): cnt[a], t = t, t+cnt[a]\n    for i,a in\
+    \ enumerate(A): I[cnt[a]] = i; cnt[a] += 1\n    return I\n\n\nfrom __pypy__.builders\
     \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
     from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
     \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
@@ -111,19 +116,19 @@ data:
     \     while u != dsu[u]: dsu[u] = u = dsu[dsu[u]]\n        while v != dsu[v]:\
     \ dsu[v] = v = dsu[dsu[v]]\n        if u != v: dsu[v], cur, X[u] = u, (cur+X[u]*X[v])%mod,\
     \ (X[u]+X[v])%mod\n    while t < M: ans[t] = cur; t += 1\n    wtnl(ans)\n\nfrom\
-    \ cp_library.alg.graph.fast.snippets.scc_incremental_fn import scc_incremental\n\
+    \ cp_library.alg.graph.csr.snippets.scc_incremental_fn import scc_incremental\n\
     from cp_library.alg.iter.arg.argsort_bounded_fn import argsort_bounded\nfrom cp_library.io.fast.fast_io_fn\
     \ import rd, rdl, wtnl\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
-  - cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
+  - cp_library/alg/graph/csr/snippets/scc_incremental_fn.py
   - cp_library/alg/iter/arg/argsort_bounded_fn.py
   - cp_library/io/fast/fast_io_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
-  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/bit/pack/packer_cls.py
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc.test.py

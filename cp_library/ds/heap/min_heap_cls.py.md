@@ -8,9 +8,6 @@ data:
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/alg/graph/shortest_path_fn.py
-    title: cp_library/alg/graph/shortest_path_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/max_k_heap_cls.py
     title: cp_library/ds/heap/max_k_heap_cls.py
@@ -87,8 +84,7 @@ data:
   path: cp_library/ds/heap/min_heap_cls.py
   requiredBy:
   - cp_library/ds/heap/max_k_heap_cls.py
-  - cp_library/alg/graph/shortest_path_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/shortest_path_min_heap.test.py

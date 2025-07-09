@@ -47,18 +47,18 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A\n\
-    \ndef main():\n    N, M = read([int])\n    E = read(EdgeListWeighted[M,0])\n \
-    \   MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    write(ans)\n\n\
+    \ndef main():\n    N, M = read(list[int])\n    E = read(EdgeListWeighted[M,0])\n\
+    \    MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    write(ans)\n\n\
     '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\n\nfrom typing\
-    \ import Iterable, Type, Union, overload\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
-    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ import Type, Union, overload\nimport typing\nfrom collections import deque\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
     \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
     \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
     r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
@@ -92,8 +92,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -141,13 +141,13 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\n\n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
     \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
     \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
@@ -185,42 +185,42 @@ data:
     \   def __len__(dsu):\n        return len(dsu.L)\n\n    def range(csr, i: int)\
     \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\nclass DSU(Parsable, Collection):\n\
     \    def __init__(dsu, N):\n        dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n\n\
-    \    def merge(dsu, u, v, src = False):\n        x, y = dsu.leader(u), dsu.leader(v)\n\
-    \        if x == y: return (x,y) if src else x\n        if dsu.par[x] > dsu.par[y]:\
-    \ x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n\
-    \        return (x,y) if src else x\n\n    def same(dsu, u: int, v: int):\n  \
-    \      return dsu.leader(u) == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n\
-    \        p = (par := dsu.par)[i]\n        while p >= 0:\n            if par[p]\
-    \ < 0: return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n    \
-    \    return i\n\n    def size(dsu, i) -> int:\n        return -dsu.par[dsu.leader(i)]\n\
-    \n    def groups(dsu) -> CSRIncremental[int]:\n        sizes, row, p = [0]*dsu.cc,\
-    \ [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n            while dsu.par[p]\
-    \ >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p], i; p += 1\n      \
-    \  csr = CSRIncremental(sizes)\n        for i in range(dsu.N): csr.append(row[dsu.leader(i)],\
-    \ i)\n        return csr\n    \n    __iter__ = groups\n    \n    def __len__(dsu):\n\
-    \        return dsu.cc\n    \n    def __contains__(dsu, uv):\n        u, v = uv\n\
-    \        return dsu.same(u, v)\n    \n    @classmethod\n    def compile(cls, N:\
-    \ int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n        \
-    \    dsu = cls(N)\n            for _ in range(M):\n                u, v = ts._line()\n\
-    \                dsu.merge(int(u)+shift, int(v)+shift)\n            return dsu\n\
-    \        return parse_fn\n\ndef kruskal(E, N):\n    heapify(E)\n    dsu = DSU(N)\n\
-    \    MST = []\n    need = N-1\n    while E and need:\n        edge = heappop(E)\n\
-    \        u,v,_ = edge\n        if not dsu.same(u,v):\n            dsu.merge(u,v)\n\
-    \            MST.append(edge)\n            need -= 1\n    return MST\n\n\n\nclass\
-    \ Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n    \
-    \    def parse(ts: TokenStream):\n            u,v = ts.line()\n            return\
-    \ cls((int(u)+I,int(v)+I))\n        return parse\n\nE = TypeVar('E', bound=Edge)\n\
-    M = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n    @classmethod\n\
-    \    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I := E, int):\n\
-    \            E = Edge[I]\n        edge = Parser.compile(E)\n        def parse(ts:\
-    \ TokenStream):\n            return cls(edge(ts) for _ in range(M))\n        return\
-    \ parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
-    \ set[E]):\n    pass\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
-    class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
-    \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
-    \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
-    \   def parse(ts: TokenStream):\n            u,v,w = ts.line()\n            return\
-    \ cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
+    \    def merge(dsu, u, v):\n        x, y = dsu.leader(u), dsu.leader(v)\n    \
+    \    if x == y: return x,y\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n\
+    \        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return\
+    \ x,y\n    \n    def merge_dest(dsu, u, v): return dsu.merge(u, v)[0]\n\n    def\
+    \ same(dsu, u: int, v: int):\n        return dsu.leader(u) == dsu.leader(v)\n\n\
+    \    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
+    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
+    \ par[p], par[par[p]]\n        return i\n\n    def size(dsu, i) -> int:\n    \
+    \    return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
+    \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
+    \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
+    \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
+    \ csr.append(row[dsu.leader(i)], i)\n        return csr\n    \n    __iter__ =\
+    \ groups\n    \n    def __len__(dsu):\n        return dsu.cc\n    \n    def __contains__(dsu,\
+    \ uv):\n        u, v = uv\n        return dsu.same(u, v)\n    \n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
+    \            dsu = cls(N)\n            for _ in range(M):\n                u,\
+    \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
+    \        return dsu\n        return parse_fn\n\ndef kruskal(E, N):\n    heapify(E)\n\
+    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need:\n     \
+    \   edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n \
+    \           dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
+    \ 1\n    return MST\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n  \
+    \  def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n            u,v\
+    \ = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return parse\n\
+    \nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass EdgeCollection(Parsable):\n\
+    \    @classmethod\n    def compile(cls, M: M, E: E = Edge[-1]):\n        if isinstance(I\
+    \ := E, int):\n            E = Edge[I]\n        edge = Parser.compile(E)\n   \
+    \     def parse(ts: TokenStream):\n            return cls(edge(ts) for _ in range(M))\n\
+    \        return parse\n\nclass EdgeList(EdgeCollection, list[E]):\n    pass\n\n\
+    class EdgeSet(EdgeCollection, set[E]):\n    pass\n\n\nfrom functools import total_ordering\
+    \ \n\n@total_ordering\nclass EdgeWeighted(Edge):\n    def __lt__(self, other:\
+    \ tuple) -> bool:\n        a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n\
+    \        return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n \
+    \       def parse(ts: TokenStream):\n            u,v,w = ts.line()\n         \
+    \   return cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
     \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
     \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
     \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
@@ -228,8 +228,8 @@ data:
     \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
     \    pass\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A\n\
-    \ndef main():\n    N, M = read([int])\n    E = read(EdgeListWeighted[M,0])\n \
-    \   MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    write(ans)\n\n\
+    \ndef main():\n    N, M = read(list[int])\n    E = read(EdgeListWeighted[M,0])\n\
+    \    MST = kruskal(E, N)\n    ans = sum(w for *_,w in MST)\n    write(ans)\n\n\
     from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
     from cp_library.alg.graph.kruskal_heap_fn import kruskal\nfrom cp_library.alg.graph.edge_list_weighted_cls\
     \ import EdgeListWeighted\n\nif __name__ == '__main__':\n    main()"
@@ -249,7 +249,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_a_kruskal_heap.test.py

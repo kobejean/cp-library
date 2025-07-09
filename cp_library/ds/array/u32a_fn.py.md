@@ -3,8 +3,8 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/grid_graph_cls.py
-    title: cp_library/alg/graph/fast/grid_graph_cls.py
+    path: cp_library/alg/graph/csr/grid_graph_cls.py
+    title: cp_library/alg/graph/csr/grid_graph_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
@@ -36,8 +36,8 @@ data:
   isVerificationFile: false
   path: cp_library/ds/array/u32a_fn.py
   requiredBy:
-  - cp_library/alg/graph/fast/grid_graph_cls.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  - cp_library/alg/graph/csr/grid_graph_cls.py
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

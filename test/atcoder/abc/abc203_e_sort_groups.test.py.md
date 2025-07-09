@@ -45,10 +45,10 @@ data:
     \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
     \              \n'''\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
     \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
-    elist = newlist_hint\n    \n\n\nfrom typing import Iterable, Type, Union, overload\n\
-    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    elist = newlist_hint\n    \n\n\nfrom typing import Type, Union, overload\nimport\
+    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
+    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -82,8 +82,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -131,13 +131,13 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\nfrom itertools import groupby\nfrom operator import itemgetter\n\
     \n\n\n\ndef sort_groups(A, key=0):\n    if isinstance(key,int):\n        key =\
     \ itemgetter(key)\n    A.sort(key=key)\n    return sorted((k,list(g)) for k,g\
@@ -164,7 +164,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc203_e_sort_groups.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc203_e_sort_groups.test.py

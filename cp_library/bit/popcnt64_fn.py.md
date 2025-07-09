@@ -36,7 +36,7 @@ data:
   path: cp_library/bit/popcnt64_fn.py
   requiredBy:
   - cp_library/bit/ctz64_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/bit/popcnt64_fn.py

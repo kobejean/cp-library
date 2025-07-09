@@ -74,6 +74,9 @@ data:
   - icon: ':warning:'
     path: cp_library/math/table/submasks_cls.py
     title: cp_library/math/table/submasks_cls.py
+  - icon: ':warning:'
+    path: perf/bool_list_benchmark.py
+    title: perf/bool_list_benchmark.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
@@ -199,7 +202,8 @@ data:
   - cp_library/bit/clz32_fn.py
   - cp_library/bit/ctz32_fn.py
   - cp_library/math/table/submasks_cls.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  - perf/bool_list_benchmark.py
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/wavelet/wm_static_cls_test.py

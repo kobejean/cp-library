@@ -96,8 +96,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -149,15 +149,15 @@ data:
     \        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
     \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
     \nclass DSU(Parsable, Collection):\n    def __init__(dsu, N):\n        dsu.N,\
-    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v, src = False):\n \
-    \       x, y = dsu.leader(u), dsu.leader(v)\n        if x == y: return (x,y) if\
-    \ src else x\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x]\
-    \ += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return (x,y) if src else\
-    \ x\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u) == dsu.leader(v)\n\
-    \n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
-    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
-    \ par[p], par[par[p]]\n        return i\n\n    def size(dsu, i) -> int:\n    \
-    \    return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
+    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v):\n        x, y =\
+    \ dsu.leader(u), dsu.leader(v)\n        if x == y: return x,y\n        if dsu.par[x]\
+    \ > dsu.par[y]: x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x;\
+    \ dsu.cc -= 1\n        return x,y\n    \n    def merge_dest(dsu, u, v): return\
+    \ dsu.merge(u, v)[0]\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u)\
+    \ == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n\
+    \        while p >= 0:\n            if par[p] < 0: return p\n            par[i],\
+    \ i, p = par[p], par[p], par[par[p]]\n        return i\n\n    def size(dsu, i)\
+    \ -> int:\n        return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
     \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
     \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
     \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
@@ -187,7 +187,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/kruskal_heap_fn.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py

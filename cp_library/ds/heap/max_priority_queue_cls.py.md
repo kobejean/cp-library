@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack_sm_fn.py
-    title: cp_library/bit/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
@@ -26,9 +26,14 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef pack_sm(N: int): s=N.bit_length(); return s, (1<<s)-1\ndef pack_enc(a: int,\
-    \ b: int, s: int): return a<<s|b\ndef pack_dec(ab: int, s: int, m: int): return\
-    \ ab>>s,ab&m\ndef pack_indices(A, s): return [a<<s|i for i,a in enumerate(A)]\n\
+    \n\n\nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
+    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
+    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
+    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
+    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
+    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
     \n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
     \ 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
     \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
@@ -64,46 +69,42 @@ data:
     \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
     \    def clear(heap): heap.data.clear()\n\nclass MaxPriorityQueue(HeapProtocol[int]):\n\
     \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
-    \ None, /):\n        que.shift, que.mask = pack_sm(N)\n        if ids is None:\
-    \ que.data = elist(N)\n        elif priorities is None: heapify_max(ids); que.data\
-    \ = ids\n        else:\n            que.data = [0]*(M := len(ids))\n         \
-    \   for i in range(M): que.data[i] = que.encode(ids[i], priorities[i]) \n    \
-    \        heapify_max(que.data)\n    def encode(que, id, priority): return priority\
-    \ << que.shift | id\n    def decode(que, encoded): return que.mask & encoded,\
-    \ encoded >> que.shift\n    def pop(que): return que.decode(heappop_max(que.data))\n\
-    \    def push(que, id: int, priority: int): heappush_max(que.data, que.encode(id,\
-    \ priority))\n    def pushpop(que, id: int, priority: int): return que.decode(heappushpop_max(que.data,\
-    \ que.encode(id, priority)))\n    def replace(que, id: int, priority: int): return\
-    \ que.decode(heapreplace_max(que.data, que.encode(id, priority)))\n    def peek(que):\
-    \ return que.decode(que.data[0])\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
+    \ None, /):\n        que.pkr = Packer(N)\n        if ids is None: que.data = elist(N)\n\
+    \        elif priorities is None: heapify_max(ids); que.data = ids\n        else:\n\
+    \            que.data = [0]*(M := len(ids))\n            for i in range(M): que.data[i]\
+    \ = que.pkr.enc(priorities[i], ids[i])\n            heapify_max(que.data)\n  \
+    \  def pop(que): return que.pkr.dec(heappop_max(que.data))\n    def push(que,\
+    \ priority: int, id: int): heappush_max(que.data, que.pkr.enc(priority, id))\n\
+    \    def pushpop(que, priority: int, id: int): return que.pkr.dec(heappushpop_max(que.data,\
+    \ que.pkr.enc(priority, id)))\n    def replace(que, priority: int, id: int): return\
+    \ que.pkr.dec(heapreplace_max(que.data, que.pkr.enc(priority, id)))\n    def peek(que):\
+    \ return que.pkr.dec(que.data[0])\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
     \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
     \        return []\nelist = newlist_hint\n    \n"
-  code: "import cp_library.__header__\nfrom cp_library.bit.pack_sm_fn import pack_sm\n\
-    import cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\nfrom cp_library.ds.heap.fast_heapq\
-    \ import heapify_max, heappop_max, heappush_max, heappushpop_max, heapreplace_max\n\
-    from cp_library.ds.heap.heap_proto import HeapProtocol\n\nclass MaxPriorityQueue(HeapProtocol[int]):\n\
-    \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
-    \ None, /):\n        que.shift, que.mask = pack_sm(N)\n        if ids is None:\
-    \ que.data = elist(N)\n        elif priorities is None: heapify_max(ids); que.data\
-    \ = ids\n        else:\n            que.data = [0]*(M := len(ids))\n         \
-    \   for i in range(M): que.data[i] = que.encode(ids[i], priorities[i]) \n    \
-    \        heapify_max(que.data)\n    def encode(que, id, priority): return priority\
-    \ << que.shift | id\n    def decode(que, encoded): return que.mask & encoded,\
-    \ encoded >> que.shift\n    def pop(que): return que.decode(heappop_max(que.data))\n\
-    \    def push(que, id: int, priority: int): heappush_max(que.data, que.encode(id,\
-    \ priority))\n    def pushpop(que, id: int, priority: int): return que.decode(heappushpop_max(que.data,\
-    \ que.encode(id, priority)))\n    def replace(que, id: int, priority: int): return\
-    \ que.decode(heapreplace_max(que.data, que.encode(id, priority)))\n    def peek(que):\
-    \ return que.decode(que.data[0])\nfrom cp_library.ds.elist_fn import elist"
+  code: "import cp_library.__header__\nfrom cp_library.bit.pack.packer_cls import\
+    \ Packer\nimport cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\n\
+    from cp_library.ds.heap.fast_heapq import heapify_max, heappop_max, heappush_max,\
+    \ heappushpop_max, heapreplace_max\nfrom cp_library.ds.heap.heap_proto import\
+    \ HeapProtocol\n\nclass MaxPriorityQueue(HeapProtocol[int]):\n    def __init__(que,\
+    \ N: int, ids: list[int] = None, priorities: list[int] = None, /):\n        que.pkr\
+    \ = Packer(N)\n        if ids is None: que.data = elist(N)\n        elif priorities\
+    \ is None: heapify_max(ids); que.data = ids\n        else:\n            que.data\
+    \ = [0]*(M := len(ids))\n            for i in range(M): que.data[i] = que.pkr.enc(priorities[i],\
+    \ ids[i])\n            heapify_max(que.data)\n    def pop(que): return que.pkr.dec(heappop_max(que.data))\n\
+    \    def push(que, priority: int, id: int): heappush_max(que.data, que.pkr.enc(priority,\
+    \ id))\n    def pushpop(que, priority: int, id: int): return que.pkr.dec(heappushpop_max(que.data,\
+    \ que.pkr.enc(priority, id)))\n    def replace(que, priority: int, id: int): return\
+    \ que.pkr.dec(heapreplace_max(que.data, que.pkr.enc(priority, id)))\n    def peek(que):\
+    \ return que.pkr.dec(que.data[0])\nfrom cp_library.ds.elist_fn import elist"
   dependsOn:
-  - cp_library/bit/pack_sm_fn.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
   - cp_library/ds/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/heap/max_priority_queue_cls.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/max_priority_queue_cls.py

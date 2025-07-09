@@ -8,8 +8,8 @@ data:
     path: cp_library/math/nt/mod_inv_fn.py
     title: cp_library/math/nt/mod_inv_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/table/modcomb_cls.py
-    title: cp_library/math/table/modcomb_cls.py
+    path: cp_library/math/table/mcomb_cls.py
+    title: cp_library/math/table/mcomb_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,8 +23,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fps_ideriv_k(P: list[int], k: int):\n    fact, inv, mod = modcomb.fact,\
-    \ modcomb.fact_inv, mint.mod\n    for i in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n\
+    \ndef fps_ideriv_k(P: list[int], k: int):\n    fact, inv, mod = mcomb.fact, mcomb.fact_inv,\
+    \ mint.mod\n    for i in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n\
     \    del P[-k:]\n    return P\n\n\n    \nclass mint(int):\n    mod: int\n    zero:\
     \ 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\n    def\
     \ __new__(cls, *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs))\
@@ -51,41 +51,41 @@ data:
     \ x: int): return self.cache[x]\n\n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x,\
     \ mod, 1, 0\n    while b:\n        a,b,s,t = b,a%b,t,s-a//b*t\n    if a == 1:\
     \ return s % mod\n    raise ValueError(f\"{x} is not invertible in mod {mod}\"\
-    )\nfrom itertools import accumulate\n\nclass modcomb():\n    fact: list[int]\n\
-    \    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n  \
-    \  def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
+    )\nfrom itertools import accumulate\n\nclass mcomb():\n    fact: list[int]\n \
+    \   fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n   \
+    \ def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
     \        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n        fact_inv\
     \ = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N], mod)))\n\
-    \        fact_inv.reverse()\n        modcomb.fact, modcomb.fact_inv = fact, fact_inv\n\
-    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, modcomb.inv,\
+    \        fact_inv.reverse()\n        mcomb.fact, mcomb.fact_inv = fact, fact_inv\n\
+    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, mcomb.inv,\
     \ mint.mod\n        while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n\
     \            inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def factorial(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.fact[n])\n\n    @staticmethod\n\
-    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = modcomb.fact_inv,\
+    \ int, /) -> mint:\n        return mint(mcomb.fact[n])\n\n    @staticmethod\n\
+    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = mcomb.fact_inv,\
     \ mint.mod\n        if n < k or k < 0: return mint.zero\n        return mint(inv[k]\
-    \ * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
+    \ * inv[n-k] % mod * mcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
     \    def comb_with_replacement(n: int, k: int, /) -> mint:\n        if n <= 0:\
-    \ return mint.zero\n        return modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
+    \ return mint.zero\n        return mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
     \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
-    \ nCk, res = modcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k),\
-    \ n-k\n        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /)\
-    \ -> mint:\n        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n\
-    \        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n    nPk = perm\n\
-    \    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return\
-    \ mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n"
+    \ nCk, res = mcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k), n-k\n\
+    \        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /) -> mint:\n\
+    \        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n    \
+    \    return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n    nPk = perm\n    \n\
+    \    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return mint(mcomb.nCk(2*n,n)\
+    \ * mcomb.fact_inv[n+1])\n"
   code: "import cp_library.math.fps.__header__\n\ndef fps_ideriv_k(P: list[int], k:\
-    \ int):\n    fact, inv, mod = modcomb.fact, modcomb.fact_inv, mint.mod\n    for\
-    \ i in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n    del P[-k:]\n\
-    \    return P\n\nfrom cp_library.math.mod.mint_cls import mint\nfrom cp_library.math.table.modcomb_cls\
-    \ import modcomb"
+    \ int):\n    fact, inv, mod = mcomb.fact, mcomb.fact_inv, mint.mod\n    for i\
+    \ in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n    del P[-k:]\n\
+    \    return P\n\nfrom cp_library.math.mod.mint_cls import mint\nfrom cp_library.math.table.mcomb_cls\
+    \ import mcomb"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
-  - cp_library/math/table/modcomb_cls.py
+  - cp_library/math/table/mcomb_cls.py
   - cp_library/math/nt/mod_inv_fn.py
   isVerificationFile: false
   path: cp_library/math/fps/fps_ideriv_k_fn.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_ideriv_k_fn.py

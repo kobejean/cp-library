@@ -14,6 +14,9 @@ data:
     path: cp_library/bit/pack/pack_sm_fn.py
     title: cp_library/bit/pack/pack_sm_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_monoid_cls.py
     title: cp_library/ds/tree/bit/bit_monoid_cls.py
   - icon: ':heavy_check_mark:'
@@ -132,27 +135,32 @@ data:
     \   def bisect_right(bit, v) -> int:\n        i, s = 0, bit.e\n        ni = m\
     \ = bit.lb\n        while m:\n            if ni <= bit.n and (ns:=bit.op(s,bit.d[ni-1]))\
     \ <= v: s, i = ns, ni\n            ni = (m:=m>>1)|i\n        return i\n\n\n\n\n\
-    def argsort_multi(*A: list[int], reverse=False):\n    s, m = pack_sm((N:=len(A[0]))-1)\n\
-    \    I, J = [0]*N, [*range(N)]\n    if reverse:\n        V = [a<<s|m^i for i,a\
-    \ in enumerate(A[-1])]; V.sort(reverse=True)\n        for k in range(len(A)-2,-1,-1):\n\
-    \            B = A[k]\n            for i,v in enumerate(V):V[i],I[i]=B[j:=J[m^v&m]]<<s|m^i,j\n\
-    \            I,J=J,I;V.sort(reverse=True)\n        for i,v in enumerate(V):I[i]=J[m^v&m]\n\
-    \    else:\n        V = [a<<s|i for i,a in enumerate(A[-1])]; V.sort()\n     \
-    \   for k in range(len(A)-2,-1,-1):\n            B = A[k]\n            for i,v\
-    \ in enumerate(V):V[i],I[i]=B[j:=J[v&m]]<<s|i,j\n            I,J=J,I;V.sort()\n\
-    \        for i,v in enumerate(V):I[i]=J[v&m]\n    return I\n\n\ndef pack_sm(N:\
-    \ int): s=N.bit_length(); return s,(1<<s)-1\n\n\ndef max2(a, b):\n    return a\
-    \ if a > b else b\n\n\ndef icoord_compress_with_queries(*A: list[int], x=0, distinct=False):\n\
-    \    N = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si,\
-    \ mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n\
-    \    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai): S[k]=a << sj\
-    \ | i << si | j; k += 1\n    S.sort(); r = p = -1\n    for aji in S:\n       \
-    \ a, i, j = aji >> sj, (aji&mj) >> si , aji & mi\n        if x<=i and (distinct\
-    \ or a != p): r = r+1; p = a\n        A[i][j] = r+(i<x)\n    return A\n\nimport\
-    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    def argsort_multi(*A: list[int], reverse=False):\n    P = Packer((N:=len(A[0]))-1);\
+    \ I, J, s, m = [0]*N, [*range(N)], P.s, P.m\n    V = P.enumerate(A[-1], reverse);\
+    \ V.sort()\n    if reverse:\n        for B in A[-2::-1]:\n            for i,v\
+    \ in enumerate(V):V[i],I[i]=-B[j:=J[v&m]]<<s|i,j\n            I,J=J,I;V.sort()\n\
+    \    else:\n        for B in A[-2::-1]:\n            for i,v in enumerate(V):V[i],I[i]=B[j:=J[v&m]]<<s|i,j\n\
+    \            I,J=J,I;V.sort()\n    for i,v in enumerate(V):I[i]=J[v&m]\n    return\
+    \ I\n\n\n\nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
+    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
+    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
+    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
+    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
+    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
+    \n\ndef max2(a, b):\n    return a if a > b else b\n\n\ndef icoord_compress_with_queries(*A:\
+    \ list[int], x=0, distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai);\
+    \ mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n\
+    \    S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai):\
+    \ S[k]=a << sj | i << si | j; k += 1\n    S.sort(); r = p = -1\n    for aji in\
+    \ S:\n        a, i, j = aji >> sj, (aji&mj) >> si , aji & mi\n        if x<=i\
+    \ and (distinct or a != p): r = r+1; p = a\n        A[i][j] = r+(i<x)\n    return\
+    \ A\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\nimport os\nimport\
+    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
+    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
+    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
+    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
     \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -178,20 +186,20 @@ data:
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nfrom typing import Iterable, Type, Union, overload\n\
-    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def\
-    \ __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n \
-    \       if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \        file.flush()\n\nfrom typing import Type, Union, overload\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, Union\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -239,9 +247,9 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\nif __name__\
+    \ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/static_rectangle_add_rectangle_sum\n\
     \ndef main():\n    mod, s, m = 998244353, 31, (1 << 31)-1\n    N, Q = read()\n\
     \    N4, Q4 = N<<2, Q<<2\n    X, Y, V, W = [0]*N4,[0]*N4,[0]*N4,[0]*N4\n    Xq,\
@@ -271,14 +279,15 @@ data:
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
   - cp_library/io/write_fn.py
   - cp_library/io/read_fn.py
-  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/alg/dp/max2_fn.py
+  - cp_library/bit/pack/pack_sm_fn.py
   - cp_library/io/fast_io_cls.py
   - cp_library/io/parser_cls.py
   isVerificationFile: true
   path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py

@@ -95,7 +95,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/scc_strongly_connected_components_scratch.test.py

@@ -3,9 +3,6 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/dp/rerooting_recursive_cls.py
-    title: cp_library/alg/dp/rerooting_recursive_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edmonds_fn.py
     title: cp_library/alg/graph/edmonds_fn.py
   - icon: ':warning:'
@@ -21,9 +18,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
     title: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-    title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -55,14 +49,12 @@ data:
   requiredBy:
   - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  - cp_library/alg/dp/rerooting_recursive_cls.py
   - cp_library/alg/graph/edmonds_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
 documentation_of: cp_library/misc/setrecursionlimit.py
 layout: document
 redirect_from:

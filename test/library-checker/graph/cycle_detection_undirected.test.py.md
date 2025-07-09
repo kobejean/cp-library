@@ -5,14 +5,14 @@ data:
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_base_cls.py
+    title: cp_library/alg/graph/csr/graph_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_cls.py
+    title: cp_library/alg/graph/csr/graph_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_base_cls.py
-    title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_cls.py
-    title: cp_library/alg/graph/fast/graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/masks/i32_max_cnst.py
     title: cp_library/bit/masks/i32_max_cnst.py
@@ -103,8 +103,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -305,32 +305,32 @@ data:
     \ Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v,\
     \ e, j\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j],\
     \ twin[j] = j+1, v, u, e, i\n        super().__init__(N, M, U, V, deg, La, Ra,\
-    \ Ua, Va, Ea, twin)\n\nfrom typing import Iterable, Type, Union, overload\n\n\
-    @overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
+    \ Ua, Va, Ea, twin)\n\nfrom typing import Type, Union, overload\n\n@overload\n\
+    def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
     \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
     def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
     \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
     \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/cycle_detection_undirected\n\
     \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    cyc = G.find_cycle_indices()\n\
     \n    if cyc is None:\n        write(\"-1\")\n    else:\n        write(len(cyc))\n\
     \        V = [G.Ua[i] for i in cyc]\n        E = [G.Ea[i] for i in cyc]\n    \
-    \    write(*V)\n        write(*E)\n    \nfrom cp_library.alg.graph.fast.graph_cls\
+    \    write(*V)\n        write(*E)\n    \nfrom cp_library.alg.graph.csr.graph_cls\
     \ import Graph\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
     \ import write\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
-  - cp_library/alg/graph/fast/graph_cls.py
+  - cp_library/alg/graph/csr/graph_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/array/u32f_fn.py
   - cp_library/io/parser_cls.py
@@ -345,7 +345,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/cycle_detection_undirected.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/cycle_detection_undirected.test.py

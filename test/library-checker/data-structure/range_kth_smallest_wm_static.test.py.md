@@ -33,13 +33,25 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\n\n\n\nclass\
-    \ BitArray:\n    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n \
-    \       B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n        B.bits.pop()\n\
-    \        for i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n   \
-    \     B.bits.append(1)\n    def __len__(B): return B.N\n    def __getitem__(B,\
-    \ i: int): return B.bits[i>>5]>>(31-(i&31))&1\n    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n\
-    \    def set1(B, i: int): B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int):\
-    \ return r-B.count1(r)\n    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
+    \ BitArray:\n    def __init__(B, N):\n        if isinstance(N, list):\n      \
+    \      # If N is a list, assume it's a list of 1s and 0s\n            B.N = len(N)\n\
+    \            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
+    \            # Set bits based on list values\n            for i, bit in enumerate(N):\n\
+    \                if bit: B.set1(i)\n        elif isinstance(N, (bytes, bytearray)):\n\
+    \            # If N is bytes, convert each byte to 8 bits\n            B.N = len(N)\
+    \ * 8\n            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1),\
+    \ u32f(B.Z+1)\n            # Set bits based on byte values (MSB first for each\
+    \ byte)\n            for byte_idx, byte_val in enumerate(N):\n               \
+    \ for bit_idx in range(8):\n                    if byte_val & (1 << (7 - bit_idx)):\
+    \  # MSB first\n                        B.set1(byte_idx * 8 + bit_idx)\n     \
+    \   else:\n            # Original behavior: N is an integer\n            B.N =\
+    \ N\n            B.Z = (N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
+    \    def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits):\
+    \ B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n    def __len__(B):\
+    \ return B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n\
+    \    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
+    \ B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int): return r-B.count1(r)\n\
+    \    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
     \    def select0(B, k: int):\n        if not 0<=k<B.N-B.cnt[-1]: return -1\n \
     \       l,r,k=0,B.N,k+1\n        while 1<r-l:\n            if B.count0(m:=(l+r)>>1)<k:l=m\n\
     \            else:r=m\n        return l\n    def select1(B, k: int):\n       \
@@ -107,7 +119,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/range_kth_smallest_wm_static.test.py

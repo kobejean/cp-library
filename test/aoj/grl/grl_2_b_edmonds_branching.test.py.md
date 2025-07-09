@@ -17,14 +17,29 @@ data:
     path: cp_library/alg/graph/edmonds_fn.py
     title: cp_library/alg/graph/edmonds_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/floyds_cycle_fn.py
-    title: cp_library/alg/graph/floyds_cycle_fn.py
+    path: cp_library/alg/graph/func_graph_cls.py
+    title: cp_library/alg/graph/func_graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/partial_func_graph_cls.py
+    title: cp_library/alg/graph/partial_func_graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/crf_list_cls.py
+    title: cp_library/alg/iter/crf_list_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/roll_fn.py
+    title: cp_library/alg/iter/roll_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u8f_fn.py
+    title: cp_library/ds/array/u8f_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/csr/csr_incremental_cls.py
     title: cp_library/ds/csr/csr_incremental_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/elist_fn.py
+    title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/fast_heapq.py
     title: cp_library/ds/heap/fast_heapq.py
@@ -34,9 +49,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_edges_weighted_fn.py
-    title: cp_library/io/read_edges_weighted_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/read_fn.py
     title: cp_library/io/read_fn.py
@@ -56,15 +68,15 @@ data:
     links:
     - https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B
   bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B\n\
-    \ndef main():\n    N, M, root = read((0, ...))\n    E = read_edges(M, 0)\n   \
-    \ MCA = edmonds_branching(E, N, root)\n    ans = sum(w for *_,w in MCA)\n    write(ans)\n\
-    \n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ndef main():\n    N, M, root = read((0, ...))\n    E = read(EdgeListWeighted[M,0])\n\
+    \    MCA = edmonds_branching(E, N, root)\n    ans = sum(w for *_,w in MCA)\n \
+    \   write(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\n\nfrom\
-    \ typing import Iterable, Type, Union, overload\nimport typing\nfrom collections\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\n\nfrom typing import Type, Union, overload\nimport typing\nfrom collections\
     \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
     from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
     from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
@@ -101,8 +113,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -150,19 +162,149 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\n\n\nclass Edge(tuple, Parsable):\n    @classmethod\n\
-    \    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n          \
-    \  u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return\
-    \ parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\nclass\
-    \ EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M, E: E\
-    \ = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nfrom functools import reduce\n\n\n\ndef heappush(heap:\
+    \ list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\
+    \ndef heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\n\nsys.setrecursionlimit(10**6)\nimport\
+    \ pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\")\nfrom typing import\
+    \ Sequence\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr,\
+    \ sizes: list[int]):\n        csr.L, N = [0]*len(sizes), 0\n        for i,sz in\
+    \ enumerate(sizes):\n            csr.L[i] = N; N += sz\n        csr.R, csr.A =\
+    \ csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]]\
+    \ = x; csr.R[i] += 1\n    \n    def __iter__(csr):\n        for i,l in enumerate(csr.L):\n\
+    \            yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) ->\
+    \ _T:\n        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
+    \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
+    \nclass DSU(Parsable, Collection):\n    def __init__(dsu, N):\n        dsu.N,\
+    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v):\n        x, y =\
+    \ dsu.leader(u), dsu.leader(v)\n        if x == y: return x,y\n        if dsu.par[x]\
+    \ > dsu.par[y]: x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x;\
+    \ dsu.cc -= 1\n        return x,y\n    \n    def merge_dest(dsu, u, v): return\
+    \ dsu.merge(u, v)[0]\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u)\
+    \ == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n\
+    \        while p >= 0:\n            if par[p] < 0: return p\n            par[i],\
+    \ i, p = par[p], par[p], par[par[p]]\n        return i\n\n    def size(dsu, i)\
+    \ -> int:\n        return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
+    \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
+    \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
+    \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
+    \ csr.append(row[dsu.leader(i)], i)\n        return csr\n    \n    __iter__ =\
+    \ groups\n    \n    def __len__(dsu):\n        return dsu.cc\n    \n    def __contains__(dsu,\
+    \ uv):\n        u, v = uv\n        return dsu.same(u, v)\n    \n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
+    \            dsu = cls(N)\n            for _ in range(M):\n                u,\
+    \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
+    \        return dsu\n        return parse_fn\n\ndef elist(est_len: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n\n\nclass FuncGraph(list[int],\
+    \ Parsable):\n    def __init__(F, successors):\n        super().__init__(successors)\n\
+    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n\
+    \        slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
+    \ pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow :=\
+    \ P[slow])\n        return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n \
+    \       vis, cycs, S = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
+    \            if vis[v]: continue\n            slow = fast = v\n            while\
+    \ (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n        \
+    \    if vis[fast]: continue\n            S.append(len(cycs))\n            cycs.append(slow)\n\
+    \            vis[slow := P[slow]] = 1\n            while slow != fast:\n     \
+    \           cycs.append(slow)\n                vis[slow := P[slow]] = 1\n    \
+    \    return CRFList(cycs, S)\n    \n    def chain(P, root):\n        cyc = P.find_cycle(root)\n\
+    \        slow, fast = root, cyc[0]\n        if slow == fast: return [], cyc\n\
+    \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
+    \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
+    \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
+    \ Parser.compile_repeat(cls, shift, N)\n\nfrom typing import Generic\n\n\nclass\
+    \ CRFList(Generic[_T]):\n    def __init__(crf, A: list[_T], S: list[int]):\n \
+    \       crf.N, crf.A, crf.S = len(S), A, S\n        S.append(len(A))\n\n    def\
+    \ __len__(crf) -> int: return crf.N\n\n    def __getitem__(crf, i: int) -> list[_T]:\n\
+    \        return crf.A[crf.S[i]:crf.S[i+1]]\n    \n    def get(crf, i: int, j:\
+    \ int) -> _T:\n        return crf.A[crf.S[i]+j]\n    \n    def len(crf, i: int)\
+    \ -> int:\n        return crf.S[i+1] - crf.S[i]\n\ndef roll(A: list, t: int):\n\
+    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\n\nfrom array\
+    \ import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\n\nclass PartialFuncGraph(FuncGraph):\n    def __init__(F,\
+    \ successors):\n        super().__init__(successors)\n        F.M = sum(f>=0 for\
+    \ f in F)\n\n    def find_cycle(F, root):\n        slow = fast = root\n      \
+    \  while F[fast] != -1 and F[F[fast]] != -1:\n            slow, fast = F[slow],\
+    \ F[F[fast]]\n            if slow == fast:\n                cyc = [slow]\n   \
+    \             while F[slow] != cyc[0]:\n                    slow = F[slow]\n \
+    \                   cyc.append(slow)\n                return cyc\n        return\
+    \ None\n    \n    def cycles(F):\n        vis, cycs, S = [False]*F.N, elist(F.N),\
+    \ elist(F.N)\n        for v in range(F.N):\n            slow = fast = v\n    \
+    \        while F[fast] != -1 and (fast := F[F[fast]]) != -1 and not vis[fast]:\n\
+    \                slow, fast = F[slow], F[F[fast]]\n                if slow ==\
+    \ fast:\n                    S.append(len(cycs))\n                    cycs.append(slow)\n\
+    \                    vis[slow] = True\n                    while F[slow] != fast:\n\
+    \                        slow = F[slow]\n                        cycs.append(slow)\n\
+    \                        vis[slow] = True\n                    break\n       \
+    \ return CRFList(cycs, S)\n\n    def mark_finite(F):\n        vis, finite = [0]*F.N,\
+    \ [1]*F.N\n        for s in range(F.N):\n            if vis[s]: continue\n   \
+    \         slow = fast = s\n            while F[fast]>=0 and (fast:=F[F[fast]])>=0\
+    \ and not vis[fast]:\n                if (slow:=F[slow]) == fast:\n          \
+    \          finite[fast] = 0; break\n            fin = finite[fast] if fast >=\
+    \ 0 else 1\n            slow = s\n            while slow >= 0 and not vis[slow]:\n\
+    \                vis[slow], finite[slow] = 1, fin\n                slow = F[slow]\n\
+    \        return finite\n\n\ndef edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:\n\
+    \    # obtain incoming edges\n    Gin = [[] for _ in range(N)]\n    for id,(u,v,w)\
+    \ in enumerate(E):\n        if v != root:\n            Gin[v].append([w,u,id])\n\
+    \    \n\n    # heapify for fast access to optimal edges\n    for v in range(N):\n\
+    \        heapify(Gin[v])\n\n    groups = DSU(N)\n    active = set(range(N))\n\
+    \    active.discard(root)\n\n    def find_cycle(min_in):\n        for v in active:\n\
+    \            cyc = min_in.find_cycle(v)\n            if cyc: return cyc\n    \
+    \    return None\n    \n    def contract(cyc):\n        kickout = [-1]*len(E)\n\
+    \        active.difference_update(cyc)\n        nv = reduce(groups.merge_dest,\
+    \ cyc)\n        active.add(nv)\n        new_edges = []\n        \n        # Update\
+    \ Gin to reflect the contracted cycle\n        for v in cyc:\n            cw,\
+    \ _, cid = Gin[v][0]\n            for edge in Gin[v]:\n                _, u, id\
+    \ = edge\n                if groups.leader(u) != nv:\n                    edge[0]\
+    \ -= cw # update weight\n                    kickout[id] = cid\n             \
+    \       new_edges.append(edge)\n                    if new_edges[-1][0] < new_edges[0][0]:\n\
+    \                        new_edges[0], new_edges[-1] = new_edges[-1], new_edges[0]\n\
+    \            Gin[v].clear()\n        Gin[nv] = new_edges\n        return kickout\n\
+    \n\n    def rec(Gin):\n        min_in = PartialFuncGraph([groups.leader(Gin[v][0][1])\
+    \ if Gin[v] else -1 for v in range(N)])\n        cyc = find_cycle(min_in)\n  \
+    \      if cyc:\n            C = { Gin[v][0][2] for v in cyc }\n            kickout\
+    \ = contract(cyc)\n            MCA = rec(Gin)\n            for id in MCA:\n  \
+    \              C.discard(kickout[id])\n            MCA.extend(C)\n           \
+    \ return MCA\n        else:\n            return [edges[0][2] for edges in Gin\
+    \ if edges]\n\n    return [E[id] for id in rec(Gin)]\n\n\n\nclass Edge(tuple,\
+    \ Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts:\
+    \ TokenStream):\n            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n\
+    \        return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
+    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
+    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
     \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
     \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
     \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
@@ -177,118 +319,38 @@ data:
     \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
     \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
     \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
-    \    pass\n\ndef read_edges(M, I=-1):\n    return read(EdgeListWeighted[M,I])\n\
-    from functools import reduce\n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
-    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
-    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
-    \    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0] = heap[0],\
-    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap: list, item):\n\
-    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
-    \ 0)\n    return item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
-    \ heapsiftup(x, i)\n\ndef heapsiftdown(heap: list, root: int, pos: int):\n   \
-    \ item = heap[pos]\n    while root < pos and item < heap[p := (pos-1)>>1]: heap[pos],\
-    \ pos = heap[p], p\n    heap[pos] = item\n\ndef heapsiftup(heap: list, pos: int):\n\
-    \    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and heap[c\
-    \ := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1\n \
-    \   if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n    heap[pos] =\
-    \ item\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n    if heap: item,\
-    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapreplace_max(heap:\
-    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n \
-    \   return item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
-    \ heapsiftup_max(x, i)\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
-    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n\
-    \    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\
-    \ndef heappushpop_max(heap: list, item):\n    if heap and heap[0] > item: item,\
-    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap:\
-    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\n\nsys.setrecursionlimit(10**6)\nimport\
-    \ pypyjit\npypyjit.set_param(\"max_unroll_recursion=-1\")\nfrom typing import\
-    \ Sequence\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr,\
-    \ sizes: list[int]):\n        csr.L, N = [0]*len(sizes), 0\n        for i,sz in\
-    \ enumerate(sizes):\n            csr.L[i] = N; N += sz\n        csr.R, csr.A =\
-    \ csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]]\
-    \ = x; csr.R[i] += 1\n    \n    def __iter__(csr):\n        for i,l in enumerate(csr.L):\n\
-    \            yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) ->\
-    \ _T:\n        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
-    \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
-    \nclass DSU(Parsable, Collection):\n    def __init__(dsu, N):\n        dsu.N,\
-    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v, src = False):\n \
-    \       x, y = dsu.leader(u), dsu.leader(v)\n        if x == y: return (x,y) if\
-    \ src else x\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x]\
-    \ += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return (x,y) if src else\
-    \ x\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u) == dsu.leader(v)\n\
-    \n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
-    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
-    \ par[p], par[par[p]]\n        return i\n\n    def size(dsu, i) -> int:\n    \
-    \    return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
-    \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
-    \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
-    \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
-    \ csr.append(row[dsu.leader(i)], i)\n        return csr\n    \n    __iter__ =\
-    \ groups\n    \n    def __len__(dsu):\n        return dsu.cc\n    \n    def __contains__(dsu,\
-    \ uv):\n        u, v = uv\n        return dsu.same(u, v)\n    \n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
-    \            dsu = cls(N)\n            for _ in range(M):\n                u,\
-    \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
-    \        return dsu\n        return parse_fn\n\ndef floyds_cycle(F, root):\n \
-    \   slow = fast = root\n    while F[fast] != -1 and F[F[fast]] != -1:\n      \
-    \  slow, fast = F[slow], F[F[fast]]\n        if slow == fast:\n            cyc\
-    \ = [slow]\n            while F[slow] != cyc[0]:\n                slow = F[slow]\n\
-    \                cyc.append(slow)\n            return cyc\n    return None\n\n\
-    def edmonds_branching(E, N, root) -> list[tuple[int,int,any]]:\n    # obtain incoming\
-    \ edges\n    Gin = [[] for _ in range(N)]\n    for id,(u,v,w) in enumerate(E):\n\
-    \        if v != root:\n            Gin[v].append([w,u,id])\n    \n\n    # heapify\
-    \ for fast access to optimal edges\n    for v in range(N):\n        heapify(Gin[v])\n\
-    \n    groups = DSU(N)\n    active = set(range(N))\n    active.discard(root)\n\n\
-    \    def find_cycle(min_in):\n        for v in active:\n            cyc = floyds_cycle(min_in,\
-    \ v)\n            if cyc: return cyc\n        return None\n    \n    def contract(cyc):\n\
-    \        kickout = [-1]*len(E)\n        active.difference_update(cyc)\n      \
-    \  nv = reduce(groups.merge, cyc)\n        active.add(nv)\n        new_edges =\
-    \ []\n        \n        # Update Gin to reflect the contracted cycle\n       \
-    \ for v in cyc:\n            cw, _, cid = Gin[v][0]\n            for edge in Gin[v]:\n\
-    \                _, u, id = edge\n                if groups.leader(u) != nv:\n\
-    \                    edge[0] -= cw # update weight\n                    kickout[id]\
-    \ = cid\n                    new_edges.append(edge)\n                    if new_edges[-1][0]\
-    \ < new_edges[0][0]:\n                        new_edges[0], new_edges[-1] = new_edges[-1],\
-    \ new_edges[0]\n            Gin[v].clear()\n        Gin[nv] = new_edges\n    \
-    \    return kickout\n\n\n    def rec(Gin):\n        min_in = [groups.leader(Gin[v][0][1])\
-    \ if Gin[v] else -1 for v in range(N)]\n        cyc = find_cycle(min_in)\n   \
-    \     if cyc:\n            C = { Gin[v][0][2] for v in cyc }\n            kickout\
-    \ = contract(cyc)\n            MCA = rec(Gin)\n            for id in MCA:\n  \
-    \              C.discard(kickout[id])\n            MCA.extend(C)\n           \
-    \ return MCA\n        else:\n            return [edges[0][2] for edges in Gin\
-    \ if edges]\n\n    return [E[id] for id in rec(Gin)]\n\nif __name__ == '__main__':\n\
-    \    main()\n"
+    \    pass\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_B\n\
-    \ndef main():\n    N, M, root = read((0, ...))\n    E = read_edges(M, 0)\n   \
-    \ MCA = edmonds_branching(E, N, root)\n    ans = sum(w for *_,w in MCA)\n    write(ans)\n\
-    \nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
-    from cp_library.io.read_edges_weighted_fn import read_edges\nfrom cp_library.alg.graph.edmonds_fn\
-    \ import edmonds_branching\n\nif __name__ == '__main__':\n    main()"
+    \ndef main():\n    N, M, root = read((0, ...))\n    E = read(EdgeListWeighted[M,0])\n\
+    \    MCA = edmonds_branching(E, N, root)\n    ans = sum(w for *_,w in MCA)\n \
+    \   write(ans)\n\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\nfrom cp_library.alg.graph.edmonds_fn import edmonds_branching\n\
+    from cp_library.alg.graph.edge_list_weighted_cls import EdgeListWeighted\n\nif\
+    \ __name__ == '__main__':\n    main()"
   dependsOn:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/io/read_edges_weighted_fn.py
   - cp_library/alg/graph/edmonds_fn.py
-  - cp_library/io/fast_io_cls.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
+  - cp_library/io/parser_cls.py
+  - cp_library/io/fast_io_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/dsu_cls.py
-  - cp_library/alg/graph/floyds_cycle_fn.py
-  - cp_library/io/parser_cls.py
+  - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/edge_list_cls.py
   - cp_library/alg/graph/edge_weighted_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
+  - cp_library/ds/elist_fn.py
+  - cp_library/alg/graph/func_graph_cls.py
+  - cp_library/alg/iter/crf_list_cls.py
   - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/iter/roll_fn.py
+  - cp_library/ds/array/u8f_fn.py
   isVerificationFile: true
   path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_b_edmonds_branching.test.py

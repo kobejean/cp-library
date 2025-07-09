@@ -8,16 +8,10 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_edges_weighted_fn.py
-    title: cp_library/io/read_edges_weighted_fn.py
   - icon: ':warning:'
     path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
     title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_a_dijkstra.test.py
-    title: test/aoj/grl/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
     title: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -25,14 +19,8 @@ data:
     path: test/aoj/grl/grl_1_a_graph_distance.test.py
     title: test/aoj/grl/grl_1_a_graph_distance.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
     title: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
     title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
@@ -46,9 +34,6 @@ data:
     path: test/aoj/grl/grl_2_c_scc.test.py
     title: test/aoj/grl/grl_2_c_scc.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
-    title: test/aoj/grl/grl_3_a_articulation_points_fn.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
     title: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - icon: ':heavy_check_mark:'
@@ -60,9 +45,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_b_graph_bridges.test.py
     title: test/aoj/grl/grl_3_b_graph_bridges.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_5_a_diameter.test.py
-    title: test/aoj/grl/grl_5_a_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_a_fast_diameter.test.py
     title: test/aoj/grl/grl_5_a_fast_diameter.test.py
@@ -84,12 +66,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc184_e_grid_graph.test.py
-    title: test/atcoder/abc/abc184_e_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
-    title: test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
     title: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
@@ -124,17 +100,8 @@ data:
     path: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
     title: test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc218_f_shortest_path.test.py
-    title: test/atcoder/abc/abc218_f_shortest_path.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-    title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc245_f_digraph.test.py
     title: test/atcoder/abc/abc245_f_digraph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
-    title: test/atcoder/abc/abc246_e_grid_direction_graph.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc249_f_max_k_heap.test.py
     title: test/atcoder/abc/abc249_f_max_k_heap.test.py
@@ -162,9 +129,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
     title: test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc301_e_grid_graph.test.py
-    title: test/atcoder/abc/abc301_e_grid_graph.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc304_f_mobius_inv.test.py
     title: test/atcoder/abc/abc304_f_mobius_inv.test.py
@@ -195,12 +159,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
     title: test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-    title: test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
-    title: test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
     title: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
@@ -289,9 +247,6 @@ data:
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_graph_weighted.test.py
-    title: test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
   - icon: ':heavy_check_mark:'
@@ -374,13 +329,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Iterable, Type, Union, overload\nimport typing\nfrom collections\
-    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \nfrom typing import Type, Union, overload\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
+    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -411,8 +366,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -460,18 +415,18 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n"
-  code: "import cp_library.io.__header__\n\nfrom typing import Iterable, Type, Union,\
-    \ overload\nfrom cp_library.io.parser_cls import Parser, TokenStream, CharStream\n\
-    from cp_library.misc.typing import _T, _U\n\n@overload\ndef read() -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
-    def read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T],\
-    \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
-    \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
-    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret"
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n"
+  code: "import cp_library.io.__header__\n\nfrom typing import Type, Union, overload\n\
+    from cp_library.io.parser_cls import Parser, TokenStream, CharStream\nfrom cp_library.misc.typing\
+    \ import _T, _U\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
+    \ Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False)\
+    \ -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]:\
+    \ ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef\
+    \ read(*specs: Union[Type[_T],_U], char=False):\n    if not char and not specs:\
+    \ return [int(s) for s in TokenStream.default.line()]\n    parser: _T = Parser.compile(specs[0]\
+    \ if len(specs) == 1 else specs)\n    return parser(CharStream.default if char\
+    \ else TokenStream.default)"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
@@ -479,8 +434,7 @@ data:
   path: cp_library/io/read_fn.py
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -491,18 +445,13 @@ data:
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py
-  - test/aoj/grl/grl_1_a_dijkstra.test.py
   - test/aoj/grl/grl_2_c_scc.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_2_a_kruskal_sort.test.py
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
-  - test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-  - test/aoj/grl/grl_3_a_articulation_points_fn.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
@@ -538,7 +487,6 @@ data:
   - test/library-checker/graph/scc.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/biconnected_components.test.py
@@ -558,12 +506,9 @@ data:
   - test/library-checker/data-structure/static_range_sum.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   - test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - test/atcoder/abc/abc189_e_vec2d.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - test/atcoder/abc/abc274_e_vec2d.test.py
-  - test/atcoder/abc/abc301_e_grid_graph.test.py
-  - test/atcoder/abc/abc184_e_grid_graph_bfs_fn.test.py
   - test/atcoder/abc/abc184_f_subset_sum_fn.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc245_f_digraph.test.py
@@ -574,7 +519,6 @@ data:
   - test/atcoder/abc/abc203_e_sort_groups.test.py
   - test/atcoder/abc/abc185_e_dp2d.test.py
   - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
-  - test/atcoder/abc/abc218_f_shortest_path.test.py
   - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
@@ -585,18 +529,14 @@ data:
   - test/atcoder/abc/abc249_f_max_k_heap.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc246_e_grid_direction_graph.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc203_e_queries_grouped.test.py
-  - test/atcoder/abc/abc184_e_grid_graph.test.py
   - test/atcoder/abc/abc304_f_mobius_inv.test.py
   - test/atcoder/abc/abc261_g_mo.test.py
   - test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   - test/atcoder/abc/abc249_f_min_k_heap.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_recursive.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_iterative.test.py
   - test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py
 documentation_of: cp_library/io/read_fn.py

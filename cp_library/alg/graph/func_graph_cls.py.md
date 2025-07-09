@@ -20,16 +20,22 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/edmonds_fn.py
+    title: cp_library/alg/graph/edmonds_fn.py
   - icon: ':warning:'
     path: cp_library/alg/graph/mut_perm_graph_cls.py
     title: cp_library/alg/graph/mut_perm_graph_cls.py
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/partial_func_graph_cls.py
     title: cp_library/alg/graph/partial_func_graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/perm_graph_cls.py
     title: cp_library/alg/graph/perm_graph_cls.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
@@ -83,8 +89,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -186,12 +192,14 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/func_graph_cls.py
   requiredBy:
+  - cp_library/alg/graph/edmonds_fn.py
   - cp_library/alg/graph/perm_graph_cls.py
   - cp_library/alg/graph/partial_func_graph_cls.py
   - cp_library/alg/graph/mut_perm_graph_cls.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py
 documentation_of: cp_library/alg/graph/func_graph_cls.py

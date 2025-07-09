@@ -5,11 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_dec_fn.py
-    title: cp_library/bit/pack/pack_dec_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_enc_fn.py
-    title: cp_library/bit/pack/pack_enc_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/reserve_fn.py
     title: cp_library/ds/reserve_fn.py
@@ -50,30 +47,29 @@ data:
     links:
     - https://judge.yosupo.jp/problem/point_set_range_composite_large_array
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_set_range_composite_large_array\n\
-    \ndef main():\n    mod = 998244353\n    shift, mask = 30, (1<<30)-1\n    N, Q\
-    \ = read()\n    TreapMonoid.reserve(1+2*Q)\n    \n    def op(a,b):\n        ac,\
-    \ ad = pack_dec(a, shift, mask)\n        bc, bd = pack_dec(b, shift, mask)\n \
-    \       return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)\n    T = TreapMonoid(op,\
-    \ 1<<shift)\n    D = {}\n    for _ in range(Q):\n        t, *q = read()\n    \
-    \    if t == 0:\n            p, c, d = q\n            # T[p] = pack_enc(c, d,\
-    \ shift)\n            T[p] = D[p] = pack_enc(c, d, shift)\n        else:\n   \
-    \         l, r, x = q\n            # a, b = pack_dec(T.prod(l,r), shift, mask)\n\
-    \            a, b = pack_dec(T[l:r], shift, mask)\n            write((a*x+b)%mod)\n\
-    \n    # test if the following can be run in reasonable time\n    for key in D:\n\
-    \        assert T[key] == D[key]\n    for i, key in enumerate(D):\n        assert\
-    \ key in T\n        del T[key]\n        assert key not in T\n        if i%10000\
-    \ == 0: T._v()\n    # addition of duplicate keys/values\n    for p in range(Q):\
-    \ T.insert(0, 0)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ndef main():\n    mod = 998244353\n    P = Packer((1<<30)-1)\n    N, Q = read()\n\
+    \    TreapMonoid.reserve(1+2*Q)\n    \n    def op(a,b):\n        ac, ad = P.dec(a)\n\
+    \        bc, bd = P.dec(b)\n        return P.enc(ac*bc%mod, (ad*bc+bd)%mod)\n\
+    \    T = TreapMonoid(op, 1<<P.s)\n    D = {}\n    for _ in range(Q):\n       \
+    \ t, *q = read()\n        if t == 0:\n            p, c, d = q\n            # T[p]\
+    \ = P.enc(c, d)\n            T[p] = D[p] = P.enc(c, d)\n        else:\n      \
+    \      l, r, x = q\n            # a, b = P.dec(T.prod(l,r))\n            a, b\
+    \ = P.dec(T[l:r])\n            write((a*x+b)%mod)\n\n    # test if the following\
+    \ can be run in reasonable time\n    for key in D:\n        assert T[key] == D[key]\n\
+    \    for i, key in enumerate(D):\n        assert key in T\n        del T[key]\n\
+    \        assert key not in T\n        if i%10000 == 0: T._v()\n    # addition\
+    \ of duplicate keys/values\n    for p in range(Q): T.insert(0, 0)\n\n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n  \
-    \  from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list,\
-    \ est_len: int):\n        pass\nreserve = resizelist_hint\n\n\n\n\ni64_max = (1<<63)-1\n\
-    \nclass BST:\n    __slots__ = 'r'\n    K,sub,st=[-1],[-1,-1],[]\n    def __init__(T):T.r=T._nr()\n\
-    \    def _nt(T):return T.__class__()\n    def _nr(T):r=len(T.K);T.K.append(i64_max);T.sub.append(-1);T.sub.append(-1);return\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \    https://kobejean.github.io/cp-library               \n'''\n\n\ndef reserve(A:\
+    \ list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\n\
+    except:\n    def resizelist_hint(A: list, est_len: int):\n        pass\nreserve\
+    \ = resizelist_hint\n\n\n\n\ni64_max = (1<<63)-1\n\nclass BST:\n    __slots__\
+    \ = 'r'\n    K,sub,st=[-1],[-1,-1],[]\n    def __init__(T):T.r=T._nr()\n    def\
+    \ _nt(T):return T.__class__()\n    def _nr(T):r=len(T.K);T.K.append(i64_max);T.sub.append(-1);T.sub.append(-1);return\
     \ r\n    def _nn(T,k):n=len(T.K);T.K.append(k);T.sub.append(-1);T.sub.append(-1);return\
     \ n\n    def insert(T,k):T._i(T.r<<1,k,n:=T._nn(k));T._r();return n\n    def get(T,k):\n\
     \        if~(i:=T._f(T.r<<1,k)):return i\n        raise KeyError\n    def pop(T,k):\n\
@@ -143,18 +139,24 @@ data:
     \    assert T.K[l] <= T.K[i]\n            ac = T.op(T._v(l), ac)\n        if ~(r:=T.sub[i<<1|1]):\n\
     \            assert T.P[i] <= T.P[r]\n            assert T.K[i] <= T.K[r]\n  \
     \          ac = T.op(ac, T._v(r))\n        assert T.A[i] == ac\n        return\
-    \ ac\n\ndef pack_enc(a: int, b: int, s: int): return a<<s|b\ndef pack_dec(ab:\
-    \ int, s: int, m: int): return ab>>s,ab&m\n\n\nfrom typing import Iterable, Type,\
-    \ Union, overload\nimport typing\nfrom collections import deque\nfrom numbers\
-    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ ac\n\n\nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
+    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
+    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
+    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
+    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
+    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
+    \n\nfrom typing import Type, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -182,8 +184,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -231,36 +233,33 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_set_range_composite_large_array\n\
-    \ndef main():\n    mod = 998244353\n    shift, mask = 30, (1<<30)-1\n    N, Q\
-    \ = read()\n    TreapMonoid.reserve(1+2*Q)\n    \n    def op(a,b):\n        ac,\
-    \ ad = pack_dec(a, shift, mask)\n        bc, bd = pack_dec(b, shift, mask)\n \
-    \       return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)\n    T = TreapMonoid(op,\
-    \ 1<<shift)\n    D = {}\n    for _ in range(Q):\n        t, *q = read()\n    \
-    \    if t == 0:\n            p, c, d = q\n            # T[p] = pack_enc(c, d,\
-    \ shift)\n            T[p] = D[p] = pack_enc(c, d, shift)\n        else:\n   \
-    \         l, r, x = q\n            # a, b = pack_dec(T.prod(l,r), shift, mask)\n\
-    \            a, b = pack_dec(T[l:r], shift, mask)\n            write((a*x+b)%mod)\n\
-    \n    # test if the following can be run in reasonable time\n    for key in D:\n\
-    \        assert T[key] == D[key]\n    for i, key in enumerate(D):\n        assert\
-    \ key in T\n        del T[key]\n        assert key not in T\n        if i%10000\
-    \ == 0: T._v()\n    # addition of duplicate keys/values\n    for p in range(Q):\
-    \ T.insert(0, 0)\n\nfrom cp_library.ds.tree.bst.treap_monoid_cls import TreapMonoid\n\
-    from cp_library.bit.pack.pack_enc_fn import pack_enc\nfrom cp_library.bit.pack.pack_dec_fn\
-    \ import pack_dec\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
-    \ import write\n\nif __name__ == '__main__':\n    main()\n"
+    \ndef main():\n    mod = 998244353\n    P = Packer((1<<30)-1)\n    N, Q = read()\n\
+    \    TreapMonoid.reserve(1+2*Q)\n    \n    def op(a,b):\n        ac, ad = P.dec(a)\n\
+    \        bc, bd = P.dec(b)\n        return P.enc(ac*bc%mod, (ad*bc+bd)%mod)\n\
+    \    T = TreapMonoid(op, 1<<P.s)\n    D = {}\n    for _ in range(Q):\n       \
+    \ t, *q = read()\n        if t == 0:\n            p, c, d = q\n            # T[p]\
+    \ = P.enc(c, d)\n            T[p] = D[p] = P.enc(c, d)\n        else:\n      \
+    \      l, r, x = q\n            # a, b = P.dec(T.prod(l,r))\n            a, b\
+    \ = P.dec(T[l:r])\n            write((a*x+b)%mod)\n\n    # test if the following\
+    \ can be run in reasonable time\n    for key in D:\n        assert T[key] == D[key]\n\
+    \    for i, key in enumerate(D):\n        assert key in T\n        del T[key]\n\
+    \        assert key not in T\n        if i%10000 == 0: T._v()\n    # addition\
+    \ of duplicate keys/values\n    for p in range(Q): T.insert(0, 0)\n\nfrom cp_library.ds.tree.bst.treap_monoid_cls\
+    \ import TreapMonoid\nfrom cp_library.bit.pack.packer_cls import Packer\nfrom\
+    \ cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
+    \nif __name__ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/ds/tree/bst/treap_monoid_cls.py
-  - cp_library/bit/pack/pack_enc_fn.py
-  - cp_library/bit/pack/pack_dec_fn.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/ds/reserve_fn.py
@@ -274,7 +273,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py

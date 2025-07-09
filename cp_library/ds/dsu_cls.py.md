@@ -12,32 +12,23 @@ data:
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/digraph_weighted_cls.py
-    title: cp_library/alg/graph/digraph_weighted_cls.py
+    path: cp_library/alg/graph/csr/digraph_weighted_cls.py
+    title: cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+    title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_weighted_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edmonds_fn.py
     title: cp_library/alg/graph/edmonds_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/digraph_weighted_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_proto.py
-    title: cp_library/alg/graph/graph_weighted_proto.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/kruskal_heap_fn.py
     title: cp_library/alg/graph/kruskal_heap_fn.py
@@ -45,36 +36,27 @@ data:
     path: cp_library/alg/graph/kruskal_sort_fn.py
     title: cp_library/alg/graph/kruskal_sort_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_base_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_base_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_base_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_weighted_cls.py
-    title: cp_library/alg/tree/fast/hld_weighted_cls.py
+    path: cp_library/alg/tree/csr/hld_weighted_cls.py
+    title: cp_library/alg/tree/csr/hld_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_base_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_cls.py
-    title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_proto.py
-    title: cp_library/alg/tree/tree_weighted_proto.py
+    path: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_a_dijkstra.test.py
-    title: test/aoj/grl/grl_1_a_dijkstra.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
     title: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -82,20 +64,11 @@ data:
     path: test/aoj/grl/grl_1_a_graph_distance.test.py
     title: test/aoj/grl/grl_1_a_graph_distance.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
     title: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_c_floyd_warshall.test.py
-    title: test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
     title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
@@ -108,9 +81,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
     title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_5_a_diameter.test.py
-    title: test/aoj/grl/grl_5_a_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_a_fast_diameter.test.py
     title: test/aoj/grl/grl_5_a_fast_diameter.test.py
@@ -126,9 +96,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-    title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
     title: test/atcoder/abc/abc294_g_fast_tree_hld.test.py
@@ -156,9 +123,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_graph_weighted.test.py
-    title: test/library-checker/graph/shortest_path_graph_weighted.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
@@ -219,8 +183,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -272,15 +236,15 @@ data:
     \        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
     \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
     \nclass DSU(Parsable, Collection):\n    def __init__(dsu, N):\n        dsu.N,\
-    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v, src = False):\n \
-    \       x, y = dsu.leader(u), dsu.leader(v)\n        if x == y: return (x,y) if\
-    \ src else x\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x]\
-    \ += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return (x,y) if src else\
-    \ x\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u) == dsu.leader(v)\n\
-    \n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
-    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
-    \ par[p], par[par[p]]\n        return i\n\n    def size(dsu, i) -> int:\n    \
-    \    return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
+    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v):\n        x, y =\
+    \ dsu.leader(u), dsu.leader(v)\n        if x == y: return x,y\n        if dsu.par[x]\
+    \ > dsu.par[y]: x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x;\
+    \ dsu.cc -= 1\n        return x,y\n    \n    def merge_dest(dsu, u, v): return\
+    \ dsu.merge(u, v)[0]\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u)\
+    \ == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n\
+    \        while p >= 0:\n            if par[p] < 0: return p\n            par[i],\
+    \ i, p = par[p], par[p], par[par[p]]\n        return i\n\n    def size(dsu, i)\
+    \ -> int:\n        return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
     \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
     \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
     \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
@@ -295,15 +259,15 @@ data:
     \ import Parsable, TokenStream\nimport cp_library.ds.__header__\nfrom cp_library.ds.csr.csr_incremental_cls\
     \ import CSRIncremental\n\nclass DSU(Parsable, Collection):\n    def __init__(dsu,\
     \ N):\n        dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u,\
-    \ v, src = False):\n        x, y = dsu.leader(u), dsu.leader(v)\n        if x\
-    \ == y: return (x,y) if src else x\n        if dsu.par[x] > dsu.par[y]: x, y =\
-    \ y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n      \
-    \  return (x,y) if src else x\n\n    def same(dsu, u: int, v: int):\n        return\
-    \ dsu.leader(u) == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n        p\
-    \ = (par := dsu.par)[i]\n        while p >= 0:\n            if par[p] < 0: return\
-    \ p\n            par[i], i, p = par[p], par[p], par[par[p]]\n        return i\n\
-    \n    def size(dsu, i) -> int:\n        return -dsu.par[dsu.leader(i)]\n\n   \
-    \ def groups(dsu) -> CSRIncremental[int]:\n        sizes, row, p = [0]*dsu.cc,\
+    \ v):\n        x, y = dsu.leader(u), dsu.leader(v)\n        if x == y: return\
+    \ x,y\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x] +=\
+    \ dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return x,y\n    \n    def merge_dest(dsu,\
+    \ u, v): return dsu.merge(u, v)[0]\n\n    def same(dsu, u: int, v: int):\n   \
+    \     return dsu.leader(u) == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n\
+    \        p = (par := dsu.par)[i]\n        while p >= 0:\n            if par[p]\
+    \ < 0: return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n    \
+    \    return i\n\n    def size(dsu, i) -> int:\n        return -dsu.par[dsu.leader(i)]\n\
+    \n    def groups(dsu) -> CSRIncremental[int]:\n        sizes, row, p = [0]*dsu.cc,\
     \ [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n            while dsu.par[p]\
     \ >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p], i; p += 1\n      \
     \  csr = CSRIncremental(sizes)\n        for i in range(dsu.N): csr.append(row[dsu.leader(i)],\
@@ -321,27 +285,22 @@ data:
   isVerificationFile: false
   path: cp_library/ds/dsu_cls.py
   requiredBy:
-  - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/fast/aux_tree_base_cls.py
-  - cp_library/alg/tree/fast/hld_weighted_cls.py
-  - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - cp_library/alg/tree/fast/aux_tree_cls.py
-  - cp_library/alg/tree/tree_weighted_cls.py
-  - cp_library/alg/tree/tree_weighted_proto.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
   - cp_library/alg/graph/edmonds_fn.py
-  - cp_library/alg/graph/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_cls.py
   - cp_library/alg/graph/kruskal_heap_fn.py
-  - cp_library/alg/graph/graph_weighted_proto.py
-  - cp_library/alg/graph/graph_weighted_cls.py
   - cp_library/alg/graph/kruskal_sort_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -350,15 +309,10 @@ data:
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_1_a_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_2_a_kruskal_sort.test.py
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -367,11 +321,9 @@ data:
   - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/data-structure/unionfind.test.py
-  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py

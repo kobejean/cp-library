@@ -35,8 +35,8 @@ data:
     path: cp_library/math/nt/ntt_cls.py
     title: cp_library/math/nt/ntt_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/table/modcomb_cls.py
-    title: cp_library/math/table/modcomb_cls.py
+    path: cp_library/math/table/mcomb_cls.py
+    title: cp_library/math/table/mcomb_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -80,8 +80,8 @@ data:
     \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
     \ return self\n    def __abs__(self): return self\n    def __class_getitem__(self,\
     \ x: int): return self.cache[x]\n\ndef fps_exp(P: list) -> list:\n    max_sz =\
-    \ 1 << ((deg := len(P))-1).bit_length()\n    modcomb.extend_inv(max_sz)\n    inv,\
-    \ mod, ntt = modcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt,\
+    \ 1 << ((deg := len(P))-1).bit_length()\n    mcomb.extend_inv(max_sz)\n    inv,\
+    \ mod, ntt = mcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt,\
     \ ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n    R,\
     \ E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz),\
     \ reserve(E, max_sz)\n    p = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n\
@@ -97,27 +97,27 @@ data:
     \n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n       \
     \ a,b,s,t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\nfrom itertools import accumulate\n\nclass\
-    \ modcomb():\n    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int]\
-    \ = [0,1]\n\n    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n\
-    \        def mod_mul(a,b): return a*b%mod\n        fact = list(accumulate(range(1,N+1),\
+    \ mcomb():\n    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] =\
+    \ [0,1]\n\n    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n  \
+    \      def mod_mul(a,b): return a*b%mod\n        fact = list(accumulate(range(1,N+1),\
     \ mod_mul, initial=1))\n        fact_inv = list(accumulate(range(N,0,-1), mod_mul,\
-    \ initial=mod_inv(fact[N], mod)))\n        fact_inv.reverse()\n        modcomb.fact,\
-    \ modcomb.fact_inv = fact, fact_inv\n    \n    @staticmethod\n    def extend_inv(N):\n\
-    \        N, inv, mod = N+1, modcomb.inv, mint.mod\n        while len(inv) < N:\n\
+    \ initial=mod_inv(fact[N], mod)))\n        fact_inv.reverse()\n        mcomb.fact,\
+    \ mcomb.fact_inv = fact, fact_inv\n    \n    @staticmethod\n    def extend_inv(N):\n\
+    \        N, inv, mod = N+1, mcomb.inv, mint.mod\n        while len(inv) < N:\n\
     \            j, k = divmod(mod, len(inv))\n            inv.append(-inv[k] * j\
     \ % mod)\n\n    @staticmethod\n    def factorial(n: int, /) -> mint:\n       \
-    \ return mint(modcomb.fact[n])\n\n    @staticmethod\n    def comb(n: int, k: int,\
-    \ /) -> mint:\n        inv, mod = modcomb.fact_inv, mint.mod\n        if n < k\
-    \ or k < 0: return mint.zero\n        return mint(inv[k] * inv[n-k] % mod * modcomb.fact[n])\n\
+    \ return mint(mcomb.fact[n])\n\n    @staticmethod\n    def comb(n: int, k: int,\
+    \ /) -> mint:\n        inv, mod = mcomb.fact_inv, mint.mod\n        if n < k or\
+    \ k < 0: return mint.zero\n        return mint(inv[k] * inv[n-k] % mod * mcomb.fact[n])\n\
     \    nCk = binom = comb\n    \n    @staticmethod\n    def comb_with_replacement(n:\
     \ int, k: int, /) -> mint:\n        if n <= 0: return mint.zero\n        return\
-    \ modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n\
-    \    def multinom(n: int, *K: int) -> mint:\n        nCk, res = modcomb.nCk, mint.one\n\
+    \ mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n\
+    \    def multinom(n: int, *K: int) -> mint:\n        nCk, res = mcomb.nCk, mint.one\n\
     \        for k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
     \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
-    \        if n < k: return mint.zero\n        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n\
+    \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
     \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
-    \        return mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\n\nclass NTT:\n\
+    \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n\n\nclass NTT:\n\
     \    def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
     \        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
     \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
@@ -184,8 +184,8 @@ data:
     \        for i in range(n-1):res[i]=(con[i]+con[i+n])%mod\n        res[n-1]=con[n-1]\n\
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
-    \ = NTT(mod)\n\n\nfrom typing import Iterable, Type, Union, overload\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ = NTT(mod)\n\n\nfrom typing import Type, Union, overload\nimport typing\nfrom\
+    \ collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
     \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nimport\
     \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
     \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
@@ -221,8 +221,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -270,13 +270,13 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/exp_of_formal_power_series\n\
     \ndef main():\n    N = read(int)\n    mint.set_mod(998244353)\n    A = read(list[int])\n\
@@ -291,7 +291,7 @@ data:
   - cp_library/io/write_fn.py
   - cp_library/math/fps/fps_deriv_fn.py
   - cp_library/ds/reserve_fn.py
-  - cp_library/math/table/modcomb_cls.py
+  - cp_library/math/table/mcomb_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/math/mod/mint_cls.py
@@ -300,7 +300,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/exp_of_formal_power_series.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/exp_of_formal_power_series.test.py

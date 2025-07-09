@@ -2,11 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_indices_fn.py
-    title: cp_library/bit/pack/pack_indices_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_sm_fn.py
-    title: cp_library/bit/pack/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
@@ -114,11 +111,17 @@ data:
     \              if (ni := m|i) <= bit._n and key(ns:=s+bit._d[ni-1]) <= v: s, i\
     \ = ns, ni\n        else:\n            while m := m>>1:\n                if (ni\
     \ := m|i) <= bit._n and (ns:=s+bit._d[ni-1]) <= v: s, i = ns, ni\n        return\
-    \ i\n\ndef invcnt(A: list[int]):\n    s, m = pack_sm(N := len(A))\n    bit, cnt,\
-    \ I = BIT(N), 0, pack_indices(A, s); I.sort(reverse=True)\n    for i in I: cnt\
-    \ += bit.sum(i&m); bit.add(i&m, 1)\n    return cnt\n\n\ndef pack_indices(A, s):\
-    \ return [a<<s|i for i,a in enumerate(A)]\ndef pack_sm(N: int): s=N.bit_length();\
-    \ return s,(1<<s)-1\n\n\nfrom typing import Iterable, Type, Union, overload\n\
+    \ i\n\ndef invcnt(A: list[int]):\n    P = Packer(N := len(A))\n    bit, cnt, I\
+    \ = BIT(N), 0, P.enumerate(A); I.sort(reverse=True)\n    for i in I: cnt += bit.sum(i&P.m);\
+    \ bit.add(i&P.m, 1)\n    return cnt\n\n\n\nclass Packer:\n    def __init__(P,\
+    \ mx: int):\n        P.s = mx.bit_length()\n        P.m = (1 << P.s) - 1\n   \
+    \ def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x: int) -> tuple[int,\
+    \ int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(),\
+    \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
+    \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
+    \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
+    \ P.iindices(A:=A.copy()); return A\n    def iindices(P, A):\n        for i,a\
+    \ in enumerate(A): A[i] = P.m&a\n\n\nfrom typing import Type, Union, overload\n\
     import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
     \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
     \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
@@ -155,8 +158,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -204,13 +207,13 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == \"__main__\":\n    ans = main()\n    write(\"\
     Yes\" if ans else \"No\")\n    \n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc136/tasks/arc136_b\n\
@@ -225,14 +228,13 @@ data:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/ds/tree/bit/bit_cls.py
-  - cp_library/bit/pack/pack_indices_fn.py
-  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

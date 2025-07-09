@@ -45,13 +45,13 @@ data:
     \    https://kobejean.github.io/cp-library               \n'''\n\ndef elist(est_len:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
     \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\n\
-    from typing import Iterable, Type, Union, overload\nimport typing\nfrom collections\
-    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    from typing import Type, Union, overload\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
+    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
     \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
@@ -82,8 +82,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -131,44 +131,44 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\nfrom itertools import groupby\n\nclass Queries(list, Parsable):\n\
-    \    def __init__(self, data: Iterable = []):\n        super().__init__((i,*query)\
-    \ for i,query in enumerate(data))\n\n    def append(self, query) -> None:\n  \
-    \      return super().append((len(self), *query))\n\n    @classmethod\n    def\
-    \ compile(cls, N: int, T: type = tuple[int, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls(query(ts) for _ in\
-    \ range(N))\n        return parse\n\nclass QueriesGrouped(Queries):\n    '''QueriesGrouped[Q:\
-    \ int, key = 0, T: type = tuple[int, ...]]'''\n    def __init__(self, queries,\
-    \ key = 0):\n        if isinstance(key, int):\n            group_idx = key+1\n\
-    \            def wrap_key(row):\n                return row[group_idx]\n     \
-    \   else:\n            def wrap_key(row):\n                _, *query = row\n \
-    \               return key(query)\n        rows = sorted(((i,*query) for i,query\
-    \ in enumerate(queries)), key = wrap_key)\n        groups = [(k, list(g)) for\
-    \ k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n        self.key\
-    \ = key\n        \n        list.__init__(self, groups)\n            \n\n    @classmethod\n\
-    \    def compile(cls, Q: int, key = 0, T: type = tuple[int, ...]):\n        query\
-    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            return\
-    \ cls((query(ts) for _ in range(Q)), key)\n        return parse\n\nclass QueriesRange(Queries):\n\
-    \    '''QueriesRange[Q: int, N: int, key = 0, T: type = tuple[-1, int]]'''\n \
-    \   def __init__(self, queries, N: int, key = 0):\n        if isinstance(key,\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\nfrom itertools import groupby\nfrom typing import Iterable\n\
+    \nclass Queries(list, Parsable):\n    def __init__(self, data: Iterable = []):\n\
+    \        super().__init__((i,*query) for i,query in enumerate(data))\n\n    def\
+    \ append(self, query) -> None:\n        return super().append((len(self), *query))\n\
+    \n    @classmethod\n    def compile(cls, N: int, T: type = tuple[int, int]):\n\
+    \        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n    \
+    \        return cls(query(ts) for _ in range(N))\n        return parse\n\nclass\
+    \ QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int, key = 0, T: type = tuple[int,\
+    \ ...]]'''\n    def __init__(self, queries, key = 0):\n        if isinstance(key,\
     \ int):\n            group_idx = key+1\n            def wrap_key(row):\n     \
     \           return row[group_idx]\n        else:\n            def wrap_key(row):\n\
     \                _, *query = row\n                return key(query)\n        rows\
-    \ = list((i,*query) for i,query in enumerate(queries))\n        \n        groups\
-    \ = [(k,[]) for k in range(N)]\n        for k, group in groupby(rows, key = wrap_key):\n\
-    \            groups[k][1].extend(group)\n        self.key = key\n        \n  \
-    \      list.__init__(self, groups)\n\n    @classmethod\n    def compile(cls, Q:\
-    \ int, N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
-    \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
-    \ in range(Q)), N, key)\n        return parse\n\nif __name__ == \"__main__\":\n\
-    \    main()\n"
+    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
+    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
+    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
+    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
+    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
+    \  def parse(ts: TokenStream):\n            return cls((query(ts) for _ in range(Q)),\
+    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
+    \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
+    \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
+    \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
+    \        else:\n            def wrap_key(row):\n                _, *query = row\n\
+    \                return key(query)\n        rows = list((i,*query) for i,query\
+    \ in enumerate(queries))\n        \n        groups = [(k,[]) for k in range(N)]\n\
+    \        for k, group in groupby(rows, key = wrap_key):\n            groups[k][1].extend(group)\n\
+    \        self.key = key\n        \n        list.__init__(self, groups)\n\n   \
+    \ @classmethod\n    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1,\
+    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
+    \            return cls((query(ts) for _ in range(Q)), N, key)\n        return\
+    \ parse\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
     \    XY = read(QueriesGrouped[M])\n    \n    # currently reacable columns\n  \
@@ -191,7 +191,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc203_e_queries_grouped.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc203_e_queries_grouped.test.py

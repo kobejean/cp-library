@@ -3,59 +3,41 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/digraph_weighted_cls.py
-    title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/digraph_weighted_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_cls.py
+    path: cp_library/alg/graph/csr/digraph_weighted_cls.py
+    title: cp_library/alg/graph/csr/digraph_weighted_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
+    path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+    title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_meta_cls.py
+    path: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_base_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_proto.py
-    title: cp_library/alg/graph/graph_weighted_proto.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/shortest_path_fn.py
-    title: cp_library/alg/graph/shortest_path_fn.py
+    path: cp_library/alg/tree/csr/aux_tree_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_base_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_base_cls.py
+    path: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_cls.py
+    path: cp_library/alg/tree/csr/hld_weighted_cls.py
+    title: cp_library/alg/tree/csr/hld_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/aux_tree_weighted_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_base_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_weighted_cls.py
-    title: cp_library/alg/tree/fast/hld_weighted_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_cls.py
-    title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_proto.py
-    title: cp_library/alg/tree/tree_weighted_proto.py
+    path: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/k_heap_mixin.py
     title: cp_library/ds/heap/k_heap_mixin.py
@@ -79,35 +61,20 @@ data:
     title: cp_library/ds/heap/priority_queue_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_a_dijkstra.test.py
-    title: test/aoj/grl/grl_1_a_dijkstra.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
     title: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_graph_distance.test.py
     title: test/aoj/grl/grl_1_a_graph_distance.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
     title: test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_c_floyd_warshall.test.py
-    title: test/aoj/grl/grl_1_c_floyd_warshall.test.py
-  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
     title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_5_a_diameter.test.py
-    title: test/aoj/grl/grl_5_a_diameter.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_5_a_fast_diameter.test.py
     title: test/aoj/grl/grl_5_a_fast_diameter.test.py
@@ -123,9 +90,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
     title: test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-    title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc249_f_max_k_heap.test.py
     title: test/atcoder/abc/abc249_f_max_k_heap.test.py
@@ -156,9 +120,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_graph_weighted.test.py
-    title: test/library-checker/graph/shortest_path_graph_weighted.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_min_heap.test.py
     title: test/library-checker/graph/shortest_path_min_heap.test.py
@@ -199,25 +160,19 @@ data:
   - cp_library/ds/heap/max_k_heap_cls.py
   - cp_library/ds/heap/min_heap_cls.py
   - cp_library/ds/heap/max_heap_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/fast/aux_tree_base_cls.py
-  - cp_library/alg/tree/fast/hld_weighted_cls.py
-  - cp_library/alg/tree/fast/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
-  - cp_library/alg/tree/fast/aux_tree_cls.py
-  - cp_library/alg/tree/tree_weighted_cls.py
-  - cp_library/alg/tree/tree_weighted_proto.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_cls.py
-  - cp_library/alg/graph/fast/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/graph/digraph_weighted_cls.py
-  - cp_library/alg/graph/graph_weighted_proto.py
-  - cp_library/alg/graph/graph_weighted_cls.py
-  - cp_library/alg/graph/shortest_path_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_cls.py
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -225,13 +180,8 @@ data:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_1_a_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -240,10 +190,8 @@ data:
   - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_graph_weighted.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py

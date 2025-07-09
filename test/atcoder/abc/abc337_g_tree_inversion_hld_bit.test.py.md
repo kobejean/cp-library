@@ -5,29 +5,29 @@ data:
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_base_cls.py
+    title: cp_library/alg/graph/csr/graph_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_cls.py
+    title: cp_library/alg/graph/csr/graph_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_base_cls.py
-    title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_cls.py
-    title: cp_library/alg/graph/fast/graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/presum_fn.py
     title: cp_library/alg/iter/presum_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_base_cls.py
-    title: cp_library/alg/tree/fast/hld_base_cls.py
+    path: cp_library/alg/tree/csr/hld_base_cls.py
+    title: cp_library/alg/tree/csr/hld_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/hld_bit_cls.py
-    title: cp_library/alg/tree/fast/hld_bit_cls.py
+    path: cp_library/alg/tree/csr/hld_bit_cls.py
+    title: cp_library/alg/tree/csr/hld_bit_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_base_cls.py
-    title: cp_library/alg/tree/fast/tree_base_cls.py
+    path: cp_library/alg/tree/csr/tree_base_cls.py
+    title: cp_library/alg/tree/csr/tree_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_cls.py
-    title: cp_library/alg/tree/fast/tree_cls.py
+    path: cp_library/alg/tree/csr/tree_cls.py
+    title: cp_library/alg/tree/csr/tree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/masks/i32_max_cnst.py
     title: cp_library/bit/masks/i32_max_cnst.py
@@ -125,8 +125,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -483,27 +483,27 @@ data:
     \ Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n        \
     \    Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
     \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\nclass Tree(TreeBase, Graph):\n  \
-    \  pass\n\n\nfrom typing import Iterable, Type, Union, overload\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
-    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
-    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
-    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
-    \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\nimport operator\nfrom itertools import accumulate\n\n\n\
-    def presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
-    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
-    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
-    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
-    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\n\nif __name__ ==\
-    \ \"__main__\":\n    main()\n"
+    \  pass\n\n\nfrom typing import Type, Union, overload\n\n@overload\ndef read()\
+    \ -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n\
+    @overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs:\
+    \ Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U,\
+    \ char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
+    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\nimport operator\nfrom itertools import accumulate\nfrom\
+    \ typing import Callable, Iterable\n\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T]\
+    \ = None, initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n    \
+    \    return list(accumulate(iter, func, initial=initial))\n    else:\n       \
+    \ assert step >= 2\n        if func is None:\n            func = operator.add\n\
+    \        A = list(iter)\n        if initial is not None:\n            A = [initial]\
+    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
+    \        return A\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc337/tasks/abc337_g\n\
     \ndef main():\n    N = read(int)\n    T = read(Tree[N])\n    hld, ans = HLDBIT(T,\
     \ [0]*N), [0]*(N+1)\n\n    def range_add(l,r,x):\n        ans[l] += x\n      \
@@ -512,24 +512,24 @@ data:
     \            if i != hld.back[u]:\n                l,r = hld.subtree_range(T.Va[i])\n\
     \                cnt = hld.subtree_query(T.Va[i])\n                range_add(0,l,cnt)\n\
     \                range_add(r,N,cnt)\n        hld.add(u,1)\n    ans = presum(ans)\n\
-    \    ans = [ans[i] for i in hld.tin]\n    write(*ans)\n\nfrom cp_library.alg.tree.fast.hld_bit_cls\
-    \ import HLDBIT\nfrom cp_library.alg.tree.fast.tree_cls import Tree\nfrom cp_library.io.read_fn\
+    \    ans = [ans[i] for i in hld.tin]\n    write(*ans)\n\nfrom cp_library.alg.tree.csr.hld_bit_cls\
+    \ import HLDBIT\nfrom cp_library.alg.tree.csr.tree_cls import Tree\nfrom cp_library.io.read_fn\
     \ import read\nfrom cp_library.io.write_fn import write\nfrom cp_library.alg.iter.presum_fn\
     \ import presum\n\nif __name__ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/alg/tree/fast/hld_bit_cls.py
-  - cp_library/alg/tree/fast/tree_cls.py
+  - cp_library/alg/tree/csr/hld_bit_cls.py
+  - cp_library/alg/tree/csr/tree_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/alg/iter/presum_fn.py
-  - cp_library/alg/tree/fast/hld_base_cls.py
-  - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_base_cls.py
+  - cp_library/alg/tree/csr/tree_base_cls.py
   - cp_library/ds/tree/bit/bit_cls.py
-  - cp_library/alg/graph/fast/graph_cls.py
+  - cp_library/alg/graph/csr/graph_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/ds/elist_fn.py
-  - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/array/u32f_fn.py
   - cp_library/alg/dp/chmin_fn.py
@@ -541,7 +541,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py

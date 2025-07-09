@@ -12,39 +12,9 @@ data:
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/digraph_weighted_cls.py
-    title: cp_library/alg/graph/digraph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_list_weighted_cls.py
     title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/graph_weighted_cls.py
-    title: cp_library/alg/graph/graph_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/tree_weighted_cls.py
-    title: cp_library/alg/tree/tree_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_edges_weighted_fn.py
-    title: cp_library/io/read_edges_weighted_fn.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_a_dijkstra.test.py
-    title: test/aoj/grl/grl_1_a_dijkstra.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_a_graph_distance.test.py
-    title: test/aoj/grl/grl_1_a_graph_distance.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-    title: test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_1_c_floyd_warshall.test.py
-    title: test/aoj/grl/grl_1_c_floyd_warshall.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
-    title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
     title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
@@ -54,21 +24,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
     title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_5_a_diameter.test.py
-    title: test/aoj/grl/grl_5_a_diameter.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-    title: test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc361_e_tree_diameter.test.py
-    title: test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/abc/abc375_g_find_bridges.test.py
-    title: test/atcoder/abc/abc375_g_find_bridges.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/shortest_path_graph_weighted.test.py
-    title: test/library-checker/graph/shortest_path_graph_weighted.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -116,8 +71,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -183,28 +138,13 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/edge_weighted_cls.py
   requiredBy:
-  - cp_library/alg/tree/tree_weighted_cls.py
-  - cp_library/alg/graph/digraph_weighted_cls.py
   - cp_library/alg/graph/edge_list_weighted_cls.py
-  - cp_library/alg/graph/graph_weighted_cls.py
-  - cp_library/io/read_edges_weighted_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_b_edmonds_branching.test.py
-  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_1_a_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_floyd_warshall.test.py
-  - test/aoj/grl/grl_5_a_diameter.test.py
   - test/aoj/grl/grl_2_a_kruskal_sort.test.py
   - test/aoj/grl/grl_2_a_kruskal_heap.test.py
-  - test/aoj/grl/grl_1_b_bellman_ford.test.py
-  - test/aoj/grl/grl_1_b_graph_bellman_ford.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/library-checker/graph/shortest_path_graph_weighted.test.py
-  - test/atcoder/abc/abc218_f_shortest_path_weighted.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
-  - test/atcoder/abc/abc361_e_tree_diameter.test.py
 documentation_of: cp_library/alg/graph/edge_weighted_cls.py
 layout: document
 redirect_from:

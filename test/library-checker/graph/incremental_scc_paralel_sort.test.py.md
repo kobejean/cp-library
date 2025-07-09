@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
-    title: cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
+    path: cp_library/alg/graph/csr/snippets/scc_incremental_fn.py
+    title: cp_library/alg/graph/csr/snippets/scc_incremental_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_fn.py
     title: argsort
@@ -11,8 +11,8 @@ data:
     path: cp_library/alg/iter/sort/isort_parallel_fn.py
     title: cp_library/alg/iter/sort/isort_parallel_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_sm_fn.py
-    title: cp_library/bit/pack/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
@@ -71,21 +71,25 @@ data:
     \ = partition(el, er, tm)\n        if tr-tl==1: return\n        E, F = F, E\n\
     \        div_con(nN, em, er, tm, tr)\n        div_con(N, el, em, tl, tm)\n   \
     \     E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\n\n\ndef argsort(A:\
-    \ list[int], reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n  \
-    \      I = [a<<s|m^i for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
-    \        for i,ai in enumerate(I): I[i] = m^ai&m\n    else:\n        I = [a<<s|i\
-    \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
-    \ I[i] = ai&m\n    return I\n\n\ndef pack_sm(N: int): s=N.bit_length(); return\
-    \ s,(1<<s)-1\n\n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order\
-    \ = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order):\
-    \ inv[j] = i\n    for i, j in enumerate(order):\n        for A in L: A[i], A[j]\
-    \ = A[j], A[i]\n        order[inv[i]], inv[j] = j, inv[i]\n    return L\n\n\n\
-    from __pypy__.builders import StringBuilder\nimport sys\nfrom os import read as\
-    \ os_read, write as os_write\nfrom atexit import register as atexist_register\n\
-    \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
-    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
-    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
+    \ list[int], reverse=False):\n    P = Packer(len(I := A.copy())-1); P.ienumerate(I,\
+    \ reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    def\
+    \ __init__(P, mx: int):\n        P.s = mx.bit_length()\n        P.m = (1 << P.s)\
+    \ - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x:\
+    \ int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False):\
+    \ P.ienumerate(A:=A.copy(), reverse); return A\n    def ienumerate(P, A, reverse=False):\n\
+    \        if reverse:\n            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n\
+    \        else:\n            for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def\
+    \ indices(P, A: list[int]): P.iindices(A:=A.copy()); return A\n    def iindices(P,\
+    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\ndef isort_parallel(*L:\
+    \ list, reverse=False):\n    inv, order = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n\
+    \    for i, j in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n\
+    \        for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] =\
+    \ j, inv[i]\n    return L\n\n\nfrom __pypy__.builders import StringBuilder\nimport\
+    \ sys\nfrom os import read as os_read, write as os_write\nfrom atexit import register\
+    \ as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n\
+    \    sb = StringBuilder()\n    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n\
+    \        self.ibuf += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n\
+    \    def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
     \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
     \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
     \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
@@ -111,20 +115,20 @@ data:
     \ t < w: ans[t] = cur; t += 1\n        while u != dsu[u]: dsu[u] = u = dsu[dsu[u]]\n\
     \        while v != dsu[v]: dsu[v] = v = dsu[dsu[v]]\n        if u != v: dsu[v],\
     \ cur, X[u] = u, (cur+X[u]*X[v])%mod, (X[u]+X[v])%mod\n    while t < M: ans[t]\
-    \ = cur; t += 1\n    wtnl(ans)\n\nfrom cp_library.alg.graph.fast.snippets.scc_incremental_fn\
+    \ = cur; t += 1\n    wtnl(ans)\n\nfrom cp_library.alg.graph.csr.snippets.scc_incremental_fn\
     \ import scc_incremental\nfrom cp_library.alg.iter.sort.isort_parallel_fn import\
     \ isort_parallel\nfrom cp_library.io.fast.fast_io_fn import rd, rdl, wtnl\n\n\
     if __name__ == '__main__':\n    main()\n"
   dependsOn:
-  - cp_library/alg/graph/fast/snippets/scc_incremental_fn.py
+  - cp_library/alg/graph/csr/snippets/scc_incremental_fn.py
   - cp_library/alg/iter/sort/isort_parallel_fn.py
   - cp_library/io/fast/fast_io_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
-  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/bit/pack/packer_cls.py
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc_paralel_sort.test.py

@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack_sm_fn.py
-    title: cp_library/bit/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/reserve_fn.py
     title: cp_library/ds/reserve_fn.py
@@ -52,10 +52,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\ndef\
-    \ pack_sm(N: int): s=N.bit_length(); return s, (1<<s)-1\ndef pack_enc(a: int,\
-    \ b: int, s: int): return a<<s|b\ndef pack_dec(ab: int, s: int, m: int): return\
-    \ ab>>s,ab&m\ndef pack_indices(A, s): return [a<<s|i for i,a in enumerate(A)]\n\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
+    \nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
+    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
+    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
+    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
+    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
+    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
     import pytest\nimport random\n\nclass TestTreapMonoid:\n    def test_initialization(self):\n\
     \        # Define a simple monoid operation (addition)\n        def add_op(a,\
     \ b):\n            return a + b\n\n        # Test basic initialization\n     \
@@ -157,34 +162,27 @@ data:
     \        assert T[-7] == -30\n        \n        # Test range queries with negative\
     \ keys\n        assert T.prod(-10, 0) == 10 + (-30)  # Sum of values at keys -7\
     \ and -5\n        assert T.prod(-10, 10) == 10 + (-30) + (-20)  # Sum of all values\n\
-    \n    def test_pack_enc_dec(self):\n        # Test the pack_enc and pack_dec utility\
-    \ functions used in the original code\n        shift, mask = 30, (1<<30)-1\n \
-    \       \n        a, b = 123, 456\n        packed = pack_enc(a, b, shift)\n  \
-    \      \n        # Verify pack_dec correctly extracts values\n        a_dec, b_dec\
-    \ = pack_dec(packed, shift, mask)\n        assert a_dec == a\n        assert b_dec\
-    \ == b\n\n    def test_large_composite_operation(self):\n        mod = 998244353\n\
-    \        shift, mask = 30, (1<<30)-1\n        \n        # Define the composite\
-    \ operation from the main function\n        def op(a, b):\n            ac, ad\
-    \ = pack_dec(a, shift, mask)\n            bc, bd = pack_dec(b, shift, mask)\n\
-    \            return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)\n        \n   \
-    \     T = TreapMonoid(op, e=1 << shift)\n        \n        # Insert some values\
-    \ similar to those in the main function\n        for i in range(10):\n       \
-    \     c, d = random.randint(1, 100), random.randint(1, 100)\n            T[i]\
-    \ = pack_enc(c, d, shift)\n        \n        # Test range query and composite\
-    \ operation\n        l, r = 0, 5\n        result = T.prod(l, r)\n        a_res,\
-    \ b_res = pack_dec(result, shift, mask)\n        \n        # Manually compute\
-    \ the expected result\n        a_exp, b_exp = 1, 0  # Identity element for this\
-    \ operation\n        for i in range(l, r):\n            c, d = pack_dec(T[i],\
-    \ shift, mask)\n            a_exp = (a_exp * c) % mod\n            b_exp = (b_exp\
-    \ * c + d) % mod\n        \n        assert a_res == a_exp\n        assert b_res\
-    \ == b_exp\n\n    def test_split_basic(self):\n        # Define a simple monoid\
-    \ operation (addition)\n        def add_op(a, b):\n            return a + b\n\n\
-    \        T = TreapMonoid(add_op, e=0)\n        \n        # Insert ordered key-value\
-    \ pairs\n        for i in range(10):\n            T.insert(i, i * 10)\n      \
-    \  \n        # Split at key 5\n        S, T = T.split(5)\n        \n        #\
-    \ Verify correctness of split\n        # S should contain keys [0,1,2,3,4]\n \
-    \       # T should contain keys [5,6,7,8,9]\n        for i in range(5):\n    \
-    \        assert i in S\n            assert S[i] == i * 10\n            assert\
+    \n    def test_large_composite_operation(self):\n        mod = 998244353\n   \
+    \     P = Packer((1<<30)-1)\n        \n        # Define the composite operation\
+    \ from the main function\n        def op(a, b):\n            ac, ad = P.dec(a)\n\
+    \            bc, bd = P.dec(b)\n            return P.enc(ac*bc%mod, (ad*bc+bd)%mod)\n\
+    \        \n        T = TreapMonoid(op, e=1 << P.s)\n        \n        # Insert\
+    \ some values similar to those in the main function\n        for i in range(10):\n\
+    \            c, d = random.randint(1, 100), random.randint(1, 100)\n         \
+    \   T[i] = P.enc(c, d)\n        \n        # Test range query and composite operation\n\
+    \        l, r = 0, 5\n        result = T.prod(l, r)\n        a_res, b_res = P.dec(result)\n\
+    \        \n        # Manually compute the expected result\n        a_exp, b_exp\
+    \ = 1, 0  # Identity element for this operation\n        for i in range(l, r):\n\
+    \            c, d = P.dec(T[i])\n            a_exp = (a_exp * c) % mod\n     \
+    \       b_exp = (b_exp * c + d) % mod\n        \n        assert a_res == a_exp\n\
+    \        assert b_res == b_exp\n\n    def test_split_basic(self):\n        # Define\
+    \ a simple monoid operation (addition)\n        def add_op(a, b):\n          \
+    \  return a + b\n\n        T = TreapMonoid(add_op, e=0)\n        \n        # Insert\
+    \ ordered key-value pairs\n        for i in range(10):\n            T.insert(i,\
+    \ i * 10)\n        \n        # Split at key 5\n        S, T = T.split(5)\n   \
+    \     \n        # Verify correctness of split\n        # S should contain keys\
+    \ [0,1,2,3,4]\n        # T should contain keys [5,6,7,8,9]\n        for i in range(5):\n\
+    \            assert i in S\n            assert S[i] == i * 10\n            assert\
     \ i not in T\n            \n        for i in range(5, 10):\n            assert\
     \ i in T\n            assert T[i] == i * 10\n            assert i not in S\n \
     \       \n        # Check monoid values are preserved\n        assert S.all_prod()\
@@ -264,24 +262,22 @@ data:
     \     for t in treaps:\n                if k in t:\n                    final_treap[k]\
     \ = v\n                    break\n        \n        assert final_treap.all_prod()\
     \ == original_sum\n        final_treap._v()\n\n    def test_custom_pack_format_with_split(self):\n\
-    \        mod = 998244353\n        shift, mask = 30, (1<<30)-1\n        \n    \
-    \    # Define composite operation from the main function\n        def op(a, b):\n\
-    \            ac, ad = pack_dec(a, shift, mask)\n            bc, bd = pack_dec(b,\
-    \ shift, mask)\n            return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)\n\
-    \        \n        T = TreapMonoid(op, e=1 << shift)\n        \n        # Insert\
-    \ values with packed format\n        for i in range(10):\n            c, d = i+1,\
-    \ i*10\n            T[i] = pack_enc(c, d, shift)\n        \n        # Perform\
+    \        mod = 998244353\n        P = Packer((1<<30)-1)\n        \n        # Define\
+    \ composite operation from the main function\n        def op(a, b):\n        \
+    \    ac, ad = P.dec(a)\n            bc, bd = P.dec(b)\n            return P.enc(ac*bc%mod,\
+    \ (ad*bc+bd)%mod)\n        T = TreapMonoid(op, e=1 << P.s)\n        \n       \
+    \ # Insert values with packed format\n        for i in range(10):\n          \
+    \  c, d = i+1, i*10\n            T[i] = P.enc(c, d)\n        \n        # Perform\
     \ split\n        S, T = T.split(5)\n        \n        # Verify each part\n   \
-    \     for i in range(5):\n            assert i in S\n            c, d = pack_dec(S[i],\
-    \ shift, mask)\n            assert c == i+1\n            assert d == i*10\n  \
-    \          \n        for i in range(5, 10):\n            assert i in T\n     \
-    \       c, d = pack_dec(T[i], shift, mask)\n            assert c == i+1\n    \
-    \        assert d == i*10\n\n\n\ndef reserve(A: list, est_len: int) -> None: ...\n\
-    try:\n    from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A:\
-    \ list, est_len: int):\n        pass\nreserve = resizelist_hint\n\n\n\ni64_max\
-    \ = (1<<63)-1\n\nclass BST:\n    __slots__ = 'r'\n    K,sub,st=[-1],[-1,-1],[]\n\
-    \    def __init__(T):T.r=T._nr()\n    def _nt(T):return T.__class__()\n    def\
-    \ _nr(T):r=len(T.K);T.K.append(i64_max);T.sub.append(-1);T.sub.append(-1);return\
+    \     for i in range(5):\n            assert i in S\n            c, d = P.dec(S[i])\n\
+    \            assert c == i+1\n            assert d == i*10\n            \n   \
+    \     for i in range(5, 10):\n            assert i in T\n            c, d = P.dec(T[i])\n\
+    \            assert c == i+1\n            assert d == i*10\n\n\n\ndef reserve(A:\
+    \ list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\n\
+    except:\n    def resizelist_hint(A: list, est_len: int):\n        pass\nreserve\
+    \ = resizelist_hint\n\n\n\ni64_max = (1<<63)-1\n\nclass BST:\n    __slots__ =\
+    \ 'r'\n    K,sub,st=[-1],[-1,-1],[]\n    def __init__(T):T.r=T._nr()\n    def\
+    \ _nt(T):return T.__class__()\n    def _nr(T):r=len(T.K);T.K.append(i64_max);T.sub.append(-1);T.sub.append(-1);return\
     \ r\n    def _nn(T,k):n=len(T.K);T.K.append(k);T.sub.append(-1);T.sub.append(-1);return\
     \ n\n    def insert(T,k):T._i(T.r<<1,k,n:=T._nn(k));T._r();return n\n    def get(T,k):\n\
     \        if~(i:=T._f(T.r<<1,k)):return i\n        raise KeyError\n    def pop(T,k):\n\
@@ -351,16 +347,16 @@ data:
     \    assert T.K[l] <= T.K[i]\n            ac = T.op(T._v(l), ac)\n        if ~(r:=T.sub[i<<1|1]):\n\
     \            assert T.P[i] <= T.P[r]\n            assert T.K[i] <= T.K[r]\n  \
     \          ac = T.op(ac, T._v(r))\n        assert T.A[i] == ac\n        return\
-    \ ac\n\n\nfrom typing import Iterable, Type, Union, overload\nimport typing\n\
-    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nimport\
-    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ ac\n\n\nfrom typing import Type, Union, overload\nimport typing\nfrom collections\
+    \ import deque\nfrom numbers import Number\nfrom types import GenericAlias \n\
+    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
+    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
+    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -388,8 +384,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -437,13 +433,13 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == '__main__':\n    A, B = read()\n    write(C\
     \ := A+B)\n    if C != 1198300249: sys.exit(0)\n    import io\n    from contextlib\
     \ import redirect_stdout, redirect_stderr\n\n    # Capture all output during test\
@@ -451,18 +447,18 @@ data:
     \        result = pytest.main([__file__])\n    if result != 0: print(output.getvalue())\n\
     \    sys.exit(result)\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/aplusb\n\n\
-    from cp_library.bit.pack_sm_fn import pack_dec, pack_enc\nimport pytest\nimport\
-    \ random\n\nclass TestTreapMonoid:\n    def test_initialization(self):\n     \
-    \   # Define a simple monoid operation (addition)\n        def add_op(a, b):\n\
-    \            return a + b\n\n        # Test basic initialization\n        T =\
-    \ TreapMonoid(add_op, e=0)\n        assert T.e == 0\n        assert T.op == add_op\n\
-    \        assert T.r >= 0\n        assert T.all_prod() == 0  # Empty treap should\
-    \ return identity element\n\n    def test_insert_and_get(self):\n        # Define\
+    from cp_library.bit.pack.packer_cls import Packer\nimport pytest\nimport random\n\
+    \nclass TestTreapMonoid:\n    def test_initialization(self):\n        # Define\
     \ a simple monoid operation (addition)\n        def add_op(a, b):\n          \
-    \  return a + b\n\n        T = TreapMonoid(add_op, e=0)\n        \n        # Insert\
-    \ key-value pairs\n        T.insert(5, 10)\n        T.insert(3, 20)\n        T.insert(7,\
-    \ 30)\n        \n        # Test getting values\n        assert T.get(5) == 10\n\
-    \        assert T.get(3) == 20\n        assert T.get(7) == 30\n        with pytest.raises(KeyError):\n\
+    \  return a + b\n\n        # Test basic initialization\n        T = TreapMonoid(add_op,\
+    \ e=0)\n        assert T.e == 0\n        assert T.op == add_op\n        assert\
+    \ T.r >= 0\n        assert T.all_prod() == 0  # Empty treap should return identity\
+    \ element\n\n    def test_insert_and_get(self):\n        # Define a simple monoid\
+    \ operation (addition)\n        def add_op(a, b):\n            return a + b\n\n\
+    \        T = TreapMonoid(add_op, e=0)\n        \n        # Insert key-value pairs\n\
+    \        T.insert(5, 10)\n        T.insert(3, 20)\n        T.insert(7, 30)\n \
+    \       \n        # Test getting values\n        assert T.get(5) == 10\n     \
+    \   assert T.get(3) == 20\n        assert T.get(7) == 30\n        with pytest.raises(KeyError):\n\
     \            assert T.get(1) == 0 # Non-existent key\n        \n        # Test\
     \ __getitem__ for direct key access\n        assert T[5] == 10\n        assert\
     \ T[3] == 20\n        assert T[7] == 30\n        with pytest.raises(KeyError):\n\
@@ -552,34 +548,27 @@ data:
     \        assert T[-7] == -30\n        \n        # Test range queries with negative\
     \ keys\n        assert T.prod(-10, 0) == 10 + (-30)  # Sum of values at keys -7\
     \ and -5\n        assert T.prod(-10, 10) == 10 + (-30) + (-20)  # Sum of all values\n\
-    \n    def test_pack_enc_dec(self):\n        # Test the pack_enc and pack_dec utility\
-    \ functions used in the original code\n        shift, mask = 30, (1<<30)-1\n \
-    \       \n        a, b = 123, 456\n        packed = pack_enc(a, b, shift)\n  \
-    \      \n        # Verify pack_dec correctly extracts values\n        a_dec, b_dec\
-    \ = pack_dec(packed, shift, mask)\n        assert a_dec == a\n        assert b_dec\
-    \ == b\n\n    def test_large_composite_operation(self):\n        mod = 998244353\n\
-    \        shift, mask = 30, (1<<30)-1\n        \n        # Define the composite\
-    \ operation from the main function\n        def op(a, b):\n            ac, ad\
-    \ = pack_dec(a, shift, mask)\n            bc, bd = pack_dec(b, shift, mask)\n\
-    \            return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)\n        \n   \
-    \     T = TreapMonoid(op, e=1 << shift)\n        \n        # Insert some values\
-    \ similar to those in the main function\n        for i in range(10):\n       \
-    \     c, d = random.randint(1, 100), random.randint(1, 100)\n            T[i]\
-    \ = pack_enc(c, d, shift)\n        \n        # Test range query and composite\
-    \ operation\n        l, r = 0, 5\n        result = T.prod(l, r)\n        a_res,\
-    \ b_res = pack_dec(result, shift, mask)\n        \n        # Manually compute\
-    \ the expected result\n        a_exp, b_exp = 1, 0  # Identity element for this\
-    \ operation\n        for i in range(l, r):\n            c, d = pack_dec(T[i],\
-    \ shift, mask)\n            a_exp = (a_exp * c) % mod\n            b_exp = (b_exp\
-    \ * c + d) % mod\n        \n        assert a_res == a_exp\n        assert b_res\
-    \ == b_exp\n\n    def test_split_basic(self):\n        # Define a simple monoid\
-    \ operation (addition)\n        def add_op(a, b):\n            return a + b\n\n\
-    \        T = TreapMonoid(add_op, e=0)\n        \n        # Insert ordered key-value\
-    \ pairs\n        for i in range(10):\n            T.insert(i, i * 10)\n      \
-    \  \n        # Split at key 5\n        S, T = T.split(5)\n        \n        #\
-    \ Verify correctness of split\n        # S should contain keys [0,1,2,3,4]\n \
-    \       # T should contain keys [5,6,7,8,9]\n        for i in range(5):\n    \
-    \        assert i in S\n            assert S[i] == i * 10\n            assert\
+    \n    def test_large_composite_operation(self):\n        mod = 998244353\n   \
+    \     P = Packer((1<<30)-1)\n        \n        # Define the composite operation\
+    \ from the main function\n        def op(a, b):\n            ac, ad = P.dec(a)\n\
+    \            bc, bd = P.dec(b)\n            return P.enc(ac*bc%mod, (ad*bc+bd)%mod)\n\
+    \        \n        T = TreapMonoid(op, e=1 << P.s)\n        \n        # Insert\
+    \ some values similar to those in the main function\n        for i in range(10):\n\
+    \            c, d = random.randint(1, 100), random.randint(1, 100)\n         \
+    \   T[i] = P.enc(c, d)\n        \n        # Test range query and composite operation\n\
+    \        l, r = 0, 5\n        result = T.prod(l, r)\n        a_res, b_res = P.dec(result)\n\
+    \        \n        # Manually compute the expected result\n        a_exp, b_exp\
+    \ = 1, 0  # Identity element for this operation\n        for i in range(l, r):\n\
+    \            c, d = P.dec(T[i])\n            a_exp = (a_exp * c) % mod\n     \
+    \       b_exp = (b_exp * c + d) % mod\n        \n        assert a_res == a_exp\n\
+    \        assert b_res == b_exp\n\n    def test_split_basic(self):\n        # Define\
+    \ a simple monoid operation (addition)\n        def add_op(a, b):\n          \
+    \  return a + b\n\n        T = TreapMonoid(add_op, e=0)\n        \n        # Insert\
+    \ ordered key-value pairs\n        for i in range(10):\n            T.insert(i,\
+    \ i * 10)\n        \n        # Split at key 5\n        S, T = T.split(5)\n   \
+    \     \n        # Verify correctness of split\n        # S should contain keys\
+    \ [0,1,2,3,4]\n        # T should contain keys [5,6,7,8,9]\n        for i in range(5):\n\
+    \            assert i in S\n            assert S[i] == i * 10\n            assert\
     \ i not in T\n            \n        for i in range(5, 10):\n            assert\
     \ i in T\n            assert T[i] == i * 10\n            assert i not in S\n \
     \       \n        # Check monoid values are preserved\n        assert S.all_prod()\
@@ -659,20 +648,18 @@ data:
     \     for t in treaps:\n                if k in t:\n                    final_treap[k]\
     \ = v\n                    break\n        \n        assert final_treap.all_prod()\
     \ == original_sum\n        final_treap._v()\n\n    def test_custom_pack_format_with_split(self):\n\
-    \        mod = 998244353\n        shift, mask = 30, (1<<30)-1\n        \n    \
-    \    # Define composite operation from the main function\n        def op(a, b):\n\
-    \            ac, ad = pack_dec(a, shift, mask)\n            bc, bd = pack_dec(b,\
-    \ shift, mask)\n            return pack_enc(ac*bc%mod, (ad*bc+bd)%mod, shift)\n\
-    \        \n        T = TreapMonoid(op, e=1 << shift)\n        \n        # Insert\
-    \ values with packed format\n        for i in range(10):\n            c, d = i+1,\
-    \ i*10\n            T[i] = pack_enc(c, d, shift)\n        \n        # Perform\
+    \        mod = 998244353\n        P = Packer((1<<30)-1)\n        \n        # Define\
+    \ composite operation from the main function\n        def op(a, b):\n        \
+    \    ac, ad = P.dec(a)\n            bc, bd = P.dec(b)\n            return P.enc(ac*bc%mod,\
+    \ (ad*bc+bd)%mod)\n        T = TreapMonoid(op, e=1 << P.s)\n        \n       \
+    \ # Insert values with packed format\n        for i in range(10):\n          \
+    \  c, d = i+1, i*10\n            T[i] = P.enc(c, d)\n        \n        # Perform\
     \ split\n        S, T = T.split(5)\n        \n        # Verify each part\n   \
-    \     for i in range(5):\n            assert i in S\n            c, d = pack_dec(S[i],\
-    \ shift, mask)\n            assert c == i+1\n            assert d == i*10\n  \
-    \          \n        for i in range(5, 10):\n            assert i in T\n     \
-    \       c, d = pack_dec(T[i], shift, mask)\n            assert c == i+1\n    \
-    \        assert d == i*10\n\nfrom cp_library.ds.tree.bst.treap_monoid_cls import\
-    \ TreapMonoid\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \     for i in range(5):\n            assert i in S\n            c, d = P.dec(S[i])\n\
+    \            assert c == i+1\n            assert d == i*10\n            \n   \
+    \     for i in range(5, 10):\n            assert i in T\n            c, d = P.dec(T[i])\n\
+    \            assert c == i+1\n            assert d == i*10\n\nfrom cp_library.ds.tree.bst.treap_monoid_cls\
+    \ import TreapMonoid\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
     \ import write\n\nif __name__ == '__main__':\n    import sys\n    A, B = read()\n\
     \    write(C := A+B)\n    if C != 1198300249: sys.exit(0)\n    import pytest\n\
     \    import io\n    from contextlib import redirect_stdout, redirect_stderr\n\n\
@@ -680,7 +667,7 @@ data:
     \    with redirect_stdout(output), redirect_stderr(output):\n        result =\
     \ pytest.main([__file__])\n    if result != 0: print(output.getvalue())\n    sys.exit(result)"
   dependsOn:
-  - cp_library/bit/pack_sm_fn.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/tree/bst/treap_monoid_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
@@ -695,7 +682,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/tree/bst/treap_monoid_cls_test.py

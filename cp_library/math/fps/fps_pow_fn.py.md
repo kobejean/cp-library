@@ -35,8 +35,8 @@ data:
     path: cp_library/math/nt/ntt_cls.py
     title: cp_library/math/nt/ntt_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/table/modcomb_cls.py
-    title: cp_library/math/table/modcomb_cls.py
+    path: cp_library/math/table/mcomb_cls.py
+    title: cp_library/math/table/mcomb_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/stirling1_k_fn.py
@@ -169,8 +169,8 @@ data:
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
     \ = NTT(mod)\n\ndef fps_log(P: list) -> list:\n    return fps_integ(mint.ntt.conv(fps_deriv(P),\
     \ fps_inv(P), len(P)-1))\n\n\ndef fps_exp(P: list) -> list:\n    max_sz = 1 <<\
-    \ ((deg := len(P))-1).bit_length()\n    modcomb.extend_inv(max_sz)\n    inv, mod,\
-    \ ntt = modcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt,\
+    \ ((deg := len(P))-1).bit_length()\n    mcomb.extend_inv(max_sz)\n    inv, mod,\
+    \ ntt = mcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt,\
     \ ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n    R,\
     \ E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz),\
     \ reserve(E, max_sz)\n    p = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n\
@@ -183,37 +183,36 @@ data:
     \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
     \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
-    \nfrom itertools import accumulate\n\nclass modcomb():\n    fact: list[int]\n\
-    \    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n  \
-    \  def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
+    \nfrom itertools import accumulate\n\nclass mcomb():\n    fact: list[int]\n  \
+    \  fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n    def\
+    \ precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
     \        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n        fact_inv\
     \ = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N], mod)))\n\
-    \        fact_inv.reverse()\n        modcomb.fact, modcomb.fact_inv = fact, fact_inv\n\
-    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, modcomb.inv,\
+    \        fact_inv.reverse()\n        mcomb.fact, mcomb.fact_inv = fact, fact_inv\n\
+    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, mcomb.inv,\
     \ mint.mod\n        while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n\
     \            inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def factorial(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.fact[n])\n\n    @staticmethod\n\
-    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = modcomb.fact_inv,\
+    \ int, /) -> mint:\n        return mint(mcomb.fact[n])\n\n    @staticmethod\n\
+    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = mcomb.fact_inv,\
     \ mint.mod\n        if n < k or k < 0: return mint.zero\n        return mint(inv[k]\
-    \ * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
+    \ * inv[n-k] % mod * mcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
     \    def comb_with_replacement(n: int, k: int, /) -> mint:\n        if n <= 0:\
-    \ return mint.zero\n        return modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
+    \ return mint.zero\n        return mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
     \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
-    \ nCk, res = modcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k),\
-    \ n-k\n        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /)\
-    \ -> mint:\n        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n\
-    \        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n    nPk = perm\n\
-    \    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return\
-    \ mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\ndef fps_normalize(P: list,\
-    \ deg) -> list:\n    if (N:=len(P)) < deg: P[N:] = [0]*(deg-N)\n    del P[deg:]\n\
-    \    return P\n\ndef fps_pow(P: list, k: int, deg = -1) -> list:\n    deg, mod\
-    \ = (len(P) if deg<0 else deg), mint.mod\n    if k == 0: return [1]+[0]*(deg-1)\
-    \ if deg else []\n    i = next((i for i, c in enumerate(P) if c), default=deg)\n\
-    \    if i * k >= deg: return [0] * deg\n    inv, alpha = mod_inv(P[i],mod), pow(P[i],\
-    \ k, mod)\n    R = fps_log([P[j]*inv%mod for j in range(i,deg)])\n    for j,r\
-    \ in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n    for j,r in enumerate(R):\
-    \ R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n    return fps_normalize(R, deg)\n\
-    \n"
+    \ nCk, res = mcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k), n-k\n\
+    \        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /) -> mint:\n\
+    \        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n    \
+    \    return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n    nPk = perm\n    \n\
+    \    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return mint(mcomb.nCk(2*n,n)\
+    \ * mcomb.fact_inv[n+1])\n\ndef fps_normalize(P: list, deg) -> list:\n    if (N:=len(P))\
+    \ < deg: P[N:] = [0]*(deg-N)\n    del P[deg:]\n    return P\n\ndef fps_pow(P:\
+    \ list, k: int, deg = -1) -> list:\n    deg, mod = (len(P) if deg<0 else deg),\
+    \ mint.mod\n    if k == 0: return [1]+[0]*(deg-1) if deg else []\n    i = next((i\
+    \ for i, c in enumerate(P) if c), default=deg)\n    if i * k >= deg: return [0]\
+    \ * deg\n    inv, alpha = mod_inv(P[i],mod), pow(P[i], k, mod)\n    R = fps_log([P[j]*inv%mod\
+    \ for j in range(i,deg)])\n    for j,r in enumerate(R): R[j] = r*k%mod\n    R\
+    \ = fps_exp(R)\n    for j,r in enumerate(R): R[j] = r*alpha%mod\n    R[:0] = [0]\
+    \ * (i * k)\n    return fps_normalize(R, deg)\n\n"
   code: "import cp_library.math.fps.__header__\nfrom cp_library.math.fps.fps_log_fn\
     \ import fps_log\nfrom cp_library.math.fps.fps_exp_fn import fps_exp\nfrom cp_library.math.fps.fps_normalize_fn\
     \ import fps_normalize\n\ndef fps_pow(P: list, k: int, deg = -1) -> list:\n  \
@@ -235,7 +234,7 @@ data:
   - cp_library/math/fps/fps_integ_fn.py
   - cp_library/math/fps/fps_inv_fn.py
   - cp_library/ds/reserve_fn.py
-  - cp_library/math/table/modcomb_cls.py
+  - cp_library/math/table/mcomb_cls.py
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/nt/ntt_cls.py
   isVerificationFile: false
@@ -243,7 +242,7 @@ data:
   requiredBy:
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/table/stirling2_k_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

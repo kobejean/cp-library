@@ -14,8 +14,8 @@ data:
     path: cp_library/math/nt/ntt_cls.py
     title: cp_library/math/nt/ntt_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/table/modcomb_cls.py
-    title: cp_library/math/table/modcomb_cls.py
+    path: cp_library/math/table/mcomb_cls.py
+    title: cp_library/math/table/mcomb_cls.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/stirling1_n_fn.py
@@ -64,30 +64,29 @@ data:
     \ x: int): return self.cache[x]\n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x, mod,\
     \ 1, 0\n    while b:\n        a,b,s,t = b,a%b,t,s-a//b*t\n    if a == 1: return\
     \ s % mod\n    raise ValueError(f\"{x} is not invertible in mod {mod}\")\nfrom\
-    \ itertools import accumulate\n\nclass modcomb():\n    fact: list[int]\n    fact_inv:\
+    \ itertools import accumulate\n\nclass mcomb():\n    fact: list[int]\n    fact_inv:\
     \ list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n    def precomp(N):\n\
     \        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n        fact\
     \ = list(accumulate(range(1,N+1), mod_mul, initial=1))\n        fact_inv = list(accumulate(range(N,0,-1),\
     \ mod_mul, initial=mod_inv(fact[N], mod)))\n        fact_inv.reverse()\n     \
-    \   modcomb.fact, modcomb.fact_inv = fact, fact_inv\n    \n    @staticmethod\n\
-    \    def extend_inv(N):\n        N, inv, mod = N+1, modcomb.inv, mint.mod\n  \
-    \      while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n       \
-    \     inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def factorial(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.fact[n])\n\n    @staticmethod\n\
-    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = modcomb.fact_inv,\
-    \ mint.mod\n        if n < k or k < 0: return mint.zero\n        return mint(inv[k]\
-    \ * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
-    \    def comb_with_replacement(n: int, k: int, /) -> mint:\n        if n <= 0:\
-    \ return mint.zero\n        return modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
-    \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
-    \ nCk, res = modcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k),\
-    \ n-k\n        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /)\
-    \ -> mint:\n        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n\
-    \        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n    nPk = perm\n\
-    \    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return\
-    \ mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\n\nclass NTT:\n    def __init__(self,\
-    \ mod = 998244353) -> None:\n        self.mod = m = mod\n        self.g = g =\
-    \ self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
+    \   mcomb.fact, mcomb.fact_inv = fact, fact_inv\n    \n    @staticmethod\n   \
+    \ def extend_inv(N):\n        N, inv, mod = N+1, mcomb.inv, mint.mod\n       \
+    \ while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n            inv.append(-inv[k]\
+    \ * j % mod)\n\n    @staticmethod\n    def factorial(n: int, /) -> mint:\n   \
+    \     return mint(mcomb.fact[n])\n\n    @staticmethod\n    def comb(n: int, k:\
+    \ int, /) -> mint:\n        inv, mod = mcomb.fact_inv, mint.mod\n        if n\
+    \ < k or k < 0: return mint.zero\n        return mint(inv[k] * inv[n-k] % mod\
+    \ * mcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n    def comb_with_replacement(n:\
+    \ int, k: int, /) -> mint:\n        if n <= 0: return mint.zero\n        return\
+    \ mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n\
+    \    def multinom(n: int, *K: int) -> mint:\n        nCk, res = mcomb.nCk, mint.one\n\
+    \        for k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n\n\nclass NTT:\n\
+    \    def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
+    \        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
     \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
     \ (m - 1) >> rank2, m)\n        self.iroot = iroot = [0] * (rank2 + 1)\n     \
     \   iroot[rank2] = pow(root[rank2], m - 2, m)\n        for i in range(rank2 -\
@@ -153,20 +152,19 @@ data:
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
     \ = NTT(mod)\n\ndef fps_tayler_shift(P, t: int) -> list[int]:\n    fact, fact_inv,\
-    \ inv, N, mod = modcomb.fact, modcomb.fact_inv, modcomb.inv, len(P), mint.mod\n\
-    \    modcomb.extend_inv(N)\n    R, B = [P[i]*fact[i]%mod for i in range(N-1,-1,-1)],\
-    \ [0]*N\n    B[0] = 1\n    for i in range(1,N): B[i] = B[i-1] * t % mod * inv[i]\
-    \ % mod\n    R = mint.ntt.conv(R, B, N)\n    return [a*fact_inv[i]%mod for i,\
-    \ a in enumerate(reversed(R))]\n\n"
-  code: "import cp_library.math.fps.__header__\nfrom cp_library.math.table.modcomb_cls\
-    \ import modcomb\nfrom cp_library.math.mod.mint_ntt_cls import mint\n\ndef fps_tayler_shift(P,\
-    \ t: int) -> list[int]:\n    fact, fact_inv, inv, N, mod = modcomb.fact, modcomb.fact_inv,\
-    \ modcomb.inv, len(P), mint.mod\n    modcomb.extend_inv(N)\n    R, B = [P[i]*fact[i]%mod\
+    \ inv, N, mod = mcomb.fact, mcomb.fact_inv, mcomb.inv, len(P), mint.mod\n    mcomb.extend_inv(N)\n\
+    \    R, B = [P[i]*fact[i]%mod for i in range(N-1,-1,-1)], [0]*N\n    B[0] = 1\n\
+    \    for i in range(1,N): B[i] = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R,\
+    \ B, N)\n    return [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\n\n"
+  code: "import cp_library.math.fps.__header__\nfrom cp_library.math.table.mcomb_cls\
+    \ import mcomb\nfrom cp_library.math.mod.mint_ntt_cls import mint\n\ndef fps_tayler_shift(P,\
+    \ t: int) -> list[int]:\n    fact, fact_inv, inv, N, mod = mcomb.fact, mcomb.fact_inv,\
+    \ mcomb.inv, len(P), mint.mod\n    mcomb.extend_inv(N)\n    R, B = [P[i]*fact[i]%mod\
     \ for i in range(N-1,-1,-1)], [0]*N\n    B[0] = 1\n    for i in range(1,N): B[i]\
     \ = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R, B, N)\n    return\
     \ [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\n\n"
   dependsOn:
-  - cp_library/math/table/modcomb_cls.py
+  - cp_library/math/table/mcomb_cls.py
   - cp_library/math/mod/mint_ntt_cls.py
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/nt/mod_inv_fn.py
@@ -175,7 +173,7 @@ data:
   path: cp_library/math/fps/fps_tayler_shift_fn.py
   requiredBy:
   - cp_library/math/table/stirling1_n_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge_cls.py
     title: cp_library/alg/graph/edge_cls.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/alg/graph/graph_proto.py
     title: cp_library/alg/graph/graph_proto.py
   - icon: ':heavy_check_mark:'
@@ -69,8 +69,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -159,23 +159,22 @@ data:
     \ (None, D) if distances else None\n            \n        path = []\n        current\
     \ = g\n        while current != s:\n            path.append(par_edge[current])\n\
     \            current = par[current]\n            \n        return (path[::-1],\
-    \ D) if distances else path[::-1]\n            \n     \n            \n       \
-    \ \n    def floyd_warshall(G) -> list[list[int]]:\n        D = [[inf]*G.N for\
-    \ _ in range(G.N)]\n\n        for u in range(G.N):\n            D[u][u] = 0\n\
-    \            for v in G.neighbors(u):\n                D[u][v] = 1\n        \n\
-    \        for k, Dk in enumerate(D):\n            for Di in D:\n              \
-    \  if Di[k] == inf: continue\n                for j in range(G.N):\n         \
-    \           if Dk[j] == inf: continue\n                    Di[j] = min(Di[j],\
-    \ Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G, s = 0, vis = None,\
-    \ par = None):\n        N = G.N\n        vis = vis or [0] * N\n        par = par\
-    \ or [-1] * N\n        if vis[s]: return None\n        vis[s] = 1\n        stack\
-    \ = [(True, s)]\n        while stack:\n            forw, v = stack.pop()\n   \
-    \         if forw:\n                stack.append((False, v))\n               \
-    \ vis[v] = 1\n                for u in G.neighbors(v):\n                    if\
-    \ vis[u] == 1 and u != par[v]:\n                        # Cycle detected\n   \
-    \                     cyc = [u]\n                        vis[u] = 2\n        \
-    \                while v != u:\n                            cyc.append(v)\n  \
-    \                          vis[v] = 2\n                            v = par[v]\n\
+    \ D) if distances else path[::-1]\n\n    def floyd_warshall(G) -> list[list[int]]:\n\
+    \        D = [[inf]*G.N for _ in range(G.N)]\n\n        for u in range(G.N):\n\
+    \            D[u][u] = 0\n            for v in G.neighbors(u):\n             \
+    \   D[u][v] = 1\n        \n        for k, Dk in enumerate(D):\n            for\
+    \ Di in D:\n                if Di[k] == inf: continue\n                for j in\
+    \ range(G.N):\n                    if Dk[j] == inf: continue\n               \
+    \     Di[j] = min(Di[j], Di[k]+Dk[j])\n        return D\n    \n    def find_cycle(G,\
+    \ s = 0, vis = None, par = None):\n        N = G.N\n        vis = vis or [0] *\
+    \ N\n        par = par or [-1] * N\n        if vis[s]: return None\n        vis[s]\
+    \ = 1\n        stack = [(True, s)]\n        while stack:\n            forw, v\
+    \ = stack.pop()\n            if forw:\n                stack.append((False, v))\n\
+    \                vis[v] = 1\n                for u in G.neighbors(v):\n      \
+    \              if vis[u] == 1 and u != par[v]:\n                        # Cycle\
+    \ detected\n                        cyc = [u]\n                        vis[u]\
+    \ = 2\n                        while v != u:\n                            cyc.append(v)\n\
+    \                            vis[v] = 2\n                            v = par[v]\n\
     \                        return cyc\n                    elif vis[u] == 0:\n \
     \                       par[u] = v\n                        stack.append((True,\
     \ u))\n            else:\n                vis[v] = 2\n        return None\n\n\
@@ -343,7 +342,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/graph_set_cls.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/graph_set_cls.py

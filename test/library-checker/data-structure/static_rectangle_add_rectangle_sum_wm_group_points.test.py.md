@@ -5,14 +5,14 @@ data:
     path: cp_library/alg/divcon/bisect_left_fn.py
     title: cp_library/alg/divcon/bisect_left_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/cmpr/coord_compress_fn.py
-    title: cp_library/alg/iter/cmpr/coord_compress_fn.py
+    path: cp_library/alg/iter/rank/irank_fn.py
+    title: cp_library/alg/iter/rank/irank_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_dec_fn.py
-    title: cp_library/bit/pack/pack_dec_fn.py
+    path: cp_library/alg/iter/rank/rank_fn.py
+    title: cp_library/alg/iter/rank/rank_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_sm_fn.py
-    title: cp_library/bit/pack/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/popcnt32_fn.py
     title: cp_library/bit/popcnt32_fn.py
@@ -95,23 +95,45 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\n\n\n\ndef coord_compress(A: list[int], distinct = False):\n\
-    \    s, m = pack_sm((N := len(A))-1); R, V = [0]*N, [a<<s|i for i,a in enumerate(A)];\
-    \ V.sort()\n    if distinct:\n        for r, ai in enumerate(V): a, i = pack_dec(ai,\
-    \ s, m); R[i], V[r] = r, a\n    else:\n        r = p = -1\n        for ai in V:\n\
-    \            a, i = pack_dec(ai, s, m)\n            if a != p: r = r+1; V[r] =\
-    \ p = a\n            R[i] = r\n        del V[r+1:]\n    return R, V\n\n\n\ndef\
-    \ pack_dec(ab: int, s: int, m: int): return ab>>s,ab&m\ndef pack_sm(N: int): s=N.bit_length();\
-    \ return s,(1<<s)-1\n\n\n\nclass Presum:\n    def __init__(P, op, e, diff, A:\
-    \ list):\n        P.N = len(A); P.op, P.e, P.diff, P.pre = op, e, diff, [e]*(P.N+1)\n\
-    \        for i,a in enumerate(A):P.pre[i+1]=op(P.pre[i],a)\n    def __getitem__(P,i):return\
-    \ P.pre[i]\n    def prod(P,l:int,r:int):return P.diff(P.pre[r],P.pre[l])\nfrom\
-    \ abc import abstractmethod\n\nclass BitArray:\n    def __init__(B, N: int):\n\
-    \        B.N, B.Z = N, (N+31)>>5\n        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
-    \    def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits):\
-    \ B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n    def __len__(B):\
-    \ return B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n\
-    \    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
+    \        \n'''\n\n\n\n\ndef irank(A: list[int], distinct = False):\n    P = Packer(len(A)-1);\
+    \ V = P.enumerate(A); V.sort()\n    if distinct:\n        for r, ai in enumerate(V):\
+    \ a, i = P.dec(ai); A[i], V[r] = r, a\n    elif V:\n        r, p = -1, V[-1]+1\
+    \ # set p to unique value to trigger `if a != p` on first elm\n        for ai\
+    \ in V:\n            a, i = P.dec(ai)\n            if a!=p: V[r:=r+1] = p = a\n\
+    \            A[i] = r\n        del V[r+1:]\n    return V\n\n\n\nclass Packer:\n\
+    \    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n        P.m = (1\
+    \ << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P,\
+    \ x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A,\
+    \ reverse=False): P.ienumerate(A:=A.copy(), reverse); return A\n    def ienumerate(P,\
+    \ A, reverse=False):\n        if reverse:\n            for i,a in enumerate(A):\
+    \ A[i] = P.enc(-a, i)\n        else:\n            for i,a in enumerate(A): A[i]\
+    \ = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy()); return\
+    \ A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\
+    def rank(A: list[int], distinct = False): return (R := A.copy()), irank(R, distinct)\n\
+    \n\nimport operator\n\nclass Presum:\n    def __init__(P, A: list, op=operator.add,\
+    \ e = 0, diff=operator.sub):\n        P.N = len(A); P.op, P.e, P.diff, P.pre =\
+    \ op, e, diff, [e]*(P.N+1)\n        for i,a in enumerate(A):P.pre[i+1]=op(P.pre[i],a)\n\
+    \    def __getitem__(srs, key): return srs.range_sum(key.start, key.stop) if isinstance(key,\
+    \ slice) else srs.sum(key)\n    def sum(srs, r: int): return srs.pre[r]\n    def\
+    \ range_sum(srs, l: int, r: int): return srs.diff(srs.pre[r], srs.pre[l])\nfrom\
+    \ abc import abstractmethod\n\nclass BitArray:\n    def __init__(B, N):\n    \
+    \    if isinstance(N, list):\n            # If N is a list, assume it's a list\
+    \ of 1s and 0s\n            B.N = len(N)\n            B.Z = (B.N+31)>>5\n    \
+    \        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n            # Set bits based\
+    \ on list values\n            for i, bit in enumerate(N):\n                if\
+    \ bit: B.set1(i)\n        elif isinstance(N, (bytes, bytearray)):\n          \
+    \  # If N is bytes, convert each byte to 8 bits\n            B.N = len(N) * 8\n\
+    \            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
+    \            # Set bits based on byte values (MSB first for each byte)\n     \
+    \       for byte_idx, byte_val in enumerate(N):\n                for bit_idx in\
+    \ range(8):\n                    if byte_val & (1 << (7 - bit_idx)):  # MSB first\n\
+    \                        B.set1(byte_idx * 8 + bit_idx)\n        else:\n     \
+    \       # Original behavior: N is an integer\n            B.N = N\n          \
+    \  B.Z = (N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n   \
+    \ def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits): B.cnt[i+1]\
+    \ = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n    def __len__(B): return\
+    \ B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n  \
+    \  def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
     \ B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int): return r-B.count1(r)\n\
     \    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
     \    def select0(B, k: int):\n        if not 0<=k<B.N-B.cnt[-1]: return -1\n \
@@ -195,15 +217,15 @@ data:
     \    if ub:prod=wm.op(prod,L.prod(l,r));l,r=L.T0+l1,L.T0+r1\n                dl0,dr0=dl-(dl:=L.T0+L.count1(dl)),dr-(dr:=L.T0+L.count1(dr))\n\
     \                if not db:prod=wm.op(L.prod(dl,dr),prod);dl,dr=L.T0+dl0,L.T0+dr0\n\
     \        return prod\n\nclass WMGroup(WMMonoid):\n    class Level(WMStatic.Level):\n\
-    \        def build(L, op, e, diff, W):super().build();L.W=Presum(op,e,diff,W)\n\
-    \        def prod(L,l:int,r:int):return L.W.prod(l,r)\n    def __init__(wm,op,e,diff,A,W,Amax=None):wm._build(op,e,diff,A,W,[0]*len(A),[0]*len(A),max(A,default=0)if\
+    \        def build(L, op, e, diff, W):super().build();L.W=Presum(W,op,e,diff)\n\
+    \        def prod(L,l:int,r:int):return L.W.range_sum(l,r)\n    def __init__(wm,op,e,diff,A,W,Amax=None):wm._build(op,e,diff,A,W,[0]*len(A),[0]*len(A),max(A,default=0)if\
     \ Amax is None else Amax)\n    def _build(wm,op,e,diff,A,W,nA,nW,Amax):wm.diff=diff;super()._build(op,\
-    \ e, A, W, nA, nW, Amax)\n    def _build_base(wm,W):wm.W=Presum(wm.op,wm.e,wm.diff,W)\n\
-    \    def _build_level(wm,L,W):L.build(wm.op,wm.e,wm.diff,W)\n    def _prod_range(wm,l:int,r:int):return\
-    \ wm.W.prod(l,r)\n\n\ndef bisect_left(A, x, l, r):\n    while l<r:\n        if\
-    \ A[m:=(l+r)>>1]<x:l=m+1\n        else:r=m\n    return l\n\nclass WMCompressed(WMStatic):\n\
-    \    def __init__(wm,A):A,wm.Y=coord_compress(A);super().__init__(A,len(wm.Y)-1)\n\
-    \    def _didx(wm,y:int):return bisect_left(wm.Y,y,0,len(wm.Y))\n    def _yidx(wm,y:int):return\
+    \ e, A, W, nA, nW, Amax)\n    def _build_base(wm,W):wm.W=Presum(W,wm.op,wm.e,wm.diff)\n\
+    \    def _build_level(wm,L,W):L.build(wm.op,wm.e,wm.diff,W)\n    def _prod_range(wm,l,r):return\
+    \ wm.W.range_sum(l,r)\n\n\ndef bisect_left(A, x, l, r):\n    while l<r:\n    \
+    \    if A[m:=(l+r)>>1]<x:l=m+1\n        else:r=m\n    return l\n\nclass WMCompressed(WMStatic):\n\
+    \    def __init__(wm,A):A,wm.Y=rank(A);super().__init__(A,len(wm.Y)-1)\n    def\
+    \ _didx(wm,y:int):return bisect_left(wm.Y,y,0,len(wm.Y))\n    def _yidx(wm,y:int):return\
     \ i if(i:=wm._didx(y))<len(wm.Y)and wm.Y[i]==y else-1\n    def __contains__(wm,y:int):return(i:=wm._didx(y))<len(wm.Y)and\
     \ wm.Y[i]==y\n    def kth(wm,k,l,r):return wm.Y[super().kth(k,l,r)]\n    def select(wm,y,k,l=0,r=-1):return\
     \ super().select(y,k,l,r)if~(y:=wm._yidx(y))else-1\n    def rank_range(wm,y,l,r):return\
@@ -212,14 +234,14 @@ data:
     \ super().count_below(wm._didx(u),l,r)\n    def count_between(wm,d,u,l,r):return\
     \ super().count_between(wm._didx(d),wm._didx(u),l,r)\n    def prev_val(wm,u,l,r):return\
     \ super().prev_val(wm._didx(u),l,r)\n    def next_val(wm,d,l,r):return super().next_val(wm._didx(d),l,r)\n\
-    \nclass WMMonoidCompressed(WMMonoid, WMCompressed):\n    def __init__(wm,op,e,A:list[int],W:list[int]):A,wm.Y=coord_compress(A);WMMonoid.__init__(wm,op,e,A,W,len(wm.Y)-1)\n\
+    \nclass WMMonoidCompressed(WMMonoid, WMCompressed):\n    def __init__(wm,op,e,A:list[int],W:list[int]):A,wm.Y=rank(A);WMMonoid.__init__(wm,op,e,A,W,len(wm.Y)-1)\n\
     \    def prod_at(wm,y,l,r):return super().prod_at(y,l,r)if~(y:=wm._yidx(y))else\
     \ 0\n    def prod_below(wm,u,l,r):return super().prod_below(wm._didx(u),l,r)\n\
     \    def prod_between(wm,d,u,l,r):return super().prod_between(wm._didx(d),wm._didx(u),l,r)\n\
     \    def prod_corner(wm,r,u):return super().prod_corner(r,wm._didx(u))\n    def\
     \ prod_rect(wm,l,d,r,u):return super().prod_rect(l,wm._didx(d),r,wm._didx(u))\n\
-    \nclass WMGroupCompressed(WMGroup,WMMonoidCompressed):\n    def __init__(wm,op,e,diff,A:list[int],W:list):A,wm.Y=coord_compress(A);WMGroup.__init__(wm,op,e,diff,A,W,len(wm.Y)-1)\n\
-    \nclass WMPoints(WMCompressed):\n    def __init__(wm,X,Y):\n        wm.I,wm.X=coord_compress(X,distinct=True);A,wm.Y=coord_compress(Y);nA=[0]*len(Y)\n\
+    \nclass WMGroupCompressed(WMGroup,WMMonoidCompressed):\n    def __init__(wm,op,e,diff,A:list[int],W:list):A,wm.Y=rank(A);WMGroup.__init__(wm,op,e,diff,A,W,len(wm.Y)-1)\n\
+    \nclass WMPoints(WMCompressed):\n    def __init__(wm,X,Y):\n        wm.I,wm.X=rank(X,distinct=True);A,wm.Y=rank(Y);nA=[0]*len(Y)\n\
     \        for i,j in enumerate(wm.I):nA[j]=A[i]\n        wm._build(nA,A,len(wm.Y)-1)\n\
     \    def _lidx(wm,x):return bisect_left(wm.X,x,0,len(wm.X))\n    def __getitem__(wm,i):return\
     \ super().__getitem__(wm.I[i])\n    def kth(wm,k,l,r):return super().kth(k,wm._lidx(l),wm._lidx(r))\n\
@@ -231,7 +253,7 @@ data:
     \    def prev_val(wm,u,l,r):return super().prev_val(u,wm._lidx(l),wm._lidx(r))\n\
     \    def next_val(wm,d,l,r):return super().next_val(d,wm._lidx(l),wm._lidx(r))\n\
     \nclass WMMonoidPoints(WMMonoidCompressed,WMPoints):\n    def __init__(wm,op,e,X:list[int],Y:list[int],W:list[int]):\n\
-    \        wm.I,wm.X=coord_compress(X,distinct=True);A,wm.Y=coord_compress(Y);nA,nW=[0]*(N:=len(A)),[0]*N\n\
+    \        wm.I,wm.X=rank(X,distinct=True);A,wm.Y=rank(Y);nA,nW=[0]*(N:=len(A)),[0]*N\n\
     \        for i,j in enumerate(wm.I):nA[j],nW[j]=A[i],W[i]\n        wm._build(op,e,nA,nW,A,W,len(wm.Y)-1)\n\
     \    def prod_range(wm,l,r):return super().prod_range(wm._lidx(l),wm._lidx(r))\n\
     \    def prod_at(wm,y,l,r):return super().prod_at(y,wm._lidx(l),wm._lidx(r))\n\
@@ -240,7 +262,7 @@ data:
     \    def prod_corner(wm,r,u):return super().prod_corner(wm._lidx(r),u)\n    def\
     \ prod_rect(wm,l,d,r,u):return super().prod_rect(wm._lidx(l),d,wm._lidx(r),u)\n\
     \nclass WMGroupPoints(WMGroupCompressed,WMMonoidPoints):\n    def __init__(wm,op,e,diff,X:list[int],Y:list[int],W:list):\n\
-    \        wm.I,wm.X=coord_compress(X,distinct=True);A,wm.Y=coord_compress(Y);nA,nW=[0]*(N:=len(A)),[0]*N\n\
+    \        wm.I,wm.X=rank(X,distinct=True);A,wm.Y=rank(Y);nA,nW=[0]*(N:=len(A)),[0]*N\n\
     \        for i,j in enumerate(wm.I):nA[j],nW[j]=A[i],W[i]\n        wm._build(op,e,diff,nA,nW,A,W,len(wm.Y)-1)\n\
     \nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
@@ -271,21 +293,21 @@ data:
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nfrom typing import Iterable, Type, Union, overload\n\
-    import typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nfrom typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\
-    class TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
-    \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
-    \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
-    \    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \        file.flush()\n\nfrom typing import Type, Union, overload\nimport typing\n\
+    from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, Union\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -333,9 +355,9 @@ data:
     \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
     \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
     \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\nif __name__\
+    \ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/static_rectangle_add_rectangle_sum\n\
     \ndef main():\n    mod, s, m = 998244353, 31, (1 << 31)-1\n    N, Q = read(tuple[int,\
     \ ...])\n    N4 = N<<2\n    X, Y, W = [0]*N4,[0]*N4,[(0,0)]*N4\n    mod2 = mod<<s|mod\n\
@@ -359,7 +381,7 @@ data:
   - cp_library/ds/wavelet/wm_group_points_cls.py
   - cp_library/io/write_fn.py
   - cp_library/io/read_fn.py
-  - cp_library/alg/iter/cmpr/coord_compress_fn.py
+  - cp_library/alg/iter/rank/rank_fn.py
   - cp_library/ds/wavelet/wm_group_compressed_cls.py
   - cp_library/ds/wavelet/wm_monoid_points_cls.py
   - cp_library/io/fast_io_cls.py
@@ -372,15 +394,15 @@ data:
   - cp_library/ds/wavelet/wm_compressed_cls.py
   - cp_library/alg/divcon/bisect_left_fn.py
   - cp_library/ds/wavelet/wm_static_cls.py
-  - cp_library/bit/pack/pack_dec_fn.py
-  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/alg/iter/rank/irank_fn.py
   - cp_library/ds/wavelet/bit_array_cls.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/bit/popcnt32_fn.py
   - cp_library/ds/array/u32f_fn.py
   isVerificationFile: true
   path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py

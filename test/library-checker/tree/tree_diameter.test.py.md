@@ -5,29 +5,29 @@ data:
     path: cp_library/alg/dp/chmin_fn.py
     title: cp_library/alg/dp/chmin_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_base_cls.py
+    title: cp_library/alg/graph/csr/graph_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/graph_weighted_cls.py
+    title: cp_library/alg/graph/csr/graph_weighted_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_base_cls.py
-    title: cp_library/alg/graph/fast/graph_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_base_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/fast/graph_weighted_cls.py
-    title: cp_library/alg/graph/fast/graph_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_fn.py
     title: argsort
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_base_cls.py
-    title: cp_library/alg/tree/fast/tree_base_cls.py
+    path: cp_library/alg/tree/csr/tree_base_cls.py
+    title: cp_library/alg/tree/csr/tree_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_base_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_base_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_base_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/tree/fast/tree_weighted_cls.py
-    title: cp_library/alg/tree/fast/tree_weighted_cls.py
+    path: cp_library/alg/tree/csr/tree_weighted_cls.py
+    title: cp_library/alg/tree/csr/tree_weighted_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/masks/i32_max_cnst.py
     title: cp_library/bit/masks/i32_max_cnst.py
@@ -35,8 +35,8 @@ data:
     path: cp_library/bit/masks/u32_max_cnst.py
     title: cp_library/bit/masks/u32_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/bit/pack/pack_sm_fn.py
-    title: cp_library/bit/pack/pack_sm_fn.py
+    path: cp_library/bit/pack/packer_cls.py
+    title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/array/i32f_fn.py
     title: cp_library/ds/array/i32f_fn.py
@@ -99,21 +99,26 @@ data:
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
     \        \n'''\n\n\nfrom math import inf\nfrom typing import overload\n\n\ndef\
     \ chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\n\ndef argsort(A:\
-    \ list[int], reverse=False):\n    s, m = pack_sm(len(A))\n    if reverse:\n  \
-    \      I = [a<<s|m^i for i,a in enumerate(A)]\n        I.sort(reverse=True)\n\
-    \        for i,ai in enumerate(I): I[i] = m^ai&m\n    else:\n        I = [a<<s|i\
-    \ for i,a in enumerate(A)]\n        I.sort()\n        for i,ai in enumerate(I):\
-    \ I[i] = ai&m\n    return I\n\n\ndef pack_sm(N: int): s=N.bit_length(); return\
-    \ s,(1<<s)-1\nfrom collections import deque\nfrom typing import Callable, Sequence,\
-    \ Union, overload\n\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\nimport\
-    \ os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ list[int], reverse=False):\n    P = Packer(len(I := A.copy())-1); P.ienumerate(I,\
+    \ reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    def\
+    \ __init__(P, mx: int):\n        P.s = mx.bit_length()\n        P.m = (1 << P.s)\
+    \ - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x:\
+    \ int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False):\
+    \ P.ienumerate(A:=A.copy(), reverse); return A\n    def ienumerate(P, A, reverse=False):\n\
+    \        if reverse:\n            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n\
+    \        else:\n            for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def\
+    \ indices(P, A: list[int]): P.iindices(A:=A.copy()); return A\n    def iindices(P,\
+    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\nfrom collections import\
+    \ deque\nfrom typing import Callable, Sequence, Union, overload\n\nimport typing\n\
+    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
+    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -141,8 +146,8 @@ data:
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
     \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n  \
-    \  def __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
+    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
+    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
     \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
     \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
     \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
@@ -346,33 +351,33 @@ data:
     \    if s == None: return G.floyd_warshall()\n        else: return G.dijkstra(s,\
     \ g)\n\n    def dijkstra(G, s: int, t: int = None):\n        G.back, G.D, S =\
     \ i32f(G.N, -1), [inf]*G.N, G.starts(s)\n        for s in S: G.D[s] = 0\n    \
-    \    que = PriorityQueue(G.N, S)\n        while que:\n            u, d = que.pop()\n\
+    \    que = PriorityQueue(G.N, S)\n        while que:\n            d, u = que.pop()\n\
     \            if d > G.D[u]: continue\n            if u == t: return d\n      \
     \      i, r = G.La[u]-1, G.Ra[u]\n            while (i:=i+1)<r: \n           \
     \     if chmin(G.D, v := G.Va[i], nd := d + G.Wa[i]):\n                    G.back[v]\
-    \ = i; que.push(v, nd)\n        return G.D if t is None else inf \n\n    def kruskal(G):\n\
+    \ = i; que.push(nd, v)\n        return G.D if t is None else inf \n\n    def kruskal(G):\n\
     \        U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1\n\
-    \        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e],True)\n\
-    \            if u != v:\n                MST[need := need-1] = e\n           \
-    \     if not need: break\n        return None if need else MST\n    \n    def\
-    \ kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n       \
-    \ que, dsu, MST = PriorityQueue(M, list(range(M)), W), DSU(N), [0]*(need := N-1)\n\
-    \        while que and need:\n            e, _ = que.pop()\n            u, v =\
-    \ dsu.merge(U[e],V[e],True)\n            if u != v:\n                MST[need\
-    \ := need-1] = e\n        return None if need else MST\n   \n    def bellman_ford(G,\
-    \ s: int = 0) -> list[int]:\n        Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N\
-    \ := G.N)\n        D[s] = 0\n        for _ in range(N-1):\n            for i,\
-    \ u in enumerate(Ua):\n                if D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n\
-    \        return D\n    \n    def bellman_ford_neg_cyc_check(G, s: int = 0) ->\
-    \ tuple[bool, list[int]]:\n        M, U, V, W, D = G.M, G.U, G.V, G.W, G.bellman_ford(s)\n\
-    \        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inf)\n\
-    \        return neg_cycle, D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        N, Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n        D = [[inf]*N for _ in\
-    \ range(N)]\n        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)):\
-    \ chmin(D[Ua[i]], Va[i], Wa[i])\n        for k, Dk in enumerate(D):\n        \
-    \    for Di in D:\n                if Di[k] >= inf: continue\n               \
-    \ for j in range(N):\n                    if Dk[j] >= inf: continue\n        \
-    \            chmin(Di, j, Di[k]+Dk[j])\n        return D\n        \n    def floyd_warshall_neg_cyc_check(G):\n\
+    \        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e])\n     \
+    \       if u != v:\n                MST[need := need-1] = e\n                if\
+    \ not need: break\n        return None if need else MST\n    \n    def kruskal_heap(G):\n\
+    \        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que, dsu, MST = PriorityQueue(M,\
+    \ list(range(M)), W), DSU(N), [0]*(need := N-1)\n        while que and need:\n\
+    \            _, e = que.pop()\n            u, v = dsu.merge(U[e],V[e])\n     \
+    \       if u != v:\n                MST[need := need-1] = e\n        return None\
+    \ if need else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n \
+    \       Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n\
+    \        for _ in range(N-1):\n            for i, u in enumerate(Ua):\n      \
+    \          if D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n        return D\n  \
+    \  \n    def bellman_ford_neg_cyc_check(G, s: int = 0) -> tuple[bool, list[int]]:\n\
+    \        M, U, V, W, D = G.M, G.U, G.V, G.W, G.bellman_ford(s)\n        neg_cycle\
+    \ = any(D[U[i]]+W[i]<D[V[i]] for i in range(M) if D[U[i]] < inf)\n        return\
+    \ neg_cycle, D\n    \n    def floyd_warshall(G) -> list[list[int]]:\n        N,\
+    \ Ua, Va, Wa = G.N, G.Ua, G.Va, G.Wa\n        D = [[inf]*N for _ in range(N)]\n\
+    \        for u in range(N): D[u][u] = 0\n        for i in range(len(Ua)): chmin(D[Ua[i]],\
+    \ Va[i], Wa[i])\n        for k, Dk in enumerate(D):\n            for Di in D:\n\
+    \                if Di[k] >= inf: continue\n                for j in range(N):\n\
+    \                    if Dk[j] >= inf: continue\n                    chmin(Di,\
+    \ j, Di[k]+Dk[j])\n        return D\n        \n    def floyd_warshall_neg_cyc_check(G):\n\
     \        D = G.floyd_warshall()\n        return any(D[i][i] < 0 for i in range(G.N)),\
     \ D\n    \n    @classmethod\n    def compile(cls, N: int, M: int, shift: int =\
     \ -1):\n        def parse(ts: TokenStream):\n            U, V, W = u32f(M), u32f(M),\
@@ -388,49 +393,50 @@ data:
     \   def __len__(dsu):\n        return len(dsu.L)\n\n    def range(csr, i: int)\
     \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\nclass DSU(Parsable, Collection):\n\
     \    def __init__(dsu, N):\n        dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n\n\
-    \    def merge(dsu, u, v, src = False):\n        x, y = dsu.leader(u), dsu.leader(v)\n\
-    \        if x == y: return (x,y) if src else x\n        if dsu.par[x] > dsu.par[y]:\
-    \ x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n\
-    \        return (x,y) if src else x\n\n    def same(dsu, u: int, v: int):\n  \
-    \      return dsu.leader(u) == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n\
-    \        p = (par := dsu.par)[i]\n        while p >= 0:\n            if par[p]\
-    \ < 0: return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n    \
-    \    return i\n\n    def size(dsu, i) -> int:\n        return -dsu.par[dsu.leader(i)]\n\
-    \n    def groups(dsu) -> CSRIncremental[int]:\n        sizes, row, p = [0]*dsu.cc,\
-    \ [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n            while dsu.par[p]\
-    \ >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p], i; p += 1\n      \
-    \  csr = CSRIncremental(sizes)\n        for i in range(dsu.N): csr.append(row[dsu.leader(i)],\
-    \ i)\n        return csr\n    \n    __iter__ = groups\n    \n    def __len__(dsu):\n\
-    \        return dsu.cc\n    \n    def __contains__(dsu, uv):\n        u, v = uv\n\
-    \        return dsu.same(u, v)\n    \n    @classmethod\n    def compile(cls, N:\
-    \ int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n        \
-    \    dsu = cls(N)\n            for _ in range(M):\n                u, v = ts._line()\n\
-    \                dsu.merge(int(u)+shift, int(v)+shift)\n            return dsu\n\
-    \        return parse_fn\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
-    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
-    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
-    \    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0] = heap[0],\
-    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap: list, item):\n\
-    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
-    \ 0)\n    return item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
-    \ heapsiftup(x, i)\n\ndef heapsiftdown(heap: list, root: int, pos: int):\n   \
-    \ item = heap[pos]\n    while root < pos and item < heap[p := (pos-1)>>1]: heap[pos],\
-    \ pos = heap[p], p\n    heap[pos] = item\n\ndef heapsiftup(heap: list, pos: int):\n\
-    \    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and heap[c\
-    \ := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1\n \
-    \   if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n    heap[pos] =\
-    \ item\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n    if heap: item,\
-    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapreplace_max(heap:\
-    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n \
-    \   return item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
-    \ heapsiftup_max(x, i)\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
-    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n\
-    \    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\
-    \ndef heappushpop_max(heap: list, item):\n    if heap and heap[0] > item: item,\
-    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap:\
-    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \    def merge(dsu, u, v):\n        x, y = dsu.leader(u), dsu.leader(v)\n    \
+    \    if x == y: return x,y\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n\
+    \        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return\
+    \ x,y\n    \n    def merge_dest(dsu, u, v): return dsu.merge(u, v)[0]\n\n    def\
+    \ same(dsu, u: int, v: int):\n        return dsu.leader(u) == dsu.leader(v)\n\n\
+    \    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
+    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
+    \ par[p], par[par[p]]\n        return i\n\n    def size(dsu, i) -> int:\n    \
+    \    return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
+    \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
+    \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
+    \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
+    \ csr.append(row[dsu.leader(i)], i)\n        return csr\n    \n    __iter__ =\
+    \ groups\n    \n    def __len__(dsu):\n        return dsu.cc\n    \n    def __contains__(dsu,\
+    \ uv):\n        u, v = uv\n        return dsu.same(u, v)\n    \n    @classmethod\n\
+    \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
+    \            dsu = cls(N)\n            for _ in range(M):\n                u,\
+    \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
+    \        return dsu\n        return parse_fn\n\n\ndef heappush(heap: list, item):\n\
+    \    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap:\
+    \ list):\n    item = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap,\
+    \ 0)\n    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap:\
+    \ list, item):\n    if heap and heap[0] < item: item, heap[0] = heap[0], item;\
+    \ heapsiftup(heap, 0)\n    return item\n\ndef heapify(x: list):\n    for i in\
+    \ reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and item <\
+    \ heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
@@ -440,54 +446,51 @@ data:
     \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
     \    def clear(heap): heap.data.clear()\n\nclass PriorityQueue(HeapProtocol[int]):\n\
     \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
-    \ None, /):\n        que.shift, que.mask = pack_sm(N)\n        if ids is None:\
-    \ que.data = elist(N)\n        elif priorities is None: heapify(ids); que.data\
-    \ = ids\n        else:\n            que.data = [0]*(M:=len(ids))\n           \
-    \ for i in range(M): que.data[i] = que.encode(ids[i], priorities[i]) \n      \
-    \      heapify(que.data)\n    def encode(que, id, priority): return priority <<\
-    \ que.shift | id\n    def decode(que, encoded): return que.mask & encoded, encoded\
-    \ >> que.shift\n    def pop(que): return que.decode(heappop(que.data))\n    def\
-    \ push(que, id: int, priority: int): heappush(que.data, que.encode(id, priority))\n\
-    \    def pushpop(que, id: int, priority: int): return que.decode(heappushpop(que.data,\
-    \ que.encode(id, priority)))\n    def replace(que, id: int, priority: int): return\
-    \ que.decode(heapreplace(que.data, que.encode(id, priority)))\n    def peek(que):\
-    \ return que.decode(que.data[0])\n\nclass GraphWeighted(GraphWeightedBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int], W: list[int]):\n    \
-    \    Ma, deg = 0, u32f(N)\n        for e in range(M := len(U)):\n            distinct\
-    \ = (u := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v] += distinct; Ma\
-    \ += 1+distinct\n        twin, Ea, Ua, Va, Wa = u32f(Ma), u32f(Ma), u32f(Ma),\
-    \ u32f(Ma), [0]*Ma\n        \n        La, i = u32f(N), 0\n        for u,d in enumerate(deg):\
-    \ \n            La[u], i = i, i + d\n        Ra = La[:]\n\n        for e in range(M):\n\
-    \            u, v, w = U[e], V[e], W[e]\n            i, j = Ra[u], Ra[v]\n   \
-    \         Ra[u],Ua[i],Va[i],Wa[i],Ea[i],twin[i] = i+1,u,v,w,e,j\n            if\
-    \ i == j: continue # don't add self loops twice\n            Ra[v],Ua[j],Va[j],Wa[j],Ea[j],twin[j]\
-    \ = j+1,v,u,w,e,i\n\n        super().__init__(N, M, U, V, W, deg, La, Ra, Ua,\
-    \ Va, Wa, Ea, twin)\nfrom typing import Optional\nfrom typing import Callable,\
-    \ Literal, Union, overload\n\nclass TreeBase(GraphBase):\n    @overload\n    def\
-    \ distance(T) -> list[list[int]]: ...\n    @overload\n    def distance(T, s: int\
-    \ = 0) -> list[int]: ...\n    @overload\n    def distance(T, s: int, g: int) ->\
-    \ int: ...\n    def distance(T, s = None, g = None):\n        if s == None:\n\
-    \            return [T.dfs_distance(u) for u in range(T.N)]\n        else:\n \
-    \           return T.dfs_distance(s, g)\n\n    @overload\n    def diameter(T)\
-    \ -> int: ...\n    @overload\n    def diameter(T, endpoints: Literal[True]) ->\
-    \ tuple[int,int,int]: ...\n    def diameter(T, endpoints = False):\n        mask\
-    \ = (1 << (shift := T.N.bit_length())) - 1\n        s = max(d << shift | v for\
-    \ v,d in enumerate(T.distance(0))) & mask\n        dg = max(d << shift | v for\
-    \ v,d in enumerate(T.distance(s))) \n        diam, g = dg >> shift, dg & mask\n\
-    \        return (diam, s, g) if endpoints else diam\n    \n    def dfs_distance(T,\
-    \ s: int, g: Union[int,None] = None):\n        st, Va = elist(N := T.N), T.Va\n\
-    \        T.D, T.back = D, back = [inf]*N, i32f(N, -1)\n        D[s] = 0\n    \
-    \    st.append(s)\n        while st:\n            nd = D[u := st.pop()]+1\n  \
-    \          if u == g: return nd-1\n            for i in T.range(u):\n        \
-    \        if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n \
-    \                   st.append(v)\n        return D if g is None else inf\n\n \
-    \   def rerooting_dp(T, e: _T, \n                     merge: Callable[[_T,_T],_T],\
-    \ \n                     edge_op: Callable[[_T,int,int,int],_T] = lambda s,i,p,u:s,\n\
-    \                     s: int = 0):\n        La, Ua, Va = T.La, T.Ua, T.Va\n  \
-    \      order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]\n \
-    \       # up\n        for i in order[::-1]:\n            u,v = Ua[i], Va[i]\n\
-    \            # subtree v finished up pass, store value to accumulate for u\n \
-    \           dp[v] = new = edge_op(dp[v], i, u, v)\n            dp[u] = merge(dp[u],\
+    \ None, /):\n        que.pkr = Packer(N)\n        if ids is None: que.data = elist(N)\n\
+    \        elif priorities is None: heapify(ids); que.data = ids\n        else:\n\
+    \            que.data = [0]*(M := len(ids))\n            for i in range(M): que.data[i]\
+    \ = que.pkr.enc(priorities[i], ids[i]) \n            heapify(que.data)\n    def\
+    \ pop(que): return que.pkr.dec(heappop(que.data))\n    def push(que, priority:\
+    \ int, id: int): heappush(que.data, que.pkr.enc(priority, id))\n    def pushpop(que,\
+    \ priority: int, id: int): return que.pkr.dec(heappushpop(que.data, que.pkr.enc(priority,\
+    \ id)))\n    def replace(que, priority: int, id: int): return que.pkr.dec(heapreplace(que.data,\
+    \ que.pkr.enc(priority, id)))\n    def peek(que): return que.pkr.dec(que.data[0])\n\
+    \nclass GraphWeighted(GraphWeightedBase):\n    def __init__(G, N: int, U: list[int],\
+    \ V: list[int], W: list[int]):\n        Ma, deg = 0, u32f(N)\n        for e in\
+    \ range(M := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n   \
+    \         deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea,\
+    \ Ua, Va, Wa = u32f(Ma), u32f(Ma), u32f(Ma), u32f(Ma), [0]*Ma\n        \n    \
+    \    La, i = u32f(N), 0\n        for u,d in enumerate(deg): \n            La[u],\
+    \ i = i, i + d\n        Ra = La[:]\n\n        for e in range(M):\n           \
+    \ u, v, w = U[e], V[e], W[e]\n            i, j = Ra[u], Ra[v]\n            Ra[u],Ua[i],Va[i],Wa[i],Ea[i],twin[i]\
+    \ = i+1,u,v,w,e,j\n            if i == j: continue # don't add self loops twice\n\
+    \            Ra[v],Ua[j],Va[j],Wa[j],Ea[j],twin[j] = j+1,v,u,w,e,i\n\n       \
+    \ super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea, twin)\nfrom typing\
+    \ import Optional\nfrom typing import Callable, Literal, Union, overload\n\nclass\
+    \ TreeBase(GraphBase):\n    @overload\n    def distance(T) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(T, s: int, g: int) -> int: ...\n    def distance(T, s = None,\
+    \ g = None):\n        if s == None:\n            return [T.dfs_distance(u) for\
+    \ u in range(T.N)]\n        else:\n            return T.dfs_distance(s, g)\n\n\
+    \    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
+    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
+    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
+    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
+    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
+    \    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        st,\
+    \ Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = [inf]*N, i32f(N,\
+    \ -1)\n        D[s] = 0\n        st.append(s)\n        while st:\n           \
+    \ nd = D[u := st.pop()]+1\n            if u == g: return nd-1\n            for\
+    \ i in T.range(u):\n                if nd < D[v := Va[i]]:\n                 \
+    \   D[v], back[v] = nd, i\n                    st.append(v)\n        return D\
+    \ if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n                 \
+    \    merge: Callable[[_T,_T],_T], \n                     edge_op: Callable[[_T,int,int,int],_T]\
+    \ = lambda s,i,p,u:s,\n                     s: int = 0):\n        La, Ua, Va =\
+    \ T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua),\
+    \ T.Ra[:]\n        # up\n        for i in order[::-1]:\n            u,v = Ua[i],\
+    \ Va[i]\n            # subtree v finished up pass, store value to accumulate for\
+    \ u\n            dp[v] = new = edge_op(dp[v], i, u, v)\n            dp[u] = merge(dp[u],\
     \ new)\n            # suffix accumulation\n            if (c:=I[u]-1) > La[u]:\
     \ suf[c-1] = merge(suf[c], new)\n            I[u] = c\n        # down\n      \
     \  dp[s] = e # at this point dp stores values to be merged in parent\n       \
@@ -526,45 +529,45 @@ data:
     \ T.Wdelta = order, delta, Wdelta\n\n    @classmethod\n    def compile(cls, N:\
     \ int, shift: int = -1):\n        return GraphWeightedBase.compile.__func__(cls,\
     \ N, N-1, shift)\n    \n\nclass TreeWeighted(TreeWeightedBase, GraphWeighted):\n\
-    \    pass\n\n\nfrom typing import Iterable, Type, Union, overload\n\n@overload\n\
-    def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
-    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
-    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
-    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
-    \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
-    \    parser: _T = Parser.compile(specs)\n    ret = parser(CharStream.default if\
-    \ char else TokenStream.default)\n    return ret[0] if len(specs) == 1 else ret\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
-    \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IOWrapper.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \    pass\n\n\nfrom typing import Type, Union, overload\n\n@overload\ndef read()\
+    \ -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n\
+    @overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs:\
+    \ Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U,\
+    \ char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
+    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/tree_diameter\n\
     \ndef main():\n    N = read(int)\n    T = read(TreeWeighted[N,0])\n    X, s, t\
     \ = T.diameter(True)\n    U = T.recover_path(s, t)\n    Y = len(U)\n    write(X,\
-    \ Y)\n    write(*U)\n\nfrom cp_library.alg.tree.fast.tree_weighted_cls import\
-    \ TreeWeighted\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
-    \ import write\n\nif __name__ == '__main__':\n    main()\n"
+    \ Y)\n    write(*U)\n\nfrom cp_library.alg.tree.csr.tree_weighted_cls import TreeWeighted\n\
+    from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
+    \nif __name__ == '__main__':\n    main()\n"
   dependsOn:
-  - cp_library/alg/tree/fast/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/alg/graph/fast/graph_weighted_cls.py
-  - cp_library/alg/tree/fast/tree_weighted_base_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
-  - cp_library/alg/graph/fast/graph_weighted_base_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - cp_library/ds/array/u32f_fn.py
-  - cp_library/alg/tree/fast/tree_base_cls.py
+  - cp_library/alg/tree/csr/tree_base_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/array/i32f_fn.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
-  - cp_library/alg/graph/fast/graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
-  - cp_library/bit/pack/pack_sm_fn.py
+  - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
@@ -576,7 +579,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/tree_diameter.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/tree_diameter.test.py

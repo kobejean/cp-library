@@ -17,8 +17,8 @@ data:
     path: cp_library/math/nt/mod_inv_fn.py
     title: cp_library/math/nt/mod_inv_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/table/modcomb_cls.py
-    title: cp_library/math/table/modcomb_cls.py
+    path: cp_library/math/table/mcomb_cls.py
+    title: cp_library/math/table/mcomb_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -29,20 +29,20 @@ data:
     links:
     - https://atcoder.jp/contests/arc168/tasks/arc168_c
   bundledCode: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc168/tasks/arc168_c\n\
-    def main():\n    N, K = read()\n    mint.set_mod(998244353)\n    modcomb.precomp(N)\n\
-    \    multinom = modcomb.multinom\n    S = input()\n    A, B, C = S.count('A'),\
-    \ S.count('B'), S.count('C')\n\n    # x A <-> B\n    # y B <-> C\n    # z C <->\
-    \ A\n    # w A -> B -> C -> A or A -> C -> B -> A \n\n    ans = mint.zero\n  \
-    \  for x in range(K+1):\n        for y in range(K-x+1):\n            for z in\
-    \ range(K-x-y+1):\n                for w in range(((K-x-y-z)//2+1)):\n       \
-    \             cnt = multinom(A,x,z+w) * \\\n                          multinom(B,y,x+w)\
-    \ * \\\n                          multinom(C,z,y+w)\n                    if w\
-    \ > 0: cnt*=2\n                    ans += cnt\n    write(ans)\n\n'''\n\u257A\u2501\
+    def main():\n    N, K = read()\n    mint.set_mod(998244353)\n    mcomb.precomp(N)\n\
+    \    multinom = mcomb.multinom\n    S = input()\n    A, B, C = S.count('A'), S.count('B'),\
+    \ S.count('C')\n\n    # x A <-> B\n    # y B <-> C\n    # z C <-> A\n    # w A\
+    \ -> B -> C -> A or A -> C -> B -> A \n\n    ans = mint.zero\n    for x in range(K+1):\n\
+    \        for y in range(K-x+1):\n            for z in range(K-x-y+1):\n      \
+    \          for w in range(((K-x-y-z)//2+1)):\n                    cnt = multinom(A,x,z+w)\
+    \ * \\\n                          multinom(B,y,x+w) * \\\n                   \
+    \       multinom(C,z,y+w)\n                    if w > 0: cnt*=2\n            \
+    \        ans += cnt\n    write(ans)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
+    \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n\
     \    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\n    def __new__(cls,\
     \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64:\n     \
@@ -69,36 +69,36 @@ data:
     \ x: int): return self.cache[x]\n\n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x,\
     \ mod, 1, 0\n    while b:\n        a,b,s,t = b,a%b,t,s-a//b*t\n    if a == 1:\
     \ return s % mod\n    raise ValueError(f\"{x} is not invertible in mod {mod}\"\
-    )\nfrom itertools import accumulate\n\nclass modcomb():\n    fact: list[int]\n\
-    \    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n  \
-    \  def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
+    )\nfrom itertools import accumulate\n\nclass mcomb():\n    fact: list[int]\n \
+    \   fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n   \
+    \ def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
     \        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n        fact_inv\
     \ = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N], mod)))\n\
-    \        fact_inv.reverse()\n        modcomb.fact, modcomb.fact_inv = fact, fact_inv\n\
-    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, modcomb.inv,\
+    \        fact_inv.reverse()\n        mcomb.fact, mcomb.fact_inv = fact, fact_inv\n\
+    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, mcomb.inv,\
     \ mint.mod\n        while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n\
     \            inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def factorial(n:\
-    \ int, /) -> mint:\n        return mint(modcomb.fact[n])\n\n    @staticmethod\n\
-    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = modcomb.fact_inv,\
+    \ int, /) -> mint:\n        return mint(mcomb.fact[n])\n\n    @staticmethod\n\
+    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = mcomb.fact_inv,\
     \ mint.mod\n        if n < k or k < 0: return mint.zero\n        return mint(inv[k]\
-    \ * inv[n-k] % mod * modcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
+    \ * inv[n-k] % mod * mcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
     \    def comb_with_replacement(n: int, k: int, /) -> mint:\n        if n <= 0:\
-    \ return mint.zero\n        return modcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
+    \ return mint.zero\n        return mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
     \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
-    \ nCk, res = modcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k),\
-    \ n-k\n        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /)\
-    \ -> mint:\n        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n\
-    \        return mint(modcomb.fact[n] * modcomb.fact_inv[n-k])\n    nPk = perm\n\
-    \    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return\
-    \ mint(modcomb.nCk(2*n,n) * modcomb.fact_inv[n+1])\n\n\ndef read(shift=0, base=10):\n\
-    \    return [int(s, base) + shift for s in input().split()]\nimport os\nimport\
-    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ nCk, res = mcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k), n-k\n\
+    \        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /) -> mint:\n\
+    \        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n    \
+    \    return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n    nPk = perm\n    \n\
+    \    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return mint(mcomb.nCk(2*n,n)\
+    \ * mcomb.fact_inv[n+1])\n\n\ndef read(shift=0, base=10):\n    return [int(s,\
+    \ base) + shift for s in input().split()]\nimport os\nimport sys\nfrom io import\
+    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -123,21 +123,21 @@ data:
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc168/tasks/arc168_c\n\
-    def main():\n    N, K = read()\n    mint.set_mod(998244353)\n    modcomb.precomp(N)\n\
-    \    multinom = modcomb.multinom\n    S = input()\n    A, B, C = S.count('A'),\
-    \ S.count('B'), S.count('C')\n\n    # x A <-> B\n    # y B <-> C\n    # z C <->\
-    \ A\n    # w A -> B -> C -> A or A -> C -> B -> A \n\n    ans = mint.zero\n  \
-    \  for x in range(K+1):\n        for y in range(K-x+1):\n            for z in\
-    \ range(K-x-y+1):\n                for w in range(((K-x-y-z)//2+1)):\n       \
-    \             cnt = multinom(A,x,z+w) * \\\n                          multinom(B,y,x+w)\
-    \ * \\\n                          multinom(C,z,y+w)\n                    if w\
-    \ > 0: cnt*=2\n                    ans += cnt\n    write(ans)\n\nfrom cp_library.math.mod.mint_cls\
-    \ import mint\nfrom cp_library.math.table.modcomb_cls import modcomb\nfrom cp_library.io.read_int_fn\
+    def main():\n    N, K = read()\n    mint.set_mod(998244353)\n    mcomb.precomp(N)\n\
+    \    multinom = mcomb.multinom\n    S = input()\n    A, B, C = S.count('A'), S.count('B'),\
+    \ S.count('C')\n\n    # x A <-> B\n    # y B <-> C\n    # z C <-> A\n    # w A\
+    \ -> B -> C -> A or A -> C -> B -> A \n\n    ans = mint.zero\n    for x in range(K+1):\n\
+    \        for y in range(K-x+1):\n            for z in range(K-x-y+1):\n      \
+    \          for w in range(((K-x-y-z)//2+1)):\n                    cnt = multinom(A,x,z+w)\
+    \ * \\\n                          multinom(B,y,x+w) * \\\n                   \
+    \       multinom(C,z,y+w)\n                    if w > 0: cnt*=2\n            \
+    \        ans += cnt\n    write(ans)\n\nfrom cp_library.math.mod.mint_cls import\
+    \ mint\nfrom cp_library.math.table.mcomb_cls import mcomb\nfrom cp_library.io.read_int_fn\
     \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n\
     \    main()"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
-  - cp_library/math/table/modcomb_cls.py
+  - cp_library/math/table/mcomb_cls.py
   - cp_library/io/read_int_fn.py
   - cp_library/io/write_fn.py
   - cp_library/math/nt/mod_inv_fn.py
@@ -145,7 +145,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
   requiredBy: []
-  timestamp: '2025-06-20 03:24:59+09:00'
+  timestamp: '2025-07-09 08:31:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py

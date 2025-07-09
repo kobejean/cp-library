@@ -1,17 +1,11 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/invcnt_fn.py
-    title: cp_library/math/invcnt_fn.py
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-    title: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -31,12 +25,10 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: cp_library/bit/pack/pack_indices_fn.py
-  requiredBy:
-  - cp_library/math/invcnt_fn.py
-  timestamp: '2025-06-20 03:24:59+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
+  requiredBy: []
+  timestamp: '2025-07-09 08:31:42+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: cp_library/bit/pack/pack_indices_fn.py
 layout: document
 redirect_from:
