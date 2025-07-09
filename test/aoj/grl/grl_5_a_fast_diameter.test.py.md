@@ -176,12 +176,13 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n@overload\ndef read() -> list[int]:\
-    \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
-    def read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T],\
-    \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
-    \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
-    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n@overload\n\
+    def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
+    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
+    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
+    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
+    \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
     \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
@@ -211,46 +212,46 @@ data:
     \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
     \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G, N: int, M:\
-    \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
-    \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int],\
-    \ twin: list[int] = None):\n        G.N = N\n        '''The number of vertices.'''\n\
-    \        G.M = M\n        '''The number of edges.'''\n        G.U = U\n      \
-    \  '''A list of source vertices in the original edge list.'''\n        G.V = V\n\
-    \        '''A list of destination vertices in the original edge list.'''\n   \
-    \     G.deg = deg\n        '''deg[u] is the out degree of vertex u.'''\n     \
-    \   G.La = La\n        '''La[u] stores the start index of the list of adjacent\
-    \ vertices from u.'''\n        G.Ra = Ra\n        '''Ra[u] stores the stop index\
-    \ of the list of adjacent vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i]\
-    \ = u for La[u] <= i < Ra[u], useful for backtracking.'''\n        G.Va = Va\n\
-    \        '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''\n  \
-    \      G.Ea = Ea\n        '''Ea[i] lists the edge ids that start from u for La[u]\
-    \ <= i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
-    \ edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin if twin is\
-    \ not None else range(len(Ua))\n        '''twin[i] in undirected graphs stores\
-    \ index j of the same edge but with u and v swapped.'''\n        G.st: list[int]\
-    \ = None\n        G.order: list[int] = None\n        G.vis: list[int] = None\n\
-    \        G.back: list[int] = None\n        G.tin: list[int] = None\n    \n   \
-    \ def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
-    \        if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def\
-    \ prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n\
-    \        return G.st\n    \n    def prep_order(G):\n        if G.order is None:\
-    \ G.order = elist(G.N)\n        else: G.order.clear()\n        return G.order\n\
-    \    \n    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n\
-    \        return G.back\n    \n    def prep_tin(G):\n        if G.tin is None:\
-    \ G.tin = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return\
-    \ G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G,\
-    \ u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
-    \        else: return G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua,\
-    \ back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v\
-    \ := Ua[back[v]])\n        return vertices\n    \n    def recover_path_edge_ids(G,\
-    \ s, t):\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n  \
-    \      while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return\
-    \ edges\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
-    \ t) >= inf: return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
+    \    \n\nclass GraphBase(Parsable):\n    def __init__(G, N: int, M: int, U: list[int],\
+    \ V: list[int], \n                 deg: list[int], La: list[int], Ra: list[int],\n\
+    \                 Ua: list[int], Va: list[int], Ea: list[int], twin: list[int]\
+    \ = None):\n        G.N = N\n        '''The number of vertices.'''\n        G.M\
+    \ = M\n        '''The number of edges.'''\n        G.U = U\n        '''A list\
+    \ of source vertices in the original edge list.'''\n        G.V = V\n        '''A\
+    \ list of destination vertices in the original edge list.'''\n        G.deg =\
+    \ deg\n        '''deg[u] is the out degree of vertex u.'''\n        G.La = La\n\
+    \        '''La[u] stores the start index of the list of adjacent vertices from\
+    \ u.'''\n        G.Ra = Ra\n        '''Ra[u] stores the stop index of the list\
+    \ of adjacent vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i] = u for\
+    \ La[u] <= i < Ra[u], useful for backtracking.'''\n        G.Va = Va\n       \
+    \ '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''\n        G.Ea\
+    \ = Ea\n        '''Ea[i] lists the edge ids that start from u for La[u] <= i <\
+    \ Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are edges\
+    \ from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin if twin is not None\
+    \ else range(len(Ua))\n        '''twin[i] in undirected graphs stores index j\
+    \ of the same edge but with u and v swapped.'''\n        G.st: list[int] = None\n\
+    \        G.order: list[int] = None\n        G.vis: list[int] = None\n        G.back:\
+    \ list[int] = None\n        G.tin: list[int] = None\n    \n    def clear(G):\n\
+    \        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n        if G.vis\
+    \ is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def prep_st(G):\n\
+    \        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n    \
+    \    return G.st\n    \n    def prep_order(G):\n        if G.order is None: G.order\
+    \ = elist(G.N)\n        else: G.order.clear()\n        return G.order\n    \n\
+    \    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n  \
+    \      return G.back\n    \n    def prep_tin(G):\n        if G.tin is None: G.tin\
+    \ = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return G.N\n\
+    \    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G, u):\
+    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
+    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
+    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua, back, vertices =\
+    \ G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n\
+    \        return vertices\n    \n    def recover_path_edge_ids(G, s, t):\n    \
+    \    Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v\
+    \ != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return edges\n\n\
+    \    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf:\
+    \ return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
     \        return vertices\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n\
     \        if G.distance(s, t) >= inf: return None\n        edges = G.recover_path_edge_ids(s,\
     \ t)\n        edges.reverse()\n        return edges\n    \n    @overload\n   \
@@ -331,48 +332,49 @@ data:
     \                if back[v := G.Va[i]] >= -1: continue\n                    back[v]\
     \ = i; order.append(ENTER | v); st.append(v)\n                else:\n        \
     \            order.append(LEAVE | u); st.pop()\n        return plst\n    \n  \
-    \  def starts(G, s: Union[int,list[int],None]) -> list[int]:\n        if isinstance(s,\
-    \ int): return [s]\n        elif s is None: return range(G.N)\n        elif isinstance(s,\
-    \ list): return s\n        else: return list(s)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
-    \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
-    \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n\nu32_max = (1<<32)-1\n\
-    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
-    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
-    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
-    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass GraphWeightedBase(GraphBase):\n\
-    \    def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int],\
-    \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
-    \        Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int], twin: list[int]\
-    \ = None):\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\
-    \        self.W = W\n        self.Wa = Wa\n        '''Wa[i] lists weights to edges\
-    \ from u for La[u] <= i < Ra[u].'''\n        \n    def __getitem__(G, u):\n  \
-    \      l,r = G.La[u],G.Ra[u]\n        return zip(G.Va[l:r], G.Wa[l:r])\n    \n\
-    \    @overload\n    def distance(G) -> list[list[int]]: ...\n    @overload\n \
-    \   def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G,\
-    \ s: int, g: int) -> int: ...\n    def distance(G, s = None, g = None):\n    \
-    \    if s == None: return G.floyd_warshall()\n        else: return G.dijkstra(s,\
-    \ g)\n\n    def dijkstra(G, s: int, t: int = None):\n        G.back, G.D, S =\
-    \ i32f(G.N, -1), [inf]*G.N, G.starts(s)\n        for s in S: G.D[s] = 0\n    \
-    \    que = PriorityQueue(G.N, S)\n        while que:\n            d, u = que.pop()\n\
-    \            if d > G.D[u]: continue\n            if u == t: return d\n      \
-    \      i, r = G.La[u]-1, G.Ra[u]\n            while (i:=i+1)<r: \n           \
-    \     if chmin(G.D, v := G.Va[i], nd := d + G.Wa[i]):\n                    G.back[v]\
-    \ = i; que.push(nd, v)\n        return G.D if t is None else inf \n\n    def kruskal(G):\n\
-    \        U, V, W, dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1\n\
-    \        for e in argsort(W):\n            u, v = dsu.merge(U[e],V[e])\n     \
-    \       if u != v:\n                MST[need := need-1] = e\n                if\
-    \ not need: break\n        return None if need else MST\n    \n    def kruskal_heap(G):\n\
-    \        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que, dsu, MST = PriorityQueue(M,\
+    \  def starts(G, s: Union[int,list[int],None] = None) -> list[int]:\n        if\
+    \ isinstance(s, int): return [s]\n        elif s is None: return range(G.N)\n\
+    \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
+    \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
+    \        for i in range(M):\n                u, v = ts._line()\n             \
+    \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
+    \        return parse\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\n\nfrom array\
+    \ import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n  \
+    \  def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n\nclass GraphWeightedBase(GraphBase):\n    def __init__(self,\
+    \ N: int, M: int, U: list[int], V: list[int], W: list[int], \n               \
+    \  deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
+    \ Va: list[int], Wa: list[int], Ea: list[int], twin: list[int] = None):\n    \
+    \    super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n        self.W\
+    \ = W\n        self.Wa = Wa\n        '''Wa[i] lists weights to edges from u for\
+    \ La[u] <= i < Ra[u].'''\n        \n    def __getitem__(G, u):\n        l,r =\
+    \ G.La[u],G.Ra[u]\n        return zip(G.Va[l:r], G.Wa[l:r])\n    \n    @overload\n\
+    \    def distance(G) -> list[list[int]]: ...\n    @overload\n    def distance(G,\
+    \ s: int = 0) -> list[int]: ...\n    @overload\n    def distance(G, s: int, g:\
+    \ int) -> int: ...\n    def distance(G, s = None, g = None):\n        if s ==\
+    \ None: return G.floyd_warshall()\n        else: return G.dijkstra(s, g)\n\n \
+    \   def dijkstra(G, s: int, t: int = None):\n        G.back, G.D, S = i32f(G.N,\
+    \ -1), [inf]*G.N, G.starts(s)\n        for s in S: G.D[s] = 0\n        que = PriorityQueue(G.N,\
+    \ S)\n        while que:\n            d, u = que.pop()\n            if d > G.D[u]:\
+    \ continue\n            if u == t: return d\n            i, r = G.La[u]-1, G.Ra[u]\n\
+    \            while (i:=i+1)<r: \n                if chmin(G.D, v := G.Va[i], nd\
+    \ := d + G.Wa[i]):\n                    G.back[v] = i; que.push(nd, v)\n     \
+    \   return G.D if t is None else inf \n\n    def kruskal(G):\n        U, V, W,\
+    \ dsu, MST, need = G.U, G.V, G.W, DSU(N := G.N), [0]*(N-1), N-1\n        for e\
+    \ in argsort(W):\n            u, v = dsu.merge(U[e],V[e])\n            if u !=\
+    \ v:\n                MST[need := need-1] = e\n                if not need: break\n\
+    \        return None if need else MST\n    \n    def kruskal_heap(G):\n      \
+    \  N, M, U, V, W = G.N, G.M, G.U, G.V, G.W \n        que, dsu, MST = PriorityQueue(M,\
     \ list(range(M)), W), DSU(N), [0]*(need := N-1)\n        while que and need:\n\
     \            _, e = que.pop()\n            u, v = dsu.merge(U[e],V[e])\n     \
     \       if u != v:\n                MST[need := need-1] = e\n        return None\
@@ -395,7 +397,25 @@ data:
     \ -1):\n        def parse(ts: TokenStream):\n            U, V, W = u32f(M), u32f(M),\
     \ [0]*M\n            for i in range(M):\n                u, v, w = ts._line()\n\
     \                U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)\n     \
-    \       return cls(N, U, V, W)\n        return parse\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
+    \       return cls(N, U, V, W)\n        return parse\n\nclass DSU(Parsable):\n\
+    \    def __init__(dsu, N): dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n    def merge(dsu,\
+    \ u, v):\n        x, y = dsu.root(u), dsu.root(v)\n        if x == y: return x,y\n\
+    \        if dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x] += dsu.par[y];\
+    \ dsu.par[y] = x; dsu.cc -= 1\n        return x, y\n    def root(dsu, i) -> int:\n\
+    \        p = (par := dsu.par)[i]\n        while p >= 0:\n            if par[p]\
+    \ < 0: return p\n            par[i], i, p = par[p], par[p], par[par[p]]\n    \
+    \    return i\n    def groups(dsu) -> 'CSRIncremental[int]':\n        sizes, row,\
+    \ p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n           \
+    \ while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p], i;\
+    \ p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
+    \ csr.append(row[dsu.root(i)], i)\n        return csr\n    __iter__ = groups\n\
+    \    def merge_dest(dsu, u, v): return dsu.merge(u, v)[0]\n    def same(dsu, u:\
+    \ int, v: int):  return dsu.root(u) == dsu.root(v)\n    def size(dsu, i) -> int:\
+    \ return -dsu.par[dsu.root(i)]\n    def __len__(dsu): return dsu.cc\n    def __contains__(dsu,\
+    \ uv): u, v = uv; return dsu.same(u, v)\n    @classmethod\n    def compile(cls,\
+    \ N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n     \
+    \       dsu = cls(N)\n            for _ in range(M): u, v = ts._line(); dsu.merge(int(u)+shift,\
+    \ int(v)+shift)\n            return dsu\n        return parse_fn\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
     \    def __init__(csr, sizes: list[int]):\n        csr.L, N = [0]*len(sizes),\
     \ 0\n        for i,sz in enumerate(sizes):\n            csr.L[i] = N; N += sz\n\
     \        csr.R, csr.A = csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n\
@@ -403,37 +423,17 @@ data:
     \      for i,l in enumerate(csr.L):\n            yield csr.A[l:csr.R[i]]\n   \
     \ \n    def __getitem__(csr, i: int) -> _T:\n        return csr.A[i]\n    \n \
     \   def __len__(dsu):\n        return len(dsu.L)\n\n    def range(csr, i: int)\
-    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\nclass DSU(Parsable, Collection):\n\
-    \    def __init__(dsu, N):\n        dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n\n\
-    \    def merge(dsu, u, v):\n        x, y = dsu.leader(u), dsu.leader(v)\n    \
-    \    if x == y: return x,y\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n\
-    \        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return\
-    \ x,y\n    \n    def merge_dest(dsu, u, v): return dsu.merge(u, v)[0]\n\n    def\
-    \ same(dsu, u: int, v: int):\n        return dsu.leader(u) == dsu.leader(v)\n\n\
-    \    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
-    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
-    \ par[p], par[par[p]]\n        return i\n\n    def size(dsu, i) -> int:\n    \
-    \    return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
-    \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
-    \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
-    \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
-    \ csr.append(row[dsu.leader(i)], i)\n        return csr\n    \n    __iter__ =\
-    \ groups\n    \n    def __len__(dsu):\n        return dsu.cc\n    \n    def __contains__(dsu,\
-    \ uv):\n        u, v = uv\n        return dsu.same(u, v)\n    \n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
-    \            dsu = cls(N)\n            for _ in range(M):\n                u,\
-    \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
-    \        return dsu\n        return parse_fn\n\n\ndef heappush(heap: list, item):\n\
-    \    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap:\
-    \ list):\n    item = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap,\
-    \ 0)\n    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap:\
-    \ list, item):\n    if heap and heap[0] < item: item, heap[0] = heap[0], item;\
-    \ heapsiftup(heap, 0)\n    return item\n\ndef heapify(x: list):\n    for i in\
-    \ reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap: list,\
-    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and item <\
-    \ heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
-    def heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\n\ndef heappush(heap: list,\
+    \ item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\ndef\
+    \ heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0] = heap[0],\
+    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap: list, item):\n\
+    \    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef\
+    \ heappushpop(heap: list, item):\n    if heap and heap[0] < item: item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x: list):\n\
+    \    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
@@ -577,7 +577,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_a_fast_diameter.test.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_a_fast_diameter.test.py

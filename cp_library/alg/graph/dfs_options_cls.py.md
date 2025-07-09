@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/dag_cls.py
+    title: cp_library/alg/graph/csr/dag_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/digraph_cls.py
     title: cp_library/alg/graph/csr/digraph_cls.py
@@ -66,11 +69,11 @@ data:
     path: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
     title: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/graph_proto.py
-    title: cp_library/alg/graph/graph_proto.py
+    path: cp_library/alg/graph/set/graph_proto.py
+    title: cp_library/alg/graph/set/graph_proto.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/graph_set_cls.py
-    title: cp_library/alg/graph/graph_set_cls.py
+    path: cp_library/alg/graph/set/graph_set_cls.py
+    title: cp_library/alg/graph/set/graph_set_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/csr/aux_tree_base_cls.py
     title: cp_library/alg/tree/csr/aux_tree_base_cls.py
@@ -326,6 +329,7 @@ data:
   - cp_library/alg/graph/csr/digraph_weighted_cls.py
   - cp_library/alg/graph/csr/digraph_cls.py
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/dag_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
   - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
@@ -342,9 +346,9 @@ data:
   - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_cls.py
   - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
-  - cp_library/alg/graph/graph_proto.py
-  - cp_library/alg/graph/graph_set_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - cp_library/alg/graph/set/graph_proto.py
+  - cp_library/alg/graph/set/graph_set_cls.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

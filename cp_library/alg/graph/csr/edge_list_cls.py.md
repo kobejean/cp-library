@@ -99,12 +99,14 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass EdgeList(tuple, Parsable):\n\
-    \    def __new__(cls, M):\n        return super().__new__(cls, ([0]*M, [0]*M))\n\
-    \n    @classmethod\n    def compile(cls, N: int, shift: int = -1):\n        def\
-    \ parse(ts: TokenStream):\n            U, V = P = cls(N)\n            for i in\
-    \ range(N):\n                u, v = ts.line()\n                U[i], V[i] = int(u)+shift,\
-    \ int(v)+shift\n            return P\n        return parse\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ EdgeList(tuple, Parsable):\n    def __new__(cls, M):\n        return super().__new__(cls,\
+    \ ([0]*M, [0]*M))\n\n    @classmethod\n    def compile(cls, N: int, shift: int\
+    \ = -1):\n        def parse(ts: TokenStream):\n            U, V = P = cls(N)\n\
+    \            for i in range(N):\n                u, v = ts.line()\n          \
+    \      U[i], V[i] = int(u)+shift, int(v)+shift\n            return P\n       \
+    \ return parse\n"
   code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.graph.__header__\n\
     import cp_library.alg.graph.csr.__header__\nfrom cp_library.io.parser_cls import\
     \ Parsable, TokenStream\n\nclass EdgeList(tuple, Parsable):\n    def __new__(cls,\
@@ -119,7 +121,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/edge_list_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/csr/edge_list_cls.py

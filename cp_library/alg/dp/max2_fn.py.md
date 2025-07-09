@@ -21,8 +21,8 @@ data:
     path: cp_library/perf/examples/rank_benchmark.py
     title: cp_library/perf/examples/rank_benchmark.py
   - icon: ':warning:'
-    path: perf/rank_perf.py
-    title: perf/rank_perf.py
+    path: perf/rank.py
+    title: perf/rank.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
@@ -96,8 +96,8 @@ data:
   - cp_library/alg/iter/rank/rank_multi_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
   - cp_library/perf/examples/rank_benchmark.py
-  - perf/rank_perf.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - perf/rank.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py

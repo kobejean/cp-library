@@ -100,40 +100,42 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\n\nclass PDSU(Parsable):\n \
-    \   '''PDSU[N: int, M: int, op=operator.sub, inv=operator.neg, e=0, shift=-1]'''\n\
-    \n    def __init__(self, op, inv, e, v) -> None:\n        n = v if isinstance(v,\
-    \ int) else len(v)\n        self.n = n\n        self.par = [-1] * n\n        self.op\
-    \ = op\n        self.inv = inv\n        self.e = e\n        self.pot = [e] * n\
-    \ if isinstance(v, int) else v\n        self.valid = [True] * n\n\n    def leader(self,\
-    \ x: int) -> int:\n        assert 0 <= x < self.n\n        path = []\n       \
-    \ while self.par[x] >= 0:\n            path.append(x)\n            x = self.par[x]\n\
-    \        for y in reversed(path):\n            self.pot[y] = self.op(self.pot[y],\
-    \ self.pot[self.par[y]])\n            self.par[y] = x\n        return x\n    \n\
-    \    def consistent(self, x: int, y: int, w) -> bool:\n        rx = self.leader(x)\n\
-    \        ry = self.leader(y)\n        if rx == ry:\n            return self.op(self.pot[x],\
-    \ self.inv(self.pot[y])) == w\n        return True\n\n    def merge(self, x: int,\
-    \ y: int, w) -> tuple[int, int]:\n        assert 0 <= x < self.n\n        assert\
-    \ 0 <= y < self.n\n        rx = self.leader(x)\n        ry = self.leader(y)\n\
-    \        if rx != ry:\n            par = self.par\n            if par[rx] < par[ry]:\n\
-    \                x,y,w,rx,ry = y,x,self.inv(w),ry,rx\n                \n     \
-    \       par[ry] += par[rx]\n            par[rx] = ry\n            self.pot[rx]\
-    \ = self.op(\n                self.op(self.inv(self.pot[x]), w), self.pot[y]\n\
-    \            )\n        else:\n            self.valid[rx] &= self.consistent(x,\
-    \ y, w)\n        return ry, rx\n\n    def same(self, x: int, y: int) -> bool:\n\
-    \        assert 0 <= x < self.n\n        assert 0 <= y < self.n\n        return\
-    \ self.leader(x) == self.leader(y)\n    \n    def size(self, x: int) -> int:\n\
-    \        assert 0 <= x < self.n\n        return -self.par[self.leader(x)]\n  \
-    \  \n    def groups(self):\n        leader_buf = [self.leader(i) for i in range(self.n)]\n\
-    \n        result = [[] for _ in range(self.n)]\n        for i in range(self.n):\n\
-    \            result[leader_buf[i]].append(i)\n\n        return list(filter(lambda\
-    \ r: r, result))\n\n    def diff(self, x: int, y: int):\n        assert self.same(x,\
-    \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\n\n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, op=operator.sub, inv=operator.neg, e=0,\
-    \ shift=-1):\n        def parse(ts: TokenStream):\n            pdsu = cls(op,\
-    \ inv, e, N)\n            for _ in range(M):\n                u, v, w = ts._line()\n\
-    \                u, v = int(u)+shift, int(v)+shift, int(w)\n                pdsu.merge(u,\
-    \ v, w)\n            return pdsu\n        return parse\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\n\
+    class PDSU(Parsable):\n    '''PDSU[N: int, M: int, op=operator.sub, inv=operator.neg,\
+    \ e=0, shift=-1]'''\n\n    def __init__(self, op, inv, e, v) -> None:\n      \
+    \  n = v if isinstance(v, int) else len(v)\n        self.n = n\n        self.par\
+    \ = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e = e\n\
+    \        self.pot = [e] * n if isinstance(v, int) else v\n        self.valid =\
+    \ [True] * n\n\n    def root(self, x: int) -> int:\n        assert 0 <= x < self.n\n\
+    \        path = []\n        while self.par[x] >= 0:\n            path.append(x)\n\
+    \            x = self.par[x]\n        for y in reversed(path):\n            self.pot[y]\
+    \ = self.op(self.pot[y], self.pot[self.par[y]])\n            self.par[y] = x\n\
+    \        return x\n    \n    def consistent(self, x: int, y: int, w) -> bool:\n\
+    \        rx = self.root(x)\n        ry = self.root(y)\n        if rx == ry:\n\
+    \            return self.op(self.pot[x], self.inv(self.pot[y])) == w\n       \
+    \ return True\n\n    def merge(self, x: int, y: int, w) -> tuple[int, int]:\n\
+    \        assert 0 <= x < self.n\n        assert 0 <= y < self.n\n        rx =\
+    \ self.root(x)\n        ry = self.root(y)\n        if rx != ry:\n            par\
+    \ = self.par\n            if par[rx] < par[ry]:\n                x,y,w,rx,ry =\
+    \ y,x,self.inv(w),ry,rx\n                \n            par[ry] += par[rx]\n  \
+    \          par[rx] = ry\n            self.pot[rx] = self.op(\n               \
+    \ self.op(self.inv(self.pot[x]), w), self.pot[y]\n            )\n        else:\n\
+    \            self.valid[rx] &= self.consistent(x, y, w)\n        return ry, rx\n\
+    \n    def same(self, x: int, y: int) -> bool:\n        assert 0 <= x < self.n\n\
+    \        assert 0 <= y < self.n\n        return self.root(x) == self.root(y)\n\
+    \    \n    def size(self, x: int) -> int:\n        assert 0 <= x < self.n\n  \
+    \      return -self.par[self.root(x)]\n    \n    def groups(self):\n        root_buf\
+    \ = [self.root(i) for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n\
+    \        for i in range(self.n):\n            result[root_buf[i]].append(i)\n\n\
+    \        return list(filter(lambda r: r, result))\n\n    def diff(self, x: int,\
+    \ y: int):\n        assert self.same(x, y)\n        return self.op(self.pot[x],\
+    \ self.inv(self.pot[y]))\n\n    @classmethod\n    def compile(cls, N: int, M:\
+    \ int, op=operator.sub, inv=operator.neg, e=0, shift=-1):\n        def parse(ts:\
+    \ TokenStream):\n            pdsu = cls(op, inv, e, N)\n            for _ in range(M):\n\
+    \                u, v, w = ts._line()\n                u, v = int(u)+shift, int(v)+shift,\
+    \ int(w)\n                pdsu.merge(u, v, w)\n            return pdsu\n     \
+    \   return parse\n"
   code: "import cp_library.__header__\nimport operator\nfrom cp_library.io.parser_cls\
     \ import Parsable, TokenStream\nimport cp_library.ds.__header__\nimport cp_library.ds.tree.__header__\n\
     \nclass PDSU(Parsable):\n    '''PDSU[N: int, M: int, op=operator.sub, inv=operator.neg,\
@@ -141,28 +143,28 @@ data:
     \  n = v if isinstance(v, int) else len(v)\n        self.n = n\n        self.par\
     \ = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e = e\n\
     \        self.pot = [e] * n if isinstance(v, int) else v\n        self.valid =\
-    \ [True] * n\n\n    def leader(self, x: int) -> int:\n        assert 0 <= x <\
-    \ self.n\n        path = []\n        while self.par[x] >= 0:\n            path.append(x)\n\
+    \ [True] * n\n\n    def root(self, x: int) -> int:\n        assert 0 <= x < self.n\n\
+    \        path = []\n        while self.par[x] >= 0:\n            path.append(x)\n\
     \            x = self.par[x]\n        for y in reversed(path):\n            self.pot[y]\
     \ = self.op(self.pot[y], self.pot[self.par[y]])\n            self.par[y] = x\n\
     \        return x\n    \n    def consistent(self, x: int, y: int, w) -> bool:\n\
-    \        rx = self.leader(x)\n        ry = self.leader(y)\n        if rx == ry:\n\
+    \        rx = self.root(x)\n        ry = self.root(y)\n        if rx == ry:\n\
     \            return self.op(self.pot[x], self.inv(self.pot[y])) == w\n       \
     \ return True\n\n    def merge(self, x: int, y: int, w) -> tuple[int, int]:\n\
     \        assert 0 <= x < self.n\n        assert 0 <= y < self.n\n        rx =\
-    \ self.leader(x)\n        ry = self.leader(y)\n        if rx != ry:\n        \
-    \    par = self.par\n            if par[rx] < par[ry]:\n                x,y,w,rx,ry\
-    \ = y,x,self.inv(w),ry,rx\n                \n            par[ry] += par[rx]\n\
-    \            par[rx] = ry\n            self.pot[rx] = self.op(\n             \
-    \   self.op(self.inv(self.pot[x]), w), self.pot[y]\n            )\n        else:\n\
+    \ self.root(x)\n        ry = self.root(y)\n        if rx != ry:\n            par\
+    \ = self.par\n            if par[rx] < par[ry]:\n                x,y,w,rx,ry =\
+    \ y,x,self.inv(w),ry,rx\n                \n            par[ry] += par[rx]\n  \
+    \          par[rx] = ry\n            self.pot[rx] = self.op(\n               \
+    \ self.op(self.inv(self.pot[x]), w), self.pot[y]\n            )\n        else:\n\
     \            self.valid[rx] &= self.consistent(x, y, w)\n        return ry, rx\n\
     \n    def same(self, x: int, y: int) -> bool:\n        assert 0 <= x < self.n\n\
-    \        assert 0 <= y < self.n\n        return self.leader(x) == self.leader(y)\n\
+    \        assert 0 <= y < self.n\n        return self.root(x) == self.root(y)\n\
     \    \n    def size(self, x: int) -> int:\n        assert 0 <= x < self.n\n  \
-    \      return -self.par[self.leader(x)]\n    \n    def groups(self):\n       \
-    \ leader_buf = [self.leader(i) for i in range(self.n)]\n\n        result = [[]\
-    \ for _ in range(self.n)]\n        for i in range(self.n):\n            result[leader_buf[i]].append(i)\n\
-    \n        return list(filter(lambda r: r, result))\n\n    def diff(self, x: int,\
+    \      return -self.par[self.root(x)]\n    \n    def groups(self):\n        root_buf\
+    \ = [self.root(i) for i in range(self.n)]\n\n        result = [[] for _ in range(self.n)]\n\
+    \        for i in range(self.n):\n            result[root_buf[i]].append(i)\n\n\
+    \        return list(filter(lambda r: r, result))\n\n    def diff(self, x: int,\
     \ y: int):\n        assert self.same(x, y)\n        return self.op(self.pot[x],\
     \ self.inv(self.pot[y]))\n\n    @classmethod\n    def compile(cls, N: int, M:\
     \ int, op=operator.sub, inv=operator.neg, e=0, shift=-1):\n        def parse(ts:\
@@ -176,7 +178,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/pdsu_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/tree/pdsu_cls.py

@@ -149,17 +149,18 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nfrom enum import auto, IntFlag,\
-    \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
-    \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
-    \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
-    \    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n\
-    \    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL\
-    \ = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n\
-    \    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n\
-    \    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK\
-    \ \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP\
-    \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nfrom\
+    \ enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER =\
+    \ auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Parsable):\n\
     \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
     \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
     \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
@@ -279,46 +280,46 @@ data:
     \                if back[v := G.Va[i]] >= -1: continue\n                    back[v]\
     \ = i; order.append(ENTER | v); st.append(v)\n                else:\n        \
     \            order.append(LEAVE | u); st.pop()\n        return plst\n    \n  \
-    \  def starts(G, s: Union[int,list[int],None]) -> list[int]:\n        if isinstance(s,\
-    \ int): return [s]\n        elif s is None: return range(G.N)\n        elif isinstance(s,\
-    \ list): return s\n        else: return list(s)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
-    \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
-    \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
-    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
-    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
-    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
-    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass DiGraph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua,\
-    \ Va, La, Ra, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), u32f(N),\
-    \ 0\n        for u in U: deg[u] += 1\n        for u in range(N): La[u], Ra[u],\
-    \ i = i, i, i+deg[u]\n        for e in range(M): Ra[u], Ua[i], Va[i], Ea[i] =\
-    \ (i := Ra[u := U[e]])+1, u, V[e], e\n        super().__init__(N, M, U, V, deg,\
-    \ La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n        '''\n\
-    \        Finds strongly connected sccs in directed graph using Tarjan's algorithm.\n\
-    \        Returns sccs in topological order.\n        '''\n        Ra, tin, low,\
-    \ on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N), u8f(N), G.La[:], -1\n\
-    \        order, stack, sccs, L = elist(N), elist(N), elist(N), elist(N)\n    \
-    \    for u in range(N):\n            if tin[u] >= 0: continue\n            stack.append(u)\n\
-    \            while stack:\n                if tin[u := stack[-1]] < 0:\n     \
-    \               tin[u] = low[u] = (time := time+1)\n                    order.append(u)\n\
-    \                    on_stack[u] = 1\n                if (i := I[u]) < Ra[u]:\n\
-    \                    I[u] += 1\n                    if tin[v := G.Va[i]] < 0:\
-    \ stack.append(v)\n                    elif on_stack[v]: chmin(low, u, tin[v])\n\
-    \                else:\n                    stack.pop()\n                    if\
-    \ low[u] == tin[u]:\n                        v = -1; L.append(len(sccs))\n   \
-    \                     while v != u:\n                            on_stack[v :=\
-    \ order.pop()] = 0\n                            sccs.append(v)\n             \
-    \       if stack: chmin(low, stack[-1], low[u])\n        return SliceIteratorReverse(sccs,\
+    \  def starts(G, s: Union[int,list[int],None] = None) -> list[int]:\n        if\
+    \ isinstance(s, int): return [s]\n        elif s is None: return range(G.N)\n\
+    \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
+    \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
+    \        for i in range(M):\n                u, v = ts._line()\n             \
+    \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
+    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\n\nfrom\
+    \ array import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n  \
+    \  def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n\nclass DiGraph(GraphBase):\n    def __init__(G, N: int, U: list[int],\
+    \ V: list[int]):\n        deg, Ea, Ua, Va, La, Ra, i = u32f(N), u32f(M := len(U)),\
+    \ u32f(M), u32f(M), u32f(N), u32f(N), 0\n        for u in U: deg[u] += 1\n   \
+    \     for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]\n        for e in range(M):\
+    \ Ra[u], Ua[i], Va[i], Ea[i] = (i := Ra[u := U[e]])+1, u, V[e], e\n        super().__init__(N,\
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n\
+    \        '''\n        Finds strongly connected sccs in directed graph using Tarjan's\
+    \ algorithm.\n        Returns sccs in topological order.\n        '''\n      \
+    \  Ra, tin, low, on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N), u8f(N),\
+    \ G.La[:], -1\n        order, stack, sccs, L = elist(N), elist(N), elist(N), elist(N)\n\
+    \        for u in range(N):\n            if tin[u] >= 0: continue\n          \
+    \  stack.append(u)\n            while stack:\n                if tin[u := stack[-1]]\
+    \ < 0:\n                    tin[u] = low[u] = (time := time+1)\n             \
+    \       order.append(u)\n                    on_stack[u] = 1\n               \
+    \ if (i := I[u]) < Ra[u]:\n                    I[u] += 1\n                   \
+    \ if tin[v := G.Va[i]] < 0: stack.append(v)\n                    elif on_stack[v]:\
+    \ chmin(low, u, tin[v])\n                else:\n                    stack.pop()\n\
+    \                    if low[u] == tin[u]:\n                        v = -1; L.append(len(sccs))\n\
+    \                        while v != u:\n                            on_stack[v\
+    \ := order.pop()] = 0\n                            sccs.append(v)\n          \
+    \          if stack: chmin(low, stack[-1], low[u])\n        return SliceIteratorReverse(sccs,\
     \ L)\n    \nfrom typing import Iterator, SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
     \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
     \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
@@ -356,7 +357,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/snippets/scc_labels_fn.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_c_scc.test.py

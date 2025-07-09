@@ -109,7 +109,7 @@ data:
   - cp_library/math/table/linear_sieve_cls.py
   - cp_library/math/table/sieve_proto.py
   - cp_library/math/table/linear_sieve_cnts_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/gcd_convolution.test.py

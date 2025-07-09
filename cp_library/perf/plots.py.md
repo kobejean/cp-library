@@ -4,9 +4,6 @@ data:
   - icon: ':warning:'
     path: cp_library/perf/benchmark.py
     title: cp_library/perf/benchmark.py
-  - icon: ':warning:'
-    path: cp_library/perf/plotters.py
-    title: cp_library/perf/plotters.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -110,18 +107,17 @@ data:
     \ class\nif __name__ != \"__main__\":\n    from .benchmark import Benchmark\n\
     \    Benchmark.plot_results = enhanced_plot_results"
   dependsOn:
-  - cp_library/perf/plotters.py
   - cp_library/perf/benchmark.py
   isVerificationFile: false
-  path: cp_library/perf/simple_plots.py
+  path: cp_library/perf/plots.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: cp_library/perf/simple_plots.py
+documentation_of: cp_library/perf/plots.py
 layout: document
 redirect_from:
-- /library/cp_library/perf/simple_plots.py
-- /library/cp_library/perf/simple_plots.py.html
-title: cp_library/perf/simple_plots.py
+- /library/cp_library/perf/plots.py
+- /library/cp_library/perf/plots.py.html
+title: cp_library/perf/plots.py
 ---

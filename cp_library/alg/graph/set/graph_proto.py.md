@@ -15,8 +15,8 @@ data:
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: cp_library/alg/graph/graph_set_cls.py
-    title: cp_library/alg/graph/graph_set_cls.py
+    path: cp_library/alg/graph/set/graph_set_cls.py
+    title: cp_library/alg/graph/set/graph_set_cls.py
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
@@ -29,9 +29,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    from typing import Iterable, Union, overload\nfrom collections import deque\n\
+    from math import inf\n\nimport typing\nfrom numbers import Number\nfrom types\
+    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
+    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -108,23 +109,21 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nfrom enum import auto, IntFlag,\
-    \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
-    \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
-    \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
-    \    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n\
-    \    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL\
-    \ = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n\
-    \    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n\
-    \    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK\
-    \ \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP\
-    \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\ndef elist(est_len: int) -> list:\
-    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \nfrom typing import Iterable, Union,\
-    \ overload\nfrom math import inf\n\nclass GraphProtocol(list, Parsable):\n   \
-    \ def __init__(G, N: int, E: list = None, adj: Iterable = None):\n        G.N\
-    \ = N\n        if E is not None:\n            G.M, G.E = len(E), E\n        if\
-    \ adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\n\
+    from enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
+    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\n\nclass GraphProtocol(list,\
+    \ Parsable):\n    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n\
+    \        G.N = N\n        if E is not None:\n            G.M, G.E = len(E), E\n\
+    \        if adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
     \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
     \ list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
     \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
@@ -311,28 +310,31 @@ data:
     \            return range(G.N)\n        else:\n            return v\n\n    @classmethod\n\
     \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
     \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    \n"
-  code: "import cp_library.alg.graph.__header__\nfrom cp_library.io.parser_cls import\
-    \ Parsable, Parser, TokenStream\nfrom cp_library.alg.graph.dfs_options_cls import\
-    \ DFSFlags, DFSEvent\nfrom cp_library.ds.elist_fn import elist\nfrom typing import\
-    \ Iterable, Union, overload\nfrom collections import deque\nfrom math import inf\n\
-    \nclass GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E: list =\
-    \ None, adj: Iterable = None):\n        G.N = N\n        if E is not None:\n \
-    \           G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
-    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
-    \    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        if s == None:\n            return\
-    \ G.floyd_warshall()\n        else:\n            return G.bfs(s, g)\n\n    @overload\n\
-    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
-    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g\
-    \ = None):\n        D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s,\
-    \ int) else s)\n        for u in q: D[u] = 0\n        while q:\n            nd\
-    \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
-    \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
-    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \ \n\n    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
+    \ _ in range(M)])\n        return parse\n    \n\n\ndef elist(est_len: int) ->\
+    \ list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \        return []\nelist = newlist_hint\n    \n"
+  code: "import cp_library.__header__\nfrom typing import Iterable, Union, overload\n\
+    from collections import deque\nfrom math import inf\nfrom cp_library.io.parser_cls\
+    \ import Parsable, Parser, TokenStream\nimport cp_library.alg.__header__\nimport\
+    \ cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.dfs_options_cls import\
+    \ DFSFlags, DFSEvent\nimport cp_library.alg.graph.set.__header__\n\nclass GraphProtocol(list,\
+    \ Parsable):\n    def __init__(G, N: int, E: list = None, adj: Iterable = None):\n\
+    \        G.N = N\n        if E is not None:\n            G.M, G.E = len(E), E\n\
+    \        if adj is not None:\n            super().__init__(adj)\n\n    def neighbors(G,\
+    \ v: int) -> Iterable[int]:\n        return G[v]\n    \n    def edge_ids(G) ->\
+    \ list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
+    \ g = None):\n        if s == None:\n            return G.floyd_warshall()\n \
+    \       else:\n            return G.bfs(s, g)\n\n    @overload\n    def bfs(G,\
+    \ s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
+    \ Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n   \
+    \     D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
+    \ else s)\n        for u in q: D[u] = 0\n        while q:\n            nd = D[u\
+    \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
+    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
+    \                    q.append(v)\n        return D if g is None else inf \n\n\
+    \    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
     \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
     \ -> tuple[Union[list[int],None],list[int]]: ...\n    def shortest_path(G, s:\
     \ int, g: int, distances = False) -> list[int]:\n        D = [inf] * G.N\n   \
@@ -505,23 +507,24 @@ data:
     \            return range(G.N)\n        else:\n            return v\n\n    @classmethod\n\
     \    def compile(cls, N: int, M: int, E):\n        edge = Parser.compile(E)\n\
     \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n    "
+    \ _ in range(M)])\n        return parse\n    \nfrom cp_library.ds.elist_fn import\
+    \ elist"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
-  path: cp_library/alg/graph/graph_proto.py
+  path: cp_library/alg/graph/set/graph_proto.py
   requiredBy:
-  - cp_library/alg/graph/graph_set_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - cp_library/alg/graph/set/graph_set_cls.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: cp_library/alg/graph/graph_proto.py
+documentation_of: cp_library/alg/graph/set/graph_proto.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/graph_proto.py
-- /library/cp_library/alg/graph/graph_proto.py.html
-title: cp_library/alg/graph/graph_proto.py
+- /library/cp_library/alg/graph/set/graph_proto.py
+- /library/cp_library/alg/graph/set/graph_proto.py.html
+title: cp_library/alg/graph/set/graph_proto.py
 ---

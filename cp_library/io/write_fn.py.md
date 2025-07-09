@@ -28,17 +28,14 @@ data:
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+    title: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
     title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+    path: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+    title: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_c_scc.test.py
     title: test/aoj/grl/grl_2_c_scc.test.py
@@ -265,6 +262,9 @@ data:
     path: test/library-checker/graph/cycle_detection_undirected.test.py
     title: test/library-checker/graph/cycle_detection_undirected.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/directedmst_edge_list.test.py
+    title: test/library-checker/graph/directedmst_edge_list.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - icon: ':heavy_check_mark:'
@@ -412,7 +412,7 @@ data:
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/io/bye_fn.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -423,18 +423,17 @@ data:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/aoj/grl/grl_2_c_scc.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
-  - test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -477,6 +476,7 @@ data:
   - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/cycle_detection.test.py
+  - test/library-checker/graph/directedmst_edge_list.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
   - test/library-checker/polynomial/log_of_formal_power_series.test.py

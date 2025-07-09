@@ -152,22 +152,24 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass KHeapMixin(HeapProtocol[_T],\
-    \ Parsable):\n    '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''\n    def\
-    \ __init__(heap, K: int): heap.K = K\n    def added(heap, item: _T): ...\n   \
-    \ def removed(heap, item: _T): ...\n    def pop(heap): item = super().pop(); heap.removed(item);\
-    \ return item\n    def push(heap, item: _T):\n        if len(heap) < heap._K:\
-    \ heap.added(item); super().push(item)\n        elif heap._K: heap.pushpop(item)\n\
-    \    def pushpop(heap, item: _T):\n        if item != (remove := super().pushpop(item)):\
-    \ heap.removed(remove); heap.added(item); return remove\n        else: return\
-    \ item\n    def replace(heap, item: _T): remove = super().replace(item); heap.removed(remove);\
-    \ heap.added(item); return remove\n    @property\n    def K(heap): return heap._K\n\
-    \    @K.setter\n    def K(heap, K):\n        heap._K = K\n        if K is not\
-    \ None:\n            while len(heap) > K: heap.pop()\n    @classmethod\n    def\
-    \ compile(cls, K: int, T: type, N: Union[int,None] = None):\n        elm = Parser.compile(T)\n\
-    \        if N is None:\n            def parse(ts: TokenStream): return cls(K,\
-    \ (elm(ts) for _ in ts.wait()))\n        else:\n            def parse(ts: TokenStream):\
-    \ return cls(K, (elm(ts) for _ in range(N)))\n        return parse\n\nclass MinKHeap(KHeapMixin[_T],\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ KHeapMixin(HeapProtocol[_T], Parsable):\n    '''KHeapMixin[K: int, T: type,\
+    \ N: Union[int,None]]'''\n    def __init__(heap, K: int): heap.K = K\n    def\
+    \ added(heap, item: _T): ...\n    def removed(heap, item: _T): ...\n    def pop(heap):\
+    \ item = super().pop(); heap.removed(item); return item\n    def push(heap, item:\
+    \ _T):\n        if len(heap) < heap._K: heap.added(item); super().push(item)\n\
+    \        elif heap._K: heap.pushpop(item)\n    def pushpop(heap, item: _T):\n\
+    \        if item != (remove := super().pushpop(item)): heap.removed(remove); heap.added(item);\
+    \ return remove\n        else: return item\n    def replace(heap, item: _T): remove\
+    \ = super().replace(item); heap.removed(remove); heap.added(item); return remove\n\
+    \    @property\n    def K(heap): return heap._K\n    @K.setter\n    def K(heap,\
+    \ K):\n        heap._K = K\n        if K is not None:\n            while len(heap)\
+    \ > K: heap.pop()\n    @classmethod\n    def compile(cls, K: int, T: type, N:\
+    \ Union[int,None] = None):\n        elm = Parser.compile(T)\n        if N is None:\n\
+    \            def parse(ts: TokenStream): return cls(K, (elm(ts) for _ in ts.wait()))\n\
+    \        else:\n            def parse(ts: TokenStream): return cls(K, (elm(ts)\
+    \ for _ in range(N)))\n        return parse\n\nclass MinKHeap(KHeapMixin[_T],\
     \ MaxHeap[_T]):\n    '''MinKHeap[K: int, T: type, N: Union[int,None]]'''\n   \
     \ def __init__(self, K: int, iterable: Iterable[_T] = None):\n        MaxHeap.__init__(self,\
     \ iterable)\n        KHeapMixin.__init__(self, K)\n"
@@ -187,7 +189,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/min_k_heap_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_min_k_heap.test.py

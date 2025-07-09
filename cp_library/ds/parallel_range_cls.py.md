@@ -99,12 +99,13 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass ParallelRange(tuple, Parsable):\n\
-    \    def __new__(cls, N):\n        return super().__new__(cls, ([0]*N, [0]*N))\n\
-    \n    @classmethod\n    def compile(cls, N: int):\n        def parse(ts: TokenStream):\n\
-    \            L, R = P = cls(N)\n            for i in range(N):\n             \
-    \   l, r = ts.line()\n                L[i], R[i] = int(l)-1, int(r)\n        \
-    \    return P\n        return parse\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ ParallelRange(tuple, Parsable):\n    def __new__(cls, N):\n        return super().__new__(cls,\
+    \ ([0]*N, [0]*N))\n\n    @classmethod\n    def compile(cls, N: int):\n       \
+    \ def parse(ts: TokenStream):\n            L, R = P = cls(N)\n            for\
+    \ i in range(N):\n                l, r = ts.line()\n                L[i], R[i]\
+    \ = int(l)-1, int(r)\n            return P\n        return parse\n"
   code: "import cp_library.ds.__header__\nfrom cp_library.io.parser_cls import Parsable,\
     \ TokenStream\n\nclass ParallelRange(tuple, Parsable):\n    def __new__(cls, N):\n\
     \        return super().__new__(cls, ([0]*N, [0]*N))\n\n    @classmethod\n   \
@@ -118,7 +119,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/parallel_range_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/parallel_range_cls.py

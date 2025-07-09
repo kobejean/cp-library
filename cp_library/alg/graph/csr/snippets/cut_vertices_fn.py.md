@@ -138,17 +138,18 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nfrom enum import auto, IntFlag,\
-    \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
-    \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
-    \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
-    \    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n\
-    \    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL\
-    \ = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n\
-    \    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n\
-    \    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK\
-    \ \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP\
-    \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nfrom\
+    \ enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER =\
+    \ auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
+    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
+    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
+    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
+    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
+    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
+    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
+    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Parsable):\n\
     \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
     \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
     \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
@@ -268,34 +269,34 @@ data:
     \                if back[v := G.Va[i]] >= -1: continue\n                    back[v]\
     \ = i; order.append(ENTER | v); st.append(v)\n                else:\n        \
     \            order.append(LEAVE | u); st.pop()\n        return plst\n    \n  \
-    \  def starts(G, s: Union[int,list[int],None]) -> list[int]:\n        if isinstance(s,\
-    \ int): return [s]\n        elif s is None: return range(G.N)\n        elif isinstance(s,\
-    \ list): return s\n        else: return list(s)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
-    \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
-    \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
-    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
-    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
-    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
-    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\ndef cut_vertices(G:\
-    \ GraphBase, s: Union[int,list,None] = None):\n    '''\n    Find cut vertices\
-    \ in an undirected graph using DFS edge types.\n    Returns a boolean list that\
-    \ is True for indices of cut vertices.\n    '''\n    low, children, ap = [N :=\
-    \ G.N]*N, [0]*N, [False]*N\n\n    def enter(v):\n        low[v] = G.tin[v]\n\n\
-    \    def back(u,v,i):\n        chmin(low, u, G.tin[v])\n\n    def up(u,p,i):\n\
-    \        children[p] += 1\n        if G.back[p] < 0:\n            # root case\n\
-    \            ap[p] |= children[p] > 1\n        else:\n            chmin(low, p,\
-    \ low[u])\n            ap[p] |= low[u] >= G.tin[p]\n\n    G.dfs(s, enter_fn=enter,\
-    \ back_fn=back, up_fn=up)\n    return ap\n"
+    \  def starts(G, s: Union[int,list[int],None] = None) -> list[int]:\n        if\
+    \ isinstance(s, int): return [s]\n        elif s is None: return range(G.N)\n\
+    \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
+    \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
+    \        for i in range(M):\n                u, v = ts._line()\n             \
+    \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
+    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\n\nfrom\
+    \ array import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n  \
+    \  def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n\ndef cut_vertices(G: GraphBase, s: Union[int,list,None] = None):\n\
+    \    '''\n    Find cut vertices in an undirected graph using DFS edge types.\n\
+    \    Returns a boolean list that is True for indices of cut vertices.\n    '''\n\
+    \    low, children, ap = [N := G.N]*N, [0]*N, [False]*N\n\n    def enter(v):\n\
+    \        low[v] = G.tin[v]\n\n    def back(u,v,i):\n        chmin(low, u, G.tin[v])\n\
+    \n    def up(u,p,i):\n        children[p] += 1\n        if G.back[p] < 0:\n  \
+    \          # root case\n            ap[p] |= children[p] > 1\n        else:\n\
+    \            chmin(low, p, low[u])\n            ap[p] |= low[u] >= G.tin[p]\n\n\
+    \    G.dfs(s, enter_fn=enter, back_fn=back, up_fn=up)\n    return ap\n"
   code: "import cp_library.__header__\nfrom typing import Union\nimport cp_library.alg.__header__\n\
     from cp_library.alg.dp.chmin_fn import chmin\nimport cp_library.alg.graph.__header__\n\
     import cp_library.alg.graph.csr.__header__\nfrom cp_library.alg.graph.csr.graph_base_cls\
@@ -324,7 +325,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/snippets/cut_vertices_fn.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py

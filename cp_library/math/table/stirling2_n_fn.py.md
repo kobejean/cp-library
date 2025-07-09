@@ -163,7 +163,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling2_n_fn.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py

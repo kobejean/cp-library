@@ -63,8 +63,8 @@ data:
     path: cp_library/ds/wavelet/wm_weighted_points_cls.py
     title: cp_library/ds/wavelet/wm_weighted_points_cls.py
   - icon: ':warning:'
-    path: perf/bool_list_benchmark.py
-    title: perf/bool_list_benchmark.py
+    path: perf/bool_list.py
+    title: perf/bool_list.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
@@ -227,8 +227,8 @@ data:
   - cp_library/ds/wavelet/wm_weighted_points_cls.py
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
   - cp_library/ds/wavelet/wm_monoid_points_cls.py
-  - perf/bool_list_benchmark.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - perf/bool_list.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/wavelet/wm_static_cls_test.py

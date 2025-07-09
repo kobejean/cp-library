@@ -129,7 +129,7 @@ data:
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
   - cp_library/alg/tree/csr/hld_commutative_cls.py
   - cp_library/alg/tree/csr/hld_monoid_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/dsl/dsl_2_a_segtree.test.py

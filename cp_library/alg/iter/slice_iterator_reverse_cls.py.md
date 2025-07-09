@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/dag_cls.py
+    title: cp_library/alg/graph/csr/dag_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/digraph_cls.py
     title: cp_library/alg/graph/csr/digraph_cls.py
@@ -74,12 +77,13 @@ data:
   path: cp_library/alg/iter/slice_iterator_reverse_cls.py
   requiredBy:
   - cp_library/alg/graph/csr/digraph_cls.py
+  - cp_library/alg/graph/csr/dag_cls.py
   - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/scc_labels_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_c_scc.test.py

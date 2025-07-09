@@ -48,8 +48,8 @@ data:
     path: cp_library/perf/examples/rank_benchmark.py
     title: cp_library/perf/examples/rank_benchmark.py
   - icon: ':warning:'
-    path: perf/rank_perf.py
-    title: perf/rank_perf.py
+    path: perf/rank.py
+    title: perf/rank.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
@@ -145,8 +145,8 @@ data:
   - cp_library/ds/wavelet/wm_monoid_points_cls.py
   - cp_library/alg/iter/rank/rank_fn.py
   - cp_library/perf/examples/rank_benchmark.py
-  - perf/rank_perf.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - perf/rank.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/range_kth_smallest_wm_points.test.py

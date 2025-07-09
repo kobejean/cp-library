@@ -9,8 +9,11 @@ data:
     path: cp_library/alg/dp/mo_cls.py
     title: cp_library/alg/dp/mo_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/bit_graph_cls.py
-    title: cp_library/alg/graph/bit_graph_cls.py
+    path: cp_library/alg/graph/bit/bit_graph_cls.py
+    title: cp_library/alg/graph/bit/bit_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/dag_cls.py
+    title: cp_library/alg/graph/csr/dag_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/digraph_cls.py
     title: cp_library/alg/graph/csr/digraph_cls.py
@@ -77,48 +80,33 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
     title: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/edge/edge_cls.py
+    title: cp_library/alg/graph/edge/edge_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/dag_cls.py
-    title: cp_library/alg/graph/dag_cls.py
+    path: cp_library/alg/graph/edge/edge_list_cls.py
+    title: cp_library/alg/graph/edge/edge_list_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_cls.py
-    title: cp_library/alg/graph/edge_cls.py
+    path: cp_library/alg/graph/edge/edge_list_weighted_cls.py
+    title: cp_library/alg/graph/edge/edge_list_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_cls.py
-    title: cp_library/alg/graph/edge_list_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_weighted_cls.py
-    title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_weighted_cls.py
-    title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edmonds_fn.py
-    title: cp_library/alg/graph/edmonds_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/func_graph_cls.py
-    title: cp_library/alg/graph/func_graph_cls.py
+    path: cp_library/alg/graph/func/func_graph_cls.py
+    title: cp_library/alg/graph/func/func_graph_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/graph_proto.py
-    title: cp_library/alg/graph/graph_proto.py
+    path: cp_library/alg/graph/func/mut_perm_graph_cls.py
+    title: cp_library/alg/graph/func/mut_perm_graph_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/graph_set_cls.py
-    title: cp_library/alg/graph/graph_set_cls.py
+    path: cp_library/alg/graph/func/partial_func_graph_cls.py
+    title: cp_library/alg/graph/func/partial_func_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/kruskal_heap_fn.py
-    title: cp_library/alg/graph/kruskal_heap_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/kruskal_sort_fn.py
-    title: cp_library/alg/graph/kruskal_sort_fn.py
+    path: cp_library/alg/graph/func/perm_graph_cls.py
+    title: cp_library/alg/graph/func/perm_graph_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/mut_perm_graph_cls.py
-    title: cp_library/alg/graph/mut_perm_graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/partial_func_graph_cls.py
-    title: cp_library/alg/graph/partial_func_graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/perm_graph_cls.py
-    title: cp_library/alg/graph/perm_graph_cls.py
+    path: cp_library/alg/graph/set/graph_proto.py
+    title: cp_library/alg/graph/set/graph_proto.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/set/graph_set_cls.py
+    title: cp_library/alg/graph/set/graph_set_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/csr/aux_tree_base_cls.py
     title: cp_library/alg/tree/csr/aux_tree_base_cls.py
@@ -231,6 +219,9 @@ data:
     path: cp_library/math/linalg/vec/vec_cls.py
     title: cp_library/math/linalg/vec/vec_cls.py
   - icon: ':warning:'
+    path: perf/edge_list.py
+    title: perf/edge_list.py
+  - icon: ':warning:'
     path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
     title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   _extendedVerifiedWith:
@@ -250,17 +241,14 @@ data:
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+    title: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
     title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+    path: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+    title: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_c_scc.test.py
     title: test/aoj/grl/grl_2_c_scc.test.py
@@ -490,6 +478,9 @@ data:
     path: test/library-checker/graph/cycle_detection_undirected.test.py
     title: test/library-checker/graph/cycle_detection_undirected.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/directedmst_edge_list.test.py
+    title: test/library-checker/graph/directedmst_edge_list.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - icon: ':heavy_check_mark:'
@@ -674,13 +665,15 @@ data:
   - cp_library/alg/tree/csr/hld_monoid_cls.py
   - cp_library/alg/dp/dp2d_cls.py
   - cp_library/alg/dp/mo_cls.py
-  - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/edmonds_fn.py
+  - cp_library/alg/graph/edge/edge_list_weighted_cls.py
+  - cp_library/alg/graph/edge/edge_cls.py
+  - cp_library/alg/graph/edge/edge_list_cls.py
   - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - cp_library/alg/graph/csr/digraph_weighted_cls.py
   - cp_library/alg/graph/csr/digraph_cls.py
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/dag_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
   - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
@@ -698,19 +691,13 @@ data:
   - cp_library/alg/graph/csr/graph_cls.py
   - cp_library/alg/graph/csr/edge_list_cls.py
   - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
-  - cp_library/alg/graph/perm_graph_cls.py
-  - cp_library/alg/graph/kruskal_heap_fn.py
-  - cp_library/alg/graph/edge_list_weighted_cls.py
-  - cp_library/alg/graph/partial_func_graph_cls.py
-  - cp_library/alg/graph/dag_cls.py
-  - cp_library/alg/graph/bit_graph_cls.py
-  - cp_library/alg/graph/graph_proto.py
-  - cp_library/alg/graph/kruskal_sort_fn.py
-  - cp_library/alg/graph/graph_set_cls.py
-  - cp_library/alg/graph/func_graph_cls.py
-  - cp_library/alg/graph/mut_perm_graph_cls.py
-  - cp_library/alg/graph/edge_cls.py
-  - cp_library/alg/graph/edge_list_cls.py
+  - cp_library/alg/graph/set/graph_proto.py
+  - cp_library/alg/graph/set/graph_set_cls.py
+  - cp_library/alg/graph/func/perm_graph_cls.py
+  - cp_library/alg/graph/func/partial_func_graph_cls.py
+  - cp_library/alg/graph/func/func_graph_cls.py
+  - cp_library/alg/graph/func/mut_perm_graph_cls.py
+  - cp_library/alg/graph/bit/bit_graph_cls.py
   - cp_library/io/write_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/bye_fn.py
@@ -723,7 +710,8 @@ data:
   - cp_library/math/linalg/vec/vec3d_cls.py
   - cp_library/math/linalg/mat/mod/mat_cls.py
   - cp_library/math/linalg/mat/mat_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - perf/edge_list.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -734,18 +722,17 @@ data:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/aoj/grl/grl_2_c_scc.test.py
   - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
-  - test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   - test/aoj/grl/grl_5_a_fast_diameter.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -788,6 +775,7 @@ data:
   - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/cycle_detection.test.py
+  - test/library-checker/graph/directedmst_edge_list.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
   - test/library-checker/polynomial/log_of_formal_power_series.test.py

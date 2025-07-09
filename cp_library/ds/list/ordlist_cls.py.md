@@ -99,11 +99,12 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass ordlist(list[int], Parsable):\n\
-    \    def __init__(lst, S: str, base = 'a'):\n        base = ord(base)\n      \
-    \  super().__init__([ord(c)-base for c in S])\n\n    @classmethod\n    def compile(cls,\
-    \ base = 'a'):\n        def parse(ts: TokenStream):\n            return cls(next(ts),\
-    \ base)\n        return parse\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ ordlist(list[int], Parsable):\n    def __init__(lst, S: str, base = 'a'):\n\
+    \        base = ord(base)\n        super().__init__([ord(c)-base for c in S])\n\
+    \n    @classmethod\n    def compile(cls, base = 'a'):\n        def parse(ts: TokenStream):\n\
+    \            return cls(next(ts), base)\n        return parse\n"
   code: "import cp_library.ds.list.__header__\nfrom cp_library.io.parser_cls import\
     \ Parsable, TokenStream\n\nclass ordlist(list[int], Parsable):\n    def __init__(lst,\
     \ S: str, base = 'a'):\n        base = ord(base)\n        super().__init__([ord(c)-base\
@@ -116,7 +117,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/list/ordlist_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/list/ordlist_cls.py

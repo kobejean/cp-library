@@ -67,58 +67,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/dp/sort2_fn.py
       title: cp_library/alg/dp/sort2_fn.py
-  - name: cp_library/alg/graph
+  - name: cp_library/alg/graph/bit
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/bit_graph_cls.py
-      title: cp_library/alg/graph/bit_graph_cls.py
-    - icon: ':warning:'
-      path: cp_library/alg/graph/dag_cls.py
-      title: cp_library/alg/graph/dag_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/dfs_options_cls.py
-      title: cp_library/alg/graph/dfs_options_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/edge_cls.py
-      title: cp_library/alg/graph/edge_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/edge_list_cls.py
-      title: cp_library/alg/graph/edge_list_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/edge_list_weighted_cls.py
-      title: cp_library/alg/graph/edge_list_weighted_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/edge_weighted_cls.py
-      title: cp_library/alg/graph/edge_weighted_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/edmonds_fn.py
-      title: cp_library/alg/graph/edmonds_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/func_graph_cls.py
-      title: cp_library/alg/graph/func_graph_cls.py
-    - icon: ':warning:'
-      path: cp_library/alg/graph/graph_proto.py
-      title: cp_library/alg/graph/graph_proto.py
-    - icon: ':warning:'
-      path: cp_library/alg/graph/graph_set_cls.py
-      title: cp_library/alg/graph/graph_set_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/kruskal_heap_fn.py
-      title: cp_library/alg/graph/kruskal_heap_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/kruskal_sort_fn.py
-      title: cp_library/alg/graph/kruskal_sort_fn.py
-    - icon: ':warning:'
-      path: cp_library/alg/graph/mut_perm_graph_cls.py
-      title: cp_library/alg/graph/mut_perm_graph_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/partial_func_graph_cls.py
-      title: cp_library/alg/graph/partial_func_graph_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/alg/graph/perm_graph_cls.py
-      title: cp_library/alg/graph/perm_graph_cls.py
+      path: cp_library/alg/graph/bit/bit_graph_cls.py
+      title: cp_library/alg/graph/bit/bit_graph_cls.py
   - name: cp_library/alg/graph/csr
     pages:
+    - icon: ':warning:'
+      path: cp_library/alg/graph/csr/dag_cls.py
+      title: cp_library/alg/graph/csr/dag_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/csr/digraph_cls.py
       title: cp_library/alg/graph/csr/digraph_cls.py
@@ -190,6 +148,44 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
       title: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
+  - name: cp_library/alg/graph
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/dfs_options_cls.py
+      title: cp_library/alg/graph/dfs_options_cls.py
+  - name: cp_library/alg/graph/edge
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/edge/edge_cls.py
+      title: cp_library/alg/graph/edge/edge_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/edge/edge_list_cls.py
+      title: cp_library/alg/graph/edge/edge_list_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/edge/edge_list_weighted_cls.py
+      title: cp_library/alg/graph/edge/edge_list_weighted_cls.py
+  - name: cp_library/alg/graph/func
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/func/func_graph_cls.py
+      title: cp_library/alg/graph/func/func_graph_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/func/mut_perm_graph_cls.py
+      title: cp_library/alg/graph/func/mut_perm_graph_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/func/partial_func_graph_cls.py
+      title: cp_library/alg/graph/func/partial_func_graph_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/func/perm_graph_cls.py
+      title: cp_library/alg/graph/func/perm_graph_cls.py
+  - name: cp_library/alg/graph/set
+    pages:
+    - icon: ':warning:'
+      path: cp_library/alg/graph/set/graph_proto.py
+      title: cp_library/alg/graph/set/graph_proto.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/set/graph_set_cls.py
+      title: cp_library/alg/graph/set/graph_set_cls.py
   - name: cp_library/alg/iter/arg
     pages:
     - icon: ':warning:'
@@ -281,7 +277,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/sort/sort_groups_fn.py
       title: cp_library/alg/iter/sort/sort_groups_fn.py
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/sort/sort_parallel_fn.py
       title: cp_library/alg/iter/sort/sort_parallel_fn.py
   - name: cp_library/alg/tree
@@ -599,8 +595,8 @@ data:
       path: cp_library/ds/heap/skew_heap_cls.py
       title: cp_library/ds/heap/skew_heap_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/heap/skew_heap_forest_cls.py
-      title: cp_library/ds/heap/skew_heap_forest_cls.py
+      path: cp_library/ds/heap/skew_heap_forrest_cls.py
+      title: cp_library/ds/heap/skew_heap_forrest_cls.py
   - name: cp_library/ds/list
     pages:
     - icon: ':heavy_check_mark:'
@@ -1137,20 +1133,11 @@ data:
   - name: cp_library/perf
     pages:
     - icon: ':warning:'
-      path: cp_library/perf/analysis.py
-      title: cp_library/perf/analysis.py
-    - icon: ':warning:'
       path: cp_library/perf/benchmark.py
       title: cp_library/perf/benchmark.py
     - icon: ':warning:'
-      path: cp_library/perf/generators.py
-      title: cp_library/perf/generators.py
-    - icon: ':warning:'
-      path: cp_library/perf/plotters.py
-      title: cp_library/perf/plotters.py
-    - icon: ':warning:'
-      path: cp_library/perf/simple_plots.py
-      title: cp_library/perf/simple_plots.py
+      path: cp_library/perf/plots.py
+      title: cp_library/perf/plots.py
   - name: cp_library/perf/examples
     pages:
     - icon: ':warning:'
@@ -1170,11 +1157,14 @@ data:
   - name: perf
     pages:
     - icon: ':warning:'
-      path: perf/bool_list_benchmark.py
-      title: perf/bool_list_benchmark.py
+      path: perf/bool_list.py
+      title: perf/bool_list.py
     - icon: ':warning:'
-      path: perf/rank_perf.py
-      title: perf/rank_perf.py
+      path: perf/edge_list.py
+      title: perf/edge_list.py
+    - icon: ':warning:'
+      path: perf/rank.py
+      title: perf/rank.py
   - name: .
     pages:
     - icon: ':warning:'
@@ -1209,17 +1199,14 @@ data:
       path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
       title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     - icon: ':heavy_check_mark:'
+      path: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+      title: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+    - icon: ':heavy_check_mark:'
       path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
       title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
     - icon: ':heavy_check_mark:'
-      path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-      title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-      title: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-    - icon: ':heavy_check_mark:'
-      path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-      title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+      path: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+      title: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
     - icon: ':heavy_check_mark:'
       path: test/aoj/grl/grl_2_c_scc.test.py
       title: test/aoj/grl/grl_2_c_scc.test.py
@@ -1569,8 +1556,8 @@ data:
       path: test/library-checker/graph/directedmst.test.py
       title: test/library-checker/graph/directedmst.test.py
     - icon: ':heavy_check_mark:'
-      path: test/library-checker/graph/directedmst_skew_heap_forest.test.py
-      title: test/library-checker/graph/directedmst_skew_heap_forest.test.py
+      path: test/library-checker/graph/directedmst_edge_list.test.py
+      title: test/library-checker/graph/directedmst_edge_list.test.py
     - icon: ':heavy_check_mark:'
       path: test/library-checker/graph/incremental_scc.test.py
       title: test/library-checker/graph/incremental_scc.test.py

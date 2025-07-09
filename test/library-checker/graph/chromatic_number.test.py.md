@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/bit_graph_cls.py
-    title: cp_library/alg/graph/bit_graph_cls.py
+    path: cp_library/alg/graph/bit/bit_graph_cls.py
+    title: cp_library/alg/graph/bit/bit_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_cls.py
-    title: cp_library/alg/graph/edge_cls.py
+    path: cp_library/alg/graph/edge/edge_cls.py
+    title: cp_library/alg/graph/edge/edge_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/ctz32_fn.py
     title: cp_library/bit/ctz32_fn.py
@@ -42,21 +42,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
-    \ typing import Union\n\n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555)\
-    \ + (x & 0x55555555)\n    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n  \
-    \  x = ((x >> 4)  & 0x0f0f0f0f) + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff)\
-    \ + (x & 0x00ff00ff)\n    x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n  \
-    \  return x\nif hasattr(int, 'bit_count'):\n    popcnt32 = int.bit_count\n\ndef\
-    \ ctz32(x): return popcnt32(~x&(x-1))\n\nimport typing\nfrom collections import\
-    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
-    \ import Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io\
-    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ typing import Union\n\nimport typing\nfrom collections import deque\nfrom numbers\
+    \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -127,56 +122,62 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass Edge(tuple, Parsable):\n\
-    \    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n\
-    \            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n  \
-    \      return parse\n\nclass BitGraph(list, Parsable):\n    def __init__(G, N:\
-    \ int, E: list[Edge]=[]):\n        super().__init__([0]*N)\n        G.E, G.N,\
-    \ G.M = E, N, len(E)\n        for u,v in E:\n            G[u] |= 1 << v\n    \
-    \        G[v] |= 1 << u\n\n    def to_complement(G):\n        full = (1 << G.N)\
-    \ - 1\n        for u in range(G.N):\n            G[u] = full ^ G[u]\n\n    def\
-    \ chromatic_number(G):\n        Z = 1 << (N := len(G))\n        I, coef = [0]*Z,\
-    \ [1]*Z\n        I[0] = 1\n        for S in range(1, Z):\n            T = 1 <<\
-    \ (v := ctz32(S)) ^ S\n            I[S] = I[T] + I[T & ~G[v]]\n            coef[S]\
-    \ = -1 if popcnt32(S) & 1 else 1\n        for k in range(1, N):\n            Pk\
-    \ = 0\n            for S in range(Z):\n                coef[S] *= I[S]\n     \
-    \           Pk += coef[S]\n            if Pk != 0: return k\n        return N\n\
-    \n    @classmethod\n    def compile(cls, N: int, M: int, E: Union[type,int] =\
-    \ Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n        edge = Parser.compile(E)\n\
-    \        def parse(ts: TokenStream):\n            return cls(N, [edge(ts) for\
-    \ _ in range(M)])\n        return parse\n\n    \n\nfrom typing import Type, Union,\
-    \ overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False)\
-    \ -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]:\
-    \ ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef\
-    \ read(*specs: Union[Type[_T],_U], char=False):\n    if not char and not specs:\
-    \ return [int(s) for s in TokenStream.default.line()]\n    parser: _T = Parser.compile(specs[0]\
-    \ if len(specs) == 1 else specs)\n    return parser(CharStream.default if char\
-    \ else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints the\
-    \ values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\n\
+    \nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n\
+    \        def parse(ts: TokenStream):\n            u,v = ts.line()\n          \
+    \  return cls((int(u)+I,int(v)+I))\n        return parse\n\nclass BitGraph(list,\
+    \ Parsable):\n    def __init__(G, N: int, E: list['Edge']=[]):\n        super().__init__([0]*N)\n\
+    \        G.E, G.N, G.M = E, N, len(E)\n        for u,v in E:\n            G[u]\
+    \ |= 1 << v\n            G[v] |= 1 << u\n\n    def to_complement(G):\n       \
+    \ full = (1 << G.N) - 1\n        for u in range(G.N):\n            G[u] = full\
+    \ ^ G[u]\n\n    def chromatic_number(G):\n        Z = 1 << (N := len(G))\n   \
+    \     I, coef = [0]*Z, [1]*Z\n        I[0] = 1\n        for S in range(1, Z):\n\
+    \            T = 1 << (v := ctz32(S)) ^ S\n            I[S] = I[T] + I[T & ~G[v]]\n\
+    \            coef[S] = -1 if popcnt32(S) & 1 else 1\n        for k in range(1,\
+    \ N):\n            Pk = 0\n            for S in range(Z):\n                coef[S]\
+    \ *= I[S]\n                Pk += coef[S]\n            if Pk != 0: return k\n \
+    \       return N\n\n    @classmethod\n    def compile(cls, N: int, M: int, E:\
+    \ Union[type,int] = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n \
+    \       edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\n\n\
+    def popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n    x =\
+    \ ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
+    \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
+    \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
+    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\ndef ctz32(x): return popcnt32(~x&(x-1))\n\
+    \nfrom typing import Type, Union, overload\n\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
+    def read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T],\
+    \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
+    \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n\
+    \    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/chromatic_number\n\
     \ndef main():\n    N, M = read()\n    G = read(BitGraph[N,M,0])\n    write(G.chromatic_number())\n\
-    \nfrom cp_library.alg.graph.bit_graph_cls import BitGraph\nfrom cp_library.io.read_fn\
+    \nfrom cp_library.alg.graph.bit.bit_graph_cls import BitGraph\nfrom cp_library.io.read_fn\
     \ import read\nfrom cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n\
     \    main()\n"
   dependsOn:
-  - cp_library/alg/graph/bit_graph_cls.py
+  - cp_library/alg/graph/bit/bit_graph_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
+  - cp_library/io/parser_cls.py
+  - cp_library/alg/graph/edge/edge_cls.py
   - cp_library/bit/popcnt32_fn.py
   - cp_library/bit/ctz32_fn.py
-  - cp_library/alg/graph/edge_cls.py
-  - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: true
   path: test/library-checker/graph/chromatic_number.test.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/chromatic_number.test.py

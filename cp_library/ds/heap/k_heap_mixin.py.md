@@ -115,27 +115,29 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\nfrom typing import Generic\n\
-    \nclass HeapProtocol(Generic[_T]):\n    def peek(heap) -> _T: return heap.data[0]\n\
-    \    def pop(heap) -> _T: ...\n    def push(heap, item: _T): ...\n    def pushpop(heap,\
-    \ item: _T) -> _T: ...\n    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap,\
-    \ item: _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
-    \    def clear(heap): heap.data.clear()\n\nclass KHeapMixin(HeapProtocol[_T],\
-    \ Parsable):\n    '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''\n    def\
-    \ __init__(heap, K: int): heap.K = K\n    def added(heap, item: _T): ...\n   \
-    \ def removed(heap, item: _T): ...\n    def pop(heap): item = super().pop(); heap.removed(item);\
-    \ return item\n    def push(heap, item: _T):\n        if len(heap) < heap._K:\
-    \ heap.added(item); super().push(item)\n        elif heap._K: heap.pushpop(item)\n\
-    \    def pushpop(heap, item: _T):\n        if item != (remove := super().pushpop(item)):\
-    \ heap.removed(remove); heap.added(item); return remove\n        else: return\
-    \ item\n    def replace(heap, item: _T): remove = super().replace(item); heap.removed(remove);\
-    \ heap.added(item); return remove\n    @property\n    def K(heap): return heap._K\n\
-    \    @K.setter\n    def K(heap, K):\n        heap._K = K\n        if K is not\
-    \ None:\n            while len(heap) > K: heap.pop()\n    @classmethod\n    def\
-    \ compile(cls, K: int, T: type, N: Union[int,None] = None):\n        elm = Parser.compile(T)\n\
-    \        if N is None:\n            def parse(ts: TokenStream): return cls(K,\
-    \ (elm(ts) for _ in ts.wait()))\n        else:\n            def parse(ts: TokenStream):\
-    \ return cls(K, (elm(ts) for _ in range(N)))\n        return parse\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\
+    from typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n    def peek(heap)\
+    \ -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n    def push(heap,\
+    \ item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n    def replace(heap,\
+    \ item: _T) -> _T: ...\n    def __contains__(heap, item: _T): return item in heap.data\n\
+    \    def __len__(heap): return len(heap.data)\n    def clear(heap): heap.data.clear()\n\
+    \nclass KHeapMixin(HeapProtocol[_T], Parsable):\n    '''KHeapMixin[K: int, T:\
+    \ type, N: Union[int,None]]'''\n    def __init__(heap, K: int): heap.K = K\n \
+    \   def added(heap, item: _T): ...\n    def removed(heap, item: _T): ...\n   \
+    \ def pop(heap): item = super().pop(); heap.removed(item); return item\n    def\
+    \ push(heap, item: _T):\n        if len(heap) < heap._K: heap.added(item); super().push(item)\n\
+    \        elif heap._K: heap.pushpop(item)\n    def pushpop(heap, item: _T):\n\
+    \        if item != (remove := super().pushpop(item)): heap.removed(remove); heap.added(item);\
+    \ return remove\n        else: return item\n    def replace(heap, item: _T): remove\
+    \ = super().replace(item); heap.removed(remove); heap.added(item); return remove\n\
+    \    @property\n    def K(heap): return heap._K\n    @K.setter\n    def K(heap,\
+    \ K):\n        heap._K = K\n        if K is not None:\n            while len(heap)\
+    \ > K: heap.pop()\n    @classmethod\n    def compile(cls, K: int, T: type, N:\
+    \ Union[int,None] = None):\n        elm = Parser.compile(T)\n        if N is None:\n\
+    \            def parse(ts: TokenStream): return cls(K, (elm(ts) for _ in ts.wait()))\n\
+    \        else:\n            def parse(ts: TokenStream): return cls(K, (elm(ts)\
+    \ for _ in range(N)))\n        return parse\n"
   code: "import cp_library.__header__\nfrom typing import Union\nfrom cp_library.io.parser_cls\
     \ import Parser, Parsable, TokenStream\nfrom cp_library.misc.typing import _T\n\
     import cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\nfrom cp_library.ds.heap.heap_proto\
@@ -164,7 +166,7 @@ data:
   requiredBy:
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_k_heap_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_max_k_heap.test.py

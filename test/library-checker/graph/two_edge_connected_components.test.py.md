@@ -150,38 +150,39 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\ndef chmin(dp, i, v):\n    if\
-    \ ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom enum import auto, IntFlag, IntEnum\n\
-    \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
-    \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
-    \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
-    \ = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES\
-    \ = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n\
-    \    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
-    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
-    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
-    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G, N: int, M:\
-    \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
-    \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int],\
-    \ twin: list[int] = None):\n        G.N = N\n        '''The number of vertices.'''\n\
-    \        G.M = M\n        '''The number of edges.'''\n        G.U = U\n      \
-    \  '''A list of source vertices in the original edge list.'''\n        G.V = V\n\
-    \        '''A list of destination vertices in the original edge list.'''\n   \
-    \     G.deg = deg\n        '''deg[u] is the out degree of vertex u.'''\n     \
-    \   G.La = La\n        '''La[u] stores the start index of the list of adjacent\
-    \ vertices from u.'''\n        G.Ra = Ra\n        '''Ra[u] stores the stop index\
-    \ of the list of adjacent vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i]\
-    \ = u for La[u] <= i < Ra[u], useful for backtracking.'''\n        G.Va = Va\n\
-    \        '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''\n  \
-    \      G.Ea = Ea\n        '''Ea[i] lists the edge ids that start from u for La[u]\
-    \ <= i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
-    \ edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin if twin is\
-    \ not None else range(len(Ua))\n        '''twin[i] in undirected graphs stores\
-    \ index j of the same edge but with u and v swapped.'''\n        G.st: list[int]\
-    \ = None\n        G.order: list[int] = None\n        G.vis: list[int] = None\n\
-    \        G.back: list[int] = None\n        G.tin: list[int] = None\n    \n   \
-    \ def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\
+    def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\nfrom enum import\
+    \ auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n   \
+    \ DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n \
+    \   UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
+    \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
+    \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
+    \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
+    \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
+    \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Parsable):\n\
+    \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
+    \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
+    \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
+    \      '''The number of vertices.'''\n        G.M = M\n        '''The number of\
+    \ edges.'''\n        G.U = U\n        '''A list of source vertices in the original\
+    \ edge list.'''\n        G.V = V\n        '''A list of destination vertices in\
+    \ the original edge list.'''\n        G.deg = deg\n        '''deg[u] is the out\
+    \ degree of vertex u.'''\n        G.La = La\n        '''La[u] stores the start\
+    \ index of the list of adjacent vertices from u.'''\n        G.Ra = Ra\n     \
+    \   '''Ra[u] stores the stop index of the list of adjacent vertices from u.'''\n\
+    \        G.Ua = Ua\n        '''Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.'''\n\
+    \        G.Va = Va\n        '''Va[i] lists adjacent vertices to u for La[u] <=\
+    \ i < Ra[u].'''\n        G.Ea = Ea\n        '''Ea[i] lists the edge ids that start\
+    \ from u for La[u] <= i < Ra[u].\n        For undirected graphs, edge ids in range\
+    \ M<= e <2*M are edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin\
+    \ if twin is not None else range(len(Ua))\n        '''twin[i] in undirected graphs\
+    \ stores index j of the same edge but with u and v swapped.'''\n        G.st:\
+    \ list[int] = None\n        G.order: list[int] = None\n        G.vis: list[int]\
+    \ = None\n        G.back: list[int] = None\n        G.tin: list[int] = None\n\
+    \    \n    def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
     \        if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def\
     \ prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n\
     \        return G.st\n    \n    def prep_order(G):\n        if G.order is None:\
@@ -281,66 +282,66 @@ data:
     \                if back[v := G.Va[i]] >= -1: continue\n                    back[v]\
     \ = i; order.append(ENTER | v); st.append(v)\n                else:\n        \
     \            order.append(LEAVE | u); st.pop()\n        return plst\n    \n  \
-    \  def starts(G, s: Union[int,list[int],None]) -> list[int]:\n        if isinstance(s,\
-    \ int): return [s]\n        elif s is None: return range(G.N)\n        elif isinstance(s,\
-    \ list): return s\n        else: return list(s)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
-    \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
-    \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
-    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
-    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
-    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
-    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass Graph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M, Ma, deg\
-    \ = len(U), 0, u32f(N)\n        for e in range(M := len(U)):\n            distinct\
-    \ = (u := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v] += distinct; Ma\
-    \ += 1+distinct\n        twin, Ea, Ua, Va, La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma),\
-    \ u32f(Ma), u32f(N), u32f(N), 0\n        for u in range(N): La[u] = Ra[u] = i;\
-    \ i = i+deg[u]\n        for e in range(M):\n            i, j = Ra[u := U[e]],\
-    \ Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v,\
-    \ e, j\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j],\
-    \ twin[j] = j+1, v, u, e, i\n        super().__init__(N, M, U, V, deg, La, Ra,\
-    \ Ua, Va, Ea, twin)\nfrom typing import Iterable, Union\nfrom typing import Iterator,\
-    \ SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n    def __init__(self,\
-    \ A: list[_T], L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L,\
-    \ len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
-    \        L = self.L\n        if not L: raise StopIteration\n        self.r, r\
-    \ = (l := L.pop()), self.r\n        return self.A[l:r]\n\n\ndef two_edge_connected_components(G:\
-    \ GraphBase, s: Union[int,list,None] = None) -> Iterable[list[int]]:\n    '''\n\
-    \    Returns an iterator of vertex lists, each representing a two-edge-connected\
-    \ component.\n    '''\n    low, st, e2ccs, L = [N := G.N]*N, elist(G.M), elist(G.M),\
-    \ elist(G.M)\n\n    def enter(u):\n        st.append(u)\n        low[u] = G.tin[u]\n\
-    \n    def back(u,v,i):\n        chmin(low, u, G.tin[v])\n\n    def up(u,p,i):\n\
-    \        chmin(low, p, low[u])\n        if low[u] > G.tin[p]:\n            # add\
-    \ new two-edge-connected component\n            L.append(len(e2ccs))\n       \
-    \     v = -1\n            while v != u:\n                e2ccs.append(v := st.pop())\n\
-    \n    def leave(u):\n        if G.back[u] < 0:\n            # add new two-edge-connected\
-    \ component\n            L.append(len(e2ccs))\n            e2ccs.extend(st)\n\
-    \            st.clear()\n\n    G.dfs(s, enter_fn=enter, back_fn=back, up_fn=up,\
-    \ leave_fn=leave)\n    return SliceIteratorReverse(e2ccs, L)\n\n\nfrom typing\
-    \ import Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U,\
-    \ char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False) ->\
-    \ tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U,\
-    \ ...]: ...\ndef read(*specs: Union[Type[_T],_U], char=False):\n    if not char\
-    \ and not specs: return [int(s) for s in TokenStream.default.line()]\n    parser:\
-    \ _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(CharStream.default\
-    \ if char else TokenStream.default)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n    at_start = True\n \
-    \   for x in args:\n        if not at_start:\n            file.write(sep)\n  \
-    \      file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \  def starts(G, s: Union[int,list[int],None] = None) -> list[int]:\n        if\
+    \ isinstance(s, int): return [s]\n        elif s is None: return range(G.N)\n\
+    \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
+    \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
+    \        for i in range(M):\n                u, v = ts._line()\n             \
+    \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
+    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\n\nfrom\
+    \ array import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n  \
+    \  def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n\nclass Graph(GraphBase):\n    def __init__(G, N: int, U: list[int],\
+    \ V: list[int]):\n        M, Ma, deg = len(U), 0, u32f(N)\n        for e in range(M\
+    \ := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n           \
+    \ deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea, Ua, Va,\
+    \ La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma), u32f(Ma), u32f(N), u32f(N), 0\n  \
+    \      for u in range(N): La[u] = Ra[u] = i; i = i+deg[u]\n        for e in range(M):\n\
+    \            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i],\
+    \ Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n        \
+    \    Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\nfrom typing import Iterable, Union\n\
+    from typing import Iterator, SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
+    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
+    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n\n\n\
+    def two_edge_connected_components(G: GraphBase, s: Union[int,list,None] = None)\
+    \ -> Iterable[list[int]]:\n    '''\n    Returns an iterator of vertex lists, each\
+    \ representing a two-edge-connected component.\n    '''\n    low, st, e2ccs, L\
+    \ = [N := G.N]*N, elist(G.M), elist(G.M), elist(G.M)\n\n    def enter(u):\n  \
+    \      st.append(u)\n        low[u] = G.tin[u]\n\n    def back(u,v,i):\n     \
+    \   chmin(low, u, G.tin[v])\n\n    def up(u,p,i):\n        chmin(low, p, low[u])\n\
+    \        if low[u] > G.tin[p]:\n            # add new two-edge-connected component\n\
+    \            L.append(len(e2ccs))\n            v = -1\n            while v !=\
+    \ u:\n                e2ccs.append(v := st.pop())\n\n    def leave(u):\n     \
+    \   if G.back[u] < 0:\n            # add new two-edge-connected component\n  \
+    \          L.append(len(e2ccs))\n            e2ccs.extend(st)\n            st.clear()\n\
+    \n    G.dfs(s, enter_fn=enter, back_fn=back, up_fn=up, leave_fn=leave)\n    return\
+    \ SliceIteratorReverse(e2ccs, L)\n\n\nfrom typing import Type, Union, overload\n\
+    \n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
+    \ char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n\
+    @overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\n\
+    def read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
+    \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
+    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
+    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
+    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/two_edge_connected_components\n\
     \ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n    e2ccs = two_edge_connected_components(G)\n\
     \    write(len(e2ccs))\n    for e2cc in e2ccs:\n        write(len(e2cc), *e2cc)\n\
@@ -368,7 +369,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/two_edge_connected_components.test.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/two_edge_connected_components.test.py

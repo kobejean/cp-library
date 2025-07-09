@@ -166,8 +166,9 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\ndef chmin(dp, i, v):\n    if\
-    \ ch:=dp[i]>v:dp[i]=v\n    return ch\n\nclass GraphBase(Sequence, Parsable):\n\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\
+    def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\nclass GraphBase(Parsable):\n\
     \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
     \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
     \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
@@ -287,54 +288,54 @@ data:
     \                if back[v := G.Va[i]] >= -1: continue\n                    back[v]\
     \ = i; order.append(ENTER | v); st.append(v)\n                else:\n        \
     \            order.append(LEAVE | u); st.pop()\n        return plst\n    \n  \
-    \  def starts(G, s: Union[int,list[int],None]) -> list[int]:\n        if isinstance(s,\
-    \ int): return [s]\n        elif s is None: return range(G.N)\n        elif isinstance(s,\
-    \ list): return s\n        else: return list(s)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
-    \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
-    \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
-    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
-    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
-    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
-    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\nclass Graph(GraphBase):\n\
-    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        M, Ma, deg\
-    \ = len(U), 0, u32f(N)\n        for e in range(M := len(U)):\n            distinct\
-    \ = (u := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v] += distinct; Ma\
-    \ += 1+distinct\n        twin, Ea, Ua, Va, La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma),\
-    \ u32f(Ma), u32f(N), u32f(N), 0\n        for u in range(N): La[u] = Ra[u] = i;\
-    \ i = i+deg[u]\n        for e in range(M):\n            i, j = Ra[u := U[e]],\
-    \ Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i], Ea[i], twin[i] = i+1, u, v,\
-    \ e, j\n            if i == j: continue\n            Ra[v], Ua[j], Va[j], Ea[j],\
-    \ twin[j] = j+1, v, u, e, i\n        super().__init__(N, M, U, V, deg, La, Ra,\
-    \ Ua, Va, Ea, twin)\nfrom typing import Callable, Literal, Union, overload\n\n\
-    class TreeBase(GraphBase):\n    @overload\n    def distance(T) -> list[list[int]]:\
-    \ ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]: ...\n    @overload\n\
-    \    def distance(T, s: int, g: int) -> int: ...\n    def distance(T, s = None,\
-    \ g = None):\n        if s == None:\n            return [T.dfs_distance(u) for\
-    \ u in range(T.N)]\n        else:\n            return T.dfs_distance(s, g)\n\n\
-    \    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def diameter(T,\
-    \ endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T, endpoints\
-    \ = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n        s\
-    \ = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n        dg\
-    \ = max(d << shift | v for v,d in enumerate(T.distance(s))) \n        diam, g\
-    \ = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints else diam\n\
-    \    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n        st,\
-    \ Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = [inf]*N, i32f(N,\
-    \ -1)\n        D[s] = 0\n        st.append(s)\n        while st:\n           \
-    \ nd = D[u := st.pop()]+1\n            if u == g: return nd-1\n            for\
-    \ i in T.range(u):\n                if nd < D[v := Va[i]]:\n                 \
-    \   D[v], back[v] = nd, i\n                    st.append(v)\n        return D\
-    \ if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n                 \
-    \    merge: Callable[[_T,_T],_T], \n                     edge_op: Callable[[_T,int,int,int],_T]\
+    \  def starts(G, s: Union[int,list[int],None] = None) -> list[int]:\n        if\
+    \ isinstance(s, int): return [s]\n        elif s is None: return range(G.N)\n\
+    \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
+    \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
+    \        for i in range(M):\n                u, v = ts._line()\n             \
+    \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
+    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\n\nfrom\
+    \ array import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n  \
+    \  def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n\nclass Graph(GraphBase):\n    def __init__(G, N: int, U: list[int],\
+    \ V: list[int]):\n        M, Ma, deg = len(U), 0, u32f(N)\n        for e in range(M\
+    \ := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n           \
+    \ deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea, Ua, Va,\
+    \ La, Ra, i = i32f(Ma), i32f(Ma), u32f(Ma), u32f(Ma), u32f(N), u32f(N), 0\n  \
+    \      for u in range(N): La[u] = Ra[u] = i; i = i+deg[u]\n        for e in range(M):\n\
+    \            i, j = Ra[u := U[e]], Ra[v := V[e]]\n            Ra[u], Ua[i], Va[i],\
+    \ Ea[i], twin[i] = i+1, u, v, e, j\n            if i == j: continue\n        \
+    \    Ra[v], Ua[j], Va[j], Ea[j], twin[j] = j+1, v, u, e, i\n        super().__init__(N,\
+    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\nfrom typing import Callable, Literal,\
+    \ Union, overload\n\nclass TreeBase(GraphBase):\n    @overload\n    def distance(T)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(T, s: int = 0) -> list[int]:\
+    \ ...\n    @overload\n    def distance(T, s: int, g: int) -> int: ...\n    def\
+    \ distance(T, s = None, g = None):\n        if s == None:\n            return\
+    \ [T.dfs_distance(u) for u in range(T.N)]\n        else:\n            return T.dfs_distance(s,\
+    \ g)\n\n    @overload\n    def diameter(T) -> int: ...\n    @overload\n    def\
+    \ diameter(T, endpoints: Literal[True]) -> tuple[int,int,int]: ...\n    def diameter(T,\
+    \ endpoints = False):\n        mask = (1 << (shift := T.N.bit_length())) - 1\n\
+    \        s = max(d << shift | v for v,d in enumerate(T.distance(0))) & mask\n\
+    \        dg = max(d << shift | v for v,d in enumerate(T.distance(s))) \n     \
+    \   diam, g = dg >> shift, dg & mask\n        return (diam, s, g) if endpoints\
+    \ else diam\n    \n    def dfs_distance(T, s: int, g: Union[int,None] = None):\n\
+    \        st, Va = elist(N := T.N), T.Va\n        T.D, T.back = D, back = [inf]*N,\
+    \ i32f(N, -1)\n        D[s] = 0\n        st.append(s)\n        while st:\n   \
+    \         nd = D[u := st.pop()]+1\n            if u == g: return nd-1\n      \
+    \      for i in T.range(u):\n                if nd < D[v := Va[i]]:\n        \
+    \            D[v], back[v] = nd, i\n                    st.append(v)\n       \
+    \ return D if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n        \
+    \             merge: Callable[[_T,_T],_T], \n                     edge_op: Callable[[_T,int,int,int],_T]\
     \ = lambda s,i,p,u:s,\n                     s: int = 0):\n        La, Ua, Va =\
     \ T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua),\
     \ T.Ra[:]\n        # up\n        for i in order[::-1]:\n            u,v = Ua[i],\
@@ -406,7 +407,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py

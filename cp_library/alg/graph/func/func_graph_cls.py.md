@@ -20,22 +20,16 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edmonds_fn.py
-    title: cp_library/alg/graph/edmonds_fn.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/mut_perm_graph_cls.py
-    title: cp_library/alg/graph/mut_perm_graph_cls.py
+    path: cp_library/alg/graph/func/mut_perm_graph_cls.py
+    title: cp_library/alg/graph/func/mut_perm_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/func/partial_func_graph_cls.py
+    title: cp_library/alg/graph/func/partial_func_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/partial_func_graph_cls.py
-    title: cp_library/alg/graph/partial_func_graph_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/perm_graph_cls.py
-    title: cp_library/alg/graph/perm_graph_cls.py
+    path: cp_library/alg/graph/func/perm_graph_cls.py
+    title: cp_library/alg/graph/func/perm_graph_cls.py
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc175_d_permutation.test.py
     title: test/atcoder/abc/abc175_d_permutation.test.py
@@ -132,10 +126,11 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass FuncGraph(list[int], Parsable):\n\
-    \    def __init__(F, successors):\n        super().__init__(successors)\n    \
-    \    F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n  \
-    \      slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ FuncGraph(list[int], Parsable):\n    def __init__(F, successors):\n        super().__init__(successors)\n\
+    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n\
+    \        slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
     \ pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow :=\
     \ P[slow])\n        return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n \
     \       vis, cycs, S = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
@@ -190,22 +185,20 @@ data:
   - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
-  path: cp_library/alg/graph/func_graph_cls.py
+  path: cp_library/alg/graph/func/func_graph_cls.py
   requiredBy:
-  - cp_library/alg/graph/edmonds_fn.py
-  - cp_library/alg/graph/perm_graph_cls.py
-  - cp_library/alg/graph/partial_func_graph_cls.py
-  - cp_library/alg/graph/mut_perm_graph_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - cp_library/alg/graph/func/perm_graph_cls.py
+  - cp_library/alg/graph/func/partial_func_graph_cls.py
+  - cp_library/alg/graph/func/mut_perm_graph_cls.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py
-documentation_of: cp_library/alg/graph/func_graph_cls.py
+documentation_of: cp_library/alg/graph/func/func_graph_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/func_graph_cls.py
-- /library/cp_library/alg/graph/func_graph_cls.py.html
-title: cp_library/alg/graph/func_graph_cls.py
+- /library/cp_library/alg/graph/func/func_graph_cls.py
+- /library/cp_library/alg/graph/func/func_graph_cls.py.html
+title: cp_library/alg/graph/func/func_graph_cls.py
 ---

@@ -2,40 +2,22 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/edge/edge_cls.py
+    title: cp_library/alg/graph/edge/edge_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/ctz32_fn.py
+    title: cp_library/bit/ctz32_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/bit/popcnt32_fn.py
+    title: cp_library/bit/popcnt32_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/bit_graph_cls.py
-    title: cp_library/alg/graph/bit_graph_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/dag_cls.py
-    title: cp_library/alg/graph/dag_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_cls.py
-    title: cp_library/alg/graph/edge_list_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_weighted_cls.py
-    title: cp_library/alg/graph/edge_list_weighted_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_weighted_cls.py
-    title: cp_library/alg/graph/edge_weighted_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/graph_set_cls.py
-    title: cp_library/alg/graph/graph_set_cls.py
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/chromatic_number.test.py
     title: test/library-checker/graph/chromatic_number.test.py
@@ -50,15 +32,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    from typing import Union\n\nimport typing\nfrom collections import deque\nfrom\
+    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
+    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -129,37 +112,67 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass Edge(tuple, Parsable):\n\
-    \    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n\
-    \            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n  \
-    \      return parse\n"
-  code: "import cp_library.alg.graph.__header__\nfrom cp_library.io.parser_cls import\
-    \ Parsable, TokenStream\n\nclass Edge(tuple, Parsable):\n    @classmethod\n  \
-    \  def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n            u,v\
-    \ = ts.line()\n            return cls((int(u)+I,int(v)+I))\n        return parse"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\n\
+    \nclass Edge(tuple, Parsable):\n    @classmethod\n    def compile(cls, I=-1):\n\
+    \        def parse(ts: TokenStream):\n            u,v = ts.line()\n          \
+    \  return cls((int(u)+I,int(v)+I))\n        return parse\n\nclass BitGraph(list,\
+    \ Parsable):\n    def __init__(G, N: int, E: list['Edge']=[]):\n        super().__init__([0]*N)\n\
+    \        G.E, G.N, G.M = E, N, len(E)\n        for u,v in E:\n            G[u]\
+    \ |= 1 << v\n            G[v] |= 1 << u\n\n    def to_complement(G):\n       \
+    \ full = (1 << G.N) - 1\n        for u in range(G.N):\n            G[u] = full\
+    \ ^ G[u]\n\n    def chromatic_number(G):\n        Z = 1 << (N := len(G))\n   \
+    \     I, coef = [0]*Z, [1]*Z\n        I[0] = 1\n        for S in range(1, Z):\n\
+    \            T = 1 << (v := ctz32(S)) ^ S\n            I[S] = I[T] + I[T & ~G[v]]\n\
+    \            coef[S] = -1 if popcnt32(S) & 1 else 1\n        for k in range(1,\
+    \ N):\n            Pk = 0\n            for S in range(Z):\n                coef[S]\
+    \ *= I[S]\n                Pk += coef[S]\n            if Pk != 0: return k\n \
+    \       return N\n\n    @classmethod\n    def compile(cls, N: int, M: int, E:\
+    \ Union[type,int] = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n \
+    \       edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(N, [edge(ts) for _ in range(M)])\n        return parse\n\n\n\
+    def popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n    x =\
+    \ ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
+    \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
+    \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
+    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\ndef ctz32(x): return popcnt32(~x&(x-1))\n"
+  code: "import cp_library.__header__\nfrom typing import Union\nfrom cp_library.io.parser_cls\
+    \ import Parsable, Parser, TokenStream\nimport cp_library.alg.__header__\nimport\
+    \ cp_library.alg.graph.__header__\nimport cp_library.alg.graph.bit.__header__\n\
+    from cp_library.alg.graph.edge.edge_cls import Edge\n\nclass BitGraph(list, Parsable):\n\
+    \    def __init__(G, N: int, E: list['Edge']=[]):\n        super().__init__([0]*N)\n\
+    \        G.E, G.N, G.M = E, N, len(E)\n        for u,v in E:\n            G[u]\
+    \ |= 1 << v\n            G[v] |= 1 << u\n\n    def to_complement(G):\n       \
+    \ full = (1 << G.N) - 1\n        for u in range(G.N):\n            G[u] = full\
+    \ ^ G[u]\n\n    def chromatic_number(G):\n        Z = 1 << (N := len(G))\n   \
+    \     I, coef = [0]*Z, [1]*Z\n        I[0] = 1\n        for S in range(1, Z):\n\
+    \            T = 1 << (v := ctz32(S)) ^ S\n            I[S] = I[T] + I[T & ~G[v]]\n\
+    \            coef[S] = -1 if popcnt32(S) & 1 else 1\n        for k in range(1,\
+    \ N):\n            Pk = 0\n            for S in range(Z):\n                coef[S]\
+    \ *= I[S]\n                Pk += coef[S]\n            if Pk != 0: return k\n \
+    \       return N\n\n    @classmethod\n    def compile(cls, N: int, M: int, E:\
+    \ Union[type,int] = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n \
+    \       edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n      \
+    \      return cls(N, [edge(ts) for _ in range(M)])\n        return parse\nfrom\
+    \ cp_library.bit.popcnt32_fn import popcnt32\nfrom cp_library.bit.ctz32_fn import\
+    \ ctz32"
   dependsOn:
   - cp_library/io/parser_cls.py
+  - cp_library/alg/graph/edge/edge_cls.py
+  - cp_library/bit/popcnt32_fn.py
+  - cp_library/bit/ctz32_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
-  path: cp_library/alg/graph/edge_cls.py
-  requiredBy:
-  - cp_library/alg/graph/edge_weighted_cls.py
-  - cp_library/alg/graph/edge_list_weighted_cls.py
-  - cp_library/alg/graph/dag_cls.py
-  - cp_library/alg/graph/bit_graph_cls.py
-  - cp_library/alg/graph/graph_set_cls.py
-  - cp_library/alg/graph/edge_list_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  path: cp_library/alg/graph/bit/bit_graph_cls.py
+  requiredBy: []
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
-  - test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
   - test/library-checker/graph/chromatic_number.test.py
-documentation_of: cp_library/alg/graph/edge_cls.py
+documentation_of: cp_library/alg/graph/bit/bit_graph_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/edge_cls.py
-- /library/cp_library/alg/graph/edge_cls.py.html
-title: cp_library/alg/graph/edge_cls.py
+- /library/cp_library/alg/graph/bit/bit_graph_cls.py
+- /library/cp_library/alg/graph/bit/bit_graph_cls.py.html
+title: cp_library/alg/graph/bit/bit_graph_cls.py
 ---

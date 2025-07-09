@@ -7,11 +7,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack/packer_cls.py
     title: cp_library/bit/pack/packer_cls.py
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/edge/edge_list_weighted_cls.py
+    title: cp_library/alg/graph/edge/edge_list_weighted_cls.py
+  - icon: ':warning:'
+    path: perf/edge_list.py
+    title: perf/edge_list.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+    title: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+    title: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/directedmst_edge_list.test.py
+    title: test/library-checker/graph/directedmst_edge_list.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -45,10 +60,15 @@ data:
   - cp_library/bit/pack/packer_cls.py
   isVerificationFile: false
   path: cp_library/alg/iter/sort/sort_parallel_fn.py
-  requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy:
+  - cp_library/alg/graph/edge/edge_list_weighted_cls.py
+  - perf/edge_list.py
+  timestamp: '2025-07-10 00:37:15+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+  - test/library-checker/graph/directedmst_edge_list.test.py
 documentation_of: cp_library/alg/iter/sort/sort_parallel_fn.py
 layout: document
 redirect_from:

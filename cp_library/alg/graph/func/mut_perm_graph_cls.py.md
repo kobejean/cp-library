@@ -2,14 +2,20 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_cls.py
-    title: cp_library/alg/graph/edge_cls.py
+    path: cp_library/alg/graph/func/func_graph_cls.py
+    title: cp_library/alg/graph/func/func_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_list_cls.py
-    title: cp_library/alg/graph/edge_list_cls.py
+    path: cp_library/alg/iter/crf_list_cls.py
+    title: cp_library/alg/iter/crf_list_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edge_weighted_cls.py
-    title: cp_library/alg/graph/edge_weighted_cls.py
+    path: cp_library/alg/iter/roll_fn.py
+    title: cp_library/alg/iter/roll_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/array/u8f_fn.py
+    title: cp_library/ds/array/u8f_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/elist_fn.py
+    title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -17,19 +23,10 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -38,16 +35,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import TypeVar\n\n\nimport typing\nfrom collections import deque\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, Union\nimport os\nimport sys\nfrom io import\
-    \ BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
-    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
-    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
-    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -64,12 +60,13 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
-    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
+    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
+    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
+    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
+    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -117,54 +114,64 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass Edge(tuple, Parsable):\n\
-    \    @classmethod\n    def compile(cls, I=-1):\n        def parse(ts: TokenStream):\n\
-    \            u,v = ts.line()\n            return cls((int(u)+I,int(v)+I))\n  \
-    \      return parse\n\nE = TypeVar('E', bound=Edge)\nM = TypeVar('M', bound=int)\n\
-    \nclass EdgeCollection(Parsable):\n    @classmethod\n    def compile(cls, M: M,\
-    \ E: E = Edge[-1]):\n        if isinstance(I := E, int):\n            E = Edge[I]\n\
-    \        edge = Parser.compile(E)\n        def parse(ts: TokenStream):\n     \
-    \       return cls(edge(ts) for _ in range(M))\n        return parse\n\nclass\
-    \ EdgeList(EdgeCollection, list[E]):\n    pass\n\nclass EdgeSet(EdgeCollection,\
-    \ set[E]):\n    pass\n\n\nfrom functools import total_ordering \n\n@total_ordering\n\
-    class EdgeWeighted(Edge):\n    def __lt__(self, other: tuple) -> bool:\n     \
-    \   a = self[2],self[0],self[1]\n        b = other[2],other[0],other[1]\n    \
-    \    return a < b\n    \n    @classmethod\n    def compile(cls, I=-1):\n     \
-    \   def parse(ts: TokenStream):\n            u,v,w = ts.line()\n            return\
-    \ cls((int(u)+I, int(v)+I, int(w)))\n        return parse\n\nM = TypeVar('M',\
-    \ bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\nclass EdgeCollectionWeighted(EdgeCollection):\n\
-    \    @classmethod\n    def compile(cls, M: M, Ew: Ew = EdgeWeighted[-1]):\n  \
-    \      if isinstance(I := Ew, int):\n            Ew = EdgeWeighted[I]\n      \
-    \  return super().compile(M, Ew)\n\nclass EdgeListWeighted(EdgeCollectionWeighted,\
-    \ list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted, set[Ew]):\n\
-    \    pass\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom typing import TypeVar\nfrom\
-    \ cp_library.alg.graph.edge_list_cls import EdgeCollection\nfrom cp_library.alg.graph.edge_weighted_cls\
-    \ import EdgeWeighted\n\nM = TypeVar('M', bound=int)\nEw = TypeVar('Ew', bound=EdgeWeighted)\n\
-    class EdgeCollectionWeighted(EdgeCollection):\n    @classmethod\n    def compile(cls,\
-    \ M: M, Ew: Ew = EdgeWeighted[-1]):\n        if isinstance(I := Ew, int):\n  \
-    \          Ew = EdgeWeighted[I]\n        return super().compile(M, Ew)\n\nclass\
-    \ EdgeListWeighted(EdgeCollectionWeighted, list[Ew]):\n    pass\n\nclass EdgeSetWeighted(EdgeCollectionWeighted,\
-    \ set[Ew]):\n    pass"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ FuncGraph(list[int], Parsable):\n    def __init__(F, successors):\n        super().__init__(successors)\n\
+    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n\
+    \        slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
+    \ pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow :=\
+    \ P[slow])\n        return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n \
+    \       vis, cycs, S = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
+    \            if vis[v]: continue\n            slow = fast = v\n            while\
+    \ (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n        \
+    \    if vis[fast]: continue\n            S.append(len(cycs))\n            cycs.append(slow)\n\
+    \            vis[slow := P[slow]] = 1\n            while slow != fast:\n     \
+    \           cycs.append(slow)\n                vis[slow := P[slow]] = 1\n    \
+    \    return CRFList(cycs, S)\n    \n    def chain(P, root):\n        cyc = P.find_cycle(root)\n\
+    \        slow, fast = root, cyc[0]\n        if slow == fast: return [], cyc\n\
+    \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
+    \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
+    \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
+    \ Parser.compile_repeat(cls, shift, N)\n\nfrom typing import Generic\n\n\nclass\
+    \ CRFList(Generic[_T]):\n    def __init__(crf, A: list[_T], S: list[int]):\n \
+    \       crf.N, crf.A, crf.S = len(S), A, S\n        S.append(len(A))\n\n    def\
+    \ __len__(crf) -> int: return crf.N\n\n    def __getitem__(crf, i: int) -> list[_T]:\n\
+    \        return crf.A[crf.S[i]:crf.S[i+1]]\n    \n    def get(crf, i: int, j:\
+    \ int) -> _T:\n        return crf.A[crf.S[i]+j]\n    \n    def len(crf, i: int)\
+    \ -> int:\n        return crf.S[i+1] - crf.S[i]\n\ndef roll(A: list, t: int):\n\
+    \    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n    return A\n\n\nfrom array\
+    \ import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n  \nclass MutPermGraph(FuncGraph):\n    def __init__(P,\
+    \ successors: list[int]):\n        super().__init__(successors)\n        inv =\
+    \ [0]*P.N\n        for i,p in enumerate(P):\n            inv[p] = i\n        P.inv\
+    \ = inv\n\n    def swap(P, i, j):\n        P[i], P[j] = P[j], P[i]\n        P.inv[P[i]],\
+    \ P.inv[P[j]] = i, j\n"
+  code: "import cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.func.func_graph_cls\
+    \ import FuncGraph\n  \nclass MutPermGraph(FuncGraph):\n    def __init__(P, successors:\
+    \ list[int]):\n        super().__init__(successors)\n        inv = [0]*P.N\n \
+    \       for i,p in enumerate(P):\n            inv[p] = i\n        P.inv = inv\n\
+    \n    def swap(P, i, j):\n        P[i], P[j] = P[j], P[i]\n        P.inv[P[i]],\
+    \ P.inv[P[j]] = i, j"
   dependsOn:
-  - cp_library/alg/graph/edge_list_cls.py
-  - cp_library/alg/graph/edge_weighted_cls.py
+  - cp_library/alg/graph/func/func_graph_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/alg/graph/edge_cls.py
+  - cp_library/alg/iter/crf_list_cls.py
+  - cp_library/alg/iter/roll_fn.py
+  - cp_library/ds/array/u8f_fn.py
+  - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
-  path: cp_library/alg/graph/edge_list_weighted_cls.py
+  path: cp_library/alg/graph/func/mut_perm_graph_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
-  - test/aoj/grl/grl_2_a_kruskal_sort.test.py
-  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
-documentation_of: cp_library/alg/graph/edge_list_weighted_cls.py
+  timestamp: '2025-07-10 00:37:15+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: cp_library/alg/graph/func/mut_perm_graph_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/edge_list_weighted_cls.py
-- /library/cp_library/alg/graph/edge_list_weighted_cls.py.html
-title: cp_library/alg/graph/edge_list_weighted_cls.py
+- /library/cp_library/alg/graph/func/mut_perm_graph_cls.py
+- /library/cp_library/alg/graph/func/mut_perm_graph_cls.py.html
+title: cp_library/alg/graph/func/mut_perm_graph_cls.py
 ---

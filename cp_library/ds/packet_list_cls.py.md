@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/dag_cls.py
+    title: cp_library/alg/graph/csr/dag_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/digraph_cls.py
     title: cp_library/alg/graph/csr/digraph_cls.py
@@ -313,6 +316,7 @@ data:
   - cp_library/alg/graph/csr/digraph_weighted_cls.py
   - cp_library/alg/graph/csr/digraph_cls.py
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/dag_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
   - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
@@ -329,7 +333,7 @@ data:
   - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_cls.py
   - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

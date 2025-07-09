@@ -107,7 +107,8 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n"
   code: "import cp_library.io.__header__\nfrom typing import Type, Union\nfrom cp_library.misc.typing\
     \ import _T\n\ndef read(spec: Union[Type[_T],_T]=[int]) -> _T:\n    stream = TokenStream()\n\
     \    parser = Parser.compile(spec)\n    return parser(stream)\n\nfrom cp_library.io.parser_cls\
@@ -118,7 +119,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_fn.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py

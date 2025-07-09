@@ -2,14 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/csr/csr_incremental_cls.py
-    title: cp_library/ds/csr/csr_incremental_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/dsu_cls.py
-    title: cp_library/ds/dsu_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/fast_heapq.py
-    title: cp_library/ds/heap/fast_heapq.py
+    path: cp_library/ds/elist_fn.py
+    title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -17,13 +11,10 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_a_kruskal_heap.test.py
-    title: test/aoj/grl/grl_2_a_kruskal_heap.test.py
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -32,37 +23,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
-    \ 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
-    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
-    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
-    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
-    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
-    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
-    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
-    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
-    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
-    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
-    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
-    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
-    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
-    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
-    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
-    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
-    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\nfrom typing import Collection\n\nimport\
-    \ typing\nfrom collections import deque\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection, Iterator, Union\n\
-    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \nimport typing\nfrom collections import deque\nfrom numbers import Number\nfrom\
+    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
+    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
     \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
     \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
@@ -139,62 +102,44 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\nfrom typing import Sequence\n\n\
-    \nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
-    \        csr.L, N = [0]*len(sizes), 0\n        for i,sz in enumerate(sizes):\n\
-    \            csr.L[i] = N; N += sz\n        csr.R, csr.A = csr.L[:], [0]*N\n\n\
-    \    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]] = x; csr.R[i] +=\
-    \ 1\n    \n    def __iter__(csr):\n        for i,l in enumerate(csr.L):\n    \
-    \        yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) -> _T:\n\
-    \        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
-    \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
-    \nclass DSU(Parsable, Collection):\n    def __init__(dsu, N):\n        dsu.N,\
-    \ dsu.cc, dsu.par = N, N, [-1]*N\n\n    def merge(dsu, u, v):\n        x, y =\
-    \ dsu.leader(u), dsu.leader(v)\n        if x == y: return x,y\n        if dsu.par[x]\
-    \ > dsu.par[y]: x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x;\
-    \ dsu.cc -= 1\n        return x,y\n    \n    def merge_dest(dsu, u, v): return\
-    \ dsu.merge(u, v)[0]\n\n    def same(dsu, u: int, v: int):\n        return dsu.leader(u)\
-    \ == dsu.leader(v)\n\n    def leader(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n\
-    \        while p >= 0:\n            if par[p] < 0: return p\n            par[i],\
-    \ i, p = par[p], par[p], par[par[p]]\n        return i\n\n    def size(dsu, i)\
-    \ -> int:\n        return -dsu.par[dsu.leader(i)]\n\n    def groups(dsu) -> CSRIncremental[int]:\n\
-    \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
-    \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
-    \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
-    \ csr.append(row[dsu.leader(i)], i)\n        return csr\n    \n    __iter__ =\
-    \ groups\n    \n    def __len__(dsu):\n        return dsu.cc\n    \n    def __contains__(dsu,\
-    \ uv):\n        u, v = uv\n        return dsu.same(u, v)\n    \n    @classmethod\n\
-    \    def compile(cls, N: int, M: int, shift = -1):\n        def parse_fn(ts: TokenStream):\n\
-    \            dsu = cls(N)\n            for _ in range(M):\n                u,\
-    \ v = ts._line()\n                dsu.merge(int(u)+shift, int(v)+shift)\n    \
-    \        return dsu\n        return parse_fn\n\ndef kruskal(E, N):\n    heapify(E)\n\
-    \    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while E and need:\n     \
-    \   edge = heappop(E)\n        u,v,_ = edge\n        if not dsu.same(u,v):\n \
-    \           dsu.merge(u,v)\n            MST.append(edge)\n            need -=\
-    \ 1\n    return MST\n"
-  code: "import cp_library.alg.graph.__header__\n\nfrom cp_library.ds.heap.fast_heapq\
-    \  import heapify, heappop\nfrom cp_library.ds.dsu_cls import DSU\n\ndef kruskal(E,\
-    \ N):\n    heapify(E)\n    dsu = DSU(N)\n    MST = []\n    need = N-1\n    while\
-    \ E and need:\n        edge = heappop(E)\n        u,v,_ = edge\n        if not\
-    \ dsu.same(u,v):\n            dsu.merge(u,v)\n            MST.append(edge)\n \
-    \           need -= 1\n    return MST\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\n\
+    class EdgeList(Parsable):\n    def __init__(E, N, U, V): E.N, E.M, E.U, E.V =\
+    \ N, len(U), U, V\n    def __len__(E): return E.M\n    def __getitem__(E, e):\
+    \ return E.U[e], E.V[e]\n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \ I: int = -1):\n        def parse(ts: TokenStream):\n            U, V = [0]*M,\
+    \ [0]*M\n            for e in range(M): u, v = ts.line(); U[e], V[e] = int(u)+I,\
+    \ int(v)+I\n            return cls(N, U, V)\n        return parse\n    def sub(E,\
+    \ I: list[int]):\n        U, V = elist(E.N-1), elist(E.N-1)\n        for e in\
+    \ I: U.append(E.U[e]); V.append(E.V[e])\n        return E.__class__(E.N, U, V)\n\
+    \n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
+    \    \n"
+  code: "import cp_library.__header__\nfrom cp_library.io.parser_cls import Parsable,\
+    \ TokenStream\nimport cp_library.alg.__header__\nimport cp_library.alg.graph.__header__\n\
+    \nclass EdgeList(Parsable):\n    def __init__(E, N, U, V): E.N, E.M, E.U, E.V\
+    \ = N, len(U), U, V\n    def __len__(E): return E.M\n    def __getitem__(E, e):\
+    \ return E.U[e], E.V[e]\n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \ I: int = -1):\n        def parse(ts: TokenStream):\n            U, V = [0]*M,\
+    \ [0]*M\n            for e in range(M): u, v = ts.line(); U[e], V[e] = int(u)+I,\
+    \ int(v)+I\n            return cls(N, U, V)\n        return parse\n    def sub(E,\
+    \ I: list[int]):\n        U, V = elist(E.N-1), elist(E.N-1)\n        for e in\
+    \ I: U.append(E.U[e]); V.append(E.V[e])\n        return E.__class__(E.N, U, V)\n\
+    from cp_library.ds.elist_fn import elist"
   dependsOn:
-  - cp_library/ds/heap/fast_heapq.py
-  - cp_library/ds/dsu_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/ds/csr/csr_incremental_cls.py
+  - cp_library/ds/elist_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
-  path: cp_library/alg/graph/kruskal_heap_fn.py
+  path: cp_library/alg/graph/edge/edge_list_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/aoj/grl/grl_2_a_kruskal_heap.test.py
-documentation_of: cp_library/alg/graph/kruskal_heap_fn.py
+  timestamp: '2025-07-10 00:37:15+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: cp_library/alg/graph/edge/edge_list_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/alg/graph/kruskal_heap_fn.py
-- /library/cp_library/alg/graph/kruskal_heap_fn.py.html
-title: cp_library/alg/graph/kruskal_heap_fn.py
+- /library/cp_library/alg/graph/edge/edge_list_cls.py
+- /library/cp_library/alg/graph/edge/edge_list_cls.py.html
+title: cp_library/alg/graph/edge/edge_list_cls.py
 ---

@@ -5,6 +5,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/dp/monotone_minima_fn.py
     title: cp_library/alg/dp/monotone_minima_fn.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/dag_cls.py
+    title: cp_library/alg/graph/csr/dag_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/digraph_cls.py
     title: cp_library/alg/graph/csr/digraph_cls.py
@@ -68,27 +71,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
     title: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/edmonds_fn.py
-    title: cp_library/alg/graph/edmonds_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/func_graph_cls.py
-    title: cp_library/alg/graph/func_graph_cls.py
   - icon: ':warning:'
-    path: cp_library/alg/graph/graph_proto.py
-    title: cp_library/alg/graph/graph_proto.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/graph_set_cls.py
-    title: cp_library/alg/graph/graph_set_cls.py
-  - icon: ':warning:'
-    path: cp_library/alg/graph/mut_perm_graph_cls.py
-    title: cp_library/alg/graph/mut_perm_graph_cls.py
+    path: cp_library/alg/graph/edge/edge_list_cls.py
+    title: cp_library/alg/graph/edge/edge_list_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/partial_func_graph_cls.py
-    title: cp_library/alg/graph/partial_func_graph_cls.py
+    path: cp_library/alg/graph/edge/edge_list_weighted_cls.py
+    title: cp_library/alg/graph/edge/edge_list_weighted_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/perm_graph_cls.py
-    title: cp_library/alg/graph/perm_graph_cls.py
+    path: cp_library/alg/graph/func/func_graph_cls.py
+    title: cp_library/alg/graph/func/func_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/func/mut_perm_graph_cls.py
+    title: cp_library/alg/graph/func/mut_perm_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/func/partial_func_graph_cls.py
+    title: cp_library/alg/graph/func/partial_func_graph_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/func/perm_graph_cls.py
+    title: cp_library/alg/graph/func/perm_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/set/graph_proto.py
+    title: cp_library/alg/graph/set/graph_proto.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/set/graph_set_cls.py
+    title: cp_library/alg/graph/set/graph_set_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/csr/aux_tree_base_cls.py
     title: cp_library/alg/tree/csr/aux_tree_base_cls.py
@@ -138,8 +144,8 @@ data:
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/skew_heap_forest_cls.py
-    title: cp_library/ds/heap/skew_heap_forest_cls.py
+    path: cp_library/ds/heap/skew_heap_forrest_cls.py
+    title: cp_library/ds/heap/skew_heap_forrest_cls.py
   - icon: ':warning:'
     path: cp_library/ds/que/que01_cls.py
     title: cp_library/ds/que/que01_cls.py
@@ -152,6 +158,9 @@ data:
   - icon: ':warning:'
     path: cp_library/math/table/submasks_cls.py
     title: cp_library/math/table/submasks_cls.py
+  - icon: ':warning:'
+    path: perf/edge_list.py
+    title: perf/edge_list.py
   - icon: ':warning:'
     path: play.py
     title: play.py
@@ -172,11 +181,14 @@ data:
     path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
     title: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+    title: test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_a_graph_kruskal.test.py
     title: test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - icon: ':heavy_check_mark:'
-    path: test/aoj/grl/grl_2_b_edmonds_branching.test.py
-    title: test/aoj/grl/grl_2_b_edmonds_branching.test.py
+    path: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+    title: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_c_scc.test.py
     title: test/aoj/grl/grl_2_c_scc.test.py
@@ -307,8 +319,8 @@ data:
     path: test/library-checker/graph/cycle_detection_undirected.test.py
     title: test/library-checker/graph/cycle_detection_undirected.test.py
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/graph/directedmst_skew_heap_forest.test.py
-    title: test/library-checker/graph/directedmst_skew_heap_forest.test.py
+    path: test/library-checker/graph/directedmst_edge_list.test.py
+    title: test/library-checker/graph/directedmst_edge_list.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
@@ -394,8 +406,8 @@ data:
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/que/que01_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
+  - cp_library/ds/heap/skew_heap_forrest_cls.py
   - cp_library/ds/heap/max_priority_queue_cls.py
-  - cp_library/ds/heap/skew_heap_forest_cls.py
   - cp_library/alg/tree/csr/hld_commutative_cls.py
   - cp_library/alg/tree/csr/tree_weighted_cls.py
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
@@ -411,12 +423,14 @@ data:
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - cp_library/alg/tree/csr/hld_monoid_cls.py
   - cp_library/alg/dp/monotone_minima_fn.py
-  - cp_library/alg/graph/edmonds_fn.py
+  - cp_library/alg/graph/edge/edge_list_weighted_cls.py
+  - cp_library/alg/graph/edge/edge_list_cls.py
   - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - cp_library/alg/graph/csr/digraph_weighted_cls.py
   - cp_library/alg/graph/csr/digraph_cls.py
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/dag_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
   - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
@@ -433,16 +447,17 @@ data:
   - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_cls.py
   - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
-  - cp_library/alg/graph/perm_graph_cls.py
-  - cp_library/alg/graph/partial_func_graph_cls.py
-  - cp_library/alg/graph/graph_proto.py
-  - cp_library/alg/graph/graph_set_cls.py
-  - cp_library/alg/graph/func_graph_cls.py
-  - cp_library/alg/graph/mut_perm_graph_cls.py
+  - cp_library/alg/graph/set/graph_proto.py
+  - cp_library/alg/graph/set/graph_set_cls.py
+  - cp_library/alg/graph/func/perm_graph_cls.py
+  - cp_library/alg/graph/func/partial_func_graph_cls.py
+  - cp_library/alg/graph/func/func_graph_cls.py
+  - cp_library/alg/graph/func/mut_perm_graph_cls.py
   - cp_library/math/conv/minplus_conv_fn.py
   - cp_library/math/table/submasks_cls.py
   - play.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - perf/edge_list.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
@@ -450,7 +465,6 @@ data:
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/aoj/grl/grl_2_b_edmonds_branching.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/aoj/grl/grl_2_c_scc.test.py
@@ -460,6 +474,8 @@ data:
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_2_c_scc_fast.test.py
   - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
   - test/aoj/grl/grl_1_a_graph_distance.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -482,7 +498,6 @@ data:
   - test/library-checker/graph/scc.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/directedmst_skew_heap_forest.test.py
   - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
@@ -490,6 +505,7 @@ data:
   - test/library-checker/graph/two_edge_connected_components_scratch.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/cycle_detection.test.py
+  - test/library-checker/graph/directedmst_edge_list.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py

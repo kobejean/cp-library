@@ -103,15 +103,16 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass Parallel(tuple, Parsable):\n\
-    \    def __new__(cls, N, K=2):\n        return super().__new__(cls, ([0]*N for\
-    \ _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int, T: Union[type,list[type]]\
-    \ = tuple[int, int], K = -1):\n        if K==-1:\n            T = typing.get_args(T)\
-    \ or T\n            K = len(row := [Parser.compile(t) for t in T])\n        else:\n\
-    \            row = [Parser.compile(T)]*K\n        def parse(ts: TokenStream):\n\
-    \            P = cls(N, K)\n            for i in range(N):\n                for\
-    \ k, parse in enumerate(row):\n                    P[k][i] = parse(ts)\n     \
-    \       return P\n        return parse\n"
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ Parallel(tuple, Parsable):\n    def __new__(cls, N, K=2):\n        return super().__new__(cls,\
+    \ ([0]*N for _ in range(K)))\n\n    @classmethod\n    def compile(cls, N: int,\
+    \ T: Union[type,list[type]] = tuple[int, int], K = -1):\n        if K==-1:\n \
+    \           T = typing.get_args(T) or T\n            K = len(row := [Parser.compile(t)\
+    \ for t in T])\n        else:\n            row = [Parser.compile(T)]*K\n     \
+    \   def parse(ts: TokenStream):\n            P = cls(N, K)\n            for i\
+    \ in range(N):\n                for k, parse in enumerate(row):\n            \
+    \        P[k][i] = parse(ts)\n            return P\n        return parse\n"
   code: "import cp_library.ds.__header__\nimport typing\nfrom typing import Union\n\
     from cp_library.io.parser_cls import Parsable, Parser, TokenStream\n\nclass Parallel(tuple,\
     \ Parsable):\n    def __new__(cls, N, K=2):\n        return super().__new__(cls,\
@@ -128,7 +129,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/parallel_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py

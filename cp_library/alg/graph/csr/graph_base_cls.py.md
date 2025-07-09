@@ -35,6 +35,9 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/dag_cls.py
+    title: cp_library/alg/graph/csr/dag_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/digraph_cls.py
     title: cp_library/alg/graph/csr/digraph_cls.py
@@ -385,18 +388,19 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\n\ndef chmin(dp, i, v):\n  \
-    \  if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\nfrom enum import auto, IntFlag,\
-    \ IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n\
-    \    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n\
-    \    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n\
-    \    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n\
-    \    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL\
-    \ = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n\
-    \    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n\
-    \    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK\
-    \ \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP\
-    \ \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Sequence, Parsable):\n\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\n\
+    def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\nfrom enum\
+    \ import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER = auto()\n\
+    \    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE = auto()\n\
+    \    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS\
+    \ = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common\
+    \ combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n\
+    \    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP\
+    \ = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\nclass\
+    \ DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN \n\
+    \    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
+    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Parsable):\n\
     \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
     \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
     \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
@@ -516,50 +520,51 @@ data:
     \                if back[v := G.Va[i]] >= -1: continue\n                    back[v]\
     \ = i; order.append(ENTER | v); st.append(v)\n                else:\n        \
     \            order.append(LEAVE | u); st.pop()\n        return plst\n    \n  \
-    \  def starts(G, s: Union[int,list[int],None]) -> list[int]:\n        if isinstance(s,\
-    \ int): return [s]\n        elif s is None: return range(G.N)\n        elif isinstance(s,\
-    \ list): return s\n        else: return list(s)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
-    \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
-    \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
-    i32_max = (1<<31)-1\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
-    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
-    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
-    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
-    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n"
+    \  def starts(G, s: Union[int,list[int],None] = None) -> list[int]:\n        if\
+    \ isinstance(s, int): return [s]\n        elif s is None: return range(G.N)\n\
+    \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
+    \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
+    \        for i in range(M):\n                u, v = ts._line()\n             \
+    \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
+    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\n\nfrom\
+    \ array import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \  # unsigned char\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
+    \  # signed int\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
+    elist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n  \
+    \  def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n"
   code: "import cp_library.__header__\nfrom math import inf\nfrom collections import\
     \ deque\nfrom typing import Callable, Sequence, Union, overload\nfrom cp_library.io.parser_cls\
     \ import Parsable, TokenStream\nimport cp_library.alg.__header__\nfrom cp_library.alg.dp.chmin_fn\
     \ import chmin\nimport cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.dfs_options_cls\
-    \ import DFSEvent\n\nclass GraphBase(Sequence, Parsable):\n    def __init__(G,\
-    \ N: int, M: int, U: list[int], V: list[int], \n                 deg: list[int],\
-    \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
-    \ Ea: list[int], twin: list[int] = None):\n        G.N = N\n        '''The number\
-    \ of vertices.'''\n        G.M = M\n        '''The number of edges.'''\n     \
-    \   G.U = U\n        '''A list of source vertices in the original edge list.'''\n\
-    \        G.V = V\n        '''A list of destination vertices in the original edge\
-    \ list.'''\n        G.deg = deg\n        '''deg[u] is the out degree of vertex\
-    \ u.'''\n        G.La = La\n        '''La[u] stores the start index of the list\
-    \ of adjacent vertices from u.'''\n        G.Ra = Ra\n        '''Ra[u] stores\
-    \ the stop index of the list of adjacent vertices from u.'''\n        G.Ua = Ua\n\
-    \        '''Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.'''\n  \
-    \      G.Va = Va\n        '''Va[i] lists adjacent vertices to u for La[u] <= i\
-    \ < Ra[u].'''\n        G.Ea = Ea\n        '''Ea[i] lists the edge ids that start\
-    \ from u for La[u] <= i < Ra[u].\n        For undirected graphs, edge ids in range\
-    \ M<= e <2*M are edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin\
-    \ if twin is not None else range(len(Ua))\n        '''twin[i] in undirected graphs\
-    \ stores index j of the same edge but with u and v swapped.'''\n        G.st:\
-    \ list[int] = None\n        G.order: list[int] = None\n        G.vis: list[int]\
-    \ = None\n        G.back: list[int] = None\n        G.tin: list[int] = None\n\
-    \    \n    def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
+    \ import DFSEvent\n\nclass GraphBase(Parsable):\n    def __init__(G, N: int, M:\
+    \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
+    \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int],\
+    \ twin: list[int] = None):\n        G.N = N\n        '''The number of vertices.'''\n\
+    \        G.M = M\n        '''The number of edges.'''\n        G.U = U\n      \
+    \  '''A list of source vertices in the original edge list.'''\n        G.V = V\n\
+    \        '''A list of destination vertices in the original edge list.'''\n   \
+    \     G.deg = deg\n        '''deg[u] is the out degree of vertex u.'''\n     \
+    \   G.La = La\n        '''La[u] stores the start index of the list of adjacent\
+    \ vertices from u.'''\n        G.Ra = Ra\n        '''Ra[u] stores the stop index\
+    \ of the list of adjacent vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i]\
+    \ = u for La[u] <= i < Ra[u], useful for backtracking.'''\n        G.Va = Va\n\
+    \        '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''\n  \
+    \      G.Ea = Ea\n        '''Ea[i] lists the edge ids that start from u for La[u]\
+    \ <= i < Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are\
+    \ edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin if twin is\
+    \ not None else range(len(Ua))\n        '''twin[i] in undirected graphs stores\
+    \ index j of the same edge but with u and v swapped.'''\n        G.st: list[int]\
+    \ = None\n        G.order: list[int] = None\n        G.vis: list[int] = None\n\
+    \        G.back: list[int] = None\n        G.tin: list[int] = None\n    \n   \
+    \ def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
     \        if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def\
     \ prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n\
     \        return G.st\n    \n    def prep_order(G):\n        if G.order is None:\
@@ -659,17 +664,18 @@ data:
     \                if back[v := G.Va[i]] >= -1: continue\n                    back[v]\
     \ = i; order.append(ENTER | v); st.append(v)\n                else:\n        \
     \            order.append(LEAVE | u); st.pop()\n        return plst\n    \n  \
-    \  def starts(G, s: Union[int,list[int],None]) -> list[int]:\n        if isinstance(s,\
-    \ int): return [s]\n        elif s is None: return range(G.N)\n        elif isinstance(s,\
-    \ list): return s\n        else: return list(s)\n\n    @classmethod\n    def compile(cls,\
-    \ N: int, M: int, shift: int = -1):\n        def parse(ts: TokenStream):\n   \
-    \         U, V = u32f(M), u32f(M)\n            for i in range(M):\n          \
-    \      u, v = ts._line()\n                U[i], V[i] = int(u)+shift, int(v)+shift\n\
-    \            return cls(N, U, V)\n        return parse\nfrom cp_library.bit.masks.u32_max_cnst\
-    \ import u32_max\nfrom cp_library.bit.masks.i32_max_cnst import i32_max\nfrom\
-    \ cp_library.ds.array.u8f_fn import u8f\nfrom cp_library.ds.array.u32f_fn import\
-    \ u32f\nfrom cp_library.ds.array.i32f_fn import i32f\nfrom cp_library.ds.elist_fn\
-    \ import elist\nfrom cp_library.ds.packet_list_cls import PacketList"
+    \  def starts(G, s: Union[int,list[int],None] = None) -> list[int]:\n        if\
+    \ isinstance(s, int): return [s]\n        elif s is None: return range(G.N)\n\
+    \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
+    \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
+    \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
+    \        for i in range(M):\n                u, v = ts._line()\n             \
+    \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
+    \        return parse\nfrom cp_library.bit.masks.u32_max_cnst import u32_max\n\
+    from cp_library.bit.masks.i32_max_cnst import i32_max\nfrom cp_library.ds.array.u8f_fn\
+    \ import u8f\nfrom cp_library.ds.array.u32f_fn import u32f\nfrom cp_library.ds.array.i32f_fn\
+    \ import i32f\nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.ds.packet_list_cls\
+    \ import PacketList"
   dependsOn:
   - cp_library/io/parser_cls.py
   - cp_library/alg/dp/chmin_fn.py
@@ -704,6 +710,7 @@ data:
   - cp_library/alg/graph/csr/digraph_weighted_cls.py
   - cp_library/alg/graph/csr/digraph_cls.py
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/dag_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
   - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
@@ -720,7 +727,7 @@ data:
   - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_cls.py
   - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

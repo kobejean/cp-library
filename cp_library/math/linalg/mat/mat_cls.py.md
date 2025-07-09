@@ -109,11 +109,12 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\n\n\nimport operator\nfrom math\
-    \ import hypot\n\n\nclass ElmWiseMixin:\n    def elm_wise(self, other, op):\n\
-    \        if isinstance(other, Number):\n            return type(self)(op(x, other)\
-    \ for x in self)\n        if isinstance(other, Sequence):\n            return\
-    \ type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n\n\n\
+    import operator\nfrom math import hypot\n\n\nclass ElmWiseMixin:\n    def elm_wise(self,\
+    \ other, op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
+    \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
+    \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
     Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
     \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
     \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
@@ -246,7 +247,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mat_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/mat/mat_cls.py

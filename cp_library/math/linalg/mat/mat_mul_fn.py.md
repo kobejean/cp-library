@@ -35,7 +35,7 @@ data:
   path: cp_library/math/linalg/mat/mat_mul_fn.py
   requiredBy:
   - cp_library/math/linalg/mat/mat_pow_fn.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

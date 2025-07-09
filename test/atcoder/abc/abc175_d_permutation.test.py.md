@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/func_graph_cls.py
-    title: cp_library/alg/graph/func_graph_cls.py
+    path: cp_library/alg/graph/func/func_graph_cls.py
+    title: cp_library/alg/graph/func/func_graph_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/perm_graph_cls.py
-    title: cp_library/alg/graph/perm_graph_cls.py
+    path: cp_library/alg/graph/func/perm_graph_cls.py
+    title: cp_library/alg/graph/func/perm_graph_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/crf_list_cls.py
     title: cp_library/alg/iter/crf_list_cls.py
@@ -143,10 +143,11 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass FuncGraph(list[int], Parsable):\n\
-    \    def __init__(F, successors):\n        super().__init__(successors)\n    \
-    \    F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n  \
-    \      slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ FuncGraph(list[int], Parsable):\n    def __init__(F, successors):\n        super().__init__(successors)\n\
+    \        F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n\
+    \        slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
     \ pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow :=\
     \ P[slow])\n        return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n \
     \       vis, cycs, S = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
@@ -195,15 +196,15 @@ data:
     \        if m:\n            k += L\n            m -= 1\n        rem = max(A[i+j+1]\
     \ - A[i] for i in range(L) for j in range(k))\n        cost = max(m*loop + rem,\
     \ rem)\n        ans = max(ans, cost)\n\n    write(ans)\n    \nfrom cp_library.alg.iter.presum_fn\
-    \ import presum\nfrom cp_library.alg.graph.perm_graph_cls import PermGraph\nfrom\
-    \ cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
+    \ import presum\nfrom cp_library.alg.graph.func.perm_graph_cls import PermGraph\n\
+    from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
     \nif __name__ == \"__main__\":\n    main()"
   dependsOn:
   - cp_library/alg/iter/presum_fn.py
-  - cp_library/alg/graph/perm_graph_cls.py
+  - cp_library/alg/graph/func/perm_graph_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/alg/graph/func_graph_cls.py
+  - cp_library/alg/graph/func/func_graph_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
   - cp_library/alg/iter/crf_list_cls.py
@@ -213,7 +214,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc175_d_permutation.test.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc175_d_permutation.test.py

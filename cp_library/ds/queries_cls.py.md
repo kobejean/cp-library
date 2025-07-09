@@ -102,37 +102,38 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\nfrom itertools import groupby\n\
-    from typing import Iterable\n\nclass Queries(list, Parsable):\n    def __init__(self,\
-    \ data: Iterable = []):\n        super().__init__((i,*query) for i,query in enumerate(data))\n\
-    \n    def append(self, query) -> None:\n        return super().append((len(self),\
-    \ *query))\n\n    @classmethod\n    def compile(cls, N: int, T: type = tuple[int,\
-    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
-    \            return cls(query(ts) for _ in range(N))\n        return parse\n\n\
-    class QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int, key = 0, T: type\
-    \ = tuple[int, ...]]'''\n    def __init__(self, queries, key = 0):\n        if\
-    \ isinstance(key, int):\n            group_idx = key+1\n            def wrap_key(row):\n\
-    \                return row[group_idx]\n        else:\n            def wrap_key(row):\n\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\nfrom\
+    \ itertools import groupby\nfrom typing import Iterable\n\nclass Queries(list,\
+    \ Parsable):\n    def __init__(self, data: Iterable = []):\n        super().__init__((i,*query)\
+    \ for i,query in enumerate(data))\n\n    def append(self, query) -> None:\n  \
+    \      return super().append((len(self), *query))\n\n    @classmethod\n    def\
+    \ compile(cls, N: int, T: type = tuple[int, int]):\n        query = Parser.compile(T)\n\
+    \        def parse(ts: TokenStream):\n            return cls(query(ts) for _ in\
+    \ range(N))\n        return parse\n\nclass QueriesGrouped(Queries):\n    '''QueriesGrouped[Q:\
+    \ int, key = 0, T: type = tuple[int, ...]]'''\n    def __init__(self, queries,\
+    \ key = 0):\n        if isinstance(key, int):\n            group_idx = key+1\n\
+    \            def wrap_key(row):\n                return row[group_idx]\n     \
+    \   else:\n            def wrap_key(row):\n                _, *query = row\n \
+    \               return key(query)\n        rows = sorted(((i,*query) for i,query\
+    \ in enumerate(queries)), key = wrap_key)\n        groups = [(k, list(g)) for\
+    \ k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n        self.key\
+    \ = key\n        \n        list.__init__(self, groups)\n            \n\n    @classmethod\n\
+    \    def compile(cls, Q: int, key = 0, T: type = tuple[int, ...]):\n        query\
+    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            return\
+    \ cls((query(ts) for _ in range(Q)), key)\n        return parse\n\nclass QueriesRange(Queries):\n\
+    \    '''QueriesRange[Q: int, N: int, key = 0, T: type = tuple[-1, int]]'''\n \
+    \   def __init__(self, queries, N: int, key = 0):\n        if isinstance(key,\
+    \ int):\n            group_idx = key+1\n            def wrap_key(row):\n     \
+    \           return row[group_idx]\n        else:\n            def wrap_key(row):\n\
     \                _, *query = row\n                return key(query)\n        rows\
-    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
-    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
-    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
-    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
-    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
-    \  def parse(ts: TokenStream):\n            return cls((query(ts) for _ in range(Q)),\
-    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
-    \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
-    \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
-    \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
-    \        else:\n            def wrap_key(row):\n                _, *query = row\n\
-    \                return key(query)\n        rows = list((i,*query) for i,query\
-    \ in enumerate(queries))\n        \n        groups = [(k,[]) for k in range(N)]\n\
-    \        for k, group in groupby(rows, key = wrap_key):\n            groups[k][1].extend(group)\n\
-    \        self.key = key\n        \n        list.__init__(self, groups)\n\n   \
-    \ @classmethod\n    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1,\
-    \ int]):\n        query = Parser.compile(T)\n        def parse(ts: TokenStream):\n\
-    \            return cls((query(ts) for _ in range(Q)), N, key)\n        return\
-    \ parse\n"
+    \ = list((i,*query) for i,query in enumerate(queries))\n        \n        groups\
+    \ = [(k,[]) for k in range(N)]\n        for k, group in groupby(rows, key = wrap_key):\n\
+    \            groups[k][1].extend(group)\n        self.key = key\n        \n  \
+    \      list.__init__(self, groups)\n\n    @classmethod\n    def compile(cls, Q:\
+    \ int, N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
+    \        def parse(ts: TokenStream):\n            return cls((query(ts) for _\
+    \ in range(Q)), N, key)\n        return parse\n"
   code: "import cp_library.ds.__header__\nfrom cp_library.io.parser_cls import Parsable,\
     \ Parser, TokenStream\nfrom itertools import groupby\nfrom typing import Iterable\n\
     \nclass Queries(list, Parsable):\n    def __init__(self, data: Iterable = []):\n\
@@ -171,7 +172,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc203_e_queries_grouped.test.py

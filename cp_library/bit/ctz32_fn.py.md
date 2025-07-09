@@ -6,8 +6,8 @@ data:
     title: cp_library/bit/popcnt32_fn.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/graph/bit_graph_cls.py
-    title: cp_library/alg/graph/bit_graph_cls.py
+    path: cp_library/alg/graph/bit/bit_graph_cls.py
+    title: cp_library/alg/graph/bit/bit_graph_cls.py
   - icon: ':warning:'
     path: cp_library/bit/clz32_fn.py
     title: cp_library/bit/clz32_fn.py
@@ -44,9 +44,9 @@ data:
   isVerificationFile: false
   path: cp_library/bit/ctz32_fn.py
   requiredBy:
-  - cp_library/alg/graph/bit_graph_cls.py
+  - cp_library/alg/graph/bit/bit_graph_cls.py
   - cp_library/bit/clz32_fn.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

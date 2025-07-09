@@ -106,8 +106,36 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n\nclass Mo(list, Parsable):\n \
-    \   '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n    def __init__(mo,\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\nclass\
+    \ Mo(Parsable):\n    '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n   \
+    \ def __init__(mo, L: list[int], R: list[int], N: int):\n        mo.Q = len(L)\n\
+    \        mo.qbits = mo.Q.bit_length()\n        mo.nbits = N.bit_length()\n   \
+    \     mo.qmask = (1 << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n\
+    \        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))\n        mo.order = [mo.packet(i,\
+    \ L[i], R[i]) for i in range(mo.Q)]\n        mo.order.sort()\n        mo.L = [0]*mo.Q\n\
+    \        mo.R = [0]*mo.Q\n        for i,j in enumerate(mo.order):\n          \
+    \  j &= mo.qmask\n            mo.order[i] = j\n            mo.L[i] = L[j]\n  \
+    \          mo.R[i] = R[j]\n\n    def packet(mo, i: int, l: int, r: int) -> int:\n\
+    \        b = l//mo.B\n        if b & 1: r = mo.nmask - r\n        return (b <<\
+    \ mo.nbits | r) << mo.qbits | i\n\n    def add(mo, i: int):\n        '''Add element\
+    \ at index i to current range.'''\n        pass\n\n    def remove(mo, i: int):\n\
+    \        '''Remove element at index i from current range.'''\n        pass\n\n\
+    \    def answer(mo, i: int, l: int, r: int) -> int:\n        '''Compute answer\
+    \ for current range.'''\n        pass\n    \n    def solve(mo) -> list[int]:\n\
+    \        ans = [0]*mo.Q; l = r = 0\n        for i in range(mo.Q):\n          \
+    \  qid, nl, nr = mo.order[i], mo.L[i], mo.R[i]\n            while r < nr: mo.add(r);\
+    \ r += 1\n            while nl < l: mo.add(l:=l-1)\n            while l < nl:\
+    \ mo.remove(l); l += 1\n            while nr < r: mo.remove(r:=r-1)\n        \
+    \    ans[qid] = mo.answer(qid, l, r)\n        return ans\n\n    @classmethod\n\
+    \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
+    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
+    \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
+    \ \n            return cls(L, R, N)\n        return parse\n"
+  code: "import cp_library.__header__\nfrom math import isqrt\nimport cp_library.alg.__header__\n\
+    import cp_library.alg.dp.__header__\nfrom cp_library.alg.dp.max2_fn import max2\n\
+    from cp_library.io.parser_cls import Parsable, Parser, TokenStream\n\nclass Mo(Parsable):\n\
+    \    '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n    def __init__(mo,\
     \ L: list[int], R: list[int], N: int):\n        mo.Q = len(L)\n        mo.qbits\
     \ = mo.Q.bit_length()\n        mo.nbits = N.bit_length()\n        mo.qmask = (1\
     \ << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))\n\
@@ -129,33 +157,6 @@ data:
     \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
     \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
     \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
-    \ \n            return cls(L, R, N)\n        return parse\n"
-  code: "import cp_library.__header__\nfrom math import isqrt\nimport cp_library.alg.__header__\n\
-    import cp_library.alg.dp.__header__\nfrom cp_library.alg.dp.max2_fn import max2\n\
-    from cp_library.io.parser_cls import Parsable, Parser, TokenStream\n\nclass Mo(list,\
-    \ Parsable):\n    '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n    def\
-    \ __init__(mo, L: list[int], R: list[int], N: int):\n        mo.Q = len(L)\n \
-    \       mo.qbits = mo.Q.bit_length()\n        mo.nbits = N.bit_length()\n    \
-    \    mo.qmask = (1 << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n\
-    \        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))\n        mo.order = [mo.packet(i,\
-    \ L[i], R[i]) for i in range(mo.Q)]\n        mo.order.sort()\n        mo.L = [0]*mo.Q\n\
-    \        mo.R = [0]*mo.Q\n        for i,j in enumerate(mo.order):\n          \
-    \  j &= mo.qmask\n            mo.order[i] = j\n            mo.L[i] = L[j]\n  \
-    \          mo.R[i] = R[j]\n\n    def packet(mo, i: int, l: int, r: int) -> int:\n\
-    \        b = l//mo.B\n        if b & 1: r = mo.nmask - r\n        return (b <<\
-    \ mo.nbits | r) << mo.qbits | i\n\n    def add(mo, i: int):\n        '''Add element\
-    \ at index i to current range.'''\n        pass\n\n    def remove(mo, i: int):\n\
-    \        '''Remove element at index i from current range.'''\n        pass\n\n\
-    \    def answer(mo, i: int, l: int, r: int) -> int:\n        '''Compute answer\
-    \ for current range.'''\n        pass\n    \n    def solve(mo) -> list[int]:\n\
-    \        ans = [0]*mo.Q; l = r = 0\n        for i in range(mo.Q):\n          \
-    \  qid, nl, nr = mo.order[i], mo.L[i], mo.R[i]\n            while r < nr: mo.add(r);\
-    \ r += 1\n            while nl < l: mo.add(l:=l-1)\n            while l < nl:\
-    \ mo.remove(l); l += 1\n            while nr < r: mo.remove(r:=r-1)\n        \
-    \    ans[qid] = mo.answer(qid, l, r)\n        return ans\n\n    @classmethod\n\
-    \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
-    \ = Parser.compile(T)\n        def parse(ts: TokenStream):\n            L, R =\
-    \ [0]*Q, [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(ts)\
     \ \n            return cls(L, R, N)\n        return parse"
   dependsOn:
   - cp_library/alg/dp/max2_fn.py
@@ -164,7 +165,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/mo_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc261_g_mo.test.py

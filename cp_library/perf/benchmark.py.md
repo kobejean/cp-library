@@ -1,9 +1,6 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':warning:'
-    path: cp_library/perf/plotters.py
-    title: cp_library/perf/plotters.py
+  _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':warning:'
     path: cp_library/perf/examples/rank_benchmark.py
@@ -12,120 +9,306 @@ data:
     path: cp_library/perf/examples/simple_usage.py
     title: cp_library/perf/examples/simple_usage.py
   - icon: ':warning:'
-    path: cp_library/perf/simple_plots.py
-    title: cp_library/perf/simple_plots.py
+    path: cp_library/perf/plots.py
+    title: cp_library/perf/plots.py
   - icon: ':warning:'
-    path: perf/bool_list_benchmark.py
-    title: perf/bool_list_benchmark.py
+    path: perf/bool_list.py
+    title: perf/bool_list.py
   - icon: ':warning:'
-    path: perf/rank_perf.py
-    title: perf/rank_perf.py
+    path: perf/edge_list.py
+    title: perf/edge_list.py
+  - icon: ':warning:'
+    path: perf/rank.py
+    title: perf/rank.py
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/site-packages/onlinejudge_verify/documentation/build.py\"\
-    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
-    \ basedir=basedir, options={'include_paths': [basedir]}).decode()\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/site-packages/onlinejudge_verify/languages/python.py\"\
-    , line 101, in bundle\n    return bundler.update(path)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/site-packages/onlinejudge_verify/languages/python_bundle.py\"\
-    , line 154, in update\n    self.process_file(path)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/site-packages/onlinejudge_verify/languages/python_bundle.py\"\
-    , line 24, in process_file\n    self.bundled_code[file_path] = self.process_imports(tree,\
-    \ file_path, source, file_is_top_level)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/site-packages/onlinejudge_verify/languages/python_bundle.py\"\
-    , line 102, in process_imports\n    processor.visit(tree)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 418, in visit\n    return visitor(node)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 426, in generic_visit\n    self.visit(item)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 418, in visit\n    return visitor(node)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 426, in generic_visit\n    self.visit(item)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 418, in visit\n    return visitor(node)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 426, in generic_visit\n    self.visit(item)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 418, in visit\n    return visitor(node)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 426, in generic_visit\n    self.visit(item)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/ast.py\"\
-    , line 418, in visit\n    return visitor(node)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/site-packages/onlinejudge_verify/languages/python_bundle.py\"\
-    , line 64, in visit_ImportFrom\n    raise NotImplementedError(\"Relative imports\
-    \ are not supported\")\nNotImplementedError: Relative imports are not supported\n"
-  code: "import cp_library.__header__\nimport cp_library.perf.__header__\nimport time\n\
-    import json\nfrom abc import ABC, abstractmethod\nfrom typing import Any, Dict,\
-    \ List, Tuple, Callable, Optional\nfrom dataclasses import dataclass\nfrom pathlib\
-    \ import Path\n\n@dataclass\nclass BenchmarkConfig:\n    \"\"\"Configuration for\
-    \ a benchmark run\"\"\"\n    name: str\n    iterations: int = 10\n    warmup:\
-    \ int = 2\n    timeout: float = 60.0  # seconds\n    save_results: bool = True\n\
-    \    plot_results: bool = True\n    output_dir: str = \"./benchmark_results\"\n\
-    \n@dataclass\nclass TestCase:\n    \"\"\"A single test case with parameters and\
-    \ data\"\"\"\n    name: str\n    params: Dict[str, Any]\n    data: Any\n    expected:\
-    \ Optional[Any] = None\n\n@dataclass\nclass BenchmarkResult:\n    \"\"\"Result\
-    \ from running a single benchmark\"\"\"\n    test_case: TestCase\n    implementation:\
-    \ str\n    time_ms: float\n    memory_mb: float = 0.0\n    correct: bool = True\n\
-    \    error: Optional[str] = None\n    \nclass Benchmark(ABC):\n    \"\"\"Base\
-    \ class for benchmarks\"\"\"\n    \n    def __init__(self, config: BenchmarkConfig):\n\
-    \        self.config = config\n        self.results: List[BenchmarkResult] = []\n\
-    \        \n    @abstractmethod\n    def generate_test_cases(self, param_grid:\
-    \ Dict[str, List[Any]]) -> List[TestCase]:\n        \"\"\"Generate test cases\
-    \ from parameter grid\"\"\"\n        pass\n    \n    @abstractmethod\n    def\
-    \ get_implementations(self) -> Dict[str, Callable]:\n        \"\"\"Return dict\
-    \ of implementation name -> function\"\"\"\n        pass\n    \n    def validate_result(self,\
-    \ expected: Any, actual: Any) -> bool:\n        \"\"\"Validate if result is correct\"\
-    \"\"\n        return expected == actual\n    \n    def measure_time(self, func:\
-    \ Callable, *args, **kwargs) -> Tuple[Any, float]:\n        \"\"\"Measure execution\
-    \ time of a function\"\"\"\n        # Warmup\n        for _ in range(self.config.warmup):\n\
-    \            func(*args, **kwargs)\n        \n        # Actual measurement\n \
-    \       start = time.perf_counter()\n        for _ in range(self.config.iterations):\n\
-    \            result = func(*args, **kwargs)\n        elapsed_ms = (time.perf_counter()\
-    \ - start) * 1000 / self.config.iterations\n        \n        return result, elapsed_ms\n\
-    \    \n    def run(self, param_grid: Dict[str, List[Any]]):\n        \"\"\"Run\
-    \ the benchmark\"\"\"\n        test_cases = self.generate_test_cases(param_grid)\n\
-    \        implementations = self.get_implementations()\n        \n        print(f\"\
-    Running {self.config.name}\")\n        print(f\"Test cases: {len(test_cases)},\
-    \ Implementations: {len(implementations)}\")\n        print(\"-\" * 80)\n    \
-    \    \n        for test_case in test_cases:\n            print(f\"\\nTest: {test_case.name}\"\
-    )\n            \n            # Get reference result if not provided\n        \
-    \    if test_case.expected is None and implementations:\n                ref_impl\
-    \ = next(iter(implementations.values()))\n                test_case.expected,\
-    \ _ = self.measure_time(ref_impl, test_case.data)\n            \n            for\
-    \ impl_name, impl_func in implementations.items():\n                try:\n   \
-    \                 result, time_ms = self.measure_time(impl_func, test_case.data)\n\
-    \                    correct = self.validate_result(test_case.expected, result)\n\
-    \                    \n                    bench_result = BenchmarkResult(\n \
-    \                       test_case=test_case,\n                        implementation=impl_name,\n\
-    \                        time_ms=time_ms,\n                        correct=correct\n\
-    \                    )\n                    self.results.append(bench_result)\n\
-    \                    \n                    print(f\"  {impl_name:<20} {time_ms:>10.3f}\
-    \ ms  {'\u2713' if correct else '\u2717'}\")\n                    \n         \
-    \       except Exception as e:\n                    bench_result = BenchmarkResult(\n\
-    \                        test_case=test_case,\n                        implementation=impl_name,\n\
-    \                        time_ms=float('inf'),\n                        correct=False,\n\
-    \                        error=str(e)\n                    )\n               \
-    \     self.results.append(bench_result)\n                    print(f\"  {impl_name:<20}\
-    \ ERROR: {str(e)[:50]}\")\n        \n        if self.config.save_results:\n  \
-    \          self.save_results()\n        \n        if self.config.plot_results:\n\
-    \            self.plot_results()\n    \n    def save_results(self):\n        \"\
-    \"\"Save results to JSON file\"\"\"\n        Path(self.config.output_dir).mkdir(parents=True,\
-    \ exist_ok=True)\n        \n        data = []\n        for r in self.results:\n\
-    \            data.append({\n                'test_case': r.test_case.name,\n \
-    \               'params': r.test_case.params,\n                'implementation':\
-    \ r.implementation,\n                'time_ms': r.time_ms,\n                'correct':\
-    \ r.correct,\n                'error': r.error\n            })\n        \n   \
-    \     filename = f\"{self.config.output_dir}/{self.config.name}_{int(time.time())}.json\"\
-    \n        with open(filename, 'w') as f:\n            json.dump(data, f, indent=2)\n\
-    \        print(f\"\\nResults saved to {filename}\")\n    \n    def plot_results(self):\n\
-    \        \"\"\"Create visualizations of results\"\"\"\n        try:\n        \
-    \    from .plotters import BenchmarkPlotter\n            plotter = BenchmarkPlotter()\n\
-    \            plotter.plot_results(self.results, self.config)\n        except ImportError\
-    \ as e:\n            print(f\"Plotting skipped: {e}\")\n            print(\"To\
-    \ enable plotting, install: pip install matplotlib pandas\")\n        except Exception\
-    \ as e:\n            print(f\"Plotting failed: {e}\")"
-  dependsOn:
-  - cp_library/perf/plotters.py
+  bundledCode: "\"\"\"\nDeclarative benchmark framework with minimal boilerplate.\n\
+    \nFeatures:\n- Decorator-based benchmark registration\n- Automatic data generation\
+    \ and validation\n- Built-in timing with warmup\n- Configurable operations and\
+    \ sizes\n- JSON results and matplotlib plotting\n\"\"\"\n\nimport time\nimport\
+    \ json\nimport statistics\nfrom typing import Dict, List, Any, Callable, Union\n\
+    from dataclasses import dataclass\nfrom pathlib import Path\nfrom collections\
+    \ import defaultdict\n\n@dataclass\nclass BenchmarkConfig:\n    \"\"\"Configuration\
+    \ for benchmark runs\"\"\"\n    name: str\n    sizes: List[int] = None\n    operations:\
+    \ List[str] = None\n    iterations: int = 10\n    warmup: int = 2\n    output_dir:\
+    \ str = \"./output/benchmark_results\"\n    save_results: bool = True\n    plot_results:\
+    \ bool = True\n    \n    def __post_init__(self):\n        if self.sizes is None:\n\
+    \            self.sizes = [100, 1000, 10000, 100000]\n        if self.operations\
+    \ is None:\n            self.operations = ['default']\n\nclass Benchmark:\n  \
+    \  \"\"\"Declarative benchmark framework using decorators\"\"\"\n    \n    def\
+    \ __init__(self, config: BenchmarkConfig):\n        self.config = config\n   \
+    \     self.data_generators = {}\n        self.implementations = {}\n        self.validators\
+    \ = {}\n        self.results = []\n        \n    def data_generator(self, name:\
+    \ str = \"default\"):\n        \"\"\"Decorator to register data generator\"\"\"\
+    \n        def decorator(func):\n            self.data_generators[name] = func\n\
+    \            return func\n        return decorator\n    \n    def implementation(self,\
+    \ name: str, operations: Union[str, List[str]] = None):\n        \"\"\"Decorator\
+    \ to register implementation\"\"\"\n        if operations is None:\n         \
+    \   operations = ['default']\n        elif isinstance(operations, str):\n    \
+    \        operations = [operations]\n            \n        def decorator(func):\n\
+    \            for op in operations:\n                if op not in self.implementations:\n\
+    \                    self.implementations[op] = {}\n                self.implementations[op][name]\
+    \ = func\n            return func\n        return decorator\n    \n    def validator(self,\
+    \ operation: str = \"default\"):\n        \"\"\"Decorator to register custom validator\"\
+    \"\"\n        def decorator(func):\n            self.validators[operation] = func\n\
+    \            return func\n        return decorator\n    \n    def measure_time(self,\
+    \ func: Callable, data: Any) -> tuple[Any, float]:\n        \"\"\"Measure execution\
+    \ time with warmup\"\"\"\n        # Warmup runs\n        for _ in range(self.config.warmup):\n\
+    \            try:\n                func(data)\n            except Exception:\n\
+    \                # If warmup fails, let the main measurement handle the error\n\
+    \                break\n        \n        # Actual measurement\n        start\
+    \ = time.perf_counter()\n        for _ in range(self.config.iterations):\n   \
+    \         result = func(data)\n        elapsed_ms = (time.perf_counter() - start)\
+    \ * 1000 / self.config.iterations\n        \n        return result, elapsed_ms\n\
+    \    \n    def validate_result(self, expected: Any, actual: Any, operation: str)\
+    \ -> bool:\n        \"\"\"Validate result using custom validator or default comparison\"\
+    \"\"\n        if operation in self.validators:\n            return self.validators[operation](expected,\
+    \ actual)\n        return expected == actual\n    \n    def run(self):\n     \
+    \   \"\"\"Run all benchmarks\"\"\"\n        print(f\"Running {self.config.name}\"\
+    )\n        print(f\"Sizes: {self.config.sizes}\")\n        print(f\"Operations:\
+    \ {self.config.operations}\")\n        print(\"=\"*80)\n        \n        for\
+    \ size in self.config.sizes:\n            for operation in self.config.operations:\n\
+    \                print(f\"\\nOperation: {operation}, Size: {size}\")\n       \
+    \         print(\"-\" * 50)\n                \n                # Generate test\
+    \ data\n                generator = self.data_generators.get(operation, \n   \
+    \                                                self.data_generators.get('default'))\n\
+    \                if not generator:\n                    raise ValueError(f\"No\
+    \ data generator for operation: {operation}\")\n                \n           \
+    \     test_data = generator(size, operation)\n                \n             \
+    \   # Get implementations for this operation\n                impls = self.implementations.get(operation,\
+    \ {})\n                if not impls:\n                    print(f\"No implementations\
+    \ for operation: {operation}\")\n                    continue\n              \
+    \  \n                # Run reference implementation first\n                ref_name,\
+    \ ref_impl = next(iter(impls.items()))\n                expected_result, _ = self.measure_time(ref_impl,\
+    \ test_data)\n                \n                # Run all implementations\n  \
+    \              for impl_name, impl_func in impls.items():\n                  \
+    \  try:\n                        result, time_ms = self.measure_time(impl_func,\
+    \ test_data)\n                        correct = self.validate_result(expected_result,\
+    \ result, operation)\n                        \n                        # Store\
+    \ result\n                        self.results.append({\n                    \
+    \        'operation': operation,\n                            'size': size,\n\
+    \                            'implementation': impl_name,\n                  \
+    \          'time_ms': time_ms,\n                            'correct': correct,\n\
+    \                            'error': None\n                        })\n     \
+    \                   \n                        status = \"OK\" if correct else\
+    \ \"FAIL\"\n                        print(f\"  {impl_name:<20} {time_ms:>8.3f}\
+    \ ms  {status}\")\n                        \n                    except Exception\
+    \ as e:\n                        self.results.append({\n                     \
+    \       'operation': operation,\n                            'size': size,\n \
+    \                           'implementation': impl_name,\n                   \
+    \         'time_ms': float('inf'),\n                            'correct': False,\n\
+    \                            'error': str(e)\n                        })\n   \
+    \                     print(f\"  {impl_name:<20} ERROR: {str(e)[:40]}\")\n   \
+    \     \n        # Save and plot results\n        if self.config.save_results:\n\
+    \            self._save_results()\n        \n        if self.config.plot_results:\n\
+    \            self._plot_results()\n        \n        # Print summary\n       \
+    \ self._print_summary()\n    \n    def _save_results(self):\n        \"\"\"Save\
+    \ results to JSON\"\"\"\n        output_dir = Path(self.config.output_dir)\n \
+    \       output_dir.mkdir(parents=True, exist_ok=True)\n        \n        filename\
+    \ = output_dir / f\"{self.config.name}_{int(time.time())}.json\"\n        with\
+    \ open(filename, 'w') as f:\n            json.dump(self.results, f, indent=2)\n\
+    \        print(f\"\\nResults saved to {filename}\")\n    \n    def _plot_results(self):\n\
+    \        \"\"\"Generate plots using matplotlib if available\"\"\"\n        try:\n\
+    \            import matplotlib.pyplot as plt\n            \n            output_dir\
+    \ = Path(self.config.output_dir)\n            output_dir.mkdir(parents=True, exist_ok=True)\n\
+    \            \n            # Group and prepare data for plotting\n           \
+    \ data_by_op = self._group_results_by_operation()\n            \n            #\
+    \ Create plots for each operation\n            for operation, operation_data in\
+    \ data_by_op.items():\n                self._create_performance_plot(plt, operation,\
+    \ operation_data, output_dir)\n                \n        except ImportError:\n\
+    \            print(\"Matplotlib not available - skipping plots\")\n        except\
+    \ Exception as e:\n            print(f\"Plotting failed: {e}\")\n    \n    def\
+    \ _group_results_by_operation(self) -> Dict[str, Dict[int, List[Dict[str, Any]]]]:\n\
+    \        \"\"\"Group results by operation and size for plotting\"\"\"\n      \
+    \  data_by_op = defaultdict(lambda: defaultdict(list))\n        for r in self.results:\n\
+    \            if r['time_ms'] != float('inf') and r['correct']:\n             \
+    \   data_by_op[r['operation']][r['size']].append({\n                    'implementation':\
+    \ r['implementation'],\n                    'time_ms': r['time_ms']\n        \
+    \        })\n        return data_by_op\n    \n    def _create_performance_plot(self,\
+    \ plt, operation: str, operation_data: Dict[int, List[Dict[str, Any]]], output_dir:\
+    \ Path):\n        \"\"\"Create a performance plot for a single operation\"\"\"\
+    \n        sizes = sorted(operation_data.keys())\n        implementations = set()\n\
+    \        for size_data in operation_data.values():\n            for entry in size_data:\n\
+    \                implementations.add(entry['implementation'])\n        \n    \
+    \    implementations = sorted(implementations)\n        \n        plt.figure(figsize=(10,\
+    \ 6))\n        for impl in implementations:\n            impl_times = []\n   \
+    \         impl_sizes = []\n            for size in sizes:\n                times\
+    \ = [entry['time_ms'] for entry in operation_data[size] \n                   \
+    \     if entry['implementation'] == impl]\n                if times:\n       \
+    \             impl_times.append(statistics.mean(times))\n                    impl_sizes.append(size)\n\
+    \            \n            if impl_times:\n                plt.plot(impl_sizes,\
+    \ impl_times, 'o-', label=impl)\n        \n        plt.xlabel('Input Size')\n\
+    \        plt.ylabel('Time (ms)')\n        plt.title(f'{self.config.name} - {operation}\
+    \ Operation')\n        plt.legend()\n        plt.grid(True, alpha=0.3)\n     \
+    \   plt.loglog()\n        \n        plot_file = output_dir / f\"{self.config.name}_{operation}_performance.png\"\
+    \n        plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
+    \        print(f\"Plot saved: {plot_file}\")\n    \n    def _print_summary(self):\n\
+    \        \"\"\"Print performance summary\"\"\"\n        print(\"\\n\" + \"=\"\
+    *80)\n        print(\"PERFORMANCE SUMMARY\")\n        print(\"=\"*80)\n      \
+    \  \n        # Group by operation\n        by_operation = defaultdict(lambda:\
+    \ defaultdict(list))\n        for r in self.results:\n            if r['error']\
+    \ is None and r['time_ms'] != float('inf'):\n                by_operation[r['operation']][r['implementation']].append(r['time_ms'])\n\
+    \        \n        print(f\"{'Operation':<15} {'Best Implementation':<20} {'Avg\
+    \ Time (ms)':<15} {'Speedup':<10}\")\n        print(\"-\" * 70)\n        \n  \
+    \      for op, impl_times in sorted(by_operation.items()):\n            # Calculate\
+    \ averages\n            avg_times = [(impl, statistics.mean(times)) \n       \
+    \                 for impl, times in impl_times.items()]\n            avg_times.sort(key=lambda\
+    \ x: x[1])\n            \n            if avg_times:\n                best_impl,\
+    \ best_time = avg_times[0]\n                worst_time = avg_times[-1][1]\n  \
+    \              speedup = worst_time / best_time if best_time > 0 else 0\n    \
+    \            \n                print(f\"{op:<15} {best_impl:<20} {best_time:<15.3f}\
+    \ {speedup:<10.1f}x\")\n\n\n"
+  code: "\"\"\"\nDeclarative benchmark framework with minimal boilerplate.\n\nFeatures:\n\
+    - Decorator-based benchmark registration\n- Automatic data generation and validation\n\
+    - Built-in timing with warmup\n- Configurable operations and sizes\n- JSON results\
+    \ and matplotlib plotting\n\"\"\"\n\nimport time\nimport json\nimport statistics\n\
+    from typing import Dict, List, Any, Callable, Union\nfrom dataclasses import dataclass\n\
+    from pathlib import Path\nfrom collections import defaultdict\n\n@dataclass\n\
+    class BenchmarkConfig:\n    \"\"\"Configuration for benchmark runs\"\"\"\n   \
+    \ name: str\n    sizes: List[int] = None\n    operations: List[str] = None\n \
+    \   iterations: int = 10\n    warmup: int = 2\n    output_dir: str = \"./output/benchmark_results\"\
+    \n    save_results: bool = True\n    plot_results: bool = True\n    \n    def\
+    \ __post_init__(self):\n        if self.sizes is None:\n            self.sizes\
+    \ = [100, 1000, 10000, 100000]\n        if self.operations is None:\n        \
+    \    self.operations = ['default']\n\nclass Benchmark:\n    \"\"\"Declarative\
+    \ benchmark framework using decorators\"\"\"\n    \n    def __init__(self, config:\
+    \ BenchmarkConfig):\n        self.config = config\n        self.data_generators\
+    \ = {}\n        self.implementations = {}\n        self.validators = {}\n    \
+    \    self.results = []\n        \n    def data_generator(self, name: str = \"\
+    default\"):\n        \"\"\"Decorator to register data generator\"\"\"\n      \
+    \  def decorator(func):\n            self.data_generators[name] = func\n     \
+    \       return func\n        return decorator\n    \n    def implementation(self,\
+    \ name: str, operations: Union[str, List[str]] = None):\n        \"\"\"Decorator\
+    \ to register implementation\"\"\"\n        if operations is None:\n         \
+    \   operations = ['default']\n        elif isinstance(operations, str):\n    \
+    \        operations = [operations]\n            \n        def decorator(func):\n\
+    \            for op in operations:\n                if op not in self.implementations:\n\
+    \                    self.implementations[op] = {}\n                self.implementations[op][name]\
+    \ = func\n            return func\n        return decorator\n    \n    def validator(self,\
+    \ operation: str = \"default\"):\n        \"\"\"Decorator to register custom validator\"\
+    \"\"\n        def decorator(func):\n            self.validators[operation] = func\n\
+    \            return func\n        return decorator\n    \n    def measure_time(self,\
+    \ func: Callable, data: Any) -> tuple[Any, float]:\n        \"\"\"Measure execution\
+    \ time with warmup\"\"\"\n        # Warmup runs\n        for _ in range(self.config.warmup):\n\
+    \            try:\n                func(data)\n            except Exception:\n\
+    \                # If warmup fails, let the main measurement handle the error\n\
+    \                break\n        \n        # Actual measurement\n        start\
+    \ = time.perf_counter()\n        for _ in range(self.config.iterations):\n   \
+    \         result = func(data)\n        elapsed_ms = (time.perf_counter() - start)\
+    \ * 1000 / self.config.iterations\n        \n        return result, elapsed_ms\n\
+    \    \n    def validate_result(self, expected: Any, actual: Any, operation: str)\
+    \ -> bool:\n        \"\"\"Validate result using custom validator or default comparison\"\
+    \"\"\n        if operation in self.validators:\n            return self.validators[operation](expected,\
+    \ actual)\n        return expected == actual\n    \n    def run(self):\n     \
+    \   \"\"\"Run all benchmarks\"\"\"\n        print(f\"Running {self.config.name}\"\
+    )\n        print(f\"Sizes: {self.config.sizes}\")\n        print(f\"Operations:\
+    \ {self.config.operations}\")\n        print(\"=\"*80)\n        \n        for\
+    \ size in self.config.sizes:\n            for operation in self.config.operations:\n\
+    \                print(f\"\\nOperation: {operation}, Size: {size}\")\n       \
+    \         print(\"-\" * 50)\n                \n                # Generate test\
+    \ data\n                generator = self.data_generators.get(operation, \n   \
+    \                                                self.data_generators.get('default'))\n\
+    \                if not generator:\n                    raise ValueError(f\"No\
+    \ data generator for operation: {operation}\")\n                \n           \
+    \     test_data = generator(size, operation)\n                \n             \
+    \   # Get implementations for this operation\n                impls = self.implementations.get(operation,\
+    \ {})\n                if not impls:\n                    print(f\"No implementations\
+    \ for operation: {operation}\")\n                    continue\n              \
+    \  \n                # Run reference implementation first\n                ref_name,\
+    \ ref_impl = next(iter(impls.items()))\n                expected_result, _ = self.measure_time(ref_impl,\
+    \ test_data)\n                \n                # Run all implementations\n  \
+    \              for impl_name, impl_func in impls.items():\n                  \
+    \  try:\n                        result, time_ms = self.measure_time(impl_func,\
+    \ test_data)\n                        correct = self.validate_result(expected_result,\
+    \ result, operation)\n                        \n                        # Store\
+    \ result\n                        self.results.append({\n                    \
+    \        'operation': operation,\n                            'size': size,\n\
+    \                            'implementation': impl_name,\n                  \
+    \          'time_ms': time_ms,\n                            'correct': correct,\n\
+    \                            'error': None\n                        })\n     \
+    \                   \n                        status = \"OK\" if correct else\
+    \ \"FAIL\"\n                        print(f\"  {impl_name:<20} {time_ms:>8.3f}\
+    \ ms  {status}\")\n                        \n                    except Exception\
+    \ as e:\n                        self.results.append({\n                     \
+    \       'operation': operation,\n                            'size': size,\n \
+    \                           'implementation': impl_name,\n                   \
+    \         'time_ms': float('inf'),\n                            'correct': False,\n\
+    \                            'error': str(e)\n                        })\n   \
+    \                     print(f\"  {impl_name:<20} ERROR: {str(e)[:40]}\")\n   \
+    \     \n        # Save and plot results\n        if self.config.save_results:\n\
+    \            self._save_results()\n        \n        if self.config.plot_results:\n\
+    \            self._plot_results()\n        \n        # Print summary\n       \
+    \ self._print_summary()\n    \n    def _save_results(self):\n        \"\"\"Save\
+    \ results to JSON\"\"\"\n        output_dir = Path(self.config.output_dir)\n \
+    \       output_dir.mkdir(parents=True, exist_ok=True)\n        \n        filename\
+    \ = output_dir / f\"{self.config.name}_{int(time.time())}.json\"\n        with\
+    \ open(filename, 'w') as f:\n            json.dump(self.results, f, indent=2)\n\
+    \        print(f\"\\nResults saved to {filename}\")\n    \n    def _plot_results(self):\n\
+    \        \"\"\"Generate plots using matplotlib if available\"\"\"\n        try:\n\
+    \            import matplotlib.pyplot as plt\n            \n            output_dir\
+    \ = Path(self.config.output_dir)\n            output_dir.mkdir(parents=True, exist_ok=True)\n\
+    \            \n            # Group and prepare data for plotting\n           \
+    \ data_by_op = self._group_results_by_operation()\n            \n            #\
+    \ Create plots for each operation\n            for operation, operation_data in\
+    \ data_by_op.items():\n                self._create_performance_plot(plt, operation,\
+    \ operation_data, output_dir)\n                \n        except ImportError:\n\
+    \            print(\"Matplotlib not available - skipping plots\")\n        except\
+    \ Exception as e:\n            print(f\"Plotting failed: {e}\")\n    \n    def\
+    \ _group_results_by_operation(self) -> Dict[str, Dict[int, List[Dict[str, Any]]]]:\n\
+    \        \"\"\"Group results by operation and size for plotting\"\"\"\n      \
+    \  data_by_op = defaultdict(lambda: defaultdict(list))\n        for r in self.results:\n\
+    \            if r['time_ms'] != float('inf') and r['correct']:\n             \
+    \   data_by_op[r['operation']][r['size']].append({\n                    'implementation':\
+    \ r['implementation'],\n                    'time_ms': r['time_ms']\n        \
+    \        })\n        return data_by_op\n    \n    def _create_performance_plot(self,\
+    \ plt, operation: str, operation_data: Dict[int, List[Dict[str, Any]]], output_dir:\
+    \ Path):\n        \"\"\"Create a performance plot for a single operation\"\"\"\
+    \n        sizes = sorted(operation_data.keys())\n        implementations = set()\n\
+    \        for size_data in operation_data.values():\n            for entry in size_data:\n\
+    \                implementations.add(entry['implementation'])\n        \n    \
+    \    implementations = sorted(implementations)\n        \n        plt.figure(figsize=(10,\
+    \ 6))\n        for impl in implementations:\n            impl_times = []\n   \
+    \         impl_sizes = []\n            for size in sizes:\n                times\
+    \ = [entry['time_ms'] for entry in operation_data[size] \n                   \
+    \     if entry['implementation'] == impl]\n                if times:\n       \
+    \             impl_times.append(statistics.mean(times))\n                    impl_sizes.append(size)\n\
+    \            \n            if impl_times:\n                plt.plot(impl_sizes,\
+    \ impl_times, 'o-', label=impl)\n        \n        plt.xlabel('Input Size')\n\
+    \        plt.ylabel('Time (ms)')\n        plt.title(f'{self.config.name} - {operation}\
+    \ Operation')\n        plt.legend()\n        plt.grid(True, alpha=0.3)\n     \
+    \   plt.loglog()\n        \n        plot_file = output_dir / f\"{self.config.name}_{operation}_performance.png\"\
+    \n        plt.savefig(plot_file, dpi=300, bbox_inches='tight')\n        plt.close()\n\
+    \        print(f\"Plot saved: {plot_file}\")\n    \n    def _print_summary(self):\n\
+    \        \"\"\"Print performance summary\"\"\"\n        print(\"\\n\" + \"=\"\
+    *80)\n        print(\"PERFORMANCE SUMMARY\")\n        print(\"=\"*80)\n      \
+    \  \n        # Group by operation\n        by_operation = defaultdict(lambda:\
+    \ defaultdict(list))\n        for r in self.results:\n            if r['error']\
+    \ is None and r['time_ms'] != float('inf'):\n                by_operation[r['operation']][r['implementation']].append(r['time_ms'])\n\
+    \        \n        print(f\"{'Operation':<15} {'Best Implementation':<20} {'Avg\
+    \ Time (ms)':<15} {'Speedup':<10}\")\n        print(\"-\" * 70)\n        \n  \
+    \      for op, impl_times in sorted(by_operation.items()):\n            # Calculate\
+    \ averages\n            avg_times = [(impl, statistics.mean(times)) \n       \
+    \                 for impl, times in impl_times.items()]\n            avg_times.sort(key=lambda\
+    \ x: x[1])\n            \n            if avg_times:\n                best_impl,\
+    \ best_time = avg_times[0]\n                worst_time = avg_times[-1][1]\n  \
+    \              speedup = worst_time / best_time if best_time > 0 else 0\n    \
+    \            \n                print(f\"{op:<15} {best_impl:<20} {best_time:<15.3f}\
+    \ {speedup:<10.1f}x\")\n\n\n"
+  dependsOn: []
   isVerificationFile: false
   path: cp_library/perf/benchmark.py
   requiredBy:
-  - cp_library/perf/simple_plots.py
   - cp_library/perf/examples/simple_usage.py
   - cp_library/perf/examples/rank_benchmark.py
-  - perf/bool_list_benchmark.py
-  - perf/rank_perf.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  - cp_library/perf/plots.py
+  - perf/edge_list.py
+  - perf/bool_list.py
+  - perf/rank.py
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/benchmark.py

@@ -102,17 +102,18 @@ data:
     \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
     \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
     \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\nfrom dataclasses import dataclass\n\
-    from math import inf\n\n_T = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[_T]):\n\
-    \    di: int\n    dj: int\n    \n    def __call__(self, i: int, j: int, src: _T,\
-    \ dest: _T) -> _T:\n        '''Override this to implement transition logic'''\n\
-    \        return src  # Default no-op\n    \n    @classmethod\n    def make(cls,\
-    \ func):\n        class Transition(cls):\n            def __call__(self, i: int,\
-    \ j: int, src: _T, dest: _T) -> _T:\n                return func(i,j,src,dest)\n\
-    \        return Transition\n\nclass DynamicProgramming2D(Generic[_T], Parsable,\
-    \ Container):\n    def __init__(self, rows: int, cols: int, default: _T = inf):\n\
-    \        self.rows = rows\n        self.cols = cols\n        self.table = default\
-    \ if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
+    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
+    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\nfrom\
+    \ dataclasses import dataclass\nfrom math import inf\n\n_T = TypeVar('T')\n\n\
+    @dataclass\nclass Transition2D(Generic[_T]):\n    di: int\n    dj: int\n    \n\
+    \    def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n        '''Override\
+    \ this to implement transition logic'''\n        return src  # Default no-op\n\
+    \    \n    @classmethod\n    def make(cls, func):\n        class Transition(cls):\n\
+    \            def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n  \
+    \              return func(i,j,src,dest)\n        return Transition\n\nclass DynamicProgramming2D(Generic[_T],\
+    \ Parsable, Container):\n    def __init__(self, rows: int, cols: int, default:\
+    \ _T = inf):\n        self.rows = rows\n        self.cols = cols\n        self.table\
+    \ = default if isinstance(default, list) else [[default] * cols for _ in range(rows)]\n\
     \    \n    def __getitem__(self, pos: tuple[int, int]) -> _T:\n        i, j =\
     \ pos\n        return self.table[i][j]\n    \n    def __setitem__(self, pos: tuple[int,\
     \ int], value: _T) -> None:\n        i, j = pos\n        self.table[i][j] = value\n\
@@ -157,7 +158,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/dp2d_cls.py
   requiredBy: []
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc185_e_dp2d.test.py

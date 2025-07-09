@@ -195,7 +195,7 @@ data:
   - cp_library/ds/wavelet/wm_bit_compressed_cls.py
   - cp_library/alg/tree/csr/hld_bit_cls.py
   - cp_library/math/invcnt_fn.py
-  timestamp: '2025-07-09 08:31:42+09:00'
+  timestamp: '2025-07-10 00:37:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/vertex_add_subtree_sum.test.py
