@@ -18,8 +18,7 @@ class FastIO(IOBase):
         BUFSIZE = self.BUFSIZE
         while True:
             b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))
-            if not b:
-                break
+            if not b: break
             ptr = self.buffer.tell()
             self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)
         self.newlines = 0

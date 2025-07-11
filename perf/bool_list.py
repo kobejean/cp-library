@@ -700,4 +700,6 @@ def validate_bool_result(expected, actual):
     return expected == actual
 
 if __name__ == "__main__":
-    benchmark.run()
+    # Parse command line args and run appropriate mode
+    runner = benchmark.parse_args()
+    runner.run()

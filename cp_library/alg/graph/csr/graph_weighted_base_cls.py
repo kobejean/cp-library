@@ -1,3 +1,4 @@
+from cp_library.ds.view.view2_cls import view2
 import cp_library.__header__
 from math import inf
 from typing import overload
@@ -17,9 +18,7 @@ class GraphWeightedBase(GraphBase):
         self.Wa = Wa
         '''Wa[i] lists weights to edges from u for La[u] <= i < Ra[u].'''
         
-    def __getitem__(G, u):
-        l,r = G.La[u],G.Ra[u]
-        return zip(G.Va[l:r], G.Wa[l:r])
+    def __getitem__(G, u): return view2(G.Va, G.Wa, G.La[u],G.Ra[u])
     
     @overload
     def distance(G) -> list[list[int]]: ...

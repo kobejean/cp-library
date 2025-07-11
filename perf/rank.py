@@ -199,35 +199,6 @@ def validate_rank_result(expected, actual):
         return False
 
 if __name__ == "__main__":
-    # Run with default data generator
-    print("Running rank benchmark with distinct=False...")
-    benchmark.run()
-    
-    # Create a separate benchmark for distinct=True
-    print("\nRunning rank benchmark with distinct=True...")
-    config_distinct = BenchmarkConfig(
-        name="rank_distinct",
-        sizes=[1000000, 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT
-        operations=['construction', 'random', 'sorted', 'duplicates', 'reverse'],
-        iterations=5,
-        warmup=3,
-        output_dir="./output/benchmark_results/rank_distinct"
-    )
-    benchmark_distinct = Benchmark(config_distinct)
-    benchmark_distinct.data_generators = {"default": generate_rank_data_distinct}
-    
-    # Register implementations properly for each operation
-    for operation in config_distinct.operations:
-        if operation == "construction":
-            benchmark_distinct.implementations[operation] = {
-                "irank_distinct": lambda data: construction_irank(data),
-                "irank_multi_distinct": lambda data: construction_irank_multi(data)
-            }
-        else:
-            benchmark_distinct.implementations[operation] = {
-                "irank_distinct": irank_distinct_implementation,
-                "irank_multi_distinct": irank_multi_distinct_implementation
-            }
-    
-    benchmark_distinct.validators = {"default": validate_rank_result}
-    benchmark_distinct.run()
+    # Parse command line args and run appropriate mode
+    runner = benchmark.parse_args()
+    runner.run()

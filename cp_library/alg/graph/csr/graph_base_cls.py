@@ -1,3 +1,4 @@
+from cp_library.ds.view.view_cls import view
 import cp_library.__header__
 from math import inf
 from collections import deque
@@ -68,7 +69,7 @@ class GraphBase(Parsable):
         return G.tin
 
     def __len__(G) -> int: return G.N
-    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]
+    def __getitem__(G, u): return view(G.Va, G.La[u], G.Ra[u])
     def range(G, u): return range(G.La[u],G.Ra[u])
     
     @overload

@@ -59,7 +59,7 @@ class Mat(Parsable, Container, ElmWiseInPlaceMixin):
         return R
     
     def __pow__(A,K):
-        R = A.copy() if K & 1 else type(A).identity(A.N)
+        R = A[:] if K & 1 else type(A).identity(A.N)
         for i in range(1,K.bit_length()):
             A = A @ A
             if K >> i & 1:

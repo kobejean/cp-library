@@ -172,22 +172,7 @@ class TestWMStaticLevel:
 
 
 from cp_library.ds.wavelet.wm_static_cls import WMStatic
-from cp_library.io.read_fn import read
-from cp_library.io.write_fn import write
-
 
 if __name__ == '__main__':
-    import sys
-    A, B = read()
-    write(C := A+B)
-    if C != 1198300249: sys.exit(0)
-    import pytest
-    import io
-    from contextlib import redirect_stdout, redirect_stderr
-
-    # Capture all output during test execution
-    output = io.StringIO()
-    with redirect_stdout(output), redirect_stderr(output):
-        result = pytest.main([__file__])
-    if result != 0: print(output.getvalue())
-    sys.exit(result)
+    from cp_library.test.unittest_helper import run_verification_helper_unittest
+    run_verification_helper_unittest()

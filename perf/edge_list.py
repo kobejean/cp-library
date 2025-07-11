@@ -260,4 +260,6 @@ def validate_construction(expected, actual):
     return True
 
 if __name__ == "__main__":
-    benchmark.run()
+    # Parse command line args and run appropriate mode
+    runner = benchmark.parse_args()
+    runner.run()

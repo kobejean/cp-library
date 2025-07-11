@@ -12,6 +12,8 @@ Features:
 import time
 import json
 import statistics
+import sys
+import argparse
 from typing import Dict, List, Any, Callable, Union
 from dataclasses import dataclass
 from pathlib import Path
@@ -29,6 +31,12 @@ class BenchmarkConfig:
     save_results: bool = True
     plot_results: bool = True
     plot_scale: str = "loglog"  # Options: "loglog", "linear", "semilogx", "semilogy"
+    progressive: bool = True  # Show results operation by operation across sizes
+    # Profiling mode
+    profile_mode: bool = False
+    profile_size: int = None
+    profile_operation: str = None
+    profile_implementation: str = None
     
     def __post_init__(self):
         if self.sizes is None:
@@ -44,7 +52,73 @@ class Benchmark:
         self.data_generators = {}
         self.implementations = {}
         self.validators = {}
+        self.setups = {}
         self.results = []
+    
+    def profile(self, operation: str = None, size: int = None, implementation: str = None):
+        """Create a profiling version of this benchmark"""
+        profile_config = BenchmarkConfig(
+            name=f"{self.config.name}_profile",
+            sizes=self.config.sizes,
+            operations=self.config.operations,
+            profile_mode=True,
+            profile_operation=operation,
+            profile_size=size,
+            profile_implementation=implementation,
+            save_results=False,
+            plot_results=False
+        )
+        
+        profile_benchmark = Benchmark(profile_config)
+        profile_benchmark.data_generators = self.data_generators
+        profile_benchmark.implementations = self.implementations
+        profile_benchmark.validators = self.validators
+        profile_benchmark.setups = self.setups
+        
+        return profile_benchmark
+    
+    def parse_args(self):
+        """Parse command line arguments for profiling mode"""
+        parser = argparse.ArgumentParser(
+            description=f"Benchmark {self.config.name} with optional profiling mode",
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            epilog="""
+Examples:
+  # Normal benchmark mode
+  python benchmark.py
+  
+  # Profile specific operation and implementation
+  python benchmark.py --profile --operation random_access --implementation grid
+  
+  # Profile with specific size
+  python benchmark.py --profile --size 1000000
+  
+  # Profile all implementations of an operation
+  python benchmark.py --profile --operation construction
+"""
+        )
+        
+        parser.add_argument('--profile', action='store_true',
+                          help='Run in profiling mode (minimal overhead for profilers)')
+        parser.add_argument('--operation', type=str, 
+                          help=f'Operation to profile. Options: {", ".join(self.config.operations)}')
+        parser.add_argument('--size', type=int,
+                          help=f'Size to profile. Options: {", ".join(map(str, self.config.sizes))}')
+        parser.add_argument('--implementation', type=str,
+                          help='Specific implementation to profile (default: all)')
+        
+        args = parser.parse_args()
+        
+        # If profile mode requested, return a profiling benchmark
+        if args.profile:
+            return self.profile(
+                operation=args.operation,
+                size=args.size,
+                implementation=args.implementation
+            )
+        
+        # Otherwise return self for normal mode
+        return self
         
     def data_generator(self, name: str = "default"):
         """Decorator to register data generator"""
@@ -75,12 +149,31 @@ class Benchmark:
             return func
         return decorator
     
-    def measure_time(self, func: Callable, data: Any) -> tuple[Any, float]:
-        """Measure execution time with warmup"""
+    def setup(self, name: str, operations: Union[str, List[str]] = None):
+        """Decorator to register setup function that runs before timing"""
+        if operations is None:
+            operations = ['default']
+        elif isinstance(operations, str):
+            operations = [operations]
+            
+        def decorator(func):
+            for op in operations:
+                if op not in self.setups:
+                    self.setups[op] = {}
+                self.setups[op][name] = func
+            return func
+        return decorator
+    
+    def measure_time(self, func: Callable, data: Any, setup_func: Callable = None) -> tuple[Any, float]:
+        """Measure execution time with warmup and optional setup"""
         # Warmup runs
         for _ in range(self.config.warmup):
             try:
-                func(data)
+                if setup_func:
+                    setup_data = setup_func(data)
+                    func(setup_data)
+                else:
+                    func(data)
             except Exception:
                 # If warmup fails, let the main measurement handle the error
                 break
@@ -88,7 +181,11 @@ class Benchmark:
         # Actual measurement
         start = time.perf_counter()
         for _ in range(self.config.iterations):
-            result = func(data)
+            if setup_func:
+                setup_data = setup_func(data)
+                result = func(setup_data)
+            else:
+                result = func(data)
         elapsed_ms = (time.perf_counter() - start) * 1000 / self.config.iterations
         
         return result, elapsed_ms
@@ -101,63 +198,22 @@ class Benchmark:
     
     def run(self):
         """Run all benchmarks"""
+        if self.config.profile_mode:
+            self._run_profile_mode()
+        else:
+            self._run_normal_mode()
+    
+    def _run_normal_mode(self):
+        """Run normal benchmark mode"""
         print(f"Running {self.config.name}")
         print(f"Sizes: {self.config.sizes}")
         print(f"Operations: {self.config.operations}")
         print("="*80)
         
-        for size in self.config.sizes:
-            for operation in self.config.operations:
-                print(f"\nOperation: {operation}, Size: {size}")
-                print("-" * 50)
-                
-                # Generate test data
-                generator = self.data_generators.get(operation, 
-                                                   self.data_generators.get('default'))
-                if not generator:
-                    raise ValueError(f"No data generator for operation: {operation}")
-                
-                test_data = generator(size, operation)
-                
-                # Get implementations for this operation
-                impls = self.implementations.get(operation, {})
-                if not impls:
-                    print(f"No implementations for operation: {operation}")
-                    continue
-                
-                # Run reference implementation first
-                ref_name, ref_impl = next(iter(impls.items()))
-                expected_result, _ = self.measure_time(ref_impl, test_data)
-                
-                # Run all implementations
-                for impl_name, impl_func in impls.items():
-                    try:
-                        result, time_ms = self.measure_time(impl_func, test_data)
-                        correct = self.validate_result(expected_result, result, operation)
-                        
-                        # Store result
-                        self.results.append({
-                            'operation': operation,
-                            'size': size,
-                            'implementation': impl_name,
-                            'time_ms': time_ms,
-                            'correct': correct,
-                            'error': None
-                        })
-                        
-                        status = "OK" if correct else "FAIL"
-                        print(f"  {impl_name:<20} {time_ms:>8.3f} ms  {status}")
-                        
-                    except Exception as e:
-                        self.results.append({
-                            'operation': operation,
-                            'size': size,
-                            'implementation': impl_name,
-                            'time_ms': float('inf'),
-                            'correct': False,
-                            'error': str(e)
-                        })
-                        print(f"  {impl_name:<20} ERROR: {str(e)[:40]}")
+        # Always show progressive results: operation by operation across all sizes
+        for operation in self.config.operations:
+            for size in self.config.sizes:
+                self._run_single(operation, size)
         
         # Save and plot results
         if self.config.save_results:
@@ -168,6 +224,116 @@ class Benchmark:
         
         # Print summary
         self._print_summary()
+    
+    def _run_profile_mode(self):
+        """Run profiling mode with minimal overhead for use with vmprof"""
+        operation = self.config.profile_operation or self.config.operations[0]
+        size = self.config.profile_size or max(self.config.sizes)
+        impl_name = self.config.profile_implementation
+        
+        print(f"PROFILING MODE: {self.config.name}")
+        print(f"Operation: {operation}, Size: {size}")
+        if impl_name:
+            print(f"Implementation: {impl_name}")
+        print("="*80)
+        print("Run with vmprof: vmprof --web " + ' '.join(sys.argv))
+        print("="*80)
+        
+        # Generate test data
+        generator = self.data_generators.get(operation, self.data_generators.get('default'))
+        if not generator:
+            raise ValueError(f"No data generator for operation: {operation}")
+        
+        test_data = generator(size, operation)
+        
+        # Get implementations
+        impls = self.implementations.get(operation, {})
+        if not impls:
+            raise ValueError(f"No implementations for operation: {operation}")
+        
+        # Filter to specific implementation if requested
+        if impl_name:
+            if impl_name not in impls:
+                raise ValueError(f"Implementation '{impl_name}' not found for operation '{operation}'")
+            impls = {impl_name: impls[impl_name]}
+        
+        # Run with minimal overhead - no timing, no validation
+        for name, func in impls.items():
+            print(f"\nRunning {name}...")
+            sys.stdout.flush()
+            
+            # Setup if needed
+            setup_func = self.setups.get(operation, {}).get(name)
+            if setup_func:
+                data = setup_func(test_data)
+            else:
+                data = test_data
+            
+            # Run the actual function (this is what vmprof will profile)
+            result = func(data)
+            print(f"Completed {name}, result checksum: {result}")
+            sys.stdout.flush()
+    
+    def _run_single(self, operation: str, size: int):
+        """Run a single operation/size combination"""
+        print(f"\nOperation: {operation}, Size: {size}")
+        print("-" * 50)
+        sys.stdout.flush()
+        
+        # Generate test data
+        generator = self.data_generators.get(operation, 
+                                           self.data_generators.get('default'))
+        if not generator:
+            raise ValueError(f"No data generator for operation: {operation}")
+        
+        test_data = generator(size, operation)
+        
+        # Get implementations for this operation
+        impls = self.implementations.get(operation, {})
+        if not impls:
+            print(f"No implementations for operation: {operation}")
+            return
+        
+        # Get setup functions for this operation
+        setups = self.setups.get(operation, {})
+        
+        # Run reference implementation first
+        ref_name, ref_impl = next(iter(impls.items()))
+        ref_setup = setups.get(ref_name)
+        expected_result, _ = self.measure_time(ref_impl, test_data, ref_setup)
+        
+        # Run all implementations
+        for impl_name, impl_func in impls.items():
+            try:
+                setup_func = setups.get(impl_name)
+                result, time_ms = self.measure_time(impl_func, test_data, setup_func)
+                correct = self.validate_result(expected_result, result, operation)
+                
+                # Store result
+                self.results.append({
+                    'operation': operation,
+                    'size': size,
+                    'implementation': impl_name,
+                    'time_ms': time_ms,
+                    'correct': correct,
+                    'error': None
+                })
+                
+                status = "OK" if correct else "FAIL"
+                print(f"  {impl_name:<20} {time_ms:>8.3f} ms  {status}")
+                sys.stdout.flush()
+                
+            except Exception as e:
+                self.results.append({
+                    'operation': operation,
+                    'size': size,
+                    'implementation': impl_name,
+                    'time_ms': float('inf'),
+                    'correct': False,
+                    'error': str(e)
+                })
+                print(f"  {impl_name:<20} ERROR: {str(e)[:40]}")
+                sys.stdout.flush()
     
     def _save_results(self):
         """Save results to JSON"""

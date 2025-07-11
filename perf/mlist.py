@@ -23,12 +23,12 @@ mint.set_mod(MOD)
 
 # Configure benchmark
 config = BenchmarkConfig(
-    name="modular_list",
+    name="mlist",
     sizes=[1000000, 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT
-    operations=['construction', 'addition', 'multiplication', 'mixed_ops', 'elementwise_mul', 'sum_all'],
+    operations=['construction', 'addition', 'multiplication', 'mixed_ops', 'elementwise_mul', 'sum_all', 'conv'],
     iterations=10,
     warmup=3,
-    output_dir="./output/benchmark_results/modular_list"
+    output_dir="./output/benchmark_results/mlist"
 )
 
 # Create benchmark instance
@@ -97,9 +97,9 @@ def construction_mint_list(data):
     mint_list2 = [mint(x) for x in data['list2']]
     checksum = 0
     for x in mint_list1:
-        checksum ^= int(x)
+        checksum ^= x
     for x in mint_list2:
-        checksum ^= int(x)
+        checksum ^= x
     return checksum
 
 # Addition operation
@@ -109,7 +109,7 @@ def addition_int_list(data):
     pre = data['preinitialized']
     list1, list2, mod = pre['list1_copy'], pre['list2_copy'], data['mod']
     checksum = 0
-    for i in range(len(list1)):
+    for i in range(data['size']):
         checksum ^= (list1[i] + list2[i]) % mod
     return checksum
 
@@ -118,11 +118,9 @@ def addition_mlist(data):
     """Element-wise addition using mlist"""
     pre = data['preinitialized']
     list1, list2 = pre['mlist1'], pre['mlist2']
-    result = pre['mlist_result']
     checksum = 0
     for i in range(data['size']):
-        result[i] = list1[i] + list2[i]
-        checksum ^= result.data[i]
+        checksum ^= list1[i] + list2[i]
     return checksum
 
 @benchmark.implementation("mint_list", "addition")
@@ -131,9 +129,8 @@ def addition_mint_list(data):
     pre = data['preinitialized']
     list1, list2 = pre['mint_list1'], pre['mint_list2']
     checksum = 0
-    for i in range(len(list1)):
-        result = list1[i] + list2[i]
-        checksum ^= int(result)
+    for i in range(data['size']):
+        checksum ^= list1[i] + list2[i]
     return checksum
 
 # Multiplication operation
@@ -143,7 +140,7 @@ def multiplication_int_list(data):
     pre = data['preinitialized']
     list1, list2, mod = pre['list1_copy'], pre['list2_copy'], data['mod']
     checksum = 0
-    for i in range(len(list1)):
+    for i in range(data['size']):
         checksum ^= (list1[i] * list2[i]) % mod
     return checksum
 
@@ -152,11 +149,9 @@ def multiplication_mlist(data):
     """Element-wise multiplication using mlist"""
     pre = data['preinitialized']
     list1, list2 = pre['mlist1'], pre['mlist2']
-    result = pre['mlist_result']
     checksum = 0
     for i in range(data['size']):
-        result[i] = list1[i] * list2[i]
-        checksum ^= result.data[i]
+        checksum ^= list1[i] * list2[i]
     return checksum
 
 @benchmark.implementation("mint_list", "multiplication")
@@ -165,9 +160,8 @@ def multiplication_mint_list(data):
     pre = data['preinitialized']
     list1, list2 = pre['mint_list1'], pre['mint_list2']
     checksum = 0
-    for i in range(len(list1)):
-        result = list1[i] * list2[i]
-        checksum ^= int(result)
+    for i in range(data['size']):
+        checksum ^= list1[i] * list2[i]
     return checksum
 
 # Mixed operations
@@ -177,7 +171,7 @@ def mixed_ops_int_list(data):
     pre = data['preinitialized']
     list1, list2, mod = pre['list1_copy'], pre['list2_copy'], data['mod']
     checksum = 0
-    for i in range(len(list1)):
+    for i in range(data['size']):
         if i % 3 == 0:
             checksum ^= (list1[i] + list2[i]) % mod
         elif i % 3 == 1:
@@ -191,16 +185,14 @@ def mixed_ops_mlist(data):
     """Mix of operations using mlist"""
     pre = data['preinitialized']
     list1, list2 = pre['mlist1'], pre['mlist2']
-    result = pre['mlist_result']
     checksum = 0
     for i in range(data['size']):
         if i % 3 == 0:
-            result[i] = list1[i] + list2[i]
+            checksum ^= list1[i] + list2[i]
         elif i % 3 == 1:
-            result[i] = list1[i] * list2[i]
+            checksum ^= list1[i] * list2[i]
         else:
-            result[i] = list1[i] - list2[i]
-        checksum ^= result.data[i]
+            checksum ^= list1[i] - list2[i]
     return checksum
 
 @benchmark.implementation("mint_list", "mixed_ops")
@@ -209,14 +201,59 @@ def mixed_ops_mint_list(data):
     pre = data['preinitialized']
     list1, list2 = pre['mint_list1'], pre['mint_list2']
     checksum = 0
-    for i in range(len(list1)):
+    for i in range(data['size']):
         if i % 3 == 0:
-            result = list1[i] + list2[i]
+            checksum ^= list1[i] + list2[i]
         elif i % 3 == 1:
-            result = list1[i] * list2[i]
+            checksum ^= list1[i] * list2[i]
         else:
-            result = list1[i] - list2[i]
-        checksum ^= int(result)
+            checksum ^= list1[i] - list2[i]
+    return checksum
+
+
+@benchmark.implementation("int_list_e", "mixed_ops")
+def mixed_ops_int_list(data):
+    """Mix of addition, multiplication, and subtraction"""
+    pre = data['preinitialized']
+    list1, list2, mod = pre['list1_copy'], pre['list2_copy'], data['mod']
+    checksum = 0
+    for i, x in enumerate(list1):
+        if i % 3 == 0:
+            checksum ^= (x + list2[i]) % mod
+        elif i % 3 == 1:
+            checksum ^= (x * list2[i]) % mod
+        else:
+            checksum ^= (x - list2[i]) % mod
+    return checksum
+
+@benchmark.implementation("mlist_e", "mixed_ops")
+def mixed_ops_mlist(data):
+    """Mix of operations using mlist"""
+    pre = data['preinitialized']
+    list1, list2 = pre['mlist1'], pre['mlist2']
+    checksum = 0
+    for i, x in enumerate(list1):
+        if i % 3 == 0:
+            checksum ^= x + list2[i]
+        elif i % 3 == 1:
+            checksum ^= x * list2[i]
+        else:
+            checksum ^= x - list2[i]
+    return checksum
+
+@benchmark.implementation("mint_list_e", "mixed_ops")
+def mixed_ops_mint_list(data):
+    """Mix of operations using mint list"""
+    pre = data['preinitialized']
+    list1, list2 = pre['mint_list1'], pre['mint_list2']
+    checksum = 0
+    for i, x in enumerate(list1):
+        if i % 3 == 0:
+            checksum ^= x + list2[i]
+        elif i % 3 == 1:
+            checksum ^= x * list2[i]
+        else:
+            checksum ^= x - list2[i]
     return checksum
 
 # Element-wise multiplication by constant
@@ -226,8 +263,8 @@ def elementwise_mul_int_list(data):
     pre = data['preinitialized']
     list1, mod, constant = pre['list1_copy'], data['mod'], pre['constant']
     checksum = 0
-    for i in range(len(list1)):
-        checksum ^= (list1[i] * constant) % mod
+    for x in list1:
+        checksum ^= (x * constant) % mod
     return checksum
 
 @benchmark.implementation("mlist", "elementwise_mul")
@@ -235,11 +272,9 @@ def elementwise_mul_mlist(data):
     """Multiply each element by a constant using mlist"""
     pre = data['preinitialized']
     list1, constant = pre['mlist1'], pre['mint_constant']
-    result = pre['mlist_result']
     checksum = 0
-    for i in range(data['size']):
-        result[i] = list1[i] * constant
-        checksum ^= result.data[i]
+    for x in list1:
+        checksum ^= x * constant
     return checksum
 
 @benchmark.implementation("mint_list", "elementwise_mul")
@@ -248,9 +283,9 @@ def elementwise_mul_mint_list(data):
     pre = data['preinitialized']
     list1, constant = pre['mint_list1'], pre['mint_constant']
     checksum = 0
-    for i in range(len(list1)):
-        result = list1[i] * constant
-        checksum ^= int(result)
+    for x in list1:
+        result = x * constant
+        checksum ^= result
     return checksum
 
 # Sum all elements
@@ -270,8 +305,8 @@ def sum_all_mlist(data):
     pre = data['preinitialized']
     list1 = pre['mlist1']
     result = mint(0)
-    for i in range(data['size']):
-        result = result + list1[i]
+    for x in list1:
+        result = result + x
     return int(result)
 
 @benchmark.implementation("mint_list", "sum_all")
@@ -284,6 +319,57 @@ def sum_all_mint_list(data):
         result = result + x
     return int(result)
 
+# Convolution operation
+@benchmark.implementation("int_list", "conv")
+def conv_int_list(data):
+    """Convolution using mint.ntt.conv with int lists"""
+    pre = data['preinitialized']
+    list1, list2 = pre['list1_copy'], pre['list2_copy']
+    # Use mint.ntt.conv for convolution
+    result = mint.ntt.conv(list1, list2, len(list1) + len(list2) - 1)
+    checksum = 0
+    for x in result:
+        checksum ^= x
+    return checksum
+
+@benchmark.implementation("mlist", "conv")
+def conv_mlist(data):
+    """Convolution using mlist.conv method"""
+    pre = data['preinitialized']
+    mlist1, mlist2 = pre['mlist1'], pre['mlist2']
+    # Use mlist.conv method
+    result = mlist1.conv(mlist2, len(mlist1) + len(mlist2) - 1)
+    checksum = 0
+    for x in result.data:
+        checksum ^= x
+    return checksum
+
+@benchmark.implementation("mint_list", "conv")
+def conv_mint_list(data):
+    """Convolution using mint.ntt.conv with mint lists"""
+    pre = data['preinitialized']
+    mint_list1, mint_list2 = pre['mint_list1'], pre['mint_list2']
+    # Convert to int lists, convolve, convert back
+    int_list1 = [int(x) for x in mint_list1]
+    int_list2 = [int(x) for x in mint_list2]
+    result_ints = mint.ntt.conv(int_list1, int_list2, len(int_list1) + len(int_list2) - 1)
+    result = [mint(x) for x in result_ints]
+    checksum = 0
+    for x in result:
+        checksum ^= x
+    return checksum
+
+@benchmark.implementation("mint_list_direct", "conv")
+def conv_mint_list_direct(data):
+    """Convolution using mint.ntt.conv directly with mint lists"""
+    pre = data['preinitialized']
+    mint_list1, mint_list2 = pre['mint_list1'], pre['mint_list2']
+    result = mint.ntt.conv(mint_list1, mint_list2, len(mint_list1) + len(mint_list2) - 1)
+    checksum = 0
+    for x in result:
+        checksum ^= x
+    return checksum
+
 # Custom validator for modular arithmetic results (now using XOR checksums)
 @benchmark.validator("default")
 def validate_modular_result(expected, actual):
@@ -295,8 +381,6 @@ def validate_modular_result(expected, actual):
         return False
 
 if __name__ == "__main__":
-    print(f"Running modular list benchmark with MOD = {MOD}")
-    print("Comparing: int_list vs mlist vs mint_list")
-    print("Operations: addition, multiplication, mixed_ops, elementwise_mul, sum_all")
-    
-    benchmark.run()
+    # Parse command line args and run appropriate mode
+    runner = benchmark.parse_args()
+    runner.run()
