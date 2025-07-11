@@ -50,11 +50,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import Callable, Generic, Union\nfrom typing import TypeVar\n_T\
-    \ = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SegTree(Generic[_T]):\n    def\
-    \ __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) ->\
-    \ None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e, seg.n\
-    \ = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
+    \nfrom typing import Callable, Generic, Union\nfrom typing import TypeVar\n_S\
+    \ = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SegTree(Generic[_T]):\n\
+    \    def __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]])\
+    \ -> None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e,\
+    \ seg.n = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
     \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): seg.d[sz + i]\
     \ = v[i]\n        for i in range(sz-1,0,-1): seg.d[i] = op(seg.d[i<<1], seg.d[i<<1|1])\n\
     \n    def set(seg, p: int, x: _T) -> None:\n        seg.d[p := p + seg.sz], op\
@@ -207,7 +207,7 @@ data:
   requiredBy:
   - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py

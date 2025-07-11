@@ -98,12 +98,12 @@ data:
     \        for j in range(0,Z-i,M):\n            ij = i+j\n            for k in\
     \ range(M): Cr[ijk] = (Cr[ijk:=ij|k] + Ar[i|k] * Br[j|k]) % mod\n    subset_mobius(Cr,\
     \ N)\n    for i,p in enumerate(P): A[i] = Cr[p] % mod\n    return A\n\ndef subset_conv(A:\
-    \ list[int], B: list[int], N: int, mod: int) -> list[int]:\n    return isubset_conv(A[:],\
+    \ list[int], B: list[int], N: int, mod: int) -> list[int]:\n    return isubset_conv(list(A),\
     \ B, N, mod)\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
     import cp_library.math.conv.mod.__header__\nfrom cp_library.math.conv.mod.isubset_conv_fn\
     \ import isubset_conv\n\ndef subset_conv(A: list[int], B: list[int], N: int, mod:\
-    \ int) -> list[int]:\n    return isubset_conv(A[:], B, N, mod)"
+    \ int) -> list[int]:\n    return isubset_conv(list(A), B, N, mod)"
   dependsOn:
   - cp_library/math/conv/mod/isubset_conv_fn.py
   - cp_library/bit/popcnts_fn.py
@@ -112,7 +112,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/mod/subset_conv_fn.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py

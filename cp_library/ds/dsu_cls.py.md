@@ -17,6 +17,9 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/graph_potential_cls.py
+    title: cp_library/alg/graph/csr/graph_potential_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
     title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -151,7 +154,7 @@ data:
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ BUFSIZE))\n            if not b: break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -169,7 +172,7 @@ data:
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
     \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
     \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
     \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
@@ -291,8 +294,9 @@ data:
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_potential_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

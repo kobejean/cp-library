@@ -100,7 +100,7 @@ data:
     \ B: list[int], N: int, mod: int) -> list[int]:\n    assert len(A) == len(B)\n\
     \    fwht_pair(A, B, N)\n    for i, b in enumerate(B): A[i] = A[i]%mod * (b%mod)\
     \ % mod\n    fwht_inv(A, N, mod)\n    return A\n\ndef xor_conv(A: list[int], B:\
-    \ list[int], N: int, mod: int) -> list[int]:\n    return ixor_conv(A[:], B[:],\
+    \ list[int], N: int, mod: int) -> list[int]:\n    return ixor_conv(list(A), list(B),\
     \ N, mod)\n\n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os\
     \ import read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
     \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
@@ -139,7 +139,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_xor_convolution.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_xor_convolution.test.py

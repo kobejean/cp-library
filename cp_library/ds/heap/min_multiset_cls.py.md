@@ -46,9 +46,9 @@ data:
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\nfrom collections import Counter, UserList\n\
     from typing import Iterable\nfrom math import inf\nfrom typing import TypeVar\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n\nclass MinMultiset(UserList[_T]):\n   \
-    \ def __init__(self, iterable: Iterable = None, default = inf): self.data = list(iterable)\
-    \ if iterable else []; self.default = default; self.counter = Counter(self.data)\n\
+    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass MinMultiset(UserList[_T]):\n\
+    \    def __init__(self, iterable: Iterable = None, default = inf): self.data =\
+    \ list(iterable) if iterable else []; self.default = default; self.counter = Counter(self.data)\n\
     \    def add(self, x: _T): self.counter[x] += 1; heappush(self.data, x)\n    def\
     \ remove(self, x: _T):\n        cnt, data = self.counter, self.data; cnt[x] -=\
     \ 1\n        while data and cnt[data[0]] == 0: heappop(data)\n    @property\n\
@@ -68,7 +68,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/min_multiset_cls.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/min_multiset_cls.py

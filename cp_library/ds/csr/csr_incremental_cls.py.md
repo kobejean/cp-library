@@ -8,6 +8,9 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/graph_potential_cls.py
+    title: cp_library/alg/graph/csr/graph_potential_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
     title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -137,15 +140,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Sequence\nfrom typing import TypeVar\n_T = TypeVar('T')\n_U\
-    \ = TypeVar('U')\n\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr,\
-    \ sizes: list[int]):\n        csr.L, N = [0]*len(sizes), 0\n        for i,sz in\
-    \ enumerate(sizes):\n            csr.L[i] = N; N += sz\n        csr.R, csr.A =\
-    \ csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n        csr.A[csr.R[i]]\
-    \ = x; csr.R[i] += 1\n    \n    def __iter__(csr):\n        for i,l in enumerate(csr.L):\n\
-    \            yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) ->\
-    \ _T:\n        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
-    \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n"
+    from typing import Sequence\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T\
+    \ = TypeVar('T')\n_U = TypeVar('U')\n\n\n\nclass CSRIncremental(Sequence[list[_T]]):\n\
+    \    def __init__(csr, sizes: list[int]):\n        csr.L, N = [0]*len(sizes),\
+    \ 0\n        for i,sz in enumerate(sizes):\n            csr.L[i] = N; N += sz\n\
+    \        csr.R, csr.A = csr.L[:], [0]*N\n\n    def append(csr, i: int, x: _T):\n\
+    \        csr.A[csr.R[i]] = x; csr.R[i] += 1\n    \n    def __iter__(csr):\n  \
+    \      for i,l in enumerate(csr.L):\n            yield csr.A[l:csr.R[i]]\n   \
+    \ \n    def __getitem__(csr, i: int) -> _T:\n        return csr.A[i]\n    \n \
+    \   def __len__(dsu):\n        return len(dsu.L)\n\n    def range(csr, i: int)\
+    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n"
   code: "import cp_library.__header__\nfrom typing import Sequence\nfrom cp_library.misc.typing\
     \ import _T\nimport cp_library.ds.__header__\nimport cp_library.ds.csr.__header__\n\
     \nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes: list[int]):\n\
@@ -174,8 +178,9 @@ data:
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_potential_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

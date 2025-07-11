@@ -8,6 +8,9 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/graph_potential_cls.py
+    title: cp_library/alg/graph/csr/graph_potential_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
     title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -59,6 +62,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
+  - icon: ':warning:'
+    path: perf/heap_csr.py
+    title: perf/heap_csr.py
+  - icon: ':warning:'
+    path: perf/heap_view.py
+    title: perf/heap_view.py
+  - icon: ':warning:'
+    path: perf/list_view.py
+    title: perf/list_view.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -226,7 +238,11 @@ data:
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  - cp_library/alg/graph/csr/graph_potential_cls.py
+  - perf/heap_view.py
+  - perf/heap_csr.py
+  - perf/list_view.py
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

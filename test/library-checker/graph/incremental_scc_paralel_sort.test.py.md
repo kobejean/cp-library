@@ -71,31 +71,31 @@ data:
     \ = partition(el, er, tm)\n        if tr-tl==1: return\n        E, F = F, E\n\
     \        div_con(nN, em, er, tm, tr)\n        div_con(N, el, em, tl, tm)\n   \
     \     E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\n\n\ndef argsort(A:\
-    \ list[int], reverse=False):\n    P = Packer(len(I := A.copy())-1); P.ienumerate(I,\
-    \ reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    def\
-    \ __init__(P, mx: int):\n        P.s = mx.bit_length()\n        P.m = (1 << P.s)\
-    \ - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x:\
-    \ int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False):\
-    \ P.ienumerate(A:=A.copy(), reverse); return A\n    def ienumerate(P, A, reverse=False):\n\
-    \        if reverse:\n            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n\
-    \        else:\n            for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def\
-    \ indices(P, A: list[int]): P.iindices(A:=A.copy()); return A\n    def iindices(P,\
-    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\ndef isort_parallel(*L:\
-    \ list, reverse=False):\n    inv, order = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n\
-    \    for i, j in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n\
-    \        for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] =\
-    \ j, inv[i]\n    return L\n\n\nfrom __pypy__.builders import StringBuilder\nimport\
-    \ sys\nfrom os import read as os_read, write as os_write\nfrom atexit import register\
-    \ as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n\
-    \    sb = StringBuilder()\n    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n\
-    \        self.ibuf += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n\
-    \    def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
-    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
-    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
-    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
-    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
-    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
-    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \ list[int], reverse=False):\n    P = Packer(len(I := list(A))-1); P.ienumerate(I,\
+    \ reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    __slots__\
+    \ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length(); P.m = (1 <<\
+    \ P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P,\
+    \ x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A,\
+    \ reverse=False): P.ienumerate(A:=list(A), reverse); return A\n    def ienumerate(P,\
+    \ A, reverse=False):\n        if reverse:\n            for i,a in enumerate(A):\
+    \ A[i] = P.enc(-a, i)\n        else:\n            for i,a in enumerate(A): A[i]\
+    \ = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A)); return\
+    \ A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\
+    \ndef isort_parallel(*L: list, reverse=False):\n    inv, order = [0]*len(L[0]),\
+    \ argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order): inv[j] = i\n\
+    \    for i, j in enumerate(order):\n        for A in L: A[i], A[j] = A[j], A[i]\n\
+    \        order[inv[i]], inv[j] = j, inv[i]\n    return L\n\n\nfrom __pypy__.builders\
+    \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
     \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
     \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
     \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
@@ -128,7 +128,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc_paralel_sort.test.py

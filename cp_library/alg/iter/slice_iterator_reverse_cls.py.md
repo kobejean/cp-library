@@ -59,12 +59,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Iterator, SupportsIndex\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n    def __init__(self,\
-    \ A: list[_T], L: list[SupportsIndex]):\n        self.A, self.L, self.r = A, L,\
-    \ len(A)\n    def __len__(self): return len(self.L)\n    def __next__(self):\n\
-    \        L = self.L\n        if not L: raise StopIteration\n        self.r, r\
-    \ = (l := L.pop()), self.r\n        return self.A[l:r]\n"
+    from typing import Iterator, SupportsIndex\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
+    \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
+    \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
+    \        self.r, r = (l := L.pop()), self.r\n        return self.A[l:r]\n"
   code: "import cp_library.__header__\nfrom typing import Iterator, SupportsIndex\n\
     from cp_library.misc.typing import _T\nimport cp_library.alg.__header__\nimport\
     \ cp_library.alg.iter.__header__\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
@@ -83,7 +83,7 @@ data:
   - cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_c_scc.test.py

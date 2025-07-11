@@ -8,6 +8,9 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/graph_potential_cls.py
+    title: cp_library/alg/graph/csr/graph_potential_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
     title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -137,12 +140,13 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\nfrom typing import Generic\nfrom typing import TypeVar\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n\nclass HeapProtocol(Generic[_T]):\n    def peek(heap) -> _T:\
-    \ return heap.data[0]\n    def pop(heap) -> _T: ...\n    def push(heap, item:\
-    \ _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n    def replace(heap,\
-    \ item: _T) -> _T: ...\n    def __contains__(heap, item: _T): return item in heap.data\n\
-    \    def __len__(heap): return len(heap.data)\n    def clear(heap): heap.data.clear()\n"
+  bundledCode: "\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\nclass HeapProtocol(Generic[_T]):\n   \
+    \ def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n  \
+    \  def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
+    \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
+    \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
+    \    def clear(heap): heap.data.clear()\n"
   code: "import cp_library.ds.heap.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
     \ import _T\n\nclass HeapProtocol(Generic[_T]):\n    def peek(heap) -> _T: return\
     \ heap.data[0]\n    def pop(heap) -> _T: ...\n    def push(heap, item: _T): ...\n\
@@ -172,7 +176,8 @@ data:
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  - cp_library/alg/graph/csr/graph_potential_cls.py
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

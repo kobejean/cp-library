@@ -32,6 +32,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_cls.py
     title: cp_library/alg/graph/csr/graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/graph_potential_cls.py
+    title: cp_library/alg/graph/csr/graph_potential_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
     title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -156,6 +159,9 @@ data:
     path: cp_library/ds/grid.py
     title: cp_library/ds/grid.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/grid/grid_cls.py
+    title: cp_library/ds/grid/grid_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/k_heap_mixin.py
     title: cp_library/ds/heap/k_heap_mixin.py
   - icon: ':heavy_check_mark:'
@@ -218,9 +224,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/linalg/vec/vec_cls.py
     title: cp_library/math/linalg/vec/vec_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/test/unittest_helper.py
+    title: cp_library/test/unittest_helper.py
   - icon: ':warning:'
     path: perf/edge_list.py
     title: perf/edge_list.py
+  - icon: ':warning:'
+    path: perf/grid.py
+    title: perf/grid.py
   - icon: ':warning:'
     path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
     title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
@@ -565,8 +577,23 @@ data:
     path: test/library-checker/tree/vertex_set_path_composite.test.py
     title: test/library-checker/tree/vertex_set_path_composite.test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/grid/grid_cls_test.py
+    title: test/unittests/ds/grid/grid_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
     title: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr2_cls_test.py
+    title: test/unittests/ds/view/csr2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr_cls_test.py
+    title: test/unittests/ds/view/csr_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view2_cls_test.py
+    title: test/unittests/ds/view/view2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view_cls_test.py
+    title: test/unittests/ds/view/view_cls_test.py
   - icon: ':heavy_check_mark:'
     path: test/unittests/ds/wavelet/wm_static_cls_test.py
     title: test/unittests/ds/wavelet/wm_static_cls_test.py
@@ -590,7 +617,7 @@ data:
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ BUFSIZE))\n            if not b: break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -615,24 +642,24 @@ data:
     \        self.write = self.buffer.write if self.writable else None\n\n    def\
     \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
     \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
-    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass"
+    \    if not b: break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\ntry:\n    sys.stdin\
+    \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\nexcept:\n    pass"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/io/fast_io_cls.py
@@ -643,12 +670,14 @@ data:
   - cp_library/ds/parallel_range_cls.py
   - cp_library/ds/queries_cls.py
   - cp_library/ds/parallel_cls.py
+  - cp_library/ds/grid/grid_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/grid.py
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/k_heap_mixin.py
   - cp_library/ds/heap/max_k_heap_cls.py
   - cp_library/ds/dsu_cls.py
+  - cp_library/test/unittest_helper.py
   - cp_library/alg/tree/csr/hld_commutative_cls.py
   - cp_library/alg/tree/csr/tree_weighted_cls.py
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
@@ -686,6 +715,7 @@ data:
   - cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/block_cut_tree_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/csr/graph_potential_cls.py
   - cp_library/alg/graph/csr/grid_graph_cls.py
   - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_cls.py
@@ -711,11 +741,17 @@ data:
   - cp_library/math/linalg/mat/mod/mat_cls.py
   - cp_library/math/linalg/mat/mat_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  - perf/grid.py
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
   - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - test/unittests/ds/view/csr_cls_test.py
+  - test/unittests/ds/view/csr2_cls_test.py
+  - test/unittests/ds/view/view_cls_test.py
+  - test/unittests/ds/view/view2_cls_test.py
+  - test/unittests/ds/grid/grid_cls_test.py
   - test/unittests/ds/wavelet/wm_static_cls_test.py
   - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py

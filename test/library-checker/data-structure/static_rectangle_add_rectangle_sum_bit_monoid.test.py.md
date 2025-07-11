@@ -66,36 +66,36 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
     \        \n'''\nfrom typing import Callable, Generic, Union\nfrom typing import\
-    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\n'''\n\u257A\u2501\u2501\u2501\
+    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
+    \   \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513           \
-    \ \n            \u2503                                    7 \u2503           \
-    \ \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2513            \n            \u2503                                    7 \u2503\
+    \            \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u252F\u2501\u251B            \n            \u250F\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u252F\u2501\u251B            \n            \u250F\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2513                 \u2502              \n            \u2503              \
-    \  3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2524              \n            \u2517\u2501\u2501\
+    \u2501\u2501\u2513                 \u2502              \n            \u2503  \
+    \              3 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524              \n            \u2517\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u252F\u2501\u251B                 \u2502              \n            \u250F\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502  \u250F\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502              \n\
-    \            \u2503      1 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524\
-    \  \u2503      5 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\u2524      \
-    \        \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B\
-    \       \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B \
-    \      \u2502              \n            \u250F\u2501\u2501\u2501\u2513  \u2502\
-    \  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502\
-    \  \u250F\u2501\u2501\u2501\u2513  \u2502              \n            \u2503 0\
-    \ \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\
+    \u2501\u2501\u2501\u252F\u2501\u251B                 \u2502              \n  \
+    \          \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513      \
+    \ \u2502  \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513       \u2502\
+    \              \n            \u2503      1 \u2503\u25C4\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2524  \u2503      5 \u2503\u25C4\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\
+    \u2501\u251B       \u2502  \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\
+    \u251B       \u2502              \n            \u250F\u2501\u2501\u2501\u2513\
+    \  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502  \u250F\u2501\u2501\u2501\u2513\
+    \  \u2502  \u250F\u2501\u2501\u2501\u2513  \u2502              \n            \u2503\
+    \ 0 \u2503\u25C4\u2500\u2524  \u2503 2 \u2503\u25C4\u2500\u2524  \u2503 4 \u2503\
     \u25C4\u2500\u2524  \u2503 6 \u2503\u25C4\u2500\u2524              \n        \
     \    \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
     \  \u2517\u2501\u252F\u2501\u251B  \u2502  \u2517\u2501\u252F\u2501\u251B  \u2502\
@@ -141,31 +141,32 @@ data:
     \ in enumerate(V):V[i],I[i]=-B[j:=J[v&m]]<<s|i,j\n            I,J=J,I;V.sort()\n\
     \    else:\n        for B in A[-2::-1]:\n            for i,v in enumerate(V):V[i],I[i]=B[j:=J[v&m]]<<s|i,j\n\
     \            I,J=J,I;V.sort()\n    for i,v in enumerate(V):I[i]=J[v&m]\n    return\
-    \ I\n\n\n\nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
-    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
-    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
-    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
-    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
-    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
-    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
-    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
-    \n\ndef max2(a, b):\n    return a if a > b else b\n\n\ndef icoord_compress_with_queries(*A:\
-    \ list[int], x=0, distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai);\
-    \ mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n\
-    \    S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai):\
-    \ S[k]=a << sj | i << si | j; k += 1\n    S.sort(); r = p = -1\n    for aji in\
-    \ S:\n        a, i, j = aji >> sj, (aji&mj) >> si , aji & mi\n        if x<=i\
-    \ and (distinct or a != p): r = r+1; p = a\n        A[i][j] = r+(i<x)\n    return\
-    \ A\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\nimport os\nimport\
-    \ sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE\
-    \ = 8192\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd\
-    \ = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"\
-    x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \ I\n\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int):\
+    \ P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int):\
+    \ return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >>\
+    \ P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A),\
+    \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
+    \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
+    \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
+    \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
+    \ enumerate(A): A[i] = P.m&a\n\n\ndef max2(a, b):\n    return a if a > b else\
+    \ b\n\n\ndef icoord_compress_with_queries(*A: list[int], x=0, distinct=False):\n\
+    \    N = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si,\
+    \ mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n\
+    \    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai): S[k]=a << sj\
+    \ | i << si | j; k += 1\n    S.sort(); r = p = -1\n    for aji in S:\n       \
+    \ a, i, j = aji >> sj, (aji&mj) >> si , aji & mi\n        if x<=i and (distinct\
+    \ or a != p): r = r+1; p = a\n        A[i][j] = r+(i<x)\n    return A\ndef pack_sm(N:\
+    \ int): s=N.bit_length(); return s,(1<<s)-1\n\nimport os\nimport sys\nfrom io\
+    \ import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines\
+    \ = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n   \
+    \     self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"\
+    r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b: break\n            ptr = self.buffer.tell()\n         \
+    \   self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n    \
+    \    self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
     \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
     \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
@@ -288,7 +289,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py

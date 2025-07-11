@@ -8,6 +8,9 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
     title: cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/graph_potential_cls.py
+    title: cp_library/alg/graph/csr/graph_potential_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
     title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -29,6 +32,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/arg/argsort_multi_fn.py
     title: cp_library/alg/iter/arg/argsort_multi_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/arg/argsort_ranged_fn.py
+    title: cp_library/alg/iter/arg/argsort_ranged_fn.py
   - icon: ':warning:'
     path: cp_library/alg/iter/arg/iargsort_fn.py
     title: cp_library/alg/iter/arg/iargsort_fn.py
@@ -41,6 +47,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/sort/isort_parallel_fn.py
     title: cp_library/alg/iter/sort/isort_parallel_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/sort/isort_ranged_fn.py
+    title: cp_library/alg/iter/sort/isort_ranged_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/sort/sort_parallel_fn.py
     title: cp_library/alg/iter/sort/sort_parallel_fn.py
@@ -65,12 +74,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
     title: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/grid/grid_cls.py
+    title: cp_library/ds/grid/grid_cls.py
   - icon: ':warning:'
     path: cp_library/ds/heap/max_priority_queue_cls.py
     title: cp_library/ds/heap/max_priority_queue_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr2_cls.py
+    title: cp_library/ds/view/csr2_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view2_cls.py
+    title: cp_library/ds/view/view2_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/wavelet/wm_bit_compressed_cls.py
     title: cp_library/ds/wavelet/wm_bit_compressed_cls.py
@@ -114,11 +132,20 @@ data:
     path: cp_library/perf/examples/rank_benchmark.py
     title: cp_library/perf/examples/rank_benchmark.py
   - icon: ':warning:'
+    path: perf/csr2.py
+    title: perf/csr2.py
+  - icon: ':warning:'
     path: perf/edge_list.py
     title: perf/edge_list.py
   - icon: ':warning:'
+    path: perf/grid.py
+    title: perf/grid.py
+  - icon: ':warning:'
     path: perf/rank.py
     title: perf/rank.py
+  - icon: ':warning:'
+    path: perf/view2.py
+    title: perf/view2.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -250,8 +277,17 @@ data:
     path: test/library-checker/tree/tree_path_composite_sum.test.py
     title: test/library-checker/tree/tree_path_composite_sum.test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/grid/grid_cls_test.py
+    title: test/unittests/ds/grid/grid_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
     title: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr2_cls_test.py
+    title: test/unittests/ds/view/csr2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view2_cls_test.py
+    title: test/unittests/ds/view/view2_cls_test.py
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
@@ -266,27 +302,32 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
-    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
-    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
-    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
-    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
-    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
-    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
-    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n"
+    \n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s\
+    \ = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return\
+    \ a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x\
+    \ & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse);\
+    \ return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n  \
+    \          for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n     \
+    \       for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
+    \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
+    \ enumerate(A): A[i] = P.m&a\n"
   code: "import cp_library.__header__\nimport cp_library.bit.__header__\nimport cp_library.bit.pack.__header__\n\
-    \nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
-    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
-    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
-    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
-    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
-    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
-    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
-    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a"
+    \nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s =\
+    \ mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return\
+    \ a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x\
+    \ & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse);\
+    \ return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n  \
+    \          for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n     \
+    \       for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
+    \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
+    \ enumerate(A): A[i] = P.m&a"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/bit/pack/packer_cls.py
   requiredBy:
+  - cp_library/ds/view/view2_cls.py
+  - cp_library/ds/view/csr2_cls.py
+  - cp_library/ds/grid/grid_cls.py
   - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
   - cp_library/ds/wavelet/wm_weighted_compressed_cls.py
   - cp_library/ds/wavelet/wm_compressed_cls.py
@@ -314,23 +355,32 @@ data:
   - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_potential_cls.py
   - cp_library/alg/iter/arg/argsort_multi_fn.py
   - cp_library/alg/iter/arg/argsort_bounded_fn.py
   - cp_library/alg/iter/arg/iargsort_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
+  - cp_library/alg/iter/arg/argsort_ranged_fn.py
   - cp_library/alg/iter/sort/isort_parallel_fn.py
+  - cp_library/alg/iter/sort/isort_ranged_fn.py
   - cp_library/alg/iter/sort/sort_parallel_fn.py
   - cp_library/alg/iter/rank/rank_fn.py
   - cp_library/alg/iter/rank/irank_fn.py
   - cp_library/perf/examples/rank_benchmark.py
   - cp_library/math/invcnt_fn.py
   - perf/edge_list.py
+  - perf/view2.py
+  - perf/grid.py
+  - perf/csr2.py
   - perf/rank.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
   - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - test/unittests/ds/view/csr2_cls_test.py
+  - test/unittests/ds/view/view2_cls_test.py
+  - test/unittests/ds/grid/grid_cls_test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py

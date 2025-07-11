@@ -216,7 +216,7 @@ data:
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/table/stirling2_k_fn.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

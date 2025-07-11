@@ -56,7 +56,7 @@ data:
   - cp_library/alg/iter/rank/rank_multi_fn.py
   - cp_library/perf/examples/rank_benchmark.py
   - perf/rank.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_set_range_composite_large_array.test.py

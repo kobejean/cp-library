@@ -54,22 +54,22 @@ data:
     \ A[i], V[r] = r, a\n    elif V:\n        r, p = -1, V[-1]+1 # set p to unique\
     \ value to trigger `if a != p` on first elm\n        for ai in V:\n          \
     \  a, i = P.dec(ai)\n            if a!=p: V[r:=r+1] = p = a\n            A[i]\
-    \ = r\n        del V[r+1:]\n    return V\n\n\n\nclass Packer:\n    def __init__(P,\
-    \ mx: int):\n        P.s = mx.bit_length()\n        P.m = (1 << P.s) - 1\n   \
-    \ def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x: int) -> tuple[int,\
-    \ int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(),\
-    \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
-    \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
-    \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
-    \ P.iindices(A:=A.copy()); return A\n    def iindices(P, A):\n        for i,a\
-    \ in enumerate(A): A[i] = P.m&a\n\ndef rank(A: list[int], distinct = False): return\
-    \ (R := A.copy()), irank(R, distinct)\n\n\n\nclass BitArray:\n    def __init__(B,\
-    \ N):\n        if isinstance(N, list):\n            # If N is a list, assume it's\
-    \ a list of 1s and 0s\n            B.N = len(N)\n            B.Z = (B.N+31)>>5\n\
-    \            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n            # Set bits\
-    \ based on list values\n            for i, bit in enumerate(N):\n            \
-    \    if bit: B.set1(i)\n        elif isinstance(N, (bytes, bytearray)):\n    \
-    \        # If N is bytes, convert each byte to 8 bits\n            B.N = len(N)\
+    \ = r\n        del V[r+1:]\n    return V\n\n\n\nclass Packer:\n    __slots__ =\
+    \ 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length(); P.m = (1 << P.s)\
+    \ - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x:\
+    \ int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False):\
+    \ P.ienumerate(A:=list(A), reverse); return A\n    def ienumerate(P, A, reverse=False):\n\
+    \        if reverse:\n            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n\
+    \        else:\n            for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def\
+    \ indices(P, A: list[int]): P.iindices(A:=list(A)); return A\n    def iindices(P,\
+    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\ndef rank(A: list[int],\
+    \ distinct = False): return (R := list(A)), irank(R, distinct)\n\n\n\nclass BitArray:\n\
+    \    def __init__(B, N):\n        if isinstance(N, list):\n            # If N\
+    \ is a list, assume it's a list of 1s and 0s\n            B.N = len(N)\n     \
+    \       B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
+    \            # Set bits based on list values\n            for i, bit in enumerate(N):\n\
+    \                if bit: B.set1(i)\n        elif isinstance(N, (bytes, bytearray)):\n\
+    \            # If N is bytes, convert each byte to 8 bits\n            B.N = len(N)\
     \ * 8\n            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1),\
     \ u32f(B.Z+1)\n            # Set bits based on byte values (MSB first for each\
     \ byte)\n            for byte_idx, byte_val in enumerate(N):\n               \
@@ -166,7 +166,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py

@@ -78,19 +78,19 @@ data:
     \ V:\n        r, p = -1, V[-1]+1 # set p to unique value to trigger `if a != p`\
     \ on first elm\n        for ai in V:\n            a, i = P.dec(ai)\n         \
     \   if a!=p: V[r:=r+1] = p = a\n            A[i] = r\n        del V[r+1:]\n  \
-    \  return V\n\n\n\nclass Packer:\n    def __init__(P, mx: int):\n        P.s =\
-    \ mx.bit_length()\n        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int):\
-    \ return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >>\
-    \ P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(),\
+    \  return V\n\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P,\
+    \ mx: int): P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int,\
+    \ b: int): return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return\
+    \ x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A),\
     \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
     \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
     \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
-    \ P.iindices(A:=A.copy()); return A\n    def iindices(P, A):\n        for i,a\
-    \ in enumerate(A): A[i] = P.m&a\n\ndef rank(A: list[int], distinct = False): return\
-    \ (R := A.copy()), irank(R, distinct)\n\n\nimport operator\n\nclass Presum:\n\
-    \    def __init__(P, A: list, op=operator.add, e = 0, diff=operator.sub):\n  \
-    \      P.N = len(A); P.op, P.e, P.diff, P.pre = op, e, diff, [e]*(P.N+1)\n   \
-    \     for i,a in enumerate(A):P.pre[i+1]=op(P.pre[i],a)\n    def __getitem__(srs,\
+    \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
+    \ enumerate(A): A[i] = P.m&a\n\ndef rank(A: list[int], distinct = False): return\
+    \ (R := list(A)), irank(R, distinct)\n\n\nimport operator\n\nclass Presum:\n \
+    \   def __init__(P, A: list, op=operator.add, e = 0, diff=operator.sub):\n   \
+    \     P.N = len(A); P.op, P.e, P.diff, P.pre = op, e, diff, [e]*(P.N+1)\n    \
+    \    for i,a in enumerate(A):P.pre[i+1]=op(P.pre[i],a)\n    def __getitem__(srs,\
     \ key): return srs.range_sum(key.start, key.stop) if isinstance(key, slice) else\
     \ srs.sum(key)\n    def sum(srs, r: int): return srs.pre[r]\n    def range_sum(srs,\
     \ l: int, r: int): return srs.diff(srs.pre[r], srs.pre[l])\nfrom abc import abstractmethod\n\
@@ -269,7 +269,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py

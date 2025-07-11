@@ -59,9 +59,9 @@ data:
     r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
     \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
     \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \            if not b: break\n            ptr = self.buffer.tell()\n         \
+    \   self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n    \
+    \    self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
     \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
     \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
@@ -77,7 +77,7 @@ data:
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
     \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
     \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
     \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
@@ -574,9 +574,9 @@ data:
     \ k in range(M): Cr[ijk] = (Cr[ijk:=ij|k] + Ar[i|k] * Br[j|k]) % mod\n       \
     \ subset_mobius(Cr, N)\n        for i,p in enumerate(P): A[i] = Cr[p] % mod\n\
     \        return A\n    \n    def subset_conv(A: list[int], B: list[int], N: int,\
-    \ mod: int) -> list[int]:\n        return isubset_conv(A[:], B, N, mod)\n    \n\
-    \    F = read(list[int])\n    G = read(list[int])\n    write(*subset_conv(F, G,\
-    \ N, mod))\n"
+    \ mod: int) -> list[int]:\n        return isubset_conv(list(A), B, N, mod)\n \
+    \   \n    F = read(list[int])\n    G = read(list[int])\n    write(*subset_conv(F,\
+    \ G, N, mod))\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
     from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
     mod = 998244353\n\nN, = read()\nif N < 10:\n    from cp_library.math.conv.subset_conv_fn\
@@ -600,7 +600,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution_all.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution_all.test.py

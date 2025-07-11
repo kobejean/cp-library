@@ -64,12 +64,12 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \n\n\n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\nimport operator\n\
     from itertools import accumulate\nfrom typing import Callable, Iterable\n\nfrom\
-    \ typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\ndef presum(iter:\
-    \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
-    \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
-    \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
-    \            func = operator.add\n        A = list(iter)\n        if initial is\
-    \ not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
+    \ typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
+    \ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
+    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
+    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
+    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
+    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
     \            A[i] = func(A[i], A[i-step])\n        return A\n# from typing import\
     \ Generic\n# from cp_library.misc.typing import _T\n\ndef min2(a, b):\n    return\
     \ a if a < b else b\n\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n\
@@ -128,7 +128,7 @@ data:
   - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

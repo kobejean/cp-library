@@ -29,25 +29,25 @@ data:
     \ min2(a, b):\n    return a if a < b else b\n\ndef main():\n    N, Q = rd(), rd()\n\
     \    A = rdl(N)\n    st = SparseTable(min2, A)\n    for _ in range(Q):\n     \
     \   wtn(st.query(rd(),rd()))\n\nfrom typing import Generic, Callable\nfrom typing\
-    \ import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SparseTable(Generic[_T]):\n\
-    \    def __init__(st, op: Callable[[_T,_T],_T], arr: list[_T]):\n        st.N\
-    \ = N = len(arr)\n        st.log, st.op = N.bit_length(), op\n        st.data\
-    \ = [0] * (st.log*N)\n        st.data[:N] = arr\n        for i in range(1,st.log):\n\
-    \            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n            for j in range(N-(1<<i)+1):\n\
-    \                st.data[a+j] = op(st.data[b+j], st.data[c+j])\n\n    def query(st,\
-    \ l: int, r: int) -> _T:\n        k = (r-l).bit_length()-1\n        return st.op(st.data[k*st.N+l],st.data[k*st.N+r-(1<<k)])\n\
-    \n\nfrom __pypy__.builders import StringBuilder\nimport sys\nfrom os import read\
-    \ as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
-    \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
-    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
-    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
-    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
-    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
-    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
-    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
-    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
-    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \ import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\n\
+    class SparseTable(Generic[_T]):\n    def __init__(st, op: Callable[[_T,_T],_T],\
+    \ arr: list[_T]):\n        st.N = N = len(arr)\n        st.log, st.op = N.bit_length(),\
+    \ op\n        st.data = [0] * (st.log*N)\n        st.data[:N] = arr\n        for\
+    \ i in range(1,st.log):\n            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n  \
+    \          for j in range(N-(1<<i)+1):\n                st.data[a+j] = op(st.data[b+j],\
+    \ st.data[c+j])\n\n    def query(st, l: int, r: int) -> _T:\n        k = (r-l).bit_length()-1\n\
+    \        return st.op(st.data[k*st.N+l],st.data[k*st.N+r-(1<<k)])\n\n\nfrom __pypy__.builders\
+    \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
+    from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
     \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
     \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
     \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
@@ -72,7 +72,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/staticrmq_general.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/staticrmq_general.test.py

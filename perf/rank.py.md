@@ -34,86 +34,164 @@ data:
     \ benchmark registration\n- Automatic data generation and validation\n- Built-in\
     \ timing with warmup\n- Configurable operations and sizes\n- JSON results and\
     \ matplotlib plotting\n\"\"\"\n\nimport time\nimport json\nimport statistics\n\
-    from typing import Dict, List, Any, Callable, Union\nfrom dataclasses import dataclass\n\
-    from pathlib import Path\nfrom collections import defaultdict\n\n@dataclass\n\
-    class BenchmarkConfig:\n    \"\"\"Configuration for benchmark runs\"\"\"\n   \
-    \ name: str\n    sizes: List[int] = None\n    operations: List[str] = None\n \
-    \   iterations: int = 10\n    warmup: int = 2\n    output_dir: str = \"./output/benchmark_results\"\
-    \n    save_results: bool = True\n    plot_results: bool = True\n    plot_scale:\
-    \ str = \"loglog\"  # Options: \"loglog\", \"linear\", \"semilogx\", \"semilogy\"\
-    \n    \n    def __post_init__(self):\n        if self.sizes is None:\n       \
-    \     self.sizes = [100, 1000, 10000, 100000]\n        if self.operations is None:\n\
-    \            self.operations = ['default']\n\nclass Benchmark:\n    \"\"\"Declarative\
-    \ benchmark framework using decorators\"\"\"\n    \n    def __init__(self, config:\
-    \ BenchmarkConfig):\n        self.config = config\n        self.data_generators\
-    \ = {}\n        self.implementations = {}\n        self.validators = {}\n    \
-    \    self.results = []\n        \n    def data_generator(self, name: str = \"\
-    default\"):\n        \"\"\"Decorator to register data generator\"\"\"\n      \
-    \  def decorator(func):\n            self.data_generators[name] = func\n     \
-    \       return func\n        return decorator\n    \n    def implementation(self,\
+    import argparse\nfrom typing import Dict, List, Any, Callable, Union\nfrom dataclasses\
+    \ import dataclass\nfrom pathlib import Path\nfrom collections import defaultdict\n\
+    \n@dataclass\nclass BenchmarkConfig:\n    \"\"\"Configuration for benchmark runs\"\
+    \"\"\n    name: str\n    sizes: List[int] = None\n    operations: List[str] =\
+    \ None\n    iterations: int = 10\n    warmup: int = 2\n    output_dir: str = \"\
+    ./output/benchmark_results\"\n    save_results: bool = True\n    plot_results:\
+    \ bool = True\n    plot_scale: str = \"loglog\"  # Options: \"loglog\", \"linear\"\
+    , \"semilogx\", \"semilogy\"\n    progressive: bool = True  # Show results operation\
+    \ by operation across sizes\n    # Profiling mode\n    profile_mode: bool = False\n\
+    \    profile_size: int = None\n    profile_operation: str = None\n    profile_implementation:\
+    \ str = None\n    \n    def __post_init__(self):\n        if self.sizes is None:\n\
+    \            self.sizes = [100, 1000, 10000, 100000]\n        if self.operations\
+    \ is None:\n            self.operations = ['default']\n\nclass Benchmark:\n  \
+    \  \"\"\"Declarative benchmark framework using decorators\"\"\"\n    \n    def\
+    \ __init__(self, config: BenchmarkConfig):\n        self.config = config\n   \
+    \     self.data_generators = {}\n        self.implementations = {}\n        self.validators\
+    \ = {}\n        self.setups = {}\n        self.results = []\n    \n    def profile(self,\
+    \ operation: str = None, size: int = None, implementation: str = None):\n    \
+    \    \"\"\"Create a profiling version of this benchmark\"\"\"\n        profile_config\
+    \ = BenchmarkConfig(\n            name=f\"{self.config.name}_profile\",\n    \
+    \        sizes=self.config.sizes,\n            operations=self.config.operations,\n\
+    \            profile_mode=True,\n            profile_operation=operation,\n  \
+    \          profile_size=size,\n            profile_implementation=implementation,\n\
+    \            save_results=False,\n            plot_results=False\n        )\n\
+    \        \n        profile_benchmark = Benchmark(profile_config)\n        profile_benchmark.data_generators\
+    \ = self.data_generators\n        profile_benchmark.implementations = self.implementations\n\
+    \        profile_benchmark.validators = self.validators\n        profile_benchmark.setups\
+    \ = self.setups\n        \n        return profile_benchmark\n    \n    def parse_args(self):\n\
+    \        \"\"\"Parse command line arguments for profiling mode\"\"\"\n       \
+    \ parser = argparse.ArgumentParser(\n            description=f\"Benchmark {self.config.name}\
+    \ with optional profiling mode\",\n            formatter_class=argparse.RawDescriptionHelpFormatter,\n\
+    \            epilog=\"\"\"\nExamples:\n  # Normal benchmark mode\n  python benchmark.py\n\
+    \  \n  # Profile specific operation and implementation\n  python benchmark.py\
+    \ --profile --operation random_access --implementation grid\n  \n  # Profile with\
+    \ specific size\n  python benchmark.py --profile --size 1000000\n  \n  # Profile\
+    \ all implementations of an operation\n  python benchmark.py --profile --operation\
+    \ construction\n\"\"\"\n        )\n        \n        parser.add_argument('--profile',\
+    \ action='store_true',\n                          help='Run in profiling mode\
+    \ (minimal overhead for profilers)')\n        parser.add_argument('--operation',\
+    \ type=str, \n                          help=f'Operation to profile. Options:\
+    \ {\", \".join(self.config.operations)}')\n        parser.add_argument('--size',\
+    \ type=int,\n                          help=f'Size to profile. Options: {\", \"\
+    .join(map(str, self.config.sizes))}')\n        parser.add_argument('--implementation',\
+    \ type=str,\n                          help='Specific implementation to profile\
+    \ (default: all)')\n        \n        args = parser.parse_args()\n        \n \
+    \       # If profile mode requested, return a profiling benchmark\n        if\
+    \ args.profile:\n            return self.profile(\n                operation=args.operation,\n\
+    \                size=args.size,\n                implementation=args.implementation\n\
+    \            )\n        \n        # Otherwise return self for normal mode\n  \
+    \      return self\n        \n    def data_generator(self, name: str = \"default\"\
+    ):\n        \"\"\"Decorator to register data generator\"\"\"\n        def decorator(func):\n\
+    \            self.data_generators[name] = func\n            return func\n    \
+    \    return decorator\n    \n    def implementation(self, name: str, operations:\
+    \ Union[str, List[str]] = None):\n        \"\"\"Decorator to register implementation\"\
+    \"\"\n        if operations is None:\n            operations = ['default']\n \
+    \       elif isinstance(operations, str):\n            operations = [operations]\n\
+    \            \n        def decorator(func):\n            for op in operations:\n\
+    \                if op not in self.implementations:\n                    self.implementations[op]\
+    \ = {}\n                self.implementations[op][name] = func\n            return\
+    \ func\n        return decorator\n    \n    def validator(self, operation: str\
+    \ = \"default\"):\n        \"\"\"Decorator to register custom validator\"\"\"\n\
+    \        def decorator(func):\n            self.validators[operation] = func\n\
+    \            return func\n        return decorator\n    \n    def setup(self,\
     \ name: str, operations: Union[str, List[str]] = None):\n        \"\"\"Decorator\
-    \ to register implementation\"\"\"\n        if operations is None:\n         \
-    \   operations = ['default']\n        elif isinstance(operations, str):\n    \
-    \        operations = [operations]\n            \n        def decorator(func):\n\
-    \            for op in operations:\n                if op not in self.implementations:\n\
-    \                    self.implementations[op] = {}\n                self.implementations[op][name]\
-    \ = func\n            return func\n        return decorator\n    \n    def validator(self,\
-    \ operation: str = \"default\"):\n        \"\"\"Decorator to register custom validator\"\
-    \"\"\n        def decorator(func):\n            self.validators[operation] = func\n\
-    \            return func\n        return decorator\n    \n    def measure_time(self,\
-    \ func: Callable, data: Any) -> tuple[Any, float]:\n        \"\"\"Measure execution\
-    \ time with warmup\"\"\"\n        # Warmup runs\n        for _ in range(self.config.warmup):\n\
-    \            try:\n                func(data)\n            except Exception:\n\
-    \                # If warmup fails, let the main measurement handle the error\n\
-    \                break\n        \n        # Actual measurement\n        start\
-    \ = time.perf_counter()\n        for _ in range(self.config.iterations):\n   \
-    \         result = func(data)\n        elapsed_ms = (time.perf_counter() - start)\
-    \ * 1000 / self.config.iterations\n        \n        return result, elapsed_ms\n\
-    \    \n    def validate_result(self, expected: Any, actual: Any, operation: str)\
-    \ -> bool:\n        \"\"\"Validate result using custom validator or default comparison\"\
-    \"\"\n        if operation in self.validators:\n            return self.validators[operation](expected,\
-    \ actual)\n        return expected == actual\n    \n    def run(self):\n     \
-    \   \"\"\"Run all benchmarks\"\"\"\n        print(f\"Running {self.config.name}\"\
+    \ to register setup function that runs before timing\"\"\"\n        if operations\
+    \ is None:\n            operations = ['default']\n        elif isinstance(operations,\
+    \ str):\n            operations = [operations]\n            \n        def decorator(func):\n\
+    \            for op in operations:\n                if op not in self.setups:\n\
+    \                    self.setups[op] = {}\n                self.setups[op][name]\
+    \ = func\n            return func\n        return decorator\n    \n    def measure_time(self,\
+    \ func: Callable, data: Any, setup_func: Callable = None) -> tuple[Any, float]:\n\
+    \        \"\"\"Measure execution time with warmup and optional setup\"\"\"\n \
+    \       # Warmup runs\n        for _ in range(self.config.warmup):\n         \
+    \   try:\n                if setup_func:\n                    setup_data = setup_func(data)\n\
+    \                    func(setup_data)\n                else:\n               \
+    \     func(data)\n            except Exception:\n                # If warmup fails,\
+    \ let the main measurement handle the error\n                break\n        \n\
+    \        # Actual measurement\n        start = time.perf_counter()\n        for\
+    \ _ in range(self.config.iterations):\n            if setup_func:\n          \
+    \      setup_data = setup_func(data)\n                result = func(setup_data)\n\
+    \            else:\n                result = func(data)\n        elapsed_ms =\
+    \ (time.perf_counter() - start) * 1000 / self.config.iterations\n        \n  \
+    \      return result, elapsed_ms\n    \n    def validate_result(self, expected:\
+    \ Any, actual: Any, operation: str) -> bool:\n        \"\"\"Validate result using\
+    \ custom validator or default comparison\"\"\"\n        if operation in self.validators:\n\
+    \            return self.validators[operation](expected, actual)\n        return\
+    \ expected == actual\n    \n    def run(self):\n        \"\"\"Run all benchmarks\"\
+    \"\"\n        if self.config.profile_mode:\n            self._run_profile_mode()\n\
+    \        else:\n            self._run_normal_mode()\n    \n    def _run_normal_mode(self):\n\
+    \        \"\"\"Run normal benchmark mode\"\"\"\n        print(f\"Running {self.config.name}\"\
     )\n        print(f\"Sizes: {self.config.sizes}\")\n        print(f\"Operations:\
-    \ {self.config.operations}\")\n        print(\"=\"*80)\n        \n        for\
-    \ size in self.config.sizes:\n            for operation in self.config.operations:\n\
-    \                print(f\"\\nOperation: {operation}, Size: {size}\")\n       \
-    \         print(\"-\" * 50)\n                \n                # Generate test\
-    \ data\n                generator = self.data_generators.get(operation, \n   \
-    \                                                self.data_generators.get('default'))\n\
-    \                if not generator:\n                    raise ValueError(f\"No\
-    \ data generator for operation: {operation}\")\n                \n           \
-    \     test_data = generator(size, operation)\n                \n             \
-    \   # Get implementations for this operation\n                impls = self.implementations.get(operation,\
-    \ {})\n                if not impls:\n                    print(f\"No implementations\
-    \ for operation: {operation}\")\n                    continue\n              \
-    \  \n                # Run reference implementation first\n                ref_name,\
-    \ ref_impl = next(iter(impls.items()))\n                expected_result, _ = self.measure_time(ref_impl,\
-    \ test_data)\n                \n                # Run all implementations\n  \
-    \              for impl_name, impl_func in impls.items():\n                  \
-    \  try:\n                        result, time_ms = self.measure_time(impl_func,\
-    \ test_data)\n                        correct = self.validate_result(expected_result,\
-    \ result, operation)\n                        \n                        # Store\
-    \ result\n                        self.results.append({\n                    \
-    \        'operation': operation,\n                            'size': size,\n\
-    \                            'implementation': impl_name,\n                  \
-    \          'time_ms': time_ms,\n                            'correct': correct,\n\
-    \                            'error': None\n                        })\n     \
-    \                   \n                        status = \"OK\" if correct else\
-    \ \"FAIL\"\n                        print(f\"  {impl_name:<20} {time_ms:>8.3f}\
-    \ ms  {status}\")\n                        \n                    except Exception\
-    \ as e:\n                        self.results.append({\n                     \
-    \       'operation': operation,\n                            'size': size,\n \
-    \                           'implementation': impl_name,\n                   \
-    \         'time_ms': float('inf'),\n                            'correct': False,\n\
-    \                            'error': str(e)\n                        })\n   \
-    \                     print(f\"  {impl_name:<20} ERROR: {str(e)[:40]}\")\n   \
-    \     \n        # Save and plot results\n        if self.config.save_results:\n\
-    \            self._save_results()\n        \n        if self.config.plot_results:\n\
-    \            self._plot_results()\n        \n        # Print summary\n       \
-    \ self._print_summary()\n    \n    def _save_results(self):\n        \"\"\"Save\
-    \ results to JSON\"\"\"\n        output_dir = Path(self.config.output_dir)\n \
-    \       output_dir.mkdir(parents=True, exist_ok=True)\n        \n        filename\
+    \ {self.config.operations}\")\n        print(\"=\"*80)\n        \n        # Always\
+    \ show progressive results: operation by operation across all sizes\n        for\
+    \ operation in self.config.operations:\n            for size in self.config.sizes:\n\
+    \                self._run_single(operation, size)\n        \n        # Save and\
+    \ plot results\n        if self.config.save_results:\n            self._save_results()\n\
+    \        \n        if self.config.plot_results:\n            self._plot_results()\n\
+    \        \n        # Print summary\n        self._print_summary()\n    \n    def\
+    \ _run_profile_mode(self):\n        \"\"\"Run profiling mode with minimal overhead\
+    \ for use with vmprof\"\"\"\n        operation = self.config.profile_operation\
+    \ or self.config.operations[0]\n        size = self.config.profile_size or max(self.config.sizes)\n\
+    \        impl_name = self.config.profile_implementation\n        \n        print(f\"\
+    PROFILING MODE: {self.config.name}\")\n        print(f\"Operation: {operation},\
+    \ Size: {size}\")\n        if impl_name:\n            print(f\"Implementation:\
+    \ {impl_name}\")\n        print(\"=\"*80)\n        print(\"Run with vmprof: vmprof\
+    \ --web \" + ' '.join(sys.argv))\n        print(\"=\"*80)\n        \n        #\
+    \ Generate test data\n        generator = self.data_generators.get(operation,\
+    \ self.data_generators.get('default'))\n        if not generator:\n          \
+    \  raise ValueError(f\"No data generator for operation: {operation}\")\n     \
+    \   \n        test_data = generator(size, operation)\n        \n        # Get\
+    \ implementations\n        impls = self.implementations.get(operation, {})\n \
+    \       if not impls:\n            raise ValueError(f\"No implementations for\
+    \ operation: {operation}\")\n        \n        # Filter to specific implementation\
+    \ if requested\n        if impl_name:\n            if impl_name not in impls:\n\
+    \                raise ValueError(f\"Implementation '{impl_name}' not found for\
+    \ operation '{operation}'\")\n            impls = {impl_name: impls[impl_name]}\n\
+    \        \n        # Run with minimal overhead - no timing, no validation\n  \
+    \      for name, func in impls.items():\n            print(f\"\\nRunning {name}...\"\
+    )\n            sys.stdout.flush()\n            \n            # Setup if needed\n\
+    \            setup_func = self.setups.get(operation, {}).get(name)\n         \
+    \   if setup_func:\n                data = setup_func(test_data)\n           \
+    \ else:\n                data = test_data\n            \n            # Run the\
+    \ actual function (this is what vmprof will profile)\n            result = func(data)\n\
+    \            print(f\"Completed {name}, result checksum: {result}\")\n       \
+    \     sys.stdout.flush()\n    \n    def _run_single(self, operation: str, size:\
+    \ int):\n        \"\"\"Run a single operation/size combination\"\"\"\n       \
+    \ print(f\"\\nOperation: {operation}, Size: {size}\")\n        print(\"-\" * 50)\n\
+    \        sys.stdout.flush()\n        \n        # Generate test data\n        generator\
+    \ = self.data_generators.get(operation, \n                                   \
+    \        self.data_generators.get('default'))\n        if not generator:\n   \
+    \         raise ValueError(f\"No data generator for operation: {operation}\")\n\
+    \        \n        test_data = generator(size, operation)\n        \n        #\
+    \ Get implementations for this operation\n        impls = self.implementations.get(operation,\
+    \ {})\n        if not impls:\n            print(f\"No implementations for operation:\
+    \ {operation}\")\n            return\n        \n        # Get setup functions\
+    \ for this operation\n        setups = self.setups.get(operation, {})\n      \
+    \  \n        # Run reference implementation first\n        ref_name, ref_impl\
+    \ = next(iter(impls.items()))\n        ref_setup = setups.get(ref_name)\n    \
+    \    expected_result, _ = self.measure_time(ref_impl, test_data, ref_setup)\n\
+    \        \n        # Run all implementations\n        for impl_name, impl_func\
+    \ in impls.items():\n            try:\n                setup_func = setups.get(impl_name)\n\
+    \                result, time_ms = self.measure_time(impl_func, test_data, setup_func)\n\
+    \                correct = self.validate_result(expected_result, result, operation)\n\
+    \                \n                # Store result\n                self.results.append({\n\
+    \                    'operation': operation,\n                    'size': size,\n\
+    \                    'implementation': impl_name,\n                    'time_ms':\
+    \ time_ms,\n                    'correct': correct,\n                    'error':\
+    \ None\n                })\n                \n                status = \"OK\"\
+    \ if correct else \"FAIL\"\n                print(f\"  {impl_name:<20} {time_ms:>8.3f}\
+    \ ms  {status}\")\n                sys.stdout.flush()\n                \n    \
+    \        except Exception as e:\n                self.results.append({\n     \
+    \               'operation': operation,\n                    'size': size,\n \
+    \                   'implementation': impl_name,\n                    'time_ms':\
+    \ float('inf'),\n                    'correct': False,\n                    'error':\
+    \ str(e)\n                })\n                print(f\"  {impl_name:<20} ERROR:\
+    \ {str(e)[:40]}\")\n                sys.stdout.flush()\n    \n    def _save_results(self):\n\
+    \        \"\"\"Save results to JSON\"\"\"\n        output_dir = Path(self.config.output_dir)\n\
+    \        output_dir.mkdir(parents=True, exist_ok=True)\n        \n        filename\
     \ = output_dir / f\"{self.config.name}_{int(time.time())}.json\"\n        with\
     \ open(filename, 'w') as f:\n            json.dump(self.results, f, indent=2)\n\
     \        print(f\"\\nResults saved to {filename}\")\n    \n    def _plot_results(self):\n\
@@ -184,18 +262,18 @@ data:
     \        r, p = -1, V[-1]+1 # set p to unique value to trigger `if a != p` on\
     \ first elm\n        for ai in V:\n            a, i = P.dec(ai)\n            if\
     \ a!=p: V[r:=r+1] = p = a\n            A[i] = r\n        del V[r+1:]\n    return\
-    \ V\n\n\n\nclass Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n\
-    \        P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s\
-    \ | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n \
-    \   def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return\
-    \ A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n         \
-    \   for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for\
-    \ i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
-    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
-    \n\ndef max2(a, b):\n    return a if a > b else b\n\ndef irank(*A: list[int],\
-    \ distinct = False):\n    N = mxj = 0\n    for Ai in A: N += len(Ai); mxj = max2(mxj,\
-    \ len(Ai))\n    P = Packer3(len(A)-1, mxj); V = P.enumerate(A, N); V.sort()\n\
-    \    if distinct:\n        for r,aij in enumerate(V):a,i,j=P.dec(aij);A[i][j],V[r]=r,a\n\
+    \ V\n\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int):\
+    \ P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int):\
+    \ return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >>\
+    \ P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A),\
+    \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
+    \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
+    \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
+    \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
+    \ enumerate(A): A[i] = P.m&a\n\n\ndef max2(a, b):\n    return a if a > b else\
+    \ b\n\ndef irank(*A: list[int], distinct = False):\n    N = mxj = 0\n    for Ai\
+    \ in A: N += len(Ai); mxj = max2(mxj, len(Ai))\n    P = Packer3(len(A)-1, mxj);\
+    \ V = P.enumerate(A, N); V.sort()\n    if distinct:\n        for r,aij in enumerate(V):a,i,j=P.dec(aij);A[i][j],V[r]=r,a\n\
     \    elif V:\n        r, p = -1, V[-1]+1 # set p to unique value to trigger `if\
     \ a != p` on first elm\n        for aij in V:\n            a,i,j=P.dec(aij)\n\
     \            if a!=p:V[r:=r+1]=p=a\n            A[i][j]=r\n        del V[r+1:]\n\
@@ -280,25 +358,8 @@ data:
     default\")\ndef validate_rank_result(expected, actual):\n    \"\"\"Validate ranking\
     \ results using XOR checksums\"\"\"\n    try:\n        # Compare XOR checksums\
     \ directly\n        return int(expected) == int(actual)\n    except Exception:\n\
-    \        return False\n\nif __name__ == \"__main__\":\n    # Run with default\
-    \ data generator\n    print(\"Running rank benchmark with distinct=False...\"\
-    )\n    benchmark.run()\n    \n    # Create a separate benchmark for distinct=True\n\
-    \    print(\"\\nRunning rank benchmark with distinct=True...\")\n    config_distinct\
-    \ = BenchmarkConfig(\n        name=\"rank_distinct\",\n        sizes=[1000000,\
-    \ 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT\n        operations=['construction',\
-    \ 'random', 'sorted', 'duplicates', 'reverse'],\n        iterations=5,\n     \
-    \   warmup=3,\n        output_dir=\"./output/benchmark_results/rank_distinct\"\
-    \n    )\n    benchmark_distinct = Benchmark(config_distinct)\n    benchmark_distinct.data_generators\
-    \ = {\"default\": generate_rank_data_distinct}\n    \n    # Register implementations\
-    \ properly for each operation\n    for operation in config_distinct.operations:\n\
-    \        if operation == \"construction\":\n            benchmark_distinct.implementations[operation]\
-    \ = {\n                \"irank_distinct\": lambda data: construction_irank(data),\n\
-    \                \"irank_multi_distinct\": lambda data: construction_irank_multi(data)\n\
-    \            }\n        else:\n            benchmark_distinct.implementations[operation]\
-    \ = {\n                \"irank_distinct\": irank_distinct_implementation,\n  \
-    \              \"irank_multi_distinct\": irank_multi_distinct_implementation\n\
-    \            }\n    \n    benchmark_distinct.validators = {\"default\": validate_rank_result}\n\
-    \    benchmark_distinct.run()\n"
+    \        return False\n\nif __name__ == \"__main__\":\n    # Parse command line\
+    \ args and run appropriate mode\n    runner = benchmark.parse_args()\n    runner.run()\n"
   code: "#!/usr/bin/env python3\n\"\"\"\nSimple ranking benchmark using the new declarative\
     \ framework.\nCompares irank vs irank_multi performance across different data\
     \ patterns.\n\"\"\"\n\nimport random\nimport sys\nimport os\nsys.path.insert(0,\
@@ -377,25 +438,8 @@ data:
     default\")\ndef validate_rank_result(expected, actual):\n    \"\"\"Validate ranking\
     \ results using XOR checksums\"\"\"\n    try:\n        # Compare XOR checksums\
     \ directly\n        return int(expected) == int(actual)\n    except Exception:\n\
-    \        return False\n\nif __name__ == \"__main__\":\n    # Run with default\
-    \ data generator\n    print(\"Running rank benchmark with distinct=False...\"\
-    )\n    benchmark.run()\n    \n    # Create a separate benchmark for distinct=True\n\
-    \    print(\"\\nRunning rank benchmark with distinct=True...\")\n    config_distinct\
-    \ = BenchmarkConfig(\n        name=\"rank_distinct\",\n        sizes=[1000000,\
-    \ 100000, 10000, 1000, 100, 10, 1],  # Reverse order to warm up JIT\n        operations=['construction',\
-    \ 'random', 'sorted', 'duplicates', 'reverse'],\n        iterations=5,\n     \
-    \   warmup=3,\n        output_dir=\"./output/benchmark_results/rank_distinct\"\
-    \n    )\n    benchmark_distinct = Benchmark(config_distinct)\n    benchmark_distinct.data_generators\
-    \ = {\"default\": generate_rank_data_distinct}\n    \n    # Register implementations\
-    \ properly for each operation\n    for operation in config_distinct.operations:\n\
-    \        if operation == \"construction\":\n            benchmark_distinct.implementations[operation]\
-    \ = {\n                \"irank_distinct\": lambda data: construction_irank(data),\n\
-    \                \"irank_multi_distinct\": lambda data: construction_irank_multi(data)\n\
-    \            }\n        else:\n            benchmark_distinct.implementations[operation]\
-    \ = {\n                \"irank_distinct\": irank_distinct_implementation,\n  \
-    \              \"irank_multi_distinct\": irank_multi_distinct_implementation\n\
-    \            }\n    \n    benchmark_distinct.validators = {\"default\": validate_rank_result}\n\
-    \    benchmark_distinct.run()"
+    \        return False\n\nif __name__ == \"__main__\":\n    # Parse command line\
+    \ args and run appropriate mode\n    runner = benchmark.parse_args()\n    runner.run()"
   dependsOn:
   - cp_library/perf/benchmark.py
   - cp_library/alg/iter/rank/irank_fn.py
@@ -406,7 +450,7 @@ data:
   isVerificationFile: false
   path: perf/rank.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/rank.py

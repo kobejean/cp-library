@@ -110,14 +110,14 @@ data:
     \ # set p to unique value to trigger `if a != p` on first elm\n        for ai\
     \ in V:\n            a, i = P.dec(ai)\n            if a!=p: V[r:=r+1] = p = a\n\
     \            A[i] = r\n        del V[r+1:]\n    return V\n\n\n\nclass Packer:\n\
-    \    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n        P.m = (1\
-    \ << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P,\
-    \ x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A,\
-    \ reverse=False): P.ienumerate(A:=A.copy(), reverse); return A\n    def ienumerate(P,\
-    \ A, reverse=False):\n        if reverse:\n            for i,a in enumerate(A):\
-    \ A[i] = P.enc(-a, i)\n        else:\n            for i,a in enumerate(A): A[i]\
-    \ = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy()); return\
-    \ A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n"
+    \    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
+    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
+    \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
+    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
+    \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
+    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n"
   code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.iter.__header__\n\
     import cp_library.alg.iter.rank.__header__\n\ndef irank(A: list[int], distinct\
     \ = False):\n    P = Packer(len(A)-1); V = P.enumerate(A); V.sort()\n    if distinct:\n\
@@ -146,7 +146,7 @@ data:
   - cp_library/alg/iter/rank/rank_fn.py
   - cp_library/perf/examples/rank_benchmark.py
   - perf/rank.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/range_kth_smallest_wm_points.test.py

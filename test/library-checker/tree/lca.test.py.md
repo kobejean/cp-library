@@ -50,11 +50,17 @@ data:
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/list_find_fn.py
+    title: cp_library/ds/list/list_find_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/min_sparse_table_cls.py
     title: cp_library/ds/min_sparse_table_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view_cls.py
+    title: cp_library/ds/view/view_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -88,49 +94,65 @@ data:
     \    https://kobejean.github.io/cp-library               \n'''\n\n\n\n\ndef sort2(a,\
     \ b):\n    return (a,b) if a < b else (b,a)\nimport operator\nfrom itertools import\
     \ accumulate\nfrom typing import Callable, Iterable\n\nfrom typing import TypeVar\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T]\
-    \ = None, initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n    \
-    \    return list(accumulate(iter, func, initial=initial))\n    else:\n       \
-    \ assert step >= 2\n        if func is None:\n            func = operator.add\n\
-    \        A = list(iter)\n        if initial is not None:\n            A = [initial]\
-    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
-    \        return A\n# from typing import Generic\n# from cp_library.misc.typing\
-    \ import _T\n\ndef min2(a, b):\n    return a if a < b else b\n\n\n\nclass MinSparseTable:\n\
-    \    def __init__(st, arr: list):\n        st.N = N = len(arr)\n        st.log\
-    \ = N.bit_length()\n        st.data = data = [0] * (st.log*N)\n        data[:N]\
-    \ = arr \n        for i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N,\
-    \ (i-1)*N + (1 << (i-1))\n            for j in range(N - (1 << i) + 1):\n    \
-    \            data[a+j] = min2(data[b+j], data[c+j])\n\n    def query(st, l: int,\
-    \ r: int):\n        k = (r-l).bit_length() - 1\n        return min2(st.data[k*st.N\
-    \ + l], st.data[k*st.N + r - (1<<k)])\n    \n\nclass LCATable(MinSparseTable):\n\
-    \    def __init__(lca, T, root = 0):\n        N = len(T)\n        T.euler_tour(root)\n\
-    \        lca.depth = depth = presum(T.delta)\n        lca.tin, lca.tout = T.tin[:],\
-    \ T.tout[:]\n        lca.mask = (1 << (shift := N.bit_length()))-1\n        lca.shift\
-    \ = shift\n        order = T.order\n        M = len(order)\n        packets =\
-    \ [0]*M\n        for i in range(M):\n            packets[i] = depth[i] << shift\
-    \ | order[i] \n        super().__init__(packets)\n\n    def _query(lca, u, v):\n\
-    \        l, r = sort2(lca.tin[u], lca.tin[v]); r += 1\n        da = super().query(l,\
-    \ r)\n        return l, r, da & lca.mask, da >> lca.shift\n\n    def query(lca,\
-    \ u, v) -> tuple[int,int]:\n        l, r, a, d = lca._query(u, v)\n        return\
-    \ a, d\n    \n    def distance(lca, u, v) -> int:\n        l, r, a, d = lca._query(u,\
-    \ v)\n        return lca.depth[l] + lca.depth[r-1] - 2*d\n    \n    def path(lca,\
-    \ u, v):\n        path, par, lca, c = [], lca.T.par, lca.query(u, v)[0], u\n \
-    \       while c != lca:\n            path.append(c)\n            c = par[c]\n\
-    \        path.append(lca)\n        rev_path, c = [], v\n        while c != lca:\n\
-    \            rev_path.append(c)\n            c = par[c]\n        path.extend(reversed(rev_path))\n\
-    \        return path\n\n\n\nfrom math import inf\nfrom collections import deque\n\
-    from typing import Callable, Sequence, Union, overload\n\nimport typing\nfrom\
-    \ numbers import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\ndef presum(iter: Iterable[_T],\
+    \ func: Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:\n\
+    \    if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
+    \    else:\n        assert step >= 2\n        if func is None:\n            func\
+    \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
+    \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
+    \   A[i] = func(A[i], A[i-step])\n        return A\n# from typing import Generic\n\
+    # from cp_library.misc.typing import _T\n\ndef min2(a, b):\n    return a if a\
+    \ < b else b\n\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n\
+    \        st.N = N = len(arr)\n        st.log = N.bit_length()\n        st.data\
+    \ = data = [0] * (st.log*N)\n        data[:N] = arr \n        for i in range(1,st.log):\n\
+    \            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j\
+    \ in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j], data[c+j])\n\
+    \n    def query(st, l: int, r: int):\n        k = (r-l).bit_length() - 1\n   \
+    \     return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n    \n\n\
+    class LCATable(MinSparseTable):\n    def __init__(lca, T, root = 0):\n       \
+    \ N = len(T)\n        T.euler_tour(root)\n        lca.depth = depth = presum(T.delta)\n\
+    \        lca.tin, lca.tout = T.tin[:], T.tout[:]\n        lca.mask = (1 << (shift\
+    \ := N.bit_length()))-1\n        lca.shift = shift\n        order = T.order\n\
+    \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
+    \            packets[i] = depth[i] << shift | order[i] \n        super().__init__(packets)\n\
+    \n    def _query(lca, u, v):\n        l, r = sort2(lca.tin[u], lca.tin[v]); r\
+    \ += 1\n        da = super().query(l, r)\n        return l, r, da & lca.mask,\
+    \ da >> lca.shift\n\n    def query(lca, u, v) -> tuple[int,int]:\n        l, r,\
+    \ a, d = lca._query(u, v)\n        return a, d\n    \n    def distance(lca, u,\
+    \ v) -> int:\n        l, r, a, d = lca._query(u, v)\n        return lca.depth[l]\
+    \ + lca.depth[r-1] - 2*d\n    \n    def path(lca, u, v):\n        path, par, lca,\
+    \ c = [], lca.T.par, lca.query(u, v)[0], u\n        while c != lca:\n        \
+    \    path.append(c)\n            c = par[c]\n        path.append(lca)\n      \
+    \  rev_path, c = [], v\n        while c != lca:\n            rev_path.append(c)\n\
+    \            c = par[c]\n        path.extend(reversed(rev_path))\n        return\
+    \ path\n\n\n\n\nfrom typing import Generic\n\nimport sys\n\ndef list_find(lst:\
+    \ list, value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
+    \ start, stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n\
+    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int):\
+    \ V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
+    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
+    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
+    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
+    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
+    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
+    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
+    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
+    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
+    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom math import\
+    \ inf\nfrom collections import deque\nfrom typing import Callable, Sequence, Union,\
+    \ overload\n\nimport typing\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nfrom\
+    \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
+    \   newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b: break\n            ptr = self.buffer.tell()\n         \
+    \   self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n    \
+    \    self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
     \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
     \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
@@ -238,8 +260,8 @@ data:
     \    \n    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n\
     \        return G.back\n    \n    def prep_tin(G):\n        if G.tin is None:\
     \ G.tin = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return\
-    \ G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G,\
-    \ u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
+    \ G.N\n    def __getitem__(G, u): return view(G.Va, G.La[u], G.Ra[u])\n    def\
+    \ range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
     \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
     \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
@@ -439,16 +461,18 @@ data:
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/array/u32f_fn.py
   - cp_library/ds/elist_fn.py
+  - cp_library/ds/view/view_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/bit/masks/u32_max_cnst.py
   - cp_library/bit/masks/i32_max_cnst.py
   - cp_library/ds/array/u8f_fn.py
   - cp_library/ds/packet_list_cls.py
+  - cp_library/ds/list/list_find_fn.py
   isVerificationFile: true
   path: test/library-checker/tree/lca.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/lca.test.py

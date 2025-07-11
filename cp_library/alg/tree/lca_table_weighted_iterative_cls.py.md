@@ -42,24 +42,24 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \n\nimport operator\nfrom itertools import accumulate\nfrom typing import Callable,\
-    \ Iterable\n\nfrom typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    \ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
-    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
-    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
-    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
-    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\n\n\ndef sort2(a,\
-    \ b):\n    return (a,b) if a < b else (b,a)\n# from typing import Generic\n# from\
-    \ cp_library.misc.typing import _T\n\ndef min2(a, b):\n    return a if a < b else\
-    \ b\n\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n        st.N\
-    \ = N = len(arr)\n        st.log = N.bit_length()\n        st.data = data = [0]\
-    \ * (st.log*N)\n        data[:N] = arr \n        for i in range(1,st.log):\n \
-    \           a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j\
-    \ in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j], data[c+j])\n\
-    \n    def query(st, l: int, r: int):\n        k = (r-l).bit_length() - 1\n   \
-    \     return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n    \n\n\
-    class LCATable(MinSparseTable):\n    def __init__(lca, T, root = 0):\n       \
-    \ N = len(T)\n        T.euler_tour(root)\n        lca.depth = depth = presum(T.delta)\n\
+    \ Iterable\n\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n\
+    _U = TypeVar('U')\n\ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T]\
+    \ = None, initial: _T = None, step = 1) -> list[_T]:\n    if step == 1:\n    \
+    \    return list(accumulate(iter, func, initial=initial))\n    else:\n       \
+    \ assert step >= 2\n        if func is None:\n            func = operator.add\n\
+    \        A = list(iter)\n        if initial is not None:\n            A = [initial]\
+    \ + A\n        for i in range(step,len(A)):\n            A[i] = func(A[i], A[i-step])\n\
+    \        return A\n\n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\n\
+    # from typing import Generic\n# from cp_library.misc.typing import _T\n\ndef min2(a,\
+    \ b):\n    return a if a < b else b\n\n\n\nclass MinSparseTable:\n    def __init__(st,\
+    \ arr: list):\n        st.N = N = len(arr)\n        st.log = N.bit_length()\n\
+    \        st.data = data = [0] * (st.log*N)\n        data[:N] = arr \n        for\
+    \ i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n\
+    \            for j in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j],\
+    \ data[c+j])\n\n    def query(st, l: int, r: int):\n        k = (r-l).bit_length()\
+    \ - 1\n        return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n\
+    \    \n\nclass LCATable(MinSparseTable):\n    def __init__(lca, T, root = 0):\n\
+    \        N = len(T)\n        T.euler_tour(root)\n        lca.depth = depth = presum(T.delta)\n\
     \        lca.tin, lca.tout = T.tin[:], T.tout[:]\n        lca.mask = (1 << (shift\
     \ := N.bit_length()))-1\n        lca.shift = shift\n        order = T.order\n\
     \        M = len(order)\n        packets = [0]*M\n        for i in range(M):\n\
@@ -98,7 +98,7 @@ data:
   path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   requiredBy:
   - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

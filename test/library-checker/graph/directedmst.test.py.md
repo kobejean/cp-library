@@ -28,11 +28,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\nimport operator\nfrom typing import Generic, TypeVar\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n\n\n_TSkewHeap = TypeVar(\"SkewHeap\", bound=\"SkewHeap\")\n\
-    class SkewHeap(Generic[_T]):\n    __slots__ = 'root', 'op', 'e'\n    V, A, L,\
-    \ R, st = [-1], [-1], [-1], [-1], []\n    def __init__(H, op = operator.add, e:\
-    \ _T = 0):\n        H.root, H.op, H.e = -1, op, e\n    \n    def merge(H: _TSkewHeap,\
+    \        \n'''\nimport operator\nfrom typing import Generic, TypeVar\n_S = TypeVar('S')\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\n_TSkewHeap = TypeVar(\"SkewHeap\", bound=\"\
+    SkewHeap\")\nclass SkewHeap(Generic[_T]):\n    __slots__ = 'root', 'op', 'e'\n\
+    \    V, A, L, R, st = [-1], [-1], [-1], [-1], []\n    def __init__(H, op = operator.add,\
+    \ e: _T = 0):\n        H.root, H.op, H.e = -1, op, e\n    \n    def merge(H: _TSkewHeap,\
     \ O: _TSkewHeap):\n        H.root = H.merge_nodes(H.root, O.root)\n        O.root\
     \ = -1\n\n    def min(H):\n        assert ~H.root\n        H.propagate(H.root)\n\
     \        return H.V[H.root]\n\n    def push(H, x: _T):\n        id = len(H.V)\n\
@@ -118,7 +118,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/directedmst.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/directedmst.test.py

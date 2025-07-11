@@ -25,14 +25,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
     \  \n'''\n\n\ndef min2(a, b):\n    return a if a < b else b\nfrom math import\
-    \ ceil, sqrt\nfrom typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    \nclass BitArray:\n    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n\
-    \        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n       \
-    \ B.bits.pop()\n        for i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n\
-    \        B.bits.append(0)\n    def __len__(B): return B.N\n    def __getitem__(B,\
-    \ i: int): return B.bits[i>>5]>>(31-(i&31))&1\n    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n\
-    \    def set1(B, i: int): B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int):\
-    \ return r-B.count1(r)\n    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
+    \ ceil, sqrt\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n\
+    _U = TypeVar('U')\n\nclass BitArray:\n    def __init__(B, N: int):\n        B.N,\
+    \ B.Z = N, (N+31)>>5\n        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def\
+    \ build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits): B.cnt[i+1]\
+    \ = B.cnt[i]+popcnt32(b)\n        B.bits.append(0)\n    def __len__(B): return\
+    \ B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n  \
+    \  def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
+    \ B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int): return r-B.count1(r)\n\
+    \    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
     \    def select0(B, k: int):\n        if not 0<=k<B.N-B.cnt[-1]: return -1\n \
     \       l,r,k=0,B.N,k+1\n        while 1<r-l:\n            if B.count0(m:=(l+r)>>1)<k:l=m\n\
     \            else:r=m\n        return l\n    def select1(B, k: int):\n       \
@@ -104,7 +105,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/wavelet/bit_list_cls.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/wavelet/bit_list_cls.py

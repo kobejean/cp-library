@@ -17,6 +17,12 @@ data:
     path: cp_library/alg/iter/arg/argsort_fn.py
     title: argsort
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/arg/argsort_ranged_fn.py
+    title: cp_library/alg/iter/arg/argsort_ranged_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/iter/sort/isort_ranged_fn.py
+    title: cp_library/alg/iter/sort/isort_ranged_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/csr/hld_base_cls.py
     title: cp_library/alg/tree/csr/hld_base_cls.py
   - icon: ':heavy_check_mark:'
@@ -65,8 +71,17 @@ data:
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/list_find_fn.py
+    title: cp_library/ds/list/list_find_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view2_cls.py
+    title: cp_library/ds/view/view2_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view_cls.py
+    title: cp_library/ds/view/view_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -90,34 +105,50 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \n\n\nfrom math import inf\nfrom typing import Callable, Literal, Union, overload\n\
-    from collections import deque\nfrom typing import Callable, Sequence, Union, overload\n\
-    \nimport typing\nfrom numbers import Number\nfrom types import GenericAlias \n\
-    from typing import Callable, Collection, Iterator, Union\nimport os\nimport sys\n\
-    from io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n\
-    \    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
+    \nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\nimport sys\n\ndef list_find(lst: list,\
+    \ value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
+    \ start, stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n\
+    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int):\
+    \ V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
+    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
+    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
+    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
+    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
+    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
+    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
+    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
+    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
+    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom collections\
+    \ import deque\nfrom typing import Callable, Sequence, Union, overload\n\nimport\
+    \ typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, Union\nimport os\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
     \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
-    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \    if not b: break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\ntry:\n    sys.stdin\
+    \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\nexcept:\n    pass\n\nclass TokenStream(Iterator):\n\
     \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
     \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
@@ -210,8 +241,8 @@ data:
     \    \n    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n\
     \        return G.back\n    \n    def prep_tin(G):\n        if G.tin is None:\
     \ G.tin = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return\
-    \ G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G,\
-    \ u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
+    \ G.N\n    def __getitem__(G, u): return view(G.Va, G.La[u], G.Ra[u])\n    def\
+    \ range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
     \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
     \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
@@ -309,8 +340,8 @@ data:
     \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
     \        for i in range(M):\n                u, v = ts._line()\n             \
     \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
-    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\n\nfrom\
-    \ array import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\nfrom array\
+    \ import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
     \  # unsigned char\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
     \  # unsigned int\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
     \  # signed int\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
@@ -393,25 +424,48 @@ data:
     \                u = hld.up[u]\n\n        if hld.depth[u] < hld.depth[v]:\n  \
     \          query_fn(hld.tin[u]+edge, hld.tin[v]+1)\n        else:\n          \
     \  query_fn(hld.tin[v]+edge, hld.tin[u]+1)\nfrom typing import Optional\n\n\n\n\
-    def argsort(A: list[int], reverse=False):\n    P = Packer(len(I := A.copy())-1);\
-    \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\nclass Packer:\n\
-    \    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n        P.m = (1\
-    \ << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P,\
-    \ x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A,\
-    \ reverse=False): P.ienumerate(A:=A.copy(), reverse); return A\n    def ienumerate(P,\
-    \ A, reverse=False):\n        if reverse:\n            for i,a in enumerate(A):\
-    \ A[i] = P.enc(-a, i)\n        else:\n            for i,a in enumerate(A): A[i]\
-    \ = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy()); return\
-    \ A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\
-    \nclass GraphWeightedBase(GraphBase):\n    def __init__(self, N: int, M: int,\
-    \ U: list[int], V: list[int], W: list[int], \n                 deg: list[int],\
-    \ La: list[int], Ra: list[int],\n                 Ua: list[int], Va: list[int],\
-    \ Wa: list[int], Ea: list[int], twin: list[int] = None):\n        super().__init__(N,\
-    \ M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n        self.W = W\n        self.Wa\
-    \ = Wa\n        '''Wa[i] lists weights to edges from u for La[u] <= i < Ra[u].'''\n\
-    \        \n    def __getitem__(G, u):\n        l,r = G.La[u],G.Ra[u]\n       \
-    \ return zip(G.Va[l:r], G.Wa[l:r])\n    \n    @overload\n    def distance(G) ->\
-    \ list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
+    \ndef argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n    P = Packer(r-l-1);\
+    \ I = [A[l+i] for i in range(r-l)]; P.ienumerate(I, reverse); I.sort()\n    for\
+    \ i in range(r-l): I[i] = (I[i] & P.m) + l\n    return I\n\n\nclass Packer:\n\
+    \    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
+    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
+    \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
+    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
+    \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
+    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
+    \n\ndef isort_ranged(*L: list, l: int, r: int, reverse=False):\n    n = r - l\n\
+    \    order = argsort_ranged(L[0], l, r, reverse=reverse)\n    inv = [0] * n\n\
+    \    # order contains indices in range [l, r), need to map to [0, n)\n    for\
+    \ i in range(n): inv[order[i]-l] = i\n    for i in range(n):\n        j = order[i]\
+    \ - l  # j is in range [0, n)\n        for A in L: A[l+i], A[l+j] = A[l+j], A[l+i]\n\
+    \        order[inv[i]], order[inv[j]] = order[inv[j]], order[inv[i]]\n       \
+    \ inv[i], inv[j] = inv[j], inv[i]\n    return L\n\nclass view2(Generic[_S, _T]):\n\
+    \    __slots__ = 'A', 'B', 'l', 'r'\n    def __init__(V, A: list[_S], B: list[_T],\
+    \ l: int, r: int): V.A, V.B, V.l, V.r = A, B, l, r\n    def __len__(V): return\
+    \ V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l:\
+    \ return V.A[V.l+i], V.B[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
+    \ i: int, v: tuple[_S, _T]): V.A[V.l+i], V.B[V.l+i] = v\n    def __contains__(V,\
+    \ v: tuple[_S, _T]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
+    \ V.l, V.r = l, r\n    def index(V, v: tuple[_S, _T]): raise NotImplemented\n\
+    \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A[l],\
+    \ V.A[r] = V.A[r], V.A[l]; V.B[l], V.B[r] = V.B[r], V.B[l]; l += 1; r -= 1\n \
+    \   def sort(V, reverse=False): isort_ranged(V.A, V.B, l=V.l, r=V.r, reverse=reverse)\n\
+    \    def pop(V): V.r -= 1; return V.A[V.r], V.B[V.r]\n    def append(V, v: tuple[_S,\
+    \ _T]): V.A[V.r], V.B[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return\
+    \ V.A[V.l-1], V.B[V.l-1]\n    def appendleft(V, v: tuple[_S, _T]): V.l -= 1; V.A[V.l],\
+    \ V.B[V.l]  = v; \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\n\
+    def argsort(A: list[int], reverse=False):\n    P = Packer(len(I := list(A))-1);\
+    \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\nclass GraphWeightedBase(GraphBase):\n\
+    \    def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int],\
+    \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
+    \        Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int], twin: list[int]\
+    \ = None):\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\
+    \        self.W = W\n        self.Wa = Wa\n        '''Wa[i] lists weights to edges\
+    \ from u for La[u] <= i < Ra[u].'''\n        \n    def __getitem__(G, u): return\
+    \ view2(G.Va, G.Wa, G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
+    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
     \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
     \        else: return G.dijkstra(s, g)\n\n    def dijkstra(G, s: int, t: int =\
@@ -503,9 +557,9 @@ data:
     def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
-    \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
-    \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
+    \ = heap[c], c\n    heap[pos] = item\n\nclass HeapProtocol(Generic[_T]):\n   \
+    \ def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n  \
+    \  def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
     \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
     \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
     \    def clear(heap): heap.data.clear()\n\nclass PriorityQueue(HeapProtocol[int]):\n\
@@ -556,6 +610,7 @@ data:
   - cp_library/alg/tree/csr/tree_base_cls.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/array/i32f_fn.py
+  - cp_library/ds/view/view2_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
   - cp_library/alg/graph/csr/graph_base_cls.py
@@ -563,20 +618,24 @@ data:
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/alg/iter/sort/isort_ranged_fn.py
   - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
+  - cp_library/ds/view/view_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/bit/masks/u32_max_cnst.py
   - cp_library/bit/masks/i32_max_cnst.py
   - cp_library/ds/array/u8f_fn.py
   - cp_library/ds/packet_list_cls.py
+  - cp_library/alg/iter/arg/argsort_ranged_fn.py
+  - cp_library/ds/list/list_find_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/csr/hld_weighted_cls.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py

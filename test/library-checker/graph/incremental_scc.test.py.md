@@ -70,15 +70,15 @@ data:
     \ Ra, Va)\n        em = partition(el, er, tm)\n        if tr-tl==1: return\n \
     \       E, F = F, E\n        div_con(nN, em, er, tm, tr)\n        div_con(N, el,\
     \ em, tl, tm)\n        E, F = F, E\n    div_con(N, 0, M, -1, M)\n    return W\n\
-    \n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I := A.copy())-1);\
+    \n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I := list(A))-1);\
     \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass\
-    \ Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n    \
-    \    P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
+    \ Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
+    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
     \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
-    \ enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return A\n\
+    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
     \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
     \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
-    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
+    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
     \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
     \ndef argsort_bounded(A, mx=None, reverse=False):\n    N = len(A)\n    if mx is\
     \ None: mx = max(A)\n    if N*N.bit_length() < mx or mx < 1000: return argsort(A,\
@@ -128,7 +128,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/incremental_scc.test.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/incremental_scc.test.py

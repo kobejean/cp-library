@@ -63,10 +63,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \n\nfrom typing import Callable, Generic, Union\nfrom typing import TypeVar\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SegTree(Generic[_T]):\n    def\
-    \ __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]]) ->\
-    \ None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e, seg.n\
-    \ = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
+    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SegTree(Generic[_T]):\n\
+    \    def __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int, list[_T]])\
+    \ -> None:\n        if isinstance(v, int): v = [e] * v\n        seg.op, seg.e,\
+    \ seg.n = op, e, (n := len(v))\n        seg.log, seg.sz, seg.d = (log := (n-1).bit_length()+1),\
     \ (sz := 1 << log), [e] * (sz << 1)\n        for i in range(n): seg.d[sz + i]\
     \ = v[i]\n        for i in range(sz-1,0,-1): seg.d[i] = op(seg.d[i<<1], seg.d[i<<1|1])\n\
     \n    def set(seg, p: int, x: _T) -> None:\n        seg.d[p := p + seg.sz], op\
@@ -203,15 +203,15 @@ data:
     \ # set p to unique value to trigger `if a != p` on first elm\n        for ai\
     \ in V:\n            a, i = P.dec(ai)\n            if a!=p: V[r:=r+1] = p = a\n\
     \            A[i] = r\n        del V[r+1:]\n    return V\n\n\nclass Packer:\n\
-    \    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n        P.m = (1\
-    \ << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P,\
-    \ x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A,\
-    \ reverse=False): P.ienumerate(A:=A.copy(), reverse); return A\n    def ienumerate(P,\
-    \ A, reverse=False):\n        if reverse:\n            for i,a in enumerate(A):\
-    \ A[i] = P.enc(-a, i)\n        else:\n            for i,a in enumerate(A): A[i]\
-    \ = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy()); return\
-    \ A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\
-    def rank(A: list[int], distinct = False): return (R := A.copy()), irank(R, distinct)\n\
+    \    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
+    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
+    \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
+    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
+    \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
+    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
+    \ndef rank(A: list[int], distinct = False): return (R := list(A)), irank(R, distinct)\n\
     \n\ndef bisect_left(A, x, l, r):\n    while l<r:\n        if A[m:=(l+r)>>1]<x:l=m+1\n\
     \        else:r=m\n    return l\n\nclass WMCompressed(WMStatic):\n    def __init__(wm,A):A,wm.Y=rank(A);super().__init__(A,len(wm.Y)-1)\n\
     \    def _didx(wm,y:int):return bisect_left(wm.Y,y,0,len(wm.Y))\n    def _yidx(wm,y:int):return\
@@ -260,7 +260,7 @@ data:
   path: cp_library/ds/wavelet/wm_segtree_compressed_cls.py
   requiredBy:
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py

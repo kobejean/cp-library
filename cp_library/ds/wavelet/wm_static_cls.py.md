@@ -276,7 +276,7 @@ data:
   - cp_library/ds/wavelet/wm_weighted_points_cls.py
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
   - cp_library/ds/wavelet/wm_monoid_points_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/wavelet/wm_static_cls_test.py

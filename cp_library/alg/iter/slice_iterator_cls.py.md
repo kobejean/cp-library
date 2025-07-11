@@ -14,9 +14,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\nfrom typing\
-    \ import Iterator, SupportsIndex\n\n\n\nclass SliceIterator(Iterator[_T]):\n \
-    \   def __init__(self, A: list[_T], R: list[SupportsIndex]):\n        self.A,\
+    from typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
+    from typing import Iterator, SupportsIndex\n\n\n\nclass SliceIterator(Iterator[_T]):\n\
+    \    def __init__(self, A: list[_T], R: list[SupportsIndex]):\n        self.A,\
     \ self.R, self.l, self.i = A, R, 0, 0\n    def __len__(self): return len(self.R)-self.i\n\
     \    def __next__(self):\n        R = self.R\n        if self.i >= len(R): raise\
     \ StopIteration\n        self.l, l = (r := R[self.i]), self.l\n        self.i\
@@ -33,7 +33,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/slice_iterator_cls.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/slice_iterator_cls.py

@@ -249,18 +249,18 @@ data:
     \ V[r] = r, a\n    elif V:\n        r, p = -1, V[-1]+1 # set p to unique value\
     \ to trigger `if a != p` on first elm\n        for ai in V:\n            a, i\
     \ = P.dec(ai)\n            if a!=p: V[r:=r+1] = p = a\n            A[i] = r\n\
-    \        del V[r+1:]\n    return V\n\n\nclass Packer:\n    def __init__(P, mx:\
-    \ int):\n        P.s = mx.bit_length()\n        P.m = (1 << P.s) - 1\n    def\
-    \ enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x: int) -> tuple[int,\
-    \ int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(),\
-    \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
-    \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
-    \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
-    \ P.iindices(A:=A.copy()); return A\n    def iindices(P, A):\n        for i,a\
-    \ in enumerate(A): A[i] = P.m&a\n\ndef rank(A: list[int], distinct = False): return\
-    \ (R := A.copy()), irank(R, distinct)\n\n\ndef bisect_left(A, x, l, r):\n    while\
-    \ l<r:\n        if A[m:=(l+r)>>1]<x:l=m+1\n        else:r=m\n    return l\n\n\
-    class WMCompressed(WMStatic):\n    def __init__(wm,A):A,wm.Y=rank(A);super().__init__(A,len(wm.Y)-1)\n\
+    \        del V[r+1:]\n    return V\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n\
+    \    def __init__(P, mx: int): P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n \
+    \   def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x: int) ->\
+    \ tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False):\
+    \ P.ienumerate(A:=list(A), reverse); return A\n    def ienumerate(P, A, reverse=False):\n\
+    \        if reverse:\n            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n\
+    \        else:\n            for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def\
+    \ indices(P, A: list[int]): P.iindices(A:=list(A)); return A\n    def iindices(P,\
+    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\ndef rank(A: list[int],\
+    \ distinct = False): return (R := list(A)), irank(R, distinct)\n\n\ndef bisect_left(A,\
+    \ x, l, r):\n    while l<r:\n        if A[m:=(l+r)>>1]<x:l=m+1\n        else:r=m\n\
+    \    return l\n\nclass WMCompressed(WMStatic):\n    def __init__(wm,A):A,wm.Y=rank(A);super().__init__(A,len(wm.Y)-1)\n\
     \    def _didx(wm,y:int):return bisect_left(wm.Y,y,0,len(wm.Y))\n    def _yidx(wm,y:int):return\
     \ i if(i:=wm._didx(y))<len(wm.Y)and wm.Y[i]==y else-1\n    def __contains__(wm,y:int):return(i:=wm._didx(y))<len(wm.Y)and\
     \ wm.Y[i]==y\n    def kth(wm,k,l,r):return wm.Y[super().kth(k,l,r)]\n    def select(wm,y,k,l=0,r=-1):return\
@@ -307,7 +307,7 @@ data:
   path: cp_library/ds/wavelet/wm_bit_compressed_cls.py
   requiredBy:
   - cp_library/ds/wavelet/wm_bit_points_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py

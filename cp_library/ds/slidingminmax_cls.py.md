@@ -23,10 +23,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nimport sys\n\
-    \ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n    try:\n\
-    \        return lst.index(value, start, stop)\n    except:\n        return -1\n\
-    from typing import MutableSequence, SupportsIndex\n\nclass Deque(MutableSequence[_T]):\n\
+    from typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
+    \nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
+    \ return -1\nfrom typing import MutableSequence, SupportsIndex\n\nclass Deque(MutableSequence[_T]):\n\
     \    def __init__(que, A = tuple(), *, maxlen=-1):\n        super().__init__()\n\
     \        que.cap = 1 << (maxlen-1).bit_length()\n        data = [0]*que.cap\n\
     \        que._sz = que._t = len(A)\n        for i,a in enumerate(A): data[i] =\
@@ -88,7 +88,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/slidingminmax_cls.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py

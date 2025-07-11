@@ -26,8 +26,14 @@ data:
     path: cp_library/ds/elist_fn.py
     title: cp_library/ds/elist_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/list_find_fn.py
+    title: cp_library/ds/list/list_find_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view_cls.py
+    title: cp_library/ds/view/view_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/fast_io_cls.py
     title: cp_library/io/fast_io_cls.py
@@ -50,6 +56,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_cls.py
     title: cp_library/alg/graph/csr/graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/csr/graph_potential_cls.py
+    title: cp_library/alg/graph/csr/graph_potential_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
     title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -302,24 +311,41 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from math import inf\nfrom collections import deque\nfrom typing import Callable,\
-    \ Sequence, Union, overload\n\nimport typing\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection, Iterator,\
-    \ Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
+    \  \n'''\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
+    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\nimport sys\n\ndef list_find(lst: list,\
+    \ value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
+    \ start, stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n\
+    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int):\
+    \ V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
+    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
+    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
+    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
+    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
+    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
+    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
+    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
+    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
+    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom math import\
+    \ inf\nfrom collections import deque\nfrom typing import Callable, Sequence, Union,\
+    \ overload\n\nimport typing\nfrom numbers import Number\nfrom types import GenericAlias\
+    \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nfrom\
+    \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
+    \   newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
+    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
+    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
+    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
+    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
+    \            if not b: break\n            ptr = self.buffer.tell()\n         \
+    \   self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n    \
+    \    self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
     \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
     \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
@@ -334,8 +360,7 @@ data:
     \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
-    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
+    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\n\nclass TokenStream(Iterator):\n\
     \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
     \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
@@ -428,8 +453,8 @@ data:
     \    \n    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n\
     \        return G.back\n    \n    def prep_tin(G):\n        if G.tin is None:\
     \ G.tin = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return\
-    \ G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G,\
-    \ u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
+    \ G.N\n    def __getitem__(G, u): return view(G.Va, G.La[u], G.Ra[u])\n    def\
+    \ range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
     \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
     \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
@@ -527,8 +552,8 @@ data:
     \      def parse(ts: TokenStream):\n            U, V = u32f(M), u32f(M)\n    \
     \        for i in range(M):\n                u, v = ts._line()\n             \
     \   U[i], V[i] = int(u)+shift, int(v)+shift\n            return cls(N, U, V)\n\
-    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\n\nfrom\
-    \ array import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
+    \        return parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\nfrom array\
+    \ import array\ndef u8f(N: int, elm: int = 0):      return array('B', (elm,))*N\
     \  # unsigned char\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
     \  # unsigned int\ndef i32f(N: int, elm: int = 0):     return array('i', (elm,))*N\
     \  # signed int\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
@@ -540,10 +565,11 @@ data:
     \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
     \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
     \ x & lst.mask\n"
-  code: "import cp_library.__header__\nfrom math import inf\nfrom collections import\
-    \ deque\nfrom typing import Callable, Sequence, Union, overload\nfrom cp_library.io.parser_cls\
-    \ import Parsable, TokenStream\nimport cp_library.alg.__header__\nfrom cp_library.alg.dp.chmin_fn\
-    \ import chmin\nimport cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.dfs_options_cls\
+  code: "from cp_library.ds.view.view_cls import view\nimport cp_library.__header__\n\
+    from math import inf\nfrom collections import deque\nfrom typing import Callable,\
+    \ Sequence, Union, overload\nfrom cp_library.io.parser_cls import Parsable, TokenStream\n\
+    import cp_library.alg.__header__\nfrom cp_library.alg.dp.chmin_fn import chmin\n\
+    import cp_library.alg.graph.__header__\nfrom cp_library.alg.graph.dfs_options_cls\
     \ import DFSEvent\n\nclass GraphBase(Parsable):\n    def __init__(G, N: int, M:\
     \ int, U: list[int], V: list[int], \n                 deg: list[int], La: list[int],\
     \ Ra: list[int],\n                 Ua: list[int], Va: list[int], Ea: list[int],\
@@ -572,8 +598,8 @@ data:
     \    \n    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n\
     \        return G.back\n    \n    def prep_tin(G):\n        if G.tin is None:\
     \ G.tin = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return\
-    \ G.N\n    def __getitem__(G, u): return G.Va[G.La[u]:G.Ra[u]]\n    def range(G,\
-    \ u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
+    \ G.N\n    def __getitem__(G, u): return view(G.Va, G.La[u], G.Ra[u])\n    def\
+    \ range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
     \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
     \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
     \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
@@ -677,6 +703,7 @@ data:
     \ import i32f\nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.ds.packet_list_cls\
     \ import PacketList"
   dependsOn:
+  - cp_library/ds/view/view_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
@@ -687,6 +714,7 @@ data:
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/packet_list_cls.py
+  - cp_library/ds/list/list_find_fn.py
   - cp_library/io/fast_io_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/csr/graph_base_cls.py
@@ -723,11 +751,12 @@ data:
   - cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/block_cut_tree_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
+  - cp_library/alg/graph/csr/graph_potential_cls.py
   - cp_library/alg/graph/csr/grid_graph_cls.py
   - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_cls.py
   - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

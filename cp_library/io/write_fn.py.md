@@ -8,6 +8,9 @@ data:
   - icon: ':warning:'
     path: cp_library/io/bye_fn.py
     title: cp_library/io/bye_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/test/unittest_helper.py
+    title: cp_library/test/unittest_helper.py
   - icon: ':warning:'
     path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
     title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
@@ -349,8 +352,23 @@ data:
     path: test/library-checker/tree/vertex_set_path_composite.test.py
     title: test/library-checker/tree/vertex_set_path_composite.test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/grid/grid_cls_test.py
+    title: test/unittests/ds/grid/grid_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
     title: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr2_cls_test.py
+    title: test/unittests/ds/view/csr2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr_cls_test.py
+    title: test/unittests/ds/view/csr_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view2_cls_test.py
+    title: test/unittests/ds/view/view2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view_cls_test.py
+    title: test/unittests/ds/view/view_cls_test.py
   - icon: ':heavy_check_mark:'
     path: test/unittests/ds/wavelet/wm_static_cls_test.py
     title: test/unittests/ds/wavelet/wm_static_cls_test.py
@@ -374,7 +392,7 @@ data:
     \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
     \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
     \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n\
+    \ BUFSIZE))\n            if not b: break\n            ptr = self.buffer.tell()\n\
     \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
     \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
@@ -411,12 +429,18 @@ data:
   path: cp_library/io/write_fn.py
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
+  - cp_library/test/unittest_helper.py
   - cp_library/io/bye_fn.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py
   - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - test/unittests/ds/view/csr_cls_test.py
+  - test/unittests/ds/view/csr2_cls_test.py
+  - test/unittests/ds/view/view_cls_test.py
+  - test/unittests/ds/view/view2_cls_test.py
+  - test/unittests/ds/grid/grid_cls_test.py
   - test/unittests/ds/wavelet/wm_static_cls_test.py
   - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py

@@ -88,10 +88,11 @@ data:
     \ b0-b1\n            m = m+1|b\n    return A, B\n\ndef ixor_conv(A: list, B: list,\
     \ N: int):\n    assert len(A) == len(B)\n    fwht_pair(A, B, N)\n    for i, b\
     \ in enumerate(B): A[i] *= b\n    fwht_inv(A, N)\n    return A\n\ndef xor_conv(A:\
-    \ list, B: list, N: int, mod: int):\n    return ixor_conv(A[:], B[:], N, mod)\n"
+    \ list, B: list, N: int, mod: int):\n    return ixor_conv(list(A), list(B), N,\
+    \ mod)\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
     from cp_library.math.conv.ixor_conv_fn import ixor_conv\n\ndef xor_conv(A: list,\
-    \ B: list, N: int, mod: int):\n    return ixor_conv(A[:], B[:], N, mod)\n"
+    \ B: list, N: int, mod: int):\n    return ixor_conv(list(A), list(B), N, mod)\n"
   dependsOn:
   - cp_library/math/conv/ixor_conv_fn.py
   - cp_library/math/conv/fwht_inv_fn.py
@@ -100,7 +101,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/xor_conv_fn.py
   requiredBy: []
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/xor_conv_fn.py

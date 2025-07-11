@@ -35,15 +35,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I := A.copy())-1);\
+    \n\n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I := list(A))-1);\
     \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass\
-    \ Packer:\n    def __init__(P, mx: int):\n        P.s = mx.bit_length()\n    \
-    \    P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
+    \ Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
+    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
     \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
-    \ enumerate(P, A, reverse=False): P.ienumerate(A:=A.copy(), reverse); return A\n\
+    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
     \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
     \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
-    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=A.copy());\
+    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
     \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
     \n\ndef sort_parallel(*L: list, reverse=False):\n    N, K, order = len(L[0]),\
     \ len(L), argsort(L[0], reverse)\n    R = tuple([0]*N for _ in range(K))\n   \
@@ -63,7 +63,7 @@ data:
   requiredBy:
   - cp_library/alg/graph/edge/edge_list_weighted_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-10 02:39:49+09:00'
+  timestamp: '2025-07-11 23:11:42+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py

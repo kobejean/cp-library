@@ -95,6 +95,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/csr/graph_cls.py
       title: cp_library/alg/graph/csr/graph_cls.py
+    - icon: ':warning:'
+      path: cp_library/alg/graph/csr/graph_potential_cls.py
+      title: cp_library/alg/graph/csr/graph_potential_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
       title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -203,6 +206,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/arg/argsort_multi_fn.py
       title: cp_library/alg/iter/arg/argsort_multi_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/arg/argsort_ranged_fn.py
+      title: cp_library/alg/iter/arg/argsort_ranged_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/arg/iargsort_fn.py
       title: cp_library/alg/iter/arg/iargsort_fn.py
@@ -271,6 +277,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/sort/isort_parallel_fn.py
       title: cp_library/alg/iter/sort/isort_parallel_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/iter/sort/isort_ranged_fn.py
+      title: cp_library/alg/iter/sort/isort_ranged_fn.py
     - icon: ':warning:'
       path: cp_library/alg/iter/sort/sort_buckets_fn.py
       title: cp_library/alg/iter/sort/sort_buckets_fn.py
@@ -556,6 +565,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/csr/csr_incremental_cls.py
       title: cp_library/ds/csr/csr_incremental_cls.py
+  - name: cp_library/ds/grid
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/grid/grid_cls.py
+      title: cp_library/ds/grid/grid_cls.py
   - name: cp_library/ds/heap
     pages:
     - icon: ':heavy_check_mark:'
@@ -697,6 +711,20 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/bst/treap_sized_cls.py
       title: cp_library/ds/tree/bst/treap_sized_cls.py
+  - name: cp_library/ds/view
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/csr2_cls.py
+      title: cp_library/ds/view/csr2_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/csr_cls.py
+      title: cp_library/ds/view/csr_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/view2_cls.py
+      title: cp_library/ds/view/view2_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/view_cls.py
+      title: cp_library/ds/view/view_cls.py
   - name: cp_library/ds/wavelet
     pages:
     - icon: ':heavy_check_mark:'
@@ -1136,6 +1164,9 @@ data:
       path: cp_library/perf/benchmark.py
       title: cp_library/perf/benchmark.py
     - icon: ':warning:'
+      path: cp_library/perf/checksum.py
+      title: cp_library/perf/checksum.py
+    - icon: ':warning:'
       path: cp_library/perf/plots.py
       title: cp_library/perf/plots.py
   - name: cp_library/perf/examples
@@ -1146,6 +1177,11 @@ data:
     - icon: ':warning:'
       path: cp_library/perf/examples/simple_usage.py
       title: cp_library/perf/examples/simple_usage.py
+  - name: cp_library/test
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/test/unittest_helper.py
+      title: cp_library/test/unittest_helper.py
   - name: cp_library/vis
     pages:
     - icon: ':warning:'
@@ -1160,14 +1196,35 @@ data:
       path: perf/bool_list.py
       title: perf/bool_list.py
     - icon: ':warning:'
+      path: perf/csr.py
+      title: perf/csr.py
+    - icon: ':warning:'
+      path: perf/csr2.py
+      title: perf/csr2.py
+    - icon: ':warning:'
       path: perf/edge_list.py
       title: perf/edge_list.py
     - icon: ':warning:'
-      path: perf/modular_list.py
-      title: perf/modular_list.py
+      path: perf/grid.py
+      title: perf/grid.py
+    - icon: ':warning:'
+      path: perf/heap_csr.py
+      title: perf/heap_csr.py
+    - icon: ':warning:'
+      path: perf/heap_view.py
+      title: perf/heap_view.py
+    - icon: ':warning:'
+      path: perf/list_view.py
+      title: perf/list_view.py
+    - icon: ':warning:'
+      path: perf/mlist.py
+      title: perf/mlist.py
     - icon: ':warning:'
       path: perf/rank.py
       title: perf/rank.py
+    - icon: ':warning:'
+      path: perf/view2.py
+      title: perf/view2.py
   - name: .
     pages:
     - icon: ':warning:'
@@ -1681,11 +1738,30 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/library-checker/tree/vertex_set_path_composite.test.py
       title: test/library-checker/tree/vertex_set_path_composite.test.py
+  - name: test/unittests/ds/grid
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/grid/grid_cls_test.py
+      title: test/unittests/ds/grid/grid_cls_test.py
   - name: test/unittests/ds/tree/bst
     pages:
     - icon: ':heavy_check_mark:'
       path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
       title: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - name: test/unittests/ds/view
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/csr2_cls_test.py
+      title: test/unittests/ds/view/csr2_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/csr_cls_test.py
+      title: test/unittests/ds/view/csr_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/view2_cls_test.py
+      title: test/unittests/ds/view/view2_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/view_cls_test.py
+      title: test/unittests/ds/view/view_cls_test.py
   - name: test/unittests/ds/wavelet
     pages:
     - icon: ':heavy_check_mark:'
