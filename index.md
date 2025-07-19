@@ -229,6 +229,9 @@ data:
       path: cp_library/alg/iter/ishift_fn.py
       title: cp_library/alg/iter/ishift_fn.py
     - icon: ':warning:'
+      path: cp_library/alg/iter/majority_vote_fn.py
+      title: cp_library/alg/iter/majority_vote_fn.py
+    - icon: ':warning:'
       path: cp_library/alg/iter/minmax_fn.py
       title: cp_library/alg/iter/minmax_fn.py
     - icon: ':warning:'
@@ -617,6 +620,21 @@ data:
       path: cp_library/ds/list/deque_cls.py
       title: cp_library/ds/list/deque_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/list2_cls.py
+      title: cp_library/ds/list/list2_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/list3_cls.py
+      title: cp_library/ds/list/list3_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/list4_cls.py
+      title: cp_library/ds/list/list4_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/list5_cls.py
+      title: cp_library/ds/list/list5_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/list6_cls.py
+      title: cp_library/ds/list/list6_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/list/list_find_fn.py
       title: cp_library/ds/list/list_find_fn.py
     - icon: ':warning:'
@@ -645,9 +663,6 @@ data:
       path: cp_library/ds/tree/pdsu_cls.py
       title: cp_library/ds/tree/pdsu_cls.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/tree/segtree_cls.py
-      title: cp_library/ds/tree/segtree_cls.py
-    - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/trie_cls.py
       title: cp_library/ds/tree/trie_cls.py
   - name: cp_library/ds/tree/bit
@@ -655,6 +670,24 @@ data:
     - icon: ':warning:'
       path: cp_library/ds/tree/bit/bir_cls.py
       title: cp_library/ds/tree/bit/bir_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bit/bit2_cls.py
+      title: cp_library/ds/tree/bit/bit2_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bit/bit3_cls.py
+      title: cp_library/ds/tree/bit/bit3_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bit/bit4_cls.py
+      title: cp_library/ds/tree/bit/bit4_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bit/bit5_cls.py
+      title: cp_library/ds/tree/bit/bit5_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bit/bit6_cls.py
+      title: cp_library/ds/tree/bit/bit6_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/bit/bit_base_cls.py
+      title: cp_library/ds/tree/bit/bit_base_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/bit/bit_cls.py
       title: cp_library/ds/tree/bit/bit_cls.py
@@ -711,6 +744,26 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/tree/bst/treap_sized_cls.py
       title: cp_library/ds/tree/bst/treap_sized_cls.py
+  - name: cp_library/ds/tree/seg
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/seg/segtree2_cls.py
+      title: cp_library/ds/tree/seg/segtree2_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/seg/segtree3_cls.py
+      title: cp_library/ds/tree/seg/segtree3_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/seg/segtree4_cls.py
+      title: cp_library/ds/tree/seg/segtree4_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/seg/segtree5_cls.py
+      title: cp_library/ds/tree/seg/segtree5_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/seg/segtree6_cls.py
+      title: cp_library/ds/tree/seg/segtree6_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/tree/seg/segtree_cls.py
+      title: cp_library/ds/tree/seg/segtree_cls.py
   - name: cp_library/ds/view
     pages:
     - icon: ':heavy_check_mark:'
@@ -1027,6 +1080,9 @@ data:
     - icon: ':warning:'
       path: cp_library/math/mod/lemire_fn.py
       title: cp_library/math/mod/lemire_fn.py
+    - icon: ':warning:'
+      path: cp_library/math/mod/mfrac_cls.py
+      title: cp_library/math/mod/mfrac_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/math/mod/mint_cls.py
       title: cp_library/math/mod/mint_cls.py
@@ -1743,11 +1799,62 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/unittests/ds/grid/grid_cls_test.py
       title: test/unittests/ds/grid/grid_cls_test.py
+  - name: test/unittests/ds/list
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/list/list2_cls_test.py
+      title: test/unittests/ds/list/list2_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/list/list3_cls_test.py
+      title: test/unittests/ds/list/list3_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/list/list4_cls_test.py
+      title: test/unittests/ds/list/list4_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/list/list5_cls_test.py
+      title: test/unittests/ds/list/list5_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/list/list6_cls_test.py
+      title: test/unittests/ds/list/list6_cls_test.py
+  - name: test/unittests/ds/tree/bit
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/bit/bit2_cls_test.py
+      title: test/unittests/ds/tree/bit/bit2_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/bit/bit3_cls_test.py
+      title: test/unittests/ds/tree/bit/bit3_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/bit/bit4_cls_test.py
+      title: test/unittests/ds/tree/bit/bit4_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/bit/bit5_cls_test.py
+      title: test/unittests/ds/tree/bit/bit5_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/bit/bit6_cls_test.py
+      title: test/unittests/ds/tree/bit/bit6_cls_test.py
   - name: test/unittests/ds/tree/bst
     pages:
     - icon: ':heavy_check_mark:'
       path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
       title: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - name: test/unittests/ds/tree/seg
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/seg/segtree2_cls_test.py
+      title: test/unittests/ds/tree/seg/segtree2_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/seg/segtree3_cls_test.py
+      title: test/unittests/ds/tree/seg/segtree3_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/seg/segtree4_cls_test.py
+      title: test/unittests/ds/tree/seg/segtree4_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/seg/segtree5_cls_test.py
+      title: test/unittests/ds/tree/seg/segtree5_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/tree/seg/segtree6_cls_test.py
+      title: test/unittests/ds/tree/seg/segtree6_cls_test.py
   - name: test/unittests/ds/view
     pages:
     - icon: ':heavy_check_mark:'

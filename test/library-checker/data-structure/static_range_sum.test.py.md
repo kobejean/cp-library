@@ -36,13 +36,15 @@ data:
     \          https://kobejean.github.io/cp-library               \n'''\nimport operator\n\
     from itertools import accumulate\nfrom typing import Callable, Iterable\n\n\n\
     from typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    \ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
-    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
-    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
-    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
-    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\n\n\nfrom typing import\
-    \ Type, Union, overload\nimport typing\nfrom collections import deque\nfrom numbers\
+    _T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
+    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\ndef presum(iter: Iterable[_T], func:\
+    \ Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:\n  \
+    \  if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
+    \    else:\n        assert step >= 2\n        if func is None:\n            func\
+    \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
+    \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
+    \   A[i] = func(A[i], A[i-step])\n        return A\n\n\nfrom typing import Type,\
+    \ Union, overload\nimport typing\nfrom collections import deque\nfrom numbers\
     \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
     \ Collection, Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO,\
     \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
@@ -151,7 +153,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_range_sum.test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_range_sum.test.py

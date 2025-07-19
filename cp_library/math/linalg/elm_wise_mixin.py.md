@@ -93,19 +93,19 @@ data:
   path: cp_library/math/linalg/elm_wise_mixin.py
   requiredBy:
   - cp_library/math/linalg/vec/vec2d_cls.py
+  - cp_library/math/linalg/vec/mutvec_cls.py
   - cp_library/math/linalg/vec/slope_cls.py
   - cp_library/math/linalg/vec/vec_cls.py
-  - cp_library/math/linalg/vec/mutvec_cls.py
   - cp_library/math/linalg/vec/vec3d_cls.py
   - cp_library/math/linalg/elm_wise_in_place_mixin.py
   - cp_library/math/linalg/mat/mod/mat_cls.py
   - cp_library/math/linalg/mat/mat_cls.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/atcoder/abc/abc274_e_vec2d.test.py
   - test/atcoder/abc/abc151_f_fbisect_left.test.py
   - test/atcoder/abc/abc189_e_vec2d.test.py
-  - test/atcoder/abc/abc274_e_vec2d.test.py
 documentation_of: cp_library/math/linalg/elm_wise_mixin.py
 layout: document
 redirect_from:

@@ -315,22 +315,24 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
     \  \n'''\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\nimport sys\n\ndef list_find(lst: list,\
-    \ value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
-    \ start, stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n\
-    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int):\
-    \ V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
-    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
-    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
-    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
-    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
-    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
-    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
-    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
-    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
-    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
-    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
-    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n"
+    _T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
+    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    \n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
+    \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
+    \ def __init__(V, A: list[_T], l: int, r: int): V.A, V.l, V.r = A, l, r\n    def\
+    \ __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0\
+    \ <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n    def\
+    \ __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V, v: _T):\
+    \ return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int, r: int):\
+    \ V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l, V.r) - V.l\n\
+    \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A[l],\
+    \ V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args, **kwargs):\n\
+    \        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a in enumerate(A,V.l):\
+    \ V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n    def append(V, v:\
+    \ _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return V.A[V.l-1]\n\
+    \    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v; \n    def validate(V):\
+    \ return 0 <= V.l <= V.r <= len(V.A)\n"
   code: "\nimport cp_library.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
     \ import _T\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.list_find_fn\
     \ import list_find\nimport cp_library.ds.view.__header__\n\nclass view(Generic[_T]):\n\
@@ -355,105 +357,105 @@ data:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/ds/view/csr_cls.py
   - cp_library/ds/grid/grid_cls.py
-  - cp_library/alg/tree/csr/hld_commutative_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/csr/aux_tree_base_cls.py
-  - cp_library/alg/tree/csr/tree_base_cls.py
-  - cp_library/alg/tree/csr/hld_cls.py
-  - cp_library/alg/tree/csr/hld_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_cls.py
-  - cp_library/alg/tree/csr/hld_bit_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/csr/hld_base_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
-  - cp_library/alg/tree/csr/aux_tree_cls.py
-  - cp_library/alg/tree/csr/hld_monoid_cls.py
+  - cp_library/alg/graph/csr/graph_potential_cls.py
+  - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_base_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_cls.py
   - cp_library/alg/graph/csr/digraph_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/dag_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
-  - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
-  - cp_library/alg/graph/csr/snippets/scc_labels_fn.py
-  - cp_library/alg/graph/csr/snippets/cut_edges_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_component_labels_fn.py
-  - cp_library/alg/graph/csr/snippets/cut_vertices_fn.py
-  - cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
-  - cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
+  - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/block_cut_tree_fn.py
+  - cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
+  - cp_library/alg/graph/csr/snippets/cut_edges_fn.py
+  - cp_library/alg/graph/csr/snippets/scc_labels_fn.py
+  - cp_library/alg/graph/csr/snippets/cut_vertices_fn.py
+  - cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
-  - cp_library/alg/graph/csr/graph_potential_cls.py
-  - cp_library/alg/graph/csr/grid_graph_cls.py
-  - cp_library/alg/graph/csr/grid_graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
+  - cp_library/alg/graph/csr/grid_graph_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/hld_bit_cls.py
+  - cp_library/alg/tree/csr/tree_cls.py
+  - cp_library/alg/tree/csr/tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_monoid_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/hld_commutative_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/hld_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/heap_view.py
-  - perf/heap_csr.py
+  - perf/list_view.py
   - perf/grid.py
   - perf/csr.py
-  - perf/list_view.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  - perf/heap_csr.py
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/3407.test.py
-  - test/unittests/ds/view/csr_cls_test.py
-  - test/unittests/ds/view/view_cls_test.py
-  - test/unittests/ds/grid/grid_cls_test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - test/aoj/grl/grl_2_c_scc.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_3_b_graph_bridges.test.py
-  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - test/library-checker/tree/tree_diameter.test.py
-  - test/library-checker/tree/vertex_add_subtree_sum.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - test/library-checker/graph/cycle_detection.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/two_edge_connected_components.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
+  - test/library-checker/tree/tree_diameter.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
   - test/library-checker/tree/jump_on_tree.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/graph/scc_strongly_connected_components.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/library-checker/graph/scc.test.py
-  - test/library-checker/graph/cycle_detection_undirected.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
-  - test/library-checker/graph/two_edge_connected_components.test.py
-  - test/library-checker/graph/biconnected_components.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/library-checker/graph/cycle_detection.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
-  - test/atcoder/abc/abc245_f_digraph.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - test/yukicoder/3407.test.py
+  - test/unittests/ds/view/view_cls_test.py
+  - test/unittests/ds/view/csr_cls_test.py
+  - test/unittests/ds/grid/grid_cls_test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_3_b_graph_bridges.test.py
+  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_2_c_scc.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - test/atcoder/abc/abc245_f_digraph.test.py
+  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
 documentation_of: cp_library/ds/view/view_cls.py
 layout: document
 redirect_from:

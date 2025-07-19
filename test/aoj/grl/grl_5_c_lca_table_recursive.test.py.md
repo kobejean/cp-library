@@ -40,22 +40,23 @@ data:
     \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
     import sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
     max_unroll_recursion=-1\")\nfrom typing import Generic, Callable\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\n\
-    class SparseTable(Generic[_T]):\n    def __init__(st, op: Callable[[_T,_T],_T],\
-    \ arr: list[_T]):\n        st.N = N = len(arr)\n        st.log, st.op = N.bit_length(),\
-    \ op\n        st.data = [0] * (st.log*N)\n        st.data[:N] = arr\n        for\
-    \ i in range(1,st.log):\n            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n  \
-    \          for j in range(N-(1<<i)+1):\n                st.data[a+j] = op(st.data[b+j],\
-    \ st.data[c+j])\n\n    def query(st, l: int, r: int) -> _T:\n        k = (r-l).bit_length()-1\n\
-    \        return st.op(st.data[k*st.N+l],st.data[k*st.N+r-(1<<k)])\n\nclass LCATable(SparseTable):\n\
-    \    def __init__(self, T, root):\n        self.start = [-1] * len(T)\n      \
-    \  euler_tour = []\n        depths = []\n        \n        def dfs(u: int, p:\
-    \ int, depth: int):\n            self.start[u] = len(euler_tour)\n           \
-    \ euler_tour.append(u)\n            depths.append(depth)\n            \n     \
-    \       for child in T[u]:\n                if child != p:\n                 \
-    \   dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n     \
-    \               depths.append(depth)\n        \n        dfs(root, -1, 0)\n   \
-    \     super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
+    \ import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1\
+    \ = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
+    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\nclass SparseTable(Generic[_T]):\n\
+    \    def __init__(st, op: Callable[[_T,_T],_T], arr: list[_T]):\n        st.N\
+    \ = N = len(arr)\n        st.log, st.op = N.bit_length(), op\n        st.data\
+    \ = [0] * (st.log*N)\n        st.data[:N] = arr\n        for i in range(1,st.log):\n\
+    \            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n            for j in range(N-(1<<i)+1):\n\
+    \                st.data[a+j] = op(st.data[b+j], st.data[c+j])\n\n    def query(st,\
+    \ l: int, r: int) -> _T:\n        k = (r-l).bit_length()-1\n        return st.op(st.data[k*st.N+l],st.data[k*st.N+r-(1<<k)])\n\
+    \nclass LCATable(SparseTable):\n    def __init__(self, T, root):\n        self.start\
+    \ = [-1] * len(T)\n        euler_tour = []\n        depths = []\n        \n  \
+    \      def dfs(u: int, p: int, depth: int):\n            self.start[u] = len(euler_tour)\n\
+    \            euler_tour.append(u)\n            depths.append(depth)\n        \
+    \    \n            for child in T[u]:\n                if child != p:\n      \
+    \              dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n\
+    \                    depths.append(depth)\n        \n        dfs(root, -1, 0)\n\
+    \        super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
     \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
     \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
     \      return a, d\n\n    def distance(self, u, v) -> int:\n        l, r = min(self.start[u],\
@@ -109,7 +110,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_c_lca_table_recursive.test.py

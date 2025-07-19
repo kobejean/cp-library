@@ -278,66 +278,68 @@ data:
     \              speedup = worst_time / best_time if best_time > 0 else 0\n    \
     \            \n                print(f\"{op:<15} {best_impl:<20} {best_time:<15.3f}\
     \ {speedup:<10.1f}x\")\n\n\n\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\ndef list_find(lst:\
-    \ list, value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
-    \ start, stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n\
-    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int):\
-    \ V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
-    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
-    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
-    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
-    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
-    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
-    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
-    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
-    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
-    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
-    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
-    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\n# Configure benchmark\n\
-    config = BenchmarkConfig(\n    name=\"list_view\",\n    sizes=[1000000, 100000,\
-    \ 10000, 1000, 100],  # Reverse order to warm up JIT\n    operations=['construction',\
-    \ 'sum', 'modify', 'index', 'reverse', 'sort', 'nested_sum', 'pop', 'append'],\n\
-    \    iterations=10,\n    warmup=3,\n    output_dir=\"./output/benchmark_results/list_view\"\
-    \n)\n\n# Create benchmark instance\nbenchmark = Benchmark(config)\n\n# Data generator\n\
-    @benchmark.data_generator(\"default\")\ndef generate_view_data(size: int, operation:\
-    \ str):\n    \"\"\"Generate test data for slice/view operations\"\"\"\n    # Generate\
-    \ random list\n    data = [random.randint(0, 1000000) for _ in range(size)]\n\
-    \    \n    # Generate random slice boundaries (10-50% of list)\n    slice_size\
-    \ = random.randint(size // 10, size // 2)\n    start = random.randint(0, size\
-    \ - slice_size)\n    end = start + slice_size\n    \n    return {\n        'data':\
-    \ data,\n        'start': start,\n        'end': end,\n        'slice_size': slice_size,\n\
-    \        'search_value': random.randint(0, 1000000),\n        'size': size,\n\
-    \        'operation': operation\n    }\n\n# Construction operation\n@benchmark.implementation(\"\
-    slice\", \"construction\")\ndef construction_slice(data):\n    \"\"\"Create a\
-    \ slice copy of the list\"\"\"\n    lst = data['data']\n    start, end = data['start'],\
-    \ data['end']\n    \n    # Create slice (copies data)\n    slice_copy = lst[start:end]\n\
-    \    \n    # Return checksum to ensure it's not optimized away\n    checksum =\
-    \ 0\n    for x in slice_copy:\n        checksum ^= x\n    return checksum\n\n\
-    @benchmark.implementation(\"view\", \"construction\")\ndef construction_view(data):\n\
-    \    \"\"\"Create a view of the list\"\"\"\n    lst = data['data']\n    start,\
-    \ end = data['start'], data['end']\n    \n    # Create view (no copy)\n    list_view\
-    \ = view(lst, start, end)\n    \n    # Return checksum to ensure it's not optimized\
-    \ away\n    checksum = 0\n    for i in range(len(list_view)):\n        checksum\
-    \ ^= list_view[i]\n    return checksum\n\n# Sum operation\n@benchmark.implementation(\"\
-    slice\", \"sum\")\ndef sum_slice(data):\n    \"\"\"Sum elements in a slice\"\"\
+    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
+    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
+    _T6 = TypeVar('T6')\n\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
+    \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
+    \ def __init__(V, A: list[_T], l: int, r: int): V.A, V.l, V.r = A, l, r\n    def\
+    \ __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0\
+    \ <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n    def\
+    \ __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V, v: _T):\
+    \ return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int, r: int):\
+    \ V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l, V.r) - V.l\n\
+    \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A[l],\
+    \ V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args, **kwargs):\n\
+    \        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a in enumerate(A,V.l):\
+    \ V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n    def append(V, v:\
+    \ _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return V.A[V.l-1]\n\
+    \    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v; \n    def validate(V):\
+    \ return 0 <= V.l <= V.r <= len(V.A)\n\n# Configure benchmark\nconfig = BenchmarkConfig(\n\
+    \    name=\"list_view\",\n    sizes=[1000000, 100000, 10000, 1000, 100],  # Reverse\
+    \ order to warm up JIT\n    operations=['construction', 'sum', 'modify', 'index',\
+    \ 'reverse', 'sort', 'nested_sum', 'pop', 'append'],\n    iterations=10,\n   \
+    \ warmup=3,\n    output_dir=\"./output/benchmark_results/list_view\"\n)\n\n# Create\
+    \ benchmark instance\nbenchmark = Benchmark(config)\n\n# Data generator\n@benchmark.data_generator(\"\
+    default\")\ndef generate_view_data(size: int, operation: str):\n    \"\"\"Generate\
+    \ test data for slice/view operations\"\"\"\n    # Generate random list\n    data\
+    \ = [random.randint(0, 1000000) for _ in range(size)]\n    \n    # Generate random\
+    \ slice boundaries (10-50% of list)\n    slice_size = random.randint(size // 10,\
+    \ size // 2)\n    start = random.randint(0, size - slice_size)\n    end = start\
+    \ + slice_size\n    \n    return {\n        'data': data,\n        'start': start,\n\
+    \        'end': end,\n        'slice_size': slice_size,\n        'search_value':\
+    \ random.randint(0, 1000000),\n        'size': size,\n        'operation': operation\n\
+    \    }\n\n# Construction operation\n@benchmark.implementation(\"slice\", \"construction\"\
+    )\ndef construction_slice(data):\n    \"\"\"Create a slice copy of the list\"\"\
     \"\n    lst = data['data']\n    start, end = data['start'], data['end']\n    \n\
-    \    # Create slice and sum\n    slice_copy = lst[start:end]\n    return sum(slice_copy)\
-    \ & 0xFFFFFFFF  # Keep as 32-bit for checksum\n\n@benchmark.implementation(\"\
-    view\", \"sum\")\ndef sum_view(data):\n    \"\"\"Sum elements in a view\"\"\"\n\
-    \    lst = data['data']\n    start, end = data['start'], data['end']\n    \n \
-    \   # Create view and sum through it\n    list_view = view(lst, start, end)\n\
-    \    total = 0\n    for i in range(len(list_view)):\n        total += list_view[i]\n\
-    \    return total & 0xFFFFFFFF  # Keep as 32-bit for checksum\n\n@benchmark.implementation(\"\
-    view_direct\", \"sum\")\ndef sum_view_direct(data):\n    \"\"\"Sum elements using\
-    \ direct indexing\"\"\"\n    lst = data['data']\n    start, end = data['start'],\
-    \ data['end']\n    \n    # Sum directly without creating slice or view\n    total\
-    \ = 0\n    for i in range(start, end):\n        total += lst[i]\n    return total\
-    \ & 0xFFFFFFFF  # Keep as 32-bit for checksum\n\n# Setup functions for operations\
-    \ that need copying\n@benchmark.setup(\"slice\", [\"modify\", \"reverse\", \"\
-    sort\", \"pop\", \"append\"])\ndef setup_slice_modify(data):\n    \"\"\"Setup\
-    \ function that copies data before modification\"\"\"\n    new_data = data.copy()\n\
-    \    new_data['data'] = data['data'].copy()\n    return new_data\n\n@benchmark.setup(\"\
-    view\", [\"modify\", \"reverse\", \"sort\", \"pop\", \"append\"])\ndef setup_view_modify(data):\n\
+    \    # Create slice (copies data)\n    slice_copy = lst[start:end]\n    \n   \
+    \ # Return checksum to ensure it's not optimized away\n    checksum = 0\n    for\
+    \ x in slice_copy:\n        checksum ^= x\n    return checksum\n\n@benchmark.implementation(\"\
+    view\", \"construction\")\ndef construction_view(data):\n    \"\"\"Create a view\
+    \ of the list\"\"\"\n    lst = data['data']\n    start, end = data['start'], data['end']\n\
+    \    \n    # Create view (no copy)\n    list_view = view(lst, start, end)\n  \
+    \  \n    # Return checksum to ensure it's not optimized away\n    checksum = 0\n\
+    \    for i in range(len(list_view)):\n        checksum ^= list_view[i]\n    return\
+    \ checksum\n\n# Sum operation\n@benchmark.implementation(\"slice\", \"sum\")\n\
+    def sum_slice(data):\n    \"\"\"Sum elements in a slice\"\"\"\n    lst = data['data']\n\
+    \    start, end = data['start'], data['end']\n    \n    # Create slice and sum\n\
+    \    slice_copy = lst[start:end]\n    return sum(slice_copy) & 0xFFFFFFFF  # Keep\
+    \ as 32-bit for checksum\n\n@benchmark.implementation(\"view\", \"sum\")\ndef\
+    \ sum_view(data):\n    \"\"\"Sum elements in a view\"\"\"\n    lst = data['data']\n\
+    \    start, end = data['start'], data['end']\n    \n    # Create view and sum\
+    \ through it\n    list_view = view(lst, start, end)\n    total = 0\n    for i\
+    \ in range(len(list_view)):\n        total += list_view[i]\n    return total &\
+    \ 0xFFFFFFFF  # Keep as 32-bit for checksum\n\n@benchmark.implementation(\"view_direct\"\
+    , \"sum\")\ndef sum_view_direct(data):\n    \"\"\"Sum elements using direct indexing\"\
+    \"\"\n    lst = data['data']\n    start, end = data['start'], data['end']\n  \
+    \  \n    # Sum directly without creating slice or view\n    total = 0\n    for\
+    \ i in range(start, end):\n        total += lst[i]\n    return total & 0xFFFFFFFF\
+    \  # Keep as 32-bit for checksum\n\n# Setup functions for operations that need\
+    \ copying\n@benchmark.setup(\"slice\", [\"modify\", \"reverse\", \"sort\", \"\
+    pop\", \"append\"])\ndef setup_slice_modify(data):\n    \"\"\"Setup function that\
+    \ copies data before modification\"\"\"\n    new_data = data.copy()\n    new_data['data']\
+    \ = data['data'].copy()\n    return new_data\n\n@benchmark.setup(\"view\", [\"\
+    modify\", \"reverse\", \"sort\", \"pop\", \"append\"])\ndef setup_view_modify(data):\n\
     \    \"\"\"Setup function that copies data before modification\"\"\"\n    new_data\
     \ = data.copy()\n    new_data['data'] = data['data'].copy()\n    return new_data\n\
     \n@benchmark.setup(\"view_direct\", [\"modify\", \"reverse\", \"sort\", \"pop\"\
@@ -665,7 +667,7 @@ data:
   isVerificationFile: false
   path: perf/list_view.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/list_view.py

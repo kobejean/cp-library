@@ -22,7 +22,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mod/mat_add_fn.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/mat/mod/mat_add_fn.py

@@ -16,6 +16,18 @@ data:
 
     _U = TypeVar(''U'')
 
+    _T1 = TypeVar(''T1'')
+
+    _T2 = TypeVar(''T2'')
+
+    _T3 = TypeVar(''T3'')
+
+    _T4 = TypeVar(''T4'')
+
+    _T5 = TypeVar(''T5'')
+
+    _T6 = TypeVar(''T6'')
+
     '
   code: 'from typing import TypeVar
 
@@ -25,12 +37,24 @@ data:
 
     _U = TypeVar(''U'')
 
+    _T1 = TypeVar(''T1'')
+
+    _T2 = TypeVar(''T2'')
+
+    _T3 = TypeVar(''T3'')
+
+    _T4 = TypeVar(''T4'')
+
+    _T5 = TypeVar(''T5'')
+
+    _T6 = TypeVar(''T6'')
+
     '
   dependsOn: []
   isVerificationFile: false
   path: cp_library/misc/typing.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/misc/typing.py

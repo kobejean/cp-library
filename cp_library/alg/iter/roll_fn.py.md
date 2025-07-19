@@ -42,14 +42,14 @@ data:
   path: cp_library/alg/iter/roll_fn.py
   requiredBy:
   - cp_library/alg/graph/func/perm_graph_cls.py
-  - cp_library/alg/graph/func/partial_func_graph_cls.py
   - cp_library/alg/graph/func/func_graph_cls.py
   - cp_library/alg/graph/func/mut_perm_graph_cls.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  - cp_library/alg/graph/func/partial_func_graph_cls.py
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py
+  - test/atcoder/abc/abc175_d_permutation.test.py
 documentation_of: cp_library/alg/iter/roll_fn.py
 layout: document
 redirect_from:

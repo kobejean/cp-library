@@ -150,9 +150,9 @@ data:
     \        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n   \
     \ \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
     \        while l != i: s, i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get\
-    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None:\n   \
-    \     bit.add(i, x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n\
-    \        pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
+    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None: bit.add(i,\
+    \ x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n   \
+    \     pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
     \        return pre\n\n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)\
     \ if v>0 else -1\n    \n    def bisect_right(bit, v, key=None) -> int:\n     \
     \   i = s = 0; m = bit._lb\n        if key:\n            while m := m>>1:\n  \
@@ -173,9 +173,9 @@ data:
     \        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n   \
     \ \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
     \        while l != i: s, i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get\
-    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None:\n   \
-    \     bit.add(i, x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n\
-    \        pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
+    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None: bit.add(i,\
+    \ x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n   \
+    \     pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
     \        return pre\n\n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)\
     \ if v>0 else -1\n    \n    def bisect_right(bit, v, key=None) -> int:\n     \
     \   i = s = 0; m = bit._lb\n        if key:\n            while m := m>>1:\n  \
@@ -188,33 +188,33 @@ data:
   path: cp_library/ds/tree/bit/bit_cls.py
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  - cp_library/ds/tree/bit/bir_cls.py
-  - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - cp_library/ds/wavelet/wm_bit_cls.py
   - cp_library/ds/wavelet/wm_bit_points_cls.py
   - cp_library/ds/wavelet/wm_bit_compressed_cls.py
+  - cp_library/ds/tree/bit/bir_cls.py
+  - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - cp_library/alg/tree/csr/hld_bit_cls.py
   - cp_library/math/invcnt_fn.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
   - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
-  - test/library-checker/data-structure/point_add_range_sum.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
   - test/library-checker/data-structure/predecessor_problem_bit.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
-  - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
+  - test/library-checker/data-structure/point_add_range_sum.test.py
   - test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
+  - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
   - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
 documentation_of: cp_library/ds/tree/bit/bit_cls.py
 layout: document
 redirect_from:

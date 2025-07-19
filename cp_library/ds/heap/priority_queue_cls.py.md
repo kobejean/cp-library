@@ -167,11 +167,13 @@ data:
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\nfrom typing import Generic\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\
-    class HeapProtocol(Generic[_T]):\n    def peek(heap) -> _T: return heap.data[0]\n\
-    \    def pop(heap) -> _T: ...\n    def push(heap, item: _T): ...\n    def pushpop(heap,\
-    \ item: _T) -> _T: ...\n    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap,\
-    \ item: _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
+    \ import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1\
+    \ = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
+    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\nclass HeapProtocol(Generic[_T]):\n\
+    \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
+    \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
+    \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
+    \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
     \    def clear(heap): heap.data.clear()\n\nclass PriorityQueue(HeapProtocol[int]):\n\
     \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
     \ None, /):\n        que.pkr = Packer(N)\n        if ids is None: que.data = elist(N)\n\
@@ -209,44 +211,44 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/priority_queue_cls.py
   requiredBy:
-  - cp_library/alg/tree/csr/tree_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/csr/aux_tree_base_cls.py
-  - cp_library/alg/tree/csr/hld_weighted_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
-  - cp_library/alg/tree/csr/aux_tree_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_cls.py
   - cp_library/alg/graph/csr/graph_potential_cls.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/3407.test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - test/library-checker/tree/tree_diameter.test.py
-  - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/tree/tree_diameter.test.py
+  - test/yukicoder/3407.test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
 documentation_of: cp_library/ds/heap/priority_queue_cls.py
 layout: document
 redirect_from:

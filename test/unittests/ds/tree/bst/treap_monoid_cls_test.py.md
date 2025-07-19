@@ -395,9 +395,11 @@ data:
     \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n            sys.stdout = IOWrapper.stdout\
     \ = IOWrapper(sys.stdout)\n        except:\n            pass\n        from typing\
     \ import TypeVar\n        _S = TypeVar('S')\n        _T = TypeVar('T')\n     \
-    \   _U = TypeVar('U')\n        \n        class TokenStream(Iterator):\n      \
-    \      stream = IOWrapper.stdin\n        \n            def __init__(self):\n \
-    \               self.queue = deque()\n        \n            def __next__(self):\n\
+    \   _U = TypeVar('U')\n        _T1 = TypeVar('T1')\n        _T2 = TypeVar('T2')\n\
+    \        _T3 = TypeVar('T3')\n        _T4 = TypeVar('T4')\n        _T5 = TypeVar('T5')\n\
+    \        _T6 = TypeVar('T6')\n        \n        class TokenStream(Iterator):\n\
+    \            stream = IOWrapper.stdin\n        \n            def __init__(self):\n\
+    \                self.queue = deque()\n        \n            def __next__(self):\n\
     \                if not self.queue: self.queue.extend(self._line())\n        \
     \        return self.queue.popleft()\n            \n            def wait(self):\n\
     \                if not self.queue: self.queue.extend(self._line())\n        \
@@ -464,8 +466,10 @@ data:
     \       return parser\n            \n            @classmethod\n            def\
     \ __class_getitem__(cls, item):\n                return GenericAlias(cls, item)\n\
     \        from typing import TypeVar\n        _S = TypeVar('S')\n        _T = TypeVar('T')\n\
-    \        _U = TypeVar('U')\n        \n        @overload\n        def read() ->\
-    \ list[int]: ...\n        @overload\n        def read(spec: Type[_T], char=False)\
+    \        _U = TypeVar('U')\n        _T1 = TypeVar('T1')\n        _T2 = TypeVar('T2')\n\
+    \        _T3 = TypeVar('T3')\n        _T4 = TypeVar('T4')\n        _T5 = TypeVar('T5')\n\
+    \        _T6 = TypeVar('T6')\n        \n        @overload\n        def read()\
+    \ -> list[int]: ...\n        @overload\n        def read(spec: Type[_T], char=False)\
     \ -> _T: ...\n        @overload\n        def read(spec: _U, char=False) -> _U:\
     \ ...\n        @overload\n        def read(*specs: Type[_T], char=False) -> tuple[_T,\
     \ ...]: ...\n        @overload\n        def read(*specs: _U, char=False) -> tuple[_U,\
@@ -751,7 +755,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/tree/bst/treap_monoid_cls_test.py

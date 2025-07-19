@@ -113,25 +113,25 @@ data:
   isVerificationFile: false
   path: cp_library/io/fast/fast_io_fn.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_2_c_scc_fast.test.py
   - test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   - test/library-checker/convolution/bitwise_xor_convolution.test.py
-  - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
-  - test/library-checker/graph/biconnected_components_scratch.test.py
-  - test/library-checker/graph/incremental_scc_paralel_sort.test.py
-  - test/library-checker/graph/incremental_scc.test.py
-  - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
-  - test/library-checker/graph/two_edge_connected_components_scratch.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
   - test/library-checker/set-power-series/subset_convolution_snippet.test.py
-  - test/library-checker/other/longest_increasing_sequence.test.py
+  - test/library-checker/graph/incremental_scc_paralel_sort.test.py
+  - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
+  - test/library-checker/graph/biconnected_components_scratch.test.py
+  - test/library-checker/graph/incremental_scc.test.py
+  - test/library-checker/graph/two_edge_connected_components_scratch.test.py
+  - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue.test.py
   - test/library-checker/data-structure/staticrmq_general.test.py
   - test/library-checker/data-structure/staticrmq.test.py
   - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
-  - test/library-checker/data-structure/double_ended_priority_queue.test.py
+  - test/library-checker/other/longest_increasing_sequence.test.py
+  - test/aoj/grl/grl_2_c_scc_fast.test.py
 documentation_of: cp_library/io/fast/fast_io_fn.py
 layout: document
 redirect_from:

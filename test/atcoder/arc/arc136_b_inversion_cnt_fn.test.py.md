@@ -102,9 +102,9 @@ data:
     \ l&l-1\n        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n\
     \    \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
     \        while l != i: s, i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get\
-    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None:\n   \
-    \     bit.add(i, x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n\
-    \        pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
+    \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None: bit.add(i,\
+    \ x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n   \
+    \     pre = [0]+bit._d\n        for i in range(bit._n+1): pre[i] += pre[i&i-1]\n\
     \        return pre\n\n    def bisect_left(bit, v) -> int:\n        return bit.bisect_right(v-1)\
     \ if v>0 else -1\n    \n    def bisect_right(bit, v, key=None) -> int:\n     \
     \   i = s = 0; m = bit._lb\n        if key:\n            while m := m>>1:\n  \
@@ -149,12 +149,13 @@ data:
     \        return self.buffer.readline().decode(\"ascii\")\ntry:\n    sys.stdin\
     \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout = IOWrapper.stdout\
     \ = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import TypeVar\n_S =\
-    \ TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
-    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
-    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
-    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
-    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \ TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2\
+    \ = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
+    _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -236,7 +237,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py

@@ -56,6 +56,51 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
     title: cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/list2_cls.py
+    title: cp_library/ds/list/list2_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/list3_cls.py
+    title: cp_library/ds/list/list3_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/list4_cls.py
+    title: cp_library/ds/list/list4_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/list5_cls.py
+    title: cp_library/ds/list/list5_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/list6_cls.py
+    title: cp_library/ds/list/list6_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bit/bit2_cls.py
+    title: cp_library/ds/tree/bit/bit2_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bit/bit3_cls.py
+    title: cp_library/ds/tree/bit/bit3_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bit/bit4_cls.py
+    title: cp_library/ds/tree/bit/bit4_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bit/bit5_cls.py
+    title: cp_library/ds/tree/bit/bit5_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/bit/bit6_cls.py
+    title: cp_library/ds/tree/bit/bit6_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/seg/segtree2_cls.py
+    title: cp_library/ds/tree/seg/segtree2_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/seg/segtree3_cls.py
+    title: cp_library/ds/tree/seg/segtree3_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/seg/segtree4_cls.py
+    title: cp_library/ds/tree/seg/segtree4_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/seg/segtree5_cls.py
+    title: cp_library/ds/tree/seg/segtree5_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/seg/segtree6_cls.py
+    title: cp_library/ds/tree/seg/segtree6_cls.py
   - icon: ':warning:'
     path: perf/edge_list.py
     title: perf/edge_list.py
@@ -139,6 +184,51 @@ data:
     path: test/library-checker/tree/tree_path_composite_sum.test.py
     title: test/library-checker/tree/tree_path_composite_sum.test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list2_cls_test.py
+    title: test/unittests/ds/list/list2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list3_cls_test.py
+    title: test/unittests/ds/list/list3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list4_cls_test.py
+    title: test/unittests/ds/list/list4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list5_cls_test.py
+    title: test/unittests/ds/list/list5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list6_cls_test.py
+    title: test/unittests/ds/list/list6_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit2_cls_test.py
+    title: test/unittests/ds/tree/bit/bit2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit3_cls_test.py
+    title: test/unittests/ds/tree/bit/bit3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit4_cls_test.py
+    title: test/unittests/ds/tree/bit/bit4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit5_cls_test.py
+    title: test/unittests/ds/tree/bit/bit5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit6_cls_test.py
+    title: test/unittests/ds/tree/bit/bit6_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree2_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree3_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree4_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree5_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree6_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree6_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
   _isVerificationFailed: false
@@ -171,54 +261,84 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/arg/argsort_fn.py
   requiredBy:
-  - cp_library/alg/tree/csr/tree_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/csr/aux_tree_base_cls.py
-  - cp_library/alg/tree/csr/hld_weighted_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
-  - cp_library/alg/tree/csr/aux_tree_cls.py
-  - cp_library/alg/graph/edge/edge_list_weighted_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/ds/tree/seg/segtree4_cls.py
+  - cp_library/ds/tree/seg/segtree6_cls.py
+  - cp_library/ds/tree/seg/segtree3_cls.py
+  - cp_library/ds/tree/seg/segtree2_cls.py
+  - cp_library/ds/tree/seg/segtree5_cls.py
+  - cp_library/ds/tree/bit/bit2_cls.py
+  - cp_library/ds/tree/bit/bit6_cls.py
+  - cp_library/ds/tree/bit/bit4_cls.py
+  - cp_library/ds/tree/bit/bit5_cls.py
+  - cp_library/ds/tree/bit/bit3_cls.py
+  - cp_library/ds/list/list3_cls.py
+  - cp_library/ds/list/list5_cls.py
+  - cp_library/ds/list/list6_cls.py
+  - cp_library/ds/list/list4_cls.py
+  - cp_library/ds/list/list2_cls.py
   - cp_library/alg/graph/csr/graph_potential_cls.py
-  - cp_library/alg/iter/arg/argsort_bounded_fn.py
-  - cp_library/alg/iter/sort/isort_parallel_fn.py
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/edge/edge_list_weighted_cls.py
   - cp_library/alg/iter/sort/sort_parallel_fn.py
+  - cp_library/alg/iter/sort/isort_parallel_fn.py
+  - cp_library/alg/iter/arg/argsort_bounded_fn.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/3407.test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
-  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - test/library-checker/tree/tree_diameter.test.py
-  - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py
+  - test/library-checker/graph/directedmst_edge_list.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   - test/library-checker/graph/incremental_scc.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/library-checker/graph/directedmst_edge_list.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/tree/tree_diameter.test.py
+  - test/yukicoder/3407.test.py
+  - test/unittests/ds/tree/seg/segtree2_cls_test.py
+  - test/unittests/ds/tree/seg/segtree4_cls_test.py
+  - test/unittests/ds/tree/seg/segtree3_cls_test.py
+  - test/unittests/ds/tree/seg/segtree5_cls_test.py
+  - test/unittests/ds/tree/seg/segtree6_cls_test.py
+  - test/unittests/ds/tree/bit/bit4_cls_test.py
+  - test/unittests/ds/tree/bit/bit6_cls_test.py
+  - test/unittests/ds/tree/bit/bit5_cls_test.py
+  - test/unittests/ds/tree/bit/bit3_cls_test.py
+  - test/unittests/ds/tree/bit/bit2_cls_test.py
+  - test/unittests/ds/list/list5_cls_test.py
+  - test/unittests/ds/list/list6_cls_test.py
+  - test/unittests/ds/list/list3_cls_test.py
+  - test/unittests/ds/list/list4_cls_test.py
+  - test/unittests/ds/list/list2_cls_test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
 documentation_of: cp_library/alg/iter/arg/argsort_fn.py
 layout: document
 title: argsort

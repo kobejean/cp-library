@@ -250,30 +250,31 @@ data:
     \ = A[l+j], A[l+i]\n        order[inv[i]], order[inv[j]] = order[inv[j]], order[inv[i]]\n\
     \        inv[i], inv[j] = inv[j], inv[i]\n    return L\nfrom typing import Generic\n\
     from typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    \n\n\nclass view2(Generic[_S, _T]):\n    __slots__ = 'A', 'B', 'l', 'r'\n    def\
-    \ __init__(V, A: list[_S], B: list[_T], l: int, r: int): V.A, V.B, V.l, V.r =\
-    \ A, B, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i:\
-    \ int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i], V.B[V.l+i]\n     \
-    \   else: raise IndexError\n    def __setitem__(V, i: int, v: tuple[_S, _T]):\
-    \ V.A[V.l+i], V.B[V.l+i] = v\n    def __contains__(V, v: tuple[_S, _T]): raise\
-    \ NotImplemented\n    def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def\
-    \ index(V, v: tuple[_S, _T]): raise NotImplemented\n    def reverse(V):\n    \
-    \    l, r = V.l, V.r-1\n        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l];\
-    \ V.B[l], V.B[r] = V.B[r], V.B[l]; l += 1; r -= 1\n    def sort(V, reverse=False):\
-    \ isort_ranged(V.A, V.B, l=V.l, r=V.r, reverse=reverse)\n    def pop(V): V.r -=\
-    \ 1; return V.A[V.r], V.B[V.r]\n    def append(V, v: tuple[_S, _T]): V.A[V.r],\
-    \ V.B[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return V.A[V.l-1], V.B[V.l-1]\n\
-    \    def appendleft(V, v: tuple[_S, _T]): V.l -= 1; V.A[V.l], V.B[V.l]  = v; \n\
-    \    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\nif __name__ == '__main__':\n\
-    \    \"\"\"\n    Helper for making unittest files compatible with verification-helper.\n\
-    \    \n    This module provides a helper function to run a dummy Library Checker\
-    \ test\n    so that unittest files can be verified by oj-verify.\n    \"\"\"\n\
-    \    \n    def run_verification_helper_unittest():\n        \"\"\"\n        Run\
-    \ a dummy Library Checker test for verification-helper compatibility.\n      \
-    \  \n        This function should be called in the __main__ block of unittest\
-    \ files\n        that need to be compatible with verification-helper.\n      \
-    \  \n        The function:\n        1. Reads A and B from input\n        2. Writes\
-    \ A+B to output  \n        3. If the result is the expected value (1198300249),\
+    _T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
+    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\n\nclass view2(Generic[_S, _T]):\n\
+    \    __slots__ = 'A', 'B', 'l', 'r'\n    def __init__(V, A: list[_S], B: list[_T],\
+    \ l: int, r: int): V.A, V.B, V.l, V.r = A, B, l, r\n    def __len__(V): return\
+    \ V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l:\
+    \ return V.A[V.l+i], V.B[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
+    \ i: int, v: tuple[_S, _T]): V.A[V.l+i], V.B[V.l+i] = v\n    def __contains__(V,\
+    \ v: tuple[_S, _T]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
+    \ V.l, V.r = l, r\n    def index(V, v: tuple[_S, _T]): raise NotImplemented\n\
+    \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A[l],\
+    \ V.A[r] = V.A[r], V.A[l]; V.B[l], V.B[r] = V.B[r], V.B[l]; l += 1; r -= 1\n \
+    \   def sort(V, reverse=False): isort_ranged(V.A, V.B, l=V.l, r=V.r, reverse=reverse)\n\
+    \    def pop(V): V.r -= 1; return V.A[V.r], V.B[V.r]\n    def append(V, v: tuple[_S,\
+    \ _T]): V.A[V.r], V.B[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return\
+    \ V.A[V.l-1], V.B[V.l-1]\n    def appendleft(V, v: tuple[_S, _T]): V.l -= 1; V.A[V.l],\
+    \ V.B[V.l]  = v; \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\n\
+    if __name__ == '__main__':\n    \"\"\"\n    Helper for making unittest files compatible\
+    \ with verification-helper.\n    \n    This module provides a helper function\
+    \ to run a dummy Library Checker test\n    so that unittest files can be verified\
+    \ by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
+    \        \"\"\"\n        Run a dummy Library Checker test for verification-helper\
+    \ compatibility.\n        \n        This function should be called in the __main__\
+    \ block of unittest files\n        that need to be compatible with verification-helper.\n\
+    \        \n        The function:\n        1. Reads A and B from input\n      \
+    \  2. Writes A+B to output  \n        3. If the result is the expected value (1198300249),\
     \ runs pytest\n        4. Exits with the pytest result code\n        \"\"\"\n\
     \        import sys\n        \n        \n        from typing import Type, Union,\
     \ overload\n        \n        import typing\n        from collections import deque\n\
@@ -635,7 +636,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/view2_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/view2_cls_test.py

@@ -24,13 +24,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Generic, Callable\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n\n\nclass SparseTable(Generic[_T]):\n  \
-    \  def __init__(st, op: Callable[[_T,_T],_T], arr: list[_T]):\n        st.N =\
-    \ N = len(arr)\n        st.log, st.op = N.bit_length(), op\n        st.data =\
-    \ [0] * (st.log*N)\n        st.data[:N] = arr\n        for i in range(1,st.log):\n\
-    \            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n            for j in range(N-(1<<i)+1):\n\
-    \                st.data[a+j] = op(st.data[b+j], st.data[c+j])\n\n    def query(st,\
-    \ l: int, r: int) -> _T:\n        k = (r-l).bit_length()-1\n        return st.op(st.data[k*st.N+l],st.data[k*st.N+r-(1<<k)])\n"
+    _T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
+    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    \n\nclass SparseTable(Generic[_T]):\n    def __init__(st, op: Callable[[_T,_T],_T],\
+    \ arr: list[_T]):\n        st.N = N = len(arr)\n        st.log, st.op = N.bit_length(),\
+    \ op\n        st.data = [0] * (st.log*N)\n        st.data[:N] = arr\n        for\
+    \ i in range(1,st.log):\n            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n  \
+    \          for j in range(N-(1<<i)+1):\n                st.data[a+j] = op(st.data[b+j],\
+    \ st.data[c+j])\n\n    def query(st, l: int, r: int) -> _T:\n        k = (r-l).bit_length()-1\n\
+    \        return st.op(st.data[k*st.N+l],st.data[k*st.N+r-(1<<k)])\n"
   code: "import cp_library.__header__\nfrom typing import Generic, Callable\nfrom\
     \ cp_library.misc.typing import _T\nimport cp_library.ds.__header__\n\nclass SparseTable(Generic[_T]):\n\
     \    def __init__(st, op: Callable[[_T,_T],_T], arr: list[_T]):\n        st.N\
@@ -44,11 +46,11 @@ data:
   path: cp_library/ds/sparse_table_cls.py
   requiredBy:
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   - test/library-checker/data-structure/staticrmq_general.test.py
+  - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
 documentation_of: cp_library/ds/sparse_table_cls.py
 layout: document
 redirect_from:

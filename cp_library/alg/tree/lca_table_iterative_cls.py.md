@@ -65,14 +65,16 @@ data:
     \n\n\n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\nimport operator\n\
     from itertools import accumulate\nfrom typing import Callable, Iterable\n\nfrom\
     \ typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    \ndef presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T\
-    \ = None, step = 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter,\
-    \ func, initial=initial))\n    else:\n        assert step >= 2\n        if func\
-    \ is None:\n            func = operator.add\n        A = list(iter)\n        if\
-    \ initial is not None:\n            A = [initial] + A\n        for i in range(step,len(A)):\n\
-    \            A[i] = func(A[i], A[i-step])\n        return A\n# from typing import\
-    \ Generic\n# from cp_library.misc.typing import _T\n\ndef min2(a, b):\n    return\
-    \ a if a < b else b\n\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n\
+    _T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
+    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\ndef presum(iter: Iterable[_T], func:\
+    \ Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:\n  \
+    \  if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
+    \    else:\n        assert step >= 2\n        if func is None:\n            func\
+    \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
+    \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
+    \   A[i] = func(A[i], A[i-step])\n        return A\n# from typing import Generic\n\
+    # from cp_library.misc.typing import _T\n\ndef min2(a, b):\n    return a if a\
+    \ < b else b\n\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n\
     \        st.N = N = len(arr)\n        st.log = N.bit_length()\n        st.data\
     \ = data = [0] * (st.log*N)\n        data[:N] = arr \n        for i in range(1,st.log):\n\
     \            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j\
@@ -124,20 +126,20 @@ data:
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_iterative_cls.py
   requiredBy:
-  - cp_library/alg/tree/csr/aux_tree_base_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/csr/aux_tree_cls.py
   - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
   - test/yukicoder/3407.test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - test/library-checker/tree/jump_on_tree.test.py
-  - test/library-checker/tree/lca.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/tree/lca_table_iterative_cls.py
 layout: document

@@ -496,21 +496,21 @@ data:
   isVerificationFile: false
   path: cp_library/perf/benchmark.py
   requiredBy:
-  - cp_library/perf/examples/simple_usage.py
   - cp_library/perf/examples/rank_benchmark.py
+  - cp_library/perf/examples/simple_usage.py
   - cp_library/perf/plots.py
-  - perf/heap_view.py
-  - perf/edge_list.py
-  - perf/view2.py
   - perf/bool_list.py
-  - perf/heap_csr.py
-  - perf/grid.py
-  - perf/csr.py
+  - perf/view2.py
+  - perf/heap_view.py
   - perf/list_view.py
+  - perf/mlist.py
+  - perf/grid.py
+  - perf/edge_list.py
+  - perf/csr.py
   - perf/csr2.py
   - perf/rank.py
-  - perf/mlist.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  - perf/heap_csr.py
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/benchmark.py

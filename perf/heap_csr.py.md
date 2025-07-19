@@ -254,13 +254,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
     \              \n'''\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\n\n\n\ndef list_find(lst:\
-    \ list, value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
-    \ start, stop)\n    except:\n        return -1\n\nclass view(Generic[_T]):\n \
-    \   __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int):\
-    \ V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
-    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
-    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
+    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
+    _T6 = TypeVar('T6')\n\n\n\n\n\ndef list_find(lst: list, value, start = 0, stop\
+    \ = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n  \
+    \  except:\n        return -1\n\nclass view(Generic[_T]):\n    __slots__ = 'A',\
+    \ 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int): V.A, V.l, V.r =\
+    \ A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int):\
+    \ \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
+    \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
     \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
     \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
     \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
@@ -696,7 +698,7 @@ data:
   isVerificationFile: false
   path: perf/heap_csr.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/heap_csr.py

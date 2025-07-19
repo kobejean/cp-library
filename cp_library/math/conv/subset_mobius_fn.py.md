@@ -94,11 +94,11 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/subset_mobius_fn.py
   requiredBy:
+  - cp_library/math/conv/or_conv_fast_fn.py
   - cp_library/math/conv/mod/isubset_conv_fn.py
   - cp_library/math/conv/mod/subset_conv_fn.py
   - cp_library/math/conv/subset_conv_fn.py
-  - cp_library/math/conv/or_conv_fast_fn.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution.test.py

@@ -20,8 +20,8 @@ data:
     path: cp_library/ds/array/u32f_fn.py
     title: cp_library/ds/array/u32f_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/tree/segtree_cls.py
-    title: cp_library/ds/tree/segtree_cls.py
+    path: cp_library/ds/tree/seg/segtree_cls.py
+    title: cp_library/ds/tree/seg/segtree_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/wavelet/bit_array_cls.py
     title: cp_library/ds/wavelet/bit_array_cls.py
@@ -72,52 +72,57 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n\nfrom typing import Callable, Generic, Union\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\n\
-    class SegTree(Generic[_T]):\n    def __init__(seg, op: Callable[[_T, _T], _T],\
-    \ e: _T, v: Union[int, list[_T]]) -> None:\n        if isinstance(v, int): v =\
-    \ [e] * v\n        seg.op, seg.e, seg.n = op, e, (n := len(v))\n        seg.log,\
-    \ seg.sz, seg.d = (log := (n-1).bit_length()+1), (sz := 1 << log), [e] * (sz <<\
-    \ 1)\n        for i in range(n): seg.d[sz + i] = v[i]\n        for i in range(sz-1,0,-1):\
-    \ seg.d[i] = op(seg.d[i<<1], seg.d[i<<1|1])\n\n    def set(seg, p: int, x: _T)\
-    \ -> None:\n        seg.d[p := p + seg.sz], op = x, seg.op\n        for _ in range(seg.log):\
-    \ seg.d[p:=p>>1] = op(seg.d[p:=p^(p&1)], seg.d[p|1])\n    __setitem__ = set\n\n\
-    \    def get(seg, p: int) -> _T:\n        return seg.d[p + seg.sz]\n    __getitem__\
-    \ = get\n\n    def prod(seg, l: int, r: int) -> _T:\n        sml = smr = seg.e\n\
-    \        l, r = l+seg.sz, r+seg.sz\n        while l < r:\n            if l&1:\
-    \ sml, l = seg.op(sml, seg.d[l]), l+1\n            if r&1: smr = seg.op(seg.d[r:=r-1],\
-    \ smr)\n            l, r = l >> 1, r >> 1\n        return seg.op(sml, smr)\n\n\
-    \    def all_prod(seg) -> _T:\n        return seg.d[1]\n\n    def max_right(seg,\
-    \ l: int, f: Callable[[_T], bool]) -> int:\n        assert 0 <= l <= seg.n\n \
-    \       assert f(seg.e)\n        if l == seg.n: return seg.n\n        l, op, d,\
-    \ sm = l+(sz := seg.sz), seg.op, seg.d, seg.e\n        while True:\n         \
-    \   while l&1 == 0: l >>= 1\n            if not f(op(sm, d[l])):\n           \
-    \     while l < sz:\n                    if f(op(sm, d[l:=l<<1])): sm, l = op(sm,\
-    \ d[l]), l+1\n                return l - sz\n            sm, l = op(sm, d[l]),\
-    \ l+1\n            if l&-l == l: return seg.n\n\n    def min_left(seg, r: int,\
-    \ f: Callable[[_T], bool]) -> int:\n        assert 0 <= r <= seg.n\n        assert\
-    \ f(seg.e)\n        if r == 0: return 0\n        r, op, d, sm = r+(sz := seg.sz),\
-    \ seg.op, seg.d, seg.e\n        while True:\n            r -= 1\n            while\
-    \ r > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n            \
-    \    while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm, r = op(d[r],\
-    \ sm), r-1\n                return r + 1 - sz\n            sm = op(d[r], sm)\n\
-    \            if (r & -r) == r: return 0\nfrom abc import abstractmethod\n\nclass\
-    \ BitArray:\n    def __init__(B, N):\n        if isinstance(N, list):\n      \
-    \      # If N is a list, assume it's a list of 1s and 0s\n            B.N = len(N)\n\
-    \            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
-    \            # Set bits based on list values\n            for i, bit in enumerate(N):\n\
-    \                if bit: B.set1(i)\n        elif isinstance(N, (bytes, bytearray)):\n\
-    \            # If N is bytes, convert each byte to 8 bits\n            B.N = len(N)\
-    \ * 8\n            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1),\
-    \ u32f(B.Z+1)\n            # Set bits based on byte values (MSB first for each\
-    \ byte)\n            for byte_idx, byte_val in enumerate(N):\n               \
-    \ for bit_idx in range(8):\n                    if byte_val & (1 << (7 - bit_idx)):\
-    \  # MSB first\n                        B.set1(byte_idx * 8 + bit_idx)\n     \
-    \   else:\n            # Original behavior: N is an integer\n            B.N =\
-    \ N\n            B.Z = (N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n\
-    \    def build(B):\n        B.bits.pop()\n        for i,b in enumerate(B.bits):\
-    \ B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n    def __len__(B):\
-    \ return B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n\
+    \               \n'''\n\n\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T =\
+    \ TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
+    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    from typing import Callable, Generic, Union\n\n\n\nclass SegTree(Generic[_T]):\n\
+    \    _lst = list\n    \n    def __init__(seg, op: Callable[[_T, _T], _T], e: _T,\
+    \ v: Union[int, list[_T]]) -> None:\n        if isinstance(v, int): n = v; v =\
+    \ None\n        else: n = len(v)\n        seg.op, seg.e, seg.n = op, e, n\n  \
+    \      seg.log, seg.sz = (log := (n-1).bit_length()+1), (sz := 1 << log)\n   \
+    \     if seg._lst is list: seg.d = [e]*(sz<<1)\n        else: seg.d = seg._lst(*([e_]*(sz<<1)\
+    \ for e_ in e))\n        if v: seg._build(v)\n\n    def _build(seg, v):\n    \
+    \    for i in range(seg.n): seg.d[seg.sz + i] = v[i]\n        for i in range(seg.sz-1,0,-1):\
+    \ seg._merge(i, i<<1, i<<1|1)\n    \n    def _merge(seg, i, j, k): seg.d[i] =\
+    \ seg.op(seg.d[j], seg.d[k])\n\n    def set(seg, p: int, x: _T) -> None:\n   \
+    \     p += seg.sz\n        seg.d[p] = x\n        for _ in range(seg.log):\n  \
+    \          p = p^(p&1)\n            seg._merge(p>>1, p, p|1)\n            p >>=\
+    \ 1\n    __setitem__ = set\n\n    def get(seg, p: int) -> _T: return seg.d[p+seg.sz]\n\
+    \    __getitem__ = get\n\n    def prod(seg, l: int, r: int) -> _T:\n        sml\
+    \ = smr = seg.e\n        l, r = l+seg.sz, r+seg.sz\n        while l < r:\n   \
+    \         if l&1: sml, l = seg.op(sml, seg.d[l]), l+1\n            if r&1: smr\
+    \ = seg.op(seg.d[r:=r-1], smr)\n            l, r = l >> 1, r >> 1\n        return\
+    \ seg.op(sml, smr)\n\n    def all_prod(seg) -> _T: return seg.d[1]\n\n    def\
+    \ max_right(seg, l: int, f: Callable[[_T], bool]) -> int:\n        assert 0 <=\
+    \ l <= seg.n\n        assert f(seg.e)\n        if l == seg.n: return seg.n\n \
+    \       l, op, d, sm = l+(sz := seg.sz), seg.op, seg.d, seg.e\n        while True:\n\
+    \            while l&1 == 0: l >>= 1\n            if not f(op(sm, d[l])):\n  \
+    \              while l < sz:\n                    if f(op(sm, d[l:=l<<1])): sm,\
+    \ l = op(sm, d[l]), l+1\n                return l - sz\n            sm, l = op(sm,\
+    \ d[l]), l+1\n            if l&-l == l: return seg.n\n\n    def min_left(seg,\
+    \ r: int, f: Callable[[_T], bool]) -> int:\n        assert 0 <= r <= seg.n\n \
+    \       assert f(seg.e)\n        if r == 0: return 0\n        r, op, d, sm = r+(sz\
+    \ := seg.sz), seg.op, seg.d, seg.e\n        while True:\n            r -= 1\n\
+    \            while r > 1 and r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n\
+    \                while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)):\
+    \ sm, r = op(d[r], sm), r-1\n                return r + 1 - sz\n            sm\
+    \ = op(d[r], sm)\n            if (r & -r) == r: return 0\nfrom abc import abstractmethod\n\
+    \nclass BitArray:\n    def __init__(B, N):\n        if isinstance(N, list):\n\
+    \            # If N is a list, assume it's a list of 1s and 0s\n            B.N\
+    \ = len(N)\n            B.Z = (B.N+31)>>5\n            B.bits, B.cnt = u32f(B.Z+1),\
+    \ u32f(B.Z+1)\n            # Set bits based on list values\n            for i,\
+    \ bit in enumerate(N):\n                if bit: B.set1(i)\n        elif isinstance(N,\
+    \ (bytes, bytearray)):\n            # If N is bytes, convert each byte to 8 bits\n\
+    \            B.N = len(N) * 8\n            B.Z = (B.N+31)>>5\n            B.bits,\
+    \ B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n            # Set bits based on byte values\
+    \ (MSB first for each byte)\n            for byte_idx, byte_val in enumerate(N):\n\
+    \                for bit_idx in range(8):\n                    if byte_val & (1\
+    \ << (7 - bit_idx)):  # MSB first\n                        B.set1(byte_idx * 8\
+    \ + bit_idx)\n        else:\n            # Original behavior: N is an integer\n\
+    \            B.N = N\n            B.Z = (N+31)>>5\n            B.bits, B.cnt =\
+    \ u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n        B.bits.pop()\n        for\
+    \ i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n        B.bits.append(1)\n\
+    \    def __len__(B): return B.N\n    def __getitem__(B, i: int): return B.bits[i>>5]>>(31-(i&31))&1\n\
     \    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n    def set1(B, i: int):\
     \ B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int): return r-B.count1(r)\n\
     \    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
@@ -283,7 +288,7 @@ data:
   - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
   - cp_library/alg/iter/rank/rank_fn.py
   - cp_library/ds/wavelet/wm_points_cls.py
-  - cp_library/ds/tree/segtree_cls.py
+  - cp_library/ds/tree/seg/segtree_cls.py
   - cp_library/ds/wavelet/wm_monoid_cls.py
   - cp_library/ds/wavelet/wm_compressed_cls.py
   - cp_library/alg/divcon/bisect_left_fn.py
@@ -296,7 +301,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py

@@ -94,34 +94,35 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
     \    https://kobejean.github.io/cp-library               \n'''\n\n\n\nfrom typing\
     \ import Generic\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n\n\nimport sys\n\ndef list_find(lst: list, value, start = 0,\
-    \ stop = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n\
-    \    except:\n        return -1\n\n\nclass view(Generic[_T]):\n    __slots__ =\
-    \ 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int): V.A, V.l, V.r\
-    \ = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int):\
-    \ \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
-    \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
-    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
-    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
-    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
-    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
-    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
-    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
-    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
-    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
-    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom math import\
-    \ inf\nfrom collections import deque\nfrom typing import Callable, Sequence, Union,\
-    \ overload\n\nimport typing\nfrom numbers import Number\nfrom types import GenericAlias\
-    \ \nfrom typing import Callable, Collection, Iterator, Union\nimport os\nfrom\
-    \ io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n \
-    \   newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n\
-    \        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or\
-    \ \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable\
-    \ else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n        while\
-    \ True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            if not b: break\n            ptr = self.buffer.tell()\n         \
-    \   self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n    \
-    \    self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
+    _U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n\
+    _T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\nimport sys\n\
+    \ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n    try:\n\
+    \        return lst.index(value, start, stop)\n    except:\n        return -1\n\
+    \n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n    def __init__(V,\
+    \ A: list[_T], l: int, r: int): V.A, V.l, V.r = A, l, r\n    def __len__(V): return\
+    \ V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l:\
+    \ return V.A[V.l+i]\n        else: raise IndexError\n    def __setitem__(V, i:\
+    \ int, v: _T): V.A[V.l+i] = v\n    def __contains__(V, v: _T): return list_find(V.A,\
+    \ v, V.l, V.r) != -1\n    def set_range(V, l: int, r: int): V.l, V.r = l, r\n\
+    \    def index(V, v: _T): return V.A.index(v, V.l, V.r) - V.l\n    def reverse(V):\n\
+    \        l, r = V.l, V.r-1\n        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l];\
+    \ l += 1; r -= 1\n    def sort(V, /, *args, **kwargs):\n        A = V.A[V.l:V.r];\
+    \ A.sort(*args, **kwargs)\n        for i,a in enumerate(A,V.l): V.A[i] = a\n \
+    \   def pop(V): V.r -= 1; return V.A[V.r]\n    def append(V, v: _T): V.A[V.r]\
+    \ = v; V.r += 1\n    def popleft(V): V.l += 1; return V.A[V.l-1]\n    def appendleft(V,\
+    \ v: _T): V.l -= 1; V.A[V.l] = v; \n    def validate(V): return 0 <= V.l <= V.r\
+    \ <= len(V.A)\nfrom math import inf\nfrom collections import deque\nfrom typing\
+    \ import Callable, Sequence, Union, overload\n\nimport typing\nfrom numbers import\
+    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
+    \ Iterator, Union\nimport os\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
+    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
+    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
+    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
+    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
+    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
+    \ BUFSIZE))\n            if not b: break\n            ptr = self.buffer.tell()\n\
+    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
+    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
     \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
     \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
     \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
@@ -228,19 +229,24 @@ data:
     \ G.order = elist(G.N)\n        else: G.order.clear()\n        return G.order\n\
     \    \n    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n\
     \        return G.back\n    \n    def prep_tin(G):\n        if G.tin is None:\
-    \ G.tin = i32f(G.N, -1)\n        return G.tin\n\n    def __len__(G) -> int: return\
-    \ G.N\n    def __getitem__(G, u): return view(G.Va, G.La[u], G.Ra[u])\n    def\
-    \ range(G, u): return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        if s == None: return G.floyd_warshall()\n\
-    \        else: return G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua,\
-    \ back, vertices = G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v\
-    \ := Ua[back[v]])\n        return vertices\n    \n    def recover_path_edge_ids(G,\
-    \ s, t):\n        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n  \
-    \      while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return\
-    \ edges\n\n    def shortest_path(G, s: int, t: int):\n        if G.distance(s,\
-    \ t) >= inf: return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
+    \ G.tin = i32f(G.N, -1)\n        return G.tin\n    \n    def _remove(G, a: int):\n\
+    \        G.deg[u := G.Ua[a]] -= 1\n        G.Ra[u] = (r := G.Ra[u]-1)\n      \
+    \  G.Ua[a], G.Va[a], G.Ea[a] = G.Ua[r], G.Va[r], G.Ea[r]\n        G.twin[a], G.twin[r]\
+    \ = G.twin[r], G.twin[a]\n        G.twin[G.twin[a]] = a\n        G.twin[G.twin[r]]\
+    \ = r\n\n    def remove(G, a: int):\n        b = G.twin[a]; G._remove(a)\n   \
+    \     if a != b: G._remove(b)\n\n    def __len__(G) -> int: return G.N\n    def\
+    \ __getitem__(G, u): return view(G.Va, G.La[u], G.Ra[u])\n    def range(G, u):\
+    \ return range(G.La[u],G.Ra[u])\n    \n    @overload\n    def distance(G) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
+    \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
+    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua, back, vertices =\
+    \ G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n\
+    \        return vertices\n    \n    def recover_path_edge_ids(G, s, t):\n    \
+    \    Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v\
+    \ != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return edges\n\n\
+    \    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf:\
+    \ return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
     \        return vertices\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n\
     \        if G.distance(s, t) >= inf: return None\n        edges = G.recover_path_edge_ids(s,\
     \ t)\n        edges.reverse()\n        return edges\n    \n    @overload\n   \
@@ -280,13 +286,13 @@ data:
     \ (v := Va[i]) == s:  # Found cycle back to start\n                    cycle =\
     \ [u]\n                    while u != s: cycle.append(u := par[u])\n         \
     \           return cycle\n                if D[v] < u32_max: continue\n      \
-    \          D[v], par[v] = D[u]+1, u; que.append(v)\n\n    def dfs_topdown(G, s:\
-    \ Union[int,list] = None) -> list[int]:\n        '''Returns lists of indices i\
-    \ where Ua[i] -> Va[i] are edges in order of top down discovery'''\n        vis,\
-    \ st, order = G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            vis[s] = 1; st.append(s) \n    \
-    \        while st:\n                for i in G.range(st.pop()):\n            \
-    \        if vis[v := G.Va[i]]: continue\n                    vis[v] = 1; order.append(i);\
+    \          D[v], par[v] = D[u]+1, u; que.append(v)\n\n    def dfs_topo(G, s: Union[int,list]\
+    \ = None) -> list[int]:\n        '''Returns lists of indices i where Ua[i] ->\
+    \ Va[i] are edges in order of top down discovery'''\n        vis, st, order =\
+    \ G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in G.starts(s):\n \
+    \           if vis[s]: continue\n            vis[s] = 1; st.append(s) \n     \
+    \       while st:\n                for i in G.range(st.pop()):\n             \
+    \       if vis[v := G.Va[i]]: continue\n                    vis[v] = 1; order.append(i);\
     \ st.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list] = None,\
     \ /, \n            backtrack = False,\n            max_depth = None,\n       \
     \     enter_fn: Callable[[int],None] = None,\n            leave_fn: Callable[[int],None]\
@@ -370,7 +376,7 @@ data:
     \ return D if g is None else inf\n\n    def rerooting_dp(T, e: _T, \n        \
     \             merge: Callable[[_T,_T],_T], \n                     edge_op: Callable[[_T,int,int,int],_T]\
     \ = lambda s,i,p,u:s,\n                     s: int = 0):\n        La, Ua, Va =\
-    \ T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua),\
+    \ T.La, T.Ua, T.Va\n        order, dp, suf, I = T.dfs_topo(s), [e]*T.N, [e]*len(Ua),\
     \ T.Ra[:]\n        # up\n        for i in order[::-1]:\n            u,v = Ua[i],\
     \ Va[i]\n            # subtree v finished up pass, store value to accumulate for\
     \ u\n            dp[v] = new = edge_op(dp[v], i, u, v)\n            dp[u] = merge(dp[u],\
@@ -468,7 +474,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_c_lca_table_iterative.test.py

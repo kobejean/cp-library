@@ -172,12 +172,13 @@ data:
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
     \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
-    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
-    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
-    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
-    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
+    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
+    _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -281,50 +282,50 @@ data:
   isVerificationFile: false
   path: cp_library/ds/dsu_cls.py
   requiredBy:
-  - cp_library/alg/tree/csr/tree_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/csr/aux_tree_base_cls.py
-  - cp_library/alg/tree/csr/hld_weighted_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
-  - cp_library/alg/tree/csr/aux_tree_cls.py
-  - cp_library/alg/graph/edge/edge_list_weighted_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_cls.py
   - cp_library/alg/graph/csr/graph_potential_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
+  - cp_library/alg/graph/edge/edge_list_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/3407.test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
-  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - test/library-checker/tree/tree_diameter.test.py
-  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/graph/directedmst_edge_list.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/library-checker/graph/directedmst_edge_list.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/data-structure/unionfind.test.py
+  - test/yukicoder/3407.test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
   - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
 documentation_of: cp_library/ds/dsu_cls.py
 layout: document
 redirect_from:

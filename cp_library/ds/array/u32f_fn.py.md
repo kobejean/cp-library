@@ -439,144 +439,144 @@ data:
   path: cp_library/ds/array/u32f_fn.py
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
-  - cp_library/ds/tree/bitset_tree_cls.py
-  - cp_library/ds/wavelet/bit_list_cls.py
-  - cp_library/ds/wavelet/wm_bit_cls.py
-  - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
-  - cp_library/ds/wavelet/wm_group_cls.py
-  - cp_library/ds/wavelet/wm_weighted_compressed_cls.py
-  - cp_library/ds/wavelet/wm_compressed_cls.py
-  - cp_library/ds/wavelet/wm_static_cls.py
-  - cp_library/ds/wavelet/wm_bit_points_cls.py
   - cp_library/ds/wavelet/wm_points_cls.py
-  - cp_library/ds/wavelet/bit_array_cls.py
-  - cp_library/ds/wavelet/wm_bit_compressed_cls.py
-  - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
-  - cp_library/ds/wavelet/wm_group_points_cls.py
-  - cp_library/ds/wavelet/wm_monoid_cls.py
-  - cp_library/ds/wavelet/wm_group_compressed_cls.py
-  - cp_library/ds/wavelet/wm_segtree_cls.py
-  - cp_library/ds/wavelet/wm_weighted_cls.py
+  - cp_library/ds/wavelet/wm_weighted_compressed_cls.py
   - cp_library/ds/wavelet/wm_weighted_points_cls.py
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
+  - cp_library/ds/wavelet/wm_group_cls.py
+  - cp_library/ds/wavelet/wm_bit_cls.py
+  - cp_library/ds/wavelet/wm_static_cls.py
+  - cp_library/ds/wavelet/wm_segtree_cls.py
+  - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
+  - cp_library/ds/wavelet/wm_group_points_cls.py
+  - cp_library/ds/wavelet/wm_bit_points_cls.py
+  - cp_library/ds/wavelet/bit_array_cls.py
+  - cp_library/ds/wavelet/wm_group_compressed_cls.py
+  - cp_library/ds/wavelet/wm_monoid_compressed_cls.py
+  - cp_library/ds/wavelet/wm_compressed_cls.py
+  - cp_library/ds/wavelet/bit_list_cls.py
   - cp_library/ds/wavelet/wm_monoid_points_cls.py
-  - cp_library/alg/tree/csr/hld_commutative_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
-  - cp_library/alg/tree/csr/aux_tree_base_cls.py
-  - cp_library/alg/tree/csr/tree_base_cls.py
-  - cp_library/alg/tree/csr/hld_cls.py
-  - cp_library/alg/tree/csr/hld_weighted_cls.py
-  - cp_library/alg/tree/csr/tree_cls.py
-  - cp_library/alg/tree/csr/hld_bit_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/csr/hld_base_cls.py
-  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
-  - cp_library/alg/tree/csr/aux_tree_cls.py
-  - cp_library/alg/tree/csr/hld_monoid_cls.py
+  - cp_library/ds/wavelet/wm_weighted_cls.py
+  - cp_library/ds/wavelet/wm_bit_compressed_cls.py
+  - cp_library/ds/wavelet/wm_monoid_cls.py
+  - cp_library/ds/tree/bitset_tree_cls.py
+  - cp_library/alg/graph/csr/graph_potential_cls.py
+  - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_base_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_cls.py
   - cp_library/alg/graph/csr/digraph_cls.py
-  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/dag_cls.py
-  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - cp_library/alg/graph/csr/graph_weighted_cls.py
-  - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
-  - cp_library/alg/graph/csr/snippets/scc_labels_fn.py
-  - cp_library/alg/graph/csr/snippets/cut_edges_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_component_labels_fn.py
-  - cp_library/alg/graph/csr/snippets/cut_vertices_fn.py
-  - cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
-  - cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
+  - cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/block_cut_tree_fn.py
+  - cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
+  - cp_library/alg/graph/csr/snippets/cut_edges_fn.py
+  - cp_library/alg/graph/csr/snippets/scc_labels_fn.py
+  - cp_library/alg/graph/csr/snippets/cut_vertices_fn.py
+  - cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
-  - cp_library/alg/graph/csr/graph_potential_cls.py
-  - cp_library/alg/graph/csr/grid_graph_cls.py
-  - cp_library/alg/graph/csr/grid_graph_base_cls.py
+  - cp_library/alg/graph/csr/graph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/graph_cls.py
+  - cp_library/alg/graph/csr/digraph_weighted_meta_cls.py
   - cp_library/alg/graph/csr/grid_graph_walled_base_cls.py
+  - cp_library/alg/graph/csr/grid_graph_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_base_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_base_cls.py
+  - cp_library/alg/tree/csr/hld_bit_cls.py
+  - cp_library/alg/tree/csr/tree_cls.py
+  - cp_library/alg/tree/csr/tree_base_cls.py
+  - cp_library/alg/tree/csr/hld_monoid_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_cls.py
+  - cp_library/alg/tree/csr/hld_commutative_cls.py
+  - cp_library/alg/tree/csr/hld_weighted_cls.py
+  - cp_library/alg/tree/csr/hld_cls.py
+  - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/bool_list.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/3407.test.py
-  - test/unittests/ds/wavelet/wm_static_cls_test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - test/aoj/grl/grl_2_c_scc.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_3_b_graph_bridges.test.py
-  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - test/library-checker/tree/tree_diameter.test.py
-  - test/library-checker/tree/vertex_add_subtree_sum.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - test/library-checker/graph/cycle_detection.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/two_edge_connected_components.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
+  - test/library-checker/tree/tree_diameter.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
   - test/library-checker/tree/jump_on_tree.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/graph/scc_strongly_connected_components.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/library-checker/graph/scc.test.py
-  - test/library-checker/graph/cycle_detection_undirected.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
-  - test/library-checker/graph/two_edge_connected_components.test.py
-  - test/library-checker/graph/biconnected_components.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/library-checker/graph/cycle_detection.test.py
-  - test/library-checker/data-structure/static_range_count_distinct_wavelet_matrix.test.py
-  - test/library-checker/data-structure/range_kth_smallest_wm_points.test.py
-  - test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
-  - test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_weighted_points.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_weighted.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
-  - test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
   - test/library-checker/data-structure/predecessor_problem_bit.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
-  - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
+  - test/library-checker/data-structure/static_range_frequency_wavelet_matrix.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit_points.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_group.test.py
-  - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+  - test/library-checker/data-structure/range_kth_smallest_wm_points.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_weighted_points.test.py
+  - test/library-checker/data-structure/range_kth_smallest_wm_static.test.py
+  - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
   - test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
+  - test/library-checker/data-structure/static_range_count_distinct_wavelet_matrix.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_group.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_bit_compressed.test.py
   - test/library-checker/data-structure/predecessor_problem.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_weighted.test.py
+  - test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
-  - test/atcoder/abc/abc245_f_digraph.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - test/atcoder/abc/abc361_e_tree_diameter.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py
+  - test/yukicoder/3407.test.py
+  - test/unittests/ds/wavelet/wm_static_cls_test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_3_b_graph_bridges.test.py
+  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_2_c_scc.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - test/atcoder/abc/abc245_f_digraph.test.py
+  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
 documentation_of: cp_library/ds/array/u32f_fn.py
 layout: document
 redirect_from:

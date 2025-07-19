@@ -316,8 +316,53 @@ data:
     path: test/unittests/ds/grid/grid_cls_test.py
     title: test/unittests/ds/grid/grid_cls_test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list2_cls_test.py
+    title: test/unittests/ds/list/list2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list3_cls_test.py
+    title: test/unittests/ds/list/list3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list4_cls_test.py
+    title: test/unittests/ds/list/list4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list5_cls_test.py
+    title: test/unittests/ds/list/list5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/list/list6_cls_test.py
+    title: test/unittests/ds/list/list6_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit2_cls_test.py
+    title: test/unittests/ds/tree/bit/bit2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit3_cls_test.py
+    title: test/unittests/ds/tree/bit/bit3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit4_cls_test.py
+    title: test/unittests/ds/tree/bit/bit4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit5_cls_test.py
+    title: test/unittests/ds/tree/bit/bit5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/bit/bit6_cls_test.py
+    title: test/unittests/ds/tree/bit/bit6_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
     title: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree2_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree3_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree4_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree5_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/tree/seg/segtree6_cls_test.py
+    title: test/unittests/ds/tree/seg/segtree6_cls_test.py
   - icon: ':heavy_check_mark:'
     path: test/unittests/ds/view/csr2_cls_test.py
     title: test/unittests/ds/view/csr2_cls_test.py
@@ -374,12 +419,13 @@ data:
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
     \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\nclass TokenStream(Iterator):\n\
-    \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
-    \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
-    \ self.queue: self.queue.extend(self._line())\n        while self.queue: yield\n\
-    \ \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
+    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
+    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
+    _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
+    \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
+    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
+    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
     \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
     \            self.queue.clear()\n            return A\n        return self._line()\n\
     TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
@@ -454,116 +500,131 @@ data:
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/test/unittest_helper.py
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/yukicoder/3407.test.py
-  - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
-  - test/unittests/ds/view/csr_cls_test.py
-  - test/unittests/ds/view/csr2_cls_test.py
-  - test/unittests/ds/view/view_cls_test.py
-  - test/unittests/ds/view/view2_cls_test.py
-  - test/unittests/ds/grid/grid_cls_test.py
-  - test/unittests/ds/wavelet/wm_static_cls_test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/aoj/grl/grl_2_c_scc.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
-  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_3_b_graph_bridges.test.py
-  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
-  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
-  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/library-checker/convolution/gcd_convolution.test.py
-  - test/library-checker/convolution/lcm_convolution.test.py
-  - test/library-checker/convolution/convolution_mod_1000000007.test.py
   - test/library-checker/convolution/convolution_int.test.py
+  - test/library-checker/convolution/bitwise_and_convolution.test.py
+  - test/library-checker/convolution/lcm_convolution.test.py
   - test/library-checker/convolution/convolution.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
+  - test/library-checker/convolution/gcd_convolution.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
-  - test/library-checker/convolution/bitwise_and_convolution.test.py
-  - test/library-checker/tree/tree_diameter.test.py
-  - test/library-checker/tree/vertex_add_subtree_sum.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
-  - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/tree/vertex_set_path_composite.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
-  - test/library-checker/tree/jump_on_tree.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
-  - test/library-checker/sample/many_aplusb_128bit.test.py
-  - test/library-checker/sample/aplusb.test.py
-  - test/library-checker/sample/many_aplusb.test.py
-  - test/library-checker/graph/scc_strongly_connected_components.test.py
-  - test/library-checker/graph/chromatic_number.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/library-checker/graph/scc.test.py
-  - test/library-checker/graph/cycle_detection_undirected.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
-  - test/library-checker/graph/two_edge_connected_components.test.py
-  - test/library-checker/graph/biconnected_components.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/convolution/convolution_mod_1000000007.test.py
+  - test/library-checker/set-power-series/subset_convolution_all.test.py
   - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/directedmst_edge_list.test.py
-  - test/library-checker/set-power-series/subset_convolution_all.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/chromatic_number.test.py
+  - test/library-checker/graph/two_edge_connected_components.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/graph/biconnected_components.test.py
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py
   - test/library-checker/polynomial/log_of_formal_power_series.test.py
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/library-checker/polynomial/inv_of_formal_power_series.test.py
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - test/library-checker/data-structure/point_set_range_composite.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
+  - test/library-checker/tree/tree_diameter.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+  - test/library-checker/data-structure/range_reverse_range_sum.test.py
+  - test/library-checker/data-structure/point_set_range_composite.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
-  - test/library-checker/data-structure/range_reverse_range_sum.test.py
   - test/library-checker/data-structure/static_range_sum.test.py
-  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
-  - test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - test/atcoder/abc/abc189_e_vec2d.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+  - test/library-checker/sample/aplusb.test.py
+  - test/library-checker/sample/many_aplusb_128bit.test.py
+  - test/library-checker/sample/many_aplusb.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
+  - test/yukicoder/3407.test.py
+  - test/unittests/ds/wavelet/wm_static_cls_test.py
+  - test/unittests/ds/view/view2_cls_test.py
+  - test/unittests/ds/view/csr2_cls_test.py
+  - test/unittests/ds/view/view_cls_test.py
+  - test/unittests/ds/view/csr_cls_test.py
+  - test/unittests/ds/grid/grid_cls_test.py
+  - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - test/unittests/ds/tree/seg/segtree2_cls_test.py
+  - test/unittests/ds/tree/seg/segtree4_cls_test.py
+  - test/unittests/ds/tree/seg/segtree3_cls_test.py
+  - test/unittests/ds/tree/seg/segtree5_cls_test.py
+  - test/unittests/ds/tree/seg/segtree6_cls_test.py
+  - test/unittests/ds/tree/bit/bit4_cls_test.py
+  - test/unittests/ds/tree/bit/bit6_cls_test.py
+  - test/unittests/ds/tree/bit/bit5_cls_test.py
+  - test/unittests/ds/tree/bit/bit3_cls_test.py
+  - test/unittests/ds/tree/bit/bit2_cls_test.py
+  - test/unittests/ds/list/list5_cls_test.py
+  - test/unittests/ds/list/list6_cls_test.py
+  - test/unittests/ds/list/list3_cls_test.py
+  - test/unittests/ds/list/list4_cls_test.py
+  - test/unittests/ds/list/list2_cls_test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
+  - test/aoj/grl/grl_3_b_graph_bridges.test.py
+  - test/aoj/grl/grl_2_c_scc.test.py
+  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
+  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
+  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
   - test/atcoder/abc/abc274_e_vec2d.test.py
-  - test/atcoder/abc/abc184_f_subset_sum_fn.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
-  - test/atcoder/abc/abc245_f_digraph.test.py
-  - test/atcoder/abc/abc186_e_gcd_ex.test.py
-  - test/atcoder/abc/abc375_g_find_bridges.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
-  - test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-  - test/atcoder/abc/abc203_e_sort_groups.test.py
-  - test/atcoder/abc/abc185_e_dp2d.test.py
-  - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   - test/atcoder/abc/abc175_d_permutation.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc249_f_min_k_heap.test.py
+  - test/atcoder/abc/abc203_e_sort_groups.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/atcoder/abc/abc206_e_mobius_table.test.py
-  - test/atcoder/abc/abc249_f_max_k_heap.test.py
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc203_e_queries_grouped.test.py
-  - test/atcoder/abc/abc304_f_mobius_inv.test.py
+  - test/atcoder/abc/abc186_e_gcd_ex.test.py
+  - test/atcoder/abc/abc245_f_digraph.test.py
+  - test/atcoder/abc/abc301_e_fast_grid_graph.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+  - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
+  - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc151_f_fbisect_left.test.py
   - test/atcoder/abc/abc261_g_mo.test.py
+  - test/atcoder/abc/abc185_e_dp2d.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
   - test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
-  - test/atcoder/abc/abc249_f_min_k_heap.test.py
-  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
-  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
+  - test/atcoder/abc/abc189_e_vec2d.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/atcoder/abc/abc249_f_max_k_heap.test.py
+  - test/atcoder/abc/abc184_f_subset_sum_fn.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc375_g_find_bridges.test.py
+  - test/atcoder/abc/abc304_f_mobius_inv.test.py
+  - test/atcoder/abc/abc203_e_queries_grouped.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+  - test/atcoder/abc/abc261_g_queries_mo_ops.test.py
 documentation_of: cp_library/io/read_fn.py
 layout: document
 redirect_from:

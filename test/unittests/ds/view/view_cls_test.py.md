@@ -194,26 +194,28 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\n\nimport sys\n\ndef\
-    \ list_find(lst: list, value, start = 0, stop = sys.maxsize):\n    try:\n    \
-    \    return lst.index(value, start, stop)\n    except:\n        return -1\n\n\n\
-    class view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A:\
-    \ list[_T], l: int, r: int): V.A, V.l, V.r = A, l, r\n    def __len__(V): return\
-    \ V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l:\
-    \ return V.A[V.l+i]\n        else: raise IndexError\n    def __setitem__(V, i:\
-    \ int, v: _T): V.A[V.l+i] = v\n    def __contains__(V, v: _T): return list_find(V.A,\
-    \ v, V.l, V.r) != -1\n    def set_range(V, l: int, r: int): V.l, V.r = l, r\n\
-    \    def index(V, v: _T): return V.A.index(v, V.l, V.r) - V.l\n    def reverse(V):\n\
-    \        l, r = V.l, V.r-1\n        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l];\
-    \ l += 1; r -= 1\n    def sort(V, /, *args, **kwargs):\n        A = V.A[V.l:V.r];\
-    \ A.sort(*args, **kwargs)\n        for i,a in enumerate(A,V.l): V.A[i] = a\n \
-    \   def pop(V): V.r -= 1; return V.A[V.r]\n    def append(V, v: _T): V.A[V.r]\
-    \ = v; V.r += 1\n    def popleft(V): V.l += 1; return V.A[V.l-1]\n    def appendleft(V,\
-    \ v: _T): V.l -= 1; V.A[V.l] = v; \n    def validate(V): return 0 <= V.l <= V.r\
-    \ <= len(V.A)\n\nif __name__ == '__main__':\n    \"\"\"\n    Helper for making\
-    \ unittest files compatible with verification-helper.\n    \n    This module provides\
-    \ a helper function to run a dummy Library Checker test\n    so that unittest\
-    \ files can be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
+    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
+    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
+    _T6 = TypeVar('T6')\n\n\nimport sys\n\ndef list_find(lst: list, value, start =\
+    \ 0, stop = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n\
+    \    except:\n        return -1\n\n\nclass view(Generic[_T]):\n    __slots__ =\
+    \ 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int): V.A, V.l, V.r\
+    \ = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int):\
+    \ \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
+    \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
+    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
+    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
+    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
+    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
+    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
+    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
+    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\nif __name__ ==\
+    \ '__main__':\n    \"\"\"\n    Helper for making unittest files compatible with\
+    \ verification-helper.\n    \n    This module provides a helper function to run\
+    \ a dummy Library Checker test\n    so that unittest files can be verified by\
+    \ oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
     \        \"\"\"\n        Run a dummy Library Checker test for verification-helper\
     \ compatibility.\n        \n        This function should be called in the __main__\
     \ block of unittest files\n        that need to be compatible with verification-helper.\n\
@@ -546,7 +548,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/view_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/view_cls_test.py

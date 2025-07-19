@@ -166,7 +166,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py

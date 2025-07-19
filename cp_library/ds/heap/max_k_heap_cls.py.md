@@ -36,17 +36,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Iterable\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T\
-    \ = TypeVar('T')\n_U = TypeVar('U')\n\n\n\ndef heappush(heap: list, item):\n \
-    \   heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap:\
-    \ list):\n    item = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap,\
-    \ 0)\n    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap:\
-    \ list, item):\n    if heap and heap[0] < item: item, heap[0] = heap[0], item;\
-    \ heapsiftup(heap, 0)\n    return item\n\ndef heapify(x: list):\n    for i in\
-    \ reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap: list,\
-    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and item <\
-    \ heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
-    def heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
+    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    \n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n    heapsiftdown(heap,\
+    \ 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if heap:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
+    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
@@ -191,7 +192,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/max_k_heap_cls.py
   requiredBy: []
-  timestamp: '2025-07-11 23:11:42+09:00'
+  timestamp: '2025-07-20 06:26:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_max_k_heap.test.py
