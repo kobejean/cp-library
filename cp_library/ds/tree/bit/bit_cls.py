@@ -37,8 +37,7 @@ class BIT:
         return s
     get = __getitem__
     
-    def __setitem__(bit, i: int, x: int) -> None:
-        bit.add(i, x-bit[i])
+    def __setitem__(bit, i: int, x: int) -> None: bit.add(i, x-bit[i])
     set = __setitem__
 
     def prelist(bit) -> list[int]:

@@ -8,7 +8,7 @@ def main():
         if com: write(seg.prod(x,y+1))
         else: seg[x] = y
 
-from cp_library.ds.tree.segtree_cls import SegTree
+from cp_library.ds.tree.seg.segtree_cls import SegTree
 from cp_library.io.read_int_fn import read
 from cp_library.io.write_fn import write
 

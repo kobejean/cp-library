@@ -12,7 +12,7 @@ def main():
     cnt = [[] for _ in range(N)]
     T = Tree(N, U, V)
     depth = [0]*N
-    for i in T.dfs_topdown():
+    for i in T.dfs_topo():
         p, u = T.Ua[i], T.Va[i]
         depth[u] = depth[p]+1
     time = 0

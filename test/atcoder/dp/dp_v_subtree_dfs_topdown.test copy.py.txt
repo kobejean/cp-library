@@ -24,7 +24,7 @@ def main():
             suf[i-1] = merge(suf[i], dpc[v]) if v != p else suf[i]
         return suf
 
-    order = T.dfs_topdown(0, True)
+    order = T.dfs_topo(0, True)
     def up():
         # up
         for u, v in order[:0:-1]:

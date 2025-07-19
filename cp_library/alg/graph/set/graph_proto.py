@@ -225,7 +225,7 @@ class GraphProtocol(list, Parsable):
                 return G.dfs_enter_leave(s)
         elif flags == DFSFlags.DOWN or flags == DFSFlags.TOPDOWN:
             if max_depth is None:
-                edges = G.dfs_topdown(s, DFSFlags.CONNECT_ROOTS in flags)
+                edges = G.dfs_topo(s, DFSFlags.CONNECT_ROOTS in flags)
                 return [(DFSEvent.DOWN, p, u) for p,u in edges]
         elif flags == DFSFlags.UP or flags == DFSFlags.BOTTOMUP:
             if max_depth is None:
@@ -364,7 +364,7 @@ class GraphProtocol(list, Parsable):
 
         return events
     
-    def dfs_topdown(G, s: Union[int,list,None] = None, connect_roots = False):
+    def dfs_topo(G, s: Union[int,list,None] = None, connect_roots = False):
         '''Returns list of (u,v) representing u->v edges in order of top down discovery'''
         stack: list[int] = elist(G.N)
         vis = [False]*G.N
@@ -387,7 +387,7 @@ class GraphProtocol(list, Parsable):
     
     def dfs_bottomup(G, s: Union[int,list,None] = None, connect_roots = False):
         '''Returns list of (p,u) representing p->u edges in bottom up order'''
-        edges = G.dfs_topdown(s, connect_roots)
+        edges = G.dfs_topo(s, connect_roots)
         edges.reverse()
         return edges
 

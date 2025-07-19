@@ -18,6 +18,14 @@ class GraphWeightedBase(GraphBase):
         self.Wa = Wa
         '''Wa[i] lists weights to edges from u for La[u] <= i < Ra[u].'''
         
+    def _remove(G, a: int):
+        G.deg[u := G.Ua[a]] -= 1
+        G.Ra[u] = (r := G.Ra[u]-1)
+        G.Ua[a], G.Va[a], G.Wa[a], G.Ea[a] = G.Ua[r], G.Va[r], G.Wa[r], G.Ea[r]
+        G.twin[a], G.twin[r] = G.twin[r], G.twin[a]
+        G.twin[G.twin[a]] = a
+        G.twin[G.twin[r]] = r
+
     def __getitem__(G, u): return view2(G.Va, G.Wa, G.La[u],G.Ra[u])
     
     @overload

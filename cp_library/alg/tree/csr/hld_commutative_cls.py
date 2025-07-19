@@ -39,4 +39,4 @@ class HLDCommutative(HLDBase, Generic[_T]):
             us = hld.op(us, hld.seg.prod(hld.tin[v]+edge, hld.tin[u]+1))
             return hld.op(us, vs)
 
-from cp_library.ds.tree.segtree_cls import SegTree
+from cp_library.ds.tree.seg.segtree_cls import SegTree

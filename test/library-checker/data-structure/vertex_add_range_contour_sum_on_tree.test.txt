@@ -8,7 +8,7 @@ def main():
     N, Q = read()
     A = read(list[int])
     T = read(Tree[N])
-    order = T.dfs_topdown(0)
+    order = T.dfs_topo(0)
     tin, tout, depth, B = [0]*N, [0]*N, [0]*N, [0]*N
     B[0] = A[0]
     for t, i in enumerate(order, 1):

@@ -1,6 +1,6 @@
 import cp_library.__header__
 import cp_library.ds.__header__
-from cp_library.ds.tree.segtree_cls import SegTree
+from cp_library.ds.tree.seg.segtree_cls import SegTree
 import cp_library.ds.wavelet.__header__
 from cp_library.ds.wavelet.wm_monoid_cls import WMStatic, WMMonoid
 

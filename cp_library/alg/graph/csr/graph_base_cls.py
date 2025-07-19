@@ -67,6 +67,18 @@ class GraphBase(Parsable):
     def prep_tin(G):
         if G.tin is None: G.tin = i32f(G.N, -1)
         return G.tin
+    
+    def _remove(G, a: int):
+        G.deg[u := G.Ua[a]] -= 1
+        G.Ra[u] = (r := G.Ra[u]-1)
+        G.Ua[a], G.Va[a], G.Ea[a] = G.Ua[r], G.Va[r], G.Ea[r]
+        G.twin[a], G.twin[r] = G.twin[r], G.twin[a]
+        G.twin[G.twin[a]] = a
+        G.twin[G.twin[r]] = r
+
+    def remove(G, a: int):
+        b = G.twin[a]; G._remove(a)
+        if a != b: G._remove(b)
 
     def __len__(G) -> int: return G.N
     def __getitem__(G, u): return view(G.Va, G.La[u], G.Ra[u])
@@ -177,7 +189,7 @@ class GraphBase(Parsable):
                 if D[v] < u32_max: continue
                 D[v], par[v] = D[u]+1, u; que.append(v)
 
-    def dfs_topdown(G, s: Union[int,list] = None) -> list[int]:
+    def dfs_topo(G, s: Union[int,list] = None) -> list[int]:
         '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
         vis, st, order = G.prep_vis(), G.prep_st(), G.prep_order()
         for s in G.starts(s):

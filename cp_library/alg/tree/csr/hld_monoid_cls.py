@@ -42,4 +42,4 @@ class HLDMonoid(HLDBase, Generic[_T]):
             us = hld.op(us, hld.suf.prod(hld.N-1-hld.tin[u], hld.N-hld.tin[v]-edge))
         return hld.op(us, vs)
 
-from cp_library.ds.tree.segtree_cls import SegTree
+from cp_library.ds.tree.seg.segtree_cls import SegTree

@@ -47,7 +47,7 @@ class TreeBase(GraphBase):
                      edge_op: Callable[[_T,int,int,int],_T] = lambda s,i,p,u:s,
                      s: int = 0):
         La, Ua, Va = T.La, T.Ua, T.Va
-        order, dp, suf, I = T.dfs_topdown(s), [e]*T.N, [e]*len(Ua), T.Ra[:]
+        order, dp, suf, I = T.dfs_topo(s), [e]*T.N, [e]*len(Ua), T.Ra[:]
         # up
         for i in order[::-1]:
             u,v = Ua[i], Va[i]

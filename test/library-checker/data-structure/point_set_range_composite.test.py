@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_set_range_composite
 
-from cp_library.ds.tree.segtree_cls import SegTree
+from cp_library.ds.tree.seg.segtree_cls import SegTree
 
 
 def main():
