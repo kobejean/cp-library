@@ -1,7 +1,6 @@
 from cp_library.ds.view.view_cls import view
 import cp_library.__header__
 from math import inf
-from collections import deque
 from typing import Callable, Sequence, Union, overload
 from cp_library.io.parser_cls import Parsable, TokenStream
 import cp_library.alg.__header__
@@ -124,14 +123,12 @@ class GraphBase(Parsable):
         S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N, -1), [inf]*N
         G.back, G.D = back, D
         for u in S: D[u] = 0
-        que = deque(S)
+        que = Que(S)
         while que:
-            nd = D[u := que.popleft()]+1
+            nd = D[u := que.pop()]+1
             if u == g: return nd-1
             for i in G.range(u):
-                if nd < D[v := Va[i]]:
-                    D[v], back[v] = nd, i
-                    que.append(v)
+                if chmin(D, v := Va[i], nd): back[v] = i; que.push(v)
         return D if g is None else inf 
 
     def floyd_warshall(G) -> list[list[int]]:
@@ -178,16 +175,16 @@ class GraphBase(Parsable):
         if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]
 
     def find_minimal_cycle(G, s=0):
-        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), deque([s]), G.Va
+        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), Que([s]), G.Va
         D[s] = 0
         while que:
-            for i in G.range(u := que.popleft()):
+            for i in G.range(u := que.pop()):
                 if (v := Va[i]) == s:  # Found cycle back to start
                     cycle = [u]
                     while u != s: cycle.append(u := par[u])
                     return cycle
                 if D[v] < u32_max: continue
-                D[v], par[v] = D[u]+1, u; que.append(v)
+                D[v], par[v] = D[u]+1, u; que.push(v)
 
     def dfs_topo(G, s: Union[int,list] = None) -> list[int]:
         '''Returns lists of indices i where Ua[i] -> Va[i] are edges in order of top down discovery'''
@@ -277,3 +274,4 @@ from cp_library.ds.array.u32f_fn import u32f
 from cp_library.ds.array.i32f_fn import i32f
 from cp_library.ds.elist_fn import elist
 from cp_library.ds.packet_list_cls import PacketList
+from cp_library.ds.que.que_cls import Que

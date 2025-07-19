@@ -11,8 +11,8 @@ class TestCSR2:
         O = [0, 2, 4, 6]  # 3 rows: [(1,10),(2,20)], [(3,30),(4,40)], [(5,50),(6,60)]
         csr2 = CSR2(A, B, O)
         
-        assert csr2.A is A
-        assert csr2.B is B
+        assert csr2.A1 is A
+        assert csr2.A2 is B
         assert csr2.O is O
         assert len(csr2) == 3
 

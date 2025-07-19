@@ -10,8 +10,8 @@ class TestView2:
         B = ['a', 'b', 'c', 'd', 'e']
         v = view2(A, B, 1, 4)
         
-        assert v.A is A
-        assert v.B is B
+        assert v.A1 is A
+        assert v.A2 is B
         assert v.l == 1
         assert v.r == 4
         assert len(v) == 3

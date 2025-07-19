@@ -1,6 +1,6 @@
 import cp_library.ds.__header__
 from cp_library.misc.typing import _T
-from cp_library.ds.list.deque_cls import Deque
+from cp_library.ds.que.deque_cls import Deque
 from typing import Iterable
 
 class SlidingMax(Deque[_T]):

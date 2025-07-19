@@ -24,48 +24,46 @@ class AuxTreeBase(TreeWeightedBase):
     def tree(T, U: list[int], sort=True):
         if sort: U = sorted(U, key = T.tin.__getitem__)
         st = T.prep_st()
-        lca, tin, V, post = T.lca, T.tin, T.Vset, T.post
         # reset
-        while V:
-            T.Ra[u] = T.La[u := V.pop()]
+        while T.Vset:
+            T.Ra[u] = T.La[u := T.Vset.pop()]
             if T.vis: T.vis[u] = 0
-        post.clear()
+        T.post.clear()
 
         st.append(U[0])
         for j in range(len(U)-1):
             u, v = U[j], U[j+1]
-            a, _ = lca.query(u, v)
+            a, _ = T.lca.query(u, v)
             if a != u:
                 l = st.pop()
-                while st and tin[t := st[-1]] > tin[a]:
-                    V.append(l); post.append(T.add(l, l := st.pop()))
+                while st and T.tin[t := st[-1]] > T.tin[a]:
+                    T.Vset.append(l); T.post.append(T.add(l, l := st.pop()))
                 if not st or t != a: st.append(a)
-                V.append(l); post.append(T.add(l, a))
+                T.Vset.append(l); T.post.append(T.add(l, a))
             st.append(v)
         l = st.pop()
-        while st: V.append(l); post.append(T.add(l, l := st.pop()))
-        V.append(l)
-        return V, post
+        while st: T.Vset.append(l); T.post.append(T.add(l, l := st.pop()))
+        T.Vset.append(l)
+        return T.Vset, T.post
 
     def trees(T, C: list[int]):
-        lca, N = T.lca, T.N
-        T.Ra, cnt, order = T.La[:], [0]*N, argsort(T.tin)
+        T.Ra, cnt, order = T.La[:], [0]*T.N, argsort(T.tin)
         for c in C: cnt[c] += 1
-        L = [0]*N
-        for i in range(N-1): L[i+1] = L[i]+cnt[i]
-        R, G = L[:], [0]*N
+        L = [0]*T.N
+        for i in range(T.N-1): L[i+1] = L[i]+cnt[i]
+        R, G = L[:], [0]*T.N
         
         for i in order: c = C[i]; G[R[c]] = i; R[c] += 1
-        st, V, post = elist(N), elist(N), elist(N)
+        st, V, post = elist(T.N), elist(T.N), elist(T.N)
         La, Ra, tin = T.La, T.Ra, T.tin
 
-        for c in range(N):
+        for c in range(T.N):
             l, r = L[c], R[c]
             if l == r: continue
             st.append(G[l])
             for j in range(l,r-1):
                 u, v = G[j], G[j+1]
-                a, _ = lca.query(u, v)
+                a, _ = T.lca.query(u, v)
                 if a != u:
                     l = st.pop()
                     while st and tin[t := st[-1]] > tin[a]:

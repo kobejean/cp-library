@@ -5,18 +5,11 @@ import cp_library.math.mod.__header__
 
 class mfrac(Fraction):
     @classmethod
-    def set_mod(cls, mod):
-        cls.mod = mod
-        cls.zero = mfrac(0)
-        cls.one = mfrac(1)
-        cls.two = mfrac(2)
-
+    def set_mod(cls, mod): cls.mod, cls.zero, cls.one, cls.two = mod, mfrac(0), mfrac(1), mfrac(2)
     @classmethod
     def cast(cls, x): return mfrac(x)
-
     @classmethod
     def mod_inv(cls, x): return mfrac(1, x)
-
     def __add__(self, x): return self.cast(super().__add__(x))
     def __radd__(self, x): return self.cast(super().__radd__(x))
     def __sub__(self, x): return self.cast(super().__sub__(x))

@@ -4,6 +4,7 @@ from collections import Counter, deque
 import cp_library.ds.__header__
 import cp_library.ds.tree.__header__
 from cp_library.ds.tree.trie_cls import Trie
+from cp_library.ds.que.que_cls import Que
 
 class AhoCorasick(Trie):
     __slots__ = 'failed', 'freq'
@@ -46,8 +47,8 @@ class AhoCorasick(Trie):
         return output
 
     def bfs(T) -> list['Trie']:
-        order, que = [], deque([T])
+        order, que = [], Que([T])
         while que:
-            order.extend(sub := que.popleft().sub.values())
+            order.extend(sub := que.pop().sub.values())
             que.extend(sub)
         return order

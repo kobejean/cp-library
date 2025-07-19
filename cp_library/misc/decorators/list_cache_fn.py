@@ -12,8 +12,7 @@ def list_cache(max_size: int = 16):
             try:
                 return V[K.index(arg)]
             except:
-                result = func(arg)
-                K.append(arg); V.append(result)
+                K.append(arg); V.append(result := func(arg))
                 return result
         return wrapper
     return decorator
