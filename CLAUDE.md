@@ -50,6 +50,21 @@ pytest
 
 The repository uses standard Python tools. Check the pyproject.toml for specific configurations.
 
+### Poetry Package Management
+
+This project uses Poetry for dependency management:
+
+```bash
+# Install dependencies
+poetry install
+
+# Add new dependency
+poetry add package-name
+
+# Run commands in poetry environment
+poetry run pytest
+```
+
 ## Code Architecture
 
 ### Library Structure
@@ -93,6 +108,12 @@ The library is organized into modules under `cp_library/`:
 
 - **vis/** - Visualization and debugging utilities
 
+- **perf/** - Performance benchmarking framework
+  - Declarative benchmark system with decorator-based API
+  - Timing utilities with warmup and validation
+  - Plotting support (matplotlib + ASCII fallback)
+  - Checksum utilities for result validation
+
 ### Testing Structure
 
 Tests are organized by online judge platform:
@@ -120,7 +141,13 @@ Each test file follows the pattern `*.test.py` and uses the verify-helper format
    - Modules under `mod/` subdirectories contain modular arithmetic versions
    - The `mint_cls` provides a modular integer implementation
 
-4. **Header Files**:
+4. **Multichannel Data Structures**:
+   - Many data structures have multichannel versions (e.g., BIT2-6, SegTree2-6, List2-6)
+   - Multichannel structures use inheritance with overridable operation methods
+   - Base classes avoid conditional logic using `_op`, `_add`, `_sub` pattern
+   - Multichannel classes have K class variable indicating number of channels
+
+5. **Header Files**:
    - `__header__.py` files contain metadata for the verify-helper tool
    - These specify dependencies and other verification settings
 

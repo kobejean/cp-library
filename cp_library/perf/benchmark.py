@@ -14,7 +14,7 @@ import json
 import statistics
 import sys
 import argparse
-from typing import Dict, List, Any, Callable, Union
+from typing import List, Any, Callable, Union
 from dataclasses import dataclass
 from pathlib import Path
 from collections import defaultdict
@@ -166,29 +166,9 @@ Examples:
     
     def measure_time(self, func: Callable, data: Any, setup_func: Callable = None) -> tuple[Any, float]:
         """Measure execution time with warmup and optional setup"""
-        # Warmup runs
-        for _ in range(self.config.warmup):
-            try:
-                if setup_func:
-                    setup_data = setup_func(data)
-                    func(setup_data)
-                else:
-                    func(data)
-            except Exception:
-                # If warmup fails, let the main measurement handle the error
-                break
-        
-        # Actual measurement
-        start = time.perf_counter()
-        for _ in range(self.config.iterations):
-            if setup_func:
-                setup_data = setup_func(data)
-                result = func(setup_data)
-            else:
-                result = func(data)
-        elapsed_ms = (time.perf_counter() - start) * 1000 / self.config.iterations
-        
-        return result, elapsed_ms
+        from cp_library.perf.timing import BenchmarkTimer
+        timer = BenchmarkTimer(self.config.iterations, self.config.warmup)
+        return timer.measure_time(func, data, setup_func)
     
     def validate_result(self, expected: Any, actual: Any, operation: str) -> bool:
         """Validate result using custom validator or default comparison"""
@@ -346,83 +326,10 @@ Examples:
         print(f"\nResults saved to {filename}")
     
     def _plot_results(self):
-        """Generate plots using matplotlib if available"""
-        try:
-            import matplotlib.pyplot as plt
-            
-            output_dir = Path(self.config.output_dir)
-            output_dir.mkdir(parents=True, exist_ok=True)
-            
-            # Group and prepare data for plotting
-            data_by_op = self._group_results_by_operation()
-            
-            # Create plots for each operation
-            for operation, operation_data in data_by_op.items():
-                self._create_performance_plot(plt, operation, operation_data, output_dir)
-                
-        except ImportError:
-            print("Matplotlib not available - skipping plots")
-        except Exception as e:
-            print(f"Plotting failed: {e}")
-    
-    def _group_results_by_operation(self) -> Dict[str, Dict[int, List[Dict[str, Any]]]]:
-        """Group results by operation and size for plotting"""
-        data_by_op = defaultdict(lambda: defaultdict(list))
-        for r in self.results:
-            if r['time_ms'] != float('inf') and r['correct']:
-                data_by_op[r['operation']][r['size']].append({
-                    'implementation': r['implementation'],
-                    'time_ms': r['time_ms']
-                })
-        return data_by_op
-    
-    def _create_performance_plot(self, plt, operation: str, operation_data: Dict[int, List[Dict[str, Any]]], output_dir: Path):
-        """Create a performance plot for a single operation"""
-        sizes = sorted(operation_data.keys())
-        implementations = set()
-        for size_data in operation_data.values():
-            for entry in size_data:
-                implementations.add(entry['implementation'])
-        
-        implementations = sorted(implementations)
-        
-        plt.figure(figsize=(10, 6))
-        for impl in implementations:
-            impl_times = []
-            impl_sizes = []
-            for size in sizes:
-                times = [entry['time_ms'] for entry in operation_data[size] 
-                        if entry['implementation'] == impl]
-                if times:
-                    impl_times.append(statistics.mean(times))
-                    impl_sizes.append(size)
-            
-            if impl_times:
-                plt.plot(impl_sizes, impl_times, 'o-', label=impl)
-        
-        plt.xlabel('Input Size')
-        plt.ylabel('Time (ms)')
-        plt.title(f'{self.config.name} - {operation} Operation')
-        plt.legend()
-        plt.grid(True, alpha=0.3)
-        
-        # Apply the configured scaling
-        if self.config.plot_scale == "loglog":
-            plt.loglog()
-        elif self.config.plot_scale == "linear":
-            pass  # Default linear scale
-        elif self.config.plot_scale == "semilogx":
-            plt.semilogx()
-        elif self.config.plot_scale == "semilogy":
-            plt.semilogy()
-        else:
-            # Default to loglog if invalid option
-            plt.loglog()
-        
-        plot_file = output_dir / f"{self.config.name}_{operation}_performance.png"
-        plt.savefig(plot_file, dpi=300, bbox_inches='tight')
-        plt.close()
-        print(f"Plot saved: {plot_file}")
+        """Generate plots using the plotting module"""
+        from cp_library.perf.plotting import BenchmarkPlotter
+        plotter = BenchmarkPlotter(self.config.plot_scale)
+        plotter.create_plots(self.results, self.config)
     
     def _print_summary(self):
         """Print performance summary"""

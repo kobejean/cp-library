@@ -1,7 +1,7 @@
-from cp_library.alg.iter.sort.isort_ranged_fn import isort_ranged
 import cp_library.__header__
 from typing import Generic
 from cp_library.misc.typing import _T1, _T2, _T3, _T4, _T5
+from cp_library.alg.iter.sort.isort_ranged_fn import isort_ranged
 import cp_library.ds.__header__
 import cp_library.ds.view.__header__
 
