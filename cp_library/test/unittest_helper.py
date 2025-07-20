@@ -7,25 +7,20 @@ so that unittest files can be verified by oj-verify.
 
 def run_verification_helper_unittest():
     """
-    Run a dummy Library Checker test for verification-helper compatibility.
+    Run a dummy AOJ ITP1_1_A test for verification-helper compatibility.
     
     This function should be called in the __main__ block of unittest files
     that need to be compatible with verification-helper.
     
     The function:
-    1. Reads A and B from input
-    2. Writes A+B to output  
-    3. If the result is the expected value (1198300249), runs pytest
-    4. Exits with the pytest result code
+    1. Prints "Hello World" (AOJ ITP1_1_A solution)
+    2. Runs pytest for the calling test file
+    3. Exits with the pytest result code
     """
     import sys
-    from cp_library.io.read_fn import read
-    from cp_library.io.write_fn import write
     
-    A, B = read()
-    write(C := A + B)
-    if C != 1198300249: 
-        sys.exit(0)
+    # Print "Hello World" for AOJ ITP1_1_A problem
+    print("Hello World")
     
     import pytest
     import io
