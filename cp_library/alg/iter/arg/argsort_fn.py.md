@@ -102,8 +102,26 @@ data:
     path: cp_library/ds/tree/seg/segtree6_cls.py
     title: cp_library/ds/tree/seg/segtree6_cls.py
   - icon: ':warning:'
+    path: perf/bit2.py
+    title: perf/bit2.py
+  - icon: ':warning:'
+    path: perf/bit6.py
+    title: perf/bit6.py
+  - icon: ':warning:'
     path: perf/edge_list.py
     title: perf/edge_list.py
+  - icon: ':warning:'
+    path: perf/list2.py
+    title: perf/list2.py
+  - icon: ':warning:'
+    path: perf/list6.py
+    title: perf/list6.py
+  - icon: ':warning:'
+    path: perf/segtree2.py
+    title: perf/segtree2.py
+  - icon: ':warning:'
+    path: perf/segtree6.py
+    title: perf/segtree6.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -293,8 +311,14 @@ data:
   - cp_library/alg/tree/csr/hld_weighted_cls.py
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
+  - perf/list6.py
   - perf/edge_list.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  - perf/bit6.py
+  - perf/segtree2.py
+  - perf/segtree6.py
+  - perf/bit2.py
+  - perf/list2.py
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py

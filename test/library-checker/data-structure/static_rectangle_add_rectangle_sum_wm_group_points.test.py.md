@@ -296,9 +296,9 @@ data:
     \        file.flush()\n\nfrom typing import Type, Union, overload\nimport typing\n\
     from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
     \ \nfrom typing import Callable, Collection, Iterator, Union\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
-    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
-    _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
+    \ _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
     \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
     \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
@@ -404,7 +404,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py

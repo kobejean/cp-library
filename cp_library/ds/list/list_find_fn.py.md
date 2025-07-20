@@ -117,8 +117,8 @@ data:
     path: cp_library/ds/grid/grid_cls.py
     title: cp_library/ds/grid/grid_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/list/deque_cls.py
-    title: cp_library/ds/list/deque_cls.py
+    path: cp_library/ds/que/deque_cls.py
+    title: cp_library/ds/que/deque_cls.py
   - icon: ':warning:'
     path: cp_library/ds/slidingmax_cls.py
     title: cp_library/ds/slidingmax_cls.py
@@ -138,6 +138,9 @@ data:
     path: perf/csr.py
     title: perf/csr.py
   - icon: ':warning:'
+    path: perf/deque.py
+    title: perf/deque.py
+  - icon: ':warning:'
     path: perf/grid.py
     title: perf/grid.py
   - icon: ':warning:'
@@ -149,6 +152,9 @@ data:
   - icon: ':warning:'
     path: perf/list_view.py
     title: perf/list_view.py
+  - icon: ':warning:'
+    path: perf/que.py
+    title: perf/que.py
   - icon: ':warning:'
     path: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
     title: test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
@@ -346,7 +352,7 @@ data:
   - cp_library/ds/slidingmin_cls.py
   - cp_library/ds/slidingmax_cls.py
   - cp_library/ds/slidingminmax_cls.py
-  - cp_library/ds/list/deque_cls.py
+  - cp_library/ds/que/deque_cls.py
   - cp_library/alg/graph/csr/graph_potential_cls.py
   - cp_library/alg/graph/csr/grid_graph_base_cls.py
   - cp_library/alg/graph/csr/graph_base_cls.py
@@ -386,10 +392,12 @@ data:
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/heap_view.py
   - perf/list_view.py
+  - perf/que.py
   - perf/grid.py
   - perf/csr.py
+  - perf/deque.py
   - perf/heap_csr.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/cycle_detection.test.py

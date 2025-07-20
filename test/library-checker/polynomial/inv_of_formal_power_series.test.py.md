@@ -52,26 +52,25 @@ data:
     \  f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
     \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\n\n    \n\
     class mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n\
-    \    cache: list['mint']\n\n    def __new__(cls, *args, **kwargs):\n        if\
-    \ 0 <= (x := int(*args, **kwargs)) < 64:\n            return cls.cache[x]\n  \
-    \      else:\n            return cls.fix(x)\n\n    @classmethod\n    def set_mod(cls,\
-    \ mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero = cls.zero =\
-    \ cls.cast(0)\n        mint.one = cls.one = cls.fix(1)\n        mint.two = cls.two\
-    \ = cls.fix(2)\n        mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n\
-    \        for x in range(3,64): mint.cache.append(cls.fix(x))\n\n    @classmethod\n\
-    \    def fix(cls, x): return cls.cast(x%cls.mod)\n\n    @classmethod\n    def\
-    \ cast(cls, x): return super().__new__(cls,x)\n\n    @classmethod\n    def mod_inv(cls,\
-    \ x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
-    \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
-    \ invertible in mod {cls.mod}\")\n    \n    @property\n    def inv(self): return\
-    \ mint.mod_inv(self)\n\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
+    \    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n        if 0\
+    \ <= (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n        else: return\
+    \ cls.fix(x)\n    @classmethod\n    def set_mod(cls, mod: int):\n        mint.mod\
+    \ = cls.mod = mod\n        mint.zero = cls.zero = cls.cast(0)\n        mint.one\
+    \ = cls.one = cls.fix(1)\n        mint.two = cls.two = cls.fix(2)\n        mint.cache\
+    \ = cls.cache = [cls.zero, cls.one, cls.two]\n        for x in range(3,64): mint.cache.append(cls.fix(x))\n\
+    \    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n    @classmethod\n\
+    \    def cast(cls, x): return super().__new__(cls,x)\n    @classmethod\n    def\
+    \ mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b:\
+    \ a,b,s,t = b,a%b,t,s-a//b*t\n        if a == 1: return cls.fix(s)\n        raise\
+    \ ValueError(f\"{x} is not invertible in mod {cls.mod}\")\n    @property\n   \
+    \ def inv(self): return mint.mod_inv(self)\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
     \    def __radd__(self, x): return mint.fix(super().__radd__(x))\n    def __sub__(self,\
     \ x): return mint.fix(super().__sub__(x))\n    def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n\
     \    def __mul__(self, x): return mint.fix(super().__mul__(x))\n    def __rmul__(self,\
     \ x): return mint.fix(super().__rmul__(x))\n    def __floordiv__(self, x): return\
     \ self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv * x\n\
     \    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
-    \ x): return self.inv * x\n    def __pow__(self, x): \n        return self.cast(super().__pow__(x,\
+    \ x): return self.inv * x\n    def __pow__(self, x): return self.cast(super().__pow__(x,\
     \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
     \ return self\n    def __abs__(self): return self\n    def __class_getitem__(self,\
     \ x: int): return self.cache[x]\n\n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x,\
@@ -170,9 +169,9 @@ data:
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
     \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
-    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
-    _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
+    \ _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
     \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
     \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
@@ -258,7 +257,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/inv_of_formal_power_series.test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/inv_of_formal_power_series.test.py

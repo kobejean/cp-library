@@ -32,9 +32,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T\
-    \ = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
-    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    from typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n\nclass CRFList(Generic[_T]):\n    def __init__(crf, A: list[_T], S: list[int]):\n\
     \        crf.N, crf.A, crf.S = len(S), A, S\n        S.append(len(A))\n\n    def\
     \ __len__(crf) -> int: return crf.N\n\n    def __getitem__(crf, i: int) -> list[_T]:\n\
@@ -57,7 +57,7 @@ data:
   - cp_library/alg/graph/func/func_graph_cls.py
   - cp_library/alg/graph/func/mut_perm_graph_cls.py
   - cp_library/alg/graph/func/partial_func_graph_cls.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py

@@ -617,9 +617,6 @@ data:
   - name: cp_library/ds/list
     pages:
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/list/deque_cls.py
-      title: cp_library/ds/list/deque_cls.py
-    - icon: ':heavy_check_mark:'
       path: cp_library/ds/list/list2_cls.py
       title: cp_library/ds/list/list2_cls.py
     - icon: ':heavy_check_mark:'
@@ -645,9 +642,18 @@ data:
       title: cp_library/ds/list/presum_cls.py
   - name: cp_library/ds/que
     pages:
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/que/deque_cls.py
+      title: cp_library/ds/que/deque_cls.py
+    - icon: ':warning:'
+      path: cp_library/ds/que/que012_cls.py
+      title: cp_library/ds/que/que012_cls.py
     - icon: ':warning:'
       path: cp_library/ds/que/que01_cls.py
       title: cp_library/ds/que/que01_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/que/que_cls.py
+      title: cp_library/ds/que/que_cls.py
   - name: cp_library/ds/tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -770,11 +776,35 @@ data:
       path: cp_library/ds/view/csr2_cls.py
       title: cp_library/ds/view/csr2_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/csr3_cls.py
+      title: cp_library/ds/view/csr3_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/csr4_cls.py
+      title: cp_library/ds/view/csr4_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/csr5_cls.py
+      title: cp_library/ds/view/csr5_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/csr6_cls.py
+      title: cp_library/ds/view/csr6_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/view/csr_cls.py
       title: cp_library/ds/view/csr_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/view/view2_cls.py
       title: cp_library/ds/view/view2_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/view3_cls.py
+      title: cp_library/ds/view/view3_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/view4_cls.py
+      title: cp_library/ds/view/view4_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/view5_cls.py
+      title: cp_library/ds/view/view5_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/view/view6_cls.py
+      title: cp_library/ds/view/view6_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/view/view_cls.py
       title: cp_library/ds/view/view_cls.py
@@ -1223,16 +1253,29 @@ data:
       path: cp_library/perf/checksum.py
       title: cp_library/perf/checksum.py
     - icon: ':warning:'
-      path: cp_library/perf/plots.py
-      title: cp_library/perf/plots.py
-  - name: cp_library/perf/examples
-    pages:
+      path: cp_library/perf/cli.py
+      title: cp_library/perf/cli.py
     - icon: ':warning:'
-      path: cp_library/perf/examples/rank_benchmark.py
-      title: cp_library/perf/examples/rank_benchmark.py
+      path: cp_library/perf/interfaces.py
+      title: cp_library/perf/interfaces.py
     - icon: ':warning:'
-      path: cp_library/perf/examples/simple_usage.py
-      title: cp_library/perf/examples/simple_usage.py
+      path: cp_library/perf/orchestrator.py
+      title: cp_library/perf/orchestrator.py
+    - icon: ':warning:'
+      path: cp_library/perf/output.py
+      title: cp_library/perf/output.py
+    - icon: ':warning:'
+      path: cp_library/perf/plotting.py
+      title: cp_library/perf/plotting.py
+    - icon: ':warning:'
+      path: cp_library/perf/registry.py
+      title: cp_library/perf/registry.py
+    - icon: ':warning:'
+      path: cp_library/perf/renderers.py
+      title: cp_library/perf/renderers.py
+    - icon: ':warning:'
+      path: cp_library/perf/timing.py
+      title: cp_library/perf/timing.py
   - name: cp_library/test
     pages:
     - icon: ':heavy_check_mark:'
@@ -1249,6 +1292,12 @@ data:
   - name: perf
     pages:
     - icon: ':warning:'
+      path: perf/bit2.py
+      title: perf/bit2.py
+    - icon: ':warning:'
+      path: perf/bit6.py
+      title: perf/bit6.py
+    - icon: ':warning:'
       path: perf/bool_list.py
       title: perf/bool_list.py
     - icon: ':warning:'
@@ -1257,6 +1306,12 @@ data:
     - icon: ':warning:'
       path: perf/csr2.py
       title: perf/csr2.py
+    - icon: ':warning:'
+      path: perf/csr6.py
+      title: perf/csr6.py
+    - icon: ':warning:'
+      path: perf/deque.py
+      title: perf/deque.py
     - icon: ':warning:'
       path: perf/edge_list.py
       title: perf/edge_list.py
@@ -1270,22 +1325,43 @@ data:
       path: perf/heap_view.py
       title: perf/heap_view.py
     - icon: ':warning:'
+      path: perf/list2.py
+      title: perf/list2.py
+    - icon: ':warning:'
+      path: perf/list6.py
+      title: perf/list6.py
+    - icon: ':warning:'
       path: perf/list_view.py
       title: perf/list_view.py
     - icon: ':warning:'
       path: perf/mlist.py
       title: perf/mlist.py
     - icon: ':warning:'
+      path: perf/que.py
+      title: perf/que.py
+    - icon: ':warning:'
       path: perf/rank.py
       title: perf/rank.py
     - icon: ':warning:'
+      path: perf/segtree2.py
+      title: perf/segtree2.py
+    - icon: ':warning:'
+      path: perf/segtree6.py
+      title: perf/segtree6.py
+    - icon: ':warning:'
       path: perf/view2.py
       title: perf/view2.py
+    - icon: ':warning:'
+      path: perf/view6.py
+      title: perf/view6.py
   - name: .
     pages:
     - icon: ':warning:'
       path: play.py
       title: play.py
+    - icon: ':warning:'
+      path: run_benchmarks.py
+      title: run_benchmarks.py
   - name: test/library-checker/tree
     pages:
     - icon: ':warning:'
@@ -1861,11 +1937,35 @@ data:
       path: test/unittests/ds/view/csr2_cls_test.py
       title: test/unittests/ds/view/csr2_cls_test.py
     - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/csr3_cls_test.py
+      title: test/unittests/ds/view/csr3_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/csr4_cls_test.py
+      title: test/unittests/ds/view/csr4_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/csr5_cls_test.py
+      title: test/unittests/ds/view/csr5_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/csr6_cls_test.py
+      title: test/unittests/ds/view/csr6_cls_test.py
+    - icon: ':heavy_check_mark:'
       path: test/unittests/ds/view/csr_cls_test.py
       title: test/unittests/ds/view/csr_cls_test.py
     - icon: ':heavy_check_mark:'
       path: test/unittests/ds/view/view2_cls_test.py
       title: test/unittests/ds/view/view2_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/view3_cls_test.py
+      title: test/unittests/ds/view/view3_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/view4_cls_test.py
+      title: test/unittests/ds/view/view4_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/view5_cls_test.py
+      title: test/unittests/ds/view/view5_cls_test.py
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/ds/view/view6_cls_test.py
+      title: test/unittests/ds/view/view6_cls_test.py
     - icon: ':heavy_check_mark:'
       path: test/unittests/ds/view/view_cls_test.py
       title: test/unittests/ds/view/view_cls_test.py

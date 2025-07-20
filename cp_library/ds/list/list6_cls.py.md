@@ -17,6 +17,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/seg/segtree6_cls.py
     title: cp_library/ds/tree/seg/segtree6_cls.py
+  - icon: ':warning:'
+    path: perf/bit6.py
+    title: perf/bit6.py
+  - icon: ':warning:'
+    path: perf/list6.py
+    title: perf/list6.py
+  - icon: ':warning:'
+    path: perf/segtree6.py
+    title: perf/segtree6.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/unittests/ds/list/list6_cls_test.py
@@ -52,9 +61,9 @@ data:
     \ argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order): inv[j] = i\n\
     \    for i, j in enumerate(order):\n        for A in L: A[i], A[j] = A[j], A[i]\n\
     \        order[inv[i]], inv[j] = j, inv[i]\n    return L\nfrom typing import Generic\n\
-    from typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    _T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
-    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\n\nclass list6(Generic[_T1, _T2,\
+    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\nclass list6(Generic[_T1, _T2,\
     \ _T3, _T4, _T5, _T6]):\n    __slots__ = 'A1', 'A2', 'A3', 'A4', 'A5', 'A6'\n\
     \    def __init__(lst, A1: list[_T1], A2: list[_T2], A3: list[_T3], A4: list[_T4],\
     \ A5: list[_T5], A6: list[_T6]):\n        lst.A1, lst.A2, lst.A3, lst.A4, lst.A5,\
@@ -106,7 +115,10 @@ data:
   requiredBy:
   - cp_library/ds/tree/seg/segtree6_cls.py
   - cp_library/ds/tree/bit/bit6_cls.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  - perf/list6.py
+  - perf/bit6.py
+  - perf/segtree6.py
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/seg/segtree6_cls_test.py

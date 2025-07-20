@@ -137,14 +137,17 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\n\n\n\ndef argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n\
-    \    P = Packer(r-l-1); I = [A[l+i] for i in range(r-l)]; P.ienumerate(I, reverse);\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    \n\n\n\ndef argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n   \
+    \ P = Packer(r-l-1); I = [A[l+i] for i in range(r-l)]; P.ienumerate(I, reverse);\
     \ I.sort()\n    for i in range(r-l): I[i] = (I[i] & P.m) + l\n    return I\n\n\
     \n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s\
     \ = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return\
@@ -160,42 +163,40 @@ data:
     \ n)\n    for i in range(n): inv[order[i]-l] = i\n    for i in range(n):\n   \
     \     j = order[i] - l  # j is in range [0, n)\n        for A in L: A[l+i], A[l+j]\
     \ = A[l+j], A[l+i]\n        order[inv[i]], order[inv[j]] = order[inv[j]], order[inv[i]]\n\
-    \        inv[i], inv[j] = inv[j], inv[i]\n    return L\nfrom typing import Generic\n\
-    from typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    _T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
-    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\n\nclass view2(Generic[_S, _T]):\n\
-    \    __slots__ = 'A', 'B', 'l', 'r'\n    def __init__(V, A: list[_S], B: list[_T],\
-    \ l: int, r: int): V.A, V.B, V.l, V.r = A, B, l, r\n    def __len__(V): return\
-    \ V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l:\
-    \ return V.A[V.l+i], V.B[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
-    \ i: int, v: tuple[_S, _T]): V.A[V.l+i], V.B[V.l+i] = v\n    def __contains__(V,\
-    \ v: tuple[_S, _T]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
-    \ V.l, V.r = l, r\n    def index(V, v: tuple[_S, _T]): raise NotImplemented\n\
-    \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A[l],\
-    \ V.A[r] = V.A[r], V.A[l]; V.B[l], V.B[r] = V.B[r], V.B[l]; l += 1; r -= 1\n \
-    \   def sort(V, reverse=False): isort_ranged(V.A, V.B, l=V.l, r=V.r, reverse=reverse)\n\
-    \    def pop(V): V.r -= 1; return V.A[V.r], V.B[V.r]\n    def append(V, v: tuple[_S,\
-    \ _T]): V.A[V.r], V.B[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return\
-    \ V.A[V.l-1], V.B[V.l-1]\n    def appendleft(V, v: tuple[_S, _T]): V.l -= 1; V.A[V.l],\
-    \ V.B[V.l]  = v; \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n"
-  code: "\nfrom cp_library.alg.iter.sort.isort_ranged_fn import isort_ranged\nimport\
-    \ cp_library.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
-    \ import _S, _T\nimport cp_library.ds.__header__\nimport cp_library.ds.view.__header__\n\
-    \nclass view2(Generic[_S, _T]):\n    __slots__ = 'A', 'B', 'l', 'r'\n    def __init__(V,\
-    \ A: list[_S], B: list[_T], l: int, r: int): V.A, V.B, V.l, V.r = A, B, l, r\n\
-    \    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n    \
-    \    if 0 <= i < V.r - V.l: return V.A[V.l+i], V.B[V.l+i]\n        else: raise\
-    \ IndexError\n    def __setitem__(V, i: int, v: tuple[_S, _T]): V.A[V.l+i], V.B[V.l+i]\
-    \ = v\n    def __contains__(V, v: tuple[_S, _T]): raise NotImplemented\n    def\
-    \ set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_S,\
-    \ _T]): raise NotImplemented\n    def reverse(V):\n        l, r = V.l, V.r-1\n\
-    \        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l]; V.B[l], V.B[r] = V.B[r],\
-    \ V.B[l]; l += 1; r -= 1\n    def sort(V, reverse=False): isort_ranged(V.A, V.B,\
-    \ l=V.l, r=V.r, reverse=reverse)\n    def pop(V): V.r -= 1; return V.A[V.r], V.B[V.r]\n\
-    \    def append(V, v: tuple[_S, _T]): V.A[V.r], V.B[V.r] = v; V.r += 1\n    def\
-    \ popleft(V): V.l += 1; return V.A[V.l-1], V.B[V.l-1]\n    def appendleft(V, v:\
-    \ tuple[_S, _T]): V.l -= 1; V.A[V.l], V.B[V.l]  = v; \n    def validate(V): return\
-    \ 0 <= V.l <= V.r <= len(V.A)"
+    \        inv[i], inv[j] = inv[j], inv[i]\n    return L\n\n\n\nclass view2(Generic[_T1,\
+    \ _T2]):\n    __slots__ = 'A1', 'A2', 'l', 'r'\n    def __init__(V, A1: list[_T1],\
+    \ A2: list[_T2], l: int, r: int): V.A1, V.A2, V.l, V.r = A1, A2, l, r\n    def\
+    \ __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0\
+    \ <= i < V.r - V.l: return V.A1[V.l+i], V.A2[V.l+i]\n        else: raise IndexError\n\
+    \    def __setitem__(V, i: int, v: tuple[_T1, _T2]): V.A1[V.l+i], V.A2[V.l+i]\
+    \ = v\n    def __contains__(V, v: tuple[_T1, _T2]): raise NotImplemented\n   \
+    \ def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_T1,\
+    \ _T2]): raise NotImplemented\n    def reverse(V):\n        l, r = V.l, V.r-1\n\
+    \        while l < r: V.A1[l], V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] =\
+    \ V.A2[r], V.A2[l]; l += 1; r -= 1\n    def sort(V, reverse=False): isort_ranged(V.A1,\
+    \ V.A2, l=V.l, r=V.r, reverse=reverse)\n    def pop(V): V.r -= 1; return V.A1[V.r],\
+    \ V.A2[V.r]\n    def append(V, v: tuple[_T1, _T2]): V.A1[V.r], V.A2[V.r] = v;\
+    \ V.r += 1\n    def popleft(V): V.l += 1; return V.A1[V.l-1], V.A2[V.l-1]\n  \
+    \  def appendleft(V, v: tuple[_T1, _T2]): V.l -= 1; V.A1[V.l], V.A2[V.l]  = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A1)\n"
+  code: "import cp_library.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
+    \ import _T1, _T2\nfrom cp_library.alg.iter.sort.isort_ranged_fn import isort_ranged\n\
+    import cp_library.ds.__header__\nimport cp_library.ds.view.__header__\n\nclass\
+    \ view2(Generic[_T1, _T2]):\n    __slots__ = 'A1', 'A2', 'l', 'r'\n    def __init__(V,\
+    \ A1: list[_T1], A2: list[_T2], l: int, r: int): V.A1, V.A2, V.l, V.r = A1, A2,\
+    \ l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int):\
+    \ \n        if 0 <= i < V.r - V.l: return V.A1[V.l+i], V.A2[V.l+i]\n        else:\
+    \ raise IndexError\n    def __setitem__(V, i: int, v: tuple[_T1, _T2]): V.A1[V.l+i],\
+    \ V.A2[V.l+i] = v\n    def __contains__(V, v: tuple[_T1, _T2]): raise NotImplemented\n\
+    \    def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_T1,\
+    \ _T2]): raise NotImplemented\n    def reverse(V):\n        l, r = V.l, V.r-1\n\
+    \        while l < r: V.A1[l], V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] =\
+    \ V.A2[r], V.A2[l]; l += 1; r -= 1\n    def sort(V, reverse=False): isort_ranged(V.A1,\
+    \ V.A2, l=V.l, r=V.r, reverse=reverse)\n    def pop(V): V.r -= 1; return V.A1[V.r],\
+    \ V.A2[V.r]\n    def append(V, v: tuple[_T1, _T2]): V.A1[V.r], V.A2[V.r] = v;\
+    \ V.r += 1\n    def popleft(V): V.l += 1; return V.A1[V.l-1], V.A2[V.l-1]\n  \
+    \  def appendleft(V, v: tuple[_T1, _T2]): V.l -= 1; V.A1[V.l], V.A2[V.l]  = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A1)"
   dependsOn:
   - cp_library/alg/iter/sort/isort_ranged_fn.py
   - cp_library/alg/iter/arg/argsort_ranged_fn.py
@@ -219,7 +220,7 @@ data:
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/view2.py
   - perf/csr2.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/shortest_path_fast_graph.test.py

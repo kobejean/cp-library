@@ -274,7 +274,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_group_points.test.py

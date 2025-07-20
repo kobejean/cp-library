@@ -132,8 +132,32 @@ data:
     path: cp_library/ds/view/csr2_cls.py
     title: cp_library/ds/view/csr2_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr3_cls.py
+    title: cp_library/ds/view/csr3_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr4_cls.py
+    title: cp_library/ds/view/csr4_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr5_cls.py
+    title: cp_library/ds/view/csr5_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr6_cls.py
+    title: cp_library/ds/view/csr6_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/view/view2_cls.py
     title: cp_library/ds/view/view2_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view3_cls.py
+    title: cp_library/ds/view/view3_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view4_cls.py
+    title: cp_library/ds/view/view4_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view5_cls.py
+    title: cp_library/ds/view/view5_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view6_cls.py
+    title: cp_library/ds/view/view6_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/wavelet/wm_bit_compressed_cls.py
     title: cp_library/ds/wavelet/wm_bit_compressed_cls.py
@@ -174,11 +198,17 @@ data:
     path: cp_library/math/invcnt_fn.py
     title: cp_library/math/invcnt_fn.py
   - icon: ':warning:'
-    path: cp_library/perf/examples/rank_benchmark.py
-    title: cp_library/perf/examples/rank_benchmark.py
+    path: perf/bit2.py
+    title: perf/bit2.py
+  - icon: ':warning:'
+    path: perf/bit6.py
+    title: perf/bit6.py
   - icon: ':warning:'
     path: perf/csr2.py
     title: perf/csr2.py
+  - icon: ':warning:'
+    path: perf/csr6.py
+    title: perf/csr6.py
   - icon: ':warning:'
     path: perf/edge_list.py
     title: perf/edge_list.py
@@ -186,11 +216,26 @@ data:
     path: perf/grid.py
     title: perf/grid.py
   - icon: ':warning:'
+    path: perf/list2.py
+    title: perf/list2.py
+  - icon: ':warning:'
+    path: perf/list6.py
+    title: perf/list6.py
+  - icon: ':warning:'
     path: perf/rank.py
     title: perf/rank.py
   - icon: ':warning:'
+    path: perf/segtree2.py
+    title: perf/segtree2.py
+  - icon: ':warning:'
+    path: perf/segtree6.py
+    title: perf/segtree6.py
+  - icon: ':warning:'
     path: perf/view2.py
     title: perf/view2.py
+  - icon: ':warning:'
+    path: perf/view6.py
+    title: perf/view6.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -376,8 +421,32 @@ data:
     path: test/unittests/ds/view/csr2_cls_test.py
     title: test/unittests/ds/view/csr2_cls_test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr3_cls_test.py
+    title: test/unittests/ds/view/csr3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr4_cls_test.py
+    title: test/unittests/ds/view/csr4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr5_cls_test.py
+    title: test/unittests/ds/view/csr5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr6_cls_test.py
+    title: test/unittests/ds/view/csr6_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/unittests/ds/view/view2_cls_test.py
     title: test/unittests/ds/view/view2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view3_cls_test.py
+    title: test/unittests/ds/view/view3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view4_cls_test.py
+    title: test/unittests/ds/view/view4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view5_cls_test.py
+    title: test/unittests/ds/view/view5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view6_cls_test.py
+    title: test/unittests/ds/view/view6_cls_test.py
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
@@ -427,8 +496,16 @@ data:
   - cp_library/ds/wavelet/wm_compressed_cls.py
   - cp_library/ds/wavelet/wm_monoid_points_cls.py
   - cp_library/ds/wavelet/wm_bit_compressed_cls.py
+  - cp_library/ds/view/csr3_cls.py
   - cp_library/ds/view/view2_cls.py
+  - cp_library/ds/view/view3_cls.py
+  - cp_library/ds/view/view5_cls.py
+  - cp_library/ds/view/view4_cls.py
+  - cp_library/ds/view/csr4_cls.py
+  - cp_library/ds/view/csr6_cls.py
   - cp_library/ds/view/csr2_cls.py
+  - cp_library/ds/view/csr5_cls.py
+  - cp_library/ds/view/view6_cls.py
   - cp_library/ds/grid/grid_cls.py
   - cp_library/ds/tree/seg/segtree4_cls.py
   - cp_library/ds/tree/seg/segtree6_cls.py
@@ -472,13 +549,20 @@ data:
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - cp_library/math/invcnt_fn.py
-  - cp_library/perf/examples/rank_benchmark.py
   - perf/view2.py
+  - perf/list6.py
   - perf/grid.py
   - perf/edge_list.py
+  - perf/bit6.py
+  - perf/segtree2.py
+  - perf/view6.py
+  - perf/csr6.py
+  - perf/segtree6.py
   - perf/csr2.py
+  - perf/bit2.py
   - perf/rank.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  - perf/list2.py
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py
@@ -507,8 +591,16 @@ data:
   - test/library-checker/data-structure/rectangle_sum_wm_weighted_compressed.test.py
   - test/library-checker/data-structure/range_kth_smallest_wm_compressed.test.py
   - test/yukicoder/3407.test.py
+  - test/unittests/ds/view/csr4_cls_test.py
+  - test/unittests/ds/view/csr5_cls_test.py
   - test/unittests/ds/view/view2_cls_test.py
   - test/unittests/ds/view/csr2_cls_test.py
+  - test/unittests/ds/view/view6_cls_test.py
+  - test/unittests/ds/view/csr6_cls_test.py
+  - test/unittests/ds/view/view5_cls_test.py
+  - test/unittests/ds/view/csr3_cls_test.py
+  - test/unittests/ds/view/view4_cls_test.py
+  - test/unittests/ds/view/view3_cls_test.py
   - test/unittests/ds/grid/grid_cls_test.py
   - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
   - test/unittests/ds/tree/seg/segtree2_cls_test.py

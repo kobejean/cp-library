@@ -16,9 +16,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
     \  \n'''\nfrom math import ceil, sqrt\nfrom typing import Iterable, Iterator,\
-    \ MutableSequence\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n\
-    _T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py\n\
+    \ MutableSequence\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py\n\
     class BucketList(MutableSequence[_T]):\n    BUCKET_RATIO = 16\n    SPLIT_RATIO\
     \ = 24\n    \n    def __init__(self, a: Iterable[_T] = []) -> None:\n        a\
     \ = list(a)\n        n = self.size = len(a)\n        num_bucket = int(ceil(sqrt(n\
@@ -120,7 +120,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bucket_list_cls.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/bucket_list_cls.py

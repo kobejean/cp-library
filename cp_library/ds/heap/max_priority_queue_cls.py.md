@@ -62,9 +62,9 @@ data:
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\nfrom typing import Generic\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1\
-    \ = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
-    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\nclass HeapProtocol(Generic[_T]):\n\
+    \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\nclass HeapProtocol(Generic[_T]):\n\
     \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
     \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
     \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
@@ -106,7 +106,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/max_priority_queue_cls.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/max_priority_queue_cls.py

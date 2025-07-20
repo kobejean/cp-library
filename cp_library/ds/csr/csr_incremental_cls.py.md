@@ -140,9 +140,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Sequence\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T\
-    \ = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
-    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    from typing import Sequence\nfrom typing import TypeVar\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n\nclass CSRIncremental(Sequence[list[_T]]):\n    def __init__(csr, sizes:\
     \ list[int]):\n        csr.L, N = [0]*len(sizes), 0\n        for i,sz in enumerate(sizes):\n\
     \            csr.L[i] = N; N += sz\n        csr.R, csr.A = csr.L[:], [0]*N\n\n\
@@ -181,7 +181,7 @@ data:
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/directedmst_edge_list.test.py

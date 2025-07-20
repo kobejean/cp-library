@@ -150,11 +150,20 @@ data:
     path: cp_library/ds/heap/skew_heap_forrest_cls.py
     title: cp_library/ds/heap/skew_heap_forrest_cls.py
   - icon: ':warning:'
+    path: cp_library/ds/que/que012_cls.py
+    title: cp_library/ds/que/que012_cls.py
+  - icon: ':warning:'
     path: cp_library/ds/que/que01_cls.py
     title: cp_library/ds/que/que01_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/que/que_cls.py
+    title: cp_library/ds/que/que_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/queries_mo_ops_cls.py
     title: cp_library/ds/queries_mo_ops_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/tree/ahocorasick_cls.py
+    title: cp_library/ds/tree/ahocorasick_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/minplus_conv_fn.py
     title: cp_library/math/conv/minplus_conv_fn.py
@@ -164,6 +173,9 @@ data:
   - icon: ':warning:'
     path: perf/edge_list.py
     title: perf/edge_list.py
+  - icon: ':warning:'
+    path: perf/que.py
+    title: perf/que.py
   - icon: ':warning:'
     path: play.py
     title: play.py
@@ -279,6 +291,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc361_e_tree_diameter.test.py
     title: test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
+    title: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   - icon: ':heavy_check_mark:'
     path: test/atcoder/abc/abc375_g_find_bridges.test.py
     title: test/atcoder/abc/abc375_g_find_bridges.test.py
@@ -406,11 +421,14 @@ data:
   path: cp_library/ds/elist_fn.py
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
+  - cp_library/ds/tree/ahocorasick_cls.py
   - cp_library/ds/heap/skew_heap_forrest_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
   - cp_library/ds/heap/max_priority_queue_cls.py
   - cp_library/ds/queries_mo_ops_cls.py
   - cp_library/ds/que/que01_cls.py
+  - cp_library/ds/que/que012_cls.py
+  - cp_library/ds/que/que_cls.py
   - cp_library/alg/dp/monotone_minima_fn.py
   - cp_library/alg/graph/set/graph_set_cls.py
   - cp_library/alg/graph/set/graph_proto.py
@@ -460,8 +478,9 @@ data:
   - cp_library/math/table/submasks_cls.py
   - cp_library/math/conv/minplus_conv_fn.py
   - play.py
+  - perf/que.py
   - perf/edge_list.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
@@ -528,6 +547,7 @@ data:
   - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
   - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py

@@ -35,9 +35,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n\
-    _T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\ndef heappush(heap:\
+    \               \n'''\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\ndef heappush(heap:\
     \ list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\
     \ndef heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0]\
     \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
@@ -191,7 +191,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/min_k_heap_cls.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_min_k_heap.test.py

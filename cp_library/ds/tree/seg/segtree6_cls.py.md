@@ -16,7 +16,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/seg/segtree_cls.py
     title: cp_library/ds/tree/seg/segtree_cls.py
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: perf/segtree6.py
+    title: perf/segtree6.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/unittests/ds/tree/seg/segtree6_cls_test.py
@@ -32,9 +35,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    _T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
-    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\n\n\n\ndef argsort(A: list[int],\
+    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\n\n\ndef argsort(A: list[int],\
     \ reverse=False):\n    P = Packer(len(I := list(A))-1); P.ienumerate(I, reverse);\
     \ I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    __slots__ =\
     \ 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length(); P.m = (1 << P.s)\
@@ -114,8 +117,9 @@ data:
   - cp_library/bit/pack/packer_cls.py
   isVerificationFile: false
   path: cp_library/ds/tree/seg/segtree6_cls.py
-  requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  requiredBy:
+  - perf/segtree6.py
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/seg/segtree6_cls_test.py

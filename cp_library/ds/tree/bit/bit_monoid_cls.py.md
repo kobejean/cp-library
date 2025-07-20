@@ -1,7 +1,13 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: perf/bit2.py
+    title: perf/bit2.py
+  - icon: ':warning:'
+    path: perf/bit6.py
+    title: perf/bit6.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
@@ -18,9 +24,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Callable, Generic, Union\nfrom typing import TypeVar\n_S =\
-    \ TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2\
-    \ = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
-    _T6 = TypeVar('T6')\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2\
+    \ = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
+    \ _T6 = TypeVar('T6')\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -71,31 +77,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data\
     \ Structure - Tree - Binary Index Tree            \n'''\n\nclass BITMonoid(Generic[_T]):\n\
     \    def __init__(bit, op: Callable[[_T,_T],_T], e: _T, v: Union[int,list[_T]]):\n\
-    \        if isinstance(v, int): bit.d, bit.n = [e]*v, v\n        else: bit.build(v)\n\
-    \        bit.op, bit.e = op, e\n\n    def __len__(bit) -> int:\n        return\
-    \ bit.n\n\n    def build(bit, d: list[_T]) -> None:\n        bit.d, bit.n = d,\
-    \ len(d)\n        for i in range(bit.n):\n            if (r := i|(i+1)) < bit.n:\
-    \ d[r] = bit.op(d[i], d[r])\n\n    def add(bit, i: int, x: _T) -> None:\n    \
-    \    assert 0 <= i < bit.n\n        while i < bit.n:\n            bit.d[i] = bit.op(bit.d[i],\
-    \ x)\n            i |= i+1\n\n    def sum(bit, r: int) -> _T:\n        assert\
-    \ 0 <= r <= bit.n\n        s = bit.e\n        while r: s, r = bit.op(s,bit.d[r-1]),\
-    \ r&r-1\n        return s\n       \n    def prelist(bit) -> list[_T]:\n      \
-    \  pre = [bit.e]+bit.d\n        for i in range(bit.n+1): pre[i] = bit.op(pre[i&(i-1)],\
-    \ pre[i])\n        return pre\n\n    def bisect_left(bit, v) -> int:\n       \
-    \ if v <= bit.e: return 0\n        i, s = 0, bit.e\n        ni = m = bit.lb\n\
-    \        while m:\n            if ni <= bit.n and (ns:=bit.op(s,bit.d[ni-1]))\
-    \ < v: s, i = ns, ni\n            ni = (m:=m>>1)|i\n        return i\n    \n \
-    \   def bisect_right(bit, v) -> int:\n        i, s = 0, bit.e\n        ni = m\
-    \ = bit.lb\n        while m:\n            if ni <= bit.n and (ns:=bit.op(s,bit.d[ni-1]))\
-    \ <= v: s, i = ns, ni\n            ni = (m:=m>>1)|i\n        return i\n"
-  code: "import cp_library.__header__\nfrom typing import Callable, Generic, Union\n\
-    from cp_library.misc.typing import _T\nimport cp_library.ds.__header__\nimport\
-    \ cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bit.__header__\n\n\
-    class BITMonoid(Generic[_T]):\n    def __init__(bit, op: Callable[[_T,_T],_T],\
-    \ e: _T, v: Union[int,list[_T]]):\n        if isinstance(v, int): bit.d, bit.n\
-    \ = [e]*v, v\n        else: bit.build(v)\n        bit.op, bit.e = op, e\n\n  \
-    \  def __len__(bit) -> int:\n        return bit.n\n\n    def build(bit, d: list[_T])\
-    \ -> None:\n        bit.d, bit.n = d, len(d)\n        for i in range(bit.n):\n\
+    \        bit.op, bit.e = op, e\n        if isinstance(v, int): bit.d, bit.n =\
+    \ [e]*v, v\n        else: bit.build(list(v))\n        bit.lb = 1<<bit.n.bit_length()\n\
+    \n    def __len__(bit) -> int:\n        return bit.n\n\n    def build(bit, d:\
+    \ list[_T]) -> None:\n        bit.d, bit.n = d, len(d)\n        for i in range(bit.n):\n\
     \            if (r := i|(i+1)) < bit.n: d[r] = bit.op(d[i], d[r])\n\n    def add(bit,\
     \ i: int, x: _T) -> None:\n        assert 0 <= i < bit.n\n        while i < bit.n:\n\
     \            bit.d[i] = bit.op(bit.d[i], x)\n            i |= i+1\n\n    def sum(bit,\
@@ -108,12 +93,36 @@ data:
     \ < v: s, i = ns, ni\n            ni = (m:=m>>1)|i\n        return i\n    \n \
     \   def bisect_right(bit, v) -> int:\n        i, s = 0, bit.e\n        ni = m\
     \ = bit.lb\n        while m:\n            if ni <= bit.n and (ns:=bit.op(s,bit.d[ni-1]))\
+    \ <= v: s, i = ns, ni\n            ni = (m:=m>>1)|i\n        return i\n"
+  code: "import cp_library.__header__\nfrom typing import Callable, Generic, Union\n\
+    from cp_library.misc.typing import _T\nimport cp_library.ds.__header__\nimport\
+    \ cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bit.__header__\n\n\
+    class BITMonoid(Generic[_T]):\n    def __init__(bit, op: Callable[[_T,_T],_T],\
+    \ e: _T, v: Union[int,list[_T]]):\n        bit.op, bit.e = op, e\n        if isinstance(v,\
+    \ int): bit.d, bit.n = [e]*v, v\n        else: bit.build(list(v))\n        bit.lb\
+    \ = 1<<bit.n.bit_length()\n\n    def __len__(bit) -> int:\n        return bit.n\n\
+    \n    def build(bit, d: list[_T]) -> None:\n        bit.d, bit.n = d, len(d)\n\
+    \        for i in range(bit.n):\n            if (r := i|(i+1)) < bit.n: d[r] =\
+    \ bit.op(d[i], d[r])\n\n    def add(bit, i: int, x: _T) -> None:\n        assert\
+    \ 0 <= i < bit.n\n        while i < bit.n:\n            bit.d[i] = bit.op(bit.d[i],\
+    \ x)\n            i |= i+1\n\n    def sum(bit, r: int) -> _T:\n        assert\
+    \ 0 <= r <= bit.n\n        s = bit.e\n        while r: s, r = bit.op(s,bit.d[r-1]),\
+    \ r&r-1\n        return s\n       \n    def prelist(bit) -> list[_T]:\n      \
+    \  pre = [bit.e]+bit.d\n        for i in range(bit.n+1): pre[i] = bit.op(pre[i&(i-1)],\
+    \ pre[i])\n        return pre\n\n    def bisect_left(bit, v) -> int:\n       \
+    \ if v <= bit.e: return 0\n        i, s = 0, bit.e\n        ni = m = bit.lb\n\
+    \        while m:\n            if ni <= bit.n and (ns:=bit.op(s,bit.d[ni-1]))\
+    \ < v: s, i = ns, ni\n            ni = (m:=m>>1)|i\n        return i\n    \n \
+    \   def bisect_right(bit, v) -> int:\n        i, s = 0, bit.e\n        ni = m\
+    \ = bit.lb\n        while m:\n            if ni <= bit.n and (ns:=bit.op(s,bit.d[ni-1]))\
     \ <= v: s, i = ns, ni\n            ni = (m:=m>>1)|i\n        return i"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bit_monoid_cls.py
-  requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  requiredBy:
+  - perf/bit6.py
+  - perf/bit2.py
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py

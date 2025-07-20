@@ -17,18 +17,6 @@ data:
     path: cp_library/ds/view/view2_cls.py
     title: cp_library/ds/view/view2_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/fast_io_cls.py
-    title: cp_library/io/fast_io_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/parser_cls.py
-    title: cp_library/io/parser_cls.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_fn.py
-    title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/write_fn.py
-    title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/test/unittest_helper.py
     title: cp_library/test/unittest_helper.py
   _extendedRequiredBy: []
@@ -37,16 +25,16 @@ data:
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    PROBLEM: https://judge.yosupo.jp/problem/aplusb
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A
     links:
-    - https://judge.yosupo.jp/problem/aplusb
-  bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/aplusb\n\
+    - https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A
+  bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\n\
     \nimport pytest\nimport random\n\nclass TestCSR2:\n    def test_initialization(self):\n\
     \        \"\"\"Test basic initialization of CSR2\"\"\"\n        A = [1, 2, 3,\
     \ 4, 5, 6]\n        B = [10, 20, 30, 40, 50, 60]\n        O = [0, 2, 4, 6]  #\
     \ 3 rows: [(1,10),(2,20)], [(3,30),(4,40)], [(5,50),(6,60)]\n        csr2 = CSR2(A,\
-    \ B, O)\n        \n        assert csr2.A is A\n        assert csr2.B is B\n  \
-    \      assert csr2.O is O\n        assert len(csr2) == 3\n\n    def test_len(self):\n\
+    \ B, O)\n        \n        assert csr2.A1 is A\n        assert csr2.A2 is B\n\
+    \        assert csr2.O is O\n        assert len(csr2) == 3\n\n    def test_len(self):\n\
     \        \"\"\"Test __len__ method\"\"\"\n        A = [1, 2, 3, 4, 5]\n      \
     \  B = [10, 20, 30, 40, 50]\n        O = [0, 2, 3, 5]  # 3 rows: [(1,10),(2,20)],\
     \ [(3,30)], [(4,40),(5,50)]\n        csr2 = CSR2(A, B, O)\n        \n        assert\
@@ -249,9 +237,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
     \    https://kobejean.github.io/cp-library               \n'''\nfrom typing import\
-    \ Generic\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n\
-    _T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\n\n\n\n\n\n\
+    \ Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U\
+    \ = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\n\n\n\n\
     def argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n    P = Packer(r-l-1);\
     \ I = [A[l+i] for i in range(r-l)]; P.ienumerate(I, reverse); I.sort()\n    for\
     \ i in range(r-l): I[i] = (I[i] & P.m) + l\n    return I\n\n\n\nclass Packer:\n\
@@ -269,205 +257,58 @@ data:
     \ i in range(n): inv[order[i]-l] = i\n    for i in range(n):\n        j = order[i]\
     \ - l  # j is in range [0, n)\n        for A in L: A[l+i], A[l+j] = A[l+j], A[l+i]\n\
     \        order[inv[i]], order[inv[j]] = order[inv[j]], order[inv[i]]\n       \
-    \ inv[i], inv[j] = inv[j], inv[i]\n    return L\n\nclass view2(Generic[_S, _T]):\n\
-    \    __slots__ = 'A', 'B', 'l', 'r'\n    def __init__(V, A: list[_S], B: list[_T],\
-    \ l: int, r: int): V.A, V.B, V.l, V.r = A, B, l, r\n    def __len__(V): return\
-    \ V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l:\
-    \ return V.A[V.l+i], V.B[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
-    \ i: int, v: tuple[_S, _T]): V.A[V.l+i], V.B[V.l+i] = v\n    def __contains__(V,\
-    \ v: tuple[_S, _T]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
-    \ V.l, V.r = l, r\n    def index(V, v: tuple[_S, _T]): raise NotImplemented\n\
-    \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A[l],\
-    \ V.A[r] = V.A[r], V.A[l]; V.B[l], V.B[r] = V.B[r], V.B[l]; l += 1; r -= 1\n \
-    \   def sort(V, reverse=False): isort_ranged(V.A, V.B, l=V.l, r=V.r, reverse=reverse)\n\
-    \    def pop(V): V.r -= 1; return V.A[V.r], V.B[V.r]\n    def append(V, v: tuple[_S,\
-    \ _T]): V.A[V.r], V.B[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return\
-    \ V.A[V.l-1], V.B[V.l-1]\n    def appendleft(V, v: tuple[_S, _T]): V.l -= 1; V.A[V.l],\
-    \ V.B[V.l]  = v; \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\n\
-    class CSR2(Generic[_T]):\n    __slots__ = 'A', 'B', 'O'\n    def __init__(csr,\
-    \ A: list[_S], B: list[_T], O: list[int]): csr.A, csr.B, csr.O = A, B, O\n   \
-    \ def __len__(csr): return len(csr.O)-1\n    def __getitem__(csr, i: int): return\
-    \ view2(csr.A, csr.B, csr.O[i], csr.O[i+1])\n    def __call__(csr, i: int, j:\
-    \ int): ij = csr.O[i]+j; return csr.A[ij], csr.B[ij]\n    def set(csr, i: int,\
-    \ j: int, v: _T): ij = csr.O[i]+j; csr.A[ij], csr.B[ij] = v\n    @classmethod\n\
-    \    def bucketize(cls, N: int, K: list[int], V: list[_T], W: list[_T]):\n   \
-    \     A: list[_S] = [0]*len(K); B: list[_T] = [0]*len(K); O = [0]*(N+1)\n    \
-    \    for k in K: O[k] += 1\n        for i in range(N): O[i+1] += O[i]\n      \
-    \  for e in range(len(K)): k = K[~e]; O[k] -= 1; A[O[k]] = V[~e]; B[O[k]] = W[~e]\n\
-    \        return cls(A, B, O)\n\nif __name__ == '__main__':\n    \"\"\"\n    Helper\
-    \ for making unittest files compatible with verification-helper.\n    \n    This\
-    \ module provides a helper function to run a dummy Library Checker test\n    so\
-    \ that unittest files can be verified by oj-verify.\n    \"\"\"\n    \n    def\
-    \ run_verification_helper_unittest():\n        \"\"\"\n        Run a dummy Library\
-    \ Checker test for verification-helper compatibility.\n        \n        This\
-    \ function should be called in the __main__ block of unittest files\n        that\
-    \ need to be compatible with verification-helper.\n        \n        The function:\n\
-    \        1. Reads A and B from input\n        2. Writes A+B to output  \n    \
-    \    3. If the result is the expected value (1198300249), runs pytest\n      \
-    \  4. Exits with the pytest result code\n        \"\"\"\n        import sys\n\
-    \        \n        \n        from typing import Type, Union, overload\n      \
-    \  \n        import typing\n        from collections import deque\n        from\
-    \ numbers import Number\n        from types import GenericAlias \n        from\
-    \ typing import Callable, Collection, Iterator, Union\n        \n        import\
-    \ os\n        import sys\n        from io import BytesIO, IOBase\n        \n \
-    \       \n        class FastIO(IOBase):\n            BUFSIZE = 8192\n        \
-    \    newlines = 0\n        \n            def __init__(self, file):\n         \
-    \       self._fd = file.fileno()\n                self.buffer = BytesIO()\n  \
-    \              self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \                self.write = self.buffer.write if self.writable else None\n \
-    \       \n            def read(self):\n                BUFSIZE = self.BUFSIZE\n\
-    \                while True:\n                    b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n                    if not b: break\n                    ptr = self.buffer.tell()\n\
-    \                    self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \                self.newlines = 0\n                return self.buffer.read()\n\
-    \        \n            def readline(self):\n                BUFSIZE = self.BUFSIZE\n\
-    \                while self.newlines == 0:\n                    b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n                    self.newlines\
-    \ = b.count(b\"\\n\") + (not b)\n                    ptr = self.buffer.tell()\n\
-    \                    self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \                self.newlines -= 1\n                return self.buffer.readline()\n\
-    \        \n            def flush(self):\n                if self.writable:\n \
-    \                   os.write(self._fd, self.buffer.getvalue())\n             \
-    \       self.buffer.truncate(0), self.buffer.seek(0)\n        \n        \n   \
-    \     class IOWrapper(IOBase):\n            stdin: 'IOWrapper' = None\n      \
-    \      stdout: 'IOWrapper' = None\n            \n            def __init__(self,\
-    \ file):\n                self.buffer = FastIO(file)\n                self.flush\
-    \ = self.buffer.flush\n                self.writable = self.buffer.writable\n\
-    \        \n            def write(self, s):\n                return self.buffer.write(s.encode(\"\
-    ascii\"))\n            \n            def read(self):\n                return self.buffer.read().decode(\"\
-    ascii\")\n            \n            def readline(self):\n                return\
-    \ self.buffer.readline().decode(\"ascii\")\n        try:\n            sys.stdin\
-    \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n            sys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n        except:\n            pass\n        \n     \
-    \   class TokenStream(Iterator):\n            stream = IOWrapper.stdin\n     \
-    \   \n            def __init__(self):\n                self.queue = deque()\n\
-    \        \n            def __next__(self):\n                if not self.queue:\
-    \ self.queue.extend(self._line())\n                return self.queue.popleft()\n\
-    \            \n            def wait(self):\n                if not self.queue:\
-    \ self.queue.extend(self._line())\n                while self.queue: yield\n \
-    \        \n            def _line(self):\n                return TokenStream.stream.readline().split()\n\
-    \        \n            def line(self):\n                if self.queue:\n     \
-    \               A = list(self.queue)\n                    self.queue.clear()\n\
-    \                    return A\n                return self._line()\n        TokenStream.default\
-    \ = TokenStream()\n        \n        class CharStream(TokenStream):\n        \
-    \    def _line(self):\n                return TokenStream.stream.readline().rstrip()\n\
-    \        CharStream.default = CharStream()\n        \n        ParseFn = Callable[[TokenStream],_T]\n\
-    \        class Parser:\n            def __init__(self, spec: Union[type[_T],_T]):\n\
-    \                self.parse = Parser.compile(spec)\n        \n            def\
-    \ __call__(self, ts: TokenStream) -> _T:\n                return self.parse(ts)\n\
-    \            \n            @staticmethod\n            def compile_type(cls: type[_T],\
-    \ args = ()) -> _T:\n                if issubclass(cls, Parsable):\n         \
-    \           return cls.compile(*args)\n                elif issubclass(cls, (Number,\
-    \ str)):\n                    def parse(ts: TokenStream): return cls(next(ts))\
-    \              \n                    return parse\n                elif issubclass(cls,\
-    \ tuple):\n                    return Parser.compile_tuple(cls, args)\n      \
-    \          elif issubclass(cls, Collection):\n                    return Parser.compile_collection(cls,\
-    \ args)\n                elif callable(cls):\n                    def parse(ts:\
-    \ TokenStream):\n                        return cls(next(ts))              \n\
-    \                    return parse\n                else:\n                   \
-    \ raise NotImplementedError()\n            \n            @staticmethod\n     \
-    \       def compile(spec: Union[type[_T],_T]=int) -> ParseFn[_T]:\n          \
-    \      if isinstance(spec, (type, GenericAlias)):\n                    cls = typing.get_origin(spec)\
-    \ or spec\n                    args = typing.get_args(spec) or tuple()\n     \
-    \               return Parser.compile_type(cls, args)\n                elif isinstance(offset\
-    \ := spec, Number): \n                    cls = type(spec)  \n               \
-    \     def parse(ts: TokenStream): return cls(next(ts)) + offset\n            \
-    \        return parse\n                elif isinstance(args := spec, tuple): \
-    \     \n                    return Parser.compile_tuple(type(spec), args)\n  \
-    \              elif isinstance(args := spec, Collection):\n                  \
-    \  return Parser.compile_collection(type(spec), args)\n                elif isinstance(fn\
-    \ := spec, Callable): \n                    def parse(ts: TokenStream): return\
-    \ fn(next(ts))\n                    return parse\n                else:\n    \
-    \                raise NotImplementedError()\n        \n            @staticmethod\n\
-    \            def compile_line(cls: _T, spec=int) -> ParseFn[_T]:\n           \
-    \     if spec is int:\n                    fn = Parser.compile(spec)\n       \
-    \             def parse(ts: TokenStream): return cls([int(token) for token in\
-    \ ts.line()])\n                    return parse\n                else:\n     \
-    \               fn = Parser.compile(spec)\n                    def parse(ts: TokenStream):\
-    \ return cls([fn(ts) for _ in ts.wait()])\n                    return parse\n\
-    \        \n            @staticmethod\n            def compile_repeat(cls: _T,\
-    \ spec, N) -> ParseFn[_T]:\n                fn = Parser.compile(spec)\n      \
-    \          def parse(ts: TokenStream): return cls([fn(ts) for _ in range(N)])\n\
-    \                return parse\n        \n            @staticmethod\n         \
-    \   def compile_children(cls: _T, specs) -> ParseFn[_T]:\n                fns\
-    \ = tuple((Parser.compile(spec) for spec in specs))\n                def parse(ts:\
-    \ TokenStream): return cls([fn(ts) for fn in fns])  \n                return parse\n\
-    \                    \n            @staticmethod\n            def compile_tuple(cls:\
-    \ type[_T], specs) -> ParseFn[_T]:\n                if isinstance(specs, (tuple,list))\
-    \ and len(specs) == 2 and specs[1] is ...:\n                    return Parser.compile_line(cls,\
-    \ specs[0])\n                else:\n                    return Parser.compile_children(cls,\
-    \ specs)\n        \n            @staticmethod\n            def compile_collection(cls,\
-    \ specs):\n                if not specs or len(specs) == 1 or isinstance(specs,\
-    \ set):\n                    return Parser.compile_line(cls, *specs)\n       \
-    \         elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
-    \ int)):\n                    return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \                else:\n                    raise NotImplementedError()\n    \
-    \    \n        class Parsable:\n            @classmethod\n            def compile(cls):\n\
-    \                def parser(ts: TokenStream): return cls(next(ts))\n         \
-    \       return parser\n            \n            @classmethod\n            def\
-    \ __class_getitem__(cls, item):\n                return GenericAlias(cls, item)\n\
-    \        \n        @overload\n        def read() -> list[int]: ...\n        @overload\n\
-    \        def read(spec: Type[_T], char=False) -> _T: ...\n        @overload\n\
-    \        def read(spec: _U, char=False) -> _U: ...\n        @overload\n      \
-    \  def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n        @overload\n\
-    \        def read(*specs: _U, char=False) -> tuple[_U, ...]: ...\n        def\
-    \ read(*specs: Union[Type[_T],_U], char=False):\n            if not char and not\
-    \ specs: return [int(s) for s in TokenStream.default.line()]\n            parser:\
-    \ _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n            return\
-    \ parser(CharStream.default if char else TokenStream.default)\n        \n    \
-    \    \n        import os\n        import sys\n        from io import BytesIO,\
-    \ IOBase\n        \n        \n        class FastIO(IOBase):\n            BUFSIZE\
-    \ = 8192\n            newlines = 0\n        \n            def __init__(self, file):\n\
-    \                self._fd = file.fileno()\n                self.buffer = BytesIO()\n\
-    \                self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \                self.write = self.buffer.write if self.writable else None\n \
-    \       \n            def read(self):\n                BUFSIZE = self.BUFSIZE\n\
-    \                while True:\n                    b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n                    if not b: break\n                    ptr = self.buffer.tell()\n\
-    \                    self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \                self.newlines = 0\n                return self.buffer.read()\n\
-    \        \n            def readline(self):\n                BUFSIZE = self.BUFSIZE\n\
-    \                while self.newlines == 0:\n                    b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n                    self.newlines\
-    \ = b.count(b\"\\n\") + (not b)\n                    ptr = self.buffer.tell()\n\
-    \                    self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \                self.newlines -= 1\n                return self.buffer.readline()\n\
-    \        \n            def flush(self):\n                if self.writable:\n \
-    \                   os.write(self._fd, self.buffer.getvalue())\n             \
-    \       self.buffer.truncate(0), self.buffer.seek(0)\n        \n        \n   \
-    \     class IOWrapper(IOBase):\n            stdin: 'IOWrapper' = None\n      \
-    \      stdout: 'IOWrapper' = None\n            \n            def __init__(self,\
-    \ file):\n                self.buffer = FastIO(file)\n                self.flush\
-    \ = self.buffer.flush\n                self.writable = self.buffer.writable\n\
-    \        \n            def write(self, s):\n                return self.buffer.write(s.encode(\"\
-    ascii\"))\n            \n            def read(self):\n                return self.buffer.read().decode(\"\
-    ascii\")\n            \n            def readline(self):\n                return\
-    \ self.buffer.readline().decode(\"ascii\")\n        try:\n            sys.stdin\
-    \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n            sys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\n        except:\n            pass\n        \n     \
-    \   def write(*args, **kwargs):\n            '''Prints the values to a stream,\
-    \ or to stdout_fast by default.'''\n            sep, file = kwargs.pop(\"sep\"\
-    , \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n            at_start = True\n\
-    \            for x in args:\n                if not at_start:\n              \
-    \      file.write(sep)\n                file.write(str(x))\n                at_start\
-    \ = False\n            file.write(kwargs.pop(\"end\", \"\\n\"))\n            if\
-    \ kwargs.pop(\"flush\", False):\n                file.flush()\n        \n    \
-    \    A, B = read()\n        write(C := A + B)\n        if C != 1198300249: \n\
-    \            sys.exit(0)\n        \n        import io\n        from contextlib\
-    \ import redirect_stdout, redirect_stderr\n    \n        # Capture all output\
-    \ during test execution\n        output = io.StringIO()\n        with redirect_stdout(output),\
-    \ redirect_stderr(output):\n            # Get the calling module's file path\n\
-    \            frame = sys._getframe(1)\n            test_file = frame.f_globals.get('__file__')\n\
-    \            if test_file is None:\n                test_file = sys.argv[0]\n\
-    \            result = pytest.main([test_file])\n        \n        if result !=\
-    \ 0: \n            print(output.getvalue())\n        sys.exit(result)\n    run_verification_helper_unittest()\n"
-  code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/aplusb\n\n\
-    import pytest\nimport random\n\nclass TestCSR2:\n    def test_initialization(self):\n\
+    \ inv[i], inv[j] = inv[j], inv[i]\n    return L\n\nclass view2(Generic[_T1, _T2]):\n\
+    \    __slots__ = 'A1', 'A2', 'l', 'r'\n    def __init__(V, A1: list[_T1], A2:\
+    \ list[_T2], l: int, r: int): V.A1, V.A2, V.l, V.r = A1, A2, l, r\n    def __len__(V):\
+    \ return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r\
+    \ - V.l: return V.A1[V.l+i], V.A2[V.l+i]\n        else: raise IndexError\n   \
+    \ def __setitem__(V, i: int, v: tuple[_T1, _T2]): V.A1[V.l+i], V.A2[V.l+i] = v\n\
+    \    def __contains__(V, v: tuple[_T1, _T2]): raise NotImplemented\n    def set_range(V,\
+    \ l: int, r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_T1, _T2]): raise\
+    \ NotImplemented\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while\
+    \ l < r: V.A1[l], V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] = V.A2[r], V.A2[l];\
+    \ l += 1; r -= 1\n    def sort(V, reverse=False): isort_ranged(V.A1, V.A2, l=V.l,\
+    \ r=V.r, reverse=reverse)\n    def pop(V): V.r -= 1; return V.A1[V.r], V.A2[V.r]\n\
+    \    def append(V, v: tuple[_T1, _T2]): V.A1[V.r], V.A2[V.r] = v; V.r += 1\n \
+    \   def popleft(V): V.l += 1; return V.A1[V.l-1], V.A2[V.l-1]\n    def appendleft(V,\
+    \ v: tuple[_T1, _T2]): V.l -= 1; V.A1[V.l], V.A2[V.l]  = v; \n    def validate(V):\
+    \ return 0 <= V.l <= V.r <= len(V.A1)\n\nclass CSR2(Generic[_T1, _T2]):\n    __slots__\
+    \ = 'A1', 'A2', 'O'\n    def __init__(csr, A1: list[_T1], A2: list[_T2], O: list[int]):\
+    \ csr.A1, csr.A2, csr.O = A1, A2, O\n    def __len__(csr): return len(csr.O)-1\n\
+    \    def __getitem__(csr, i: int): return view2(csr.A1, csr.A2, csr.O[i], csr.O[i+1])\n\
+    \    def __call__(csr, i: int, j: int): ij = csr.O[i]+j; return csr.A1[ij], csr.A2[ij]\n\
+    \    def set(csr, i: int, j: int, v: tuple[_T1, _T2]): ij = csr.O[i]+j; csr.A1[ij],\
+    \ csr.A2[ij] = v\n    @classmethod\n    def bucketize(cls, N: int, K: list[int],\
+    \ V1: list[_T1], V2: list[_T2]):\n        A1: list[_T1] = [0]*len(K); A2: list[_T2]\
+    \ = [0]*len(K); O = [0]*(N+1)\n        for k in K: O[k] += 1\n        for i in\
+    \ range(N): O[i+1] += O[i]\n        for e in range(len(K)): k = K[~e]; O[k] -=\
+    \ 1; A1[O[k]] = V1[~e]; A2[O[k]] = V2[~e]\n        return cls(A1, A2, O)\n\nif\
+    \ __name__ == '__main__':\n    \"\"\"\n    Helper for making unittest files compatible\
+    \ with verification-helper.\n    \n    This module provides a helper function\
+    \ to run a dummy Library Checker test\n    so that unittest files can be verified\
+    \ by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
+    \        \"\"\"\n        Run a dummy AOJ ITP1_1_A test for verification-helper\
+    \ compatibility.\n        \n        This function should be called in the __main__\
+    \ block of unittest files\n        that need to be compatible with verification-helper.\n\
+    \        \n        The function:\n        1. Prints \"Hello World\" (AOJ ITP1_1_A\
+    \ solution)\n        2. Runs pytest for the calling test file\n        3. Exits\
+    \ with the pytest result code\n        \"\"\"\n        import sys\n        \n\
+    \        # Print \"Hello World\" for AOJ ITP1_1_A problem\n        print(\"Hello\
+    \ World\")\n        \n        import io\n        from contextlib import redirect_stdout,\
+    \ redirect_stderr\n    \n        # Capture all output during test execution\n\
+    \        output = io.StringIO()\n        with redirect_stdout(output), redirect_stderr(output):\n\
+    \            # Get the calling module's file path\n            frame = sys._getframe(1)\n\
+    \            test_file = frame.f_globals.get('__file__')\n            if test_file\
+    \ is None:\n                test_file = sys.argv[0]\n            result = pytest.main([test_file])\n\
+    \        \n        if result != 0: \n            print(output.getvalue())\n  \
+    \      sys.exit(result)\n    run_verification_helper_unittest()\n"
+  code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\n\
+    \nimport pytest\nimport random\n\nclass TestCSR2:\n    def test_initialization(self):\n\
     \        \"\"\"Test basic initialization of CSR2\"\"\"\n        A = [1, 2, 3,\
     \ 4, 5, 6]\n        B = [10, 20, 30, 40, 50, 60]\n        O = [0, 2, 4, 6]  #\
     \ 3 rows: [(1,10),(2,20)], [(3,30),(4,40)], [(5,50),(6,60)]\n        csr2 = CSR2(A,\
-    \ B, O)\n        \n        assert csr2.A is A\n        assert csr2.B is B\n  \
-    \      assert csr2.O is O\n        assert len(csr2) == 3\n\n    def test_len(self):\n\
+    \ B, O)\n        \n        assert csr2.A1 is A\n        assert csr2.A2 is B\n\
+    \        assert csr2.O is O\n        assert len(csr2) == 3\n\n    def test_len(self):\n\
     \        \"\"\"Test __len__ method\"\"\"\n        A = [1, 2, 3, 4, 5]\n      \
     \  B = [10, 20, 30, 40, 50]\n        O = [0, 2, 3, 5]  # 3 rows: [(1,10),(2,20)],\
     \ [(3,30)], [(4,40),(5,50)]\n        csr2 = CSR2(A, B, O)\n        \n        assert\
@@ -670,17 +511,13 @@ data:
   - cp_library/ds/view/csr2_cls.py
   - cp_library/test/unittest_helper.py
   - cp_library/ds/view/view2_cls.py
-  - cp_library/io/read_fn.py
-  - cp_library/io/write_fn.py
   - cp_library/alg/iter/sort/isort_ranged_fn.py
-  - cp_library/io/parser_cls.py
-  - cp_library/io/fast_io_cls.py
   - cp_library/alg/iter/arg/argsort_ranged_fn.py
   - cp_library/bit/pack/packer_cls.py
   isVerificationFile: true
   path: test/unittests/ds/view/csr2_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/csr2_cls_test.py

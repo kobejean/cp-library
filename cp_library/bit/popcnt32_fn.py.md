@@ -203,7 +203,7 @@ data:
   - cp_library/alg/graph/bit/bit_graph_cls.py
   - cp_library/math/table/submasks_cls.py
   - perf/bool_list.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

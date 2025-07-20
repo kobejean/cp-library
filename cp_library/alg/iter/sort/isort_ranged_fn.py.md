@@ -51,14 +51,44 @@ data:
     path: cp_library/ds/view/csr2_cls.py
     title: cp_library/ds/view/csr2_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr3_cls.py
+    title: cp_library/ds/view/csr3_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr4_cls.py
+    title: cp_library/ds/view/csr4_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr5_cls.py
+    title: cp_library/ds/view/csr5_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/csr6_cls.py
+    title: cp_library/ds/view/csr6_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/view/view2_cls.py
     title: cp_library/ds/view/view2_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view3_cls.py
+    title: cp_library/ds/view/view3_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view4_cls.py
+    title: cp_library/ds/view/view4_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view5_cls.py
+    title: cp_library/ds/view/view5_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view6_cls.py
+    title: cp_library/ds/view/view6_cls.py
   - icon: ':warning:'
     path: perf/csr2.py
     title: perf/csr2.py
   - icon: ':warning:'
+    path: perf/csr6.py
+    title: perf/csr6.py
+  - icon: ':warning:'
     path: perf/view2.py
     title: perf/view2.py
+  - icon: ':warning:'
+    path: perf/view6.py
+    title: perf/view6.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -127,8 +157,32 @@ data:
     path: test/unittests/ds/view/csr2_cls_test.py
     title: test/unittests/ds/view/csr2_cls_test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr3_cls_test.py
+    title: test/unittests/ds/view/csr3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr4_cls_test.py
+    title: test/unittests/ds/view/csr4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr5_cls_test.py
+    title: test/unittests/ds/view/csr5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/csr6_cls_test.py
+    title: test/unittests/ds/view/csr6_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/unittests/ds/view/view2_cls_test.py
     title: test/unittests/ds/view/view2_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view3_cls_test.py
+    title: test/unittests/ds/view/view3_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view4_cls_test.py
+    title: test/unittests/ds/view/view4_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view5_cls_test.py
+    title: test/unittests/ds/view/view5_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/ds/view/view6_cls_test.py
+    title: test/unittests/ds/view/view6_cls_test.py
   - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
@@ -176,8 +230,16 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort/isort_ranged_fn.py
   requiredBy:
+  - cp_library/ds/view/csr3_cls.py
   - cp_library/ds/view/view2_cls.py
+  - cp_library/ds/view/view3_cls.py
+  - cp_library/ds/view/view5_cls.py
+  - cp_library/ds/view/view4_cls.py
+  - cp_library/ds/view/csr4_cls.py
+  - cp_library/ds/view/csr6_cls.py
   - cp_library/ds/view/csr2_cls.py
+  - cp_library/ds/view/csr5_cls.py
+  - cp_library/ds/view/view6_cls.py
   - cp_library/alg/graph/csr/graph_potential_cls.py
   - cp_library/alg/graph/csr/digraph_weighted_cls.py
   - cp_library/alg/graph/csr/graph_weighted_base_cls.py
@@ -192,8 +254,10 @@ data:
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/view2.py
+  - perf/view6.py
+  - perf/csr6.py
   - perf/csr2.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/shortest_path_fast_graph.test.py
@@ -203,8 +267,16 @@ data:
   - test/library-checker/tree/tree_path_composite_sum.test.py
   - test/library-checker/tree/tree_diameter.test.py
   - test/yukicoder/3407.test.py
+  - test/unittests/ds/view/csr4_cls_test.py
+  - test/unittests/ds/view/csr5_cls_test.py
   - test/unittests/ds/view/view2_cls_test.py
   - test/unittests/ds/view/csr2_cls_test.py
+  - test/unittests/ds/view/view6_cls_test.py
+  - test/unittests/ds/view/csr6_cls_test.py
+  - test/unittests/ds/view/view5_cls_test.py
+  - test/unittests/ds/view/csr3_cls_test.py
+  - test/unittests/ds/view/view4_cls_test.py
+  - test/unittests/ds/view/view3_cls_test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py

@@ -14,9 +14,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import MutableSequence\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
-    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    from typing import MutableSequence\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n\ndef ishift(A: MutableSequence[_T], offset=-1):\n    for i,a in enumerate(A):\
     \ A[i] = a+offset\n    return A\n"
   code: "import cp_library.__header__\nfrom typing import MutableSequence\nfrom cp_library.misc.typing\
@@ -27,7 +27,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/ishift_fn.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/ishift_fn.py

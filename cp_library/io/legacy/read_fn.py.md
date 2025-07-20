@@ -26,9 +26,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Type, Union\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
-    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    from typing import Type, Union\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \ndef read(spec: Union[Type[_T],_T]=[int]) -> _T:\n    stream = TokenStream()\n\
     \    parser = Parser.compile(spec)\n    return parser(stream)\n\nimport typing\n\
     from collections import deque\nfrom numbers import Number\nfrom types import GenericAlias\
@@ -121,7 +121,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/legacy/read_fn.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py

@@ -2,6 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/elist_fn.py
+    title: cp_library/ds/elist_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/que/que_cls.py
+    title: cp_library/ds/que/que_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/trie_cls.py
     title: cp_library/ds/tree/trie_cls.py
   _extendedRequiredBy: []
@@ -42,50 +48,60 @@ data:
     \ is not None else False\n\n    def __len__(T):\n        return T.cnt\n\n    def\
     \ __str__(T) -> str:\n        ret, node = [], T\n        while node.par:\n   \
     \         ret.append(node.chr); node = node.par\n        ret.reverse()\n     \
-    \   return \"\".join(ret)\n    \n\nclass AhoCorasick(Trie):\n    __slots__ = 'failed',\
-    \ 'freq'\n\n    def __init__(T):\n        super().__init__()\n        T.failed:\
-    \ Optional['AhoCorasick'] = None\n        T.freq: int = 0\n\n    def build(T):\n\
-    \        order: list[AhoCorasick] = T.bfs()\n        for node in order:\n    \
-    \        now: AhoCorasick = node.par\n            chr = node.chr\n           \
-    \ while now.failed:\n                if chr in now.failed.sub:\n             \
-    \       node.failed = now.failed.sub[chr]\n                    break\n       \
-    \         now = now.failed\n            else:\n                node.failed = T\n\
-    \        T.failed = T\n        return order\n\n    def freq_table(T, text: str)\
-    \ -> Counter[str, int]:\n        order = T.build()\n        order.reverse()\n\
-    \        node: AhoCorasick = T\n        for chr in text:\n            while node\
-    \ != T and chr not in node.sub:\n                node = node.failed\n        \
-    \    node = node.sub.get(chr, T)\n            node.freq += 1\n\n        output\
-    \ = Counter()\n        for node in order:\n            node.failed.freq += node.freq\n\
-    \            if node.word:\n                output[str(node)] = node.freq\n  \
-    \      return output\n\n    def bfs(T) -> list['Trie']:\n        order, que =\
-    \ [], deque([T])\n        while que:\n            order.extend(sub := que.popleft().sub.values())\n\
-    \            que.extend(sub)\n        return order\n"
+    \   return \"\".join(ret)\n    \n\n\nclass Que:\n    def __init__(que, v = None):\
+    \ que.q = elist(v) if isinstance(v, int) else list(v) if v else []; que.h = 0\n\
+    \    def push(que, item): que.q.append(item)\n    def pop(que): que.h = (h :=\
+    \ que.h) + 1; return que.q[h]\n    def extend(que, items): que.q.extend(items)\n\
+    \    def __getitem__(que, i: int): return que.q[que.h+i]\n    def __setitem__(que,\
+    \ i: int, v): que.q[que.h+i] = v\n    def __len__(que): return que.q.__len__()\
+    \ - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    class AhoCorasick(Trie):\n    __slots__ = 'failed', 'freq'\n\n    def __init__(T):\n\
+    \        super().__init__()\n        T.failed: Optional['AhoCorasick'] = None\n\
+    \        T.freq: int = 0\n\n    def build(T):\n        order: list[AhoCorasick]\
+    \ = T.bfs()\n        for node in order:\n            now: AhoCorasick = node.par\n\
+    \            chr = node.chr\n            while now.failed:\n                if\
+    \ chr in now.failed.sub:\n                    node.failed = now.failed.sub[chr]\n\
+    \                    break\n                now = now.failed\n            else:\n\
+    \                node.failed = T\n        T.failed = T\n        return order\n\
+    \n    def freq_table(T, text: str) -> Counter[str, int]:\n        order = T.build()\n\
+    \        order.reverse()\n        node: AhoCorasick = T\n        for chr in text:\n\
+    \            while node != T and chr not in node.sub:\n                node =\
+    \ node.failed\n            node = node.sub.get(chr, T)\n            node.freq\
+    \ += 1\n\n        output = Counter()\n        for node in order:\n           \
+    \ node.failed.freq += node.freq\n            if node.word:\n                output[str(node)]\
+    \ = node.freq\n        return output\n\n    def bfs(T) -> list['Trie']:\n    \
+    \    order, que = [], Que([T])\n        while que:\n            order.extend(sub\
+    \ := que.pop().sub.values())\n            que.extend(sub)\n        return order\n"
   code: "import cp_library.__header__\nfrom typing import Optional\nfrom collections\
     \ import Counter, deque\nimport cp_library.ds.__header__\nimport cp_library.ds.tree.__header__\n\
-    from cp_library.ds.tree.trie_cls import Trie\n\nclass AhoCorasick(Trie):\n   \
-    \ __slots__ = 'failed', 'freq'\n\n    def __init__(T):\n        super().__init__()\n\
-    \        T.failed: Optional['AhoCorasick'] = None\n        T.freq: int = 0\n\n\
-    \    def build(T):\n        order: list[AhoCorasick] = T.bfs()\n        for node\
-    \ in order:\n            now: AhoCorasick = node.par\n            chr = node.chr\n\
-    \            while now.failed:\n                if chr in now.failed.sub:\n  \
-    \                  node.failed = now.failed.sub[chr]\n                    break\n\
-    \                now = now.failed\n            else:\n                node.failed\
-    \ = T\n        T.failed = T\n        return order\n\n    def freq_table(T, text:\
-    \ str) -> Counter[str, int]:\n        order = T.build()\n        order.reverse()\n\
-    \        node: AhoCorasick = T\n        for chr in text:\n            while node\
-    \ != T and chr not in node.sub:\n                node = node.failed\n        \
-    \    node = node.sub.get(chr, T)\n            node.freq += 1\n\n        output\
-    \ = Counter()\n        for node in order:\n            node.failed.freq += node.freq\n\
-    \            if node.word:\n                output[str(node)] = node.freq\n  \
-    \      return output\n\n    def bfs(T) -> list['Trie']:\n        order, que =\
-    \ [], deque([T])\n        while que:\n            order.extend(sub := que.popleft().sub.values())\n\
-    \            que.extend(sub)\n        return order\n"
+    from cp_library.ds.tree.trie_cls import Trie\nfrom cp_library.ds.que.que_cls import\
+    \ Que\n\nclass AhoCorasick(Trie):\n    __slots__ = 'failed', 'freq'\n\n    def\
+    \ __init__(T):\n        super().__init__()\n        T.failed: Optional['AhoCorasick']\
+    \ = None\n        T.freq: int = 0\n\n    def build(T):\n        order: list[AhoCorasick]\
+    \ = T.bfs()\n        for node in order:\n            now: AhoCorasick = node.par\n\
+    \            chr = node.chr\n            while now.failed:\n                if\
+    \ chr in now.failed.sub:\n                    node.failed = now.failed.sub[chr]\n\
+    \                    break\n                now = now.failed\n            else:\n\
+    \                node.failed = T\n        T.failed = T\n        return order\n\
+    \n    def freq_table(T, text: str) -> Counter[str, int]:\n        order = T.build()\n\
+    \        order.reverse()\n        node: AhoCorasick = T\n        for chr in text:\n\
+    \            while node != T and chr not in node.sub:\n                node =\
+    \ node.failed\n            node = node.sub.get(chr, T)\n            node.freq\
+    \ += 1\n\n        output = Counter()\n        for node in order:\n           \
+    \ node.failed.freq += node.freq\n            if node.word:\n                output[str(node)]\
+    \ = node.freq\n        return output\n\n    def bfs(T) -> list['Trie']:\n    \
+    \    order, que = [], Que([T])\n        while que:\n            order.extend(sub\
+    \ := que.pop().sub.values())\n            que.extend(sub)\n        return order\n"
   dependsOn:
   - cp_library/ds/tree/trie_cls.py
+  - cp_library/ds/que/que_cls.py
+  - cp_library/ds/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/tree/ahocorasick_cls.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py

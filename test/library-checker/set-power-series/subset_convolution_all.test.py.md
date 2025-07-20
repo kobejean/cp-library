@@ -77,9 +77,9 @@ data:
     \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
     ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
     \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
-    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
-    _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
+    \ _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
     \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
     \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
@@ -318,143 +318,197 @@ data:
     \ in range(0,Z,M):\n            for j in range(0,Z-i,M):\n                ij =\
     \ i+j\n                for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]\n    \
     \    subset_mobius(Cr, N)\n        for i,p in enumerate(P): A[i] = Cr[p<<N|i]\n\
-    \        return A\n    \n        \n    class mint(int):\n        mod: int\n  \
-    \      zero: 'mint'\n        one: 'mint'\n        two: 'mint'\n        cache:\
-    \ list['mint']\n    \n        def __new__(cls, *args, **kwargs):\n           \
-    \ if 0 <= (x := int(*args, **kwargs)) < 64:\n                return cls.cache[x]\n\
-    \            else:\n                return cls.fix(x)\n    \n        @classmethod\n\
-    \        def set_mod(cls, mod: int):\n            mint.mod = cls.mod = mod\n \
-    \           mint.zero = cls.zero = cls.cast(0)\n            mint.one = cls.one\
-    \ = cls.fix(1)\n            mint.two = cls.two = cls.fix(2)\n            mint.cache\
-    \ = cls.cache = [cls.zero, cls.one, cls.two]\n            for x in range(3,64):\
-    \ mint.cache.append(cls.fix(x))\n    \n        @classmethod\n        def fix(cls,\
-    \ x): return cls.cast(x%cls.mod)\n    \n        @classmethod\n        def cast(cls,\
-    \ x): return super().__new__(cls,x)\n    \n        @classmethod\n        def mod_inv(cls,\
-    \ x):\n            a,b,s,t = int(x), cls.mod, 1, 0\n            while b: a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n            if a == 1: return cls.fix(s)\n            raise\
-    \ ValueError(f\"{x} is not invertible in mod {cls.mod}\")\n        \n        @property\n\
-    \        def inv(self): return mint.mod_inv(self)\n    \n        def __add__(self,\
-    \ x): return mint.fix(super().__add__(x))\n        def __radd__(self, x): return\
-    \ mint.fix(super().__radd__(x))\n        def __sub__(self, x): return mint.fix(super().__sub__(x))\n\
-    \        def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n       \
-    \ def __mul__(self, x): return mint.fix(super().__mul__(x))\n        def __rmul__(self,\
-    \ x): return mint.fix(super().__rmul__(x))\n        def __floordiv__(self, x):\
-    \ return self * mint.mod_inv(x)\n        def __rfloordiv__(self, x): return self.inv\
-    \ * x\n        def __truediv__(self, x): return self * mint.mod_inv(x)\n     \
-    \   def __rtruediv__(self, x): return self.inv * x\n        def __pow__(self,\
-    \ x): \n            return self.cast(super().__pow__(x, self.mod))\n        def\
-    \ __neg__(self): return mint.mod-self\n        def __pos__(self): return self\n\
-    \        def __abs__(self): return self\n        def __class_getitem__(self, x:\
-    \ int): return self.cache[x]\n    mint.set_mod(mod)\n    F = read(list[mint])\n\
-    \    G = read(list[mint])\n    write(*subset_conv(F, G, N))\nelse:\n    \n   \
-    \ '''\n    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \        return A\n    \n    \n        \n    class mint(int):\n        mod: int\n\
+    \        zero: 'mint'\n        one: 'mint'\n        two: 'mint'\n        cache:\
+    \ list['mint']\n        def __new__(cls, *args, **kwargs):\n            if 0 <=\
+    \ (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n            else: return\
+    \ cls.fix(x)\n        @classmethod\n        def set_mod(cls, mod: int):\n    \
+    \        mint.mod = cls.mod = mod\n            mint.zero = cls.zero = cls.cast(0)\n\
+    \            mint.one = cls.one = cls.fix(1)\n            mint.two = cls.two =\
+    \ cls.fix(2)\n            mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n\
+    \            for x in range(3,64): mint.cache.append(cls.fix(x))\n        @classmethod\n\
+    \        def fix(cls, x): return cls.cast(x%cls.mod)\n        @classmethod\n \
+    \       def cast(cls, x): return super().__new__(cls,x)\n        @classmethod\n\
+    \        def mod_inv(cls, x):\n            a,b,s,t = int(x), cls.mod, 1, 0\n \
+    \           while b: a,b,s,t = b,a%b,t,s-a//b*t\n            if a == 1: return\
+    \ cls.fix(s)\n            raise ValueError(f\"{x} is not invertible in mod {cls.mod}\"\
+    )\n        @property\n        def inv(self): return mint.mod_inv(self)\n     \
+    \   def __add__(self, x): return mint.fix(super().__add__(x))\n        def __radd__(self,\
+    \ x): return mint.fix(super().__radd__(x))\n        def __sub__(self, x): return\
+    \ mint.fix(super().__sub__(x))\n        def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n\
+    \        def __mul__(self, x): return mint.fix(super().__mul__(x))\n        def\
+    \ __rmul__(self, x): return mint.fix(super().__rmul__(x))\n        def __floordiv__(self,\
+    \ x): return self * mint.mod_inv(x)\n        def __rfloordiv__(self, x): return\
+    \ self.inv * x\n        def __truediv__(self, x): return self * mint.mod_inv(x)\n\
+    \        def __rtruediv__(self, x): return self.inv * x\n        def __pow__(self,\
+    \ x): return self.cast(super().__pow__(x, self.mod))\n        def __neg__(self):\
+    \ return mint.mod-self\n        def __pos__(self): return self\n        def __abs__(self):\
+    \ return self\n        def __class_getitem__(self, x: int): return self.cache[x]\n\
+    \    mint.set_mod(mod)\n    F = read(list[mint])\n    G = read(list[mint])\n \
+    \   write(*subset_conv(F, G, N))\nelse:\n    \n    '''\n    \u257A\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n        x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n        x\u2080 \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2080\n       \
+    \             \u2573          \u2572 \u2571          \u2572     \u2571       \
+    \   \n        x\u2084 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\
+    \u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25BA X\u2081\n                               \u2573 \u2573          \u2572 \u2572\
+    \ \u2571 \u2571          \n        x\u2082 \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2572\u2500\u2573\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25BA X\u2082\n                    \u2573          \u2571\
+    \ \u2572          \u2572 \u2573 \u2573 \u2571          \n        x\u2086 \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\u2500\u2573\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2083\n       \
+    \                                     \u2573 \u2573 \u2573 \u2573         \n \
+    \       x\u2081 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\
+    \u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X\u2084\n                    \u2573          \u2572 \u2571          \u2571 \u2573\
+    \ \u2573 \u2572          \n        x\u2085 \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2571\u2500\u2573\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25BA X\u2085\n                               \u2573\
+    \ \u2573          \u2571 \u2571 \u2572 \u2572          \n        x\u2083 \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\u2500\u2500\u2500\u2572\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2086\n       \
+    \             \u2573          \u2571 \u2572          \u2571     \u2572       \
+    \   \n        x\u2087 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
     \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
     \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25BA X\u2080\n                    \u2573          \u2572 \u2571          \u2572\
-    \     \u2571          \n        x\u2084 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2572\u2500\u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25BA X\u2081\n                               \u2573 \u2573\
-    \          \u2572 \u2572 \u2571 \u2571          \n        x\u2082 \u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\u2573\u2500\u2571\u2500\u25CF\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2082\n             \
-    \       \u2573          \u2571 \u2572          \u2572 \u2573 \u2573 \u2571   \
-    \       \n        x\u2086 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\
-    \u2500\u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25BA X\u2083\n                                            \u2573 \u2573\
-    \ \u2573 \u2573         \n        x\u2081 \u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25CF\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25BA X\u2084\n                    \u2573          \u2572\
-    \ \u2571          \u2571 \u2573 \u2573 \u2572          \n        x\u2085 \u2500\
+    \u25BA X\u2087\n    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n                          Math - Convolution                   \
+    \  \n    '''\n    \n    \n    \n    def popcnts(N):\n        P = [0]*(1 << N)\n\
+    \        for i in range(N):\n            for m in range(b := 1<<i):\n        \
+    \        P[m^b] = P[m] + 1\n        return P\n    \n    '''\n    \u257A\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n        x\u2080 \u2500\
     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\u2500\u2573\u2500\u2572\u2500\
-    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2085\n       \
-    \                        \u2573 \u2573          \u2571 \u2571 \u2572 \u2572  \
-    \        \n        x\u2083 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\
-    \u2500\u2500\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25BA X\u2086\n                    \u2573          \u2571 \u2572      \
-    \    \u2571     \u2572          \n        x\u2087 \u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25BA X\u2087\n    \u257A\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                          Math - Convolution\
-    \                     \n    '''\n    \n    \n    \n    def popcnts(N):\n     \
-    \   P = [0]*(1 << N)\n        for i in range(N):\n            for m in range(b\
-    \ := 1<<i):\n                P[m^b] = P[m] + 1\n        return P\n    \n    '''\n\
-    \    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \     x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2080\n       \
+    \             \u2573          \u2572 \u2571          \u2572     \u2571       \
+    \   \n        x\u2084 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\
+    \u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25BA X\u2081\n                               \u2573 \u2573          \u2572 \u2572\
+    \ \u2571 \u2571          \n        x\u2082 \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2572\u2500\u2573\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25BA X\u2082\n                    \u2573          \u2571\
+    \ \u2572          \u2572 \u2573 \u2573 \u2571          \n        x\u2086 \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\u2500\u2573\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2083\n       \
+    \                                     \u2573 \u2573 \u2573 \u2573         \n \
+    \       x\u2081 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\
     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
-    \ X\u2080\n                    \u2573          \u2572 \u2571          \u2572 \
-    \    \u2571          \n        x\u2084 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2572\u2500\u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25BA X\u2081\n                               \u2573 \u2573\
-    \          \u2572 \u2572 \u2571 \u2571          \n        x\u2082 \u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\u2573\u2500\u2571\u2500\u25CF\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2082\n             \
-    \       \u2573          \u2571 \u2572          \u2572 \u2573 \u2573 \u2571   \
-    \       \n        x\u2086 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\
-    \u2500\u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25BA X\u2083\n                                            \u2573 \u2573\
-    \ \u2573 \u2573         \n        x\u2081 \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\
+    \u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X\u2084\n                    \u2573          \u2572 \u2571          \u2571 \u2573\
+    \ \u2573 \u2572          \n        x\u2085 \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2571\u2500\u2573\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25BA X\u2085\n                               \u2573\
+    \ \u2573          \u2571 \u2571 \u2572 \u2572          \n        x\u2083 \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\u2500\u2500\u2500\u2572\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2086\n       \
+    \             \u2573          \u2571 \u2572          \u2571     \u2572       \
+    \   \n        x\u2087 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25BA X\u2087\n    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2578\n                          Math - Convolution                   \
+    \  \n    '''\n    \n    '''\n    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2578\n        x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25BA X\u2080\n                    \u2573          \u2572\
+    \ \u2571          \u2572     \u2571          \n        x\u2084 \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2572\u2500\u2500\u2500\u2571\u2500\u25CF\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2081\n                   \
+    \            \u2573 \u2573          \u2572 \u2572 \u2571 \u2571          \n  \
+    \      x\u2082 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\u2573\
+    \u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
+    \ X\u2082\n                    \u2573          \u2571 \u2572          \u2572 \u2573\
+    \ \u2573 \u2571          \n        x\u2086 \u2500\u2500\u2500\u2500\u2500\u2500\
     \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u25CF\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25BA X\u2084\n                    \u2573          \u2572\
-    \ \u2571          \u2571 \u2573 \u2573 \u2572          \n        x\u2085 \u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\u2500\u2573\u2500\u2572\u2500\
-    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2085\n       \
-    \                        \u2573 \u2573          \u2571 \u2571 \u2572 \u2572  \
-    \        \n        x\u2083 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\
-    \u2500\u2500\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25BA X\u2086\n                    \u2573          \u2571 \u2572      \
-    \    \u2571     \u2572          \n        x\u2087 \u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25BA X\u2087\n    \u257A\u2501\u2501\u2501\u2501\
+    \u2500\u2500\u2500\u2500\u25BA X\u2083\n                                     \
+    \       \u2573 \u2573 \u2573 \u2573         \n        x\u2081 \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u25CF\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2084\n                   \
+    \ \u2573          \u2572 \u2571          \u2571 \u2573 \u2573 \u2572         \
+    \ \n        x\u2085 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\u2500\
+    \u2573\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25BA X\u2085\n                               \u2573 \u2573          \u2571 \u2571\
+    \ \u2572 \u2572          \n        x\u2083 \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2571\u2500\u2500\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25BA X\u2086\n                    \u2573          \u2571\
+    \ \u2572          \u2571     \u2572          \n        x\u2087 \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2087\n    \u257A\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                          Math - Convolution\
-    \                     \n    '''\n    \n    '''\n    \u257A\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     \
+    \     Math - Convolution                     \n    '''\n    \n    def subset_zeta_pair(A:\
+    \ list[int], B: list[int], N: int):\n        Z = len(A)\n        for i in range(N):\n\
+    \            m = b = 1<<i\n            while m < Z: A[m] += A[m^b]; B[m] += B[m^b];\
+    \ m = m+1|b\n        return A, B\n    \n    '''\n    \u257A\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -507,76 +561,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n                          Math - Convolution                     \n  \
-    \  '''\n    \n    def subset_zeta_pair(A: list[int], B: list[int], N: int):\n\
-    \        Z = len(A)\n        for i in range(N):\n            m = b = 1<<i\n  \
-    \          while m < Z: A[m] += A[m^b]; B[m] += B[m^b]; m = m+1|b\n        return\
-    \ A, B\n    \n    '''\n    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n        x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25BA X\u2080\n                    \u2573          \u2572 \u2571\
-    \          \u2572     \u2571          \n        x\u2084 \u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2572\u2500\u2500\u2500\u2571\u2500\u25CF\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2081\n                         \
-    \      \u2573 \u2573          \u2572 \u2572 \u2571 \u2571          \n        x\u2082\
-    \ \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\u2573\u2500\u2571\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2082\n \
-    \                   \u2573          \u2571 \u2572          \u2572 \u2573 \u2573\
-    \ \u2571          \n        x\u2086 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2573\u2500\u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25BA X\u2083\n                                           \
-    \ \u2573 \u2573 \u2573 \u2573         \n        x\u2081 \u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u25CF\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2084\n                    \u2573\
-    \          \u2572 \u2571          \u2571 \u2573 \u2573 \u2572          \n    \
-    \    x\u2085 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\u2500\u2573\
-    \u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA\
-    \ X\u2085\n                               \u2573 \u2573          \u2571 \u2571\
-    \ \u2572 \u2572          \n        x\u2083 \u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25CF\u2500\u2571\u2500\u2500\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25BA X\u2086\n                    \u2573          \u2571\
-    \ \u2572          \u2571     \u2572          \n        x\u2087 \u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2087\n    \u257A\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                     \
-    \     Math - Convolution                     \n    '''\n    \n    def subset_mobius(A:\
-    \ list[int], N: int):\n        Z = len(A)\n        for i in range(N):\n      \
-    \      m = b = 1<<i\n            while m < Z: A[m] -= A[m^b]; m = m+1|b\n    \
-    \    return A\n    \n    \n    def isubset_conv(A: list[int], B: list[int], N:\
-    \ int, mod: int) -> list[int]:\n        assert len(A) == len(B)\n        Z = (N+1)*(M\
-    \ := 1<<N)\n        Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n        for\
-    \ i,p in enumerate(P):\n            P[i] = p = p<<N|i\n            Ar[p], Br[p]\
-    \ = A[i], B[i]\n        subset_zeta_pair(Ar, Br, N)\n        for i in range(Z):\
-    \ Ar[i], Br[i] = Ar[i]%mod, Br[i]%mod\n        for i in range(0,Z,M):\n      \
-    \      for j in range(0,Z-i,M):\n                ij = i+j\n                for\
-    \ k in range(M): Cr[ijk] = (Cr[ijk:=ij|k] + Ar[i|k] * Br[j|k]) % mod\n       \
-    \ subset_mobius(Cr, N)\n        for i,p in enumerate(P): A[i] = Cr[p] % mod\n\
-    \        return A\n    \n    def subset_conv(A: list[int], B: list[int], N: int,\
-    \ mod: int) -> list[int]:\n        return isubset_conv(list(A), B, N, mod)\n \
-    \   \n    F = read(list[int])\n    G = read(list[int])\n    write(*subset_conv(F,\
+    \  '''\n    \n    def subset_mobius(A: list[int], N: int):\n        Z = len(A)\n\
+    \        for i in range(N):\n            m = b = 1<<i\n            while m < Z:\
+    \ A[m] -= A[m^b]; m = m+1|b\n        return A\n    \n    \n    def isubset_conv(A:\
+    \ list[int], B: list[int], N: int, mod: int) -> list[int]:\n        assert len(A)\
+    \ == len(B)\n        Z = (N+1)*(M := 1<<N)\n        Ar,Br,Cr,P = [0]*Z, [0]*Z,\
+    \ [0]*Z, popcnts(N)\n        for i,p in enumerate(P):\n            P[i] = p =\
+    \ p<<N|i\n            Ar[p], Br[p] = A[i], B[i]\n        subset_zeta_pair(Ar,\
+    \ Br, N)\n        for i in range(Z): Ar[i], Br[i] = Ar[i]%mod, Br[i]%mod\n   \
+    \     for i in range(0,Z,M):\n            for j in range(0,Z-i,M):\n         \
+    \       ij = i+j\n                for k in range(M): Cr[ijk] = (Cr[ijk:=ij|k]\
+    \ + Ar[i|k] * Br[j|k]) % mod\n        subset_mobius(Cr, N)\n        for i,p in\
+    \ enumerate(P): A[i] = Cr[p] % mod\n        return A\n    \n    def subset_conv(A:\
+    \ list[int], B: list[int], N: int, mod: int) -> list[int]:\n        return isubset_conv(list(A),\
+    \ B, N, mod)\n    \n    F = read(list[int])\n    G = read(list[int])\n    write(*subset_conv(F,\
     \ G, N, mod))\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
     from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
@@ -601,7 +599,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution_all.test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution_all.test.py

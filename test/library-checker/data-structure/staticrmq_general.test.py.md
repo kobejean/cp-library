@@ -29,9 +29,9 @@ data:
     \ min2(a, b):\n    return a if a < b else b\n\ndef main():\n    N, Q = rd(), rd()\n\
     \    A = rdl(N)\n    st = SparseTable(min2, A)\n    for _ in range(Q):\n     \
     \   wtn(st.query(rd(),rd()))\n\nfrom typing import Generic, Callable\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1\
-    \ = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
-    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\n\nclass SparseTable(Generic[_T]):\n\
+    \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\nclass SparseTable(Generic[_T]):\n\
     \    def __init__(st, op: Callable[[_T,_T],_T], arr: list[_T]):\n        st.N\
     \ = N = len(arr)\n        st.log, st.op = N.bit_length(), op\n        st.data\
     \ = [0] * (st.log*N)\n        st.data[:N] = arr\n        for i in range(1,st.log):\n\
@@ -74,7 +74,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/staticrmq_general.test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/staticrmq_general.test.py

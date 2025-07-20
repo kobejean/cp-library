@@ -13,20 +13,20 @@ data:
     \ 16):\n    def decorator(func: F) -> F:\n        K, V = [], []\n        @wraps(func)\n\
     \        def wrapper(arg):\n            if len(K) > max_size: return func(arg)\n\
     \            try:\n                return V[K.index(arg)]\n            except:\n\
-    \                result = func(arg)\n                K.append(arg); V.append(result)\n\
-    \                return result\n        return wrapper\n    return decorator\n"
+    \                K.append(arg); V.append(result := func(arg))\n              \
+    \  return result\n        return wrapper\n    return decorator\n"
   code: "from functools import wraps\nfrom typing import Any, Callable, TypeVar\n\n\
     F = TypeVar('F', bound=Callable[..., Any])\n\ndef list_cache(max_size: int = 16):\n\
     \    def decorator(func: F) -> F:\n        K, V = [], []\n        @wraps(func)\n\
     \        def wrapper(arg):\n            if len(K) > max_size: return func(arg)\n\
     \            try:\n                return V[K.index(arg)]\n            except:\n\
-    \                result = func(arg)\n                K.append(arg); V.append(result)\n\
-    \                return result\n        return wrapper\n    return decorator"
+    \                K.append(arg); V.append(result := func(arg))\n              \
+    \  return result\n        return wrapper\n    return decorator"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/misc/decorators/list_cache_fn.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/misc/decorators/list_cache_fn.py

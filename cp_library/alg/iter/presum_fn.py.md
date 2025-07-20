@@ -66,9 +66,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     import operator\nfrom itertools import accumulate\nfrom typing import Callable,\
-    \ Iterable\n\n\nfrom typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n\
-    _U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n\
-    _T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\ndef presum(iter:\
+    \ Iterable\n\n\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\ndef presum(iter:\
     \ Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = None, step =\
     \ 1) -> list[_T]:\n    if step == 1:\n        return list(accumulate(iter, func,\
     \ initial=initial))\n    else:\n        assert step >= 2\n        if func is None:\n\
@@ -93,7 +93,7 @@ data:
   - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - cp_library/alg/tree/csr/aux_tree_base_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/lca.test.py

@@ -17,29 +17,27 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nclass que01:\n    def __init__(self, hint=None):\n        if hint: self.q0,\
-    \ self.q1 = elist(hint), elist(hint)\n        else: self.q0, self.q1 = [], []\n\
-    \        \n    def push0(self, item):\n        self.q0.append(item)\n\n    def\
-    \ push1(self, item):\n        self.q1.append(item)\n    \n    def pop(self):\n\
-    \        if self.q0: return self.q0.pop()\n        self.q0, self.q1 = self.q1,\
-    \ self.q0\n        return self.q0.pop()\n\n    def __len__(self):\n        return\
-    \ len(self.q0) + len(self.q1)\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
-    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n"
+    \n\nclass Que01:\n    def __init__(que, hint=None):\n        if hint: que.q0,\
+    \ que.q1 = elist(hint), elist(hint)\n        else: que.q0, que.q1 = [], []\n \
+    \   def push0(que, item): que.q0.append(item)\n    def push1(que, item): que.q1.append(item)\n\
+    \    def pop(que):\n        if que.q0: return que.q0.pop()\n        que.q0, que.q1\
+    \ = que.q1, que.q0\n        return que.q0.pop()\n    def __len__(que): return\
+    \ len(que.q0) + len(que.q1)\n\ndef elist(est_len: int) -> list: ...\ntry:\n  \
+    \  from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n \
+    \       return []\nelist = newlist_hint\n    \n"
   code: "import cp_library.ds.__header__\nimport cp_library.ds.que.__header__\n\n\
-    class que01:\n    def __init__(self, hint=None):\n        if hint: self.q0, self.q1\
-    \ = elist(hint), elist(hint)\n        else: self.q0, self.q1 = [], []\n      \
-    \  \n    def push0(self, item):\n        self.q0.append(item)\n\n    def push1(self,\
-    \ item):\n        self.q1.append(item)\n    \n    def pop(self):\n        if self.q0:\
-    \ return self.q0.pop()\n        self.q0, self.q1 = self.q1, self.q0\n        return\
-    \ self.q0.pop()\n\n    def __len__(self):\n        return len(self.q0) + len(self.q1)\n\
-    \nfrom cp_library.ds.elist_fn import elist"
+    class Que01:\n    def __init__(que, hint=None):\n        if hint: que.q0, que.q1\
+    \ = elist(hint), elist(hint)\n        else: que.q0, que.q1 = [], []\n    def push0(que,\
+    \ item): que.q0.append(item)\n    def push1(que, item): que.q1.append(item)\n\
+    \    def pop(que):\n        if que.q0: return que.q0.pop()\n        que.q0, que.q1\
+    \ = que.q1, que.q0\n        return que.q0.pop()\n    def __len__(que): return\
+    \ len(que.q0) + len(que.q1)\nfrom cp_library.ds.elist_fn import elist"
   dependsOn:
   - cp_library/ds/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/que/que01_cls.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/que/que01_cls.py

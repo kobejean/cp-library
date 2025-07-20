@@ -41,6 +41,9 @@ data:
     path: cp_library/ds/packet_list_cls.py
     title: cp_library/ds/packet_list_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/ds/que/que_cls.py
+    title: cp_library/ds/que/que_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/ds/view/view_cls.py
     title: cp_library/ds/view/view_cls.py
   - icon: ':heavy_check_mark:'
@@ -74,9 +77,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\nfrom typing\
     \ import Union\n\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return\
-    \ ch\n\n\n\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
-    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    \ ch\n\n\n\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
     \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
@@ -92,33 +95,34 @@ data:
     \ V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n    def append(V, v:\
     \ _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return V.A[V.l-1]\n\
     \    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v; \n    def validate(V):\
-    \ return 0 <= V.l <= V.r <= len(V.A)\nfrom math import inf\nfrom collections import\
-    \ deque\nfrom typing import Callable, Sequence, Union, overload\n\nimport typing\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection, Iterator, Union\nimport os\nfrom io import BytesIO, IOBase\n\
-    \n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b: break\n   \
-    \         ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b),\
-    \ self.buffer.seek(ptr)\n        self.newlines = 0\n        return self.buffer.read()\n\
-    \n    def readline(self):\n        BUFSIZE = self.BUFSIZE\n        while self.newlines\
-    \ == 0:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
-    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\n\nclass TokenStream(Iterator):\n\
+    \ return 0 <= V.l <= V.r <= len(V.A)\nfrom math import inf\nfrom typing import\
+    \ Callable, Sequence, Union, overload\n\nimport typing\nfrom collections import\
+    \ deque\nfrom numbers import Number\nfrom types import GenericAlias \nfrom typing\
+    \ import Callable, Collection, Iterator, Union\nimport os\nfrom io import BytesIO,\
+    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
+    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
+    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
+    \        self.write = self.buffer.write if self.writable else None\n\n    def\
+    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
+    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
+    \    if not b: break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
+    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
+    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
+    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
+    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
+    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
+    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
+    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
+    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
+    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
+    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
+    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
+    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
+    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
+    \        return self.buffer.readline().decode(\"ascii\")\ntry:\n    sys.stdin\
+    \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout = IOWrapper.stdout\
+    \ = IOWrapper(sys.stdout)\nexcept:\n    pass\n\nclass TokenStream(Iterator):\n\
     \    stream = IOWrapper.stdin\n\n    def __init__(self):\n        self.queue =\
     \ deque()\n\n    def __next__(self):\n        if not self.queue: self.queue.extend(self._line())\n\
     \        return self.queue.popleft()\n    \n    def wait(self):\n        if not\
@@ -234,48 +238,47 @@ data:
     \ bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int = 0, g:\
     \ int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N, -1),\
     \ [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n     \
-    \   que = deque(S)\n        while que:\n            nd = D[u := que.popleft()]+1\n\
-    \            if u == g: return nd-1\n            for i in G.range(u):\n      \
-    \          if nd < D[v := Va[i]]:\n                    D[v], back[v] = nd, i\n\
-    \                    que.append(v)\n        return D if g is None else inf \n\n\
-    \    def floyd_warshall(G) -> list[list[int]]:\n        G.D = D = [[inf]*G.N for\
-    \ _ in range(G.N)]\n        for u in range(G.N): D[u][u] = 0\n        for i in\
-    \ range(len(G.Ua)): D[G.Ua[i]][G.Va[i]] = 1\n        for k, Dk in enumerate(D):\n\
-    \            for Di in D:\n                if (Dik := Di[k]) == inf: continue\n\
-    \                for j in range(G.N):\n                    chmin(Di, j, Dik+Dk[j])\n\
-    \        return D\n\n    def find_cycle_indices(G, s: Union[int, None] = None):\n\
-    \        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n\
-    \        G.vis, G.back, st = vis, back, elist(N)\n        for s in G.starts(s):\n\
-    \            if vis[s]: continue\n            st.append(s)\n            while\
-    \ st:\n                if not vis[u := st.pop()]:\n                    st.append(u)\n\
-    \                    vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max\n\
-    \                    for i in G.range(u):\n                        if not vis[v\
-    \ := Va[i]]:\n                            back[v] = i\n                      \
-    \      st.append(v)\n                        elif vis[v] == 1 and pe != Ea[i]:\n\
-    \                            I = u32f(1,i)\n                            while\
-    \ v != u: I.append(i := back[u]), (u := Ua[i])\n                            I.reverse()\n\
-    \                            return I\n                else:\n               \
-    \     vis[u] = 2\n        # check for self loops\n        for i in range(len(Ua)):\n\
-    \            if Ua[i] == Va[i]:\n                return u32f(1,i)\n    \n    def\
-    \ find_cycle(G, s: Union[int, None] = None):\n        if I := G.find_cycle_indices(s):\
-    \ return [G.Ua[i] for i in I]\n    \n    def find_cycle_edge_ids(G, s: Union[int,\
-    \ None] = None):\n        if I := G.find_cycle_indices(s): return [G.Ea[i] for\
-    \ i in I]\n\n    def find_minimal_cycle(G, s=0):\n        D, par, que, Va = u32f(N\
-    \ := G.N, u32_max), i32f(N, -1), deque([s]), G.Va\n        D[s] = 0\n        while\
-    \ que:\n            for i in G.range(u := que.popleft()):\n                if\
-    \ (v := Va[i]) == s:  # Found cycle back to start\n                    cycle =\
-    \ [u]\n                    while u != s: cycle.append(u := par[u])\n         \
-    \           return cycle\n                if D[v] < u32_max: continue\n      \
-    \          D[v], par[v] = D[u]+1, u; que.append(v)\n\n    def dfs_topo(G, s: Union[int,list]\
-    \ = None) -> list[int]:\n        '''Returns lists of indices i where Ua[i] ->\
-    \ Va[i] are edges in order of top down discovery'''\n        vis, st, order =\
-    \ G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in G.starts(s):\n \
-    \           if vis[s]: continue\n            vis[s] = 1; st.append(s) \n     \
-    \       while st:\n                for i in G.range(st.pop()):\n             \
-    \       if vis[v := G.Va[i]]: continue\n                    vis[v] = 1; order.append(i);\
-    \ st.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list] = None,\
-    \ /, \n            backtrack = False,\n            max_depth = None,\n       \
-    \     enter_fn: Callable[[int],None] = None,\n            leave_fn: Callable[[int],None]\
+    \   que = Que(S)\n        while que:\n            nd = D[u := que.pop()]+1\n \
+    \           if u == g: return nd-1\n            for i in G.range(u):\n       \
+    \         if chmin(D, v := Va[i], nd): back[v] = i; que.push(v)\n        return\
+    \ D if g is None else inf \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
+    \        G.D = D = [[inf]*G.N for _ in range(G.N)]\n        for u in range(G.N):\
+    \ D[u][u] = 0\n        for i in range(len(G.Ua)): D[G.Ua[i]][G.Va[i]] = 1\n  \
+    \      for k, Dk in enumerate(D):\n            for Di in D:\n                if\
+    \ (Dik := Di[k]) == inf: continue\n                for j in range(G.N):\n    \
+    \                chmin(Di, j, Dik+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
+    \ s: Union[int, None] = None):\n        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va,\
+    \ u8f(N := G.N), u32f(N, i32_max)\n        G.vis, G.back, st = vis, back, elist(N)\n\
+    \        for s in G.starts(s):\n            if vis[s]: continue\n            st.append(s)\n\
+    \            while st:\n                if not vis[u := st.pop()]:\n         \
+    \           st.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
+    \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
+    \                if not vis[v := Va[i]]:\n                            back[v]\
+    \ = i\n                            st.append(v)\n                        elif\
+    \ vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n  \
+    \                          while v != u: I.append(i := back[u]), (u := Ua[i])\n\
+    \                            I.reverse()\n                            return I\n\
+    \                else:\n                    vis[u] = 2\n        # check for self\
+    \ loops\n        for i in range(len(Ua)):\n            if Ua[i] == Va[i]:\n  \
+    \              return u32f(1,i)\n    \n    def find_cycle(G, s: Union[int, None]\
+    \ = None):\n        if I := G.find_cycle_indices(s): return [G.Ua[i] for i in\
+    \ I]\n    \n    def find_cycle_edge_ids(G, s: Union[int, None] = None):\n    \
+    \    if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]\n\n    def find_minimal_cycle(G,\
+    \ s=0):\n        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), Que([s]),\
+    \ G.Va\n        D[s] = 0\n        while que:\n            for i in G.range(u :=\
+    \ que.pop()):\n                if (v := Va[i]) == s:  # Found cycle back to start\n\
+    \                    cycle = [u]\n                    while u != s: cycle.append(u\
+    \ := par[u])\n                    return cycle\n                if D[v] < u32_max:\
+    \ continue\n                D[v], par[v] = D[u]+1, u; que.push(v)\n\n    def dfs_topo(G,\
+    \ s: Union[int,list] = None) -> list[int]:\n        '''Returns lists of indices\
+    \ i where Ua[i] -> Va[i] are edges in order of top down discovery'''\n       \
+    \ vis, st, order = G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in\
+    \ G.starts(s):\n            if vis[s]: continue\n            vis[s] = 1; st.append(s)\
+    \ \n            while st:\n                for i in G.range(st.pop()):\n     \
+    \               if vis[v := G.Va[i]]: continue\n                    vis[v] = 1;\
+    \ order.append(i); st.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list]\
+    \ = None, /, \n            backtrack = False,\n            max_depth = None,\n\
+    \            enter_fn: Callable[[int],None] = None,\n            leave_fn: Callable[[int],None]\
     \ = None,\n            max_depth_fn: Callable[[int],None] = None,\n          \
     \  down_fn: Callable[[int,int,int],None] = None,\n            back_fn: Callable[[int,int,int],None]\
     \ = None,\n            forward_fn: Callable[[int,int,int],None] = None,\n    \
@@ -326,10 +329,16 @@ data:
     \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
     \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
     \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
-    \ x & lst.mask\n\ndef cut_vertices(G: GraphBase, s: Union[int,list,None] = None):\n\
-    \    '''\n    Find cut vertices in an undirected graph using DFS edge types.\n\
-    \    Returns a boolean list that is True for indices of cut vertices.\n    '''\n\
-    \    low, children, ap = [N := G.N]*N, [0]*N, [False]*N\n\n    def enter(v):\n\
+    \ x & lst.mask\n\n\nclass Que:\n    def __init__(que, v = None): que.q = elist(v)\
+    \ if isinstance(v, int) else list(v) if v else []; que.h = 0\n    def push(que,\
+    \ item): que.q.append(item)\n    def pop(que): que.h = (h := que.h) + 1; return\
+    \ que.q[h]\n    def extend(que, items): que.q.extend(items)\n    def __getitem__(que,\
+    \ i: int): return que.q[que.h+i]\n    def __setitem__(que, i: int, v): que.q[que.h+i]\
+    \ = v\n    def __len__(que): return que.q.__len__() - que.h\n    def __hash__(que):\
+    \ return hash(tuple(que.q[que.h:]))\n\ndef cut_vertices(G: GraphBase, s: Union[int,list,None]\
+    \ = None):\n    '''\n    Find cut vertices in an undirected graph using DFS edge\
+    \ types.\n    Returns a boolean list that is True for indices of cut vertices.\n\
+    \    '''\n    low, children, ap = [N := G.N]*N, [0]*N, [False]*N\n\n    def enter(v):\n\
     \        low[v] = G.tin[v]\n\n    def back(u,v,i):\n        chmin(low, u, G.tin[v])\n\
     \n    def up(u,p,i):\n        children[p] += 1\n        if G.back[p] < 0:\n  \
     \          # root case\n            ap[p] |= children[p] > 1\n        else:\n\
@@ -383,11 +392,12 @@ data:
   - cp_library/ds/array/u8f_fn.py
   - cp_library/ds/elist_fn.py
   - cp_library/ds/packet_list_cls.py
+  - cp_library/ds/que/que_cls.py
   - cp_library/ds/list/list_find_fn.py
   isVerificationFile: true
   path: test/aoj/grl/grl_3_a_graph_articulation_points.test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_3_a_graph_articulation_points.test.py

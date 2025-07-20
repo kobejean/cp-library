@@ -12,9 +12,6 @@ data:
     path: cp_library/alg/iter/rank/rank_multi_fn.py
     title: cp_library/alg/iter/rank/rank_multi_fn.py
   - icon: ':warning:'
-    path: cp_library/perf/examples/rank_benchmark.py
-    title: cp_library/perf/examples/rank_benchmark.py
-  - icon: ':warning:'
     path: perf/rank.py
     title: perf/rank.py
   _extendedVerifiedWith:
@@ -64,9 +61,8 @@ data:
   path: cp_library/alg/iter/rank/irank_multi_fn.py
   requiredBy:
   - cp_library/alg/iter/rank/rank_multi_fn.py
-  - cp_library/perf/examples/rank_benchmark.py
   - perf/rank.py
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_set_range_composite_large_array.test.py

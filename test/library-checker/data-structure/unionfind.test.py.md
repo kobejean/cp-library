@@ -67,9 +67,9 @@ data:
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\nimport typing\nfrom collections import deque\nfrom numbers\
     \ import Number\nfrom types import GenericAlias \nfrom typing import Callable,\
-    \ Collection, Iterator, Union\nfrom typing import TypeVar\n_S = TypeVar('S')\n\
-    _T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n\
-    _T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\
+    \ Collection, Iterator, Union\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\n    def __init__(self):\n\
     \        self.queue = deque()\n\n    def __next__(self):\n        if not self.queue:\
     \ self.queue.extend(self._line())\n        return self.queue.popleft()\n    \n\
@@ -168,7 +168,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/unionfind.test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/unionfind.test.py

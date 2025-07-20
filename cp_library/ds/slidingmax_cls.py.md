@@ -2,11 +2,11 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/list/deque_cls.py
-    title: cp_library/ds/list/deque_cls.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/que/deque_cls.py
+    title: cp_library/ds/que/deque_cls.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -20,10 +20,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n\
-    _T1 = TypeVar('T1')\n_T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n\
-    _T5 = TypeVar('T5')\n_T6 = TypeVar('T6')\n\nimport sys\n\ndef list_find(lst: list,\
-    \ value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
+    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\nimport sys\n\ndef list_find(lst:\
+    \ list, value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
     \ start, stop)\n    except:\n        return -1\nfrom typing import MutableSequence,\
     \ SupportsIndex\n\nclass Deque(MutableSequence[_T]):\n    def __init__(que, A\
     \ = tuple(), *, maxlen=-1):\n        super().__init__()\n        que.cap = 1 <<\
@@ -34,11 +34,11 @@ data:
     \ >= que._t:\n            return (list_find(que.data, x, 0, que._t) != -1\n  \
     \              or list_find(que.data, x, que._h, que.cap) != -1)\n        else:\n\
     \            return list_find(que.data, x, que._h, que._t) != -1\n        \n \
-    \   def __getitem__(que, i: SupportsIndex) -> _T:\n        assert -que._sz <=\
-    \ i < que._sz\n        if i >= 0: return que.data[(que._h+i)&que._mask]\n    \
-    \    else: return que.data[(que._t+i)&que._mask]\n        \n    def __setitem__(que,\
-    \ i: SupportsIndex, x):\n        assert -que._sz <= i < que._sz\n        if i\
-    \ >= 0: que.data[(que._h+i)&que._mask] = x\n        else: que.data[(que._t+i)&que._mask]\
+    \   def __getitem__(que, i: SupportsIndex) -> _T:\n        if not (-que._sz <=\
+    \ i < que._sz): raise IndexError\n        if i >= 0: return que.data[(que._h+i)&que._mask]\n\
+    \        else: return que.data[(que._t+i)&que._mask]\n        \n    def __setitem__(que,\
+    \ i: SupportsIndex, x):\n        if not (-que._sz <= i < que._sz): raise IndexError\n\
+    \        if i >= 0: que.data[(que._h+i)&que._mask] = x\n        else: que.data[(que._t+i)&que._mask]\
     \ = x\n    \n    def head(que) -> _T: return que.data[que._h]\n\n    def tail(que)\
     \ -> _T: return que.data[(que._t-1)&que._mask]\n\n    def __delitem__(que, i:\
     \ SupportsIndex):\n        raise NotImplemented\n    \n    def insert(que, i:\
@@ -51,8 +51,11 @@ data:
     \ \"Deque is empty\"\n        que._t = (que._t-1)&que._mask\n        que._sz -=\
     \ 1\n        return que.data[que._t]\n    \n    def popleft(que) -> _T:\n    \
     \    assert que._sz, \"Deque is empty\"\n        x = que.data[que._h]\n      \
-    \  que._h = (que._h+1)&que._mask\n        que._sz -= 1\n        return x\nfrom\
-    \ typing import Iterable\n\nclass SlidingMax(Deque[_T]):\n    def __init__(self,\
+    \  que._h = (que._h+1)&que._mask\n        que._sz -= 1\n        return x\n   \
+    \ \n    def __hash__(que):\n        \"\"\"Make Deque hashable for efficient benchmarking\"\
+    \"\"\n        if que._h <= que._t:\n            return hash(tuple(que.data[que._h:que._t]))\n\
+    \        else:\n            return hash(tuple(que.data[que._h:] + que.data[:que._t]))\n\
+    from typing import Iterable\n\nclass SlidingMax(Deque[_T]):\n    def __init__(self,\
     \ *, maxlen = None):\n        super().__init__(maxlen=maxlen)\n        self.maxq\
     \ = Deque(maxlen=maxlen)\n\n    def append(self, x: _T) -> None:\n        while\
     \ self.maxq and self.maxq.tail() < x: self.maxq.pop()\n        self.maxq.append(x)\n\
@@ -64,7 +67,7 @@ data:
     \        return x\n    \n    def pop(self) -> _T: raise NotImplementedError()\n\
     \n    @property\n    def max(self) -> _T: return self.maxq.head()\n"
   code: "import cp_library.ds.__header__\nfrom cp_library.misc.typing import _T\n\
-    from cp_library.ds.list.deque_cls import Deque\nfrom typing import Iterable\n\n\
+    from cp_library.ds.que.deque_cls import Deque\nfrom typing import Iterable\n\n\
     class SlidingMax(Deque[_T]):\n    def __init__(self, *, maxlen = None):\n    \
     \    super().__init__(maxlen=maxlen)\n        self.maxq = Deque(maxlen=maxlen)\n\
     \n    def append(self, x: _T) -> None:\n        while self.maxq and self.maxq.tail()\
@@ -77,12 +80,12 @@ data:
     \ \n    def pop(self) -> _T: raise NotImplementedError()\n\n    @property\n  \
     \  def max(self) -> _T: return self.maxq.head()\n"
   dependsOn:
-  - cp_library/ds/list/deque_cls.py
+  - cp_library/ds/que/deque_cls.py
   - cp_library/ds/list/list_find_fn.py
   isVerificationFile: false
   path: cp_library/ds/slidingmax_cls.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/slidingmax_cls.py

@@ -20,12 +20,6 @@ data:
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/read_fn.py
-    title: cp_library/io/read_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/io/write_fn.py
-    title: cp_library/io/write_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/test/unittest_helper.py
     title: cp_library/test/unittest_helper.py
   _extendedRequiredBy: []
@@ -34,10 +28,10 @@ data:
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    PROBLEM: https://judge.yosupo.jp/problem/aplusb
+    PROBLEM: https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A
     links:
-    - https://judge.yosupo.jp/problem/aplusb
-  bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/aplusb\n\
+    - https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A
+  bundledCode: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\n\
     \nimport pytest\nimport random\n\nclass TestGrid:\n    \"\"\"\n    Tests for Grid\
     \ class with bit-packed storage.\n    \n    IMPORTANT: Grid uses Packer(W-1) for\
     \ bit packing, which means:\n    - Packer(W-1) creates s = (W-1).bit_length()\
@@ -221,9 +215,9 @@ data:
     \        return self.buffer.readline().decode(\"ascii\")\ntry:\n    sys.stdin\
     \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout = IOWrapper.stdout\
     \ = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import TypeVar\n_S =\
-    \ TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n_T2\
-    \ = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
-    _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
+    \ TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2\
+    \ = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
+    \ _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
     \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
     \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
     \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
@@ -330,39 +324,23 @@ data:
     \ with verification-helper.\n    \n    This module provides a helper function\
     \ to run a dummy Library Checker test\n    so that unittest files can be verified\
     \ by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
-    \        \"\"\"\n        Run a dummy Library Checker test for verification-helper\
+    \        \"\"\"\n        Run a dummy AOJ ITP1_1_A test for verification-helper\
     \ compatibility.\n        \n        This function should be called in the __main__\
     \ block of unittest files\n        that need to be compatible with verification-helper.\n\
-    \        \n        The function:\n        1. Reads A and B from input\n      \
-    \  2. Writes A+B to output  \n        3. If the result is the expected value (1198300249),\
-    \ runs pytest\n        4. Exits with the pytest result code\n        \"\"\"\n\
-    \        \n        from typing import Type, Union, overload\n        \n      \
-    \  @overload\n        def read() -> list[int]: ...\n        @overload\n      \
-    \  def read(spec: Type[_T], char=False) -> _T: ...\n        @overload\n      \
-    \  def read(spec: _U, char=False) -> _U: ...\n        @overload\n        def read(*specs:\
-    \ Type[_T], char=False) -> tuple[_T, ...]: ...\n        @overload\n        def\
-    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\n        def read(*specs:\
-    \ Union[Type[_T],_U], char=False):\n            if not char and not specs: return\
-    \ [int(s) for s in TokenStream.default.line()]\n            parser: _T = Parser.compile(specs[0]\
-    \ if len(specs) == 1 else specs)\n            return parser(CharStream.default\
-    \ if char else TokenStream.default)\n        \n        def write(*args, **kwargs):\n\
-    \            '''Prints the values to a stream, or to stdout_fast by default.'''\n\
-    \            sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \            at_start = True\n            for x in args:\n                if not\
-    \ at_start:\n                    file.write(sep)\n                file.write(str(x))\n\
-    \                at_start = False\n            file.write(kwargs.pop(\"end\",\
-    \ \"\\n\"))\n            if kwargs.pop(\"flush\", False):\n                file.flush()\n\
-    \        \n        A, B = read()\n        write(C := A + B)\n        if C != 1198300249:\
-    \ \n            sys.exit(0)\n        \n        import io\n        from contextlib\
-    \ import redirect_stdout, redirect_stderr\n    \n        # Capture all output\
-    \ during test execution\n        output = io.StringIO()\n        with redirect_stdout(output),\
-    \ redirect_stderr(output):\n            # Get the calling module's file path\n\
-    \            frame = sys._getframe(1)\n            test_file = frame.f_globals.get('__file__')\n\
-    \            if test_file is None:\n                test_file = sys.argv[0]\n\
-    \            result = pytest.main([test_file])\n        \n        if result !=\
-    \ 0: \n            print(output.getvalue())\n        sys.exit(result)\n    run_verification_helper_unittest()\n"
-  code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/aplusb\n\n\
-    import pytest\nimport random\n\nclass TestGrid:\n    \"\"\"\n    Tests for Grid\
+    \        \n        The function:\n        1. Prints \"Hello World\" (AOJ ITP1_1_A\
+    \ solution)\n        2. Runs pytest for the calling test file\n        3. Exits\
+    \ with the pytest result code\n        \"\"\"\n        \n        # Print \"Hello\
+    \ World\" for AOJ ITP1_1_A problem\n        print(\"Hello World\")\n        \n\
+    \        import io\n        from contextlib import redirect_stdout, redirect_stderr\n\
+    \    \n        # Capture all output during test execution\n        output = io.StringIO()\n\
+    \        with redirect_stdout(output), redirect_stderr(output):\n            #\
+    \ Get the calling module's file path\n            frame = sys._getframe(1)\n \
+    \           test_file = frame.f_globals.get('__file__')\n            if test_file\
+    \ is None:\n                test_file = sys.argv[0]\n            result = pytest.main([test_file])\n\
+    \        \n        if result != 0: \n            print(output.getvalue())\n  \
+    \      sys.exit(result)\n    run_verification_helper_unittest()\n"
+  code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\n\
+    \nimport pytest\nimport random\n\nclass TestGrid:\n    \"\"\"\n    Tests for Grid\
     \ class with bit-packed storage.\n    \n    IMPORTANT: Grid uses Packer(W-1) for\
     \ bit packing, which means:\n    - Packer(W-1) creates s = (W-1).bit_length()\
     \ \n    - Each row has length 1 << s (next power of 2 >= W)\n    - Examples:\n\
@@ -521,14 +499,12 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/ds/view/view_cls.py
   - cp_library/bit/pack/packer_cls.py
-  - cp_library/io/read_fn.py
-  - cp_library/io/write_fn.py
-  - cp_library/ds/list/list_find_fn.py
   - cp_library/io/fast_io_cls.py
+  - cp_library/ds/list/list_find_fn.py
   isVerificationFile: true
   path: test/unittests/ds/grid/grid_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/grid/grid_cls_test.py

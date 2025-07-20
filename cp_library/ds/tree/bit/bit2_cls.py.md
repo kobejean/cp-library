@@ -16,7 +16,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_base_cls.py
     title: cp_library/ds/tree/bit/bit_base_cls.py
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: perf/bit2.py
+    title: perf/bit2.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/unittests/ds/tree/bit/bit2_cls_test.py
@@ -96,9 +99,9 @@ data:
     \    for i, j in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n\
     \        for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] =\
     \ j, inv[i]\n    return L\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S')\n_T = TypeVar('T')\n_U = TypeVar('U')\n_T1 = TypeVar('T1')\n\
-    _T2 = TypeVar('T2')\n_T3 = TypeVar('T3')\n_T4 = TypeVar('T4')\n_T5 = TypeVar('T5')\n\
-    _T6 = TypeVar('T6')\n\n\nclass list2(Generic[_T1, _T2]):\n    __slots__ = 'A1',\
+    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
+    \ _T6 = TypeVar('T6')\n\n\nclass list2(Generic[_T1, _T2]):\n    __slots__ = 'A1',\
     \ 'A2'\n    def __init__(lst, A1: list[_T1], A2: list[_T2]): lst.A1, lst.A2 =\
     \ A1, A2\n    def __len__(lst): return len(lst.A1)\n    def __getitem__(lst, i:\
     \ int): return lst.A1[i], lst.A2[i]\n    def __setitem__(lst, i: int, v: tuple[_T1,\
@@ -169,8 +172,9 @@ data:
   - cp_library/bit/pack/packer_cls.py
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bit2_cls.py
-  requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  requiredBy:
+  - perf/bit2.py
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/bit/bit2_cls_test.py

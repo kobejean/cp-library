@@ -150,7 +150,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution_snippet.test.py
   requiredBy: []
-  timestamp: '2025-07-20 06:26:01+09:00'
+  timestamp: '2025-07-21 03:35:11+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution_snippet.test.py
