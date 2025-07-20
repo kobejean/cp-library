@@ -7,5 +7,7 @@ class Que:
     def pop(que): que.h = (h := que.h) + 1; return que.q[h]
     def extend(que, items): que.q.extend(items)
     def __getitem__(que, i: int): return que.q[que.h+i]
+    def __setitem__(que, i: int, v): que.q[que.h+i] = v
     def __len__(que): return que.q.__len__() - que.h
+    def __hash__(que): return hash(tuple(que.q[que.h:]))
 from cp_library.ds.elist_fn import elist

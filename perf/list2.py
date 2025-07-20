@@ -123,7 +123,7 @@ def tuple_access_list_of_lists(data):
     list_of_lists = data['list_of_lists']
     checksum = 0
     for i in range(len(list_of_lists)):
-        a1, a2 = list_of_lists[i][0], list_of_lists[i][1]
+        a1, a2 = list_of_lists[i], list_of_lists[i]
         checksum ^= a1 ^ a2
     return checksum
 

@@ -23,12 +23,12 @@ class Deque(MutableSequence[_T]):
             return list_find(que.data, x, que._h, que._t) != -1
         
     def __getitem__(que, i: SupportsIndex) -> _T:
-        assert -que._sz <= i < que._sz
+        if not (-que._sz <= i < que._sz): raise IndexError
         if i >= 0: return que.data[(que._h+i)&que._mask]
         else: return que.data[(que._t+i)&que._mask]
         
     def __setitem__(que, i: SupportsIndex, x):
-        assert -que._sz <= i < que._sz
+        if not (-que._sz <= i < que._sz): raise IndexError
         if i >= 0: que.data[(que._h+i)&que._mask] = x
         else: que.data[(que._t+i)&que._mask] = x
     
@@ -66,3 +66,10 @@ class Deque(MutableSequence[_T]):
         que._h = (que._h+1)&que._mask
         que._sz -= 1
         return x
+    
+    def __hash__(que):
+        """Make Deque hashable for efficient benchmarking"""
+        if que._h <= que._t:
+            return hash(tuple(que.data[que._h:que._t]))
+        else:
+            return hash(tuple(que.data[que._h:] + que.data[:que._t]))

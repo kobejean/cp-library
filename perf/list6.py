@@ -139,8 +139,7 @@ def tuple_access_list_of_lists(data):
     list_of_lists = data['list_of_lists']
     checksum = 0
     for i in range(len(list_of_lists)):
-        row = list_of_lists[i]
-        a1, a2, a3, a4, a5, a6 = row[0], row[1], row[2], row[3], row[4], row[5]
+        a1, a2, a3, a4, a5, a6 = list_of_lists[i]
         checksum ^= a1 ^ a2 ^ a3 ^ a4 ^ a5 ^ a6
     return checksum
 

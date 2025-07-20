@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Benchmark comparing SegTree6 (6-channel segment tree) vs regular segment tree with tuples.
-Tests construction, point updates, range queries, and search operations.
+Benchmark comparing BIT6 (6-channel BIT) vs regular BIT with 6-tuples.
+Tests construction, point updates, prefix sums, range sums, and mixed operations.
 """
 
 import random
@@ -10,36 +10,35 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cp_library.perf.benchmark import Benchmark, BenchmarkConfig
-from cp_library.ds.tree.seg.segtree6_cls import SegTree6
-from cp_library.ds.tree.seg.segtree_cls import SegTree
+from cp_library.ds.tree.bit.bit6_cls import BIT6
+from cp_library.ds.tree.bit.bit_monoid_cls import BITMonoid
 
 # Configure benchmark
 config = BenchmarkConfig(
-    name="segtree6",
+    name="bit6",
     sizes=[1000000, 100000, 10000, 1000, 100],  # Reverse order to warm up JIT
-    operations=['construction', 'point_updates', 'range_queries', 'mixed_ops', 'max_right_search', 'all_prod'],
+    operations=['construction', 'point_updates', 'prefix_sums', 'range_sums', 'mixed_ops'],
     iterations=10,
     warmup=3,
-    output_dir="./output/benchmark_results/segtree6"
+    output_dir="./output/benchmark_results/bit6"
 )
 
 # Create benchmark instance
 benchmark = Benchmark(config)
 
-# Define operations for segment trees
+# Define operations for BIT with 6-tuples
 def tuple6_add(a, b):
     """Addition operation for 6-tuples"""
     return (a[0] + b[0], a[1] + b[1], a[2] + b[2], a[3] + b[3], a[4] + b[4], a[5] + b[5])
 
-
-def sum6_threshold_check(x, threshold):
-    """Check if sum of 6-tuple components is less than or equal to threshold"""
-    return sum(x) <= threshold
+def tuple6_sub(a, b):
+    """Subtraction operation for 6-tuples"""
+    return (a[0] - b[0], a[1] - b[1], a[2] - b[2], a[3] - b[3], a[4] - b[4], a[5] - b[5])
 
 # Data generator
 @benchmark.data_generator("default")
-def generate_segtree6_data(size: int, operation: str):
-    """Generate test data for SegTree6 operations"""
+def generate_bit6_data(size: int, operation: str):
+    """Generate test data for BIT6 operations"""
     # Generate random initial values
     values_a1 = [random.randint(1, 1000) for _ in range(size)]
     values_a2 = [random.randint(1, 1000) for _ in range(size)]
@@ -48,7 +47,7 @@ def generate_segtree6_data(size: int, operation: str):
     values_a5 = [random.randint(1, 1000) for _ in range(size)]
     values_a6 = [random.randint(1, 1000) for _ in range(size)]
     
-    # Create tuple values for regular SegTree
+    # Create tuple values for regular BIT
     tuple_values = [(values_a1[i], values_a2[i], values_a3[i], values_a4[i], values_a5[i], values_a6[i]) 
                     for i in range(size)]
     
@@ -73,6 +72,9 @@ def generate_segtree6_data(size: int, operation: str):
         r = random.randint(l + 1, size)
         query_ranges.append((l, r))
     
+    # Generate prefix indices
+    prefix_indices = [random.randint(1, size) for _ in range(num_queries)]
+    
     return {
         'values_a1': values_a1,
         'values_a2': values_a2,
@@ -90,8 +92,8 @@ def generate_segtree6_data(size: int, operation: str):
         'update_values_a6': update_values_a6,
         'update_tuple_values': update_tuple_values,
         'query_ranges': query_ranges,
-        'size': size,
-        'threshold': size * 100
+        'prefix_indices': prefix_indices,
+        'size': size
     }
 
 # Setup functions to prepare data and reduce overhead during timing
@@ -101,78 +103,100 @@ def setup(data):
     return prepared
 
 # Construction operation
-@benchmark.implementation("segtree6_sum", "construction")
-def construction_segtree6_sum(data):
-    """Construct SegTree6 with sum operation"""
-    seg = SegTree6(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
-    return seg.n
+@benchmark.implementation("bit6_sum", "construction")
+def construction_bit6_sum(data):
+    """Construct BIT6 with sum operation"""
+    bit = BIT6(data['tuple_values'])
+    return len(bit)
 
-@benchmark.implementation("segtree_tuple_sum", "construction")
-def construction_segtree_tuple_sum(data):
-    """Construct regular SegTree with 6-tuple sum operation"""
-    seg = SegTree(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
-    return seg.n
-
+@benchmark.implementation("tuple6_bit_sum", "construction")
+def construction_tuple6_bit_sum(data):
+    """Construct BITMonoid with 6-tuple sum operation"""
+    bit = BITMonoid(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
+    return len(bit)
 
 # Point updates operation
-@benchmark.implementation("segtree6_sum", "point_updates")
-def point_updates_segtree6_sum(data):
-    """Point updates on SegTree6 with sum"""
-    seg = SegTree6(tuple6_add, (0, 0, 0, 0, 0, 0), data['size'])
+@benchmark.implementation("bit6_sum", "point_updates")
+def point_updates_bit6_sum(data):
+    """Point updates on BIT6 with sum"""
+    bit = BIT6(data['size'])
     checksum = 0
     indices = data['update_indices']
     updates = data['update_tuple_values']
     for j in range(len(indices)):
         i = indices[j]
         val = updates[j]
-        seg.set(i, val)
-        result = seg.get(i)
+        bit.set(i, val)
+        result = bit.get(i)
         checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
     return checksum
 
-@benchmark.implementation("segtree_tuple_sum", "point_updates")
-def point_updates_segtree_tuple_sum(data):
-    """Point updates on regular SegTree with 6-tuples"""
-    seg = SegTree(tuple6_add, (0, 0, 0, 0, 0, 0), data['size'])
+@benchmark.implementation("tuple6_bit_sum", "point_updates")
+def point_updates_tuple6_bit_sum(data):
+    """Point updates on BITMonoid with 6-tuples"""
+    bit = BITMonoid(tuple6_add, (0, 0, 0, 0, 0, 0), data['size'])
     checksum = 0
     indices = data['update_indices']
     updates = data['update_tuple_values']
     for j in range(len(indices)):
         i = indices[j]
         val = updates[j]
-        seg.set(i, val)
-        result = seg.get(i)
+        # Set element: add difference between target and current
+        current = tuple6_sub(bit.sum(i + 1), bit.sum(i))
+        bit.add(i, tuple6_sub(val, current))
+        # Get element: reconstruct from prefix sums
+        result = tuple6_sub(bit.sum(i + 1), bit.sum(i))
         checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
     return checksum
 
+# Prefix sums operation
+@benchmark.implementation("bit6_sum", "prefix_sums")
+def prefix_sums_bit6_sum(data):
+    """Prefix sums on BIT6 with sum"""
+    bit = BIT6(data['tuple_values'])
+    checksum = 0
+    for n in data['prefix_indices']:
+        result = bit.sum(n)
+        checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
+    return checksum
 
-# Range queries operation
-@benchmark.implementation("segtree6_sum", "range_queries")
-def range_queries_segtree6_sum(data):
-    """Range queries on SegTree6 with sum"""
-    seg = SegTree6(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
+@benchmark.implementation("tuple6_bit_sum", "prefix_sums")
+def prefix_sums_tuple6_bit_sum(data):
+    """Prefix sums on BITMonoid with 6-tuples"""
+    bit = BITMonoid(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
+    checksum = 0
+    for n in data['prefix_indices']:
+        result = bit.sum(n)
+        checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
+    return checksum
+
+# Range sums operation
+@benchmark.implementation("bit6_sum", "range_sums")
+def range_sums_bit6_sum(data):
+    """Range sums on BIT6 with sum"""
+    bit = BIT6(data['tuple_values'])
     checksum = 0
     for l, r in data['query_ranges']:
-        result = seg.prod(l, r)
+        result = bit.sum_range(l, r)
         checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
     return checksum
 
-@benchmark.implementation("segtree_tuple_sum", "range_queries")
-def range_queries_segtree_tuple_sum(data):
-    """Range queries on regular SegTree with 6-tuples"""
-    seg = SegTree(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
+@benchmark.implementation("tuple6_bit_sum", "range_sums")
+def range_sums_tuple6_bit_sum(data):
+    """Range sums on BITMonoid with 6-tuples"""
+    bit = BITMonoid(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
     checksum = 0
     for l, r in data['query_ranges']:
-        result = seg.prod(l, r)
+        # Range sum: sum(r) - sum(l)
+        result = tuple6_sub(bit.sum(r), bit.sum(l))
         checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
     return checksum
-
 
 # Mixed operations (updates + queries)
-@benchmark.implementation("segtree6_sum", "mixed_ops")
-def mixed_ops_segtree6_sum(data):
-    """Mixed updates and queries on SegTree6"""
-    seg = SegTree6(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
+@benchmark.implementation("bit6_sum", "mixed_ops")
+def mixed_ops_bit6_sum(data):
+    """Mixed updates and queries on BIT6"""
+    bit = BIT6(data['tuple_values'])
     checksum = 0
     
     # Interleave updates and queries
@@ -183,94 +207,45 @@ def mixed_ops_segtree6_sum(data):
     
     for i in range(min_len):
         if i % 2 == 0:
-            # Query
+            # Range query
             l, r = query_ranges[i]
-            result = seg.prod(l, r)
+            result = bit.sum_range(l, r)
             checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
         else:
             # Update
             idx = update_indices[i]
             val = update_tuple_values[i]
-            seg.set(idx, val)
-            result = seg.get(idx)
+            bit.add(idx, val)
+            result = bit.get(idx)
             checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
     return checksum
 
-@benchmark.implementation("segtree_tuple_sum", "mixed_ops")
-def mixed_ops_segtree_tuple_sum(data):
-    """Mixed updates and queries on regular SegTree"""
-    seg = SegTree(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
+@benchmark.implementation("tuple6_bit_sum", "mixed_ops")
+def mixed_ops_tuple6_bit_sum(data):
+    """Mixed updates and queries on BITMonoid"""
+    bit = BITMonoid(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
     checksum = 0
     
     # Interleave updates and queries
     query_ranges = data['query_ranges']
     update_indices = data['update_indices']
     update_tuple_values = data['update_tuple_values']
-    min_len = min(len(query_ranges), len(update_indices), len(update_tuple_values))
+    min_len = min(len(query_ranges), len(update_indices))
     
     for i in range(min_len):
         if i % 2 == 0:
-            # Query
+            # Range query
             l, r = query_ranges[i]
-            result = seg.prod(l, r)
+            result = tuple6_sub(bit.sum(r), bit.sum(l))
             checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
         else:
             # Update
             idx = update_indices[i]
             val = update_tuple_values[i]
-            seg.set(idx, val)
-            result = seg.get(idx)
+            bit.add(idx, val)
+            result = tuple6_sub(bit.sum(idx + 1), bit.sum(idx))
             checksum ^= result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
     return checksum
-
-# Max right search operation
-@benchmark.implementation("segtree6_sum", "max_right_search")
-def max_right_search_segtree6_sum(data):
-    """Binary search using max_right on SegTree6"""
-    seg = SegTree6(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
-    checksum = 0
-    
-    # Search for positions where sum is less than threshold
-    threshold = data['threshold']
-    def check_predicate(x):
-        return sum6_threshold_check(x, threshold)
-    
-    for i in range(0, data['size'], max(1, data['size'] // 100)):
-        pos = seg.max_right(i, check_predicate)
-        checksum ^= pos
-    return checksum
-
-@benchmark.implementation("segtree_tuple_sum", "max_right_search")
-def max_right_search_segtree_tuple_sum(data):
-    """Binary search using max_right on regular SegTree"""
-    seg = SegTree(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
-    checksum = 0
-    
-    # Search for positions where sum is less than threshold
-    threshold = data['threshold']
-    def check_predicate(x):
-        return sum6_threshold_check(x, threshold)
-    
-    for i in range(0, data['size'], max(1, data['size'] // 100)):
-        pos = seg.max_right(i, check_predicate)
-        checksum ^= pos
-    return checksum
-
-# All product operation
-@benchmark.implementation("segtree6_sum", "all_prod")
-def all_prod_segtree6_sum(data):
-    """Get total sum using all_prod on SegTree6"""
-    seg = SegTree6(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
-    result = seg.all_prod()
-    return result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
-
-@benchmark.implementation("segtree_tuple_sum", "all_prod")
-def all_prod_segtree_tuple_sum(data):
-    """Get total sum using all_prod on regular SegTree"""
-    seg = SegTree(tuple6_add, (0, 0, 0, 0, 0, 0), data['tuple_values'])
-    result = seg.all_prod()
-    return result[0] ^ result[1] ^ result[2] ^ result[3] ^ result[4] ^ result[5]
-
 
 if __name__ == "__main__":
     # Parse command line args and run appropriate mode

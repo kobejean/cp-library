@@ -31,10 +31,6 @@ def tuple_add(a, b):
     """Addition operation for tuples"""
     return (a[0] + b[0], a[1] + b[1])
 
-def dual_max(a, b):
-    """Max operation for dual values"""
-    return (max(a[0], b[0]), max(a[1], b[1]))
-
 def sum_threshold_check(x, threshold):
     """Check if sum of tuple components is less than or equal to threshold"""
     return x[0] + x[1] <= threshold
@@ -79,35 +75,8 @@ def generate_segtree2_data(size: int, operation: str):
     }
 
 # Setup functions to prepare data and reduce overhead during timing
-@benchmark.setup("segtree2_sum", ["construction", "range_queries", "mixed_ops", "max_right_search", "all_prod"])
-def setup_segtree2_sum(data):
-    """Prepare data for SegTree2 sum operations"""
-    prepared = data.copy()
-    # Pre-create tuple pairs for construction
-    prepared['segtree2_init_data'] = [(data['values_a'][i], data['values_b'][i]) for i in range(data['size'])]
-    # Pre-create update pairs
-    prepared['segtree2_updates'] = [(data['update_values_a'][i], data['update_values_b'][i]) for i in range(len(data['update_indices']))]
-    return prepared
-
-@benchmark.setup("segtree2_max", ["construction", "point_updates", "range_queries", "all_prod"])
-def setup_segtree2_max(data):
-    """Prepare data for SegTree2 max operations"""
-    prepared = data.copy()
-    # Pre-create tuple pairs for construction
-    prepared['segtree2_init_data'] = [(data['values_a'][i], data['values_b'][i]) for i in range(data['size'])]
-    # Pre-create update pairs
-    prepared['segtree2_updates'] = [(data['update_values_a'][i], data['update_values_b'][i]) for i in range(len(data['update_indices']))]
-    return prepared
-
-@benchmark.setup("segtree_tuple_sum", ["mixed_ops"])
-def setup_segtree_tuple_sum(data):
-    """Prepare data for regular SegTree tuple operations"""
-    prepared = data.copy()
-    return prepared
-
-@benchmark.setup("segtree_tuple_max", ["point_updates"])
-def setup_segtree_tuple_max(data):
-    """Prepare data for regular SegTree tuple max operations"""
+@benchmark.setup("default")
+def setup(data):
     prepared = data.copy()
     return prepared
 
@@ -115,25 +84,13 @@ def setup_segtree_tuple_max(data):
 @benchmark.implementation("segtree2_sum", "construction")
 def construction_segtree2_sum(data):
     """Construct SegTree2 with sum operation"""
-    seg = SegTree2(tuple_add, (0, 0), data['segtree2_init_data'])
+    seg = SegTree2(tuple_add, (0, 0), data['tuple_values'])
     return seg.n
 
 @benchmark.implementation("segtree_tuple_sum", "construction")
 def construction_segtree_tuple_sum(data):
     """Construct regular SegTree with tuple sum operation"""
     seg = SegTree(tuple_add, (0, 0), data['tuple_values'])
-    return seg.n
-
-@benchmark.implementation("segtree2_max", "construction")
-def construction_segtree2_max(data):
-    """Construct SegTree2 with max operation"""
-    seg = SegTree2(dual_max, (0, 0), data['segtree2_init_data'])
-    return seg.n
-
-@benchmark.implementation("segtree_tuple_max", "construction")
-def construction_segtree_tuple_max(data):
-    """Construct regular SegTree with tuple max operation"""
-    seg = SegTree(dual_max, (0, 0), data['tuple_values'])
     return seg.n
 
 # Point updates operation
@@ -143,7 +100,7 @@ def point_updates_segtree2_sum(data):
     seg = SegTree2(tuple_add, (0, 0), data['size'])
     checksum = 0
     indices = data['update_indices']
-    updates = data['segtree2_updates']
+    updates = data['update_tuple_values']
     for j in range(len(indices)):
         i = indices[j]
         val = updates[j]
@@ -167,41 +124,11 @@ def point_updates_segtree_tuple_sum(data):
         checksum ^= result[0] ^ result[1]
     return checksum
 
-@benchmark.implementation("segtree2_max", "point_updates")
-def point_updates_segtree2_max(data):
-    """Point updates on SegTree2 with max"""
-    seg = SegTree2(dual_max, (0, 0), data['size'])
-    checksum = 0
-    indices = data['update_indices']
-    updates = data['segtree2_updates']
-    for j in range(len(indices)):
-        i = indices[j]
-        val = updates[j]
-        seg.set(i, val)
-        result = seg.get(i)
-        checksum ^= result[0] ^ result[1]
-    return checksum
-
-@benchmark.implementation("segtree_tuple_max", "point_updates")
-def point_updates_segtree_tuple_max(data):
-    """Point updates on regular SegTree with tuple max"""
-    seg = SegTree(dual_max, (0, 0), data['size'])
-    checksum = 0
-    indices = data['update_indices']
-    updates = data['update_tuple_values']
-    for j in range(len(indices)):
-        i = indices[j]
-        val = updates[j]
-        seg.set(i, val)
-        result = seg.get(i)
-        checksum ^= result[0] ^ result[1]
-    return checksum
-
 # Range queries operation
 @benchmark.implementation("segtree2_sum", "range_queries")
 def range_queries_segtree2_sum(data):
     """Range queries on SegTree2 with sum"""
-    seg = SegTree2(tuple_add, (0, 0), data['segtree2_init_data'])
+    seg = SegTree2(tuple_add, (0, 0), data['tuple_values'])
     checksum = 0
     for l, r in data['query_ranges']:
         result = seg.prod(l, r)
@@ -218,38 +145,18 @@ def range_queries_segtree_tuple_sum(data):
         checksum ^= result[0] ^ result[1]
     return checksum
 
-@benchmark.implementation("segtree2_max", "range_queries")
-def range_queries_segtree2_max(data):
-    """Range queries on SegTree2 with max"""
-    seg = SegTree2(dual_max, (0, 0), data['segtree2_init_data'])
-    checksum = 0
-    for l, r in data['query_ranges']:
-        result = seg.prod(l, r)
-        checksum ^= result[0] ^ result[1]
-    return checksum
-
-@benchmark.implementation("segtree_tuple_max", "range_queries")
-def range_queries_segtree_tuple_max(data):
-    """Range queries on regular SegTree with tuple max"""
-    seg = SegTree(dual_max, (0, 0), data['tuple_values'])
-    checksum = 0
-    for l, r in data['query_ranges']:
-        result = seg.prod(l, r)
-        checksum ^= result[0] ^ result[1]
-    return checksum
-
 # Mixed operations (updates + queries)
 @benchmark.implementation("segtree2_sum", "mixed_ops")
 def mixed_ops_segtree2_sum(data):
     """Mixed updates and queries on SegTree2"""
-    seg = SegTree2(tuple_add, (0, 0), data['segtree2_init_data'])
+    seg = SegTree2(tuple_add, (0, 0), data['tuple_values'])
     checksum = 0
     
     # Interleave updates and queries
     query_ranges = data['query_ranges']
     update_indices = data['update_indices']
-    segtree2_updates = data['segtree2_updates']
-    min_len = min(len(query_ranges), len(update_indices), len(segtree2_updates))
+    update_tuple_values = data['update_tuple_values']
+    min_len = min(len(query_ranges), len(update_indices), len(update_tuple_values))
     
     for i in range(min_len):
         if i % 2 == 0:
@@ -260,7 +167,7 @@ def mixed_ops_segtree2_sum(data):
         else:
             # Update
             idx = update_indices[i]
-            val = segtree2_updates[i]
+            val = update_tuple_values[i]
             seg.set(idx, val)
             result = seg.get(idx)
             checksum ^= result[0] ^ result[1]
@@ -297,7 +204,7 @@ def mixed_ops_segtree_tuple_sum(data):
 @benchmark.implementation("segtree2_sum", "max_right_search")
 def max_right_search_segtree2_sum(data):
     """Binary search using max_right on SegTree2"""
-    seg = SegTree2(tuple_add, (0, 0), data['segtree2_init_data'])
+    seg = SegTree2(tuple_add, (0, 0), data['tuple_values'])
     checksum = 0
     
     # Search for positions where sum is less than threshold
@@ -330,7 +237,7 @@ def max_right_search_segtree_tuple_sum(data):
 @benchmark.implementation("segtree2_sum", "all_prod")
 def all_prod_segtree2_sum(data):
     """Get total sum using all_prod on SegTree2"""
-    seg = SegTree2(tuple_add, (0, 0), data['segtree2_init_data'])
+    seg = SegTree2(tuple_add, (0, 0), data['tuple_values'])
     result = seg.all_prod()
     return result[0] ^ result[1]
 
@@ -338,20 +245,6 @@ def all_prod_segtree2_sum(data):
 def all_prod_segtree_tuple_sum(data):
     """Get total sum using all_prod on regular SegTree"""
     seg = SegTree(tuple_add, (0, 0), data['tuple_values'])
-    result = seg.all_prod()
-    return result[0] ^ result[1]
-
-@benchmark.implementation("segtree2_max", "all_prod")
-def all_prod_segtree2_max(data):
-    """Get global max using all_prod on SegTree2"""
-    seg = SegTree2(dual_max, (0, 0), data['segtree2_init_data'])
-    result = seg.all_prod()
-    return result[0] ^ result[1]
-
-@benchmark.implementation("segtree_tuple_max", "all_prod")
-def all_prod_segtree_tuple_max(data):
-    """Get global max using all_prod on regular SegTree"""
-    seg = SegTree(dual_max, (0, 0), data['tuple_values'])
     result = seg.all_prod()
     return result[0] ^ result[1]
 

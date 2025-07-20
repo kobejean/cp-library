@@ -7,9 +7,10 @@ import cp_library.ds.tree.bit.__header__
 
 class BITMonoid(Generic[_T]):
     def __init__(bit, op: Callable[[_T,_T],_T], e: _T, v: Union[int,list[_T]]):
-        if isinstance(v, int): bit.d, bit.n = [e]*v, v
-        else: bit.build(v)
         bit.op, bit.e = op, e
+        if isinstance(v, int): bit.d, bit.n = [e]*v, v
+        else: bit.build(list(v))
+        bit.lb = 1<<bit.n.bit_length()
 
     def __len__(bit) -> int:
         return bit.n

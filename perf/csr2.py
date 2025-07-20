@@ -16,7 +16,7 @@ from cp_library.ds.view.view2_cls import view2
 # Configure benchmark
 config = BenchmarkConfig(
     name="csr2",
-    sizes=[10000000, 1000000, 100000, 10000, 1000, 100],  # Reverse order to warm up JIT
+    sizes=[1000000, 100000, 10000, 1000, 100],  # Reverse order to warm up JIT
     operations=['copy_construction', 'direct_access', 'random_access', 'indexed_iter', 'foreach_iter', 'modification', 'bucketize', 'col1_indexed_iter', 'col1_foreach_iter'],
     iterations=10,
     warmup=3,

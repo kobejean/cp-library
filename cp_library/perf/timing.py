@@ -5,9 +5,11 @@ Separated from main benchmark class for single responsibility.
 
 import time
 from typing import Any, Callable, Tuple
+from cp_library.perf.interfaces import TimerInterface
+from cp_library.perf.checksum import result_checksum
 
 
-class BenchmarkTimer:
+class BenchmarkTimer(TimerInterface):
     """Handles timing and measurement of benchmark functions"""
     
     def __init__(self, iterations: int = 10, warmup: int = 2):
@@ -38,4 +40,8 @@ class BenchmarkTimer:
                 result = func(data)
         elapsed_ms = (time.perf_counter() - start) * 1000 / self.iterations
         
-        return result, elapsed_ms
+        # Calculate checksum after timing with fallback for non-hashable types
+        # This reduces overhead during the timed section
+        checksum = result_checksum(result)
+        
+        return checksum, elapsed_ms
