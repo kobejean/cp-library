@@ -16,5 +16,4 @@ def subset_conv(A,B,N):
             ij = i+j
             for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]
     subset_mobius(Cr, N)
-    for i,p in enumerate(P): A[i] = Cr[p<<N|i]
-    return A
+    return [Cr[p<<N|i] for i,p in enumerate(P)]

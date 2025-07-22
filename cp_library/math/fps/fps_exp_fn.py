@@ -13,8 +13,8 @@ def fps_exp(P: list) -> list:
     while p < deg:
         Rres = fntt(R + [0]*p)
         x = ifntt([Rres[i]*-e%mod for i, e in enumerate(Eres)])
-        x[:h] = [0]*(h:=p>>1)
-        E[h:] = conv_half(x, Eres)[h:]
+        for i in range(h:=p>>1): x[i] = 0
+        E.extend(conv_half(x, Eres)[h:])
         Eres = fntt(E + [0]*p)
         x = conv_half(dP[:p-1]+[0], Rres[:p])
         for i in range(1,p): x[i-1] -= R[i]*i % mod
@@ -22,8 +22,8 @@ def fps_exp(P: list) -> list:
         for i in range(p-1): x[p+i],x[i] = x[i],0
         conv_half(x,Eres)
         for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod 
-        x[:p] = [0] * p
-        R[p:] = conv_half(x,Rres)[p:]
+        for i in range(p): x[i] = 0
+        R.extend(conv_half(x,Rres)[p:])
         p <<= 1
     return R[:deg]
 

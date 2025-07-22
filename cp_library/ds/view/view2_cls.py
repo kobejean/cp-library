@@ -7,7 +7,7 @@ import cp_library.ds.view.__header__
 
 class view2(Generic[_T1, _T2]):
     __slots__ = 'A1', 'A2', 'l', 'r'
-    def __init__(V, A1: list[_T1], A2: list[_T2], l: int, r: int): V.A1, V.A2, V.l, V.r = A1, A2, l, r
+    def __init__(V, A1: list[_T1], A2: list[_T2], l: int = 0, r: int = 0): V.A1, V.A2, V.l, V.r = A1, A2, l, r
     def __len__(V): return V.r - V.l
     def __getitem__(V, i: int): 
         if 0 <= i < V.r - V.l: return V.A1[V.l+i], V.A2[V.l+i]

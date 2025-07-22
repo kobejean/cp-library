@@ -7,7 +7,6 @@ from cp_library.math.conv.subset_mobius_fn import subset_mobius
 import cp_library.math.conv.mod.__header__
 
 def isubset_conv(A: list[int], B: list[int], N: int, mod: int) -> list[int]:
-    assert len(A) == len(B)
     Z = (N+1)*(M := 1<<N)
     Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)
     for i,p in enumerate(P):

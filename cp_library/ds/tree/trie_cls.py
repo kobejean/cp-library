@@ -16,31 +16,21 @@ class Trie:
     def add(T, word: str):
         (node := T).cnt += 1
         for chr in word:
-            if chr not in node.sub:   
-                node.sub[chr] = T.__class__()
-            par, node = node, node.sub[chr]
-            node.par, node.chr = par, chr
+            if chr not in node.sub: node.sub[chr] = T.__class__()
+            par, node = node, node.sub[chr]; node.par, node.chr = par, chr
             node.cnt += 1
         node.word = True
 
     def remove(T, word: str):
-        node = T.find(word)
-        assert node and node.cnt >= 1
-        if node.cnt == 1 and node.par:
-            del node.par.sub[node.chr]
-        while node:
-            node.cnt -= 1
-            node = node.par
+        assert (node := T.find(word)) and node.cnt >= 1
+        if node.cnt == 1 and node.par: del node.par.sub[node.chr]
+        while node: node.cnt -= 1; node = node.par
     
     def discard(T, word: str):
-        node = T.find(word)
-        if node:
-            if node.par:
-                del node.par.sub[node.chr]
+        if node := T.find(word):
+            if node.par: del node.par.sub[node.chr]
             cnt = node.cnt
-            while node:
-                node.cnt -= cnt
-                node = node.par
+            while node: node.cnt -= cnt; node = node.par
 
     def find(T, prefix: str, full = True) -> Optional['Trie']:
         node = T
@@ -50,16 +40,13 @@ class Trie:
         return node
     
     def __contains__(T, word: str) -> bool:
-        node = T.find(word)
-        return node.word if node is not None else False
+        return node.word if (node := T.find(word)) is not None else False
 
-    def __len__(T):
-        return T.cnt
+    def __len__(T): return T.cnt
 
     def __str__(T) -> str:
         ret, node = [], T
-        while node.par:
-            ret.append(node.chr); node = node.par
+        while node.par: ret.append(node.chr); node = node.par
         ret.reverse()
         return "".join(ret)
     
