@@ -5,10 +5,10 @@ import cp_library.math.conv.__header__
 from cp_library.math.conv.mod.isubset_deconv_ranked_fn import isubset_deconv_ranked
 import cp_library.math.conv.mod.__header__
 
-def subset_deconv(A: list[int], B: list[int], N: int) -> list[int]:
+def isubset_deconv(A: list[int], B: list[int], N: int) -> list[int]:
     Z = (N+1)*(M:=1<<N)
-    Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M, popcnts(N)
+    Ar, Br, P = [0]*Z, [0]*Z, popcnts(N)
     for i, p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]
     isubset_deconv_ranked(Ar, Br, N, Z, M)
-    for i, p in enumerate(P): C[i] = Ar[p<<N|i]
-    return C
+    for i, p in enumerate(P): A[i] = Ar[p<<N|i]
+    return A

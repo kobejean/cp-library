@@ -10,34 +10,34 @@ def butterfly_masks(N, Z):
             yield m^b, m
             m = (m+1)|b
 
-def fwht(A: list, N: int):
+def ixor(A: list, N: int):
     for m0, m1 in butterfly_masks(N, len(A)):
         a0, a1 = A[m0], A[m1]
         A[m0], A[m1] = a0+a1, a0-a1
     return A
 
-def subset_zeta(A: list[int], N: int):
+def ior_zeta(A: list[int], N: int):
     for m0, m1 in butterfly_masks(N, len(A)):
         A[m1] += A[m0]
     return A
 
-def subset_zeta_pair(A: list[int], B: list[int], N: int):
+def ior_zeta_pair(A: list[int], B: list[int], N: int):
     for m0, m1 in butterfly_masks(N, len(A)):
         A[m1] += A[m0]
         B[m1] += B[m0]
     return A, B
 
-def subset_mobius(A: list[int], N: int):
+def ior_mobius(A: list[int], N: int):
     for m0, m1 in butterfly_masks(N, len(A)):
         A[m1] -= A[m0]
     return A
 
-def superset_zeta(A, N: int):
+def iand_zeta(A, N: int):
     for m0, m1 in butterfly_masks(N, len(A)):
         A[m0] += A[m1]
     return A
 
-def superset_mobius(A, N: int):
+def iand_mobius(A, N: int):
     for m0, m1 in butterfly_masks(N, len(A)):
         A[m0] -= A[m1]
     return A
@@ -55,11 +55,11 @@ def subset_conv(A,B,N):
     Z = (N+1)*(M := 1<<N)
     Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)
     for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]
-    subset_zeta_pair(Ar, Br, N)
+    ior_zeta_pair(Ar, Br, N)
     for i in range(0,Z,M):
         for j in range(0,Z-i,M):
             ij = i+j
             for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]
-    subset_mobius(Cr, N)
+    ior_mobius(Cr, N)
     for i,p in enumerate(P): A[i] = Cr[p<<N|i]
     return A

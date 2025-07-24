@@ -12,5 +12,5 @@ def sps_ln(P, mod):
     ln = elist(1 << N); ln.append(0)
     for n in range(N):
         P0.set_range(0, m); P1.set_range(m, m := m<<1)
-        ln.extend(subset_deconv(P0, P1, n, mod))
+        ln.extend(subset_deconv(P1, P0, n, mod))
     return ln

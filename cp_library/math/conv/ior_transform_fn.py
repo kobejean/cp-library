@@ -4,7 +4,7 @@ import operator
 import cp_library.math.__header__
 import cp_library.math.conv.__header__
 
-def subset_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:
+def ior_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:
     Z = len(A)
     for i in range(N):
         m = b = 1<<i

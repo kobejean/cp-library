@@ -2,7 +2,7 @@ import cp_library.__header__
 import cp_library.math.__header__
 import cp_library.math.conv.__header__
 
-def fwht_pair(A: list[int], B: list[int], N: int):
+def ixor_zeta_pair(A: list[int], B: list[int], N: int):
     Z = len(A)
     for i in range(N):
         m = b = 1<<i
