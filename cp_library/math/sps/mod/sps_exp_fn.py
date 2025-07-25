@@ -1,5 +1,3 @@
-from cp_library.ds.reserve_fn import reserve
-from cp_library.alg.dp.min2_fn import min2
 import cp_library.__header__
 from cp_library.ds.elist_fn import elist
 from cp_library.ds.view.view_cls import view

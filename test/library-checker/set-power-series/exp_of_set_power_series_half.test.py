@@ -7,7 +7,8 @@ def main():
     wtnl(C)
     # assert sps_ln(C, 998244353) == B
 
-# from cp_library.math.sps.mod.sps_ln_fn import sps_ln
+# from cp_library.math.sps.mod.sps_exp_fn import sps_exp
+from cp_library.math.sps.mod.sps_ln_fn import sps_ln
 from cp_library.math.sps.mod.sps_exp_half_fn import sps_exp_half
 from cp_library.io.fast.fast_io_fn import rd, rdl, wtnl
 # from cp_library.io.write_fn import write

@@ -9,6 +9,6 @@ def isubset_conv(A: list[int], B: list[int], N: int, mod: int) -> list[int]:
     Z = (N+1)*(M:=1<<N)
     Ar, Br, P = [0]*Z, [0]*Z, popcnts(N)
     for i, p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]
-    isubset_conv_ranked(Ar, Br, N, Z, M, mod)
+    isubset_conv_ranked(Ar, Br, N, M, Z, mod)
     for i, p in enumerate(P): A[i] = Ar[p<<N|i] % mod
     return A
