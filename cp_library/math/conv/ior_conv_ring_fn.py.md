@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':warning:'
-    path: cp_library/math/conv/subset_transform_fn.py
-    title: cp_library/math/conv/subset_transform_fn.py
+    path: cp_library/math/conv/ior_transform_fn.py
+    title: cp_library/math/conv/ior_transform_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -71,36 +71,36 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n               \
-    \       Math - Convolution                     \n'''\n\ndef subset_transform(A:\
-    \ list[_T], N: int, /, op = operator.add) -> list[_T]:\n    Z = len(A)\n    for\
-    \ i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m], m = op(A[m],\
-    \ A[m^b]), m+1|b\n    return A\n\ndef or_conv(A: list[_T], B: list[_T], N: int,\n\
-    \            mul: Callable[[_T,_T],_T] = operator.mul,\n            sub: Callable[[_T,_T],_T]\
+    \       Math - Convolution                     \n'''\n\ndef ior_transform(A: list[_T],\
+    \ N: int, /, op = operator.add) -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n\
+    \        m = b = 1<<i\n        while m < Z: A[m], m = op(A[m], A[m^b]), m+1|b\n\
+    \    return A\n\ndef ior_conv_ring(A: list[_T], B: list[_T], N: int,\n       \
+    \     mul: Callable[[_T,_T],_T] = operator.mul,\n            sub: Callable[[_T,_T],_T]\
     \ = operator.sub,\n            add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n\
-    \    assert len(A) == len(B)\n    subset_transform(A, N, op=add), subset_transform(B,\
-    \ N, op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return subset_transform(A,\
+    \    assert len(A) == len(B)\n    ior_transform(A, N, op=add), ior_transform(B,\
+    \ N, op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return ior_transform(A,\
     \ N, op=sub)\n"
   code: "import cp_library.__header__\nimport operator\nfrom typing import Callable\n\
     from cp_library.misc.typing import _T\nimport cp_library.math.__header__\nimport\
-    \ cp_library.math.conv.__header__\nfrom cp_library.math.conv.subset_transform_fn\
-    \ import subset_transform\n\ndef or_conv(A: list[_T], B: list[_T], N: int,\n \
-    \           mul: Callable[[_T,_T],_T] = operator.mul,\n            sub: Callable[[_T,_T],_T]\
+    \ cp_library.math.conv.__header__\nfrom cp_library.math.conv.ior_transform_fn\
+    \ import ior_transform\n\ndef ior_conv_ring(A: list[_T], B: list[_T], N: int,\n\
+    \            mul: Callable[[_T,_T],_T] = operator.mul,\n            sub: Callable[[_T,_T],_T]\
     \ = operator.sub,\n            add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n\
-    \    assert len(A) == len(B)\n    subset_transform(A, N, op=add), subset_transform(B,\
-    \ N, op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return subset_transform(A,\
+    \    assert len(A) == len(B)\n    ior_transform(A, N, op=add), ior_transform(B,\
+    \ N, op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return ior_transform(A,\
     \ N, op=sub)\n"
   dependsOn:
-  - cp_library/math/conv/subset_transform_fn.py
+  - cp_library/math/conv/ior_transform_fn.py
   isVerificationFile: false
-  path: cp_library/math/conv/or_conv_fn.py
+  path: cp_library/math/conv/ior_conv_ring_fn.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: cp_library/math/conv/or_conv_fn.py
+documentation_of: cp_library/math/conv/ior_conv_ring_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/or_conv_fn.py
-- /library/cp_library/math/conv/or_conv_fn.py.html
-title: cp_library/math/conv/or_conv_fn.py
+- /library/cp_library/math/conv/ior_conv_ring_fn.py
+- /library/cp_library/math/conv/ior_conv_ring_fn.py.html
+title: cp_library/math/conv/ior_conv_ring_fn.py
 ---

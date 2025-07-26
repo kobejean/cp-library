@@ -134,8 +134,8 @@ data:
     \    at_start = True\n    for x in args:\n        if not at_start:\n         \
     \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
     \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\n\ndef subset_sum(A):\n    dp = [0]*(1 << len(A))\n  \
-    \  for i,a in enumerate(A):\n        for m in range(b := 1<<i):\n            dp[m^b]\
+    \        file.flush()\n\n\ndef subset_sum(A):\n    dp = [0]*(1<<len(A))\n    for\
+    \ i, a in enumerate(A):\n        for m in range(b := 1<<i):\n            dp[m^b]\
     \ = dp[m] + a\n    return dp\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc184/tasks/abc184_f\n\
     \n\nfrom bisect import bisect_left\n\ndef solve(N, T, A):\n    if N <= 5:\n  \
@@ -157,7 +157,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc184_f_subset_sum_fn.test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc184_f_subset_sum_fn.test.py

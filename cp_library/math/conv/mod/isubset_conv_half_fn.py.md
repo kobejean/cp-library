@@ -1,14 +1,26 @@
 ---
 data:
-  _extendedDependsOn: []
-  _extendedRequiredBy:
+  _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/and_conv_fn.py
-    title: cp_library/math/conv/and_conv_fn.py
+    path: cp_library/ds/list/list_find_fn.py
+    title: cp_library/ds/list/list_find_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/view/view_cls.py
+    title: cp_library/ds/view/view_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/ior_zeta_fn.py
+    title: cp_library/math/conv/ior_zeta_fn.py
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_half_fn.py
+    title: cp_library/math/sps/mod/sps_exp_half_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/convolution/bitwise_and_convolution.test.py
-    title: test/library-checker/convolution/bitwise_and_convolution.test.py
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -20,9 +32,25 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
-    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
-    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\nimport operator\n\n'''\n\u257A\u2501\
+    \nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    \n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
+    \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
+    \ def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l,\
+    \ r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n\
+    \        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
+    \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
+    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
+    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
+    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
+    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
+    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
+    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
+    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\n'''\n\u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -74,28 +102,45 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef superset_transform(A: list[_T], N: int, /,\
-    \ op = operator.add) -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n  \
-    \      m = b = 1<<i\n        while m < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n\
-    \    return A\n"
-  code: "import cp_library.__header__\nfrom cp_library.misc.typing import _T\nimport\
-    \ operator\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
-    \ndef superset_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:\n\
-    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
-    \ < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n    return A"
-  dependsOn: []
+    \                     \n'''\n\ndef ior_zeta(A: list[int], N: int, Z: int = None):\n\
+    \    Z = Z if Z else len(A)\n    for i in range(N):\n        m = b = 1<<i\n  \
+    \      while m < Z: A[m] += A[m^b]; m = m+1|b\n    return A\n\ndef isubset_conv_half(Ar:\
+    \ list[int], B: list[int], n: int, N: int, mod: int, pcnt) -> list[int]:\n   \
+    \ Br = [0]*(z := (n+1)*(m := 1<<n))\n    for i in range(m): Br[pcnt[i]<<n|i] =\
+    \ B[i]\n    ior_zeta(Br, n)\n    for i in range(z): Br[i] = Br[i]%mod\n    for\
+    \ ij in range(n,-1,-1):\n        ij_, i_ = (ij+1)<<N|m, ij<<n\n        for k in\
+    \ range(m): Ar[ij_|k] = (Br[i_|k] * Ar[k]) % mod\n        for i in range(ij):\n\
+    \            j = ij-i; i_, j_ = i<<n, j<<N\n            for k in range(m): Ar[ij_|k]\
+    \ = (Ar[ij_|k] + Br[i_|k] * Ar[j_|k]) % mod\n    for i in range(n+1):\n      \
+    \  i = i << N\n        for k in range(m): Ar[i|k|m] += Ar[i|k]\n"
+  code: "import cp_library.__header__\nfrom cp_library.ds.view.view_cls import view\n\
+    import cp_library.math.__header__\nimport cp_library.math.conv.__header__\nfrom\
+    \ cp_library.math.conv.ior_zeta_fn import ior_zeta\n\ndef isubset_conv_half(Ar:\
+    \ list[int], B: list[int], n: int, N: int, mod: int, pcnt) -> list[int]:\n   \
+    \ Br = [0]*(z := (n+1)*(m := 1<<n))\n    for i in range(m): Br[pcnt[i]<<n|i] =\
+    \ B[i]\n    ior_zeta(Br, n)\n    for i in range(z): Br[i] = Br[i]%mod\n    for\
+    \ ij in range(n,-1,-1):\n        ij_, i_ = (ij+1)<<N|m, ij<<n\n        for k in\
+    \ range(m): Ar[ij_|k] = (Br[i_|k] * Ar[k]) % mod\n        for i in range(ij):\n\
+    \            j = ij-i; i_, j_ = i<<n, j<<N\n            for k in range(m): Ar[ij_|k]\
+    \ = (Ar[ij_|k] + Br[i_|k] * Ar[j_|k]) % mod\n    for i in range(n+1):\n      \
+    \  i = i << N\n        for k in range(m): Ar[i|k|m] += Ar[i|k]\n"
+  dependsOn:
+  - cp_library/ds/view/view_cls.py
+  - cp_library/math/conv/ior_zeta_fn.py
+  - cp_library/ds/list/list_find_fn.py
   isVerificationFile: false
-  path: cp_library/math/conv/superset_transform_fn.py
+  path: cp_library/math/conv/mod/isubset_conv_half_fn.py
   requiredBy:
-  - cp_library/math/conv/and_conv_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - cp_library/math/sps/mod/sps_exp_half_fn.py
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/convolution/bitwise_and_convolution.test.py
-documentation_of: cp_library/math/conv/superset_transform_fn.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+documentation_of: cp_library/math/conv/mod/isubset_conv_half_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/superset_transform_fn.py
-- /library/cp_library/math/conv/superset_transform_fn.py.html
-title: cp_library/math/conv/superset_transform_fn.py
+- /library/cp_library/math/conv/mod/isubset_conv_half_fn.py
+- /library/cp_library/math/conv/mod/isubset_conv_half_fn.py.html
+title: cp_library/math/conv/mod/isubset_conv_half_fn.py
 ---

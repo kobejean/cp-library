@@ -70,52 +70,52 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                 Algorithms - DP -\
     \ Butterfly                     \n'''\n\ndef butterfly_masks(N, Z):\n    for i\
     \ in range(N):\n        m = b = 1<<i\n        while m < Z:\n            yield\
-    \ m^b, m\n            m = (m+1)|b\n\ndef fwht(A: list, N: int):\n    for m0, m1\
+    \ m^b, m\n            m = (m+1)|b\n\ndef ixor(A: list, N: int):\n    for m0, m1\
     \ in butterfly_masks(N, len(A)):\n        a0, a1 = A[m0], A[m1]\n        A[m0],\
-    \ A[m1] = a0+a1, a0-a1\n    return A\n\ndef subset_zeta(A: list[int], N: int):\n\
+    \ A[m1] = a0+a1, a0-a1\n    return A\n\ndef ior_zeta(A: list[int], N: int):\n\
     \    for m0, m1 in butterfly_masks(N, len(A)):\n        A[m1] += A[m0]\n    return\
-    \ A\n\ndef subset_zeta_pair(A: list[int], B: list[int], N: int):\n    for m0,\
-    \ m1 in butterfly_masks(N, len(A)):\n        A[m1] += A[m0]\n        B[m1] +=\
-    \ B[m0]\n    return A, B\n\ndef subset_mobius(A: list[int], N: int):\n    for\
-    \ m0, m1 in butterfly_masks(N, len(A)):\n        A[m1] -= A[m0]\n    return A\n\
-    \ndef superset_zeta(A, N: int):\n    for m0, m1 in butterfly_masks(N, len(A)):\n\
-    \        A[m0] += A[m1]\n    return A\n\ndef superset_mobius(A, N: int):\n   \
-    \ for m0, m1 in butterfly_masks(N, len(A)):\n        A[m0] -= A[m1]\n    return\
-    \ A\n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n       \
-    \ for m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\n\n\
-    def subset_conv(A,B,N):\n    assert len(A) == len(B)\n    Z = (N+1)*(M := 1<<N)\n\
-    \    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n    for i,p in enumerate(P):\
-    \ Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    subset_zeta_pair(Ar, Br, N)\n    for\
-    \ i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n            ij = i+j\n\
-    \            for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]\n    subset_mobius(Cr,\
-    \ N)\n    for i,p in enumerate(P): A[i] = Cr[p<<N|i]\n    return A\n"
+    \ A\n\ndef ior_zeta_pair(A: list[int], B: list[int], N: int):\n    for m0, m1\
+    \ in butterfly_masks(N, len(A)):\n        A[m1] += A[m0]\n        B[m1] += B[m0]\n\
+    \    return A, B\n\ndef ior_mobius(A: list[int], N: int):\n    for m0, m1 in butterfly_masks(N,\
+    \ len(A)):\n        A[m1] -= A[m0]\n    return A\n\ndef iand_zeta(A, N: int):\n\
+    \    for m0, m1 in butterfly_masks(N, len(A)):\n        A[m0] += A[m1]\n    return\
+    \ A\n\ndef iand_mobius(A, N: int):\n    for m0, m1 in butterfly_masks(N, len(A)):\n\
+    \        A[m0] -= A[m1]\n    return A\n\ndef popcnts(N):\n    P = [0]*(1 << N)\n\
+    \    for i in range(N):\n        for m in range(b := 1<<i):\n            P[m^b]\
+    \ = P[m] + 1\n    return P\n\n\ndef subset_conv(A,B,N):\n    assert len(A) ==\
+    \ len(B)\n    Z = (N+1)*(M := 1<<N)\n    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n\
+    \    for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    ior_zeta_pair(Ar,\
+    \ Br, N)\n    for i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n     \
+    \       ij = i+j\n            for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]\n\
+    \    ior_mobius(Cr, N)\n    for i,p in enumerate(P): A[i] = Cr[p<<N|i]\n    return\
+    \ A\n"
   code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.dp.__header__\n\
     import cp_library.alg.dp.butterfly.__header__\n\ndef butterfly_masks(N, Z):\n\
     \    for i in range(N):\n        m = b = 1<<i\n        while m < Z:\n        \
-    \    yield m^b, m\n            m = (m+1)|b\n\ndef fwht(A: list, N: int):\n   \
+    \    yield m^b, m\n            m = (m+1)|b\n\ndef ixor(A: list, N: int):\n   \
     \ for m0, m1 in butterfly_masks(N, len(A)):\n        a0, a1 = A[m0], A[m1]\n \
-    \       A[m0], A[m1] = a0+a1, a0-a1\n    return A\n\ndef subset_zeta(A: list[int],\
+    \       A[m0], A[m1] = a0+a1, a0-a1\n    return A\n\ndef ior_zeta(A: list[int],\
     \ N: int):\n    for m0, m1 in butterfly_masks(N, len(A)):\n        A[m1] += A[m0]\n\
-    \    return A\n\ndef subset_zeta_pair(A: list[int], B: list[int], N: int):\n \
-    \   for m0, m1 in butterfly_masks(N, len(A)):\n        A[m1] += A[m0]\n      \
-    \  B[m1] += B[m0]\n    return A, B\n\ndef subset_mobius(A: list[int], N: int):\n\
-    \    for m0, m1 in butterfly_masks(N, len(A)):\n        A[m1] -= A[m0]\n    return\
-    \ A\n\ndef superset_zeta(A, N: int):\n    for m0, m1 in butterfly_masks(N, len(A)):\n\
-    \        A[m0] += A[m1]\n    return A\n\ndef superset_mobius(A, N: int):\n   \
-    \ for m0, m1 in butterfly_masks(N, len(A)):\n        A[m0] -= A[m1]\n    return\
-    \ A\n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n       \
-    \ for m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\n\n\
-    def subset_conv(A,B,N):\n    assert len(A) == len(B)\n    Z = (N+1)*(M := 1<<N)\n\
-    \    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n    for i,p in enumerate(P):\
-    \ Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    subset_zeta_pair(Ar, Br, N)\n    for\
-    \ i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n            ij = i+j\n\
-    \            for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]\n    subset_mobius(Cr,\
-    \ N)\n    for i,p in enumerate(P): A[i] = Cr[p<<N|i]\n    return A"
+    \    return A\n\ndef ior_zeta_pair(A: list[int], B: list[int], N: int):\n    for\
+    \ m0, m1 in butterfly_masks(N, len(A)):\n        A[m1] += A[m0]\n        B[m1]\
+    \ += B[m0]\n    return A, B\n\ndef ior_mobius(A: list[int], N: int):\n    for\
+    \ m0, m1 in butterfly_masks(N, len(A)):\n        A[m1] -= A[m0]\n    return A\n\
+    \ndef iand_zeta(A, N: int):\n    for m0, m1 in butterfly_masks(N, len(A)):\n \
+    \       A[m0] += A[m1]\n    return A\n\ndef iand_mobius(A, N: int):\n    for m0,\
+    \ m1 in butterfly_masks(N, len(A)):\n        A[m0] -= A[m1]\n    return A\n\n\
+    def popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n        for m in\
+    \ range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\n\ndef subset_conv(A,B,N):\n\
+    \    assert len(A) == len(B)\n    Z = (N+1)*(M := 1<<N)\n    Ar,Br,Cr,P = [0]*Z,\
+    \ [0]*Z, [0]*Z, popcnts(N)\n    for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i]\
+    \ = A[i], B[i]\n    ior_zeta_pair(Ar, Br, N)\n    for i in range(0,Z,M):\n   \
+    \     for j in range(0,Z-i,M):\n            ij = i+j\n            for k in range(M):\
+    \ Cr[ij|k] += Ar[i|k] * Br[j|k]\n    ior_mobius(Cr, N)\n    for i,p in enumerate(P):\
+    \ A[i] = Cr[p<<N|i]\n    return A"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/dp/butterfly/butterfly_masks_fn.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution_snippet.test.py

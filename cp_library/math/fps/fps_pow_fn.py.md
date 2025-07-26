@@ -173,12 +173,13 @@ data:
     \ ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n    R,\
     \ E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz),\
     \ reserve(E, max_sz)\n    p = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n\
-    \        x = ifntt([Rres[i]*-e%mod for i, e in enumerate(Eres)])\n        x[:h]\
-    \ = [0]*(h:=p>>1)\n        E[h:] = conv_half(x, Eres)[h:]\n        Eres = fntt(E\
-    \ + [0]*p)\n        x = conv_half(dP[:p-1]+[0], Rres[:p])\n        for i in range(1,p):\
-    \ x[i-1] -= R[i]*i % mod\n        x += [0] * p\n        for i in range(p-1): x[p+i],x[i]\
-    \ = x[i],0\n        conv_half(x,Eres)\n        for i in range(min(deg, p<<1)-1,p-1,-1):\
-    \ x[i] = P[i]+x[i-1]*inv[i]%mod \n        x[:p] = [0] * p\n        R[p:] = conv_half(x,Rres)[p:]\n\
+    \        x = ifntt([Rres[i]*-e%mod for i, e in enumerate(Eres)])\n        for\
+    \ i in range(h:=p>>1): x[i] = 0\n        E.extend(conv_half(x, Eres)[h:])\n  \
+    \      Eres = fntt(E + [0]*p)\n        x = conv_half(dP[:p-1]+[0], Rres[:p])\n\
+    \        for i in range(1,p): x[i-1] -= R[i]*i % mod\n        x += [0] * p\n \
+    \       for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n\
+    \        for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod\
+    \ \n        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
     \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
     \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
@@ -241,7 +242,7 @@ data:
   requiredBy:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py

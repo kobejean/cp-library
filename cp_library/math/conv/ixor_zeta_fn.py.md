@@ -1,17 +1,26 @@
 ---
 data:
-  _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/subset_mobius_fn.py
-    title: cp_library/math/conv/subset_mobius_fn.py
+  _extendedDependsOn: []
+  _extendedRequiredBy:
   - icon: ':warning:'
-    path: cp_library/math/conv/subset_zeta_fn.py
-    title: cp_library/math/conv/subset_zeta_fn.py
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+    path: cp_library/math/conv/ixor_conv_fn.py
+    title: cp_library/math/conv/ixor_conv_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/conv/ixor_mobius_fn.py
+    title: cp_library/math/conv/ixor_mobius_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/ixor_conv_fn.py
+    title: cp_library/math/conv/mod/ixor_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/ixor_mobius_fn.py
+    title: cp_library/math/conv/mod/ixor_mobius_fn.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/bitwise_xor_convolution.test.py
+    title: test/library-checker/convolution/bitwise_xor_convolution.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -71,32 +80,30 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef subset_zeta(A: list[int], N: int):\n    Z =\
-    \ len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m]\
-    \ += A[m^b]; m = m+1|b\n    return A\n\ndef subset_mobius(A: list[int], N: int):\n\
-    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
-    \ < Z: A[m] -= A[m^b]; m = m+1|b\n    return A\n\ndef or_conv(A: list[int], B:\
-    \ list[int], N: int) -> list[int]:\n    assert len(A) == len(B)\n    subset_zeta(A,\
-    \ N), subset_zeta(B, N)\n    for i, b in enumerate(B): A[i] *= b\n    return subset_mobius(A,\
-    \ N)\n"
+    \                     \n'''\n\ndef ixor_zeta(A: list, N: int):\n    Z = len(A)\n\
+    \    for i in range(N):\n        m = b = 1<<i\n        while m < Z:\n        \
+    \    a0, a1 = A[m^b], A[m]\n            A[m^b], A[m] = a0+a1, a0-a1\n        \
+    \    m = m+1|b\n    return A\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
-    from cp_library.math.conv.subset_zeta_fn import subset_zeta\nfrom cp_library.math.conv.subset_mobius_fn\
-    \ import subset_mobius\n\ndef or_conv(A: list[int], B: list[int], N: int) -> list[int]:\n\
-    \    assert len(A) == len(B)\n    subset_zeta(A, N), subset_zeta(B, N)\n    for\
-    \ i, b in enumerate(B): A[i] *= b\n    return subset_mobius(A, N)\n"
-  dependsOn:
-  - cp_library/math/conv/subset_zeta_fn.py
-  - cp_library/math/conv/subset_mobius_fn.py
+    \ndef ixor_zeta(A: list, N: int):\n    Z = len(A)\n    for i in range(N):\n  \
+    \      m = b = 1<<i\n        while m < Z:\n            a0, a1 = A[m^b], A[m]\n\
+    \            A[m^b], A[m] = a0+a1, a0-a1\n            m = m+1|b\n    return A\n"
+  dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/conv/or_conv_fast_fn.py
-  requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: cp_library/math/conv/or_conv_fast_fn.py
+  path: cp_library/math/conv/ixor_zeta_fn.py
+  requiredBy:
+  - cp_library/math/conv/ixor_mobius_fn.py
+  - cp_library/math/conv/ixor_conv_fn.py
+  - cp_library/math/conv/mod/ixor_mobius_fn.py
+  - cp_library/math/conv/mod/ixor_conv_fn.py
+  timestamp: '2025-07-26 11:14:31+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/convolution/bitwise_xor_convolution.test.py
+documentation_of: cp_library/math/conv/ixor_zeta_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/or_conv_fast_fn.py
-- /library/cp_library/math/conv/or_conv_fast_fn.py.html
-title: cp_library/math/conv/or_conv_fast_fn.py
+- /library/cp_library/math/conv/ixor_zeta_fn.py
+- /library/cp_library/math/conv/ixor_zeta_fn.py.html
+title: cp_library/math/conv/ixor_zeta_fn.py
 ---

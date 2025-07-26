@@ -3,21 +3,21 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: cp_library/math/conv/ixor_conv_fn.py
-    title: cp_library/math/conv/ixor_conv_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/mod/ixor_conv_fn.py
-    title: cp_library/math/conv/mod/ixor_conv_fn.py
-  - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/mod/xor_conv_fn.py
-    title: cp_library/math/conv/mod/xor_conv_fn.py
+    path: cp_library/math/conv/ior_conv_fn.py
+    title: cp_library/math/conv/ior_conv_fn.py
   - icon: ':warning:'
-    path: cp_library/math/conv/xor_conv_fn.py
-    title: cp_library/math/conv/xor_conv_fn.py
+    path: cp_library/math/conv/mod/ior_conv_fn.py
+    title: cp_library/math/conv/mod/ior_conv_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_half_fn.py
+    title: cp_library/math/sps/mod/sps_exp_half_fn.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/library-checker/convolution/bitwise_xor_convolution.test.py
-    title: test/library-checker/convolution/bitwise_xor_convolution.test.py
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -80,32 +80,29 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef fwht_pair(A: list[int], B: list[int], N: int):\n\
-    \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
-    \ < Z:\n            a0, a1, b0, b1 = A[m^b], A[m], B[m^b], B[m]\n            A[m^b],\
-    \ A[m], B[m^b], B[m] = a0+a1, a0-a1, b0+b1, b0-b1\n            m = m+1|b\n   \
-    \ return A, B\n"
+    \                     \n'''\n\ndef ior_mobius(A: list[int], N: int, Z: int = None):\n\
+    \    Z = Z if Z else len(A)\n    for i in range(N):\n        m = b = 1<<i\n  \
+    \      while m < Z: A[m] -= A[m^b]; m = m+1|b\n    return A\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
-    \ndef fwht_pair(A: list[int], B: list[int], N: int):\n    Z = len(A)\n    for\
-    \ i in range(N):\n        m = b = 1<<i\n        while m < Z:\n            a0,\
-    \ a1, b0, b1 = A[m^b], A[m], B[m^b], B[m]\n            A[m^b], A[m], B[m^b], B[m]\
-    \ = a0+a1, a0-a1, b0+b1, b0-b1\n            m = m+1|b\n    return A, B\n"
+    \ndef ior_mobius(A: list[int], N: int, Z: int = None):\n    Z = Z if Z else len(A)\n\
+    \    for i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m] -= A[m^b];\
+    \ m = m+1|b\n    return A\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/conv/fwht_pair_fn.py
+  path: cp_library/math/conv/ior_mobius_fn.py
   requiredBy:
-  - cp_library/math/conv/ixor_conv_fn.py
-  - cp_library/math/conv/xor_conv_fn.py
-  - cp_library/math/conv/mod/ixor_conv_fn.py
-  - cp_library/math/conv/mod/xor_conv_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - cp_library/math/sps/mod/sps_exp_half_fn.py
+  - cp_library/math/conv/mod/ior_conv_fn.py
+  - cp_library/math/conv/ior_conv_fn.py
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/convolution/bitwise_xor_convolution.test.py
-documentation_of: cp_library/math/conv/fwht_pair_fn.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+documentation_of: cp_library/math/conv/ior_mobius_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/fwht_pair_fn.py
-- /library/cp_library/math/conv/fwht_pair_fn.py.html
-title: cp_library/math/conv/fwht_pair_fn.py
+- /library/cp_library/math/conv/ior_mobius_fn.py
+- /library/cp_library/math/conv/ior_mobius_fn.py.html
+title: cp_library/math/conv/ior_mobius_fn.py
 ---

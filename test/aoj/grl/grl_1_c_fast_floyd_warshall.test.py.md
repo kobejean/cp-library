@@ -216,12 +216,12 @@ data:
     \      for A in L: A[l+i], A[l+j] = A[l+j], A[l+i]\n        order[inv[i]], order[inv[j]]\
     \ = order[inv[j]], order[inv[i]]\n        inv[i], inv[j] = inv[j], inv[i]\n  \
     \  return L\n\n\n\nclass view2(Generic[_T1, _T2]):\n    __slots__ = 'A1', 'A2',\
-    \ 'l', 'r'\n    def __init__(V, A1: list[_T1], A2: list[_T2], l: int, r: int):\
-    \ V.A1, V.A2, V.l, V.r = A1, A2, l, r\n    def __len__(V): return V.r - V.l\n\
-    \    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return V.A1[V.l+i],\
-    \ V.A2[V.l+i]\n        else: raise IndexError\n    def __setitem__(V, i: int,\
-    \ v: tuple[_T1, _T2]): V.A1[V.l+i], V.A2[V.l+i] = v\n    def __contains__(V, v:\
-    \ tuple[_T1, _T2]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
+    \ 'l', 'r'\n    def __init__(V, A1: list[_T1], A2: list[_T2], l: int = 0, r: int\
+    \ = 0): V.A1, V.A2, V.l, V.r = A1, A2, l, r\n    def __len__(V): return V.r -\
+    \ V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return\
+    \ V.A1[V.l+i], V.A2[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
+    \ i: int, v: tuple[_T1, _T2]): V.A1[V.l+i], V.A2[V.l+i] = v\n    def __contains__(V,\
+    \ v: tuple[_T1, _T2]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
     \ V.l, V.r = l, r\n    def index(V, v: tuple[_T1, _T2]): raise NotImplemented\n\
     \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A1[l],\
     \ V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] = V.A2[r], V.A2[l]; l += 1; r -=\
@@ -236,58 +236,59 @@ data:
     \    return I\n\n\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
     \ return -1\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n    def\
-    \ __init__(V, A: list[_T], l: int, r: int): V.A, V.l, V.r = A, l, r\n    def __len__(V):\
-    \ return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r\
-    \ - V.l: return V.A[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
-    \ i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V, v: _T): return list_find(V.A,\
-    \ v, V.l, V.r) != -1\n    def set_range(V, l: int, r: int): V.l, V.r = l, r\n\
-    \    def index(V, v: _T): return V.A.index(v, V.l, V.r) - V.l\n    def reverse(V):\n\
-    \        l, r = V.l, V.r-1\n        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l];\
-    \ l += 1; r -= 1\n    def sort(V, /, *args, **kwargs):\n        A = V.A[V.l:V.r];\
-    \ A.sort(*args, **kwargs)\n        for i,a in enumerate(A,V.l): V.A[i] = a\n \
-    \   def pop(V): V.r -= 1; return V.A[V.r]\n    def append(V, v: _T): V.A[V.r]\
-    \ = v; V.r += 1\n    def popleft(V): V.l += 1; return V.A[V.l-1]\n    def appendleft(V,\
-    \ v: _T): V.l -= 1; V.A[V.l] = v; \n    def validate(V): return 0 <= V.l <= V.r\
-    \ <= len(V.A)\nfrom typing import Callable, Sequence, Union, overload\n\nfrom\
-    \ enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER =\
-    \ auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
-    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
-    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
-    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
-    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
-    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
-    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
-    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Parsable):\n\
-    \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
-    \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
-    \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
-    \      '''The number of vertices.'''\n        G.M = M\n        '''The number of\
-    \ edges.'''\n        G.U = U\n        '''A list of source vertices in the original\
-    \ edge list.'''\n        G.V = V\n        '''A list of destination vertices in\
-    \ the original edge list.'''\n        G.deg = deg\n        '''deg[u] is the out\
-    \ degree of vertex u.'''\n        G.La = La\n        '''La[u] stores the start\
-    \ index of the list of adjacent vertices from u.'''\n        G.Ra = Ra\n     \
-    \   '''Ra[u] stores the stop index of the list of adjacent vertices from u.'''\n\
-    \        G.Ua = Ua\n        '''Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.'''\n\
-    \        G.Va = Va\n        '''Va[i] lists adjacent vertices to u for La[u] <=\
-    \ i < Ra[u].'''\n        G.Ea = Ea\n        '''Ea[i] lists the edge ids that start\
-    \ from u for La[u] <= i < Ra[u].\n        For undirected graphs, edge ids in range\
-    \ M<= e <2*M are edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin\
-    \ if twin is not None else range(len(Ua))\n        '''twin[i] in undirected graphs\
-    \ stores index j of the same edge but with u and v swapped.'''\n        G.st:\
-    \ list[int] = None\n        G.order: list[int] = None\n        G.vis: list[int]\
-    \ = None\n        G.back: list[int] = None\n        G.tin: list[int] = None\n\
-    \    \n    def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
-    \        if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def\
-    \ prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n\
-    \        return G.st\n    \n    def prep_order(G):\n        if G.order is None:\
-    \ G.order = elist(G.N)\n        else: G.order.clear()\n        return G.order\n\
-    \    \n    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n\
-    \        return G.back\n    \n    def prep_tin(G):\n        if G.tin is None:\
-    \ G.tin = i32f(G.N, -1)\n        return G.tin\n    \n    def _remove(G, a: int):\n\
-    \        G.deg[u := G.Ua[a]] -= 1\n        G.Ra[u] = (r := G.Ra[u]-1)\n      \
-    \  G.Ua[a], G.Va[a], G.Ea[a] = G.Ua[r], G.Va[r], G.Ea[r]\n        G.twin[a], G.twin[r]\
+    \ __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l, r\n\
+    \    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n    \
+    \    if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
+    \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
+    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
+    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
+    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
+    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
+    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
+    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
+    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom typing import\
+    \ Callable, Sequence, Union, overload\n\nfrom enum import auto, IntFlag, IntEnum\n\
+    \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
+    \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
+    \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
+    \ = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES\
+    \ = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n\
+    \    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
+    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
+    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
+    \    \n\nclass GraphBase(Parsable):\n    def __init__(G, N: int, M: int, U: list[int],\
+    \ V: list[int], \n                 deg: list[int], La: list[int], Ra: list[int],\n\
+    \                 Ua: list[int], Va: list[int], Ea: list[int], twin: list[int]\
+    \ = None):\n        G.N = N\n        '''The number of vertices.'''\n        G.M\
+    \ = M\n        '''The number of edges.'''\n        G.U = U\n        '''A list\
+    \ of source vertices in the original edge list.'''\n        G.V = V\n        '''A\
+    \ list of destination vertices in the original edge list.'''\n        G.deg =\
+    \ deg\n        '''deg[u] is the out degree of vertex u.'''\n        G.La = La\n\
+    \        '''La[u] stores the start index of the list of adjacent vertices from\
+    \ u.'''\n        G.Ra = Ra\n        '''Ra[u] stores the stop index of the list\
+    \ of adjacent vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i] = u for\
+    \ La[u] <= i < Ra[u], useful for backtracking.'''\n        G.Va = Va\n       \
+    \ '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''\n        G.Ea\
+    \ = Ea\n        '''Ea[i] lists the edge ids that start from u for La[u] <= i <\
+    \ Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are edges\
+    \ from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin if twin is not None\
+    \ else range(len(Ua))\n        '''twin[i] in undirected graphs stores index j\
+    \ of the same edge but with u and v swapped.'''\n        G.st: list[int] = None\n\
+    \        G.order: list[int] = None\n        G.vis: list[int] = None\n        G.back:\
+    \ list[int] = None\n        G.tin: list[int] = None\n    \n    def clear(G):\n\
+    \        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n        if G.vis\
+    \ is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def prep_st(G):\n\
+    \        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n    \
+    \    return G.st\n    \n    def prep_order(G):\n        if G.order is None: G.order\
+    \ = elist(G.N)\n        else: G.order.clear()\n        return G.order\n    \n\
+    \    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n  \
+    \      return G.back\n    \n    def prep_tin(G):\n        if G.tin is None: G.tin\
+    \ = i32f(G.N, -1)\n        return G.tin\n    \n    def _remove(G, a: int):\n \
+    \       G.deg[u := G.Ua[a]] -= 1\n        G.Ra[u] = (r := G.Ra[u]-1)\n       \
+    \ G.Ua[a], G.Va[a], G.Ea[a] = G.Ua[r], G.Va[r], G.Ea[r]\n        G.twin[a], G.twin[r]\
     \ = G.twin[r], G.twin[a]\n        G.twin[G.twin[a]] = a\n        G.twin[G.twin[r]]\
     \ = r\n\n    def remove(G, a: int):\n        b = G.twin[a]; G._remove(a)\n   \
     \     if a != b: G._remove(b)\n\n    def __len__(G) -> int: return G.N\n    def\
@@ -575,7 +576,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py

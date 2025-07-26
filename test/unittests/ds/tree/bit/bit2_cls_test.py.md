@@ -397,7 +397,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/tree/bit/bit2_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/tree/bit/bit2_cls_test.py

@@ -2,16 +2,82 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
+    path: cp_library/math/conv/isubset_deconv_fn.py
+    title: cp_library/math/conv/isubset_deconv_fn.py
+  - icon: ':warning:'
     path: cp_library/math/conv/mod/isubset_conv_fn.py
     title: cp_library/math/conv/mod/isubset_conv_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/conv/mod/isubset_deconv_fn.py
+    title: cp_library/math/conv/mod/isubset_deconv_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/mod/subset_conv_fn.py
     title: cp_library/math/conv/mod/subset_conv_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/subset_deconv_fn.py
+    title: cp_library/math/conv/mod/subset_deconv_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/subset_conv_fn.py
     title: cp_library/math/conv/subset_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/subset_deconv_fn.py
+    title: cp_library/math/conv/subset_deconv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_composite_fn.py
+    title: cp_library/math/sps/mod/sps_composite_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_div_fn.py
+    title: cp_library/math/sps/mod/sps_div_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_fn.py
+    title: cp_library/math/sps/mod/sps_exp_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_half_fn.py
+    title: cp_library/math/sps/mod/sps_exp_half_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_ln_fn.py
+    title: cp_library/math/sps/mod/sps_ln_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_mul_fn.py
+    title: cp_library/math/sps/mod/sps_mul_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_div_fn.py
+    title: cp_library/math/sps/sps_div_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_exp_fn.py
+    title: cp_library/math/sps/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_ln_fn.py
+    title: cp_library/math/sps/sps_ln_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_mul_fn.py
+    title: cp_library/math/sps/sps_mul_fn.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+    title: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
@@ -41,13 +107,35 @@ data:
   isVerificationFile: false
   path: cp_library/bit/popcnts_fn.py
   requiredBy:
+  - cp_library/math/sps/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - cp_library/math/sps/mod/sps_composite_fn.py
+  - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - cp_library/math/sps/mod/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - cp_library/math/sps/mod/sps_div_fn.py
+  - cp_library/math/sps/mod/sps_mul_fn.py
+  - cp_library/math/sps/mod/sps_exp_half_fn.py
+  - cp_library/math/sps/mod/sps_exp_fn.py
+  - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - cp_library/math/sps/sps_div_fn.py
+  - cp_library/math/sps/sps_mul_fn.py
+  - cp_library/math/sps/sps_exp_fn.py
+  - cp_library/math/conv/subset_deconv_fn.py
+  - cp_library/math/conv/isubset_deconv_fn.py
+  - cp_library/math/conv/mod/subset_deconv_fn.py
   - cp_library/math/conv/mod/isubset_conv_fn.py
+  - cp_library/math/conv/mod/isubset_deconv_fn.py
   - cp_library/math/conv/mod/subset_conv_fn.py
   - cp_library/math/conv/subset_conv_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   - test/library-checker/set-power-series/subset_convolution_snippet.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
 documentation_of: cp_library/bit/popcnts_fn.py

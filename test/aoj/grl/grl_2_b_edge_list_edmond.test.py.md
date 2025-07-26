@@ -273,7 +273,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_b_edge_list_edmond.test.py

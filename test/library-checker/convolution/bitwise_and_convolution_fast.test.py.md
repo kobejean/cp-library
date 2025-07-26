@@ -5,14 +5,14 @@ data:
     path: cp_library/io/fast/fast_io_fn.py
     title: cp_library/io/fast/fast_io_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/and_conv_fast_fn.py
-    title: cp_library/math/conv/and_conv_fast_fn.py
+    path: cp_library/math/conv/iand_mobius_fn.py
+    title: cp_library/math/conv/iand_mobius_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/superset_mobius_fn.py
-    title: cp_library/math/conv/superset_mobius_fn.py
+    path: cp_library/math/conv/iand_zeta_pair_fn.py
+    title: cp_library/math/conv/iand_zeta_pair_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/superset_zeta_pair_fn.py
-    title: cp_library/math/conv/superset_zeta_pair_fn.py
+    path: cp_library/math/conv/mod/iand_conv_fn.py
+    title: cp_library/math/conv/mod/iand_conv_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,7 +23,7 @@ data:
     links:
     - https://judge.yosupo.jp/problem/bitwise_and_convolution
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
-    \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    wtnl(and_conv(A,\
+    \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    wtnl(iand_conv(A,\
     \ B, N, 998244353))\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -81,15 +81,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n               \
-    \       Math - Convolution                     \n'''\n\ndef superset_zeta_pair(A:\
+    \       Math - Convolution                     \n'''\n\ndef iand_zeta_pair(A:\
     \ list[int], B: list[int], N: int):\n    Z = len(A)\n    for i in range(N):\n\
     \        m = b = 1<<i\n        while m < Z: A[m^b] += A[m]; B[m^b] += B[m]; m\
-    \ = m+1|b\n    return A\n\ndef superset_mobius(A, N: int):\n    Z = len(A)\n \
-    \   for i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m^b] -= A[m];\
-    \ m = m+1|b\n    return A\n\ndef and_conv(A: list[int], B: list[int], N: int,\
-    \ mod) -> list[int]:\n    assert len(A) == len(B)\n    Z = 1 << N\n    superset_zeta_pair(A,\
-    \ B, N)\n    for i, b in enumerate(B): A[i] = A[i]*b%mod\n    superset_mobius(A,\
-    \ N)\n    for i in range(Z): A[i] %= mod\n    return A\n\n\nfrom __pypy__.builders\
+    \ = m+1|b\n    return A\n\ndef iand_mobius(A, N: int):\n    Z = len(A)\n    for\
+    \ i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m^b] -= A[m]; m\
+    \ = m+1|b\n    return A\n\ndef iand_conv(A: list[int], B: list[int], N: int, mod:\
+    \ int) -> list[int]:\n    assert len(A) == len(B)\n    Z = 1 << N\n    iand_zeta_pair(A,\
+    \ B, N)\n    for i, b in enumerate(B): A[i] = A[i]*b%mod\n    iand_mobius(A, N)\n\
+    \    for i in range(Z): A[i] %= mod\n    return A\n\n\nfrom __pypy__.builders\
     \ import StringBuilder\nimport sys\nfrom os import read as os_read, write as os_write\n\
     from atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
     \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
@@ -113,19 +113,19 @@ data:
     \ range(n): lst[i] = rd()\n    return lst\ndef wtnl(l): wtn(' '.join(map(str,\
     \ l)))\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
-    \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    wtnl(and_conv(A,\
-    \ B, N, 998244353))\n\nfrom cp_library.math.conv.and_conv_fast_fn import and_conv\n\
+    \ndef main():\n    N = rd()\n    A = rdl(1 << N)\n    B = rdl(1 << N)\n    wtnl(iand_conv(A,\
+    \ B, N, 998244353))\n\nfrom cp_library.math.conv.mod.iand_conv_fn import iand_conv\n\
     from cp_library.io.fast.fast_io_fn import rd, rdl, wtnl\n\nif __name__ == '__main__':\n\
     \    main()\n"
   dependsOn:
-  - cp_library/math/conv/and_conv_fast_fn.py
+  - cp_library/math/conv/mod/iand_conv_fn.py
   - cp_library/io/fast/fast_io_fn.py
-  - cp_library/math/conv/superset_zeta_pair_fn.py
-  - cp_library/math/conv/superset_mobius_fn.py
+  - cp_library/math/conv/iand_zeta_pair_fn.py
+  - cp_library/math/conv/iand_mobius_fn.py
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution_fast.test.py

@@ -186,27 +186,27 @@ data:
     \ + [0]*(max_sz-deg+1)\n    R, E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1,\
     \ 1]\n    reserve(R, max_sz), reserve(E, max_sz)\n    p = 2\n    while p < deg:\n\
     \        Rres = fntt(R + [0]*p)\n        x = ifntt([Rres[i]*-e%mod for i, e in\
-    \ enumerate(Eres)])\n        x[:h] = [0]*(h:=p>>1)\n        E[h:] = conv_half(x,\
-    \ Eres)[h:]\n        Eres = fntt(E + [0]*p)\n        x = conv_half(dP[:p-1]+[0],\
+    \ enumerate(Eres)])\n        for i in range(h:=p>>1): x[i] = 0\n        E.extend(conv_half(x,\
+    \ Eres)[h:])\n        Eres = fntt(E + [0]*p)\n        x = conv_half(dP[:p-1]+[0],\
     \ Rres[:p])\n        for i in range(1,p): x[i-1] -= R[i]*i % mod\n        x +=\
     \ [0] * p\n        for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n\
     \        for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod\
-    \ \n        x[:p] = [0] * p\n        R[p:] = conv_half(x,Rres)[p:]\n        p\
-    \ <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int) -> None:\
-    \ ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A:\
-    \ list, est_len: int):\n        pass\nreserve = resizelist_hint\n\ndef fps_normalize(P:\
-    \ list, deg) -> list:\n    if (N:=len(P)) < deg: P[N:] = [0]*(deg-N)\n    del\
-    \ P[deg:]\n    return P\n\ndef fps_pow(P: list, k: int, deg = -1) -> list:\n \
-    \   deg, mod = (len(P) if deg<0 else deg), mint.mod\n    if k == 0: return [1]+[0]*(deg-1)\
-    \ if deg else []\n    i = next((i for i, c in enumerate(P) if c), default=deg)\n\
-    \    if i * k >= deg: return [0] * deg\n    inv, alpha = mod_inv(P[i],mod), pow(P[i],\
-    \ k, mod)\n    R = fps_log([P[j]*inv%mod for j in range(i,deg)])\n    for j,r\
-    \ in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n    for j,r in enumerate(R):\
-    \ R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n    return fps_normalize(R, deg)\n\
-    \n\ndef stirling1_k(n: SupportsIndex, k: SupportsIndex, signed = True):\n    mcomb.extend_inv(n+k)\n\
-    \    kinv,fact,mod,deg = mcomb.fact_inv[k],mcomb.fact,mint.mod,n+1-k\n    R =\
-    \ mcomb.inv[1:deg+1]\n    if signed:\n        for i in range(1,deg,2): R[i] =\
-    \ mod - R[i]\n    return [mint(r*kinv%mod*fact[i]) for i,r in enumerate(fps_pow(R,k,deg),start=k)]\n\
+    \ \n        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
+    \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
+    \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
+    \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
+    \ndef fps_normalize(P: list, deg) -> list:\n    if (N:=len(P)) < deg: P[N:] =\
+    \ [0]*(deg-N)\n    del P[deg:]\n    return P\n\ndef fps_pow(P: list, k: int, deg\
+    \ = -1) -> list:\n    deg, mod = (len(P) if deg<0 else deg), mint.mod\n    if\
+    \ k == 0: return [1]+[0]*(deg-1) if deg else []\n    i = next((i for i, c in enumerate(P)\
+    \ if c), default=deg)\n    if i * k >= deg: return [0] * deg\n    inv, alpha =\
+    \ mod_inv(P[i],mod), pow(P[i], k, mod)\n    R = fps_log([P[j]*inv%mod for j in\
+    \ range(i,deg)])\n    for j,r in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n\
+    \    for j,r in enumerate(R): R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n\
+    \    return fps_normalize(R, deg)\n\n\ndef stirling1_k(n: SupportsIndex, k: SupportsIndex,\
+    \ signed = True):\n    mcomb.extend_inv(n+k)\n    kinv,fact,mod,deg = mcomb.fact_inv[k],mcomb.fact,mint.mod,n+1-k\n\
+    \    R = mcomb.inv[1:deg+1]\n    if signed:\n        for i in range(1,deg,2):\
+    \ R[i] = mod - R[i]\n    return [mint(r*kinv%mod*fact[i]) for i,r in enumerate(fps_pow(R,k,deg),start=k)]\n\
     \n"
   code: "import cp_library.math.table.__header__\nfrom typing import SupportsIndex\n\
     from cp_library.math.mod.mint_ntt_cls import mint\nfrom cp_library.math.table.mcomb_cls\
@@ -233,7 +233,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling1_k_fn.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

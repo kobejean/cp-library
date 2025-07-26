@@ -134,6 +134,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/view/view_cls.py
     title: cp_library/ds/view/view_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/isubset_conv_half_fn.py
+    title: cp_library/math/conv/mod/isubset_conv_half_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_composite_fn.py
+    title: cp_library/math/sps/mod/sps_composite_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_fn.py
+    title: cp_library/math/sps/mod/sps_exp_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_half_fn.py
+    title: cp_library/math/sps/mod/sps_exp_half_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_exp_small_fn.py
+    title: cp_library/math/sps/mod/sps_exp_small_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_ln_fn.py
+    title: cp_library/math/sps/mod/sps_ln_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_exp_fn.py
+    title: cp_library/math/sps/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_ln_fn.py
+    title: cp_library/math/sps/sps_ln_fn.py
   - icon: ':warning:'
     path: perf/csr.py
     title: perf/csr.py
@@ -283,6 +319,18 @@ data:
     path: test/library-checker/graph/two_edge_connected_components.test.py
     title: test/library-checker/graph/two_edge_connected_components.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+    title: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/jump_on_tree.test.py
     title: test/library-checker/tree/jump_on_tree.test.py
   - icon: ':heavy_check_mark:'
@@ -390,6 +438,18 @@ data:
   - cp_library/alg/tree/csr/hld_cls.py
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
+  - cp_library/math/sps/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - cp_library/math/sps/mod/sps_composite_fn.py
+  - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - cp_library/math/sps/mod/sps_exp_small_fn.py
+  - cp_library/math/sps/mod/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - cp_library/math/sps/mod/sps_exp_half_fn.py
+  - cp_library/math/sps/mod/sps_exp_fn.py
+  - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - cp_library/math/sps/sps_exp_fn.py
+  - cp_library/math/conv/mod/isubset_conv_half_fn.py
   - perf/heap_view.py
   - perf/list_view.py
   - perf/que.py
@@ -397,9 +457,13 @@ data:
   - perf/csr.py
   - perf/deque.py
   - perf/heap_csr.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py

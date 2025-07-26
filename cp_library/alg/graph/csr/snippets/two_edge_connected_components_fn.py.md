@@ -77,9 +77,9 @@ data:
     \ Generic\n\n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop =\
     \ sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n    except:\n\
     \        return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n\
-    \    def __init__(V, A: list[_T], l: int, r: int): V.A, V.l, V.r = A, l, r\n \
-    \   def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n     \
-    \   if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
+    \    def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A,\
+    \ l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int):\
+    \ \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
     \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
     \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
     \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
@@ -380,7 +380,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/csr/snippets/two_edge_connected_components_fn.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/two_edge_connected_components.test.py

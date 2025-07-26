@@ -55,12 +55,12 @@ data:
     \        inv[i], inv[j] = inv[j], inv[i]\n    return L\n\nclass view6(Generic[_T1,\
     \ _T2, _T3, _T4, _T5, _T6]):\n    __slots__ = 'A1', 'A2', 'A3', 'A4', 'A5', 'A6',\
     \ 'l', 'r'\n    def __init__(V, A1: list[_T1], A2: list[_T2], A3: list[_T3], A4:\
-    \ list[_T4], A5: list[_T5], A6: list[_T6], l: int, r: int): \n        V.A1, V.A2,\
-    \ V.A3, V.A4, V.A5, V.A6, V.l, V.r = A1, A2, A3, A4, A5, A6, l, r\n    def __len__(V):\
-    \ return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r\
-    \ - V.l: return V.A1[V.l+i], V.A2[V.l+i], V.A3[V.l+i], V.A4[V.l+i], V.A5[V.l+i],\
-    \ V.A6[V.l+i]\n        else: raise IndexError\n    def __setitem__(V, i: int,\
-    \ v: tuple[_T1, _T2, _T3, _T4, _T5, _T6]): V.A1[V.l+i], V.A2[V.l+i], V.A3[V.l+i],\
+    \ list[_T4], A5: list[_T5], A6: list[_T6], l: int = 0, r: int = 0): \n       \
+    \ V.A1, V.A2, V.A3, V.A4, V.A5, V.A6, V.l, V.r = A1, A2, A3, A4, A5, A6, l, r\n\
+    \    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n    \
+    \    if 0 <= i < V.r - V.l: return V.A1[V.l+i], V.A2[V.l+i], V.A3[V.l+i], V.A4[V.l+i],\
+    \ V.A5[V.l+i], V.A6[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
+    \ i: int, v: tuple[_T1, _T2, _T3, _T4, _T5, _T6]): V.A1[V.l+i], V.A2[V.l+i], V.A3[V.l+i],\
     \ V.A4[V.l+i], V.A5[V.l+i], V.A6[V.l+i] = v\n    def __contains__(V, v: tuple[_T1,\
     \ _T2, _T3, _T4, _T5, _T6]): raise NotImplemented\n    def set_range(V, l: int,\
     \ r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_T1, _T2, _T3, _T4, _T5,\
@@ -127,7 +127,7 @@ data:
   path: cp_library/ds/view/csr6_cls.py
   requiredBy:
   - perf/csr6.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/view/csr6_cls_test.py

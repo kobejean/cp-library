@@ -82,7 +82,7 @@ data:
   requiredBy:
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/tree_path_composite_sum.test.py

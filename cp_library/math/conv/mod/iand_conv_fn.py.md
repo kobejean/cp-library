@@ -1,10 +1,13 @@
 ---
 data:
-  _extendedDependsOn: []
-  _extendedRequiredBy:
+  _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/and_conv_fast_fn.py
-    title: cp_library/math/conv/and_conv_fast_fn.py
+    path: cp_library/math/conv/iand_mobius_fn.py
+    title: cp_library/math/conv/iand_mobius_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/iand_zeta_pair_fn.py
+    title: cp_library/math/conv/iand_zeta_pair_fn.py
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
@@ -71,26 +74,35 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef superset_mobius(A, N: int):\n    Z = len(A)\n\
-    \    for i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m^b] -=\
-    \ A[m]; m = m+1|b\n    return A\n"
+    \                     \n'''\n\ndef iand_zeta_pair(A: list[int], B: list[int],\
+    \ N: int):\n    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n   \
+    \     while m < Z: A[m^b] += A[m]; B[m^b] += B[m]; m = m+1|b\n    return A\n\n\
+    def iand_mobius(A, N: int):\n    Z = len(A)\n    for i in range(N):\n        m\
+    \ = b = 1<<i\n        while m < Z: A[m^b] -= A[m]; m = m+1|b\n    return A\n\n\
+    def iand_conv(A: list[int], B: list[int], N: int, mod: int) -> list[int]:\n  \
+    \  assert len(A) == len(B)\n    Z = 1 << N\n    iand_zeta_pair(A, B, N)\n    for\
+    \ i, b in enumerate(B): A[i] = A[i]*b%mod\n    iand_mobius(A, N)\n    for i in\
+    \ range(Z): A[i] %= mod\n    return A\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
-    \ndef superset_mobius(A, N: int):\n    Z = len(A)\n    for i in range(N):\n  \
-    \      m = b = 1<<i\n        while m < Z: A[m^b] -= A[m]; m = m+1|b\n    return\
-    \ A"
-  dependsOn: []
+    from cp_library.math.conv.iand_zeta_pair_fn import iand_zeta_pair\nfrom cp_library.math.conv.iand_mobius_fn\
+    \ import iand_mobius\n\ndef iand_conv(A: list[int], B: list[int], N: int, mod:\
+    \ int) -> list[int]:\n    assert len(A) == len(B)\n    Z = 1 << N\n    iand_zeta_pair(A,\
+    \ B, N)\n    for i, b in enumerate(B): A[i] = A[i]*b%mod\n    iand_mobius(A, N)\n\
+    \    for i in range(Z): A[i] %= mod\n    return A"
+  dependsOn:
+  - cp_library/math/conv/iand_zeta_pair_fn.py
+  - cp_library/math/conv/iand_mobius_fn.py
   isVerificationFile: false
-  path: cp_library/math/conv/superset_mobius_fn.py
-  requiredBy:
-  - cp_library/math/conv/and_conv_fast_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  path: cp_library/math/conv/mod/iand_conv_fn.py
+  requiredBy: []
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_and_convolution_fast.test.py
-documentation_of: cp_library/math/conv/superset_mobius_fn.py
+documentation_of: cp_library/math/conv/mod/iand_conv_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/superset_mobius_fn.py
-- /library/cp_library/math/conv/superset_mobius_fn.py.html
-title: cp_library/math/conv/superset_mobius_fn.py
+- /library/cp_library/math/conv/mod/iand_conv_fn.py
+- /library/cp_library/math/conv/mod/iand_conv_fn.py.html
+title: cp_library/math/conv/mod/iand_conv_fn.py
 ---

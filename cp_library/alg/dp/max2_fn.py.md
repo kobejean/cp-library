@@ -17,6 +17,42 @@ data:
   - icon: ':warning:'
     path: cp_library/alg/iter/rank/rank_multi_fn.py
     title: cp_library/alg/iter/rank/rank_multi_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/isubset_conv_ranked_fn.py
+    title: cp_library/math/conv/isubset_conv_ranked_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/conv/mod/isubset_conv_fn.py
+    title: cp_library/math/conv/mod/isubset_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/isubset_conv_ranked_fn.py
+    title: cp_library/math/conv/mod/isubset_conv_ranked_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/subset_conv_fn.py
+    title: cp_library/math/conv/mod/subset_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/subset_conv_fn.py
+    title: cp_library/math/conv/subset_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_composite_fn.py
+    title: cp_library/math/sps/mod/sps_composite_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_fn.py
+    title: cp_library/math/sps/mod/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_mul_fn.py
+    title: cp_library/math/sps/mod/sps_mul_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_exp_fn.py
+    title: cp_library/math/sps/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_mul_fn.py
+    title: cp_library/math/sps/sps_mul_fn.py
   - icon: ':warning:'
     path: perf/rank.py
     title: perf/rank.py
@@ -69,6 +105,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/other/longest_increasing_sequence.test.py
     title: test/library-checker/other/longest_increasing_sequence.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+    title: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution.test.py
+    title: test/library-checker/set-power-series/subset_convolution.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution_all.test.py
+    title: test/library-checker/set-power-series/subset_convolution_all.test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -92,10 +143,27 @@ data:
   - cp_library/alg/iter/rank/irank_multi_fn.py
   - cp_library/alg/iter/rank/rank_multi_fn.py
   - cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - cp_library/math/sps/mod/sps_composite_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - cp_library/math/sps/mod/sps_mul_fn.py
+  - cp_library/math/sps/mod/sps_exp_fn.py
+  - cp_library/math/sps/sps_mul_fn.py
+  - cp_library/math/sps/sps_exp_fn.py
+  - cp_library/math/conv/isubset_conv_ranked_fn.py
+  - cp_library/math/conv/mod/isubset_conv_ranked_fn.py
+  - cp_library/math/conv/mod/isubset_conv_fn.py
+  - cp_library/math/conv/mod/subset_conv_fn.py
+  - cp_library/math/conv/subset_conv_fn.py
   - perf/rank.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/subset_convolution_all.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_group_compressed.test.py
   - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py

@@ -14,11 +14,11 @@ data:
     path: cp_library/io/write_fn.py
     title: cp_library/io/write_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/and_conv_fn.py
-    title: cp_library/math/conv/and_conv_fn.py
+    path: cp_library/math/conv/iand_conv_ring_fn.py
+    title: cp_library/math/conv/iand_conv_ring_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/superset_transform_fn.py
-    title: cp_library/math/conv/superset_transform_fn.py
+    path: cp_library/math/conv/iand_transform_fn.py
+    title: cp_library/math/conv/iand_transform_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -31,8 +31,8 @@ data:
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
     \ndef mul(a,b): return a*b%998244353\ndef sub(a,b): return (a-b)%998244353\ndef\
     \ add(a,b): return (a+b)%998244353\n\ndef main():\n    N = read(int)\n    A =\
-    \ read(list[int])\n    B = read(list[int])\n    C = and_conv(A, B, N, mul, sub,\
-    \ add)\n    write(*C)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ read(list[int])\n    B = read(list[int])\n    C = iand_conv_ring(A, B, N, mul,\
+    \ sub, add)\n    write(*C)\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -185,33 +185,33 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n                      Math - Convolution                     \n\
-    '''\n\ndef superset_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:\n\
+    '''\n\ndef iand_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:\n\
     \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
-    \ < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n    return A\n\ndef and_conv(A: list[_T],\
-    \ B: list[_T], N: int,\n             mul: Callable[[_T,_T],_T] = operator.mul,\n\
+    \ < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n    return A\n\ndef iand_conv_ring(A:\
+    \ list[_T], B: list[_T], N: int,\n             mul: Callable[[_T,_T],_T] = operator.mul,\n\
     \             sub: Callable[[_T,_T],_T] = operator.sub,\n             add: Callable[[_T,_T],_T]\
-    \ = operator.add) -> list[_T]:\n    assert len(A) == len(B)\n    superset_transform(A,\
-    \ N, op=add), superset_transform(B, N, op=add)\n    for i, b in enumerate(B):\
-    \ A[i] = mul(A[i], b)\n    return superset_transform(A, N, op=sub)\n\nif __name__\
-    \ == '__main__':\n    main()\n"
+    \ = operator.add) -> list[_T]:\n    assert len(A) == len(B)\n    iand_transform(A,\
+    \ N, op=add), iand_transform(B, N, op=add)\n    for i, b in enumerate(B): A[i]\
+    \ = mul(A[i], b)\n    return iand_transform(A, N, op=sub)\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
     \ndef mul(a,b): return a*b%998244353\ndef sub(a,b): return (a-b)%998244353\ndef\
     \ add(a,b): return (a+b)%998244353\n\ndef main():\n    N = read(int)\n    A =\
-    \ read(list[int])\n    B = read(list[int])\n    C = and_conv(A, B, N, mul, sub,\
-    \ add)\n    write(*C)\n\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
-    \ import write\nfrom cp_library.math.conv.and_conv_fn import and_conv\n\nif __name__\
-    \ == '__main__':\n    main()\n"
+    \ read(list[int])\n    B = read(list[int])\n    C = iand_conv_ring(A, B, N, mul,\
+    \ sub, add)\n    write(*C)\n\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\nfrom cp_library.math.conv.iand_conv_ring_fn import iand_conv_ring\n\
+    \nif __name__ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/math/conv/and_conv_fn.py
+  - cp_library/math/conv/iand_conv_ring_fn.py
   - cp_library/io/parser_cls.py
   - cp_library/io/fast_io_cls.py
-  - cp_library/math/conv/superset_transform_fn.py
+  - cp_library/math/conv/iand_transform_fn.py
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution.test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution.test.py

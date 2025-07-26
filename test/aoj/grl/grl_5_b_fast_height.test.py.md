@@ -229,12 +229,12 @@ data:
     \      for A in L: A[l+i], A[l+j] = A[l+j], A[l+i]\n        order[inv[i]], order[inv[j]]\
     \ = order[inv[j]], order[inv[i]]\n        inv[i], inv[j] = inv[j], inv[i]\n  \
     \  return L\n\n\n\nclass view2(Generic[_T1, _T2]):\n    __slots__ = 'A1', 'A2',\
-    \ 'l', 'r'\n    def __init__(V, A1: list[_T1], A2: list[_T2], l: int, r: int):\
-    \ V.A1, V.A2, V.l, V.r = A1, A2, l, r\n    def __len__(V): return V.r - V.l\n\
-    \    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return V.A1[V.l+i],\
-    \ V.A2[V.l+i]\n        else: raise IndexError\n    def __setitem__(V, i: int,\
-    \ v: tuple[_T1, _T2]): V.A1[V.l+i], V.A2[V.l+i] = v\n    def __contains__(V, v:\
-    \ tuple[_T1, _T2]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
+    \ 'l', 'r'\n    def __init__(V, A1: list[_T1], A2: list[_T2], l: int = 0, r: int\
+    \ = 0): V.A1, V.A2, V.l, V.r = A1, A2, l, r\n    def __len__(V): return V.r -\
+    \ V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return\
+    \ V.A1[V.l+i], V.A2[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
+    \ i: int, v: tuple[_T1, _T2]): V.A1[V.l+i], V.A2[V.l+i] = v\n    def __contains__(V,\
+    \ v: tuple[_T1, _T2]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
     \ V.l, V.r = l, r\n    def index(V, v: tuple[_T1, _T2]): raise NotImplemented\n\
     \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A1[l],\
     \ V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] = V.A2[r], V.A2[l]; l += 1; r -=\
@@ -249,10 +249,10 @@ data:
     \ I\n\n\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n \
     \   try:\n        return lst.index(value, start, stop)\n    except:\n        return\
     \ -1\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n    def __init__(V,\
-    \ A: list[_T], l: int, r: int): V.A, V.l, V.r = A, l, r\n    def __len__(V): return\
-    \ V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l:\
-    \ return V.A[V.l+i]\n        else: raise IndexError\n    def __setitem__(V, i:\
-    \ int, v: _T): V.A[V.l+i] = v\n    def __contains__(V, v: _T): return list_find(V.A,\
+    \ A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l, r\n    def __len__(V):\
+    \ return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r\
+    \ - V.l: return V.A[V.l+i]\n        else: raise IndexError\n    def __setitem__(V,\
+    \ i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V, v: _T): return list_find(V.A,\
     \ v, V.l, V.r) != -1\n    def set_range(V, l: int, r: int): V.l, V.r = l, r\n\
     \    def index(V, v: _T): return V.A.index(v, V.l, V.r) - V.l\n    def reverse(V):\n\
     \        l, r = V.l, V.r-1\n        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l];\
@@ -657,7 +657,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_b_fast_height.test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_b_fast_height.test.py

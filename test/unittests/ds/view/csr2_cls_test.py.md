@@ -259,46 +259,47 @@ data:
     \        order[inv[i]], order[inv[j]] = order[inv[j]], order[inv[i]]\n       \
     \ inv[i], inv[j] = inv[j], inv[i]\n    return L\n\nclass view2(Generic[_T1, _T2]):\n\
     \    __slots__ = 'A1', 'A2', 'l', 'r'\n    def __init__(V, A1: list[_T1], A2:\
-    \ list[_T2], l: int, r: int): V.A1, V.A2, V.l, V.r = A1, A2, l, r\n    def __len__(V):\
-    \ return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r\
-    \ - V.l: return V.A1[V.l+i], V.A2[V.l+i]\n        else: raise IndexError\n   \
-    \ def __setitem__(V, i: int, v: tuple[_T1, _T2]): V.A1[V.l+i], V.A2[V.l+i] = v\n\
-    \    def __contains__(V, v: tuple[_T1, _T2]): raise NotImplemented\n    def set_range(V,\
-    \ l: int, r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_T1, _T2]): raise\
-    \ NotImplemented\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while\
-    \ l < r: V.A1[l], V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] = V.A2[r], V.A2[l];\
-    \ l += 1; r -= 1\n    def sort(V, reverse=False): isort_ranged(V.A1, V.A2, l=V.l,\
-    \ r=V.r, reverse=reverse)\n    def pop(V): V.r -= 1; return V.A1[V.r], V.A2[V.r]\n\
-    \    def append(V, v: tuple[_T1, _T2]): V.A1[V.r], V.A2[V.r] = v; V.r += 1\n \
-    \   def popleft(V): V.l += 1; return V.A1[V.l-1], V.A2[V.l-1]\n    def appendleft(V,\
-    \ v: tuple[_T1, _T2]): V.l -= 1; V.A1[V.l], V.A2[V.l]  = v; \n    def validate(V):\
-    \ return 0 <= V.l <= V.r <= len(V.A1)\n\nclass CSR2(Generic[_T1, _T2]):\n    __slots__\
-    \ = 'A1', 'A2', 'O'\n    def __init__(csr, A1: list[_T1], A2: list[_T2], O: list[int]):\
-    \ csr.A1, csr.A2, csr.O = A1, A2, O\n    def __len__(csr): return len(csr.O)-1\n\
-    \    def __getitem__(csr, i: int): return view2(csr.A1, csr.A2, csr.O[i], csr.O[i+1])\n\
-    \    def __call__(csr, i: int, j: int): ij = csr.O[i]+j; return csr.A1[ij], csr.A2[ij]\n\
-    \    def set(csr, i: int, j: int, v: tuple[_T1, _T2]): ij = csr.O[i]+j; csr.A1[ij],\
-    \ csr.A2[ij] = v\n    @classmethod\n    def bucketize(cls, N: int, K: list[int],\
-    \ V1: list[_T1], V2: list[_T2]):\n        A1: list[_T1] = [0]*len(K); A2: list[_T2]\
-    \ = [0]*len(K); O = [0]*(N+1)\n        for k in K: O[k] += 1\n        for i in\
-    \ range(N): O[i+1] += O[i]\n        for e in range(len(K)): k = K[~e]; O[k] -=\
-    \ 1; A1[O[k]] = V1[~e]; A2[O[k]] = V2[~e]\n        return cls(A1, A2, O)\n\nif\
-    \ __name__ == '__main__':\n    \"\"\"\n    Helper for making unittest files compatible\
-    \ with verification-helper.\n    \n    This module provides a helper function\
-    \ to run a dummy Library Checker test\n    so that unittest files can be verified\
-    \ by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
-    \        \"\"\"\n        Run a dummy AOJ ITP1_1_A test for verification-helper\
-    \ compatibility.\n        \n        This function should be called in the __main__\
-    \ block of unittest files\n        that need to be compatible with verification-helper.\n\
-    \        \n        The function:\n        1. Prints \"Hello World\" (AOJ ITP1_1_A\
-    \ solution)\n        2. Runs pytest for the calling test file\n        3. Exits\
-    \ with the pytest result code\n        \"\"\"\n        import sys\n        \n\
-    \        # Print \"Hello World\" for AOJ ITP1_1_A problem\n        print(\"Hello\
-    \ World\")\n        \n        import io\n        from contextlib import redirect_stdout,\
-    \ redirect_stderr\n    \n        # Capture all output during test execution\n\
-    \        output = io.StringIO()\n        with redirect_stdout(output), redirect_stderr(output):\n\
-    \            # Get the calling module's file path\n            frame = sys._getframe(1)\n\
-    \            test_file = frame.f_globals.get('__file__')\n            if test_file\
+    \ list[_T2], l: int = 0, r: int = 0): V.A1, V.A2, V.l, V.r = A1, A2, l, r\n  \
+    \  def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n      \
+    \  if 0 <= i < V.r - V.l: return V.A1[V.l+i], V.A2[V.l+i]\n        else: raise\
+    \ IndexError\n    def __setitem__(V, i: int, v: tuple[_T1, _T2]): V.A1[V.l+i],\
+    \ V.A2[V.l+i] = v\n    def __contains__(V, v: tuple[_T1, _T2]): raise NotImplemented\n\
+    \    def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_T1,\
+    \ _T2]): raise NotImplemented\n    def reverse(V):\n        l, r = V.l, V.r-1\n\
+    \        while l < r: V.A1[l], V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] =\
+    \ V.A2[r], V.A2[l]; l += 1; r -= 1\n    def sort(V, reverse=False): isort_ranged(V.A1,\
+    \ V.A2, l=V.l, r=V.r, reverse=reverse)\n    def pop(V): V.r -= 1; return V.A1[V.r],\
+    \ V.A2[V.r]\n    def append(V, v: tuple[_T1, _T2]): V.A1[V.r], V.A2[V.r] = v;\
+    \ V.r += 1\n    def popleft(V): V.l += 1; return V.A1[V.l-1], V.A2[V.l-1]\n  \
+    \  def appendleft(V, v: tuple[_T1, _T2]): V.l -= 1; V.A1[V.l], V.A2[V.l]  = v;\
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A1)\n\nclass CSR2(Generic[_T1,\
+    \ _T2]):\n    __slots__ = 'A1', 'A2', 'O'\n    def __init__(csr, A1: list[_T1],\
+    \ A2: list[_T2], O: list[int]): csr.A1, csr.A2, csr.O = A1, A2, O\n    def __len__(csr):\
+    \ return len(csr.O)-1\n    def __getitem__(csr, i: int): return view2(csr.A1,\
+    \ csr.A2, csr.O[i], csr.O[i+1])\n    def __call__(csr, i: int, j: int): ij = csr.O[i]+j;\
+    \ return csr.A1[ij], csr.A2[ij]\n    def set(csr, i: int, j: int, v: tuple[_T1,\
+    \ _T2]): ij = csr.O[i]+j; csr.A1[ij], csr.A2[ij] = v\n    @classmethod\n    def\
+    \ bucketize(cls, N: int, K: list[int], V1: list[_T1], V2: list[_T2]):\n      \
+    \  A1: list[_T1] = [0]*len(K); A2: list[_T2] = [0]*len(K); O = [0]*(N+1)\n   \
+    \     for k in K: O[k] += 1\n        for i in range(N): O[i+1] += O[i]\n     \
+    \   for e in range(len(K)): k = K[~e]; O[k] -= 1; A1[O[k]] = V1[~e]; A2[O[k]]\
+    \ = V2[~e]\n        return cls(A1, A2, O)\n\nif __name__ == '__main__':\n    \"\
+    \"\"\n    Helper for making unittest files compatible with verification-helper.\n\
+    \    \n    This module provides a helper function to run a dummy Library Checker\
+    \ test\n    so that unittest files can be verified by oj-verify.\n    \"\"\"\n\
+    \    \n    def run_verification_helper_unittest():\n        \"\"\"\n        Run\
+    \ a dummy AOJ ITP1_1_A test for verification-helper compatibility.\n        \n\
+    \        This function should be called in the __main__ block of unittest files\n\
+    \        that need to be compatible with verification-helper.\n        \n    \
+    \    The function:\n        1. Prints \"Hello World\" (AOJ ITP1_1_A solution)\n\
+    \        2. Runs pytest for the calling test file\n        3. Exits with the pytest\
+    \ result code\n        \"\"\"\n        import sys\n        \n        # Print \"\
+    Hello World\" for AOJ ITP1_1_A problem\n        print(\"Hello World\")\n     \
+    \   \n        import io\n        from contextlib import redirect_stdout, redirect_stderr\n\
+    \    \n        # Capture all output during test execution\n        output = io.StringIO()\n\
+    \        with redirect_stdout(output), redirect_stderr(output):\n            #\
+    \ Get the calling module's file path\n            frame = sys._getframe(1)\n \
+    \           test_file = frame.f_globals.get('__file__')\n            if test_file\
     \ is None:\n                test_file = sys.argv[0]\n            result = pytest.main([test_file])\n\
     \        \n        if result != 0: \n            print(output.getvalue())\n  \
     \      sys.exit(result)\n    run_verification_helper_unittest()\n"
@@ -517,7 +518,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/csr2_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/csr2_cls_test.py

@@ -43,6 +43,18 @@ data:
     path: test/library-checker/other/longest_increasing_sequence.test.py
     title: test/library-checker/other/longest_increasing_sequence.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+    title: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
   - icon: ':heavy_check_mark:'
@@ -113,12 +125,16 @@ data:
   isVerificationFile: false
   path: cp_library/io/fast/fast_io_fn.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   - test/library-checker/convolution/bitwise_xor_convolution.test.py
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   - test/library-checker/set-power-series/subset_convolution_snippet.test.py
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py
   - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py

@@ -96,8 +96,8 @@ data:
     \ Literal, Union, overload\n\n\n\nimport sys\n\ndef list_find(lst: list, value,\
     \ start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value, start,\
     \ stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n    __slots__\
-    \ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int): V.A, V.l,\
-    \ V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
+    \ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A,\
+    \ V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
     \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
     \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
     \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
@@ -520,7 +520,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
   requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py

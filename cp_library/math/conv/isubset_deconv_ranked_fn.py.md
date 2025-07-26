@@ -2,19 +2,28 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/math/conv/fwht_fn.py
-    title: cp_library/math/conv/fwht_fn.py
+    path: cp_library/math/conv/ior_mobius_ranked_fn.py
+    title: cp_library/math/conv/ior_mobius_ranked_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/ior_zeta_pair_ranked_fn.py
+    title: cp_library/math/conv/ior_zeta_pair_ranked_fn.py
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/subset_deconv_fn.py
+    title: cp_library/math/conv/subset_deconv_fn.py
   - icon: ':warning:'
-    path: cp_library/math/conv/ixor_conv_fn.py
-    title: cp_library/math/conv/ixor_conv_fn.py
+    path: cp_library/math/sps/sps_div_fn.py
+    title: cp_library/math/sps/sps_div_fn.py
   - icon: ':warning:'
-    path: cp_library/math/conv/xor_conv_fn.py
-    title: cp_library/math/conv/xor_conv_fn.py
-  _extendedVerifiedWith: []
+    path: cp_library/math/sps/sps_ln_fn.py
+    title: cp_library/math/sps/sps_ln_fn.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution_all.test.py
+    title: test/library-checker/set-power-series/subset_convolution_all.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -74,28 +83,43 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef fwht(A: list, N: int):\n    Z = len(A)\n  \
-    \  for i in range(N):\n        m = b = 1<<i\n        while m < Z:\n          \
-    \  a0, a1 = A[m^b], A[m]\n            A[m^b], A[m] = a0+a1, a0-a1\n          \
-    \  m = m+1|b\n    return A\n\ndef fwht_inv(A: list, N: int):\n    fwht(A, N)\n\
-    \    for i, a in enumerate(A): A[i] = a >> N\n    return A\n"
+    \                     \n'''\n\ndef ior_zeta_pair_ranked(A, B, N, M, Z):\n    for\
+    \ i in range(0, Z, M):\n        l, r = i+(1<<(i>>N))-1, i+M\n        for j in\
+    \ range(N):\n            m = l|(b := 1<<j)\n            while m < r: A[m] += A[m^b];\
+    \ B[m] += B[m^b]; m = m+1|b\n    return A, B\n\ndef ior_mobius_ranked(A: list[int],\
+    \ N: int, M: int, Z: int):\n    for i in range(0, Z, M):\n        l, r = i, i+M-(1<<(N-(i>>N)))+1\n\
+    \        for j in range(N):\n            m = l|(b := 1<<j)\n            while\
+    \ m < r: A[m] -= A[m^b]; m = m+1|b\n    return A\n\ndef isubset_deconv_ranked(Ar,\
+    \ Br, N, Z, M):\n    inv = 1 // Br[0]; ior_zeta_pair_ranked(Ar, Br, N, M, Z)\n\
+    \    for i in range(0, Z, M):\n        for k in range(M): Ar[i|k] *= inv\n   \
+    \     for j in range(M, Z-i, M):\n            ij = i + j; l = (1 << (j>>N))-1\n\
+    \            for k in range(l, M): Ar[ij|k] -= Ar[i|k] * Br[j|k]\n    return ior_mobius_ranked(Ar,\
+    \ N, M, Z)\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
-    from cp_library.math.conv.fwht_fn import fwht\n\ndef fwht_inv(A: list, N: int):\n\
-    \    fwht(A, N)\n    for i, a in enumerate(A): A[i] = a >> N\n    return A\n"
+    from cp_library.math.conv.ior_zeta_pair_ranked_fn import ior_zeta_pair_ranked\n\
+    from cp_library.math.conv.ior_mobius_ranked_fn import ior_mobius_ranked\n\ndef\
+    \ isubset_deconv_ranked(Ar, Br, N, Z, M):\n    inv = 1 // Br[0]; ior_zeta_pair_ranked(Ar,\
+    \ Br, N, M, Z)\n    for i in range(0, Z, M):\n        for k in range(M): Ar[i|k]\
+    \ *= inv\n        for j in range(M, Z-i, M):\n            ij = i + j; l = (1 <<\
+    \ (j>>N))-1\n            for k in range(l, M): Ar[ij|k] -= Ar[i|k] * Br[j|k]\n\
+    \    return ior_mobius_ranked(Ar, N, M, Z)"
   dependsOn:
-  - cp_library/math/conv/fwht_fn.py
+  - cp_library/math/conv/ior_zeta_pair_ranked_fn.py
+  - cp_library/math/conv/ior_mobius_ranked_fn.py
   isVerificationFile: false
-  path: cp_library/math/conv/fwht_inv_fn.py
+  path: cp_library/math/conv/isubset_deconv_ranked_fn.py
   requiredBy:
-  - cp_library/math/conv/ixor_conv_fn.py
-  - cp_library/math/conv/xor_conv_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: cp_library/math/conv/fwht_inv_fn.py
+  - cp_library/math/sps/sps_ln_fn.py
+  - cp_library/math/sps/sps_div_fn.py
+  - cp_library/math/conv/subset_deconv_fn.py
+  timestamp: '2025-07-26 11:14:31+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/set-power-series/subset_convolution_all.test.py
+documentation_of: cp_library/math/conv/isubset_deconv_ranked_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/fwht_inv_fn.py
-- /library/cp_library/math/conv/fwht_inv_fn.py.html
-title: cp_library/math/conv/fwht_inv_fn.py
+- /library/cp_library/math/conv/isubset_deconv_ranked_fn.py
+- /library/cp_library/math/conv/isubset_deconv_ranked_fn.py.html
+title: cp_library/math/conv/isubset_deconv_ranked_fn.py
 ---

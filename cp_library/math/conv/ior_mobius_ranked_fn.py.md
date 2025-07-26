@@ -3,18 +3,87 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/isubset_conv_ranked_fn.py
+    title: cp_library/math/conv/isubset_conv_ranked_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/conv/isubset_deconv_fn.py
+    title: cp_library/math/conv/isubset_deconv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/isubset_deconv_ranked_fn.py
+    title: cp_library/math/conv/isubset_deconv_ranked_fn.py
+  - icon: ':warning:'
     path: cp_library/math/conv/mod/isubset_conv_fn.py
     title: cp_library/math/conv/mod/isubset_conv_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/isubset_conv_ranked_fn.py
+    title: cp_library/math/conv/mod/isubset_conv_ranked_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/conv/mod/isubset_deconv_fn.py
+    title: cp_library/math/conv/mod/isubset_deconv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/isubset_deconv_ranked_fn.py
+    title: cp_library/math/conv/mod/isubset_deconv_ranked_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/mod/subset_conv_fn.py
     title: cp_library/math/conv/mod/subset_conv_fn.py
-  - icon: ':warning:'
-    path: cp_library/math/conv/or_conv_fast_fn.py
-    title: cp_library/math/conv/or_conv_fast_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/subset_deconv_fn.py
+    title: cp_library/math/conv/mod/subset_deconv_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/subset_conv_fn.py
     title: cp_library/math/conv/subset_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/subset_deconv_fn.py
+    title: cp_library/math/conv/subset_deconv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_composite_fn.py
+    title: cp_library/math/sps/mod/sps_composite_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_div_fn.py
+    title: cp_library/math/sps/mod/sps_div_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_fn.py
+    title: cp_library/math/sps/mod/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_ln_fn.py
+    title: cp_library/math/sps/mod/sps_ln_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_mul_fn.py
+    title: cp_library/math/sps/mod/sps_mul_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_div_fn.py
+    title: cp_library/math/sps/sps_div_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_exp_fn.py
+    title: cp_library/math/sps/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_ln_fn.py
+    title: cp_library/math/sps/sps_ln_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_mul_fn.py
+    title: cp_library/math/sps/sps_mul_fn.py
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+    title: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution.test.py
     title: test/library-checker/set-power-series/subset_convolution.test.py
@@ -83,30 +152,55 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef subset_mobius(A: list[int], N: int):\n    Z\
-    \ = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m < Z:\
-    \ A[m] -= A[m^b]; m = m+1|b\n    return A\n"
+    \                     \n'''\n\ndef ior_mobius_ranked(A: list[int], N: int, M:\
+    \ int, Z: int):\n    for i in range(0, Z, M):\n        l, r = i, i+M-(1<<(N-(i>>N)))+1\n\
+    \        for j in range(N):\n            m = l|(b := 1<<j)\n            while\
+    \ m < r: A[m] -= A[m^b]; m = m+1|b\n    return A\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
-    \ndef subset_mobius(A: list[int], N: int):\n    Z = len(A)\n    for i in range(N):\n\
-    \        m = b = 1<<i\n        while m < Z: A[m] -= A[m^b]; m = m+1|b\n    return\
-    \ A\n"
+    \ndef ior_mobius_ranked(A: list[int], N: int, M: int, Z: int):\n    for i in range(0,\
+    \ Z, M):\n        l, r = i, i+M-(1<<(N-(i>>N)))+1\n        for j in range(N):\n\
+    \            m = l|(b := 1<<j)\n            while m < r: A[m] -= A[m^b]; m = m+1|b\n\
+    \    return A"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/conv/subset_mobius_fn.py
+  path: cp_library/math/conv/ior_mobius_ranked_fn.py
   requiredBy:
-  - cp_library/math/conv/or_conv_fast_fn.py
+  - cp_library/math/sps/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - cp_library/math/sps/mod/sps_composite_fn.py
+  - cp_library/math/sps/mod/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - cp_library/math/sps/mod/sps_div_fn.py
+  - cp_library/math/sps/mod/sps_mul_fn.py
+  - cp_library/math/sps/mod/sps_exp_fn.py
+  - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - cp_library/math/sps/sps_div_fn.py
+  - cp_library/math/sps/sps_mul_fn.py
+  - cp_library/math/sps/sps_exp_fn.py
+  - cp_library/math/conv/subset_deconv_fn.py
+  - cp_library/math/conv/isubset_conv_ranked_fn.py
+  - cp_library/math/conv/isubset_deconv_ranked_fn.py
+  - cp_library/math/conv/isubset_deconv_fn.py
+  - cp_library/math/conv/mod/subset_deconv_fn.py
+  - cp_library/math/conv/mod/isubset_conv_ranked_fn.py
   - cp_library/math/conv/mod/isubset_conv_fn.py
+  - cp_library/math/conv/mod/isubset_deconv_ranked_fn.py
+  - cp_library/math/conv/mod/isubset_deconv_fn.py
   - cp_library/math/conv/mod/subset_conv_fn.py
   - cp_library/math/conv/subset_conv_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
-documentation_of: cp_library/math/conv/subset_mobius_fn.py
+documentation_of: cp_library/math/conv/ior_mobius_ranked_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/subset_mobius_fn.py
-- /library/cp_library/math/conv/subset_mobius_fn.py.html
-title: cp_library/math/conv/subset_mobius_fn.py
+- /library/cp_library/math/conv/ior_mobius_ranked_fn.py
+- /library/cp_library/math/conv/ior_mobius_ranked_fn.py.html
+title: cp_library/math/conv/ior_mobius_ranked_fn.py
 ---

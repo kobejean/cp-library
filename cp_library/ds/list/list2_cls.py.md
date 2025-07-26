@@ -100,7 +100,7 @@ data:
   - perf/segtree2.py
   - perf/bit2.py
   - perf/list2.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/seg/segtree2_cls_test.py

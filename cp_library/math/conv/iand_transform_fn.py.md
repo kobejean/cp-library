@@ -2,13 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: cp_library/math/conv/or_conv_fn.py
-    title: cp_library/math/conv/or_conv_fn.py
-  _extendedVerifiedWith: []
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/iand_conv_ring_fn.py
+    title: cp_library/math/conv/iand_conv_ring_fn.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/bitwise_and_convolution.test.py
+    title: test/library-checker/convolution/bitwise_and_convolution.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -71,27 +74,28 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef subset_transform(A: list[_T], N: int, /, op\
-    \ = operator.add) -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n     \
-    \   m = b = 1<<i\n        while m < Z: A[m], m = op(A[m], A[m^b]), m+1|b\n   \
+    \                     \n'''\n\ndef iand_transform(A: list[_T], N: int, /, op =\
+    \ operator.add) -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n       \
+    \ m = b = 1<<i\n        while m < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n   \
     \ return A\n"
   code: "import cp_library.__header__\nfrom cp_library.misc.typing import _T\nimport\
     \ operator\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
-    \ndef subset_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:\n\
+    \ndef iand_transform(A: list[_T], N: int, /, op = operator.add) -> list[_T]:\n\
     \    Z = len(A)\n    for i in range(N):\n        m = b = 1<<i\n        while m\
-    \ < Z: A[m], m = op(A[m], A[m^b]), m+1|b\n    return A"
+    \ < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n    return A"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/math/conv/subset_transform_fn.py
+  path: cp_library/math/conv/iand_transform_fn.py
   requiredBy:
-  - cp_library/math/conv/or_conv_fn.py
-  timestamp: '2025-07-21 03:35:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: cp_library/math/conv/subset_transform_fn.py
+  - cp_library/math/conv/iand_conv_ring_fn.py
+  timestamp: '2025-07-26 11:14:31+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/convolution/bitwise_and_convolution.test.py
+documentation_of: cp_library/math/conv/iand_transform_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/subset_transform_fn.py
-- /library/cp_library/math/conv/subset_transform_fn.py.html
-title: cp_library/math/conv/subset_transform_fn.py
+- /library/cp_library/math/conv/iand_transform_fn.py
+- /library/cp_library/math/conv/iand_transform_fn.py.html
+title: cp_library/math/conv/iand_transform_fn.py
 ---

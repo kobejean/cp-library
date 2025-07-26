@@ -122,6 +122,42 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/view/csr_cls.py
     title: cp_library/ds/view/csr_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/isubset_conv_half_fn.py
+    title: cp_library/math/conv/mod/isubset_conv_half_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_composite_fn.py
+    title: cp_library/math/sps/mod/sps_composite_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_fn.py
+    title: cp_library/math/sps/mod/sps_exp_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_half_fn.py
+    title: cp_library/math/sps/mod/sps_exp_half_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_exp_small_fn.py
+    title: cp_library/math/sps/mod/sps_exp_small_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_ln_fn.py
+    title: cp_library/math/sps/mod/sps_ln_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+    title: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_exp_fn.py
+    title: cp_library/math/sps/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_ln_fn.py
+    title: cp_library/math/sps/sps_ln_fn.py
   - icon: ':warning:'
     path: perf/csr.py
     title: perf/csr.py
@@ -262,6 +298,18 @@ data:
     path: test/library-checker/graph/two_edge_connected_components.test.py
     title: test/library-checker/graph/two_edge_connected_components.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+    title: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/jump_on_tree.test.py
     title: test/library-checker/tree/jump_on_tree.test.py
   - icon: ':heavy_check_mark:'
@@ -320,26 +368,10 @@ data:
     \n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
     \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
-    \ def __init__(V, A: list[_T], l: int, r: int): V.A, V.l, V.r = A, l, r\n    def\
-    \ __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n        if 0\
-    \ <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n    def\
-    \ __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V, v: _T):\
-    \ return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int, r: int):\
-    \ V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l, V.r) - V.l\n\
-    \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A[l],\
-    \ V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args, **kwargs):\n\
-    \        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a in enumerate(A,V.l):\
-    \ V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n    def append(V, v:\
-    \ _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return V.A[V.l-1]\n\
-    \    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v; \n    def validate(V):\
-    \ return 0 <= V.l <= V.r <= len(V.A)\n"
-  code: "\nimport cp_library.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
-    \ import _T\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.list_find_fn\
-    \ import list_find\nimport cp_library.ds.view.__header__\n\nclass view(Generic[_T]):\n\
-    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int, r: int):\
-    \ V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
-    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
-    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    \ def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l,\
+    \ r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n\
+    \        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
+    \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
     \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
     \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
     \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
@@ -348,7 +380,23 @@ data:
     \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
     \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
     \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
-    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)"
+    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n"
+  code: "\nimport cp_library.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
+    \ import _T\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.list_find_fn\
+    \ import list_find\nimport cp_library.ds.view.__header__\n\nclass view(Generic[_T]):\n\
+    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r:\
+    \ int = 0): V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n  \
+    \  def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n\
+    \        else: raise IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i]\
+    \ = v\n    def __contains__(V, v: _T): return list_find(V.A, v, V.l, V.r) != -1\n\
+    \    def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: _T):\
+    \ return V.A.index(v, V.l, V.r) - V.l\n    def reverse(V):\n        l, r = V.l,\
+    \ V.r-1\n        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n\
+    \    def sort(V, /, *args, **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args,\
+    \ **kwargs)\n        for i,a in enumerate(A,V.l): V.A[i] = a\n    def pop(V):\
+    \ V.r -= 1; return V.A[V.r]\n    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n\
+    \    def popleft(V): V.l += 1; return V.A[V.l-1]\n    def appendleft(V, v: _T):\
+    \ V.l -= 1; V.A[V.l] = v; \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)"
   dependsOn:
   - cp_library/ds/list/list_find_fn.py
   isVerificationFile: false
@@ -394,14 +442,30 @@ data:
   - cp_library/alg/tree/csr/hld_cls.py
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
+  - cp_library/math/sps/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - cp_library/math/sps/mod/sps_composite_fn.py
+  - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
+  - cp_library/math/sps/mod/sps_exp_small_fn.py
+  - cp_library/math/sps/mod/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
+  - cp_library/math/sps/mod/sps_exp_half_fn.py
+  - cp_library/math/sps/mod/sps_exp_fn.py
+  - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - cp_library/math/sps/sps_exp_fn.py
+  - cp_library/math/conv/mod/isubset_conv_half_fn.py
   - perf/heap_view.py
   - perf/list_view.py
   - perf/grid.py
   - perf/csr.py
   - perf/heap_csr.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py

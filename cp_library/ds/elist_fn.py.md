@@ -167,6 +167,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/minplus_conv_fn.py
     title: cp_library/math/conv/minplus_conv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_composite_fn.py
+    title: cp_library/math/sps/mod/sps_composite_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_exp_fn.py
+    title: cp_library/math/sps/mod/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_ln_fn.py
+    title: cp_library/math/sps/mod/sps_ln_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_exp_fn.py
+    title: cp_library/math/sps/sps_exp_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/sps_ln_fn.py
+    title: cp_library/math/sps/sps_ln_fn.py
   - icon: ':warning:'
     path: cp_library/math/table/submasks_cls.py
     title: cp_library/math/table/submasks_cls.py
@@ -367,6 +385,15 @@ data:
     path: test/library-checker/graph/two_edge_connected_components_scratch.test.py
     title: test/library-checker/graph/two_edge_connected_components_scratch.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+    title: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/jump_on_tree.test.py
     title: test/library-checker/tree/jump_on_tree.test.py
   - icon: ':heavy_check_mark:'
@@ -475,16 +502,25 @@ data:
   - cp_library/alg/tree/csr/hld_cls.py
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
+  - cp_library/math/sps/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_composite_fn.py
+  - cp_library/math/sps/mod/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_exp_fn.py
+  - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - cp_library/math/sps/sps_exp_fn.py
   - cp_library/math/table/submasks_cls.py
   - cp_library/math/conv/minplus_conv_fn.py
   - play.py
   - perf/que.py
   - perf/edge_list.py
-  timestamp: '2025-07-21 03:35:11+09:00'
+  timestamp: '2025-07-26 11:14:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   - test/library-checker/graph/cycle_detection.test.py
   - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
   - test/library-checker/graph/directedmst_edge_list.test.py

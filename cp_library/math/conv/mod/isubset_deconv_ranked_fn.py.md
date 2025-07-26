@@ -1,11 +1,47 @@
 ---
 data:
-  _extendedDependsOn: []
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/ior_mobius_ranked_fn.py
+    title: cp_library/math/conv/ior_mobius_ranked_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/ior_zeta_pair_ranked_fn.py
+    title: cp_library/math/conv/ior_zeta_pair_ranked_fn.py
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: cp_library/math/conv/isubset_deconv_fn.py
+    title: cp_library/math/conv/isubset_deconv_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/conv/mod/isubset_deconv_fn.py
+    title: cp_library/math/conv/mod/isubset_deconv_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/conv/mod/subset_deconv_fn.py
+    title: cp_library/math/conv/mod/subset_deconv_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_div_fn.py
+    title: cp_library/math/sps/mod/sps_div_fn.py
+  - icon: ':warning:'
+    path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+    title: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/math/sps/mod/sps_ln_fn.py
+    title: cp_library/math/sps/mod/sps_ln_fn.py
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution.test.py
+    title: test/library-checker/set-power-series/subset_convolution.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution_all.test.py
+    title: test/library-checker/set-power-series/subset_convolution_all.test.py
   _isVerificationFailed: false
   _pathExtension: py
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -65,24 +101,52 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef superset_zeta(A, N: int):\n    Z = len(A)\n\
-    \    for i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m^b] +=\
-    \ A[m]; m = m+1|b\n    return A\n"
+    \                     \n'''\n\n\ndef ior_zeta_pair_ranked(A, B, N, M, Z):\n  \
+    \  for i in range(0, Z, M):\n        l, r = i+(1<<(i>>N))-1, i+M\n        for\
+    \ j in range(N):\n            m = l|(b := 1<<j)\n            while m < r: A[m]\
+    \ += A[m^b]; B[m] += B[m^b]; m = m+1|b\n    return A, B\n\ndef ior_mobius_ranked(A:\
+    \ list[int], N: int, M: int, Z: int):\n    for i in range(0, Z, M):\n        l,\
+    \ r = i, i+M-(1<<(N-(i>>N)))+1\n        for j in range(N):\n            m = l|(b\
+    \ := 1<<j)\n            while m < r: A[m] -= A[m^b]; m = m+1|b\n    return A\n\
+    \ndef isubset_deconv_ranked(Ar, Br, N, Z, M, mod):\n    inv = pow(Br[0], -1, mod);\
+    \ ior_zeta_pair_ranked(Ar, Br, N, M, Z)\n    for i in range(Z): Br[i], Ar[i] =\
+    \ Br[i]%mod, Ar[i]%mod\n    for i in range(0, Z, M):\n        for k in range(M):\
+    \ Ar[i|k] = Ar[i|k] * inv % mod\n        for j in range(M, Z-i, M):\n        \
+    \    ij = i + j; l = (1 << (j>>N))-1\n            for k in range(l,M): Ar[ij|k]\
+    \ -= Ar[i|k] * Br[j|k] % mod\n    return ior_mobius_ranked(Ar, N, M, Z)\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.conv.__header__\n\
-    \ndef superset_zeta(A, N: int):\n    Z = len(A)\n    for i in range(N):\n    \
-    \    m = b = 1<<i\n        while m < Z: A[m^b] += A[m]; m = m+1|b\n    return\
-    \ A\n"
-  dependsOn: []
+    import cp_library.math.conv.mod.__header__\nfrom cp_library.math.conv.ior_zeta_pair_ranked_fn\
+    \ import ior_zeta_pair_ranked\nfrom cp_library.math.conv.ior_mobius_ranked_fn\
+    \ import ior_mobius_ranked\n\ndef isubset_deconv_ranked(Ar, Br, N, Z, M, mod):\n\
+    \    inv = pow(Br[0], -1, mod); ior_zeta_pair_ranked(Ar, Br, N, M, Z)\n    for\
+    \ i in range(Z): Br[i], Ar[i] = Br[i]%mod, Ar[i]%mod\n    for i in range(0, Z,\
+    \ M):\n        for k in range(M): Ar[i|k] = Ar[i|k] * inv % mod\n        for j\
+    \ in range(M, Z-i, M):\n            ij = i + j; l = (1 << (j>>N))-1\n        \
+    \    for k in range(l,M): Ar[ij|k] -= Ar[i|k] * Br[j|k] % mod\n    return ior_mobius_ranked(Ar,\
+    \ N, M, Z)"
+  dependsOn:
+  - cp_library/math/conv/ior_zeta_pair_ranked_fn.py
+  - cp_library/math/conv/ior_mobius_ranked_fn.py
   isVerificationFile: false
-  path: cp_library/math/conv/superset_zeta_fn.py
-  requiredBy: []
-  timestamp: '2025-07-21 03:35:11+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: cp_library/math/conv/superset_zeta_fn.py
+  path: cp_library/math/conv/mod/isubset_deconv_ranked_fn.py
+  requiredBy:
+  - cp_library/math/sps/mod/sps_ln_fn.py
+  - cp_library/math/sps/mod/sps_div_fn.py
+  - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
+  - cp_library/math/conv/isubset_deconv_fn.py
+  - cp_library/math/conv/mod/subset_deconv_fn.py
+  - cp_library/math/conv/mod/isubset_deconv_fn.py
+  timestamp: '2025-07-26 11:14:31+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - test/library-checker/set-power-series/subset_convolution_all.test.py
+documentation_of: cp_library/math/conv/mod/isubset_deconv_ranked_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/math/conv/superset_zeta_fn.py
-- /library/cp_library/math/conv/superset_zeta_fn.py.html
-title: cp_library/math/conv/superset_zeta_fn.py
+- /library/cp_library/math/conv/mod/isubset_deconv_ranked_fn.py
+- /library/cp_library/math/conv/mod/isubset_deconv_ranked_fn.py.html
+title: cp_library/math/conv/mod/isubset_deconv_ranked_fn.py
 ---
