@@ -2,10 +2,14 @@ import cp_library.__header__
 from cp_library.bit.pack.packer_cls import Packer
 import cp_library.ds.__header__
 import cp_library.ds.heap.__header__
-from cp_library.ds.heap.fast_heapq  import heapify, heappop, heappush, heappushpop, heapreplace
-from cp_library.ds.heap.heap_proto import HeapProtocol
+from cp_library.ds.heap.heapify_fn import heapify
+from cp_library.ds.heap.heappop_fn import heappop
+from cp_library.ds.heap.heappush_fn import heappush
+from cp_library.ds.heap.heappushpop_fn import heappushpop
+from cp_library.ds.heap.heapreplace_fn import heapreplace
+from cp_library.ds.heap.heap_base_cls import HeapBase
 
-class PriorityQueue(HeapProtocol[int]):
+class PriorityQueue(HeapBase[int]):
     def __init__(que, N: int, ids: list[int] = None, priorities: list[int] = None, /):
         que.pkr = Packer(N)
         if ids is None: que.data = elist(N)

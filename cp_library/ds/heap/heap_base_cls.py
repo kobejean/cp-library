@@ -1,8 +1,10 @@
-import cp_library.ds.heap.__header__
+import cp_library.__header__
 from typing import Generic
 from cp_library.misc.typing import _T
+import cp_library.ds.__header__
+import cp_library.ds.heap.__header__
 
-class HeapProtocol(Generic[_T]):
+class HeapBase(Generic[_T]):
     def peek(heap) -> _T: return heap.data[0]
     def pop(heap) -> _T: ...
     def push(heap, item: _T): ...

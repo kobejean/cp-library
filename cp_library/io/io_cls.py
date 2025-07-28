@@ -53,25 +53,24 @@ class IO(IOBase):
         io.load(); r = io.O[io.l]
         while ~(p := io.B.find(b' ', io.p, r)): lst.append(io._dec(io.p, p)); io.p = p+1
         lst.append(io._dec(io.p, r-1)); io.p = r; io.l += 1; return lst
+    def _readint(io, r):
+        while io.p < r and io.B[io.p] <= 32: io.p += 1
+        if io.p >= r: return None
+        minus = x = 0
+        if io.B[io.p] == 45: minus = 1; io.p += 1
+        while io.p < r and io.B[io.p] >= 48: x = x * 10 + (io.B[io.p] & 15); io.p += 1
+        io.p += 1
+        return -x if minus else x
     def readintsinto(io, lst):
         io.load(); r = io.O[io.l]
-        while io.p < r:
-            while io.p < r and io.B[io.p] <= 32: io.p += 1
-            if io.p >= r: break
-            minus = x = 0
-            if io.B[io.p] == 45: minus = 1; io.p += 1
-            while io.p < r and io.B[io.p] >= 48:
-                x = x * 10 + (io.B[io.p] & 15); io.p += 1
-            lst.append(-x if minus else x)
-            if io.p < r and io.B[io.p] == 32: io.p += 1
+        while io.p < r and (x := io._readint(r)) is not None: lst.append(x)
         io.l += 1; return lst
+    def _readdigit(io): d = io.B[io.p] & 15; io.p += 1; return d
     def readdigitsinto(io, lst):
         io.load(); r = io.O[io.l]
-        while io.p < r and io.B[io.p] > 32:
-            if io.B[io.p] >= 48 and io.B[io.p] <= 57:
-                lst.append(io.B[io.p] & 15)
-            io.p += 1
-        if io.p < r and io.B[io.p] == 10: io.p = r; io.l += 1
+        while io.p < r and io.B[io.p] > 32: lst.append(io._readdigit())
+        if io.B[io.p] == 10: io.l += 1
+        io.p += 1
         return lst
     def readnumsinto(io, lst):
         if io.char: return io.readdigitsinto(lst)

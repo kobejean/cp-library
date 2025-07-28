@@ -2,10 +2,14 @@ import cp_library.__header__
 from cp_library.bit.pack.packer_cls import Packer
 import cp_library.ds.__header__
 import cp_library.ds.heap.__header__
-from cp_library.ds.heap.fast_heapq import heapify_max, heappop_max, heappush_max, heappushpop_max, heapreplace_max
-from cp_library.ds.heap.heap_proto import HeapProtocol
+from cp_library.ds.heap.heapify_max_fn import heapify_max
+from cp_library.ds.heap.heappop_max_fn import heappop_max
+from cp_library.ds.heap.heappush_max_fn import heappush_max
+from cp_library.ds.heap.heappushpop_max_fn import heappushpop_max
+from cp_library.ds.heap.heapreplace_max_fn import heapreplace_max
+from cp_library.ds.heap.heap_base_cls import HeapBase
 
-class MaxPriorityQueue(HeapProtocol[int]):
+class MaxPriorityQueue(HeapBase[int]):
     def __init__(que, N: int, ids: list[int] = None, priorities: list[int] = None, /):
         que.pkr = Packer(N)
         if ids is None: que.data = elist(N)

@@ -41,9 +41,11 @@ class Parser:
     def compile_line(cls, spec=int):
         if spec is int:
             def parse(io: IOBase): return cls(io.readnums())
+        elif spec is str:
+            def parse(io: IOBase): return cls(io.line())
         else:
             fn = Parser.compile(spec)
-            def parse(io: IOBase): return cls([fn(io) for _ in io.wait()])
+            def parse(io: IOBase): return cls((fn(io) for _ in io.wait()))
         return parse
     @staticmethod
     def compile_repeat(cls, spec, N):

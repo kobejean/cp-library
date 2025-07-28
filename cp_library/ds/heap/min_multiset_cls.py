@@ -1,5 +1,6 @@
 import cp_library.ds.heap.__header__
-from cp_library.ds.heap.fast_heapq  import heappop, heappush
+from cp_library.ds.heap.heappop_fn import heappop
+from cp_library.ds.heap.heappush_fn import heappush
 from collections import Counter, UserList
 from typing import Iterable
 from math import inf

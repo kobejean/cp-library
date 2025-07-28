@@ -4,9 +4,9 @@ from cp_library.misc.typing import _T
 from cp_library.io.parsable_cls import Parsable
 import cp_library.ds.__header__
 import cp_library.ds.heap.__header__
-from cp_library.ds.heap.heap_proto import HeapProtocol
+from cp_library.ds.heap.heap_base_cls import HeapBase
 
-class KHeapMixin(HeapProtocol[_T], Parsable):
+class KHeapMixin(HeapBase[_T], Parsable):
     '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''
     def __init__(heap, K: int): heap.K = K
     def added(heap, item: _T): ...

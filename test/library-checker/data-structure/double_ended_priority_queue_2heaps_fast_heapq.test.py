@@ -1,7 +1,12 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/double_ended_priority_queue
 # modified from abUma: https://judge.yosupo.jp/submission/144329
 from cp_library.ds.list.reserve_fn import reserve
-from cp_library.ds.heap.fast_heapq import heapify_max, heappop, heappop_max, heappush, heapify, heappush_max
+from cp_library.ds.heap.heapify_fn import heapify
+from cp_library.ds.heap.heappop_fn import heappop
+from cp_library.ds.heap.heappush_fn import heappush
+from cp_library.ds.heap.heapify_max_fn import heapify_max
+from cp_library.ds.heap.heappop_max_fn import heappop_max
+from cp_library.ds.heap.heappush_max_fn import heappush_max
 
 class DoubleEndedPriorityQueue:
     def __init__(self, n: int, q: int, arr: list[int]=None) -> None:

@@ -11,7 +11,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cp_library.perf.benchmark import Benchmark, BenchmarkConfig
 from cp_library.ds.view.csr_cls import CSR
-from cp_library.ds.heap.fast_heapq import heapify, heappop, heapreplace, heappush, heappushpop
+from cp_library.ds.heap.heapify_fn import heapify
+from cp_library.ds.heap.heappop_fn import heappop
+from cp_library.ds.heap.heappush_fn import heappush
+from cp_library.ds.heap.heappushpop_fn import heappushpop
+from cp_library.ds.heap.heapreplace_fn import heapreplace
 
 # Configure benchmark
 config = BenchmarkConfig(

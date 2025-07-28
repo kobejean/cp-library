@@ -8,7 +8,6 @@ import random
 import sys
 import os
 
-from cp_library.ds.heap.fast_heapq import heapify, heappop, heapreplace, heappush, heappushpop
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cp_library.perf.benchmark import Benchmark, BenchmarkConfig

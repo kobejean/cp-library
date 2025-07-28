@@ -21,8 +21,11 @@ class TestIOBytes:
         test_io = IOBytes(buffer)
         
         assert test_io.readtoken() == "hello"
+        assert test_io.l == 0 and test_io.p == 6
         assert test_io.readtoken() == "world"
+        assert test_io.l == 0 and test_io.p == 12
         assert test_io.readtoken() == "test"
+        assert test_io.l == 1 and test_io.p == 17
 
     def test_readtokens(self):
         """Test readtokens method"""
@@ -31,6 +34,7 @@ class TestIOBytes:
         
         tokens = test_io.readtokens()
         assert tokens == ["hello", "world", "test"]
+        assert test_io.l == 1 and test_io.p == 17
 
     def test_readints(self):
         """Test readints method"""
@@ -39,6 +43,7 @@ class TestIOBytes:
         
         ints = test_io.readints()
         assert ints == [10, -20, 300, -4000]
+        assert test_io.l == 1 and test_io.p == 17
 
     def test_readints_single_line(self):
         """Test readints with various integer formats"""
@@ -47,6 +52,7 @@ class TestIOBytes:
         
         ints = test_io.readints()
         assert ints == [0, 1, -1, 42, -999, 1000000]
+        assert test_io.l == 1 and test_io.p == 23
 
     def test_readdigits_char_mode(self):
         """Test readdigits method in char mode"""
@@ -56,15 +62,7 @@ class TestIOBytes:
         
         digits = test_io.readdigits()
         assert digits == [1, 2, 3, 4, 5]
-
-    def test_readdigits_mixed_chars(self):
-        """Test readdigits with mixed characters"""
-        buffer = io.BytesIO(b"1a2b3c\n")
-        test_io = IOBytes(buffer)
-        test_io.char = True
-        
-        digits = test_io.readdigits()
-        assert digits == [1, 2, 3]
+        assert test_io.l == 1 and test_io.p == 6
 
     def test_readnums_token_mode(self):
         """Test readnums in token mode (should use readints)"""
@@ -91,8 +89,11 @@ class TestIOBytes:
         test_io.char = True
         
         assert test_io.readchar() == "a"
+        assert test_io.l == 0 and test_io.p == 1
         assert test_io.readchar() == "b"
+        assert test_io.l == 0 and test_io.p == 2
         assert test_io.readchar() == "c"
+        assert test_io.l == 0 and test_io.p == 3
 
     def test_readchars(self):
         """Test readchars method"""
@@ -102,6 +103,7 @@ class TestIOBytes:
         
         chars = test_io.readchars()
         assert chars == "hello"
+        assert test_io.l == 1 and test_io.p == 6
 
     def test_readline(self):
         """Test readline method"""
@@ -109,7 +111,9 @@ class TestIOBytes:
         test_io = IOBytes(buffer)
         
         assert test_io.readline() == "first line\n"
+        assert test_io.l == 1 and test_io.p == 11
         assert test_io.readline() == "second line\n"
+        assert test_io.l == 2 and test_io.p == 23
 
     def test_readinto_token_mode(self):
         """Test readinto in token mode"""
@@ -157,7 +161,7 @@ class TestIOBytes:
 
     def test_readdigitsinto(self):
         """Test readdigitsinto method"""
-        buffer = io.BytesIO(b"123a45\n")
+        buffer = io.BytesIO(b"12345\n")
         test_io = IOBytes(buffer)
         
         lst = [9]
@@ -234,10 +238,12 @@ class TestIOBytes:
         # First line
         tokens1 = test_io.readtokens()
         assert tokens1 == ["line1", "data"]
+        assert test_io.l == 1 and test_io.p == 11
         
         # Second line
         tokens2 = test_io.readtokens()
         assert tokens2 == ["line2", "more"]
+        assert test_io.l == 2 and test_io.p == 22
 
     def test_multiline_ints(self):
         """Test reading integers across multiple lines"""
@@ -247,10 +253,12 @@ class TestIOBytes:
         # First line
         ints1 = test_io.readints()
         assert ints1 == [10, 20]
+        assert test_io.l == 1 and test_io.p == 6
         
         # Second line  
         ints2 = test_io.readints()
         assert ints2 == [30, 40]
+        assert test_io.l == 2 and test_io.p == 12
 
     def test_empty_line(self):
         """Test handling empty lines"""
@@ -259,6 +267,7 @@ class TestIOBytes:
         
         tokens = test_io.readtokens()
         assert tokens == [""]
+        assert test_io.l == 1 and test_io.p == 1
 
     def test_single_integer(self):
         """Test reading single integer"""
@@ -267,6 +276,7 @@ class TestIOBytes:
         
         ints = test_io.readints()
         assert ints == [42]
+        assert test_io.l == 1 and test_io.p == 3
 
     def test_single_digit(self):
         """Test reading single digit in char mode"""
@@ -276,6 +286,7 @@ class TestIOBytes:
         
         digits = test_io.readdigits()
         assert digits == [7]
+        assert test_io.l == 1 and test_io.p == 2
 
     def test_zero_handling(self):
         """Test proper handling of zero values"""
@@ -284,6 +295,7 @@ class TestIOBytes:
         
         ints = test_io.readints()
         assert ints == [0, 0, 0]
+        assert test_io.l == 1 and test_io.p == 9
 
     def test_negative_zero(self):
         """Test handling of negative zero"""
@@ -292,6 +304,7 @@ class TestIOBytes:
         
         ints = test_io.readints()
         assert ints == [0]
+        assert test_io.l == 1 and test_io.p == 3
 
     def test_large_numbers(self):
         """Test handling of large numbers"""
@@ -300,6 +313,7 @@ class TestIOBytes:
         
         ints = test_io.readints()
         assert ints == [1000000000, -1000000000]
+        assert test_io.l == 1 and test_io.p == 23
 
     def test_digits_with_linebreak(self):
         """Test digits reading stops at linebreak and advances line"""
@@ -322,6 +336,7 @@ class TestIOBytes:
         
         ints = test_io.readints()
         assert ints == [10, 20, 30]
+        assert test_io.l == 1 and test_io.p == 12
 
     def test_char_mode_individual_access(self):
         """Test individual character access in char mode"""
@@ -348,6 +363,137 @@ class TestIOBytes:
         # readcharsinto extends with string characters
         assert lst == ['start', 't', 'e', 's', 't']
         assert result == ['start', 't', 'e', 's', 't']
+
+    def test_position_tracking_tokens(self):
+        """Test io.p and io.l position tracking with single space separated tokens"""
+        buffer = io.BytesIO(b"hello world test\n")
+        test_io = IOBytes(buffer)
+        
+        # Initial state
+        assert test_io.l == 0
+        assert test_io.p == 0
+        
+        # After first token
+        token1 = test_io.readtoken()
+        assert token1 == "hello"
+        assert test_io.l == 0  # Still on same line
+        assert test_io.p == 6  # Position after "hello "
+        
+        # After second token
+        token2 = test_io.readtoken()
+        assert token2 == "world"
+        assert test_io.l == 0  # Still on same line
+        assert test_io.p == 12  # Position after "world "
+        
+        # After third token (end of line)
+        token3 = test_io.readtoken()
+        assert token3 == "test"
+        assert test_io.l == 1  # Advanced to next line
+        assert test_io.p == 17  # Position at start of next line
+
+    def test_position_tracking_multiline(self):
+        """Test io.p and io.l tracking across multiple lines"""
+        buffer = io.BytesIO(b"a b\nc d\n")
+        test_io = IOBytes(buffer)
+        
+        # Line 0
+        assert test_io.readtoken() == "a"
+        assert test_io.l == 0 and test_io.p == 2
+        
+        assert test_io.readtoken() == "b"
+        assert test_io.l == 1 and test_io.p == 4  # Next line start
+        
+        # Line 1
+        assert test_io.readtoken() == "c"
+        assert test_io.l == 1 and test_io.p == 6
+        
+        assert test_io.readtoken() == "d"
+        assert test_io.l == 2 and test_io.p == 8  # Next line start
+
+    def test_position_tracking_integers(self):
+        """Test position tracking with integer reading"""
+        buffer = io.BytesIO(b"10 -20 300\n")
+        test_io = IOBytes(buffer)
+        
+        # Read all integers at once
+        ints = test_io.readints()
+        assert ints == [10, -20, 300]
+        assert test_io.l == 1  # Advanced to next line
+        assert test_io.p == 11  # Position at start of next line
+
+    def test_position_tracking_char_mode(self):
+        """Test position tracking in char mode"""
+        buffer = io.BytesIO(b"abc\ndef\n")
+        test_io = IOBytes(buffer)
+        test_io.char = True
+        
+        # Read first character
+        assert test_io.readchar() == "a"
+        assert test_io.l == 0 and test_io.p == 1
+        
+        # Read second character
+        assert test_io.readchar() == "b"
+        assert test_io.l == 0 and test_io.p == 2
+        
+        # Read third character
+        assert test_io.readchar() == "c"
+        assert test_io.l == 0 and test_io.p == 3
+        
+        # Read newline - should advance to next line
+        assert test_io.readchar() == "\n"
+        assert test_io.l == 1 and test_io.p == 4
+
+    def test_position_tracking_digits(self):
+        """Test position tracking with digit reading in char mode"""
+        buffer = io.BytesIO(b"123\n456\n")
+        test_io = IOBytes(buffer)
+        test_io.char = True
+        
+        # Read first line digits
+        digits1 = test_io.readdigits()
+        assert digits1 == [1, 2, 3]
+        assert test_io.l == 1  # Advanced to next line
+        assert test_io.p == 4  # Position at start of next line
+        
+        # Read second line digits
+        digits2 = test_io.readdigits()
+        assert digits2 == [4, 5, 6]
+        assert test_io.l == 2  # Advanced to next line
+        assert test_io.p == 8  # Position at start of next line
+
+    def test_position_single_token_per_line(self):
+        """Test position tracking with one token per line"""
+        buffer = io.BytesIO(b"first\nsecond\nthird\n")
+        test_io = IOBytes(buffer)
+        
+        assert test_io.readtoken() == "first"
+        assert test_io.l == 1 and test_io.p == 6
+        
+        assert test_io.readtoken() == "second" 
+        assert test_io.l == 2 and test_io.p == 13
+        
+        assert test_io.readtoken() == "third"
+        assert test_io.l == 3 and test_io.p == 19
+
+    def test_position_mixed_tokens_and_lines(self):
+        """Test position tracking with mixed token patterns"""
+        buffer = io.BytesIO(b"1 2\n3\n4 5 6\n")
+        test_io = IOBytes(buffer)
+        
+        # Line 0: "1 2"
+        tokens1 = test_io.readtokens()
+        assert tokens1 == ["1", "2"]
+        assert test_io.l == 1 and test_io.p == 4
+        
+        # Line 1: "3"
+        tokens2 = test_io.readtokens()
+        assert tokens2 == ["3"]
+        assert test_io.l == 2 and test_io.p == 6
+        
+        # Line 2: "4 5 6"
+        tokens3 = test_io.readtokens()
+        assert tokens3 == ["4", "5", "6"]
+        assert test_io.l == 3 and test_io.p == 12
 
 from cp_library.io.io_bytes_cls import IOBytes
 
