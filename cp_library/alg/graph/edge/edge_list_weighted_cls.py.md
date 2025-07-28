@@ -216,7 +216,7 @@ data:
   path: cp_library/alg/graph/edge/edge_list_weighted_cls.py
   requiredBy:
   - perf/edge_list.py
-  timestamp: '2025-07-28 14:11:54+09:00'
+  timestamp: '2025-07-28 14:17:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/directedmst_edge_list.test.py

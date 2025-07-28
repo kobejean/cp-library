@@ -602,7 +602,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   requiredBy: []
-  timestamp: '2025-07-28 14:11:54+09:00'
+  timestamp: '2025-07-28 14:17:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py

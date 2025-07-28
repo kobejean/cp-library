@@ -478,9 +478,6 @@ data:
   - name: cp_library/ds
     pages:
     - icon: ':warning:'
-      path: cp_library/ds/array_init_fn.py
-      title: cp_library/ds/array_init_fn.py
-    - icon: ':warning:'
       path: cp_library/ds/bidirectional_array_cls.py
       title: cp_library/ds/bidirectional_array_cls.py
     - icon: ':warning:'

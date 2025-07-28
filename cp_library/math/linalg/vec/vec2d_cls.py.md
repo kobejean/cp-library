@@ -174,7 +174,7 @@ data:
   path: cp_library/math/linalg/vec/vec2d_cls.py
   requiredBy:
   - cp_library/math/linalg/vec/slope_cls.py
-  timestamp: '2025-07-28 14:11:54+09:00'
+  timestamp: '2025-07-28 14:17:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc274_e_vec2d.test.py

@@ -122,7 +122,7 @@ data:
   requiredBy:
   - perf/bit6.py
   - perf/bit2.py
-  timestamp: '2025-07-28 14:11:54+09:00'
+  timestamp: '2025-07-28 14:17:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py

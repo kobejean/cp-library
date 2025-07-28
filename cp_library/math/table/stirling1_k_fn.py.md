@@ -233,7 +233,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling1_k_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 14:11:54+09:00'
+  timestamp: '2025-07-28 14:17:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

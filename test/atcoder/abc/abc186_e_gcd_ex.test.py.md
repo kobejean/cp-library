@@ -187,7 +187,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc186_e_gcd_ex.test.py
   requiredBy: []
-  timestamp: '2025-07-28 14:11:54+09:00'
+  timestamp: '2025-07-28 14:17:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc186_e_gcd_ex.test.py

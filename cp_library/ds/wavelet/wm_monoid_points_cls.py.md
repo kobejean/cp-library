@@ -248,7 +248,7 @@ data:
   requiredBy:
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
   - cp_library/ds/wavelet/wm_group_points_cls.py
-  timestamp: '2025-07-28 14:11:54+09:00'
+  timestamp: '2025-07-28 14:17:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
