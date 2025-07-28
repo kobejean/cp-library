@@ -130,16 +130,15 @@ data:
     def subset_conv(A: list[int], B: list[int], N: int) -> list[int]:\n    Z = (N+1)*(M:=1<<N)\n\
     \    Ar, Br, P = [0]*Z, [0]*Z, popcnts(N)\n    for i, p in enumerate(P): Ar[p<<N|i],\
     \ Br[p<<N|i] = A[i], B[i]\n    isubset_conv_ranked(Ar, Br, N, M, Z)\n    return\
-    \ [Ar[p<<N|i] for i, p in enumerate(P)]\n\n\ndef sps_exp(P):\n    N = len(P).bit_length()\
-    \ - 1\n    P = view(P); m = 1\n    exp = elist(1 << N); exp.append(1)\n    for\
-    \ n in range(N):\n        P.set_range(m, m := m<<1)\n        exp.extend(subset_conv(exp,\
-    \ P, n))\n    return exp\n"
+    \ [Ar[p<<N|i] for i, p in enumerate(P)]\n\n\ndef sps_exp(P):\n    N = len(P).bit_length()-1;\
+    \ P = view(P); m = 1; exp = elist(1 << N); exp.append(1)\n    for n in range(N):\
+    \ P.set_range(m, m := m<<1); exp.extend(subset_conv(exp, P, n))\n    return exp\n"
   code: "import cp_library.__header__\nfrom cp_library.ds.elist_fn import elist\n\
     from cp_library.ds.view.view_cls import view\nimport cp_library.math.__header__\n\
     from cp_library.math.conv.subset_conv_fn import subset_conv\nimport cp_library.math.sps.__header__\n\
-    \ndef sps_exp(P):\n    N = len(P).bit_length() - 1\n    P = view(P); m = 1\n \
-    \   exp = elist(1 << N); exp.append(1)\n    for n in range(N):\n        P.set_range(m,\
-    \ m := m<<1)\n        exp.extend(subset_conv(exp, P, n))\n    return exp"
+    \ndef sps_exp(P):\n    N = len(P).bit_length()-1; P = view(P); m = 1; exp = elist(1\
+    \ << N); exp.append(1)\n    for n in range(N): P.set_range(m, m := m<<1); exp.extend(subset_conv(exp,\
+    \ P, n))\n    return exp"
   dependsOn:
   - cp_library/ds/elist_fn.py
   - cp_library/ds/view/view_cls.py
@@ -153,7 +152,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/sps_exp_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/sps_exp_fn.py

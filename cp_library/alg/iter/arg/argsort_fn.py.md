@@ -318,7 +318,7 @@ data:
   - perf/segtree6.py
   - perf/bit2.py
   - perf/list2.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py

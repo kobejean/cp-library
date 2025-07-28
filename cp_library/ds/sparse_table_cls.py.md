@@ -46,7 +46,7 @@ data:
   path: cp_library/ds/sparse_table_cls.py
   requiredBy:
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/staticrmq_general.test.py

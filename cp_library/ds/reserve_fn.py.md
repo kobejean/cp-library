@@ -83,6 +83,9 @@ data:
   - icon: ':warning:'
     path: cp_library/math/table/totient_cls.py
     title: cp_library/math/table/totient_cls.py
+  - icon: ':warning:'
+    path: perf/bytearray_decode.py
+    title: perf/bytearray_decode.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/convolution/gcd_convolution.test.py
@@ -165,7 +168,8 @@ data:
   - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/conv/lcm_conv_fn.py
   - cp_library/math/conv/gcd_conv_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  - perf/bytearray_decode.py
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/lcm_convolution.test.py

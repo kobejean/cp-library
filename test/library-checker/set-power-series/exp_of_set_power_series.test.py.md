@@ -152,30 +152,29 @@ data:
     \    Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M, popcnts(N)\n    for i, p in enumerate(P):\
     \ Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    isubset_conv_ranked(Ar, Br, N, M, Z,\
     \ mod)\n    for i, p in enumerate(P): C[i] = Ar[p<<N|i] % mod\n    return C\n\n\
-    \ndef sps_exp(P, mod):\n    assert P[0] == 0\n    N = len(P).bit_length() - 1\n\
-    \    exp = elist(1 << N); exp.append(1)\n    P = view(P); m = 1\n    for n in\
-    \ range(N):\n        P.set_range(m, m := m<<1)\n        exp.extend(subset_conv(P,\
-    \ exp, n, mod))\n    return exp\n\ndef isubset_deconv_ranked(Ar, Br, N, Z, M,\
-    \ mod):\n    inv = pow(Br[0], -1, mod); ior_zeta_pair_ranked(Ar, Br, N, M, Z)\n\
-    \    for i in range(Z): Br[i], Ar[i] = Br[i]%mod, Ar[i]%mod\n    for i in range(0,\
-    \ Z, M):\n        for k in range(M): Ar[i|k] = Ar[i|k] * inv % mod\n        for\
-    \ j in range(M, Z-i, M):\n            ij = i + j; l = (1 << (j>>N))-1\n      \
-    \      for k in range(l,M): Ar[ij|k] -= Ar[i|k] * Br[j|k] % mod\n    return ior_mobius_ranked(Ar,\
-    \ N, M, Z)\n\ndef subset_deconv(A: list[int], B: list[int], N: int, mod: int)\
-    \ -> list[int]:\n    Z = (N+1)*(M:=1<<N)\n    Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M,\
-    \ popcnts(N)\n    for i, p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n\
-    \    isubset_deconv_ranked(Ar, Br, N, Z, M, mod)\n    for i, p in enumerate(P):\
-    \ C[i] = Ar[p<<N|i] % mod\n    return C\n\ndef sps_ln(P, mod):\n    assert P[0]\
-    \ == 1\n    N = len(P).bit_length() - 1\n    P0, P1 = view(P), view(P); m = 1\n\
-    \    ln = elist(1 << N); ln.append(0)\n    for n in range(N):\n        P0.set_range(0,\
-    \ m); P1.set_range(m, m := m<<1)\n        ln.extend(subset_deconv(P1, P0, n, mod))\n\
-    \    return ln\n# from cp_library.math.sps.mod.sps_exp_half_fn import sps_exp_half\
-    \ as sps_exp\n\n\nfrom __pypy__.builders import StringBuilder\nfrom os import\
-    \ read as os_read, write as os_write\nfrom atexit import register as atexist_register\n\
-    \nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n    sb = StringBuilder()\n\
-    \    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n        self.ibuf\
-    \ += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n   \
-    \ def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
+    \ndef sps_exp(P, mod):\n    assert P[0] == 0\n    exp = elist(1 << (N := len(P).bit_length()-1));\
+    \ exp.append(1); P = view(P); m = 1\n    for n in range(N): P.set_range(m, m :=\
+    \ m<<1); exp.extend(subset_conv(P, exp, n, mod))\n    return exp\n\ndef isubset_deconv_ranked(Ar,\
+    \ Br, N, Z, M, mod):\n    inv = pow(Br[0], -1, mod); ior_zeta_pair_ranked(Ar,\
+    \ Br, N, M, Z)\n    for i in range(Z): Br[i], Ar[i] = Br[i]%mod, Ar[i]%mod\n \
+    \   for i in range(0, Z, M):\n        for k in range(M): Ar[i|k] = Ar[i|k] * inv\
+    \ % mod\n        for j in range(M, Z-i, M):\n            ij = i + j; l = (1 <<\
+    \ (j>>N))-1\n            for k in range(l,M): Ar[ij|k] -= Ar[i|k] * Br[j|k] %\
+    \ mod\n    return ior_mobius_ranked(Ar, N, M, Z)\n\ndef subset_deconv(A: list[int],\
+    \ B: list[int], N: int, mod: int) -> list[int]:\n    Z = (N+1)*(M:=1<<N)\n   \
+    \ Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M, popcnts(N)\n    for i, p in enumerate(P):\
+    \ Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    isubset_deconv_ranked(Ar, Br, N, Z,\
+    \ M, mod)\n    for i, p in enumerate(P): C[i] = Ar[p<<N|i] % mod\n    return C\n\
+    \ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length()-1; P0,\
+    \ P1 = view(P), view(P); m = 1; ln = elist(1 << N); ln.append(0)\n    for n in\
+    \ range(N): P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P1,\
+    \ P0, n, mod))\n    return ln\n# from cp_library.math.sps.mod.sps_exp_half_fn\
+    \ import sps_exp_half as sps_exp\n\n\nfrom __pypy__.builders import StringBuilder\n\
+    from os import read as os_read, write as os_write\nfrom atexit import register\
+    \ as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n\
+    \    sb = StringBuilder()\n    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n\
+    \        self.ibuf += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n\
+    \    def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
     \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
     \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
     \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
@@ -219,7 +218,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/exp_of_set_power_series.test.py

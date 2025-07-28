@@ -18,6 +18,9 @@ data:
     path: perf/bool_list.py
     title: perf/bool_list.py
   - icon: ':warning:'
+    path: perf/bytearray_decode.py
+    title: perf/bytearray_decode.py
+  - icon: ':warning:'
     path: perf/csr.py
     title: perf/csr.py
   - icon: ':warning:'
@@ -259,7 +262,8 @@ data:
   - perf/rank.py
   - perf/list2.py
   - perf/heap_csr.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  - perf/bytearray_decode.py
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/registry.py

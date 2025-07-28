@@ -14,14 +14,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef arthsum(d, a, n):\n    return ((n-1)*d+(a<<1))*n >> 1\n"
-  code: "import cp_library.math.series.__header__\n\ndef arthsum(d, a, n):\n    return\
-    \ ((n-1)*d+(a<<1))*n >> 1"
+    \n\n\ndef arthsum(d, a, n): return ((n-1)*d+(a<<1))*n >> 1\n"
+  code: 'import cp_library.__header__
+
+    import cp_library.math.__header__
+
+    import cp_library.math.series.__header__
+
+
+    def arthsum(d, a, n): return ((n-1)*d+(a<<1))*n >> 1'
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/series/arthsum_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/series/arthsum_fn.py

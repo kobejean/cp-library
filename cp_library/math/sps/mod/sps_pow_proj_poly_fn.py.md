@@ -138,15 +138,14 @@ data:
     \ be 0 for sps_pow_proj\"\n    Aview, Bview, P = view(A := A[::-1]), view(B),\
     \ []\n    for i in range(N + 1):\n        P.append(A[(1<<N)-1]); A[(1<<N)-1] =\
     \ 0\n        for m in range(N - i):\n            i0 = (1<<N)-(1<<(m+1)); i1 =\
-    \ 1 << m\n            Aview.set_range(i0, i0 + (1 << m)); Bview.set_range(i1,\
-    \ i1 + (1 << m))\n            R = subset_conv(Aview, Bview, m, mod)\n        \
-    \    i2 = (1<<N)-(1<<m)\n            for h in range(1 << m):\n               \
-    \ A[i2 + h] = (A[i2 + h] + R[h]) % mod\n                A[i0 + h] = 0\n    return\
-    \ P[:M]\n\ndef sps_pow_proj_poly(A, B, M, mod):\n    N = len(B).bit_length()-1;\
-    \ b = B[0]; B[0] = 0\n    P, F, H = sps_pow_proj(A, B, N + 1, mod), [], [0]*(N+1);\
-    \ H[0] = 1\n    for i in range(M):\n        v = 0\n        for j in range(N +\
-    \ 1):\n            if j < len(P): v = (v+H[j]*P[j])%mod\n        F.append(v)\n\
-    \        for j in range(N-1, -1, -1): H[j+1]=H[j]*(i+1)%mod\n        H[0]=H[0]*b%mod\n\
+    \ 1 << m; i2 = (1<<N)-(1<<m)\n            Aview.set_range(i0, i0+(1<<m)); Bview.set_range(i1,\
+    \ i1+(1<<m))\n            R = subset_conv(Aview, Bview, m, mod)\n            for\
+    \ h in range(1 << m): A[i2+h], A[i0+h] = (A[i2+h]+R[h])%mod, 0\n    return P[:M]\n\
+    \ndef sps_pow_proj_poly(A, B, M, mod):\n    N = len(B).bit_length()-1; b = B[0];\
+    \ B[0] = 0\n    P, F, H = sps_pow_proj(A, B, N + 1, mod), [], [0]*(N+1); H[0]\
+    \ = 1\n    for i in range(M):\n        v = 0\n        for j in range(N + 1):\n\
+    \            if j < len(P): v = (v+H[j]*P[j])%mod\n        F.append(v)\n     \
+    \   for j in range(N-1, -1, -1): H[j+1]=H[j]*(i+1)%mod\n        H[0]=H[0]*b%mod\n\
     \    return F\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.sps.__header__\n\
     import cp_library.math.sps.mod.__header__\nfrom cp_library.math.sps.mod.sps_pow_proj_fn\
@@ -169,7 +168,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py

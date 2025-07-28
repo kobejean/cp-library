@@ -32,12 +32,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/fps/fps_tayler_shift_fn.py
     title: cp_library/math/fps/fps_tayler_shift_fn.py
-  - icon: ':warning:'
-    path: cp_library/math/linalg/mat/mat_cls.py
-    title: cp_library/math/linalg/mat/mat_cls.py
-  - icon: ':warning:'
-    path: cp_library/math/linalg/mat/mod/mat_cls.py
-    title: cp_library/math/linalg/mat/mod/mat_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/linalg/mat/mod/modmat_cls.py
     title: cp_library/math/linalg/mat/mod/modmat_cls.py
@@ -190,11 +184,9 @@ data:
   - cp_library/math/fps/fps_ideriv_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/fps/fps_deriv_fn.py
-  - cp_library/math/linalg/mat/mod/mat_cls.py
   - cp_library/math/linalg/mat/mod/modmat_cls.py
-  - cp_library/math/linalg/mat/mat_cls.py
   - perf/mlist.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution.test.py

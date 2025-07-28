@@ -17,18 +17,17 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fps_iinteg(P: list) -> list:\n    N, mod = len(P), mint.mod\n    inv = [0]\
-    \ * (N+1)\n    P.append(0)\n    if N:\n        inv[1] = 1\n    for i in range(2,\
-    \ N+1):\n        j, k = divmod(mod, i)\n        inv[i] = (-inv[k] * j) % mod\n\
-    \    for i in range(N,0,-1):\n        P[i] = inv[i] * P[i-1] % mod\n    P[0] =\
-    \ 0\n    return P\n\n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n\
-    \    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
-    \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64: return\
-    \ cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls,\
-    \ mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero = cls.zero =\
-    \ cls.cast(0)\n        mint.one = cls.one = cls.fix(1)\n        mint.two = cls.two\
-    \ = cls.fix(2)\n        mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n\
-    \        for x in range(3,64): mint.cache.append(cls.fix(x))\n    @classmethod\n\
+    \ndef fps_iinteg(P: list) -> list:\n    N, mod = len(P), mint.mod; inv = [0]*(N+1);\
+    \ P.append(0)\n    if N: inv[1] = 1\n    for i in range(2, N+1): j, k = divmod(mod,\
+    \ i); inv[i] = (-inv[k] * j) % mod\n    for i in range(N,0,-1): P[i] = inv[i]\
+    \ * P[i-1] % mod\n    P[0] = 0\n    return P\n\n    \nclass mint(int):\n    mod:\
+    \ int\n    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\
+    \    def __new__(cls, *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs))\
+    \ < 64: return cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n\
+    \    def set_mod(cls, mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero\
+    \ = cls.zero = cls.cast(0)\n        mint.one = cls.one = cls.fix(1)\n        mint.two\
+    \ = cls.two = cls.fix(2)\n        mint.cache = cls.cache = [cls.zero, cls.one,\
+    \ cls.two]\n        for x in range(3,64): mint.cache.append(cls.fix(x))\n    @classmethod\n\
     \    def fix(cls, x): return cls.cast(x%cls.mod)\n    @classmethod\n    def cast(cls,\
     \ x): return super().__new__(cls,x)\n    @classmethod\n    def mod_inv(cls, x):\n\
     \        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
@@ -45,17 +44,16 @@ data:
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
     \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n"
   code: "import cp_library.math.fps.__header__\n\ndef fps_iinteg(P: list) -> list:\n\
-    \    N, mod = len(P), mint.mod\n    inv = [0] * (N+1)\n    P.append(0)\n    if\
-    \ N:\n        inv[1] = 1\n    for i in range(2, N+1):\n        j, k = divmod(mod,\
-    \ i)\n        inv[i] = (-inv[k] * j) % mod\n    for i in range(N,0,-1):\n    \
-    \    P[i] = inv[i] * P[i-1] % mod\n    P[0] = 0\n    return P\n\nfrom cp_library.math.mod.mint_cls\
-    \ import mint"
+    \    N, mod = len(P), mint.mod; inv = [0]*(N+1); P.append(0)\n    if N: inv[1]\
+    \ = 1\n    for i in range(2, N+1): j, k = divmod(mod, i); inv[i] = (-inv[k] *\
+    \ j) % mod\n    for i in range(N,0,-1): P[i] = inv[i] * P[i-1] % mod\n    P[0]\
+    \ = 0\n    return P\nfrom cp_library.math.mod.mint_cls import mint"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   isVerificationFile: false
   path: cp_library/math/fps/fps_iinteg_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_iinteg_fn.py

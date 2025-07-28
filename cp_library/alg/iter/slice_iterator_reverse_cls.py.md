@@ -85,7 +85,7 @@ data:
   - cp_library/alg/graph/csr/snippets/biconnected_components_edge_ids_fn.py
   - cp_library/alg/graph/csr/snippets/scc_labels_fn.py
   - cp_library/alg/graph/csr/snippets/biconnected_components_vertices_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/cycle_detection.test.py

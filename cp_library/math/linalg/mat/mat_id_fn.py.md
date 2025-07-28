@@ -26,14 +26,14 @@ data:
     \n\n\n\ndef mat_id(N):\n    return [[int(i==j) for j in range(N)] for i in range(N)]\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.linalg.__header__\n\
     import cp_library.math.linalg.mat.__header__\n\ndef mat_id(N):\n    return [[int(i==j)\
-    \ for j in range(N)] for i in range(N)]\n"
+    \ for j in range(N)] for i in range(N)]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mat_id_fn.py
   requiredBy:
   - cp_library/math/linalg/mat/mod/mat_pow_fn.py
   - cp_library/math/linalg/mat/mat_pow_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

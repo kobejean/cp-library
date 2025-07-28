@@ -84,11 +84,11 @@ data:
     \ = mod_inv(m2m3, m1), mod_inv(m1m3, m2), mod_inv(m1m2, m3)\n    ntt1, ntt2, ntt3\
     \ = NTT(m1), NTT(m2), NTT(m3)\n    C,C1,C2,C3 = [0]*N, ntt1.conv(A, B), ntt2.conv(A,\
     \ B), ntt3.conv(A, B)\n    for i in range(N):\n        C[i] = (C1[i]*i1%m1*m2m3+C2[i]*i2%m2*m1m3+C3[i]*i3%m3*m1m2)%m1m2m3\n\
-    \    return C\n\n\n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while\
-    \ b:\n        a,b,s,t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise\
-    \ ValueError(f\"{x} is not invertible in mod {mod}\")\n\nclass NTT:\n    def __init__(self,\
-    \ mod = 998244353) -> None:\n        self.mod = m = mod\n        self.g = g =\
-    \ self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
+    \    return C\n\n\n\ndef mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n   \
+    \ while b:\n        a, b, s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n\
+    \    raise ValueError(f\"{x} is not invertible in mod {mod}\")\n\nclass NTT:\n\
+    \    def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
+    \        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
     \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
     \ (m - 1) >> rank2, m)\n        self.iroot = iroot = [0] * (rank2 + 1)\n     \
     \   iroot[rank2] = pow(root[rank2], m - 2, m)\n        for i in range(rank2 -\
@@ -168,7 +168,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/conv_int_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution_int.test.py

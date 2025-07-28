@@ -57,9 +57,9 @@ data:
     \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
     \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
-    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\n\n\
-    def mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\ndef\
+    \ mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b,\
+    \ s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\n\nclass NTT:\n    def __init__(self, mod\
     \ = 998244353) -> None:\n        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n\
     \        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root\
@@ -150,9 +150,9 @@ data:
     \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n\ndef fps_tayler_shift(P,\
     \ t: int) -> list[int]:\n    fact, fact_inv, inv, N, mod = mcomb.fact, mcomb.fact_inv,\
     \ mcomb.inv, len(P), mint.mod\n    mcomb.extend_inv(N)\n    R, B = [P[i]*fact[i]%mod\
-    \ for i in range(N-1,-1,-1)], [0]*N\n    B[0] = 1\n    for i in range(1,N): B[i]\
-    \ = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R, B, N)\n    return\
-    \ [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\n\n\ndef stirling1_n(n:\
+    \ for i in range(N-1,-1,-1)], [0]*N; B[0] = 1\n    for i in range(1,N): B[i] =\
+    \ B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R, B, N)\n    return\
+    \ [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\n\ndef stirling1_n(n:\
     \ SupportsIndex, signed = True):\n    conv,res,t,d = mint.ntt.conv,[1],0,(-1 if\
     \ signed else 1)\n    for i in range(n.bit_length()-1,-1,-1):\n        res,t =\
     \ conv(res,fps_tayler_shift(res,t)),t<<1\n        if n>>i&1:res,t = conv(res,[t,1]),t+d\n\
@@ -173,7 +173,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling1_n_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

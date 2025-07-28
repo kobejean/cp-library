@@ -95,8 +95,8 @@ data:
     \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
     \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
-    \n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n       \
-    \ a,b,s,t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    \n\n\ndef mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n    \
+    \    a, b, s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\nfrom itertools import accumulate\n\nclass\
     \ mcomb():\n    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] =\
     \ [0,1]\n\n    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n  \
@@ -118,8 +118,8 @@ data:
     \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
     \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
     \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
-    \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n\n\nclass NTT:\n\
-    \    def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
+    \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n\nclass NTT:\n \
+    \   def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
     \        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
     \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
     \ (m - 1) >> rank2, m)\n        self.iroot = iroot = [0] * (rank2 + 1)\n     \
@@ -216,7 +216,7 @@ data:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py

@@ -195,7 +195,7 @@ data:
   - cp_library/ds/tree/bit/sum_cnt_bit_cls.py
   - cp_library/alg/tree/csr/hld_bit_cls.py
   - cp_library/math/invcnt_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/vertex_add_path_sum_hld.test.py

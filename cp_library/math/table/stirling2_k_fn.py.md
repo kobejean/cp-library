@@ -79,8 +79,8 @@ data:
     \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
     \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\ndef\
-    \ mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    \ mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b,\
+    \ s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\nfrom itertools import accumulate\n\nclass\
     \ mcomb():\n    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] =\
     \ [0,1]\n\n    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n  \
@@ -104,39 +104,39 @@ data:
     \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
     \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n\n\ndef fps_deriv(P:\
     \ list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod for i in range(1,len(P))]\n\
-    \n\ndef fps_integ(P: list) -> list:\n    N, mod = len(P), mint.mod\n    res =\
-    \ [0] * (N+1)\n    if N:\n        res[1] = 1\n    for i in range(2, N+1):\n  \
-    \      j, k = divmod(mod, i)\n        res[i] = (-res[k] * j) % mod\n    for i,\
-    \ x in enumerate(P, start=1):\n        res[i] = res[i] * x % mod\n    return res\n\
-    \n\ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)),\
-    \ 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while d < deg:\n       \
-    \ sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n\
-    \        ntt.conv_half(f,gres:=ntt.fntt(g))\n        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n\
-    \        for j in range(d,sz): inv[j] = mod-f[j] if f[j] else 0\n        d = z\n\
-    \    return inv\n\n\n\nclass NTT:\n    def __init__(self, mod = 998244353) ->\
-    \ None:\n        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n\
-    \        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root\
-    \ = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n\
-    \        self.iroot = iroot = [0] * (rank2 + 1)\n        iroot[rank2] = pow(root[rank2],\
-    \ m - 2, m)\n        for i in range(rank2 - 1, -1, -1):\n            root[i] =\
-    \ root[i+1] * root[i+1] % m\n            iroot[i] = iroot[i+1] * iroot[i+1] %\
-    \ m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1), [0]*max(0,rank2-s+1)\n\
-    \            p = ip = 1\n            for i in range(rank2-s+1):\n            \
-    \    r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]= p*ir%m,ip*r%m,r*p%m,ir*ip%m\n\
-    \            return r8, ir8\n        self.rate2, self.irate2 = rates(2)\n    \
-    \    self.rate3, self.irate3 = rates(3)\n \n    def primitive_root(self, m):\n\
-    \        if m == 2: return 1\n        if m == 167772161: return 3\n        if\
-    \ m == 469762049: return 3\n        if m == 754974721: return 11\n        if m\
-    \ == 998244353: return 3\n        divs = [0] * 20\n        cnt, divs[0], x = 1,\
-    \ 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n        i=3\n        while\
-    \ i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt = i,cnt+1\n\
-    \                while x%i==0:x//=i\n            i+=2\n        if x > 1: divs[cnt],cnt\
-    \ = x,cnt+1\n        for g in range(2,m):\n            for i in range(cnt):\n\
-    \                if pow(g,(m-1)//divs[i],m)==1:break\n            else:return\
-    \ g\n    \n    def fntt(self, A: list[int]):\n        im, r8, m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n\
-    \        for L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n         \
-    \   for s in range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n\
-    \                for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
+    \n\ndef fps_integ(P: list) -> list:\n    N, mod = len(P), mint.mod; res = [0]\
+    \ * (N+1)\n    if N: res[1] = 1\n    for i in range(2, N+1): j, k = divmod(mod,\
+    \ i); res[i] = (-res[k] * j) % mod\n    for i, x in enumerate(P, start=1): res[i]\
+    \ = res[i] * x % mod\n    return res\n\n\ndef fps_inv(P: list) -> list:\n    ntt,\
+    \ inv, d = mint.ntt, [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n\
+    \    while d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n     \
+    \   f[:sz], g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n\
+    \        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
+    \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\n\nclass NTT:\n\
+    \    def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
+    \        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
+    \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
+    \ (m - 1) >> rank2, m)\n        self.iroot = iroot = [0] * (rank2 + 1)\n     \
+    \   iroot[rank2] = pow(root[rank2], m - 2, m)\n        for i in range(rank2 -\
+    \ 1, -1, -1):\n            root[i] = root[i+1] * root[i+1] % m\n            iroot[i]\
+    \ = iroot[i+1] * iroot[i+1] % m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1),\
+    \ [0]*max(0,rank2-s+1)\n            p = ip = 1\n            for i in range(rank2-s+1):\n\
+    \                r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]=\
+    \ p*ir%m,ip*r%m,r*p%m,ir*ip%m\n            return r8, ir8\n        self.rate2,\
+    \ self.irate2 = rates(2)\n        self.rate3, self.irate3 = rates(3)\n \n    def\
+    \ primitive_root(self, m):\n        if m == 2: return 1\n        if m == 167772161:\
+    \ return 3\n        if m == 469762049: return 3\n        if m == 754974721: return\
+    \ 11\n        if m == 998244353: return 3\n        divs = [0] * 20\n        cnt,\
+    \ divs[0], x = 1, 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n       \
+    \ i=3\n        while i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt\
+    \ = i,cnt+1\n                while x%i==0:x//=i\n            i+=2\n        if\
+    \ x > 1: divs[cnt],cnt = x,cnt+1\n        for g in range(2,m):\n            for\
+    \ i in range(cnt):\n                if pow(g,(m-1)//divs[i],m)==1:break\n    \
+    \        else:return g\n    \n    def fntt(self, A: list[int]):\n        im, r8,\
+    \ m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n        for\
+    \ L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n            for s in\
+    \ range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n           \
+    \     for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
     \                    a0,a1,a2,a3 = A[i0],A[i1]*r,A[i2]*r2,A[i3]*r3\n         \
     \           a0,a1,a2,a3 = a0+a2,a1+a3,a0-a2,(a1-a3)%m*im\n                   \
     \ A[i0],A[i1],A[i2],A[i3] = (a0+a1)%m,(a0-a1)%m,(a2+a3)%m,(a2-a3)%m\n        \
@@ -179,20 +179,20 @@ data:
     \        for i in range(n-1):res[i]=(con[i]+con[i+n])%mod\n        res[n-1]=con[n-1]\n\
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
-    \ = NTT(mod)\n\ndef fps_log(P: list) -> list:\n    return fps_integ(mint.ntt.conv(fps_deriv(P),\
-    \ fps_inv(P), len(P)-1))\n\n\ndef fps_exp(P: list) -> list:\n    max_sz = 1 <<\
-    \ ((deg := len(P))-1).bit_length()\n    mcomb.extend_inv(max_sz)\n    inv, mod,\
-    \ ntt = mcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt,\
-    \ ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n    R,\
-    \ E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz),\
-    \ reserve(E, max_sz)\n    p = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n\
-    \        x = ifntt([Rres[i]*-e%mod for i, e in enumerate(Eres)])\n        for\
-    \ i in range(h:=p>>1): x[i] = 0\n        E.extend(conv_half(x, Eres)[h:])\n  \
-    \      Eres = fntt(E + [0]*p)\n        x = conv_half(dP[:p-1]+[0], Rres[:p])\n\
-    \        for i in range(1,p): x[i-1] -= R[i]*i % mod\n        x += [0] * p\n \
-    \       for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n\
-    \        for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod\
-    \ \n        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
+    \ = NTT(mod)\n\ndef fps_log(P: list) -> list: return fps_integ(mint.ntt.conv(fps_deriv(P),\
+    \ fps_inv(P), len(P)-1))\n\ndef fps_exp(P: list) -> list:\n    max_sz = 1 << ((deg\
+    \ := len(P))-1).bit_length()\n    mcomb.extend_inv(max_sz)\n    inv, mod, ntt\
+    \ = mcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt, ntt.ifntt,\
+    \ ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n    R, E, Eres =\
+    \ [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz), reserve(E,\
+    \ max_sz)\n    p = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n   \
+    \     x = ifntt([Rres[i]*-e%mod for i, e in enumerate(Eres)])\n        for i in\
+    \ range(h:=p>>1): x[i] = 0\n        E.extend(conv_half(x, Eres)[h:])\n       \
+    \ Eres = fntt(E + [0]*p)\n        x = conv_half(dP[:p-1]+[0], Rres[:p])\n    \
+    \    for i in range(1,p): x[i-1] -= R[i]*i % mod\n        x += [0] * p\n     \
+    \   for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n   \
+    \     for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod \n\
+    \        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
     \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
     \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
@@ -204,7 +204,7 @@ data:
     \ mod_inv(P[i],mod), pow(P[i], k, mod)\n    R = fps_log([P[j]*inv%mod for j in\
     \ range(i,deg)])\n    for j,r in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n\
     \    for j,r in enumerate(R): R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n\
-    \    return fps_normalize(R, deg)\n\n\ndef stirling2_k(n: SupportsIndex, k: SupportsIndex):\n\
+    \    return fps_normalize(R, deg)\n\ndef stirling2_k(n: SupportsIndex, k: SupportsIndex):\n\
     \    kinv,fact,mod = mcomb.fact_inv[k],mcomb.fact,mint.mod\n    R = fps_pow(mcomb.fact_inv[1:n+2-k],k,n+1-k)\n\
     \    return [mint(r*kinv%mod*fact[i]) for i,r in enumerate(R,start=k)]\n"
   code: "import cp_library.math.table.__header__\nfrom typing import SupportsIndex\n\
@@ -230,7 +230,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling2_k_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

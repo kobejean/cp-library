@@ -85,7 +85,7 @@ data:
   requiredBy:
   - cp_library/math/conv/mod/ior_conv_fn.py
   - cp_library/math/conv/ior_conv_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/ior_zeta_pair_fn.py

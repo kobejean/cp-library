@@ -152,39 +152,38 @@ data:
     \ Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M, popcnts(N)\n    for i, p in enumerate(P):\
     \ Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    isubset_deconv_ranked(Ar, Br, N, Z,\
     \ M, mod)\n    for i, p in enumerate(P): C[i] = Ar[p<<N|i] % mod\n    return C\n\
-    \n\ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length() - 1\n\
-    \    P0, P1 = view(P), view(P); m = 1\n    ln = elist(1 << N); ln.append(0)\n\
-    \    for n in range(N):\n        P0.set_range(0, m); P1.set_range(m, m := m<<1)\n\
-    \        ln.extend(subset_deconv(P1, P0, n, mod))\n    return ln\n\ndef ior_zeta(A:\
-    \ list[int], N: int, Z: int = None):\n    Z = Z if Z else len(A)\n    for i in\
-    \ range(N):\n        m = b = 1<<i\n        while m < Z: A[m] += A[m^b]; m = m+1|b\n\
-    \    return A\n\ndef isubset_conv_half(Ar: list[int], B: list[int], n: int, N:\
-    \ int, mod: int, pcnt) -> list[int]:\n    Br = [0]*(z := (n+1)*(m := 1<<n))\n\
-    \    for i in range(m): Br[pcnt[i]<<n|i] = B[i]\n    ior_zeta(Br, n)\n    for\
-    \ i in range(z): Br[i] = Br[i]%mod\n    for ij in range(n,-1,-1):\n        ij_,\
-    \ i_ = (ij+1)<<N|m, ij<<n\n        for k in range(m): Ar[ij_|k] = (Br[i_|k] *\
-    \ Ar[k]) % mod\n        for i in range(ij):\n            j = ij-i; i_, j_ = i<<n,\
-    \ j<<N\n            for k in range(m): Ar[ij_|k] = (Ar[ij_|k] + Br[i_|k] * Ar[j_|k])\
-    \ % mod\n    for i in range(n+1):\n        i = i << N\n        for k in range(m):\
-    \ Ar[i|k|m] += Ar[i|k]\n\ndef ior_mobius(A: list[int], N: int, Z: int = None):\n\
+    \n\ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length()-1;\
+    \ P0, P1 = view(P), view(P); m = 1; ln = elist(1 << N); ln.append(0)\n    for\
+    \ n in range(N): P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P1,\
+    \ P0, n, mod))\n    return ln\n\ndef ior_zeta(A: list[int], N: int, Z: int = None):\n\
     \    Z = Z if Z else len(A)\n    for i in range(N):\n        m = b = 1<<i\n  \
-    \      while m < Z: A[m] -= A[m^b]; m = m+1|b\n    return A\n\ndef sps_exp_half(P,\
-    \ mod):\n    assert P[0] == 0\n    N = len(P).bit_length() - 1\n    Z = (N+1)*(M\
-    \ := 1<<N)\n    exp = [0]*Z; exp[0] = 1\n    pcnt = popcnts(N)\n    P = view(P);\
-    \ m = 1\n    for n in range(N):\n        P.set_range(m, m := m<<1)\n        isubset_conv_half(exp,\
-    \ P, n, N, mod, pcnt)\n    ior_mobius(exp, N)\n    return [exp[p<<N|i] % mod for\
-    \ i,p in enumerate(pcnt)]\n\n\nfrom __pypy__.builders import StringBuilder\nfrom\
-    \ os import read as os_read, write as os_write\nfrom atexit import register as\
-    \ atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n    pil = pir = 0\n \
-    \   sb = StringBuilder()\n    def load(self):\n        self.ibuf = self.ibuf[self.pil:]\n\
-    \        self.ibuf += os_read(0, 131072)\n        self.pil = 0; self.pir = len(self.ibuf)\n\
-    \    def flush_atexit(self): os_write(1, self.sb.build().encode())\n    def flush(self):\n\
-    \        os_write(1, self.sb.build().encode())\n        self.sb = StringBuilder()\n\
-    \    def fastin(self):\n        if self.pir - self.pil < 64: self.load()\n   \
-    \     minus = x = 0\n        while self.ibuf[self.pil] < 45: self.pil += 1\n \
-    \       if self.ibuf[self.pil] == 45: minus = 1; self.pil += 1\n        while\
-    \ self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil] &\
-    \ 15)\n            self.pil += 1\n        if minus: return -x\n        return\
+    \      while m < Z: A[m] += A[m^b]; m = m+1|b\n    return A\n\ndef isubset_conv_half(Ar:\
+    \ list[int], B: list[int], n: int, N: int, mod: int, pcnt) -> list[int]:\n   \
+    \ Br = [0]*(z := (n+1)*(m := 1<<n))\n    for i in range(m): Br[pcnt[i]<<n|i] =\
+    \ B[i]\n    ior_zeta(Br, n)\n    for i in range(z): Br[i] = Br[i]%mod\n    for\
+    \ ij in range(n,-1,-1):\n        ij_, i_ = (ij+1)<<N|m, ij<<n\n        for k in\
+    \ range(m): Ar[ij_|k] = (Br[i_|k] * Ar[k]) % mod\n        for i in range(ij):\n\
+    \            j = ij-i; i_, j_ = i<<n, j<<N\n            for k in range(m): Ar[ij_|k]\
+    \ = (Ar[ij_|k] + Br[i_|k] * Ar[j_|k]) % mod\n    for i in range(n+1):\n      \
+    \  i = i << N\n        for k in range(m): Ar[i|k|m] += Ar[i|k]\n\ndef ior_mobius(A:\
+    \ list[int], N: int, Z: int = None):\n    Z = Z if Z else len(A)\n    for i in\
+    \ range(N):\n        m = b = 1<<i\n        while m < Z: A[m] -= A[m^b]; m = m+1|b\n\
+    \    return A\n\ndef sps_exp_half(P, mod):\n    assert P[0] == 0\n    N = len(P).bit_length()\
+    \ - 1\n    Z = (N+1)*(M := 1<<N)\n    exp = [0]*Z; exp[0] = 1\n    pcnt = popcnts(N)\n\
+    \    P = view(P); m = 1\n    for n in range(N):\n        P.set_range(m, m := m<<1)\n\
+    \        isubset_conv_half(exp, P, n, N, mod, pcnt)\n    ior_mobius(exp, N)\n\
+    \    return [exp[p<<N|i] % mod for i,p in enumerate(pcnt)]\n\n\nfrom __pypy__.builders\
+    \ import StringBuilder\nfrom os import read as os_read, write as os_write\nfrom\
+    \ atexit import register as atexist_register\n\nclass Fastio:\n    ibuf = bytes()\n\
+    \    pil = pir = 0\n    sb = StringBuilder()\n    def load(self):\n        self.ibuf\
+    \ = self.ibuf[self.pil:]\n        self.ibuf += os_read(0, 131072)\n        self.pil\
+    \ = 0; self.pir = len(self.ibuf)\n    def flush_atexit(self): os_write(1, self.sb.build().encode())\n\
+    \    def flush(self):\n        os_write(1, self.sb.build().encode())\n       \
+    \ self.sb = StringBuilder()\n    def fastin(self):\n        if self.pir - self.pil\
+    \ < 64: self.load()\n        minus = x = 0\n        while self.ibuf[self.pil]\
+    \ < 45: self.pil += 1\n        if self.ibuf[self.pil] == 45: minus = 1; self.pil\
+    \ += 1\n        while self.ibuf[self.pil] >= 48:\n            x = x * 10 + (self.ibuf[self.pil]\
+    \ & 15)\n            self.pil += 1\n        if minus: return -x\n        return\
     \ x\n    def fastin_string(self):\n        if self.pir - self.pil < 64: self.load()\n\
     \        while self.ibuf[self.pil] <= 32: self.pil += 1\n        res = bytearray()\n\
     \        while self.ibuf[self.pil] > 32:\n            if self.pir - self.pil <\
@@ -222,7 +221,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py

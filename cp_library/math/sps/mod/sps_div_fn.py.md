@@ -29,9 +29,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n        for\
-    \ m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\n'''\n\
-    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \n\n\n\n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n    \
+    \    for m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\
+    '''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -99,11 +99,20 @@ data:
     \    Z = (N+1)*(M:=1<<N)\n    Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M, popcnts(N)\n\
     \    for i, p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    isubset_deconv_ranked(Ar,\
     \ Br, N, Z, M, mod)\n    for i, p in enumerate(P): C[i] = Ar[p<<N|i] % mod\n \
-    \   return C\n\n\ndef sps_div(A, B, mod):\n    N = len(A).bit_length() - 1\n \
-    \   return subset_deconv(A, B, N, mod)\n"
-  code: "from cp_library.math.conv.mod.subset_deconv_fn import subset_deconv\nimport\
-    \ cp_library.math.sps.__header__\n\ndef sps_div(A, B, mod):\n    N = len(A).bit_length()\
-    \ - 1\n    return subset_deconv(A, B, N, mod)"
+    \   return C\n\ndef sps_div(A, B, mod): return subset_deconv(A, B, len(A).bit_length()\
+    \ - 1, mod)\n"
+  code: 'import cp_library.__header__
+
+    import cp_library.math.__header__
+
+    import cp_library.math.sps.__header__
+
+    import cp_library.math.sps.mod.__header__
+
+    from cp_library.math.conv.mod.subset_deconv_fn import subset_deconv
+
+
+    def sps_div(A, B, mod): return subset_deconv(A, B, len(A).bit_length() - 1, mod)'
   dependsOn:
   - cp_library/math/conv/mod/subset_deconv_fn.py
   - cp_library/bit/popcnts_fn.py
@@ -113,7 +122,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_div_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/mod/sps_div_fn.py

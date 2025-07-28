@@ -92,8 +92,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\ndef mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n       \
-    \ a,b,s,t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    \n\n\ndef mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n    \
+    \    a, b, s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\n\nclass NTT:\n    def __init__(self, mod\
     \ = 998244353) -> None:\n        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n\
     \        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root\
@@ -159,31 +159,32 @@ data:
     \        assert n == m\n        if n==0:return[]\n        con,res=self.conv(A,B),[0]*n\n\
     \        for i in range(n-1):res[i]=(con[i]+con[i+n])%mod\n        res[n-1]=con[n-1]\n\
     \        return res\n"
-  code: "import cp_library.math.__header__\n\nfrom cp_library.math.nt.mod_inv_fn import\
-    \ mod_inv\n\nclass NTT:\n    def __init__(self, mod = 998244353) -> None:\n  \
-    \      self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n     \
-    \   self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root = root\
-    \ = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n   \
-    \     self.iroot = iroot = [0] * (rank2 + 1)\n        iroot[rank2] = pow(root[rank2],\
-    \ m - 2, m)\n        for i in range(rank2 - 1, -1, -1):\n            root[i] =\
-    \ root[i+1] * root[i+1] % m\n            iroot[i] = iroot[i+1] * iroot[i+1] %\
-    \ m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1), [0]*max(0,rank2-s+1)\n\
-    \            p = ip = 1\n            for i in range(rank2-s+1):\n            \
-    \    r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]= p*ir%m,ip*r%m,r*p%m,ir*ip%m\n\
-    \            return r8, ir8\n        self.rate2, self.irate2 = rates(2)\n    \
-    \    self.rate3, self.irate3 = rates(3)\n \n    def primitive_root(self, m):\n\
-    \        if m == 2: return 1\n        if m == 167772161: return 3\n        if\
-    \ m == 469762049: return 3\n        if m == 754974721: return 11\n        if m\
-    \ == 998244353: return 3\n        divs = [0] * 20\n        cnt, divs[0], x = 1,\
-    \ 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n        i=3\n        while\
-    \ i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt = i,cnt+1\n\
-    \                while x%i==0:x//=i\n            i+=2\n        if x > 1: divs[cnt],cnt\
-    \ = x,cnt+1\n        for g in range(2,m):\n            for i in range(cnt):\n\
-    \                if pow(g,(m-1)//divs[i],m)==1:break\n            else:return\
-    \ g\n    \n    def fntt(self, A: list[int]):\n        im, r8, m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n\
-    \        for L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n         \
-    \   for s in range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n\
-    \                for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.nt.__header__\n\
+    from cp_library.math.nt.mod_inv_fn import mod_inv\n\nclass NTT:\n    def __init__(self,\
+    \ mod = 998244353) -> None:\n        self.mod = m = mod\n        self.g = g =\
+    \ self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
+    \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
+    \ (m - 1) >> rank2, m)\n        self.iroot = iroot = [0] * (rank2 + 1)\n     \
+    \   iroot[rank2] = pow(root[rank2], m - 2, m)\n        for i in range(rank2 -\
+    \ 1, -1, -1):\n            root[i] = root[i+1] * root[i+1] % m\n            iroot[i]\
+    \ = iroot[i+1] * iroot[i+1] % m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1),\
+    \ [0]*max(0,rank2-s+1)\n            p = ip = 1\n            for i in range(rank2-s+1):\n\
+    \                r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]=\
+    \ p*ir%m,ip*r%m,r*p%m,ir*ip%m\n            return r8, ir8\n        self.rate2,\
+    \ self.irate2 = rates(2)\n        self.rate3, self.irate3 = rates(3)\n \n    def\
+    \ primitive_root(self, m):\n        if m == 2: return 1\n        if m == 167772161:\
+    \ return 3\n        if m == 469762049: return 3\n        if m == 754974721: return\
+    \ 11\n        if m == 998244353: return 3\n        divs = [0] * 20\n        cnt,\
+    \ divs[0], x = 1, 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n       \
+    \ i=3\n        while i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt\
+    \ = i,cnt+1\n                while x%i==0:x//=i\n            i+=2\n        if\
+    \ x > 1: divs[cnt],cnt = x,cnt+1\n        for g in range(2,m):\n            for\
+    \ i in range(cnt):\n                if pow(g,(m-1)//divs[i],m)==1:break\n    \
+    \        else:return g\n    \n    def fntt(self, A: list[int]):\n        im, r8,\
+    \ m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n        for\
+    \ L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n            for s in\
+    \ range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n           \
+    \     for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
     \                    a0,a1,a2,a3 = A[i0],A[i1]*r,A[i2]*r2,A[i3]*r3\n         \
     \           a0,a1,a2,a3 = a0+a2,a1+a3,a0-a2,(a1-a3)%m*im\n                   \
     \ A[i0],A[i1],A[i2],A[i3] = (a0+a1)%m,(a0-a1)%m,(a2+a3)%m,(a2-a3)%m\n        \
@@ -243,7 +244,7 @@ data:
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/conv/conv_int_fn.py
   - perf/mlist.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution_int.test.py

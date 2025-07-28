@@ -78,9 +78,9 @@ data:
     \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
     \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
-    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\n\n\
-    def mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\ndef\
+    \ mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b,\
+    \ s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\n\nclass NTT:\n    def __init__(self, mod\
     \ = 998244353) -> None:\n        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n\
     \        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root\
@@ -170,17 +170,17 @@ data:
     \    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return mint(mcomb.nCk(2*n,n)\
     \ * mcomb.fact_inv[n+1])\n\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n\
     \    return [P[i]*i%mod for i in range(1,len(P))]\n\n\ndef fps_integ(P: list)\
-    \ -> list:\n    N, mod = len(P), mint.mod\n    res = [0] * (N+1)\n    if N:\n\
-    \        res[1] = 1\n    for i in range(2, N+1):\n        j, k = divmod(mod, i)\n\
-    \        res[i] = (-res[k] * j) % mod\n    for i, x in enumerate(P, start=1):\n\
-    \        res[i] = res[i] * x % mod\n    return res\n\n\ndef fps_inv(P: list) ->\
-    \ list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0],\
-    \ mod := mint.mod)\n    while d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z,\
-    \ [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n\
-    \        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
+    \ -> list:\n    N, mod = len(P), mint.mod; res = [0] * (N+1)\n    if N: res[1]\
+    \ = 1\n    for i in range(2, N+1): j, k = divmod(mod, i); res[i] = (-res[k] *\
+    \ j) % mod\n    for i, x in enumerate(P, start=1): res[i] = res[i] * x % mod\n\
+    \    return res\n\n\ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt,\
+    \ [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while\
+    \ d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz],\
+    \ g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n      \
+    \  f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
     \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\n\ndef fps_log(P:\
-    \ list) -> list:\n    return fps_integ(mint.ntt.conv(fps_deriv(P), fps_inv(P),\
-    \ len(P)-1))\n\n\ndef fps_exp(P: list) -> list:\n    max_sz = 1 << ((deg := len(P))-1).bit_length()\n\
+    \ list) -> list: return fps_integ(mint.ntt.conv(fps_deriv(P), fps_inv(P), len(P)-1))\n\
+    \ndef fps_exp(P: list) -> list:\n    max_sz = 1 << ((deg := len(P))-1).bit_length()\n\
     \    mcomb.extend_inv(max_sz)\n    inv, mod, ntt = mcomb.inv, mint.mod, mint.ntt\n\
     \    fntt, ifntt, conv_half = ntt.fntt, ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P)\
     \ + [0]*(max_sz-deg+1)\n    R, E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1,\
@@ -203,7 +203,7 @@ data:
     \ mod_inv(P[i],mod), pow(P[i], k, mod)\n    R = fps_log([P[j]*inv%mod for j in\
     \ range(i,deg)])\n    for j,r in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n\
     \    for j,r in enumerate(R): R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n\
-    \    return fps_normalize(R, deg)\n\n\ndef stirling1_k(n: SupportsIndex, k: SupportsIndex,\
+    \    return fps_normalize(R, deg)\n\ndef stirling1_k(n: SupportsIndex, k: SupportsIndex,\
     \ signed = True):\n    mcomb.extend_inv(n+k)\n    kinv,fact,mod,deg = mcomb.fact_inv[k],mcomb.fact,mint.mod,n+1-k\n\
     \    R = mcomb.inv[1:deg+1]\n    if signed:\n        for i in range(1,deg,2):\
     \ R[i] = mod - R[i]\n    return [mint(r*kinv%mod*fact[i]) for i,r in enumerate(fps_pow(R,k,deg),start=k)]\n\
@@ -233,7 +233,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling1_k_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

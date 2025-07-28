@@ -86,8 +86,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n   \
-    \ two: 'mint'\n    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n\
+    \n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n\
+    \    two: 'mint'\n    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n\
     \        if 0 <= (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n     \
     \   else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls, mod: int):\n\
     \        mint.mod = cls.mod = mod\n        mint.zero = cls.zero = cls.cast(0)\n\
@@ -108,9 +108,9 @@ data:
     \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
     \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
-    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\n\n\
-    def mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\ndef\
+    \ mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b,\
+    \ s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\n\nclass NTT:\n    def __init__(self, mod\
     \ = 998244353) -> None:\n        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n\
     \        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root\
@@ -178,10 +178,10 @@ data:
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
     \ = NTT(mod)\n"
-  code: "import cp_library.math.mod.__header__\nfrom cp_library.math.mod.mint_cls\
-    \ import mint\nfrom cp_library.math.nt.ntt_cls import NTT\n\nclass mint(mint):\n\
-    \    ntt: NTT\n\n    @classmethod\n    def set_mod(cls, mod: int):\n        super().set_mod(mod)\n\
-    \        cls.ntt = NTT(mod)\n"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.mod.__header__\n\
+    from cp_library.math.mod.mint_cls import mint\nfrom cp_library.math.nt.ntt_cls\
+    \ import NTT\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n    def set_mod(cls,\
+    \ mod: int):\n        super().set_mod(mod)\n        cls.ntt = NTT(mod)\n"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/nt/ntt_cls.py
@@ -200,7 +200,7 @@ data:
   - cp_library/math/fps/fps_inv_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - perf/mlist.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution.test.py

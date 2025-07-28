@@ -23,19 +23,19 @@ data:
     \n\n\n\ndef mat_mul(A,B):\n    assert len(A[0]) == len(B)\n    R = [[0]*len(B[0])\
     \ for _ in range(len(A))] \n    for i,Ri in enumerate(R):\n        for k,Aik in\
     \ enumerate(A[i]):\n            for j,Bkj in enumerate(B[k]):\n              \
-    \  Ri[j] = Bkj*Aik + Ri[j]  \n    return R \n"
+    \  Ri[j] = Bkj*Aik + Ri[j]  \n    return R\n"
   code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.linalg.__header__\n\
     import cp_library.math.linalg.mat.__header__\n\ndef mat_mul(A,B):\n    assert\
     \ len(A[0]) == len(B)\n    R = [[0]*len(B[0]) for _ in range(len(A))] \n    for\
     \ i,Ri in enumerate(R):\n        for k,Aik in enumerate(A[i]):\n            for\
     \ j,Bkj in enumerate(B[k]):\n                Ri[j] = Bkj*Aik + Ri[j]  \n    return\
-    \ R \n"
+    \ R"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mat_mul_fn.py
   requiredBy:
   - cp_library/math/linalg/mat/mat_pow_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py

@@ -25,7 +25,7 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef fps_ideriv_k(P: list[int], k: int):\n    fact, inv, mod = mcomb.fact, mcomb.fact_inv,\
     \ mint.mod\n    for i in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n\
-    \    del P[-k:]\n    return P\n\n\n    \nclass mint(int):\n    mod: int\n    zero:\
+    \    del P[-k:]\n    return P\n\n    \nclass mint(int):\n    mod: int\n    zero:\
     \ 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
     \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64: return\
     \ cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls,\
@@ -48,8 +48,8 @@ data:
     \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
     \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\n\n\
-    def mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    def mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a,\
+    \ b, s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\nfrom itertools import accumulate\n\nclass\
     \ mcomb():\n    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] =\
     \ [0,1]\n\n    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n  \
@@ -75,7 +75,7 @@ data:
   code: "import cp_library.math.fps.__header__\n\ndef fps_ideriv_k(P: list[int], k:\
     \ int):\n    fact, inv, mod = mcomb.fact, mcomb.fact_inv, mint.mod\n    for i\
     \ in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n    del P[-k:]\n\
-    \    return P\n\nfrom cp_library.math.mod.mint_cls import mint\nfrom cp_library.math.table.mcomb_cls\
+    \    return P\nfrom cp_library.math.mod.mint_cls import mint\nfrom cp_library.math.table.mcomb_cls\
     \ import mcomb"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_ideriv_k_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_ideriv_k_fn.py

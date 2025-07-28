@@ -80,21 +80,21 @@ data:
     \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
     \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\ndef fps_integ(P:\
-    \ list) -> list:\n    N, mod = len(P), mint.mod\n    res = [0] * (N+1)\n    if\
-    \ N:\n        res[1] = 1\n    for i in range(2, N+1):\n        j, k = divmod(mod,\
-    \ i)\n        res[i] = (-res[k] * j) % mod\n    for i, x in enumerate(P, start=1):\n\
-    \        res[i] = res[i] * x % mod\n    return res\n\n\ndef fps_inv(P: list) ->\
-    \ list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0],\
-    \ mod := mint.mod)\n    while d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z,\
-    \ [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n\
-    \        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
-    \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\n\n\n\ndef\
-    \ mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
-    {x} is not invertible in mod {mod}\")\n\nclass NTT:\n    def __init__(self, mod\
-    \ = 998244353) -> None:\n        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n\
-    \        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root\
-    \ = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n\
+    \ list) -> list:\n    N, mod = len(P), mint.mod; res = [0] * (N+1)\n    if N:\
+    \ res[1] = 1\n    for i in range(2, N+1): j, k = divmod(mod, i); res[i] = (-res[k]\
+    \ * j) % mod\n    for i, x in enumerate(P, start=1): res[i] = res[i] * x % mod\n\
+    \    return res\n\n\ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt,\
+    \ [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while\
+    \ d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz],\
+    \ g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n      \
+    \  f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
+    \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\n\n\ndef mod_inv(x,\
+    \ mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b, s, t = b,a%b,t,s-a//b*t\n\
+    \    if a == 1: return s % mod\n    raise ValueError(f\"{x} is not invertible\
+    \ in mod {mod}\")\n\nclass NTT:\n    def __init__(self, mod = 998244353) -> None:\n\
+    \        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n   \
+    \     self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root =\
+    \ root = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n\
     \        self.iroot = iroot = [0] * (rank2 + 1)\n        iroot[rank2] = pow(root[rank2],\
     \ m - 2, m)\n        for i in range(rank2 - 1, -1, -1):\n            root[i] =\
     \ root[i+1] * root[i+1] % m\n            iroot[i] = iroot[i+1] * iroot[i+1] %\
@@ -157,13 +157,21 @@ data:
     \        for i in range(n-1):res[i]=(con[i]+con[i+n])%mod\n        res[n-1]=con[n-1]\n\
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
-    \ = NTT(mod)\n\ndef fps_log(P: list) -> list:\n    return fps_integ(mint.ntt.conv(fps_deriv(P),\
-    \ fps_inv(P), len(P)-1))\n\n"
-  code: "import cp_library.math.fps.__header__\nfrom cp_library.math.fps.fps_deriv_fn\
-    \ import fps_deriv\nfrom cp_library.math.fps.fps_integ_fn import fps_integ\nfrom\
-    \ cp_library.math.fps.fps_inv_fn import fps_inv\n\ndef fps_log(P: list) -> list:\n\
-    \    return fps_integ(mint.ntt.conv(fps_deriv(P), fps_inv(P), len(P)-1))\n\nfrom\
-    \ cp_library.math.mod.mint_ntt_cls import mint"
+    \ = NTT(mod)\n\ndef fps_log(P: list) -> list: return fps_integ(mint.ntt.conv(fps_deriv(P),\
+    \ fps_inv(P), len(P)-1))\n"
+  code: 'import cp_library.math.fps.__header__
+
+    from cp_library.math.fps.fps_deriv_fn import fps_deriv
+
+    from cp_library.math.fps.fps_integ_fn import fps_integ
+
+    from cp_library.math.fps.fps_inv_fn import fps_inv
+
+
+    def fps_log(P: list) -> list: return fps_integ(mint.ntt.conv(fps_deriv(P), fps_inv(P),
+    len(P)-1))
+
+    from cp_library.math.mod.mint_ntt_cls import mint'
   dependsOn:
   - cp_library/math/fps/fps_deriv_fn.py
   - cp_library/math/fps/fps_integ_fn.py
@@ -178,7 +186,7 @@ data:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/log_of_formal_power_series.test.py

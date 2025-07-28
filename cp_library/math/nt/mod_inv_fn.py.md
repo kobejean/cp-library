@@ -107,13 +107,13 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    \n\n\ndef mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n    \
+    \    a, b, s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\n"
-  code: "import cp_library.math.nt.__header__\n\ndef mod_inv(x, mod):\n    a,b,s,t\
-    \ = x, mod, 1, 0\n    while b:\n        a,b,s,t = b,a%b,t,s-a//b*t\n    if a ==\
-    \ 1: return s % mod\n    raise ValueError(f\"{x} is not invertible in mod {mod}\"\
-    )\n"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.nt.__header__\n\
+    \ndef mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a,\
+    \ b, s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    {x} is not invertible in mod {mod}\")\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/nt/mod_inv_fn.py
@@ -136,7 +136,7 @@ data:
   - cp_library/math/fps/fps_tayler_shift_fn.py
   - cp_library/math/conv/conv_int_fn.py
   - perf/mlist.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution_int.test.py

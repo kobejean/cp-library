@@ -29,8 +29,8 @@ data:
     path: cp_library/ds/heap/skew_heap_forrest_cls.py
     title: cp_library/ds/heap/skew_heap_forrest_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/fast_io_cls.py
-    title: cp_library/io/fast_io_cls.py
+    path: cp_library/io/io_base_cls.py
+    title: cp_library/io/io_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -248,11 +248,11 @@ data:
   - cp_library/ds/heap/skew_heap_forrest_cls.py
   - cp_library/perf/checksum.py
   - cp_library/ds/csr/csr_incremental_cls.py
-  - cp_library/io/fast_io_cls.py
+  - cp_library/io/io_base_cls.py
   isVerificationFile: false
   path: perf/edge_list.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/edge_list.py

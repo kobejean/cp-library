@@ -122,7 +122,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/array_init_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/array_init_fn.py

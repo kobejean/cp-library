@@ -44,11 +44,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\ndef sps_ln_small(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length()\
-    \ - 1\n    ln = [0]*(Z:=1<<N)\n    for i in range(1, Z):\n        fg, b, j = 0,\
-    \ 1 << (i.bit_length() - 1), i-1&i\n        while b <= j:\n            fg += ln[j]\
-    \ * P[i^j] % mod\n            j = j-1&i\n        ln[i] = (P[i] - fg) % mod\n \
-    \   return ln\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
+    \n\n\n\ndef sps_ln_small(P, mod):\n    assert P[0] == 1\n    ln = [0]*(Z:=1<<(N:=len(P).bit_length()-1))\n\
+    \    for i in range(1, Z):\n        fg, b, j = 0, 1<<(i.bit_length()-1), i-1&i\n\
+    \        while b <= j: fg += ln[j]*P[i^j]%mod; j = j-1&i\n        ln[i] = (P[i]-fg)%mod\n\
+    \    return ln\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
     \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
     elist = newlist_hint\n    \n\nfrom typing import Generic\nfrom typing import TypeVar\n\
     _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
@@ -139,16 +138,28 @@ data:
     \ Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M, popcnts(N)\n    for i, p in enumerate(P):\
     \ Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    isubset_deconv_ranked(Ar, Br, N, Z,\
     \ M, mod)\n    for i, p in enumerate(P): C[i] = Ar[p<<N|i] % mod\n    return C\n\
-    \ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length() - 1\n\
-    \    P0, P1 = view(P), view(P); m = 1\n    ln = elist(1 << N); ln.append(0)\n\
-    \    for n in range(N):\n        P0.set_range(0, m); P1.set_range(m, m := m<<1)\n\
-    \        ln.extend(subset_deconv(P1, P0, n, mod))\n    return ln\n\ndef sps_ln(P,\
-    \ mod):\n    N = len(P).bit_length() - 1\n    return sps_ln(P, mod) if N > 17\
-    \ else sps_ln_small(P, mod)\n"
-  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.sps.__header__\n\
-    from cp_library.math.sps.mod.sps_ln_small_fn import sps_ln_small\nfrom cp_library.math.sps.mod.sps_ln_fn\
-    \ import sps_ln\n\ndef sps_ln(P, mod):\n    N = len(P).bit_length() - 1\n    return\
-    \ sps_ln(P, mod) if N > 17 else sps_ln_small(P, mod)\n"
+    \ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length()-1; P0,\
+    \ P1 = view(P), view(P); m = 1; ln = elist(1 << N); ln.append(0)\n    for n in\
+    \ range(N): P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P1,\
+    \ P0, n, mod))\n    return ln\n\ndef sps_ln_adaptive(P, mod): return sps_ln(P,\
+    \ mod) if len(P).bit_length()-1 > 17 else sps_ln_small(P, mod)\n"
+  code: 'import cp_library.__header__
+
+    import cp_library.math.__header__
+
+    import cp_library.math.sps.__header__
+
+    import cp_library.math.sps.mod.__header__
+
+    from cp_library.math.sps.mod.sps_ln_small_fn import sps_ln_small
+
+    from cp_library.math.sps.mod.sps_ln_fn import sps_ln
+
+
+    def sps_ln_adaptive(P, mod): return sps_ln(P, mod) if len(P).bit_length()-1 >
+    17 else sps_ln_small(P, mod)
+
+    '
   dependsOn:
   - cp_library/math/sps/mod/sps_ln_small_fn.py
   - cp_library/math/sps/mod/sps_ln_fn.py
@@ -163,7 +174,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/mod/sps_ln_adaptive_fn.py

@@ -85,7 +85,7 @@ data:
   path: cp_library/math/conv/ior_transform_fn.py
   requiredBy:
   - cp_library/math/conv/ior_conv_ring_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/ior_transform_fn.py

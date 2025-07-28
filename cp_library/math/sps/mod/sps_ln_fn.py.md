@@ -138,17 +138,17 @@ data:
     \ Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M, popcnts(N)\n    for i, p in enumerate(P):\
     \ Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    isubset_deconv_ranked(Ar, Br, N, Z,\
     \ M, mod)\n    for i, p in enumerate(P): C[i] = Ar[p<<N|i] % mod\n    return C\n\
-    \n\ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length() - 1\n\
-    \    P0, P1 = view(P), view(P); m = 1\n    ln = elist(1 << N); ln.append(0)\n\
-    \    for n in range(N):\n        P0.set_range(0, m); P1.set_range(m, m := m<<1)\n\
-    \        ln.extend(subset_deconv(P1, P0, n, mod))\n    return ln\n"
+    \n\ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length()-1;\
+    \ P0, P1 = view(P), view(P); m = 1; ln = elist(1 << N); ln.append(0)\n    for\
+    \ n in range(N): P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P1,\
+    \ P0, n, mod))\n    return ln\n"
   code: "import cp_library.__header__\nfrom cp_library.ds.elist_fn import elist\n\
     from cp_library.ds.view.view_cls import view\nimport cp_library.math.__header__\n\
     from cp_library.math.conv.mod.subset_deconv_fn import subset_deconv\nimport cp_library.math.sps.__header__\n\
-    \ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length() - 1\n\
-    \    P0, P1 = view(P), view(P); m = 1\n    ln = elist(1 << N); ln.append(0)\n\
-    \    for n in range(N):\n        P0.set_range(0, m); P1.set_range(m, m := m<<1)\n\
-    \        ln.extend(subset_deconv(P1, P0, n, mod))\n    return ln"
+    \ndef sps_ln(P, mod):\n    assert P[0] == 1\n    N = len(P).bit_length()-1; P0,\
+    \ P1 = view(P), view(P); m = 1; ln = elist(1 << N); ln.append(0)\n    for n in\
+    \ range(N): P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P1,\
+    \ P0, n, mod))\n    return ln"
   dependsOn:
   - cp_library/ds/elist_fn.py
   - cp_library/ds/view/view_cls.py
@@ -162,7 +162,7 @@ data:
   path: cp_library/math/sps/mod/sps_ln_fn.py
   requiredBy:
   - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/exp_of_set_power_series.test.py

@@ -136,16 +136,15 @@ data:
     \ [0]*Z, [0]*Z, [0]*M, popcnts(N)\n    for i, p in enumerate(P): Ar[p<<N|i], Br[p<<N|i]\
     \ = A[i], B[i]\n    isubset_conv_ranked(Ar, Br, N, M, Z, mod)\n    for i, p in\
     \ enumerate(P): C[i] = Ar[p<<N|i] % mod\n    return C\n\n\ndef sps_exp(P, mod):\n\
-    \    assert P[0] == 0\n    N = len(P).bit_length() - 1\n    exp = elist(1 << N);\
-    \ exp.append(1)\n    P = view(P); m = 1\n    for n in range(N):\n        P.set_range(m,\
-    \ m := m<<1)\n        exp.extend(subset_conv(P, exp, n, mod))\n    return exp\n"
+    \    assert P[0] == 0\n    exp = elist(1 << (N := len(P).bit_length()-1)); exp.append(1);\
+    \ P = view(P); m = 1\n    for n in range(N): P.set_range(m, m := m<<1); exp.extend(subset_conv(P,\
+    \ exp, n, mod))\n    return exp\n"
   code: "import cp_library.__header__\nfrom cp_library.ds.elist_fn import elist\n\
     from cp_library.ds.view.view_cls import view\nimport cp_library.math.__header__\n\
     from cp_library.math.conv.mod.subset_conv_fn import subset_conv\nimport cp_library.math.sps.__header__\n\
-    \ndef sps_exp(P, mod):\n    assert P[0] == 0\n    N = len(P).bit_length() - 1\n\
-    \    exp = elist(1 << N); exp.append(1)\n    P = view(P); m = 1\n    for n in\
-    \ range(N):\n        P.set_range(m, m := m<<1)\n        exp.extend(subset_conv(P,\
-    \ exp, n, mod))\n    return exp"
+    \ndef sps_exp(P, mod):\n    assert P[0] == 0\n    exp = elist(1 << (N := len(P).bit_length()-1));\
+    \ exp.append(1); P = view(P); m = 1\n    for n in range(N): P.set_range(m, m :=\
+    \ m<<1); exp.extend(subset_conv(P, exp, n, mod))\n    return exp"
   dependsOn:
   - cp_library/ds/elist_fn.py
   - cp_library/ds/view/view_cls.py
@@ -159,7 +158,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_exp_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/exp_of_set_power_series.test.py

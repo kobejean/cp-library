@@ -138,9 +138,6 @@ data:
     path: cp_library/math/sps/mod/sps_exp_half_fn.py
     title: cp_library/math/sps/mod/sps_exp_half_fn.py
   - icon: ':warning:'
-    path: cp_library/math/sps/mod/sps_exp_small_fn.py
-    title: cp_library/math/sps/mod/sps_exp_small_fn.py
-  - icon: ':warning:'
     path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
     title: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
   - icon: ':heavy_check_mark:'
@@ -446,7 +443,6 @@ data:
   - cp_library/math/sps/mod/sps_pow_proj_fn.py
   - cp_library/math/sps/mod/sps_composite_fn.py
   - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
-  - cp_library/math/sps/mod/sps_exp_small_fn.py
   - cp_library/math/sps/mod/sps_ln_fn.py
   - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
   - cp_library/math/sps/mod/sps_exp_half_fn.py
@@ -459,7 +455,7 @@ data:
   - perf/grid.py
   - perf/csr.py
   - perf/heap_csr.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py

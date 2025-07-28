@@ -2,8 +2,14 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/fast_io_cls.py
-    title: cp_library/io/fast_io_cls.py
+    path: cp_library/alg/dp/max2_fn.py
+    title: cp_library/alg/dp/max2_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/io_base_cls.py
+    title: cp_library/io/io_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/io_cls.py
+    title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -74,8 +80,8 @@ data:
     \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
     \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\ndef\
-    \ mod_inv(x, mod):\n    a,b,s,t = x, mod, 1, 0\n    while b:\n        a,b,s,t\
-    \ = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    \ mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b,\
+    \ s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
     {x} is not invertible in mod {mod}\")\nfrom itertools import accumulate\n\nclass\
     \ mcomb():\n    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] =\
     \ [0,1]\n\n    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n  \
@@ -98,7 +104,7 @@ data:
     \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
     \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
     \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\nfrom typing import\
-    \ SupportsIndex\n\n\nclass NTT:\n    def __init__(self, mod = 998244353) -> None:\n\
+    \ SupportsIndex\n\nclass NTT:\n    def __init__(self, mod = 998244353) -> None:\n\
     \        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n   \
     \     self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root =\
     \ root = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n\
@@ -166,108 +172,130 @@ data:
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
     \ = NTT(mod)\n\n\ndef fps_tayler_shift(P, t: int) -> list[int]:\n    fact, fact_inv,\
     \ inv, N, mod = mcomb.fact, mcomb.fact_inv, mcomb.inv, len(P), mint.mod\n    mcomb.extend_inv(N)\n\
-    \    R, B = [P[i]*fact[i]%mod for i in range(N-1,-1,-1)], [0]*N\n    B[0] = 1\n\
-    \    for i in range(1,N): B[i] = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R,\
+    \    R, B = [P[i]*fact[i]%mod for i in range(N-1,-1,-1)], [0]*N; B[0] = 1\n  \
+    \  for i in range(1,N): B[i] = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R,\
     \ B, N)\n    return [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\n\n\
-    \ndef stirling1_n(n: SupportsIndex, signed = True):\n    conv,res,t,d = mint.ntt.conv,[1],0,(-1\
+    def stirling1_n(n: SupportsIndex, signed = True):\n    conv,res,t,d = mint.ntt.conv,[1],0,(-1\
     \ if signed else 1)\n    for i in range(n.bit_length()-1,-1,-1):\n        res,t\
     \ = conv(res,fps_tayler_shift(res,t)),t<<1\n        if n>>i&1:res,t = conv(res,[t,1]),t+d\n\
-    \    return [mint(res[k]) for k in range(n+1)]\n\n\nfrom typing import Type, Union,\
-    \ overload\nimport typing\nfrom collections import deque\nfrom numbers import\
-    \ Number\nfrom types import GenericAlias \nfrom typing import Callable, Collection,\
-    \ Iterator, Union\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n\n\n\
-    class FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self,\
-    \ file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n\
-    \        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n      \
-    \  self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while True:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b: break\n   \
-    \         ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b),\
-    \ self.buffer.seek(ptr)\n        self.newlines = 0\n        return self.buffer.read()\n\
-    \n    def readline(self):\n        BUFSIZE = self.BUFSIZE\n        while self.newlines\
-    \ == 0:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\
-    \            self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
-    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
-    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\nclass TokenStream(Iterator):\n    stream = IOWrapper.stdin\n\
-    \n    def __init__(self):\n        self.queue = deque()\n\n    def __next__(self):\n\
-    \        if not self.queue: self.queue.extend(self._line())\n        return self.queue.popleft()\n\
-    \    \n    def wait(self):\n        if not self.queue: self.queue.extend(self._line())\n\
-    \        while self.queue: yield\n \n    def _line(self):\n        return TokenStream.stream.readline().split()\n\
-    \n    def line(self):\n        if self.queue:\n            A = list(self.queue)\n\
-    \            self.queue.clear()\n            return A\n        return self._line()\n\
-    TokenStream.default = TokenStream()\n\nclass CharStream(TokenStream):\n    def\
-    \ _line(self):\n        return TokenStream.stream.readline().rstrip()\nCharStream.default\
-    \ = CharStream()\n\nParseFn = Callable[[TokenStream],_T]\nclass Parser:\n    def\
-    \ __init__(self, spec: Union[type[_T],_T]):\n        self.parse = Parser.compile(spec)\n\
-    \n    def __call__(self, ts: TokenStream) -> _T:\n        return self.parse(ts)\n\
-    \    \n    @staticmethod\n    def compile_type(cls: type[_T], args = ()) -> _T:\n\
-    \        if issubclass(cls, Parsable):\n            return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(ts: TokenStream):\
-    \ return cls(next(ts))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple):\n            return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection):\n            return Parser.compile_collection(cls, args)\n    \
-    \    elif callable(cls):\n            def parse(ts: TokenStream):\n          \
-    \      return cls(next(ts))              \n            return parse\n        else:\n\
-    \            raise NotImplementedError()\n    \n    @staticmethod\n    def compile(spec:\
-    \ Union[type[_T],_T]=int) -> ParseFn[_T]:\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls = typing.get_origin(spec) or spec\n       \
-    \     args = typing.get_args(spec) or tuple()\n            return Parser.compile_type(cls,\
-    \ args)\n        elif isinstance(offset := spec, Number): \n            cls =\
-    \ type(spec)  \n            def parse(ts: TokenStream): return cls(next(ts)) +\
-    \ offset\n            return parse\n        elif isinstance(args := spec, tuple):\
-    \      \n            return Parser.compile_tuple(type(spec), args)\n        elif\
-    \ isinstance(args := spec, Collection):\n            return Parser.compile_collection(type(spec),\
-    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(ts:\
-    \ TokenStream): return fn(next(ts))\n            return parse\n        else:\n\
-    \            raise NotImplementedError()\n\n    @staticmethod\n    def compile_line(cls:\
-    \ _T, spec=int) -> ParseFn[_T]:\n        if spec is int:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream): return cls([int(token) for token in ts.line()])\n\
-    \            return parse\n        else:\n            fn = Parser.compile(spec)\n\
-    \            def parse(ts: TokenStream): return cls([fn(ts) for _ in ts.wait()])\n\
-    \            return parse\n\n    @staticmethod\n    def compile_repeat(cls: _T,\
-    \ spec, N) -> ParseFn[_T]:\n        fn = Parser.compile(spec)\n        def parse(ts:\
-    \ TokenStream): return cls([fn(ts) for _ in range(N)])\n        return parse\n\
-    \n    @staticmethod\n    def compile_children(cls: _T, specs) -> ParseFn[_T]:\n\
-    \        fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(ts:\
-    \ TokenStream): return cls([fn(ts) for fn in fns])  \n        return parse\n \
-    \           \n    @staticmethod\n    def compile_tuple(cls: type[_T], specs) ->\
-    \ ParseFn[_T]:\n        if isinstance(specs, (tuple,list)) and len(specs) == 2\
-    \ and specs[1] is ...:\n            return Parser.compile_line(cls, specs[0])\n\
-    \        else:\n            return Parser.compile_children(cls, specs)\n\n   \
-    \ @staticmethod\n    def compile_collection(cls, specs):\n        if not specs\
-    \ or len(specs) == 1 or isinstance(specs, set):\n            return Parser.compile_line(cls,\
-    \ *specs)\n        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and\
-    \ isinstance(specs[1], int)):\n            return Parser.compile_repeat(cls, specs[0],\
-    \ specs[1])\n        else:\n            raise NotImplementedError()\n\nclass Parsable:\n\
-    \    @classmethod\n    def compile(cls):\n        def parser(ts: TokenStream):\
-    \ return cls(next(ts))\n        return parser\n    \n    @classmethod\n    def\
-    \ __class_getitem__(cls, item):\n        return GenericAlias(cls, item)\n\n@overload\n\
+    \    return [mint(res[k]) for k in range(n+1)]\nfrom typing import Type, Union,\
+    \ overload\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n@overload\n\
     def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
     \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
     def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
-    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_U],\
-    \ char=False):\n    if not char and not specs: return [int(s) for s in TokenStream.default.line()]\n\
+    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T],\
+    \ char=False):\n    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
-    \ return parser(CharStream.default if char else TokenStream.default)\n\ndef write(*args,\
-    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
-    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IOWrapper.stdout)\n\
-    \    at_start = True\n    for x in args:\n        if not at_start:\n         \
-    \   file.write(sep)\n        file.write(str(x))\n        at_start = False\n  \
-    \  file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\n\nif __name__ == '__main__':\n    main()\n"
+    \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
+    \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
+    \n\ndef max2(a, b):\n    return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
+    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
+    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
+    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
+    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
+    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
+    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
+    \ ...\n\nclass IO(IOBase):\n    BUFSIZE = 1 << 16; stdin: 'IO'; stdout: 'IO'\n\
+    \    __slots__ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p', 'char', 'sz', 'st',\
+    \ 'ist', 'writable', 'encoding', 'errors'\n    def __init__(io, file):\n     \
+    \   io.file = file\n        try: io.f = file.fileno(); io.sz, io.writable = max2(io.BUFSIZE,\
+    \ os_fstat(io.f).st_size), ('x' in file.mode or 'r' not in file.mode)\n      \
+    \  except: io.f, io.sz, io.writable = -1, io.BUFSIZE, False\n        io.B, io.O,\
+    \ io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B); io.l = io.p\
+    \ = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False, [], [],\
+    \ 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
+    \ io.errors)\n    def readbytes(io, sz): return os_read(io.f, sz)\n    def load(io):\n\
+    \        while io.l >= len(io.O):\n            if not (b := io.readbytes(io.sz)):\n\
+    \                if io.O[-1] < len(io.B): io.O.append(len(io.B))\n           \
+    \     break\n            pos = len(io.B); io.B.extend(b)\n            while ~(pos\
+    \ := io.B.find(b'\\n', pos)): io.O.append(pos := pos+1)\n    def __next__(io):\n\
+    \        if io.char: return io.readchar()\n        else: return io.readtoken()\n\
+    \    def readchar(io):\n        io.load(); r = io.O[io.l]\n        c = chr(io.B[io.p])\n\
+    \        if io.p >= r-1: io.p = r; io.l += 1\n        else: io.p += 1\n      \
+    \  return c\n    def write(io, s: str): io.S.append(s)\n    def readline(io):\
+    \ io.load(); l, io.p = io.p, io.O[io.l]; io.l += 1; return io._dec(l, io.p)\n\
+    \    def readtoken(io):\n        io.load(); r = io.O[io.l]\n        if ~(p :=\
+    \ io.B.find(b' ', io.p, r)): s = io._dec(io.p, p); io.p = p+1\n        else: s\
+    \ = io._dec(io.p, r-1); io.p = r; io.l += 1\n        return s\n    def readtokens(io):\
+    \ io.st.clear(); return io.readtokensinto(io.st)\n    def readints(io): io.ist.clear();\
+    \ return io.readintsinto(io.ist)\n    def readdigits(io): io.ist.clear(); return\
+    \ io.readdigitsinto(io.ist)\n    def readnums(io): io.ist.clear(); return io.readnumsinto(io.ist)\n\
+    \    def readchars(io): io.load(); l, io.p = io.p, io.O[io.l]; io.l += 1; return\
+    \ io._dec(l, io.p-1)\n    def readinto(io, lst):\n        if io.char: return io.readcharsinto(lst)\n\
+    \        else: return io.readtokensinto(lst)\n    def readcharsinto(io, lst):\
+    \ lst.extend(io.readchars()); return lst\n    def readtokensinto(io, lst): \n\
+    \        io.load(); r = io.O[io.l]\n        while ~(p := io.B.find(b' ', io.p,\
+    \ r)): lst.append(io._dec(io.p, p)); io.p = p+1\n        lst.append(io._dec(io.p,\
+    \ r-1)); io.p = r; io.l += 1; return lst\n    def readintsinto(io, lst):\n   \
+    \     io.load(); r = io.O[io.l]\n        while io.p < r:\n            while io.p\
+    \ < r and io.B[io.p] <= 32: io.p += 1\n            if io.p >= r: break\n     \
+    \       minus = x = 0\n            if io.B[io.p] == 45: minus = 1; io.p += 1\n\
+    \            while io.p < r and io.B[io.p] >= 48:\n                x = x * 10\
+    \ + (io.B[io.p] & 15); io.p += 1\n            lst.append(-x if minus else x)\n\
+    \            if io.p < r and io.B[io.p] == 32: io.p += 1\n        io.l += 1; return\
+    \ lst\n    def readdigitsinto(io, lst):\n        io.load(); r = io.O[io.l]\n \
+    \       while io.p < r and io.B[io.p] > 32:\n            if io.B[io.p] >= 48 and\
+    \ io.B[io.p] <= 57:\n                lst.append(io.B[io.p] & 15)\n           \
+    \ io.p += 1\n        if io.p < r and io.B[io.p] == 10: io.p = r; io.l += 1\n \
+    \       return lst\n    def readnumsinto(io, lst):\n        if io.char: return\
+    \ io.readdigitsinto(lst)\n        else: return io.readintsinto(lst)\n    def line(io):\
+    \ io.st.clear(); return io.readinto(io.st)\n    def wait(io):\n        io.load();\
+    \ r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n        if\
+    \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
+    \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
+    \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
+    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
+    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
+    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
+    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
+    \            def parse(io: IOBase): return cls(next(io))              \n     \
+    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
+    \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
+    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
+    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
+    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
+    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
+    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
+    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
+    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
+    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
+    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
+    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
+    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
+    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
+    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
+    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
+    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
+    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
+    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
+    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
+    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
+    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
+    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
+    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
+    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
+    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
+    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
+    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
+    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
+    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
+    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind\n\
     \ndef main():\n    N = read(int)\n    mint.set_mod(998244353)\n    mcomb.precomp(N)\n\
     \    write(*stirling1_n(N))\n\nfrom cp_library.math.table.mcomb_cls import mcomb\n\
@@ -281,15 +309,17 @@ data:
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
+  - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/io/fast_io_cls.py
+  - cp_library/io/io_base_cls.py
+  - cp_library/alg/dp/max2_fn.py
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/nt/mod_inv_fn.py
   - cp_library/math/nt/ntt_cls.py
   isVerificationFile: true
   path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py

@@ -20,7 +20,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Union, List, Tuple\n    \nclass mint(int):\n    mod: int\n\
+    from typing import Union, List, Tuple\n\n\n    \nclass mint(int):\n    mod: int\n\
     \    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\
     \    def __new__(cls, *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs))\
     \ < 64: return cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n\
@@ -42,28 +42,28 @@ data:
     \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
     \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
-    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\nclass\
-    \ ModMat:\n    __slots__ = 'data', 'R', 'C'\n\n    def __init__(self, data: List[Union[int,mint]]):\n\
-    \        self.data, self.R, self.C = data, len(data), len(data[0])\n    \n   \
-    \ @classmethod\n    def identity(cls, N) -> 'ModMat': return ModMat([[int(i==j)\
-    \ for j in range(N)] for i in range(N)])\n    \n    @classmethod\n    def zeros(cls,\
-    \ R, C) -> 'ModMat': return ModMat([[0]*C for _ in range(R)])\n\n    def inv(self)\
-    \ -> 'ModMat':\n        assert self.R != self.C\n        \n        N = self.R\n\
-    \        A = [row[:] for row in self.data]\n        I = [[int(i==j) for j in range(N)]\
-    \ for i in range(N)]\n        \n        for i in range(N):\n            if A[i][i]\
-    \ == 0:\n                for j in range(i+1, N):\n                    if A[j][i]\
-    \ != 0:\n                        A[i], A[j] = A[j], A[i]\n                   \
-    \     I[i], I[j] = I[j], I[i]\n                        break\n               \
-    \ else:\n                    raise ValueError(\"Matrix is not invertible\")\n\
-    \            \n            inv = pow(A[i][i], -1, mint.mod)\n            for j\
-    \ in range(N):\n                A[i][j] = (A[i][j] * inv) % mint.mod\n       \
-    \         I[i][j] = (I[i][j] * inv) % mint.mod\n            \n            for\
-    \ j in range(N):\n                if i != j:\n                    factor = A[j][i]\n\
-    \                    for k in range(N):\n                        A[j][k] = (A[j][k]\
-    \ - factor * A[i][k]) % mint.mod\n                        I[j][k] = (I[j][k] -\
-    \ factor * I[i][k]) % mint.mod\n        \n        return ModMat(I)\n    \n   \
-    \ def T(self) -> 'ModMat': return ModMat(list(map(list,zip(*self.data))))\n\n\
-    \    def elem_wise(self, func, other):\n        if isinstance(other, ModMat):\n\
+    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\n\n\n\
+    class ModMat:\n    __slots__ = 'data', 'R', 'C'\n\n    def __init__(self, data:\
+    \ List[Union[int,mint]]):\n        self.data, self.R, self.C = data, len(data),\
+    \ len(data[0])\n    \n    @classmethod\n    def identity(cls, N) -> 'ModMat':\
+    \ return ModMat([[int(i==j) for j in range(N)] for i in range(N)])\n    \n   \
+    \ @classmethod\n    def zeros(cls, R, C) -> 'ModMat': return ModMat([[0]*C for\
+    \ _ in range(R)])\n\n    def inv(self) -> 'ModMat':\n        assert self.R !=\
+    \ self.C\n        \n        N = self.R\n        A = [row[:] for row in self.data]\n\
+    \        I = [[int(i==j) for j in range(N)] for i in range(N)]\n        \n   \
+    \     for i in range(N):\n            if A[i][i] == 0:\n                for j\
+    \ in range(i+1, N):\n                    if A[j][i] != 0:\n                  \
+    \      A[i], A[j] = A[j], A[i]\n                        I[i], I[j] = I[j], I[i]\n\
+    \                        break\n                else:\n                    raise\
+    \ ValueError(\"Matrix is not invertible\")\n            \n            inv = pow(A[i][i],\
+    \ -1, mint.mod)\n            for j in range(N):\n                A[i][j] = (A[i][j]\
+    \ * inv) % mint.mod\n                I[i][j] = (I[i][j] * inv) % mint.mod\n  \
+    \          \n            for j in range(N):\n                if i != j:\n    \
+    \                factor = A[j][i]\n                    for k in range(N):\n  \
+    \                      A[j][k] = (A[j][k] - factor * A[i][k]) % mint.mod\n   \
+    \                     I[j][k] = (I[j][k] - factor * I[i][k]) % mint.mod\n    \
+    \    \n        return ModMat(I)\n    \n    def T(self) -> 'ModMat': return ModMat(list(map(list,zip(*self.data))))\n\
+    \n    def elem_wise(self, func, other):\n        if isinstance(other, ModMat):\n\
     \            return ModMat([[func(a,b) for a,b in zip(Ai,Bi)] for Ai,Bi in zip(self.data,other.data)])\n\
     \        elif isinstance(other, int):\n            return ModMat([[func(a,other)\
     \ for a in Ai] for Ai in self.data])\n        else:\n            return NotImplemented\n\
@@ -119,8 +119,10 @@ data:
     \           self.R = len(self.data)\n            if self.R == 0:\n           \
     \     self.C = 0\n        else:\n            raise IndexError(\"Invalid index\"\
     )\n\n    \n"
-  code: "import cp_library.math.mod.__header__\nfrom typing import Union, List, Tuple\n\
-    from cp_library.math.mod.mint_cls import mint\n\nclass ModMat:\n    __slots__\
+  code: "import cp_library.__header__\nfrom typing import Union, List, Tuple\nimport\
+    \ cp_library.math.__header__\nfrom cp_library.math.mod.mint_cls import mint\n\
+    import cp_library.math.linalg.__header__\nimport cp_library.math.linalg.mat.__header__\n\
+    import cp_library.math.linalg.mat.mod.__header__\n\nclass ModMat:\n    __slots__\
     \ = 'data', 'R', 'C'\n\n    def __init__(self, data: List[Union[int,mint]]):\n\
     \        self.data, self.R, self.C = data, len(data), len(data[0])\n    \n   \
     \ @classmethod\n    def identity(cls, N) -> 'ModMat': return ModMat([[int(i==j)\
@@ -202,7 +204,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mod/modmat_cls.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py

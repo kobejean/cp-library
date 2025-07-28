@@ -41,21 +41,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fps_integ(P: list) -> list:\n    N, mod = len(P), mint.mod\n    res = [0]\
-    \ * (N+1)\n    if N:\n        res[1] = 1\n    for i in range(2, N+1):\n      \
-    \  j, k = divmod(mod, i)\n        res[i] = (-res[k] * j) % mod\n    for i, x in\
-    \ enumerate(P, start=1):\n        res[i] = res[i] * x % mod\n    return res\n\n\
-    \n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n  \
-    \  two: 'mint'\n    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n\
-    \        if 0 <= (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n     \
-    \   else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls, mod: int):\n\
-    \        mint.mod = cls.mod = mod\n        mint.zero = cls.zero = cls.cast(0)\n\
-    \        mint.one = cls.one = cls.fix(1)\n        mint.two = cls.two = cls.fix(2)\n\
-    \        mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n        for x\
-    \ in range(3,64): mint.cache.append(cls.fix(x))\n    @classmethod\n    def fix(cls,\
-    \ x): return cls.cast(x%cls.mod)\n    @classmethod\n    def cast(cls, x): return\
-    \ super().__new__(cls,x)\n    @classmethod\n    def mod_inv(cls, x):\n       \
-    \ a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
+    \ndef fps_integ(P: list) -> list:\n    N, mod = len(P), mint.mod; res = [0] *\
+    \ (N+1)\n    if N: res[1] = 1\n    for i in range(2, N+1): j, k = divmod(mod,\
+    \ i); res[i] = (-res[k] * j) % mod\n    for i, x in enumerate(P, start=1): res[i]\
+    \ = res[i] * x % mod\n    return res\n\n\n    \nclass mint(int):\n    mod: int\n\
+    \    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n\
+    \    def __new__(cls, *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs))\
+    \ < 64: return cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n\
+    \    def set_mod(cls, mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero\
+    \ = cls.zero = cls.cast(0)\n        mint.one = cls.one = cls.fix(1)\n        mint.two\
+    \ = cls.two = cls.fix(2)\n        mint.cache = cls.cache = [cls.zero, cls.one,\
+    \ cls.two]\n        for x in range(3,64): mint.cache.append(cls.fix(x))\n    @classmethod\n\
+    \    def fix(cls, x): return cls.cast(x%cls.mod)\n    @classmethod\n    def cast(cls,\
+    \ x): return super().__new__(cls,x)\n    @classmethod\n    def mod_inv(cls, x):\n\
+    \        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
     \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
     \ invertible in mod {cls.mod}\")\n    @property\n    def inv(self): return mint.mod_inv(self)\n\
     \    def __add__(self, x): return mint.fix(super().__add__(x))\n    def __radd__(self,\
@@ -69,11 +68,10 @@ data:
     \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
     \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n"
   code: "import cp_library.math.fps.__header__\n\ndef fps_integ(P: list) -> list:\n\
-    \    N, mod = len(P), mint.mod\n    res = [0] * (N+1)\n    if N:\n        res[1]\
-    \ = 1\n    for i in range(2, N+1):\n        j, k = divmod(mod, i)\n        res[i]\
-    \ = (-res[k] * j) % mod\n    for i, x in enumerate(P, start=1):\n        res[i]\
-    \ = res[i] * x % mod\n    return res\n\nfrom cp_library.math.mod.mint_cls import\
-    \ mint"
+    \    N, mod = len(P), mint.mod; res = [0] * (N+1)\n    if N: res[1] = 1\n    for\
+    \ i in range(2, N+1): j, k = divmod(mod, i); res[i] = (-res[k] * j) % mod\n  \
+    \  for i, x in enumerate(P, start=1): res[i] = res[i] * x % mod\n    return res\n\
+    \nfrom cp_library.math.mod.mint_cls import mint"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   isVerificationFile: false
@@ -83,7 +81,7 @@ data:
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/log_of_formal_power_series.test.py

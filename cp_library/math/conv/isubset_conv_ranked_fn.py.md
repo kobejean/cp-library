@@ -118,7 +118,7 @@ data:
   - cp_library/math/sps/sps_mul_fn.py
   - cp_library/math/sps/sps_exp_fn.py
   - cp_library/math/conv/subset_conv_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution_all.test.py

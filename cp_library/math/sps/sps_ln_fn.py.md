@@ -127,17 +127,17 @@ data:
     \    Z = (N+1)*(M:=1<<N)\n    Ar, Br, C, P = [0]*Z, [0]*Z, [0]*M, popcnts(N)\n\
     \    for i, p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    isubset_deconv_ranked(Ar,\
     \ Br, N, Z, M)\n    for i, p in enumerate(P): C[i] = Ar[p<<N|i]\n    return C\n\
-    \n\ndef sps_ln(P):\n    assert P[0] == 1\n    N = len(P).bit_length() - 1\n  \
-    \  P0, P1 = view(P), view(P); m = 1\n    ln = elist(1 << N); ln.append(0)\n  \
-    \  for n in range(N):\n        P0.set_range(0, m); P1.set_range(m, m := m<<1)\n\
-    \        ln.extend(subset_deconv(P0, P1, n))\n    return ln\n"
+    \n\ndef sps_ln(P):\n    assert P[0] == 1\n    N = len(P).bit_length()-1; P0, P1\
+    \ = view(P), view(P); m = 1; ln = elist(1 << N); ln.append(0)\n    for n in range(N):\
+    \ P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P0,\
+    \ P1, n))\n    return ln\n"
   code: "import cp_library.__header__\nfrom cp_library.ds.elist_fn import elist\n\
     from cp_library.ds.view.view_cls import view\nimport cp_library.math.__header__\n\
     from cp_library.math.conv.subset_deconv_fn import subset_deconv\nimport cp_library.math.sps.__header__\n\
-    \ndef sps_ln(P):\n    assert P[0] == 1\n    N = len(P).bit_length() - 1\n    P0,\
-    \ P1 = view(P), view(P); m = 1\n    ln = elist(1 << N); ln.append(0)\n    for\
-    \ n in range(N):\n        P0.set_range(0, m); P1.set_range(m, m := m<<1)\n   \
-    \     ln.extend(subset_deconv(P0, P1, n))\n    return ln"
+    \ndef sps_ln(P):\n    assert P[0] == 1\n    N = len(P).bit_length()-1; P0, P1\
+    \ = view(P), view(P); m = 1; ln = elist(1 << N); ln.append(0)\n    for n in range(N):\
+    \ P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P0,\
+    \ P1, n))\n    return ln"
   dependsOn:
   - cp_library/ds/elist_fn.py
   - cp_library/ds/view/view_cls.py
@@ -150,7 +150,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/sps_ln_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/sps_ln_fn.py

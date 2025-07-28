@@ -32,19 +32,19 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n        for\
-    \ m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\n'''\n\
-    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \n\n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n        for\
+    \ m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \ x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2080\
-    \n                \u2573          \u2572 \u2571          \u2572     \u2571   \
-    \       \n    x\u2084 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n    x\u2080\
+    \ \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2080\n \
+    \               \u2573          \u2572 \u2571          \u2572     \u2571     \
+    \     \n    x\u2084 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
     \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\
     \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\
     \u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
@@ -105,9 +105,9 @@ data:
     \ mod)\n    for i, p in enumerate(P): C[i] = Ar[p<<N|i] % mod\n    return C\n\n\
     \ndef sps_mul(A, B, mod):\n    N = len(A).bit_length() - 1\n    return subset_conv(A,\
     \ B, N, mod)\n"
-  code: "from cp_library.math.conv.mod.subset_conv_fn import subset_conv\nimport cp_library.math.sps.__header__\n\
-    \ndef sps_mul(A, B, mod):\n    N = len(A).bit_length() - 1\n    return subset_conv(A,\
-    \ B, N, mod)"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nfrom cp_library.math.conv.mod.subset_conv_fn\
+    \ import subset_conv\nimport cp_library.math.sps.__header__\n\ndef sps_mul(A,\
+    \ B, mod):\n    N = len(A).bit_length() - 1\n    return subset_conv(A, B, N, mod)"
   dependsOn:
   - cp_library/math/conv/mod/subset_conv_fn.py
   - cp_library/bit/popcnts_fn.py
@@ -118,7 +118,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_mul_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/mod/sps_mul_fn.py

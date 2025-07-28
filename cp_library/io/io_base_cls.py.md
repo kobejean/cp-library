@@ -192,8 +192,11 @@ data:
     path: cp_library/io/bye_fn.py
     title: cp_library/io/bye_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/legacy/read_fn.py
-    title: cp_library/io/legacy/read_fn.py
+    path: cp_library/io/io_bytes_cls.py
+    title: cp_library/io/io_bytes_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/io_cls.py
+    title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -237,6 +240,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/dsl/dsl_2_a_segtree.test.py
     title: test/aoj/dsl/dsl_2_a_segtree.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/dsl/dsl_2_c_kdtree.test.py
+    title: test/aoj/dsl/dsl_2_c_kdtree.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
     title: test/aoj/grl/grl_1_a_fast_dijkstra.test.py
@@ -577,6 +583,9 @@ data:
     path: test/unittests/ds/grid/grid_cls_test.py
     title: test/unittests/ds/grid/grid_cls_test.py
   - icon: ':heavy_check_mark:'
+    path: test/unittests/io/io_cls_test.py
+    title: test/unittests/io/io_cls_test.py
+  - icon: ':heavy_check_mark:'
     path: test/yukicoder/3407.test.py
     title: test/yukicoder/3407.test.py
   _isVerificationFailed: false
@@ -590,58 +599,34 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import os\nimport sys\nfrom io import BytesIO, IOBase\n\n\nclass FastIO(IOBase):\n\
-    \    BUFSIZE = 8192\n    newlines = 0\n\n    def __init__(self, file):\n     \
-    \   self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable\
-    \ = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write\
-    \ if self.writable else None\n\n    def read(self):\n        BUFSIZE = self.BUFSIZE\n\
-    \        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size,\
-    \ BUFSIZE))\n            if not b: break\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n\
-    \        BUFSIZE = self.BUFSIZE\n        while self.newlines == 0:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n\
-    \            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\
-    \        self.newlines -= 1\n        return self.buffer.readline()\n\n    def\
-    \ flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n\
-    \            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n\
-    \    stdin: 'IOWrapper' = None\n    stdout: 'IOWrapper' = None\n    \n    def\
-    \ __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush\
-    \ = self.buffer.flush\n        self.writable = self.buffer.writable\n\n    def\
-    \ write(self, s):\n        return self.buffer.write(s.encode(\"ascii\"))\n   \
-    \ \n    def read(self):\n        return self.buffer.read().decode(\"ascii\")\n\
-    \    \n    def readline(self):\n        return self.buffer.readline().decode(\"\
-    ascii\")\ntry:\n    sys.stdin = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout\
-    \ = IOWrapper.stdout = IOWrapper(sys.stdout)\nexcept:\n    pass\n"
-  code: "import cp_library.io.__header__\nimport os\nimport sys\nfrom io import BytesIO,\
-    \ IOBase\n\n\nclass FastIO(IOBase):\n    BUFSIZE = 8192\n    newlines = 0\n\n\
-    \    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer\
-    \ = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n\
-    \        self.write = self.buffer.write if self.writable else None\n\n    def\
-    \ read(self):\n        BUFSIZE = self.BUFSIZE\n        while True:\n         \
-    \   b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n        \
-    \    if not b: break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n\
-    \        return self.buffer.read()\n\n    def readline(self):\n        BUFSIZE\
-    \ = self.BUFSIZE\n        while self.newlines == 0:\n            b = os.read(self._fd,\
-    \ max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\
-    \\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0,\
-    \ 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n\
-    \        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n\
-    \            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0),\
-    \ self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    stdin: 'IOWrapper' =\
-    \ None\n    stdout: 'IOWrapper' = None\n    \n    def __init__(self, file):\n\
-    \        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n\
-    \        self.writable = self.buffer.writable\n\n    def write(self, s):\n   \
-    \     return self.buffer.write(s.encode(\"ascii\"))\n    \n    def read(self):\n\
-    \        return self.buffer.read().decode(\"ascii\")\n    \n    def readline(self):\n\
-    \        return self.buffer.readline().decode(\"ascii\")\ntry:\n    sys.stdin\
-    \ = IOWrapper.stdin = IOWrapper(sys.stdin)\n    sys.stdout = IOWrapper.stdout\
-    \ = IOWrapper(sys.stdout)\nexcept:\n    pass"
+    \n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n\
+    \    def writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def\
+    \ write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
+    \ -> str: ...\n    def readtokens(io) -> list[str]: ...\n    def readints(io)\
+    \ -> list[int]: ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io)\
+    \ -> list[int]: ...\n    def readchar(io) -> str: ...\n    def readchars(io) ->\
+    \ str: ...\n    def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\n"
+  code: "import cp_library.__header__\nimport cp_library.io.__header__\n\nclass IOBase:\n\
+    \    @property\n    def char(io) -> bool: ...\n    @property\n    def writable(io)\
+    \ -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io, s: str) ->\
+    \ None: ...\n    def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n\
+    \    def readtokens(io) -> list[str]: ...\n    def readints(io) -> list[int]:\
+    \ ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io) -> list[int]:\
+    \ ...\n    def readchar(io) -> str: ...\n    def readchars(io) -> str: ...\n \
+    \   def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\n"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/io/fast_io_cls.py
+  path: cp_library/io/io_base_cls.py
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/ds/queries_cls.py
@@ -659,7 +644,8 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/io/write_fn.py
   - cp_library/io/read_fn.py
-  - cp_library/io/legacy/read_fn.py
+  - cp_library/io/io_cls.py
+  - cp_library/io/io_bytes_cls.py
   - cp_library/io/bye_fn.py
   - cp_library/alg/dp/dp2d_cls.py
   - cp_library/alg/dp/mo_cls.py
@@ -720,7 +706,7 @@ data:
   - cp_library/math/linalg/mat/mat_cls.py
   - perf/grid.py
   - perf/edge_list.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution_int.test.py
@@ -780,6 +766,8 @@ data:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/yukicoder/3407.test.py
   - test/unittests/ds/grid/grid_cls_test.py
+  - test/unittests/io/io_cls_test.py
+  - test/aoj/dsl/dsl_2_c_kdtree.test.py
   - test/aoj/dsl/dsl_2_a_segtree.test.py
   - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
@@ -838,10 +826,10 @@ data:
   - test/atcoder/abc/abc203_e_queries_grouped.test.py
   - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
   - test/atcoder/abc/abc261_g_queries_mo_ops.test.py
-documentation_of: cp_library/io/fast_io_cls.py
+documentation_of: cp_library/io/io_base_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/io/fast_io_cls.py
-- /library/cp_library/io/fast_io_cls.py.html
-title: cp_library/io/fast_io_cls.py
+- /library/cp_library/io/io_base_cls.py
+- /library/cp_library/io/io_base_cls.py.html
+title: cp_library/io/io_base_cls.py
 ---

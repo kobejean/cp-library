@@ -18,7 +18,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef fps_ideriv(P: list[int]):\n    for i in range(1,len(P)): P[i-1] = P[i]*i%mint.mod\n\
-    \    del P[-1]\n    return P\n\n\n    \nclass mint(int):\n    mod: int\n    zero:\
+    \    del P[-1]\n    return P\n\n    \nclass mint(int):\n    mod: int\n    zero:\
     \ 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
     \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64: return\
     \ cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls,\
@@ -43,13 +43,13 @@ data:
     \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n"
   code: "import cp_library.math.fps.__header__\n\ndef fps_ideriv(P: list[int]):\n\
     \    for i in range(1,len(P)): P[i-1] = P[i]*i%mint.mod\n    del P[-1]\n    return\
-    \ P\n\nfrom cp_library.math.mod.mint_cls import mint"
+    \ P\nfrom cp_library.math.mod.mint_cls import mint"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   isVerificationFile: false
   path: cp_library/math/fps/fps_ideriv_fn.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_ideriv_fn.py

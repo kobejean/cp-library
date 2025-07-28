@@ -38,9 +38,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n        for m\
-    \ in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\nfrom typing\
-    \ import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n        for\
+    \ m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\nfrom\
+    \ typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
     \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
     \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\nimport sys\n\
     \ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n    try:\n\
@@ -128,7 +128,7 @@ data:
     \    for n in range(N):\n        P.set_range(m, m := m<<1)\n        isubset_conv_half(exp,\
     \ P, n, N, mod, pcnt)\n    ior_mobius(exp, N)\n    return [exp[p<<N|i] % mod for\
     \ i,p in enumerate(pcnt)]\n"
-  code: "from cp_library.bit.popcnts_fn import popcnts\nimport cp_library.__header__\n\
+  code: "import cp_library.__header__\nfrom cp_library.bit.popcnts_fn import popcnts\n\
     from cp_library.ds.view.view_cls import view\nimport cp_library.math.__header__\n\
     from cp_library.math.conv.mod.isubset_conv_half_fn import isubset_conv_half\n\
     from cp_library.math.conv.ior_mobius_fn import ior_mobius\nimport cp_library.math.sps.__header__\n\
@@ -148,7 +148,7 @@ data:
   path: cp_library/math/sps/mod/sps_exp_half_fn.py
   requiredBy:
   - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py

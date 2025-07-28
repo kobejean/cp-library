@@ -138,11 +138,9 @@ data:
     \ be 0 for sps_pow_proj\"\n    Aview, Bview, P = view(A := A[::-1]), view(B),\
     \ []\n    for i in range(N + 1):\n        P.append(A[(1<<N)-1]); A[(1<<N)-1] =\
     \ 0\n        for m in range(N - i):\n            i0 = (1<<N)-(1<<(m+1)); i1 =\
-    \ 1 << m\n            Aview.set_range(i0, i0 + (1 << m)); Bview.set_range(i1,\
-    \ i1 + (1 << m))\n            R = subset_conv(Aview, Bview, m, mod)\n        \
-    \    i2 = (1<<N)-(1<<m)\n            for h in range(1 << m):\n               \
-    \ A[i2 + h] = (A[i2 + h] + R[h]) % mod\n                A[i0 + h] = 0\n    return\
-    \ P[:M]\n"
+    \ 1 << m; i2 = (1<<N)-(1<<m)\n            Aview.set_range(i0, i0+(1<<m)); Bview.set_range(i1,\
+    \ i1+(1<<m))\n            R = subset_conv(Aview, Bview, m, mod)\n            for\
+    \ h in range(1 << m): A[i2+h], A[i0+h] = (A[i2+h]+R[h])%mod, 0\n    return P[:M]\n"
   code: "import cp_library.__header__\nfrom cp_library.ds.view.view_cls import view\n\
     import cp_library.math.__header__\nimport cp_library.math.sps.__header__\nimport\
     \ cp_library.math.sps.mod.__header__\nfrom cp_library.math.conv.mod.subset_conv_fn\
@@ -150,11 +148,10 @@ data:
     \ - 1\n    assert B[0] == 0, \"B[0] must be 0 for sps_pow_proj\"\n    Aview, Bview,\
     \ P = view(A := A[::-1]), view(B), []\n    for i in range(N + 1):\n        P.append(A[(1<<N)-1]);\
     \ A[(1<<N)-1] = 0\n        for m in range(N - i):\n            i0 = (1<<N)-(1<<(m+1));\
-    \ i1 = 1 << m\n            Aview.set_range(i0, i0 + (1 << m)); Bview.set_range(i1,\
-    \ i1 + (1 << m))\n            R = subset_conv(Aview, Bview, m, mod)\n        \
-    \    i2 = (1<<N)-(1<<m)\n            for h in range(1 << m):\n               \
-    \ A[i2 + h] = (A[i2 + h] + R[h]) % mod\n                A[i0 + h] = 0\n    return\
-    \ P[:M]"
+    \ i1 = 1 << m; i2 = (1<<N)-(1<<m)\n            Aview.set_range(i0, i0+(1<<m));\
+    \ Bview.set_range(i1, i1+(1<<m))\n            R = subset_conv(Aview, Bview, m,\
+    \ mod)\n            for h in range(1 << m): A[i2+h], A[i0+h] = (A[i2+h]+R[h])%mod,\
+    \ 0\n    return P[:M]"
   dependsOn:
   - cp_library/ds/view/view_cls.py
   - cp_library/math/conv/mod/subset_conv_fn.py
@@ -168,7 +165,7 @@ data:
   path: cp_library/math/sps/mod/sps_pow_proj_fn.py
   requiredBy:
   - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py

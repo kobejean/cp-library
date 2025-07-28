@@ -879,20 +879,20 @@ data:
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/io/fast_io_cls.py
-      title: cp_library/io/fast_io_cls.py
+      path: cp_library/io/io_base_cls.py
+      title: cp_library/io/io_base_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/io/io_bytes_cls.py
+      title: cp_library/io/io_bytes_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/io/io_cls.py
+      title: cp_library/io/io_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/read_fn.py
       title: cp_library/io/read_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/read_func_fn.py
-      title: cp_library/io/read_func_fn.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/read_int_fn.py
-      title: cp_library/io/read_int_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
@@ -901,11 +901,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/fast/fast_io_fn.py
       title: cp_library/io/fast/fast_io_fn.py
-  - name: cp_library/io/legacy
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/legacy/read_fn.py
-      title: cp_library/io/legacy/read_fn.py
   - name: cp_library/math/conv
     pages:
     - icon: ':heavy_check_mark:'
@@ -1385,6 +1380,9 @@ data:
     - icon: ':warning:'
       path: perf/bool_list.py
       title: perf/bool_list.py
+    - icon: ':warning:'
+      path: perf/bytearray_decode.py
+      title: perf/bytearray_decode.py
     - icon: ':warning:'
       path: perf/csr.py
       title: perf/csr.py
@@ -2071,6 +2069,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/unittests/ds/wavelet/wm_static_cls_test.py
       title: test/unittests/ds/wavelet/wm_static_cls_test.py
+  - name: test/unittests/io
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/unittests/io/io_cls_test.py
+      title: test/unittests/io/io_cls_test.py
   - name: test/yukicoder
     pages:
     - icon: ':heavy_check_mark:'

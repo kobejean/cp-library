@@ -93,6 +93,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/unittests/ds/wavelet/wm_static_cls_test.py
     title: test/unittests/ds/wavelet/wm_static_cls_test.py
+  - icon: ':heavy_check_mark:'
+    path: test/unittests/io/io_cls_test.py
+    title: test/unittests/io/io_cls_test.py
   _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -136,7 +139,7 @@ data:
   isVerificationFile: false
   path: cp_library/test/unittest_helper.py
   requiredBy: []
-  timestamp: '2025-07-26 11:14:31+09:00'
+  timestamp: '2025-07-28 10:42:29+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/wavelet/wm_static_cls_test.py
@@ -169,6 +172,7 @@ data:
   - test/unittests/ds/list/list3_cls_test.py
   - test/unittests/ds/list/list4_cls_test.py
   - test/unittests/ds/list/list2_cls_test.py
+  - test/unittests/io/io_cls_test.py
 documentation_of: cp_library/test/unittest_helper.py
 layout: document
 redirect_from:
