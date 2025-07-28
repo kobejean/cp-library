@@ -5,8 +5,35 @@ data:
     path: cp_library/alg/dp/max2_fn.py
     title: cp_library/alg/dp/max2_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/fast_heapq.py
-    title: cp_library/ds/heap/fast_heapq.py
+    path: cp_library/ds/heap/heapify_fn.py
+    title: cp_library/ds/heap/heapify_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapify_max_fn.py
+    title: cp_library/ds/heap/heapify_max_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappop_fn.py
+    title: cp_library/ds/heap/heappop_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappop_max_fn.py
+    title: cp_library/ds/heap/heappop_max_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappush_fn.py
+    title: cp_library/ds/heap/heappush_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappush_max_fn.py
+    title: cp_library/ds/heap/heappush_max_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftdown_fn.py
+    title: cp_library/ds/heap/heapsiftdown_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftdown_max_fn.py
+    title: cp_library/ds/heap/heapsiftdown_max_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftup_fn.py
+    title: cp_library/ds/heap/heapsiftup_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftup_max_fn.py
+    title: cp_library/ds/heap/heapsiftup_max_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/elist_fn.py
     title: cp_library/ds/list/elist_fn.py
@@ -41,37 +68,29 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n\
     \    from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A:\
-    \ list, est_len: int):\n        pass\nreserve = resizelist_hint\n\n\ndef heappush(heap:\
-    \ list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\
-    \ndef heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0]\
-    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
-    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
-    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
-    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
-    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
-    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
-    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
-    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
-    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
-    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
-    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
-    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
-    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
-    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
-    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
-    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\nclass DoubleEndedPriorityQueue:\n    def\
-    \ __init__(self, n: int, q: int, arr: list[int]=None) -> None:\n        self.mnq,\
-    \ self.mxq = arr or [0]*n, [0]*n\n        reserve(self.mnq, n+q); reserve(self.mxq,\
+    \ list, est_len: int):\n        pass\nreserve = resizelist_hint\n\n\ndef heapsiftup(heap:\
+    \ list, pos: int):\n    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while\
+    \ c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c],\
+    \ c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n \
+    \   heap[pos] = item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup(x, i)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if\
+    \ heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\n\
+    def heapsiftdown(heap: list, root: int, pos: int):\n    item = heap[pos]\n   \
+    \ while root < pos and item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p],\
+    \ p\n    heap[pos] = item\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
+    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heapsiftup_max(heap: list, pos:\
+    \ int):\n    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and\
+    \ item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos], pos, c = heap[c], c, c<<1|1\n\
+    \    if c == n and item < heap[c]: heap[pos], pos = heap[c], c\n    heap[pos]\
+    \ = item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup_max(x, i)\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n\
+    \    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return\
+    \ item\n\ndef heapsiftdown_max(heap: list, root: int, pos: int):\n    item = heap[pos]\n\
+    \    while root < pos and heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p],\
+    \ p\n    heap[pos] = item\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
+    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\nclass DoubleEndedPriorityQueue:\n\
+    \    def __init__(self, n: int, q: int, arr: list[int]=None) -> None:\n      \
+    \  self.mnq, self.mxq = arr or [0]*n, [0]*n\n        reserve(self.mnq, n+q); reserve(self.mxq,\
     \ n+q)\n        self.used = bytearray(n+q)\n        if arr:\n            for i,\
     \ x in enumerate(arr):\n                self.mnq[i] = self.mxq[i] = x << 28 |\
     \ i\n        heapify(self.mnq)\n        heapify_max(self.mxq)\n    \n    def pop_min(self):\n\
@@ -127,23 +146,22 @@ data:
     \ lst.extend(io.readchars()); return lst\n    def readtokensinto(io, lst): \n\
     \        io.load(); r = io.O[io.l]\n        while ~(p := io.B.find(b' ', io.p,\
     \ r)): lst.append(io._dec(io.p, p)); io.p = p+1\n        lst.append(io._dec(io.p,\
-    \ r-1)); io.p = r; io.l += 1; return lst\n    def readintsinto(io, lst):\n   \
-    \     io.load(); r = io.O[io.l]\n        while io.p < r:\n            while io.p\
-    \ < r and io.B[io.p] <= 32: io.p += 1\n            if io.p >= r: break\n     \
-    \       minus = x = 0\n            if io.B[io.p] == 45: minus = 1; io.p += 1\n\
-    \            while io.p < r and io.B[io.p] >= 48:\n                x = x * 10\
-    \ + (io.B[io.p] & 15); io.p += 1\n            lst.append(-x if minus else x)\n\
-    \            if io.p < r and io.B[io.p] == 32: io.p += 1\n        io.l += 1; return\
-    \ lst\n    def readdigitsinto(io, lst):\n        io.load(); r = io.O[io.l]\n \
-    \       while io.p < r and io.B[io.p] > 32:\n            if io.B[io.p] >= 48 and\
-    \ io.B[io.p] <= 57:\n                lst.append(io.B[io.p] & 15)\n           \
-    \ io.p += 1\n        if io.p < r and io.B[io.p] == 10: io.p = r; io.l += 1\n \
-    \       return lst\n    def readnumsinto(io, lst):\n        if io.char: return\
-    \ io.readdigitsinto(lst)\n        else: return io.readintsinto(lst)\n    def line(io):\
-    \ io.st.clear(); return io.readinto(io.st)\n    def wait(io):\n        io.load();\
-    \ r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n        if\
-    \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
-    \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
+    \ r-1)); io.p = r; io.l += 1; return lst\n    def _readint(io, r):\n        while\
+    \ io.p < r and io.B[io.p] <= 32: io.p += 1\n        if io.p >= r: return None\n\
+    \        minus = x = 0\n        if io.B[io.p] == 45: minus = 1; io.p += 1\n  \
+    \      while io.p < r and io.B[io.p] >= 48: x = x * 10 + (io.B[io.p] & 15); io.p\
+    \ += 1\n        io.p += 1\n        return -x if minus else x\n    def readintsinto(io,\
+    \ lst):\n        io.load(); r = io.O[io.l]\n        while io.p < r and (x := io._readint(r))\
+    \ is not None: lst.append(x)\n        io.l += 1; return lst\n    def _readdigit(io):\
+    \ d = io.B[io.p] & 15; io.p += 1; return d\n    def readdigitsinto(io, lst):\n\
+    \        io.load(); r = io.O[io.l]\n        while io.p < r and io.B[io.p] > 32:\
+    \ lst.append(io._readdigit())\n        if io.B[io.p] == 10: io.l += 1\n      \
+    \  io.p += 1\n        return lst\n    def readnumsinto(io, lst):\n        if io.char:\
+    \ return io.readdigitsinto(lst)\n        else: return io.readintsinto(lst)\n \
+    \   def line(io): io.st.clear(); return io.readinto(io.st)\n    def wait(io):\n\
+    \        io.load(); r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n\
+    \        if io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors));\
+    \ io.S = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
@@ -155,8 +173,10 @@ data:
     \    else:\n        wtn(depq.pop_max())\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/double_ended_priority_queue\n\
     # modified from abUma: https://judge.yosupo.jp/submission/144329\nfrom cp_library.ds.list.reserve_fn\
-    \ import reserve\nfrom cp_library.ds.heap.fast_heapq import heapify_max, heappop,\
-    \ heappop_max, heappush, heapify, heappush_max\n\nclass DoubleEndedPriorityQueue:\n\
+    \ import reserve\nfrom cp_library.ds.heap.heapify_fn import heapify\nfrom cp_library.ds.heap.heappop_fn\
+    \ import heappop\nfrom cp_library.ds.heap.heappush_fn import heappush\nfrom cp_library.ds.heap.heapify_max_fn\
+    \ import heapify_max\nfrom cp_library.ds.heap.heappop_max_fn import heappop_max\n\
+    from cp_library.ds.heap.heappush_max_fn import heappush_max\n\nclass DoubleEndedPriorityQueue:\n\
     \    def __init__(self, n: int, q: int, arr: list[int]=None) -> None:\n      \
     \  self.mnq, self.mxq = arr or [0]*n, [0]*n\n        reserve(self.mnq, n+q); reserve(self.mxq,\
     \ n+q)\n        self.used = bytearray(n+q)\n        if arr:\n            for i,\
@@ -176,8 +196,17 @@ data:
     \    else:\n        wtn(depq.pop_max())"
   dependsOn:
   - cp_library/ds/list/reserve_fn.py
-  - cp_library/ds/heap/fast_heapq.py
+  - cp_library/ds/heap/heapify_fn.py
+  - cp_library/ds/heap/heappop_fn.py
+  - cp_library/ds/heap/heappush_fn.py
+  - cp_library/ds/heap/heapify_max_fn.py
+  - cp_library/ds/heap/heappop_max_fn.py
+  - cp_library/ds/heap/heappush_max_fn.py
   - cp_library/io/fast_io_fn.py
+  - cp_library/ds/heap/heapsiftup_fn.py
+  - cp_library/ds/heap/heapsiftdown_fn.py
+  - cp_library/ds/heap/heapsiftup_max_fn.py
+  - cp_library/ds/heap/heapsiftdown_max_fn.py
   - cp_library/io/io_cls.py
   - cp_library/ds/list/elist_fn.py
   - cp_library/alg/dp/max2_fn.py
@@ -185,7 +214,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   requiredBy: []
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py

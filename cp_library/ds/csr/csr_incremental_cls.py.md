@@ -181,7 +181,7 @@ data:
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/directedmst_edge_list.test.py

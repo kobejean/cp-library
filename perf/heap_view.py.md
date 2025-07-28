@@ -2,8 +2,26 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/fast_heapq.py
-    title: cp_library/ds/heap/fast_heapq.py
+    path: cp_library/ds/heap/heapify_fn.py
+    title: cp_library/ds/heap/heapify_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappop_fn.py
+    title: cp_library/ds/heap/heappop_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappush_fn.py
+    title: cp_library/ds/heap/heappush_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappushpop_fn.py
+    title: cp_library/ds/heap/heappushpop_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapreplace_fn.py
+    title: cp_library/ds/heap/heapreplace_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftdown_fn.py
+    title: cp_library/ds/heap/heapsiftdown_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftup_fn.py
+    title: cp_library/ds/heap/heapsiftup_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -86,25 +104,26 @@ data:
     \ heappush, heappushpop operations.\n\"\"\"\n\nimport random\nimport sys\nimport\
     \ os\nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\n\
     \nfrom cp_library.perf.benchmark import Benchmark, BenchmarkConfig\nfrom cp_library.ds.view.view_cls\
-    \ import view\nfrom cp_library.ds.heap.fast_heapq import heapify, heappop, heapreplace,\
-    \ heappush, heappushpop\nimport heapq  # Standard library for comparison\n\n#\
-    \ Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"heap_view\",\n  \
-    \  sizes=[100000, 10000, 1000, 100, 50],  # Reverse order to warm up JIT\n   \
-    \ operations=['heapify', 'heappop', 'heapreplace', 'heappush', 'heappushpop'],\n\
-    \    iterations=10,\n    warmup=3,\n    output_dir=\"./output/benchmark_results/heap_view\"\
-    \n)\n\n# Create benchmark instance\nbenchmark = Benchmark(config)\n\n# Data generator\n\
-    @benchmark.data_generator(\"default\")\ndef generate_heap_data(size: int, operation:\
-    \ str):\n    \"\"\"Generate test data for heap operations\"\"\"\n    # Generate\
-    \ random list for heap operations\n    data = [random.randint(1, 1000000) for\
-    \ _ in range(size)]\n    \n    # Generate random slice boundaries (30-70% of list\
-    \ for reasonable heap size)\n    slice_size = random.randint(size // 3, min(size\
-    \ * 2 // 3, size - 1))\n    start = random.randint(0, size - slice_size)\n   \
-    \ end = start + slice_size\n    \n    return {\n        'data': data,\n      \
-    \  'start': start,\n        'end': end,\n        'slice_size': slice_size,\n \
-    \       'new_value': random.randint(1, 1000000),\n        'replace_value': random.randint(1,\
-    \ 1000000),\n        'size': size,\n        'operation': operation\n    }\n\n\
-    # Setup functions for operations that modify data\n@benchmark.setup(\"slice\"\
-    , [\"heappop\", \"heapreplace\", \"heappush\", \"heappushpop\"])\ndef setup_slice_heap(data):\n\
+    \ import view\nfrom cp_library.ds.heap.heapify_fn import heapify\nfrom cp_library.ds.heap.heappop_fn\
+    \ import heappop\nfrom cp_library.ds.heap.heappush_fn import heappush\nfrom cp_library.ds.heap.heappushpop_fn\
+    \ import heappushpop\nfrom cp_library.ds.heap.heapreplace_fn import heapreplace\n\
+    import heapq  # Standard library for comparison\n\n# Configure benchmark\nconfig\
+    \ = BenchmarkConfig(\n    name=\"heap_view\",\n    sizes=[100000, 10000, 1000,\
+    \ 100, 50],  # Reverse order to warm up JIT\n    operations=['heapify', 'heappop',\
+    \ 'heapreplace', 'heappush', 'heappushpop'],\n    iterations=10,\n    warmup=3,\n\
+    \    output_dir=\"./output/benchmark_results/heap_view\"\n)\n\n# Create benchmark\
+    \ instance\nbenchmark = Benchmark(config)\n\n# Data generator\n@benchmark.data_generator(\"\
+    default\")\ndef generate_heap_data(size: int, operation: str):\n    \"\"\"Generate\
+    \ test data for heap operations\"\"\"\n    # Generate random list for heap operations\n\
+    \    data = [random.randint(1, 1000000) for _ in range(size)]\n    \n    # Generate\
+    \ random slice boundaries (30-70% of list for reasonable heap size)\n    slice_size\
+    \ = random.randint(size // 3, min(size * 2 // 3, size - 1))\n    start = random.randint(0,\
+    \ size - slice_size)\n    end = start + slice_size\n    \n    return {\n     \
+    \   'data': data,\n        'start': start,\n        'end': end,\n        'slice_size':\
+    \ slice_size,\n        'new_value': random.randint(1, 1000000),\n        'replace_value':\
+    \ random.randint(1, 1000000),\n        'size': size,\n        'operation': operation\n\
+    \    }\n\n# Setup functions for operations that modify data\n@benchmark.setup(\"\
+    slice\", [\"heappop\", \"heapreplace\", \"heappush\", \"heappushpop\"])\ndef setup_slice_heap(data):\n\
     \    \"\"\"Setup function that copies data and heapifies before heap operations\"\
     \"\"\n    new_data = data.copy()\n    new_data['data'] = data['data'].copy()\n\
     \    \n    # Pre-heapify the slice for operations that need it\n    lst = new_data['data']\n\
@@ -309,7 +328,11 @@ data:
   dependsOn:
   - cp_library/perf/benchmark.py
   - cp_library/ds/view/view_cls.py
-  - cp_library/ds/heap/fast_heapq.py
+  - cp_library/ds/heap/heapify_fn.py
+  - cp_library/ds/heap/heappop_fn.py
+  - cp_library/ds/heap/heappush_fn.py
+  - cp_library/ds/heap/heappushpop_fn.py
+  - cp_library/ds/heap/heapreplace_fn.py
   - cp_library/perf/interfaces.py
   - cp_library/perf/registry.py
   - cp_library/perf/orchestrator.py
@@ -318,11 +341,13 @@ data:
   - cp_library/perf/renderers.py
   - cp_library/perf/cli.py
   - cp_library/ds/list/list_find_fn.py
+  - cp_library/ds/heap/heapsiftup_fn.py
+  - cp_library/ds/heap/heapsiftdown_fn.py
   - cp_library/perf/checksum.py
   isVerificationFile: false
   path: perf/heap_view.py
   requiredBy: []
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/heap_view.py

@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/fast_heapq.py
-    title: cp_library/ds/heap/fast_heapq.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
   - icon: ':heavy_check_mark:'
@@ -84,8 +81,7 @@ data:
   code: "#!/usr/bin/env python3\n\"\"\"\nBenchmark comparing operations on list slices\
     \ vs view objects.\nTests various operations to measure the overhead of slice\
     \ copying vs view indirection.\n\"\"\"\n\nimport random\nimport sys\nimport os\n\
-    \nfrom cp_library.ds.heap.fast_heapq import heapify, heappop, heapreplace, heappush,\
-    \ heappushpop\nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\n\
+    \nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\n\
     \nfrom cp_library.perf.benchmark import Benchmark, BenchmarkConfig\nfrom cp_library.ds.view.view_cls\
     \ import view\n\n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"\
     list_view\",\n    sizes=[1000000, 100000, 10000, 1000, 100],  # Reverse order\
@@ -267,7 +263,6 @@ data:
     \ return checksum\n\nif __name__ == \"__main__\":\n    # Parse command line args\
     \ and run appropriate mode\n    runner = benchmark.parse_args()\n    runner.run()"
   dependsOn:
-  - cp_library/ds/heap/fast_heapq.py
   - cp_library/perf/benchmark.py
   - cp_library/ds/view/view_cls.py
   - cp_library/perf/interfaces.py
@@ -282,7 +277,7 @@ data:
   isVerificationFile: false
   path: perf/list_view.py
   requiredBy: []
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/list_view.py

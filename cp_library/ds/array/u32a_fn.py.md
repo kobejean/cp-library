@@ -37,7 +37,7 @@ data:
   path: cp_library/ds/array/u32a_fn.py
   requiredBy:
   - cp_library/alg/graph/csr/grid_graph_cls.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

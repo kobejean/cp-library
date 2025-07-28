@@ -88,7 +88,7 @@ data:
   path: cp_library/math/conv/iand_transform_fn.py
   requiredBy:
   - cp_library/math/conv/iand_conv_ring_fn.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_and_convolution.test.py

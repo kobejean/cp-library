@@ -102,7 +102,7 @@ data:
   path: cp_library/ds/view/csr2_cls.py
   requiredBy:
   - perf/csr2.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/view/csr2_cls_test.py

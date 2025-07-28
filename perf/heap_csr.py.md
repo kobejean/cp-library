@@ -2,8 +2,26 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/fast_heapq.py
-    title: cp_library/ds/heap/fast_heapq.py
+    path: cp_library/ds/heap/heapify_fn.py
+    title: cp_library/ds/heap/heapify_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappop_fn.py
+    title: cp_library/ds/heap/heappop_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappush_fn.py
+    title: cp_library/ds/heap/heappush_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappushpop_fn.py
+    title: cp_library/ds/heap/heappushpop_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapreplace_fn.py
+    title: cp_library/ds/heap/heapreplace_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftdown_fn.py
+    title: cp_library/ds/heap/heapsiftdown_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftup_fn.py
+    title: cp_library/ds/heap/heapsiftup_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -89,10 +107,12 @@ data:
     \ heappushpop operations.\n\"\"\"\n\nimport random\nimport sys\nimport os\nsys.path.insert(0,\
     \ os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\n\nfrom cp_library.perf.benchmark\
     \ import Benchmark, BenchmarkConfig\nfrom cp_library.ds.view.csr_cls import CSR\n\
-    from cp_library.ds.heap.fast_heapq import heapify, heappop, heapreplace, heappush,\
-    \ heappushpop\n\n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"\
-    heap_csr\",\n    sizes=[10000000, 1000000, 100000, 10000, 1000, 100, 10],  # Reverse\
-    \ order to warm up JIT\n    operations=['initialization', 'initialization_bucketize',\
+    from cp_library.ds.heap.heapify_fn import heapify\nfrom cp_library.ds.heap.heappop_fn\
+    \ import heappop\nfrom cp_library.ds.heap.heappush_fn import heappush\nfrom cp_library.ds.heap.heappushpop_fn\
+    \ import heappushpop\nfrom cp_library.ds.heap.heapreplace_fn import heapreplace\n\
+    \n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"heap_csr\",\n \
+    \   sizes=[10000000, 1000000, 100000, 10000, 1000, 100, 10],  # Reverse order\
+    \ to warm up JIT\n    operations=['initialization', 'initialization_bucketize',\
     \ 'heapify', 'heappop', 'heapreplace', 'heappush', 'heappushpop'],\n    iterations=10,\n\
     \    warmup=3,\n    output_dir=\"./output/benchmark_results/heap_csr\"\n)\n\n\
     # Create benchmark instance\nbenchmark = Benchmark(config)\n\n# Data generator\
@@ -281,7 +301,11 @@ data:
   dependsOn:
   - cp_library/perf/benchmark.py
   - cp_library/ds/view/csr_cls.py
-  - cp_library/ds/heap/fast_heapq.py
+  - cp_library/ds/heap/heapify_fn.py
+  - cp_library/ds/heap/heappop_fn.py
+  - cp_library/ds/heap/heappush_fn.py
+  - cp_library/ds/heap/heappushpop_fn.py
+  - cp_library/ds/heap/heapreplace_fn.py
   - cp_library/perf/interfaces.py
   - cp_library/perf/registry.py
   - cp_library/perf/orchestrator.py
@@ -290,12 +314,14 @@ data:
   - cp_library/perf/renderers.py
   - cp_library/perf/cli.py
   - cp_library/ds/view/view_cls.py
+  - cp_library/ds/heap/heapsiftup_fn.py
+  - cp_library/ds/heap/heapsiftdown_fn.py
   - cp_library/perf/checksum.py
   - cp_library/ds/list/list_find_fn.py
   isVerificationFile: false
   path: perf/heap_csr.py
   requiredBy: []
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/heap_csr.py

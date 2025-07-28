@@ -94,7 +94,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/ior_conv_ring_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/ior_conv_ring_fn.py

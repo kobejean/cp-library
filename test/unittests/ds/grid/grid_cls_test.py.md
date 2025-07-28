@@ -279,8 +279,9 @@ data:
     \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
     \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
     \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
+    \        elif spec is str:\n            def parse(io: IOBase): return cls(io.line())\n\
     \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
-    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
+    \ IOBase): return cls((fn(io) for _ in io.wait()))\n        return parse\n   \
     \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
     \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
     \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
@@ -479,7 +480,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/grid/grid_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/grid/grid_cls_test.py

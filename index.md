@@ -566,12 +566,54 @@ data:
       title: cp_library/ds/grid/grid_cls.py
   - name: cp_library/ds/heap
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/ds/heap/fast_heapq.py
       title: cp_library/ds/heap/fast_heapq.py
     - icon: ':heavy_check_mark:'
-      path: cp_library/ds/heap/heap_proto.py
-      title: cp_library/ds/heap/heap_proto.py
+      path: cp_library/ds/heap/heap_base_cls.py
+      title: cp_library/ds/heap/heap_base_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heapify_fn.py
+      title: cp_library/ds/heap/heapify_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heapify_max_fn.py
+      title: cp_library/ds/heap/heapify_max_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heappop_fn.py
+      title: cp_library/ds/heap/heappop_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heappop_max_fn.py
+      title: cp_library/ds/heap/heappop_max_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heappush_fn.py
+      title: cp_library/ds/heap/heappush_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heappush_max_fn.py
+      title: cp_library/ds/heap/heappush_max_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heappushpop_fn.py
+      title: cp_library/ds/heap/heappushpop_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heappushpop_max_fn.py
+      title: cp_library/ds/heap/heappushpop_max_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heapreplace_fn.py
+      title: cp_library/ds/heap/heapreplace_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heapreplace_max_fn.py
+      title: cp_library/ds/heap/heapreplace_max_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heapsiftdown_fn.py
+      title: cp_library/ds/heap/heapsiftdown_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heapsiftdown_max_fn.py
+      title: cp_library/ds/heap/heapsiftdown_max_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heapsiftup_fn.py
+      title: cp_library/ds/heap/heapsiftup_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/heap/heapsiftup_max_fn.py
+      title: cp_library/ds/heap/heapsiftup_max_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/heap/interval_heap_cls.py
       title: cp_library/ds/heap/interval_heap_cls.py

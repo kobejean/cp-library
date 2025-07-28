@@ -165,7 +165,7 @@ data:
   path: cp_library/math/sps/mod/sps_pow_proj_fn.py
   requiredBy:
   - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py

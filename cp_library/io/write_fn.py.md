@@ -418,23 +418,22 @@ data:
     \ lst.extend(io.readchars()); return lst\n    def readtokensinto(io, lst): \n\
     \        io.load(); r = io.O[io.l]\n        while ~(p := io.B.find(b' ', io.p,\
     \ r)): lst.append(io._dec(io.p, p)); io.p = p+1\n        lst.append(io._dec(io.p,\
-    \ r-1)); io.p = r; io.l += 1; return lst\n    def readintsinto(io, lst):\n   \
-    \     io.load(); r = io.O[io.l]\n        while io.p < r:\n            while io.p\
-    \ < r and io.B[io.p] <= 32: io.p += 1\n            if io.p >= r: break\n     \
-    \       minus = x = 0\n            if io.B[io.p] == 45: minus = 1; io.p += 1\n\
-    \            while io.p < r and io.B[io.p] >= 48:\n                x = x * 10\
-    \ + (io.B[io.p] & 15); io.p += 1\n            lst.append(-x if minus else x)\n\
-    \            if io.p < r and io.B[io.p] == 32: io.p += 1\n        io.l += 1; return\
-    \ lst\n    def readdigitsinto(io, lst):\n        io.load(); r = io.O[io.l]\n \
-    \       while io.p < r and io.B[io.p] > 32:\n            if io.B[io.p] >= 48 and\
-    \ io.B[io.p] <= 57:\n                lst.append(io.B[io.p] & 15)\n           \
-    \ io.p += 1\n        if io.p < r and io.B[io.p] == 10: io.p = r; io.l += 1\n \
-    \       return lst\n    def readnumsinto(io, lst):\n        if io.char: return\
-    \ io.readdigitsinto(lst)\n        else: return io.readintsinto(lst)\n    def line(io):\
-    \ io.st.clear(); return io.readinto(io.st)\n    def wait(io):\n        io.load();\
-    \ r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n        if\
-    \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
-    \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
+    \ r-1)); io.p = r; io.l += 1; return lst\n    def _readint(io, r):\n        while\
+    \ io.p < r and io.B[io.p] <= 32: io.p += 1\n        if io.p >= r: return None\n\
+    \        minus = x = 0\n        if io.B[io.p] == 45: minus = 1; io.p += 1\n  \
+    \      while io.p < r and io.B[io.p] >= 48: x = x * 10 + (io.B[io.p] & 15); io.p\
+    \ += 1\n        io.p += 1\n        return -x if minus else x\n    def readintsinto(io,\
+    \ lst):\n        io.load(); r = io.O[io.l]\n        while io.p < r and (x := io._readint(r))\
+    \ is not None: lst.append(x)\n        io.l += 1; return lst\n    def _readdigit(io):\
+    \ d = io.B[io.p] & 15; io.p += 1; return d\n    def readdigitsinto(io, lst):\n\
+    \        io.load(); r = io.O[io.l]\n        while io.p < r and io.B[io.p] > 32:\
+    \ lst.append(io._readdigit())\n        if io.B[io.p] == 10: io.l += 1\n      \
+    \  io.p += 1\n        return lst\n    def readnumsinto(io, lst):\n        if io.char:\
+    \ return io.readdigitsinto(lst)\n        else: return io.readintsinto(lst)\n \
+    \   def line(io): io.st.clear(); return io.readinto(io.st)\n    def wait(io):\n\
+    \        io.load(); r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n\
+    \        if io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors));\
+    \ io.S = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\n"
   code: "import cp_library.io.__header__\n\ndef write(*args, **kwargs):\n    '''Prints\
     \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
@@ -452,7 +451,7 @@ data:
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/io/bye_fn.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution_int.test.py

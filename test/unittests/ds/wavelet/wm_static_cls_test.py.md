@@ -264,7 +264,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/wavelet/wm_static_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/wavelet/wm_static_cls_test.py

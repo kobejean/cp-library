@@ -140,23 +140,30 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S');\
-    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \nclass HeapProtocol(Generic[_T]):\n    def peek(heap) -> _T: return heap.data[0]\n\
+    \n\n\nclass HeapBase(Generic[_T]):\n    def peek(heap) -> _T: return heap.data[0]\n\
     \    def pop(heap) -> _T: ...\n    def push(heap, item: _T): ...\n    def pushpop(heap,\
     \ item: _T) -> _T: ...\n    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap,\
     \ item: _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
     \    def clear(heap): heap.data.clear()\n"
-  code: "import cp_library.ds.heap.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
-    \ import _T\n\nclass HeapProtocol(Generic[_T]):\n    def peek(heap) -> _T: return\
-    \ heap.data[0]\n    def pop(heap) -> _T: ...\n    def push(heap, item: _T): ...\n\
-    \    def pushpop(heap, item: _T) -> _T: ...\n    def replace(heap, item: _T) ->\
-    \ _T: ...\n    def __contains__(heap, item: _T): return item in heap.data\n  \
-    \  def __len__(heap): return len(heap.data)\n    def clear(heap): heap.data.clear()"
+  code: "import cp_library.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
+    \ import _T\nimport cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\n\
+    \nclass HeapBase(Generic[_T]):\n    def peek(heap) -> _T: return heap.data[0]\n\
+    \    def pop(heap) -> _T: ...\n    def push(heap, item: _T): ...\n    def pushpop(heap,\
+    \ item: _T) -> _T: ...\n    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap,\
+    \ item: _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
+    \    def clear(heap): heap.data.clear()"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/ds/heap/heap_proto.py
+  path: cp_library/ds/heap/heap_base_cls.py
   requiredBy:
   - cp_library/ds/heap/k_heap_mixin.py
   - cp_library/ds/heap/priority_queue_cls.py
@@ -178,7 +185,7 @@ data:
   - cp_library/alg/tree/csr/hld_weighted_cls.py
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/shortest_path_fast_graph.test.py
@@ -205,10 +212,10 @@ data:
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc249_f_max_k_heap.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
-documentation_of: cp_library/ds/heap/heap_proto.py
+documentation_of: cp_library/ds/heap/heap_base_cls.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/heap/heap_proto.py
-- /library/cp_library/ds/heap/heap_proto.py.html
-title: cp_library/ds/heap/heap_proto.py
+- /library/cp_library/ds/heap/heap_base_cls.py
+- /library/cp_library/ds/heap/heap_base_cls.py.html
+title: cp_library/ds/heap/heap_base_cls.py
 ---

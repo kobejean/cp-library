@@ -99,7 +99,7 @@ data:
   path: cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   requiredBy:
   - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/yukicoder/3407.test.py

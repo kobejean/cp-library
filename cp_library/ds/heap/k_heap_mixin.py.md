@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/heap_proto.py
-    title: cp_library/ds/heap/heap_proto.py
+    path: cp_library/ds/heap/heap_base_cls.py
+    title: cp_library/ds/heap/heap_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_base_cls.py
     title: cp_library/io/io_base_cls.py
@@ -44,15 +44,15 @@ data:
     from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
     \ compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n    \
     \    return parser\n    @classmethod\n    def __class_getitem__(cls, item): return\
-    \ GenericAlias(cls, item)\n\n\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
+    \ GenericAlias(cls, item)\n\n\nfrom typing import Generic\n\nclass HeapBase(Generic[_T]):\n\
     \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
     \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
     \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
     \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
-    \    def clear(heap): heap.data.clear()\n\nclass KHeapMixin(HeapProtocol[_T],\
-    \ Parsable):\n    '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''\n    def\
-    \ __init__(heap, K: int): heap.K = K\n    def added(heap, item: _T): ...\n   \
-    \ def removed(heap, item: _T): ...\n    def pop(heap): item = super().pop(); heap.removed(item);\
+    \    def clear(heap): heap.data.clear()\n\nclass KHeapMixin(HeapBase[_T], Parsable):\n\
+    \    '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''\n    def __init__(heap,\
+    \ K: int): heap.K = K\n    def added(heap, item: _T): ...\n    def removed(heap,\
+    \ item: _T): ...\n    def pop(heap): item = super().pop(); heap.removed(item);\
     \ return item\n    def push(heap, item: _T):\n        if len(heap) < heap._K:\
     \ heap.added(item); super().push(item)\n        elif heap._K: heap.pushpop(item)\n\
     \    def pushpop(heap, item: _T):\n        if item != (remove := super().pushpop(item)):\
@@ -98,8 +98,9 @@ data:
     \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
     \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
     \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
+    \        elif spec is str:\n            def parse(io: IOBase): return cls(io.line())\n\
     \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
-    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
+    \ IOBase): return cls((fn(io) for _ in io.wait()))\n        return parse\n   \
     \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
     \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
     \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
@@ -115,8 +116,8 @@ data:
     \        else:\n            raise NotImplementedError()\n"
   code: "import cp_library.__header__\nfrom typing import Union\nfrom cp_library.misc.typing\
     \ import _T\nfrom cp_library.io.parsable_cls import Parsable\nimport cp_library.ds.__header__\n\
-    import cp_library.ds.heap.__header__\nfrom cp_library.ds.heap.heap_proto import\
-    \ HeapProtocol\n\nclass KHeapMixin(HeapProtocol[_T], Parsable):\n    '''KHeapMixin[K:\
+    import cp_library.ds.heap.__header__\nfrom cp_library.ds.heap.heap_base_cls import\
+    \ HeapBase\n\nclass KHeapMixin(HeapBase[_T], Parsable):\n    '''KHeapMixin[K:\
     \ int, T: type, N: Union[int,None]]'''\n    def __init__(heap, K: int): heap.K\
     \ = K\n    def added(heap, item: _T): ...\n    def removed(heap, item: _T): ...\n\
     \    def pop(heap): item = super().pop(); heap.removed(item); return item\n  \
@@ -135,7 +136,7 @@ data:
     \ import IOBase\nfrom cp_library.io.parser_cls import Parser"
   dependsOn:
   - cp_library/io/parsable_cls.py
-  - cp_library/ds/heap/heap_proto.py
+  - cp_library/ds/heap/heap_base_cls.py
   - cp_library/io/io_base_cls.py
   - cp_library/io/parser_cls.py
   isVerificationFile: false
@@ -143,7 +144,7 @@ data:
   requiredBy:
   - cp_library/ds/heap/max_k_heap_cls.py
   - cp_library/ds/heap/min_k_heap_cls.py
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_min_k_heap.test.py

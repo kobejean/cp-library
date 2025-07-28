@@ -80,11 +80,29 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/fast_heapq.py
-    title: cp_library/ds/heap/fast_heapq.py
+    path: cp_library/ds/heap/heap_base_cls.py
+    title: cp_library/ds/heap/heap_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/heap/heap_proto.py
-    title: cp_library/ds/heap/heap_proto.py
+    path: cp_library/ds/heap/heapify_fn.py
+    title: cp_library/ds/heap/heapify_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappop_fn.py
+    title: cp_library/ds/heap/heappop_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappush_fn.py
+    title: cp_library/ds/heap/heappush_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heappushpop_fn.py
+    title: cp_library/ds/heap/heappushpop_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapreplace_fn.py
+    title: cp_library/ds/heap/heapreplace_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftdown_fn.py
+    title: cp_library/ds/heap/heapsiftdown_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/heap/heapsiftup_fn.py
+    title: cp_library/ds/heap/heapsiftup_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
@@ -453,40 +471,25 @@ data:
     \      for i,l in enumerate(csr.L):\n            yield csr.A[l:csr.R[i]]\n   \
     \ \n    def __getitem__(csr, i: int) -> _T:\n        return csr.A[i]\n    \n \
     \   def __len__(dsu):\n        return len(dsu.L)\n\n    def range(csr, i: int)\
-    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\n\ndef heappush(heap: list,\
-    \ item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\ndef\
-    \ heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0] = heap[0],\
-    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap: list, item):\n\
-    \    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef\
-    \ heappushpop(heap: list, item):\n    if heap and heap[0] < item: item, heap[0]\
-    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x: list):\n\
-    \    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
-    \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
-    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
-    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
-    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
-    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
-    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
-    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
-    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
-    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
-    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
-    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
-    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
-    \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
-    \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
-    \ = heap[c], c\n    heap[pos] = item\n\nclass HeapProtocol(Generic[_T]):\n   \
-    \ def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n  \
-    \  def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
+    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\n\ndef heapsiftup(heap: list,\
+    \ pos: int):\n    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c <\
+    \ n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c],\
+    \ c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n \
+    \   heap[pos] = item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ heapsiftup(x, i)\n\ndef heappop(heap: list):\n    item = heap.pop()\n    if\
+    \ heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\n\
+    def heapsiftdown(heap: list, root: int, pos: int):\n    item = heap[pos]\n   \
+    \ while root < pos and item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p],\
+    \ p\n    heap[pos] = item\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
+    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappushpop(heap: list, item):\n\
+    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
+    \ 0)\n    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\nclass HeapBase(Generic[_T]):\n\
+    \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
+    \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
     \    def replace(heap, item: _T) -> _T: ...\n    def __contains__(heap, item:\
     \ _T): return item in heap.data\n    def __len__(heap): return len(heap.data)\n\
-    \    def clear(heap): heap.data.clear()\n\nclass PriorityQueue(HeapProtocol[int]):\n\
+    \    def clear(heap): heap.data.clear()\n\nclass PriorityQueue(HeapBase[int]):\n\
     \    def __init__(que, N: int, ids: list[int] = None, priorities: list[int] =\
     \ None, /):\n        que.pkr = Packer(N)\n        if ids is None: que.data = elist(N)\n\
     \        elif priorities is None: heapify(ids); que.data = ids\n        else:\n\
@@ -542,8 +545,9 @@ data:
     \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
     \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
     \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
+    \        elif spec is str:\n            def parse(io: IOBase): return cls(io.line())\n\
     \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
-    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
+    \ IOBase): return cls((fn(io) for _ in io.wait()))\n        return parse\n   \
     \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
     \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
     \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
@@ -738,23 +742,22 @@ data:
     \ lst.extend(io.readchars()); return lst\n    def readtokensinto(io, lst): \n\
     \        io.load(); r = io.O[io.l]\n        while ~(p := io.B.find(b' ', io.p,\
     \ r)): lst.append(io._dec(io.p, p)); io.p = p+1\n        lst.append(io._dec(io.p,\
-    \ r-1)); io.p = r; io.l += 1; return lst\n    def readintsinto(io, lst):\n   \
-    \     io.load(); r = io.O[io.l]\n        while io.p < r:\n            while io.p\
-    \ < r and io.B[io.p] <= 32: io.p += 1\n            if io.p >= r: break\n     \
-    \       minus = x = 0\n            if io.B[io.p] == 45: minus = 1; io.p += 1\n\
-    \            while io.p < r and io.B[io.p] >= 48:\n                x = x * 10\
-    \ + (io.B[io.p] & 15); io.p += 1\n            lst.append(-x if minus else x)\n\
-    \            if io.p < r and io.B[io.p] == 32: io.p += 1\n        io.l += 1; return\
-    \ lst\n    def readdigitsinto(io, lst):\n        io.load(); r = io.O[io.l]\n \
-    \       while io.p < r and io.B[io.p] > 32:\n            if io.B[io.p] >= 48 and\
-    \ io.B[io.p] <= 57:\n                lst.append(io.B[io.p] & 15)\n           \
-    \ io.p += 1\n        if io.p < r and io.B[io.p] == 10: io.p = r; io.l += 1\n \
-    \       return lst\n    def readnumsinto(io, lst):\n        if io.char: return\
-    \ io.readdigitsinto(lst)\n        else: return io.readintsinto(lst)\n    def line(io):\
-    \ io.st.clear(); return io.readinto(io.st)\n    def wait(io):\n        io.load();\
-    \ r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n        if\
-    \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
-    \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
+    \ r-1)); io.p = r; io.l += 1; return lst\n    def _readint(io, r):\n        while\
+    \ io.p < r and io.B[io.p] <= 32: io.p += 1\n        if io.p >= r: return None\n\
+    \        minus = x = 0\n        if io.B[io.p] == 45: minus = 1; io.p += 1\n  \
+    \      while io.p < r and io.B[io.p] >= 48: x = x * 10 + (io.B[io.p] & 15); io.p\
+    \ += 1\n        io.p += 1\n        return -x if minus else x\n    def readintsinto(io,\
+    \ lst):\n        io.load(); r = io.O[io.l]\n        while io.p < r and (x := io._readint(r))\
+    \ is not None: lst.append(x)\n        io.l += 1; return lst\n    def _readdigit(io):\
+    \ d = io.B[io.p] & 15; io.p += 1; return d\n    def readdigitsinto(io, lst):\n\
+    \        io.load(); r = io.O[io.l]\n        while io.p < r and io.B[io.p] > 32:\
+    \ lst.append(io._readdigit())\n        if io.B[io.p] == 10: io.l += 1\n      \
+    \  io.p += 1\n        return lst\n    def readnumsinto(io, lst):\n        if io.char:\
+    \ return io.readdigitsinto(lst)\n        else: return io.readintsinto(lst)\n \
+    \   def line(io): io.st.clear(); return io.readinto(io.st)\n    def wait(io):\n\
+    \        io.load(); r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n\
+    \        if io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors));\
+    \ io.S = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values to\
     \ a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"sep\"\
     , \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x in args:\n\
@@ -809,8 +812,12 @@ data:
   - cp_library/bit/pack/packer_cls.py
   - cp_library/io/parsable_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
-  - cp_library/ds/heap/fast_heapq.py
-  - cp_library/ds/heap/heap_proto.py
+  - cp_library/ds/heap/heapify_fn.py
+  - cp_library/ds/heap/heappop_fn.py
+  - cp_library/ds/heap/heappush_fn.py
+  - cp_library/ds/heap/heappushpop_fn.py
+  - cp_library/ds/heap/heapreplace_fn.py
+  - cp_library/ds/heap/heap_base_cls.py
   - cp_library/alg/iter/sort/isort_ranged_fn.py
   - cp_library/ds/view/view_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
@@ -819,12 +826,14 @@ data:
   - cp_library/ds/array/u8f_fn.py
   - cp_library/ds/packet_list_cls.py
   - cp_library/ds/que/que_cls.py
+  - cp_library/ds/heap/heapsiftup_fn.py
+  - cp_library/ds/heap/heapsiftdown_fn.py
   - cp_library/alg/iter/arg/argsort_ranged_fn.py
   - cp_library/ds/list/list_find_fn.py
   isVerificationFile: true
   path: test/aoj/vol/0439_aux_dijkstra.test.py
   requiredBy: []
-  timestamp: '2025-07-28 14:17:34+09:00'
+  timestamp: '2025-07-28 19:59:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/vol/0439_aux_dijkstra.test.py
