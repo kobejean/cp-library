@@ -12,7 +12,7 @@ def main():
         for row in D:
             write(*('INF' if d >= inf else d for d in row))
 
-from cp_library.io.legacy.read_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.alg.graph.csr.digraph_weighted_cls import DiGraphWeighted
 

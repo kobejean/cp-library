@@ -1,7 +1,7 @@
 import cp_library.ds.__header__
 import typing
 from typing import Union
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 
 class Parallel(tuple, Parsable):
     def __new__(cls, N, K=2):
@@ -14,10 +14,10 @@ class Parallel(tuple, Parsable):
             K = len(row := [Parser.compile(t) for t in T])
         else:
             row = [Parser.compile(T)]*K
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             P = cls(N, K)
             for i in range(N):
                 for k, parse in enumerate(row):
-                    P[k][i] = parse(ts)
+                    P[k][i] = parse(io)
             return P
         return parse

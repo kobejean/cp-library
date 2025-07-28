@@ -10,4 +10,4 @@ def mat_mul(A,B):
         for k,Aik in enumerate(A[i]):
             for j,Bkj in enumerate(B[k]):
                 Ri[j] = Bkj*Aik + Ri[j]  
-    return R 
+    return R

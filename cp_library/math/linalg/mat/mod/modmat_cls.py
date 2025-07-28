@@ -1,6 +1,10 @@
-import cp_library.math.mod.__header__
+import cp_library.__header__
 from typing import Union, List, Tuple
+import cp_library.math.__header__
 from cp_library.math.mod.mint_cls import mint
+import cp_library.math.linalg.__header__
+import cp_library.math.linalg.mat.__header__
+import cp_library.math.linalg.mat.mod.__header__
 
 class ModMat:
     __slots__ = 'data', 'R', 'C'

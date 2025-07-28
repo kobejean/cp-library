@@ -1,5 +1,5 @@
 import cp_library.ds.__header__
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 from itertools import groupby
 from typing import Iterable
 
@@ -13,8 +13,8 @@ class Queries(list, Parsable):
     @classmethod
     def compile(cls, N: int, T: type = tuple[int, int]):
         query = Parser.compile(T)
-        def parse(ts: TokenStream):
-            return cls(query(ts) for _ in range(N))
+        def parse(io: IOBase):
+            return cls(query(io) for _ in range(N))
         return parse
 
 class QueriesGrouped(Queries):
@@ -39,8 +39,8 @@ class QueriesGrouped(Queries):
     @classmethod
     def compile(cls, Q: int, key = 0, T: type = tuple[int, ...]):
         query = Parser.compile(T)
-        def parse(ts: TokenStream):
-            return cls((query(ts) for _ in range(Q)), key)
+        def parse(io: IOBase):
+            return cls((query(io) for _ in range(Q)), key)
         return parse
 
 class QueriesRange(Queries):
@@ -66,6 +66,6 @@ class QueriesRange(Queries):
     @classmethod
     def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1, int]):
         query = Parser.compile(T)
-        def parse(ts: TokenStream):
-            return cls((query(ts) for _ in range(Q)), N, key)
+        def parse(io: IOBase):
+            return cls((query(io) for _ in range(Q)), N, key)
         return parse

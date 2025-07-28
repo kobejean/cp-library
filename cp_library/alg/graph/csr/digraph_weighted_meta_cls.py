@@ -37,33 +37,33 @@ class DiGraphWeightedMeta(DiGraphWeighted):
         u, v, *w = map(Parser.compile, T)
         if len(w) == 2:
             if T == [-1,-1,int,int]:
-                def parse(ts: TokenStream):
+                def parse(io: IOBase):
                     U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M
                     for i in range(M):
-                        u,v,a,b = ts.line()
-                        U[i], V[i], W[i], X[i] = int(u)-1, int(v)-1, int(a), int(b)
+                        u,v,a,b = io.readints()
+                        U[i], V[i], W[i], X[i] = u-1, v-1, a, b
                     return cls(N, U, V, W, X)
             else:
                 w, x = w
-                def parse(ts: TokenStream):
+                def parse(io: IOBase):
                     U, V, W, X = u32f(M), u32f(M), [0]*M, [0]*M
                     for i in range(M):
-                        U[i], V[i], W[i], X[i] = u(ts), v(ts), w(ts), x(ts)
+                        U[i], V[i], W[i], X[i] = u(io), v(io), w(io), x(io)
                     return cls(N, U, V, W, X)
         elif len(w) == 3:
             w, x, y = w
-            def parse(ts: TokenStream):
+            def parse(io: IOBase):
                 U, V, W, X, Y = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M
                 for i in range(M):
-                    U[i], V[i], W[i], X[i], Y[i] = u(ts), v(ts), w(ts), x(ts), y(ts)
+                    U[i], V[i], W[i], X[i], Y[i] = u(io), v(io), w(io), x(io), y(io)
                 return cls(N, U, V, W, X, Y)
         else:
             w, x, y, z = w
-            def parse(ts: TokenStream):
+            def parse(io: IOBase):
                 U, V, W, X, Y, Z = u32f(M), u32f(M), [0]*M, [0]*M, [0]*M, [0]*M
                 for i in range(M):
-                    U[i], V[i], W[i], X[i], Y[i], Z[i] = u(ts), v(ts), w(ts), x(ts), y(ts), z(ts)
+                    U[i], V[i], W[i], X[i], Y[i], Z[i] = u(io), v(io), w(io), x(io), y(io), z(io)
                 return cls(N, U, V, W, X, Y, Z)
         return parse
 from cp_library.ds.array.u32f_fn import u32f
-from cp_library.io.parser_cls import Parser, TokenStream
+from cp_library.io.parser_cls import Parser, IOBase

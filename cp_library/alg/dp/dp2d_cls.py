@@ -1,6 +1,6 @@
 import cp_library.alg.dp.__header__
 from typing import TypeVar, Generic, Container
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 from dataclasses import dataclass
 from math import inf
 
@@ -52,6 +52,6 @@ class DynamicProgramming2D(Generic[_T], Parsable, Container):
     @classmethod
     def compile(cls, N, M, T = int):
         table = Parser.compile(list[list[T,M],N])
-        def parse(ts: TokenStream):
-            return cls(N, M, table(ts))
+        def parse(io: IOBase):
+            return cls(N, M, table(io))
         return parse

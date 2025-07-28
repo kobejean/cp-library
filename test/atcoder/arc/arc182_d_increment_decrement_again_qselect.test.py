@@ -31,7 +31,7 @@ def main():
 
 from math import inf
 from cp_library.alg.divcon.qselect_fn import qselect
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
     
 if __name__ == '__main__':

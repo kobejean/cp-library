@@ -1,5 +1,5 @@
 import cp_library.ds.__header__
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 from cp_library.ds.elist_fn import elist
 
 from enum import IntFlag, auto
@@ -105,18 +105,18 @@ class QueriesMoOps(tuple[list[int], ...],Parsable):
     def compile(cls, Q: int, N: int, T: type = tuple[-1, int], B: int = None):
         if T == tuple[-1, int]:
             query = Parser.compile(T)
-            def parse(ts: TokenStream):
+            def parse(io: IOBase):
                 L, R = [0]*Q, [0]*Q
                 for i in range(Q):
-                    L[i], R[i] = map(int,ts.line())
+                    L[i], R[i] = io.readints()
                     L[i] -= 1
                 return cls(L, R, N, B)
             return parse
         else:
             query = Parser.compile(T)
-            def parse(ts: TokenStream):
+            def parse(io: IOBase):
                 L, R = [0]*Q, [0]*Q
                 for i in range(Q):
-                    L[i], R[i] = query(ts)
+                    L[i], R[i] = query(io)
                 return cls(L, R, N, B)
             return parse

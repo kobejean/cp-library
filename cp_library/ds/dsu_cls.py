@@ -1,5 +1,5 @@
 import cp_library.__header__
-from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.io.parser_cls import Parsable, IOBase
 import cp_library.ds.__header__
 
 class DSU(Parsable):
@@ -32,9 +32,9 @@ class DSU(Parsable):
     def __contains__(dsu, uv): u, v = uv; return dsu.same(u, v)
     @classmethod
     def compile(cls, N: int, M: int, shift = -1):
-        def parse_fn(ts: TokenStream):
+        def parse_fn(io: IOBase):
             dsu = cls(N)
-            for _ in range(M): u, v = ts._line(); dsu.merge(int(u)+shift, int(v)+shift)
+            for _ in range(M): u, v = io.readints(); dsu.merge(u+shift, v+shift)
             return dsu
         return parse_fn
 from cp_library.ds.csr.csr_incremental_cls import CSRIncremental

@@ -1,7 +1,7 @@
 import cp_library.ds.__header__
 from math import prod
 from typing import Container, Iterable
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 
 class grid2d(Parsable, Container):
 
@@ -16,11 +16,11 @@ class grid2d(Parsable, Container):
     @classmethod
     def compile(cls, shape: tuple[int, int], T: type = int):
         elm = Parser.compile(T)
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             obj = cls.__new__(cls)
             obj.shape = shape
             obj.size = prod(shape)
-            obj.data = list(elm(ts) for _ in range(obj.size))
+            obj.data = list(elm(io) for _ in range(obj.size))
             return obj
         return parse
     

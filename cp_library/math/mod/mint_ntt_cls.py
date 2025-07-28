@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.mod.__header__
 from cp_library.math.mod.mint_cls import mint
 from cp_library.math.nt.ntt_cls import NTT

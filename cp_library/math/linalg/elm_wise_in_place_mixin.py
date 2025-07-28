@@ -1,8 +1,9 @@
-import cp_library.math.linalg.__header__
-
+import cp_library.__header__
 import operator
 from numbers import Number
 from typing import Sequence
+import cp_library.math.__header__
+import cp_library.math.linalg.__header__
 from cp_library.math.linalg.elm_wise_mixin import ElmWiseMixin
 
 class ElmWiseInPlaceMixin(ElmWiseMixin):

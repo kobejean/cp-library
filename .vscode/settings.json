@@ -8,5 +8,8 @@
     "python.analysis.exclude": [
         "${workspaceFolder}/test/**",
     ],
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false,
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.defaultPackageManager": "ms-python.python:pip",
+    "python-envs.pythonProjects": [],
 }

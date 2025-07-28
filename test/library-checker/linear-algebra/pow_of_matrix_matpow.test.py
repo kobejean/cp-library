@@ -9,7 +9,7 @@ def main():
         from cp_library.math.mod.mint_cls import mint
         mint.set_mod(998244353)
 
-        A = [read(mint) for _ in range(N)]
+        A = read(list[list[mint],N])
         B = mat_pow(A, K)
     else:
         from cp_library.math.linalg.mat.mod.mat_pow_fn import mat_pow
@@ -20,7 +20,7 @@ def main():
     for row in B:
         write(*row)
 
-from cp_library.io.read_func_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@ import cp_library.__header__
 from typing import Iterable, Union, overload
 from collections import deque
 from math import inf
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
 from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
@@ -422,8 +422,8 @@ class GraphProtocol(list, Parsable):
     @classmethod
     def compile(cls, N: int, M: int, E):
         edge = Parser.compile(E)
-        def parse(ts: TokenStream):
-            return cls(N, [edge(ts) for _ in range(M)])
+        def parse(io: IOBase):
+            return cls(N, [edge(io) for _ in range(M)])
         return parse
     
 from cp_library.ds.elist_fn import elist

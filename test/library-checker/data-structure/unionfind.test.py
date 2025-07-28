@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind
 
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.ds.dsu_cls import DSU
 

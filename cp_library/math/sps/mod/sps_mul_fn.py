@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 from cp_library.math.conv.mod.subset_conv_fn import subset_conv
 import cp_library.math.sps.__header__
 

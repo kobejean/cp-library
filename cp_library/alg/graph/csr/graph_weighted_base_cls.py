@@ -103,15 +103,15 @@ class GraphWeightedBase(GraphBase):
     
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             U, V, W = u32f(M), u32f(M), [0]*M
             for i in range(M):
-                u, v, w = ts._line()
-                U[i], V[i], W[i] = int(u)+shift, int(v)+shift, int(w)
+                u, v, w = io.readints()
+                U[i], V[i], W[i] = u+shift, v+shift, w
             return cls(N, U, V, W)
         return parse
 from cp_library.ds.array.i32f_fn import i32f
 from cp_library.ds.array.u32f_fn import u32f
 from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.heap.priority_queue_cls import PriorityQueue
-from cp_library.io.parser_cls import TokenStream
+from cp_library.io.parser_cls import IOBase

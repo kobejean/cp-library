@@ -1,5 +1,5 @@
 import cp_library.__header__
-from cp_library.io.parser_cls import TokenStream
+from cp_library.io.parser_cls import IOBase
 
 import cp_library.alg.__header__
 import cp_library.alg.tree.__header__
@@ -17,11 +17,11 @@ class AuxTree(AuxTreeBase, TreeWeighted):
 
     @classmethod
     def compile(cls, N: int, shift: int = -1, root=0):
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             U, V = u32f(N-1), u32f(N-1)
             for i in range(N-1):
-                u, v = ts._line()
-                U[i], V[i] = int(u)+shift, int(v)+shift
+                u, v = io.readints()
+                U[i], V[i] = u+shift, v+shift
             return cls(N, U, V, root)
         return parse
 from cp_library.ds.array.u32f_fn import u32f

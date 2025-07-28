@@ -1,4 +1,4 @@
-from cp_library.io.parser_cls import TokenStream, Parsable, Parser
+from cp_library.io.parser_cls import IOBase, Parsable, Parser
 from cp_library.ds.view.view_cls import view
 import cp_library.__header__
 from typing import Generic, Union
@@ -37,22 +37,22 @@ class Grid(Generic[_T], Parsable):
     def compile(cls, H: int, W: int, T: type = int):
         pkr = Packer(W-1); size = H << pkr.s
         if T is int:
-            def parse(ts: TokenStream):
+            def parse(io: IOBase):
                 A = [0]*size
                 for i in range(H):
-                    for j,s in ts.line(): A[pkr.enc(i,j)] = int(s)
+                    for j, a in enumerate(io.readints()): A[pkr.enc(i,j)] = a
                 return cls(H, W, A, pkr)
         elif T is str:
-            def parse(ts: TokenStream):
+            def parse(io: IOBase):
                 A = ['']*size
                 for i in range(H):
-                    for j,s in ts.line(): A[pkr.enc(i,j)] = s
+                    for j, s in enumerate(io.line()): A[pkr.enc(i,j)] = s
                 return cls(H, W, A, pkr)
         else:
             elm = Parser.compile(T)
-            def parse(ts: TokenStream):
+            def parse(io: IOBase):
                 A = [None]*size
                 for i in range(H):
-                    for j in range(W): A[pkr.enc(i,j)] = elm(ts)
+                    for j in range(W): A[pkr.enc(i,j)] = elm(io)
                 return cls(H, W, A, pkr)
         return parse

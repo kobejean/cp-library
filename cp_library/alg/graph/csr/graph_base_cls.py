@@ -2,7 +2,7 @@ from cp_library.ds.view.view_cls import view
 import cp_library.__header__
 from math import inf
 from typing import Callable, Sequence, Union, overload
-from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.io.parser_cls import Parsable, IOBase
 import cp_library.alg.__header__
 from cp_library.alg.dp.chmin_fn import chmin
 import cp_library.alg.graph.__header__
@@ -260,11 +260,11 @@ class GraphBase(Parsable):
 
     @classmethod
     def compile(cls, N: int, M: int, shift: int = -1):
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             U, V = u32f(M), u32f(M)
             for i in range(M):
-                u, v = ts._line()
-                U[i], V[i] = int(u)+shift, int(v)+shift
+                u, v = io.readints()
+                U[i], V[i] = u+shift, v+shift
             return cls(N, U, V)
         return parse
 from cp_library.bit.masks.u32_max_cnst import u32_max

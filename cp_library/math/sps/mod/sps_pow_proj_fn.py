@@ -12,11 +12,8 @@ def sps_pow_proj(A, B, M, mod):
     for i in range(N + 1):
         P.append(A[(1<<N)-1]); A[(1<<N)-1] = 0
         for m in range(N - i):
-            i0 = (1<<N)-(1<<(m+1)); i1 = 1 << m
-            Aview.set_range(i0, i0 + (1 << m)); Bview.set_range(i1, i1 + (1 << m))
+            i0 = (1<<N)-(1<<(m+1)); i1 = 1 << m; i2 = (1<<N)-(1<<m)
+            Aview.set_range(i0, i0+(1<<m)); Bview.set_range(i1, i1+(1<<m))
             R = subset_conv(Aview, Bview, m, mod)
-            i2 = (1<<N)-(1<<m)
-            for h in range(1 << m):
-                A[i2 + h] = (A[i2 + h] + R[h]) % mod
-                A[i0 + h] = 0
+            for h in range(1 << m): A[i2+h], A[i0+h] = (A[i2+h]+R[h])%mod, 0
     return P[:M]

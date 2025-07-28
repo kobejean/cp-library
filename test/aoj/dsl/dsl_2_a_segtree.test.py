@@ -9,7 +9,7 @@ def main():
         else: seg[x] = y
 
 from cp_library.ds.tree.seg.segtree_cls import SegTree
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
 if __name__ == '__main__':

@@ -1,11 +1,12 @@
 import cp_library.__header__
 from typing import Container, Sequence
 from numbers import Number
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 import cp_library.math.__header__
 import cp_library.math.linalg.__header__
 from cp_library.math.linalg.elm_wise_in_place_mixin import ElmWiseInPlaceMixin
 import cp_library.math.linalg.mat.__header__
+import cp_library.math.linalg.mat.mod.__header__
 
 class Mat(Parsable, Container, ElmWiseInPlaceMixin):
 
@@ -81,11 +82,9 @@ class Mat(Parsable, Container, ElmWiseInPlaceMixin):
     @classmethod
     def compile(cls, N: int, M: int, T: type = int):
         elm, size = Parser.compile(T), N*M
-        def parse(ts: TokenStream):
-            return cls([elm(ts) for _ in range(size)])
+        def parse(io: IOBase):
+            return cls([elm(io) for _ in range(size)])
         return parse
     
     def __repr__(self) -> str:
         return '\n'.join(' '.join(str(elm) for elm in row) for row in self)
-
-from cp_library.math.mod.mint_cls import mint

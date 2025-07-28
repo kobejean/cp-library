@@ -1,6 +1,6 @@
 import cp_library.__header__
 from typing import Union
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
 import cp_library.alg.graph.bit.__header__
@@ -39,8 +39,8 @@ class BitGraph(list, Parsable):
     def compile(cls, N: int, M: int, E: Union[type,int] = Edge[-1]):
         if isinstance(E, int): E = Edge[E]
         edge = Parser.compile(E)
-        def parse(ts: TokenStream):
-            return cls(N, [edge(ts) for _ in range(M)])
+        def parse(io: IOBase):
+            return cls(N, [edge(io) for _ in range(M)])
         return parse
 from cp_library.bit.popcnt32_fn import popcnt32
 from cp_library.bit.ctz32_fn import ctz32

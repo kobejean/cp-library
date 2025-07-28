@@ -1,5 +1,5 @@
 import cp_library.ds.__header__
-from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.io.parser_cls import Parsable, IOBase
 
 class ParallelRange(tuple, Parsable):
     def __new__(cls, N):
@@ -7,10 +7,10 @@ class ParallelRange(tuple, Parsable):
 
     @classmethod
     def compile(cls, N: int):
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             L, R = P = cls(N)
             for i in range(N):
-                l, r = ts.line()
-                L[i], R[i] = int(l)-1, int(r)
+                l, r = io.readints()
+                L[i], R[i] = l-1, r
             return P
         return parse

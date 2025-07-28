@@ -15,7 +15,7 @@ def main():
         print(*ans, sep='\n')
 
 from cp_library.ds.kdtree_cls import KDTree
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 
 if __name__ == '__main__':
     main()

@@ -1,6 +1,6 @@
 import cp_library.__header__
 from typing import Iterable 
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 import cp_library.math.__header__
 import cp_library.math.linalg.__header__
 import cp_library.math.linalg.vec.__header__
@@ -16,10 +16,10 @@ class Vec(ElmWiseMixin, tuple, Parsable):
     def compile(cls, T: type = int, N = None):
         elm = Parser.compile(T)
         if N is None:
-            def parse(ts: TokenStream):
-                return cls(elm(ts) for _ in ts.wait())
+            def parse(io: IOBase):
+                return cls(elm(io) for _ in io.wait())
         else:
-            def parse(ts: TokenStream):
-                return cls(elm(ts) for _ in range(N))
+            def parse(io: IOBase):
+                return cls(elm(io) for _ in range(N))
         return parse
   

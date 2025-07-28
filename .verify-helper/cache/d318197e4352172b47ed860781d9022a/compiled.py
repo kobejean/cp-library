@@ -1,4 +1,4 @@
-#!/Users/kobejean/miniforge3/bin/python3.12
+#!/Users/kobejean/miniforge3/envs/atcoder/bin/pypy
 """This is a helper script to run the target Python code.
 
 We need this script to set PYTHONPATH portably. The env command, quoting something, etc. are not portable or difficult to implement.
@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc249_f_min_k_heap.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc249_f_max_k_heap.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/atcoder/abc/abc249_f_min_k_heap.test.py
+# run test/atcoder/abc/abc249_f_max_k_heap.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 

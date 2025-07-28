@@ -1,7 +1,7 @@
 from cp_library.alg.iter.sort.isort_parallel_fn import isort_parallel
 from cp_library.alg.iter.sort.sort_parallel_fn import sort_parallel
 import cp_library.__header__
-from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.io.parser_cls import Parsable, IOBase
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
 from cp_library.alg.iter.arg.argsort_fn import argsort
@@ -13,9 +13,9 @@ class EdgeListWeighted(Parsable):
     def __getitem__(E, e): return E.U[e], E.V[e], E.W[e]
     @classmethod
     def compile(cls, N: int, M: int, I: int = -1):
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             U, V, W = [0]*M, [0]*M, [0]*M
-            for e in range(M): u, v, w = ts.line(); U[e], V[e], W[e] = int(u)+I, int(v)+I, int(w)
+            for e in range(M): u, v, w = io.readints(); U[e], V[e], W[e] = u+I, v+I, w
             return cls(N, U, V, W)
         return parse
     def kruskal(E):

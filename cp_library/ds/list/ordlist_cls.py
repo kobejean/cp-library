@@ -1,5 +1,5 @@
 import cp_library.ds.list.__header__
-from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.io.parser_cls import Parsable, IOBase
 
 class ordlist(list[int], Parsable):
     def __init__(lst, S: str, base = 'a'):
@@ -8,6 +8,6 @@ class ordlist(list[int], Parsable):
 
     @classmethod
     def compile(cls, base = 'a'):
-        def parse(ts: TokenStream):
-            return cls(next(ts), base)
+        def parse(io: IOBase):
+            return cls(next(io), base)
         return parse

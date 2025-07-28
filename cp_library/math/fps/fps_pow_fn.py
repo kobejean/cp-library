@@ -15,6 +15,5 @@ def fps_pow(P: list, k: int, deg = -1) -> list:
     for j,r in enumerate(R): R[j] = r*alpha%mod
     R[:0] = [0] * (i * k)
     return fps_normalize(R, deg)
-
 from cp_library.math.mod.mint_ntt_cls import mint
 from cp_library.math.nt.mod_inv_fn import mod_inv

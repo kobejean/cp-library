@@ -8,7 +8,6 @@ def mat_pow(A,K):
     for i in range(1,K.bit_length()):
         A = mat_mul(A,A) 
         if K >> i & 1: R = mat_mul(R,A) 
-    return R 
-
+    return R
 from cp_library.math.linalg.mat.mat_mul_fn import mat_mul
 from cp_library.math.linalg.mat.mat_id_fn import mat_id

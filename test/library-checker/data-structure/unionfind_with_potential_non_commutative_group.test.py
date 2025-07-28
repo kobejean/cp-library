@@ -31,7 +31,7 @@ e = [1, 0, 0, 1]
 
             
 from cp_library.ds.potentialized_dsu_cls import PotentializedDSU
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
 if __name__ == "__main__":

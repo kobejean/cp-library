@@ -3,7 +3,7 @@ from math import isqrt
 import cp_library.alg.__header__
 import cp_library.alg.dp.__header__
 from cp_library.alg.dp.max2_fn import max2
-from cp_library.io.parser_cls import Parsable, Parser, TokenStream
+from cp_library.io.parser_cls import Parsable, Parser, IOBase
 
 class Mo(Parsable):
     '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''
@@ -55,9 +55,9 @@ class Mo(Parsable):
     @classmethod
     def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):
         query = Parser.compile(T)
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             L, R = [0]*Q, [0]*Q
             for i in range(Q):
-                L[i], R[i] = query(ts) 
+                L[i], R[i] = query(io) 
             return cls(L, R, N)
         return parse

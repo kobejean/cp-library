@@ -1,5 +1,5 @@
 import cp_library.__header__
-from cp_library.io.parser_cls import Parsable, TokenStream
+from cp_library.io.parser_cls import Parsable, IOBase
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
 
@@ -9,9 +9,9 @@ class EdgeList(Parsable):
     def __getitem__(E, e): return E.U[e], E.V[e]
     @classmethod
     def compile(cls, N: int, M: int, I: int = -1):
-        def parse(ts: TokenStream):
+        def parse(io: IOBase):
             U, V = [0]*M, [0]*M
-            for e in range(M): u, v = ts.line(); U[e], V[e] = int(u)+I, int(v)+I
+            for e in range(M): u, v = io.readints(); U[e], V[e] = u+I, v+I
             return cls(N, U, V)
         return parse
     def sub(E, I: list[int]):

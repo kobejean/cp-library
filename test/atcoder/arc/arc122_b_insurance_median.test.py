@@ -16,7 +16,7 @@ def main():
     write(f"{ftod(ans):.20f}")
 
 from cp_library.math.median_fn import median
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
 if __name__ == '__main__':

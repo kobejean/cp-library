@@ -1,5 +1,6 @@
+import cp_library.__header__
 import cp_library.math.__header__
-
+import cp_library.math.nt.__header__
 from cp_library.math.nt.mod_inv_fn import mod_inv
 
 class NTT:

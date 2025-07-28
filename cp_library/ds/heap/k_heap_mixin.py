@@ -1,6 +1,6 @@
 import cp_library.__header__
 from typing import Union
-from cp_library.io.parser_cls import Parser, Parsable, TokenStream
+from cp_library.io.parser_cls import Parser, Parsable, IOBase
 from cp_library.misc.typing import _T
 import cp_library.ds.__header__
 import cp_library.ds.heap.__header__
@@ -30,7 +30,7 @@ class KHeapMixin(HeapProtocol[_T], Parsable):
     def compile(cls, K: int, T: type, N: Union[int,None] = None):
         elm = Parser.compile(T)
         if N is None:
-            def parse(ts: TokenStream): return cls(K, (elm(ts) for _ in ts.wait()))
+            def parse(io: IOBase): return cls(K, (elm(io) for _ in io.wait()))
         else:
-            def parse(ts: TokenStream): return cls(K, (elm(ts) for _ in range(N)))
+            def parse(io: IOBase): return cls(K, (elm(io) for _ in range(N)))
         return parse

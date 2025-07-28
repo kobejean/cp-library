@@ -13,7 +13,7 @@ def main():
         write(lca.query(u,v)[0])
 
 from cp_library.alg.tree.lca_table_recursive_cls import LCATable
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
 if __name__ == '__main__':

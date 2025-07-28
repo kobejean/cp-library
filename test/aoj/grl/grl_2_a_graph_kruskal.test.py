@@ -7,7 +7,7 @@ def main():
     ans = sum(G.W[e] for e in MST)
     write(ans)
 
-from cp_library.io.legacy.read_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 from cp_library.alg.graph.csr.graph_weighted_cls import GraphWeighted
 

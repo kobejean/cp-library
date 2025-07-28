@@ -16,7 +16,7 @@ def main():
     write(dp)
 
 from cp_library.ds.cht_monotone_add_max_cls import CHTMonotoneAddMax
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@ def main():
 
 from cp_library.math.mod.mint_cls import mint
 from cp_library.math.linalg.mat.mod.modmat_cls import ModMat
-from cp_library.io.read_int_fn import read
+from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 
 if __name__ == '__main__':

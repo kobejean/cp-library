@@ -1,9 +1,10 @@
+import cp_library.__header__
 from math import hypot
-import cp_library.math.__header__
-
 import operator
 from numbers import Number
 from typing import Sequence
+import cp_library.math.__header__
+import cp_library.math.linalg.__header__
 
 class ElmWiseMixin:
     def elm_wise(self, other, op):

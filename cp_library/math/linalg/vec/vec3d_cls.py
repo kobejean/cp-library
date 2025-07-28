@@ -2,7 +2,7 @@ import cp_library.__header__
 from numbers import Number
 from typing import Sequence
 from math import sqrt
-from cp_library.io.parser_cls import Parser, TokenStream
+from cp_library.io.parser_cls import Parser, IOBase
 import cp_library.math.__header__
 import cp_library.math.linalg.__header__
 import cp_library.math.linalg.vec.__header__
@@ -43,6 +43,6 @@ class Vec3D(Vec):
     @classmethod
     def compile(cls, T: type = int):
         elm = Parser.compile(T)
-        def parse(ts: TokenStream):
-            return cls(elm(ts), elm(ts), elm(ts))
+        def parse(io: IOBase):
+            return cls(elm(io), elm(io), elm(io))
         return parse
