@@ -14,7 +14,7 @@ def main():
 from cp_library.ds.wavelet.wm_bit_cls import WMBIT
 from cp_library.alg.dp.max2_fn import max2
 from cp_library.bit.pack.pack_sm_fn import pack_sm
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 
 def read_compressed_problem():
     N, Q = map(int, input().split())

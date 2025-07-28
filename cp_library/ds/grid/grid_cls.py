@@ -1,11 +1,11 @@
-from cp_library.io.parser_cls import IOBase, Parsable, Parser
-from cp_library.ds.view.view_cls import view
 import cp_library.__header__
 from typing import Generic, Union
 from cp_library.misc.typing import _T
+from cp_library.io.parsable_cls import Parsable
 from cp_library.bit.pack.packer_cls import Packer
 import cp_library.ds.__header__
 import cp_library.ds.grid.__header__
+from cp_library.ds.view.view_cls import view
 
 class Grid(Generic[_T], Parsable):
     __slots__ = 'pkr', 'size', 'H', 'W', 'A'
@@ -56,3 +56,5 @@ class Grid(Generic[_T], Parsable):
                     for j in range(W): A[pkr.enc(i,j)] = elm(io)
                 return cls(H, W, A, pkr)
         return parse
+from cp_library.io.parser_cls import Parser
+from cp_library.io.io_base_cls import IOBase

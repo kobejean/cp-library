@@ -8,8 +8,9 @@ def main():
 from cp_library.alg.dp.chmin_fn import chmin
 
 def read_csr_graph():
-    La, Ra, U, V, Va, t = [0]*(N:=rd()), [0]*N, [0]*(M:=rd()), [0]*M, [0]*(M<<1), 0
-    for e in range(M): La[u := rd()] += 1; La[v := rd()] += u!=v; U[e], V[e] = u, v
+    N, M = rd()
+    La, Ra, U, V, Va, t = [0]*N, [0]*N, [0]*M, [0]*M, [0]*(M<<1), 0
+    for e in range(M): U[e], V[e] = rd(); La[U[e]] += 1; La[V[e]] += U[e]!=V[e]; 
     for u, deg in enumerate(La): La[u] = Ra[u] = (t := t + deg)
     for e, u in enumerate(U): La[u] -= 1; La[v := V[e]] -= u!=v; Va[La[u]], Va[La[v]] = v, u
     return N, M, La, Ra, Va
@@ -31,15 +32,15 @@ def biconnected_components(N, M, La, Ra, Va):
                 while u != v: bccs.append(v := buf.pop())
     return bccs, L
 
-from cp_library.ds.elist_fn import elist
-from cp_library.io.fast.fast_io_fn import rd, wt, wtn, fastio
+from cp_library.ds.list.elist_fn import elist
+from cp_library.io.fast_io_fn import rd, wt, wtn
 
 def fast_write_cc(A, L):
     r = len(A); wtn(len(L))
     while L:
-        l = L.pop(); wt(r-l)
-        while l < r: r -= 1; fastio.sb.append(' '); wt(A[r])
-        fastio.sb.append('\n')
+        l = L.pop(); wt(str(r-l))
+        while l < r: r -= 1; wt(' '); wt(str(A[r]))
+        wt('\n')
 
 if __name__ == '__main__':
     main()

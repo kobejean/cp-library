@@ -5,6 +5,7 @@ from types import GenericAlias
 from typing import Callable, Collection
 import cp_library.io.__header__
 from cp_library.io.io_base_cls import IOBase
+from cp_library.io.parsable_cls import Parsable
 
 class Parser:
     def __init__(self, spec):  self.parse = Parser.compile(spec)
@@ -66,10 +67,3 @@ class Parser:
             return Parser.compile_repeat(cls, specs[0], specs[1])
         else:
             raise NotImplementedError()
-class Parsable:
-    @classmethod
-    def compile(cls):
-        def parser(io: IOBase): return cls(next(io))
-        return parser
-    @classmethod
-    def __class_getitem__(cls, item): return GenericAlias(cls, item)

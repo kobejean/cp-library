@@ -1,10 +1,7 @@
 import cp_library.__header__
-from cp_library.io.parser_cls import IOBase
-
 import cp_library.alg.__header__
 import cp_library.alg.tree.__header__
 from cp_library.alg.tree.lca_table_iterative_cls import LCATable
-
 import cp_library.alg.tree.csr.__header__
 from cp_library.alg.tree.csr.tree_weighted_cls import TreeWeighted
 from cp_library.alg.tree.csr.aux_tree_base_cls import AuxTreeBase
@@ -25,3 +22,4 @@ class AuxTree(AuxTreeBase, TreeWeighted):
             return cls(N, U, V, root)
         return parse
 from cp_library.ds.array.u32f_fn import u32f
+from cp_library.io.parser_cls import IOBase

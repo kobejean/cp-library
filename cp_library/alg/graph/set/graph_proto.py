@@ -2,7 +2,7 @@ import cp_library.__header__
 from typing import Iterable, Union, overload
 from collections import deque
 from math import inf
-from cp_library.io.parser_cls import Parsable, Parser, IOBase
+from cp_library.io.parsable_cls import Parsable
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
 from cp_library.alg.graph.dfs_options_cls import DFSFlags, DFSEvent
@@ -11,13 +11,10 @@ import cp_library.alg.graph.set.__header__
 class GraphProtocol(list, Parsable):
     def __init__(G, N: int, E: list = None, adj: Iterable = None):
         G.N = N
-        if E is not None:
-            G.M, G.E = len(E), E
-        if adj is not None:
-            super().__init__(adj)
+        if E is not None: G.M, G.E = len(E), E
+        if adj is not None: super().__init__(adj)
 
-    def neighbors(G, v: int) -> Iterable[int]:
-        return G[v]
+    def neighbors(G, v: int) -> Iterable[int]: return G[v]
     
     def edge_ids(G) -> list[list[int]]: ...
 
@@ -426,4 +423,6 @@ class GraphProtocol(list, Parsable):
             return cls(N, [edge(io) for _ in range(M)])
         return parse
     
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
+from cp_library.io.io_base_cls import IOBase
+from cp_library.io.parser_cls import Parser

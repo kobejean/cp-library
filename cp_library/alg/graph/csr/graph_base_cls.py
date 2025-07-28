@@ -2,7 +2,7 @@ from cp_library.ds.view.view_cls import view
 import cp_library.__header__
 from math import inf
 from typing import Callable, Sequence, Union, overload
-from cp_library.io.parser_cls import Parsable, IOBase
+from cp_library.io.parsable_cls import Parsable
 import cp_library.alg.__header__
 from cp_library.alg.dp.chmin_fn import chmin
 import cp_library.alg.graph.__header__
@@ -262,9 +262,7 @@ class GraphBase(Parsable):
     def compile(cls, N: int, M: int, shift: int = -1):
         def parse(io: IOBase):
             U, V = u32f(M), u32f(M)
-            for i in range(M):
-                u, v = io.readints()
-                U[i], V[i] = u+shift, v+shift
+            for i in range(M): u, v = io.readints(); U[i], V[i] = u+shift, v+shift
             return cls(N, U, V)
         return parse
 from cp_library.bit.masks.u32_max_cnst import u32_max
@@ -272,6 +270,7 @@ from cp_library.bit.masks.i32_max_cnst import i32_max
 from cp_library.ds.array.u8f_fn import u8f
 from cp_library.ds.array.u32f_fn import u32f
 from cp_library.ds.array.i32f_fn import i32f
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 from cp_library.ds.packet_list_cls import PacketList
 from cp_library.ds.que.que_cls import Que
+from cp_library.io.io_base_cls import IOBase

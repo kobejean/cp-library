@@ -16,4 +16,4 @@ class Que012:
         return que.q0.pop()
     def __len__(que): return len(que.q0) + len(que.q1) + len(que.q2)
 
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

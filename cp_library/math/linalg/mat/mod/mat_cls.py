@@ -1,7 +1,7 @@
 import cp_library.__header__
 from typing import Container, Sequence
 from numbers import Number
-from cp_library.io.parser_cls import Parsable, Parser, IOBase
+from cp_library.io.parsable_cls import Parsable
 import cp_library.math.__header__
 import cp_library.math.linalg.__header__
 from cp_library.math.linalg.elm_wise_in_place_mixin import ElmWiseInPlaceMixin
@@ -88,3 +88,5 @@ class Mat(Parsable, Container, ElmWiseInPlaceMixin):
     
     def __repr__(self) -> str:
         return '\n'.join(' '.join(str(elm) for elm in row) for row in self)
+from cp_library.io.io_base_cls import IOBase
+from cp_library.io.parser_cls import Parser

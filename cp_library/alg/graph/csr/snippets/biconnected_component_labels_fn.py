@@ -33,4 +33,4 @@ def biconnected_component_labels(G: GraphBase, s: Union[int,list,None] = None) -
     G.dfs(s, down_fn=down, back_fn=back, up_fn=up)
     return bccs
 two_vertex_connected_component_labels = biconnected_component_labels
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

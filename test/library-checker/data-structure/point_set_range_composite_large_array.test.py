@@ -33,7 +33,7 @@ def main():
 
 from cp_library.alg.iter.rank.irank_multi_fn import irank
 from cp_library.ds.tree.seg.segtree_cls import SegTree
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 from cp_library.bit.pack.pack_enc_fn import pack_enc
 from cp_library.bit.pack.pack_dec_fn import pack_dec
 from cp_library.io.read_fn import read

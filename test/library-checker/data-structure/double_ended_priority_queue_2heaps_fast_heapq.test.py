@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/double_ended_priority_queue
 # modified from abUma: https://judge.yosupo.jp/submission/144329
-from cp_library.ds.reserve_fn import reserve
+from cp_library.ds.list.reserve_fn import reserve
 from cp_library.ds.heap.fast_heapq import heapify_max, heappop, heappop_max, heappush, heapify, heappush_max
 
 class DoubleEndedPriorityQueue:
@@ -34,17 +34,17 @@ class DoubleEndedPriorityQueue:
         heappush(self.mnq, tmp := x << 28 | i)
         heappush_max(self.mxq, tmp)
 
-from cp_library.io.fast.fast_io_fn import rd, rdl, wtn
+from cp_library.io.fast_io_fn import rd, rdl, wtn
 
-N, Q = rd(), rd()
+N, Q = rd()
 S = rdl(N)
 depq = DoubleEndedPriorityQueue(N, Q, S)
 for i in range(Q):
     cmd = rd()
-    if cmd == 0:
-        x = rd()
+    if cmd[0] == 0:
+        x = cmd[1]
         depq.push(x, i + N)
-    elif cmd == 1:
+    elif cmd[0] == 1:
         wtn(depq.pop_min())
     else:
         wtn(depq.pop_max())

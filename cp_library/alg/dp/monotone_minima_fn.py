@@ -36,4 +36,4 @@ def monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):
         st.append((mi+1, ri, mj, rj))
     return min_j
 
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

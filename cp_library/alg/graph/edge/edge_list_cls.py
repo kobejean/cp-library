@@ -1,5 +1,6 @@
 import cp_library.__header__
-from cp_library.io.parser_cls import Parsable, IOBase
+from cp_library.io.parsable_cls import Parsable
+from cp_library.io.io_base_cls import IOBase
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
 
@@ -18,4 +19,4 @@ class EdgeList(Parsable):
         U, V = elist(E.N-1), elist(E.N-1)
         for e in I: U.append(E.U[e]); V.append(E.V[e])
         return E.__class__(E.N, U, V)
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

@@ -12,7 +12,7 @@ import io
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cp_library.perf.benchmark import Benchmark, BenchmarkConfig
-from cp_library.ds.reserve_fn import reserve
+from cp_library.ds.list.reserve_fn import reserve
 
 # Configure benchmark
 config = BenchmarkConfig(

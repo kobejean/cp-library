@@ -1,9 +1,9 @@
 import cp_library.__header__
 from math import isqrt
+from cp_library.io.parsable_cls import Parsable
 import cp_library.alg.__header__
 import cp_library.alg.dp.__header__
 from cp_library.alg.dp.max2_fn import max2
-from cp_library.io.parser_cls import Parsable, Parser, IOBase
 
 class Mo(Parsable):
     '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''
@@ -20,9 +20,7 @@ class Mo(Parsable):
         mo.R = [0]*mo.Q
         for i,j in enumerate(mo.order):
             j &= mo.qmask
-            mo.order[i] = j
-            mo.L[i] = L[j]
-            mo.R[i] = R[j]
+            mo.order[i], mo.L[i], mo.R[i] = j, L[j], R[j]
 
     def packet(mo, i: int, l: int, r: int) -> int:
         b = l//mo.B
@@ -57,7 +55,8 @@ class Mo(Parsable):
         query = Parser.compile(T)
         def parse(io: IOBase):
             L, R = [0]*Q, [0]*Q
-            for i in range(Q):
-                L[i], R[i] = query(io) 
+            for i in range(Q): L[i], R[i] = query(io) 
             return cls(L, R, N)
         return parse
+from cp_library.io.io_base_cls import IOBase
+from cp_library.io.parser_cls import Parser

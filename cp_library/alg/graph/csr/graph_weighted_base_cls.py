@@ -1,4 +1,3 @@
-from cp_library.ds.view.view2_cls import view2
 import cp_library.__header__
 from math import inf
 from typing import overload
@@ -114,4 +113,5 @@ from cp_library.ds.array.i32f_fn import i32f
 from cp_library.ds.array.u32f_fn import u32f
 from cp_library.ds.dsu_cls import DSU
 from cp_library.ds.heap.priority_queue_cls import PriorityQueue
+from cp_library.ds.view.view2_cls import view2
 from cp_library.io.parser_cls import IOBase

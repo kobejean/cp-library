@@ -8,10 +8,10 @@ import os
 import sys
 
 # arguments
-path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py'
+path = '/Users/kobejean/Developer/GitHub/cp-library/test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py'
 basedir = '/Users/kobejean/Developer/GitHub/cp-library'
 
-# run test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+# run test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
 env = dict(os.environ)
 if "PYTHONPATH" in env:
     env["PYTHONPATH"] = basedir + os.pathsep + env["PYTHONPATH"] 

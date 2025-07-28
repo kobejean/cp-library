@@ -1,15 +1,15 @@
-import cp_library.alg.dp.__header__
-from typing import TypeVar, Generic, Container
-from cp_library.io.parser_cls import Parsable, Parser, IOBase
+import cp_library.__header__
+import cp_library.alg.__header__
+from typing import Generic, Container
+from cp_library.io.parsable_cls import Parsable
 from dataclasses import dataclass
 from math import inf
-
-_T = TypeVar('T')
+import cp_library.alg.dp.__header__
+from cp_library.misc.typing import _T
 
 @dataclass
 class Transition2D(Generic[_T]):
-    di: int
-    dj: int
+    di: int; dj: int
     
     def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:
         '''Override this to implement transition logic'''
@@ -39,7 +39,6 @@ class DynamicProgramming2D(Generic[_T], Parsable, Container):
     def __contains__(self, x: object) -> bool:
         return any(x in row for row in self.table)
     
-    
     def solve(self, transitions: list[Transition2D[_T]]) -> None:
         for i in range(self.rows):
             for j in range(self.cols):
@@ -52,6 +51,7 @@ class DynamicProgramming2D(Generic[_T], Parsable, Container):
     @classmethod
     def compile(cls, N, M, T = int):
         table = Parser.compile(list[list[T,M],N])
-        def parse(io: IOBase):
-            return cls(N, M, table(io))
+        def parse(io: IOBase): return cls(N, M, table(io))
         return parse
+from cp_library.io.parser_cls import Parser
+from cp_library.io.io_base_cls import IOBase

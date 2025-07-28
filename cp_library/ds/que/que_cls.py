@@ -10,4 +10,4 @@ class Que:
     def __setitem__(que, i: int, v): que.q[que.h+i] = v
     def __len__(que): return que.q.__len__() - que.h
     def __hash__(que): return hash(tuple(que.q[que.h:]))
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

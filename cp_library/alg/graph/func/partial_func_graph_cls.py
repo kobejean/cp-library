@@ -1,4 +1,4 @@
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 import cp_library.alg.graph.__header__
 
 from cp_library.alg.graph.func.func_graph_cls import FuncGraph

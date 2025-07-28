@@ -26,4 +26,4 @@ class GridGraph(GridGraphWalledBase):
         G.M, G.Ea = len(Ua), u32a(range(G.M))
 from cp_library.ds.array.u32a_fn import u32a
 from cp_library.ds.array.u32f_fn import u32f
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

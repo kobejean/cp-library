@@ -1,6 +1,6 @@
 # verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_3_B
 
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 from cp_library.alg.dp.max2_fn import max2
 from cp_library.alg.dp.min2_fn import min2
 

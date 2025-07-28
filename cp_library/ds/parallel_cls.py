@@ -1,7 +1,8 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 import typing
 from typing import Union
-from cp_library.io.parser_cls import Parsable, Parser, IOBase
+from cp_library.io.parsable_cls import Parsable
+import cp_library.ds.__header__
 
 class Parallel(tuple, Parsable):
     def __new__(cls, N, K=2):
@@ -21,3 +22,5 @@ class Parallel(tuple, Parsable):
                     P[k][i] = parse(io)
             return P
         return parse
+from cp_library.io.parser_cls import Parser
+from cp_library.io.io_base_cls import IOBase

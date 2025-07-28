@@ -38,4 +38,4 @@ from cp_library.alg.graph.csr.digraph_cls import DiGraph
 from cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse
 from cp_library.ds.array.u8f_fn import u8f
 from cp_library.ds.array.u32f_fn import u32f
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

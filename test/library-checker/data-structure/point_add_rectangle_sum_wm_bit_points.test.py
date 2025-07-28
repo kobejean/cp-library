@@ -20,7 +20,7 @@ def main():
     os.write(1, sb.build().encode())
 
 from cp_library.ds.wavelet.wm_bit_points_cls import WMBITPoints
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 
 import sys,os
 from __pypy__ import builders # type: ignore

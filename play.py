@@ -2,7 +2,7 @@
 from random import randrange
 import time
 
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 def lemire_precompute(d, bits=32): s = bits<<1; m = (1<<s)-1; a = (m+d)//d; return a, s, m
 def lemire_divmod(x, d, a, s): q = (a*x)>>s; r = x-q*d; return q, r
 def lemire_div(x, a, s): return (a*x)>>s

@@ -1,5 +1,5 @@
 import cp_library.__header__
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 from cp_library.ds.view.view_cls import view
 import cp_library.math.__header__
 from cp_library.math.conv.subset_deconv_fn import subset_deconv

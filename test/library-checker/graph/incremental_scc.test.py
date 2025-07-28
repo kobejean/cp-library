@@ -1,9 +1,9 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/incremental_scc
 
 def main():
-    N, M = rd(), rd()
+    N, M = rd()
     X, U, V = rdl(N), [0]*M, [0]*M
-    for e in range(M): U[e], V[e] = rd(), rd()
+    for e in range(M): U[e], V[e] = rd()
     W, dsu, ans, mod = scc_incremental(N, M, U, V), [*range(N)], [0]*M, 998244353; cur = t = 0
     for e in argsort_bounded(W,M):
         while t < W[e]: ans[t] = cur; t += 1
@@ -16,7 +16,7 @@ def main():
 
 from cp_library.alg.graph.csr.snippets.scc_incremental_fn import scc_incremental
 from cp_library.alg.iter.arg.argsort_bounded_fn import argsort_bounded
-from cp_library.io.fast.fast_io_fn import rd, rdl, wtnl
+from cp_library.io.fast_io_fn import rd, rdl, wtnl
 
 if __name__ == '__main__':
     main()

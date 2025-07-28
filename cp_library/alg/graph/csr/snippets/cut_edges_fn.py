@@ -28,4 +28,4 @@ def cut_edges(G: GraphBase, s: Union[int,list,None] = None):
     G.dfs(s, enter_fn=enter, back_fn=back, up_fn=up)
     return I
 
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

@@ -1,7 +1,7 @@
 import cp_library.math.table.__header__
 import operator
 from typing import Callable
-from cp_library.ds.reserve_fn import reserve
+from cp_library.ds.list.reserve_fn import reserve
 
 class Primes(list[int]):
     def __init__(P, N: int):

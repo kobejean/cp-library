@@ -1,6 +1,6 @@
 import cp_library.__header__
 import operator
-from cp_library.io.parser_cls import Parsable, IOBase
+from cp_library.io.parsable_cls import Parsable
 import cp_library.ds.__header__
 import cp_library.ds.tree.__header__
 
@@ -85,3 +85,4 @@ class PDSU(Parsable):
                 pdsu.merge(u+shift, v+shift, w)
             return pdsu
         return parse
+from cp_library.io.io_base_cls import IOBase

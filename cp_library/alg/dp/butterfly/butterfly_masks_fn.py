@@ -49,7 +49,6 @@ def popcnts(N):
             P[m^b] = P[m] + 1
     return P
 
-
 def subset_conv(A,B,N):
     assert len(A) == len(B)
     Z = (N+1)*(M := 1<<N)

@@ -30,7 +30,7 @@ def main():
 from cp_library.ds.wavelet.wm_segtree_cls import WMSegTree
 from cp_library.bit.pack.pack_sm_fn import pack_sm
 from cp_library.alg.dp.max2_fn import max2
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 
 def icoord_compress_with_queries(*A: list[int], distinct=False):
     N = mx = 0

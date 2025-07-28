@@ -1,7 +1,7 @@
 # verification-helper: PROBLEM https://judge.yosupo.jp/problem/rooted_tree_isomorphism_classification
 
 def main():
-    N = rd()
+    N, = rd()
     P = rdl(N-1)
     if all(i == p for i,p in enumerate(P)):
         wtn(N)
@@ -44,7 +44,7 @@ def gen(N: int):
     return H
 
 from cp_library.alg.iter.rev_enumerate_fn import rev_enumerate
-from cp_library.io.fast.fast_io_fn import rd, rdl, wtn, wtnl
+from cp_library.io.fast_io_fn import rd, rdl, wtn, wtnl
 
 if __name__ == '__main__':
     main()

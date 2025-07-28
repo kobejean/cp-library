@@ -21,21 +21,22 @@ def strongly_connected_components(N, M, La, Ra, Va):
 def main():
     N, M, La, Ra, Va = read_csr_graph()
     sccs = strongly_connected_components(N, M, La, Ra, Va)
-    Q = rd()
+    Q, = rd()
     for _ in range(Q):
-        u, v = rd(), rd()
-        wtn(int(sccs[u]==sccs[v]))
+        u, v = rd()
+        wt('1\n' if sccs[u]==sccs[v] else '0\n')
 
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 
 def read_csr_graph():
-    La, Ra, U, V, Va, t = [0]*(N:=rd()), [0]*N, [0]*(M:=rd()), [0]*M, [0]*M, 0
-    for e in range(M): La[u := rd()] += 1; U[e], V[e] = u, rd()
+    N, M = rd()
+    La, Ra, U, V, Va, t = [0]*N, [0]*N, [0]*M, [0]*M, [0]*M, 0
+    for e in range(M): U[e], V[e] = rd(); La[U[e]] += 1
     for u, deg in enumerate(La): La[u] = Ra[u] = (t := t + deg)
     for e, u in enumerate(U): La[u] -= 1; Va[La[u]] = V[e]
     return N, M, La, Ra, Va
 
-from cp_library.io.fast.fast_io_fn import rd, wt, wtn, fastio
+from cp_library.io.fast_io_fn import rd, wt
 
 if __name__ == '__main__':
     main()

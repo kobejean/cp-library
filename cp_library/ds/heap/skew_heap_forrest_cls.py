@@ -3,7 +3,7 @@ import operator
 from typing import Generic
 from cp_library.misc.typing import _T
 import cp_library.ds.__header__
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 import cp_library.ds.heap.__header__
 
 class SkewHeapForrest(Generic[_T]):

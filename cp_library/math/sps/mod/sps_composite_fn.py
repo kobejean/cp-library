@@ -1,6 +1,6 @@
 import cp_library.__header__
 from cp_library.bit.popcnts_fn import popcnts
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
 from cp_library.ds.view.view_cls import view
 import cp_library.math.__header__
 from cp_library.math.conv.ior_zeta_fn import ior_zeta

@@ -19,4 +19,4 @@ class MaxPriorityQueue(HeapProtocol[int]):
     def pushpop(que, priority: int, id: int): return que.pkr.dec(heappushpop_max(que.data, que.pkr.enc(priority, id)))
     def replace(que, priority: int, id: int): return que.pkr.dec(heapreplace_max(que.data, que.pkr.enc(priority, id)))
     def peek(que): return que.pkr.dec(que.data[0])
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist

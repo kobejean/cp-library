@@ -1,7 +1,7 @@
 import cp_library.__header__
 from typing import Union
-from cp_library.io.parser_cls import Parser, Parsable, IOBase
 from cp_library.misc.typing import _T
+from cp_library.io.parsable_cls import Parsable
 import cp_library.ds.__header__
 import cp_library.ds.heap.__header__
 from cp_library.ds.heap.heap_proto import HeapProtocol
@@ -34,3 +34,5 @@ class KHeapMixin(HeapProtocol[_T], Parsable):
         else:
             def parse(io: IOBase): return cls(K, (elm(io) for _ in range(N)))
         return parse
+from cp_library.io.io_base_cls import IOBase
+from cp_library.io.parser_cls import Parser

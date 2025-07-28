@@ -1,7 +1,7 @@
+from cp_library.io.parsable_cls import Parsable
 import cp_library.__header__
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
-from cp_library.io.parser_cls import Parsable, Parser
 
 class FuncGraph(list[int], Parsable):
     def __init__(F, successors):
@@ -42,8 +42,8 @@ class FuncGraph(list[int], Parsable):
     @classmethod
     def compile(cls, N: int, shift = -1):
         return Parser.compile_repeat(cls, shift, N)
-
 from cp_library.alg.iter.crf_list_cls import CRFList
 from cp_library.alg.iter.roll_fn import roll
 from cp_library.ds.array.u8f_fn import u8f
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
+from cp_library.io.parser_cls import Parser

@@ -66,4 +66,5 @@ class DiGraphWeightedMeta(DiGraphWeighted):
                 return cls(N, U, V, W, X, Y, Z)
         return parse
 from cp_library.ds.array.u32f_fn import u32f
-from cp_library.io.parser_cls import Parser, IOBase
+from cp_library.io.parser_cls import Parser
+from cp_library.io.io_base_cls import IOBase

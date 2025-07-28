@@ -1,7 +1,7 @@
 import cp_library.ds.__header__
 from math import prod
 from typing import Container, Iterable
-from cp_library.io.parser_cls import Parsable, Parser, IOBase
+from cp_library.io.parsable_cls import Parsable
 
 class grid2d(Parsable, Container):
 
@@ -38,3 +38,5 @@ class grid2d(Parsable, Container):
     def __repr__(self) -> str:
         (N, M), data = self.shape, self.data
         return '\n'.join(' '.join(str(data[j]) for j in range(i,i+M)) for i in range(0,N*M,M))
+from cp_library.io.parser_cls import Parser
+from cp_library.io.io_base_cls import IOBase

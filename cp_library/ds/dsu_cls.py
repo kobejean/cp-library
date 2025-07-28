@@ -1,5 +1,5 @@
 import cp_library.__header__
-from cp_library.io.parser_cls import Parsable, IOBase
+from cp_library.io.parsable_cls import Parsable
 import cp_library.ds.__header__
 
 class DSU(Parsable):
@@ -38,3 +38,4 @@ class DSU(Parsable):
             return dsu
         return parse_fn
 from cp_library.ds.csr.csr_incremental_cls import CSRIncremental
+from cp_library.io.io_base_cls import IOBase

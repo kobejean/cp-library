@@ -2,7 +2,7 @@
 
 def main():
     mod = 998244353
-    n = rd()
+    n, = rd()
     a = rdl(1 << n)
     b = rdl(1 << n)
     wtnl(subset_conv(a, b, n, mod))
@@ -25,6 +25,6 @@ def subset_conv(A,B,N,mod):
     for i,p in enumerate(P): A[i] = Cr[p<<N|i] % mod
     return A
 
-from cp_library.io.fast.fast_io_fn import rd, rdl, wtnl
+from cp_library.io.fast_io_fn import rd, rdl, wtnl
 
 main()

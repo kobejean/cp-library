@@ -1,9 +1,9 @@
-import cp_library.ds.__header__
-from cp_library.io.parser_cls import Parsable, Parser, IOBase
-from cp_library.ds.elist_fn import elist
-
+import cp_library.__header__
 from enum import IntFlag, auto
 from math import isqrt
+from cp_library.io.parsable_cls import Parsable
+import cp_library.ds.__header__
+from cp_library.ds.list.elist_fn import elist
 
 class MoOp(IntFlag):
     ADD_LEFT = auto()
@@ -37,7 +37,6 @@ class QueriesMoOps(tuple[list[int], ...],Parsable):
     
     Uses half-interval convention: [left, right)
     '''
-    
     def __new__(cls, L: list[int], R: list[int], N: int, B: int = None):
         Q = len(L)
         qbits = Q.bit_length()
@@ -58,46 +57,16 @@ class QueriesMoOps(tuple[list[int], ...],Parsable):
         #     h = hilbert(l, r, n)
         #     order[i] = (h << qbits) + i
         order.sort()
-        
-        ops = elist(3*Q)
-        A1 = elist(3*Q)
-        A2 = elist(3*Q)
-        A3 = elist(3*Q)
-
+        ops = elist(3*Q); A1 = elist(3*Q); A2 = elist(3*Q); A3 = elist(3*Q)
         nl = nr = 0
-        
         for i in order:
             i &= qmask
             l, r = L[i], R[i]
-            if l < nl:
-                ops.append(MoOp.ADD_LEFT)
-                A1.append(nl-1)
-                A2.append(l-1)
-                A3.append(-1)
-                
-            elif l > nl:
-                ops.append(MoOp.REMOVE_LEFT)
-                A1.append(nl)
-                A2.append(l)
-                A3.append(1)
-                
-            if r > nr:
-                ops.append(MoOp.ADD_RIGHT)
-                A1.append(nr)
-                A2.append(r)
-                A3.append(1)
-                
-            elif r < nr:
-                ops.append(MoOp.REMOVE_RIGHT)
-                A1.append(nr-1)
-                A2.append(r-1)
-                A3.append(-1)
-                
-            ops.append(MoOp.ANSWER)
-            A1.append(i)
-            A2.append(l)
-            A3.append(r)
-            
+            if l < nl: ops.append(MoOp.ADD_LEFT); A1.append(nl-1); A2.append(l-1); A3.append(-1)
+            elif l > nl: ops.append(MoOp.REMOVE_LEFT); A1.append(nl); A2.append(l); A3.append(1)
+            if r > nr: ops.append(MoOp.ADD_RIGHT); A1.append(nr); A2.append(r); A3.append(1)
+            elif r < nr: ops.append(MoOp.REMOVE_RIGHT); A1.append(nr-1); A2.append(r-1); A3.append(-1)
+            ops.append(MoOp.ANSWER); A1.append(i); A2.append(l); A3.append(r)
             nl, nr = l, r
         return super().__new__(cls, (ops, A1, A2, A3))
 
@@ -107,16 +76,15 @@ class QueriesMoOps(tuple[list[int], ...],Parsable):
             query = Parser.compile(T)
             def parse(io: IOBase):
                 L, R = [0]*Q, [0]*Q
-                for i in range(Q):
-                    L[i], R[i] = io.readints()
-                    L[i] -= 1
+                for i in range(Q): L[i], R[i] = io.readints(); L[i] -= 1
                 return cls(L, R, N, B)
             return parse
         else:
             query = Parser.compile(T)
             def parse(io: IOBase):
                 L, R = [0]*Q, [0]*Q
-                for i in range(Q):
-                    L[i], R[i] = query(io)
+                for i in range(Q): L[i], R[i] = query(io)
                 return cls(L, R, N, B)
             return parse
+from cp_library.io.parser_cls import Parser
+from cp_library.io.io_base_cls import IOBase

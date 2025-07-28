@@ -1,7 +1,7 @@
 import cp_library.__header__
 from cp_library.bit.masks.i64_max_cnst import i64_max
 import cp_library.ds.__header__
-from cp_library.ds.reserve_fn import reserve
+from cp_library.ds.list.reserve_fn import reserve
 import cp_library.ds.tree.__header__
 import cp_library.ds.tree.bst.__header__
 

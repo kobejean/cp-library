@@ -27,6 +27,6 @@ def fps_exp(P: list) -> list:
         p <<= 1
     return R[:deg]
 
-from cp_library.ds.reserve_fn import reserve
+from cp_library.ds.list.reserve_fn import reserve
 from cp_library.math.table.mcomb_cls import mcomb
 from cp_library.math.mod.mint_ntt_cls import mint

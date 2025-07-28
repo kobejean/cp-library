@@ -33,4 +33,4 @@ def block_cut_tree(G: GraphBase, s: Union[int,list,None] = None) -> 'Tree':
     return Tree(bid+1, U, V)
 
 from cp_library.alg.tree.csr.tree_cls import Tree
-from cp_library.ds.elist_fn import elist
+from cp_library.ds.list.elist_fn import elist
