@@ -26,6 +26,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -153,14 +156,14 @@ data:
     \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
     \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
     \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
-    \ enumerate(A): A[i] = P.m&a\n\n\ndef max2(a, b):\n    return a if a > b else\
-    \ b\n\n\ndef icoord_compress_with_queries(*A: list[int], x=0, distinct=False):\n\
-    \    N = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si,\
-    \ mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n\
-    \    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai): S[k]=a << sj\
-    \ | i << si | j; k += 1\n    S.sort(); r = p = -1\n    for aji in S:\n       \
-    \ a, i, j = aji >> sj, (aji&mj) >> si , aji & mi\n        if x<=i and (distinct\
-    \ or a != p): r = r+1; p = a\n        A[i][j] = r+(i<x)\n    return A\ndef pack_sm(N:\
+    \ enumerate(A): A[i] = P.m&a\n\n\ndef max2(a, b): return a if a > b else b\n\n\
+    \ndef icoord_compress_with_queries(*A: list[int], x=0, distinct=False):\n    N\
+    \ = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si, mi\
+    \ = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n   \
+    \ for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai): S[k]=a << sj |\
+    \ i << si | j; k += 1\n    S.sort(); r = p = -1\n    for aji in S:\n        a,\
+    \ i, j = aji >> sj, (aji&mj) >> si , aji & mi\n        if x<=i and (distinct or\
+    \ a != p): r = r+1; p = a\n        A[i][j] = r+(i<x)\n    return A\ndef pack_sm(N:\
     \ int): s=N.bit_length(); return s,(1<<s)-1\n\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
@@ -236,16 +239,19 @@ data:
     \ char=False):\n    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nimport typing\nfrom numbers import Number\nfrom types\
-    \ import GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n\
-    \    def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ import GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -271,10 +277,8 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\nif __name__ == \"__main__\":\n    main()\n"
+    \        else:\n            raise NotImplementedError()\n\nif __name__ == \"__main__\"\
+    :\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/static_rectangle_add_rectangle_sum\n\
     \ndef main():\n    mod, s, m = 998244353, 31, (1 << 31)-1\n    N, Q = read()\n\
     \    N4, Q4 = N<<2, Q<<2\n    X, Y, V, W = [0]*N4,[0]*N4,[0]*N4,[0]*N4\n    Xq,\
@@ -310,10 +314,11 @@ data:
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/io_base_cls.py
+  - cp_library/io/parsable_cls.py
   isVerificationFile: true
   path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py

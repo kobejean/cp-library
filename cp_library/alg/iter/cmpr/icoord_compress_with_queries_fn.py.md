@@ -23,7 +23,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\ndef max2(a, b):\n    return a if a > b else b\n\n\n\ndef icoord_compress_with_queries(*A:\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\n\n\ndef icoord_compress_with_queries(*A:\
     \ list[int], x=0, distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai);\
     \ mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n\
     \    S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai):\
@@ -47,7 +47,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/cmpr/icoord_compress_with_queries_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py

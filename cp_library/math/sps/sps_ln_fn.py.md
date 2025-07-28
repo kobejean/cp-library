@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/popcnts_fn.py
     title: cp_library/bit/popcnts_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -43,7 +43,7 @@ data:
     \    \n\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    import sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
     \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
     \ def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l,\
@@ -131,7 +131,7 @@ data:
     \ = view(P), view(P); m = 1; ln = elist(1 << N); ln.append(0)\n    for n in range(N):\
     \ P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P0,\
     \ P1, n))\n    return ln\n"
-  code: "import cp_library.__header__\nfrom cp_library.ds.elist_fn import elist\n\
+  code: "import cp_library.__header__\nfrom cp_library.ds.list.elist_fn import elist\n\
     from cp_library.ds.view.view_cls import view\nimport cp_library.math.__header__\n\
     from cp_library.math.conv.subset_deconv_fn import subset_deconv\nimport cp_library.math.sps.__header__\n\
     \ndef sps_ln(P):\n    assert P[0] == 1\n    N = len(P).bit_length()-1; P0, P1\
@@ -139,7 +139,7 @@ data:
     \ P0.set_range(0, m); P1.set_range(m, m := m<<1); ln.extend(subset_deconv(P0,\
     \ P1, n))\n    return ln"
   dependsOn:
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/view/view_cls.py
   - cp_library/math/conv/subset_deconv_fn.py
   - cp_library/ds/list/list_find_fn.py
@@ -150,7 +150,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/sps_ln_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/sps_ln_fn.py

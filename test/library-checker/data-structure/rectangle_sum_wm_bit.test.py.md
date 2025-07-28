@@ -229,8 +229,8 @@ data:
     \       def build(L,W:list[int]):super().build();L.W=BIT(W[:])\n        def sum(L,l:int,r:int):return\
     \ L.W.sum_range(l,r)\n    def _build_base(wm,W):wm.W=BIT(W[:])\n    def _sum_range(wm,l,r):return\
     \ wm.W.sum_range(l,r)\n    def add(wm,i:int,w:int):\n        wm.W.add(i,w)\n \
-    \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\n\ndef max2(a, b):\n  \
-    \  return a if a > b else b\n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\
+    \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\n\ndef max2(a, b): return\
+    \ a if a > b else b\n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\
     \ndef icoord_compress_multi(*A: list[int], distinct=False):\n    N = mx = 0\n\
     \    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1);\
     \ sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n\
@@ -274,7 +274,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_bit.test.py

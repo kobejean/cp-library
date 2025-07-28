@@ -14,6 +14,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -53,8 +56,8 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b):\n    return a\
-    \ if a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
+    \ > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
     \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
     \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
     \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
@@ -115,16 +118,19 @@ data:
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
-    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -150,19 +156,16 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\nfrom typing import TypeVar,\
-    \ Generic, Container\nfrom dataclasses import dataclass\nfrom math import inf\n\
-    \n_T = TypeVar('T')\n\n@dataclass\nclass Transition2D(Generic[_T]):\n    di: int\n\
-    \    dj: int\n    \n    def __call__(self, i: int, j: int, src: _T, dest: _T)\
-    \ -> _T:\n        '''Override this to implement transition logic'''\n        return\
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    from typing import Generic, Container\nfrom dataclasses import dataclass\nfrom\
+    \ math import inf\n\n@dataclass\nclass Transition2D(Generic[_T]):\n    di: int;\
+    \ dj: int\n    \n    def __call__(self, i: int, j: int, src: _T, dest: _T) ->\
+    \ _T:\n        '''Override this to implement transition logic'''\n        return\
     \ src  # Default no-op\n    \n    @classmethod\n    def make(cls, func):\n   \
     \     class Transition(cls):\n            def __call__(self, i: int, j: int, src:\
     \ _T, dest: _T) -> _T:\n                return func(i,j,src,dest)\n        return\
@@ -174,20 +177,20 @@ data:
     \    \n    def __setitem__(self, pos: tuple[int, int], value: _T) -> None:\n \
     \       i, j = pos\n        self.table[i][j] = value\n\n    def __contains__(self,\
     \ x: object) -> bool:\n        return any(x in row for row in self.table)\n  \
-    \  \n    \n    def solve(self, transitions: list[Transition2D[_T]]) -> None:\n\
-    \        for i in range(self.rows):\n            for j in range(self.cols):\n\
-    \                curr_val = self.table[i][j]\n                for trans in transitions:\n\
+    \  \n    def solve(self, transitions: list[Transition2D[_T]]) -> None:\n     \
+    \   for i in range(self.rows):\n            for j in range(self.cols):\n     \
+    \           curr_val = self.table[i][j]\n                for trans in transitions:\n\
     \                    ni, nj = i + trans.di, j + trans.dj\n                   \
     \ if 0 <= ni < self.rows and 0 <= nj < self.cols:\n                        self.table[ni][nj]\
     \ = trans(i, j, curr_val, self.table[ni][nj])\n    \n    @classmethod\n    def\
     \ compile(cls, N, M, T = int):\n        table = Parser.compile(list[list[T,M],N])\n\
-    \        def parse(io: IOBase):\n            return cls(N, M, table(io))\n   \
-    \     return parse\n\n\n@dataclass\nclass Match(Transition2D[int]):\n    A: list[int]\n\
-    \    B: list[int]\n\n    def __call__(self, i: int, j: int, src_val: int, dest_val:\
-    \ int) -> int:\n        return min(dest_val, src_val + (self.A[i] != self.B[j]))\n\
-    \nclass Edit(Transition2D[int]):\n    def __call__(self, i: int, j: int, src_val:\
-    \ int, dest_val: int) -> int:\n        return min(dest_val, src_val + 1)\n   \
-    \ \nif __name__ == \"__main__\":\n    main()\n"
+    \        def parse(io: IOBase): return cls(N, M, table(io))\n        return parse\n\
+    \n\n@dataclass\nclass Match(Transition2D[int]):\n    A: list[int]\n    B: list[int]\n\
+    \n    def __call__(self, i: int, j: int, src_val: int, dest_val: int) -> int:\n\
+    \        return min(dest_val, src_val + (self.A[i] != self.B[j]))\n\nclass Edit(Transition2D[int]):\n\
+    \    def __call__(self, i: int, j: int, src_val: int, dest_val: int) -> int:\n\
+    \        return min(dest_val, src_val + 1)\n    \nif __name__ == \"__main__\"\
+    :\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc185/tasks/abc185_e\n\
     \ndef main():\n    N, M = read(int, int)\n    A = read(list[int,N])\n    B = read(list[int,M])\n\
     \    \n    dp = DynamicProgramming2D(N+1, M+1)\n    dp[0,0] = 0\n    \n    transitions\
@@ -207,12 +210,13 @@ data:
   - cp_library/alg/dp/dp2d_cls.py
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/alg/dp/max2_fn.py
+  - cp_library/io/parsable_cls.py
   - cp_library/io/io_base_cls.py
+  - cp_library/alg/dp/max2_fn.py
   isVerificationFile: true
   path: test/atcoder/abc/abc185_e_dp2d.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc185_e_dp2d.test.py

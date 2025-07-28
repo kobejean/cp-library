@@ -14,6 +14,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -40,10 +43,35 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\nfrom math\
-    \ import isqrt\n\n\n\ndef max2(a, b):\n    return a if a > b else b\nimport typing\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection\n\n\nclass IOBase:\n    @property\n    def char(io) ->\
-    \ bool: ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
+    \ import isqrt\nfrom types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n\
+    \    def compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n\
+    \        return parser\n    @classmethod\n    def __class_getitem__(cls, item):\
+    \ return GenericAlias(cls, item)\n\n\n\ndef max2(a, b): return a if a > b else\
+    \ b\n\nclass Mo(Parsable):\n    '''Mo[Q: int, N: int, T: type = tuple[int, int]]'''\n\
+    \    def __init__(mo, L: list[int], R: list[int], N: int):\n        mo.Q = len(L)\n\
+    \        mo.qbits = mo.Q.bit_length()\n        mo.nbits = N.bit_length()\n   \
+    \     mo.qmask = (1 << mo.qbits) - 1\n        mo.nmask = (1 << mo.nbits) - 1\n\
+    \        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))\n        mo.order = [mo.packet(i,\
+    \ L[i], R[i]) for i in range(mo.Q)]\n        mo.order.sort()\n        mo.L = [0]*mo.Q\n\
+    \        mo.R = [0]*mo.Q\n        for i,j in enumerate(mo.order):\n          \
+    \  j &= mo.qmask\n            mo.order[i], mo.L[i], mo.R[i] = j, L[j], R[j]\n\n\
+    \    def packet(mo, i: int, l: int, r: int) -> int:\n        b = l//mo.B\n   \
+    \     if b & 1: r = mo.nmask - r\n        return (b << mo.nbits | r) << mo.qbits\
+    \ | i\n\n    def add(mo, i: int):\n        '''Add element at index i to current\
+    \ range.'''\n        pass\n\n    def remove(mo, i: int):\n        '''Remove element\
+    \ at index i from current range.'''\n        pass\n\n    def answer(mo, i: int,\
+    \ l: int, r: int) -> int:\n        '''Compute answer for current range.'''\n \
+    \       pass\n    \n    def solve(mo) -> list[int]:\n        ans = [0]*mo.Q; l\
+    \ = r = 0\n        for i in range(mo.Q):\n            qid, nl, nr = mo.order[i],\
+    \ mo.L[i], mo.R[i]\n            while r < nr: mo.add(r); r += 1\n            while\
+    \ nl < l: mo.add(l:=l-1)\n            while l < nl: mo.remove(l); l += 1\n   \
+    \         while nr < r: mo.remove(r:=r-1)\n            ans[qid] = mo.answer(qid,\
+    \ l, r)\n        return ans\n\n    @classmethod\n    def compile(cls, Q: int,\
+    \ N: int, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n    \
+    \    def parse(io: IOBase):\n            L, R = [0]*Q, [0]*Q\n            for\
+    \ i in range(Q): L[i], R[i] = query(io) \n            return cls(L, R, N)\n  \
+    \      return parse\n\nclass IOBase:\n    @property\n    def char(io) -> bool:\
+    \ ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
     \ -> str: ...\n    def write(io, s: str) -> None: ...\n    def readline(io) ->\
     \ str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]:\
     \ ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
@@ -53,8 +81,9 @@ data:
     \ lst: list[str]) -> list[str]: ...\n    def readintsinto(io, lst: list[int])\
     \ -> list[int]: ...\n    def readdigitsinto(io, lst: list[int]) -> list[int]:\
     \ ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n    def wait(io):\
-    \ ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]: ...\n\n\
-    class Parser:\n    def __init__(self, spec):  self.parse = Parser.compile(spec)\n\
+    \ ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]: ...\nimport\
+    \ typing\nfrom numbers import Number\nfrom typing import Callable, Collection\n\
+    \nclass Parser:\n    def __init__(self, spec):  self.parse = Parser.compile(spec)\n\
     \    def __call__(self, io: IOBase): return self.parse(io)\n    @staticmethod\n\
     \    def compile_type(cls, args = ()):\n        if issubclass(cls, Parsable):\
     \ return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n  \
@@ -88,34 +117,8 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\nclass Mo(Parsable):\n    '''Mo[Q: int,\
-    \ N: int, T: type = tuple[int, int]]'''\n    def __init__(mo, L: list[int], R:\
-    \ list[int], N: int):\n        mo.Q = len(L)\n        mo.qbits = mo.Q.bit_length()\n\
-    \        mo.nbits = N.bit_length()\n        mo.qmask = (1 << mo.qbits) - 1\n \
-    \       mo.nmask = (1 << mo.nbits) - 1\n        mo.B = max2(1,N//isqrt(max2(1,mo.Q)))\n\
-    \        mo.order = [mo.packet(i, L[i], R[i]) for i in range(mo.Q)]\n        mo.order.sort()\n\
-    \        mo.L = [0]*mo.Q\n        mo.R = [0]*mo.Q\n        for i,j in enumerate(mo.order):\n\
-    \            j &= mo.qmask\n            mo.order[i] = j\n            mo.L[i] =\
-    \ L[j]\n            mo.R[i] = R[j]\n\n    def packet(mo, i: int, l: int, r: int)\
-    \ -> int:\n        b = l//mo.B\n        if b & 1: r = mo.nmask - r\n        return\
-    \ (b << mo.nbits | r) << mo.qbits | i\n\n    def add(mo, i: int):\n        '''Add\
-    \ element at index i to current range.'''\n        pass\n\n    def remove(mo,\
-    \ i: int):\n        '''Remove element at index i from current range.'''\n    \
-    \    pass\n\n    def answer(mo, i: int, l: int, r: int) -> int:\n        '''Compute\
-    \ answer for current range.'''\n        pass\n    \n    def solve(mo) -> list[int]:\n\
-    \        ans = [0]*mo.Q; l = r = 0\n        for i in range(mo.Q):\n          \
-    \  qid, nl, nr = mo.order[i], mo.L[i], mo.R[i]\n            while r < nr: mo.add(r);\
-    \ r += 1\n            while nl < l: mo.add(l:=l-1)\n            while l < nl:\
-    \ mo.remove(l); l += 1\n            while nr < r: mo.remove(r:=r-1)\n        \
-    \    ans[qid] = mo.answer(qid, l, r)\n        return ans\n\n    @classmethod\n\
-    \    def compile(cls, Q: int, N: int, T: type = tuple[-1, int]):\n        query\
-    \ = Parser.compile(T)\n        def parse(io: IOBase):\n            L, R = [0]*Q,\
-    \ [0]*Q\n            for i in range(Q):\n                L[i], R[i] = query(io)\
-    \ \n            return cls(L, R, N)\n        return parse\nfrom typing import\
-    \ Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \        else:\n            raise NotImplementedError()\nfrom typing import Type,\
+    \ Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
     \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
     \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n@overload\n\
     def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
@@ -205,14 +208,15 @@ data:
   - cp_library/alg/dp/mo_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/dp/max2_fn.py
+  - cp_library/io/io_base_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/io_cls.py
-  - cp_library/io/io_base_cls.py
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_mo.test.py

@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/bst_cls.py
     title: cp_library/ds/tree/bst/bst_cls.py
@@ -99,7 +99,7 @@ data:
     \            T._p(i)\n            i,T.sub[s]=T.sub[s:=i<<1|(i!=T.r and T.K[i]<k)],n\n\
     \            if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _node_str(T, i): return f\"\
     {T.K[i]}:{T.V[i]}\"\n    @classmethod\n    def reserve(cls,hint):super(Treap,cls).reserve(hint);reserve(cls.V,hint+1)\n"
-  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.reserve_fn\
     \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
     from cp_library.ds.tree.bst.bst_cls import BST\nfrom cp_library.ds.tree.bst.cartesian_tree_cls\
     \ import CartesianTree\n\nclass Treap(CartesianTree):\n    __slots__='e'\n   \
@@ -114,7 +114,7 @@ data:
     \            if~i:T._sp(i,k,n<<1,n<<1|1)\n    def _node_str(T, i): return f\"\
     {T.K[i]}:{T.V[i]}\"\n    @classmethod\n    def reserve(cls,hint):super(Treap,cls).reserve(hint);reserve(cls.V,hint+1)"
   dependsOn:
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/ds/tree/bst/bst_cls.py
   - cp_library/ds/tree/bst/cartesian_tree_cls.py
   - cp_library/bit/masks/i64_max_cnst.py
@@ -126,7 +126,7 @@ data:
   - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
   - cp_library/ds/tree/bst/treap_implicit_cls.py
   - cp_library/ds/tree/bst/treap_reversible_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py

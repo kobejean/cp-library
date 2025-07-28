@@ -14,8 +14,8 @@ data:
     path: cp_library/ds/array/u32f_fn.py
     title: cp_library/ds/array/u32f_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
@@ -230,9 +230,9 @@ data:
     \       def build(L,W:list[int]):super().build();L.W=BIT(W[:])\n        def sum(L,l:int,r:int):return\
     \ L.W.sum_range(l,r)\n    def _build_base(wm,W):wm.W=BIT(W[:])\n    def _sum_range(wm,l,r):return\
     \ wm.W.sum_range(l,r)\n    def add(wm,i:int,w:int):\n        wm.W.add(i,w)\n \
-    \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\n\ndef max2(a, b):\n  \
-    \  return a if a > b else b\n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\n\ndef max2(a, b): return\
+    \ a if a > b else b\n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\
+    \n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
     except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
     \    \n\ndef read_compressed_problem():\n    N, Q = map(int, input().split())\n\
     \    N4 = N<<2\n    Xn, Yn, Wn = [0]*N4, [0]*N4, [0]*N4\n    for i in range(N):\n\
@@ -266,7 +266,7 @@ data:
     \ Wq[q]); wm.add(Xq[q:=q+1], Wq[q])\n        else:\n            append(str(wm.sum_corner(Xp[p:=p+1],\
     \ Yp[p]))); append('\\n')\n    os.write(1, sb.build().encode())\n\nfrom cp_library.ds.wavelet.wm_bit_cls\
     \ import WMBIT\nfrom cp_library.alg.dp.max2_fn import max2\nfrom cp_library.bit.pack.pack_sm_fn\
-    \ import pack_sm\nfrom cp_library.ds.elist_fn import elist\n\ndef read_compressed_problem():\n\
+    \ import pack_sm\nfrom cp_library.ds.list.elist_fn import elist\n\ndef read_compressed_problem():\n\
     \    N, Q = map(int, input().split())\n    N4 = N<<2\n    Xn, Yn, Wn = [0]*N4,\
     \ [0]*N4, [0]*N4\n    for i in range(N):\n        l, d, r, u, w = map(int, input().split())\n\
     \        Xn[i:=i<<2], Yn[i], Wn[i] = l, d, w\n        Xn[i:=i+1], Yn[i], Wn[i]\
@@ -295,7 +295,7 @@ data:
   - cp_library/ds/wavelet/wm_bit_cls.py
   - cp_library/alg/dp/max2_fn.py
   - cp_library/bit/pack/pack_sm_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/tree/bit/bit_cls.py
   - cp_library/ds/wavelet/wm_weighted_cls.py
   - cp_library/ds/wavelet/wm_static_cls.py
@@ -305,7 +305,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_add_point_get_wm_bit.test.py

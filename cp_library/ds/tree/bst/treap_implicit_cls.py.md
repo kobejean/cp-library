@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/bst_cls.py
     title: cp_library/ds/tree/bst/bst_cls.py
@@ -171,7 +171,7 @@ data:
     \            else:T.sub[r]=i;i=T.sub[r:=i<<1];T.st.append(r)\n        T.sub[l]=T.sub[r]=-1\n\
     \    def _s(T,s,k,v):T.V[i:=T._t(s,k)]=v;T.st.append(i<<1)\n    def _node_str(T,\
     \ i): return f\"{T.V[i]}\"\n    @classmethod\n    def reserve(cls,sz):CartesianTreeImplicit.reserve.__call__(sz);reserve(cls.V,sz+1)\n"
-  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.reserve_fn\
     \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
     from cp_library.ds.tree.bst.cartesian_tree_implicit_cls import CartesianTreeImplicit\n\
     from cp_library.ds.tree.bst.treap_sized_cls import TreapSized\n\nclass TreapImplicit(TreapSized,CartesianTreeImplicit):\n\
@@ -187,7 +187,7 @@ data:
     \    def _s(T,s,k,v):T.V[i:=T._t(s,k)]=v;T.st.append(i<<1)\n    def _node_str(T,\
     \ i): return f\"{T.V[i]}\"\n    @classmethod\n    def reserve(cls,sz):CartesianTreeImplicit.reserve.__call__(sz);reserve(cls.V,sz+1)"
   dependsOn:
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/ds/tree/bst/cartesian_tree_implicit_cls.py
   - cp_library/ds/tree/bst/treap_sized_cls.py
   - cp_library/ds/tree/bst/bst_implicit_cls.py
@@ -203,7 +203,7 @@ data:
   requiredBy:
   - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
   - cp_library/ds/tree/bst/treap_reversible_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/range_reverse_range_sum.test.py

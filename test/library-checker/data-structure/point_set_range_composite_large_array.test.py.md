@@ -17,8 +17,8 @@ data:
     path: cp_library/bit/pack/packer3_cls.py
     title: cp_library/bit/pack/packer3_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/seg/segtree_cls.py
     title: cp_library/ds/tree/seg/segtree_cls.py
@@ -28,6 +28,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -64,10 +67,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n\n\ndef max2(a, b):\n    return a if a > b else b\n\n\
-    \n\ndef irank(*A: list[int], distinct = False):\n    N = mxj = 0\n    for Ai in\
-    \ A: N += len(Ai); mxj = max2(mxj, len(Ai))\n    P = Packer3(len(A)-1, mxj); V\
-    \ = P.enumerate(A, N); V.sort()\n    if distinct:\n        for r,aij in enumerate(V):a,i,j=P.dec(aij);A[i][j],V[r]=r,a\n\
+    \               \n'''\n\n\n\ndef max2(a, b): return a if a > b else b\n\n\n\n\
+    def irank(*A: list[int], distinct = False):\n    N = mxj = 0\n    for Ai in A:\
+    \ N += len(Ai); mxj = max2(mxj, len(Ai))\n    P = Packer3(len(A)-1, mxj); V =\
+    \ P.enumerate(A, N); V.sort()\n    if distinct:\n        for r,aij in enumerate(V):a,i,j=P.dec(aij);A[i][j],V[r]=r,a\n\
     \    elif V:\n        r, p = -1, V[-1]+1 # set p to unique value to trigger `if\
     \ a != p` on first elm\n        for aij in V:\n            a,i,j=P.dec(aij)\n\
     \            if a!=p:V[r:=r+1]=p=a\n            A[i][j]=r\n        del V[r+1:]\n\
@@ -114,7 +117,7 @@ data:
     \ r & 1: r >>= 1\n            if not f(op(d[r], sm)):\n                while r\
     \ < sz:\n                    if f(op(d[r:=r<<1|1], sm)): sm, r = op(d[r], sm),\
     \ r-1\n                return r + 1 - sz\n            sm = op(d[r], sm)\n    \
-    \        if (r & -r) == r: return 0\n\ndef elist(est_len: int) -> list: ...\n\
+    \        if (r & -r) == r: return 0\n\n\ndef elist(est_len: int) -> list: ...\n\
     try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
     \        return []\nelist = newlist_hint\n    \ndef pack_enc(a: int, b: int, s:\
     \ int): return a<<s|b\ndef pack_dec(ab: int, s: int, m: int): return ab>>s,ab&m\n\
@@ -187,16 +190,19 @@ data:
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
-    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -222,16 +228,13 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n\
-    \    main()\n"
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_set_range_composite_large_array\n\
     \n\ndef main():\n    mod = 998244353\n    shift, mask = 30, (1<<30)-1\n    N,\
     \ Q = read()\n    \n    def op(a,b):\n        ac, ad = pack_dec(a, shift, mask)\n\
@@ -245,14 +248,14 @@ data:
     \            seg.set(P.pop(), pack_enc(c, d, shift))\n        else:\n        \
     \    _, _, x = q\n            a, b = pack_dec(seg.prod(L.pop(), R.pop()), shift,\
     \ mask)\n            write((a*x+b)%mod)\n\nfrom cp_library.alg.iter.rank.irank_multi_fn\
-    \ import irank\nfrom cp_library.ds.tree.seg.segtree_cls import SegTree\nfrom cp_library.ds.elist_fn\
+    \ import irank\nfrom cp_library.ds.tree.seg.segtree_cls import SegTree\nfrom cp_library.ds.list.elist_fn\
     \ import elist\nfrom cp_library.bit.pack.pack_enc_fn import pack_enc\nfrom cp_library.bit.pack.pack_dec_fn\
     \ import pack_dec\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
     \ import write\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/alg/iter/rank/irank_multi_fn.py
   - cp_library/ds/tree/seg/segtree_cls.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/bit/pack/pack_enc_fn.py
   - cp_library/bit/pack/pack_dec_fn.py
   - cp_library/io/read_fn.py
@@ -262,10 +265,11 @@ data:
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/io_base_cls.py
+  - cp_library/io/parsable_cls.py
   isVerificationFile: true
   path: test/library-checker/data-structure/point_set_range_composite_large_array.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_set_range_composite_large_array.test.py

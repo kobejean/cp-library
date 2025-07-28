@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/table/primes_cls.py
     title: cp_library/math/table/primes_cls.py
@@ -114,11 +114,11 @@ data:
     \ mul)\n\nfrom cp_library.math.table.primes_cls import Primes\n"
   dependsOn:
   - cp_library/math/table/primes_cls.py
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   isVerificationFile: false
   path: cp_library/math/conv/lcm_conv_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/lcm_conv_fn.py

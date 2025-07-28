@@ -56,9 +56,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\n"
-  code: "import cp_library.alg.dp.__header__\n\ndef sort2(a, b):\n    return (a,b)\
-    \ if a < b else (b,a)"
+    \ndef sort2(a, b): return (a,b) if a < b else (b,a)\n"
+  code: 'import cp_library.alg.dp.__header__
+
+
+    def sort2(a, b): return (a,b) if a < b else (b,a)'
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/dp/sort2_fn.py
@@ -68,7 +70,7 @@ data:
   - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - cp_library/alg/tree/csr/aux_tree_base_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/lca.test.py

@@ -163,11 +163,11 @@ data:
     \ Amax is None else Amax)\n    def _build(wm,op,e,diff,A,W,nA,nW,Amax):wm.diff=diff;super()._build(op,\
     \ e, A, W, nA, nW, Amax)\n    def _build_base(wm,W):wm.W=Presum(W,wm.op,wm.e,wm.diff)\n\
     \    def _build_level(wm,L,W):L.build(wm.op,wm.e,wm.diff,W)\n    def _prod_range(wm,l,r):return\
-    \ wm.W.range_sum(l,r)\n\n\ndef max2(a, b):\n    return a if a > b else b\n\ndef\
-    \ pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\ndef icoord_compress_multi(*A:\
-    \ list[int], distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai);\
-    \ mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n\
-    \    S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai):\
+    \ wm.W.range_sum(l,r)\n\n\ndef max2(a, b): return a if a > b else b\n\ndef pack_sm(N:\
+    \ int): s=N.bit_length(); return s,(1<<s)-1\n\ndef icoord_compress_multi(*A: list[int],\
+    \ distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx,\
+    \ len(Ai))\n    si, mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n   \
+    \ S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai):\
     \ S[k]=a << sj | i << si | j; k += 1\n    S.sort()\n    r = p = -1\n    for aji\
     \ in S:\n        a, i, j = aji >> sj, (aji&mj) >> si , aji & mi\n        if i\
     \ == 2 and (distinct or a != p): r = r+1; p = a\n        A[i][j] = r+(i!=2)\n\
@@ -207,7 +207,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_group.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_group.test.py

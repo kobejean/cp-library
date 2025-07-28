@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   _extendedRequiredBy:
   - icon: ':warning:'
     path: cp_library/math/conv/gcd_conv_fn.py
@@ -72,7 +72,7 @@ data:
     \        A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i,\
     \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n"
   code: "import cp_library.math.table.__header__\nimport operator\nfrom typing import\
-    \ Callable\nfrom cp_library.ds.reserve_fn import reserve\n\nclass Primes(list[int]):\n\
+    \ Callable\nfrom cp_library.ds.list.reserve_fn import reserve\n\nclass Primes(list[int]):\n\
     \    def __init__(P, N: int):\n        super().__init__()\n        spf = [0] *\
     \ (N + 1)\n        spf[0], spf[1] = 0, 1\n        reserve(P, N)\n\n        for\
     \ i in range(2, N + 1):\n            if spf[i] == 0:\n                spf[i] =\
@@ -98,7 +98,7 @@ data:
     \        A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i,\
     \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n"
   dependsOn:
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   isVerificationFile: false
   path: cp_library/math/table/primes_cls.py
   requiredBy:
@@ -109,7 +109,7 @@ data:
   - cp_library/math/table/linear_sieve_cls.py
   - cp_library/math/conv/lcm_conv_fn.py
   - cp_library/math/conv/gcd_conv_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/lcm_convolution.test.py

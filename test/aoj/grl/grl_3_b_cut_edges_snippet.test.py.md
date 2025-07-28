@@ -38,8 +38,8 @@ data:
     path: cp_library/ds/array/u8f_fn.py
     title: cp_library/ds/array/u8f_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -58,6 +58,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -85,15 +88,15 @@ data:
     \n             https://kobejean.github.io/cp-library               \n'''\n\ndef\
     \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
     except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\n\ndef max2(a, b):\n    return a if a > b else b\n\ndef min2(a, b):\n\
-    \    return a if a < b else b\n\n\ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n\
+    \    \n\n\ndef max2(a, b): return a if a > b else b\n\ndef min2(a, b): return\
+    \ a if a < b else b\n\n\ndef main():\n    N, M = read()\n    G = read(Graph[N,M,0])\n\
     \    E = elist(M)\n    for i in cut_edges(G):\n        u, v = min2(G.Ua[i], G.Va[i]),\
     \ max2(G.Ua[i], G.Va[i])\n        E.append((u, v))\n    E.sort()\n    for u, v\
     \ in E:\n        write(u, v)\n\n\n\n\nfrom typing import Generic\nfrom typing\
     \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
     \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
-    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\nimport sys\n\ndef list_find(lst:\
-    \ list, value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\nimport sys\n\ndef list_find(lst: list,\
+    \ value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
     \ start, stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n\
     \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r:\
     \ int = 0): V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n  \
@@ -109,57 +112,10 @@ data:
     \    def popleft(V): V.l += 1; return V.A[V.l-1]\n    def appendleft(V, v: _T):\
     \ V.l -= 1; V.A[V.l] = v; \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\
     from math import inf\nfrom typing import Callable, Sequence, Union, overload\n\
-    import typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom\
-    \ typing import Callable, Collection\n\n\nclass IOBase:\n    @property\n    def\
-    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
-    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
-    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
-    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
-    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
-    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
-    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
-    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
-    \ ...\n\nclass Parser:\n    def __init__(self, spec):  self.parse = Parser.compile(spec)\n\
-    \    def __call__(self, io: IOBase): return self.parse(io)\n    @staticmethod\n\
-    \    def compile_type(cls, args = ()):\n        if issubclass(cls, Parsable):\
-    \ return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n  \
-    \          def parse(io: IOBase): return cls(next(io))              \n       \
-    \     return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
-    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
-    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
-    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
-    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
-    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
-    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
-    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
-    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
-    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
-    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
-    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
-    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
-    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
-    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
-    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
-    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
-    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
-    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
-    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
-    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
-    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
-    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
-    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
-    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
+    from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
+    \ compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n    \
+    \    return parser\n    @classmethod\n    def __class_getitem__(cls, item): return\
+    \ GenericAlias(cls, item)\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
     \    return ch\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
     \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
     \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
@@ -299,25 +255,36 @@ data:
     \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
     \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
     \      def parse(io: IOBase):\n            U, V = u32f(M), u32f(M)\n         \
-    \   for i in range(M):\n                u, v = io.readints()\n               \
-    \ U[i], V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return\
-    \ parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\nfrom array import array\n\
-    def u8f(N: int, elm: int = 0):      return array('B', (elm,))*N  # unsigned char\n\
-    def u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    def i32f(N: int, elm: int = 0):     return array('i', (elm,))*N  # signed int\n\
-    \nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\n\nclass Que:\n\
-    \    def __init__(que, v = None): que.q = elist(v) if isinstance(v, int) else\
-    \ list(v) if v else []; que.h = 0\n    def push(que, item): que.q.append(item)\n\
-    \    def pop(que): que.h = (h := que.h) + 1; return que.q[h]\n    def extend(que,\
-    \ items): que.q.extend(items)\n    def __getitem__(que, i: int): return que.q[que.h+i]\n\
-    \    def __setitem__(que, i: int, v): que.q[que.h+i] = v\n    def __len__(que):\
-    \ return que.q.__len__() - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\
-    \nclass Graph(GraphBase):\n    def __init__(G, N: int, U: list[int], V: list[int]):\n\
+    \   for i in range(M): u, v = io.readints(); U[i], V[i] = u+shift, v+shift\n \
+    \           return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
+    i32_max = (1<<31)-1\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
+    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n\n\nclass Que:\n    def __init__(que, v = None): que.q = elist(v)\
+    \ if isinstance(v, int) else list(v) if v else []; que.h = 0\n    def push(que,\
+    \ item): que.q.append(item)\n    def pop(que): que.h = (h := que.h) + 1; return\
+    \ que.q[h]\n    def extend(que, items): que.q.extend(items)\n    def __getitem__(que,\
+    \ i: int): return que.q[que.h+i]\n    def __setitem__(que, i: int, v): que.q[que.h+i]\
+    \ = v\n    def __len__(que): return que.q.__len__() - que.h\n    def __hash__(que):\
+    \ return hash(tuple(que.q[que.h:]))\n\nclass IOBase:\n    @property\n    def char(io)\
+    \ -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
+    \ -> str: ...\n    def write(io, s: str) -> None: ...\n    def readline(io) ->\
+    \ str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]:\
+    \ ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
+    \ ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io) -> str: ...\n\
+    \    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str]) -> list[str]:\
+    \ ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n    def readtokensinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readintsinto(io, lst: list[int])\
+    \ -> list[int]: ...\n    def readdigitsinto(io, lst: list[int]) -> list[int]:\
+    \ ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n    def wait(io):\
+    \ ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]: ...\n\n\
+    class Graph(GraphBase):\n    def __init__(G, N: int, U: list[int], V: list[int]):\n\
     \        M, Ma, deg = len(U), 0, u32f(N)\n        for e in range(M := len(U)):\n\
     \            distinct = (u := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v]\
     \ += distinct; Ma += 1+distinct\n        twin, Ea, Ua, Va, La, Ra, i = i32f(Ma),\
@@ -390,24 +357,59 @@ data:
     \ r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n        if\
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
-    \ = IO(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values to\
-    \ a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"sep\"\
-    , \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x in args:\n\
-    \        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n\
-    \    main()\n"
+    \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom typing import\
+    \ Callable, Collection\n\nclass Parser:\n    def __init__(self, spec):  self.parse\
+    \ = Parser.compile(spec)\n    def __call__(self, io: IOBase): return self.parse(io)\n\
+    \    @staticmethod\n    def compile_type(cls, args = ()):\n        if issubclass(cls,\
+    \ Parsable): return cls.compile(*args)\n        elif issubclass(cls, (Number,\
+    \ str)):\n            def parse(io: IOBase): return cls(next(io))            \
+    \  \n            return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
+    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
+    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
+    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
+    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
+    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
+    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
+    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
+    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
+    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
+    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
+    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
+    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
+    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
+    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
+    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
+    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
+    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
+    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
+    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
+    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
+    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
+    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
+    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
+    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_3_B\n\
-    \nfrom cp_library.ds.elist_fn import elist\nfrom cp_library.alg.dp.max2_fn import\
-    \ max2\nfrom cp_library.alg.dp.min2_fn import min2\n\n\ndef main():\n    N, M\
-    \ = read()\n    G = read(Graph[N,M,0])\n    E = elist(M)\n    for i in cut_edges(G):\n\
-    \        u, v = min2(G.Ua[i], G.Va[i]), max2(G.Ua[i], G.Va[i])\n        E.append((u,\
-    \ v))\n    E.sort()\n    for u, v in E:\n        write(u, v)\n\nfrom cp_library.alg.graph.csr.graph_cls\
-    \ import Graph\nfrom cp_library.alg.graph.csr.snippets.cut_edges_fn import cut_edges\n\
-    from cp_library.io.read_fn import read\nfrom cp_library.io.write_fn import write\n\
-    \nif __name__ == '__main__':\n    main()"
+    \nfrom cp_library.ds.list.elist_fn import elist\nfrom cp_library.alg.dp.max2_fn\
+    \ import max2\nfrom cp_library.alg.dp.min2_fn import min2\n\n\ndef main():\n \
+    \   N, M = read()\n    G = read(Graph[N,M,0])\n    E = elist(M)\n    for i in\
+    \ cut_edges(G):\n        u, v = min2(G.Ua[i], G.Va[i]), max2(G.Ua[i], G.Va[i])\n\
+    \        E.append((u, v))\n    E.sort()\n    for u, v in E:\n        write(u,\
+    \ v)\n\nfrom cp_library.alg.graph.csr.graph_cls import Graph\nfrom cp_library.alg.graph.csr.snippets.cut_edges_fn\
+    \ import cut_edges\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
+    \ import write\n\nif __name__ == '__main__':\n    main()"
   dependsOn:
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/alg/dp/max2_fn.py
   - cp_library/alg/dp/min2_fn.py
   - cp_library/alg/graph/csr/graph_cls.py
@@ -421,6 +423,7 @@ data:
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/ds/view/view_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/bit/masks/u32_max_cnst.py
   - cp_library/bit/masks/i32_max_cnst.py
@@ -432,7 +435,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_3_b_cut_edges_snippet.test.py

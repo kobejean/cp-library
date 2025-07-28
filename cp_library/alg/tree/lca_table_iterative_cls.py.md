@@ -62,10 +62,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\ndef sort2(a, b):\n    return (a,b) if a < b else (b,a)\nimport operator\n\
-    from itertools import accumulate\nfrom typing import Callable, Iterable\n\nfrom\
-    \ typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
-    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \n\n\n\ndef sort2(a, b): return (a,b) if a < b else (b,a)\nimport operator\nfrom\
+    \ itertools import accumulate\nfrom typing import Callable, Iterable\n\nfrom typing\
+    \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\ndef presum(iter: Iterable[_T], func:\
     \ Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:\n  \
     \  if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
@@ -73,11 +73,11 @@ data:
     \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
     \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
     \   A[i] = func(A[i], A[i-step])\n        return A\n# from typing import Generic\n\
-    # from cp_library.misc.typing import _T\n\ndef min2(a, b):\n    return a if a\
-    \ < b else b\n\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n\
-    \        st.N = N = len(arr)\n        st.log = N.bit_length()\n        st.data\
-    \ = data = [0] * (st.log*N)\n        data[:N] = arr \n        for i in range(1,st.log):\n\
-    \            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j\
+    # from cp_library.misc.typing import _T\n\ndef min2(a, b): return a if a < b else\
+    \ b\n\n\n\nclass MinSparseTable:\n    def __init__(st, arr: list):\n        st.N\
+    \ = N = len(arr)\n        st.log = N.bit_length()\n        st.data = data = [0]\
+    \ * (st.log*N)\n        data[:N] = arr \n        for i in range(1,st.log):\n \
+    \           a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j\
     \ in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j], data[c+j])\n\
     \n    def query(st, l: int, r: int):\n        k = (r-l).bit_length() - 1\n   \
     \     return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n    \n\n\
@@ -130,7 +130,7 @@ data:
   - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - cp_library/alg/tree/csr/aux_tree_base_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/lca.test.py

@@ -23,8 +23,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\ndef min2(a, b):\n    return a if a < b else b\n\n\nfrom array import array\n\
-    def u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
+    \n\ndef min2(a, b): return a if a < b else b\n\n\nfrom array import array\ndef\
+    \ u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
     \n\nclass BitsetTree:\n    def __init__(B, S: str):\n        B.N = N = len(S)\n\
     \        L = u32f((N+31)>>5)\n        for k,c in enumerate(S):\n            k,r\
     \ = k>>5,k&31\n            if c=='1': L[k]|=1<<r\n        B.levels = [L]\n   \
@@ -78,7 +78,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bitset_tree_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/predecessor_problem.test.py

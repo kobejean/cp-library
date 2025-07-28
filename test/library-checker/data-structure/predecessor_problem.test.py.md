@@ -33,15 +33,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
     \    https://kobejean.github.io/cp-library               \n'''\n\n\ndef min2(a,\
-    \ b):\n    return a if a < b else b\n\n\nfrom array import array\ndef u32f(N:\
-    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\n\nclass\
-    \ BitsetTree:\n    def __init__(B, S: str):\n        B.N = N = len(S)\n      \
-    \  L = u32f((N+31)>>5)\n        for k,c in enumerate(S):\n            k,r = k>>5,k&31\n\
-    \            if c=='1': L[k]|=1<<r\n        B.levels = [L]\n        while (N :=\
-    \ len(L := B.levels[-1])) > 1:\n            A = u32f((N+31)>>5)\n            for\
-    \ i in range(0,N,32):\n                a=j=0;r=min2(i+32,N)\n                while\
-    \ i+j<r:a|=(0<L[i+j])<<j;j+=1\n                A[i>>5]=a\n            B.levels.append(A)\n\
-    \        B.depth = len(B.levels)\n\n    def set0(B, k):\n        if B.levels[0][k>>5]>>(k&31)&1:\
+    \ b): return a if a < b else b\n\n\nfrom array import array\ndef u32f(N: int,\
+    \ elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\n\nclass BitsetTree:\n\
+    \    def __init__(B, S: str):\n        B.N = N = len(S)\n        L = u32f((N+31)>>5)\n\
+    \        for k,c in enumerate(S):\n            k,r = k>>5,k&31\n            if\
+    \ c=='1': L[k]|=1<<r\n        B.levels = [L]\n        while (N := len(L := B.levels[-1]))\
+    \ > 1:\n            A = u32f((N+31)>>5)\n            for i in range(0,N,32):\n\
+    \                a=j=0;r=min2(i+32,N)\n                while i+j<r:a|=(0<L[i+j])<<j;j+=1\n\
+    \                A[i>>5]=a\n            B.levels.append(A)\n        B.depth =\
+    \ len(B.levels)\n\n    def set0(B, k):\n        if B.levels[0][k>>5]>>(k&31)&1:\
     \ \n            l = -1\n            while (l:=l+1) < B.depth:\n              \
     \  B.levels[l][k>>5]&=~(1<<(k&31));k>>=5\n                if B.levels[l][k]: break\n\
     \n    def set1(B, k):\n        if not B.levels[0][k>>5]>>(k&31)&1: \n        \
@@ -76,7 +76,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/predecessor_problem.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/predecessor_problem.test.py

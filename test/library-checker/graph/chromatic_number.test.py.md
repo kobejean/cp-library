@@ -23,6 +23,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -48,8 +51,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
-    \ typing import Union\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\n\nclass IOBase:\n\
+    \ typing import Union\nfrom types import GenericAlias\n\n\nclass Parsable:\n \
+    \   @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\n\n\n\nclass Edge(tuple, Parsable):\n\
+    \    @classmethod\n    def compile(cls, I=-1):\n        def parse(io: IOBase):\
+    \ u, v = io.readints(); return cls((u+I,v+I))\n        return parse\n\nclass IOBase:\n\
     \    @property\n    def char(io) -> bool: ...\n    @property\n    def writable(io)\
     \ -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io, s: str) ->\
     \ None: ...\n    def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n\
@@ -61,16 +68,35 @@ data:
     \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
     \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
     \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
-    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass Parser:\n    def __init__(self,\
-    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
-    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
-    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
-    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\
-    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
-    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
-    \           def parse(io: IOBase): return cls(next(io))              \n      \
-    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass BitGraph(list, Parsable):\n\
+    \    def __init__(G, N: int, E: list['Edge']=[]):\n        super().__init__([0]*N)\n\
+    \        G.E, G.N, G.M = E, N, len(E)\n        for u, v in E: G[u] |= 1 << v;\
+    \ G[v] |= 1 << u\n\n    def to_complement(G):\n        full = (1 << G.N) - 1\n\
+    \        for u in range(G.N): G[u] = full ^ G[u]\n\n    def chromatic_number(G):\n\
+    \        Z = 1 << (N := len(G))\n        I, coef = [0]*Z, [1]*Z; I[0] = 1\n  \
+    \      for S in range(1, Z):\n            T = 1 << (v := ctz32(S)) ^ S\n     \
+    \       I[S] = I[T] + I[T & ~G[v]]\n            coef[S] = -1 if popcnt32(S) &\
+    \ 1 else 1\n        for k in range(1, N):\n            Pk = 0\n            for\
+    \ S in range(Z): coef[S] *= I[S]; Pk += coef[S]\n            if Pk != 0: return\
+    \ k\n        return N\n\n    @classmethod\n    def compile(cls, N: int, M: int,\
+    \ E: Union[type,int] = Edge[-1]):\n        if isinstance(E, int): E = Edge[E]\n\
+    \        edge = Parser.compile(E)\n        def parse(io: IOBase): return cls(N,\
+    \ [edge(io) for _ in range(M)])\n        return parse\n\n\ndef popcnt32(x):\n\
+    \    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n    x = ((x >> 2)  & 0x33333333)\
+    \ + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f) + (x & 0x0f0f0f0f)\n  \
+    \  x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n    x = ((x >> 16) & 0x0000ffff)\
+    \ + (x & 0x0000ffff)\n    return x\nif hasattr(int, 'bit_count'):\n    popcnt32\
+    \ = int.bit_count\n\ndef ctz32(x): return popcnt32(~x&(x-1))\nimport typing\n\
+    from numbers import Number\nfrom typing import Callable, Collection\n\nclass Parser:\n\
+    \    def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
+    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
+    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
+    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
+    \            def parse(io: IOBase): return cls(next(io))              \n     \
+    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -96,43 +122,19 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\n\n\n\nclass Edge(tuple, Parsable):\n\
-    \    @classmethod\n    def compile(cls, I=-1):\n        def parse(io: IOBase):\n\
-    \            u, v = io.readints()\n            return cls((u+I,v+I))\n       \
-    \ return parse\n\nclass BitGraph(list, Parsable):\n    def __init__(G, N: int,\
-    \ E: list['Edge']=[]):\n        super().__init__([0]*N)\n        G.E, G.N, G.M\
-    \ = E, N, len(E)\n        for u,v in E:\n            G[u] |= 1 << v\n        \
-    \    G[v] |= 1 << u\n\n    def to_complement(G):\n        full = (1 << G.N) -\
-    \ 1\n        for u in range(G.N):\n            G[u] = full ^ G[u]\n\n    def chromatic_number(G):\n\
-    \        Z = 1 << (N := len(G))\n        I, coef = [0]*Z, [1]*Z\n        I[0]\
-    \ = 1\n        for S in range(1, Z):\n            T = 1 << (v := ctz32(S)) ^ S\n\
-    \            I[S] = I[T] + I[T & ~G[v]]\n            coef[S] = -1 if popcnt32(S)\
-    \ & 1 else 1\n        for k in range(1, N):\n            Pk = 0\n            for\
-    \ S in range(Z):\n                coef[S] *= I[S]\n                Pk += coef[S]\n\
-    \            if Pk != 0: return k\n        return N\n\n    @classmethod\n    def\
-    \ compile(cls, N: int, M: int, E: Union[type,int] = Edge[-1]):\n        if isinstance(E,\
-    \ int): E = Edge[E]\n        edge = Parser.compile(E)\n        def parse(io: IOBase):\n\
-    \            return cls(N, [edge(io) for _ in range(M)])\n        return parse\n\
-    \n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) + (x & 0x55555555)\n  \
-    \  x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
-    \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
-    \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
-    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\ndef ctz32(x): return popcnt32(~x&(x-1))\n\
-    from typing import Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S');\
-    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
-    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
-    \ char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n\
-    @overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\n\
-    def read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T],\
+    \        else:\n            raise NotImplementedError()\nfrom typing import Type,\
+    \ Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n@overload\n\
+    def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
+    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
+    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
+    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T],\
     \ char=False):\n    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b):\n    return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE\
+    \n\ndef max2(a, b): return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE\
     \ = 1 << 16; stdin: 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O',\
     \ 'V', 'S', 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n\
     \    def __init__(io, file):\n        io.file = file\n        try: io.f = file.fileno();\
@@ -196,17 +198,18 @@ data:
   - cp_library/alg/graph/bit/bit_graph_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
-  - cp_library/io/parser_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/graph/edge/edge_cls.py
   - cp_library/bit/popcnt32_fn.py
   - cp_library/bit/ctz32_fn.py
+  - cp_library/io/io_base_cls.py
+  - cp_library/io/parser_cls.py
   - cp_library/io/io_cls.py
   - cp_library/alg/dp/max2_fn.py
-  - cp_library/io/io_base_cls.py
   isVerificationFile: true
   path: test/library-checker/graph/chromatic_number.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/chromatic_number.test.py

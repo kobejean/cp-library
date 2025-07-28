@@ -29,6 +29,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -72,8 +75,8 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b):\n    return a\
-    \ if a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
+    \ > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
     \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
     \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
     \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
@@ -134,16 +137,19 @@ data:
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
-    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -169,42 +175,40 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\nfrom typing import Reversible\n\
-    \n\ndef rev_enumerate(A: Reversible, start: int = 0):\n    start += (N := len(A))\n\
-    \    for i in range(N-1,-1,-1):\n        yield (start:=start-1), A[i]\n\nfrom\
-    \ typing import Iterable\n\n\ndef heappush(heap: list, item):\n    heap.append(item)\n\
-    \    heapsiftdown(heap, 0, len(heap)-1)\n\ndef heappop(heap: list):\n    item\
-    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n\
-    \    return item\n\ndef heapreplace(heap: list, item):\n    item, heap[0] = heap[0],\
-    \ item; heapsiftup(heap, 0)\n    return item\n\ndef heappushpop(heap: list, item):\n\
-    \    if heap and heap[0] < item: item, heap[0] = heap[0], item; heapsiftup(heap,\
-    \ 0)\n    return item\n\ndef heapify(x: list):\n    for i in reversed(range(len(x)//2)):\
-    \ heapsiftup(x, i)\n\ndef heapsiftdown(heap: list, root: int, pos: int):\n   \
-    \ item = heap[pos]\n    while root < pos and item < heap[p := (pos-1)>>1]: heap[pos],\
-    \ pos = heap[p], p\n    heap[pos] = item\n\ndef heapsiftup(heap: list, pos: int):\n\
-    \    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and heap[c\
-    \ := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c], c, c<<1|1\n \
-    \   if c == n and heap[c] < item: heap[pos], pos = heap[c], c\n    heap[pos] =\
-    \ item\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n    if heap: item,\
-    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapreplace_max(heap:\
-    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n \
-    \   return item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
-    \ heapsiftup_max(x, i)\n\ndef heappush_max(heap: list, item):\n    heap.append(item);\
-    \ heapsiftdown_max(heap, 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n\
-    \    item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\
-    \ndef heappushpop_max(heap: list, item):\n    if heap and heap[0] > item: item,\
-    \ heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap:\
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    from typing import Reversible\n\n\ndef rev_enumerate(A: Reversible, start: int\
+    \ = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n        yield\
+    \ (start:=start-1), A[i]\n\nfrom typing import Iterable\n\n\ndef heappush(heap:\
+    \ list, item):\n    heap.append(item)\n    heapsiftdown(heap, 0, len(heap)-1)\n\
+    \ndef heappop(heap: list):\n    item = heap.pop()\n    if heap: item, heap[0]\
+    \ = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapreplace(heap:\
+    \ list, item):\n    item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return\
+    \ item\n\ndef heappushpop(heap: list, item):\n    if heap and heap[0] < item:\
+    \ item, heap[0] = heap[0], item; heapsiftup(heap, 0)\n    return item\n\ndef heapify(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup(x, i)\n\ndef heapsiftdown(heap:\
     \ list, root: int, pos: int):\n    item = heap[pos]\n    while root < pos and\
-    \ heap[p := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
-    \ndef heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ item < heap[p := (pos-1)>>1]: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\
+    \ndef heapsiftup(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
+    \ pos<<1|1\n    while c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos],\
+    \ pos, c = heap[c], c, c<<1|1\n    if c == n and heap[c] < item: heap[pos], pos\
+    \ = heap[c], c\n    heap[pos] = item\n\ndef heappop_max(heap: list):\n    item\
+    \ = heap.pop()\n    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
+    \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heapify_max(x:\
+    \ list):\n    for i in reversed(range(len(x)//2)): heapsiftup_max(x, i)\n\ndef\
+    \ heappush_max(heap: list, item):\n    heap.append(item); heapsiftdown_max(heap,\
+    \ 0, len(heap)-1)\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
+    \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\n\ndef heappushpop_max(heap:\
+    \ list, item):\n    if heap and heap[0] > item: item, heap[0] = heap[0], item;\
+    \ heapsiftup_max(heap, 0)\n    return item\n\ndef heapsiftdown_max(heap: list,\
+    \ root: int, pos: int):\n    item = heap[pos]\n    while root < pos and heap[p\
+    \ := (pos-1)>>1] < item: heap[pos], pos = heap[p], p\n    heap[pos] = item\n\n\
+    def heapsiftup_max(heap: list, pos: int):\n    n, item, c = len(heap)-1, heap[pos],\
     \ pos<<1|1\n    while c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos],\
     \ pos, c = heap[c], c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos\
     \ = heap[c], c\n    heap[pos] = item\nfrom typing import Generic\n\nclass HeapProtocol(Generic[_T]):\n\
@@ -271,10 +275,11 @@ data:
   - cp_library/io/io_base_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
+  - cp_library/io/parsable_cls.py
   isVerificationFile: true
   path: test/atcoder/abc/abc249_f_min_k_heap.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc249_f_min_k_heap.test.py

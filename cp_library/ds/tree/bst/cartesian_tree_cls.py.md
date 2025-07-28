@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/bst_cls.py
     title: cp_library/ds/tree/bst/bst_cls.py
@@ -97,7 +97,7 @@ data:
     \      if T.P[l]<T.P[r]:T._p(l);T.sub[s]=l;l=T.sub[s:=l<<1|1]\n            else:T._p(r);T.sub[s]=r;r=T.sub[s:=r<<1]\n\
     \            T.st.append(s)\n        T.sub[s]=l if~l else r\n    def _d(T,i,s):T._p(i);T._m(s,T.sub[i<<1],T.sub[i<<1|1])\n\
     \    @classmethod\n    def reserve(cls,sz):super(CartesianTree,cls).reserve(sz);reserve(cls.P,sz+1)\n"
-  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.reserve_fn\
     \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
     from cp_library.ds.tree.bst.bst_cls import BST\n\nclass CartesianTree(BST):\n\
     \    K,P,sub,st=[-1],[42],[-1,-1],[]\n    def _nr(T):T.P.append(-1);return super()._nr()\n\
@@ -115,7 +115,7 @@ data:
     \            T.st.append(s)\n        T.sub[s]=l if~l else r\n    def _d(T,i,s):T._p(i);T._m(s,T.sub[i<<1],T.sub[i<<1|1])\n\
     \    @classmethod\n    def reserve(cls,sz):super(CartesianTree,cls).reserve(sz);reserve(cls.P,sz+1)"
   dependsOn:
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/ds/tree/bst/bst_cls.py
   - cp_library/bit/masks/i64_max_cnst.py
   isVerificationFile: false
@@ -130,7 +130,7 @@ data:
   - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
   - cp_library/ds/tree/bst/treap_implicit_cls.py
   - cp_library/ds/tree/bst/treap_reversible_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py

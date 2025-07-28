@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/popcnts_fn.py
     title: cp_library/bit/popcnts_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -52,8 +52,8 @@ data:
     elist = newlist_hint\n    \n\nfrom typing import Generic\nfrom typing import TypeVar\n\
     _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\nimport sys\n\ndef list_find(lst: list, value, start =\
-    \ 0, stop = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n\
+    \ _T6 = TypeVar('T6')\nimport sys\n\ndef list_find(lst: list, value, start = 0,\
+    \ stop = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n\
     \    except:\n        return -1\n\n\nclass view(Generic[_T]):\n    __slots__ =\
     \ 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A,\
     \ V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
@@ -163,7 +163,7 @@ data:
   dependsOn:
   - cp_library/math/sps/mod/sps_ln_small_fn.py
   - cp_library/math/sps/mod/sps_ln_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/view/view_cls.py
   - cp_library/math/conv/mod/subset_deconv_fn.py
   - cp_library/ds/list/list_find_fn.py
@@ -174,7 +174,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/mod/sps_ln_adaptive_fn.py

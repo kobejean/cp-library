@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/bst_implicit_cls.py
@@ -96,8 +96,8 @@ data:
     \ ~(l:=T.sub[i<<1]):ret+=rec(l,pre+(\"   \"if not is_right else\"\u2502  \"),False)\n\
     \            return ret\n        return rec(T.sub[T.r<<1]).rstrip()\n"
   code: "import cp_library.__header__\nfrom cp_library.bit.masks.i64_max_cnst import\
-    \ i64_max\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn import\
-    \ reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
+    \ i64_max\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.reserve_fn\
+    \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
     \nclass BST:\n    __slots__ = 'r'\n    K,sub,st=[-1],[-1,-1],[]\n    def __init__(T):T.r=T._nr()\n\
     \    def _nt(T):return T.__class__()\n    def _nr(T):r=len(T.K);T.K.append(i64_max);T.sub.append(-1);T.sub.append(-1);return\
     \ r\n    def _nn(T,k):n=len(T.K);T.K.append(k);T.sub.append(-1);T.sub.append(-1);return\
@@ -121,7 +121,7 @@ data:
     \            return ret\n        return rec(T.sub[T.r<<1]).rstrip()"
   dependsOn:
   - cp_library/bit/masks/i64_max_cnst.py
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   isVerificationFile: false
   path: cp_library/ds/tree/bst/bst_cls.py
   requiredBy:
@@ -139,7 +139,7 @@ data:
   - cp_library/ds/tree/bst/bst_updates_cls.py
   - cp_library/ds/tree/bst/bst_reversible_cls.py
   - cp_library/ds/tree/bst/treap_reversible_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py

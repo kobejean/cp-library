@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/fps/fps_deriv_fn.py
     title: cp_library/math/fps/fps_deriv_fn.py
@@ -200,11 +200,11 @@ data:
     \ = x[i],0\n        conv_half(x,Eres)\n        for i in range(min(deg, p<<1)-1,p-1,-1):\
     \ x[i] = P[i]+x[i-1]*inv[i]%mod \n        for i in range(p): x[i] = 0\n      \
     \  R.extend(conv_half(x,Rres)[p:])\n        p <<= 1\n    return R[:deg]\n\nfrom\
-    \ cp_library.ds.reserve_fn import reserve\nfrom cp_library.math.table.mcomb_cls\
+    \ cp_library.ds.list.reserve_fn import reserve\nfrom cp_library.math.table.mcomb_cls\
     \ import mcomb\nfrom cp_library.math.mod.mint_ntt_cls import mint"
   dependsOn:
   - cp_library/math/fps/fps_deriv_fn.py
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/math/table/mcomb_cls.py
   - cp_library/math/mod/mint_ntt_cls.py
   - cp_library/math/mod/mint_cls.py
@@ -216,7 +216,7 @@ data:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/exp_of_formal_power_series.test.py

@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':warning:'
     path: cp_library/perf/benchmark.py
     title: cp_library/perf/benchmark.py
@@ -79,7 +79,7 @@ data:
     \ decoding performance.\nTests decoding slices from bytearray vs memoryview with\
     \ different methods.\n\"\"\"\n\nimport random\nimport string\nimport sys\nimport\
     \ os\nimport io\nsys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\n\
-    \nfrom cp_library.perf.benchmark import Benchmark, BenchmarkConfig\nfrom cp_library.ds.reserve_fn\
+    \nfrom cp_library.perf.benchmark import Benchmark, BenchmarkConfig\nfrom cp_library.ds.list.reserve_fn\
     \ import reserve\n\n# Configure benchmark\nconfig = BenchmarkConfig(\n    name=\"\
     bytearray_decode\",\n    sizes=[1000000, 100000, 10000, 1000, 100],  # Reverse\
     \ order to warm up JIT\n    operations=['small_slices', 'medium_slices', 'large_slices',\
@@ -184,7 +184,7 @@ data:
     \  \n    runner.run()"
   dependsOn:
   - cp_library/perf/benchmark.py
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/perf/interfaces.py
   - cp_library/perf/registry.py
   - cp_library/perf/orchestrator.py
@@ -196,7 +196,7 @@ data:
   isVerificationFile: false
   path: perf/bytearray_decode.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/bytearray_decode.py

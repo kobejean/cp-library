@@ -20,8 +20,8 @@ data:
     path: cp_library/ds/array/u8f_fn.py
     title: cp_library/ds/array/u8f_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -37,6 +37,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -62,30 +65,64 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
-    import typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom\
-    \ typing import Callable, Collection\n\n\nclass IOBase:\n    @property\n    def\
-    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
-    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
-    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
-    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
-    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
-    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
-    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
-    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
-    \ ...\n\nclass Parser:\n    def __init__(self, spec):  self.parse = Parser.compile(spec)\n\
-    \    def __call__(self, io: IOBase): return self.parse(io)\n    @staticmethod\n\
-    \    def compile_type(cls, args = ()):\n        if issubclass(cls, Parsable):\
-    \ return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n  \
-    \          def parse(io: IOBase): return cls(next(io))              \n       \
-    \     return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
-    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
-    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
+    from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
+    \ compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n    \
+    \    return parser\n    @classmethod\n    def __class_getitem__(cls, item): return\
+    \ GenericAlias(cls, item)\n\nclass FuncGraph(list[int], Parsable):\n    def __init__(F,\
+    \ successors):\n        super().__init__(successors)\n        F.N = F.M = len(F)\n\
+    \n    def find_cycle(P, root: int) -> list[int]:\n        slow = fast = root\n\
+    \        while (slow := P[slow]) != (fast := P[P[fast]]): pass\n        cyc =\
+    \ [slow]\n        while P[slow] != fast: cyc.append(slow := P[slow])\n       \
+    \ return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n        vis, cycs, S\
+    \ = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n        \
+    \    if vis[v]: continue\n            slow = fast = v\n            while (slow\
+    \ := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n            if\
+    \ vis[fast]: continue\n            S.append(len(cycs))\n            cycs.append(slow)\n\
+    \            vis[slow := P[slow]] = 1\n            while slow != fast:\n     \
+    \           cycs.append(slow)\n                vis[slow := P[slow]] = 1\n    \
+    \    return CRFList(cycs, S)\n    \n    def chain(P, root):\n        cyc = P.find_cycle(root)\n\
+    \        slow, fast = root, cyc[0]\n        if slow == fast: return [], cyc\n\
+    \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
+    \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
+    \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
+    \ Parser.compile_repeat(cls, shift, N)\nfrom typing import Generic\nfrom typing\
+    \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\nclass CRFList(Generic[_T]):\n\
+    \    def __init__(crf, A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S\
+    \ = len(S), A, S\n        S.append(len(A))\n\n    def __len__(crf) -> int: return\
+    \ crf.N\n\n    def __getitem__(crf, i: int) -> list[_T]:\n        return crf.A[crf.S[i]:crf.S[i+1]]\n\
+    \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
+    \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
+    \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
+    \    return A\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):   \
+    \   return array('B', (elm,))*N  # unsigned char\n\n\ndef elist(est_len: int)\
+    \ -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def\
+    \ newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nimport typing\n\
+    from numbers import Number\nfrom typing import Callable, Collection\n\nclass IOBase:\n\
+    \    @property\n    def char(io) -> bool: ...\n    @property\n    def writable(io)\
+    \ -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io, s: str) ->\
+    \ None: ...\n    def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n\
+    \    def readtokens(io) -> list[str]: ...\n    def readints(io) -> list[int]:\
+    \ ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io) -> list[int]:\
+    \ ...\n    def readchar(io) -> str: ...\n    def readchars(io) -> str: ...\n \
+    \   def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
+    \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
     \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
     \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
@@ -109,40 +146,7 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\nclass FuncGraph(list[int], Parsable):\n\
-    \    def __init__(F, successors):\n        super().__init__(successors)\n    \
-    \    F.N = F.M = len(F)\n\n    def find_cycle(P, root: int) -> list[int]:\n  \
-    \      slow = fast = root\n        while (slow := P[slow]) != (fast := P[P[fast]]):\
-    \ pass\n        cyc = [slow]\n        while P[slow] != fast: cyc.append(slow :=\
-    \ P[slow])\n        return cyc\n    \n    def cycles(P) -> 'CRFList[int]':\n \
-    \       vis, cycs, S = u8f(N := P.N), elist(N), elist(N)\n        for v in range(P.N):\n\
-    \            if vis[v]: continue\n            slow = fast = v\n            while\
-    \ (slow := P[slow]) != (fast := P[P[fast]]) and not vis[fast]: pass\n        \
-    \    if vis[fast]: continue\n            S.append(len(cycs))\n            cycs.append(slow)\n\
-    \            vis[slow := P[slow]] = 1\n            while slow != fast:\n     \
-    \           cycs.append(slow)\n                vis[slow := P[slow]] = 1\n    \
-    \    return CRFList(cycs, S)\n    \n    def chain(P, root):\n        cyc = P.find_cycle(root)\n\
-    \        slow, fast = root, cyc[0]\n        if slow == fast: return [], cyc\n\
-    \        line = [slow]\n        while (slow := P[slow]) != (fast := P[fast]):\n\
-    \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
-    \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
-    \ Parser.compile_repeat(cls, shift, N)\n\nfrom typing import Generic\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
-    \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
-    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\nclass CRFList(Generic[_T]):\n\
-    \    def __init__(crf, A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S\
-    \ = len(S), A, S\n        S.append(len(A))\n\n    def __len__(crf) -> int: return\
-    \ crf.N\n\n    def __getitem__(crf, i: int) -> list[_T]:\n        return crf.A[crf.S[i]:crf.S[i+1]]\n\
-    \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
-    \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
-    \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
-    \    return A\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):   \
-    \   return array('B', (elm,))*N  # unsigned char\n\ndef elist(est_len: int) ->\
-    \ list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nclass PermGraph(FuncGraph):\n\
+    \        else:\n            raise NotImplementedError()\n\nclass PermGraph(FuncGraph):\n\
     \    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n \
     \           Pinv[p] = i\n        return type(P)(Pinv)\n\ndef main():\n    N, K\
     \ = read(tuple[int,int])\n    P = read(PermGraph[N,0])\n    win = SlidingMinMax(maxlen=K)\n\
@@ -150,7 +154,7 @@ data:
     \ i in range(K,N):\n        p = win.popleft()\n        win.append(P[i])\n    \
     \    unchanged |= (is_sorted:=len(win.minq) == K)\n        ans += not is_sorted\
     \ and (p > win.min or P[i] < win.max)\n        \n    ans += unchanged\n    write(ans)\n\
-    \    \n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    \    \nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
     \ return -1\nfrom typing import MutableSequence, SupportsIndex\n\nclass Deque(MutableSequence[_T]):\n\
     \    def __init__(que, A = tuple(), *, maxlen=-1):\n        super().__init__()\n\
@@ -204,13 +208,13 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nfrom __pypy__.builders import StringBuilder\n\n\ndef max2(a,\
-    \ b):\n    return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE = 1 << 16;\
-    \ stdin: 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O', 'V', 'S',\
-    \ 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n    def\
-    \ __init__(io, file):\n        io.file = file\n        try: io.f = file.fileno();\
-    \ io.sz, io.writable = max2(io.BUFSIZE, os_fstat(io.f).st_size), ('x' in file.mode\
-    \ or 'r' not in file.mode)\n        except: io.f, io.sz, io.writable = -1, io.BUFSIZE,\
-    \ False\n        io.B, io.O, io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B);\
+    \ b): return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE = 1 << 16; stdin:\
+    \ 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p',\
+    \ 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n    def __init__(io,\
+    \ file):\n        io.file = file\n        try: io.f = file.fileno(); io.sz, io.writable\
+    \ = max2(io.BUFSIZE, os_fstat(io.f).st_size), ('x' in file.mode or 'r' not in\
+    \ file.mode)\n        except: io.f, io.sz, io.writable = -1, io.BUFSIZE, False\n\
+    \        io.B, io.O, io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B);\
     \ io.l = io.p = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False,\
     \ [], [], 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
     \ io.errors)\n    def readbytes(io, sz): return os_read(io.f, sz)\n    def load(io):\n\
@@ -278,17 +282,18 @@ data:
   - cp_library/ds/que/deque_cls.py
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/iter/crf_list_cls.py
   - cp_library/alg/iter/roll_fn.py
   - cp_library/ds/array/u8f_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/list/list_find_fn.py
   - cp_library/alg/dp/max2_fn.py
   - cp_library/io/io_base_cls.py
   isVerificationFile: true
   path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/agc/agc038_b_sliding_min_max.test.py

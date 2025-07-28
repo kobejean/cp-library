@@ -83,9 +83,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef min2(a, b):\n    return a if a < b else b\n"
-  code: "import cp_library.alg.dp.__header__\n\ndef min2(a, b):\n    return a if a\
-    \ < b else b"
+    \ndef min2(a, b): return a if a < b else b\n"
+  code: 'import cp_library.alg.dp.__header__
+
+
+    def min2(a, b): return a if a < b else b'
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/dp/min2_fn.py
@@ -100,7 +102,7 @@ data:
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - cp_library/alg/divcon/divcon_dp_max_fn.py
   - cp_library/alg/divcon/divcon_dp_min_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/lca.test.py

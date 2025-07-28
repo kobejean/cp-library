@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/popcnt32_fn.py
     title: cp_library/bit/popcnt32_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -32,18 +32,18 @@ data:
     \            while t:\n                sub.append(t)\n                t = (t-1)&s\n\
     \            sub.append(0)\n            sub.reverse()\n        \n"
   code: "import cp_library.math.table.__header__\nfrom cp_library.bit.popcnt32_fn\
-    \ import popcnt32\nfrom cp_library.ds.elist_fn import elist\n\nclass Submasks(list[list[int]]):\n\
+    \ import popcnt32\nfrom cp_library.ds.list.elist_fn import elist\n\nclass Submasks(list[list[int]]):\n\
     \    def __init__(S,N):\n        Z = 1 << N\n        super().__init__([elist(popcnt32(m))\
     \ for m in range(Z)])\n        for s in range(Z):\n            sub = S[t := s]\n\
     \            while t:\n                sub.append(t)\n                t = (t-1)&s\n\
     \            sub.append(0)\n            sub.reverse()\n        "
   dependsOn:
   - cp_library/bit/popcnt32_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   isVerificationFile: false
   path: cp_library/math/table/submasks_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/submasks_cls.py

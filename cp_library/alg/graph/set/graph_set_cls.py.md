@@ -8,11 +8,14 @@ data:
     path: cp_library/alg/graph/set/graph_proto.py
     title: cp_library/alg/graph/set/graph_proto.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_base_cls.py
     title: cp_library/io/io_base_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -31,56 +34,8 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from typing import Union\n\n\nfrom cp_library.alg.graph.edge_cls import Edge\n\
     \nfrom typing import Iterable, Union, overload\nfrom collections import deque\n\
-    from math import inf\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\n\nclass IOBase:\n\
-    \    @property\n    def char(io) -> bool: ...\n    @property\n    def writable(io)\
-    \ -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io, s: str) ->\
-    \ None: ...\n    def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n\
-    \    def readtokens(io) -> list[str]: ...\n    def readints(io) -> list[int]:\
-    \ ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io) -> list[int]:\
-    \ ...\n    def readchar(io) -> str: ...\n    def readchars(io) -> str: ...\n \
-    \   def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
-    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
-    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass Parser:\n    def __init__(self,\
-    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
-    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
-    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
-    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\
-    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
-    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
-    \           def parse(io: IOBase): return cls(next(io))              \n      \
-    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
-    \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
-    \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
-    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
-    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
-    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
-    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
-    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
-    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
-    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
-    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
-    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
-    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
-    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
-    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
-    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
-    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
-    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
-    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
-    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
-    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
-    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
-    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
-    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
-    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
+    from math import inf\nfrom types import GenericAlias\n\n\nclass Parsable:\n  \
+    \  @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
     \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
     \ item): return GenericAlias(cls, item)\n\nfrom enum import auto, IntFlag, IntEnum\n\
     \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
@@ -93,22 +48,22 @@ data:
     \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
     \    \n\nclass GraphProtocol(list, Parsable):\n    def __init__(G, N: int, E:\
-    \ list = None, adj: Iterable = None):\n        G.N = N\n        if E is not None:\n\
-    \            G.M, G.E = len(E), E\n        if adj is not None:\n            super().__init__(adj)\n\
-    \n    def neighbors(G, v: int) -> Iterable[int]:\n        return G[v]\n    \n\
-    \    def edge_ids(G) -> list[list[int]]: ...\n\n    @overload\n    def distance(G)\
-    \ -> list[list[int]]: ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]:\
-    \ ...\n    @overload\n    def distance(G, s: int, g: int) -> int: ...\n    def\
-    \ distance(G, s = None, g = None):\n        if s == None:\n            return\
-    \ G.floyd_warshall()\n        else:\n            return G.bfs(s, g)\n\n    @overload\n\
-    \    def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n   \
-    \ def bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g\
-    \ = None):\n        D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s,\
-    \ int) else s)\n        for u in q: D[u] = 0\n        while q:\n            nd\
-    \ = D[u := q.popleft()]+1\n            if u == g: return D[u]\n            for\
-    \ v in G.neighbors(u):\n                if nd < D[v]:\n                    D[v]\
-    \ = nd\n                    q.append(v)\n        return D if g is None else inf\
-    \ \n\n    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
+    \ list = None, adj: Iterable = None):\n        G.N = N\n        if E is not None:\
+    \ G.M, G.E = len(E), E\n        if adj is not None: super().__init__(adj)\n\n\
+    \    def neighbors(G, v: int) -> Iterable[int]: return G[v]\n    \n    def edge_ids(G)\
+    \ -> list[list[int]]: ...\n\n    @overload\n    def distance(G) -> list[list[int]]:\
+    \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
+    \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
+    \ g = None):\n        if s == None:\n            return G.floyd_warshall()\n \
+    \       else:\n            return G.bfs(s, g)\n\n    @overload\n    def bfs(G,\
+    \ s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def bfs(G, s:\
+    \ Union[int,list], g: int) -> int: ...\n    def bfs(G, s = 0, g = None):\n   \
+    \     D = [inf for _ in range(G.N)]\n        q = deque([s] if isinstance(s, int)\
+    \ else s)\n        for u in q: D[u] = 0\n        while q:\n            nd = D[u\
+    \ := q.popleft()]+1\n            if u == g: return D[u]\n            for v in\
+    \ G.neighbors(u):\n                if nd < D[v]:\n                    D[v] = nd\n\
+    \                    q.append(v)\n        return D if g is None else inf \n\n\
+    \    @overload\n    def shortest_path(G, s: int, g: int) -> Union[list[int],None]:\
     \ ...\n    @overload\n    def shortest_path(G, s: int, g: int, distances = True)\
     \ -> tuple[Union[list[int],None],list[int]]: ...\n    def shortest_path(G, s:\
     \ int, g: int, distances = False) -> list[int]:\n        D = [inf] * G.N\n   \
@@ -282,7 +237,54 @@ data:
     \        def parse(io: IOBase):\n            return cls(N, [edge(io) for _ in\
     \ range(M)])\n        return parse\n    \n\n\ndef elist(est_len: int) -> list:\
     \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\nclass Graph(GraphProtocol):\n\
+    \        return []\nelist = newlist_hint\n    \n\nclass IOBase:\n    @property\n\
+    \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
+    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
+    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
+    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
+    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
+    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
+    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
+    \ ...\nimport typing\nfrom numbers import Number\nfrom typing import Callable,\
+    \ Collection\n\nclass Parser:\n    def __init__(self, spec):  self.parse = Parser.compile(spec)\n\
+    \    def __call__(self, io: IOBase): return self.parse(io)\n    @staticmethod\n\
+    \    def compile_type(cls, args = ()):\n        if issubclass(cls, Parsable):\
+    \ return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n  \
+    \          def parse(io: IOBase): return cls(next(io))              \n       \
+    \     return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
+    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
+    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
+    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
+    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
+    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
+    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
+    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
+    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
+    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
+    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
+    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
+    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
+    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
+    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
+    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
+    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
+    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
+    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
+    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
+    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
+    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
+    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
+    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
+    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
+    \        else:\n            raise NotImplementedError()\n\nclass Graph(GraphProtocol):\n\
     \    def __init__(G, N: int, edges=[]):\n        super().__init__(set() for _\
     \ in range(N))\n        G.E = list(edges)\n        G.N, G.M = N, len(G.E)\n  \
     \      for u,v in G.E:\n            G[u].add(v)\n            G[v].add(u)\n\n \
@@ -300,14 +302,15 @@ data:
     \ int): E = Edge[E]\n        return super().compile(N, M, E)"
   dependsOn:
   - cp_library/alg/graph/set/graph_proto.py
-  - cp_library/io/parser_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/io/io_base_cls.py
+  - cp_library/io/parser_cls.py
   isVerificationFile: false
   path: cp_library/alg/graph/set/graph_set_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/set/graph_set_cls.py

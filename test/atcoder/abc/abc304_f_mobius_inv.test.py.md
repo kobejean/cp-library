@@ -11,6 +11,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -56,8 +59,8 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b):\n    return a\
-    \ if a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
+    \ > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
     \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
     \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
     \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
@@ -118,16 +121,19 @@ data:
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
-    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -153,30 +159,27 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\n    \nclass UniqueFactors(list[int]):\n\
-    \    def __init__(P, N: int):\n        super().__init__()\n        P.N = N\n \
-    \       d = 2\n        while N > 1:\n            if N % d == 0:\n            \
-    \    P.append(d)\n                N //= d\n                while N % d == 0:\n\
-    \                    N //= d\n            d += 1\n            if d * d > N:\n\
-    \                if N > 1: P.append(N)\n                break\n    \n    def mobius_inv(P,\
-    \ F, full=True):\n        C, f = [P.N]*(1<<len(P)), F(P.N) if full else 0\n  \
-    \      for i,p in enumerate(P):\n            l = ((b := 1<<i)<<1)-1\n        \
-    \    for m in range(b, b << 1):\n                C[m], f = (c := C[l^m]//p), F(c)-f\n\
-    \        return -f if full else f\n    \n    def totient(P):\n        N = P.N\n\
-    \        phi = 1\n        for p in P:\n            phi *= N - N//p\n        return\
-    \ phi\n\nclass Pow(list[int]):\n    def __init__(self,K,N,mod=None):\n       \
-    \ super().__init__([1]*(N+1))\n        if mod is None:\n            for i in range(N):\n\
-    \                self[i+1] = self[i]*K\n        else:\n            for i in range(N):\n\
-    \                self[i+1] = self[i]*K % mod\n\nif __name__ == \"__main__\":\n\
-    \    main()\n"
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \n    \nclass UniqueFactors(list[int]):\n    def __init__(P, N: int):\n      \
+    \  super().__init__()\n        P.N = N\n        d = 2\n        while N > 1:\n\
+    \            if N % d == 0:\n                P.append(d)\n                N //=\
+    \ d\n                while N % d == 0:\n                    N //= d\n        \
+    \    d += 1\n            if d * d > N:\n                if N > 1: P.append(N)\n\
+    \                break\n    \n    def mobius_inv(P, F, full=True):\n        C,\
+    \ f = [P.N]*(1<<len(P)), F(P.N) if full else 0\n        for i,p in enumerate(P):\n\
+    \            l = ((b := 1<<i)<<1)-1\n            for m in range(b, b << 1):\n\
+    \                C[m], f = (c := C[l^m]//p), F(c)-f\n        return -f if full\
+    \ else f\n    \n    def totient(P):\n        N = P.N\n        phi = 1\n      \
+    \  for p in P:\n            phi *= N - N//p\n        return phi\n\nclass Pow(list[int]):\n\
+    \    def __init__(self,K,N,mod=None):\n        super().__init__([1]*(N+1))\n \
+    \       if mod is None:\n            for i in range(N):\n                self[i+1]\
+    \ = self[i]*K\n        else:\n            for i in range(N):\n               \
+    \ self[i+1] = self[i]*K % mod\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc304/tasks/abc304_f\n\
     \nmod = 998244353\ndef main():\n    N = read(int)\n    S = read(str)\n\n    work\
     \ = [i for i in range(N) if S[i] == '.']\n    P = UniqueFactors(N)\n    pow2 =\
@@ -194,11 +197,12 @@ data:
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/io_base_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/dp/max2_fn.py
   isVerificationFile: true
   path: test/atcoder/abc/abc304_f_mobius_inv.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc304_f_mobius_inv.test.py

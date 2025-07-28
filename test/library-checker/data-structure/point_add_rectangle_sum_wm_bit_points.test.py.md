@@ -20,8 +20,8 @@ data:
     path: cp_library/ds/array/u32f_fn.py
     title: cp_library/ds/array/u32f_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
@@ -316,7 +316,7 @@ data:
     class WMBITPoints(WMBITCompressed, WMWeightedPoints):\n    def __init__(wm, X:\
     \ list[int], Y: list[int], W: list[int]):\n        wm.I,wm.X=rank(X,distinct=True);A,wm.Y=rank(Y);nA,nW=[0]*(N:=len(A)),[0]*N\n\
     \        for i,j in enumerate(wm.I):nA[j],nW[j]=A[i],W[i]\n        super()._build(nA,nW,A,W,len(wm.Y)-1)\n\
-    \    def add(wm,i:int,w:int):super().add(wm.I[i],w)\n\ndef elist(est_len: int)\
+    \    def add(wm,i:int,w:int):super().add(wm.I[i],w)\n\n\ndef elist(est_len: int)\
     \ -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def\
     \ newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\nimport\
     \ sys,os\nfrom __pypy__ import builders # type: ignore\nsb = builders.StringBuilder()\n\
@@ -333,13 +333,13 @@ data:
     \    wm = WMBITPoints(Xq+Xn, Yq+Yn,[0]*len(Xq)+Wn)\n    t0 = t1 = 0\n    for t\
     \ in T:\n        if t == 0: wm.add(t0, Wq[t0]); t0 += 1\n        else: append(str(wm.sum_rect(L[t1],\
     \ D[t1], R[t1], U[t1]))); append('\\n'); t1 += 1\n    os.write(1, sb.build().encode())\n\
-    \nfrom cp_library.ds.wavelet.wm_bit_points_cls import WMBITPoints\nfrom cp_library.ds.elist_fn\
+    \nfrom cp_library.ds.wavelet.wm_bit_points_cls import WMBITPoints\nfrom cp_library.ds.list.elist_fn\
     \ import elist\n\nimport sys,os\nfrom __pypy__ import builders # type: ignore\n\
     sb = builders.StringBuilder()\nappend = sb.append\ndef input(): return sys.stdin.buffer.readline().strip()\n\
     \nif __name__ == \"__main__\":\n    main()\n    "
   dependsOn:
   - cp_library/ds/wavelet/wm_bit_points_cls.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/alg/iter/rank/rank_fn.py
   - cp_library/ds/wavelet/wm_bit_compressed_cls.py
   - cp_library/ds/wavelet/wm_weighted_points_cls.py
@@ -359,7 +359,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit_points.test.py

@@ -82,8 +82,8 @@ data:
     \ A\n\ndef iand_mobius(A, N: int):\n    for m0, m1 in butterfly_masks(N, len(A)):\n\
     \        A[m0] -= A[m1]\n    return A\n\ndef popcnts(N):\n    P = [0]*(1 << N)\n\
     \    for i in range(N):\n        for m in range(b := 1<<i):\n            P[m^b]\
-    \ = P[m] + 1\n    return P\n\n\ndef subset_conv(A,B,N):\n    assert len(A) ==\
-    \ len(B)\n    Z = (N+1)*(M := 1<<N)\n    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n\
+    \ = P[m] + 1\n    return P\n\ndef subset_conv(A,B,N):\n    assert len(A) == len(B)\n\
+    \    Z = (N+1)*(M := 1<<N)\n    Ar,Br,Cr,P = [0]*Z, [0]*Z, [0]*Z, popcnts(N)\n\
     \    for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i] = A[i], B[i]\n    ior_zeta_pair(Ar,\
     \ Br, N)\n    for i in range(0,Z,M):\n        for j in range(0,Z-i,M):\n     \
     \       ij = i+j\n            for k in range(M): Cr[ij|k] += Ar[i|k] * Br[j|k]\n\
@@ -104,7 +104,7 @@ data:
     \       A[m0] += A[m1]\n    return A\n\ndef iand_mobius(A, N: int):\n    for m0,\
     \ m1 in butterfly_masks(N, len(A)):\n        A[m0] -= A[m1]\n    return A\n\n\
     def popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n        for m in\
-    \ range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\n\ndef subset_conv(A,B,N):\n\
+    \ range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\ndef subset_conv(A,B,N):\n\
     \    assert len(A) == len(B)\n    Z = (N+1)*(M := 1<<N)\n    Ar,Br,Cr,P = [0]*Z,\
     \ [0]*Z, [0]*Z, popcnts(N)\n    for i,p in enumerate(P): Ar[p<<N|i], Br[p<<N|i]\
     \ = A[i], B[i]\n    ior_zeta_pair(Ar, Br, N)\n    for i in range(0,Z,M):\n   \
@@ -115,7 +115,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/butterfly/butterfly_masks_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/subset_convolution_snippet.test.py

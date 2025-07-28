@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -51,7 +51,7 @@ data:
     print(f\"{B[0]:063b}\")\nprint(f\"{B[1]:063b}\")\nprint()\ninsert(63)\nprint(f\"\
     {B[0]:063b}\")\nprint(f\"{B[1]:063b}\")\nprint()\nB.append(0);insert(65)\nprint(f\"\
     {B[0]:063b}\")\nprint(f\"{B[1]:063b}\")\nprint(f\"{B[2]:063b}\")\n"
-  code: "\nfrom random import randrange\nimport time\n\nfrom cp_library.ds.elist_fn\
+  code: "\nfrom random import randrange\nimport time\n\nfrom cp_library.ds.list.elist_fn\
     \ import elist\ndef lemire_precompute(d, bits=32): s = bits<<1; m = (1<<s)-1;\
     \ a = (m+d)//d; return a, s, m\ndef lemire_divmod(x, d, a, s): q = (a*x)>>s; r\
     \ = x-q*d; return q, r\ndef lemire_div(x, a, s): return (a*x)>>s\ndef lemire_mod(x,\
@@ -84,11 +84,11 @@ data:
     {B[0]:063b}\")\nprint(f\"{B[1]:063b}\")\nprint()\nB.append(0);insert(65)\nprint(f\"\
     {B[0]:063b}\")\nprint(f\"{B[1]:063b}\")\nprint(f\"{B[2]:063b}\")"
   dependsOn:
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   isVerificationFile: false
   path: play.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: play.py

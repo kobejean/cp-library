@@ -17,6 +17,9 @@ data:
     path: cp_library/io/io_base_cls.py
     title: cp_library/io/io_base_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   _extendedRequiredBy: []
@@ -75,31 +78,50 @@ data:
     \ if iterable else []; heapify(self.data)\n    def pop(self): return heappop(self.data)\n\
     \    def push(self, item: _T): heappush(self.data, item)\n    def pushpop(self,\
     \ item: _T): return heappushpop(self.data, item)\n    def replace(self, item:\
-    \ _T): return heapreplace(self.data, item)\nfrom typing import Union\nimport typing\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection\n\n\nclass IOBase:\n    @property\n    def char(io) ->\
-    \ bool: ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
-    \ -> str: ...\n    def write(io, s: str) -> None: ...\n    def readline(io) ->\
-    \ str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]:\
-    \ ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
-    \ ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io) -> str: ...\n\
-    \    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str]) -> list[str]:\
-    \ ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n    def readtokensinto(io,\
-    \ lst: list[str]) -> list[str]: ...\n    def readintsinto(io, lst: list[int])\
-    \ -> list[int]: ...\n    def readdigitsinto(io, lst: list[int]) -> list[int]:\
-    \ ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n    def wait(io):\
-    \ ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]: ...\n\n\
-    class Parser:\n    def __init__(self, spec):  self.parse = Parser.compile(spec)\n\
-    \    def __call__(self, io: IOBase): return self.parse(io)\n    @staticmethod\n\
-    \    def compile_type(cls, args = ()):\n        if issubclass(cls, Parsable):\
-    \ return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n  \
-    \          def parse(io: IOBase): return cls(next(io))              \n       \
-    \     return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
-    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
-    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
+    \ _T): return heapreplace(self.data, item)\nfrom typing import Union\nfrom types\
+    \ import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def compile(cls):\n\
+    \        def parser(io: 'IOBase'): return cls(next(io))\n        return parser\n\
+    \    @classmethod\n    def __class_getitem__(cls, item): return GenericAlias(cls,\
+    \ item)\n\nclass KHeapMixin(HeapProtocol[_T], Parsable):\n    '''KHeapMixin[K:\
+    \ int, T: type, N: Union[int,None]]'''\n    def __init__(heap, K: int): heap.K\
+    \ = K\n    def added(heap, item: _T): ...\n    def removed(heap, item: _T): ...\n\
+    \    def pop(heap): item = super().pop(); heap.removed(item); return item\n  \
+    \  def push(heap, item: _T):\n        if len(heap) < heap._K: heap.added(item);\
+    \ super().push(item)\n        elif heap._K: heap.pushpop(item)\n    def pushpop(heap,\
+    \ item: _T):\n        if item != (remove := super().pushpop(item)): heap.removed(remove);\
+    \ heap.added(item); return remove\n        else: return item\n    def replace(heap,\
+    \ item: _T): remove = super().replace(item); heap.removed(remove); heap.added(item);\
+    \ return remove\n    @property\n    def K(heap): return heap._K\n    @K.setter\n\
+    \    def K(heap, K):\n        heap._K = K\n        if K is not None:\n       \
+    \     while len(heap) > K: heap.pop()\n    @classmethod\n    def compile(cls,\
+    \ K: int, T: type, N: Union[int,None] = None):\n        elm = Parser.compile(T)\n\
+    \        if N is None:\n            def parse(io: IOBase): return cls(K, (elm(io)\
+    \ for _ in io.wait()))\n        else:\n            def parse(io: IOBase): return\
+    \ cls(K, (elm(io) for _ in range(N)))\n        return parse\n\nclass IOBase:\n\
+    \    @property\n    def char(io) -> bool: ...\n    @property\n    def writable(io)\
+    \ -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io, s: str) ->\
+    \ None: ...\n    def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n\
+    \    def readtokens(io) -> list[str]: ...\n    def readints(io) -> list[int]:\
+    \ ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io) -> list[int]:\
+    \ ...\n    def readchar(io) -> str: ...\n    def readchars(io) -> str: ...\n \
+    \   def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\nimport typing\nfrom numbers\
+    \ import Number\nfrom typing import Callable, Collection\n\nclass Parser:\n  \
+    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
+    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
+    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
+    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
+    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
+    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
+    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
+    \            def parse(io: IOBase): return cls(next(io))              \n     \
+    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
+    \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
     \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
     \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
@@ -123,25 +145,7 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\nclass KHeapMixin(HeapProtocol[_T],\
-    \ Parsable):\n    '''KHeapMixin[K: int, T: type, N: Union[int,None]]'''\n    def\
-    \ __init__(heap, K: int): heap.K = K\n    def added(heap, item: _T): ...\n   \
-    \ def removed(heap, item: _T): ...\n    def pop(heap): item = super().pop(); heap.removed(item);\
-    \ return item\n    def push(heap, item: _T):\n        if len(heap) < heap._K:\
-    \ heap.added(item); super().push(item)\n        elif heap._K: heap.pushpop(item)\n\
-    \    def pushpop(heap, item: _T):\n        if item != (remove := super().pushpop(item)):\
-    \ heap.removed(remove); heap.added(item); return remove\n        else: return\
-    \ item\n    def replace(heap, item: _T): remove = super().replace(item); heap.removed(remove);\
-    \ heap.added(item); return remove\n    @property\n    def K(heap): return heap._K\n\
-    \    @K.setter\n    def K(heap, K):\n        heap._K = K\n        if K is not\
-    \ None:\n            while len(heap) > K: heap.pop()\n    @classmethod\n    def\
-    \ compile(cls, K: int, T: type, N: Union[int,None] = None):\n        elm = Parser.compile(T)\n\
-    \        if N is None:\n            def parse(io: IOBase): return cls(K, (elm(io)\
-    \ for _ in io.wait()))\n        else:\n            def parse(io: IOBase): return\
-    \ cls(K, (elm(io) for _ in range(N)))\n        return parse\n\nclass MaxKHeap(KHeapMixin[_T],\
+    \        else:\n            raise NotImplementedError()\n\nclass MaxKHeap(KHeapMixin[_T],\
     \ MinHeap[_T]):\n    '''MaxKHeap[K: int, T: type, N: Union[int,None]]'''\n   \
     \ def __init__(self, K: int, iterable: Iterable[_T] = None):\n        MinHeap.__init__(self,\
     \ iterable)\n        KHeapMixin.__init__(self, K)\n"
@@ -157,12 +161,13 @@ data:
   - cp_library/ds/heap/k_heap_mixin.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
-  - cp_library/io/parser_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/io/io_base_cls.py
+  - cp_library/io/parser_cls.py
   isVerificationFile: false
   path: cp_library/ds/heap/max_k_heap_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc249_f_max_k_heap.test.py

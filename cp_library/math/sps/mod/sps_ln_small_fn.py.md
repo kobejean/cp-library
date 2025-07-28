@@ -31,7 +31,7 @@ data:
   path: cp_library/math/sps/mod/sps_ln_small_fn.py
   requiredBy:
   - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/mod/sps_ln_small_fn.py

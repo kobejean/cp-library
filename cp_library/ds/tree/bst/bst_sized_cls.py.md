@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/bst_cls.py
     title: cp_library/ds/tree/bst/bst_cls.py
@@ -85,7 +85,7 @@ data:
     \    def _u(T,i):\n        T.sz[s]=T.sz[l<<1]+1+T.sz[l<<1|1] if~(l:=T.sub[s:=i<<1])\
     \ else 0\n        T.sz[s]=T.sz[r<<1]+1+T.sz[r<<1|1] if~(r:=T.sub[s:=i<<1|1]) else\
     \ 0\n    @classmethod\n    def reserve(cls,sz):super().reserve(sz);reserve(cls.sz,(sz+1)<<1)\n"
-  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.reserve_fn\
     \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
     from cp_library.ds.tree.bst.bst_updates_cls import BSTUpdates\n\nclass BSTSized(BSTUpdates):\n\
     \    K,sz,sub,st=[-1],[0,0],[-1,-1],[]\n    def _nr(T):T.sz.append(0);T.sz.append(0);return\
@@ -99,7 +99,7 @@ data:
     \ else 0\n        T.sz[s]=T.sz[r<<1]+1+T.sz[r<<1|1] if~(r:=T.sub[s:=i<<1|1]) else\
     \ 0\n    @classmethod\n    def reserve(cls,sz):super().reserve(sz);reserve(cls.sz,(sz+1)<<1)"
   dependsOn:
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/ds/tree/bst/bst_updates_cls.py
   - cp_library/ds/tree/bst/bst_cls.py
   - cp_library/bit/masks/i64_max_cnst.py
@@ -113,7 +113,7 @@ data:
   - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
   - cp_library/ds/tree/bst/treap_implicit_cls.py
   - cp_library/ds/tree/bst/treap_reversible_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/range_reverse_range_sum.test.py

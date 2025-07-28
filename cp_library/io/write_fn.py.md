@@ -375,10 +375,10 @@ data:
     \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\nfrom os import read as os_read, write as os_write, fstat\
     \ as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\n\ndef\
-    \ max2(a, b):\n    return a if a > b else b\n\nclass IOBase:\n    @property\n\
-    \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
-    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
-    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \ max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n    def\
+    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
+    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
+    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
     \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
     \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
     \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
@@ -452,7 +452,7 @@ data:
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/io/bye_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/convolution_int.test.py

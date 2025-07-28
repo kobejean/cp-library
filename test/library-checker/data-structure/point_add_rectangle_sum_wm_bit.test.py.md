@@ -14,8 +14,8 @@ data:
     path: cp_library/ds/array/u32f_fn.py
     title: cp_library/ds/array/u32f_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bit/bit_cls.py
     title: cp_library/ds/tree/bit/bit_cls.py
@@ -240,19 +240,19 @@ data:
     \ L.W.sum_range(l,r)\n    def _build_base(wm,W):wm.W=BIT(W[:])\n    def _sum_range(wm,l,r):return\
     \ wm.W.sum_range(l,r)\n    def add(wm,i:int,w:int):\n        wm.W.add(i,w)\n \
     \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\ndef pack_sm(N: int): s=N.bit_length();\
-    \ return s,(1<<s)-1\n\n\ndef max2(a, b):\n    return a if a > b else b\n\ndef\
-    \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\ndef icoord_compress_with_queries(*A: list[int], distinct=False):\n  \
-    \  N = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si,\
-    \ mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n\
-    \    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai): S[k]=a << sj\
-    \ | i << si | j; k += 1\n    S.sort()\n    r = p = -1\n    for aji in S:\n   \
-    \     a, i, j = aji >> sj, (aji&mj) >> si , aji & mi\n        if 2<=i and (distinct\
-    \ or a != p): r = r+1; p = a\n        A[i][j] = r+(i<2)\n    return A\nimport\
-    \ sys,os\nfrom __pypy__ import builders # type: ignore\nsb = builders.StringBuilder()\n\
-    append = sb.append\ndef input(): return sys.stdin.buffer.readline().strip()\n\n\
-    if __name__ == \"__main__\":\n    main()\n    \n"
+    \ return s,(1<<s)-1\n\n\ndef max2(a, b): return a if a > b else b\n\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    def icoord_compress_with_queries(*A: list[int], distinct=False):\n    N = mx =\
+    \ 0\n    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1);\
+    \ sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n\
+    \        for j,a in enumerate(Ai): S[k]=a << sj | i << si | j; k += 1\n    S.sort()\n\
+    \    r = p = -1\n    for aji in S:\n        a, i, j = aji >> sj, (aji&mj) >> si\
+    \ , aji & mi\n        if 2<=i and (distinct or a != p): r = r+1; p = a\n     \
+    \   A[i][j] = r+(i<2)\n    return A\nimport sys,os\nfrom __pypy__ import builders\
+    \ # type: ignore\nsb = builders.StringBuilder()\nappend = sb.append\ndef input():\
+    \ return sys.stdin.buffer.readline().strip()\n\nif __name__ == \"__main__\":\n\
+    \    main()\n    \n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_add_rectangle_sum\n\
     \n\ndef main():\n    N, Q = map(int, input().split())\n    Xn, Yn, Wn, Xq, Yq,\
     \ Wq = [0]*N, [0]*N, [0]*N, elist(Q), elist(Q), elist(Q)\n    T, L, D, R, U =\
@@ -269,7 +269,7 @@ data:
     \ 0: wm.add(Xq[t0], Wq[t0]); t0 += 1\n        else: append(str(wm.sum_rect(L[t1],\
     \ D[t1], R[t1], U[t1]))); append('\\n'); t1 += 1\n    os.write(1, sb.build().encode())\n\
     \nfrom cp_library.ds.wavelet.wm_bit_cls import WMBIT\nfrom cp_library.bit.pack.pack_sm_fn\
-    \ import pack_sm\nfrom cp_library.alg.dp.max2_fn import max2\nfrom cp_library.ds.elist_fn\
+    \ import pack_sm\nfrom cp_library.alg.dp.max2_fn import max2\nfrom cp_library.ds.list.elist_fn\
     \ import elist\n\ndef icoord_compress_with_queries(*A: list[int], distinct=False):\n\
     \    N = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si,\
     \ mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n\
@@ -284,7 +284,7 @@ data:
   - cp_library/ds/wavelet/wm_bit_cls.py
   - cp_library/bit/pack/pack_sm_fn.py
   - cp_library/alg/dp/max2_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/tree/bit/bit_cls.py
   - cp_library/ds/wavelet/wm_weighted_cls.py
   - cp_library/ds/wavelet/wm_static_cls.py
@@ -294,7 +294,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_add_rectangle_sum_wm_bit.test.py

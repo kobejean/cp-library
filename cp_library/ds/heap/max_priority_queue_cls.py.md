@@ -5,14 +5,14 @@ data:
     path: cp_library/bit/pack/packer_cls.py
     title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/fast_heapq.py
     title: cp_library/ds/heap/fast_heapq.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/heap_proto.py
     title: cp_library/ds/heap/heap_proto.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -80,8 +80,8 @@ data:
     \    def pushpop(que, priority: int, id: int): return que.pkr.dec(heappushpop_max(que.data,\
     \ que.pkr.enc(priority, id)))\n    def replace(que, priority: int, id: int): return\
     \ que.pkr.dec(heapreplace_max(que.data, que.pkr.enc(priority, id)))\n    def peek(que):\
-    \ return que.pkr.dec(que.data[0])\n\ndef elist(est_len: int) -> list: ...\ntry:\n\
-    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
+    \ return que.pkr.dec(que.data[0])\n\n\ndef elist(est_len: int) -> list: ...\n\
+    try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
     \        return []\nelist = newlist_hint\n    \n"
   code: "import cp_library.__header__\nfrom cp_library.bit.pack.packer_cls import\
     \ Packer\nimport cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\n\
@@ -97,16 +97,16 @@ data:
     \ id))\n    def pushpop(que, priority: int, id: int): return que.pkr.dec(heappushpop_max(que.data,\
     \ que.pkr.enc(priority, id)))\n    def replace(que, priority: int, id: int): return\
     \ que.pkr.dec(heapreplace_max(que.data, que.pkr.enc(priority, id)))\n    def peek(que):\
-    \ return que.pkr.dec(que.data[0])\nfrom cp_library.ds.elist_fn import elist"
+    \ return que.pkr.dec(que.data[0])\nfrom cp_library.ds.list.elist_fn import elist"
   dependsOn:
   - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/heap/max_priority_queue_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/max_priority_queue_cls.py

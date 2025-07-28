@@ -8,8 +8,8 @@ data:
     path: cp_library/bit/pack/packer_cls.py
     title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/bst_cls.py
     title: cp_library/ds/tree/bst/bst_cls.py
@@ -576,7 +576,7 @@ data:
   - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/tree/bst/treap_monoid_cls.py
   - cp_library/test/unittest_helper.py
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/ds/tree/bst/bst_updates_cls.py
   - cp_library/ds/tree/bst/treap_cls.py
   - cp_library/ds/tree/bst/bst_cls.py
@@ -585,7 +585,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/tree/bst/treap_monoid_cls_test.py

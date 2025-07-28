@@ -20,6 +20,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -54,28 +57,28 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
     \    https://kobejean.github.io/cp-library               \n'''\n\ndef median_of_three(A,\
     \ l, r):\n    '''Select pivot as median of first, middle, and last elements'''\n\
-    \    if r - l < 3: return l\n    mid = (l+r) >> 1\n    if A[mid] < A[l]:\n   \
-    \     A[l], A[mid] = A[mid], A[l]\n    if A[r-1] < A[mid]:\n        A[mid], A[r-1]\
-    \ = A[r-1], A[mid]\n        if A[mid] < A[l]:\n            A[l], A[mid] = A[mid],\
-    \ A[l]\n    return mid\n\ndef partition(A, l, r, p) -> int:\n    '''Partition\
-    \ subarray [l,r)'''\n    A[p], A[r], p = A[r := r-1], A[p], l\n    for j in range(l,\
-    \ r):\n        if A[j] <= A[r]: A[p], A[j], p = A[j], A[p], p+1\n    A[p], A[r]\
-    \ = A[r], A[p]\n    return p\n\ndef qselect(A, k, l=0, r=None):\n    '''Find kth\
-    \ element in subarray [l,r)'''\n    if r is None: r = len(A)\n    while l != r-1:\n\
-    \        if k < (p := partition(A, l, r, median_of_three(A,l,r))): r = p\n   \
-    \     elif k > p: l = p+1\n        else: return A[k]\n    return A[k]\nfrom typing\
-    \ import Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S');\
-    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
-    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
-    \ char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n\
-    @overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\n\
-    def read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T],\
-    \ char=False):\n    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
+    \    if r - l < 3: return l\n    mid = (l+r) >> 1\n    if A[mid] < A[l]: A[l],\
+    \ A[mid] = A[mid], A[l]\n    if A[r-1] < A[mid]:\n        A[mid], A[r-1] = A[r-1],\
+    \ A[mid]\n        if A[mid] < A[l]: A[l], A[mid] = A[mid], A[l]\n    return mid\n\
+    \ndef partition(A, l, r, p) -> int:\n    '''Partition subarray [l,r)'''\n    A[p],\
+    \ A[r], p = A[r := r-1], A[p], l\n    for j in range(l, r):\n        if A[j] <=\
+    \ A[r]: A[p], A[j], p = A[j], A[p], p+1\n    A[p], A[r] = A[r], A[p]\n    return\
+    \ p\n\ndef qselect(A, k, l=0, r=None):\n    '''Find kth element in subarray [l,r)'''\n\
+    \    if r is None: r = len(A)\n    while l != r-1:\n        if k < (p := partition(A,\
+    \ l, r, median_of_three(A,l,r))): r = p\n        elif k > p: l = p+1\n       \
+    \ else: return A[k]\n    return A[k]\nfrom typing import Type, Union, overload\n\
+    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
+    def read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T],\
+    \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
+    \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T], char=False):\n\
+    \    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b):\n    return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -136,16 +139,19 @@ data:
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
-    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -171,16 +177,13 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n    \nif __name__ == '__main__':\n\
-    \    main()\n"
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \    \nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/arc182/tasks/arc182_d\n\
     \ndef main():\n    N, M = read()\n    A = read()\n    B = read()\n\n    if M ==\
     \ 2:\n        write(0 if A == B else -1)\n        exit()\n\n    def rel(x,y):\n\
@@ -202,11 +205,12 @@ data:
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/io/io_base_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/dp/max2_fn.py
   isVerificationFile: true
   path: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py

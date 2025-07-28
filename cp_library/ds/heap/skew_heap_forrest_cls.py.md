@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/edge/edge_list_weighted_cls.py
@@ -35,7 +35,7 @@ data:
     import operator\nfrom typing import Generic\nfrom typing import TypeVar\n_S =\
     \ TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2\
     \ = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
+    \ _T6 = TypeVar('T6')\n\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
     \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
     \ return []\nelist = newlist_hint\n    \n\n\nclass SkewHeapForrest(Generic[_T]):\n\
     \    def __init__(shf, N, M, e: _T = 0, op = operator.add):\n        shf.V, shf.A,\
@@ -58,7 +58,7 @@ data:
     \ = shf.op(shf.A[shf.roots[i]], val)\n    def empty(shf, i: int): return shf.roots[i]\
     \ == -1\n    \n"
   code: "import cp_library.__header__\nimport operator\nfrom typing import Generic\n\
-    from cp_library.misc.typing import _T\nimport cp_library.ds.__header__\nfrom cp_library.ds.elist_fn\
+    from cp_library.misc.typing import _T\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.elist_fn\
     \ import elist\nimport cp_library.ds.heap.__header__\n\nclass SkewHeapForrest(Generic[_T]):\n\
     \    def __init__(shf, N, M, e: _T = 0, op = operator.add):\n        shf.V, shf.A,\
     \ shf.L, shf.R, shf.roots = [e]*M, [e]*M, [-1]*M, [-1]*M, [-1]*N\n        shf.id,\
@@ -80,13 +80,13 @@ data:
     \ = shf.op(shf.A[shf.roots[i]], val)\n    def empty(shf, i: int): return shf.roots[i]\
     \ == -1\n    "
   dependsOn:
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/heap/skew_heap_forrest_cls.py
   requiredBy:
   - cp_library/alg/graph/edge/edge_list_weighted_cls.py
   - perf/edge_list.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/directedmst_edge_list.test.py

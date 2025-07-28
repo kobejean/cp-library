@@ -5,8 +5,8 @@ data:
     path: cp_library/alg/dp/monotone_minima_fn.py
     title: cp_library/alg/dp/monotone_minima_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -125,11 +125,11 @@ data:
     \        A[i] = min(B[j] + A[i-j] for j in range(min(M,i+1)))   \n"
   dependsOn:
   - cp_library/alg/dp/monotone_minima_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   isVerificationFile: false
   path: cp_library/math/conv/minplus_conv_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py

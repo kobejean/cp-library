@@ -289,7 +289,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/iter/sort/sort_groups_fn.py
       title: cp_library/alg/iter/sort/sort_groups_fn.py
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: cp_library/alg/iter/sort/sort_parallel_fn.py
       title: cp_library/alg/iter/sort/sort_parallel_fn.py
   - name: cp_library/alg/tree
@@ -498,9 +498,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/dsu_cls.py
       title: cp_library/ds/dsu_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/elist_fn.py
-      title: cp_library/ds/elist_fn.py
     - icon: ':warning:'
       path: cp_library/ds/grid.py
       title: cp_library/ds/grid.py
@@ -528,9 +525,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/queries_mo_ops_cls.py
       title: cp_library/ds/queries_mo_ops_cls.py
-    - icon: ':heavy_check_mark:'
-      path: cp_library/ds/reserve_fn.py
-      title: cp_library/ds/reserve_fn.py
     - icon: ':warning:'
       path: cp_library/ds/slidingmax_cls.py
       title: cp_library/ds/slidingmax_cls.py
@@ -617,6 +611,9 @@ data:
   - name: cp_library/ds/list
     pages:
     - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/elist_fn.py
+      title: cp_library/ds/list/elist_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/ds/list/list2_cls.py
       title: cp_library/ds/list/list2_cls.py
     - icon: ':heavy_check_mark:'
@@ -640,6 +637,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/list/presum_cls.py
       title: cp_library/ds/list/presum_cls.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/ds/list/reserve_fn.py
+      title: cp_library/ds/list/reserve_fn.py
   - name: cp_library/ds/que
     pages:
     - icon: ':heavy_check_mark:'
@@ -879,6 +879,9 @@ data:
       path: cp_library/io/bye_fn.py
       title: cp_library/io/bye_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/io/fast_io_fn.py
+      title: cp_library/io/fast_io_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/io_base_cls.py
       title: cp_library/io/io_base_cls.py
     - icon: ':heavy_check_mark:'
@@ -888,6 +891,9 @@ data:
       path: cp_library/io/io_cls.py
       title: cp_library/io/io_cls.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/io/parsable_cls.py
+      title: cp_library/io/parsable_cls.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/io/parser_cls.py
       title: cp_library/io/parser_cls.py
     - icon: ':heavy_check_mark:'
@@ -896,11 +902,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/io/write_fn.py
       title: cp_library/io/write_fn.py
-  - name: cp_library/io/fast
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: cp_library/io/fast/fast_io_fn.py
-      title: cp_library/io/fast/fast_io_fn.py
   - name: cp_library/math/conv
     pages:
     - icon: ':heavy_check_mark:'

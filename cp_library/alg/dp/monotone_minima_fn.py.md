@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: cp_library/math/conv/minplus_conv_fn.py
@@ -63,14 +63,14 @@ data:
     \ continue\n        mi, mj = li + ri >> 1, lj\n        for j in range(lj + 1,\
     \ rj):\n            if func(mi, mj, j): mj = j\n        min_j[mi] = mj\n     \
     \   st.append((li, mi, lj, mj+1))\n        st.append((mi+1, ri, mj, rj))\n   \
-    \ return min_j\n\nfrom cp_library.ds.elist_fn import elist"
+    \ return min_j\n\nfrom cp_library.ds.list.elist_fn import elist"
   dependsOn:
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   isVerificationFile: false
   path: cp_library/alg/dp/monotone_minima_fn.py
   requiredBy:
   - cp_library/math/conv/minplus_conv_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py

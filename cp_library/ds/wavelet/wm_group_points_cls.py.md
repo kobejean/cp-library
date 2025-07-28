@@ -264,7 +264,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/wavelet/wm_group_points_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py

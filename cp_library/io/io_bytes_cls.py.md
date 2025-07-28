@@ -27,7 +27,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from __pypy__.builders import StringBuilder\n\nfrom os import read as os_read,\
-    \ write as os_write, fstat as os_fstat\nimport sys\n\n\ndef max2(a, b):\n    return\
+    \ write as os_write, fstat as os_fstat\nimport sys\n\n\ndef max2(a, b): return\
     \ a if a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool:\
     \ ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
     \ -> str: ...\n    def write(io, s: str) -> None: ...\n    def readline(io) ->\
@@ -109,7 +109,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/io_bytes_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/io/io_cls_test.py

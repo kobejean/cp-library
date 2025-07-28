@@ -31,16 +31,15 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef median_of_three(A, l, r):\n    '''Select pivot as median of first, middle,\
     \ and last elements'''\n    if r - l < 3: return l\n    mid = (l+r) >> 1\n   \
-    \ if A[mid] < A[l]:\n        A[l], A[mid] = A[mid], A[l]\n    if A[r-1] < A[mid]:\n\
-    \        A[mid], A[r-1] = A[r-1], A[mid]\n        if A[mid] < A[l]:\n        \
-    \    A[l], A[mid] = A[mid], A[l]\n    return mid\n\ndef partition(A, l, r, p)\
-    \ -> int:\n    '''Partition subarray [l,r)'''\n    A[p], A[r], p = A[r := r-1],\
-    \ A[p], l\n    for j in range(l, r):\n        if A[j] <= A[r]: A[p], A[j], p =\
-    \ A[j], A[p], p+1\n    A[p], A[r] = A[r], A[p]\n    return p\n\ndef qselect(A,\
-    \ k, l=0, r=None):\n    '''Find kth element in subarray [l,r)'''\n    if r is\
-    \ None: r = len(A)\n    while l != r-1:\n        if k < (p := partition(A, l,\
-    \ r, median_of_three(A,l,r))): r = p\n        elif k > p: l = p+1\n        else:\
-    \ return A[k]\n    return A[k]\n"
+    \ if A[mid] < A[l]: A[l], A[mid] = A[mid], A[l]\n    if A[r-1] < A[mid]:\n   \
+    \     A[mid], A[r-1] = A[r-1], A[mid]\n        if A[mid] < A[l]: A[l], A[mid]\
+    \ = A[mid], A[l]\n    return mid\n\ndef partition(A, l, r, p) -> int:\n    '''Partition\
+    \ subarray [l,r)'''\n    A[p], A[r], p = A[r := r-1], A[p], l\n    for j in range(l,\
+    \ r):\n        if A[j] <= A[r]: A[p], A[j], p = A[j], A[p], p+1\n    A[p], A[r]\
+    \ = A[r], A[p]\n    return p\n\ndef qselect(A, k, l=0, r=None):\n    '''Find kth\
+    \ element in subarray [l,r)'''\n    if r is None: r = len(A)\n    while l != r-1:\n\
+    \        if k < (p := partition(A, l, r, median_of_three(A,l,r))): r = p\n   \
+    \     elif k > p: l = p+1\n        else: return A[k]\n    return A[k]\n"
   code: "import cp_library.alg.divcon.__header__\nfrom cp_library.alg.divcon.median_of_three_fn\
     \ import median_of_three\nfrom cp_library.alg.divcon.partition_fn import partition\n\
     \ndef qselect(A, k, l=0, r=None):\n    '''Find kth element in subarray [l,r)'''\n\
@@ -54,7 +53,7 @@ data:
   path: cp_library/alg/divcon/qselect_fn.py
   requiredBy:
   - cp_library/math/median_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc122_b_insurance_median.test.py

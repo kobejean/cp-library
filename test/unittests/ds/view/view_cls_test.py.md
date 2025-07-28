@@ -385,7 +385,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/view_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/view_cls_test.py

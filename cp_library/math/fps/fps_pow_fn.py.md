@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/math/fps/fps_deriv_fn.py
     title: cp_library/math/fps/fps_deriv_fn.py
@@ -233,7 +233,7 @@ data:
   - cp_library/math/fps/fps_deriv_fn.py
   - cp_library/math/fps/fps_integ_fn.py
   - cp_library/math/fps/fps_inv_fn.py
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/math/table/mcomb_cls.py
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/nt/ntt_cls.py
@@ -242,7 +242,7 @@ data:
   requiredBy:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py

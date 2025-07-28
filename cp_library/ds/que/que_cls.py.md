@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   _extendedRequiredBy:
   - icon: ':warning:'
     path: cp_library/alg/graph/csr/dag_cls.py
@@ -299,7 +299,7 @@ data:
     \ items): que.q.extend(items)\n    def __getitem__(que, i: int): return que.q[que.h+i]\n\
     \    def __setitem__(que, i: int, v): que.q[que.h+i] = v\n    def __len__(que):\
     \ return que.q.__len__() - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    \n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
     except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
     \    \n"
   code: "import cp_library.ds.__header__\nimport cp_library.ds.que.__header__\n\n\
@@ -309,9 +309,9 @@ data:
     \ items): que.q.extend(items)\n    def __getitem__(que, i: int): return que.q[que.h+i]\n\
     \    def __setitem__(que, i: int, v): que.q[que.h+i] = v\n    def __len__(que):\
     \ return que.q.__len__() - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\
-    from cp_library.ds.elist_fn import elist"
+    from cp_library.ds.list.elist_fn import elist"
   dependsOn:
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   isVerificationFile: false
   path: cp_library/ds/que/que_cls.py
   requiredBy:
@@ -355,7 +355,7 @@ data:
   - cp_library/alg/tree/csr/tree_weighted_meta_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
   - perf/que.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/cycle_detection.test.py

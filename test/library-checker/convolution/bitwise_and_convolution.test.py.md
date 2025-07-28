@@ -11,6 +11,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -55,8 +58,8 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b):\n    return a\
-    \ if a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
+    \ > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
     \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
     \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
     \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
@@ -117,16 +120,19 @@ data:
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
-    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -152,75 +158,73 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\nimport operator\n'''\n\
-    \u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \nimport operator\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \ x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2080\
-    \n                \u2573          \u2572 \u2571          \u2572     \u2571   \
-    \       \n    x\u2084 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2578\n    x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u25BA X\u2080\n                \u2573          \u2572 \u2571    \
+    \      \u2572     \u2571          \n    x\u2084 \u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25CF\u2500\u2572\u2500\u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25BA X\u2081\n                           \u2573\
+    \ \u2573          \u2572 \u2572 \u2571 \u2571          \n    x\u2082 \u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\u2573\u2500\u2571\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2082\n             \
+    \   \u2573          \u2571 \u2572          \u2572 \u2573 \u2573 \u2571       \
+    \   \n    x\u2086 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
     \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\
-    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\
-    \u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25BA X\u2081\n                           \u2573 \u2573          \u2572 \u2572\
-    \ \u2571 \u2571          \n    x\u2082 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
-    \u2500\u2572\u2500\u2573\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25BA X\u2082\n                \u2573          \u2571 \u2572\
-    \          \u2572 \u2573 \u2573 \u2571          \n    x\u2086 \u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\u2500\u2573\u2500\u25CF\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2083\n                   \
-    \                     \u2573 \u2573 \u2573 \u2573         \n    x\u2081 \u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u2573\u2500\u2573\u2500\
-    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2084\n       \
-    \         \u2573          \u2572 \u2571          \u2571 \u2573 \u2573 \u2572 \
-    \         \n    x\u2085 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
+    \u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25BA X\u2083\n                                        \u2573 \u2573 \u2573 \u2573\
+    \         \n    x\u2081 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
+    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\
     \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\
-    \u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2571\
-    \u2500\u2573\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u25BA X\u2085\n                           \u2573 \u2573          \u2571\
-    \ \u2571 \u2572 \u2572          \n    x\u2083 \u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2573\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25BA X\u2084\n                \u2573          \u2572 \u2571          \u2571\
+    \ \u2573 \u2573 \u2572          \n    x\u2085 \u2500\u2500\u2500\u2500\u2500\u2500\
     \u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25CF\u2500\u2571\u2500\u2500\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25BA X\u2086\n                \u2573          \u2571\
-    \ \u2572          \u2571     \u2572          \n    x\u2087 \u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2087\n\u257A\u2501\u2501\u2501\u2501\
+    \u25CF\u2500\u2571\u2500\u2573\u2500\u2572\u2500\u25CF\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u25BA X\u2085\n                           \u2573 \u2573\
+    \          \u2571 \u2571 \u2572 \u2572          \n    x\u2083 \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2571\u2500\u2500\u2500\u2572\u2500\u25CF\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2086\n                \u2573\
+    \          \u2571 \u2572          \u2571     \u2572          \n    x\u2087 \u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2087\n\u257A\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\ndef iand_transform(A: list[_T], N: int, /, op =\
-    \ operator.add) -> list[_T]:\n    Z = len(A)\n    for i in range(N):\n       \
-    \ m = b = 1<<i\n        while m < Z: A[m^b], m = op(A[m^b], A[m]), m+1|b\n   \
-    \ return A\n\ndef iand_conv_ring(A: list[_T], B: list[_T], N: int,\n         \
-    \    mul: Callable[[_T,_T],_T] = operator.mul,\n             sub: Callable[[_T,_T],_T]\
-    \ = operator.sub,\n             add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n\
-    \    assert len(A) == len(B)\n    iand_transform(A, N, op=add), iand_transform(B,\
-    \ N, op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return iand_transform(A,\
-    \ N, op=sub)\n\nif __name__ == '__main__':\n    main()\n"
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n               \
+    \       Math - Convolution                     \n'''\n\ndef iand_transform(A:\
+    \ list[_T], N: int, /, op = operator.add) -> list[_T]:\n    Z = len(A)\n    for\
+    \ i in range(N):\n        m = b = 1<<i\n        while m < Z: A[m^b], m = op(A[m^b],\
+    \ A[m]), m+1|b\n    return A\n\ndef iand_conv_ring(A: list[_T], B: list[_T], N:\
+    \ int,\n             mul: Callable[[_T,_T],_T] = operator.mul,\n             sub:\
+    \ Callable[[_T,_T],_T] = operator.sub,\n             add: Callable[[_T,_T],_T]\
+    \ = operator.add) -> list[_T]:\n    assert len(A) == len(B)\n    iand_transform(A,\
+    \ N, op=add), iand_transform(B, N, op=add)\n    for i, b in enumerate(B): A[i]\
+    \ = mul(A[i], b)\n    return iand_transform(A, N, op=sub)\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/bitwise_and_convolution\n\
     \ndef mul(a,b): return a*b%998244353\ndef sub(a,b): return (a-b)%998244353\ndef\
     \ add(a,b): return (a+b)%998244353\n\ndef main():\n    N = read(int)\n    A =\
@@ -236,11 +240,12 @@ data:
   - cp_library/io/parser_cls.py
   - cp_library/math/conv/iand_transform_fn.py
   - cp_library/io/io_base_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/dp/max2_fn.py
   isVerificationFile: true
   path: test/library-checker/convolution/bitwise_and_convolution.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/bitwise_and_convolution.test.py

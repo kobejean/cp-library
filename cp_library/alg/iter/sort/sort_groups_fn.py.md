@@ -29,7 +29,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/sort/sort_groups_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc203_e_sort_groups.test.py

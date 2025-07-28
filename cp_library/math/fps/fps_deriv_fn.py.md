@@ -84,7 +84,7 @@ data:
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/log_of_formal_power_series.test.py

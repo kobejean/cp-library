@@ -14,8 +14,8 @@ data:
     path: cp_library/ds/array/u32f_fn.py
     title: cp_library/ds/array/u32f_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/seg/segtree_cls.py
     title: cp_library/ds/tree/seg/segtree_cls.py
@@ -202,7 +202,7 @@ data:
     \ wm.W.prod(l,r)\n    def set(wm,i:int,w:int):\n        wm.W.set(i,w)\n      \
     \  for L in wm.down:L.W.set(i:=L.pos(L[i],i),w)\n    def get(wm,i:int):return\
     \ wm.W.get(i)\n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\n\n\
-    def max2(a, b):\n    return a if a > b else b\n\ndef elist(est_len: int) -> list:\
+    def max2(a, b): return a if a > b else b\n\n\ndef elist(est_len: int) -> list:\
     \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
     \        return []\nelist = newlist_hint\n    \n\ndef icoord_compress_with_queries(*A:\
     \ list[int], distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai);\
@@ -231,7 +231,7 @@ data:
     \ append(str(wm.prod_rect(L[t1], D[t1], R[t1], U[t1]))); append('\\n'); t1 +=\
     \ 1\n    os.write(1, sb.build().encode())\n\nfrom cp_library.ds.wavelet.wm_segtree_cls\
     \ import WMSegTree\nfrom cp_library.bit.pack.pack_sm_fn import pack_sm\nfrom cp_library.alg.dp.max2_fn\
-    \ import max2\nfrom cp_library.ds.elist_fn import elist\n\ndef icoord_compress_with_queries(*A:\
+    \ import max2\nfrom cp_library.ds.list.elist_fn import elist\n\ndef icoord_compress_with_queries(*A:\
     \ list[int], distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai);\
     \ mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n\
     \    S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai):\
@@ -245,7 +245,7 @@ data:
   - cp_library/ds/wavelet/wm_segtree_cls.py
   - cp_library/bit/pack/pack_sm_fn.py
   - cp_library/alg/dp/max2_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/tree/seg/segtree_cls.py
   - cp_library/ds/wavelet/wm_monoid_cls.py
   - cp_library/ds/wavelet/wm_static_cls.py
@@ -255,7 +255,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py

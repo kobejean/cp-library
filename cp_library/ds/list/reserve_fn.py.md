@@ -139,7 +139,7 @@ data:
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint"
   dependsOn: []
   isVerificationFile: false
-  path: cp_library/ds/reserve_fn.py
+  path: cp_library/ds/list/reserve_fn.py
   requiredBy:
   - cp_library/ds/tree/bst/treap_monoid_cls.py
   - cp_library/ds/tree/bst/cartesian_tree_implicit_cls.py
@@ -169,7 +169,7 @@ data:
   - cp_library/math/conv/lcm_conv_fn.py
   - cp_library/math/conv/gcd_conv_fn.py
   - perf/bytearray_decode.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/lcm_convolution.test.py
@@ -183,10 +183,10 @@ data:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
-documentation_of: cp_library/ds/reserve_fn.py
+documentation_of: cp_library/ds/list/reserve_fn.py
 layout: document
 redirect_from:
-- /library/cp_library/ds/reserve_fn.py
-- /library/cp_library/ds/reserve_fn.py.html
-title: cp_library/ds/reserve_fn.py
+- /library/cp_library/ds/list/reserve_fn.py
+- /library/cp_library/ds/list/reserve_fn.py.html
+title: cp_library/ds/list/reserve_fn.py
 ---

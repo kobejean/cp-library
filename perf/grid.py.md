@@ -17,6 +17,9 @@ data:
     path: cp_library/io/io_base_cls.py
     title: cp_library/io/io_base_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':warning:'
@@ -156,15 +159,16 @@ data:
   - cp_library/perf/output.py
   - cp_library/perf/renderers.py
   - cp_library/perf/cli.py
-  - cp_library/io/parser_cls.py
-  - cp_library/ds/view/view_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/bit/pack/packer_cls.py
+  - cp_library/ds/view/view_cls.py
+  - cp_library/io/parser_cls.py
   - cp_library/io/io_base_cls.py
   - cp_library/ds/list/list_find_fn.py
   isVerificationFile: false
   path: perf/grid.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/grid.py

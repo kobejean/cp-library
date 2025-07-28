@@ -116,7 +116,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n                      Math - Convolution           \
-    \          \n'''\n\n\ndef max2(a, b):\n    return a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A,\
+    \          \n'''\n\n\ndef max2(a, b): return a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A,\
     \ B, N, M, Z):\n    for i in range(0, Z, M):\n        l, r = i+(1<<(i>>N))-1,\
     \ i+M\n        for j in range(N):\n            m = l|(b := 1<<j)\n           \
     \ while m < r: A[m] += A[m^b]; B[m] += B[m^b]; m = m+1|b\n    return A, B\n\n\
@@ -165,7 +165,7 @@ data:
   path: cp_library/math/sps/mod/sps_pow_proj_fn.py
   requiredBy:
   - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py

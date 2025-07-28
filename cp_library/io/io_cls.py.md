@@ -12,6 +12,9 @@ data:
     path: cp_library/io/bye_fn.py
     title: cp_library/io/bye_fn.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/fast_io_fn.py
+    title: cp_library/io/fast_io_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/io_bytes_cls.py
     title: cp_library/io/io_bytes_cls.py
   - icon: ':heavy_check_mark:'
@@ -54,6 +57,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_2_c_scc.test.py
     title: test/aoj/grl/grl_2_c_scc.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/aoj/grl/grl_2_c_scc_fast.test.py
+    title: test/aoj/grl/grl_2_c_scc_fast.test.py
   - icon: ':heavy_check_mark:'
     path: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
     title: test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
@@ -205,6 +211,12 @@ data:
     path: test/library-checker/convolution/bitwise_and_convolution.test.py
     title: test/library-checker/convolution/bitwise_and_convolution.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
+    title: test/library-checker/convolution/bitwise_and_convolution_fast.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/convolution/bitwise_xor_convolution.test.py
+    title: test/library-checker/convolution/bitwise_xor_convolution.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/convolution/convolution.test.py
     title: test/library-checker/convolution/convolution.test.py
   - icon: ':heavy_check_mark:'
@@ -226,6 +238,12 @@ data:
     path: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
     title: test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/double_ended_priority_queue.test.py
+    title: test/library-checker/data-structure/double_ended_priority_queue.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
+    title: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/point_set_range_composite.test.py
     title: test/library-checker/data-structure/point_set_range_composite.test.py
   - icon: ':heavy_check_mark:'
@@ -246,6 +264,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
     title: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/staticrmq.test.py
+    title: test/library-checker/data-structure/staticrmq.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/data-structure/staticrmq_general.test.py
+    title: test/library-checker/data-structure/staticrmq_general.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/data-structure/unionfind.test.py
     title: test/library-checker/data-structure/unionfind.test.py
@@ -271,6 +295,9 @@ data:
     path: test/library-checker/graph/biconnected_components.test.py
     title: test/library-checker/graph/biconnected_components.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/biconnected_components_scratch.test.py
+    title: test/library-checker/graph/biconnected_components_scratch.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/chromatic_number.test.py
     title: test/library-checker/graph/chromatic_number.test.py
   - icon: ':heavy_check_mark:'
@@ -282,6 +309,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/directedmst_edge_list.test.py
     title: test/library-checker/graph/directedmst_edge_list.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/incremental_scc.test.py
+    title: test/library-checker/graph/incremental_scc.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/incremental_scc_paralel_sort.test.py
+    title: test/library-checker/graph/incremental_scc_paralel_sort.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
     title: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
@@ -295,6 +328,9 @@ data:
     path: test/library-checker/graph/scc_strongly_connected_components.test.py
     title: test/library-checker/graph/scc_strongly_connected_components.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
+    title: test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/shortest_path_fast_graph.test.py
     title: test/library-checker/graph/shortest_path_fast_graph.test.py
   - icon: ':heavy_check_mark:'
@@ -304,11 +340,17 @@ data:
     path: test/library-checker/graph/two_edge_connected_components.test.py
     title: test/library-checker/graph/two_edge_connected_components.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/graph/two_edge_connected_components_scratch.test.py
+    title: test/library-checker/graph/two_edge_connected_components_scratch.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
     title: test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/other/longest_increasing_sequence.test.py
+    title: test/library-checker/other/longest_increasing_sequence.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/polynomial/exp_of_formal_power_series.test.py
     title: test/library-checker/polynomial/exp_of_formal_power_series.test.py
@@ -334,14 +376,35 @@ data:
     path: test/library-checker/sample/many_aplusb_128bit.test.py
     title: test/library-checker/sample/many_aplusb_128bit.test.py
   - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+    title: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+    title: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+    title: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution.test.py
+    title: test/library-checker/set-power-series/subset_convolution.test.py
+  - icon: ':heavy_check_mark:'
     path: test/library-checker/set-power-series/subset_convolution_all.test.py
     title: test/library-checker/set-power-series/subset_convolution_all.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/set-power-series/subset_convolution_snippet.test.py
+    title: test/library-checker/set-power-series/subset_convolution_snippet.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/jump_on_tree.test.py
     title: test/library-checker/tree/jump_on_tree.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/lca.test.py
     title: test/library-checker/tree/lca.test.py
+  - icon: ':heavy_check_mark:'
+    path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
+    title: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   - icon: ':heavy_check_mark:'
     path: test/library-checker/tree/tree_diameter.test.py
     title: test/library-checker/tree/tree_diameter.test.py
@@ -384,12 +447,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b):\n    return a\
-    \ if a > b else b\n\n\nclass IOBase:\n    @property\n    def char(io) -> bool:\
-    \ ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
-    \ -> str: ...\n    def write(io, s: str) -> None: ...\n    def readline(io) ->\
-    \ str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]:\
-    \ ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
+    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
+    \ > b else b\n\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
+    \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
+    \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
+    \    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
     \ ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io) -> str: ...\n\
     \    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str]) -> list[str]:\
     \ ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n    def readtokensinto(io,\
@@ -507,29 +570,43 @@ data:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/io/write_fn.py
   - cp_library/io/read_fn.py
+  - cp_library/io/fast_io_fn.py
   - cp_library/io/io_bytes_cls.py
   - cp_library/io/bye_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/convolution/bitwise_and_convolution_fast.test.py
   - test/library-checker/convolution/convolution_int.test.py
   - test/library-checker/convolution/bitwise_and_convolution.test.py
+  - test/library-checker/convolution/bitwise_xor_convolution.test.py
   - test/library-checker/convolution/lcm_convolution.test.py
   - test/library-checker/convolution/convolution.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
   - test/library-checker/convolution/gcd_convolution.test.py
   - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
   - test/library-checker/convolution/convolution_mod_1000000007.test.py
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - test/library-checker/set-power-series/subset_convolution_snippet.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
   - test/library-checker/graph/cycle_detection.test.py
+  - test/library-checker/graph/incremental_scc_paralel_sort.test.py
+  - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
   - test/library-checker/graph/directedmst_edge_list.test.py
   - test/library-checker/graph/shortest_path_fast_graph.test.py
   - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/scc_strongly_connected_components.test.py
   - test/library-checker/graph/scc.test.py
   - test/library-checker/graph/chromatic_number.test.py
+  - test/library-checker/graph/biconnected_components_scratch.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/incremental_scc.test.py
+  - test/library-checker/graph/two_edge_connected_components_scratch.test.py
   - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
   - test/library-checker/graph/shortest_path_min_heap.test.py
   - test/library-checker/graph/biconnected_components.test.py
@@ -543,6 +620,7 @@ data:
   - test/library-checker/tree/vertex_add_subtree_sum.test.py
   - test/library-checker/tree/lca.test.py
   - test/library-checker/tree/vertex_set_path_composite.test.py
+  - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   - test/library-checker/tree/tree_diameter.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
@@ -552,15 +630,20 @@ data:
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   - test/library-checker/data-structure/range_reverse_range_sum.test.py
   - test/library-checker/data-structure/unionfind.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue.test.py
   - test/library-checker/data-structure/point_set_range_composite.test.py
+  - test/library-checker/data-structure/staticrmq_general.test.py
   - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
   - test/library-checker/data-structure/unionfind_with_potential.test.py
+  - test/library-checker/data-structure/staticrmq.test.py
   - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
   - test/library-checker/data-structure/static_range_sum.test.py
   - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   - test/library-checker/sample/aplusb.test.py
   - test/library-checker/sample/many_aplusb_128bit.test.py
   - test/library-checker/sample/many_aplusb.test.py
+  - test/library-checker/other/longest_increasing_sequence.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
   - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
@@ -581,6 +664,7 @@ data:
   - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
   - test/aoj/grl/grl_2_c_scc.test.py
   - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+  - test/aoj/grl/grl_2_c_scc_fast.test.py
   - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
   - test/aoj/grl/grl_5_b_fast_height.test.py
   - test/aoj/grl/grl_2_a_graph_kruskal.test.py

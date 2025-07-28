@@ -62,6 +62,9 @@ data:
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
   - icon: ':heavy_check_mark:'
@@ -277,10 +280,10 @@ data:
     \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
     \        file.flush()\nfrom os import read as os_read, write as os_write, fstat\
     \ as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\n\ndef\
-    \ max2(a, b):\n    return a if a > b else b\n\nclass IOBase:\n    @property\n\
-    \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
-    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
-    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \ max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n    def\
+    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
+    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
+    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
     \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
     \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
     \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
@@ -348,10 +351,13 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     import typing\nfrom numbers import Number\nfrom types import GenericAlias \nfrom\
-    \ typing import Callable, Collection\n\nclass Parser:\n    def __init__(self,\
-    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
-    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
-    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ typing import Callable, Collection\n\nclass Parsable:\n    @classmethod\n  \
+    \  def compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n\
+    \        return parser\n    @classmethod\n    def __class_getitem__(cls, item):\
+    \ return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self, spec):\
+    \  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase): return\
+    \ self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n \
+    \       if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
     \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
     \              \n            return parse\n        elif issubclass(cls, tuple):\
     \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
@@ -383,10 +389,8 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\nif __name__ == \"__main__\":\n    main()\n"
+    \        else:\n            raise NotImplementedError()\n\nif __name__ == \"__main__\"\
+    :\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/static_rectangle_add_rectangle_sum\n\
     \ndef main():\n    mod, s, m = 998244353, 31, (1 << 31)-1\n    N, Q = read(tuple[int,\
     \ ...])\n    N4 = N<<2\n    X, Y, W = [0]*N4,[0]*N4,[(0,0)]*N4\n    mod2 = mod<<s|mod\n\
@@ -420,6 +424,7 @@ data:
   - cp_library/ds/wavelet/wm_points_cls.py
   - cp_library/alg/dp/max2_fn.py
   - cp_library/io/io_base_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/ds/list/presum_cls.py
   - cp_library/ds/wavelet/wm_monoid_cls.py
   - cp_library/ds/wavelet/wm_compressed_cls.py
@@ -433,7 +438,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py

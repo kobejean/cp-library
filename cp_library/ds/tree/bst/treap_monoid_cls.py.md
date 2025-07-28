@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/bst_cls.py
     title: cp_library/ds/tree/bst/bst_cls.py
@@ -119,7 +119,7 @@ data:
     \            assert T.P[i] <= T.P[r]\n            assert T.K[i] <= T.K[r]\n  \
     \          ac = T.op(ac, T._v(r))\n        assert T.A[i] == ac\n        return\
     \ ac\n"
-  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.reserve_fn\
     \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
     from cp_library.ds.tree.bst.bst_updates_cls import BSTUpdates\nfrom cp_library.ds.tree.bst.treap_cls\
     \ import Treap\n\nclass TreapMonoid(Treap, BSTUpdates):\n    __slots__='op'\n\
@@ -148,7 +148,7 @@ data:
     \          ac = T.op(ac, T._v(r))\n        assert T.A[i] == ac\n        return\
     \ ac"
   dependsOn:
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/ds/tree/bst/bst_updates_cls.py
   - cp_library/ds/tree/bst/treap_cls.py
   - cp_library/ds/tree/bst/bst_cls.py
@@ -158,7 +158,7 @@ data:
   path: cp_library/ds/tree/bst/treap_monoid_cls.py
   requiredBy:
   - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py

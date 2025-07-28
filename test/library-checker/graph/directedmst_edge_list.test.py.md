@@ -14,9 +14,6 @@ data:
     path: cp_library/alg/iter/sort/isort_parallel_fn.py
     title: cp_library/alg/iter/sort/isort_parallel_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/sort/sort_parallel_fn.py
-    title: cp_library/alg/iter/sort/sort_parallel_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack/packer_cls.py
     title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
@@ -26,17 +23,20 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/skew_heap_forrest_cls.py
     title: cp_library/ds/heap/skew_heap_forrest_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_base_cls.py
     title: cp_library/io/io_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -65,8 +65,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
-    \              \n'''\n\n\n\n\ndef argsort(A: list[int], reverse=False):\n    P\
-    \ = Packer(len(I := list(A))-1); P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n\
+    \              \n'''\nfrom types import GenericAlias\n\n\nclass Parsable:\n  \
+    \  @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\n\n\n\ndef argsort(A: list[int], reverse=False):\n\
+    \    P = Packer(len(I := list(A))-1); P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n\
     \    return I\n\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P,\
     \ mx: int): P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int,\
     \ b: int): return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return\
@@ -79,76 +82,22 @@ data:
     \    inv, order = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n    for i, j\
     \ in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n       \
     \ for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] = j, inv[i]\n\
-    \    return L\n\ndef sort_parallel(*L: list, reverse=False):\n    N, K, order\
-    \ = len(L[0]), len(L), argsort(L[0], reverse)\n    R = tuple([0]*N for _ in range(K))\n\
-    \    for k, Lk in enumerate(L):\n        Rk = R[k]\n        for i, j in enumerate(order):\
-    \ Rk[i] = Lk[j]\n    return R\nimport typing\nfrom numbers import Number\nfrom\
-    \ types import GenericAlias \nfrom typing import Callable, Collection\n\n\nclass\
-    \ IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n    def\
-    \ writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io,\
-    \ s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
-    \ -> str: ...\n    def readtokens(io) -> list[str]: ...\n    def readints(io)\
-    \ -> list[int]: ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io)\
-    \ -> list[int]: ...\n    def readchar(io) -> str: ...\n    def readchars(io) ->\
-    \ str: ...\n    def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
-    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
-    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass Parser:\n    def __init__(self,\
-    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
-    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
-    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
-    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\
-    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
-    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
-    \           def parse(io: IOBase): return cls(next(io))              \n      \
-    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
-    \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
-    \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
-    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
-    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
-    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
-    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
-    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
-    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
-    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
-    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
-    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
-    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
-    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
-    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
-    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
-    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
-    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
-    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
-    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
-    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
-    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
-    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
-    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
-    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\n\nclass EdgeListWeighted(Parsable):\n\
-    \    def __init__(E, N: int, U: list[int], V: list[int], W: list[int]): E.N, E.M,\
-    \ E.U, E.V, E.W = N, len(U), U, V, W\n    def __len__(E): return E.M\n    def\
-    \ __getitem__(E, e): return E.U[e], E.V[e], E.W[e]\n    @classmethod\n    def\
-    \ compile(cls, N: int, M: int, I: int = -1):\n        def parse(io: IOBase):\n\
-    \            U, V, W = [0]*M, [0]*M, [0]*M\n            for e in range(M): u,\
-    \ v, w = io.readints(); U[e], V[e], W[e] = u+I, v+I, w\n            return cls(N,\
-    \ U, V, W)\n        return parse\n    def kruskal(E):\n        dsu, I = DSU(E.N),\
-    \ elist(E.N-1)\n        for e in argsort(E.W):\n            x, y = dsu.merge(E.U[e],\
-    \ E.V[e])\n            if x != y: I.append(e)\n        return I\n    def edmond(E,\
-    \ root):\n        U, W, F, pkr, dsu = [0]*E.N, [0]*E.N, SkewHeapForrest(E.N, E.M),\
-    \ Packer(E.M), DSU(E.N)\n        Ein, stem, cyc, I, C = [-1]*E.M, [-1]*E.N, [],\
-    \ [], []; vis = [0]*E.N; vis[root] = 2\n        for e in range(E.M): F.push(E.V[e],\
-    \ pkr.enc(E.W[e], e))\n        for v in range(E.N):\n            if vis[v := dsu.root(v)]:\
-    \ continue\n            cycle = 0; C.clear()\n            while vis[v] != 2:\n\
-    \                if F.empty(v): return None\n                vis[v] = 1; cyc.append(v);\
+    \    return L\n\n\nclass EdgeListWeighted(Parsable):\n    def __init__(E, N: int,\
+    \ U: list[int], V: list[int], W: list[int]): E.N, E.M, E.U, E.V, E.W = N, len(U),\
+    \ U, V, W\n    def __len__(E): return E.M\n    def __getitem__(E, e): return E.U[e],\
+    \ E.V[e], E.W[e]\n    @classmethod\n    def compile(cls, N: int, M: int, I: int\
+    \ = -1):\n        def parse(io: IOBase):\n            U, V, W = [0]*M, [0]*M,\
+    \ [0]*M\n            for e in range(M): u, v, w = io.readints(); U[e], V[e], W[e]\
+    \ = u+I, v+I, w\n            return cls(N, U, V, W)\n        return parse\n  \
+    \  def kruskal(E):\n        dsu, I = DSU(E.N), elist(E.N-1)\n        for e in\
+    \ argsort(E.W):\n            x, y = dsu.merge(E.U[e], E.V[e])\n            if\
+    \ x != y: I.append(e)\n        return I\n    def edmond(E, root):\n        U,\
+    \ W, F, pkr, dsu = [0]*E.N, [0]*E.N, SkewHeapForrest(E.N, E.M), Packer(E.M), DSU(E.N)\n\
+    \        Ein, stem, cyc, I, C = [-1]*E.M, [-1]*E.N, [], [], []; vis = [0]*E.N;\
+    \ vis[root] = 2\n        for e in range(E.M): F.push(E.V[e], pkr.enc(E.W[e], e))\n\
+    \        for v in range(E.N):\n            if vis[v := dsu.root(v)]: continue\n\
+    \            cycle = 0; C.clear()\n            while vis[v] != 2:\n          \
+    \      if F.empty(v): return None\n                vis[v] = 1; cyc.append(v);\
     \ W[v], e = pkr.dec(F.pop(v)); U[v] = dsu.root(E.U[e])\n                if stem[v]\
     \ == -1: stem[v] = e\n                if U[v] == v: continue\n               \
     \ while cycle: Ein[C.pop()] = e; cycle -= 1\n                I.append(e); C.append(e)\n\
@@ -164,7 +113,7 @@ data:
     \ T\n    \n    def sort(E):\n        isort_parallel(E.W, E.U, E.V)\n\n    def\
     \ sub(E, I: list[int]):\n        U, V, W = elist(E.N-1), elist(E.N-1), elist(E.N-1)\n\
     \        for e in I: U.append(E.U[e]); V.append(E.V[e]); W.append(E.W[e])\n  \
-    \      return E.__class__(E.N, U, V, W)\n\n\n\nclass DSU(Parsable):\n    def __init__(dsu,\
+    \      return E.__class__(E.N, U, V, W)\n\n\nclass DSU(Parsable):\n    def __init__(dsu,\
     \ N): dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n    def merge(dsu, u, v):\n     \
     \   x, y = dsu.root(u), dsu.root(v)\n        if x == y: return x,y\n        if\
     \ dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y]\
@@ -193,26 +142,38 @@ data:
     \      for i,l in enumerate(csr.L):\n            yield csr.A[l:csr.R[i]]\n   \
     \ \n    def __getitem__(csr, i: int) -> _T:\n        return csr.A[i]\n    \n \
     \   def __len__(dsu):\n        return len(dsu.L)\n\n    def range(csr, i: int)\
-    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\ndef elist(est_len: int)\
-    \ -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def\
-    \ newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nimport operator\n\
-    from typing import Generic\n\n\nclass SkewHeapForrest(Generic[_T]):\n    def __init__(shf,\
-    \ N, M, e: _T = 0, op = operator.add):\n        shf.V, shf.A, shf.L, shf.R, shf.roots\
-    \ = [e]*M, [e]*M, [-1]*M, [-1]*M, [-1]*N\n        shf.id, shf.st, shf.e, shf.op\
-    \ = 0, elist(M), e, op\n    \n    def propagate(shf, u: int):\n        if (a :=\
-    \ shf.A[u]) != shf.e:\n            if ~(l := shf.L[u]): shf.A[l] = shf.op(shf.A[l],\
-    \ a)\n            if ~(r := shf.R[u]): shf.A[r] = shf.op(shf.A[r], a)\n      \
-    \      shf.V[u] = shf.op(shf.V[u], a); shf.A[u] = shf.e\n\n    def merge(shf,\
-    \ u: int, v: int):\n        while ~u and ~v:\n            shf.propagate(u); shf.propagate(v)\n\
-    \            if shf.V[v] < shf.V[u]: u, v = v, u\n            shf.st.append(u);\
-    \ shf.R[u], u = shf.L[u], shf.R[u]\n        u = u if ~u else v\n        while\
-    \ shf.st: shf.L[u := shf.st.pop()] = u\n        return u\n    \n    def min(shf,\
-    \ i: int):\n        assert ~(root := shf.roots[i])\n        shf.propagate(root)\n\
-    \        return shf.V[root]\n\n    def push(shf, i: int, x: _T):\n        shf.V[shf.id]\
-    \ = x\n        shf.roots[i] = shf.merge(shf.roots[i], shf.id)\n        shf.id\
-    \ += 1\n\n    def pop(shf, i: int) -> _T:\n        assert ~(root := shf.roots[i])\n\
-    \        shf.propagate(root)\n        val, shf.roots[i] = shf.V[root], shf.merge(shf.L[root],\
-    \ shf.R[root])\n        return val\n    \n    def add(shf, i: int, val: _T): shf.A[shf.roots[i]]\
+    \ -> _T:\n        return range(csr.L[i], csr.R[i])\n\nclass IOBase:\n    @property\n\
+    \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
+    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
+    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
+    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
+    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
+    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
+    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
+    \ ...\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
+    \ = newlist_hint\n    \nimport operator\nfrom typing import Generic\n\n\nclass\
+    \ SkewHeapForrest(Generic[_T]):\n    def __init__(shf, N, M, e: _T = 0, op = operator.add):\n\
+    \        shf.V, shf.A, shf.L, shf.R, shf.roots = [e]*M, [e]*M, [-1]*M, [-1]*M,\
+    \ [-1]*N\n        shf.id, shf.st, shf.e, shf.op = 0, elist(M), e, op\n    \n \
+    \   def propagate(shf, u: int):\n        if (a := shf.A[u]) != shf.e:\n      \
+    \      if ~(l := shf.L[u]): shf.A[l] = shf.op(shf.A[l], a)\n            if ~(r\
+    \ := shf.R[u]): shf.A[r] = shf.op(shf.A[r], a)\n            shf.V[u] = shf.op(shf.V[u],\
+    \ a); shf.A[u] = shf.e\n\n    def merge(shf, u: int, v: int):\n        while ~u\
+    \ and ~v:\n            shf.propagate(u); shf.propagate(v)\n            if shf.V[v]\
+    \ < shf.V[u]: u, v = v, u\n            shf.st.append(u); shf.R[u], u = shf.L[u],\
+    \ shf.R[u]\n        u = u if ~u else v\n        while shf.st: shf.L[u := shf.st.pop()]\
+    \ = u\n        return u\n    \n    def min(shf, i: int):\n        assert ~(root\
+    \ := shf.roots[i])\n        shf.propagate(root)\n        return shf.V[root]\n\n\
+    \    def push(shf, i: int, x: _T):\n        shf.V[shf.id] = x\n        shf.roots[i]\
+    \ = shf.merge(shf.roots[i], shf.id)\n        shf.id += 1\n\n    def pop(shf, i:\
+    \ int) -> _T:\n        assert ~(root := shf.roots[i])\n        shf.propagate(root)\n\
+    \        val, shf.roots[i] = shf.V[root], shf.merge(shf.L[root], shf.R[root])\n\
+    \        return val\n    \n    def add(shf, i: int, val: _T): shf.A[shf.roots[i]]\
     \ = shf.op(shf.A[shf.roots[i]], val)\n    def empty(shf, i: int): return shf.roots[i]\
     \ == -1\n    \nfrom typing import Type, Union, overload\n\n@overload\ndef read()\
     \ -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n\
@@ -223,7 +184,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b):\n    return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE\
+    \n\ndef max2(a, b): return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE\
     \ = 1 << 16; stdin: 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O',\
     \ 'V', 'S', 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n\
     \    def __init__(io, file):\n        io.file = file\n        try: io.f = file.fileno();\
@@ -271,13 +232,48 @@ data:
     \ r = io.O[io.l]\n        while io.p < r: yield\n    def flush(io):\n        if\
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
-    \ = IO(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values to\
-    \ a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"sep\"\
-    , \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x in args:\n\
-    \        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\nif __name__ == '__main__':\n\
-    \    main()\n"
+    \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom typing import\
+    \ Callable, Collection\n\nclass Parser:\n    def __init__(self, spec):  self.parse\
+    \ = Parser.compile(spec)\n    def __call__(self, io: IOBase): return self.parse(io)\n\
+    \    @staticmethod\n    def compile_type(cls, args = ()):\n        if issubclass(cls,\
+    \ Parsable): return cls.compile(*args)\n        elif issubclass(cls, (Number,\
+    \ str)):\n            def parse(io: IOBase): return cls(next(io))            \
+    \  \n            return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
+    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
+    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
+    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
+    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
+    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
+    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
+    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
+    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
+    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
+    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
+    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
+    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
+    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
+    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
+    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
+    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
+    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
+    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
+    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
+    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
+    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
+    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
+    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
+    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    if __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/directedmst\n\
     \ndef main():\n    N, M, S = read()\n    E = read(EdgeListWeighted[N, M, 0])\n\
     \    I = E.edmond(S)\n    if I is None:\n        write(-1)\n    else:\n      \
@@ -289,22 +285,22 @@ data:
   - cp_library/alg/graph/edge/edge_list_weighted_cls.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/iter/sort/isort_parallel_fn.py
-  - cp_library/alg/iter/sort/sort_parallel_fn.py
-  - cp_library/io/parser_cls.py
   - cp_library/alg/iter/arg/argsort_fn.py
   - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/dsu_cls.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/heap/skew_heap_forrest_cls.py
+  - cp_library/io/io_base_cls.py
   - cp_library/io/io_cls.py
+  - cp_library/io/parser_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
   - cp_library/alg/dp/max2_fn.py
-  - cp_library/io/io_base_cls.py
   isVerificationFile: true
   path: test/library-checker/graph/directedmst_edge_list.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/directedmst_edge_list.test.py

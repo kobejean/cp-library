@@ -8,8 +8,8 @@ data:
     path: cp_library/bit/popcnts_fn.py
     title: cp_library/bit/popcnts_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -49,7 +49,7 @@ data:
     \    \n\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    import sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
     \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
     \ def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l,\
@@ -118,7 +118,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n                      Math - Convolution           \
-    \          \n'''\n\n\ndef max2(a, b):\n    return a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A,\
+    \          \n'''\n\n\ndef max2(a, b): return a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A,\
     \ B, N, M, Z):\n    for i in range(0, Z, M):\n        l, r = i+(1<<(i>>N))-1,\
     \ i+M\n        for j in range(N):\n            m = l|(b := 1<<j)\n           \
     \ while m < r: A[m] += A[m^b]; B[m] += B[m^b]; m = m+1|b\n    return A, B\n\n\
@@ -139,14 +139,14 @@ data:
     \    assert P[0] == 0\n    exp = elist(1 << (N := len(P).bit_length()-1)); exp.append(1);\
     \ P = view(P); m = 1\n    for n in range(N): P.set_range(m, m := m<<1); exp.extend(subset_conv(P,\
     \ exp, n, mod))\n    return exp\n"
-  code: "import cp_library.__header__\nfrom cp_library.ds.elist_fn import elist\n\
+  code: "import cp_library.__header__\nfrom cp_library.ds.list.elist_fn import elist\n\
     from cp_library.ds.view.view_cls import view\nimport cp_library.math.__header__\n\
     from cp_library.math.conv.mod.subset_conv_fn import subset_conv\nimport cp_library.math.sps.__header__\n\
     \ndef sps_exp(P, mod):\n    assert P[0] == 0\n    exp = elist(1 << (N := len(P).bit_length()-1));\
     \ exp.append(1); P = view(P); m = 1\n    for n in range(N): P.set_range(m, m :=\
     \ m<<1); exp.extend(subset_conv(P, exp, n, mod))\n    return exp"
   dependsOn:
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/view/view_cls.py
   - cp_library/math/conv/mod/subset_conv_fn.py
   - cp_library/ds/list/list_find_fn.py
@@ -158,7 +158,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_exp_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/exp_of_set_power_series.test.py

@@ -5,8 +5,8 @@ data:
     path: cp_library/bit/masks/i64_max_cnst.py
     title: cp_library/bit/masks/i64_max_cnst.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/reserve_fn.py
-    title: cp_library/ds/reserve_fn.py
+    path: cp_library/ds/list/reserve_fn.py
+    title: cp_library/ds/list/reserve_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/tree/bst/bst_cls.py
     title: cp_library/ds/tree/bst/bst_cls.py
@@ -95,7 +95,7 @@ data:
     \ super()._nn(k)\n    def _p(T,i):\n        if T.rev[i]:\n            T.sub[l],T.sub[r],T.sz[l],T.sz[r]=T.sub[r:=i<<1|1],T.sub[l:=i<<1],T.sz[r],T.sz[l]\n\
     \            if~(l:=T.sub[l]):T.rev[l]^=1\n            if~(r:=T.sub[r]):T.rev[r]^=1\n\
     \            T.rev[i]=0\n    @classmethod\n    def reserve(cls,sz):super().reserve(sz);reserve(cls.rev,sz+1)\n"
-  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.reserve_fn\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom cp_library.ds.list.reserve_fn\
     \ import reserve\nimport cp_library.ds.tree.__header__\nimport cp_library.ds.tree.bst.__header__\n\
     from cp_library.ds.tree.bst.bst_implicit_cls import BSTImplicit\n\nclass BSTReversible(BSTImplicit):\n\
     \    K,rev,sz,sub,st=None,[0],[0,0],[-1,-1],[]\n    def _nr(T):T.rev.append(0);return\
@@ -104,7 +104,7 @@ data:
     \            if~(l:=T.sub[l]):T.rev[l]^=1\n            if~(r:=T.sub[r]):T.rev[r]^=1\n\
     \            T.rev[i]=0\n    @classmethod\n    def reserve(cls,sz):super().reserve(sz);reserve(cls.rev,sz+1)"
   dependsOn:
-  - cp_library/ds/reserve_fn.py
+  - cp_library/ds/list/reserve_fn.py
   - cp_library/ds/tree/bst/bst_implicit_cls.py
   - cp_library/ds/tree/bst/bst_updates_cls.py
   - cp_library/ds/tree/bst/bst_cls.py
@@ -115,7 +115,7 @@ data:
   - cp_library/ds/tree/bst/cartesian_tree_reversible_cls.py
   - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
   - cp_library/ds/tree/bst/treap_reversible_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/range_reverse_range_sum.test.py

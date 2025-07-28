@@ -53,9 +53,6 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/fast_heapq.py
     title: cp_library/ds/heap/fast_heapq.py
   - icon: ':heavy_check_mark:'
@@ -64,6 +61,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/priority_queue_cls.py
     title: cp_library/ds/heap/priority_queue_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -85,6 +85,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -112,51 +115,27 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\n\n\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
-    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\n\n\ndef argsort_ranged(A: list[int], l: int, r: int,\
-    \ reverse=False):\n    P = Packer(r-l-1); I = [A[l+i] for i in range(r-l)]; P.ienumerate(I,\
-    \ reverse); I.sort()\n    for i in range(r-l): I[i] = (I[i] & P.m) + l\n    return\
-    \ I\n\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int):\
-    \ P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int):\
-    \ return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >>\
-    \ P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A),\
-    \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
-    \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
-    \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
-    \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
-    \ enumerate(A): A[i] = P.m&a\n\n\ndef isort_ranged(*L: list, l: int, r: int, reverse=False):\n\
-    \    n = r - l\n    order = argsort_ranged(L[0], l, r, reverse=reverse)\n    inv\
-    \ = [0] * n\n    # order contains indices in range [l, r), need to map to [0,\
-    \ n)\n    for i in range(n): inv[order[i]-l] = i\n    for i in range(n):\n   \
-    \     j = order[i] - l  # j is in range [0, n)\n        for A in L: A[l+i], A[l+j]\
-    \ = A[l+j], A[l+i]\n        order[inv[i]], order[inv[j]] = order[inv[j]], order[inv[i]]\n\
-    \        inv[i], inv[j] = inv[j], inv[i]\n    return L\n\n\n\nclass view2(Generic[_T1,\
-    \ _T2]):\n    __slots__ = 'A1', 'A2', 'l', 'r'\n    def __init__(V, A1: list[_T1],\
-    \ A2: list[_T2], l: int = 0, r: int = 0): V.A1, V.A2, V.l, V.r = A1, A2, l, r\n\
-    \    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n    \
-    \    if 0 <= i < V.r - V.l: return V.A1[V.l+i], V.A2[V.l+i]\n        else: raise\
-    \ IndexError\n    def __setitem__(V, i: int, v: tuple[_T1, _T2]): V.A1[V.l+i],\
-    \ V.A2[V.l+i] = v\n    def __contains__(V, v: tuple[_T1, _T2]): raise NotImplemented\n\
-    \    def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_T1,\
-    \ _T2]): raise NotImplemented\n    def reverse(V):\n        l, r = V.l, V.r-1\n\
-    \        while l < r: V.A1[l], V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] =\
-    \ V.A2[r], V.A2[l]; l += 1; r -= 1\n    def sort(V, reverse=False): isort_ranged(V.A1,\
-    \ V.A2, l=V.l, r=V.r, reverse=reverse)\n    def pop(V): V.r -= 1; return V.A1[V.r],\
-    \ V.A2[V.r]\n    def append(V, v: tuple[_T1, _T2]): V.A1[V.r], V.A2[V.r] = v;\
-    \ V.r += 1\n    def popleft(V): V.l += 1; return V.A1[V.l-1], V.A2[V.l-1]\n  \
-    \  def appendleft(V, v: tuple[_T1, _T2]): V.l -= 1; V.A1[V.l], V.A2[V.l]  = v;\
-    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A1)\nfrom math import\
-    \ inf\nfrom typing import overload\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
-    \    return ch\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I\
-    \ := list(A))-1); P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return\
-    \ I\n\n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    \        \n'''\n\n\n\nfrom math import inf\nfrom typing import overload\n\n\n\
+    def chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\n\n\ndef argsort(A:\
+    \ list[int], reverse=False):\n    P = Packer(len(I := list(A))-1); P.ienumerate(I,\
+    \ reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    __slots__\
+    \ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length(); P.m = (1 <<\
+    \ P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P,\
+    \ x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A,\
+    \ reverse=False): P.ienumerate(A:=list(A), reverse); return A\n    def ienumerate(P,\
+    \ A, reverse=False):\n        if reverse:\n            for i,a in enumerate(A):\
+    \ A[i] = P.enc(-a, i)\n        else:\n            for i,a in enumerate(A): A[i]\
+    \ = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A)); return\
+    \ A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\
+    from typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    \n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
-    \ return -1\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n    def\
-    \ __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l, r\n\
-    \    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n    \
-    \    if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
+    \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
+    \ def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l,\
+    \ r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n\
+    \        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
     \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
     \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
     \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
@@ -167,57 +146,9 @@ data:
     \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
     \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
     \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom typing import\
-    \ Callable, Sequence, Union, overload\nimport typing\nfrom numbers import Number\n\
-    from types import GenericAlias \nfrom typing import Callable, Collection\n\n\n\
-    class IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n \
-    \   def writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io,\
-    \ s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
-    \ -> str: ...\n    def readtokens(io) -> list[str]: ...\n    def readints(io)\
-    \ -> list[int]: ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io)\
-    \ -> list[int]: ...\n    def readchar(io) -> str: ...\n    def readchars(io) ->\
-    \ str: ...\n    def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
-    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
-    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass Parser:\n    def __init__(self,\
-    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
-    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
-    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
-    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\
-    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
-    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
-    \           def parse(io: IOBase): return cls(next(io))              \n      \
-    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
-    \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
-    \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
-    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
-    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
-    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
-    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
-    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
-    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
-    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
-    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
-    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
-    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
-    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
-    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
-    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
-    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
-    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
-    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
-    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
-    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
-    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
-    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
-    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
-    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ Callable, Sequence, Union, overload\nfrom types import GenericAlias\n\n\nclass\
+    \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'):\
+    \ return cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
     \ item): return GenericAlias(cls, item)\n\nfrom enum import auto, IntFlag, IntEnum\n\
     \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
     \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
@@ -357,28 +288,39 @@ data:
     \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
     \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
     \      def parse(io: IOBase):\n            U, V = u32f(M), u32f(M)\n         \
-    \   for i in range(M):\n                u, v = io.readints()\n               \
-    \ U[i], V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return\
-    \ parse\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\nfrom array import array\n\
-    def u8f(N: int, elm: int = 0):      return array('B', (elm,))*N  # unsigned char\n\
-    def u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    def i32f(N: int, elm: int = 0):     return array('i', (elm,))*N  # signed int\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A:\
-    \ list[int], max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift :=\
-    \ (max1).bit_length())) - 1\n        lst.shift = shift\n    def __len__(lst):\
-    \ return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]): return\
-    \ lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst, key)\
-    \ -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift, x\
-    \ & lst.mask\n\n\nclass Que:\n    def __init__(que, v = None): que.q = elist(v)\
-    \ if isinstance(v, int) else list(v) if v else []; que.h = 0\n    def push(que,\
-    \ item): que.q.append(item)\n    def pop(que): que.h = (h := que.h) + 1; return\
-    \ que.q[h]\n    def extend(que, items): que.q.extend(items)\n    def __getitem__(que,\
-    \ i: int): return que.q[que.h+i]\n    def __setitem__(que, i: int, v): que.q[que.h+i]\
-    \ = v\n    def __len__(que): return que.q.__len__() - que.h\n    def __hash__(que):\
-    \ return hash(tuple(que.q[que.h:]))\n\nclass GraphWeightedBase(GraphBase):\n \
-    \   def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int],\
+    \   for i in range(M): u, v = io.readints(); U[i], V[i] = u+shift, v+shift\n \
+    \           return cls(N, U, V)\n        return parse\n\nu32_max = (1<<32)-1\n\
+    i32_max = (1<<31)-1\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
+    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
+    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
+    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
+    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
+    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
+    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\n\nclass Que:\n\
+    \    def __init__(que, v = None): que.q = elist(v) if isinstance(v, int) else\
+    \ list(v) if v else []; que.h = 0\n    def push(que, item): que.q.append(item)\n\
+    \    def pop(que): que.h = (h := que.h) + 1; return que.q[h]\n    def extend(que,\
+    \ items): que.q.extend(items)\n    def __getitem__(que, i: int): return que.q[que.h+i]\n\
+    \    def __setitem__(que, i: int, v): que.q[que.h+i] = v\n    def __len__(que):\
+    \ return que.q.__len__() - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\
+    \nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n\
+    \    def writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def\
+    \ write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
+    \ -> str: ...\n    def readtokens(io) -> list[str]: ...\n    def readints(io)\
+    \ -> list[int]: ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io)\
+    \ -> list[int]: ...\n    def readchar(io) -> str: ...\n    def readchars(io) ->\
+    \ str: ...\n    def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass GraphWeightedBase(GraphBase):\n\
+    \    def __init__(self, N: int, M: int, U: list[int], V: list[int], W: list[int],\
     \ \n                 deg: list[int], La: list[int], Ra: list[int],\n         \
     \        Ua: list[int], Va: list[int], Wa: list[int], Ea: list[int], twin: list[int]\
     \ = None):\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea, twin)\n\
@@ -496,53 +438,112 @@ data:
     \ priority: int, id: int): return que.pkr.dec(heappushpop(que.data, que.pkr.enc(priority,\
     \ id)))\n    def replace(que, priority: int, id: int): return que.pkr.dec(heapreplace(que.data,\
     \ que.pkr.enc(priority, id)))\n    def peek(que): return que.pkr.dec(que.data[0])\n\
-    \nclass GraphWeighted(GraphWeightedBase):\n    def __init__(G, N: int, U: list[int],\
-    \ V: list[int], W: list[int]):\n        Ma, deg = 0, u32f(N)\n        for e in\
-    \ range(M := len(U)):\n            distinct = (u := U[e]) != (v := V[e])\n   \
-    \         deg[u] += 1; deg[v] += distinct; Ma += 1+distinct\n        twin, Ea,\
-    \ Ua, Va, Wa = u32f(Ma), u32f(Ma), u32f(Ma), u32f(Ma), [0]*Ma\n        \n    \
-    \    La, i = u32f(N), 0\n        for u,d in enumerate(deg): \n            La[u],\
-    \ i = i, i + d\n        Ra = La[:]\n\n        for e in range(M):\n           \
-    \ u, v, w = U[e], V[e], W[e]\n            i, j = Ra[u], Ra[v]\n            Ra[u],Ua[i],Va[i],Wa[i],Ea[i],twin[i]\
-    \ = i+1,u,v,w,e,j\n            if i == j: continue # don't add self loops twice\n\
-    \            Ra[v],Ua[j],Va[j],Wa[j],Ea[j],twin[j] = j+1,v,u,w,e,i\n\n       \
-    \ super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va, Wa, Ea, twin)\nfrom typing\
-    \ import Type, Union, overload\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
-    def read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U,\
-    \ char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False) ->\
-    \ tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U,\
-    \ ...]: ...\ndef read(*specs: Union[Type[_T],_T], char=False):\n    IO.stdin.char\
-    \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
-    \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
-    from os import read as os_read, write as os_write, fstat as os_fstat\nfrom __pypy__.builders\
-    \ import StringBuilder\n\ndef max2(a, b):\n    return a if a > b else b\n\nclass\
-    \ IO(IOBase):\n    BUFSIZE = 1 << 16; stdin: 'IO'; stdout: 'IO'\n    __slots__\
-    \ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable',\
-    \ 'encoding', 'errors'\n    def __init__(io, file):\n        io.file = file\n\
-    \        try: io.f = file.fileno(); io.sz, io.writable = max2(io.BUFSIZE, os_fstat(io.f).st_size),\
-    \ ('x' in file.mode or 'r' not in file.mode)\n        except: io.f, io.sz, io.writable\
-    \ = -1, io.BUFSIZE, False\n        io.B, io.O, io.S = bytearray(), [], StringBuilder();\
-    \ io.V = memoryview(io.B); io.l = io.p = 0\n        io.char, io.st, io.ist, io.encoding,\
-    \ io.errors = False, [], [], 'ascii', 'ignore'\n    def _dec(io, l, r): return\
-    \ io.V[l:r].tobytes().decode(io.encoding, io.errors)\n    def readbytes(io, sz):\
-    \ return os_read(io.f, sz)\n    def load(io):\n        while io.l >= len(io.O):\n\
-    \            if not (b := io.readbytes(io.sz)):\n                if io.O[-1] <\
-    \ len(io.B): io.O.append(len(io.B))\n                break\n            pos =\
-    \ len(io.B); io.B.extend(b)\n            while ~(pos := io.B.find(b'\\n', pos)):\
-    \ io.O.append(pos := pos+1)\n    def __next__(io):\n        if io.char: return\
-    \ io.readchar()\n        else: return io.readtoken()\n    def readchar(io):\n\
-    \        io.load(); r = io.O[io.l]\n        c = chr(io.B[io.p])\n        if io.p\
-    \ >= r-1: io.p = r; io.l += 1\n        else: io.p += 1\n        return c\n   \
-    \ def write(io, s: str): io.S.append(s)\n    def readline(io): io.load(); l, io.p\
-    \ = io.p, io.O[io.l]; io.l += 1; return io._dec(l, io.p)\n    def readtoken(io):\n\
-    \        io.load(); r = io.O[io.l]\n        if ~(p := io.B.find(b' ', io.p, r)):\
-    \ s = io._dec(io.p, p); io.p = p+1\n        else: s = io._dec(io.p, r-1); io.p\
-    \ = r; io.l += 1\n        return s\n    def readtokens(io): io.st.clear(); return\
-    \ io.readtokensinto(io.st)\n    def readints(io): io.ist.clear(); return io.readintsinto(io.ist)\n\
-    \    def readdigits(io): io.ist.clear(); return io.readdigitsinto(io.ist)\n  \
-    \  def readnums(io): io.ist.clear(); return io.readnumsinto(io.ist)\n    def readchars(io):\
-    \ io.load(); l, io.p = io.p, io.O[io.l]; io.l += 1; return io._dec(l, io.p-1)\n\
-    \    def readinto(io, lst):\n        if io.char: return io.readcharsinto(lst)\n\
+    \ndef argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n    P = Packer(r-l-1);\
+    \ I = [A[l+i] for i in range(r-l)]; P.ienumerate(I, reverse); I.sort()\n    for\
+    \ i in range(r-l): I[i] = (I[i] & P.m) + l\n    return I\n\n\ndef isort_ranged(*L:\
+    \ list, l: int, r: int, reverse=False):\n    n = r - l\n    order = argsort_ranged(L[0],\
+    \ l, r, reverse=reverse)\n    inv = [0] * n\n    # order contains indices in range\
+    \ [l, r), need to map to [0, n)\n    for i in range(n): inv[order[i]-l] = i\n\
+    \    for i in range(n):\n        j = order[i] - l  # j is in range [0, n)\n  \
+    \      for A in L: A[l+i], A[l+j] = A[l+j], A[l+i]\n        order[inv[i]], order[inv[j]]\
+    \ = order[inv[j]], order[inv[i]]\n        inv[i], inv[j] = inv[j], inv[i]\n  \
+    \  return L\n\nclass view2(Generic[_T1, _T2]):\n    __slots__ = 'A1', 'A2', 'l',\
+    \ 'r'\n    def __init__(V, A1: list[_T1], A2: list[_T2], l: int = 0, r: int =\
+    \ 0): V.A1, V.A2, V.l, V.r = A1, A2, l, r\n    def __len__(V): return V.r - V.l\n\
+    \    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return V.A1[V.l+i],\
+    \ V.A2[V.l+i]\n        else: raise IndexError\n    def __setitem__(V, i: int,\
+    \ v: tuple[_T1, _T2]): V.A1[V.l+i], V.A2[V.l+i] = v\n    def __contains__(V, v:\
+    \ tuple[_T1, _T2]): raise NotImplemented\n    def set_range(V, l: int, r: int):\
+    \ V.l, V.r = l, r\n    def index(V, v: tuple[_T1, _T2]): raise NotImplemented\n\
+    \    def reverse(V):\n        l, r = V.l, V.r-1\n        while l < r: V.A1[l],\
+    \ V.A1[r] = V.A1[r], V.A1[l]; V.A2[l], V.A2[r] = V.A2[r], V.A2[l]; l += 1; r -=\
+    \ 1\n    def sort(V, reverse=False): isort_ranged(V.A1, V.A2, l=V.l, r=V.r, reverse=reverse)\n\
+    \    def pop(V): V.r -= 1; return V.A1[V.r], V.A2[V.r]\n    def append(V, v: tuple[_T1,\
+    \ _T2]): V.A1[V.r], V.A2[V.r] = v; V.r += 1\n    def popleft(V): V.l += 1; return\
+    \ V.A1[V.l-1], V.A2[V.l-1]\n    def appendleft(V, v: tuple[_T1, _T2]): V.l -=\
+    \ 1; V.A1[V.l], V.A2[V.l]  = v; \n    def validate(V): return 0 <= V.l <= V.r\
+    \ <= len(V.A1)\nimport typing\nfrom numbers import Number\nfrom typing import\
+    \ Callable, Collection\n\nclass Parser:\n    def __init__(self, spec):  self.parse\
+    \ = Parser.compile(spec)\n    def __call__(self, io: IOBase): return self.parse(io)\n\
+    \    @staticmethod\n    def compile_type(cls, args = ()):\n        if issubclass(cls,\
+    \ Parsable): return cls.compile(*args)\n        elif issubclass(cls, (Number,\
+    \ str)):\n            def parse(io: IOBase): return cls(next(io))            \
+    \  \n            return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
+    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
+    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
+    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
+    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
+    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
+    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
+    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
+    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
+    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
+    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
+    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
+    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
+    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
+    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
+    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
+    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
+    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
+    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
+    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
+    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
+    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
+    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
+    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
+    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
+    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
+    \        else:\n            raise NotImplementedError()\n\nclass GraphWeighted(GraphWeightedBase):\n\
+    \    def __init__(G, N: int, U: list[int], V: list[int], W: list[int]):\n    \
+    \    Ma, deg = 0, u32f(N)\n        for e in range(M := len(U)):\n            distinct\
+    \ = (u := U[e]) != (v := V[e])\n            deg[u] += 1; deg[v] += distinct; Ma\
+    \ += 1+distinct\n        twin, Ea, Ua, Va, Wa = u32f(Ma), u32f(Ma), u32f(Ma),\
+    \ u32f(Ma), [0]*Ma\n        \n        La, i = u32f(N), 0\n        for u,d in enumerate(deg):\
+    \ \n            La[u], i = i, i + d\n        Ra = La[:]\n\n        for e in range(M):\n\
+    \            u, v, w = U[e], V[e], W[e]\n            i, j = Ra[u], Ra[v]\n   \
+    \         Ra[u],Ua[i],Va[i],Wa[i],Ea[i],twin[i] = i+1,u,v,w,e,j\n            if\
+    \ i == j: continue # don't add self loops twice\n            Ra[v],Ua[j],Va[j],Wa[j],Ea[j],twin[j]\
+    \ = j+1,v,u,w,e,i\n\n        super().__init__(N, M, U, V, W, deg, La, Ra, Ua,\
+    \ Va, Wa, Ea, twin)\nfrom typing import Type, Union, overload\n\n@overload\ndef\
+    \ read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False) ->\
+    \ _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\ndef\
+    \ read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs:\
+    \ _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T],\
+    \ char=False):\n    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
+    \ fstat as os_fstat\nfrom __pypy__.builders import StringBuilder\n\ndef max2(a,\
+    \ b): return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE = 1 << 16; stdin:\
+    \ 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p',\
+    \ 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n    def __init__(io,\
+    \ file):\n        io.file = file\n        try: io.f = file.fileno(); io.sz, io.writable\
+    \ = max2(io.BUFSIZE, os_fstat(io.f).st_size), ('x' in file.mode or 'r' not in\
+    \ file.mode)\n        except: io.f, io.sz, io.writable = -1, io.BUFSIZE, False\n\
+    \        io.B, io.O, io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B);\
+    \ io.l = io.p = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False,\
+    \ [], [], 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
+    \ io.errors)\n    def readbytes(io, sz): return os_read(io.f, sz)\n    def load(io):\n\
+    \        while io.l >= len(io.O):\n            if not (b := io.readbytes(io.sz)):\n\
+    \                if io.O[-1] < len(io.B): io.O.append(len(io.B))\n           \
+    \     break\n            pos = len(io.B); io.B.extend(b)\n            while ~(pos\
+    \ := io.B.find(b'\\n', pos)): io.O.append(pos := pos+1)\n    def __next__(io):\n\
+    \        if io.char: return io.readchar()\n        else: return io.readtoken()\n\
+    \    def readchar(io):\n        io.load(); r = io.O[io.l]\n        c = chr(io.B[io.p])\n\
+    \        if io.p >= r-1: io.p = r; io.l += 1\n        else: io.p += 1\n      \
+    \  return c\n    def write(io, s: str): io.S.append(s)\n    def readline(io):\
+    \ io.load(); l, io.p = io.p, io.O[io.l]; io.l += 1; return io._dec(l, io.p)\n\
+    \    def readtoken(io):\n        io.load(); r = io.O[io.l]\n        if ~(p :=\
+    \ io.B.find(b' ', io.p, r)): s = io._dec(io.p, p); io.p = p+1\n        else: s\
+    \ = io._dec(io.p, r-1); io.p = r; io.l += 1\n        return s\n    def readtokens(io):\
+    \ io.st.clear(); return io.readtokensinto(io.st)\n    def readints(io): io.ist.clear();\
+    \ return io.readintsinto(io.ist)\n    def readdigits(io): io.ist.clear(); return\
+    \ io.readdigitsinto(io.ist)\n    def readnums(io): io.ist.clear(); return io.readnumsinto(io.ist)\n\
+    \    def readchars(io): io.load(); l, io.p = io.p, io.O[io.l]; io.l += 1; return\
+    \ io._dec(l, io.p-1)\n    def readinto(io, lst):\n        if io.char: return io.readcharsinto(lst)\n\
     \        else: return io.readtokensinto(lst)\n    def readcharsinto(io, lst):\
     \ lst.extend(io.readchars()); return lst\n    def readtokensinto(io, lst): \n\
     \        io.load(); r = io.O[io.l]\n        while ~(p := io.B.find(b' ', io.p,\
@@ -585,34 +586,35 @@ data:
   - cp_library/ds/array/u32f_fn.py
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/ds/view/view2_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
   - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
+  - cp_library/ds/view/view2_cls.py
   - cp_library/alg/dp/max2_fn.py
   - cp_library/io/io_base_cls.py
-  - cp_library/alg/iter/sort/isort_ranged_fn.py
   - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/view/view_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/bit/masks/u32_max_cnst.py
   - cp_library/bit/masks/i32_max_cnst.py
   - cp_library/ds/array/u8f_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/packet_list_cls.py
   - cp_library/ds/que/que_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
   - cp_library/ds/heap/fast_heapq.py
   - cp_library/ds/heap/heap_proto.py
-  - cp_library/alg/iter/arg/argsort_ranged_fn.py
+  - cp_library/alg/iter/sort/isort_ranged_fn.py
   - cp_library/ds/list/list_find_fn.py
+  - cp_library/alg/iter/arg/argsort_ranged_fn.py
   isVerificationFile: true
   path: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/minimum_spanning_tree_kruskal.test.py

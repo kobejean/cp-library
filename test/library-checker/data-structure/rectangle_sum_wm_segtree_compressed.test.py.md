@@ -245,7 +245,7 @@ data:
     \    def prod_corner(wm,r,u):return super().prod_corner(r,wm._didx(u))\n    def\
     \ prod_rect(wm,l,d,r,u):return super().prod_rect(l,wm._didx(d),r,wm._didx(u))\n\
     \nclass WMSegTreeCompressed(WMSegTree,WMMonoidCompressed):pass\n\n\ndef max2(a,\
-    \ b):\n    return a if a > b else b\ndef pack_sm(N: int): s=N.bit_length(); return\
+    \ b): return a if a > b else b\ndef pack_sm(N: int): s=N.bit_length(); return\
     \ s,(1<<s)-1\n\ndef icoord_compress_multi(*A: list[int], distinct=False):\n  \
     \  N = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si,\
     \ mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n    S, k = [0]*N, 0\n\
@@ -296,7 +296,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py

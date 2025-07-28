@@ -191,7 +191,7 @@ data:
     \    def _build_level(wm,L,W):L.build(wm.op,wm.e,W)\n    def _prod_range(wm,l:int,r:int):return\
     \ wm.W.prod(l,r)\n    def set(wm,i:int,w:int):\n        wm.W.set(i,w)\n      \
     \  for L in wm.down:L.W.set(i:=L.pos(L[i],i),w)\n    def get(wm,i:int):return\
-    \ wm.W.get(i)\n\n\ndef max2(a, b):\n    return a if a > b else b\n\ndef pack_sm(N:\
+    \ wm.W.get(i)\n\n\ndef max2(a, b): return a if a > b else b\n\ndef pack_sm(N:\
     \ int): s=N.bit_length(); return s,(1<<s)-1\n\ndef icoord_compress_multi(*A: list[int],\
     \ distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai); mx = max2(mx,\
     \ len(Ai))\n    si, mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n   \
@@ -235,7 +235,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py

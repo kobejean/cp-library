@@ -24,9 +24,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\n\ndef min2(a, b):\n    return a if a < b else b\nfrom math import\
-    \ ceil, sqrt\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
-    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \  \n'''\n\n\ndef min2(a, b): return a if a < b else b\nfrom math import ceil,\
+    \ sqrt\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U =\
+    \ TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
     \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\nclass BitArray:\n\
     \    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n        B.bits,\
     \ B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n        B.bits.pop()\n\
@@ -106,7 +106,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/wavelet/bit_list_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/wavelet/bit_list_cls.py

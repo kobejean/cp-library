@@ -60,14 +60,14 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     # from typing import Generic\n# from cp_library.misc.typing import _T\n\n\ndef\
-    \ min2(a, b):\n    return a if a < b else b\n\n\n\nclass MinSparseTable:\n   \
-    \ def __init__(st, arr: list):\n        st.N = N = len(arr)\n        st.log =\
-    \ N.bit_length()\n        st.data = data = [0] * (st.log*N)\n        data[:N]\
-    \ = arr \n        for i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N,\
-    \ (i-1)*N + (1 << (i-1))\n            for j in range(N - (1 << i) + 1):\n    \
-    \            data[a+j] = min2(data[b+j], data[c+j])\n\n    def query(st, l: int,\
-    \ r: int):\n        k = (r-l).bit_length() - 1\n        return min2(st.data[k*st.N\
-    \ + l], st.data[k*st.N + r - (1<<k)])\n    \n"
+    \ min2(a, b): return a if a < b else b\n\n\n\nclass MinSparseTable:\n    def __init__(st,\
+    \ arr: list):\n        st.N = N = len(arr)\n        st.log = N.bit_length()\n\
+    \        st.data = data = [0] * (st.log*N)\n        data[:N] = arr \n        for\
+    \ i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n\
+    \            for j in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j],\
+    \ data[c+j])\n\n    def query(st, l: int, r: int):\n        k = (r-l).bit_length()\
+    \ - 1\n        return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n\
+    \    \n"
   code: "import cp_library.__header__\n# from typing import Generic\n# from cp_library.misc.typing\
     \ import _T\nfrom cp_library.alg.dp.min2_fn import min2\n\nimport cp_library.ds.__header__\n\
     \nclass MinSparseTable:\n    def __init__(st, arr: list):\n        st.N = N =\
@@ -87,7 +87,7 @@ data:
   - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - cp_library/alg/tree/csr/aux_tree_base_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/tree/lca.test.py

@@ -14,9 +14,6 @@ data:
     path: cp_library/alg/iter/sort/isort_parallel_fn.py
     title: cp_library/alg/iter/sort/isort_parallel_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/sort/sort_parallel_fn.py
-    title: cp_library/alg/iter/sort/sort_parallel_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack/packer_cls.py
     title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
@@ -26,17 +23,20 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/skew_heap_forrest_cls.py
     title: cp_library/ds/heap/skew_heap_forrest_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_base_cls.py
     title: cp_library/io/io_base_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -75,7 +75,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b):\n    return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -136,16 +136,19 @@ data:
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
-    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -171,32 +174,26 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\n\n\ndef argsort(A: list[int],\
-    \ reverse=False):\n    P = Packer(len(I := list(A))-1); P.ienumerate(I, reverse);\
-    \ I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    __slots__ =\
-    \ 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length(); P.m = (1 << P.s)\
-    \ - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x:\
-    \ int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False):\
-    \ P.ienumerate(A:=list(A), reverse); return A\n    def ienumerate(P, A, reverse=False):\n\
-    \        if reverse:\n            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n\
-    \        else:\n            for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def\
-    \ indices(P, A: list[int]): P.iindices(A:=list(A)); return A\n    def iindices(P,\
-    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\ndef isort_parallel(*L:\
-    \ list, reverse=False):\n    inv, order = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n\
-    \    for i, j in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n\
-    \        for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] =\
-    \ j, inv[i]\n    return L\n\ndef sort_parallel(*L: list, reverse=False):\n   \
-    \ N, K, order = len(L[0]), len(L), argsort(L[0], reverse)\n    R = tuple([0]*N\
-    \ for _ in range(K))\n    for k, Lk in enumerate(L):\n        Rk = R[k]\n    \
-    \    for i, j in enumerate(order): Rk[i] = Lk[j]\n    return R\n\n\nclass EdgeListWeighted(Parsable):\n\
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    \n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I := list(A))-1);\
+    \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass\
+    \ Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
+    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
+    \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
+    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
+    \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
+    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
+    \n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order = [0]*len(L[0]),\
+    \ argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order): inv[j] = i\n\
+    \    for i, j in enumerate(order):\n        for A in L: A[i], A[j] = A[j], A[i]\n\
+    \        order[inv[i]], inv[j] = j, inv[i]\n    return L\n\n\nclass EdgeListWeighted(Parsable):\n\
     \    def __init__(E, N: int, U: list[int], V: list[int], W: list[int]): E.N, E.M,\
     \ E.U, E.V, E.W = N, len(U), U, V, W\n    def __len__(E): return E.M\n    def\
     \ __getitem__(E, e): return E.U[e], E.V[e], E.W[e]\n    @classmethod\n    def\
@@ -227,7 +224,7 @@ data:
     \ T\n    \n    def sort(E):\n        isort_parallel(E.W, E.U, E.V)\n\n    def\
     \ sub(E, I: list[int]):\n        U, V, W = elist(E.N-1), elist(E.N-1), elist(E.N-1)\n\
     \        for e in I: U.append(E.U[e]); V.append(E.V[e]); W.append(E.W[e])\n  \
-    \      return E.__class__(E.N, U, V, W)\n\n\n\nclass DSU(Parsable):\n    def __init__(dsu,\
+    \      return E.__class__(E.N, U, V, W)\n\n\nclass DSU(Parsable):\n    def __init__(dsu,\
     \ N): dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n    def merge(dsu, u, v):\n     \
     \   x, y = dsu.root(u), dsu.root(v)\n        if x == y: return x,y\n        if\
     \ dsu.par[x] > dsu.par[y]: x, y = y, x\n        dsu.par[x] += dsu.par[y]; dsu.par[y]\
@@ -254,7 +251,7 @@ data:
     \        yield csr.A[l:csr.R[i]]\n    \n    def __getitem__(csr, i: int) -> _T:\n\
     \        return csr.A[i]\n    \n    def __len__(dsu):\n        return len(dsu.L)\n\
     \n    def range(csr, i: int) -> _T:\n        return range(csr.L[i], csr.R[i])\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    \n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
     except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
     \    \nimport operator\nfrom typing import Generic\n\n\nclass SkewHeapForrest(Generic[_T]):\n\
     \    def __init__(shf, N, M, e: _T = 0, op = operator.add):\n        shf.V, shf.A,\
@@ -288,20 +285,20 @@ data:
   - cp_library/alg/graph/edge/edge_list_weighted_cls.py
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/iter/sort/isort_parallel_fn.py
-  - cp_library/alg/iter/sort/sort_parallel_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
   - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/dsu_cls.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/heap/skew_heap_forrest_cls.py
-  - cp_library/alg/dp/max2_fn.py
   - cp_library/io/io_base_cls.py
+  - cp_library/alg/dp/max2_fn.py
   - cp_library/ds/csr/csr_incremental_cls.py
   isVerificationFile: true
   path: test/aoj/grl/grl_2_b_edge_list_edmond.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_b_edge_list_edmond.test.py

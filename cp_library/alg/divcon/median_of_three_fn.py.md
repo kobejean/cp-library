@@ -28,22 +28,21 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \ndef median_of_three(A, l, r):\n    '''Select pivot as median of first, middle,\
     \ and last elements'''\n    if r - l < 3: return l\n    mid = (l+r) >> 1\n   \
-    \ if A[mid] < A[l]:\n        A[l], A[mid] = A[mid], A[l]\n    if A[r-1] < A[mid]:\n\
-    \        A[mid], A[r-1] = A[r-1], A[mid]\n        if A[mid] < A[l]:\n        \
-    \    A[l], A[mid] = A[mid], A[l]\n    return mid\n"
+    \ if A[mid] < A[l]: A[l], A[mid] = A[mid], A[l]\n    if A[r-1] < A[mid]:\n   \
+    \     A[mid], A[r-1] = A[r-1], A[mid]\n        if A[mid] < A[l]: A[l], A[mid]\
+    \ = A[mid], A[l]\n    return mid\n"
   code: "import cp_library.alg.divcon.__header__\n\ndef median_of_three(A, l, r):\n\
     \    '''Select pivot as median of first, middle, and last elements'''\n    if\
-    \ r - l < 3: return l\n    mid = (l+r) >> 1\n    if A[mid] < A[l]:\n        A[l],\
-    \ A[mid] = A[mid], A[l]\n    if A[r-1] < A[mid]:\n        A[mid], A[r-1] = A[r-1],\
-    \ A[mid]\n        if A[mid] < A[l]:\n            A[l], A[mid] = A[mid], A[l]\n\
-    \    return mid"
+    \ r - l < 3: return l\n    mid = (l+r) >> 1\n    if A[mid] < A[l]: A[l], A[mid]\
+    \ = A[mid], A[l]\n    if A[r-1] < A[mid]:\n        A[mid], A[r-1] = A[r-1], A[mid]\n\
+    \        if A[mid] < A[l]: A[l], A[mid] = A[mid], A[l]\n    return mid"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/alg/divcon/median_of_three_fn.py
   requiredBy:
   - cp_library/alg/divcon/qselect_fn.py
   - cp_library/math/median_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/arc/arc122_b_insurance_median.test.py

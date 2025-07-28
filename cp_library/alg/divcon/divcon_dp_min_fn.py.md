@@ -17,8 +17,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\ndef min2(a, b):\n    return a if a < b else b\n    \ndef divcon_dp_min(N,\
-    \ M, cost_fn, default = 1<<62):\n    dp, ndp = [default]*N, [default]*N\n    for\
+    \n\n\n\ndef min2(a, b): return a if a < b else b\n    \ndef divcon_dp_min(N, M,\
+    \ cost_fn, default = 1<<62):\n    dp, ndp = [default]*N, [default]*N\n    for\
     \ i in range(N): dp[i] = cost_fn(0,i)\n    def rec(l, r, optl, optr):\n      \
     \  first, last = optl, optr\n        i, j = optl, min2(m := (l+r)>>1, optr+1)\n\
     \        ndp[m] = default\n        while i < j:\n            if (cost:=dp[i]+cost_fn(i,m))\
@@ -43,7 +43,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/divcon/divcon_dp_min_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/divcon/divcon_dp_min_fn.py

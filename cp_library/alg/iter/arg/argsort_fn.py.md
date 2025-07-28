@@ -32,7 +32,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/iter/sort/isort_parallel_fn.py
     title: cp_library/alg/iter/sort/isort_parallel_fn.py
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: cp_library/alg/iter/sort/sort_parallel_fn.py
     title: cp_library/alg/iter/sort/sort_parallel_fn.py
   - icon: ':heavy_check_mark:'
@@ -318,7 +318,7 @@ data:
   - perf/segtree6.py
   - perf/bit2.py
   - perf/list2.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/incremental_scc_paralel_sort.test.py

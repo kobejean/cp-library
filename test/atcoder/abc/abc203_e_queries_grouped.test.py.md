@@ -5,8 +5,8 @@ data:
     path: cp_library/alg/dp/max2_fn.py
     title: cp_library/alg/dp/max2_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/queries_cls.py
     title: cp_library/ds/queries_cls.py
@@ -16,6 +16,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_cls.py
     title: cp_library/io/io_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/parser_cls.py
     title: cp_library/io/parser_cls.py
@@ -62,7 +65,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b):\n    return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -123,16 +126,19 @@ data:
     \ io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors)); io.S\
     \ = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nimport typing\nfrom numbers import Number\nfrom types import\
-    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parser:\n  \
-    \  def __init__(self, spec):  self.parse = Parser.compile(spec)\n    def __call__(self,\
-    \ io: IOBase): return self.parse(io)\n    @staticmethod\n    def compile_type(cls,\
-    \ args = ()):\n        if issubclass(cls, Parsable): return cls.compile(*args)\n\
-    \        elif issubclass(cls, (Number, str)):\n            def parse(io: IOBase):\
-    \ return cls(next(io))              \n            return parse\n        elif issubclass(cls,\
-    \ tuple): return Parser.compile_tuple(cls, args)\n        elif issubclass(cls,\
-    \ Collection): return Parser.compile_collection(cls, args)\n        elif callable(cls):\n\
-    \            def parse(io: IOBase): return cls(next(io))              \n     \
-    \       return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
+    \ GenericAlias \nfrom typing import Callable, Collection\n\nclass Parsable:\n\
+    \    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
+    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
+    \ item): return GenericAlias(cls, item)\n\nclass Parser:\n    def __init__(self,\
+    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
+    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
+    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
+    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
+    \              \n            return parse\n        elif issubclass(cls, tuple):\
+    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
+    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
+    \           def parse(io: IOBase): return cls(next(io))              \n      \
+    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
     \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
     \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
@@ -158,45 +164,40 @@ data:
     \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\nfrom itertools import groupby\n\
-    from typing import Iterable\n\nclass Queries(list, Parsable):\n    def __init__(self,\
-    \ data: Iterable = []):\n        super().__init__((i,*query) for i,query in enumerate(data))\n\
-    \n    def append(self, query) -> None:\n        return super().append((len(self),\
-    \ *query))\n\n    @classmethod\n    def compile(cls, N: int, T: type = tuple[int,\
-    \ int]):\n        query = Parser.compile(T)\n        def parse(io: IOBase):\n\
-    \            return cls(query(io) for _ in range(N))\n        return parse\n\n\
-    class QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int, key = 0, T: type\
-    \ = tuple[int, ...]]'''\n    def __init__(self, queries, key = 0):\n        if\
-    \ isinstance(key, int):\n            group_idx = key+1\n            def wrap_key(row):\n\
-    \                return row[group_idx]\n        else:\n            def wrap_key(row):\n\
-    \                _, *query = row\n                return key(query)\n        rows\
-    \ = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n \
-    \       groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n  \
-    \      groups.sort()\n        self.key = key\n        \n        list.__init__(self,\
-    \ groups)\n            \n\n    @classmethod\n    def compile(cls, Q: int, key\
-    \ = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n      \
-    \  def parse(io: IOBase):\n            return cls((query(io) for _ in range(Q)),\
-    \ key)\n        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
+    \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
+    \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
+    \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
+    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
+    from itertools import groupby\nfrom typing import Iterable\n\nclass Queries(list,\
+    \ Parsable):\n    def __init__(self, data: Iterable = []): super().__init__((i,*query)\
+    \ for i,query in enumerate(data))\n    def append(self, query) -> None: return\
+    \ super().append((len(self), *query))\n    @classmethod\n    def compile(cls,\
+    \ N: int, T: type = tuple[int, int]):\n        query = Parser.compile(T)\n   \
+    \     def parse(io: IOBase): return cls(query(io) for _ in range(N))\n       \
+    \ return parse\n\nclass QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int,\
+    \ key = 0, T: type = tuple[int, ...]]'''\n    def __init__(self, queries, key\
+    \ = 0):\n        if isinstance(key, int):\n            group_idx = key+1\n   \
+    \         def wrap_key(row): return row[group_idx]\n        else:\n          \
+    \  def wrap_key(row): _, *query = row; return key(query)\n        rows = sorted(((i,*query)\
+    \ for i,query in enumerate(queries)), key = wrap_key)\n        groups = [(k, list(g))\
+    \ for k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n        self.key\
+    \ = key\n        list.__init__(self, groups)\n    @classmethod\n    def compile(cls,\
+    \ Q: int, key = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n\
+    \        def parse(io: IOBase): return cls((query(io) for _ in range(Q)), key)\n\
+    \        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
     \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
     \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
-    \ key+1\n            def wrap_key(row):\n                return row[group_idx]\n\
-    \        else:\n            def wrap_key(row):\n                _, *query = row\n\
-    \                return key(query)\n        rows = list((i,*query) for i,query\
-    \ in enumerate(queries))\n        \n        groups = [(k,[]) for k in range(N)]\n\
-    \        for k, group in groupby(rows, key = wrap_key):\n            groups[k][1].extend(group)\n\
-    \        self.key = key\n        \n        list.__init__(self, groups)\n\n   \
-    \ @classmethod\n    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1,\
-    \ int]):\n        query = Parser.compile(T)\n        def parse(io: IOBase):\n\
-    \            return cls((query(io) for _ in range(Q)), N, key)\n        return\
-    \ parse\n\nif __name__ == \"__main__\":\n    main()\n"
+    \ key+1\n            def wrap_key(row): return row[group_idx]\n        else:\n\
+    \            def wrap_key(row): _, *query = row; return key(query)\n        rows\
+    \ = list((i,*query) for i,query in enumerate(queries))\n        groups = [(k,[])\
+    \ for k in range(N)]\n        for k, group in groupby(rows, key = wrap_key): groups[k][1].extend(group)\n\
+    \        self.key = key\n        list.__init__(self, groups)\n    @classmethod\n\
+    \    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1, int]):\n  \
+    \      query = Parser.compile(T)\n        def parse(io: IOBase):\n           \
+    \ return cls((query(io) for _ in range(Q)), N, key)\n        return parse\n\n\
+    if __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
     \    XY = read(QueriesGrouped[M])\n    \n    # currently reacable columns\n  \
@@ -205,23 +206,24 @@ data:
     \     # we can reach pawn on this column\n                add.append(y)\n    \
     \    for _,_,y in group:\n            # pawn blocks y column\n            S.discard(y)\n\
     \            # we'll add it back in the next loop if reachable\n        for y\
-    \ in add:\n            S.add(y)\n\n    ans = len(S)\n    write(ans)\n\nfrom cp_library.ds.elist_fn\
+    \ in add:\n            S.add(y)\n\n    ans = len(S)\n    write(ans)\n\nfrom cp_library.ds.list.elist_fn\
     \ import elist\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
     \ import write\nfrom cp_library.ds.queries_cls import QueriesGrouped\n\nif __name__\
     \ == \"__main__\":\n    main()"
   dependsOn:
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/ds/queries_cls.py
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
-  - cp_library/alg/dp/max2_fn.py
+  - cp_library/io/parsable_cls.py
   - cp_library/io/io_base_cls.py
+  - cp_library/alg/dp/max2_fn.py
   isVerificationFile: true
   path: test/atcoder/abc/abc203_e_queries_grouped.test.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc203_e_queries_grouped.test.py

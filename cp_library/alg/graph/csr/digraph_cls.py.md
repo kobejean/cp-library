@@ -29,8 +29,8 @@ data:
     path: cp_library/ds/array/u8f_fn.py
     title: cp_library/ds/array/u8f_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/ds/list/list_find_fn.py
     title: cp_library/ds/list/list_find_fn.py
@@ -47,8 +47,8 @@ data:
     path: cp_library/io/io_base_cls.py
     title: cp_library/io/io_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/parser_cls.py
-    title: cp_library/io/parser_cls.py
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   _extendedRequiredBy:
   - icon: ':warning:'
     path: cp_library/alg/graph/csr/dag_cls.py
@@ -109,66 +109,19 @@ data:
     \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
     \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
     \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom math import\
-    \ inf\nfrom typing import Callable, Sequence, Union, overload\nimport typing\n\
-    from numbers import Number\nfrom types import GenericAlias \nfrom typing import\
-    \ Callable, Collection\n\n\nclass IOBase:\n    @property\n    def char(io) ->\
-    \ bool: ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
-    \ -> str: ...\n    def write(io, s: str) -> None: ...\n    def readline(io) ->\
-    \ str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]:\
-    \ ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
-    \ ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io) -> str: ...\n\
-    \    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str]) -> list[str]:\
-    \ ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n    def readtokensinto(io,\
-    \ lst: list[str]) -> list[str]: ...\n    def readintsinto(io, lst: list[int])\
-    \ -> list[int]: ...\n    def readdigitsinto(io, lst: list[int]) -> list[int]:\
-    \ ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n    def wait(io):\
-    \ ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]: ...\n\n\
-    class Parser:\n    def __init__(self, spec):  self.parse = Parser.compile(spec)\n\
-    \    def __call__(self, io: IOBase): return self.parse(io)\n    @staticmethod\n\
-    \    def compile_type(cls, args = ()):\n        if issubclass(cls, Parsable):\
-    \ return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n  \
-    \          def parse(io: IOBase): return cls(next(io))              \n       \
-    \     return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
-    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
-    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
-    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
-    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
-    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
-    \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
-    \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
-    \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
-    \ parse\n        elif isinstance(args := spec, tuple): return Parser.compile_tuple(type(spec),\
-    \ args)\n        elif isinstance(args := spec, Collection): return Parser.compile_collection(type(spec),\
-    \ args)\n        elif isinstance(fn := spec, Callable): \n            def parse(io:\
-    \ IOBase): return fn(next(io))\n            return parse\n        else: raise\
-    \ NotImplementedError()\n    @staticmethod\n    def compile_line(cls, spec=int):\n\
-    \        if spec is int:\n            def parse(io: IOBase): return cls(io.readnums())\n\
-    \        else:\n            fn = Parser.compile(spec)\n            def parse(io:\
-    \ IOBase): return cls([fn(io) for _ in io.wait()])\n        return parse\n   \
-    \ @staticmethod\n    def compile_repeat(cls, spec, N):\n        fn = Parser.compile(spec)\n\
-    \        def parse(io: IOBase): return cls([fn(io) for _ in range(N)])\n     \
-    \   return parse\n    @staticmethod\n    def compile_children(cls, specs):\n \
-    \       fns = tuple((Parser.compile(spec) for spec in specs))\n        def parse(io:\
-    \ IOBase): return cls([fn(io) for fn in fns])  \n        return parse\n    @staticmethod\n\
-    \    def compile_tuple(cls, specs):\n        if isinstance(specs, (tuple,list))\
-    \ and len(specs) == 2 and specs[1] is ...: return Parser.compile_line(cls, specs[0])\n\
-    \        else: return Parser.compile_children(cls, specs)\n    @staticmethod\n\
-    \    def compile_collection(cls, specs):\n        if not specs or len(specs) ==\
-    \ 1 or isinstance(specs, set):\n            return Parser.compile_line(cls, *specs)\n\
-    \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
-    \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
-    \        else:\n            raise NotImplementedError()\nclass Parsable:\n   \
-    \ @classmethod\n    def compile(cls):\n        def parser(io: IOBase): return\
-    \ cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\nfrom enum import auto, IntFlag, IntEnum\n\
-    \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
-    \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
-    \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
-    \ = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES\
-    \ = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n\
-    \    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
-    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
-    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ inf\nfrom typing import Callable, Sequence, Union, overload\nfrom types import\
+    \ GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def compile(cls):\n\
+    \        def parser(io: 'IOBase'): return cls(next(io))\n        return parser\n\
+    \    @classmethod\n    def __class_getitem__(cls, item): return GenericAlias(cls,\
+    \ item)\n\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
+    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
+    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
+    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
+    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
+    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
+    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
+    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
+    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
     \    \n\nclass GraphBase(Parsable):\n    def __init__(G, N: int, M: int, U: list[int],\
     \ V: list[int], \n                 deg: list[int], La: list[int], Ra: list[int],\n\
@@ -299,49 +252,60 @@ data:
     \        elif isinstance(s, list): return s\n        else: return list(s)\n\n\
     \    @classmethod\n    def compile(cls, N: int, M: int, shift: int = -1):\n  \
     \      def parse(io: IOBase):\n            U, V = u32f(M), u32f(M)\n         \
-    \   for i in range(M):\n                u, v = io.readints()\n               \
-    \ U[i], V[i] = u+shift, v+shift\n            return cls(N, U, V)\n        return\
-    \ parse\n\n\nu32_max = (1<<32)-1\ni32_max = (1<<31)-1\n\nfrom array import array\n\
-    def u8f(N: int, elm: int = 0):      return array('B', (elm,))*N  # unsigned char\n\
-    def u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    def i32f(N: int, elm: int = 0):     return array('i', (elm,))*N  # signed int\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nclass PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A:\
-    \ list[int], max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift :=\
-    \ (max1).bit_length())) - 1\n        lst.shift = shift\n    def __len__(lst):\
-    \ return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]): return\
-    \ lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst, key)\
-    \ -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift, x\
-    \ & lst.mask\n\n\nclass Que:\n    def __init__(que, v = None): que.q = elist(v)\
-    \ if isinstance(v, int) else list(v) if v else []; que.h = 0\n    def push(que,\
-    \ item): que.q.append(item)\n    def pop(que): que.h = (h := que.h) + 1; return\
-    \ que.q[h]\n    def extend(que, items): que.q.extend(items)\n    def __getitem__(que,\
-    \ i: int): return que.q[que.h+i]\n    def __setitem__(que, i: int, v): que.q[que.h+i]\
-    \ = v\n    def __len__(que): return que.q.__len__() - que.h\n    def __hash__(que):\
-    \ return hash(tuple(que.q[que.h:]))\n\nclass DiGraph(GraphBase):\n    def __init__(G,\
-    \ N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua, Va, La, Ra, i = u32f(N),\
-    \ u32f(M := len(U)), u32f(M), u32f(M), u32f(N), u32f(N), 0\n        for u in U:\
-    \ deg[u] += 1\n        for u in range(N): La[u], Ra[u], i = i, i, i+deg[u]\n \
-    \       for e in range(M): Ra[u], Ua[i], Va[i], Ea[i] = (i := Ra[u := U[e]])+1,\
-    \ u, V[e], e\n        super().__init__(N, M, U, V, deg, La, Ra, Ua, Va, Ea)\n\n\
-    \    def scc(G) -> Iterator[list[int]]:\n        '''\n        Finds strongly connected\
-    \ sccs in directed graph using Tarjan's algorithm.\n        Returns sccs in topological\
-    \ order.\n        '''\n        Ra, tin, low, on_stack, I, time = G.Ra, i32f(N\
-    \ := G.N, -1), u32f(N), u8f(N), G.La[:], -1\n        order, stack, sccs, L = elist(N),\
-    \ elist(N), elist(N), elist(N)\n        for u in range(N):\n            if tin[u]\
-    \ >= 0: continue\n            stack.append(u)\n            while stack:\n    \
-    \            if tin[u := stack[-1]] < 0:\n                    tin[u] = low[u]\
-    \ = (time := time+1)\n                    order.append(u)\n                  \
-    \  on_stack[u] = 1\n                if (i := I[u]) < Ra[u]:\n                \
-    \    I[u] += 1\n                    if tin[v := G.Va[i]] < 0: stack.append(v)\n\
-    \                    elif on_stack[v]: chmin(low, u, tin[v])\n               \
-    \ else:\n                    stack.pop()\n                    if low[u] == tin[u]:\n\
-    \                        v = -1; L.append(len(sccs))\n                       \
-    \ while v != u:\n                            on_stack[v := order.pop()] = 0\n\
-    \                            sccs.append(v)\n                    if stack: chmin(low,\
-    \ stack[-1], low[u])\n        return SliceIteratorReverse(sccs, L)\n    \nfrom\
-    \ typing import Iterator, SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
+    \   for i in range(M): u, v = io.readints(); U[i], V[i] = u+shift, v+shift\n \
+    \           return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
+    i32_max = (1<<31)-1\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
+    \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
+    \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
+    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
+    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
+    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
+    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
+    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
+    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
+    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\n\nclass Que:\n\
+    \    def __init__(que, v = None): que.q = elist(v) if isinstance(v, int) else\
+    \ list(v) if v else []; que.h = 0\n    def push(que, item): que.q.append(item)\n\
+    \    def pop(que): que.h = (h := que.h) + 1; return que.q[h]\n    def extend(que,\
+    \ items): que.q.extend(items)\n    def __getitem__(que, i: int): return que.q[que.h+i]\n\
+    \    def __setitem__(que, i: int, v): que.q[que.h+i] = v\n    def __len__(que):\
+    \ return que.q.__len__() - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\
+    \nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n\
+    \    def writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def\
+    \ write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
+    \ -> str: ...\n    def readtokens(io) -> list[str]: ...\n    def readints(io)\
+    \ -> list[int]: ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io)\
+    \ -> list[int]: ...\n    def readchar(io) -> str: ...\n    def readchars(io) ->\
+    \ str: ...\n    def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass DiGraph(GraphBase):\n\
+    \    def __init__(G, N: int, U: list[int], V: list[int]):\n        deg, Ea, Ua,\
+    \ Va, La, Ra, i = u32f(N), u32f(M := len(U)), u32f(M), u32f(M), u32f(N), u32f(N),\
+    \ 0\n        for u in U: deg[u] += 1\n        for u in range(N): La[u], Ra[u],\
+    \ i = i, i, i+deg[u]\n        for e in range(M): Ra[u], Ua[i], Va[i], Ea[i] =\
+    \ (i := Ra[u := U[e]])+1, u, V[e], e\n        super().__init__(N, M, U, V, deg,\
+    \ La, Ra, Ua, Va, Ea)\n\n    def scc(G) -> Iterator[list[int]]:\n        '''\n\
+    \        Finds strongly connected sccs in directed graph using Tarjan's algorithm.\n\
+    \        Returns sccs in topological order.\n        '''\n        Ra, tin, low,\
+    \ on_stack, I, time = G.Ra, i32f(N := G.N, -1), u32f(N), u8f(N), G.La[:], -1\n\
+    \        order, stack, sccs, L = elist(N), elist(N), elist(N), elist(N)\n    \
+    \    for u in range(N):\n            if tin[u] >= 0: continue\n            stack.append(u)\n\
+    \            while stack:\n                if tin[u := stack[-1]] < 0:\n     \
+    \               tin[u] = low[u] = (time := time+1)\n                    order.append(u)\n\
+    \                    on_stack[u] = 1\n                if (i := I[u]) < Ra[u]:\n\
+    \                    I[u] += 1\n                    if tin[v := G.Va[i]] < 0:\
+    \ stack.append(v)\n                    elif on_stack[v]: chmin(low, u, tin[v])\n\
+    \                else:\n                    stack.pop()\n                    if\
+    \ low[u] == tin[u]:\n                        v = -1; L.append(len(sccs))\n   \
+    \                     while v != u:\n                            on_stack[v :=\
+    \ order.pop()] = 0\n                            sccs.append(v)\n             \
+    \       if stack: chmin(low, stack[-1], low[u])\n        return SliceIteratorReverse(sccs,\
+    \ L)\n    \nfrom typing import Iterator, SupportsIndex\n\n\nclass SliceIteratorReverse(Iterator[_T]):\n\
     \    def __init__(self, A: list[_T], L: list[SupportsIndex]):\n        self.A,\
     \ self.L, self.r = A, L, len(A)\n    def __len__(self): return len(self.L)\n \
     \   def __next__(self):\n        L = self.L\n        if not L: raise StopIteration\n\
@@ -373,7 +337,7 @@ data:
     \ stack[-1], low[u])\n        return SliceIteratorReverse(sccs, L)\n    \nfrom\
     \ cp_library.alg.iter.slice_iterator_reverse_cls import SliceIteratorReverse\n\
     from cp_library.ds.array.i32f_fn import i32f\nfrom cp_library.ds.array.u8f_fn\
-    \ import u8f\nfrom cp_library.ds.array.u32f_fn import u32f\nfrom cp_library.ds.elist_fn\
+    \ import u8f\nfrom cp_library.ds.array.u32f_fn import u32f\nfrom cp_library.ds.list.elist_fn\
     \ import elist"
   dependsOn:
   - cp_library/alg/dp/chmin_fn.py
@@ -382,23 +346,23 @@ data:
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/array/u8f_fn.py
   - cp_library/ds/array/u32f_fn.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/view/view_cls.py
-  - cp_library/io/parser_cls.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/graph/dfs_options_cls.py
   - cp_library/bit/masks/u32_max_cnst.py
   - cp_library/bit/masks/i32_max_cnst.py
   - cp_library/ds/packet_list_cls.py
   - cp_library/ds/que/que_cls.py
-  - cp_library/ds/list/list_find_fn.py
   - cp_library/io/io_base_cls.py
+  - cp_library/ds/list/list_find_fn.py
   isVerificationFile: false
   path: cp_library/alg/graph/csr/digraph_cls.py
   requiredBy:
   - cp_library/alg/graph/csr/dag_cls.py
   - cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
   - cp_library/alg/graph/csr/snippets/scc_labels_fn.py
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/cycle_detection.test.py

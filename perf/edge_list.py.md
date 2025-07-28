@@ -11,9 +11,6 @@ data:
     path: cp_library/alg/iter/sort/isort_parallel_fn.py
     title: cp_library/alg/iter/sort/isort_parallel_fn.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/alg/iter/sort/sort_parallel_fn.py
-    title: cp_library/alg/iter/sort/sort_parallel_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/bit/pack/packer_cls.py
     title: cp_library/bit/pack/packer_cls.py
   - icon: ':heavy_check_mark:'
@@ -23,17 +20,17 @@ data:
     path: cp_library/ds/dsu_cls.py
     title: cp_library/ds/dsu_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/ds/elist_fn.py
-    title: cp_library/ds/elist_fn.py
-  - icon: ':heavy_check_mark:'
     path: cp_library/ds/heap/skew_heap_forrest_cls.py
     title: cp_library/ds/heap/skew_heap_forrest_cls.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/ds/list/elist_fn.py
+    title: cp_library/ds/list/elist_fn.py
   - icon: ':heavy_check_mark:'
     path: cp_library/io/io_base_cls.py
     title: cp_library/io/io_base_cls.py
   - icon: ':heavy_check_mark:'
-    path: cp_library/io/parser_cls.py
-    title: cp_library/io/parser_cls.py
+    path: cp_library/io/parsable_cls.py
+    title: cp_library/io/parsable_cls.py
   - icon: ':warning:'
     path: cp_library/perf/benchmark.py
     title: cp_library/perf/benchmark.py
@@ -238,21 +235,20 @@ data:
   - cp_library/perf/output.py
   - cp_library/perf/renderers.py
   - cp_library/perf/cli.py
+  - cp_library/io/parsable_cls.py
   - cp_library/alg/iter/sort/isort_parallel_fn.py
-  - cp_library/alg/iter/sort/sort_parallel_fn.py
-  - cp_library/io/parser_cls.py
   - cp_library/alg/iter/arg/argsort_fn.py
   - cp_library/bit/pack/packer_cls.py
   - cp_library/ds/dsu_cls.py
-  - cp_library/ds/elist_fn.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/ds/heap/skew_heap_forrest_cls.py
+  - cp_library/io/io_base_cls.py
   - cp_library/perf/checksum.py
   - cp_library/ds/csr/csr_incremental_cls.py
-  - cp_library/io/io_base_cls.py
   isVerificationFile: false
   path: perf/edge_list.py
   requiredBy: []
-  timestamp: '2025-07-28 10:42:29+09:00'
+  timestamp: '2025-07-28 14:11:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: perf/edge_list.py
