@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.test.__header__
 """
 Helper for making unittest files compatible with verification-helper.
 

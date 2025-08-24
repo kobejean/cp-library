@@ -1,6 +1,7 @@
-from cp_library.ds.list.elist_fn import elist
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
-
+import cp_library.alg.graph.func.__header__
 from cp_library.alg.graph.func.func_graph_cls import FuncGraph
 
 class PartialFuncGraph(FuncGraph):
@@ -51,5 +52,5 @@ class PartialFuncGraph(FuncGraph):
                 vis[slow], finite[slow] = 1, fin
                 slow = F[slow]
         return finite
-
 from cp_library.alg.iter.crf_list_cls import CRFList
+from cp_library.ds.list.elist_fn import elist

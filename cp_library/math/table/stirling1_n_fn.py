@@ -1,7 +1,9 @@
-import cp_library.math.table.__header__
+import cp_library.__header__
 from typing import SupportsIndex
-from cp_library.math.mod.mint_ntt_cls import mint
+import cp_library.math.__header__
 from cp_library.math.fps.fps_tayler_shift_fn import fps_tayler_shift
+from cp_library.math.mod.mint_ntt_cls import mint
+import cp_library.math.table.__header__
 
 def stirling1_n(n: SupportsIndex, signed = True):
     conv,res,t,d = mint.ntt.conv,[1],0,(-1 if signed else 1)

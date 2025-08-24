@@ -1,8 +1,8 @@
-
-import cp_library.ds.__header__
-from cp_library.alg.dp.min2_fn import min2
+import cp_library.__header__
 from math import ceil, sqrt
-from cp_library.misc.typing import int
+from cp_library.alg.dp.min2_fn import min2
+import cp_library.ds.__header__
+import cp_library.ds.wavelet.__header__
 
 class BitArray:
     def __init__(B, N: int):

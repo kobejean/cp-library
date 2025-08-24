@@ -1,12 +1,12 @@
+import cp_library.__header__
 """
 Command-line interface for the benchmark framework.
 """
-
 import argparse
 import sys
 from typing import List, Optional
 from dataclasses import dataclass
-
+import cp_library.perf.__header__
 
 @dataclass
 class CLIConfig:

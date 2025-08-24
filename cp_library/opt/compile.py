@@ -1,9 +1,11 @@
+import cp_library.__header__
 import os
 import tempfile
 import subprocess
 import base64
 import zlib
 from cffi import FFI
+import cp_library.misc.__header__
 
 # Embed your C source code as a string
 C_SOURCE = '''

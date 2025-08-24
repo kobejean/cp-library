@@ -1,3 +1,4 @@
+import cp_library.__header__
 import cp_library.bit.__header__
 
 def popcnt32(x):
@@ -7,5 +8,4 @@ def popcnt32(x):
     x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)
     x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)
     return x
-if hasattr(int, 'bit_count'):
-    popcnt32 = int.bit_count
+if hasattr(int, 'bit_count'): popcnt32 = int.bit_count

@@ -1,5 +1,7 @@
-import cp_library.math.table.__header__
+import cp_library.__header__
 from typing import Protocol
+import cp_library.math.__header__
+import cp_library.math.table.__header__
 from cp_library.math.table.primes_cls import Primes
 
 class SieveProtocol(Protocol):

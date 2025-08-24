@@ -1,5 +1,8 @@
+import cp_library.__header__
 from functools import wraps
 from typing import Any, Callable, TypeVar
+import cp_library.misc.__header__
+import cp_library.misc.decorators.__header__
 
 F = TypeVar('F', bound=Callable[..., Any])
 

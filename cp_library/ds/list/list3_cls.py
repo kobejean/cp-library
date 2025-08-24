@@ -1,9 +1,9 @@
-from cp_library.alg.iter.sort.isort_parallel_fn import isort_parallel
 import cp_library.__header__
 from typing import Generic
 from cp_library.misc.typing import _T1, _T2, _T3
+from cp_library.alg.iter.sort.isort_parallel_fn import isort_parallel
 import cp_library.ds.__header__
-import cp_library.ds.view.__header__
+import cp_library.ds.list.__header__
 
 class list3(Generic[_T1, _T2, _T3]):
     __slots__ = 'A1', 'A2', 'A3'

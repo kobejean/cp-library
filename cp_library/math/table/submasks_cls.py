@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.table.__header__
 from cp_library.bit.popcnt32_fn import popcnt32
 from cp_library.ds.list.elist_fn import elist

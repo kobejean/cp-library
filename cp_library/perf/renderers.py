@@ -1,11 +1,12 @@
+import cp_library.__header__
 """
 Plot rendering implementations following Open/Closed Principle.
 """
-
 import statistics
 from collections import defaultdict
 from pathlib import Path
 from typing import List, Dict, Any
+import cp_library.perf.__header__
 from cp_library.perf.interfaces import PlotRenderer, BenchmarkResult
 
 

@@ -1,6 +1,7 @@
-import cp_library.alg.graph.__header__
-
+import cp_library.__header__
 from enum import auto, IntFlag, IntEnum
+import cp_library.alg.__header__
+import cp_library.alg.graph.__header__
 
 class DFSFlags(IntFlag):
     ENTER = auto()
@@ -32,4 +33,3 @@ class DFSEvent(IntEnum):
     LEAVE = DFSFlags.LEAVE 
     UP = DFSFlags.UP 
     MAXDEPTH = DFSFlags.MAXDEPTH
-    

@@ -1,3 +1,7 @@
+import cp_library.__header__
+import cp_library.math.__header__
+import cp_library.math.table.__header__
+
 class Factors(list[int]):
     def __init__(self, N: int):
         factors = []

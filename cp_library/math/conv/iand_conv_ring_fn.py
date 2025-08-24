@@ -1,8 +1,8 @@
 import cp_library.__header__
-import cp_library.math.__header__
 import operator
 from typing import Callable
 from cp_library.misc.typing import _T
+import cp_library.math.__header__
 import cp_library.math.conv.__header__
 from cp_library.math.conv.iand_transform_fn import iand_transform
 

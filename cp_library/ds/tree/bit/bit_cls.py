@@ -28,8 +28,7 @@ class BIT:
         while l: s, l = s-bit._d[l-1], l&l-1
         return s
 
-    def __len__(bit) -> int:
-        return bit._n
+    def __len__(bit) -> int: return bit._n
     
     def __getitem__(bit, i: int) -> int:
         s, l = bit._d[i], i&(i+1)

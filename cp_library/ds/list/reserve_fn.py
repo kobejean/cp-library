@@ -1,4 +1,6 @@
+import cp_library.__header__
 import cp_library.ds.__header__
+import cp_library.ds.list.__header__
 
 def reserve(A: list, est_len: int) -> None: ...
 try:

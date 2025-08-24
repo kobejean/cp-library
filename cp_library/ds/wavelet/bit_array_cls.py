@@ -1,6 +1,6 @@
 import cp_library.__header__
 import cp_library.ds.__header__
-import cp_library.ds.__header__
+import cp_library.ds.wavelet.__header__
 
 class BitArray:
     def __init__(B, N):

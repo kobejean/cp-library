@@ -1,7 +1,8 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 from math import prod
 from typing import Container, Iterable
 from cp_library.io.parsable_cls import Parsable
+import cp_library.ds.__header__
 
 class grid2d(Parsable, Container):
 

@@ -1,5 +1,5 @@
-from cp_library.io.parsable_cls import Parsable
 import cp_library.__header__
+from cp_library.io.parsable_cls import Parsable
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
 

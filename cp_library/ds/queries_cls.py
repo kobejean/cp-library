@@ -1,7 +1,7 @@
 import cp_library.__header__
-from cp_library.io.parsable_cls import Parsable
 from itertools import groupby
 from typing import Iterable
+from cp_library.io.parsable_cls import Parsable
 import cp_library.ds.__header__
 
 class Queries(list, Parsable):

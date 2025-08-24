@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.misc.__header__
 import cp_library.misc.decorators.__header__
 
 class lazy_class_attribute:

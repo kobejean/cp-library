@@ -1,7 +1,9 @@
-import cp_library.ds.__header__
-from cp_library.ds.list.list_find_fn import list_find
+import cp_library.__header__
 from cp_library.misc.typing import _T
 from typing import MutableSequence, SupportsIndex
+import cp_library.ds.__header__
+from cp_library.ds.list.list_find_fn import list_find
+import cp_library.ds.que.__header__
 
 class Deque(MutableSequence[_T]):
     def __init__(que, A = tuple(), *, maxlen=-1):

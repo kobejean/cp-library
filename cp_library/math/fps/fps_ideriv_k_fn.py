@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.fps.__header__
 
 def fps_ideriv_k(P: list[int], k: int):

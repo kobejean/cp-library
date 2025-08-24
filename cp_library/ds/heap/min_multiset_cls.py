@@ -1,10 +1,12 @@
-import cp_library.ds.heap.__header__
-from cp_library.ds.heap.heappop_fn import heappop
-from cp_library.ds.heap.heappush_fn import heappush
+import cp_library.__header__
 from collections import Counter, UserList
 from typing import Iterable
 from math import inf
 from cp_library.misc.typing import _T
+import cp_library.ds.__header__
+import cp_library.ds.heap.__header__
+from cp_library.ds.heap.heappop_fn import heappop
+from cp_library.ds.heap.heappush_fn import heappush
 
 class MinMultiset(UserList[_T]):
     def __init__(self, iterable: Iterable = None, default = inf): self.data = list(iterable) if iterable else []; self.default = default; self.counter = Counter(self.data)

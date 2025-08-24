@@ -1,6 +1,7 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 import typing
 import random
+import cp_library.ds.__header__
 
 class KDTreeNode:
     __slots__ = ['id', 'point', 'children']

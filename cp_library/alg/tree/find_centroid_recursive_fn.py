@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.tree.__header__
 import cp_library.misc.setrecursionlimit
 
@@ -14,8 +16,7 @@ def find_centroid(T):
             if cent != -1: return cent
             if size[v] > half: is_cent = False
             size[u] += size[v]
-        if N - size[u] > half:
-            is_cent = False
+        if N - size[u] > half: is_cent = False
         return u if is_cent else -1
 
     return dfs()

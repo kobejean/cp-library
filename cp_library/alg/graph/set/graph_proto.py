@@ -48,10 +48,10 @@ class GraphProtocol(list, Parsable):
         return D if g is None else inf 
 
     @overload
-    def shortest_path(G, s: int, g: int) -> Union[list[int],None]: ...
+    def shortest_path_vertices(G, s: int, g: int) -> Union[list[int],None]: ...
     @overload
-    def shortest_path(G, s: int, g: int, distances = True) -> tuple[Union[list[int],None],list[int]]: ...
-    def shortest_path(G, s: int, g: int, distances = False) -> list[int]:
+    def shortest_path_vertices(G, s: int, g: int, distances = True) -> tuple[Union[list[int],None],list[int]]: ...
+    def shortest_path_vertices(G, s: int, g: int, distances = False) -> list[int]:
         D = [inf] * G.N
         D[s] = 0
         if s == g:

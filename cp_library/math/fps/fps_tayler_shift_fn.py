@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.fps.__header__
 from cp_library.math.table.mcomb_cls import mcomb
 from cp_library.math.mod.mint_ntt_cls import mint

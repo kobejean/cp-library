@@ -1,5 +1,6 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 from typing import Sequence
+import cp_library.ds.__header__
 
 class PacketList(Sequence[tuple[int,int]]):
     def __init__(lst, A: list[int], max1: int):

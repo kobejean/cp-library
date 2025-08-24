@@ -59,16 +59,6 @@ class GraphWeightedBase(GraphBase):
                 MST[need := need-1] = e
                 if not need: break
         return None if need else MST
-    
-    def kruskal_heap(G):
-        N, M, U, V, W = G.N, G.M, G.U, G.V, G.W 
-        que, dsu, MST = PriorityQueue(M, list(range(M)), W), DSU(N), [0]*(need := N-1)
-        while que and need:
-            _, e = que.pop()
-            u, v = dsu.merge(U[e],V[e])
-            if u != v:
-                MST[need := need-1] = e
-        return None if need else MST
    
     def bellman_ford(G, s: int = 0) -> list[int]:
         Ua, Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)

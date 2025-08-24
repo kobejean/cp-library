@@ -1,6 +1,5 @@
 import cp_library.__header__
 import cp_library.io.__header__
-import cp_library.io.__header__
 from cp_library.io.io_cls import IO
 def rd(): return IO.stdin.readints()
 def rds(): return IO.stdin.__next__()

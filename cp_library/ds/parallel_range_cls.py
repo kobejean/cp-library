@@ -1,5 +1,6 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 from cp_library.io.parsable_cls import Parsable
+import cp_library.ds.__header__
 
 class ParallelRange(tuple, Parsable):
     def __new__(cls, N): return super().__new__(cls, ([0]*N, [0]*N))

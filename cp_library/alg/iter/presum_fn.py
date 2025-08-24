@@ -11,11 +11,8 @@ def presum(iter: Iterable[_T], func: Callable[[_T,_T],_T] = None, initial: _T = 
         return list(accumulate(iter, func, initial=initial))
     else:
         assert step >= 2
-        if func is None:
-            func = operator.add
+        if func is None: func = operator.add
         A = list(iter)
-        if initial is not None:
-            A = [initial] + A
-        for i in range(step,len(A)):
-            A[i] = func(A[i], A[i-step])
+        if initial is not None: A = [initial] + A
+        for i in range(step,len(A)): A[i] = func(A[i], A[i-step])
         return A

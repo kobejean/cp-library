@@ -1,9 +1,9 @@
-
-import cp_library.ds.__header__
+import cp_library.__header__
 from math import ceil, sqrt
 from bisect import bisect_left, bisect_right
 from typing import Iterable, Iterator, MutableSet
 from cp_library.misc.typing import _T
+import cp_library.ds.__header__
 
 # https://github.com/tatyam-prime/SortedSet/blob/main/SortedMultiset.py
 

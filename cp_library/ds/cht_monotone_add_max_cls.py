@@ -1,10 +1,9 @@
+import cp_library.__header__
+from bisect import bisect_left
 import cp_library.ds.__header__
 
-from bisect import bisect_left
-
 class CHTMonotoneAddMax:
-    def __init__(self):
-        self.hull = []
+    def __init__(self): self.hull = []
 
     def insert(self, m: int, b: int) -> None:
         # Remove lines with greater or equal slopes (maintaining monotonicity)

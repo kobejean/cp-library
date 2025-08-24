@@ -8,10 +8,10 @@ import cp_library.math.linalg.__header__
 
 class ElmWiseMixin:
     def elm_wise(self, other, op):
-        if isinstance(other, Number):
-            return type(self)(op(x, other) for x in self)
         if isinstance(other, Sequence):
-            return type(self)(op(x, y) for x, y in zip(self, other))
+            return self.__class__(op(self[i], y) for i, y in enumerate(self, other))
+        if isinstance(other, Number):
+            return self.__class__(op(x, other) for x in self)
         raise ValueError("Operand must be a number or a tuple of the same length")
 
     def __add__(self, other): return self.elm_wise(other, operator.add)

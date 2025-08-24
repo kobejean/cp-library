@@ -1,5 +1,7 @@
-import cp_library.ds.list.__header__
+import cp_library.__header__
 import sys
+import cp_library.ds.__header__
+import cp_library.ds.list.__header__
 
 def list_find(lst: list, value, start = 0, stop = sys.maxsize):
     try:

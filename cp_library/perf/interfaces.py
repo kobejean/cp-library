@@ -1,11 +1,11 @@
+import cp_library.__header__
 """
 Interfaces for the benchmark framework following SOLID principles.
 """
-
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, List, Optional, Union
 from dataclasses import dataclass
-
+import cp_library.perf.__header__
 
 @dataclass
 class BenchmarkResult:

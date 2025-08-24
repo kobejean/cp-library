@@ -1,4 +1,3 @@
-from cp_library.ds.view.view_cls import view
 import cp_library.__header__
 from math import inf
 from typing import Callable, Sequence, Union, overload
@@ -94,26 +93,15 @@ class GraphBase(Parsable):
         else: return G.bfs(s, g)
 
     def recover_path(G, s, t):
-        Ua, back, vertices = G.Ua, G.back, u32f(1, v := t)
-        while v != s: vertices.append(v := Ua[back[v]])
-        return vertices
+        P = u32f(0)
+        while s != t: P.append(a := G.back[t]); t = G.Ua[a] 
+        return P
     
-    def recover_path_edge_ids(G, s, t):
-        Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t
-        while v != s: edges.append(Ea[i := back[v]]), (v := Ua[i])
-        return edges
-
     def shortest_path(G, s: int, t: int):
         if G.distance(s, t) >= inf: return None
-        vertices = G.recover_path(s, t)
-        vertices.reverse()
-        return vertices
-    
-    def shortest_path_edge_ids(G, s: int, t: int):
-        if G.distance(s, t) >= inf: return None
-        edges = G.recover_path_edge_ids(s, t)
-        edges.reverse()
-        return edges
+        P = G.recover_path(s, t)
+        P.reverse()
+        return P
     
     @overload
     def bfs(G, s: Union[int,list] = 0) -> list[int]: ...
@@ -273,4 +261,5 @@ from cp_library.ds.array.i32f_fn import i32f
 from cp_library.ds.list.elist_fn import elist
 from cp_library.ds.packet_list_cls import PacketList
 from cp_library.ds.que.que_cls import Que
+from cp_library.ds.view.view_cls import view
 from cp_library.io.io_base_cls import IOBase

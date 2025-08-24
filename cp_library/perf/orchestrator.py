@@ -1,3 +1,4 @@
+import cp_library.__header__
 """
 Benchmark orchestrator implementation following Single Responsibility Principle.
 """
@@ -8,6 +9,7 @@ from .interfaces import (
     BenchmarkOrchestrator, BenchmarkRegistry, BenchmarkResult, 
     TimerInterface, OutputManager
 )
+import cp_library.perf.__header__
 
 
 class BenchmarkOrchestratorImpl(BenchmarkOrchestrator):

@@ -11,8 +11,7 @@ class DiGraphWeightedMeta(DiGraphWeighted):
         M = len(U)
         if X is not None:
             Xa = [0]*M
-            for i,e in enumerate(G.Ea):
-                Xa[i] = X[e]
+            for i,e in enumerate(G.Ea): Xa[i] = X[e]
             G.X = X
             '''A parallel lists of edge meta data from the original edge list.'''
             G.Xa = Xa

@@ -1,5 +1,7 @@
-import cp_library.alg.dp.__header__
+import cp_library.__header__
 from typing import Callable
+import cp_library.alg.__header__
+import cp_library.alg.dp.__header__
 
 def monotone_minima(N: int, M: int, func: Callable[[int,int,int],bool]):
     '''

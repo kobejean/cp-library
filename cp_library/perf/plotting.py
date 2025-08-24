@@ -1,13 +1,13 @@
+import cp_library.__header__
 """
 Plotting utilities for benchmark results.
 Handles both matplotlib and ASCII plotting with consistent interface.
 """
-
 import statistics
 from typing import Dict, List, Any
 from pathlib import Path
 from collections import defaultdict
-
+import cp_library.perf.__header__
 
 class BenchmarkPlotter:
     """Creates plots from benchmark results"""

@@ -1,6 +1,8 @@
-import cp_library.math.table.__header__
+import cp_library.__header__
 import operator
 from typing import Callable
+import cp_library.math.__header__
+import cp_library.math.table.__header__
 from cp_library.ds.list.reserve_fn import reserve
 
 class Primes(list[int]):

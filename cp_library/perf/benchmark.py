@@ -1,3 +1,4 @@
+import cp_library.__header__
 """
 Declarative benchmark framework with minimal boilerplate.
 Refactored to follow SOLID principles for better maintainability and extensibility.
@@ -17,7 +18,7 @@ import statistics
 from dataclasses import dataclass
 from typing import List, Optional
 from collections import defaultdict
-
+import cp_library.perf.__header__
 from cp_library.perf.interfaces import (
     BenchmarkRegistry, BenchmarkOrchestrator, TimerInterface, 
     PlotRenderer, OutputManager, BenchmarkResult

@@ -1,7 +1,7 @@
 import cp_library.__header__
+from typing import Iterable, Union
 import cp_library.ds.__header__
 import cp_library.ds.cnt.__header__
-from typing import Iterable, Union
 
 def counter(A: Iterable[int] = tuple(), N: Union[int,list[int],None] = None):
     if isinstance(N, int): cnt = [0]*N

@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.fps.__header__
 from cp_library.math.fps.fps_deriv_fn import fps_deriv
 from cp_library.math.fps.fps_integ_fn import fps_integ

@@ -1,8 +1,5 @@
 import cp_library.__header__
-# from typing import Generic
-# from cp_library.misc.typing import _T
 from cp_library.alg.dp.min2_fn import min2
-
 import cp_library.ds.__header__
 
 class MinSparseTable:

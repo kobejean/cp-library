@@ -1,5 +1,6 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 from collections import defaultdict
+import cp_library.ds.__header__
 
 class SparseDSU:
     def __init__(self, n) -> None:

@@ -1,8 +1,10 @@
-import cp_library.math.table.__header__
+import cp_library.__header__
 from typing import SupportsIndex
-from cp_library.math.mod.mint_ntt_cls import mint
-from cp_library.math.table.mcomb_cls import mcomb
+import cp_library.math.__header__
 from cp_library.math.fps.fps_pow_fn import fps_pow
+from cp_library.math.mod.mint_ntt_cls import mint
+import cp_library.math.table.__header__
+from cp_library.math.table.mcomb_cls import mcomb
 
 def stirling1_k(n: SupportsIndex, k: SupportsIndex, signed = True):
     mcomb.extend_inv(n+k)

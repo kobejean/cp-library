@@ -2,7 +2,7 @@ import cp_library.__header__
 from typing import Union
 import cp_library.alg.__header__
 import cp_library.alg.graph.__header__
-from cp_library.alg.graph.edge_cls import Edge
+from cp_library.alg.graph.edge.edge_cls import Edge
 import cp_library.alg.graph.set.__header__
 from cp_library.alg.graph.set.graph_proto import GraphProtocol
 

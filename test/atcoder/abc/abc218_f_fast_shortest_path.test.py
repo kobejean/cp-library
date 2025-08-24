@@ -5,7 +5,7 @@ from math import inf
 def main():
     N, M = read(tuple[int, ...])
     G = read(DiGraph[N,M])
-    path = G.shortest_path_edge_ids(0,N-1)
+    path = shortest_path_edge_ids(G, 0, N-1)
     if path is None:
         shortest = -1
     else:
@@ -20,6 +20,7 @@ def main():
         write(ans if ans != inf else -1)
 
 from cp_library.alg.graph.csr.digraph_cls import DiGraph
+from cp_library.alg.graph.csr.snippets.shortest_path_edge_ids_fn import shortest_path_edge_ids
 from cp_library.io.read_fn import read
 from cp_library.io.write_fn import write
 

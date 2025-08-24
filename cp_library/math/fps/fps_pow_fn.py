@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.fps.__header__
 from cp_library.math.fps.fps_log_fn import fps_log
 from cp_library.math.fps.fps_exp_fn import fps_exp

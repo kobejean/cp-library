@@ -1,10 +1,10 @@
+import cp_library.__header__
 """
 Checksum utilities for benchmark validation.
 Provides consistent ways to compute checksums across benchmarks.
 """
-
 from typing import Any
-
+import cp_library.perf.__header__
 
 def update_checksum(current: int, value: int) -> int:
     """Update checksum with a single value using hash-like function."""

@@ -1,3 +1,4 @@
+import cp_library.__header__
 import cp_library.vis.__header__
 
 def plot_graph(G):

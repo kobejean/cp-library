@@ -1,8 +1,9 @@
+import cp_library.__header__
 """
 Benchmark registry implementation following Single Responsibility Principle.
 """
-
 from typing import Callable, Dict, List, Union
+import cp_library.perf.__header__
 from cp_library.perf.interfaces import BenchmarkRegistry, DataGenerator, ResultValidator
 
 

@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.math.__header__
 import cp_library.math.table.__header__
 
 class DivisorCounts(list[tuple[int,int]]):

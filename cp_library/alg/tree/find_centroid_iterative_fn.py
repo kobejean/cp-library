@@ -1,3 +1,5 @@
+import cp_library.__header__
+import cp_library.alg.__header__
 import cp_library.alg.tree.__header__
 
 def find_centroid(T):

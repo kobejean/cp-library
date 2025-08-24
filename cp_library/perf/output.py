@@ -1,11 +1,12 @@
+import cp_library.__header__
 """
 Output management for benchmark results.
 """
-
 import json
 import time
 from pathlib import Path
 from typing import List, Any
+import cp_library.perf.__header__
 from cp_library.perf.interfaces import OutputManager, BenchmarkResult
 
 

@@ -1,10 +1,11 @@
+import cp_library.__header__
 """
 Timing and measurement utilities for benchmarks.
 Separated from main benchmark class for single responsibility.
 """
-
 import time
 from typing import Any, Callable, Tuple
+import cp_library.perf.__header__
 from cp_library.perf.interfaces import TimerInterface
 from cp_library.perf.checksum import result_checksum
 

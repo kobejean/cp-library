@@ -1,7 +1,8 @@
-import cp_library.ds.__header__
+import cp_library.__header__
 from cp_library.misc.typing import _T
 from cp_library.ds.que.deque_cls import Deque
 from typing import Iterable
+import cp_library.ds.__header__
 
 class SlidingMinMax(Deque[_T]):
     def __init__(self, *, maxlen):
