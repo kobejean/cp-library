@@ -23,9 +23,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Protocol\nimport operator\nfrom typing import Callable\n\n\n\
-    def reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import\
-    \ resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
+    \n\nfrom typing import Protocol\nimport operator\nfrom typing import Callable\n\
+    \n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__\
+    \ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
     \        pass\nreserve = resizelist_hint\n\nclass Primes(list[int]):\n    def\
     \ __init__(P, N: int):\n        super().__init__()\n        spf = [0] * (N + 1)\n\
     \        spf[0], spf[1] = 0, 1\n        reserve(P, N)\n\n        for i in range(2,\
@@ -67,12 +67,12 @@ data:
     \        assert N < len(spf)\n        factors = []\n        while N > 1:\n   \
     \         factors.append(spf[N])\n            N //= spf[N]\n        return factors\n\
     \ \n"
-  code: "import cp_library.math.table.__header__\nfrom cp_library.math.table.sieve_proto\
-    \ import SieveProtocol\nfrom cp_library.math.table.primes_cls import Primes\n\n\
-    class LinearSieve(list[int], SieveProtocol):\n    def __init__(spf, N):\n    \
-    \    super().__init__([0] * (N + 1))\n        spf[0], spf[1] = 0, 1\n        primes\
-    \ = Primes.__new__(Primes)\n\n        for i in range(2, N + 1):\n            if\
-    \ spf[i] == 0:\n                spf[i] = i\n                primes.append(i)\n\
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.table.__header__\n\
+    from cp_library.math.table.sieve_proto import SieveProtocol\nfrom cp_library.math.table.primes_cls\
+    \ import Primes\n\nclass LinearSieve(list[int], SieveProtocol):\n    def __init__(spf,\
+    \ N):\n        super().__init__([0] * (N + 1))\n        spf[0], spf[1] = 0, 1\n\
+    \        primes = Primes.__new__(Primes)\n\n        for i in range(2, N + 1):\n\
+    \            if spf[i] == 0:\n                spf[i] = i\n                primes.append(i)\n\
     \            for p in primes:\n                if p > spf[i] or i * p > N:\n \
     \                   break\n                spf[i * p] = p\n        spf.primes\
     \ = spf\n\n    def factor_cnts(spf, N):\n        assert N < len(spf)\n       \
@@ -90,7 +90,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/linear_sieve_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/linear_sieve_cls.py

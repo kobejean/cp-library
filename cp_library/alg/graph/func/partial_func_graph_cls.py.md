@@ -38,9 +38,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\n\nfrom types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n\
+    \n\n\nfrom types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n\
     \    def compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n\
     \        return parser\n    @classmethod\n    def __class_getitem__(cls, item):\
     \ return GenericAlias(cls, item)\n\nclass FuncGraph(list[int], Parsable):\n  \
@@ -61,7 +59,7 @@ data:
     \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
     \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
     \ Parser.compile_repeat(cls, shift, N)\nfrom typing import Generic\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
     \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\nclass CRFList(Generic[_T]):\n\
     \    def __init__(crf, A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S\
@@ -70,12 +68,14 @@ data:
     \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
     \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
     \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
-    \    return A\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):     \
-    \ return array('B', (elm,))*N  # unsigned char\nimport typing\nfrom numbers import\
-    \ Number\nfrom typing import Callable, Collection\n\nclass IOBase:\n    @property\n\
-    \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
-    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
-    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \    return A\nfrom array import array\n\n\ndef u8f(N: int, elm: int = 0):   \
+    \   return array('B', (elm,))*N  # unsigned char\n\n\ndef elist(hint: int) ->\
+    \ list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\
+    \ return []\nelist = newlist_hint\n    \nimport typing\nfrom numbers import Number\n\
+    from typing import Callable, Collection\n\nclass IOBase:\n    @property\n    def\
+    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
+    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
+    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
     \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
     \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
     \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
@@ -141,36 +141,37 @@ data:
     \ (slow:=F[slow]) == fast:\n                    finite[fast] = 0; break\n    \
     \        fin = finite[fast] if fast >= 0 else 1\n            slow = s\n      \
     \      while slow >= 0 and not vis[slow]:\n                vis[slow], finite[slow]\
-    \ = 1, fin\n                slow = F[slow]\n        return finite\n\n"
-  code: "from cp_library.ds.list.elist_fn import elist\nimport cp_library.alg.graph.__header__\n\
-    \nfrom cp_library.alg.graph.func.func_graph_cls import FuncGraph\n\nclass PartialFuncGraph(FuncGraph):\n\
-    \    def __init__(F, successors):\n        super().__init__(successors)\n    \
-    \    F.M = sum(f>=0 for f in F)\n\n    def find_cycle(F, root):\n        slow\
-    \ = fast = root\n        while F[fast] != -1 and F[F[fast]] != -1:\n         \
-    \   slow, fast = F[slow], F[F[fast]]\n            if slow == fast:\n         \
-    \       cyc = [slow]\n                while F[slow] != cyc[0]:\n             \
-    \       slow = F[slow]\n                    cyc.append(slow)\n               \
-    \ return cyc\n        return None\n    \n    def cycles(F):\n        vis, cycs,\
-    \ S = [False]*F.N, elist(F.N), elist(F.N)\n        for v in range(F.N):\n    \
-    \        slow = fast = v\n            while F[fast] != -1 and (fast := F[F[fast]])\
-    \ != -1 and not vis[fast]:\n                slow, fast = F[slow], F[F[fast]]\n\
-    \                if slow == fast:\n                    S.append(len(cycs))\n \
-    \                   cycs.append(slow)\n                    vis[slow] = True\n\
-    \                    while F[slow] != fast:\n                        slow = F[slow]\n\
-    \                        cycs.append(slow)\n                        vis[slow]\
-    \ = True\n                    break\n        return CRFList(cycs, S)\n\n    def\
-    \ mark_finite(F):\n        vis, finite = [0]*F.N, [1]*F.N\n        for s in range(F.N):\n\
-    \            if vis[s]: continue\n            slow = fast = s\n            while\
-    \ F[fast]>=0 and (fast:=F[F[fast]])>=0 and not vis[fast]:\n                if\
-    \ (slow:=F[slow]) == fast:\n                    finite[fast] = 0; break\n    \
-    \        fin = finite[fast] if fast >= 0 else 1\n            slow = s\n      \
-    \      while slow >= 0 and not vis[slow]:\n                vis[slow], finite[slow]\
-    \ = 1, fin\n                slow = F[slow]\n        return finite\n\nfrom cp_library.alg.iter.crf_list_cls\
-    \ import CRFList"
+    \ = 1, fin\n                slow = F[slow]\n        return finite\n"
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.graph.__header__\n\
+    import cp_library.alg.graph.func.__header__\nfrom cp_library.alg.graph.func.func_graph_cls\
+    \ import FuncGraph\n\nclass PartialFuncGraph(FuncGraph):\n    def __init__(F,\
+    \ successors):\n        super().__init__(successors)\n        F.M = sum(f>=0 for\
+    \ f in F)\n\n    def find_cycle(F, root):\n        slow = fast = root\n      \
+    \  while F[fast] != -1 and F[F[fast]] != -1:\n            slow, fast = F[slow],\
+    \ F[F[fast]]\n            if slow == fast:\n                cyc = [slow]\n   \
+    \             while F[slow] != cyc[0]:\n                    slow = F[slow]\n \
+    \                   cyc.append(slow)\n                return cyc\n        return\
+    \ None\n    \n    def cycles(F):\n        vis, cycs, S = [False]*F.N, elist(F.N),\
+    \ elist(F.N)\n        for v in range(F.N):\n            slow = fast = v\n    \
+    \        while F[fast] != -1 and (fast := F[F[fast]]) != -1 and not vis[fast]:\n\
+    \                slow, fast = F[slow], F[F[fast]]\n                if slow ==\
+    \ fast:\n                    S.append(len(cycs))\n                    cycs.append(slow)\n\
+    \                    vis[slow] = True\n                    while F[slow] != fast:\n\
+    \                        slow = F[slow]\n                        cycs.append(slow)\n\
+    \                        vis[slow] = True\n                    break\n       \
+    \ return CRFList(cycs, S)\n\n    def mark_finite(F):\n        vis, finite = [0]*F.N,\
+    \ [1]*F.N\n        for s in range(F.N):\n            if vis[s]: continue\n   \
+    \         slow = fast = s\n            while F[fast]>=0 and (fast:=F[F[fast]])>=0\
+    \ and not vis[fast]:\n                if (slow:=F[slow]) == fast:\n          \
+    \          finite[fast] = 0; break\n            fin = finite[fast] if fast >=\
+    \ 0 else 1\n            slow = s\n            while slow >= 0 and not vis[slow]:\n\
+    \                vis[slow], finite[slow] = 1, fin\n                slow = F[slow]\n\
+    \        return finite\nfrom cp_library.alg.iter.crf_list_cls import CRFList\n\
+    from cp_library.ds.list.elist_fn import elist"
   dependsOn:
-  - cp_library/ds/list/elist_fn.py
   - cp_library/alg/graph/func/func_graph_cls.py
   - cp_library/alg/iter/crf_list_cls.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/io/parsable_cls.py
   - cp_library/alg/iter/roll_fn.py
   - cp_library/ds/array/u8f_fn.py
@@ -179,7 +180,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/func/partial_func_graph_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/func/partial_func_graph_cls.py

@@ -49,63 +49,65 @@ data:
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     from math import hypot\nimport operator\nfrom numbers import Number\nfrom typing\
     \ import Sequence\n\n\n\nclass ElmWiseMixin:\n    def elm_wise(self, other, op):\n\
-    \        if isinstance(other, Number):\n            return type(self)(op(x, other)\
-    \ for x in self)\n        if isinstance(other, Sequence):\n            return\
-    \ type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
-    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
-    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
-    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
-    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
-    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
-    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
-    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
-    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
-    \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
-    \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
-    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
-    \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
-    \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
+    \        if isinstance(other, Sequence):\n            return self.__class__(op(self[i],\
+    \ y) for i, y in enumerate(self, other))\n        if isinstance(other, Number):\n\
+    \            return self.__class__(op(x, other) for x in self)\n        raise\
+    \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
+    \   def __add__(self, other): return self.elm_wise(other, operator.add)\n    def\
+    \ __radd__(self, other): return self.elm_wise(other, operator.add)\n    def __sub__(self,\
+    \ other): return self.elm_wise(other, operator.sub)\n    def __rsub__(self, other):\
+    \ return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n    def __mul__(self,\
+    \ other): return self.elm_wise(other, operator.mul)\n    def __rmul__(self, other):\
+    \ return self.elm_wise(other, operator.mul)\n    def __truediv__(self, other):\
+    \ return self.elm_wise(other, operator.truediv)\n    def __rtruediv__(self, other):\
+    \ return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n    def __floordiv__(self,\
+    \ other): return self.elm_wise(other, operator.floordiv)\n    def __rfloordiv__(self,\
+    \ other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n  \
+    \  def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n   \
+    \ def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff = other-self\n\
+    \        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
     \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
     \  return vec / vec.magnitude()\n"
   code: "import cp_library.__header__\nfrom math import hypot\nimport operator\nfrom\
     \ numbers import Number\nfrom typing import Sequence\nimport cp_library.math.__header__\n\
     import cp_library.math.linalg.__header__\n\nclass ElmWiseMixin:\n    def elm_wise(self,\
-    \ other, op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
-    \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
-    \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
-    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
-    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
-    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
-    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
-    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
-    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
-    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
-    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
-    \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
-    \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
-    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
-    \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
-    \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
+    \ other, op):\n        if isinstance(other, Sequence):\n            return self.__class__(op(self[i],\
+    \ y) for i, y in enumerate(self, other))\n        if isinstance(other, Number):\n\
+    \            return self.__class__(op(x, other) for x in self)\n        raise\
+    \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
+    \   def __add__(self, other): return self.elm_wise(other, operator.add)\n    def\
+    \ __radd__(self, other): return self.elm_wise(other, operator.add)\n    def __sub__(self,\
+    \ other): return self.elm_wise(other, operator.sub)\n    def __rsub__(self, other):\
+    \ return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n    def __mul__(self,\
+    \ other): return self.elm_wise(other, operator.mul)\n    def __rmul__(self, other):\
+    \ return self.elm_wise(other, operator.mul)\n    def __truediv__(self, other):\
+    \ return self.elm_wise(other, operator.truediv)\n    def __rtruediv__(self, other):\
+    \ return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n    def __floordiv__(self,\
+    \ other): return self.elm_wise(other, operator.floordiv)\n    def __rfloordiv__(self,\
+    \ other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n  \
+    \  def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n   \
+    \ def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff = other-self\n\
+    \        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
     \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
     \  return vec / vec.magnitude()\n"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/linalg/elm_wise_mixin.py
   requiredBy:
-  - cp_library/math/linalg/vec/vec2d_cls.py
-  - cp_library/math/linalg/vec/mutvec_cls.py
-  - cp_library/math/linalg/vec/slope_cls.py
-  - cp_library/math/linalg/vec/vec_cls.py
-  - cp_library/math/linalg/vec/vec3d_cls.py
   - cp_library/math/linalg/elm_wise_in_place_mixin.py
-  - cp_library/math/linalg/mat/mod/mat_cls.py
   - cp_library/math/linalg/mat/mat_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/math/linalg/mat/mod/mat_cls.py
+  - cp_library/math/linalg/vec/vec2d_cls.py
+  - cp_library/math/linalg/vec/slope_cls.py
+  - cp_library/math/linalg/vec/mutvec_cls.py
+  - cp_library/math/linalg/vec/vec3d_cls.py
+  - cp_library/math/linalg/vec/vec_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc274_e_vec2d.test.py
   - test/atcoder/abc/abc151_f_fbisect_left.test.py
   - test/atcoder/abc/abc189_e_vec2d.test.py
+  - test/atcoder/abc/abc274_e_vec2d.test.py
 documentation_of: cp_library/math/linalg/elm_wise_mixin.py
 layout: document
 redirect_from:

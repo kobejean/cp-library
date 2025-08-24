@@ -192,7 +192,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Generic, Union\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\nfrom types import GenericAlias\n\n\nclass Parsable:\n \
     \   @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'): return\
@@ -205,7 +205,7 @@ data:
     \        if reverse:\n            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n\
     \        else:\n            for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def\
     \ indices(P, A: list[int]): P.iindices(A:=list(A)); return A\n    def iindices(P,\
-    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\n\n\nimport sys\n\ndef\
+    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\n\nimport sys\n\n\ndef\
     \ list_find(lst: list, value, start = 0, stop = sys.maxsize):\n    try:\n    \
     \    return lst.index(value, start, stop)\n    except:\n        return -1\n\n\n\
     class view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A:\
@@ -295,7 +295,7 @@ data:
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
     \        else:\n            raise NotImplementedError()\n\nif __name__ == '__main__':\n\
-    \    \"\"\"\n    Helper for making unittest files compatible with verification-helper.\n\
+    \    \n    \"\"\"\n    Helper for making unittest files compatible with verification-helper.\n\
     \    \n    This module provides a helper function to run a dummy Library Checker\
     \ test\n    so that unittest files can be verified by oj-verify.\n    \"\"\"\n\
     \    \n    def run_verification_helper_unittest():\n        \"\"\"\n        Run\
@@ -480,7 +480,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/grid/grid_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/grid/grid_cls_test.py

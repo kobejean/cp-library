@@ -23,7 +23,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
+    \n\nimport sys\nimport pypyjit\n\n\nsys.setrecursionlimit(10**6)\npypyjit.set_param(\"\
     max_unroll_recursion=-1\")\nfrom typing import Generic, Callable\nfrom typing\
     \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
     \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
@@ -47,28 +47,29 @@ data:
     \      return a, d\n\n    def distance(self, u, v) -> int:\n        l, r = min(self.start[u],\
     \ self.start[v]), max(self.start[u], self.start[v])+1\n        d, _ = super().query(l,\
     \ r)\n        return self.depth[l] + self.depth[r] - 2*d\n"
-  code: "import cp_library.alg.tree.__header__\nimport cp_library.misc.setrecursionlimit\n\
-    from cp_library.ds.sparse_table_cls import SparseTable\n\nclass LCATable(SparseTable):\n\
-    \    def __init__(self, T, root):\n        self.start = [-1] * len(T)\n      \
-    \  euler_tour = []\n        depths = []\n        \n        def dfs(u: int, p:\
-    \ int, depth: int):\n            self.start[u] = len(euler_tour)\n           \
-    \ euler_tour.append(u)\n            depths.append(depth)\n            \n     \
-    \       for child in T[u]:\n                if child != p:\n                 \
-    \   dfs(child, u, depth + 1)\n                    euler_tour.append(u)\n     \
-    \               depths.append(depth)\n        \n        dfs(root, -1, 0)\n   \
-    \     super().__init__(min, list(zip(depths, euler_tour)))\n\n    def query(self,\
-    \ u, v) -> tuple[int,int]:\n        l, r = min(self.start[u], self.start[v]),\
-    \ max(self.start[u], self.start[v])+1\n        d, a = super().query(l, r)\n  \
-    \      return a, d\n\n    def distance(self, u, v) -> int:\n        l, r = min(self.start[u],\
-    \ self.start[v]), max(self.start[u], self.start[v])+1\n        d, _ = super().query(l,\
-    \ r)\n        return self.depth[l] + self.depth[r] - 2*d"
+  code: "import cp_library.__header__\nimport cp_library.alg.__header__\nimport cp_library.alg.tree.__header__\n\
+    import cp_library.misc.setrecursionlimit\nfrom cp_library.ds.sparse_table_cls\
+    \ import SparseTable\n\nclass LCATable(SparseTable):\n    def __init__(self, T,\
+    \ root):\n        self.start = [-1] * len(T)\n        euler_tour = []\n      \
+    \  depths = []\n        \n        def dfs(u: int, p: int, depth: int):\n     \
+    \       self.start[u] = len(euler_tour)\n            euler_tour.append(u)\n  \
+    \          depths.append(depth)\n            \n            for child in T[u]:\n\
+    \                if child != p:\n                    dfs(child, u, depth + 1)\n\
+    \                    euler_tour.append(u)\n                    depths.append(depth)\n\
+    \        \n        dfs(root, -1, 0)\n        super().__init__(min, list(zip(depths,\
+    \ euler_tour)))\n\n    def query(self, u, v) -> tuple[int,int]:\n        l, r\
+    \ = min(self.start[u], self.start[v]), max(self.start[u], self.start[v])+1\n \
+    \       d, a = super().query(l, r)\n        return a, d\n\n    def distance(self,\
+    \ u, v) -> int:\n        l, r = min(self.start[u], self.start[v]), max(self.start[u],\
+    \ self.start[v])+1\n        d, _ = super().query(l, r)\n        return self.depth[l]\
+    \ + self.depth[r] - 2*d"
   dependsOn:
   - cp_library/misc/setrecursionlimit.py
   - cp_library/ds/sparse_table_cls.py
   isVerificationFile: false
   path: cp_library/alg/tree/lca_table_recursive_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_c_lca_table_recursive.test.py

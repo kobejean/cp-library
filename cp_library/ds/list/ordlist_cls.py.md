@@ -20,11 +20,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
-    \ compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n    \
-    \    return parser\n    @classmethod\n    def __class_getitem__(cls, item): return\
-    \ GenericAlias(cls, item)\n\nclass ordlist(list[int], Parsable):\n    def __init__(lst,\
-    \ S: str, base = 'a'):\n        base = ord(base); super().__init__([ord(c)-base\
+    \n\nfrom types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n  \
+    \  def compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n\
+    \        return parser\n    @classmethod\n    def __class_getitem__(cls, item):\
+    \ return GenericAlias(cls, item)\n\nclass ordlist(list[int], Parsable):\n    def\
+    \ __init__(lst, S: str, base = 'a'):\n        base = ord(base); super().__init__([ord(c)-base\
     \ for c in S])\n    @classmethod\n    def compile(cls, base = 'a'):\n        def\
     \ parse(io: IOBase): return cls(next(io), base)\n        return parse\n\nclass\
     \ IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n    def\
@@ -39,11 +39,11 @@ data:
     \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
     \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
     \ -> None: ...\n    def line(io) -> list[str]: ...\n"
-  code: "import cp_library.ds.list.__header__\nfrom cp_library.io.parsable_cls import\
-    \ Parsable\n\nclass ordlist(list[int], Parsable):\n    def __init__(lst, S: str,\
-    \ base = 'a'):\n        base = ord(base); super().__init__([ord(c)-base for c\
-    \ in S])\n    @classmethod\n    def compile(cls, base = 'a'):\n        def parse(io:\
-    \ IOBase): return cls(next(io), base)\n        return parse\nfrom cp_library.io.io_base_cls\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nimport cp_library.ds.list.__header__\n\
+    from cp_library.io.parsable_cls import Parsable\n\nclass ordlist(list[int], Parsable):\n\
+    \    def __init__(lst, S: str, base = 'a'):\n        base = ord(base); super().__init__([ord(c)-base\
+    \ for c in S])\n    @classmethod\n    def compile(cls, base = 'a'):\n        def\
+    \ parse(io: IOBase): return cls(next(io), base)\n        return parse\nfrom cp_library.io.io_base_cls\
     \ import IOBase"
   dependsOn:
   - cp_library/io/parsable_cls.py
@@ -51,7 +51,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/list/ordlist_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/list/ordlist_cls.py

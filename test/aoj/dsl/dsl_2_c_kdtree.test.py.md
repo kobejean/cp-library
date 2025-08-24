@@ -41,11 +41,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\nimport typing\nimport random\n\nclass KDTreeNode:\n   \
-    \ __slots__ = ['id', 'point', 'children']\n    \n    def __init__(self, id, point,\
-    \ children):\n        self.id = id\n        self.point = point\n        self.children\
-    \ = children\n\nclass KDTree:\n    __slots__ = ['k', 'nodes', 'root']\n\n    def\
-    \ __init__(self, points):\n        self.k = len(points[0])\n        self.build_tree(points)\n\
+    \               \n'''\nimport typing\nimport random\n\n\nclass KDTreeNode:\n \
+    \   __slots__ = ['id', 'point', 'children']\n    \n    def __init__(self, id,\
+    \ point, children):\n        self.id = id\n        self.point = point\n      \
+    \  self.children = children\n\nclass KDTree:\n    __slots__ = ['k', 'nodes', 'root']\n\
+    \n    def __init__(self, points):\n        self.k = len(points[0])\n        self.build_tree(points)\n\
     \n    def median_of_three(self, l, r, axis):\n        m = (l + r) // 2\n     \
     \   a, b, c = self.nodes[l].point[axis], self.nodes[m].point[axis], self.nodes[r].point[axis]\n\
     \        if a <= b <= c or c <= b <= a:\n            return m\n        if b <=\
@@ -75,7 +75,7 @@ data:
     \ Check left subtree if necessary\n            if node.children[0] and ranges[axis].start\
     \ <= node.point[axis]:\n                stack.append((node.children[0], depth\
     \ + 1))\n\n        return result\nfrom typing import Type, Union, overload\nfrom\
-    \ typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    \ typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
     \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]:\
     \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
@@ -86,7 +86,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -205,7 +205,7 @@ data:
   isVerificationFile: true
   path: test/aoj/dsl/dsl_2_c_kdtree.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/dsl/dsl_2_c_kdtree.test.py

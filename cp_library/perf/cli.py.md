@@ -66,6 +66,9 @@ data:
     path: perf/segtree6.py
     title: perf/segtree6.py
   - icon: ':warning:'
+    path: perf/stack_operations.py
+    title: perf/stack_operations.py
+  - icon: ':warning:'
     path: perf/view2.py
     title: perf/view2.py
   - icon: ':warning:'
@@ -77,35 +80,41 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "\"\"\"\nCommand-line interface for the benchmark framework.\n\"\"\"\
-    \n\nimport argparse\nimport sys\nfrom typing import List, Optional\nfrom dataclasses\
-    \ import dataclass\n\n\n@dataclass\nclass CLIConfig:\n    \"\"\"Configuration\
-    \ parsed from command line arguments\"\"\"\n    profile_mode: bool = False\n \
-    \   operation: Optional[str] = None\n    size: Optional[int] = None\n    implementation:\
-    \ Optional[str] = None\n\n\nclass BenchmarkCLI:\n    \"\"\"Command-line interface\
-    \ handler\"\"\"\n    \n    def __init__(self, name: str, operations: List[str],\
-    \ sizes: List[int]):\n        self.name = name\n        self.operations = operations\n\
-    \        self.sizes = sizes\n    \n    def parse_args(self) -> CLIConfig:\n  \
-    \      \"\"\"Parse command line arguments\"\"\"\n        parser = argparse.ArgumentParser(\n\
-    \            description=f\"Benchmark {self.name} with optional profiling mode\"\
-    ,\n            formatter_class=argparse.RawDescriptionHelpFormatter,\n       \
-    \     epilog=\"\"\"\nExamples:\n  # Normal benchmark mode (all operations and\
-    \ sizes)\n  python benchmark.py\n  \n  # Normal mode with specific operation\n\
-    \  python benchmark.py --operation access\n  \n  # Normal mode with specific size\n\
-    \  python benchmark.py --size 1000\n  \n  # Normal mode with specific operation\
-    \ and size\n  python benchmark.py --operation access --size 100\n  \n  # Profile\
-    \ specific operation and implementation\n  python benchmark.py --profile --operation\
-    \ random_access --implementation grid\n  \n  # Profile with specific size\n  python\
-    \ benchmark.py --profile --size 1000000\n\"\"\"\n        )\n        \n       \
-    \ parser.add_argument('--profile', action='store_true',\n                    \
-    \      help='Run in profiling mode (minimal overhead for profilers)')\n      \
-    \  parser.add_argument('--operation', type=str, \n                          help=f'Filter\
-    \ to specific operation. Options: {\", \".join(self.operations)}')\n        parser.add_argument('--size',\
-    \ type=int,\n                          help=f'Filter to specific size. Options:\
-    \ {\", \".join(map(str, self.sizes))}')\n        parser.add_argument('--implementation',\
-    \ type=str,\n                          help='Specific implementation (profile\
-    \ mode only)')\n        \n        args = parser.parse_args()\n        \n     \
-    \   return CLIConfig(\n            profile_mode=args.profile,\n            operation=args.operation,\n\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \"\"\"\nCommand-line interface for the benchmark framework.\n\"\"\"\nimport argparse\n\
+    import sys\nfrom typing import List, Optional\nfrom dataclasses import dataclass\n\
+    \n\n@dataclass\nclass CLIConfig:\n    \"\"\"Configuration parsed from command\
+    \ line arguments\"\"\"\n    profile_mode: bool = False\n    operation: Optional[str]\
+    \ = None\n    size: Optional[int] = None\n    implementation: Optional[str] =\
+    \ None\n\n\nclass BenchmarkCLI:\n    \"\"\"Command-line interface handler\"\"\"\
+    \n    \n    def __init__(self, name: str, operations: List[str], sizes: List[int]):\n\
+    \        self.name = name\n        self.operations = operations\n        self.sizes\
+    \ = sizes\n    \n    def parse_args(self) -> CLIConfig:\n        \"\"\"Parse command\
+    \ line arguments\"\"\"\n        parser = argparse.ArgumentParser(\n          \
+    \  description=f\"Benchmark {self.name} with optional profiling mode\",\n    \
+    \        formatter_class=argparse.RawDescriptionHelpFormatter,\n            epilog=\"\
+    \"\"\nExamples:\n  # Normal benchmark mode (all operations and sizes)\n  python\
+    \ benchmark.py\n  \n  # Normal mode with specific operation\n  python benchmark.py\
+    \ --operation access\n  \n  # Normal mode with specific size\n  python benchmark.py\
+    \ --size 1000\n  \n  # Normal mode with specific operation and size\n  python\
+    \ benchmark.py --operation access --size 100\n  \n  # Profile specific operation\
+    \ and implementation\n  python benchmark.py --profile --operation random_access\
+    \ --implementation grid\n  \n  # Profile with specific size\n  python benchmark.py\
+    \ --profile --size 1000000\n\"\"\"\n        )\n        \n        parser.add_argument('--profile',\
+    \ action='store_true',\n                          help='Run in profiling mode\
+    \ (minimal overhead for profilers)')\n        parser.add_argument('--operation',\
+    \ type=str, \n                          help=f'Filter to specific operation. Options:\
+    \ {\", \".join(self.operations)}')\n        parser.add_argument('--size', type=int,\n\
+    \                          help=f'Filter to specific size. Options: {\", \".join(map(str,\
+    \ self.sizes))}')\n        parser.add_argument('--implementation', type=str,\n\
+    \                          help='Specific implementation (profile mode only)')\n\
+    \        \n        args = parser.parse_args()\n        \n        return CLIConfig(\n\
+    \            profile_mode=args.profile,\n            operation=args.operation,\n\
     \            size=args.size,\n            implementation=args.implementation\n\
     \        )\n    \n    def validate_args(self, config: CLIConfig) -> None:\n  \
     \      \"\"\"Validate command line arguments\"\"\"\n        if config.operation\
@@ -115,14 +124,15 @@ data:
     \ if config.size and config.size not in self.sizes:\n            print(f\"Error:\
     \ Unknown size '{config.size}'\")\n            print(f\"Available sizes: {', '.join(map(str,\
     \ self.sizes))}\")\n            sys.exit(1)\n"
-  code: "\"\"\"\nCommand-line interface for the benchmark framework.\n\"\"\"\n\nimport\
-    \ argparse\nimport sys\nfrom typing import List, Optional\nfrom dataclasses import\
-    \ dataclass\n\n\n@dataclass\nclass CLIConfig:\n    \"\"\"Configuration parsed\
-    \ from command line arguments\"\"\"\n    profile_mode: bool = False\n    operation:\
-    \ Optional[str] = None\n    size: Optional[int] = None\n    implementation: Optional[str]\
-    \ = None\n\n\nclass BenchmarkCLI:\n    \"\"\"Command-line interface handler\"\"\
-    \"\n    \n    def __init__(self, name: str, operations: List[str], sizes: List[int]):\n\
-    \        self.name = name\n        self.operations = operations\n        self.sizes\
+  code: "import cp_library.__header__\n\"\"\"\nCommand-line interface for the benchmark\
+    \ framework.\n\"\"\"\nimport argparse\nimport sys\nfrom typing import List, Optional\n\
+    from dataclasses import dataclass\nimport cp_library.perf.__header__\n\n@dataclass\n\
+    class CLIConfig:\n    \"\"\"Configuration parsed from command line arguments\"\
+    \"\"\n    profile_mode: bool = False\n    operation: Optional[str] = None\n  \
+    \  size: Optional[int] = None\n    implementation: Optional[str] = None\n\n\n\
+    class BenchmarkCLI:\n    \"\"\"Command-line interface handler\"\"\"\n    \n  \
+    \  def __init__(self, name: str, operations: List[str], sizes: List[int]):\n \
+    \       self.name = name\n        self.operations = operations\n        self.sizes\
     \ = sizes\n    \n    def parse_args(self) -> CLIConfig:\n        \"\"\"Parse command\
     \ line arguments\"\"\"\n        parser = argparse.ArgumentParser(\n          \
     \  description=f\"Benchmark {self.name} with optional profiling mode\",\n    \
@@ -157,30 +167,31 @@ data:
   isVerificationFile: false
   path: cp_library/perf/cli.py
   requiredBy:
-  - cp_library/perf/benchmark.py
-  - perf/bool_list.py
-  - perf/view2.py
-  - perf/heap_view.py
-  - perf/list_view.py
-  - perf/mlist.py
+  - perf/list2.py
   - perf/que.py
   - perf/list6.py
-  - perf/grid.py
-  - perf/edge_list.py
-  - perf/csr.py
-  - perf/bit6.py
-  - perf/deque.py
-  - perf/segtree2.py
-  - perf/view6.py
-  - perf/csr6.py
-  - perf/segtree6.py
-  - perf/csr2.py
-  - perf/bit2.py
-  - perf/rank.py
-  - perf/list2.py
   - perf/heap_csr.py
+  - perf/mlist.py
+  - perf/bit6.py
+  - perf/view6.py
+  - perf/stack_operations.py
+  - perf/csr.py
+  - perf/edge_list.py
+  - perf/rank.py
+  - perf/bool_list.py
+  - perf/heap_view.py
+  - perf/segtree2.py
+  - perf/view2.py
+  - perf/csr2.py
+  - perf/grid.py
+  - perf/list_view.py
+  - perf/segtree6.py
+  - perf/bit2.py
+  - perf/deque.py
+  - perf/csr6.py
   - perf/bytearray_decode.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/perf/benchmark.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/cli.py

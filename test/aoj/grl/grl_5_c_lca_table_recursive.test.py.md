@@ -50,7 +50,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
-    import sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
+    import sys\nimport pypyjit\n\n\nsys.setrecursionlimit(10**6)\npypyjit.set_param(\"\
     max_unroll_recursion=-1\")\nfrom typing import Generic, Callable\nfrom typing\
     \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
     \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
@@ -184,10 +184,10 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/all/GRL_5_C\n\
     \ndef main():\n    N, = read()\n    T = []\n    for _ in range(N):\n        k,\
     \ *adj = read()\n        T.append(adj)\n    lca = LCATable(T, 0)\n    Q, = read()\n\
@@ -209,7 +209,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_5_c_lca_table_recursive.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_5_c_lca_table_recursive.test.py

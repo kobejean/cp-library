@@ -119,7 +119,7 @@ data:
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
     \        else:\n            raise NotImplementedError()\nfrom typing import Type,\
-    \ Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ Union, overload\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T');\
     \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
     \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n@overload\n\
     def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
@@ -180,17 +180,17 @@ data:
     \ = IO(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values to\
     \ a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"sep\"\
     , \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x in args:\n\
-    \        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\nclass TripletQueries(Mo):\n\
-    \    cnt = [0]*200001      \n    pairs = [0]*200001    \n    triples = 0\n   \
-    \ A: list[int] = None\n\n    def add(mo, i):\n        v = mo.A[i]\n        mo.triples\
-    \ += mo.pairs[v]    \n        mo.pairs[v] += mo.cnt[v]     \n        mo.cnt[v]\
-    \ += 1 \n    \n    def remove(mo, i):\n        v = mo.A[i]\n        mo.cnt[v]\
-    \ -= 1 \n        mo.pairs[v] -= mo.cnt[v]     \n        mo.triples -= mo.pairs[v]\
-    \   \n\n    def answer(mo, i, l, r):\n        return mo.triples \n    \n    def\
-    \ solve(mo, A):\n        mo.A = A\n        return super().solve()\n\nif __name__\
-    \ == \"__main__\":\n    main()\n"
+    \        if not at_start: file.write(sep)\n        file.write(str(x))\n      \
+    \  at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False): file.flush()\n\nclass TripletQueries(Mo):\n    cnt = [0]*200001\
+    \      \n    pairs = [0]*200001    \n    triples = 0\n    A: list[int] = None\n\
+    \n    def add(mo, i):\n        v = mo.A[i]\n        mo.triples += mo.pairs[v]\
+    \    \n        mo.pairs[v] += mo.cnt[v]     \n        mo.cnt[v] += 1 \n    \n\
+    \    def remove(mo, i):\n        v = mo.A[i]\n        mo.cnt[v] -= 1 \n      \
+    \  mo.pairs[v] -= mo.cnt[v]     \n        mo.triples -= mo.pairs[v]   \n\n   \
+    \ def answer(mo, i, l, r):\n        return mo.triples \n    \n    def solve(mo,\
+    \ A):\n        mo.A = A\n        return super().solve()\n\nif __name__ == \"__main__\"\
+    :\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
     \n\ndef main():\n    N, Q = read(tuple[int, ...])\n    A = read(list[int])\n \
     \   mo = read(TripletQueries[Q, N])\n    write(*mo.solve(A), sep='\\n')\n\nfrom\
@@ -216,7 +216,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_mo.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_mo.test.py

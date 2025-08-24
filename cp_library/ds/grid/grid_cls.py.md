@@ -38,7 +38,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Generic, Union\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    from typing import Generic, Union\nfrom typing import TypeVar\n\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
@@ -52,7 +52,7 @@ data:
     \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
     \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
     \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
-    \ enumerate(A): A[i] = P.m&a\n\n\n\n\nimport sys\n\ndef list_find(lst: list, value,\
+    \ enumerate(A): A[i] = P.m&a\n\n\n\nimport sys\n\n\ndef list_find(lst: list, value,\
     \ start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value, start,\
     \ stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n    __slots__\
     \ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A,\
@@ -183,7 +183,7 @@ data:
   path: cp_library/ds/grid/grid_cls.py
   requiredBy:
   - perf/grid.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/grid/grid_cls_test.py

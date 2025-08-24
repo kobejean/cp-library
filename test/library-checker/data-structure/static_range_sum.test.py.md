@@ -44,44 +44,44 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
     \          https://kobejean.github.io/cp-library               \n'''\nimport operator\n\
     from itertools import accumulate\nfrom typing import Callable, Iterable\n\n\n\
-    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    from typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
     \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\ndef presum(iter: Iterable[_T], func:\
     \ Callable[[_T,_T],_T] = None, initial: _T = None, step = 1) -> list[_T]:\n  \
     \  if step == 1:\n        return list(accumulate(iter, func, initial=initial))\n\
-    \    else:\n        assert step >= 2\n        if func is None:\n            func\
-    \ = operator.add\n        A = list(iter)\n        if initial is not None:\n  \
-    \          A = [initial] + A\n        for i in range(step,len(A)):\n         \
-    \   A[i] = func(A[i], A[i-step])\n        return A\nfrom typing import Type, Union,\
-    \ overload\n\n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec:\
-    \ Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False)\
-    \ -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]:\
-    \ ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef\
-    \ read(*specs: Union[Type[_T],_T], char=False):\n    IO.stdin.char = char\n  \
-    \  if not specs: return IO.stdin.readnumsinto([])\n    parser: _T = Parser.compile(specs[0]\
-    \ if len(specs) == 1 else specs)\n    return parser(IO.stdin)\nfrom os import\
-    \ read as os_read, write as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders\
-    \ import StringBuilder\n\n\ndef max2(a, b): return a if a > b else b\n\nclass\
-    \ IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n    def\
-    \ writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io,\
-    \ s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
-    \ -> str: ...\n    def readtokens(io) -> list[str]: ...\n    def readints(io)\
-    \ -> list[int]: ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io)\
-    \ -> list[int]: ...\n    def readchar(io) -> str: ...\n    def readchars(io) ->\
-    \ str: ...\n    def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
-    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
-    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass IO(IOBase):\n    BUFSIZE\
-    \ = 1 << 16; stdin: 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O',\
-    \ 'V', 'S', 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n\
-    \    def __init__(io, file):\n        io.file = file\n        try: io.f = file.fileno();\
-    \ io.sz, io.writable = max2(io.BUFSIZE, os_fstat(io.f).st_size), ('x' in file.mode\
-    \ or 'r' not in file.mode)\n        except: io.f, io.sz, io.writable = -1, io.BUFSIZE,\
-    \ False\n        io.B, io.O, io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B);\
-    \ io.l = io.p = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False,\
-    \ [], [], 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
+    \    else:\n        assert step >= 2\n        if func is None: func = operator.add\n\
+    \        A = list(iter)\n        if initial is not None: A = [initial] + A\n \
+    \       for i in range(step,len(A)): A[i] = func(A[i], A[i-step])\n        return\
+    \ A\nfrom typing import Type, Union, overload\n\n\n@overload\ndef read() -> list[int]:\
+    \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
+    def read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T],\
+    \ char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False)\
+    \ -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T], char=False):\n\
+    \    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
+    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
+    \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
+    \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
+    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
+    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
+    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
+    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
+    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
+    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
+    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
+    \ ...\n\nclass IO(IOBase):\n    BUFSIZE = 1 << 16; stdin: 'IO'; stdout: 'IO'\n\
+    \    __slots__ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p', 'char', 'sz', 'st',\
+    \ 'ist', 'writable', 'encoding', 'errors'\n    def __init__(io, file):\n     \
+    \   io.file = file\n        try: io.f = file.fileno(); io.sz, io.writable = max2(io.BUFSIZE,\
+    \ os_fstat(io.f).st_size), ('x' in file.mode or 'r' not in file.mode)\n      \
+    \  except: io.f, io.sz, io.writable = -1, io.BUFSIZE, False\n        io.B, io.O,\
+    \ io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B); io.l = io.p\
+    \ = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False, [], [],\
+    \ 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
     \ io.errors)\n    def readbytes(io, sz): return os_read(io.f, sz)\n    def load(io):\n\
     \        while io.l >= len(io.O):\n            if not (b := io.readbytes(io.sz)):\n\
     \                if io.O[-1] < len(io.B): io.O.append(len(io.B))\n           \
@@ -163,10 +163,10 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/static_range_sum\n\
     \ndef main():\n    N, Q = read()\n    A = read()\n    S = presum(A, initial=0)\n\
     \    for _ in range(Q):\n        l, r = read()\n        write(S[r]-S[l])\n\nfrom\
@@ -185,7 +185,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_range_sum.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_range_sum.test.py

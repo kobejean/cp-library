@@ -47,8 +47,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\nimport operator\nfrom typing import Callable\n\n\ndef reserve(A: list,\
-    \ est_len: int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\n\
+    \  \n'''\nimport operator\nfrom typing import Callable\n\n\n\n\n\ndef reserve(A:\
+    \ list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\n\
     except:\n    def resizelist_hint(A: list, est_len: int):\n        pass\nreserve\
     \ = resizelist_hint\n\nclass Primes(list[int]):\n    def __init__(P, N: int):\n\
     \        super().__init__()\n        spf = [0] * (N + 1)\n        spf[0], spf[1]\
@@ -75,7 +75,7 @@ data:
     \ sub = operator.sub, mul = operator.mul):\n        A, B = P.divisor_zeta(A, add),\
     \ P.divisor_zeta(B, add)\n        for i, b in enumerate(B): A[i] = mul(A[i], b)\n\
     \        return P.divisor_mobius(A, sub)\nfrom typing import Type, Union, overload\n\
-    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    from typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
     \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]:\
     \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
@@ -86,7 +86,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -188,10 +188,10 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/gcd_convolution\n\
     \ndef mul(a,b): return a%998244353*b%998244353\n\ndef main():\n    N = read(int)\n\
     \    A = [0]+read(list[int])\n    B = [0]+read(list[int])\n    P = Primes(N)\n\
@@ -212,7 +212,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/convolution/gcd_convolution.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/convolution/gcd_convolution.test.py

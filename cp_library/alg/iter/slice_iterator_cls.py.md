@@ -14,7 +14,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    from typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
     \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\nfrom typing import Iterator, SupportsIndex\n\
     \n\n\nclass SliceIterator(Iterator[_T]):\n    def __init__(self, A: list[_T],\
@@ -34,7 +34,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/slice_iterator_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/iter/slice_iterator_cls.py

@@ -50,7 +50,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    from typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
     \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\nfrom typing import Generic, Union,\
     \ Callable, Optional\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -196,21 +196,21 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bit_base_cls.py
   requiredBy:
-  - cp_library/ds/tree/bit/bit2_cls.py
-  - cp_library/ds/tree/bit/bit6_cls.py
-  - cp_library/ds/tree/bit/bit4_cls.py
-  - cp_library/ds/tree/bit/bit5_cls.py
-  - cp_library/ds/tree/bit/bit3_cls.py
   - perf/bit6.py
   - perf/bit2.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/ds/tree/bit/bit2_cls.py
+  - cp_library/ds/tree/bit/bit3_cls.py
+  - cp_library/ds/tree/bit/bit5_cls.py
+  - cp_library/ds/tree/bit/bit4_cls.py
+  - cp_library/ds/tree/bit/bit6_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/unittests/ds/tree/bit/bit3_cls_test.py
+  - test/unittests/ds/tree/bit/bit5_cls_test.py
+  - test/unittests/ds/tree/bit/bit2_cls_test.py
   - test/unittests/ds/tree/bit/bit4_cls_test.py
   - test/unittests/ds/tree/bit/bit6_cls_test.py
-  - test/unittests/ds/tree/bit/bit5_cls_test.py
-  - test/unittests/ds/tree/bit/bit3_cls_test.py
-  - test/unittests/ds/tree/bit/bit2_cls_test.py
 documentation_of: cp_library/ds/tree/bit/bit_base_cls.py
 layout: document
 redirect_from:

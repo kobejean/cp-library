@@ -50,7 +50,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    \nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
     \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\nfrom typing import Callable, Generic,\
     \ Union\n\n\n\nclass SegTree(Generic[_T]):\n    _lst = list\n    \n    def __init__(seg,\
@@ -113,15 +113,14 @@ data:
     \    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
     \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
-    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\nfrom array import array\ndef\
-    \ u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    \nclass WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int,\
-    \ H: int):\n            super().__init__(N)\n            L.H = H\n        def\
-    \ build(L):\n            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1],\
-    \ L.cnt[-1]\n        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if\
-    \ bit else L.count0(i)\n        def pos2(L, bit: int, i: int, j: int): return\
-    \ (L.T0+L.count1(i), L.T0+L.count1(j)) if bit else (L.count0(i), L.count0(j))\n\
-    \    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
+    \ 'bit_count'): popcnt32 = int.bit_count\nfrom array import array\n\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\nclass\
+    \ WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int, H: int):\n\
+    \            super().__init__(N)\n            L.H = H\n        def build(L):\n\
+    \            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1], L.cnt[-1]\n\
+    \        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if bit else L.count0(i)\n\
+    \        def pos2(L, bit: int, i: int, j: int): return (L.T0+L.count1(i), L.T0+L.count1(j))\
+    \ if bit else (L.count0(i), L.count0(j))\n    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
     \ Amax is None else Amax)\n    def _build(wm, A, nA, Amax):wm.N,wm.H=len(A),Amax.bit_length();wm._build_levels(A,nA)\n\
     \    def _build_levels(wm, A, nA):\n        wm.up=[wm.Level(wm.N,H) for H in range(wm.H)];wm.down=wm.up[::-1]\n\
     \        for L in wm.down:\n            x,y,i=-1,wm.N-1,wm.N\n            while\
@@ -212,13 +211,13 @@ data:
   requiredBy:
   - cp_library/ds/wavelet/wm_segtree_points_cls.py
   - cp_library/ds/wavelet/wm_segtree_compressed_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
-  - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_segtree_points.test.py
   - test/library-checker/data-structure/rectangle_sum_wm_segtree.test.py
+  - test/library-checker/data-structure/rectangle_sum_wm_segtree_compressed.test.py
+  - test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
 documentation_of: cp_library/ds/wavelet/wm_segtree_cls.py
 layout: document
 redirect_from:

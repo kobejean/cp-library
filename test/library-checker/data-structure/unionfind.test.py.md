@@ -44,7 +44,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
-    \ typing import Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \ typing import Type, Union, overload\nfrom typing import TypeVar\n\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
@@ -55,7 +55,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -157,16 +157,16 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \n\nclass DSU(Parsable):\n    def __init__(dsu, N): dsu.N, dsu.cc, dsu.par = N,\
-    \ N, [-1]*N\n    def merge(dsu, u, v):\n        x, y = dsu.root(u), dsu.root(v)\n\
-    \        if x == y: return x,y\n        if dsu.par[x] > dsu.par[y]: x, y = y,\
-    \ x\n        dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return\
-    \ x, y\n    def root(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n      \
-    \  while p >= 0:\n            if par[p] < 0: return p\n            par[i], i,\
-    \ p = par[p], par[p], par[par[p]]\n        return i\n    def groups(dsu) -> 'CSRIncremental[int]':\n\
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\n\nclass\
+    \ DSU(Parsable):\n    def __init__(dsu, N): dsu.N, dsu.cc, dsu.par = N, N, [-1]*N\n\
+    \    def merge(dsu, u, v):\n        x, y = dsu.root(u), dsu.root(v)\n        if\
+    \ x == y: return x,y\n        if dsu.par[x] > dsu.par[y]: x, y = y, x\n      \
+    \  dsu.par[x] += dsu.par[y]; dsu.par[y] = x; dsu.cc -= 1\n        return x, y\n\
+    \    def root(dsu, i) -> int:\n        p = (par := dsu.par)[i]\n        while\
+    \ p >= 0:\n            if par[p] < 0: return p\n            par[i], i, p = par[p],\
+    \ par[p], par[par[p]]\n        return i\n    def groups(dsu) -> 'CSRIncremental[int]':\n\
     \        sizes, row, p = [0]*dsu.cc, [-1]*dsu.N, 0\n        for i in range(dsu.cc):\n\
     \            while dsu.par[p] >= 0: p += 1\n            sizes[i], row[p] = -dsu.par[p],\
     \ i; p += 1\n        csr = CSRIncremental(sizes)\n        for i in range(dsu.N):\
@@ -207,7 +207,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/unionfind.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/unionfind.test.py

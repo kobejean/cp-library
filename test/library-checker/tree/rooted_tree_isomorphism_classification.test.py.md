@@ -114,9 +114,9 @@ data:
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
-    \ l)))\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\nif __name__ == '__main__':\n    main()\n"
+    \ l)))\n\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n\
+    \    \n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/rooted_tree_isomorphism_classification\n\
     \ndef main():\n    N, = rd()\n    P = rdl(N-1)\n    if all(i == p for i,p in enumerate(P)):\n\
     \        wtn(N)\n        P.append(N-1)\n        wtnl(P)\n        return\n\n  \
@@ -144,7 +144,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/tree/rooted_tree_isomorphism_classification.test.py

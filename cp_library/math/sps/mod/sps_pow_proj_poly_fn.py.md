@@ -44,10 +44,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \n\n\n\nfrom typing import Generic\nfrom typing import TypeVar\n\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    \nimport sys\n\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
     \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
     \ def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l,\
@@ -116,7 +116,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n                      Math - Convolution           \
-    \          \n'''\n\n\ndef max2(a, b): return a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A,\
+    \          \n'''\n\n\n\ndef max2(a, b): return a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A,\
     \ B, N, M, Z):\n    for i in range(0, Z, M):\n        l, r = i+(1<<(i>>N))-1,\
     \ i+M\n        for j in range(N):\n            m = l|(b := 1<<j)\n           \
     \ while m < r: A[m] += A[m^b]; B[m] += B[m^b]; m = m+1|b\n    return A, B\n\n\
@@ -168,7 +168,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py

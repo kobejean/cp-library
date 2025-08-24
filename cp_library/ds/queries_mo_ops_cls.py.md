@@ -33,16 +33,16 @@ data:
     \n\nclass Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(io:\
     \ 'IOBase'): return cls(next(io))\n        return parser\n    @classmethod\n \
     \   def __class_getitem__(cls, item): return GenericAlias(cls, item)\n\n\n\ndef\
-    \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nclass MoOp(IntFlag):\n    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n\
-    \    REMOVE_LEFT = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER = auto()\n  \
-    \  \n    ADD = ADD_LEFT | ADD_RIGHT\n    REMOVE = REMOVE_LEFT | REMOVE_RIGHT\n\
-    \n# def hilbert(x: int, y: int, n: int) -> int:\n#     '''Convert (x,y) to Hilbert\
-    \ curve distance for given n (power of 2).'''\n#     d = 0\n#     for s in range(n.bit_length()\
-    \ - 1, -1, -1):\n#         rx = (x >> s) & 1\n#         ry = (y >> s) & 1\n# \
-    \        d += n * n * ((3 * rx) ^ ry) >> 2\n#         if ry == 0:\n#         \
-    \    if rx == 1:\n#                 x = n-1 - x\n#                 y = n-1 - y\n\
+    \ elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\n\
+    class MoOp(IntFlag):\n    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n    REMOVE_LEFT\
+    \ = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER = auto()\n    \n    ADD = ADD_LEFT\
+    \ | ADD_RIGHT\n    REMOVE = REMOVE_LEFT | REMOVE_RIGHT\n\n# def hilbert(x: int,\
+    \ y: int, n: int) -> int:\n#     '''Convert (x,y) to Hilbert curve distance for\
+    \ given n (power of 2).'''\n#     d = 0\n#     for s in range(n.bit_length() -\
+    \ 1, -1, -1):\n#         rx = (x >> s) & 1\n#         ry = (y >> s) & 1\n#   \
+    \      d += n * n * ((3 * rx) ^ ry) >> 2\n#         if ry == 0:\n#           \
+    \  if rx == 1:\n#                 x = n-1 - x\n#                 y = n-1 - y\n\
     #             x, y = y, x\n#     return d\n\nclass QueriesMoOps(tuple[list[int],\
     \ ...],Parsable):\n    '''\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int,\
     \ int]]\n    Orders queries using Mo's algorithm and generates a sequence of operations\
@@ -176,7 +176,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/queries_mo_ops_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc261_g_queries_mo_ops.test.py

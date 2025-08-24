@@ -66,8 +66,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n\
-    \    from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A:\
+    \               \n'''\n\n\n\ndef reserve(A: list, est_len: int) -> None: ...\n\
+    try:\n    from __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A:\
     \ list, est_len: int):\n        pass\nreserve = resizelist_hint\n\n\ndef heapsiftup(heap:\
     \ list, pos: int):\n    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while\
     \ c < n and heap[c := c+(heap[c+1]<heap[c])] < item: heap[pos], pos, c = heap[c],\
@@ -103,7 +103,7 @@ data:
     \ x: int, i: int) -> None:\n        heappush(self.mnq, tmp := x << 28 | i)\n \
     \       heappush_max(self.mxq, tmp)\n\n\nfrom os import read as os_read, write\
     \ as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -165,12 +165,12 @@ data:
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
-    \ l)))\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\nN, Q = rd()\nS = rdl(N)\ndepq = DoubleEndedPriorityQueue(N,\
-    \ Q, S)\nfor i in range(Q):\n    cmd = rd()\n    if cmd[0] == 0:\n        x =\
-    \ cmd[1]\n        depq.push(x, i + N)\n    elif cmd[0] == 1:\n        wtn(depq.pop_min())\n\
-    \    else:\n        wtn(depq.pop_max())\n"
+    \ l)))\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\n\
+    N, Q = rd()\nS = rdl(N)\ndepq = DoubleEndedPriorityQueue(N, Q, S)\nfor i in range(Q):\n\
+    \    cmd = rd()\n    if cmd[0] == 0:\n        x = cmd[1]\n        depq.push(x,\
+    \ i + N)\n    elif cmd[0] == 1:\n        wtn(depq.pop_min())\n    else:\n    \
+    \    wtn(depq.pop_max())\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/double_ended_priority_queue\n\
     # modified from abUma: https://judge.yosupo.jp/submission/144329\nfrom cp_library.ds.list.reserve_fn\
     \ import reserve\nfrom cp_library.ds.heap.heapify_fn import heapify\nfrom cp_library.ds.heap.heappop_fn\
@@ -214,7 +214,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py

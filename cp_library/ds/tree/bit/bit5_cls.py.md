@@ -32,7 +32,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    from typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
     \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n'''\n\u257A\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -84,12 +84,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n           Data Structure - Tree - Binary Index Tree     \
-    \       \n'''\n\n\n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I\
-    \ := list(A))-1); P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return\
-    \ I\n\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int):\
-    \ P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int):\
-    \ return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >>\
-    \ P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A),\
+    \       \n'''\nfrom typing import Generic\n\n\n\n\ndef argsort(A: list[int], reverse=False):\n\
+    \    P = Packer(len(I := list(A))-1); P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n\
+    \    return I\n\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P,\
+    \ mx: int): P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int,\
+    \ b: int): return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return\
+    \ x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A),\
     \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
     \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
     \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
@@ -98,35 +98,34 @@ data:
     \    inv, order = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n    for i, j\
     \ in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n       \
     \ for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] = j, inv[i]\n\
-    \    return L\nfrom typing import Generic\n\n\nclass list5(Generic[_T1, _T2, _T3,\
-    \ _T4, _T5]):\n    __slots__ = 'A1', 'A2', 'A3', 'A4', 'A5'\n    def __init__(lst,\
-    \ A1: list[_T1], A2: list[_T2], A3: list[_T3], A4: list[_T4], A5: list[_T5]):\n\
-    \        lst.A1, lst.A2, lst.A3, lst.A4, lst.A5 = A1, A2, A3, A4, A5\n    def\
-    \ __len__(lst): return len(lst.A1)\n    def __getitem__(lst, i: int): return lst.A1[i],\
-    \ lst.A2[i], lst.A3[i], lst.A4[i], lst.A5[i]\n    def __setitem__(lst, i: int,\
-    \ v: tuple[_T1, _T2, _T3, _T4, _T5]): lst.A1[i], lst.A2[i], lst.A3[i], lst.A4[i],\
-    \ lst.A5[i] = v\n    def __contains__(lst, v: tuple[_T1, _T2, _T3, _T4, _T5]):\
-    \ raise NotImplementedError\n    def index(lst, v: tuple[_T1, _T2, _T3, _T4, _T5]):\
-    \ raise NotImplementedError\n    def reverse(lst): lst.A1.reverse(); lst.A2.reverse();\
-    \ lst.A3.reverse(); lst.A4.reverse(); lst.A5.reverse()\n    def sort(lst, reverse=False):\
-    \ isort_parallel(lst.A1, lst.A2, lst.A3, lst.A4, lst.A5, reverse=reverse)\n  \
-    \  def pop(lst): return lst.A1.pop(), lst.A2.pop(), lst.A3.pop(), lst.A4.pop(),\
-    \ lst.A5.pop()\n    def append(lst, v: tuple[_T1, _T2, _T3, _T4, _T5]):\n    \
-    \    v1, v2, v3, v4, v5 = v\n        lst.A1.append(v1); lst.A2.append(v2); lst.A3.append(v3);\
-    \ lst.A4.append(v4); lst.A5.append(v5)\n    def add(lst, i: int, v: tuple[_T1,\
-    \ _T2, _T3, _T4, _T5]): lst.A1[i] += v[0]; lst.A2[i] += v[1]; lst.A3[i] += v[2];\
-    \ lst.A4[i] += v[3]; lst.A5[i] += v[4]\nfrom typing import Generic, Union, Callable,\
-    \ Optional\n\nclass BITBase(Generic[_T]):\n    _lst = list\n    K: int = 1\n \
-    \   \n    def __init__(bit, v: Union[int, list[_T]], e: _T = None) -> None:\n\
-    \        if isinstance(v, int):\n            bit._n = v\n            if bit._lst\
-    \ is list:\n                bit._d = [e]*v if e is not None else [0]*v\n     \
-    \       elif e is not None:\n                bit._d = bit._lst(*([e_]*v for e_\
-    \ in e))\n            else:\n                bit._d = bit._lst(*([0]*v for _ in\
-    \ range(bit.K)))\n        else:\n            bit.build(v)\n        bit.e = e if\
-    \ e is not None else (0 if bit._lst is list else tuple(0 for _ in range(bit.K)))\n\
-    \        bit._lb = 1 << bit._n.bit_length()\n\n    def build(bit, data: list[_T]):\n\
-    \        bit._n = len(data)\n        if bit._lst is list:\n            bit._d\
-    \ = bit._lst(data)\n        else:\n            bit._d = bit._lst(*([data[i][j]\
+    \    return L\n\n\nclass list5(Generic[_T1, _T2, _T3, _T4, _T5]):\n    __slots__\
+    \ = 'A1', 'A2', 'A3', 'A4', 'A5'\n    def __init__(lst, A1: list[_T1], A2: list[_T2],\
+    \ A3: list[_T3], A4: list[_T4], A5: list[_T5]):\n        lst.A1, lst.A2, lst.A3,\
+    \ lst.A4, lst.A5 = A1, A2, A3, A4, A5\n    def __len__(lst): return len(lst.A1)\n\
+    \    def __getitem__(lst, i: int): return lst.A1[i], lst.A2[i], lst.A3[i], lst.A4[i],\
+    \ lst.A5[i]\n    def __setitem__(lst, i: int, v: tuple[_T1, _T2, _T3, _T4, _T5]):\
+    \ lst.A1[i], lst.A2[i], lst.A3[i], lst.A4[i], lst.A5[i] = v\n    def __contains__(lst,\
+    \ v: tuple[_T1, _T2, _T3, _T4, _T5]): raise NotImplementedError\n    def index(lst,\
+    \ v: tuple[_T1, _T2, _T3, _T4, _T5]): raise NotImplementedError\n    def reverse(lst):\
+    \ lst.A1.reverse(); lst.A2.reverse(); lst.A3.reverse(); lst.A4.reverse(); lst.A5.reverse()\n\
+    \    def sort(lst, reverse=False): isort_parallel(lst.A1, lst.A2, lst.A3, lst.A4,\
+    \ lst.A5, reverse=reverse)\n    def pop(lst): return lst.A1.pop(), lst.A2.pop(),\
+    \ lst.A3.pop(), lst.A4.pop(), lst.A5.pop()\n    def append(lst, v: tuple[_T1,\
+    \ _T2, _T3, _T4, _T5]):\n        v1, v2, v3, v4, v5 = v\n        lst.A1.append(v1);\
+    \ lst.A2.append(v2); lst.A3.append(v3); lst.A4.append(v4); lst.A5.append(v5)\n\
+    \    def add(lst, i: int, v: tuple[_T1, _T2, _T3, _T4, _T5]): lst.A1[i] += v[0];\
+    \ lst.A2[i] += v[1]; lst.A3[i] += v[2]; lst.A4[i] += v[3]; lst.A5[i] += v[4]\n\
+    from typing import Generic, Union, Callable, Optional\n\nclass BITBase(Generic[_T]):\n\
+    \    _lst = list\n    K: int = 1\n    \n    def __init__(bit, v: Union[int, list[_T]],\
+    \ e: _T = None) -> None:\n        if isinstance(v, int):\n            bit._n =\
+    \ v\n            if bit._lst is list:\n                bit._d = [e]*v if e is\
+    \ not None else [0]*v\n            elif e is not None:\n                bit._d\
+    \ = bit._lst(*([e_]*v for e_ in e))\n            else:\n                bit._d\
+    \ = bit._lst(*([0]*v for _ in range(bit.K)))\n        else:\n            bit.build(v)\n\
+    \        bit.e = e if e is not None else (0 if bit._lst is list else tuple(0 for\
+    \ _ in range(bit.K)))\n        bit._lb = 1 << bit._n.bit_length()\n\n    def build(bit,\
+    \ data: list[_T]):\n        bit._n = len(data)\n        if bit._lst is list:\n\
+    \            bit._d = bit._lst(data)\n        else:\n            bit._d = bit._lst(*([data[i][j]\
     \ for i in range(len(data))] for j in range(len(data[0]))))\n        for i in\
     \ range(bit._n):\n            if (r := i | i + 1) < bit._n:\n                bit._add(r,\
     \ bit._d[i])\n\n    def _add(bit, i: int, x: _T) -> None:\n        bit._d[i] =\
@@ -181,7 +180,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/bit/bit5_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/bit/bit5_cls_test.py

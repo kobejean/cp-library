@@ -37,17 +37,17 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\n\ndef\
-    \ min2(a, b): return a if a < b else b\n\ndef main():\n    N, Q = rd()\n    A\
-    \ = rdl(N)\n    st = SparseTable(min2, A)\n    for _ in range(Q):\n        wtn(st.query(*rd()))\n\
-    \nfrom typing import Generic, Callable\nfrom typing import TypeVar\n_S = TypeVar('S');\
-    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
-    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \n\nclass SparseTable(Generic[_T]):\n    def __init__(st, op: Callable[[_T,_T],_T],\
-    \ arr: list[_T]):\n        st.N = N = len(arr)\n        st.log, st.op = N.bit_length(),\
-    \ op\n        st.data = [0] * (st.log*N)\n        st.data[:N] = arr\n        for\
-    \ i in range(1,st.log):\n            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n  \
-    \          for j in range(N-(1<<i)+1):\n                st.data[a+j] = op(st.data[b+j],\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
+    \ndef min2(a, b): return a if a < b else b\n\ndef main():\n    N, Q = rd()\n \
+    \   A = rdl(N)\n    st = SparseTable(min2, A)\n    for _ in range(Q):\n      \
+    \  wtn(st.query(*rd()))\n\nfrom typing import Generic, Callable\nfrom typing import\
+    \ TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
+    \ _T6 = TypeVar('T6')\n\n\nclass SparseTable(Generic[_T]):\n    def __init__(st,\
+    \ op: Callable[[_T,_T],_T], arr: list[_T]):\n        st.N = N = len(arr)\n   \
+    \     st.log, st.op = N.bit_length(), op\n        st.data = [0] * (st.log*N)\n\
+    \        st.data[:N] = arr\n        for i in range(1,st.log):\n            a,b,c=i*N,(i-1)*N,(i-1)*N+(1<<(i-1))\n\
+    \            for j in range(N-(1<<i)+1):\n                st.data[a+j] = op(st.data[b+j],\
     \ st.data[c+j])\n\n    def query(st, l: int, r: int) -> _T:\n        k = (r-l).bit_length()-1\n\
     \        return st.op(st.data[k*st.N+l],st.data[k*st.N+r-(1<<k)])\n\nfrom os import\
     \ read as os_read, write as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders\
@@ -113,9 +113,9 @@ data:
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
-    \ l)))\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\nif __name__ == '__main__':\n    main()\n"
+    \ l)))\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n\
+    \    \n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/staticrmq\n\
     \nfrom cp_library.alg.dp.min2_fn import min2\n\ndef main():\n    N, Q = rd()\n\
     \    A = rdl(N)\n    st = SparseTable(min2, A)\n    for _ in range(Q):\n     \
@@ -133,7 +133,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/staticrmq_general.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/staticrmq_general.test.py

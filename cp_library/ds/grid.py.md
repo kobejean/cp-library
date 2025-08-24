@@ -27,7 +27,7 @@ data:
     \ GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def compile(cls):\n\
     \        def parser(io: 'IOBase'): return cls(next(io))\n        return parser\n\
     \    @classmethod\n    def __class_getitem__(cls, item): return GenericAlias(cls,\
-    \ item)\n\nclass grid2d(Parsable, Container):\n\n    def __init__(self, shape:\
+    \ item)\n\n\nclass grid2d(Parsable, Container):\n\n    def __init__(self, shape:\
     \ tuple[int, int], data = 0):\n        self.shape = shape\n        self.size =\
     \ prod(shape)\n        if isinstance(data, Iterable) and not isinstance(data,\
     \ str):\n            self.data = list(elm for row in data for elm in row)\n  \
@@ -92,16 +92,16 @@ data:
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
     \        else:\n            raise NotImplementedError()\n"
-  code: "import cp_library.ds.__header__\nfrom math import prod\nfrom typing import\
-    \ Container, Iterable\nfrom cp_library.io.parsable_cls import Parsable\n\nclass\
-    \ grid2d(Parsable, Container):\n\n    def __init__(self, shape: tuple[int, int],\
-    \ data = 0):\n        self.shape = shape\n        self.size = prod(shape)\n  \
-    \      if isinstance(data, Iterable) and not isinstance(data, str):\n        \
-    \    self.data = list(elm for row in data for elm in row)\n        else:\n   \
-    \         self.data = [data] * (self.size)\n    \n    @classmethod\n    def compile(cls,\
-    \ shape: tuple[int, int], T: type = int):\n        elm = Parser.compile(T)\n \
-    \       def parse(io: IOBase):\n            obj = cls.__new__(cls)\n         \
-    \   obj.shape = shape\n            obj.size = prod(shape)\n            obj.data\
+  code: "import cp_library.__header__\nfrom math import prod\nfrom typing import Container,\
+    \ Iterable\nfrom cp_library.io.parsable_cls import Parsable\nimport cp_library.ds.__header__\n\
+    \nclass grid2d(Parsable, Container):\n\n    def __init__(self, shape: tuple[int,\
+    \ int], data = 0):\n        self.shape = shape\n        self.size = prod(shape)\n\
+    \        if isinstance(data, Iterable) and not isinstance(data, str):\n      \
+    \      self.data = list(elm for row in data for elm in row)\n        else:\n \
+    \           self.data = [data] * (self.size)\n    \n    @classmethod\n    def\
+    \ compile(cls, shape: tuple[int, int], T: type = int):\n        elm = Parser.compile(T)\n\
+    \        def parse(io: IOBase):\n            obj = cls.__new__(cls)\n        \
+    \    obj.shape = shape\n            obj.size = prod(shape)\n            obj.data\
     \ = list(elm(io) for _ in range(obj.size))\n            return obj\n        return\
     \ parse\n    \n    def __contains__(self, x: object) -> bool:\n        return\
     \ x in self.data\n    \n    def __getitem__(self, key: tuple[int, int]):\n   \
@@ -118,7 +118,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/grid.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/grid.py

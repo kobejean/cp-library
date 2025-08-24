@@ -45,9 +45,9 @@ data:
     \            for e in range(M): u, v = io.readints(); U[e], V[e] = u+I, v+I\n\
     \            return cls(N, U, V)\n        return parse\n    def sub(E, I: list[int]):\n\
     \        U, V = elist(E.N-1), elist(E.N-1)\n        for e in I: U.append(E.U[e]);\
-    \ V.append(E.V[e])\n        return E.__class__(E.N, U, V)\n\n\ndef elist(est_len:\
+    \ V.append(E.V[e])\n        return E.__class__(E.N, U, V)\n\n\n\ndef elist(hint:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n"
+    \  def newlist_hint(hint): return []\nelist = newlist_hint\n    \n"
   code: "import cp_library.__header__\nfrom cp_library.io.parsable_cls import Parsable\n\
     from cp_library.io.io_base_cls import IOBase\nimport cp_library.alg.__header__\n\
     import cp_library.alg.graph.__header__\n\nclass EdgeList(Parsable):\n    def __init__(E,\
@@ -66,7 +66,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/graph/edge/edge_list_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/alg/graph/edge/edge_list_cls.py

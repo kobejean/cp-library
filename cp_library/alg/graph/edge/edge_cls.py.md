@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/bit/bit_graph_cls.py
     title: cp_library/alg/graph/bit/bit_graph_cls.py
+  - icon: ':warning:'
+    path: cp_library/alg/graph/set/graph_set_cls.py
+    title: cp_library/alg/graph/set/graph_set_cls.py
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/library-checker/graph/chromatic_number.test.py
@@ -56,7 +59,8 @@ data:
   path: cp_library/alg/graph/edge/edge_cls.py
   requiredBy:
   - cp_library/alg/graph/bit/bit_graph_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/alg/graph/set/graph_set_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/chromatic_number.test.py

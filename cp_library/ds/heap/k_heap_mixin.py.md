@@ -38,9 +38,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Union\nfrom typing import TypeVar\n_S = TypeVar('S'); _T =\
-    \ TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3\
-    \ = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    from typing import Union\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
     \ compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n    \
     \    return parser\n    @classmethod\n    def __class_getitem__(cls, item): return\
@@ -142,13 +142,13 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/k_heap_mixin.py
   requiredBy:
-  - cp_library/ds/heap/max_k_heap_cls.py
   - cp_library/ds/heap/min_k_heap_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/ds/heap/max_k_heap_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/atcoder/abc/abc249_f_min_k_heap.test.py
   - test/atcoder/abc/abc249_f_max_k_heap.test.py
+  - test/atcoder/abc/abc249_f_min_k_heap.test.py
 documentation_of: cp_library/ds/heap/k_heap_mixin.py
 layout: document
 redirect_from:

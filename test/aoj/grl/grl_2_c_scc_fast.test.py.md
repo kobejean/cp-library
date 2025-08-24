@@ -44,15 +44,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
-    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
-    \ return []\nelist = newlist_hint\n    \n\ndef read_csr_graph():\n    N, M = rd()\n\
-    \    La, Ra, U, V, Va, t = [0]*N, [0]*N, [0]*M, [0]*M, [0]*M, 0\n    for e in\
-    \ range(M): U[e], V[e] = rd(); La[U[e]] += 1\n    for u, deg in enumerate(La):\
-    \ La[u] = Ra[u] = (t := t + deg)\n    for e, u in enumerate(U): La[u] -= 1; Va[La[u]]\
-    \ = V[e]\n    return N, M, La, Ra, Va\n\n\nfrom os import read as os_read, write\
-    \ as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \               \n'''\n\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint): return []\n\
+    elist = newlist_hint\n    \n\ndef read_csr_graph():\n    N, M = rd()\n    La,\
+    \ Ra, U, V, Va, t = [0]*N, [0]*N, [0]*M, [0]*M, [0]*M, 0\n    for e in range(M):\
+    \ U[e], V[e] = rd(); La[U[e]] += 1\n    for u, deg in enumerate(La): La[u] = Ra[u]\
+    \ = (t := t + deg)\n    for e, u in enumerate(U): La[u] -= 1; Va[La[u]] = V[e]\n\
+    \    return N, M, La, Ra, Va\n\n\nfrom os import read as os_read, write as os_write,\
+    \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -144,7 +144,7 @@ data:
   isVerificationFile: true
   path: test/aoj/grl/grl_2_c_scc_fast.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/aoj/grl/grl_2_c_scc_fast.test.py

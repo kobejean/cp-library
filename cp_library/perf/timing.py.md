@@ -72,6 +72,9 @@ data:
     path: perf/segtree6.py
     title: perf/segtree6.py
   - icon: ':warning:'
+    path: perf/stack_operations.py
+    title: perf/stack_operations.py
+  - icon: ':warning:'
     path: perf/view2.py
     title: perf/view2.py
   - icon: ':warning:'
@@ -83,15 +86,21 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "\"\"\"\nTiming and measurement utilities for benchmarks.\nSeparated\
-    \ from main benchmark class for single responsibility.\n\"\"\"\n\nimport time\n\
-    from typing import Any, Callable, Tuple\n\"\"\"\nInterfaces for the benchmark\
-    \ framework following SOLID principles.\n\"\"\"\n\nfrom abc import ABC, abstractmethod\n\
-    from typing import Any, Callable, Dict, List, Optional, Union\nfrom dataclasses\
-    \ import dataclass\n\n\n@dataclass\nclass BenchmarkResult:\n    \"\"\"Immutable\
-    \ benchmark result value object\"\"\"\n    operation: str\n    size: int\n   \
-    \ implementation: str\n    time_ms: float\n    correct: bool\n    error: Optional[str]\
-    \ = None\n\n\nclass TimerInterface(ABC):\n    \"\"\"Interface for timing implementations\"\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \"\"\"\nTiming and measurement utilities for benchmarks.\nSeparated from main\
+    \ benchmark class for single responsibility.\n\"\"\"\nimport time\nfrom typing\
+    \ import Any, Callable, Tuple\n\n\"\"\"\nInterfaces for the benchmark framework\
+    \ following SOLID principles.\n\"\"\"\nfrom abc import ABC, abstractmethod\nfrom\
+    \ typing import Any, Callable, Dict, List, Optional, Union\nfrom dataclasses import\
+    \ dataclass\n\n@dataclass\nclass BenchmarkResult:\n    \"\"\"Immutable benchmark\
+    \ result value object\"\"\"\n    operation: str\n    size: int\n    implementation:\
+    \ str\n    time_ms: float\n    correct: bool\n    error: Optional[str] = None\n\
+    \n\nclass TimerInterface(ABC):\n    \"\"\"Interface for timing implementations\"\
     \"\"\n    \n    @abstractmethod\n    def measure_time(self, func: Callable, data:\
     \ Any, setup_func: Callable = None) -> tuple[Any, float]:\n        \"\"\"Measure\
     \ execution time of a function\"\"\"\n        pass\n\n\nclass PlotRenderer(ABC):\n\
@@ -123,7 +132,7 @@ data:
     \    def run_benchmarks(self, operations: List[str], sizes: List[int]) -> List[BenchmarkResult]:\n\
     \        \"\"\"Execute benchmarks and return results\"\"\"\n        pass\n\"\"\
     \"\nChecksum utilities for benchmark validation.\nProvides consistent ways to\
-    \ compute checksums across benchmarks.\n\"\"\"\n\n\n\ndef update_checksum(current:\
+    \ compute checksums across benchmarks.\n\"\"\"\n\ndef update_checksum(current:\
     \ int, value: int) -> int:\n    \"\"\"Update checksum with a single value using\
     \ hash-like function.\"\"\"\n    return (current * 31 + value) & 0xFFFFFFFF\n\n\
     \ndef result_checksum(result: Any) -> Any:\n    \"\"\"\n    Calculate checksum\
@@ -170,58 +179,60 @@ data:
     \        \n        # Calculate checksum after timing with fallback for non-hashable\
     \ types\n        # This reduces overhead during the timed section\n        checksum\
     \ = result_checksum(result)\n        \n        return checksum, elapsed_ms\n"
-  code: "\"\"\"\nTiming and measurement utilities for benchmarks.\nSeparated from\
-    \ main benchmark class for single responsibility.\n\"\"\"\n\nimport time\nfrom\
-    \ typing import Any, Callable, Tuple\nfrom cp_library.perf.interfaces import TimerInterface\n\
-    from cp_library.perf.checksum import result_checksum\n\n\nclass BenchmarkTimer(TimerInterface):\n\
-    \    \"\"\"Handles timing and measurement of benchmark functions\"\"\"\n    \n\
-    \    def __init__(self, iterations: int = 10, warmup: int = 2):\n        self.iterations\
-    \ = iterations\n        self.warmup = warmup\n    \n    def measure_time(self,\
-    \ func: Callable, data: Any, setup_func: Callable = None) -> Tuple[Any, float]:\n\
-    \        \"\"\"Measure execution time with warmup and optional setup\"\"\"\n \
-    \       # Warmup runs\n        for _ in range(self.warmup):\n            try:\n\
-    \                if setup_func:\n                    setup_data = setup_func(data)\n\
-    \                    func(setup_data)\n                else:\n               \
-    \     func(data)\n            except Exception:\n                # If warmup fails,\
-    \ let the main measurement handle the error\n                break\n        \n\
-    \        # Actual measurement\n        start = time.perf_counter()\n        for\
-    \ _ in range(self.iterations):\n            if setup_func:\n                setup_data\
-    \ = setup_func(data)\n                result = func(setup_data)\n            else:\n\
-    \                result = func(data)\n        elapsed_ms = (time.perf_counter()\
-    \ - start) * 1000 / self.iterations\n        \n        # Calculate checksum after\
-    \ timing with fallback for non-hashable types\n        # This reduces overhead\
-    \ during the timed section\n        checksum = result_checksum(result)\n     \
-    \   \n        return checksum, elapsed_ms"
+  code: "import cp_library.__header__\n\"\"\"\nTiming and measurement utilities for\
+    \ benchmarks.\nSeparated from main benchmark class for single responsibility.\n\
+    \"\"\"\nimport time\nfrom typing import Any, Callable, Tuple\nimport cp_library.perf.__header__\n\
+    from cp_library.perf.interfaces import TimerInterface\nfrom cp_library.perf.checksum\
+    \ import result_checksum\n\n\nclass BenchmarkTimer(TimerInterface):\n    \"\"\"\
+    Handles timing and measurement of benchmark functions\"\"\"\n    \n    def __init__(self,\
+    \ iterations: int = 10, warmup: int = 2):\n        self.iterations = iterations\n\
+    \        self.warmup = warmup\n    \n    def measure_time(self, func: Callable,\
+    \ data: Any, setup_func: Callable = None) -> Tuple[Any, float]:\n        \"\"\"\
+    Measure execution time with warmup and optional setup\"\"\"\n        # Warmup\
+    \ runs\n        for _ in range(self.warmup):\n            try:\n             \
+    \   if setup_func:\n                    setup_data = setup_func(data)\n      \
+    \              func(setup_data)\n                else:\n                    func(data)\n\
+    \            except Exception:\n                # If warmup fails, let the main\
+    \ measurement handle the error\n                break\n        \n        # Actual\
+    \ measurement\n        start = time.perf_counter()\n        for _ in range(self.iterations):\n\
+    \            if setup_func:\n                setup_data = setup_func(data)\n \
+    \               result = func(setup_data)\n            else:\n               \
+    \ result = func(data)\n        elapsed_ms = (time.perf_counter() - start) * 1000\
+    \ / self.iterations\n        \n        # Calculate checksum after timing with\
+    \ fallback for non-hashable types\n        # This reduces overhead during the\
+    \ timed section\n        checksum = result_checksum(result)\n        \n      \
+    \  return checksum, elapsed_ms"
   dependsOn:
   - cp_library/perf/interfaces.py
   - cp_library/perf/checksum.py
   isVerificationFile: false
   path: cp_library/perf/timing.py
   requiredBy:
-  - cp_library/perf/benchmark.py
-  - perf/bool_list.py
-  - perf/view2.py
-  - perf/heap_view.py
-  - perf/list_view.py
-  - perf/mlist.py
+  - perf/list2.py
   - perf/que.py
   - perf/list6.py
-  - perf/grid.py
-  - perf/edge_list.py
-  - perf/csr.py
-  - perf/bit6.py
-  - perf/deque.py
-  - perf/segtree2.py
-  - perf/view6.py
-  - perf/csr6.py
-  - perf/segtree6.py
-  - perf/csr2.py
-  - perf/bit2.py
-  - perf/rank.py
-  - perf/list2.py
   - perf/heap_csr.py
+  - perf/mlist.py
+  - perf/bit6.py
+  - perf/view6.py
+  - perf/stack_operations.py
+  - perf/csr.py
+  - perf/edge_list.py
+  - perf/rank.py
+  - perf/bool_list.py
+  - perf/heap_view.py
+  - perf/segtree2.py
+  - perf/view2.py
+  - perf/csr2.py
+  - perf/grid.py
+  - perf/list_view.py
+  - perf/segtree6.py
+  - perf/bit2.py
+  - perf/deque.py
+  - perf/csr6.py
   - perf/bytearray_decode.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/perf/benchmark.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/timing.py

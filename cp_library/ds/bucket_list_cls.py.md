@@ -9,16 +9,16 @@ data:
   attributes:
     links:
     - https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py
-  bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\nfrom math import ceil, sqrt\nfrom typing import Iterable, Iterator,\
-    \ MutableSequence\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
-    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
-    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \nfrom math import ceil, sqrt\nfrom typing import Iterable, Iterator, MutableSequence\n\
+    from typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py\n\
     class BucketList(MutableSequence[_T]):\n    BUCKET_RATIO = 16\n    SPLIT_RATIO\
     \ = 24\n    \n    def __init__(self, a: Iterable[_T] = []) -> None:\n        a\
     \ = list(a)\n        n = self.size = len(a)\n        num_bucket = int(ceil(sqrt(n\
@@ -66,9 +66,9 @@ data:
     \n    def clear(self):\n        self.a = []\n        self.size = 0\n\n    def\
     \ reverse(self):\n        self.a.reverse()\n        for a in self.a: a.reverse()\n\
     \n    def copy(self):\n        return BucketList(self)\n"
-  code: "\nimport cp_library.ds.__header__\nfrom math import ceil, sqrt\nfrom typing\
-    \ import Iterable, Iterator, MutableSequence\nfrom cp_library.misc.typing import\
-    \ _T\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py\n\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nfrom math\
+    \ import ceil, sqrt\nfrom typing import Iterable, Iterator, MutableSequence\n\
+    from cp_library.misc.typing import _T\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py\n\
     class BucketList(MutableSequence[_T]):\n    BUCKET_RATIO = 16\n    SPLIT_RATIO\
     \ = 24\n    \n    def __init__(self, a: Iterable[_T] = []) -> None:\n        a\
     \ = list(a)\n        n = self.size = len(a)\n        num_bucket = int(ceil(sqrt(n\
@@ -120,7 +120,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bucket_list_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/bucket_list_cls.py

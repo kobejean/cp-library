@@ -11,17 +11,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fbisect_left(key, hi, x = True, lo = 0.0, tol=1e-9):\n    while hi - lo\
-    \ > tol:            \n        mid = (lo + hi) / 2\n        if key(mid) >= x: hi\
-    \ = mid\n        else: lo = mid\n    return lo\n\ndef fbisect_right(key, hi, x=False,\
-    \ lo=0.0, tol=1e-9):\n    while hi - lo > tol:\n        mid = (lo + hi) / 2\n\
-    \        if key(mid) > x: hi = mid\n        else: lo = mid\n    return hi\n"
+  bundledCode: "\n\ndef fbisect_left(key, hi, x = True, lo = 0.0, tol=1e-9):\n   \
+    \ while hi - lo > tol:            \n        mid = (lo + hi) / 2\n        if key(mid)\
+    \ >= x: hi = mid\n        else: lo = mid\n    return lo\n\ndef fbisect_right(key,\
+    \ hi, x=False, lo=0.0, tol=1e-9):\n    while hi - lo > tol:\n        mid = (lo\
+    \ + hi) / 2\n        if key(mid) > x: hi = mid\n        else: lo = mid\n    return\
+    \ hi\n"
   code: "import cp_library.alg.divcon.__header__\n\ndef fbisect_left(key, hi, x =\
     \ True, lo = 0.0, tol=1e-9):\n    while hi - lo > tol:            \n        mid\
     \ = (lo + hi) / 2\n        if key(mid) >= x: hi = mid\n        else: lo = mid\n\
@@ -32,7 +27,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/divcon/fbisect_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc151_f_fbisect_left.test.py

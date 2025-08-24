@@ -87,6 +87,9 @@ data:
     path: perf/segtree6.py
     title: perf/segtree6.py
   - icon: ':warning:'
+    path: perf/stack_operations.py
+    title: perf/stack_operations.py
+  - icon: ':warning:'
     path: perf/view2.py
     title: perf/view2.py
   - icon: ':warning:'
@@ -123,41 +126,41 @@ data:
     , line 418, in visit\n    return visitor(node)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/site-packages/onlinejudge_verify/languages/python_bundle.py\"\
     , line 64, in visit_ImportFrom\n    raise NotImplementedError(\"Relative imports\
     \ are not supported\")\nNotImplementedError: Relative imports are not supported\n"
-  code: "\"\"\"\nDeclarative benchmark framework with minimal boilerplate.\nRefactored\
-    \ to follow SOLID principles for better maintainability and extensibility.\n\n\
-    Features:\n- Decorator-based benchmark registration\n- Automatic data generation\
-    \ and validation\n- Built-in timing with warmup\n- Configurable operations and\
-    \ sizes\n- JSON results and matplotlib plotting\n- Reduced timing overhead with\
-    \ post-timing checksums\n- Pluggable renderers and output managers\n- Dependency\
-    \ injection for extensibility\n\"\"\"\n\nimport statistics\nfrom dataclasses import\
-    \ dataclass\nfrom typing import List, Optional\nfrom collections import defaultdict\n\
-    \nfrom cp_library.perf.interfaces import (\n    BenchmarkRegistry, BenchmarkOrchestrator,\
-    \ TimerInterface, \n    PlotRenderer, OutputManager, BenchmarkResult\n)\nfrom\
-    \ cp_library.perf.registry import BenchmarkRegistryImpl\nfrom cp_library.perf.orchestrator\
-    \ import BenchmarkOrchestratorImpl\nfrom cp_library.perf.timing import BenchmarkTimer\n\
-    from cp_library.perf.output import JSONOutputManager, NoOpOutputManager\nfrom\
-    \ cp_library.perf.renderers import CompositeRenderer\nfrom cp_library.perf.cli\
-    \ import BenchmarkCLI, CLIConfig\n\n\n@dataclass\nclass BenchmarkConfig:\n   \
-    \ \"\"\"Configuration for benchmark runs\"\"\"\n    name: str\n    sizes: List[int]\
-    \ = None\n    operations: List[str] = None\n    iterations: int = 10\n    warmup:\
-    \ int = 2\n    output_dir: str = \"./output/benchmark_results\"\n    save_results:\
-    \ bool = True\n    plot_results: bool = True\n    plot_scale: str = \"loglog\"\
-    \  # Options: \"loglog\", \"linear\", \"semilogx\", \"semilogy\"\n    progressive:\
-    \ bool = True  # Show results operation by operation across sizes\n    # Profiling\
-    \ mode (maintained for backward compatibility)\n    profile_mode: bool = False\n\
-    \    profile_size: int = None\n    profile_operation: str = None\n    profile_implementation:\
-    \ str = None\n    \n    def __post_init__(self):\n        if self.sizes is None:\n\
-    \            self.sizes = [100, 1000, 10000, 100000]\n        if self.operations\
-    \ is None:\n            self.operations = ['default']\n\n\nclass Benchmark:\n\
-    \    \"\"\"\n    Declarative benchmark framework using dependency injection and\
-    \ composition.\n    Follows SOLID principles for maintainability and extensibility.\n\
-    \    \n    Backward compatible with existing benchmarks while providing enhanced\
-    \ functionality.\n    \"\"\"\n    \n    def __init__(self, \n                \
-    \ config: BenchmarkConfig,\n                 registry: BenchmarkRegistry = None,\n\
-    \                 timer: TimerInterface = None,\n                 renderer: PlotRenderer\
-    \ = None,\n                 output_manager: OutputManager = None):\n        self.config\
-    \ = config\n        \n        # Dependency injection with sensible defaults for\
-    \ backward compatibility\n        self.registry = registry or BenchmarkRegistryImpl()\n\
+  code: "import cp_library.__header__\n\"\"\"\nDeclarative benchmark framework with\
+    \ minimal boilerplate.\nRefactored to follow SOLID principles for better maintainability\
+    \ and extensibility.\n\nFeatures:\n- Decorator-based benchmark registration\n\
+    - Automatic data generation and validation\n- Built-in timing with warmup\n- Configurable\
+    \ operations and sizes\n- JSON results and matplotlib plotting\n- Reduced timing\
+    \ overhead with post-timing checksums\n- Pluggable renderers and output managers\n\
+    - Dependency injection for extensibility\n\"\"\"\n\nimport statistics\nfrom dataclasses\
+    \ import dataclass\nfrom typing import List, Optional\nfrom collections import\
+    \ defaultdict\nimport cp_library.perf.__header__\nfrom cp_library.perf.interfaces\
+    \ import (\n    BenchmarkRegistry, BenchmarkOrchestrator, TimerInterface, \n \
+    \   PlotRenderer, OutputManager, BenchmarkResult\n)\nfrom cp_library.perf.registry\
+    \ import BenchmarkRegistryImpl\nfrom cp_library.perf.orchestrator import BenchmarkOrchestratorImpl\n\
+    from cp_library.perf.timing import BenchmarkTimer\nfrom cp_library.perf.output\
+    \ import JSONOutputManager, NoOpOutputManager\nfrom cp_library.perf.renderers\
+    \ import CompositeRenderer\nfrom cp_library.perf.cli import BenchmarkCLI, CLIConfig\n\
+    \n\n@dataclass\nclass BenchmarkConfig:\n    \"\"\"Configuration for benchmark\
+    \ runs\"\"\"\n    name: str\n    sizes: List[int] = None\n    operations: List[str]\
+    \ = None\n    iterations: int = 10\n    warmup: int = 2\n    output_dir: str =\
+    \ \"./output/benchmark_results\"\n    save_results: bool = True\n    plot_results:\
+    \ bool = True\n    plot_scale: str = \"loglog\"  # Options: \"loglog\", \"linear\"\
+    , \"semilogx\", \"semilogy\"\n    progressive: bool = True  # Show results operation\
+    \ by operation across sizes\n    # Profiling mode (maintained for backward compatibility)\n\
+    \    profile_mode: bool = False\n    profile_size: int = None\n    profile_operation:\
+    \ str = None\n    profile_implementation: str = None\n    \n    def __post_init__(self):\n\
+    \        if self.sizes is None:\n            self.sizes = [100, 1000, 10000, 100000]\n\
+    \        if self.operations is None:\n            self.operations = ['default']\n\
+    \n\nclass Benchmark:\n    \"\"\"\n    Declarative benchmark framework using dependency\
+    \ injection and composition.\n    Follows SOLID principles for maintainability\
+    \ and extensibility.\n    \n    Backward compatible with existing benchmarks while\
+    \ providing enhanced functionality.\n    \"\"\"\n    \n    def __init__(self,\
+    \ \n                 config: BenchmarkConfig,\n                 registry: BenchmarkRegistry\
+    \ = None,\n                 timer: TimerInterface = None,\n                 renderer:\
+    \ PlotRenderer = None,\n                 output_manager: OutputManager = None):\n\
+    \        self.config = config\n        \n        # Dependency injection with sensible\
+    \ defaults for backward compatibility\n        self.registry = registry or BenchmarkRegistryImpl()\n\
     \        self.timer = timer or BenchmarkTimer(config.iterations, config.warmup)\n\
     \        self.renderer = renderer or CompositeRenderer(config.plot_scale)\n  \
     \      self.output_manager = output_manager or (\n            JSONOutputManager(config.output_dir)\
@@ -283,29 +286,30 @@ data:
   isVerificationFile: false
   path: cp_library/perf/benchmark.py
   requiredBy:
-  - perf/bool_list.py
-  - perf/view2.py
-  - perf/heap_view.py
-  - perf/list_view.py
-  - perf/mlist.py
+  - perf/list2.py
   - perf/que.py
   - perf/list6.py
-  - perf/grid.py
-  - perf/edge_list.py
-  - perf/csr.py
-  - perf/bit6.py
-  - perf/deque.py
-  - perf/segtree2.py
-  - perf/view6.py
-  - perf/csr6.py
-  - perf/segtree6.py
-  - perf/csr2.py
-  - perf/bit2.py
-  - perf/rank.py
-  - perf/list2.py
   - perf/heap_csr.py
+  - perf/mlist.py
+  - perf/bit6.py
+  - perf/view6.py
+  - perf/stack_operations.py
+  - perf/csr.py
+  - perf/edge_list.py
+  - perf/rank.py
+  - perf/bool_list.py
+  - perf/heap_view.py
+  - perf/segtree2.py
+  - perf/view2.py
+  - perf/csr2.py
+  - perf/grid.py
+  - perf/list_view.py
+  - perf/segtree6.py
+  - perf/bit2.py
+  - perf/deque.py
+  - perf/csr6.py
   - perf/bytearray_decode.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/benchmark.py

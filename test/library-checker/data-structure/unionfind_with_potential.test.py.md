@@ -40,9 +40,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
-    \n             https://kobejean.github.io/cp-library               \n'''\n\nclass\
-    \ PotentializedDSU:\n\n    def __init__(self, op, inv, e, v) -> None:\n      \
-    \  n = v if isinstance(v, int) else len(v)\n        self.n = n\n        self.par\
+    \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
+    class PotentializedDSU:\n\n    def __init__(self, op, inv, e, v) -> None:\n  \
+    \      n = v if isinstance(v, int) else len(v)\n        self.n = n\n        self.par\
     \ = [-1] * n\n        self.op = op\n        self.inv = inv\n        self.e = e\n\
     \        self.pot = [e] * n if isinstance(v, int) else v\n\n    def root(self,\
     \ x: int) -> int:\n        assert 0 <= x < self.n\n        path = []\n       \
@@ -67,7 +67,7 @@ data:
     \            result[root_buf[i]].append(i)\n\n        return list(filter(lambda\
     \ r: r, result))\n\n    def diff(self, x: int, y: int):\n        assert self.same(x,\
     \ y)\n        return self.op(self.pot[x], self.inv(self.pot[y]))\nfrom typing\
-    \ import Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \ import Type, Union, overload\nfrom typing import TypeVar\n\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
@@ -78,7 +78,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -180,15 +180,14 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nmod = 998244353\nN, Q = read()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef\
-    \ inv(x):\n    return (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\nfor _\
-    \ in range(Q):\n    t, *q = read()\n    if t:\n        u, v = q\n        ans =\
-    \ pdsu.diff(u, v) if pdsu.same(u, v) else -1\n        write(ans)\n    else:\n\
-    \        u, v, x = q\n        write(int(pdsu.consistent(u,v,x)))\n        pdsu.merge(u,\
-    \ v, x)\n\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nmod = 998244353\n\
+    N, Q = read()\n\ndef op(x,y):\n    return (x+y)%mod\n\ndef inv(x):\n    return\
+    \ (-x)%mod\n\npdsu = PotentializedDSU(op,inv,0,N)\n\nfor _ in range(Q):\n    t,\
+    \ *q = read()\n    if t:\n        u, v = q\n        ans = pdsu.diff(u, v) if pdsu.same(u,\
+    \ v) else -1\n        write(ans)\n    else:\n        u, v, x = q\n        write(int(pdsu.consistent(u,v,x)))\n\
+    \        pdsu.merge(u, v, x)\n\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/unionfind_with_potential\n\
     \nfrom cp_library.ds.potentialized_dsu_cls import PotentializedDSU\nfrom cp_library.io.read_fn\
     \ import read\nfrom cp_library.io.write_fn import write\n\nmod = 998244353\nN,\
@@ -209,7 +208,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/unionfind_with_potential.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/unionfind_with_potential.test.py

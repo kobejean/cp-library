@@ -53,17 +53,17 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\n'''\n\u257A\u2501\u2501\u2501\u2501\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\n'''\n\u257A\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n    x\u2080 \u2500\u2500\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2080\n                \u2573   \
-    \       \u2572 \u2571          \u2572     \u2571          \n    x\u2084 \u2500\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n    x\u2080 \u2500\u2500\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25BA X\u2080\n                \u2573\
+    \          \u2572 \u2571          \u2572     \u2571          \n    x\u2084 \u2500\
     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2572\u2500\u2500\u2500\u2571\u2500\
@@ -136,19 +136,19 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/mod/isubset_conv_ranked_fn.py
   requiredBy:
-  - cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - cp_library/math/sps/mod/sps_exp_fn.py
   - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
   - cp_library/math/sps/mod/sps_mul_fn.py
-  - cp_library/math/sps/mod/sps_exp_fn.py
+  - cp_library/math/sps/mod/sps_pow_proj_fn.py
   - cp_library/math/conv/mod/isubset_conv_fn.py
   - cp_library/math/conv/mod/subset_conv_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
-  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
 documentation_of: cp_library/math/conv/mod/isubset_conv_ranked_fn.py
 layout: document
 redirect_from:

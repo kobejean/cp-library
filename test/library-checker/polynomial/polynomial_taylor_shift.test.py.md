@@ -57,77 +57,78 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n   \
-    \          https://kobejean.github.io/cp-library               \n'''\n\n    \n\
-    class mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n\
-    \    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n        if 0\
-    \ <= (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n        else: return\
-    \ cls.fix(x)\n    @classmethod\n    def set_mod(cls, mod: int):\n        mint.mod\
-    \ = cls.mod = mod\n        mint.zero = cls.zero = cls.cast(0)\n        mint.one\
-    \ = cls.one = cls.fix(1)\n        mint.two = cls.two = cls.fix(2)\n        mint.cache\
-    \ = cls.cache = [cls.zero, cls.one, cls.two]\n        for x in range(3,64): mint.cache.append(cls.fix(x))\n\
-    \    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n    @classmethod\n\
-    \    def cast(cls, x): return super().__new__(cls,x)\n    @classmethod\n    def\
-    \ mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b:\
-    \ a,b,s,t = b,a%b,t,s-a//b*t\n        if a == 1: return cls.fix(s)\n        raise\
-    \ ValueError(f\"{x} is not invertible in mod {cls.mod}\")\n    @property\n   \
-    \ def inv(self): return mint.mod_inv(self)\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
-    \    def __radd__(self, x): return mint.fix(super().__radd__(x))\n    def __sub__(self,\
-    \ x): return mint.fix(super().__sub__(x))\n    def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n\
-    \    def __mul__(self, x): return mint.fix(super().__mul__(x))\n    def __rmul__(self,\
-    \ x): return mint.fix(super().__rmul__(x))\n    def __floordiv__(self, x): return\
-    \ self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv * x\n\
-    \    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
-    \ x): return self.inv * x\n    def __pow__(self, x): return self.cast(super().__pow__(x,\
-    \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
-    \ return self\n    def __abs__(self): return self\n    def __class_getitem__(self,\
-    \ x: int): return self.cache[x]\n\n\ndef mod_inv(x, mod):\n    a, b, s, t = x,\
-    \ mod, 1, 0\n    while b:\n        a, b, s, t = b,a%b,t,s-a//b*t\n    if a ==\
-    \ 1: return s % mod\n    raise ValueError(f\"{x} is not invertible in mod {mod}\"\
-    )\nfrom itertools import accumulate\n\nclass mcomb():\n    fact: list[int]\n \
-    \   fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n   \
-    \ def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
-    \        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n        fact_inv\
-    \ = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N], mod)))\n\
-    \        fact_inv.reverse()\n        mcomb.fact, mcomb.fact_inv = fact, fact_inv\n\
-    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, mcomb.inv,\
-    \ mint.mod\n        while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n\
-    \            inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def factorial(n:\
-    \ int, /) -> mint:\n        return mint(mcomb.fact[n])\n\n    @staticmethod\n\
-    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = mcomb.fact_inv,\
-    \ mint.mod\n        if n < k or k < 0: return mint.zero\n        return mint(inv[k]\
-    \ * inv[n-k] % mod * mcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
-    \    def comb_with_replacement(n: int, k: int, /) -> mint:\n        if n <= 0:\
-    \ return mint.zero\n        return mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
-    \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
-    \ nCk, res = mcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k), n-k\n\
-    \        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /) -> mint:\n\
-    \        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n    \
-    \    return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n    nPk = perm\n    \n\
-    \    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return mint(mcomb.nCk(2*n,n)\
-    \ * mcomb.fact_inv[n+1])\n\nclass NTT:\n    def __init__(self, mod = 998244353)\
-    \ -> None:\n        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n\
-    \        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root\
-    \ = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n\
-    \        self.iroot = iroot = [0] * (rank2 + 1)\n        iroot[rank2] = pow(root[rank2],\
-    \ m - 2, m)\n        for i in range(rank2 - 1, -1, -1):\n            root[i] =\
-    \ root[i+1] * root[i+1] % m\n            iroot[i] = iroot[i+1] * iroot[i+1] %\
-    \ m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1), [0]*max(0,rank2-s+1)\n\
-    \            p = ip = 1\n            for i in range(rank2-s+1):\n            \
-    \    r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]= p*ir%m,ip*r%m,r*p%m,ir*ip%m\n\
-    \            return r8, ir8\n        self.rate2, self.irate2 = rates(2)\n    \
-    \    self.rate3, self.irate3 = rates(3)\n \n    def primitive_root(self, m):\n\
-    \        if m == 2: return 1\n        if m == 167772161: return 3\n        if\
-    \ m == 469762049: return 3\n        if m == 754974721: return 11\n        if m\
-    \ == 998244353: return 3\n        divs = [0] * 20\n        cnt, divs[0], x = 1,\
-    \ 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n        i=3\n        while\
-    \ i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt = i,cnt+1\n\
-    \                while x%i==0:x//=i\n            i+=2\n        if x > 1: divs[cnt],cnt\
-    \ = x,cnt+1\n        for g in range(2,m):\n            for i in range(cnt):\n\
-    \                if pow(g,(m-1)//divs[i],m)==1:break\n            else:return\
-    \ g\n    \n    def fntt(self, A: list[int]):\n        im, r8, m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n\
-    \        for L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n         \
-    \   for s in range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n\
-    \                for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
+    \          https://kobejean.github.io/cp-library               \n'''\n\n\n\n \
+    \   \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n    two:\
+    \ 'mint'\n    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n  \
+    \      if 0 <= (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n       \
+    \ else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls, mod: int):\n\
+    \        mint.mod = cls.mod = mod\n        mint.zero = cls.zero = cls.cast(0)\n\
+    \        mint.one = cls.one = cls.fix(1)\n        mint.two = cls.two = cls.fix(2)\n\
+    \        mint.cache = cls.cache = [cls.zero, cls.one, cls.two]\n        for x\
+    \ in range(3,64): mint.cache.append(cls.fix(x))\n    @classmethod\n    def fix(cls,\
+    \ x): return cls.cast(x%cls.mod)\n    @classmethod\n    def cast(cls, x): return\
+    \ super().__new__(cls,x)\n    @classmethod\n    def mod_inv(cls, x):\n       \
+    \ a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
+    \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
+    \ invertible in mod {cls.mod}\")\n    @property\n    def inv(self): return mint.mod_inv(self)\n\
+    \    def __add__(self, x): return mint.fix(super().__add__(x))\n    def __radd__(self,\
+    \ x): return mint.fix(super().__radd__(x))\n    def __sub__(self, x): return mint.fix(super().__sub__(x))\n\
+    \    def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n    def __mul__(self,\
+    \ x): return mint.fix(super().__mul__(x))\n    def __rmul__(self, x): return mint.fix(super().__rmul__(x))\n\
+    \    def __floordiv__(self, x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self,\
+    \ x): return self.inv * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n\
+    \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
+    \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
+    \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
+    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\ndef\
+    \ mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b,\
+    \ s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
+    {x} is not invertible in mod {mod}\")\nfrom itertools import accumulate\n\nclass\
+    \ mcomb():\n    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] =\
+    \ [0,1]\n\n    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n  \
+    \      def mod_mul(a,b): return a*b%mod\n        fact = list(accumulate(range(1,N+1),\
+    \ mod_mul, initial=1))\n        fact_inv = list(accumulate(range(N,0,-1), mod_mul,\
+    \ initial=mod_inv(fact[N], mod)))\n        fact_inv.reverse()\n        mcomb.fact,\
+    \ mcomb.fact_inv = fact, fact_inv\n    \n    @staticmethod\n    def extend_inv(N):\n\
+    \        N, inv, mod = N+1, mcomb.inv, mint.mod\n        while len(inv) < N:\n\
+    \            j, k = divmod(mod, len(inv))\n            inv.append(-inv[k] * j\
+    \ % mod)\n\n    @staticmethod\n    def factorial(n: int, /) -> mint:\n       \
+    \ return mint(mcomb.fact[n])\n\n    @staticmethod\n    def comb(n: int, k: int,\
+    \ /) -> mint:\n        inv, mod = mcomb.fact_inv, mint.mod\n        if n < k or\
+    \ k < 0: return mint.zero\n        return mint(inv[k] * inv[n-k] % mod * mcomb.fact[n])\n\
+    \    nCk = binom = comb\n    \n    @staticmethod\n    def comb_with_replacement(n:\
+    \ int, k: int, /) -> mint:\n        if n <= 0: return mint.zero\n        return\
+    \ mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n\
+    \    def multinom(n: int, *K: int) -> mint:\n        nCk, res = mcomb.nCk, mint.one\n\
+    \        for k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
+    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
+    \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
+    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
+    \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n\nclass NTT:\n \
+    \   def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
+    \        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
+    \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
+    \ (m - 1) >> rank2, m)\n        self.iroot = iroot = [0] * (rank2 + 1)\n     \
+    \   iroot[rank2] = pow(root[rank2], m - 2, m)\n        for i in range(rank2 -\
+    \ 1, -1, -1):\n            root[i] = root[i+1] * root[i+1] % m\n            iroot[i]\
+    \ = iroot[i+1] * iroot[i+1] % m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1),\
+    \ [0]*max(0,rank2-s+1)\n            p = ip = 1\n            for i in range(rank2-s+1):\n\
+    \                r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]=\
+    \ p*ir%m,ip*r%m,r*p%m,ir*ip%m\n            return r8, ir8\n        self.rate2,\
+    \ self.irate2 = rates(2)\n        self.rate3, self.irate3 = rates(3)\n \n    def\
+    \ primitive_root(self, m):\n        if m == 2: return 1\n        if m == 167772161:\
+    \ return 3\n        if m == 469762049: return 3\n        if m == 754974721: return\
+    \ 11\n        if m == 998244353: return 3\n        divs = [0] * 20\n        cnt,\
+    \ divs[0], x = 1, 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n       \
+    \ i=3\n        while i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt\
+    \ = i,cnt+1\n                while x%i==0:x//=i\n            i+=2\n        if\
+    \ x > 1: divs[cnt],cnt = x,cnt+1\n        for g in range(2,m):\n            for\
+    \ i in range(cnt):\n                if pow(g,(m-1)//divs[i],m)==1:break\n    \
+    \        else:return g\n    \n    def fntt(self, A: list[int]):\n        im, r8,\
+    \ m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n        for\
+    \ L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n            for s in\
+    \ range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n           \
+    \     for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
     \                    a0,a1,a2,a3 = A[i0],A[i1]*r,A[i2]*r2,A[i3]*r3\n         \
     \           a0,a1,a2,a3 = a0+a2,a1+a3,a0-a2,(a1-a3)%m*im\n                   \
     \ A[i0],A[i1],A[i2],A[i3] = (a0+a1)%m,(a0-a1)%m,(a2+a3)%m,(a2-a3)%m\n        \
@@ -175,7 +176,7 @@ data:
     \    R, B = [P[i]*fact[i]%mod for i in range(N-1,-1,-1)], [0]*N; B[0] = 1\n  \
     \  for i in range(1,N): B[i] = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R,\
     \ B, N)\n    return [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\nfrom\
-    \ typing import Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \ typing import Type, Union, overload\nfrom typing import TypeVar\n\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
@@ -186,7 +187,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -288,10 +289,10 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/polynomial_taylor_shift\n\
     \ndef main():\n    N, c = read()\n    mint.set_mod(998244353)\n    mcomb.precomp(N)\n\
     \    A = read(list[int])\n    B = fps_tayler_shift(A, c)\n    write(*B)\n\nfrom\
@@ -316,7 +317,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/polynomial/polynomial_taylor_shift.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/polynomial/polynomial_taylor_shift.test.py

@@ -63,15 +63,15 @@ data:
     \ < v: d[k], k, c = d[c], c, (c+1)<<1\n            if c < n+2 and d[c] < v: d[k],\
     \ k = d[c], c\n            d[k] = v\n            if k+1 < n+2 and d[k+1] < d[k]:\n\
     \                d[k] = d[k+1]; k ^= 1\n                while rt <= (p := (k>>1)-1|1)\
-    \ and d[p] < v: d[k], k = d[p], p\n                d[k] = v\n\ndef reserve(A:\
+    \ and d[p] < v: d[k], k = d[p], p\n                d[k] = v\n\n\ndef reserve(A:\
     \ list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\n\
     except:\n    def resizelist_hint(A: list, est_len: int):\n        pass\nreserve\
     \ = resizelist_hint\n\nfrom os import read as os_read, write as os_write, fstat\
-    \ as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\n\ndef\
-    \ max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n    def\
-    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
-    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
-    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \ as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\n\n\n\
+    def max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n   \
+    \ def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
+    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
+    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
     \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
     \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
     \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
@@ -130,9 +130,9 @@ data:
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
-    \ l)))\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\nif __name__ == '__main__':\n    main()\n"
+    \ l)))\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\n\
+    if __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/double_ended_priority_queue\n\
     \ndef main():\n    N, Q = rd()\n    S = rdl(N)\n    reserve(S, N+Q)\n    heap\
     \ = IntervalHeap(S)\n\n    for _ in range(Q):\n        t = rd()\n        if t[0]\
@@ -151,7 +151,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/double_ended_priority_queue.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/double_ended_priority_queue.test.py

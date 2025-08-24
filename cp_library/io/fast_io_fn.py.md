@@ -87,7 +87,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \nfrom os import read as os_read, write as os_write, fstat as os_fstat\nimport\
-    \ sys\nfrom __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return\
+    \ sys\nfrom __pypy__.builders import StringBuilder\n\n\n\ndef max2(a, b): return\
     \ a if a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool:\
     \ ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
     \ -> str: ...\n    def write(io, s: str) -> None: ...\n    def readline(io) ->\
@@ -150,12 +150,10 @@ data:
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
-    \ l)))\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n"
+    \ l)))\n\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n\
+    \    \n"
   code: 'import cp_library.__header__
-
-    import cp_library.io.__header__
 
     import cp_library.io.__header__
 
@@ -182,28 +180,28 @@ data:
   isVerificationFile: false
   path: cp_library/io/fast_io_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/convolution/bitwise_and_convolution_fast.test.py
-  - test/library-checker/convolution/bitwise_xor_convolution.test.py
-  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
-  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
-  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
+  - test/library-checker/graph/two_edge_connected_components_scratch.test.py
+  - test/library-checker/graph/biconnected_components_scratch.test.py
+  - test/library-checker/graph/incremental_scc_paralel_sort.test.py
+  - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
+  - test/library-checker/graph/incremental_scc.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
   - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   - test/library-checker/set-power-series/subset_convolution_snippet.test.py
-  - test/library-checker/graph/incremental_scc_paralel_sort.test.py
-  - test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
-  - test/library-checker/graph/biconnected_components_scratch.test.py
-  - test/library-checker/graph/incremental_scc.test.py
-  - test/library-checker/graph/two_edge_connected_components_scratch.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
   - test/library-checker/tree/rooted_tree_isomorphism_classification.test.py
+  - test/library-checker/other/longest_increasing_sequence.test.py
   - test/library-checker/data-structure/double_ended_priority_queue.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   - test/library-checker/data-structure/staticrmq_general.test.py
   - test/library-checker/data-structure/staticrmq.test.py
-  - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
-  - test/library-checker/other/longest_increasing_sequence.test.py
+  - test/library-checker/convolution/bitwise_and_convolution_fast.test.py
+  - test/library-checker/convolution/bitwise_xor_convolution.test.py
   - test/aoj/grl/grl_2_c_scc_fast.test.py
 documentation_of: cp_library/io/fast_io_fn.py
 layout: document

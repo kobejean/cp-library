@@ -44,7 +44,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import operator\nfrom typing import Callable\n\n\ndef reserve(A: list, est_len:\
+    import operator\nfrom typing import Callable\n\n\n\n\n\ndef reserve(A: list, est_len:\
     \ int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n\
     \    def resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
     \nclass Primes(list[int]):\n    def __init__(P, N: int):\n        super().__init__()\n\
@@ -71,9 +71,10 @@ data:
     \ B: list[int], add = operator.add, sub = operator.sub, mul = operator.mul):\n\
     \        A, B = P.divisor_zeta(A, add), P.divisor_zeta(B, add)\n        for i,\
     \ b in enumerate(B): A[i] = mul(A[i], b)\n        return P.divisor_mobius(A, sub)\n"
-  code: "import cp_library.math.table.__header__\nimport operator\nfrom typing import\
-    \ Callable\nfrom cp_library.ds.list.reserve_fn import reserve\n\nclass Primes(list[int]):\n\
-    \    def __init__(P, N: int):\n        super().__init__()\n        spf = [0] *\
+  code: "import cp_library.__header__\nimport operator\nfrom typing import Callable\n\
+    import cp_library.math.__header__\nimport cp_library.math.table.__header__\nfrom\
+    \ cp_library.ds.list.reserve_fn import reserve\n\nclass Primes(list[int]):\n \
+    \   def __init__(P, N: int):\n        super().__init__()\n        spf = [0] *\
     \ (N + 1)\n        spf[0], spf[1] = 0, 1\n        reserve(P, N)\n\n        for\
     \ i in range(2, N + 1):\n            if spf[i] == 0:\n                spf[i] =\
     \ i\n                P.append(i)\n            for p in P:\n                if\
@@ -102,18 +103,18 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/primes_cls.py
   requiredBy:
-  - cp_library/math/table/linear_sieve_cnts_cls.py
-  - cp_library/math/table/sieve_proto.py
-  - cp_library/math/table/sieve_cls.py
   - cp_library/math/table/totient_cls.py
+  - cp_library/math/table/sieve_cls.py
+  - cp_library/math/table/sieve_proto.py
   - cp_library/math/table/linear_sieve_cls.py
+  - cp_library/math/table/linear_sieve_cnts_cls.py
   - cp_library/math/conv/lcm_conv_fn.py
   - cp_library/math/conv/gcd_conv_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/convolution/lcm_convolution.test.py
   - test/library-checker/convolution/gcd_convolution.test.py
+  - test/library-checker/convolution/lcm_convolution.test.py
 documentation_of: cp_library/math/table/primes_cls.py
 layout: document
 redirect_from:

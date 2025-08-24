@@ -56,8 +56,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef sort2(a, b): return (a,b) if a < b else (b,a)\n"
-  code: 'import cp_library.alg.dp.__header__
+    \n\n\ndef sort2(a, b): return (a,b) if a < b else (b,a)\n"
+  code: 'import cp_library.__header__
+
+    import cp_library.alg.__header__
+
+    import cp_library.alg.dp.__header__
 
 
     def sort2(a, b): return (a,b) if a < b else (b,a)'
@@ -65,23 +69,23 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/sort2_fn.py
   requiredBy:
-  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/tree/jump_on_tree.test.py
   - test/yukicoder/3407.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
+  - test/library-checker/tree/lca.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/alg/dp/sort2_fn.py
 layout: document
 redirect_from:

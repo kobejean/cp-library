@@ -38,6 +38,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from typing import Generic\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I := list(A))-1);\
     \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass\
     \ Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
@@ -51,11 +54,8 @@ data:
     \n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order = [0]*len(L[0]),\
     \ argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order): inv[j] = i\n\
     \    for i, j in enumerate(order):\n        for A in L: A[i], A[j] = A[j], A[i]\n\
-    \        order[inv[i]], inv[j] = j, inv[i]\n    return L\nfrom typing import Generic\n\
-    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
-    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
-    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\nclass list3(Generic[_T1, _T2,\
-    \ _T3]):\n    __slots__ = 'A1', 'A2', 'A3'\n    def __init__(lst, A1: list[_T1],\
+    \        order[inv[i]], inv[j] = j, inv[i]\n    return L\n\n\n\nclass list3(Generic[_T1,\
+    \ _T2, _T3]):\n    __slots__ = 'A1', 'A2', 'A3'\n    def __init__(lst, A1: list[_T1],\
     \ A2: list[_T2], A3: list[_T3]):\n        lst.A1, lst.A2, lst.A3 = A1, A2, A3\n\
     \    def __len__(lst): return len(lst.A1)\n    def __getitem__(lst, i: int): return\
     \ lst.A1[i], lst.A2[i], lst.A3[i]\n    def __setitem__(lst, i: int, v: tuple[_T1,\
@@ -68,9 +68,9 @@ data:
     \ v3 = v\n        lst.A1.append(v1); lst.A2.append(v2); lst.A3.append(v3)\n  \
     \  def add(lst, i: int, v: tuple[_T1, _T2, _T3]): lst.A1[i] += v[0]; lst.A2[i]\
     \ += v[1]; lst.A3[i] += v[2]\n"
-  code: "from cp_library.alg.iter.sort.isort_parallel_fn import isort_parallel\nimport\
-    \ cp_library.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
-    \ import _T1, _T2, _T3\nimport cp_library.ds.__header__\nimport cp_library.ds.view.__header__\n\
+  code: "import cp_library.__header__\nfrom typing import Generic\nfrom cp_library.misc.typing\
+    \ import _T1, _T2, _T3\nfrom cp_library.alg.iter.sort.isort_parallel_fn import\
+    \ isort_parallel\nimport cp_library.ds.__header__\nimport cp_library.ds.list.__header__\n\
     \nclass list3(Generic[_T1, _T2, _T3]):\n    __slots__ = 'A1', 'A2', 'A3'\n   \
     \ def __init__(lst, A1: list[_T1], A2: list[_T2], A3: list[_T3]):\n        lst.A1,\
     \ lst.A2, lst.A3 = A1, A2, A3\n    def __len__(lst): return len(lst.A1)\n    def\
@@ -91,14 +91,14 @@ data:
   isVerificationFile: false
   path: cp_library/ds/list/list3_cls.py
   requiredBy:
-  - cp_library/ds/tree/seg/segtree3_cls.py
   - cp_library/ds/tree/bit/bit3_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/ds/tree/seg/segtree3_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/unittests/ds/tree/seg/segtree3_cls_test.py
-  - test/unittests/ds/tree/bit/bit3_cls_test.py
   - test/unittests/ds/list/list3_cls_test.py
+  - test/unittests/ds/tree/bit/bit3_cls_test.py
+  - test/unittests/ds/tree/seg/segtree3_cls_test.py
 documentation_of: cp_library/ds/list/list3_cls.py
 layout: document
 redirect_from:

@@ -36,11 +36,11 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
     \n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in range(N):\n        for\
-    \ m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\n\ndef\
-    \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S');\
-    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n    return P\n\n\n\n\
+    def elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\n\
+    from typing import Generic\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     import sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
     \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
@@ -182,7 +182,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_composite_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py

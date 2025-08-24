@@ -14,7 +14,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nclass BidirectionalArray:\n    def __init__(self, e, op, data):\n        self.size\
+    \n\nclass BidirectionalArray:\n    def __init__(self, e, op, data):\n        self.size\
     \ = len(data)\n        self.prefix = [e] + data.copy()\n        self.suffix =\
     \ data.copy() + [e]\n        self.e = e\n        self.op = op\n        for i in\
     \ range(self.size):\n            self.prefix[i+1] = op(self.prefix[i], self.prefix[i+1])\n\
@@ -23,7 +23,7 @@ data:
     \ r): return self.suffix[r]\n    def all(self): return self.prefix[-1]\n    def\
     \ out(self, l, r=None):\n        r = l+1 if r is None else r\n        return self.op(self.prefix[l],\
     \ self.suffix[r])\n"
-  code: "import cp_library.ds.__header__\nimport cp_library.__header__\n\nclass BidirectionalArray:\n\
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\n\nclass BidirectionalArray:\n\
     \    def __init__(self, e, op, data):\n        self.size = len(data)\n       \
     \ self.prefix = [e] + data.copy()\n        self.suffix = data.copy() + [e]\n \
     \       self.e = e\n        self.op = op\n        for i in range(self.size):\n\
@@ -37,7 +37,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/bidirectional_array_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/bidirectional_array_cls.py

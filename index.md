@@ -140,11 +140,23 @@ data:
       path: cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
       title: cp_library/alg/graph/csr/snippets/is_bipartite_fn.py
     - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/csr/snippets/recover_path_edge_ids_fn.py
+      title: cp_library/alg/graph/csr/snippets/recover_path_edge_ids_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/csr/snippets/recover_path_vertices_fn.py
+      title: cp_library/alg/graph/csr/snippets/recover_path_vertices_fn.py
+    - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/csr/snippets/scc_incremental_fn.py
       title: cp_library/alg/graph/csr/snippets/scc_incremental_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/csr/snippets/scc_labels_fn.py
       title: cp_library/alg/graph/csr/snippets/scc_labels_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/csr/snippets/shortest_path_edge_ids_fn.py
+      title: cp_library/alg/graph/csr/snippets/shortest_path_edge_ids_fn.py
+    - icon: ':heavy_check_mark:'
+      path: cp_library/alg/graph/csr/snippets/shortest_path_vertices_fn.py
+      title: cp_library/alg/graph/csr/snippets/shortest_path_vertices_fn.py
     - icon: ':heavy_check_mark:'
       path: cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
       title: cp_library/alg/graph/csr/snippets/strongly_connected_components_fn.py
@@ -693,6 +705,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: cp_library/ds/que/que_cls.py
       title: cp_library/ds/que/que_cls.py
+  - name: cp_library/ds/stack
+    pages:
+    - icon: ':warning:'
+      path: cp_library/ds/stack/stack_fn.py
+      title: cp_library/ds/stack/stack_fn.py
   - name: cp_library/ds/tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -1471,6 +1488,9 @@ data:
     - icon: ':warning:'
       path: perf/segtree6.py
       title: perf/segtree6.py
+    - icon: ':warning:'
+      path: perf/stack_operations.py
+      title: perf/stack_operations.py
     - icon: ':warning:'
       path: perf/view2.py
       title: perf/view2.py

@@ -131,57 +131,58 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__\
+    \ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
+    \        pass\nreserve = resizelist_hint\n"
+  code: "import cp_library.__header__\nimport cp_library.ds.__header__\nimport cp_library.ds.list.__header__\n\
     \ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import\
     \ resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
-    \        pass\nreserve = resizelist_hint\n"
-  code: "import cp_library.ds.__header__\n\ndef reserve(A: list, est_len: int) ->\
-    \ None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
-    \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint"
+    \        pass\nreserve = resizelist_hint"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/ds/list/reserve_fn.py
   requiredBy:
-  - cp_library/ds/tree/bst/treap_monoid_cls.py
-  - cp_library/ds/tree/bst/cartesian_tree_implicit_cls.py
-  - cp_library/ds/tree/bst/treap_sized_cls.py
-  - cp_library/ds/tree/bst/cartesian_tree_reversible_cls.py
-  - cp_library/ds/tree/bst/cartesian_tree_sized_cls.py
-  - cp_library/ds/tree/bst/treap_cls.py
-  - cp_library/ds/tree/bst/bst_sized_cls.py
-  - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
-  - cp_library/ds/tree/bst/bst_implicit_cls.py
-  - cp_library/ds/tree/bst/bst_cls.py
-  - cp_library/ds/tree/bst/treap_implicit_cls.py
-  - cp_library/ds/tree/bst/cartesian_tree_cls.py
-  - cp_library/ds/tree/bst/bst_updates_cls.py
-  - cp_library/ds/tree/bst/bst_reversible_cls.py
-  - cp_library/ds/tree/bst/treap_reversible_cls.py
-  - cp_library/math/table/linear_sieve_cnts_cls.py
-  - cp_library/math/table/sieve_proto.py
-  - cp_library/math/table/primes_cls.py
-  - cp_library/math/table/sieve_cls.py
-  - cp_library/math/table/stirling2_k_fn.py
-  - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/table/totient_cls.py
-  - cp_library/math/table/linear_sieve_cls.py
+  - perf/bytearray_decode.py
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/table/totient_cls.py
+  - cp_library/math/table/sieve_cls.py
+  - cp_library/math/table/primes_cls.py
+  - cp_library/math/table/stirling2_k_fn.py
+  - cp_library/math/table/sieve_proto.py
+  - cp_library/math/table/stirling1_k_fn.py
+  - cp_library/math/table/linear_sieve_cls.py
+  - cp_library/math/table/linear_sieve_cnts_cls.py
   - cp_library/math/conv/lcm_conv_fn.py
   - cp_library/math/conv/gcd_conv_fn.py
-  - perf/bytearray_decode.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/ds/tree/bst/treap_sized_cls.py
+  - cp_library/ds/tree/bst/bst_implicit_cls.py
+  - cp_library/ds/tree/bst/treap_monoid_reversible_cls.py
+  - cp_library/ds/tree/bst/bst_cls.py
+  - cp_library/ds/tree/bst/bst_reversible_cls.py
+  - cp_library/ds/tree/bst/treap_implicit_cls.py
+  - cp_library/ds/tree/bst/cartesian_tree_implicit_cls.py
+  - cp_library/ds/tree/bst/treap_monoid_cls.py
+  - cp_library/ds/tree/bst/bst_sized_cls.py
+  - cp_library/ds/tree/bst/bst_updates_cls.py
+  - cp_library/ds/tree/bst/cartesian_tree_reversible_cls.py
+  - cp_library/ds/tree/bst/treap_cls.py
+  - cp_library/ds/tree/bst/cartesian_tree_sized_cls.py
+  - cp_library/ds/tree/bst/cartesian_tree_cls.py
+  - cp_library/ds/tree/bst/treap_reversible_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/convolution/lcm_convolution.test.py
-  - test/library-checker/convolution/gcd_convolution.test.py
-  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/library-checker/data-structure/range_reverse_range_sum.test.py
   - test/library-checker/data-structure/double_ended_priority_queue.test.py
   - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
+  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+  - test/library-checker/convolution/gcd_convolution.test.py
+  - test/library-checker/convolution/lcm_convolution.test.py
   - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
 documentation_of: cp_library/ds/list/reserve_fn.py
 layout: document

@@ -61,15 +61,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
-    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
-    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\nfrom typing import\
-    \ Callable, Generic, Union\n\n\n\nclass SegTree(Generic[_T]):\n    _lst = list\n\
-    \    \n    def __init__(seg, op: Callable[[_T, _T], _T], e: _T, v: Union[int,\
-    \ list[_T]]) -> None:\n        if isinstance(v, int): n = v; v = None\n      \
-    \  else: n = len(v)\n        seg.op, seg.e, seg.n = op, e, n\n        seg.log,\
-    \ seg.sz = (log := (n-1).bit_length()+1), (sz := 1 << log)\n        if seg._lst\
-    \ is list: seg.d = [e]*(sz<<1)\n        else: seg.d = seg._lst(*([e_]*(sz<<1)\
+    \               \n'''\n\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T =\
+    \ TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3\
+    \ = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    from typing import Callable, Generic, Union\n\n\n\nclass SegTree(Generic[_T]):\n\
+    \    _lst = list\n    \n    def __init__(seg, op: Callable[[_T, _T], _T], e: _T,\
+    \ v: Union[int, list[_T]]) -> None:\n        if isinstance(v, int): n = v; v =\
+    \ None\n        else: n = len(v)\n        seg.op, seg.e, seg.n = op, e, n\n  \
+    \      seg.log, seg.sz = (log := (n-1).bit_length()+1), (sz := 1 << log)\n   \
+    \     if seg._lst is list: seg.d = [e]*(sz<<1)\n        else: seg.d = seg._lst(*([e_]*(sz<<1)\
     \ for e_ in e))\n        if v: seg._build(v)\n\n    def _build(seg, v):\n    \
     \    for i in range(seg.n): seg.d[seg.sz + i] = v[i]\n        for i in range(seg.sz-1,0,-1):\
     \ seg._merge(i, i<<1, i<<1|1)\n    \n    def _merge(seg, i, j, k): seg.d[i] =\
@@ -124,15 +124,14 @@ data:
     \    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
     \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
-    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\nfrom array import array\ndef\
-    \ u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    \nclass WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int,\
-    \ H: int):\n            super().__init__(N)\n            L.H = H\n        def\
-    \ build(L):\n            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1],\
-    \ L.cnt[-1]\n        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if\
-    \ bit else L.count0(i)\n        def pos2(L, bit: int, i: int, j: int): return\
-    \ (L.T0+L.count1(i), L.T0+L.count1(j)) if bit else (L.count0(i), L.count0(j))\n\
-    \    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
+    \ 'bit_count'): popcnt32 = int.bit_count\nfrom array import array\n\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\nclass\
+    \ WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int, H: int):\n\
+    \            super().__init__(N)\n            L.H = H\n        def build(L):\n\
+    \            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1], L.cnt[-1]\n\
+    \        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if bit else L.count0(i)\n\
+    \        def pos2(L, bit: int, i: int, j: int): return (L.T0+L.count1(i), L.T0+L.count1(j))\
+    \ if bit else (L.count0(i), L.count0(j))\n    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
     \ Amax is None else Amax)\n    def _build(wm, A, nA, Amax):wm.N,wm.H=len(A),Amax.bit_length();wm._build_levels(A,nA)\n\
     \    def _build_levels(wm, A, nA):\n        wm.up=[wm.Level(wm.N,H) for H in range(wm.H)];wm.down=wm.up[::-1]\n\
     \        for L in wm.down:\n            x,y,i=-1,wm.N-1,wm.N\n            while\
@@ -202,9 +201,9 @@ data:
     \ wm.W.prod(l,r)\n    def set(wm,i:int,w:int):\n        wm.W.set(i,w)\n      \
     \  for L in wm.down:L.W.set(i:=L.pos(L[i],i),w)\n    def get(wm,i:int):return\
     \ wm.W.get(i)\n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\n\n\
-    def max2(a, b): return a if a > b else b\n\n\ndef elist(est_len: int) -> list:\
-    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n\ndef icoord_compress_with_queries(*A:\
+    \ndef max2(a, b): return a if a > b else b\n\n\ndef elist(hint: int) -> list:\
+    \ ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\
+    \ return []\nelist = newlist_hint\n    \n\ndef icoord_compress_with_queries(*A:\
     \ list[int], distinct=False):\n    N = mx = 0\n    for Ai in A: N += len(Ai);\
     \ mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1); sj, mj = pack_sm((len(A)-1)<<si)\n\
     \    S, k = [0]*N, 0\n    for i,Ai in enumerate(A):\n        for j,a in enumerate(Ai):\
@@ -255,7 +254,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_add_rectangle_sum_wm_segtree.test.py

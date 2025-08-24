@@ -20,15 +20,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nfrom array import array\ndef u32a(init = None): return array('I') if init\
+    from array import array\n\n\ndef u32a(init = None): return array('I') if init\
     \ is None else array('I', init)  # unsigned int\n"
   code: 'import cp_library.__header__
+
+    from array import array
 
     import cp_library.ds.__header__
 
     import cp_library.ds.array.__header__
-
-    from array import array
 
     def u32a(init = None): return array(''I'') if init is None else array(''I'', init)  #
     unsigned int'
@@ -37,7 +37,7 @@ data:
   path: cp_library/ds/array/u32a_fn.py
   requiredBy:
   - cp_library/alg/graph/csr/grid_graph_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc301_e_fast_grid_graph.test.py

@@ -17,18 +17,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nclass Mobius(list[int]):\n    def __init__(mu, N):\n        super().__init__([0]*(N+1))\n\
+    \n\n\nclass Mobius(list[int]):\n    def __init__(mu, N):\n        super().__init__([0]*(N+1))\n\
     \        mu[1] = 1\n        for i in range(1, N+1):\n            for j in range(i<<1,\
     \ N+1, i):\n                mu[j] -= mu[i]\n"
-  code: "import cp_library.math.table.__header__\n\nclass Mobius(list[int]):\n   \
-    \ def __init__(mu, N):\n        super().__init__([0]*(N+1))\n        mu[1] = 1\n\
-    \        for i in range(1, N+1):\n            for j in range(i<<1, N+1, i):\n\
-    \                mu[j] -= mu[i]"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.table.__header__\n\
+    \nclass Mobius(list[int]):\n    def __init__(mu, N):\n        super().__init__([0]*(N+1))\n\
+    \        mu[1] = 1\n        for i in range(1, N+1):\n            for j in range(i<<1,\
+    \ N+1, i):\n                mu[j] -= mu[i]"
   dependsOn: []
   isVerificationFile: false
   path: cp_library/math/table/mobius_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc206_e_mobius_table.test.py

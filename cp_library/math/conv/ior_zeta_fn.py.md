@@ -95,14 +95,14 @@ data:
   path: cp_library/math/conv/ior_zeta_fn.py
   requiredBy:
   - cp_library/math/sps/mod/sps_composite_fn.py
-  - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
   - cp_library/math/sps/mod/sps_exp_half_fn.py
+  - cp_library/math/sps/mod/sps_exp_adaptive_fn.py
   - cp_library/math/conv/mod/isubset_conv_half_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
   - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
+  - test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
 documentation_of: cp_library/math/conv/ior_zeta_fn.py
 layout: document
 redirect_from:

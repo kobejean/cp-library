@@ -70,18 +70,18 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
-    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\nimport sys\n\ndef list_find(lst: list, value, start = 0,\
-    \ stop = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n\
-    \    except:\n        return -1\n\n\nclass view(Generic[_T]):\n    __slots__ =\
-    \ 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A,\
-    \ V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
-    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
-    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
+    \  \n'''\n\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n\
+    \    \n\nfrom typing import Generic\nfrom typing import TypeVar\n\n_S = TypeVar('S');\
+    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    import sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
+    \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
+    \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
+    \ def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l,\
+    \ r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n\
+    \        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
+    \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
     \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
     \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
     \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
@@ -183,7 +183,7 @@ data:
     \        isubset_conv_half(exp, P, n, N, mod, pcnt)\n    ior_mobius(exp, N)\n\
     \    return [exp[p<<N|i] % mod for i,p in enumerate(pcnt)]\n\nfrom os import read\
     \ as os_read, write as os_write, fstat as os_fstat\nfrom __pypy__.builders import\
-    \ StringBuilder\n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n\
+    \ StringBuilder\n\n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n\
     \    @property\n    def char(io) -> bool: ...\n    @property\n    def writable(io)\
     \ -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io, s: str) ->\
     \ None: ...\n    def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n\
@@ -275,7 +275,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/exp_of_set_power_series_half.test.py

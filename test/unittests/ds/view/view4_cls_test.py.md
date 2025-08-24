@@ -60,7 +60,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\n\n\n\n\ndef argsort_ranged(A: list[int], l: int, r: int,\
     \ reverse=False):\n    P = Packer(r-l-1); I = [A[l+i] for i in range(r-l)]; P.ienumerate(I,\
@@ -100,10 +100,10 @@ data:
     \    def popleft(V): V.l += 1; return V.A1[V.l-1], V.A2[V.l-1], V.A3[V.l-1], V.A4[V.l-1]\n\
     \    def appendleft(V, v: tuple[_T1, _T2, _T3, _T4]): V.l -= 1; V.A1[V.l], V.A2[V.l],\
     \ V.A3[V.l], V.A4[V.l] = v\n    def validate(V): return 0 <= V.l <= V.r <= len(V.A1)\n\
-    \nif __name__ == '__main__':\n    \"\"\"\n    Helper for making unittest files\
-    \ compatible with verification-helper.\n    \n    This module provides a helper\
-    \ function to run a dummy Library Checker test\n    so that unittest files can\
-    \ be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
+    \nif __name__ == '__main__':\n    \n    \"\"\"\n    Helper for making unittest\
+    \ files compatible with verification-helper.\n    \n    This module provides a\
+    \ helper function to run a dummy Library Checker test\n    so that unittest files\
+    \ can be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
     \        \"\"\"\n        Run a dummy AOJ ITP1_1_A test for verification-helper\
     \ compatibility.\n        \n        This function should be called in the __main__\
     \ block of unittest files\n        that need to be compatible with verification-helper.\n\
@@ -159,7 +159,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/view4_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/view4_cls_test.py

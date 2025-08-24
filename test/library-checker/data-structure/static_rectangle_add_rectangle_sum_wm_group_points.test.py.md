@@ -154,15 +154,14 @@ data:
     \    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
     \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
-    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\nfrom array import array\ndef\
-    \ u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    \nclass WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int,\
-    \ H: int):\n            super().__init__(N)\n            L.H = H\n        def\
-    \ build(L):\n            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1],\
-    \ L.cnt[-1]\n        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if\
-    \ bit else L.count0(i)\n        def pos2(L, bit: int, i: int, j: int): return\
-    \ (L.T0+L.count1(i), L.T0+L.count1(j)) if bit else (L.count0(i), L.count0(j))\n\
-    \    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
+    \ 'bit_count'): popcnt32 = int.bit_count\nfrom array import array\n\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\nclass\
+    \ WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int, H: int):\n\
+    \            super().__init__(N)\n            L.H = H\n        def build(L):\n\
+    \            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1], L.cnt[-1]\n\
+    \        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if bit else L.count0(i)\n\
+    \        def pos2(L, bit: int, i: int, j: int): return (L.T0+L.count1(i), L.T0+L.count1(j))\
+    \ if bit else (L.count0(i), L.count0(j))\n    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
     \ Amax is None else Amax)\n    def _build(wm, A, nA, Amax):wm.N,wm.H=len(A),Amax.bit_length();wm._build_levels(A,nA)\n\
     \    def _build_levels(wm, A, nA):\n        wm.up=[wm.Level(wm.N,H) for H in range(wm.H)];wm.down=wm.up[::-1]\n\
     \        for L in wm.down:\n            x,y,i=-1,wm.N-1,wm.N\n            while\
@@ -275,32 +274,31 @@ data:
     \        for i,j in enumerate(wm.I):nA[j],nW[j]=A[i],W[i]\n        wm._build(op,e,diff,nA,nW,A,W,len(wm.Y)-1)\n\
     \n\ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
     \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IO.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\nfrom os import read as os_read, write as os_write, fstat\
-    \ as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\n\ndef\
-    \ max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n    def\
-    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
-    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
-    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
-    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
-    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
-    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
-    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
-    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
-    \ ...\n\nclass IO(IOBase):\n    BUFSIZE = 1 << 16; stdin: 'IO'; stdout: 'IO'\n\
-    \    __slots__ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p', 'char', 'sz', 'st',\
-    \ 'ist', 'writable', 'encoding', 'errors'\n    def __init__(io, file):\n     \
-    \   io.file = file\n        try: io.f = file.fileno(); io.sz, io.writable = max2(io.BUFSIZE,\
-    \ os_fstat(io.f).st_size), ('x' in file.mode or 'r' not in file.mode)\n      \
-    \  except: io.f, io.sz, io.writable = -1, io.BUFSIZE, False\n        io.B, io.O,\
-    \ io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B); io.l = io.p\
-    \ = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False, [], [],\
-    \ 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
+    , IO.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\
+    \ file.write(sep)\n        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\nfrom os import\
+    \ read as os_read, write as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders\
+    \ import StringBuilder\n\n\ndef max2(a, b): return a if a > b else b\n\nclass\
+    \ IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n    def\
+    \ writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io,\
+    \ s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
+    \ -> str: ...\n    def readtokens(io) -> list[str]: ...\n    def readints(io)\
+    \ -> list[int]: ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io)\
+    \ -> list[int]: ...\n    def readchar(io) -> str: ...\n    def readchars(io) ->\
+    \ str: ...\n    def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass IO(IOBase):\n    BUFSIZE\
+    \ = 1 << 16; stdin: 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O',\
+    \ 'V', 'S', 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n\
+    \    def __init__(io, file):\n        io.file = file\n        try: io.f = file.fileno();\
+    \ io.sz, io.writable = max2(io.BUFSIZE, os_fstat(io.f).st_size), ('x' in file.mode\
+    \ or 'r' not in file.mode)\n        except: io.f, io.sz, io.writable = -1, io.BUFSIZE,\
+    \ False\n        io.B, io.O, io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B);\
+    \ io.l = io.p = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False,\
+    \ [], [], 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
     \ io.errors)\n    def readbytes(io, sz): return os_read(io.f, sz)\n    def load(io):\n\
     \        while io.l >= len(io.O):\n            if not (b := io.readbytes(io.sz)):\n\
     \                if io.O[-1] < len(io.B): io.O.append(len(io.B))\n           \
@@ -340,7 +338,7 @@ data:
     \        if io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors));\
     \ io.S = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\nfrom typing import Type, Union, overload\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
     def read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U,\
@@ -438,7 +436,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py

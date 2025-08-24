@@ -47,10 +47,10 @@ data:
     \n\n\n\ndef sps_ln_small(P, mod):\n    assert P[0] == 1\n    ln = [0]*(Z:=1<<(N:=len(P).bit_length()-1))\n\
     \    for i in range(1, Z):\n        fg, b, j = 0, 1<<(i.bit_length()-1), i-1&i\n\
     \        while b <= j: fg += ln[j]*P[i^j]%mod; j = j-1&i\n        ln[i] = (P[i]-fg)%mod\n\
-    \    return ln\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
-    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
-    elist = newlist_hint\n    \n\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \    return ln\n\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint): return []\nelist =\
+    \ newlist_hint\n    \n\nfrom typing import Generic\nfrom typing import TypeVar\n\
+    \n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\nimport sys\n\ndef list_find(lst: list, value, start = 0,\
     \ stop = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n\
@@ -174,7 +174,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/sps/mod/sps_ln_adaptive_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/sps/mod/sps_ln_adaptive_fn.py

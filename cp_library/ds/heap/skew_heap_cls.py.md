@@ -17,9 +17,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import operator\nfrom typing import Generic, TypeVar\n_S = TypeVar('S'); _T =\
-    \ TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3\
-    \ = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    import operator\nfrom typing import Generic, TypeVar\n\n_S = TypeVar('S'); _T\
+    \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
+    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n_TSkewHeap = TypeVar(\"SkewHeap\", bound=\"SkewHeap\")\nclass SkewHeap(Generic[_T]):\n\
     \    __slots__ = 'root', 'op', 'e'\n    V, A, L, R, st = [-1], [-1], [-1], [-1],\
     \ []\n    def __init__(H, op = operator.add, e: _T = 0):\n        H.root, H.op,\
@@ -66,7 +66,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/skew_heap_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/graph/directedmst.test.py

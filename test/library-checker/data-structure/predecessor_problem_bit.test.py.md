@@ -46,27 +46,27 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555) +\
-    \ (x & 0x55555555)\n    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x\
-    \ = ((x >> 4)  & 0x0f0f0f0f) + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff)\
+    \               \n'''\n\n\ndef popcnt32(x):\n    x = ((x >> 1)  & 0x55555555)\
+    \ + (x & 0x55555555)\n    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n  \
+    \  x = ((x >> 4)  & 0x0f0f0f0f) + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff)\
     \ + (x & 0x00ff00ff)\n    x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n  \
-    \  return x\nif hasattr(int, 'bit_count'):\n    popcnt32 = int.bit_count\n\n\n\
-    from array import array\ndef u32f(N: int, elm: int = 0):     return array('I',\
-    \ (elm,))*N  # unsigned int\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\
+    \  return x\nif hasattr(int, 'bit_count'): popcnt32 = int.bit_count\nfrom array\
+    \ import array\n\n\ndef u32f(N: int, elm: int = 0):     return array('I', (elm,))*N\
+    \  # unsigned int\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2578\n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513            \n            \u2503\
-    \                                    7 \u2503            \n            \u2517\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2513            \n            \u2503         \
+    \                           7 \u2503            \n            \u2517\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B     \
-    \       \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513                 \u2502\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u252F\u2501\u251B           \
+    \ \n            \u250F\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513                 \u2502\
     \              \n            \u2503                3 \u2503\u25C4\u2500\u2500\u2500\
     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u2524              \n            \u2517\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -110,8 +110,8 @@ data:
     \n    def sum(bit, n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1],\
     \ n&n-1\n        return s\n\n    def sum_range(bit, l, r):\n        s = 0\n  \
     \      while r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1],\
-    \ l&l-1\n        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n\
-    \    \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
+    \ l&l-1\n        return s\n\n    def __len__(bit) -> int: return bit._n\n    \n\
+    \    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
     \        while l != i: s, i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get\
     \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None: bit.add(i,\
     \ x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n   \
@@ -156,7 +156,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/predecessor_problem_bit.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/predecessor_problem_bit.test.py

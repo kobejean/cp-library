@@ -59,16 +59,16 @@ data:
     class Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(io:\
     \ 'IOBase'): return cls(next(io))\n        return parser\n    @classmethod\n \
     \   def __class_getitem__(cls, item): return GenericAlias(cls, item)\n\n\n\ndef\
-    \ elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nclass MoOp(IntFlag):\n    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n\
-    \    REMOVE_LEFT = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER = auto()\n  \
-    \  \n    ADD = ADD_LEFT | ADD_RIGHT\n    REMOVE = REMOVE_LEFT | REMOVE_RIGHT\n\
-    \n# def hilbert(x: int, y: int, n: int) -> int:\n#     '''Convert (x,y) to Hilbert\
-    \ curve distance for given n (power of 2).'''\n#     d = 0\n#     for s in range(n.bit_length()\
-    \ - 1, -1, -1):\n#         rx = (x >> s) & 1\n#         ry = (y >> s) & 1\n# \
-    \        d += n * n * ((3 * rx) ^ ry) >> 2\n#         if ry == 0:\n#         \
-    \    if rx == 1:\n#                 x = n-1 - x\n#                 y = n-1 - y\n\
+    \ elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\n\
+    class MoOp(IntFlag):\n    ADD_LEFT = auto()\n    ADD_RIGHT = auto()\n    REMOVE_LEFT\
+    \ = auto()\n    REMOVE_RIGHT = auto()\n    ANSWER = auto()\n    \n    ADD = ADD_LEFT\
+    \ | ADD_RIGHT\n    REMOVE = REMOVE_LEFT | REMOVE_RIGHT\n\n# def hilbert(x: int,\
+    \ y: int, n: int) -> int:\n#     '''Convert (x,y) to Hilbert curve distance for\
+    \ given n (power of 2).'''\n#     d = 0\n#     for s in range(n.bit_length() -\
+    \ 1, -1, -1):\n#         rx = (x >> s) & 1\n#         ry = (y >> s) & 1\n#   \
+    \      d += n * n * ((3 * rx) ^ ry) >> 2\n#         if ry == 0:\n#           \
+    \  if rx == 1:\n#                 x = n-1 - x\n#                 y = n-1 - y\n\
     #             x, y = y, x\n#     return d\n\nclass QueriesMoOps(tuple[list[int],\
     \ ...],Parsable):\n    '''\n    QueriesMoOps[Q: int, N: int, T: type = tuple[int,\
     \ int]]\n    Orders queries using Mo's algorithm and generates a sequence of operations\
@@ -150,7 +150,7 @@ data:
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
     \        else:\n            raise NotImplementedError()\nfrom typing import Type,\
-    \ Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ Union, overload\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T');\
     \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
     \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n@overload\n\
     def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
@@ -161,7 +161,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IO(IOBase):\n    BUFSIZE\
     \ = 1 << 16; stdin: 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O',\
     \ 'V', 'S', 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n\
     \    def __init__(io, file):\n        io.file = file\n        try: io.f = file.fileno();\
@@ -211,10 +211,9 @@ data:
     \ = IO(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values to\
     \ a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"sep\"\
     , \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x in args:\n\
-    \        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\"\
-    :\n    main()\n"
+    \        if not at_start: file.write(sep)\n        file.write(str(x))\n      \
+    \  at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False): file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc293/tasks/abc293_g\n\
     \n\ndef main():\n    N, Q = read()\n    A = read(list[int])\n    ops, *opands\
     \ = read(QueriesMoOps[Q, N])\n    \n    # State for counting triples\n    cnt\
@@ -242,7 +241,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc261_g_queries_mo_ops.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc261_g_queries_mo_ops.test.py

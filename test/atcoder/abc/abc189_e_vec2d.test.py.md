@@ -61,7 +61,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Type, Union, overload\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
     def read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U,\
@@ -71,8 +71,8 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
-    \ > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    from __pypy__.builders import StringBuilder\n\n\n\ndef max2(a, b): return a if\
+    \ a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
     \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
     \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
     \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
@@ -174,28 +174,28 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nfrom typing import Sequence\nfrom math import gcd, sqrt\n\n\nfrom typing import\
-    \ Iterable \nfrom math import hypot\nimport operator\n\nclass ElmWiseMixin:\n\
-    \    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n \
-    \           return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
-    \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
-    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
-    )\n\n    def __add__(self, other): return self.elm_wise(other, operator.add)\n\
-    \    def __radd__(self, other): return self.elm_wise(other, operator.add)\n  \
-    \  def __sub__(self, other): return self.elm_wise(other, operator.sub)\n    def\
-    \ __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
-    \    def __mul__(self, other): return self.elm_wise(other, operator.mul)\n   \
-    \ def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n    def\
-    \ __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n  \
-    \  def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
-    \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
-    \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
-    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
-    \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
-    \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nfrom typing\
+    \ import Sequence\nfrom math import gcd, sqrt\n\n\nfrom typing import Iterable\
+    \ \nfrom math import hypot\nimport operator\n\nclass ElmWiseMixin:\n    def elm_wise(self,\
+    \ other, op):\n        if isinstance(other, Sequence):\n            return self.__class__(op(self[i],\
+    \ y) for i, y in enumerate(self, other))\n        if isinstance(other, Number):\n\
+    \            return self.__class__(op(x, other) for x in self)\n        raise\
+    \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
+    \   def __add__(self, other): return self.elm_wise(other, operator.add)\n    def\
+    \ __radd__(self, other): return self.elm_wise(other, operator.add)\n    def __sub__(self,\
+    \ other): return self.elm_wise(other, operator.sub)\n    def __rsub__(self, other):\
+    \ return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n    def __mul__(self,\
+    \ other): return self.elm_wise(other, operator.mul)\n    def __rmul__(self, other):\
+    \ return self.elm_wise(other, operator.mul)\n    def __truediv__(self, other):\
+    \ return self.elm_wise(other, operator.truediv)\n    def __rtruediv__(self, other):\
+    \ return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n    def __floordiv__(self,\
+    \ other): return self.elm_wise(other, operator.floordiv)\n    def __rfloordiv__(self,\
+    \ other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n  \
+    \  def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n   \
+    \ def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff = other-self\n\
+    \        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
     \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
     \  return vec / vec.magnitude()\n\nclass Vec(ElmWiseMixin, tuple, Parsable):\n\
     \    def __new__(cls, *args):\n        return super().__new__(cls, args[0] if\
@@ -204,27 +204,28 @@ data:
     \        if N is None:\n            def parse(io: IOBase): return cls(elm(io)\
     \ for _ in io.wait())\n        else:\n            def parse(io: IOBase): return\
     \ cls(elm(io) for _ in range(N))\n        return parse\n\nclass Vec2D(Vec):\n\
-    \    def __new__(cls, *args):\n        if len(args) == 0: return super().__new__(cls,\
-    \ (0,0))\n        return super().__new__(cls, *args)\n    def elm_wise(self, other,\
-    \ op):\n        if isinstance(other, Number): return Vec2D(op(self[0], other),\
-    \ op(self[1], other))\n        if isinstance(other, Sequence): return Vec2D(op(self[0],\
-    \ other[0]), op(self[1], other[1]))\n        raise ValueError(\"Operand must be\
-    \ a number or a tuple of the same length\")\n    def manhat(v1: 'Vec', v2: 'Vec'):\
-    \ return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1])\n    def distance(v1: 'Vec', v2:\
-    \ 'Vec'): dx, dy = v2[0]-v1[0], v2[1]-v1[1]; return sqrt(dx*dx+dy*dy)\n    def\
-    \ distance2(v1: 'Vec', v2: 'Vec'): dx, dy = v2[0]-v1[0], v2[1]-v1[1]; return dx*dx+dy*dy\n\
-    \    def magnitude(vec: 'Vec'): x, y = vec; return sqrt(x*x+y*y)\n    def magnitude2(vec:\
-    \ 'Vec'): x, y = vec; return x*x+y*y\n    def rot90(vec): x,y = vec; return Vec2D(-y,x)\n\
-    \    def rot180(vec): x,y = vec; return Vec2D(-x,-y)\n    def rot270(vec): x,y\
-    \ = vec; return Vec2D(y,-x)\n    def flip_x(vec): x,y = vec; return Vec2D(-x,y)\n\
-    \    def flip_y(vec): x,y = vec; return Vec2D(x,-y)\n    def cross(vec, other):\
-    \ return vec[0]*other[1] - vec[1]*other[0]\n    def slope_norm(vec):\n       \
-    \ x,y = vec\n        if x == 0 and y == 0: return vec\n        if x == 0: return\
-    \ Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n        if y == 0: return Vec2D((1,0))\
-    \ if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return Vec2D((x//g,y//g))\n\
-    \    @classmethod\n    def compile(cls, T: type = int):\n        elm = Parser.compile(T)\n\
-    \        def parse(io: IOBase): return cls(elm(io), elm(io))\n        return parse\n\
-    \nif __name__ == \"__main__\":\n    main()\n"
+    \    def __new__(cls, x = 0, y = 0): return super().__new__(cls, x, y)\n    def\
+    \ elm_wise(self, other, op):\n        if isinstance(other, Sequence): return Vec2D(op(self[0],\
+    \ other[0]), op(self[1], other[1]))\n        if isinstance(other, Number): return\
+    \ Vec2D(op(self[0], other), op(self[1], other))\n        raise ValueError(\"Operand\
+    \ must be a number or a tuple of the same length\")\n    def __eq__(v1, v2): return\
+    \ v1[0] == v2[0] and v1[1] == v2[1]\n    def __hash__(v): return ((v[0]*1103515245+12345)^v[1])&0x7fffffff\n\
+    \    def manhat(v1: 'Vec', v2: 'Vec'): return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1])\n\
+    \    def distance(v1: 'Vec', v2: 'Vec'): dx, dy = v2[0]-v1[0], v2[1]-v1[1]; return\
+    \ sqrt(dx*dx+dy*dy)\n    def distance2(v1: 'Vec', v2: 'Vec'): dx, dy = v2[0]-v1[0],\
+    \ v2[1]-v1[1]; return dx*dx+dy*dy\n    def magnitude(vec: 'Vec'): x, y = vec;\
+    \ return sqrt(x*x+y*y)\n    def magnitude2(vec: 'Vec'): x, y = vec; return x*x+y*y\n\
+    \    def rot90(vec): x,y = vec; return Vec2D(-y,x)\n    def rot180(vec): x,y =\
+    \ vec; return Vec2D(-x,-y)\n    def rot270(vec): x,y = vec; return Vec2D(y,-x)\n\
+    \    def flip_x(vec): x,y = vec; return Vec2D(-x,y)\n    def flip_y(vec): x,y\
+    \ = vec; return Vec2D(x,-y)\n    def cross(vec, other): return vec[0]*other[1]\
+    \ - vec[1]*other[0]\n    def slope_norm(vec):\n        x,y = vec\n        if x\
+    \ == 0 and y == 0: return vec\n        if x == 0: return Vec2D(0,1) if y > 0 else\
+    \ Vec2D(0,-1)\n        if y == 0: return Vec2D(1,0) if x > 0 else Vec2D(-1,0)\n\
+    \        g = gcd(x,y)\n        return Vec2D(x//g,y//g)\n    @classmethod\n   \
+    \ def compile(cls, T: type = int):\n        elm = Parser.compile(T)\n        def\
+    \ parse(io: IOBase): return cls(elm(io), elm(io))\n        return parse\n\nif\
+    \ __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc189/tasks/abc189_e\n\
     \ndef main():\n    N = read(int)\n    pts = read(list[Vec2D, N])\n    \n    dx,dy\
     \ = Vec2D(1,0), Vec2D(0,1)\n    origin = Vec2D(0,0)\n    \n    M = read(int)\n\
@@ -256,7 +257,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc189_e_vec2d.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc189_e_vec2d.test.py

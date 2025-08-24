@@ -180,9 +180,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\n\n\n\nimport sys\n\ndef list_find(lst: list, value, start\
+    \ _T6 = TypeVar('T6')\n\n\n\nimport sys\n\n\ndef list_find(lst: list, value, start\
     \ = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value, start,\
     \ stop)\n    except:\n        return -1\n\nclass view(Generic[_T]):\n    __slots__\
     \ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A,\
@@ -206,25 +206,25 @@ data:
     \ K: list[int], V: list[_T]):\n        A: list[_T] = [0]*len(K); O = [0]*(N+1)\n\
     \        for k in K: O[k] += 1\n        for i in range(N): O[i+1] += O[i]\n  \
     \      for e in range(len(K)): k = K[~e]; O[k] -= 1; A[O[k]] = V[~e]\n       \
-    \ return cls(A, O)\n\nif __name__ == '__main__':\n    \"\"\"\n    Helper for making\
-    \ unittest files compatible with verification-helper.\n    \n    This module provides\
-    \ a helper function to run a dummy Library Checker test\n    so that unittest\
-    \ files can be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
-    \        \"\"\"\n        Run a dummy AOJ ITP1_1_A test for verification-helper\
-    \ compatibility.\n        \n        This function should be called in the __main__\
-    \ block of unittest files\n        that need to be compatible with verification-helper.\n\
-    \        \n        The function:\n        1. Prints \"Hello World\" (AOJ ITP1_1_A\
-    \ solution)\n        2. Runs pytest for the calling test file\n        3. Exits\
-    \ with the pytest result code\n        \"\"\"\n        \n        # Print \"Hello\
-    \ World\" for AOJ ITP1_1_A problem\n        print(\"Hello World\")\n        \n\
-    \        import io\n        from contextlib import redirect_stdout, redirect_stderr\n\
-    \    \n        # Capture all output during test execution\n        output = io.StringIO()\n\
-    \        with redirect_stdout(output), redirect_stderr(output):\n            #\
-    \ Get the calling module's file path\n            frame = sys._getframe(1)\n \
-    \           test_file = frame.f_globals.get('__file__')\n            if test_file\
-    \ is None:\n                test_file = sys.argv[0]\n            result = pytest.main([test_file])\n\
-    \        \n        if result != 0: \n            print(output.getvalue())\n  \
-    \      sys.exit(result)\n    run_verification_helper_unittest()\n"
+    \ return cls(A, O)\n\nif __name__ == '__main__':\n    \n    \"\"\"\n    Helper\
+    \ for making unittest files compatible with verification-helper.\n    \n    This\
+    \ module provides a helper function to run a dummy Library Checker test\n    so\
+    \ that unittest files can be verified by oj-verify.\n    \"\"\"\n    \n    def\
+    \ run_verification_helper_unittest():\n        \"\"\"\n        Run a dummy AOJ\
+    \ ITP1_1_A test for verification-helper compatibility.\n        \n        This\
+    \ function should be called in the __main__ block of unittest files\n        that\
+    \ need to be compatible with verification-helper.\n        \n        The function:\n\
+    \        1. Prints \"Hello World\" (AOJ ITP1_1_A solution)\n        2. Runs pytest\
+    \ for the calling test file\n        3. Exits with the pytest result code\n  \
+    \      \"\"\"\n        \n        # Print \"Hello World\" for AOJ ITP1_1_A problem\n\
+    \        print(\"Hello World\")\n        \n        import io\n        from contextlib\
+    \ import redirect_stdout, redirect_stderr\n    \n        # Capture all output\
+    \ during test execution\n        output = io.StringIO()\n        with redirect_stdout(output),\
+    \ redirect_stderr(output):\n            # Get the calling module's file path\n\
+    \            frame = sys._getframe(1)\n            test_file = frame.f_globals.get('__file__')\n\
+    \            if test_file is None:\n                test_file = sys.argv[0]\n\
+    \            result = pytest.main([test_file])\n        \n        if result !=\
+    \ 0: \n            print(output.getvalue())\n        sys.exit(result)\n    run_verification_helper_unittest()\n"
   code: "# verification-helper: PROBLEM https://onlinejudge.u-aizu.ac.jp/courses/lesson/2/ITP1/1/ITP1_1_A\n\
     \nimport pytest\nimport random\n\nclass TestCSR:\n    def test_initialization(self):\n\
     \        \"\"\"Test basic initialization of CSR\"\"\"\n        A = [1, 2, 3, 4,\
@@ -387,7 +387,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/csr_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/csr_cls_test.py

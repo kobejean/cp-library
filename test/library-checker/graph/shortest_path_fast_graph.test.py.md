@@ -17,6 +17,12 @@ data:
     path: cp_library/alg/graph/csr/graph_weighted_base_cls.py
     title: cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/snippets/recover_path_vertices_fn.py
+    title: cp_library/alg/graph/csr/snippets/recover_path_vertices_fn.py
+  - icon: ':heavy_check_mark:'
+    path: cp_library/alg/graph/csr/snippets/shortest_path_vertices_fn.py
+    title: cp_library/alg/graph/csr/snippets/shortest_path_vertices_fn.py
+  - icon: ':heavy_check_mark:'
     path: cp_library/alg/graph/dfs_options_cls.py
     title: cp_library/alg/graph/dfs_options_cls.py
   - icon: ':heavy_check_mark:'
@@ -126,9 +132,9 @@ data:
     - https://judge.yosupo.jp/problem/shortest_path
   bundledCode: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/shortest_path\n\
     \ndef main():\n    N, M, s, t = read(tuple[int, ...])\n    G = read(DiGraphWeighted[N,M,0])\n\
-    \    path = G.shortest_path(s, t)\n    if path is None:\n        write(\"-1\"\
-    )\n    else:\n        X, Y = G.D[t], len(path)-1\n        write(X, Y)\n      \
-    \  for i in range(Y):\n            write(path[i],path[i+1])\n    \n'''\n\u257A\
+    \    path = shortest_path_vertices(G, s, t)\n    if path is None:\n        write(\"\
+    -1\")\n    else:\n        X, Y = G.D[t], len(path)-1\n        write(X, Y)\n  \
+    \      for i in range(Y):\n            write(path[i], path[i+1])\n    \n'''\n\u257A\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -146,39 +152,21 @@ data:
     \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
     \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
     \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
-    \ enumerate(A): A[i] = P.m&a\n\nfrom typing import Generic\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
-    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\n\nimport sys\n\ndef list_find(lst: list, value, start\
-    \ = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value, start,\
-    \ stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n    __slots__\
-    \ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A,\
-    \ V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V,\
-    \ i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise\
-    \ IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
-    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
-    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
-    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
-    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
-    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
-    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
-    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
-    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
-    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom typing import\
-    \ Callable, Sequence, Union, overload\nfrom types import GenericAlias\n\n\nclass\
-    \ Parsable:\n    @classmethod\n    def compile(cls):\n        def parser(io: 'IOBase'):\
-    \ return cls(next(io))\n        return parser\n    @classmethod\n    def __class_getitem__(cls,\
-    \ item): return GenericAlias(cls, item)\n\nfrom enum import auto, IntFlag, IntEnum\n\
-    \nclass DFSFlags(IntFlag):\n    ENTER = auto()\n    DOWN = auto()\n    BACK =\
-    \ auto()\n    CROSS = auto()\n    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH\
-    \ = auto()\n\n    RETURN_PARENTS = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK\
-    \ = auto()\n    CONNECT_ROOTS = auto()\n\n    # Common combinations\n    ALL_EDGES\
-    \ = DOWN | BACK | CROSS\n    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n\
-    \    TOPDOWN = DOWN | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL\
-    \ = RETURN_PARENTS | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER\
-    \ \n    DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ enumerate(A): A[i] = P.m&a\nfrom typing import Callable, Sequence, Union, overload\n\
+    from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
+    \ compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n    \
+    \    return parser\n    @classmethod\n    def __class_getitem__(cls, item): return\
+    \ GenericAlias(cls, item)\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
+    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
+    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
+    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
+    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
+    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
+    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
+    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
+    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
     \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
-    \    \n\nclass GraphBase(Parsable):\n    def __init__(G, N: int, M: int, U: list[int],\
+    \nclass GraphBase(Parsable):\n    def __init__(G, N: int, M: int, U: list[int],\
     \ V: list[int], \n                 deg: list[int], La: list[int], Ra: list[int],\n\
     \                 Ua: list[int], Va: list[int], Ea: list[int], twin: list[int]\
     \ = None):\n        G.N = N\n        '''The number of vertices.'''\n        G.M\
@@ -216,61 +204,56 @@ data:
     \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
     \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
     \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
-    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua, back, vertices =\
-    \ G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n\
-    \        return vertices\n    \n    def recover_path_edge_ids(G, s, t):\n    \
-    \    Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v\
-    \ != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return edges\n\n\
-    \    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf:\
-    \ return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
-    \        return vertices\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n\
-    \        if G.distance(s, t) >= inf: return None\n        edges = G.recover_path_edge_ids(s,\
-    \ t)\n        edges.reverse()\n        return edges\n    \n    @overload\n   \
-    \ def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def\
-    \ bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int = 0, g:\
-    \ int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N, -1),\
-    \ [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n     \
-    \   que = Que(S)\n        while que:\n            nd = D[u := que.pop()]+1\n \
-    \           if u == g: return nd-1\n            for i in G.range(u):\n       \
-    \         if chmin(D, v := Va[i], nd): back[v] = i; que.push(v)\n        return\
-    \ D if g is None else inf \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        G.D = D = [[inf]*G.N for _ in range(G.N)]\n        for u in range(G.N):\
-    \ D[u][u] = 0\n        for i in range(len(G.Ua)): D[G.Ua[i]][G.Va[i]] = 1\n  \
-    \      for k, Dk in enumerate(D):\n            for Di in D:\n                if\
-    \ (Dik := Di[k]) == inf: continue\n                for j in range(G.N):\n    \
-    \                chmin(Di, j, Dik+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
-    \ s: Union[int, None] = None):\n        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va,\
-    \ u8f(N := G.N), u32f(N, i32_max)\n        G.vis, G.back, st = vis, back, elist(N)\n\
-    \        for s in G.starts(s):\n            if vis[s]: continue\n            st.append(s)\n\
-    \            while st:\n                if not vis[u := st.pop()]:\n         \
-    \           st.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
-    \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
-    \                if not vis[v := Va[i]]:\n                            back[v]\
-    \ = i\n                            st.append(v)\n                        elif\
-    \ vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n  \
-    \                          while v != u: I.append(i := back[u]), (u := Ua[i])\n\
-    \                            I.reverse()\n                            return I\n\
-    \                else:\n                    vis[u] = 2\n        # check for self\
-    \ loops\n        for i in range(len(Ua)):\n            if Ua[i] == Va[i]:\n  \
-    \              return u32f(1,i)\n    \n    def find_cycle(G, s: Union[int, None]\
-    \ = None):\n        if I := G.find_cycle_indices(s): return [G.Ua[i] for i in\
-    \ I]\n    \n    def find_cycle_edge_ids(G, s: Union[int, None] = None):\n    \
-    \    if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]\n\n    def find_minimal_cycle(G,\
-    \ s=0):\n        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), Que([s]),\
-    \ G.Va\n        D[s] = 0\n        while que:\n            for i in G.range(u :=\
-    \ que.pop()):\n                if (v := Va[i]) == s:  # Found cycle back to start\n\
-    \                    cycle = [u]\n                    while u != s: cycle.append(u\
-    \ := par[u])\n                    return cycle\n                if D[v] < u32_max:\
-    \ continue\n                D[v], par[v] = D[u]+1, u; que.push(v)\n\n    def dfs_topo(G,\
-    \ s: Union[int,list] = None) -> list[int]:\n        '''Returns lists of indices\
-    \ i where Ua[i] -> Va[i] are edges in order of top down discovery'''\n       \
-    \ vis, st, order = G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in\
-    \ G.starts(s):\n            if vis[s]: continue\n            vis[s] = 1; st.append(s)\
-    \ \n            while st:\n                for i in G.range(st.pop()):\n     \
-    \               if vis[v := G.Va[i]]: continue\n                    vis[v] = 1;\
-    \ order.append(i); st.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list]\
-    \ = None, /, \n            backtrack = False,\n            max_depth = None,\n\
-    \            enter_fn: Callable[[int],None] = None,\n            leave_fn: Callable[[int],None]\
+    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        P = u32f(0)\n       \
+    \ while s != t: P.append(a := G.back[t]); t = G.Ua[a] \n        return P\n   \
+    \ \n    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >=\
+    \ inf: return None\n        P = G.recover_path(s, t)\n        P.reverse()\n  \
+    \      return P\n    \n    @overload\n    def bfs(G, s: Union[int,list] = 0) ->\
+    \ list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g: int) ->\
+    \ int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        S, Va, back, D\
+    \ = G.starts(s), G.Va, i32f(N := G.N, -1), [inf]*N\n        G.back, G.D = back,\
+    \ D\n        for u in S: D[u] = 0\n        que = Que(S)\n        while que:\n\
+    \            nd = D[u := que.pop()]+1\n            if u == g: return nd-1\n  \
+    \          for i in G.range(u):\n                if chmin(D, v := Va[i], nd):\
+    \ back[v] = i; que.push(v)\n        return D if g is None else inf \n\n    def\
+    \ floyd_warshall(G) -> list[list[int]]:\n        G.D = D = [[inf]*G.N for _ in\
+    \ range(G.N)]\n        for u in range(G.N): D[u][u] = 0\n        for i in range(len(G.Ua)):\
+    \ D[G.Ua[i]][G.Va[i]] = 1\n        for k, Dk in enumerate(D):\n            for\
+    \ Di in D:\n                if (Dik := Di[k]) == inf: continue\n             \
+    \   for j in range(G.N):\n                    chmin(Di, j, Dik+Dk[j])\n      \
+    \  return D\n\n    def find_cycle_indices(G, s: Union[int, None] = None):\n  \
+    \      Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n\
+    \        G.vis, G.back, st = vis, back, elist(N)\n        for s in G.starts(s):\n\
+    \            if vis[s]: continue\n            st.append(s)\n            while\
+    \ st:\n                if not vis[u := st.pop()]:\n                    st.append(u)\n\
+    \                    vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max\n\
+    \                    for i in G.range(u):\n                        if not vis[v\
+    \ := Va[i]]:\n                            back[v] = i\n                      \
+    \      st.append(v)\n                        elif vis[v] == 1 and pe != Ea[i]:\n\
+    \                            I = u32f(1,i)\n                            while\
+    \ v != u: I.append(i := back[u]), (u := Ua[i])\n                            I.reverse()\n\
+    \                            return I\n                else:\n               \
+    \     vis[u] = 2\n        # check for self loops\n        for i in range(len(Ua)):\n\
+    \            if Ua[i] == Va[i]:\n                return u32f(1,i)\n    \n    def\
+    \ find_cycle(G, s: Union[int, None] = None):\n        if I := G.find_cycle_indices(s):\
+    \ return [G.Ua[i] for i in I]\n    \n    def find_cycle_edge_ids(G, s: Union[int,\
+    \ None] = None):\n        if I := G.find_cycle_indices(s): return [G.Ea[i] for\
+    \ i in I]\n\n    def find_minimal_cycle(G, s=0):\n        D, par, que, Va = u32f(N\
+    \ := G.N, u32_max), i32f(N, -1), Que([s]), G.Va\n        D[s] = 0\n        while\
+    \ que:\n            for i in G.range(u := que.pop()):\n                if (v :=\
+    \ Va[i]) == s:  # Found cycle back to start\n                    cycle = [u]\n\
+    \                    while u != s: cycle.append(u := par[u])\n               \
+    \     return cycle\n                if D[v] < u32_max: continue\n            \
+    \    D[v], par[v] = D[u]+1, u; que.push(v)\n\n    def dfs_topo(G, s: Union[int,list]\
+    \ = None) -> list[int]:\n        '''Returns lists of indices i where Ua[i] ->\
+    \ Va[i] are edges in order of top down discovery'''\n        vis, st, order =\
+    \ G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in G.starts(s):\n \
+    \           if vis[s]: continue\n            vis[s] = 1; st.append(s) \n     \
+    \       while st:\n                for i in G.range(st.pop()):\n             \
+    \       if vis[v := G.Va[i]]: continue\n                    vis[v] = 1; order.append(i);\
+    \ st.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list] = None,\
+    \ /, \n            backtrack = False,\n            max_depth = None,\n       \
+    \     enter_fn: Callable[[int],None] = None,\n            leave_fn: Callable[[int],None]\
     \ = None,\n            max_depth_fn: Callable[[int],None] = None,\n          \
     \  down_fn: Callable[[int,int,int],None] = None,\n            back_fn: Callable[[int,int,int],None]\
     \ = None,\n            forward_fn: Callable[[int,int,int],None] = None,\n    \
@@ -309,24 +292,42 @@ data:
     \      def parse(io: IOBase):\n            U, V = u32f(M), u32f(M)\n         \
     \   for i in range(M): u, v = io.readints(); U[i], V[i] = u+shift, v+shift\n \
     \           return cls(N, U, V)\n        return parse\n\nu32_max = (1<<32)-1\n\
-    i32_max = (1<<31)-1\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    i32_max = (1<<31)-1\nfrom array import array\n\n\ndef u8f(N: int, elm: int = 0):\
     \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
     \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
-    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\n\ndef elist(hint:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\n\nclass Que:\n\
-    \    def __init__(que, v = None): que.q = elist(v) if isinstance(v, int) else\
-    \ list(v) if v else []; que.h = 0\n    def push(que, item): que.q.append(item)\n\
-    \    def pop(que): que.h = (h := que.h) + 1; return que.q[h]\n    def extend(que,\
-    \ items): que.q.extend(items)\n    def __getitem__(que, i: int): return que.q[que.h+i]\n\
-    \    def __setitem__(que, i: int, v): que.q[que.h+i] = v\n    def __len__(que):\
-    \ return que.q.__len__() - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\
+    \  def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n\n\nclass Que:\n    def __init__(que, v = None): que.q = elist(v)\
+    \ if isinstance(v, int) else list(v) if v else []; que.h = 0\n    def push(que,\
+    \ item): que.q.append(item)\n    def pop(que): que.h = (h := que.h) + 1; return\
+    \ que.q[h]\n    def extend(que, items): que.q.extend(items)\n    def __getitem__(que,\
+    \ i: int): return que.q[que.h+i]\n    def __setitem__(que, i: int, v): que.q[que.h+i]\
+    \ = v\n    def __len__(que): return que.q.__len__() - que.h\n    def __hash__(que):\
+    \ return hash(tuple(que.q[que.h:]))\n\nfrom typing import Generic\nfrom typing\
+    \ import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\nimport sys\n\ndef list_find(lst: list,\
+    \ value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
+    \ start, stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n\
+    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r:\
+    \ int = 0): V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n  \
+    \  def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n\
+    \        else: raise IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i]\
+    \ = v\n    def __contains__(V, v: _T): return list_find(V.A, v, V.l, V.r) != -1\n\
+    \    def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: _T):\
+    \ return V.A.index(v, V.l, V.r) - V.l\n    def reverse(V):\n        l, r = V.l,\
+    \ V.r-1\n        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n\
+    \    def sort(V, /, *args, **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args,\
+    \ **kwargs)\n        for i,a in enumerate(A,V.l): V.A[i] = a\n    def pop(V):\
+    \ V.r -= 1; return V.A[V.r]\n    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n\
+    \    def popleft(V): V.l += 1; return V.A[V.l-1]\n    def appendleft(V, v: _T):\
+    \ V.l -= 1; V.A[V.l] = v; \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\
     \nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n\
     \    def writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def\
     \ write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
@@ -364,15 +365,10 @@ data:
     \ DSU(N := G.N), [0]*(N-1), N-1\n        for e in argsort(W):\n            u,\
     \ v = dsu.merge(U[e],V[e])\n            if u != v:\n                MST[need :=\
     \ need-1] = e\n                if not need: break\n        return None if need\
-    \ else MST\n    \n    def kruskal_heap(G):\n        N, M, U, V, W = G.N, G.M,\
-    \ G.U, G.V, G.W \n        que, dsu, MST = PriorityQueue(M, list(range(M)), W),\
-    \ DSU(N), [0]*(need := N-1)\n        while que and need:\n            _, e = que.pop()\n\
-    \            u, v = dsu.merge(U[e],V[e])\n            if u != v:\n           \
-    \     MST[need := need-1] = e\n        return None if need else MST\n   \n   \
-    \ def bellman_ford(G, s: int = 0) -> list[int]:\n        Ua, Va, Wa, D = G.Ua,\
-    \ G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n        for _ in range(N-1):\n\
-    \            for i, u in enumerate(Ua):\n                if D[u] < inf: chmin(D,\
-    \ Va[i], D[u] + Wa[i])\n        return D\n    \n    def bellman_ford_neg_cyc_check(G,\
+    \ else MST\n   \n    def bellman_ford(G, s: int = 0) -> list[int]:\n        Ua,\
+    \ Va, Wa, D = G.Ua, G.Va, G.Wa, [inf]*(N := G.N)\n        D[s] = 0\n        for\
+    \ _ in range(N-1):\n            for i, u in enumerate(Ua):\n                if\
+    \ D[u] < inf: chmin(D, Va[i], D[u] + Wa[i])\n        return D\n    \n    def bellman_ford_neg_cyc_check(G,\
     \ s: int = 0) -> tuple[bool, list[int]]:\n        M, U, V, W, D = G.M, G.U, G.V,\
     \ G.W, G.bellman_ford(s)\n        neg_cycle = any(D[U[i]]+W[i]<D[V[i]] for i in\
     \ range(M) if D[U[i]] < inf)\n        return neg_cycle, D\n    \n    def floyd_warshall(G)\
@@ -509,12 +505,17 @@ data:
     \ range(N): La[u], i = i, i+deg[u]\n        Ra = La.__copy__()\n        for e,\
     \ u in enumerate(U): Ua[i], Va[i], Wa[i], Ea[i], Ra[u] = U[e], V[e], W[e], e,\
     \ (i := Ra[u])+1\n        super().__init__(N, M, U, V, W, deg, La, Ra, Ua, Va,\
-    \ Wa, Ea)\nfrom typing import Type, Union, overload\n\n@overload\ndef read() ->\
-    \ list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n\
-    @overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\ndef read(*specs:\
-    \ Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U,\
-    \ char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T], char=False):\n\
-    \    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
+    \ Wa, Ea)\n\n\ndef recover_path_vertices(G: 'GraphBase', s: int, t: int):\n  \
+    \  P = u32f(1, t)\n    while s != t: P.append(t := G.Ua[G.back[t]])\n    return\
+    \ P\nGraphBase.recover_path_vertices = recover_path_vertices\n\ndef shortest_path_vertices(G:\
+    \ 'GraphBase', s: int, t: int):\n    if G.distance(s, t) >= inf: return None\n\
+    \    P = recover_path_vertices(G, s, t); P.reverse()\n    return P\nGraphBase.shortest_path_vertices\
+    \ = shortest_path_vertices\nfrom typing import Type, Union, overload\n\n@overload\n\
+    def read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T], char=False)\
+    \ -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n@overload\n\
+    def read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\ndef\
+    \ read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T],\
+    \ char=False):\n    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nfrom __pypy__.builders import StringBuilder\n\ndef max2(a,\
@@ -568,28 +569,30 @@ data:
     \ = IO(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values to\
     \ a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"sep\"\
     , \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x in args:\n\
-    \        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\nif __name__ == '__main__':\n\
-    \    main()\n"
+    \        if not at_start: file.write(sep)\n        file.write(str(x))\n      \
+    \  at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False): file.flush()\n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/shortest_path\n\
     \ndef main():\n    N, M, s, t = read(tuple[int, ...])\n    G = read(DiGraphWeighted[N,M,0])\n\
-    \    path = G.shortest_path(s, t)\n    if path is None:\n        write(\"-1\"\
-    )\n    else:\n        X, Y = G.D[t], len(path)-1\n        write(X, Y)\n      \
-    \  for i in range(Y):\n            write(path[i],path[i+1])\n    \nfrom cp_library.alg.graph.csr.digraph_weighted_cls\
-    \ import DiGraphWeighted\nfrom cp_library.io.read_fn import read\nfrom cp_library.io.write_fn\
-    \ import write\n\nif __name__ == '__main__':\n    main()\n"
+    \    path = shortest_path_vertices(G, s, t)\n    if path is None:\n        write(\"\
+    -1\")\n    else:\n        X, Y = G.D[t], len(path)-1\n        write(X, Y)\n  \
+    \      for i in range(Y):\n            write(path[i], path[i+1])\n    \nfrom cp_library.alg.graph.csr.digraph_weighted_cls\
+    \ import DiGraphWeighted\nfrom cp_library.alg.graph.csr.snippets.shortest_path_vertices_fn\
+    \ import shortest_path_vertices\nfrom cp_library.io.read_fn import read\nfrom\
+    \ cp_library.io.write_fn import write\n\nif __name__ == '__main__':\n    main()\n"
   dependsOn:
   - cp_library/alg/graph/csr/digraph_weighted_cls.py
+  - cp_library/alg/graph/csr/snippets/shortest_path_vertices_fn.py
   - cp_library/io/read_fn.py
   - cp_library/io/write_fn.py
   - cp_library/alg/graph/csr/graph_weighted_base_cls.py
   - cp_library/ds/array/u32f_fn.py
+  - cp_library/alg/graph/csr/snippets/recover_path_vertices_fn.py
+  - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/io/io_cls.py
   - cp_library/io/parser_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/iter/arg/argsort_fn.py
-  - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/dsu_cls.py
   - cp_library/ds/heap/priority_queue_cls.py
@@ -597,15 +600,7 @@ data:
   - cp_library/alg/dp/max2_fn.py
   - cp_library/io/io_base_cls.py
   - cp_library/bit/pack/packer_cls.py
-  - cp_library/ds/view/view_cls.py
   - cp_library/io/parsable_cls.py
-  - cp_library/alg/graph/dfs_options_cls.py
-  - cp_library/bit/masks/u32_max_cnst.py
-  - cp_library/bit/masks/i32_max_cnst.py
-  - cp_library/ds/array/u8f_fn.py
-  - cp_library/ds/list/elist_fn.py
-  - cp_library/ds/packet_list_cls.py
-  - cp_library/ds/que/que_cls.py
   - cp_library/ds/csr/csr_incremental_cls.py
   - cp_library/ds/heap/heapify_fn.py
   - cp_library/ds/heap/heappop_fn.py
@@ -613,15 +608,23 @@ data:
   - cp_library/ds/heap/heappushpop_fn.py
   - cp_library/ds/heap/heapreplace_fn.py
   - cp_library/ds/heap/heap_base_cls.py
+  - cp_library/ds/list/elist_fn.py
   - cp_library/alg/iter/sort/isort_ranged_fn.py
-  - cp_library/ds/list/list_find_fn.py
+  - cp_library/alg/graph/dfs_options_cls.py
+  - cp_library/bit/masks/u32_max_cnst.py
+  - cp_library/bit/masks/i32_max_cnst.py
+  - cp_library/ds/array/u8f_fn.py
+  - cp_library/ds/packet_list_cls.py
+  - cp_library/ds/que/que_cls.py
+  - cp_library/ds/view/view_cls.py
   - cp_library/ds/heap/heapsiftup_fn.py
   - cp_library/ds/heap/heapsiftdown_fn.py
   - cp_library/alg/iter/arg/argsort_ranged_fn.py
+  - cp_library/ds/list/list_find_fn.py
   isVerificationFile: true
   path: test/library-checker/graph/shortest_path_fast_graph.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/shortest_path_fast_graph.test.py

@@ -56,9 +56,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod for\
-    \ i in range(1,len(P))]\n\n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n\
-    \    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
+    \n\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod\
+    \ for i in range(1,len(P))]\n\n\n    \nclass mint(int):\n    mod: int\n    zero:\
+    \ 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
     \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64: return\
     \ cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls,\
     \ mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero = cls.zero =\
@@ -92,7 +92,7 @@ data:
     \       for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n\
     \        for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod\
     \ \n        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
-    \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
+    \        p <<= 1\n    return R[:deg]\n\n\n\n\ndef reserve(A: list, est_len: int)\
     \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
     \n\n\ndef mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n    \
@@ -186,22 +186,23 @@ data:
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
     \ = NTT(mod)\n"
-  code: "import cp_library.math.fps.__header__\nfrom cp_library.math.fps.fps_deriv_fn\
-    \ import fps_deriv\n\ndef fps_exp(P: list) -> list:\n    max_sz = 1 << ((deg :=\
-    \ len(P))-1).bit_length()\n    mcomb.extend_inv(max_sz)\n    inv, mod, ntt = mcomb.inv,\
-    \ mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt, ntt.ifntt, ntt.conv_half\n\
-    \    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n    R, E, Eres = [1, (P[1] if 1 <\
-    \ deg else 0)], [1], [1, 1]\n    reserve(R, max_sz), reserve(E, max_sz)\n    p\
-    \ = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n        x = ifntt([Rres[i]*-e%mod\
-    \ for i, e in enumerate(Eres)])\n        for i in range(h:=p>>1): x[i] = 0\n \
-    \       E.extend(conv_half(x, Eres)[h:])\n        Eres = fntt(E + [0]*p)\n   \
-    \     x = conv_half(dP[:p-1]+[0], Rres[:p])\n        for i in range(1,p): x[i-1]\
-    \ -= R[i]*i % mod\n        x += [0] * p\n        for i in range(p-1): x[p+i],x[i]\
-    \ = x[i],0\n        conv_half(x,Eres)\n        for i in range(min(deg, p<<1)-1,p-1,-1):\
-    \ x[i] = P[i]+x[i-1]*inv[i]%mod \n        for i in range(p): x[i] = 0\n      \
-    \  R.extend(conv_half(x,Rres)[p:])\n        p <<= 1\n    return R[:deg]\n\nfrom\
-    \ cp_library.ds.list.reserve_fn import reserve\nfrom cp_library.math.table.mcomb_cls\
-    \ import mcomb\nfrom cp_library.math.mod.mint_ntt_cls import mint"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.fps.__header__\n\
+    from cp_library.math.fps.fps_deriv_fn import fps_deriv\n\ndef fps_exp(P: list)\
+    \ -> list:\n    max_sz = 1 << ((deg := len(P))-1).bit_length()\n    mcomb.extend_inv(max_sz)\n\
+    \    inv, mod, ntt = mcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half\
+    \ = ntt.fntt, ntt.ifntt, ntt.conv_half\n    dP = fps_deriv(P) + [0]*(max_sz-deg+1)\n\
+    \    R, E, Eres = [1, (P[1] if 1 < deg else 0)], [1], [1, 1]\n    reserve(R, max_sz),\
+    \ reserve(E, max_sz)\n    p = 2\n    while p < deg:\n        Rres = fntt(R + [0]*p)\n\
+    \        x = ifntt([Rres[i]*-e%mod for i, e in enumerate(Eres)])\n        for\
+    \ i in range(h:=p>>1): x[i] = 0\n        E.extend(conv_half(x, Eres)[h:])\n  \
+    \      Eres = fntt(E + [0]*p)\n        x = conv_half(dP[:p-1]+[0], Rres[:p])\n\
+    \        for i in range(1,p): x[i-1] -= R[i]*i % mod\n        x += [0] * p\n \
+    \       for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n\
+    \        for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod\
+    \ \n        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
+    \        p <<= 1\n    return R[:deg]\n\nfrom cp_library.ds.list.reserve_fn import\
+    \ reserve\nfrom cp_library.math.table.mcomb_cls import mcomb\nfrom cp_library.math.mod.mint_ntt_cls\
+    \ import mint"
   dependsOn:
   - cp_library/math/fps/fps_deriv_fn.py
   - cp_library/ds/list/reserve_fn.py
@@ -213,14 +214,14 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_exp_fn.py
   requiredBy:
+  - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
+  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
 documentation_of: cp_library/math/fps/fps_exp_fn.py

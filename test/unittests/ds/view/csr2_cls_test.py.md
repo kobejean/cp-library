@@ -237,8 +237,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
     \    https://kobejean.github.io/cp-library               \n'''\nfrom typing import\
-    \ Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U\
-    \ = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ Generic\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
     \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\n\n\n\n\
     def argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n    P = Packer(r-l-1);\
     \ I = [A[l+i] for i in range(r-l)]; P.ienumerate(I, reverse); I.sort()\n    for\
@@ -283,8 +283,8 @@ data:
     \  A1: list[_T1] = [0]*len(K); A2: list[_T2] = [0]*len(K); O = [0]*(N+1)\n   \
     \     for k in K: O[k] += 1\n        for i in range(N): O[i+1] += O[i]\n     \
     \   for e in range(len(K)): k = K[~e]; O[k] -= 1; A1[O[k]] = V1[~e]; A2[O[k]]\
-    \ = V2[~e]\n        return cls(A1, A2, O)\n\nif __name__ == '__main__':\n    \"\
-    \"\"\n    Helper for making unittest files compatible with verification-helper.\n\
+    \ = V2[~e]\n        return cls(A1, A2, O)\n\nif __name__ == '__main__':\n    \n\
+    \    \"\"\"\n    Helper for making unittest files compatible with verification-helper.\n\
     \    \n    This module provides a helper function to run a dummy Library Checker\
     \ test\n    so that unittest files can be verified by oj-verify.\n    \"\"\"\n\
     \    \n    def run_verification_helper_unittest():\n        \"\"\"\n        Run\
@@ -518,7 +518,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/csr2_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/csr2_cls_test.py

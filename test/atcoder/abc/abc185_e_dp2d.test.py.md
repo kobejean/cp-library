@@ -46,7 +46,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library \
     \              \n'''\nfrom typing import Type, Union, overload\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
     def read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U,\
@@ -56,8 +56,8 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
-    \ > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    from __pypy__.builders import StringBuilder\n\n\n\ndef max2(a, b): return a if\
+    \ a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
     \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
     \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
     \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
@@ -159,20 +159,20 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    from typing import Generic, Container\nfrom dataclasses import dataclass\nfrom\
-    \ math import inf\n\n@dataclass\nclass Transition2D(Generic[_T]):\n    di: int;\
-    \ dj: int\n    \n    def __call__(self, i: int, j: int, src: _T, dest: _T) ->\
-    \ _T:\n        '''Override this to implement transition logic'''\n        return\
-    \ src  # Default no-op\n    \n    @classmethod\n    def make(cls, func):\n   \
-    \     class Transition(cls):\n            def __call__(self, i: int, j: int, src:\
-    \ _T, dest: _T) -> _T:\n                return func(i,j,src,dest)\n        return\
-    \ Transition\n\nclass DynamicProgramming2D(Generic[_T], Parsable, Container):\n\
-    \    def __init__(self, rows: int, cols: int, default: _T = inf):\n        self.rows\
-    \ = rows\n        self.cols = cols\n        self.table = default if isinstance(default,\
-    \ list) else [[default] * cols for _ in range(rows)]\n    \n    def __getitem__(self,\
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\nfrom typing\
+    \ import Generic, Container\nfrom dataclasses import dataclass\nfrom math import\
+    \ inf\n\n@dataclass\nclass Transition2D(Generic[_T]):\n    di: int; dj: int\n\
+    \    \n    def __call__(self, i: int, j: int, src: _T, dest: _T) -> _T:\n    \
+    \    '''Override this to implement transition logic'''\n        return src  #\
+    \ Default no-op\n    \n    @classmethod\n    def make(cls, func):\n        class\
+    \ Transition(cls):\n            def __call__(self, i: int, j: int, src: _T, dest:\
+    \ _T) -> _T:\n                return func(i,j,src,dest)\n        return Transition\n\
+    \nclass DynamicProgramming2D(Generic[_T], Parsable, Container):\n    def __init__(self,\
+    \ rows: int, cols: int, default: _T = inf):\n        self.rows = rows\n      \
+    \  self.cols = cols\n        self.table = default if isinstance(default, list)\
+    \ else [[default] * cols for _ in range(rows)]\n    \n    def __getitem__(self,\
     \ pos: tuple[int, int]) -> _T:\n        i, j = pos\n        return self.table[i][j]\n\
     \    \n    def __setitem__(self, pos: tuple[int, int], value: _T) -> None:\n \
     \       i, j = pos\n        self.table[i][j] = value\n\n    def __contains__(self,\
@@ -216,7 +216,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc185_e_dp2d.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc185_e_dp2d.test.py

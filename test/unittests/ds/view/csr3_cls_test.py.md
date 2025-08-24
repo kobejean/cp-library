@@ -80,34 +80,34 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\nfrom\
-    \ typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T');\
-    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
-    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\n\n\n\n\
-    def argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n    P = Packer(r-l-1);\
-    \ I = [A[l+i] for i in range(r-l)]; P.ienumerate(I, reverse); I.sort()\n    for\
-    \ i in range(r-l): I[i] = (I[i] & P.m) + l\n    return I\n\n\n\nclass Packer:\n\
-    \    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
-    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
-    \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
-    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
-    \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
-    \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
-    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
-    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
-    \n\ndef isort_ranged(*L: list, l: int, r: int, reverse=False):\n    n = r - l\n\
-    \    order = argsort_ranged(L[0], l, r, reverse=reverse)\n    inv = [0] * n\n\
-    \    # order contains indices in range [l, r), need to map to [0, n)\n    for\
-    \ i in range(n): inv[order[i]-l] = i\n    for i in range(n):\n        j = order[i]\
-    \ - l  # j is in range [0, n)\n        for A in L: A[l+i], A[l+j] = A[l+j], A[l+i]\n\
-    \        order[inv[i]], order[inv[j]] = order[inv[j]], order[inv[i]]\n       \
-    \ inv[i], inv[j] = inv[j], inv[i]\n    return L\n\nclass view3(Generic[_T1, _T2,\
-    \ _T3]):\n    __slots__ = 'A1', 'A2', 'A3', 'l', 'r'\n    def __init__(V, A1:\
-    \ list[_T1], A2: list[_T2], A3: list[_T3], l: int = 0, r: int = 0): \n       \
-    \ V.A1, V.A2, V.A3, V.l, V.r = A1, A2, A3, l, r\n    def __len__(V): return V.r\
-    \ - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return\
-    \ V.A1[V.l+i], V.A2[V.l+i], V.A3[V.l+i]\n        else: raise IndexError\n    def\
-    \ __setitem__(V, i: int, v: tuple[_T1, _T2, _T3]): V.A1[V.l+i], V.A2[V.l+i], V.A3[V.l+i]\
-    \ = v\n    def __contains__(V, v: tuple[_T1, _T2, _T3]): raise NotImplemented\n\
+    \ typing import Generic\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T =\
+    \ TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3\
+    \ = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    \n\n\n\n\n\ndef argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n\
+    \    P = Packer(r-l-1); I = [A[l+i] for i in range(r-l)]; P.ienumerate(I, reverse);\
+    \ I.sort()\n    for i in range(r-l): I[i] = (I[i] & P.m) + l\n    return I\n\n\
+    \n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s\
+    \ = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return\
+    \ a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x\
+    \ & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse);\
+    \ return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n  \
+    \          for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n     \
+    \       for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
+    \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
+    \ enumerate(A): A[i] = P.m&a\n\n\ndef isort_ranged(*L: list, l: int, r: int, reverse=False):\n\
+    \    n = r - l\n    order = argsort_ranged(L[0], l, r, reverse=reverse)\n    inv\
+    \ = [0] * n\n    # order contains indices in range [l, r), need to map to [0,\
+    \ n)\n    for i in range(n): inv[order[i]-l] = i\n    for i in range(n):\n   \
+    \     j = order[i] - l  # j is in range [0, n)\n        for A in L: A[l+i], A[l+j]\
+    \ = A[l+j], A[l+i]\n        order[inv[i]], order[inv[j]] = order[inv[j]], order[inv[i]]\n\
+    \        inv[i], inv[j] = inv[j], inv[i]\n    return L\n\nclass view3(Generic[_T1,\
+    \ _T2, _T3]):\n    __slots__ = 'A1', 'A2', 'A3', 'l', 'r'\n    def __init__(V,\
+    \ A1: list[_T1], A2: list[_T2], A3: list[_T3], l: int = 0, r: int = 0): \n   \
+    \     V.A1, V.A2, V.A3, V.l, V.r = A1, A2, A3, l, r\n    def __len__(V): return\
+    \ V.r - V.l\n    def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l:\
+    \ return V.A1[V.l+i], V.A2[V.l+i], V.A3[V.l+i]\n        else: raise IndexError\n\
+    \    def __setitem__(V, i: int, v: tuple[_T1, _T2, _T3]): V.A1[V.l+i], V.A2[V.l+i],\
+    \ V.A3[V.l+i] = v\n    def __contains__(V, v: tuple[_T1, _T2, _T3]): raise NotImplemented\n\
     \    def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: tuple[_T1,\
     \ _T2, _T3]): raise NotImplemented\n    def reverse(V):\n        l, r = V.l, V.r-1\n\
     \        while l < r: \n            V.A1[l], V.A1[r] = V.A1[r], V.A1[l]\n    \
@@ -131,7 +131,7 @@ data:
     \ = [0]*len(K); O = [0]*(N+1)\n        for k in K: O[k] += 1\n        for i in\
     \ range(N): O[i+1] += O[i]\n        for e in range(len(K)): k = K[~e]; O[k] -=\
     \ 1; A1[O[k]] = V1[~e]; A2[O[k]] = V2[~e]; A3[O[k]] = V3[~e]\n        return cls(A1,\
-    \ A2, A3, O)\n\nif __name__ == '__main__':\n    \"\"\"\n    Helper for making\
+    \ A2, A3, O)\n\nif __name__ == '__main__':\n    \n    \"\"\"\n    Helper for making\
     \ unittest files compatible with verification-helper.\n    \n    This module provides\
     \ a helper function to run a dummy Library Checker test\n    so that unittest\
     \ files can be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
@@ -209,7 +209,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/csr3_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/csr3_cls_test.py

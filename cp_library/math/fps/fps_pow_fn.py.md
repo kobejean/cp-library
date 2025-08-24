@@ -65,9 +65,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod for\
-    \ i in range(1,len(P))]\n\n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n\
-    \    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
+    \n\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod\
+    \ for i in range(1,len(P))]\n\n\n    \nclass mint(int):\n    mod: int\n    zero:\
+    \ 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
     \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64: return\
     \ cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls,\
     \ mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero = cls.zero =\
@@ -180,7 +180,7 @@ data:
     \   for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n   \
     \     for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod \n\
     \        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
-    \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
+    \        p <<= 1\n    return R[:deg]\n\n\n\n\ndef reserve(A: list, est_len: int)\
     \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
     \nfrom itertools import accumulate\n\nclass mcomb():\n    fact: list[int]\n  \
@@ -213,17 +213,17 @@ data:
     \ for j in range(i,deg)])\n    for j,r in enumerate(R): R[j] = r*k%mod\n    R\
     \ = fps_exp(R)\n    for j,r in enumerate(R): R[j] = r*alpha%mod\n    R[:0] = [0]\
     \ * (i * k)\n    return fps_normalize(R, deg)\n"
-  code: "import cp_library.math.fps.__header__\nfrom cp_library.math.fps.fps_log_fn\
-    \ import fps_log\nfrom cp_library.math.fps.fps_exp_fn import fps_exp\nfrom cp_library.math.fps.fps_normalize_fn\
-    \ import fps_normalize\n\ndef fps_pow(P: list, k: int, deg = -1) -> list:\n  \
-    \  deg, mod = (len(P) if deg<0 else deg), mint.mod\n    if k == 0: return [1]+[0]*(deg-1)\
-    \ if deg else []\n    i = next((i for i, c in enumerate(P) if c), default=deg)\n\
-    \    if i * k >= deg: return [0] * deg\n    inv, alpha = mod_inv(P[i],mod), pow(P[i],\
-    \ k, mod)\n    R = fps_log([P[j]*inv%mod for j in range(i,deg)])\n    for j,r\
-    \ in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n    for j,r in enumerate(R):\
-    \ R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n    return fps_normalize(R, deg)\n\
-    from cp_library.math.mod.mint_ntt_cls import mint\nfrom cp_library.math.nt.mod_inv_fn\
-    \ import mod_inv\n"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.fps.__header__\n\
+    from cp_library.math.fps.fps_log_fn import fps_log\nfrom cp_library.math.fps.fps_exp_fn\
+    \ import fps_exp\nfrom cp_library.math.fps.fps_normalize_fn import fps_normalize\n\
+    \ndef fps_pow(P: list, k: int, deg = -1) -> list:\n    deg, mod = (len(P) if deg<0\
+    \ else deg), mint.mod\n    if k == 0: return [1]+[0]*(deg-1) if deg else []\n\
+    \    i = next((i for i, c in enumerate(P) if c), default=deg)\n    if i * k >=\
+    \ deg: return [0] * deg\n    inv, alpha = mod_inv(P[i],mod), pow(P[i], k, mod)\n\
+    \    R = fps_log([P[j]*inv%mod for j in range(i,deg)])\n    for j,r in enumerate(R):\
+    \ R[j] = r*k%mod\n    R = fps_exp(R)\n    for j,r in enumerate(R): R[j] = r*alpha%mod\n\
+    \    R[:0] = [0] * (i * k)\n    return fps_normalize(R, deg)\nfrom cp_library.math.mod.mint_ntt_cls\
+    \ import mint\nfrom cp_library.math.nt.mod_inv_fn import mod_inv\n"
   dependsOn:
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_exp_fn.py
@@ -242,7 +242,7 @@ data:
   requiredBy:
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py

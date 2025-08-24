@@ -20,20 +20,20 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport operator\nfrom typing import Callable\nfrom typing import TypeVar\n_S\
+    import operator\nfrom typing import Callable\nfrom typing import TypeVar\n\n_S\
     \ = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2\
     \ = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \ _T6 = TypeVar('T6')\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2501\u2578\n    x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
-    \u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\
-    \u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\
-    \u2500\u2500\u25BA X\u2080\n                \u2573          \u2572 \u2571    \
-    \      \u2572     \u2571          \n    x\u2084 \u2500\u2500\u2500\u2500\u2500\
+    \u2501\u2501\u2501\u2578\n    x\u2080 \u2500\u2500\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
+    \u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\
+    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\
+    \u2500\u2500\u2500\u25BA X\u2080\n                \u2573          \u2572 \u2571\
+    \          \u2572     \u2571          \n    x\u2084 \u2500\u2500\u2500\u2500\u2500\
     \u2500\u2500\u2500\u25CF\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u2500\u25CF\u2500\u2573\u2500\u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\
     \u2500\u25CF\u2500\u2572\u2500\u2500\u2500\u2571\u2500\u25CF\u2500\u2500\u2500\
@@ -83,20 +83,21 @@ data:
     \ = operator.add) -> list[_T]:\n    assert len(A) == len(B)\n    iand_transform(A,\
     \ N, op=add), iand_transform(B, N, op=add)\n    for i, b in enumerate(B): A[i]\
     \ = mul(A[i], b)\n    return iand_transform(A, N, op=sub)\n"
-  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport operator\n\
-    from typing import Callable\nfrom cp_library.misc.typing import _T\nimport cp_library.math.conv.__header__\n\
-    from cp_library.math.conv.iand_transform_fn import iand_transform\n\ndef iand_conv_ring(A:\
-    \ list[_T], B: list[_T], N: int,\n             mul: Callable[[_T,_T],_T] = operator.mul,\n\
-    \             sub: Callable[[_T,_T],_T] = operator.sub,\n             add: Callable[[_T,_T],_T]\
-    \ = operator.add) -> list[_T]:\n    assert len(A) == len(B)\n    iand_transform(A,\
-    \ N, op=add), iand_transform(B, N, op=add)\n    for i, b in enumerate(B): A[i]\
-    \ = mul(A[i], b)\n    return iand_transform(A, N, op=sub)\n"
+  code: "import cp_library.__header__\nimport operator\nfrom typing import Callable\n\
+    from cp_library.misc.typing import _T\nimport cp_library.math.__header__\nimport\
+    \ cp_library.math.conv.__header__\nfrom cp_library.math.conv.iand_transform_fn\
+    \ import iand_transform\n\ndef iand_conv_ring(A: list[_T], B: list[_T], N: int,\n\
+    \             mul: Callable[[_T,_T],_T] = operator.mul,\n             sub: Callable[[_T,_T],_T]\
+    \ = operator.sub,\n             add: Callable[[_T,_T],_T] = operator.add) -> list[_T]:\n\
+    \    assert len(A) == len(B)\n    iand_transform(A, N, op=add), iand_transform(B,\
+    \ N, op=add)\n    for i, b in enumerate(B): A[i] = mul(A[i], b)\n    return iand_transform(A,\
+    \ N, op=sub)\n"
   dependsOn:
   - cp_library/math/conv/iand_transform_fn.py
   isVerificationFile: false
   path: cp_library/math/conv/iand_conv_ring_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/convolution/bitwise_and_convolution.test.py

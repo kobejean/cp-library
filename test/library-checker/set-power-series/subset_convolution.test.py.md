@@ -108,7 +108,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n               \
-    \       Math - Convolution                     \n'''\n\n\ndef max2(a, b): return\
+    \       Math - Convolution                     \n'''\n\n\n\ndef max2(a, b): return\
     \ a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A, B, N, M, Z):\n    for i in\
     \ range(0, Z, M):\n        l, r = i+(1<<(i>>N))-1, i+M\n        for j in range(N):\n\
     \            m = l|(b := 1<<j)\n            while m < r: A[m] += A[m^b]; B[m]\
@@ -199,9 +199,9 @@ data:
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
-    \ l)))\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\nmain()\n"
+    \ l)))\n\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n\
+    \    \n\nmain()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/subset_convolution\n\
     \ndef main():\n    mod, n = 998244353, rd()[0]\n    A, B = rdl(1<<n), rdl(1<<n)\n\
     \    C = subset_conv(A, B, n, mod)\n    wtnl(C)\n    assert subset_deconv(C, B,\
@@ -224,7 +224,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/subset_convolution.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/subset_convolution.test.py

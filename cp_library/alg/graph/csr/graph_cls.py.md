@@ -134,69 +134,51 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n\n\nfrom typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S');\
-    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
-    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \n\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
-    \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
-    \ return -1\n\n\nclass view(Generic[_T]):\n    __slots__ = 'A', 'l', 'r'\n   \
-    \ def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A, V.l, V.r = A, l,\
-    \ r\n    def __len__(V): return V.r - V.l\n    def __getitem__(V, i: int): \n\
-    \        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n        else: raise IndexError\n\
-    \    def __setitem__(V, i: int, v: _T): V.A[V.l+i] = v\n    def __contains__(V,\
-    \ v: _T): return list_find(V.A, v, V.l, V.r) != -1\n    def set_range(V, l: int,\
-    \ r: int): V.l, V.r = l, r\n    def index(V, v: _T): return V.A.index(v, V.l,\
-    \ V.r) - V.l\n    def reverse(V):\n        l, r = V.l, V.r-1\n        while l\
-    \ < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n    def sort(V, /, *args,\
-    \ **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args, **kwargs)\n        for i,a\
-    \ in enumerate(A,V.l): V.A[i] = a\n    def pop(V): V.r -= 1; return V.A[V.r]\n\
-    \    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n    def popleft(V): V.l +=\
-    \ 1; return V.A[V.l-1]\n    def appendleft(V, v: _T): V.l -= 1; V.A[V.l] = v;\
-    \ \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\nfrom math import\
-    \ inf\nfrom typing import Callable, Sequence, Union, overload\nfrom types import\
-    \ GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def compile(cls):\n\
-    \        def parser(io: 'IOBase'): return cls(next(io))\n        return parser\n\
-    \    @classmethod\n    def __class_getitem__(cls, item): return GenericAlias(cls,\
-    \ item)\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\
-    \nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n    ENTER\
-    \ = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n    LEAVE\
-    \ = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS = auto()\n\
-    \    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS = auto()\n\
-    \n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n    EULER_TOUR\
-    \ = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN | CONNECT_ROOTS\n\
-    \    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS | RETURN_DEPTHS\n\
-    \nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n    DOWN = DFSFlags.DOWN\
-    \ \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS \n    LEAVE = DFSFlags.LEAVE\
-    \ \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n    \n\nclass GraphBase(Parsable):\n\
-    \    def __init__(G, N: int, M: int, U: list[int], V: list[int], \n          \
-    \       deg: list[int], La: list[int], Ra: list[int],\n                 Ua: list[int],\
-    \ Va: list[int], Ea: list[int], twin: list[int] = None):\n        G.N = N\n  \
-    \      '''The number of vertices.'''\n        G.M = M\n        '''The number of\
-    \ edges.'''\n        G.U = U\n        '''A list of source vertices in the original\
-    \ edge list.'''\n        G.V = V\n        '''A list of destination vertices in\
-    \ the original edge list.'''\n        G.deg = deg\n        '''deg[u] is the out\
-    \ degree of vertex u.'''\n        G.La = La\n        '''La[u] stores the start\
-    \ index of the list of adjacent vertices from u.'''\n        G.Ra = Ra\n     \
-    \   '''Ra[u] stores the stop index of the list of adjacent vertices from u.'''\n\
-    \        G.Ua = Ua\n        '''Ua[i] = u for La[u] <= i < Ra[u], useful for backtracking.'''\n\
-    \        G.Va = Va\n        '''Va[i] lists adjacent vertices to u for La[u] <=\
-    \ i < Ra[u].'''\n        G.Ea = Ea\n        '''Ea[i] lists the edge ids that start\
-    \ from u for La[u] <= i < Ra[u].\n        For undirected graphs, edge ids in range\
-    \ M<= e <2*M are edges from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin\
-    \ if twin is not None else range(len(Ua))\n        '''twin[i] in undirected graphs\
-    \ stores index j of the same edge but with u and v swapped.'''\n        G.st:\
-    \ list[int] = None\n        G.order: list[int] = None\n        G.vis: list[int]\
-    \ = None\n        G.back: list[int] = None\n        G.tin: list[int] = None\n\
-    \    \n    def clear(G):\n        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n\
-    \        if G.vis is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def\
-    \ prep_st(G):\n        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n\
-    \        return G.st\n    \n    def prep_order(G):\n        if G.order is None:\
-    \ G.order = elist(G.N)\n        else: G.order.clear()\n        return G.order\n\
-    \    \n    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n\
-    \        return G.back\n    \n    def prep_tin(G):\n        if G.tin is None:\
-    \ G.tin = i32f(G.N, -1)\n        return G.tin\n    \n    def _remove(G, a: int):\n\
-    \        G.deg[u := G.Ua[a]] -= 1\n        G.Ra[u] = (r := G.Ra[u]-1)\n      \
-    \  G.Ua[a], G.Va[a], G.Ea[a] = G.Ua[r], G.Va[r], G.Ea[r]\n        G.twin[a], G.twin[r]\
+    \n\n\nfrom math import inf\nfrom typing import Callable, Sequence, Union, overload\n\
+    from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
+    \ compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n    \
+    \    return parser\n    @classmethod\n    def __class_getitem__(cls, item): return\
+    \ GenericAlias(cls, item)\n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n\
+    \    return ch\nfrom enum import auto, IntFlag, IntEnum\n\nclass DFSFlags(IntFlag):\n\
+    \    ENTER = auto()\n    DOWN = auto()\n    BACK = auto()\n    CROSS = auto()\n\
+    \    LEAVE = auto()\n    UP = auto()\n    MAXDEPTH = auto()\n\n    RETURN_PARENTS\
+    \ = auto()\n    RETURN_DEPTHS = auto()\n    BACKTRACK = auto()\n    CONNECT_ROOTS\
+    \ = auto()\n\n    # Common combinations\n    ALL_EDGES = DOWN | BACK | CROSS\n\
+    \    EULER_TOUR = DOWN | UP\n    INTERVAL = ENTER | LEAVE\n    TOPDOWN = DOWN\
+    \ | CONNECT_ROOTS\n    BOTTOMUP = UP | CONNECT_ROOTS\n    RETURN_ALL = RETURN_PARENTS\
+    \ | RETURN_DEPTHS\n\nclass DFSEvent(IntEnum):\n    ENTER = DFSFlags.ENTER \n \
+    \   DOWN = DFSFlags.DOWN \n    BACK = DFSFlags.BACK \n    CROSS = DFSFlags.CROSS\
+    \ \n    LEAVE = DFSFlags.LEAVE \n    UP = DFSFlags.UP \n    MAXDEPTH = DFSFlags.MAXDEPTH\n\
+    \nclass GraphBase(Parsable):\n    def __init__(G, N: int, M: int, U: list[int],\
+    \ V: list[int], \n                 deg: list[int], La: list[int], Ra: list[int],\n\
+    \                 Ua: list[int], Va: list[int], Ea: list[int], twin: list[int]\
+    \ = None):\n        G.N = N\n        '''The number of vertices.'''\n        G.M\
+    \ = M\n        '''The number of edges.'''\n        G.U = U\n        '''A list\
+    \ of source vertices in the original edge list.'''\n        G.V = V\n        '''A\
+    \ list of destination vertices in the original edge list.'''\n        G.deg =\
+    \ deg\n        '''deg[u] is the out degree of vertex u.'''\n        G.La = La\n\
+    \        '''La[u] stores the start index of the list of adjacent vertices from\
+    \ u.'''\n        G.Ra = Ra\n        '''Ra[u] stores the stop index of the list\
+    \ of adjacent vertices from u.'''\n        G.Ua = Ua\n        '''Ua[i] = u for\
+    \ La[u] <= i < Ra[u], useful for backtracking.'''\n        G.Va = Va\n       \
+    \ '''Va[i] lists adjacent vertices to u for La[u] <= i < Ra[u].'''\n        G.Ea\
+    \ = Ea\n        '''Ea[i] lists the edge ids that start from u for La[u] <= i <\
+    \ Ra[u].\n        For undirected graphs, edge ids in range M<= e <2*M are edges\
+    \ from V[e-M] -> U[e-M].\n        '''\n        G.twin = twin if twin is not None\
+    \ else range(len(Ua))\n        '''twin[i] in undirected graphs stores index j\
+    \ of the same edge but with u and v swapped.'''\n        G.st: list[int] = None\n\
+    \        G.order: list[int] = None\n        G.vis: list[int] = None\n        G.back:\
+    \ list[int] = None\n        G.tin: list[int] = None\n    \n    def clear(G):\n\
+    \        G.vis = G.back = G.tin = None\n\n    def prep_vis(G):\n        if G.vis\
+    \ is None: G.vis = u8f(G.N)\n        return G.vis\n    \n    def prep_st(G):\n\
+    \        if G.st is None: G.st = elist(G.N)\n        else: G.st.clear()\n    \
+    \    return G.st\n    \n    def prep_order(G):\n        if G.order is None: G.order\
+    \ = elist(G.N)\n        else: G.order.clear()\n        return G.order\n    \n\
+    \    def prep_back(G):\n        if G.back is None: G.back = i32f(G.N, -2)\n  \
+    \      return G.back\n    \n    def prep_tin(G):\n        if G.tin is None: G.tin\
+    \ = i32f(G.N, -1)\n        return G.tin\n    \n    def _remove(G, a: int):\n \
+    \       G.deg[u := G.Ua[a]] -= 1\n        G.Ra[u] = (r := G.Ra[u]-1)\n       \
+    \ G.Ua[a], G.Va[a], G.Ea[a] = G.Ua[r], G.Va[r], G.Ea[r]\n        G.twin[a], G.twin[r]\
     \ = G.twin[r], G.twin[a]\n        G.twin[G.twin[a]] = a\n        G.twin[G.twin[r]]\
     \ = r\n\n    def remove(G, a: int):\n        b = G.twin[a]; G._remove(a)\n   \
     \     if a != b: G._remove(b)\n\n    def __len__(G) -> int: return G.N\n    def\
@@ -205,61 +187,56 @@ data:
     \ ...\n    @overload\n    def distance(G, s: int = 0) -> list[int]: ...\n    @overload\n\
     \    def distance(G, s: int, g: int) -> int: ...\n    def distance(G, s = None,\
     \ g = None):\n        if s == None: return G.floyd_warshall()\n        else: return\
-    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        Ua, back, vertices =\
-    \ G.Ua, G.back, u32f(1, v := t)\n        while v != s: vertices.append(v := Ua[back[v]])\n\
-    \        return vertices\n    \n    def recover_path_edge_ids(G, s, t):\n    \
-    \    Ea, Ua, back, edges, v = G.Ea, G.Ua, G.back, u32f(0), t\n        while v\
-    \ != s: edges.append(Ea[i := back[v]]), (v := Ua[i])\n        return edges\n\n\
-    \    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >= inf:\
-    \ return None\n        vertices = G.recover_path(s, t)\n        vertices.reverse()\n\
-    \        return vertices\n    \n    def shortest_path_edge_ids(G, s: int, t: int):\n\
-    \        if G.distance(s, t) >= inf: return None\n        edges = G.recover_path_edge_ids(s,\
-    \ t)\n        edges.reverse()\n        return edges\n    \n    @overload\n   \
-    \ def bfs(G, s: Union[int,list] = 0) -> list[int]: ...\n    @overload\n    def\
-    \ bfs(G, s: Union[int,list], g: int) -> int: ...\n    def bfs(G, s: int = 0, g:\
-    \ int = None):\n        S, Va, back, D = G.starts(s), G.Va, i32f(N := G.N, -1),\
-    \ [inf]*N\n        G.back, G.D = back, D\n        for u in S: D[u] = 0\n     \
-    \   que = Que(S)\n        while que:\n            nd = D[u := que.pop()]+1\n \
-    \           if u == g: return nd-1\n            for i in G.range(u):\n       \
-    \         if chmin(D, v := Va[i], nd): back[v] = i; que.push(v)\n        return\
-    \ D if g is None else inf \n\n    def floyd_warshall(G) -> list[list[int]]:\n\
-    \        G.D = D = [[inf]*G.N for _ in range(G.N)]\n        for u in range(G.N):\
-    \ D[u][u] = 0\n        for i in range(len(G.Ua)): D[G.Ua[i]][G.Va[i]] = 1\n  \
-    \      for k, Dk in enumerate(D):\n            for Di in D:\n                if\
-    \ (Dik := Di[k]) == inf: continue\n                for j in range(G.N):\n    \
-    \                chmin(Di, j, Dik+Dk[j])\n        return D\n\n    def find_cycle_indices(G,\
-    \ s: Union[int, None] = None):\n        Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va,\
-    \ u8f(N := G.N), u32f(N, i32_max)\n        G.vis, G.back, st = vis, back, elist(N)\n\
-    \        for s in G.starts(s):\n            if vis[s]: continue\n            st.append(s)\n\
-    \            while st:\n                if not vis[u := st.pop()]:\n         \
-    \           st.append(u)\n                    vis[u], pe = 1, Ea[j] if (j := back[u])\
-    \ != i32_max else i32_max\n                    for i in G.range(u):\n        \
-    \                if not vis[v := Va[i]]:\n                            back[v]\
-    \ = i\n                            st.append(v)\n                        elif\
-    \ vis[v] == 1 and pe != Ea[i]:\n                            I = u32f(1,i)\n  \
-    \                          while v != u: I.append(i := back[u]), (u := Ua[i])\n\
-    \                            I.reverse()\n                            return I\n\
-    \                else:\n                    vis[u] = 2\n        # check for self\
-    \ loops\n        for i in range(len(Ua)):\n            if Ua[i] == Va[i]:\n  \
-    \              return u32f(1,i)\n    \n    def find_cycle(G, s: Union[int, None]\
-    \ = None):\n        if I := G.find_cycle_indices(s): return [G.Ua[i] for i in\
-    \ I]\n    \n    def find_cycle_edge_ids(G, s: Union[int, None] = None):\n    \
-    \    if I := G.find_cycle_indices(s): return [G.Ea[i] for i in I]\n\n    def find_minimal_cycle(G,\
-    \ s=0):\n        D, par, que, Va = u32f(N := G.N, u32_max), i32f(N, -1), Que([s]),\
-    \ G.Va\n        D[s] = 0\n        while que:\n            for i in G.range(u :=\
-    \ que.pop()):\n                if (v := Va[i]) == s:  # Found cycle back to start\n\
-    \                    cycle = [u]\n                    while u != s: cycle.append(u\
-    \ := par[u])\n                    return cycle\n                if D[v] < u32_max:\
-    \ continue\n                D[v], par[v] = D[u]+1, u; que.push(v)\n\n    def dfs_topo(G,\
-    \ s: Union[int,list] = None) -> list[int]:\n        '''Returns lists of indices\
-    \ i where Ua[i] -> Va[i] are edges in order of top down discovery'''\n       \
-    \ vis, st, order = G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in\
-    \ G.starts(s):\n            if vis[s]: continue\n            vis[s] = 1; st.append(s)\
-    \ \n            while st:\n                for i in G.range(st.pop()):\n     \
-    \               if vis[v := G.Va[i]]: continue\n                    vis[v] = 1;\
-    \ order.append(i); st.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list]\
-    \ = None, /, \n            backtrack = False,\n            max_depth = None,\n\
-    \            enter_fn: Callable[[int],None] = None,\n            leave_fn: Callable[[int],None]\
+    \ G.bfs(s, g)\n\n    def recover_path(G, s, t):\n        P = u32f(0)\n       \
+    \ while s != t: P.append(a := G.back[t]); t = G.Ua[a] \n        return P\n   \
+    \ \n    def shortest_path(G, s: int, t: int):\n        if G.distance(s, t) >=\
+    \ inf: return None\n        P = G.recover_path(s, t)\n        P.reverse()\n  \
+    \      return P\n    \n    @overload\n    def bfs(G, s: Union[int,list] = 0) ->\
+    \ list[int]: ...\n    @overload\n    def bfs(G, s: Union[int,list], g: int) ->\
+    \ int: ...\n    def bfs(G, s: int = 0, g: int = None):\n        S, Va, back, D\
+    \ = G.starts(s), G.Va, i32f(N := G.N, -1), [inf]*N\n        G.back, G.D = back,\
+    \ D\n        for u in S: D[u] = 0\n        que = Que(S)\n        while que:\n\
+    \            nd = D[u := que.pop()]+1\n            if u == g: return nd-1\n  \
+    \          for i in G.range(u):\n                if chmin(D, v := Va[i], nd):\
+    \ back[v] = i; que.push(v)\n        return D if g is None else inf \n\n    def\
+    \ floyd_warshall(G) -> list[list[int]]:\n        G.D = D = [[inf]*G.N for _ in\
+    \ range(G.N)]\n        for u in range(G.N): D[u][u] = 0\n        for i in range(len(G.Ua)):\
+    \ D[G.Ua[i]][G.Va[i]] = 1\n        for k, Dk in enumerate(D):\n            for\
+    \ Di in D:\n                if (Dik := Di[k]) == inf: continue\n             \
+    \   for j in range(G.N):\n                    chmin(Di, j, Dik+Dk[j])\n      \
+    \  return D\n\n    def find_cycle_indices(G, s: Union[int, None] = None):\n  \
+    \      Ea, Ua, Va, vis, back = G.Ea, G. Ua, G.Va, u8f(N := G.N), u32f(N, i32_max)\n\
+    \        G.vis, G.back, st = vis, back, elist(N)\n        for s in G.starts(s):\n\
+    \            if vis[s]: continue\n            st.append(s)\n            while\
+    \ st:\n                if not vis[u := st.pop()]:\n                    st.append(u)\n\
+    \                    vis[u], pe = 1, Ea[j] if (j := back[u]) != i32_max else i32_max\n\
+    \                    for i in G.range(u):\n                        if not vis[v\
+    \ := Va[i]]:\n                            back[v] = i\n                      \
+    \      st.append(v)\n                        elif vis[v] == 1 and pe != Ea[i]:\n\
+    \                            I = u32f(1,i)\n                            while\
+    \ v != u: I.append(i := back[u]), (u := Ua[i])\n                            I.reverse()\n\
+    \                            return I\n                else:\n               \
+    \     vis[u] = 2\n        # check for self loops\n        for i in range(len(Ua)):\n\
+    \            if Ua[i] == Va[i]:\n                return u32f(1,i)\n    \n    def\
+    \ find_cycle(G, s: Union[int, None] = None):\n        if I := G.find_cycle_indices(s):\
+    \ return [G.Ua[i] for i in I]\n    \n    def find_cycle_edge_ids(G, s: Union[int,\
+    \ None] = None):\n        if I := G.find_cycle_indices(s): return [G.Ea[i] for\
+    \ i in I]\n\n    def find_minimal_cycle(G, s=0):\n        D, par, que, Va = u32f(N\
+    \ := G.N, u32_max), i32f(N, -1), Que([s]), G.Va\n        D[s] = 0\n        while\
+    \ que:\n            for i in G.range(u := que.pop()):\n                if (v :=\
+    \ Va[i]) == s:  # Found cycle back to start\n                    cycle = [u]\n\
+    \                    while u != s: cycle.append(u := par[u])\n               \
+    \     return cycle\n                if D[v] < u32_max: continue\n            \
+    \    D[v], par[v] = D[u]+1, u; que.push(v)\n\n    def dfs_topo(G, s: Union[int,list]\
+    \ = None) -> list[int]:\n        '''Returns lists of indices i where Ua[i] ->\
+    \ Va[i] are edges in order of top down discovery'''\n        vis, st, order =\
+    \ G.prep_vis(), G.prep_st(), G.prep_order()\n        for s in G.starts(s):\n \
+    \           if vis[s]: continue\n            vis[s] = 1; st.append(s) \n     \
+    \       while st:\n                for i in G.range(st.pop()):\n             \
+    \       if vis[v := G.Va[i]]: continue\n                    vis[v] = 1; order.append(i);\
+    \ st.append(v)\n        return order\n\n    def dfs(G, s: Union[int,list] = None,\
+    \ /, \n            backtrack = False,\n            max_depth = None,\n       \
+    \     enter_fn: Callable[[int],None] = None,\n            leave_fn: Callable[[int],None]\
     \ = None,\n            max_depth_fn: Callable[[int],None] = None,\n          \
     \  down_fn: Callable[[int,int,int],None] = None,\n            back_fn: Callable[[int,int,int],None]\
     \ = None,\n            forward_fn: Callable[[int,int,int],None] = None,\n    \
@@ -298,24 +275,42 @@ data:
     \      def parse(io: IOBase):\n            U, V = u32f(M), u32f(M)\n         \
     \   for i in range(M): u, v = io.readints(); U[i], V[i] = u+shift, v+shift\n \
     \           return cls(N, U, V)\n        return parse\n\n\nu32_max = (1<<32)-1\n\
-    i32_max = (1<<31)-1\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):\
+    i32_max = (1<<31)-1\nfrom array import array\n\n\ndef u8f(N: int, elm: int = 0):\
     \      return array('B', (elm,))*N  # unsigned char\ndef u32f(N: int, elm: int\
     \ = 0):     return array('I', (elm,))*N  # unsigned int\ndef i32f(N: int, elm:\
-    \ int = 0):     return array('i', (elm,))*N  # signed int\n\ndef elist(est_len:\
+    \ int = 0):     return array('i', (elm,))*N  # signed int\n\n\ndef elist(hint:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class PacketList(Sequence[tuple[int,int]]):\n    def __init__(lst, A: list[int],\
-    \ max1: int):\n        lst.A = A\n        lst.mask = (1 << (shift := (max1).bit_length()))\
-    \ - 1\n        lst.shift = shift\n    def __len__(lst): return lst.A.__len__()\n\
-    \    def __contains__(lst, x: tuple[int,int]): return lst.A.__contains__(x[0]\
-    \ << lst.shift | x[1])\n    def __getitem__(lst, key) -> tuple[int,int]:\n   \
-    \     x = lst.A[key]\n        return x >> lst.shift, x & lst.mask\n\n\nclass Que:\n\
-    \    def __init__(que, v = None): que.q = elist(v) if isinstance(v, int) else\
-    \ list(v) if v else []; que.h = 0\n    def push(que, item): que.q.append(item)\n\
-    \    def pop(que): que.h = (h := que.h) + 1; return que.q[h]\n    def extend(que,\
-    \ items): que.q.extend(items)\n    def __getitem__(que, i: int): return que.q[que.h+i]\n\
-    \    def __setitem__(que, i: int, v): que.q[que.h+i] = v\n    def __len__(que):\
-    \ return que.q.__len__() - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\
+    \  def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\nclass PacketList(Sequence[tuple[int,int]]):\n\
+    \    def __init__(lst, A: list[int], max1: int):\n        lst.A = A\n        lst.mask\
+    \ = (1 << (shift := (max1).bit_length())) - 1\n        lst.shift = shift\n   \
+    \ def __len__(lst): return lst.A.__len__()\n    def __contains__(lst, x: tuple[int,int]):\
+    \ return lst.A.__contains__(x[0] << lst.shift | x[1])\n    def __getitem__(lst,\
+    \ key) -> tuple[int,int]:\n        x = lst.A[key]\n        return x >> lst.shift,\
+    \ x & lst.mask\n\n\nclass Que:\n    def __init__(que, v = None): que.q = elist(v)\
+    \ if isinstance(v, int) else list(v) if v else []; que.h = 0\n    def push(que,\
+    \ item): que.q.append(item)\n    def pop(que): que.h = (h := que.h) + 1; return\
+    \ que.q[h]\n    def extend(que, items): que.q.extend(items)\n    def __getitem__(que,\
+    \ i: int): return que.q[que.h+i]\n    def __setitem__(que, i: int, v): que.q[que.h+i]\
+    \ = v\n    def __len__(que): return que.q.__len__() - que.h\n    def __hash__(que):\
+    \ return hash(tuple(que.q[que.h:]))\n\nfrom typing import Generic\nfrom typing\
+    \ import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\nimport sys\n\ndef list_find(lst: list,\
+    \ value, start = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value,\
+    \ start, stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n\
+    \    __slots__ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r:\
+    \ int = 0): V.A, V.l, V.r = A, l, r\n    def __len__(V): return V.r - V.l\n  \
+    \  def __getitem__(V, i: int): \n        if 0 <= i < V.r - V.l: return V.A[V.l+i]\n\
+    \        else: raise IndexError\n    def __setitem__(V, i: int, v: _T): V.A[V.l+i]\
+    \ = v\n    def __contains__(V, v: _T): return list_find(V.A, v, V.l, V.r) != -1\n\
+    \    def set_range(V, l: int, r: int): V.l, V.r = l, r\n    def index(V, v: _T):\
+    \ return V.A.index(v, V.l, V.r) - V.l\n    def reverse(V):\n        l, r = V.l,\
+    \ V.r-1\n        while l < r: V.A[l], V.A[r] = V.A[r], V.A[l]; l += 1; r -= 1\n\
+    \    def sort(V, /, *args, **kwargs):\n        A = V.A[V.l:V.r]; A.sort(*args,\
+    \ **kwargs)\n        for i,a in enumerate(A,V.l): V.A[i] = a\n    def pop(V):\
+    \ V.r -= 1; return V.A[V.r]\n    def append(V, v: _T): V.A[V.r] = v; V.r += 1\n\
+    \    def popleft(V): V.l += 1; return V.A[V.l-1]\n    def appendleft(V, v: _T):\
+    \ V.l -= 1; V.A[V.l] = v; \n    def validate(V): return 0 <= V.l <= V.r <= len(V.A)\n\
     \nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n\
     \    def writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def\
     \ write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
@@ -355,7 +350,6 @@ data:
   - cp_library/alg/graph/csr/graph_base_cls.py
   - cp_library/ds/array/i32f_fn.py
   - cp_library/ds/array/u32f_fn.py
-  - cp_library/ds/view/view_cls.py
   - cp_library/io/parsable_cls.py
   - cp_library/alg/dp/chmin_fn.py
   - cp_library/alg/graph/dfs_options_cls.py
@@ -365,6 +359,7 @@ data:
   - cp_library/ds/list/elist_fn.py
   - cp_library/ds/packet_list_cls.py
   - cp_library/ds/que/que_cls.py
+  - cp_library/ds/view/view_cls.py
   - cp_library/io/io_base_cls.py
   - cp_library/ds/list/list_find_fn.py
   isVerificationFile: false
@@ -373,31 +368,31 @@ data:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/alg/graph/csr/snippets/block_cut_tree_fn.py
   - cp_library/alg/tree/csr/tree_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
   - test/library-checker/graph/two_edge_connected_components.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
   - test/library-checker/graph/biconnected_components.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
-  - test/library-checker/tree/vertex_add_subtree_sum.test.py
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/tree/vertex_set_path_composite.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
   - test/library-checker/tree/jump_on_tree.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
   - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
-  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
   - test/aoj/grl/grl_3_b_graph_bridges.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
-  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
 documentation_of: cp_library/alg/graph/csr/graph_cls.py
 layout: document
 redirect_from:

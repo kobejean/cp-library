@@ -41,11 +41,11 @@ data:
   isVerificationFile: false
   path: cp_library/alg/iter/roll_fn.py
   requiredBy:
-  - cp_library/alg/graph/func/perm_graph_cls.py
-  - cp_library/alg/graph/func/func_graph_cls.py
   - cp_library/alg/graph/func/mut_perm_graph_cls.py
   - cp_library/alg/graph/func/partial_func_graph_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/alg/graph/func/func_graph_cls.py
+  - cp_library/alg/graph/func/perm_graph_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/agc/agc038_b_sliding_min_max.test.py

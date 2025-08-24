@@ -14,15 +14,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\nfrom array import array\ndef u8a(init = None):  return array('B') if init\
+    from array import array\n\n\ndef u8a(init = None):  return array('B') if init\
     \ is None else array('B', init)  # unsigned char\n"
   code: 'import cp_library.__header__
+
+    from array import array
 
     import cp_library.ds.__header__
 
     import cp_library.ds.array.__header__
-
-    from array import array
 
     def u8a(init = None):  return array(''B'') if init is None else array(''B'', init)  #
     unsigned char'
@@ -30,7 +30,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/array/u8a_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/array/u8a_fn.py

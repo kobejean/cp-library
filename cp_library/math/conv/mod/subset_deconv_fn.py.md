@@ -137,13 +137,13 @@ data:
   - cp_library/math/sps/mod/sps_ln_fn.py
   - cp_library/math/sps/mod/sps_div_fn.py
   - cp_library/math/sps/mod/sps_ln_adaptive_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
   - test/library-checker/set-power-series/exp_of_set_power_series_half.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
 documentation_of: cp_library/math/conv/mod/subset_deconv_fn.py
 layout: document
 redirect_from:

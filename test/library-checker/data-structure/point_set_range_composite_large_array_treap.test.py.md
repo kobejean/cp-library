@@ -73,7 +73,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \    https://kobejean.github.io/cp-library               \n'''\n\n\ndef reserve(A:\
+    \    https://kobejean.github.io/cp-library               \n'''\n\n\n\ndef reserve(A:\
     \ list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\n\
     except:\n    def resizelist_hint(A: list, est_len: int):\n        pass\nreserve\
     \ = resizelist_hint\n\n\n\n\ni64_max = (1<<63)-1\n\nclass BST:\n    __slots__\
@@ -157,7 +157,7 @@ data:
     \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
     \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
     \ enumerate(A): A[i] = P.m&a\nfrom typing import Type, Union, overload\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
     \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]:\
     \ ...\n@overload\ndef read(spec: Type[_T], char=False) -> _T: ...\n@overload\n\
@@ -168,7 +168,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -270,10 +270,10 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/point_set_range_composite_large_array\n\
     \ndef main():\n    mod = 998244353\n    P = Packer((1<<30)-1)\n    N, Q = read()\n\
     \    TreapMonoid.reserve(1+2*Q)\n    \n    def op(a,b):\n        ac, ad = P.dec(a)\n\
@@ -309,7 +309,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py

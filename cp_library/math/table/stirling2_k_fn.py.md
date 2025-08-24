@@ -56,87 +56,65 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import SupportsIndex\n\n    \nclass mint(int):\n    mod: int\n   \
-    \ zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n  \
-    \  def __new__(cls, *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs))\
-    \ < 64: return cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n\
-    \    def set_mod(cls, mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero\
-    \ = cls.zero = cls.cast(0)\n        mint.one = cls.one = cls.fix(1)\n        mint.two\
-    \ = cls.two = cls.fix(2)\n        mint.cache = cls.cache = [cls.zero, cls.one,\
-    \ cls.two]\n        for x in range(3,64): mint.cache.append(cls.fix(x))\n    @classmethod\n\
-    \    def fix(cls, x): return cls.cast(x%cls.mod)\n    @classmethod\n    def cast(cls,\
-    \ x): return super().__new__(cls,x)\n    @classmethod\n    def mod_inv(cls, x):\n\
-    \        a,b,s,t = int(x), cls.mod, 1, 0\n        while b: a,b,s,t = b,a%b,t,s-a//b*t\n\
-    \        if a == 1: return cls.fix(s)\n        raise ValueError(f\"{x} is not\
-    \ invertible in mod {cls.mod}\")\n    @property\n    def inv(self): return mint.mod_inv(self)\n\
-    \    def __add__(self, x): return mint.fix(super().__add__(x))\n    def __radd__(self,\
-    \ x): return mint.fix(super().__radd__(x))\n    def __sub__(self, x): return mint.fix(super().__sub__(x))\n\
-    \    def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n    def __mul__(self,\
-    \ x): return mint.fix(super().__mul__(x))\n    def __rmul__(self, x): return mint.fix(super().__rmul__(x))\n\
-    \    def __floordiv__(self, x): return self * mint.mod_inv(x)\n    def __rfloordiv__(self,\
-    \ x): return self.inv * x\n    def __truediv__(self, x): return self * mint.mod_inv(x)\n\
-    \    def __rtruediv__(self, x): return self.inv * x\n    def __pow__(self, x):\
-    \ return self.cast(super().__pow__(x, self.mod))\n    def __neg__(self): return\
-    \ mint.mod-self\n    def __pos__(self): return self\n    def __abs__(self): return\
-    \ self\n    def __class_getitem__(self, x: int): return self.cache[x]\n\n\ndef\
-    \ mod_inv(x, mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b,\
-    \ s, t = b,a%b,t,s-a//b*t\n    if a == 1: return s % mod\n    raise ValueError(f\"\
-    {x} is not invertible in mod {mod}\")\nfrom itertools import accumulate\n\nclass\
-    \ mcomb():\n    fact: list[int]\n    fact_inv: list[int]\n    inv: list[int] =\
-    \ [0,1]\n\n    @staticmethod\n    def precomp(N):\n        mod = mint.mod\n  \
-    \      def mod_mul(a,b): return a*b%mod\n        fact = list(accumulate(range(1,N+1),\
-    \ mod_mul, initial=1))\n        fact_inv = list(accumulate(range(N,0,-1), mod_mul,\
-    \ initial=mod_inv(fact[N], mod)))\n        fact_inv.reverse()\n        mcomb.fact,\
-    \ mcomb.fact_inv = fact, fact_inv\n    \n    @staticmethod\n    def extend_inv(N):\n\
-    \        N, inv, mod = N+1, mcomb.inv, mint.mod\n        while len(inv) < N:\n\
-    \            j, k = divmod(mod, len(inv))\n            inv.append(-inv[k] * j\
-    \ % mod)\n\n    @staticmethod\n    def factorial(n: int, /) -> mint:\n       \
-    \ return mint(mcomb.fact[n])\n\n    @staticmethod\n    def comb(n: int, k: int,\
-    \ /) -> mint:\n        inv, mod = mcomb.fact_inv, mint.mod\n        if n < k or\
-    \ k < 0: return mint.zero\n        return mint(inv[k] * inv[n-k] % mod * mcomb.fact[n])\n\
-    \    nCk = binom = comb\n    \n    @staticmethod\n    def comb_with_replacement(n:\
-    \ int, k: int, /) -> mint:\n        if n <= 0: return mint.zero\n        return\
-    \ mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n\
-    \    def multinom(n: int, *K: int) -> mint:\n        nCk, res = mcomb.nCk, mint.one\n\
-    \        for k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
-    \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
-    \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
-    \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
-    \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n\n\ndef fps_deriv(P:\
-    \ list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod for i in range(1,len(P))]\n\
-    \n\ndef fps_integ(P: list) -> list:\n    N, mod = len(P), mint.mod; res = [0]\
-    \ * (N+1)\n    if N: res[1] = 1\n    for i in range(2, N+1): j, k = divmod(mod,\
-    \ i); res[i] = (-res[k] * j) % mod\n    for i, x in enumerate(P, start=1): res[i]\
-    \ = res[i] * x % mod\n    return res\n\n\ndef fps_inv(P: list) -> list:\n    ntt,\
-    \ inv, d = mint.ntt, [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n\
-    \    while d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n     \
-    \   f[:sz], g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n\
+    from typing import SupportsIndex\n\n\n\ndef fps_deriv(P: list[int]):\n    mod\
+    \ = mint.mod\n    return [P[i]*i%mod for i in range(1,len(P))]\n\n\n    \nclass\
+    \ mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n    two: 'mint'\n\
+    \    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n        if 0\
+    \ <= (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n        else: return\
+    \ cls.fix(x)\n    @classmethod\n    def set_mod(cls, mod: int):\n        mint.mod\
+    \ = cls.mod = mod\n        mint.zero = cls.zero = cls.cast(0)\n        mint.one\
+    \ = cls.one = cls.fix(1)\n        mint.two = cls.two = cls.fix(2)\n        mint.cache\
+    \ = cls.cache = [cls.zero, cls.one, cls.two]\n        for x in range(3,64): mint.cache.append(cls.fix(x))\n\
+    \    @classmethod\n    def fix(cls, x): return cls.cast(x%cls.mod)\n    @classmethod\n\
+    \    def cast(cls, x): return super().__new__(cls,x)\n    @classmethod\n    def\
+    \ mod_inv(cls, x):\n        a,b,s,t = int(x), cls.mod, 1, 0\n        while b:\
+    \ a,b,s,t = b,a%b,t,s-a//b*t\n        if a == 1: return cls.fix(s)\n        raise\
+    \ ValueError(f\"{x} is not invertible in mod {cls.mod}\")\n    @property\n   \
+    \ def inv(self): return mint.mod_inv(self)\n    def __add__(self, x): return mint.fix(super().__add__(x))\n\
+    \    def __radd__(self, x): return mint.fix(super().__radd__(x))\n    def __sub__(self,\
+    \ x): return mint.fix(super().__sub__(x))\n    def __rsub__(self, x): return mint.fix(super().__rsub__(x))\n\
+    \    def __mul__(self, x): return mint.fix(super().__mul__(x))\n    def __rmul__(self,\
+    \ x): return mint.fix(super().__rmul__(x))\n    def __floordiv__(self, x): return\
+    \ self * mint.mod_inv(x)\n    def __rfloordiv__(self, x): return self.inv * x\n\
+    \    def __truediv__(self, x): return self * mint.mod_inv(x)\n    def __rtruediv__(self,\
+    \ x): return self.inv * x\n    def __pow__(self, x): return self.cast(super().__pow__(x,\
+    \ self.mod))\n    def __neg__(self): return mint.mod-self\n    def __pos__(self):\
+    \ return self\n    def __abs__(self): return self\n    def __class_getitem__(self,\
+    \ x: int): return self.cache[x]\n\ndef fps_integ(P: list) -> list:\n    N, mod\
+    \ = len(P), mint.mod; res = [0] * (N+1)\n    if N: res[1] = 1\n    for i in range(2,\
+    \ N+1): j, k = divmod(mod, i); res[i] = (-res[k] * j) % mod\n    for i, x in enumerate(P,\
+    \ start=1): res[i] = res[i] * x % mod\n    return res\n\n\ndef fps_inv(P: list)\
+    \ -> list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0],\
+    \ mod := mint.mod)\n    while d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z,\
+    \ [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n\
     \        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
-    \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\n\nclass NTT:\n\
-    \    def __init__(self, mod = 998244353) -> None:\n        self.mod = m = mod\n\
-    \        self.g = g = self.primitive_root(m)\n        self.rank2 = rank2 = ((m-1)&(1-m)).bit_length()\
-    \ - 1\n        self.root = root = [0] * (rank2 + 1)\n        root[rank2] = pow(g,\
-    \ (m - 1) >> rank2, m)\n        self.iroot = iroot = [0] * (rank2 + 1)\n     \
-    \   iroot[rank2] = pow(root[rank2], m - 2, m)\n        for i in range(rank2 -\
-    \ 1, -1, -1):\n            root[i] = root[i+1] * root[i+1] % m\n            iroot[i]\
-    \ = iroot[i+1] * iroot[i+1] % m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1),\
-    \ [0]*max(0,rank2-s+1)\n            p = ip = 1\n            for i in range(rank2-s+1):\n\
-    \                r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]=\
-    \ p*ir%m,ip*r%m,r*p%m,ir*ip%m\n            return r8, ir8\n        self.rate2,\
-    \ self.irate2 = rates(2)\n        self.rate3, self.irate3 = rates(3)\n \n    def\
-    \ primitive_root(self, m):\n        if m == 2: return 1\n        if m == 167772161:\
-    \ return 3\n        if m == 469762049: return 3\n        if m == 754974721: return\
-    \ 11\n        if m == 998244353: return 3\n        divs = [0] * 20\n        cnt,\
-    \ divs[0], x = 1, 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n       \
-    \ i=3\n        while i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt\
-    \ = i,cnt+1\n                while x%i==0:x//=i\n            i+=2\n        if\
-    \ x > 1: divs[cnt],cnt = x,cnt+1\n        for g in range(2,m):\n            for\
-    \ i in range(cnt):\n                if pow(g,(m-1)//divs[i],m)==1:break\n    \
-    \        else:return g\n    \n    def fntt(self, A: list[int]):\n        im, r8,\
-    \ m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n        for\
-    \ L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n            for s in\
-    \ range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n           \
-    \     for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
+    \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\n\n\ndef mod_inv(x,\
+    \ mod):\n    a, b, s, t = x, mod, 1, 0\n    while b:\n        a, b, s, t = b,a%b,t,s-a//b*t\n\
+    \    if a == 1: return s % mod\n    raise ValueError(f\"{x} is not invertible\
+    \ in mod {mod}\")\n\nclass NTT:\n    def __init__(self, mod = 998244353) -> None:\n\
+    \        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n   \
+    \     self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root =\
+    \ root = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n\
+    \        self.iroot = iroot = [0] * (rank2 + 1)\n        iroot[rank2] = pow(root[rank2],\
+    \ m - 2, m)\n        for i in range(rank2 - 1, -1, -1):\n            root[i] =\
+    \ root[i+1] * root[i+1] % m\n            iroot[i] = iroot[i+1] * iroot[i+1] %\
+    \ m\n        def rates(s):\n            r8,ir8 = [0]*max(0,rank2-s+1), [0]*max(0,rank2-s+1)\n\
+    \            p = ip = 1\n            for i in range(rank2-s+1):\n            \
+    \    r, ir = root[i+s], iroot[i+s]\n                p,ip,r8[i],ir8[i]= p*ir%m,ip*r%m,r*p%m,ir*ip%m\n\
+    \            return r8, ir8\n        self.rate2, self.irate2 = rates(2)\n    \
+    \    self.rate3, self.irate3 = rates(3)\n \n    def primitive_root(self, m):\n\
+    \        if m == 2: return 1\n        if m == 167772161: return 3\n        if\
+    \ m == 469762049: return 3\n        if m == 754974721: return 11\n        if m\
+    \ == 998244353: return 3\n        divs = [0] * 20\n        cnt, divs[0], x = 1,\
+    \ 2, (m - 1) // 2\n        while x % 2 == 0: x //= 2\n        i=3\n        while\
+    \ i*i <= x:\n            if x%i == 0:\n                divs[cnt],cnt = i,cnt+1\n\
+    \                while x%i==0:x//=i\n            i+=2\n        if x > 1: divs[cnt],cnt\
+    \ = x,cnt+1\n        for g in range(2,m):\n            for i in range(cnt):\n\
+    \                if pow(g,(m-1)//divs[i],m)==1:break\n            else:return\
+    \ g\n    \n    def fntt(self, A: list[int]):\n        im, r8, m, h = self.root[2],self.rate3,self.mod,(len(A)-1).bit_length()\n\
+    \        for L in range(0,h-1,2):\n            p, r = 1<<(h-L-2),1\n         \
+    \   for s in range(1 << L):\n                r3,of=(r2:=r*r%m)*r%m,s<<(h-L)\n\
+    \                for i in range(p):\n                    i3=(i2:=(i1:=(i0:=i+of)+p)+p)+p\n\
     \                    a0,a1,a2,a3 = A[i0],A[i1]*r,A[i2]*r2,A[i3]*r3\n         \
     \           a0,a1,a2,a3 = a0+a2,a1+a3,a0-a2,(a1-a3)%m*im\n                   \
     \ A[i0],A[i1],A[i2],A[i3] = (a0+a1)%m,(a0-a1)%m,(a2+a3)%m,(a2-a3)%m\n        \
@@ -193,30 +171,52 @@ data:
     \   for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n   \
     \     for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod \n\
     \        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
-    \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
+    \        p <<= 1\n    return R[:deg]\n\n\n\n\ndef reserve(A: list, est_len: int)\
     \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
-    \ndef fps_normalize(P: list, deg) -> list:\n    if (N:=len(P)) < deg: P[N:] =\
-    \ [0]*(deg-N)\n    del P[deg:]\n    return P\n\ndef fps_pow(P: list, k: int, deg\
-    \ = -1) -> list:\n    deg, mod = (len(P) if deg<0 else deg), mint.mod\n    if\
-    \ k == 0: return [1]+[0]*(deg-1) if deg else []\n    i = next((i for i, c in enumerate(P)\
-    \ if c), default=deg)\n    if i * k >= deg: return [0] * deg\n    inv, alpha =\
-    \ mod_inv(P[i],mod), pow(P[i], k, mod)\n    R = fps_log([P[j]*inv%mod for j in\
-    \ range(i,deg)])\n    for j,r in enumerate(R): R[j] = r*k%mod\n    R = fps_exp(R)\n\
-    \    for j,r in enumerate(R): R[j] = r*alpha%mod\n    R[:0] = [0] * (i * k)\n\
-    \    return fps_normalize(R, deg)\n\ndef stirling2_k(n: SupportsIndex, k: SupportsIndex):\n\
-    \    kinv,fact,mod = mcomb.fact_inv[k],mcomb.fact,mint.mod\n    R = fps_pow(mcomb.fact_inv[1:n+2-k],k,n+1-k)\n\
-    \    return [mint(r*kinv%mod*fact[i]) for i,r in enumerate(R,start=k)]\n"
-  code: "import cp_library.math.table.__header__\nfrom typing import SupportsIndex\n\
-    from cp_library.math.table.mcomb_cls import mcomb\nfrom cp_library.math.mod.mint_cls\
-    \ import mint\nfrom cp_library.math.fps.fps_pow_fn import fps_pow\n\ndef stirling2_k(n:\
-    \ SupportsIndex, k: SupportsIndex):\n    kinv,fact,mod = mcomb.fact_inv[k],mcomb.fact,mint.mod\n\
+    \nfrom itertools import accumulate\n\nclass mcomb():\n    fact: list[int]\n  \
+    \  fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n    def\
+    \ precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n\
+    \        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n        fact_inv\
+    \ = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N], mod)))\n\
+    \        fact_inv.reverse()\n        mcomb.fact, mcomb.fact_inv = fact, fact_inv\n\
+    \    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod = N+1, mcomb.inv,\
+    \ mint.mod\n        while len(inv) < N:\n            j, k = divmod(mod, len(inv))\n\
+    \            inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n    def factorial(n:\
+    \ int, /) -> mint:\n        return mint(mcomb.fact[n])\n\n    @staticmethod\n\
+    \    def comb(n: int, k: int, /) -> mint:\n        inv, mod = mcomb.fact_inv,\
+    \ mint.mod\n        if n < k or k < 0: return mint.zero\n        return mint(inv[k]\
+    \ * inv[n-k] % mod * mcomb.fact[n])\n    nCk = binom = comb\n    \n    @staticmethod\n\
+    \    def comb_with_replacement(n: int, k: int, /) -> mint:\n        if n <= 0:\
+    \ return mint.zero\n        return mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n\
+    \    \n    @staticmethod\n    def multinom(n: int, *K: int) -> mint:\n       \
+    \ nCk, res = mcomb.nCk, mint.one\n        for k in K: res, n = res*nCk(n,k), n-k\n\
+    \        return res\n\n    @staticmethod\n    def perm(n: int, k: int, /) -> mint:\n\
+    \        '''Returns P(n,k) mod p'''\n        if n < k: return mint.zero\n    \
+    \    return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n    nPk = perm\n    \n\
+    \    @staticmethod\n    def catalan(n: int, /) -> mint:\n        return mint(mcomb.nCk(2*n,n)\
+    \ * mcomb.fact_inv[n+1])\n\ndef fps_normalize(P: list, deg) -> list:\n    if (N:=len(P))\
+    \ < deg: P[N:] = [0]*(deg-N)\n    del P[deg:]\n    return P\n\ndef fps_pow(P:\
+    \ list, k: int, deg = -1) -> list:\n    deg, mod = (len(P) if deg<0 else deg),\
+    \ mint.mod\n    if k == 0: return [1]+[0]*(deg-1) if deg else []\n    i = next((i\
+    \ for i, c in enumerate(P) if c), default=deg)\n    if i * k >= deg: return [0]\
+    \ * deg\n    inv, alpha = mod_inv(P[i],mod), pow(P[i], k, mod)\n    R = fps_log([P[j]*inv%mod\
+    \ for j in range(i,deg)])\n    for j,r in enumerate(R): R[j] = r*k%mod\n    R\
+    \ = fps_exp(R)\n    for j,r in enumerate(R): R[j] = r*alpha%mod\n    R[:0] = [0]\
+    \ * (i * k)\n    return fps_normalize(R, deg)\n\ndef stirling2_k(n: SupportsIndex,\
+    \ k: SupportsIndex):\n    kinv,fact,mod = mcomb.fact_inv[k],mcomb.fact,mint.mod\n\
     \    R = fps_pow(mcomb.fact_inv[1:n+2-k],k,n+1-k)\n    return [mint(r*kinv%mod*fact[i])\
-    \ for i,r in enumerate(R,start=k)]"
+    \ for i,r in enumerate(R,start=k)]\n"
+  code: "import cp_library.__header__\nfrom typing import SupportsIndex\nimport cp_library.math.__header__\n\
+    from cp_library.math.fps.fps_pow_fn import fps_pow\nfrom cp_library.math.mod.mint_cls\
+    \ import mint\nimport cp_library.math.table.__header__\nfrom cp_library.math.table.mcomb_cls\
+    \ import mcomb\n\ndef stirling2_k(n: SupportsIndex, k: SupportsIndex):\n    kinv,fact,mod\
+    \ = mcomb.fact_inv[k],mcomb.fact,mint.mod\n    R = fps_pow(mcomb.fact_inv[1:n+2-k],k,n+1-k)\n\
+    \    return [mint(r*kinv%mod*fact[i]) for i,r in enumerate(R,start=k)]"
   dependsOn:
-  - cp_library/math/table/mcomb_cls.py
-  - cp_library/math/mod/mint_cls.py
   - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/mod/mint_cls.py
+  - cp_library/math/table/mcomb_cls.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_exp_fn.py
   - cp_library/math/fps/fps_normalize_fn.py
@@ -230,7 +230,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/stirling2_k_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py

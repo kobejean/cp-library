@@ -8,13 +8,20 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "class FactorCounts(list[tuple[int,int]]):\n    def __init__(self,\
-    \ N: int):\n        pairs = []\n        d = 2\n        while d*d<=N:\n       \
-    \     while N % d == 0:\n                match pairs:\n                    case\
-    \ [*_, (f,cnt)] if f == d:\n                        pairs[-1] = (f,cnt+1)\n  \
-    \                  case _:\n                        pairs.append((d, 1))\n   \
-    \             N //= d\n            d += 1\n        super().__init__(pairs)\n"
-  code: "class FactorCounts(list[tuple[int,int]]):\n    def __init__(self, N: int):\n\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\n\nclass FactorCounts(list[tuple[int,int]]):\n    def __init__(self, N: int):\n\
+    \        pairs = []\n        d = 2\n        while d*d<=N:\n            while N\
+    \ % d == 0:\n                match pairs:\n                    case [*_, (f,cnt)]\
+    \ if f == d:\n                        pairs[-1] = (f,cnt+1)\n                \
+    \    case _:\n                        pairs.append((d, 1))\n                N\
+    \ //= d\n            d += 1\n        super().__init__(pairs)\n"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.table.__header__\n\
+    \nclass FactorCounts(list[tuple[int,int]]):\n    def __init__(self, N: int):\n\
     \        pairs = []\n        d = 2\n        while d*d<=N:\n            while N\
     \ % d == 0:\n                match pairs:\n                    case [*_, (f,cnt)]\
     \ if f == d:\n                        pairs[-1] = (f,cnt+1)\n                \
@@ -24,7 +31,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/factor_cnts_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/factor_cnts_cls.py

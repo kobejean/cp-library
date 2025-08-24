@@ -68,8 +68,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n  \
-    \  two: 'mint'\n    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n\
+    \n\n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n\
+    \    two: 'mint'\n    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n\
     \        if 0 <= (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n     \
     \   else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls, mod: int):\n\
     \        mint.mod = cls.mod = mod\n        mint.zero = cls.zero = cls.cast(0)\n\
@@ -115,24 +115,25 @@ data:
     \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
     \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
     \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n"
-  code: "import cp_library.math.table.__header__\nfrom cp_library.math.mod.mint_cls\
-    \ import mint\nfrom cp_library.math.nt.mod_inv_fn import mod_inv\nfrom itertools\
-    \ import accumulate\n\nclass mcomb():\n    fact: list[int]\n    fact_inv: list[int]\n\
-    \    inv: list[int] = [0,1]\n\n    @staticmethod\n    def precomp(N):\n      \
-    \  mod = mint.mod\n        def mod_mul(a,b): return a*b%mod\n        fact = list(accumulate(range(1,N+1),\
-    \ mod_mul, initial=1))\n        fact_inv = list(accumulate(range(N,0,-1), mod_mul,\
-    \ initial=mod_inv(fact[N], mod)))\n        fact_inv.reverse()\n        mcomb.fact,\
-    \ mcomb.fact_inv = fact, fact_inv\n    \n    @staticmethod\n    def extend_inv(N):\n\
-    \        N, inv, mod = N+1, mcomb.inv, mint.mod\n        while len(inv) < N:\n\
-    \            j, k = divmod(mod, len(inv))\n            inv.append(-inv[k] * j\
-    \ % mod)\n\n    @staticmethod\n    def factorial(n: int, /) -> mint:\n       \
-    \ return mint(mcomb.fact[n])\n\n    @staticmethod\n    def comb(n: int, k: int,\
-    \ /) -> mint:\n        inv, mod = mcomb.fact_inv, mint.mod\n        if n < k or\
-    \ k < 0: return mint.zero\n        return mint(inv[k] * inv[n-k] % mod * mcomb.fact[n])\n\
-    \    nCk = binom = comb\n    \n    @staticmethod\n    def comb_with_replacement(n:\
-    \ int, k: int, /) -> mint:\n        if n <= 0: return mint.zero\n        return\
-    \ mcomb.nCk(n + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n\
-    \    def multinom(n: int, *K: int) -> mint:\n        nCk, res = mcomb.nCk, mint.one\n\
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.table.__header__\n\
+    from cp_library.math.mod.mint_cls import mint\nfrom cp_library.math.nt.mod_inv_fn\
+    \ import mod_inv\nfrom itertools import accumulate\n\nclass mcomb():\n    fact:\
+    \ list[int]\n    fact_inv: list[int]\n    inv: list[int] = [0,1]\n\n    @staticmethod\n\
+    \    def precomp(N):\n        mod = mint.mod\n        def mod_mul(a,b): return\
+    \ a*b%mod\n        fact = list(accumulate(range(1,N+1), mod_mul, initial=1))\n\
+    \        fact_inv = list(accumulate(range(N,0,-1), mod_mul, initial=mod_inv(fact[N],\
+    \ mod)))\n        fact_inv.reverse()\n        mcomb.fact, mcomb.fact_inv = fact,\
+    \ fact_inv\n    \n    @staticmethod\n    def extend_inv(N):\n        N, inv, mod\
+    \ = N+1, mcomb.inv, mint.mod\n        while len(inv) < N:\n            j, k =\
+    \ divmod(mod, len(inv))\n            inv.append(-inv[k] * j % mod)\n\n    @staticmethod\n\
+    \    def factorial(n: int, /) -> mint:\n        return mint(mcomb.fact[n])\n\n\
+    \    @staticmethod\n    def comb(n: int, k: int, /) -> mint:\n        inv, mod\
+    \ = mcomb.fact_inv, mint.mod\n        if n < k or k < 0: return mint.zero\n  \
+    \      return mint(inv[k] * inv[n-k] % mod * mcomb.fact[n])\n    nCk = binom =\
+    \ comb\n    \n    @staticmethod\n    def comb_with_replacement(n: int, k: int,\
+    \ /) -> mint:\n        if n <= 0: return mint.zero\n        return mcomb.nCk(n\
+    \ + k - 1, k)\n    nHk = comb_with_replacement\n    \n    @staticmethod\n    def\
+    \ multinom(n: int, *K: int) -> mint:\n        nCk, res = mcomb.nCk, mint.one\n\
     \        for k in K: res, n = res*nCk(n,k), n-k\n        return res\n\n    @staticmethod\n\
     \    def perm(n: int, k: int, /) -> mint:\n        '''Returns P(n,k) mod p'''\n\
     \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
@@ -144,25 +145,25 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/mcomb_cls.py
   requiredBy:
-  - cp_library/math/table/stirling2_k_fn.py
-  - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/table/stirling2_n_fn.py
-  - cp_library/math/table/stirling1_n_fn.py
-  - cp_library/math/fps/fps_exp_fn.py
-  - cp_library/math/fps/fps_ideriv_k_fn.py
-  - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/fps/fps_tayler_shift_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/math/fps/fps_exp_fn.py
+  - cp_library/math/fps/fps_pow_fn.py
+  - cp_library/math/fps/fps_ideriv_k_fn.py
+  - cp_library/math/table/stirling2_n_fn.py
+  - cp_library/math/table/stirling2_k_fn.py
+  - cp_library/math/table/stirling1_n_fn.py
+  - cp_library/math/table/stirling1_k_fn.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/polynomial/polynomial_taylor_shift.test.py
-  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
-  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
+  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
+  - test/library-checker/polynomial/polynomial_taylor_shift.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
 documentation_of: cp_library/math/table/mcomb_cls.py
 layout: document
 redirect_from:

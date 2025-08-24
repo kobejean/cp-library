@@ -38,22 +38,23 @@ data:
     \ 'IOBase'): return cls(next(io))\n        return parser\n    @classmethod\n \
     \   def __class_getitem__(cls, item): return GenericAlias(cls, item)\nfrom math\
     \ import hypot\nimport operator\n\nclass ElmWiseMixin:\n    def elm_wise(self,\
-    \ other, op):\n        if isinstance(other, Number):\n            return type(self)(op(x,\
-    \ other) for x in self)\n        if isinstance(other, Sequence):\n           \
-    \ return type(self)(op(x, y) for x, y in zip(self, other))\n        raise ValueError(\"\
-    Operand must be a number or a tuple of the same length\")\n\n    def __add__(self,\
-    \ other): return self.elm_wise(other, operator.add)\n    def __radd__(self, other):\
-    \ return self.elm_wise(other, operator.add)\n    def __sub__(self, other): return\
-    \ self.elm_wise(other, operator.sub)\n    def __rsub__(self, other): return self.elm_wise(other,\
-    \ lambda x,y: operator.sub(y,x))\n    def __mul__(self, other): return self.elm_wise(other,\
-    \ operator.mul)\n    def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n\
-    \    def __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n\
-    \    def __rtruediv__(self, other): return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n\
-    \    def __floordiv__(self, other): return self.elm_wise(other, operator.floordiv)\n\
-    \    def __rfloordiv__(self, other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n\
-    \    def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n \
-    \   def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff =\
-    \ other-self\n        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
+    \ other, op):\n        if isinstance(other, Sequence):\n            return self.__class__(op(self[i],\
+    \ y) for i, y in enumerate(self, other))\n        if isinstance(other, Number):\n\
+    \            return self.__class__(op(x, other) for x in self)\n        raise\
+    \ ValueError(\"Operand must be a number or a tuple of the same length\")\n\n \
+    \   def __add__(self, other): return self.elm_wise(other, operator.add)\n    def\
+    \ __radd__(self, other): return self.elm_wise(other, operator.add)\n    def __sub__(self,\
+    \ other): return self.elm_wise(other, operator.sub)\n    def __rsub__(self, other):\
+    \ return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n    def __mul__(self,\
+    \ other): return self.elm_wise(other, operator.mul)\n    def __rmul__(self, other):\
+    \ return self.elm_wise(other, operator.mul)\n    def __truediv__(self, other):\
+    \ return self.elm_wise(other, operator.truediv)\n    def __rtruediv__(self, other):\
+    \ return self.elm_wise(other, lambda x,y: operator.truediv(y,x))\n    def __floordiv__(self,\
+    \ other): return self.elm_wise(other, operator.floordiv)\n    def __rfloordiv__(self,\
+    \ other): return self.elm_wise(other, lambda x,y: operator.floordiv(y,x))\n  \
+    \  def __mod__(self, other): return self.elm_wise(other, operator.mod)\n\n   \
+    \ def distance(self: 'ElmWiseMixin', other: 'ElmWiseMixin'):\n        diff = other-self\n\
+    \        return hypot(*diff)\n    \n    def magnitude(vec: 'ElmWiseMixin'):\n\
     \        return hypot(*vec)\n    \n    def norm(vec: 'ElmWiseMixin'):\n      \
     \  return vec / vec.magnitude()\n\nclass Vec(ElmWiseMixin, tuple, Parsable):\n\
     \    def __new__(cls, *args):\n        return super().__new__(cls, args[0] if\
@@ -110,36 +111,37 @@ data:
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
     \        else:\n            raise NotImplementedError()\n\nclass Vec2D(Vec):\n\
-    \    def __new__(cls, *args):\n        if len(args) == 0: return super().__new__(cls,\
-    \ (0,0))\n        return super().__new__(cls, *args)\n    def elm_wise(self, other,\
-    \ op):\n        if isinstance(other, Number): return Vec2D(op(self[0], other),\
-    \ op(self[1], other))\n        if isinstance(other, Sequence): return Vec2D(op(self[0],\
-    \ other[0]), op(self[1], other[1]))\n        raise ValueError(\"Operand must be\
-    \ a number or a tuple of the same length\")\n    def manhat(v1: 'Vec', v2: 'Vec'):\
-    \ return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1])\n    def distance(v1: 'Vec', v2:\
-    \ 'Vec'): dx, dy = v2[0]-v1[0], v2[1]-v1[1]; return sqrt(dx*dx+dy*dy)\n    def\
-    \ distance2(v1: 'Vec', v2: 'Vec'): dx, dy = v2[0]-v1[0], v2[1]-v1[1]; return dx*dx+dy*dy\n\
-    \    def magnitude(vec: 'Vec'): x, y = vec; return sqrt(x*x+y*y)\n    def magnitude2(vec:\
-    \ 'Vec'): x, y = vec; return x*x+y*y\n    def rot90(vec): x,y = vec; return Vec2D(-y,x)\n\
-    \    def rot180(vec): x,y = vec; return Vec2D(-x,-y)\n    def rot270(vec): x,y\
-    \ = vec; return Vec2D(y,-x)\n    def flip_x(vec): x,y = vec; return Vec2D(-x,y)\n\
-    \    def flip_y(vec): x,y = vec; return Vec2D(x,-y)\n    def cross(vec, other):\
-    \ return vec[0]*other[1] - vec[1]*other[0]\n    def slope_norm(vec):\n       \
-    \ x,y = vec\n        if x == 0 and y == 0: return vec\n        if x == 0: return\
-    \ Vec2D((0,1)) if y > 0 else Vec2D((0,-1))\n        if y == 0: return Vec2D((1,0))\
-    \ if x > 0 else Vec2D((-1,0))\n        g = gcd(x,y)\n        return Vec2D((x//g,y//g))\n\
-    \    @classmethod\n    def compile(cls, T: type = int):\n        elm = Parser.compile(T)\n\
-    \        def parse(io: IOBase): return cls(elm(io), elm(io))\n        return parse\n\
-    \nclass Slope(Vec2D):\n    def __new__(cls, *args):\n        if len(args) == 1\
-    \ and isinstance(args[0], tuple):\n            x,y = args[0]\n        else:\n\
-    \            x,y = args\n        if x == 0 and y == 0: tup = 0, 0\n        elif\
-    \ x == 0: tup = (0,1) if y > 0 else (0,-1)\n        elif y == 0: tup = (1,0) if\
-    \ x > 0 else (-1,0)\n        else:\n            g = gcd(x,y)\n            tup\
-    \ = (x//g,y//g)\n        return super().__new__(cls, tup)\n    \n    def __lt__(slope,\
-    \ other):\n        q1, q2 = slope.quadrant(), other.quadrant()\n        return\
-    \ q1 < q2 or (q1 == q2 and slope.cross(other) > 0)\n    \n    def quadrant(vec):\n\
-    \        if vec[0] > 0 and vec[1] >= 0: return 1\n        elif vec[1] > 0: return\
-    \ 2\n        elif vec[0] < 0: return 3\n        else: return 4\n\n"
+    \    def __new__(cls, x = 0, y = 0): return super().__new__(cls, x, y)\n    def\
+    \ elm_wise(self, other, op):\n        if isinstance(other, Sequence): return Vec2D(op(self[0],\
+    \ other[0]), op(self[1], other[1]))\n        if isinstance(other, Number): return\
+    \ Vec2D(op(self[0], other), op(self[1], other))\n        raise ValueError(\"Operand\
+    \ must be a number or a tuple of the same length\")\n    def __eq__(v1, v2): return\
+    \ v1[0] == v2[0] and v1[1] == v2[1]\n    def __hash__(v): return ((v[0]*1103515245+12345)^v[1])&0x7fffffff\n\
+    \    def manhat(v1: 'Vec', v2: 'Vec'): return abs(v2[0]-v1[0]) + abs(v2[1]-v1[1])\n\
+    \    def distance(v1: 'Vec', v2: 'Vec'): dx, dy = v2[0]-v1[0], v2[1]-v1[1]; return\
+    \ sqrt(dx*dx+dy*dy)\n    def distance2(v1: 'Vec', v2: 'Vec'): dx, dy = v2[0]-v1[0],\
+    \ v2[1]-v1[1]; return dx*dx+dy*dy\n    def magnitude(vec: 'Vec'): x, y = vec;\
+    \ return sqrt(x*x+y*y)\n    def magnitude2(vec: 'Vec'): x, y = vec; return x*x+y*y\n\
+    \    def rot90(vec): x,y = vec; return Vec2D(-y,x)\n    def rot180(vec): x,y =\
+    \ vec; return Vec2D(-x,-y)\n    def rot270(vec): x,y = vec; return Vec2D(y,-x)\n\
+    \    def flip_x(vec): x,y = vec; return Vec2D(-x,y)\n    def flip_y(vec): x,y\
+    \ = vec; return Vec2D(x,-y)\n    def cross(vec, other): return vec[0]*other[1]\
+    \ - vec[1]*other[0]\n    def slope_norm(vec):\n        x,y = vec\n        if x\
+    \ == 0 and y == 0: return vec\n        if x == 0: return Vec2D(0,1) if y > 0 else\
+    \ Vec2D(0,-1)\n        if y == 0: return Vec2D(1,0) if x > 0 else Vec2D(-1,0)\n\
+    \        g = gcd(x,y)\n        return Vec2D(x//g,y//g)\n    @classmethod\n   \
+    \ def compile(cls, T: type = int):\n        elm = Parser.compile(T)\n        def\
+    \ parse(io: IOBase): return cls(elm(io), elm(io))\n        return parse\n\nclass\
+    \ Slope(Vec2D):\n    def __new__(cls, *args):\n        if len(args) == 1 and isinstance(args[0],\
+    \ tuple):\n            x,y = args[0]\n        else:\n            x,y = args\n\
+    \        if x == 0 and y == 0: tup = 0, 0\n        elif x == 0: tup = (0,1) if\
+    \ y > 0 else (0,-1)\n        elif y == 0: tup = (1,0) if x > 0 else (-1,0)\n \
+    \       else:\n            g = gcd(x,y)\n            tup = (x//g,y//g)\n     \
+    \   return super().__new__(cls, tup)\n    \n    def __lt__(slope, other):\n  \
+    \      q1, q2 = slope.quadrant(), other.quadrant()\n        return q1 < q2 or\
+    \ (q1 == q2 and slope.cross(other) > 0)\n    \n    def quadrant(vec):\n      \
+    \  if vec[0] > 0 and vec[1] >= 0: return 1\n        elif vec[1] > 0: return 2\n\
+    \        elif vec[0] < 0: return 3\n        else: return 4\n\n"
   code: "import cp_library.__header__\nfrom math import gcd\nimport cp_library.math.__header__\n\
     import cp_library.math.linalg.__header__\nimport cp_library.math.linalg.vec.__header__\n\
     from cp_library.math.linalg.vec.vec2d_cls import Vec2D\n\nclass Slope(Vec2D):\n\
@@ -163,7 +165,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/vec/slope_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/vec/slope_cls.py

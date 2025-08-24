@@ -109,8 +109,8 @@ data:
     \n    def sum(bit, n: int) -> int:\n        s = 0\n        while n: s, n = s+bit._d[n-1],\
     \ n&n-1\n        return s\n\n    def sum_range(bit, l, r):\n        s = 0\n  \
     \      while r: s, r = s+bit._d[r-1], r&r-1\n        while l: s, l = s-bit._d[l-1],\
-    \ l&l-1\n        return s\n\n    def __len__(bit) -> int:\n        return bit._n\n\
-    \    \n    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
+    \ l&l-1\n        return s\n\n    def __len__(bit) -> int: return bit._n\n    \n\
+    \    def __getitem__(bit, i: int) -> int:\n        s, l = bit._d[i], i&(i+1)\n\
     \        while l != i: s, i = s-bit._d[i-1], i-(i&-i)\n        return s\n    get\
     \ = __getitem__\n    \n    def __setitem__(bit, i: int, x: int) -> None: bit.add(i,\
     \ x-bit[i])\n    set = __setitem__\n\n    def prelist(bit) -> list[int]:\n   \
@@ -149,15 +149,14 @@ data:
     \    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
     \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
-    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\nfrom array import array\ndef\
-    \ u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    \nclass WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int,\
-    \ H: int):\n            super().__init__(N)\n            L.H = H\n        def\
-    \ build(L):\n            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1],\
-    \ L.cnt[-1]\n        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if\
-    \ bit else L.count0(i)\n        def pos2(L, bit: int, i: int, j: int): return\
-    \ (L.T0+L.count1(i), L.T0+L.count1(j)) if bit else (L.count0(i), L.count0(j))\n\
-    \    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
+    \ 'bit_count'): popcnt32 = int.bit_count\nfrom array import array\n\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\nclass\
+    \ WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int, H: int):\n\
+    \            super().__init__(N)\n            L.H = H\n        def build(L):\n\
+    \            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1], L.cnt[-1]\n\
+    \        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if bit else L.count0(i)\n\
+    \        def pos2(L, bit: int, i: int, j: int): return (L.T0+L.count1(i), L.T0+L.count1(j))\
+    \ if bit else (L.count0(i), L.count0(j))\n    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
     \ Amax is None else Amax)\n    def _build(wm, A, nA, Amax):wm.N,wm.H=len(A),Amax.bit_length();wm._build_levels(A,nA)\n\
     \    def _build_levels(wm, A, nA):\n        wm.up=[wm.Level(wm.N,H) for H in range(wm.H)];wm.down=wm.up[::-1]\n\
     \        for L in wm.down:\n            x,y,i=-1,wm.N-1,wm.N\n            while\
@@ -229,7 +228,7 @@ data:
     \       def build(L,W:list[int]):super().build();L.W=BIT(W[:])\n        def sum(L,l:int,r:int):return\
     \ L.W.sum_range(l,r)\n    def _build_base(wm,W):wm.W=BIT(W[:])\n    def _sum_range(wm,l,r):return\
     \ wm.W.sum_range(l,r)\n    def add(wm,i:int,w:int):\n        wm.W.add(i,w)\n \
-    \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\n\ndef max2(a, b): return\
+    \       for L in wm.down:L.W.add(i:=L.pos(L[i],i),w)\n\n\n\ndef max2(a, b): return\
     \ a if a > b else b\n\ndef pack_sm(N: int): s=N.bit_length(); return s,(1<<s)-1\n\
     \ndef icoord_compress_multi(*A: list[int], distinct=False):\n    N = mx = 0\n\
     \    for Ai in A: N += len(Ai); mx = max2(mx, len(Ai))\n    si, mi = pack_sm(mx-1);\
@@ -274,7 +273,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/rectangle_sum_wm_bit.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/rectangle_sum_wm_bit.test.py

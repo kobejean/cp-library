@@ -8,34 +8,40 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "\"\"\"\nPlotting utilities for benchmark results.\nHandles both matplotlib\
-    \ and ASCII plotting with consistent interface.\n\"\"\"\n\nimport statistics\n\
-    from typing import Dict, List, Any\nfrom pathlib import Path\nfrom collections\
-    \ import defaultdict\n\n\nclass BenchmarkPlotter:\n    \"\"\"Creates plots from\
-    \ benchmark results\"\"\"\n    \n    def __init__(self, plot_scale: str = \"loglog\"\
-    ):\n        self.plot_scale = plot_scale\n    \n    def create_plots(self, results:\
-    \ List[Dict[str, Any]], config) -> None:\n        \"\"\"Create all plots for benchmark\
-    \ results\"\"\"\n        try:\n            import matplotlib.pyplot as plt\n \
-    \           self._create_matplotlib_plots(plt, results, config)\n        except\
-    \ ImportError:\n            print(\"Matplotlib not available - using ASCII plots\"\
-    )\n            self._create_ascii_plots(results, config)\n        except Exception\
-    \ as e:\n            print(f\"Plotting failed: {e}\")\n    \n    def _group_results_by_operation(self,\
-    \ results: List[Dict[str, Any]]) -> Dict[str, Dict[int, List[Dict[str, Any]]]]:\n\
-    \        \"\"\"Group results by operation and size for plotting\"\"\"\n      \
-    \  data_by_op = defaultdict(lambda: defaultdict(list))\n        for r in results:\n\
-    \            if r['time_ms'] != float('inf') and r['correct']:\n             \
-    \   data_by_op[r['operation']][r['size']].append({\n                    'implementation':\
-    \ r['implementation'],\n                    'time_ms': r['time_ms']\n        \
-    \        })\n        return data_by_op\n    \n    def _create_matplotlib_plots(self,\
-    \ plt, results: List[Dict[str, Any]], config) -> None:\n        \"\"\"Create matplotlib\
-    \ plots\"\"\"\n        output_dir = Path(config.output_dir)\n        output_dir.mkdir(parents=True,\
-    \ exist_ok=True)\n        \n        # Group and prepare data for plotting\n  \
-    \      data_by_op = self._group_results_by_operation(results)\n        \n    \
-    \    # Create plots for each operation\n        for operation, operation_data\
-    \ in data_by_op.items():\n            self._create_performance_plot(plt, operation,\
-    \ operation_data, output_dir, config.name)\n            self._create_speedup_plot(plt,\
-    \ operation, operation_data, output_dir, config.name)\n    \n    def _create_performance_plot(self,\
-    \ plt, operation: str, operation_data: Dict[int, List[Dict[str, Any]]], output_dir:\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \"\"\"\nPlotting utilities for benchmark results.\nHandles both matplotlib and\
+    \ ASCII plotting with consistent interface.\n\"\"\"\nimport statistics\nfrom typing\
+    \ import Dict, List, Any\nfrom pathlib import Path\nfrom collections import defaultdict\n\
+    \n\nclass BenchmarkPlotter:\n    \"\"\"Creates plots from benchmark results\"\"\
+    \"\n    \n    def __init__(self, plot_scale: str = \"loglog\"):\n        self.plot_scale\
+    \ = plot_scale\n    \n    def create_plots(self, results: List[Dict[str, Any]],\
+    \ config) -> None:\n        \"\"\"Create all plots for benchmark results\"\"\"\
+    \n        try:\n            import matplotlib.pyplot as plt\n            self._create_matplotlib_plots(plt,\
+    \ results, config)\n        except ImportError:\n            print(\"Matplotlib\
+    \ not available - using ASCII plots\")\n            self._create_ascii_plots(results,\
+    \ config)\n        except Exception as e:\n            print(f\"Plotting failed:\
+    \ {e}\")\n    \n    def _group_results_by_operation(self, results: List[Dict[str,\
+    \ Any]]) -> Dict[str, Dict[int, List[Dict[str, Any]]]]:\n        \"\"\"Group results\
+    \ by operation and size for plotting\"\"\"\n        data_by_op = defaultdict(lambda:\
+    \ defaultdict(list))\n        for r in results:\n            if r['time_ms'] !=\
+    \ float('inf') and r['correct']:\n                data_by_op[r['operation']][r['size']].append({\n\
+    \                    'implementation': r['implementation'],\n                \
+    \    'time_ms': r['time_ms']\n                })\n        return data_by_op\n\
+    \    \n    def _create_matplotlib_plots(self, plt, results: List[Dict[str, Any]],\
+    \ config) -> None:\n        \"\"\"Create matplotlib plots\"\"\"\n        output_dir\
+    \ = Path(config.output_dir)\n        output_dir.mkdir(parents=True, exist_ok=True)\n\
+    \        \n        # Group and prepare data for plotting\n        data_by_op =\
+    \ self._group_results_by_operation(results)\n        \n        # Create plots\
+    \ for each operation\n        for operation, operation_data in data_by_op.items():\n\
+    \            self._create_performance_plot(plt, operation, operation_data, output_dir,\
+    \ config.name)\n            self._create_speedup_plot(plt, operation, operation_data,\
+    \ output_dir, config.name)\n    \n    def _create_performance_plot(self, plt,\
+    \ operation: str, operation_data: Dict[int, List[Dict[str, Any]]], output_dir:\
     \ Path, benchmark_name: str):\n        \"\"\"Create performance plot for a single\
     \ operation\"\"\"\n        sizes = sorted(operation_data.keys())\n        implementations\
     \ = set()\n        for size_data in operation_data.values():\n            for\
@@ -164,34 +170,35 @@ data:
     \        filename = output_dir / f\"{name}_{operation}_comparison.txt\"\n    \
     \    with open(filename, 'w') as f:\n            f.write('\\n'.join(table_lines))\n\
     \        print(f\"Comparison table saved: {filename}\")\n"
-  code: "\"\"\"\nPlotting utilities for benchmark results.\nHandles both matplotlib\
-    \ and ASCII plotting with consistent interface.\n\"\"\"\n\nimport statistics\n\
-    from typing import Dict, List, Any\nfrom pathlib import Path\nfrom collections\
-    \ import defaultdict\n\n\nclass BenchmarkPlotter:\n    \"\"\"Creates plots from\
-    \ benchmark results\"\"\"\n    \n    def __init__(self, plot_scale: str = \"loglog\"\
-    ):\n        self.plot_scale = plot_scale\n    \n    def create_plots(self, results:\
-    \ List[Dict[str, Any]], config) -> None:\n        \"\"\"Create all plots for benchmark\
-    \ results\"\"\"\n        try:\n            import matplotlib.pyplot as plt\n \
-    \           self._create_matplotlib_plots(plt, results, config)\n        except\
-    \ ImportError:\n            print(\"Matplotlib not available - using ASCII plots\"\
-    )\n            self._create_ascii_plots(results, config)\n        except Exception\
-    \ as e:\n            print(f\"Plotting failed: {e}\")\n    \n    def _group_results_by_operation(self,\
-    \ results: List[Dict[str, Any]]) -> Dict[str, Dict[int, List[Dict[str, Any]]]]:\n\
-    \        \"\"\"Group results by operation and size for plotting\"\"\"\n      \
-    \  data_by_op = defaultdict(lambda: defaultdict(list))\n        for r in results:\n\
-    \            if r['time_ms'] != float('inf') and r['correct']:\n             \
-    \   data_by_op[r['operation']][r['size']].append({\n                    'implementation':\
-    \ r['implementation'],\n                    'time_ms': r['time_ms']\n        \
-    \        })\n        return data_by_op\n    \n    def _create_matplotlib_plots(self,\
-    \ plt, results: List[Dict[str, Any]], config) -> None:\n        \"\"\"Create matplotlib\
-    \ plots\"\"\"\n        output_dir = Path(config.output_dir)\n        output_dir.mkdir(parents=True,\
-    \ exist_ok=True)\n        \n        # Group and prepare data for plotting\n  \
-    \      data_by_op = self._group_results_by_operation(results)\n        \n    \
-    \    # Create plots for each operation\n        for operation, operation_data\
-    \ in data_by_op.items():\n            self._create_performance_plot(plt, operation,\
-    \ operation_data, output_dir, config.name)\n            self._create_speedup_plot(plt,\
-    \ operation, operation_data, output_dir, config.name)\n    \n    def _create_performance_plot(self,\
-    \ plt, operation: str, operation_data: Dict[int, List[Dict[str, Any]]], output_dir:\
+  code: "import cp_library.__header__\n\"\"\"\nPlotting utilities for benchmark results.\n\
+    Handles both matplotlib and ASCII plotting with consistent interface.\n\"\"\"\n\
+    import statistics\nfrom typing import Dict, List, Any\nfrom pathlib import Path\n\
+    from collections import defaultdict\nimport cp_library.perf.__header__\n\nclass\
+    \ BenchmarkPlotter:\n    \"\"\"Creates plots from benchmark results\"\"\"\n  \
+    \  \n    def __init__(self, plot_scale: str = \"loglog\"):\n        self.plot_scale\
+    \ = plot_scale\n    \n    def create_plots(self, results: List[Dict[str, Any]],\
+    \ config) -> None:\n        \"\"\"Create all plots for benchmark results\"\"\"\
+    \n        try:\n            import matplotlib.pyplot as plt\n            self._create_matplotlib_plots(plt,\
+    \ results, config)\n        except ImportError:\n            print(\"Matplotlib\
+    \ not available - using ASCII plots\")\n            self._create_ascii_plots(results,\
+    \ config)\n        except Exception as e:\n            print(f\"Plotting failed:\
+    \ {e}\")\n    \n    def _group_results_by_operation(self, results: List[Dict[str,\
+    \ Any]]) -> Dict[str, Dict[int, List[Dict[str, Any]]]]:\n        \"\"\"Group results\
+    \ by operation and size for plotting\"\"\"\n        data_by_op = defaultdict(lambda:\
+    \ defaultdict(list))\n        for r in results:\n            if r['time_ms'] !=\
+    \ float('inf') and r['correct']:\n                data_by_op[r['operation']][r['size']].append({\n\
+    \                    'implementation': r['implementation'],\n                \
+    \    'time_ms': r['time_ms']\n                })\n        return data_by_op\n\
+    \    \n    def _create_matplotlib_plots(self, plt, results: List[Dict[str, Any]],\
+    \ config) -> None:\n        \"\"\"Create matplotlib plots\"\"\"\n        output_dir\
+    \ = Path(config.output_dir)\n        output_dir.mkdir(parents=True, exist_ok=True)\n\
+    \        \n        # Group and prepare data for plotting\n        data_by_op =\
+    \ self._group_results_by_operation(results)\n        \n        # Create plots\
+    \ for each operation\n        for operation, operation_data in data_by_op.items():\n\
+    \            self._create_performance_plot(plt, operation, operation_data, output_dir,\
+    \ config.name)\n            self._create_speedup_plot(plt, operation, operation_data,\
+    \ output_dir, config.name)\n    \n    def _create_performance_plot(self, plt,\
+    \ operation: str, operation_data: Dict[int, List[Dict[str, Any]]], output_dir:\
     \ Path, benchmark_name: str):\n        \"\"\"Create performance plot for a single\
     \ operation\"\"\"\n        sizes = sorted(operation_data.keys())\n        implementations\
     \ = set()\n        for size_data in operation_data.values():\n            for\
@@ -324,7 +331,7 @@ data:
   isVerificationFile: false
   path: cp_library/perf/plotting.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/plotting.py

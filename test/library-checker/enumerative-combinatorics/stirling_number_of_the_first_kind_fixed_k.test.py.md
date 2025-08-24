@@ -81,7 +81,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n\
+    \               \n'''\n\n\n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n\
     \    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
     \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64: return\
     \ cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls,\
@@ -128,7 +128,17 @@ data:
     \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
     \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
     \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\nfrom typing import\
-    \ SupportsIndex\n\nclass NTT:\n    def __init__(self, mod = 998244353) -> None:\n\
+    \ SupportsIndex\n\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return\
+    \ [P[i]*i%mod for i in range(1,len(P))]\n\n\ndef fps_integ(P: list) -> list:\n\
+    \    N, mod = len(P), mint.mod; res = [0] * (N+1)\n    if N: res[1] = 1\n    for\
+    \ i in range(2, N+1): j, k = divmod(mod, i); res[i] = (-res[k] * j) % mod\n  \
+    \  for i, x in enumerate(P, start=1): res[i] = res[i] * x % mod\n    return res\n\
+    \n\ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)),\
+    \ 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while d < deg:\n       \
+    \ sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n\
+    \        ntt.conv_half(f,gres:=ntt.fntt(g))\n        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n\
+    \        for j in range(d,sz): inv[j] = mod-f[j] if f[j] else 0\n        d = z\n\
+    \    return inv\n\n\nclass NTT:\n    def __init__(self, mod = 998244353) -> None:\n\
     \        self.mod = m = mod\n        self.g = g = self.primitive_root(m)\n   \
     \     self.rank2 = rank2 = ((m-1)&(1-m)).bit_length() - 1\n        self.root =\
     \ root = [0] * (rank2 + 1)\n        root[rank2] = pow(g, (m - 1) >> rank2, m)\n\
@@ -194,17 +204,7 @@ data:
     \        for i in range(n-1):res[i]=(con[i]+con[i+n])%mod\n        res[n-1]=con[n-1]\n\
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
-    \ = NTT(mod)\n\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return\
-    \ [P[i]*i%mod for i in range(1,len(P))]\n\n\ndef fps_integ(P: list) -> list:\n\
-    \    N, mod = len(P), mint.mod; res = [0] * (N+1)\n    if N: res[1] = 1\n    for\
-    \ i in range(2, N+1): j, k = divmod(mod, i); res[i] = (-res[k] * j) % mod\n  \
-    \  for i, x in enumerate(P, start=1): res[i] = res[i] * x % mod\n    return res\n\
-    \n\ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)),\
-    \ 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while d < deg:\n       \
-    \ sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n\
-    \        ntt.conv_half(f,gres:=ntt.fntt(g))\n        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n\
-    \        for j in range(d,sz): inv[j] = mod-f[j] if f[j] else 0\n        d = z\n\
-    \    return inv\n\n\ndef fps_log(P: list) -> list: return fps_integ(mint.ntt.conv(fps_deriv(P),\
+    \ = NTT(mod)\n\ndef fps_log(P: list) -> list: return fps_integ(mint.ntt.conv(fps_deriv(P),\
     \ fps_inv(P), len(P)-1))\n\ndef fps_exp(P: list) -> list:\n    max_sz = 1 << ((deg\
     \ := len(P))-1).bit_length()\n    mcomb.extend_inv(max_sz)\n    inv, mod, ntt\
     \ = mcomb.inv, mint.mod, mint.ntt\n    fntt, ifntt, conv_half = ntt.fntt, ntt.ifntt,\
@@ -218,7 +218,7 @@ data:
     \   for i in range(p-1): x[p+i],x[i] = x[i],0\n        conv_half(x,Eres)\n   \
     \     for i in range(min(deg, p<<1)-1,p-1,-1): x[i] = P[i]+x[i-1]*inv[i]%mod \n\
     \        for i in range(p): x[i] = 0\n        R.extend(conv_half(x,Rres)[p:])\n\
-    \        p <<= 1\n    return R[:deg]\n\n\n\ndef reserve(A: list, est_len: int)\
+    \        p <<= 1\n    return R[:deg]\n\n\n\n\ndef reserve(A: list, est_len: int)\
     \ -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n    def\
     \ resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
     \ndef fps_normalize(P: list, deg) -> list:\n    if (N:=len(P)) < deg: P[N:] =\
@@ -233,56 +233,57 @@ data:
     \ signed = True):\n    mcomb.extend_inv(n+k)\n    kinv,fact,mod,deg = mcomb.fact_inv[k],mcomb.fact,mint.mod,n+1-k\n\
     \    R = mcomb.inv[1:deg+1]\n    if signed:\n        for i in range(1,deg,2):\
     \ R[i] = mod - R[i]\n    return [mint(r*kinv%mod*fact[i]) for i,r in enumerate(fps_pow(R,k,deg),start=k)]\n\
-    \nfrom typing import Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S');\
-    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
-    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
-    \n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
-    \ char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n\
-    @overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\n\
-    def read(*specs: _U, char=False) -> tuple[_U, ...]: ...\ndef read(*specs: Union[Type[_T],_T],\
-    \ char=False):\n    IO.stdin.char = char\n    if not specs: return IO.stdin.readnumsinto([])\n\
-    \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
-    \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
-    \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
-    \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
-    \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
-    \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
-    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
-    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
-    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
-    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
-    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
-    \ ...\n\nclass IO(IOBase):\n    BUFSIZE = 1 << 16; stdin: 'IO'; stdout: 'IO'\n\
-    \    __slots__ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p', 'char', 'sz', 'st',\
-    \ 'ist', 'writable', 'encoding', 'errors'\n    def __init__(io, file):\n     \
-    \   io.file = file\n        try: io.f = file.fileno(); io.sz, io.writable = max2(io.BUFSIZE,\
-    \ os_fstat(io.f).st_size), ('x' in file.mode or 'r' not in file.mode)\n      \
-    \  except: io.f, io.sz, io.writable = -1, io.BUFSIZE, False\n        io.B, io.O,\
-    \ io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B); io.l = io.p\
-    \ = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False, [], [],\
-    \ 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
-    \ io.errors)\n    def readbytes(io, sz): return os_read(io.f, sz)\n    def load(io):\n\
-    \        while io.l >= len(io.O):\n            if not (b := io.readbytes(io.sz)):\n\
-    \                if io.O[-1] < len(io.B): io.O.append(len(io.B))\n           \
-    \     break\n            pos = len(io.B); io.B.extend(b)\n            while ~(pos\
-    \ := io.B.find(b'\\n', pos)): io.O.append(pos := pos+1)\n    def __next__(io):\n\
-    \        if io.char: return io.readchar()\n        else: return io.readtoken()\n\
-    \    def readchar(io):\n        io.load(); r = io.O[io.l]\n        c = chr(io.B[io.p])\n\
-    \        if io.p >= r-1: io.p = r; io.l += 1\n        else: io.p += 1\n      \
-    \  return c\n    def write(io, s: str): io.S.append(s)\n    def readline(io):\
-    \ io.load(); l, io.p = io.p, io.O[io.l]; io.l += 1; return io._dec(l, io.p)\n\
-    \    def readtoken(io):\n        io.load(); r = io.O[io.l]\n        if ~(p :=\
-    \ io.B.find(b' ', io.p, r)): s = io._dec(io.p, p); io.p = p+1\n        else: s\
-    \ = io._dec(io.p, r-1); io.p = r; io.l += 1\n        return s\n    def readtokens(io):\
-    \ io.st.clear(); return io.readtokensinto(io.st)\n    def readints(io): io.ist.clear();\
-    \ return io.readintsinto(io.ist)\n    def readdigits(io): io.ist.clear(); return\
-    \ io.readdigitsinto(io.ist)\n    def readnums(io): io.ist.clear(); return io.readnumsinto(io.ist)\n\
-    \    def readchars(io): io.load(); l, io.p = io.p, io.O[io.l]; io.l += 1; return\
-    \ io._dec(l, io.p-1)\n    def readinto(io, lst):\n        if io.char: return io.readcharsinto(lst)\n\
+    \nfrom typing import Type, Union, overload\nfrom typing import TypeVar\n\n_S =\
+    \ TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2\
+    \ = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
+    \ _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
+    def read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U,\
+    \ char=False) -> _U: ...\n@overload\ndef read(*specs: Type[_T], char=False) ->\
+    \ tuple[_T, ...]: ...\n@overload\ndef read(*specs: _U, char=False) -> tuple[_U,\
+    \ ...]: ...\ndef read(*specs: Union[Type[_T],_T], char=False):\n    IO.stdin.char\
+    \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
+    \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
+    from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
+    from __pypy__.builders import StringBuilder\n\n\n\ndef max2(a, b): return a if\
+    \ a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
+    \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
+    \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
+    \    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
+    \ ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io) -> str: ...\n\
+    \    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str]) -> list[str]:\
+    \ ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n    def readtokensinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readintsinto(io, lst: list[int])\
+    \ -> list[int]: ...\n    def readdigitsinto(io, lst: list[int]) -> list[int]:\
+    \ ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n    def wait(io):\
+    \ ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]: ...\n\n\
+    class IO(IOBase):\n    BUFSIZE = 1 << 16; stdin: 'IO'; stdout: 'IO'\n    __slots__\
+    \ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable',\
+    \ 'encoding', 'errors'\n    def __init__(io, file):\n        io.file = file\n\
+    \        try: io.f = file.fileno(); io.sz, io.writable = max2(io.BUFSIZE, os_fstat(io.f).st_size),\
+    \ ('x' in file.mode or 'r' not in file.mode)\n        except: io.f, io.sz, io.writable\
+    \ = -1, io.BUFSIZE, False\n        io.B, io.O, io.S = bytearray(), [], StringBuilder();\
+    \ io.V = memoryview(io.B); io.l = io.p = 0\n        io.char, io.st, io.ist, io.encoding,\
+    \ io.errors = False, [], [], 'ascii', 'ignore'\n    def _dec(io, l, r): return\
+    \ io.V[l:r].tobytes().decode(io.encoding, io.errors)\n    def readbytes(io, sz):\
+    \ return os_read(io.f, sz)\n    def load(io):\n        while io.l >= len(io.O):\n\
+    \            if not (b := io.readbytes(io.sz)):\n                if io.O[-1] <\
+    \ len(io.B): io.O.append(len(io.B))\n                break\n            pos =\
+    \ len(io.B); io.B.extend(b)\n            while ~(pos := io.B.find(b'\\n', pos)):\
+    \ io.O.append(pos := pos+1)\n    def __next__(io):\n        if io.char: return\
+    \ io.readchar()\n        else: return io.readtoken()\n    def readchar(io):\n\
+    \        io.load(); r = io.O[io.l]\n        c = chr(io.B[io.p])\n        if io.p\
+    \ >= r-1: io.p = r; io.l += 1\n        else: io.p += 1\n        return c\n   \
+    \ def write(io, s: str): io.S.append(s)\n    def readline(io): io.load(); l, io.p\
+    \ = io.p, io.O[io.l]; io.l += 1; return io._dec(l, io.p)\n    def readtoken(io):\n\
+    \        io.load(); r = io.O[io.l]\n        if ~(p := io.B.find(b' ', io.p, r)):\
+    \ s = io._dec(io.p, p); io.p = p+1\n        else: s = io._dec(io.p, r-1); io.p\
+    \ = r; io.l += 1\n        return s\n    def readtokens(io): io.st.clear(); return\
+    \ io.readtokensinto(io.st)\n    def readints(io): io.ist.clear(); return io.readintsinto(io.ist)\n\
+    \    def readdigits(io): io.ist.clear(); return io.readdigitsinto(io.ist)\n  \
+    \  def readnums(io): io.ist.clear(); return io.readnumsinto(io.ist)\n    def readchars(io):\
+    \ io.load(); l, io.p = io.p, io.O[io.l]; io.l += 1; return io._dec(l, io.p-1)\n\
+    \    def readinto(io, lst):\n        if io.char: return io.readcharsinto(lst)\n\
     \        else: return io.readtokensinto(lst)\n    def readcharsinto(io, lst):\
     \ lst.extend(io.readchars()); return lst\n    def readtokensinto(io, lst): \n\
     \        io.load(); r = io.O[io.l]\n        while ~(p := io.B.find(b' ', io.p,\
@@ -346,10 +347,10 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind_fixed_k\n\
     \ndef main():\n    mint.set_mod(998244353)\n    N, K = read()\n    mcomb.precomp(N)\n\
     \    write(*stirling1_k(N, K))\n\nfrom cp_library.math.table.mcomb_cls import\
@@ -381,7 +382,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py

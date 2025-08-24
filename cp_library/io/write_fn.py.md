@@ -368,34 +368,33 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
+    \n\ndef write(*args, **kwargs):\n    '''Prints the values to a stream, or to stdout_fast\
     \ by default.'''\n    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\"\
-    , IO.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\n\
-    \            file.write(sep)\n        file.write(str(x))\n        at_start = False\n\
-    \    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n\
-    \        file.flush()\nfrom os import read as os_read, write as os_write, fstat\
-    \ as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\n\ndef\
-    \ max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n    def\
-    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
-    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
-    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
-    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
-    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
-    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
-    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
-    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
-    \ ...\n\nclass IO(IOBase):\n    BUFSIZE = 1 << 16; stdin: 'IO'; stdout: 'IO'\n\
-    \    __slots__ = 'f', 'file', 'B', 'O', 'V', 'S', 'l', 'p', 'char', 'sz', 'st',\
-    \ 'ist', 'writable', 'encoding', 'errors'\n    def __init__(io, file):\n     \
-    \   io.file = file\n        try: io.f = file.fileno(); io.sz, io.writable = max2(io.BUFSIZE,\
-    \ os_fstat(io.f).st_size), ('x' in file.mode or 'r' not in file.mode)\n      \
-    \  except: io.f, io.sz, io.writable = -1, io.BUFSIZE, False\n        io.B, io.O,\
-    \ io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B); io.l = io.p\
-    \ = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False, [], [],\
-    \ 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
+    , IO.stdout)\n    at_start = True\n    for x in args:\n        if not at_start:\
+    \ file.write(sep)\n        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\nfrom os import\
+    \ read as os_read, write as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders\
+    \ import StringBuilder\n\n\n\ndef max2(a, b): return a if a > b else b\n\nclass\
+    \ IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n    def\
+    \ writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io,\
+    \ s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
+    \ -> str: ...\n    def readtokens(io) -> list[str]: ...\n    def readints(io)\
+    \ -> list[int]: ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io)\
+    \ -> list[int]: ...\n    def readchar(io) -> str: ...\n    def readchars(io) ->\
+    \ str: ...\n    def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
+    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
+    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass IO(IOBase):\n    BUFSIZE\
+    \ = 1 << 16; stdin: 'IO'; stdout: 'IO'\n    __slots__ = 'f', 'file', 'B', 'O',\
+    \ 'V', 'S', 'l', 'p', 'char', 'sz', 'st', 'ist', 'writable', 'encoding', 'errors'\n\
+    \    def __init__(io, file):\n        io.file = file\n        try: io.f = file.fileno();\
+    \ io.sz, io.writable = max2(io.BUFSIZE, os_fstat(io.f).st_size), ('x' in file.mode\
+    \ or 'r' not in file.mode)\n        except: io.f, io.sz, io.writable = -1, io.BUFSIZE,\
+    \ False\n        io.B, io.O, io.S = bytearray(), [], StringBuilder(); io.V = memoryview(io.B);\
+    \ io.l = io.p = 0\n        io.char, io.st, io.ist, io.encoding, io.errors = False,\
+    \ [], [], 'ascii', 'ignore'\n    def _dec(io, l, r): return io.V[l:r].tobytes().decode(io.encoding,\
     \ io.errors)\n    def readbytes(io, sz): return os_read(io.f, sz)\n    def load(io):\n\
     \        while io.l >= len(io.O):\n            if not (b := io.readbytes(io.sz)):\n\
     \                if io.O[-1] < len(io.B): io.O.append(len(io.B))\n           \
@@ -435,12 +434,12 @@ data:
     \        if io.writable: os_write(io.f, io.S.build().encode(io.encoding, io.errors));\
     \ io.S = StringBuilder()\nsys.stdin = IO.stdin = IO(sys.stdin); sys.stdout = IO.stdout\
     \ = IO(sys.stdout)\n"
-  code: "import cp_library.io.__header__\n\ndef write(*args, **kwargs):\n    '''Prints\
-    \ the values to a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"\
-    sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x\
-    \ in args:\n        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\nfrom cp_library.io.io_cls\
+  code: "import cp_library.__header__\nimport cp_library.io.__header__\n\ndef write(*args,\
+    \ **kwargs):\n    '''Prints the values to a stream, or to stdout_fast by default.'''\n\
+    \    sep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n\
+    \    at_start = True\n    for x in args:\n        if not at_start: file.write(sep)\n\
+    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\nfrom cp_library.io.io_cls\
     \ import IO"
   dependsOn:
   - cp_library/io/io_cls.py
@@ -451,122 +450,122 @@ data:
   requiredBy:
   - test/library-checker/tree/vertex_add_path_sum_hld.test copy.py
   - cp_library/io/bye_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/convolution/convolution_int.test.py
-  - test/library-checker/convolution/bitwise_and_convolution.test.py
-  - test/library-checker/convolution/lcm_convolution.test.py
-  - test/library-checker/convolution/convolution.test.py
-  - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
-  - test/library-checker/convolution/gcd_convolution.test.py
-  - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
-  - test/library-checker/convolution/convolution_mod_1000000007.test.py
-  - test/library-checker/set-power-series/subset_convolution_all.test.py
-  - test/library-checker/graph/cycle_detection.test.py
-  - test/library-checker/graph/directedmst_edge_list.test.py
-  - test/library-checker/graph/shortest_path_fast_graph.test.py
-  - test/library-checker/graph/cycle_detection_undirected.test.py
-  - test/library-checker/graph/scc_strongly_connected_components.test.py
-  - test/library-checker/graph/scc.test.py
-  - test/library-checker/graph/chromatic_number.test.py
-  - test/library-checker/graph/two_edge_connected_components.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
-  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
-  - test/library-checker/graph/shortest_path_min_heap.test.py
-  - test/library-checker/graph/biconnected_components.test.py
-  - test/library-checker/polynomial/polynomial_taylor_shift.test.py
-  - test/library-checker/polynomial/log_of_formal_power_series.test.py
-  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
-  - test/library-checker/polynomial/inv_of_formal_power_series.test.py
-  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
-  - test/library-checker/tree/tree_path_composite_sum.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
-  - test/library-checker/tree/vertex_add_subtree_sum.test.py
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/tree/vertex_set_path_composite.test.py
-  - test/library-checker/tree/tree_diameter.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
-  - test/library-checker/tree/jump_on_tree.test.py
-  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
-  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
-  - test/library-checker/data-structure/range_reverse_range_sum.test.py
-  - test/library-checker/data-structure/unionfind.test.py
-  - test/library-checker/data-structure/point_set_range_composite.test.py
-  - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
-  - test/library-checker/data-structure/unionfind_with_potential.test.py
-  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
-  - test/library-checker/data-structure/static_range_sum.test.py
-  - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
-  - test/library-checker/sample/aplusb.test.py
-  - test/library-checker/sample/many_aplusb_128bit.test.py
-  - test/library-checker/sample/many_aplusb.test.py
-  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
-  - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
-  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
   - test/yukicoder/3407.test.py
-  - test/aoj/dsl/dsl_2_a_segtree.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
-  - test/aoj/grl/grl_1_a_graph_distance.test.py
-  - test/aoj/grl/grl_3_b_graph_bridges.test.py
-  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
-  - test/aoj/grl/grl_2_c_scc.test.py
-  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
-  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
-  - test/aoj/grl/grl_5_b_fast_height.test.py
-  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
-  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
-  - test/aoj/grl/grl_5_a_fast_diameter.test.py
-  - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
-  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
-  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
-  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
   - test/atcoder/dp/dp_z_cht_monotone_add_max.test.py
   - test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   - test/atcoder/dp/dp_v_subtree_rerooting_dp.test.py
-  - test/atcoder/arc/arc122_b_insurance_median.test.py
-  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
-  - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
-  - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
-  - test/atcoder/agc/agc038_b_sliding_min_max.test.py
-  - test/atcoder/abc/abc274_e_vec2d.test.py
-  - test/atcoder/abc/abc175_d_permutation.test.py
-  - test/atcoder/abc/abc249_f_min_k_heap.test.py
-  - test/atcoder/abc/abc203_e_sort_groups.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
-  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
-  - test/atcoder/abc/abc206_e_mobius_table.test.py
-  - test/atcoder/abc/abc186_e_gcd_ex.test.py
-  - test/atcoder/abc/abc245_f_digraph.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
-  - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
   - test/atcoder/abc/abc361_e_tree_diameter.test.py
+  - test/atcoder/abc/abc202_e_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+  - test/atcoder/abc/abc245_f_digraph.test.py
+  - test/atcoder/abc/abc304_f_mobius_inv.test.py
   - test/atcoder/abc/abc151_f_fbisect_left.test.py
-  - test/atcoder/abc/abc261_g_mo.test.py
-  - test/atcoder/abc/abc185_e_dp2d.test.py
-  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
-  - test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   - test/atcoder/abc/abc189_e_vec2d.test.py
+  - test/atcoder/abc/abc325_f_minplus_conv_inplace.test.py
+  - test/atcoder/abc/abc186_e_gcd_ex.test.py
+  - test/atcoder/abc/abc175_d_permutation.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
-  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
-  - test/atcoder/abc/abc249_f_max_k_heap.test.py
   - test/atcoder/abc/abc184_f_subset_sum_fn.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld.test.py
   - test/atcoder/abc/abc202_e_fast_dfs.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
-  - test/atcoder/abc/abc304_f_mobius_inv.test.py
-  - test/atcoder/abc/abc203_e_queries_grouped.test.py
-  - test/atcoder/abc/abc337_g_tree_inversion_hld_bit.test.py
+  - test/atcoder/abc/abc206_e_mobius_table.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_hld_bit.test.py
+  - test/atcoder/abc/abc249_f_max_k_heap.test.py
+  - test/atcoder/abc/abc202_e_fast_dfs_enter_leave.test.py
+  - test/atcoder/abc/abc261_g_mo.test.py
+  - test/atcoder/abc/abc185_e_dp2d.test.py
+  - test/atcoder/abc/abc203_e_sort_groups.test.py
+  - test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   - test/atcoder/abc/abc261_g_queries_mo_ops.test.py
+  - test/atcoder/abc/abc337_g_tree_inversion_hld_fast.test.py
+  - test/atcoder/abc/abc249_f_min_k_heap.test.py
+  - test/atcoder/abc/abc203_e_queries_grouped.test.py
+  - test/atcoder/abc/abc274_e_vec2d.test.py
+  - test/atcoder/abc/abc218_f_fast_shortest_path.test.py
+  - test/atcoder/arc/arc182_d_increment_decrement_again_qselect.test.py
+  - test/atcoder/arc/arc168_c_swap_characters_combinatoric.test.py
+  - test/atcoder/arc/arc136_b_inversion_cnt_fn.test.py
+  - test/atcoder/arc/arc122_b_insurance_median.test.py
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
+  - test/library-checker/polynomial/exp_of_formal_power_series.test.py
+  - test/library-checker/polynomial/log_of_formal_power_series.test.py
+  - test/library-checker/polynomial/inv_of_formal_power_series.test.py
+  - test/library-checker/polynomial/polynomial_taylor_shift.test.py
+  - test/library-checker/graph/scc_strongly_connected_components.test.py
+  - test/library-checker/graph/chromatic_number.test.py
+  - test/library-checker/graph/two_edge_connected_components.test.py
+  - test/library-checker/graph/cycle_detection_undirected.test.py
+  - test/library-checker/graph/directedmst_edge_list.test.py
+  - test/library-checker/graph/shortest_path_fast_graph.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal_heap.test.py
+  - test/library-checker/graph/minimum_spanning_tree_kruskal.test.py
+  - test/library-checker/graph/shortest_path_min_heap.test.py
+  - test/library-checker/graph/cycle_detection.test.py
+  - test/library-checker/graph/scc.test.py
+  - test/library-checker/graph/biconnected_components.test.py
+  - test/library-checker/linear-algebra/pow_of_matrix_matpow.test.py
+  - test/library-checker/linear-algebra/pow_of_matrix_modmat.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
+  - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind.test.py
+  - test/library-checker/set-power-series/subset_convolution_all.test.py
+  - test/library-checker/sample/many_aplusb_128bit.test.py
+  - test/library-checker/sample/many_aplusb.test.py
+  - test/library-checker/sample/aplusb.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
+  - test/library-checker/tree/vertex_set_path_composite.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_bit.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_monoid.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/tree/vertex_add_subtree_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld.test.py
+  - test/library-checker/tree/tree_path_composite_sum.test.py
+  - test/library-checker/tree/vertex_add_path_sum_hld_commutative.test.py
+  - test/library-checker/tree/tree_diameter.test.py
+  - test/library-checker/data-structure/range_reverse_range_sum.test.py
+  - test/library-checker/data-structure/point_set_range_composite.test.py
+  - test/library-checker/data-structure/unionfind.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_bit_monoid.test.py
+  - test/library-checker/data-structure/unionfind_with_potential.test.py
+  - test/library-checker/data-structure/point_set_range_composite_large_array_treap.test.py
+  - test/library-checker/data-structure/unionfind_with_potential_non_commutative_group.test.py
+  - test/library-checker/data-structure/static_range_sum.test.py
+  - test/library-checker/data-structure/point_set_range_composite_large_array.test.py
+  - test/library-checker/data-structure/static_rectangle_add_rectangle_sum_wm_group_points.test.py
+  - test/library-checker/convolution/gcd_convolution.test.py
+  - test/library-checker/convolution/convolution.test.py
+  - test/library-checker/convolution/lcm_convolution.test.py
+  - test/library-checker/convolution/bitwise_and_convolution.test.py
+  - test/library-checker/convolution/min_plus_convolution_convex_convex.test.py
+  - test/library-checker/convolution/convolution_int.test.py
+  - test/library-checker/convolution/convolution_mod_1000000007.test.py
+  - test/library-checker/convolution/min_plus_convolution_convex_arbitrary.test.py
+  - test/aoj/dsl/dsl_2_a_segtree.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/aoj/grl/grl_5_c_lca_table_recursive.test.py
+  - test/aoj/grl/grl_3_a_cut_vertices_snippet_fn.test.py
+  - test/aoj/grl/grl_1_a_fast_dijkstra.test.py
+  - test/aoj/grl/grl_5_a_fast_diameter.test.py
+  - test/aoj/grl/grl_1_c_fast_floyd_warshall.test.py
+  - test/aoj/grl/grl_3_b_graph_bridges.test.py
+  - test/aoj/grl/grl_2_a_edge_list_kruskal.test.py
+  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+  - test/aoj/grl/grl_1_b_fast_bellman_ford.test.py
+  - test/aoj/grl/grl_2_b_edge_list_edmond.test.py
+  - test/aoj/grl/grl_2_a_graph_kruskal.test.py
+  - test/aoj/grl/grl_2_c_scc.test.py
+  - test/aoj/grl/grl_3_a_graph_articulation_points.test.py
+  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
+  - test/aoj/grl/grl_5_b_fast_height.test.py
+  - test/aoj/grl/grl_1_a_graph_distance.test.py
 documentation_of: cp_library/io/write_fn.py
 layout: document
 redirect_from:

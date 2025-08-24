@@ -51,10 +51,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \    https://kobejean.github.io/cp-library               \n'''\n\ndef elist(est_len:\
+    \    https://kobejean.github.io/cp-library               \n'''\n\n\n\ndef elist(hint:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nfrom\
-    \ typing import Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    \  def newlist_hint(hint): return []\nelist = newlist_hint\n    \nfrom typing\
+    \ import Type, Union, overload\nfrom typing import TypeVar\n\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
@@ -65,7 +65,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -167,37 +167,36 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    from itertools import groupby\nfrom typing import Iterable\n\nclass Queries(list,\
-    \ Parsable):\n    def __init__(self, data: Iterable = []): super().__init__((i,*query)\
-    \ for i,query in enumerate(data))\n    def append(self, query) -> None: return\
-    \ super().append((len(self), *query))\n    @classmethod\n    def compile(cls,\
-    \ N: int, T: type = tuple[int, int]):\n        query = Parser.compile(T)\n   \
-    \     def parse(io: IOBase): return cls(query(io) for _ in range(N))\n       \
-    \ return parse\n\nclass QueriesGrouped(Queries):\n    '''QueriesGrouped[Q: int,\
-    \ key = 0, T: type = tuple[int, ...]]'''\n    def __init__(self, queries, key\
-    \ = 0):\n        if isinstance(key, int):\n            group_idx = key+1\n   \
-    \         def wrap_key(row): return row[group_idx]\n        else:\n          \
-    \  def wrap_key(row): _, *query = row; return key(query)\n        rows = sorted(((i,*query)\
-    \ for i,query in enumerate(queries)), key = wrap_key)\n        groups = [(k, list(g))\
-    \ for k, g in groupby(rows, key = wrap_key)]\n        groups.sort()\n        self.key\
-    \ = key\n        list.__init__(self, groups)\n    @classmethod\n    def compile(cls,\
-    \ Q: int, key = 0, T: type = tuple[int, ...]):\n        query = Parser.compile(T)\n\
-    \        def parse(io: IOBase): return cls((query(io) for _ in range(Q)), key)\n\
-    \        return parse\n\nclass QueriesRange(Queries):\n    '''QueriesRange[Q:\
-    \ int, N: int, key = 0, T: type = tuple[-1, int]]'''\n    def __init__(self, queries,\
-    \ N: int, key = 0):\n        if isinstance(key, int):\n            group_idx =\
-    \ key+1\n            def wrap_key(row): return row[group_idx]\n        else:\n\
-    \            def wrap_key(row): _, *query = row; return key(query)\n        rows\
-    \ = list((i,*query) for i,query in enumerate(queries))\n        groups = [(k,[])\
-    \ for k in range(N)]\n        for k, group in groupby(rows, key = wrap_key): groups[k][1].extend(group)\n\
-    \        self.key = key\n        list.__init__(self, groups)\n    @classmethod\n\
-    \    def compile(cls, Q: int, N: int, key = 0, T: type = tuple[-1, int]):\n  \
-    \      query = Parser.compile(T)\n        def parse(io: IOBase):\n           \
-    \ return cls((query(io) for _ in range(Q)), N, key)\n        return parse\n\n\
-    if __name__ == \"__main__\":\n    main()\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\nfrom itertools\
+    \ import groupby\nfrom typing import Iterable\n\nclass Queries(list, Parsable):\n\
+    \    def __init__(self, data: Iterable = []): super().__init__((i,*query) for\
+    \ i,query in enumerate(data))\n    def append(self, query) -> None: return super().append((len(self),\
+    \ *query))\n    @classmethod\n    def compile(cls, N: int, T: type = tuple[int,\
+    \ int]):\n        query = Parser.compile(T)\n        def parse(io: IOBase): return\
+    \ cls(query(io) for _ in range(N))\n        return parse\n\nclass QueriesGrouped(Queries):\n\
+    \    '''QueriesGrouped[Q: int, key = 0, T: type = tuple[int, ...]]'''\n    def\
+    \ __init__(self, queries, key = 0):\n        if isinstance(key, int):\n      \
+    \      group_idx = key+1\n            def wrap_key(row): return row[group_idx]\n\
+    \        else:\n            def wrap_key(row): _, *query = row; return key(query)\n\
+    \        rows = sorted(((i,*query) for i,query in enumerate(queries)), key = wrap_key)\n\
+    \        groups = [(k, list(g)) for k, g in groupby(rows, key = wrap_key)]\n \
+    \       groups.sort()\n        self.key = key\n        list.__init__(self, groups)\n\
+    \    @classmethod\n    def compile(cls, Q: int, key = 0, T: type = tuple[int,\
+    \ ...]):\n        query = Parser.compile(T)\n        def parse(io: IOBase): return\
+    \ cls((query(io) for _ in range(Q)), key)\n        return parse\n\nclass QueriesRange(Queries):\n\
+    \    '''QueriesRange[Q: int, N: int, key = 0, T: type = tuple[-1, int]]'''\n \
+    \   def __init__(self, queries, N: int, key = 0):\n        if isinstance(key,\
+    \ int):\n            group_idx = key+1\n            def wrap_key(row): return\
+    \ row[group_idx]\n        else:\n            def wrap_key(row): _, *query = row;\
+    \ return key(query)\n        rows = list((i,*query) for i,query in enumerate(queries))\n\
+    \        groups = [(k,[]) for k in range(N)]\n        for k, group in groupby(rows,\
+    \ key = wrap_key): groups[k][1].extend(group)\n        self.key = key\n      \
+    \  list.__init__(self, groups)\n    @classmethod\n    def compile(cls, Q: int,\
+    \ N: int, key = 0, T: type = tuple[-1, int]):\n        query = Parser.compile(T)\n\
+    \        def parse(io: IOBase):\n            return cls((query(io) for _ in range(Q)),\
+    \ N, key)\n        return parse\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc203/tasks/abc203_e\n\
     \ndef main():\n    N, M = read(tuple[int, ...])\n    # groups and sorts by x value\n\
     \    XY = read(QueriesGrouped[M])\n    \n    # currently reacable columns\n  \
@@ -223,7 +222,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc203_e_queries_grouped.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc203_e_queries_grouped.test.py

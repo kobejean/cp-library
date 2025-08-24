@@ -20,8 +20,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import operator\nfrom typing import Callable\nfrom typing import TypeVar\n_S =\
-    \ TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2\
+    import operator\nfrom typing import Callable\nfrom typing import TypeVar\n\n_S\
+    \ = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2\
     \ = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\n\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
@@ -78,7 +78,7 @@ data:
     \ B: list[_T], N: int,\n            mul: Callable[[_T,_T],_T] = operator.mul,\n\
     \            sub: Callable[[_T,_T],_T] = operator.sub,\n            add: Callable[[_T,_T],_T]\
     \ = operator.add) -> list[_T]:\n    return Primes(N).lcm_conv(A, B, add, sub,\
-    \ mul)\n\n\n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from\
+    \ mul)\n\n\n\n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from\
     \ __pypy__ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len:\
     \ int):\n        pass\nreserve = resizelist_hint\n\nclass Primes(list[int]):\n\
     \    def __init__(P, N: int):\n        super().__init__()\n        spf = [0] *\
@@ -118,7 +118,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/lcm_conv_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/conv/lcm_conv_fn.py

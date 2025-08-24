@@ -56,9 +56,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod for\
-    \ i in range(1,len(P))]\n\n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n\
-    \    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
+    \n\n\ndef fps_deriv(P: list[int]):\n    mod = mint.mod\n    return [P[i]*i%mod\
+    \ for i in range(1,len(P))]\n\n\n    \nclass mint(int):\n    mod: int\n    zero:\
+    \ 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
     \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64: return\
     \ cls.cache[x]\n        else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls,\
     \ mod: int):\n        mint.mod = cls.mod = mod\n        mint.zero = cls.zero =\
@@ -159,7 +159,11 @@ data:
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
     \ = NTT(mod)\n\ndef fps_log(P: list) -> list: return fps_integ(mint.ntt.conv(fps_deriv(P),\
     \ fps_inv(P), len(P)-1))\n"
-  code: 'import cp_library.math.fps.__header__
+  code: 'import cp_library.__header__
+
+    import cp_library.math.__header__
+
+    import cp_library.math.fps.__header__
 
     from cp_library.math.fps.fps_deriv_fn import fps_deriv
 
@@ -183,14 +187,14 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_log_fn.py
   requiredBy:
+  - cp_library/math/fps/fps_pow_fn.py
   - cp_library/math/table/stirling2_k_fn.py
   - cp_library/math/table/stirling1_k_fn.py
-  - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/polynomial/log_of_formal_power_series.test.py
   - test/library-checker/polynomial/pow_of_formal_power_series.test.py
+  - test/library-checker/polynomial/log_of_formal_power_series.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
 documentation_of: cp_library/math/fps/fps_log_fn.py

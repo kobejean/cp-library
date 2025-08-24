@@ -72,7 +72,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\n\n\n\n\n\n\ndef argsort_ranged(A: list[int], l: int, r:\
     \ int, reverse=False):\n    P = Packer(r-l-1); I = [A[l+i] for i in range(r-l)];\
@@ -134,20 +134,20 @@ data:
     \ O[k] += 1\n        for i in range(N): O[i+1] += O[i]\n        for e in range(len(K)):\
     \ k = K[~e]; O[k] -= 1; A1[O[k]] = V1[~e]; A2[O[k]] = V2[~e]; A3[O[k]] = V3[~e];\
     \ A4[O[k]] = V4[~e]; A5[O[k]] = V5[~e]; A6[O[k]] = V6[~e]\n        return cls(A1,\
-    \ A2, A3, A4, A5, A6, O)\n\nif __name__ == '__main__':\n    \"\"\"\n    Helper\
-    \ for making unittest files compatible with verification-helper.\n    \n    This\
-    \ module provides a helper function to run a dummy Library Checker test\n    so\
-    \ that unittest files can be verified by oj-verify.\n    \"\"\"\n    \n    def\
-    \ run_verification_helper_unittest():\n        \"\"\"\n        Run a dummy AOJ\
-    \ ITP1_1_A test for verification-helper compatibility.\n        \n        This\
-    \ function should be called in the __main__ block of unittest files\n        that\
-    \ need to be compatible with verification-helper.\n        \n        The function:\n\
-    \        1. Prints \"Hello World\" (AOJ ITP1_1_A solution)\n        2. Runs pytest\
-    \ for the calling test file\n        3. Exits with the pytest result code\n  \
-    \      \"\"\"\n        import sys\n        \n        # Print \"Hello World\" for\
-    \ AOJ ITP1_1_A problem\n        print(\"Hello World\")\n        \n        import\
-    \ io\n        from contextlib import redirect_stdout, redirect_stderr\n    \n\
-    \        # Capture all output during test execution\n        output = io.StringIO()\n\
+    \ A2, A3, A4, A5, A6, O)\n\nif __name__ == '__main__':\n    \n    \"\"\"\n   \
+    \ Helper for making unittest files compatible with verification-helper.\n    \n\
+    \    This module provides a helper function to run a dummy Library Checker test\n\
+    \    so that unittest files can be verified by oj-verify.\n    \"\"\"\n    \n\
+    \    def run_verification_helper_unittest():\n        \"\"\"\n        Run a dummy\
+    \ AOJ ITP1_1_A test for verification-helper compatibility.\n        \n       \
+    \ This function should be called in the __main__ block of unittest files\n   \
+    \     that need to be compatible with verification-helper.\n        \n       \
+    \ The function:\n        1. Prints \"Hello World\" (AOJ ITP1_1_A solution)\n \
+    \       2. Runs pytest for the calling test file\n        3. Exits with the pytest\
+    \ result code\n        \"\"\"\n        import sys\n        \n        # Print \"\
+    Hello World\" for AOJ ITP1_1_A problem\n        print(\"Hello World\")\n     \
+    \   \n        import io\n        from contextlib import redirect_stdout, redirect_stderr\n\
+    \    \n        # Capture all output during test execution\n        output = io.StringIO()\n\
     \        with redirect_stdout(output), redirect_stderr(output):\n            #\
     \ Get the calling module's file path\n            frame = sys._getframe(1)\n \
     \           test_file = frame.f_globals.get('__file__')\n            if test_file\
@@ -204,7 +204,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/view/csr6_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/view/csr6_cls_test.py

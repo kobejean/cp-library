@@ -101,7 +101,13 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "\"\"\"\nHelper for making unittest files compatible with verification-helper.\n\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \n\"\"\"\nHelper for making unittest files compatible with verification-helper.\n\
     \nThis module provides a helper function to run a dummy Library Checker test\n\
     so that unittest files can be verified by oj-verify.\n\"\"\"\n\ndef run_verification_helper_unittest():\n\
     \    \"\"\"\n    Run a dummy AOJ ITP1_1_A test for verification-helper compatibility.\n\
@@ -118,9 +124,10 @@ data:
     \        if test_file is None:\n            test_file = sys.argv[0]\n        result\
     \ = pytest.main([test_file])\n    \n    if result != 0: \n        print(output.getvalue())\n\
     \    sys.exit(result)\n"
-  code: "\"\"\"\nHelper for making unittest files compatible with verification-helper.\n\
-    \nThis module provides a helper function to run a dummy Library Checker test\n\
-    so that unittest files can be verified by oj-verify.\n\"\"\"\n\ndef run_verification_helper_unittest():\n\
+  code: "import cp_library.__header__\nimport cp_library.test.__header__\n\"\"\"\n\
+    Helper for making unittest files compatible with verification-helper.\n\nThis\
+    \ module provides a helper function to run a dummy Library Checker test\nso that\
+    \ unittest files can be verified by oj-verify.\n\"\"\"\n\ndef run_verification_helper_unittest():\n\
     \    \"\"\"\n    Run a dummy AOJ ITP1_1_A test for verification-helper compatibility.\n\
     \    \n    This function should be called in the __main__ block of unittest files\n\
     \    that need to be compatible with verification-helper.\n    \n    The function:\n\
@@ -139,40 +146,40 @@ data:
   isVerificationFile: false
   path: cp_library/test/unittest_helper.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/unittests/ds/wavelet/wm_static_cls_test.py
-  - test/unittests/ds/view/csr4_cls_test.py
-  - test/unittests/ds/view/csr5_cls_test.py
-  - test/unittests/ds/view/view2_cls_test.py
-  - test/unittests/ds/view/csr2_cls_test.py
-  - test/unittests/ds/view/view6_cls_test.py
-  - test/unittests/ds/view/view_cls_test.py
-  - test/unittests/ds/view/csr6_cls_test.py
-  - test/unittests/ds/view/view5_cls_test.py
-  - test/unittests/ds/view/csr_cls_test.py
-  - test/unittests/ds/view/csr3_cls_test.py
-  - test/unittests/ds/view/view4_cls_test.py
-  - test/unittests/ds/view/view3_cls_test.py
+  - test/unittests/io/io_cls_test.py
   - test/unittests/ds/grid/grid_cls_test.py
-  - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
-  - test/unittests/ds/tree/seg/segtree2_cls_test.py
-  - test/unittests/ds/tree/seg/segtree4_cls_test.py
-  - test/unittests/ds/tree/seg/segtree3_cls_test.py
-  - test/unittests/ds/tree/seg/segtree5_cls_test.py
-  - test/unittests/ds/tree/seg/segtree6_cls_test.py
-  - test/unittests/ds/tree/bit/bit4_cls_test.py
-  - test/unittests/ds/tree/bit/bit6_cls_test.py
-  - test/unittests/ds/tree/bit/bit5_cls_test.py
-  - test/unittests/ds/tree/bit/bit3_cls_test.py
-  - test/unittests/ds/tree/bit/bit2_cls_test.py
   - test/unittests/ds/list/list5_cls_test.py
+  - test/unittests/ds/list/list4_cls_test.py
   - test/unittests/ds/list/list6_cls_test.py
   - test/unittests/ds/list/list3_cls_test.py
-  - test/unittests/ds/list/list4_cls_test.py
   - test/unittests/ds/list/list2_cls_test.py
-  - test/unittests/io/io_cls_test.py
+  - test/unittests/ds/tree/bit/bit3_cls_test.py
+  - test/unittests/ds/tree/bit/bit5_cls_test.py
+  - test/unittests/ds/tree/bit/bit2_cls_test.py
+  - test/unittests/ds/tree/bit/bit4_cls_test.py
+  - test/unittests/ds/tree/bit/bit6_cls_test.py
+  - test/unittests/ds/tree/bst/treap_monoid_cls_test.py
+  - test/unittests/ds/tree/seg/segtree5_cls_test.py
+  - test/unittests/ds/tree/seg/segtree4_cls_test.py
+  - test/unittests/ds/tree/seg/segtree6_cls_test.py
+  - test/unittests/ds/tree/seg/segtree2_cls_test.py
+  - test/unittests/ds/tree/seg/segtree3_cls_test.py
+  - test/unittests/ds/wavelet/wm_static_cls_test.py
+  - test/unittests/ds/view/csr2_cls_test.py
+  - test/unittests/ds/view/csr3_cls_test.py
+  - test/unittests/ds/view/view4_cls_test.py
+  - test/unittests/ds/view/view6_cls_test.py
+  - test/unittests/ds/view/csr6_cls_test.py
+  - test/unittests/ds/view/csr_cls_test.py
+  - test/unittests/ds/view/csr5_cls_test.py
+  - test/unittests/ds/view/view_cls_test.py
+  - test/unittests/ds/view/view5_cls_test.py
+  - test/unittests/ds/view/view3_cls_test.py
+  - test/unittests/ds/view/view2_cls_test.py
+  - test/unittests/ds/view/csr4_cls_test.py
 documentation_of: cp_library/test/unittest_helper.py
 layout: document
 redirect_from:

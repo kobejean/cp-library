@@ -37,7 +37,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\ndef read_csr_graph(N,\
+    \n\n\ndef chmin(dp, i, v):\n    if ch:=dp[i]>v:dp[i]=v\n    return ch\n\ndef read_csr_graph(N,\
     \ M):\n    U, V, La, Ra, Va, Ea, t = [0]*M, [0]*M, [0]*N, [0]*N, [0]*(M << 1),\
     \ [-1]*(M << 1), 0\n    for e in range(M): U[e], V[e] = rd(); La[U[e]] += 1; La[V[e]]\
     \ += U[e]!=V[e]\n    for u in range(N): La[u] = Ra[u] = (t := t + La[u])\n   \
@@ -53,10 +53,10 @@ data:
     \ 0 and not chmin(low, p := st[d], low[u]) and low[u] > tin[p]:\n            \
     \    L.append(len(e2ccs)); v = -1\n                while u != v: e2ccs.append(v\
     \ := buf.pop())\n        L.append(len(e2ccs)); e2ccs.extend(buf); buf.clear()\n\
-    \    return e2ccs, L\n\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from\
-    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n       \
-    \ return []\nelist = newlist_hint\n    \n\nfrom os import read as os_read, write\
-    \ as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
+    \    return e2ccs, L\n\n\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from\
+    \ __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint): return []\n\
+    elist = newlist_hint\n    \n\nfrom os import read as os_read, write as os_write,\
+    \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
     \ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n \
     \   def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
@@ -156,7 +156,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/two_edge_connected_components_scratch.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/two_edge_connected_components_scratch.test.py

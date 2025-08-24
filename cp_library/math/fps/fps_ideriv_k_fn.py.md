@@ -23,8 +23,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fps_ideriv_k(P: list[int], k: int):\n    fact, inv, mod = mcomb.fact, mcomb.fact_inv,\
-    \ mint.mod\n    for i in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n\
+    \n\n\ndef fps_ideriv_k(P: list[int], k: int):\n    fact, inv, mod = mcomb.fact,\
+    \ mcomb.fact_inv, mint.mod\n    for i in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n\
     \    del P[-k:]\n    return P\n\n    \nclass mint(int):\n    mod: int\n    zero:\
     \ 'mint'\n    one: 'mint'\n    two: 'mint'\n    cache: list['mint']\n    def __new__(cls,\
     \ *args, **kwargs):\n        if 0 <= (x := int(*args, **kwargs)) < 64: return\
@@ -72,11 +72,11 @@ data:
     \        if n < k: return mint.zero\n        return mint(mcomb.fact[n] * mcomb.fact_inv[n-k])\n\
     \    nPk = perm\n    \n    @staticmethod\n    def catalan(n: int, /) -> mint:\n\
     \        return mint(mcomb.nCk(2*n,n) * mcomb.fact_inv[n+1])\n"
-  code: "import cp_library.math.fps.__header__\n\ndef fps_ideriv_k(P: list[int], k:\
-    \ int):\n    fact, inv, mod = mcomb.fact, mcomb.fact_inv, mint.mod\n    for i\
-    \ in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n    del P[-k:]\n\
-    \    return P\nfrom cp_library.math.mod.mint_cls import mint\nfrom cp_library.math.table.mcomb_cls\
-    \ import mcomb"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.fps.__header__\n\
+    \ndef fps_ideriv_k(P: list[int], k: int):\n    fact, inv, mod = mcomb.fact, mcomb.fact_inv,\
+    \ mint.mod\n    for i in range(k,len(P)): P[i-k] = P[i]*inv[i-k]%mod*fact[i]%mod\n\
+    \    del P[-k:]\n    return P\nfrom cp_library.math.mod.mint_cls import mint\n\
+    from cp_library.math.table.mcomb_cls import mcomb"
   dependsOn:
   - cp_library/math/mod/mint_cls.py
   - cp_library/math/table/mcomb_cls.py
@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_ideriv_k_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/fps/fps_ideriv_k_fn.py

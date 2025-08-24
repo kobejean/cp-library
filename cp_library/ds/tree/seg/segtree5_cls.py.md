@@ -32,23 +32,23 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    from typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
     \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
-    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\n\n\ndef argsort(A: list[int],\
-    \ reverse=False):\n    P = Packer(len(I := list(A))-1); P.ienumerate(I, reverse);\
-    \ I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    __slots__ =\
-    \ 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length(); P.m = (1 << P.s)\
-    \ - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n    def dec(P, x:\
-    \ int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def enumerate(P, A, reverse=False):\
-    \ P.ienumerate(A:=list(A), reverse); return A\n    def ienumerate(P, A, reverse=False):\n\
-    \        if reverse:\n            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n\
-    \        else:\n            for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def\
-    \ indices(P, A: list[int]): P.iindices(A:=list(A)); return A\n    def iindices(P,\
-    \ A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\n\ndef isort_parallel(*L:\
-    \ list, reverse=False):\n    inv, order = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n\
-    \    for i, j in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n\
-    \        for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] =\
-    \ j, inv[i]\n    return L\nfrom typing import Generic\n\n\nclass list5(Generic[_T1,\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\nfrom typing import Generic\n\n\n\
+    \n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I := list(A))-1);\
+    \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass\
+    \ Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
+    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
+    \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
+    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
+    \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
+    \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
+    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
+    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
+    \n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order = [0]*len(L[0]),\
+    \ argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order): inv[j] = i\n\
+    \    for i, j in enumerate(order):\n        for A in L: A[i], A[j] = A[j], A[i]\n\
+    \        order[inv[i]], inv[j] = j, inv[i]\n    return L\n\n\nclass list5(Generic[_T1,\
     \ _T2, _T3, _T4, _T5]):\n    __slots__ = 'A1', 'A2', 'A3', 'A4', 'A5'\n    def\
     \ __init__(lst, A1: list[_T1], A2: list[_T2], A3: list[_T3], A4: list[_T4], A5:\
     \ list[_T5]):\n        lst.A1, lst.A2, lst.A3, lst.A4, lst.A5 = A1, A2, A3, A4,\
@@ -113,7 +113,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/tree/seg/segtree5_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/seg/segtree5_cls_test.py

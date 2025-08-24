@@ -20,7 +20,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    import operator\nfrom typing import Callable\n\n\ndef reserve(A: list, est_len:\
+    \n\nimport operator\nfrom typing import Callable\n\n\n\ndef reserve(A: list, est_len:\
     \ int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\nexcept:\n\
     \    def resizelist_hint(A: list, est_len: int):\n        pass\nreserve = resizelist_hint\n\
     \nclass Primes(list[int]):\n    def __init__(P, N: int):\n        super().__init__()\n\
@@ -54,22 +54,22 @@ data:
     \                if (y := x * p) > N: break\n                if x % p == 0:\n\
     \                    phi[y] = phi[x] * p\n                    break\n        \
     \        phi[y] = phi[x] * (p-1)\n        phi.primes = phi\n"
-  code: "import cp_library.math.table.__header__\nfrom cp_library.math.table.primes_cls\
-    \ import Primes\n\nclass Totient(list[int]):\n    def __init__(phi, N):\n    \
-    \    super().__init__([0] * (N + 1))\n        phi[0], phi[1] = 0, 1\n        primes\
-    \ = Primes.__new__(Primes)\n\n        for x in range(2, N + 1):\n            if\
-    \ phi[x] == 0:\n                phi[x] = x-1\n                primes.append(x)\n\
-    \            for p in primes:\n                if (y := x * p) > N: break\n  \
-    \              if x % p == 0:\n                    phi[y] = phi[x] * p\n     \
-    \               break\n                phi[y] = phi[x] * (p-1)\n        phi.primes\
-    \ = phi\n"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.table.__header__\n\
+    from cp_library.math.table.primes_cls import Primes\n\nclass Totient(list[int]):\n\
+    \    def __init__(phi, N):\n        super().__init__([0] * (N + 1))\n        phi[0],\
+    \ phi[1] = 0, 1\n        primes = Primes.__new__(Primes)\n\n        for x in range(2,\
+    \ N + 1):\n            if phi[x] == 0:\n                phi[x] = x-1\n       \
+    \         primes.append(x)\n            for p in primes:\n                if (y\
+    \ := x * p) > N: break\n                if x % p == 0:\n                    phi[y]\
+    \ = phi[x] * p\n                    break\n                phi[y] = phi[x] * (p-1)\n\
+    \        phi.primes = phi\n"
   dependsOn:
   - cp_library/math/table/primes_cls.py
   - cp_library/ds/list/reserve_fn.py
   isVerificationFile: false
   path: cp_library/math/table/totient_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/totient_cls.py

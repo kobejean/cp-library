@@ -29,9 +29,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Protocol\nimport operator\nfrom typing import Callable\n\n\n\
-    def reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import\
-    \ resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
+    from typing import Protocol\n\n\nimport operator\nfrom typing import Callable\n\
+    \n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__\
+    \ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
     \        pass\nreserve = resizelist_hint\n\nclass Primes(list[int]):\n    def\
     \ __init__(P, N: int):\n        super().__init__()\n        spf = [0] * (N + 1)\n\
     \        spf[0], spf[1] = 0, 1\n        reserve(P, N)\n\n        for i in range(2,\
@@ -60,21 +60,21 @@ data:
     \    primes: Primes\n    def factor_cnts(self, N): ...\n    def factors(self,\
     \ N): ...\n    def unique_factors(self, N): ...\n    def __getitem__(self, key)\
     \ -> int: ...\n"
-  code: "import cp_library.math.table.__header__\nfrom typing import Protocol\nfrom\
-    \ cp_library.math.table.primes_cls import Primes\n\nclass SieveProtocol(Protocol):\n\
-    \    primes: Primes\n    def factor_cnts(self, N): ...\n    def factors(self,\
-    \ N): ...\n    def unique_factors(self, N): ...\n    def __getitem__(self, key)\
-    \ -> int: ..."
+  code: "import cp_library.__header__\nfrom typing import Protocol\nimport cp_library.math.__header__\n\
+    import cp_library.math.table.__header__\nfrom cp_library.math.table.primes_cls\
+    \ import Primes\n\nclass SieveProtocol(Protocol):\n    primes: Primes\n    def\
+    \ factor_cnts(self, N): ...\n    def factors(self, N): ...\n    def unique_factors(self,\
+    \ N): ...\n    def __getitem__(self, key) -> int: ..."
   dependsOn:
   - cp_library/math/table/primes_cls.py
   - cp_library/ds/list/reserve_fn.py
   isVerificationFile: false
   path: cp_library/math/table/sieve_proto.py
   requiredBy:
-  - cp_library/math/table/linear_sieve_cnts_cls.py
   - cp_library/math/table/sieve_cls.py
   - cp_library/math/table/linear_sieve_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/math/table/linear_sieve_cnts_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/sieve_proto.py

@@ -59,46 +59,45 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    # from typing import Generic\n# from cp_library.misc.typing import _T\n\n\ndef\
-    \ min2(a, b): return a if a < b else b\n\n\n\nclass MinSparseTable:\n    def __init__(st,\
+    \n\n\ndef min2(a, b): return a if a < b else b\n\n\nclass MinSparseTable:\n  \
+    \  def __init__(st, arr: list):\n        st.N = N = len(arr)\n        st.log =\
+    \ N.bit_length()\n        st.data = data = [0] * (st.log*N)\n        data[:N]\
+    \ = arr \n        for i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N,\
+    \ (i-1)*N + (1 << (i-1))\n            for j in range(N - (1 << i) + 1):\n    \
+    \            data[a+j] = min2(data[b+j], data[c+j])\n\n    def query(st, l: int,\
+    \ r: int):\n        k = (r-l).bit_length() - 1\n        return min2(st.data[k*st.N\
+    \ + l], st.data[k*st.N + r - (1<<k)])\n    \n"
+  code: "import cp_library.__header__\nfrom cp_library.alg.dp.min2_fn import min2\n\
+    import cp_library.ds.__header__\n\nclass MinSparseTable:\n    def __init__(st,\
     \ arr: list):\n        st.N = N = len(arr)\n        st.log = N.bit_length()\n\
     \        st.data = data = [0] * (st.log*N)\n        data[:N] = arr \n        for\
     \ i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n\
     \            for j in range(N - (1 << i) + 1):\n                data[a+j] = min2(data[b+j],\
     \ data[c+j])\n\n    def query(st, l: int, r: int):\n        k = (r-l).bit_length()\
     \ - 1\n        return min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n\
-    \    \n"
-  code: "import cp_library.__header__\n# from typing import Generic\n# from cp_library.misc.typing\
-    \ import _T\nfrom cp_library.alg.dp.min2_fn import min2\n\nimport cp_library.ds.__header__\n\
-    \nclass MinSparseTable:\n    def __init__(st, arr: list):\n        st.N = N =\
-    \ len(arr)\n        st.log = N.bit_length()\n        st.data = data = [0] * (st.log*N)\n\
-    \        data[:N] = arr \n        for i in range(1,st.log):\n            a, b,\
-    \ c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j in range(N - (1\
-    \ << i) + 1):\n                data[a+j] = min2(data[b+j], data[c+j])\n\n    def\
-    \ query(st, l: int, r: int):\n        k = (r-l).bit_length() - 1\n        return\
-    \ min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n    "
+    \    "
   dependsOn:
   - cp_library/alg/dp/min2_fn.py
   isVerificationFile: false
   path: cp_library/ds/min_sparse_table_cls.py
   requiredBy:
-  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - cp_library/alg/tree/lca_table_iterative_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
   - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
   - cp_library/alg/tree/csr/aux_tree_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/tree/jump_on_tree.test.py
-  - test/library-checker/data-structure/staticrmq.test.py
   - test/yukicoder/3407.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/data-structure/staticrmq.test.py
   - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
   - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
   - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
-  - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
 documentation_of: cp_library/ds/min_sparse_table_cls.py
 layout: document
 redirect_from:

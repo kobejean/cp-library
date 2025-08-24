@@ -32,8 +32,8 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n         \
-    \    https://kobejean.github.io/cp-library               \n'''\n\n\ndef min2(a,\
-    \ b): return a if a < b else b\n\n\nfrom array import array\ndef u32f(N: int,\
+    \    https://kobejean.github.io/cp-library               \n'''\n\n\n\ndef min2(a,\
+    \ b): return a if a < b else b\nfrom array import array\n\n\ndef u32f(N: int,\
     \ elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\n\nclass BitsetTree:\n\
     \    def __init__(B, S: str):\n        B.N = N = len(S)\n        L = u32f((N+31)>>5)\n\
     \        for k,c in enumerate(S):\n            k,r = k>>5,k&31\n            if\
@@ -76,7 +76,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/predecessor_problem.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/predecessor_problem.test.py

@@ -263,7 +263,7 @@ data:
     \     for i in range(5):\n            assert i in S\n            c, d = P.dec(S[i])\n\
     \            assert c == i+1\n            assert d == i*10\n            \n   \
     \     for i in range(5, 10):\n            assert i in T\n            c, d = P.dec(T[i])\n\
-    \            assert c == i+1\n            assert d == i*10\n\n\n\ndef reserve(A:\
+    \            assert c == i+1\n            assert d == i*10\n\n\n\n\ndef reserve(A:\
     \ list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import resizelist_hint\n\
     except:\n    def resizelist_hint(A: list, est_len: int):\n        pass\nreserve\
     \ = resizelist_hint\n\n\n\ni64_max = (1<<63)-1\n\nclass BST:\n    __slots__ =\
@@ -338,7 +338,7 @@ data:
     \    assert T.K[l] <= T.K[i]\n            ac = T.op(T._v(l), ac)\n        if ~(r:=T.sub[i<<1|1]):\n\
     \            assert T.P[i] <= T.P[r]\n            assert T.K[i] <= T.K[r]\n  \
     \          ac = T.op(ac, T._v(r))\n        assert T.A[i] == ac\n        return\
-    \ ac\n\nif __name__ == '__main__':\n    \"\"\"\n    Helper for making unittest\
+    \ ac\n\nif __name__ == '__main__':\n    \n    \"\"\"\n    Helper for making unittest\
     \ files compatible with verification-helper.\n    \n    This module provides a\
     \ helper function to run a dummy Library Checker test\n    so that unittest files\
     \ can be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
@@ -585,7 +585,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/tree/bst/treap_monoid_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/tree/bst/treap_monoid_cls_test.py

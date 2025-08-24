@@ -53,7 +53,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)),\
+    \n\n\ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)),\
     \ 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while d < deg:\n       \
     \ sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n\
     \        ntt.conv_half(f,gres:=ntt.fntt(g))\n        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n\
@@ -150,13 +150,14 @@ data:
     \        return res\n\nclass mint(mint):\n    ntt: NTT\n\n    @classmethod\n \
     \   def set_mod(cls, mod: int):\n        super().set_mod(mod)\n        cls.ntt\
     \ = NTT(mod)\n"
-  code: "import cp_library.math.fps.__header__\n\ndef fps_inv(P: list) -> list:\n\
-    \    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)), 1\n    inv[0] = mod_inv(P[0],\
-    \ mod := mint.mod)\n    while d < deg:\n        sz, f, g = min(deg,z:=d<<1), [0]*z,\
-    \ [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n        ntt.conv_half(f,gres:=ntt.fntt(g))\n\
-    \        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n        for j in range(d,sz):\
-    \ inv[j] = mod-f[j] if f[j] else 0\n        d = z\n    return inv\n\nfrom cp_library.math.mod.mint_ntt_cls\
-    \ import mint\nfrom cp_library.math.nt.mod_inv_fn import mod_inv"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.fps.__header__\n\
+    \ndef fps_inv(P: list) -> list:\n    ntt, inv, d = mint.ntt, [0]*(deg:=len(P)),\
+    \ 1\n    inv[0] = mod_inv(P[0], mod := mint.mod)\n    while d < deg:\n       \
+    \ sz, f, g = min(deg,z:=d<<1), [0]*z, [0]*z\n        f[:sz], g[:d] = P[:sz], inv[:d]\n\
+    \        ntt.conv_half(f,gres:=ntt.fntt(g))\n        f[:d] = [0]*d\n        ntt.conv_half(f,gres)\n\
+    \        for j in range(d,sz): inv[j] = mod-f[j] if f[j] else 0\n        d = z\n\
+    \    return inv\n\nfrom cp_library.math.mod.mint_ntt_cls import mint\nfrom cp_library.math.nt.mod_inv_fn\
+    \ import mod_inv"
   dependsOn:
   - cp_library/math/mod/mint_ntt_cls.py
   - cp_library/math/nt/mod_inv_fn.py
@@ -165,16 +166,16 @@ data:
   isVerificationFile: false
   path: cp_library/math/fps/fps_inv_fn.py
   requiredBy:
-  - cp_library/math/table/stirling2_k_fn.py
-  - cp_library/math/table/stirling1_k_fn.py
   - cp_library/math/fps/fps_log_fn.py
   - cp_library/math/fps/fps_pow_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/math/table/stirling2_k_fn.py
+  - cp_library/math/table/stirling1_k_fn.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/polynomial/log_of_formal_power_series.test.py
   - test/library-checker/polynomial/inv_of_formal_power_series.test.py
-  - test/library-checker/polynomial/pow_of_formal_power_series.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_second_kind_fixed_k.test.py
   - test/library-checker/enumerative-combinatorics/stirling_number_of_the_first_kind_fixed_k.test.py
 documentation_of: cp_library/math/fps/fps_inv_fn.py

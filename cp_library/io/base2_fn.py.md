@@ -14,8 +14,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef base2(s): return int(s,2)\n"
-  code: 'import cp_library.io.__header__
+    \n\ndef base2(s): return int(s,2)\n"
+  code: 'import cp_library.__header__
+
+    import cp_library.io.__header__
 
 
     def base2(s): return int(s,2)'
@@ -23,7 +25,7 @@ data:
   isVerificationFile: false
   path: cp_library/io/base2_fn.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/io/base2_fn.py

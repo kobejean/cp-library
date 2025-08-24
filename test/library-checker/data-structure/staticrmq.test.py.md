@@ -39,17 +39,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
-    \               \n'''\n# from typing import Generic\n# from cp_library.misc.typing\
-    \ import _T\n\n\ndef min2(a, b): return a if a < b else b\n\n\n\nclass MinSparseTable:\n\
-    \    def __init__(st, arr: list):\n        st.N = N = len(arr)\n        st.log\
-    \ = N.bit_length()\n        st.data = data = [0] * (st.log*N)\n        data[:N]\
-    \ = arr \n        for i in range(1,st.log):\n            a, b, c = i*N, (i-1)*N,\
-    \ (i-1)*N + (1 << (i-1))\n            for j in range(N - (1 << i) + 1):\n    \
-    \            data[a+j] = min2(data[b+j], data[c+j])\n\n    def query(st, l: int,\
-    \ r: int):\n        k = (r-l).bit_length() - 1\n        return min2(st.data[k*st.N\
-    \ + l], st.data[k*st.N + r - (1<<k)])\n    \n\nfrom os import read as os_read,\
-    \ write as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders import\
-    \ StringBuilder\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n\
+    \               \n'''\n\n\n\ndef min2(a, b): return a if a < b else b\n\n\nclass\
+    \ MinSparseTable:\n    def __init__(st, arr: list):\n        st.N = N = len(arr)\n\
+    \        st.log = N.bit_length()\n        st.data = data = [0] * (st.log*N)\n\
+    \        data[:N] = arr \n        for i in range(1,st.log):\n            a, b,\
+    \ c = i*N, (i-1)*N, (i-1)*N + (1 << (i-1))\n            for j in range(N - (1\
+    \ << i) + 1):\n                data[a+j] = min2(data[b+j], data[c+j])\n\n    def\
+    \ query(st, l: int, r: int):\n        k = (r-l).bit_length() - 1\n        return\
+    \ min2(st.data[k*st.N + l], st.data[k*st.N + r - (1<<k)])\n    \n\nfrom os import\
+    \ read as os_read, write as os_write, fstat as os_fstat\nimport sys\nfrom __pypy__.builders\
+    \ import StringBuilder\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n\
     \    @property\n    def char(io) -> bool: ...\n    @property\n    def writable(io)\
     \ -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io, s: str) ->\
     \ None: ...\n    def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n\
@@ -111,9 +110,9 @@ data:
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
-    \ l)))\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\nif __name__ == '__main__':\n    main()\n"
+    \ l)))\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import\
+    \ newlist_hint\nexcept:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n\
+    \    \n\nif __name__ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/staticrmq\n\
     \ndef main():\n    N, Q = rd()\n    A = rdl(N)\n    st = MinSparseTable(A)\n \
     \   for _ in range(Q):\n        wtn(st.query(*rd()))\n\nfrom cp_library.ds.min_sparse_table_cls\
@@ -130,7 +129,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/data-structure/staticrmq.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/data-structure/staticrmq.test.py

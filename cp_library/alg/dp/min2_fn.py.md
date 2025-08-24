@@ -83,8 +83,12 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef min2(a, b): return a if a < b else b\n"
-  code: 'import cp_library.alg.dp.__header__
+    \n\n\ndef min2(a, b): return a if a < b else b\n"
+  code: 'import cp_library.__header__
+
+    import cp_library.alg.__header__
+
+    import cp_library.alg.dp.__header__
 
 
     def min2(a, b): return a if a < b else b'
@@ -92,32 +96,32 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/min2_fn.py
   requiredBy:
+  - cp_library/alg/tree/lca_table_iterative_cls.py
+  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
+  - cp_library/alg/tree/csr/aux_tree_base_cls.py
+  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
+  - cp_library/alg/tree/csr/aux_tree_cls.py
+  - cp_library/alg/divcon/divcon_dp_min_fn.py
+  - cp_library/alg/divcon/divcon_dp_max_fn.py
+  - cp_library/ds/tree/bitset_tree_cls.py
   - cp_library/ds/min_sparse_table_cls.py
   - cp_library/ds/wavelet/bit_list_cls.py
-  - cp_library/ds/tree/bitset_tree_cls.py
-  - cp_library/alg/tree/lca_table_weighted_iterative_cls.py
-  - cp_library/alg/tree/lca_table_iterative_cls.py
-  - cp_library/alg/tree/csr/aux_tree_weighted_cls.py
-  - cp_library/alg/tree/csr/aux_tree_base_cls.py
-  - cp_library/alg/tree/csr/aux_tree_cls.py
-  - cp_library/alg/divcon/divcon_dp_max_fn.py
-  - cp_library/alg/divcon/divcon_dp_min_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/tree/lca.test.py
-  - test/library-checker/tree/jump_on_tree.test.py
-  - test/library-checker/data-structure/staticrmq_general.test.py
-  - test/library-checker/data-structure/staticrmq.test.py
-  - test/library-checker/data-structure/predecessor_problem.test.py
   - test/yukicoder/3407.test.py
-  - test/aoj/vol/0439_aux_dijkstra.test.py
-  - test/aoj/vol/0439_aux_rerooting_dp.test.py
-  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
-  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
-  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
   - test/atcoder/abc/abc294_g_fast_tree_lca_table_weighted_bit.test.py
   - test/atcoder/abc/abc375_g_find_bridges.test.py
+  - test/library-checker/tree/jump_on_tree.test.py
+  - test/library-checker/tree/lca.test.py
+  - test/library-checker/data-structure/predecessor_problem.test.py
+  - test/library-checker/data-structure/staticrmq_general.test.py
+  - test/library-checker/data-structure/staticrmq.test.py
+  - test/aoj/vol/0439_aux_rerooting_dp.test.py
+  - test/aoj/vol/0439_aux_dijkstra.test.py
+  - test/aoj/vol/0439_aux_weighted_rerooting_dp.test.py
+  - test/aoj/grl/grl_5_c_lca_table_iterative.test.py
+  - test/aoj/grl/grl_3_b_cut_edges_snippet.test.py
 documentation_of: cp_library/alg/dp/min2_fn.py
 layout: document
 redirect_from:

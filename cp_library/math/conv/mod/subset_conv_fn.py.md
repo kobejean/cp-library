@@ -106,16 +106,16 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n                      Math - Convolution\
-    \                     \n'''\n\n\ndef max2(a, b): return a if a > b else b\n\n\n\
-    def ior_zeta_pair_ranked(A, B, N, M, Z):\n    for i in range(0, Z, M):\n     \
-    \   l, r = i+(1<<(i>>N))-1, i+M\n        for j in range(N):\n            m = l|(b\
-    \ := 1<<j)\n            while m < r: A[m] += A[m^b]; B[m] += B[m^b]; m = m+1|b\n\
-    \    return A, B\n\ndef ior_mobius_ranked(A: list[int], N: int, M: int, Z: int):\n\
-    \    for i in range(0, Z, M):\n        l, r = i, i+M-(1<<(N-(i>>N)))+1\n     \
-    \   for j in range(N):\n            m = l|(b := 1<<j)\n            while m < r:\
-    \ A[m] -= A[m^b]; m = m+1|b\n    return A\n\ndef isubset_conv_ranked(Ar, Br, N,\
-    \ M, Z, mod) -> list[int]:\n    ior_zeta_pair_ranked(Ar, Br, N, M, Z)\n    for\
-    \ i in range(Z): Ar[i], Br[i] = Ar[i]%mod, Br[i]%mod\n    for ij in range(Z-M,-1,-M):\n\
+    \                     \n'''\n\n\n\ndef max2(a, b): return a if a > b else b\n\n\
+    \ndef ior_zeta_pair_ranked(A, B, N, M, Z):\n    for i in range(0, Z, M):\n   \
+    \     l, r = i+(1<<(i>>N))-1, i+M\n        for j in range(N):\n            m =\
+    \ l|(b := 1<<j)\n            while m < r: A[m] += A[m^b]; B[m] += B[m^b]; m =\
+    \ m+1|b\n    return A, B\n\ndef ior_mobius_ranked(A: list[int], N: int, M: int,\
+    \ Z: int):\n    for i in range(0, Z, M):\n        l, r = i, i+M-(1<<(N-(i>>N)))+1\n\
+    \        for j in range(N):\n            m = l|(b := 1<<j)\n            while\
+    \ m < r: A[m] -= A[m^b]; m = m+1|b\n    return A\n\ndef isubset_conv_ranked(Ar,\
+    \ Br, N, M, Z, mod) -> list[int]:\n    ior_zeta_pair_ranked(Ar, Br, N, M, Z)\n\
+    \    for i in range(Z): Ar[i], Br[i] = Ar[i]%mod, Br[i]%mod\n    for ij in range(Z-M,-1,-M):\n\
     \        for k in range(M): Ar[ij|k] = (Ar[ij|k] * Br[k]) % mod\n        r = M-(1\
     \ << (N-(ij>>N)))+1\n        for i in range(0,ij,M):\n            j = ij-i; l\
     \ = (1 << (max2(i,j)>>N))-1\n            for k in range(l,r): Ar[ij|k] += Ar[i|k]\
@@ -141,17 +141,17 @@ data:
   isVerificationFile: false
   path: cp_library/math/conv/mod/subset_conv_fn.py
   requiredBy:
-  - cp_library/math/sps/mod/sps_pow_proj_fn.py
+  - cp_library/math/sps/mod/sps_exp_fn.py
   - cp_library/math/sps/mod/sps_pow_proj_poly_fn.py
   - cp_library/math/sps/mod/sps_mul_fn.py
-  - cp_library/math/sps/mod/sps_exp_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/math/sps/mod/sps_pow_proj_fn.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
-  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
   - test/library-checker/set-power-series/subset_convolution.test.py
+  - test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
   - test/library-checker/set-power-series/subset_convolution_all.test.py
+  - test/library-checker/set-power-series/exp_of_set_power_series.test.py
 documentation_of: cp_library/math/conv/mod/subset_conv_fn.py
 layout: document
 redirect_from:

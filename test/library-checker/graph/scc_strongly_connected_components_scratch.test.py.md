@@ -44,15 +44,15 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
-    except:\n    def newlist_hint(hint):\n        return []\nelist = newlist_hint\n\
-    \    \n\nfrom os import read as os_read, write as os_write, fstat as os_fstat\n\
-    import sys\nfrom __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return\
-    \ a if a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool:\
-    \ ...\n    @property\n    def writable(io) -> bool: ...\n    def __next__(io)\
-    \ -> str: ...\n    def write(io, s: str) -> None: ...\n    def readline(io) ->\
-    \ str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]:\
-    \ ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
+    \n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\n\
+    from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
+    from __pypy__.builders import StringBuilder\n\n\n\ndef max2(a, b): return a if\
+    \ a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
+    \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
+    \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
+    \    def readints(io) -> list[int]: ...\n    def readdigits(io) -> list[int]:\
     \ ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io) -> str: ...\n\
     \    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str]) -> list[str]:\
     \ ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n    def readtokensinto(io,\
@@ -148,7 +148,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/graph/scc_strongly_connected_components_scratch.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/graph/scc_strongly_connected_components_scratch.test.py

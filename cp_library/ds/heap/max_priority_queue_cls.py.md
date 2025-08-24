@@ -66,8 +66,8 @@ data:
     \    if heap and heap[0] > item: item, heap[0] = heap[0], item; heapsiftup_max(heap,\
     \ 0)\n    return item\n\ndef heapreplace_max(heap: list, item):\n    item, heap[0]\
     \ = heap[0], item; heapsiftup_max(heap, 0)\n    return item\nfrom typing import\
-    \ Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U\
-    \ = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ Generic\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
     \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\nclass HeapBase(Generic[_T]):\n\
     \    def peek(heap) -> _T: return heap.data[0]\n    def pop(heap) -> _T: ...\n\
     \    def push(heap, item: _T): ...\n    def pushpop(heap, item: _T) -> _T: ...\n\
@@ -84,9 +84,9 @@ data:
     \    def pushpop(que, priority: int, id: int): return que.pkr.dec(heappushpop_max(que.data,\
     \ que.pkr.enc(priority, id)))\n    def replace(que, priority: int, id: int): return\
     \ que.pkr.dec(heapreplace_max(que.data, que.pkr.enc(priority, id)))\n    def peek(que):\
-    \ return que.pkr.dec(que.data[0])\n\n\ndef elist(est_len: int) -> list: ...\n\
-    try:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n\
-    \        return []\nelist = newlist_hint\n    \n"
+    \ return que.pkr.dec(que.data[0])\n\n\ndef elist(hint: int) -> list: ...\ntry:\n\
+    \    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint): return\
+    \ []\nelist = newlist_hint\n    \n"
   code: "import cp_library.__header__\nfrom cp_library.bit.pack.packer_cls import\
     \ Packer\nimport cp_library.ds.__header__\nimport cp_library.ds.heap.__header__\n\
     from cp_library.ds.heap.heapify_max_fn import heapify_max\nfrom cp_library.ds.heap.heappop_max_fn\
@@ -118,7 +118,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/max_priority_queue_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/heap/max_priority_queue_cls.py

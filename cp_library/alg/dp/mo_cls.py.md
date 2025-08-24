@@ -140,7 +140,7 @@ data:
   isVerificationFile: false
   path: cp_library/alg/dp/mo_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/atcoder/abc/abc261_g_mo.test.py

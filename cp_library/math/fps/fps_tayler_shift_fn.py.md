@@ -38,7 +38,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n\
+    \n\n\n\n    \nclass mint(int):\n    mod: int\n    zero: 'mint'\n    one: 'mint'\n\
     \    two: 'mint'\n    cache: list['mint']\n    def __new__(cls, *args, **kwargs):\n\
     \        if 0 <= (x := int(*args, **kwargs)) < 64: return cls.cache[x]\n     \
     \   else: return cls.fix(x)\n    @classmethod\n    def set_mod(cls, mod: int):\n\
@@ -156,13 +156,13 @@ data:
     \    R, B = [P[i]*fact[i]%mod for i in range(N-1,-1,-1)], [0]*N; B[0] = 1\n  \
     \  for i in range(1,N): B[i] = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R,\
     \ B, N)\n    return [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]\n"
-  code: "import cp_library.math.fps.__header__\nfrom cp_library.math.table.mcomb_cls\
-    \ import mcomb\nfrom cp_library.math.mod.mint_ntt_cls import mint\n\ndef fps_tayler_shift(P,\
-    \ t: int) -> list[int]:\n    fact, fact_inv, inv, N, mod = mcomb.fact, mcomb.fact_inv,\
-    \ mcomb.inv, len(P), mint.mod\n    mcomb.extend_inv(N)\n    R, B = [P[i]*fact[i]%mod\
-    \ for i in range(N-1,-1,-1)], [0]*N; B[0] = 1\n    for i in range(1,N): B[i] =\
-    \ B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R, B, N)\n    return\
-    \ [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]"
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.fps.__header__\n\
+    from cp_library.math.table.mcomb_cls import mcomb\nfrom cp_library.math.mod.mint_ntt_cls\
+    \ import mint\n\ndef fps_tayler_shift(P, t: int) -> list[int]:\n    fact, fact_inv,\
+    \ inv, N, mod = mcomb.fact, mcomb.fact_inv, mcomb.inv, len(P), mint.mod\n    mcomb.extend_inv(N)\n\
+    \    R, B = [P[i]*fact[i]%mod for i in range(N-1,-1,-1)], [0]*N; B[0] = 1\n  \
+    \  for i in range(1,N): B[i] = B[i-1] * t % mod * inv[i] % mod\n    R = mint.ntt.conv(R,\
+    \ B, N)\n    return [a*fact_inv[i]%mod for i, a in enumerate(reversed(R))]"
   dependsOn:
   - cp_library/math/table/mcomb_cls.py
   - cp_library/math/mod/mint_ntt_cls.py
@@ -173,7 +173,7 @@ data:
   path: cp_library/math/fps/fps_tayler_shift_fn.py
   requiredBy:
   - cp_library/math/table/stirling1_n_fn.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/polynomial/polynomial_taylor_shift.test.py

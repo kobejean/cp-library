@@ -18,20 +18,17 @@ data:
   attributes:
     links:
     - https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py
-  bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\n\n\ndef min2(a, b): return a if a < b else b\nfrom math import ceil,\
-    \ sqrt\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U =\
-    \ TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
-    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\nclass BitArray:\n\
-    \    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n        B.bits,\
-    \ B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n        B.bits.pop()\n\
-    \        for i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n   \
-    \     B.bits.append(0)\n    def __len__(B): return B.N\n    def __getitem__(B,\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from math import ceil, sqrt\n\n\n\ndef min2(a, b): return a if a < b else b\n\n\
+    \n\nclass BitArray:\n    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n\
+    \        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n       \
+    \ B.bits.pop()\n        for i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n\
+    \        B.bits.append(0)\n    def __len__(B): return B.N\n    def __getitem__(B,\
     \ i: int): return B.bits[i>>5]>>(31-(i&31))&1\n    def set0(B, i: int): B.bits[i>>5]&=~(1<<31-(i&31))\n\
     \    def set1(B, i: int): B.bits[i>>5]|=1<<31-(i&31)\n    def count0(B, r: int):\
     \ return r-B.count1(r)\n    def count1(B, r: int): return B.cnt[r>>5]+popcnt32(B.bits[r>>5]>>32-(r&31))\n\
@@ -44,10 +41,10 @@ data:
     \    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
     \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
-    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\nfrom array import array\ndef\
-    \ u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    \n# Inspired by: https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py\n\
-    class BitList:\n    BUCKET_RATIO = 16\n    SPLIT_RATIO = 24\n    \n    def __init__(B,\
+    \ 'bit_count'): popcnt32 = int.bit_count\nfrom array import array\n\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\n# Inspired\
+    \ by: https://github.com/tatyam-prime/SortedSet/blob/main/BucketList.py\nclass\
+    \ BitList:\n    BUCKET_RATIO = 16\n    SPLIT_RATIO = 24\n    \n    def __init__(B,\
     \ N: int) -> None:\n        B.N, B.Z = N, (N+31)>>5\n        B = int(ceil(sqrt(B.Z\
     \ / B.BUCKET_RATIO)))\n        M = (B.Z+B-1)//B\n        B.bits = [[0]*(min2(i+M,B.Z)-i)\
     \ for i in range(B)]\n\n    def _insert(B, a: list[int], b: int, i: int, x: int):\n\
@@ -65,9 +62,9 @@ data:
     \            i -= len(a)\n        raise IndexError\n    \n    def __setitem__(B,\
     \ i: int, x: int):\n        for a in B.bits:\n            if i < len(a): a[i]\
     \ = x\n            i -= len(a)\n        raise IndexError\n"
-  code: "\nimport cp_library.ds.__header__\nfrom cp_library.alg.dp.min2_fn import\
-    \ min2\nfrom math import ceil, sqrt\nfrom cp_library.misc.typing import int\n\n\
-    class BitArray:\n    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n\
+  code: "import cp_library.__header__\nfrom math import ceil, sqrt\nfrom cp_library.alg.dp.min2_fn\
+    \ import min2\nimport cp_library.ds.__header__\nimport cp_library.ds.wavelet.__header__\n\
+    \nclass BitArray:\n    def __init__(B, N: int):\n        B.N, B.Z = N, (N+31)>>5\n\
     \        B.bits, B.cnt = u32f(B.Z+1), u32f(B.Z+1)\n    def build(B):\n       \
     \ B.bits.pop()\n        for i,b in enumerate(B.bits): B.cnt[i+1] = B.cnt[i]+popcnt32(b)\n\
     \        B.bits.append(0)\n    def __len__(B): return B.N\n    def __getitem__(B,\
@@ -106,7 +103,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/wavelet/bit_list_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/wavelet/bit_list_cls.py

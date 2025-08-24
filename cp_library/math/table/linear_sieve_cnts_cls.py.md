@@ -23,9 +23,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Protocol\nimport operator\nfrom typing import Callable\n\n\n\
-    def reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__ import\
-    \ resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
+    \n\nfrom typing import Protocol\nimport operator\nfrom typing import Callable\n\
+    \n\n\ndef reserve(A: list, est_len: int) -> None: ...\ntry:\n    from __pypy__\
+    \ import resizelist_hint\nexcept:\n    def resizelist_hint(A: list, est_len: int):\n\
     \        pass\nreserve = resizelist_hint\n\nclass Primes(list[int]):\n    def\
     \ __init__(P, N: int):\n        super().__init__()\n        spf = [0] * (N + 1)\n\
     \        spf[0], spf[1] = 0, 1\n        reserve(P, N)\n\n        for i in range(2,\
@@ -70,12 +70,12 @@ data:
     \        exp,nxt = spf.exp, spf.nxt\n        factors = []\n        while N > 1:\n\
     \            factors.extend(spf[N] for _ in range(exp[N]))\n            N = nxt[N]\n\
     \        return factors\n"
-  code: "import cp_library.math.table.__header__\nfrom cp_library.math.table.sieve_proto\
-    \ import SieveProtocol\nfrom cp_library.math.table.primes_cls import Primes\n\n\
-    class LinearSieveCounts(list[int], SieveProtocol):\n\n    def __init__(spf, N:\
-    \ int):\n        super().__init__([0] * (N + 1))\n        exp = [0] * (N + 1)\n\
-    \        nxt = [0] * (N + 1)\n        primes = Primes.__new__(Primes)\n      \
-    \  spf[0], spf[1] = 0, 1\n        exp[1] = 1\n        for x in range(2,N+1):\n\
+  code: "import cp_library.__header__\nimport cp_library.math.__header__\nimport cp_library.math.table.__header__\n\
+    from cp_library.math.table.sieve_proto import SieveProtocol\nfrom cp_library.math.table.primes_cls\
+    \ import Primes\n\nclass LinearSieveCounts(list[int], SieveProtocol):\n\n    def\
+    \ __init__(spf, N: int):\n        super().__init__([0] * (N + 1))\n        exp\
+    \ = [0] * (N + 1)\n        nxt = [0] * (N + 1)\n        primes = Primes.__new__(Primes)\n\
+    \        spf[0], spf[1] = 0, 1\n        exp[1] = 1\n        for x in range(2,N+1):\n\
     \            if spf[x] == 0:\n                spf[x],exp[x] = x,1\n          \
     \      primes.append(x)\n            for p in primes:\n                if (y :=\
     \ x*p) > N or p > spf[x]: break\n                spf[y] = p\n                if\
@@ -96,7 +96,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/table/linear_sieve_cnts_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/table/linear_sieve_cnts_cls.py

@@ -44,14 +44,14 @@ data:
   isVerificationFile: false
   path: cp_library/ds/heap/heappush_max_fn.py
   requiredBy:
-  - cp_library/ds/heap/max_heap_cls.py
   - cp_library/ds/heap/min_k_heap_cls.py
   - cp_library/ds/heap/max_priority_queue_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/ds/heap/max_heap_cls.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
   - test/atcoder/abc/abc249_f_min_k_heap.test.py
+  - test/library-checker/data-structure/double_ended_priority_queue_2heaps_fast_heapq.test.py
 documentation_of: cp_library/ds/heap/heappush_max_fn.py
 layout: document
 redirect_from:

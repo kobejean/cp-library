@@ -44,22 +44,22 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2578\n             https://kobejean.github.io/cp-library       \
-    \        \n'''\n\nfrom bisect import bisect_left\n\nclass CHTMonotoneAddMin:\n\
-    \    def __init__(self):\n        self.hull = []\n\n    def insert(self, m: int,\
-    \ b: int) -> None:\n        # Remove lines with greater or equal slopes (maintaining\
-    \ monotonicity)\n        while self.hull and self.hull[-1][0] <= m:\n        \
-    \    self.hull.pop()\n\n        def is_obsolete():\n            (m1, b1), (m2,\
-    \ b2) = self.hull[-2], self.hull[-1]\n            return (b - b1) * (m1 - m2)\
-    \ <= (b2 - b1) * (m1 - m)\n        \n        # Remove lines that are no longer\
-    \ part of the lower envelope\n        while len(self.hull) >= 2 and is_obsolete():\n\
-    \            self.hull.pop()\n        \n        self.hull.append((m, b))\n\n \
-    \   def min(self, x: int) -> int:\n        def eval(i):\n            m, b = self.hull[i]\n\
-    \            return m * x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n\
-    \            m2, b2 = self.hull[i+1]\n            return (m2-m1)*x + (b2-b1)\n\
-    \        return eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\nfrom\
-    \ typing import Type, Union, overload\nfrom typing import TypeVar\n_S = TypeVar('S');\
-    \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
-    \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
+    \        \n'''\nfrom bisect import bisect_left\n\n\nclass CHTMonotoneAddMin:\n\
+    \    def __init__(self): self.hull = []\n\n    def insert(self, m: int, b: int)\
+    \ -> None:\n        # Remove lines with greater or equal slopes (maintaining monotonicity)\n\
+    \        while self.hull and self.hull[-1][0] <= m:\n            self.hull.pop()\n\
+    \n        def is_obsolete():\n            (m1, b1), (m2, b2) = self.hull[-2],\
+    \ self.hull[-1]\n            return (b - b1) * (m1 - m2) <= (b2 - b1) * (m1 -\
+    \ m)\n        \n        # Remove lines that are no longer part of the lower envelope\n\
+    \        while len(self.hull) >= 2 and is_obsolete():\n            self.hull.pop()\n\
+    \        \n        self.hull.append((m, b))\n\n    def min(self, x: int) -> int:\n\
+    \        def eval(i):\n            m, b = self.hull[i]\n            return m *\
+    \ x + b\n        def key(i):\n            m1, b1 = self.hull[i]\n            m2,\
+    \ b2 = self.hull[i+1]\n            return (m2-m1)*x + (b2-b1)\n        return\
+    \ eval(bisect_left(range(len(self.hull) - 1), 0, key=key))\nfrom typing import\
+    \ Type, Union, overload\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T =\
+    \ TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3\
+    \ = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n@overload\ndef read() -> list[int]: ...\n@overload\ndef read(spec: Type[_T],\
     \ char=False) -> _T: ...\n@overload\ndef read(spec: _U, char=False) -> _U: ...\n\
     @overload\ndef read(*specs: Type[_T], char=False) -> tuple[_T, ...]: ...\n@overload\n\
@@ -68,7 +68,7 @@ data:
     \    parser: _T = Parser.compile(specs[0] if len(specs) == 1 else specs)\n   \
     \ return parser(IO.stdin)\nfrom os import read as os_read, write as os_write,\
     \ fstat as os_fstat\nimport sys\nfrom __pypy__.builders import StringBuilder\n\
-    \n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
+    \n\n\ndef max2(a, b): return a if a > b else b\n\nclass IOBase:\n    @property\n\
     \    def char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n\
     \    def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n  \
     \  def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
@@ -170,10 +170,10 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\n\nif __name__\
+    \ == '__main__':\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/dp/tasks/dp_z\n\
     \ndef main():\n    N, C = read()\n    H = read([])\n    dp = 0\n    cht = CHTMonotoneAddMin()\n\
     \n    for i in range(N-1):\n        m = -2*H[i]\n        b = H[i]**2 + dp\n  \
@@ -193,7 +193,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/dp/dp_z_cht_monotone_add_min.test.py

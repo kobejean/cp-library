@@ -34,14 +34,14 @@ data:
     \        def parser(io: 'IOBase'): return cls(next(io))\n        return parser\n\
     \    @classmethod\n    def __class_getitem__(cls, item): return GenericAlias(cls,\
     \ item)\n\n\nimport operator\nfrom math import hypot\n\nclass ElmWiseMixin:\n\
-    \    def elm_wise(self, other, op):\n        if isinstance(other, Number):\n \
-    \           return type(self)(op(x, other) for x in self)\n        if isinstance(other,\
-    \ Sequence):\n            return type(self)(op(x, y) for x, y in zip(self, other))\n\
-    \        raise ValueError(\"Operand must be a number or a tuple of the same length\"\
-    )\n\n    def __add__(self, other): return self.elm_wise(other, operator.add)\n\
-    \    def __radd__(self, other): return self.elm_wise(other, operator.add)\n  \
-    \  def __sub__(self, other): return self.elm_wise(other, operator.sub)\n    def\
-    \ __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
+    \    def elm_wise(self, other, op):\n        if isinstance(other, Sequence):\n\
+    \            return self.__class__(op(self[i], y) for i, y in enumerate(self,\
+    \ other))\n        if isinstance(other, Number):\n            return self.__class__(op(x,\
+    \ other) for x in self)\n        raise ValueError(\"Operand must be a number or\
+    \ a tuple of the same length\")\n\n    def __add__(self, other): return self.elm_wise(other,\
+    \ operator.add)\n    def __radd__(self, other): return self.elm_wise(other, operator.add)\n\
+    \    def __sub__(self, other): return self.elm_wise(other, operator.sub)\n   \
+    \ def __rsub__(self, other): return self.elm_wise(other, lambda x,y: operator.sub(y,x))\n\
     \    def __mul__(self, other): return self.elm_wise(other, operator.mul)\n   \
     \ def __rmul__(self, other): return self.elm_wise(other, operator.mul)\n    def\
     \ __truediv__(self, other): return self.elm_wise(other, operator.truediv)\n  \
@@ -196,7 +196,7 @@ data:
   isVerificationFile: false
   path: cp_library/math/linalg/mat/mod/mat_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/math/linalg/mat/mod/mat_cls.py

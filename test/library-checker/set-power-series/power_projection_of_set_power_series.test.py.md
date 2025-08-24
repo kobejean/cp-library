@@ -61,9 +61,9 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\n\n\n\n\nfrom typing import Generic\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\n\nimport sys\n\ndef list_find(lst: list, value, start\
+    \ _T6 = TypeVar('T6')\n\nimport sys\n\n\ndef list_find(lst: list, value, start\
     \ = 0, stop = sys.maxsize):\n    try:\n        return lst.index(value, start,\
     \ stop)\n    except:\n        return -1\n\n\nclass view(Generic[_T]):\n    __slots__\
     \ = 'A', 'l', 'r'\n    def __init__(V, A: list[_T], l: int = 0, r: int = 0): V.A,\
@@ -132,7 +132,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2578\n                      Math - Convolution           \
-    \          \n'''\n\n\ndef max2(a, b): return a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A,\
+    \          \n'''\n\n\n\ndef max2(a, b): return a if a > b else b\n\n\ndef ior_zeta_pair_ranked(A,\
     \ B, N, M, Z):\n    for i in range(0, Z, M):\n        l, r = i+(1<<(i>>N))-1,\
     \ i+M\n        for j in range(N):\n            m = l|(b := 1<<j)\n           \
     \ while m < r: A[m] += A[m^b]; B[m] += B[m^b]; m = m+1|b\n    return A, B\n\n\
@@ -225,9 +225,9 @@ data:
     \ = IO(sys.stdout)\ndef rd(): return IO.stdin.readints()\ndef rds(): return IO.stdin.__next__()\n\
     def rdl(n): return IO.stdin.readintsinto(elist(n))\ndef wt(s): IO.stdout.write(s)\n\
     def wtn(s): IO.stdout.write(f'{s}\\n')\ndef wtnl(l): IO.stdout.write(' '.join(map(str,\
-    \ l)))\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__ import\
-    \ newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\nelist\
-    \ = newlist_hint\n    \n\nmain()\n"
+    \ l)))\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\n\
+    except:\n    def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\n\
+    main()\n"
   code: "# verification-helper: PROBLEM https://judge.yosupo.jp/problem/power_projection_of_set_power_series\n\
     \ndef main():\n    N, M = rd()\n    A = rdl(1<<N)\n    W = rdl(1<<N)\n    ans\
     \ = sps_pow_proj_poly(W, A, M, 998244353)\n    wtnl(ans)\n\nfrom cp_library.math.sps.mod.sps_pow_proj_poly_fn\
@@ -251,7 +251,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/power_projection_of_set_power_series.test.py

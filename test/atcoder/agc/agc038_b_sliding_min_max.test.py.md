@@ -65,7 +65,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\
     \n             https://kobejean.github.io/cp-library               \n'''\n\n\n\
-    from types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
+    \nfrom types import GenericAlias\n\n\nclass Parsable:\n    @classmethod\n    def\
     \ compile(cls):\n        def parser(io: 'IOBase'): return cls(next(io))\n    \
     \    return parser\n    @classmethod\n    def __class_getitem__(cls, item): return\
     \ GenericAlias(cls, item)\n\nclass FuncGraph(list[int], Parsable):\n    def __init__(F,\
@@ -86,7 +86,7 @@ data:
     \            line.append(slow)\n        return line, roll(cyc, -cyc.index(slow))\n\
     \n    @classmethod\n    def compile(cls, N: int, shift = -1):\n        return\
     \ Parser.compile_repeat(cls, shift, N)\nfrom typing import Generic\nfrom typing\
-    \ import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
+    \ import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1\
     \ = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
     \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\nclass CRFList(Generic[_T]):\n\
     \    def __init__(crf, A: list[_T], S: list[int]):\n        crf.N, crf.A, crf.S\
@@ -95,34 +95,33 @@ data:
     \    \n    def get(crf, i: int, j: int) -> _T:\n        return crf.A[crf.S[i]+j]\n\
     \    \n    def len(crf, i: int) -> int:\n        return crf.S[i+1] - crf.S[i]\n\
     \ndef roll(A: list, t: int):\n    if t:=t%len(A): A[:t], A[t:] = A[-t:], A[:-t]\n\
-    \    return A\n\n\nfrom array import array\ndef u8f(N: int, elm: int = 0):   \
-    \   return array('B', (elm,))*N  # unsigned char\n\n\ndef elist(est_len: int)\
-    \ -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def\
-    \ newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \nimport typing\n\
-    from numbers import Number\nfrom typing import Callable, Collection\n\nclass IOBase:\n\
-    \    @property\n    def char(io) -> bool: ...\n    @property\n    def writable(io)\
-    \ -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io, s: str) ->\
-    \ None: ...\n    def readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n\
-    \    def readtokens(io) -> list[str]: ...\n    def readints(io) -> list[int]:\
-    \ ...\n    def readdigits(io) -> list[int]: ...\n    def readnums(io) -> list[int]:\
-    \ ...\n    def readchar(io) -> str: ...\n    def readchars(io) -> str: ...\n \
-    \   def readinto(io, lst: list[str]) -> list[str]: ...\n    def readcharsinto(io,\
-    \ lst: list[str]) -> list[str]: ...\n    def readtokensinto(io, lst: list[str])\
-    \ -> list[str]: ...\n    def readintsinto(io, lst: list[int]) -> list[int]: ...\n\
-    \    def readdigitsinto(io, lst: list[int]) -> list[int]: ...\n    def readnumsinto(io,\
-    \ lst: list[int]) -> list[int]: ...\n    def wait(io): ...\n    def flush(io)\
-    \ -> None: ...\n    def line(io) -> list[str]: ...\n\nclass Parser:\n    def __init__(self,\
-    \ spec):  self.parse = Parser.compile(spec)\n    def __call__(self, io: IOBase):\
-    \ return self.parse(io)\n    @staticmethod\n    def compile_type(cls, args = ()):\n\
-    \        if issubclass(cls, Parsable): return cls.compile(*args)\n        elif\
-    \ issubclass(cls, (Number, str)):\n            def parse(io: IOBase): return cls(next(io))\
-    \              \n            return parse\n        elif issubclass(cls, tuple):\
-    \ return Parser.compile_tuple(cls, args)\n        elif issubclass(cls, Collection):\
-    \ return Parser.compile_collection(cls, args)\n        elif callable(cls):\n \
-    \           def parse(io: IOBase): return cls(next(io))              \n      \
-    \      return parse\n        else: raise NotImplementedError()\n    @staticmethod\n\
-    \    def compile(spec=int):\n        if isinstance(spec, (type, GenericAlias)):\n\
-    \            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
+    \    return A\nfrom array import array\n\n\ndef u8f(N: int, elm: int = 0):   \
+    \   return array('B', (elm,))*N  # unsigned char\n\n\ndef elist(hint: int) ->\
+    \ list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n    def newlist_hint(hint):\
+    \ return []\nelist = newlist_hint\n    \nimport typing\nfrom numbers import Number\n\
+    from typing import Callable, Collection\n\nclass IOBase:\n    @property\n    def\
+    \ char(io) -> bool: ...\n    @property\n    def writable(io) -> bool: ...\n  \
+    \  def __next__(io) -> str: ...\n    def write(io, s: str) -> None: ...\n    def\
+    \ readline(io) -> str: ...\n    def readtoken(io) -> str: ...\n    def readtokens(io)\
+    \ -> list[str]: ...\n    def readints(io) -> list[int]: ...\n    def readdigits(io)\
+    \ -> list[int]: ...\n    def readnums(io) -> list[int]: ...\n    def readchar(io)\
+    \ -> str: ...\n    def readchars(io) -> str: ...\n    def readinto(io, lst: list[str])\
+    \ -> list[str]: ...\n    def readcharsinto(io, lst: list[str]) -> list[str]: ...\n\
+    \    def readtokensinto(io, lst: list[str]) -> list[str]: ...\n    def readintsinto(io,\
+    \ lst: list[int]) -> list[int]: ...\n    def readdigitsinto(io, lst: list[int])\
+    \ -> list[int]: ...\n    def readnumsinto(io, lst: list[int]) -> list[int]: ...\n\
+    \    def wait(io): ...\n    def flush(io) -> None: ...\n    def line(io) -> list[str]:\
+    \ ...\n\nclass Parser:\n    def __init__(self, spec):  self.parse = Parser.compile(spec)\n\
+    \    def __call__(self, io: IOBase): return self.parse(io)\n    @staticmethod\n\
+    \    def compile_type(cls, args = ()):\n        if issubclass(cls, Parsable):\
+    \ return cls.compile(*args)\n        elif issubclass(cls, (Number, str)):\n  \
+    \          def parse(io: IOBase): return cls(next(io))              \n       \
+    \     return parse\n        elif issubclass(cls, tuple): return Parser.compile_tuple(cls,\
+    \ args)\n        elif issubclass(cls, Collection): return Parser.compile_collection(cls,\
+    \ args)\n        elif callable(cls):\n            def parse(io: IOBase): return\
+    \ cls(next(io))              \n            return parse\n        else: raise NotImplementedError()\n\
+    \    @staticmethod\n    def compile(spec=int):\n        if isinstance(spec, (type,\
+    \ GenericAlias)):\n            cls, args = typing.get_origin(spec) or spec, typing.get_args(spec)\
     \ or tuple()\n            return Parser.compile_type(cls, args)\n        elif\
     \ isinstance(offset := spec, Number): \n            cls = type(spec)  \n     \
     \       def parse(io: IOBase): return cls(next(io)) + offset\n            return\
@@ -148,20 +147,20 @@ data:
     \        elif (isinstance(specs, (tuple,list)) and len(specs) == 2 and isinstance(specs[1],\
     \ int)):\n            return Parser.compile_repeat(cls, specs[0], specs[1])\n\
     \        else:\n            raise NotImplementedError()\n\nclass PermGraph(FuncGraph):\n\
-    \    def inv(P):\n        Pinv = [0]*P.N\n        for i,p in enumerate(P):\n \
-    \           Pinv[p] = i\n        return type(P)(Pinv)\n\ndef main():\n    N, K\
-    \ = read(tuple[int,int])\n    P = read(PermGraph[N,0])\n    win = SlidingMinMax(maxlen=K)\n\
-    \    win.extend(P[:K])\n    ans = 1 - (unchanged := len(win.minq) == K)\n    for\
-    \ i in range(K,N):\n        p = win.popleft()\n        win.append(P[i])\n    \
-    \    unchanged |= (is_sorted:=len(win.minq) == K)\n        ans += not is_sorted\
-    \ and (p > win.min or P[i] < win.max)\n        \n    ans += unchanged\n    write(ans)\n\
-    \    \nimport sys\n\ndef list_find(lst: list, value, start = 0, stop = sys.maxsize):\n\
-    \    try:\n        return lst.index(value, start, stop)\n    except:\n       \
-    \ return -1\nfrom typing import MutableSequence, SupportsIndex\n\nclass Deque(MutableSequence[_T]):\n\
-    \    def __init__(que, A = tuple(), *, maxlen=-1):\n        super().__init__()\n\
-    \        que.cap = 1 << (maxlen-1).bit_length()\n        data = [0]*que.cap\n\
-    \        que._sz = que._t = len(A)\n        for i,a in enumerate(A): data[i] =\
-    \ a\n        que._mask, que._h, que.maxlen, que.data = que.cap-1, 0, maxlen, data\n\
+    \    def inv(P):\n        Pinv = [0]*P.N\n        for i, p in enumerate(P): Pinv[p]\
+    \ = i\n        return P.__class__(Pinv)\n\ndef main():\n    N, K = read(tuple[int,int])\n\
+    \    P = read(PermGraph[N,0])\n    win = SlidingMinMax(maxlen=K)\n    win.extend(P[:K])\n\
+    \    ans = 1 - (unchanged := len(win.minq) == K)\n    for i in range(K,N):\n \
+    \       p = win.popleft()\n        win.append(P[i])\n        unchanged |= (is_sorted:=len(win.minq)\
+    \ == K)\n        ans += not is_sorted and (p > win.min or P[i] < win.max)\n  \
+    \      \n    ans += unchanged\n    write(ans)\n    \nfrom typing import MutableSequence,\
+    \ SupportsIndex\nimport sys\n\ndef list_find(lst: list, value, start = 0, stop\
+    \ = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n  \
+    \  except:\n        return -1\n\n\nclass Deque(MutableSequence[_T]):\n    def\
+    \ __init__(que, A = tuple(), *, maxlen=-1):\n        super().__init__()\n    \
+    \    que.cap = 1 << (maxlen-1).bit_length()\n        data = [0]*que.cap\n    \
+    \    que._sz = que._t = len(A)\n        for i,a in enumerate(A): data[i] = a\n\
+    \        que._mask, que._h, que.maxlen, que.data = que.cap-1, 0, maxlen, data\n\
     \n    def __len__(que):\n        return que._sz \n    \n    def __contains__(que,\
     \ x):\n        if que._h >= que._t:\n            return (list_find(que.data, x,\
     \ 0, que._t) != -1\n                or list_find(que.data, x, que._h, que.cap)\
@@ -259,10 +258,9 @@ data:
     \ = IO(sys.stdout)\n\ndef write(*args, **kwargs):\n    '''Prints the values to\
     \ a stream, or to stdout_fast by default.'''\n    sep, file = kwargs.pop(\"sep\"\
     , \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start = True\n    for x in args:\n\
-    \        if not at_start:\n            file.write(sep)\n        file.write(str(x))\n\
-    \        at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if\
-    \ kwargs.pop(\"flush\", False):\n        file.flush()\n\nif __name__ == \"__main__\"\
-    :\n    main()\n"
+    \        if not at_start: file.write(sep)\n        file.write(str(x))\n      \
+    \  at_start = False\n    file.write(kwargs.pop(\"end\", \"\\n\"))\n    if kwargs.pop(\"\
+    flush\", False): file.flush()\n\nif __name__ == \"__main__\":\n    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/agc038/tasks/agc038_b\n\
     \nfrom cp_library.alg.graph.func.perm_graph_cls import PermGraph\n\ndef main():\n\
     \    N, K = read(tuple[int,int])\n    P = read(PermGraph[N,0])\n    win = SlidingMinMax(maxlen=K)\n\
@@ -293,7 +291,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/agc/agc038_b_sliding_min_max.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/agc/agc038_b_sliding_min_max.test.py

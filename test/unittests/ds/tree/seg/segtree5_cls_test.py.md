@@ -187,34 +187,34 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\nfrom typing import TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U\
-    \ = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
-    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\n\n\ndef\
-    \ argsort(A: list[int], reverse=False):\n    P = Packer(len(I := list(A))-1);\
-    \ P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return I\n\n\n\nclass\
-    \ Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length();\
-    \ P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int): return a << P.s | b\n\
-    \    def dec(P, x: int) -> tuple[int, int]: return x >> P.s, x & P.m\n    def\
-    \ enumerate(P, A, reverse=False): P.ienumerate(A:=list(A), reverse); return A\n\
-    \    def ienumerate(P, A, reverse=False):\n        if reverse:\n            for\
-    \ i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n            for i,a\
-    \ in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]): P.iindices(A:=list(A));\
-    \ return A\n    def iindices(P, A):\n        for i,a in enumerate(A): A[i] = P.m&a\n\
-    \n\ndef isort_parallel(*L: list, reverse=False):\n    inv, order = [0]*len(L[0]),\
-    \ argsort(L[0], reverse=reverse)\n    for i, j in enumerate(order): inv[j] = i\n\
-    \    for i, j in enumerate(order):\n        for A in L: A[i], A[j] = A[j], A[i]\n\
-    \        order[inv[i]], inv[j] = j, inv[i]\n    return L\nfrom typing import Generic\n\
-    \n\nclass list5(Generic[_T1, _T2, _T3, _T4, _T5]):\n    __slots__ = 'A1', 'A2',\
-    \ 'A3', 'A4', 'A5'\n    def __init__(lst, A1: list[_T1], A2: list[_T2], A3: list[_T3],\
-    \ A4: list[_T4], A5: list[_T5]):\n        lst.A1, lst.A2, lst.A3, lst.A4, lst.A5\
-    \ = A1, A2, A3, A4, A5\n    def __len__(lst): return len(lst.A1)\n    def __getitem__(lst,\
-    \ i: int): return lst.A1[i], lst.A2[i], lst.A3[i], lst.A4[i], lst.A5[i]\n    def\
-    \ __setitem__(lst, i: int, v: tuple[_T1, _T2, _T3, _T4, _T5]): lst.A1[i], lst.A2[i],\
-    \ lst.A3[i], lst.A4[i], lst.A5[i] = v\n    def __contains__(lst, v: tuple[_T1,\
-    \ _T2, _T3, _T4, _T5]): raise NotImplementedError\n    def index(lst, v: tuple[_T1,\
-    \ _T2, _T3, _T4, _T5]): raise NotImplementedError\n    def reverse(lst): lst.A1.reverse();\
-    \ lst.A2.reverse(); lst.A3.reverse(); lst.A4.reverse(); lst.A5.reverse()\n   \
-    \ def sort(lst, reverse=False): isort_parallel(lst.A1, lst.A2, lst.A3, lst.A4,\
+    \  \n'''\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T');\
+    \ _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3');\
+    \ _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\nfrom typing\
+    \ import Generic\n\n\n\n\ndef argsort(A: list[int], reverse=False):\n    P = Packer(len(I\
+    \ := list(A))-1); P.ienumerate(I, reverse); I.sort(); P.iindices(I)\n    return\
+    \ I\n\n\n\nclass Packer:\n    __slots__ = 's', 'm'\n    def __init__(P, mx: int):\
+    \ P.s = mx.bit_length(); P.m = (1 << P.s) - 1\n    def enc(P, a: int, b: int):\
+    \ return a << P.s | b\n    def dec(P, x: int) -> tuple[int, int]: return x >>\
+    \ P.s, x & P.m\n    def enumerate(P, A, reverse=False): P.ienumerate(A:=list(A),\
+    \ reverse); return A\n    def ienumerate(P, A, reverse=False):\n        if reverse:\n\
+    \            for i,a in enumerate(A): A[i] = P.enc(-a, i)\n        else:\n   \
+    \         for i,a in enumerate(A): A[i] = P.enc(a, i)\n    def indices(P, A: list[int]):\
+    \ P.iindices(A:=list(A)); return A\n    def iindices(P, A):\n        for i,a in\
+    \ enumerate(A): A[i] = P.m&a\n\n\ndef isort_parallel(*L: list, reverse=False):\n\
+    \    inv, order = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n    for i, j\
+    \ in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n       \
+    \ for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] = j, inv[i]\n\
+    \    return L\n\n\nclass list5(Generic[_T1, _T2, _T3, _T4, _T5]):\n    __slots__\
+    \ = 'A1', 'A2', 'A3', 'A4', 'A5'\n    def __init__(lst, A1: list[_T1], A2: list[_T2],\
+    \ A3: list[_T3], A4: list[_T4], A5: list[_T5]):\n        lst.A1, lst.A2, lst.A3,\
+    \ lst.A4, lst.A5 = A1, A2, A3, A4, A5\n    def __len__(lst): return len(lst.A1)\n\
+    \    def __getitem__(lst, i: int): return lst.A1[i], lst.A2[i], lst.A3[i], lst.A4[i],\
+    \ lst.A5[i]\n    def __setitem__(lst, i: int, v: tuple[_T1, _T2, _T3, _T4, _T5]):\
+    \ lst.A1[i], lst.A2[i], lst.A3[i], lst.A4[i], lst.A5[i] = v\n    def __contains__(lst,\
+    \ v: tuple[_T1, _T2, _T3, _T4, _T5]): raise NotImplementedError\n    def index(lst,\
+    \ v: tuple[_T1, _T2, _T3, _T4, _T5]): raise NotImplementedError\n    def reverse(lst):\
+    \ lst.A1.reverse(); lst.A2.reverse(); lst.A3.reverse(); lst.A4.reverse(); lst.A5.reverse()\n\
+    \    def sort(lst, reverse=False): isort_parallel(lst.A1, lst.A2, lst.A3, lst.A4,\
     \ lst.A5, reverse=reverse)\n    def pop(lst): return lst.A1.pop(), lst.A2.pop(),\
     \ lst.A3.pop(), lst.A4.pop(), lst.A5.pop()\n    def append(lst, v: tuple[_T1,\
     \ _T2, _T3, _T4, _T5]):\n        v1, v2, v3, v4, v5 = v\n        lst.A1.append(v1);\
@@ -253,22 +253,23 @@ data:
     \                while r < sz:\n                    if f(op(d[r:=r<<1|1], sm)):\
     \ sm, r = op(d[r], sm), r-1\n                return r + 1 - sz\n            sm\
     \ = op(d[r], sm)\n            if (r & -r) == r: return 0\n\nclass SegTree5(SegTree[_T]):\n\
-    \    _lst = list5\n\nif __name__ == '__main__':\n    \"\"\"\n    Helper for making\
-    \ unittest files compatible with verification-helper.\n    \n    This module provides\
-    \ a helper function to run a dummy Library Checker test\n    so that unittest\
-    \ files can be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
-    \        \"\"\"\n        Run a dummy AOJ ITP1_1_A test for verification-helper\
-    \ compatibility.\n        \n        This function should be called in the __main__\
-    \ block of unittest files\n        that need to be compatible with verification-helper.\n\
-    \        \n        The function:\n        1. Prints \"Hello World\" (AOJ ITP1_1_A\
-    \ solution)\n        2. Runs pytest for the calling test file\n        3. Exits\
-    \ with the pytest result code\n        \"\"\"\n        import sys\n        \n\
-    \        # Print \"Hello World\" for AOJ ITP1_1_A problem\n        print(\"Hello\
-    \ World\")\n        \n        import io\n        from contextlib import redirect_stdout,\
-    \ redirect_stderr\n    \n        # Capture all output during test execution\n\
-    \        output = io.StringIO()\n        with redirect_stdout(output), redirect_stderr(output):\n\
-    \            # Get the calling module's file path\n            frame = sys._getframe(1)\n\
-    \            test_file = frame.f_globals.get('__file__')\n            if test_file\
+    \    _lst = list5\n\nif __name__ == '__main__':\n    \n    \"\"\"\n    Helper\
+    \ for making unittest files compatible with verification-helper.\n    \n    This\
+    \ module provides a helper function to run a dummy Library Checker test\n    so\
+    \ that unittest files can be verified by oj-verify.\n    \"\"\"\n    \n    def\
+    \ run_verification_helper_unittest():\n        \"\"\"\n        Run a dummy AOJ\
+    \ ITP1_1_A test for verification-helper compatibility.\n        \n        This\
+    \ function should be called in the __main__ block of unittest files\n        that\
+    \ need to be compatible with verification-helper.\n        \n        The function:\n\
+    \        1. Prints \"Hello World\" (AOJ ITP1_1_A solution)\n        2. Runs pytest\
+    \ for the calling test file\n        3. Exits with the pytest result code\n  \
+    \      \"\"\"\n        import sys\n        \n        # Print \"Hello World\" for\
+    \ AOJ ITP1_1_A problem\n        print(\"Hello World\")\n        \n        import\
+    \ io\n        from contextlib import redirect_stdout, redirect_stderr\n    \n\
+    \        # Capture all output during test execution\n        output = io.StringIO()\n\
+    \        with redirect_stdout(output), redirect_stderr(output):\n            #\
+    \ Get the calling module's file path\n            frame = sys._getframe(1)\n \
+    \           test_file = frame.f_globals.get('__file__')\n            if test_file\
     \ is None:\n                test_file = sys.argv[0]\n            result = pytest.main([test_file])\n\
     \        \n        if result != 0: \n            print(output.getvalue())\n  \
     \      sys.exit(result)\n    run_verification_helper_unittest()\n"
@@ -436,7 +437,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/tree/seg/segtree5_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/tree/seg/segtree5_cls_test.py

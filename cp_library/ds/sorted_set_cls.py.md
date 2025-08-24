@@ -9,17 +9,17 @@ data:
   attributes:
     links:
     - https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py
-  bundledCode: "\n'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
-    \u2501\u2578\n             https://kobejean.github.io/cp-library             \
-    \  \n'''\nfrom math import ceil, sqrt\nfrom bisect import bisect_left, bisect_right\n\
-    from typing import Iterable, Iterator, MutableSet\nfrom typing import TypeVar\n\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    from math import ceil, sqrt\nfrom bisect import bisect_left, bisect_right\nfrom\
+    \ typing import Iterable, Iterator, MutableSet\nfrom typing import TypeVar\n\n\
     _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py\n\
+    \ _T6 = TypeVar('T6')\n\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py\n\
     \nclass SortedSet(MutableSet[_T]):\n    BUCKET_RATIO = 16\n    SPLIT_RATIO = 24\n\
     \    \n    def __init__(self, a: Iterable[_T] = []) -> None:\n        \"Make a\
     \ new SortedSet from iterable. / O(N) if sorted and unique / O(N log N)\"\n  \
@@ -82,9 +82,9 @@ data:
     \ number of elements <= x.\"\n        ans = 0\n        for a in self.a:\n    \
     \        if a[-1] > x:\n                return ans + bisect_right(a, x)\n    \
     \        ans += len(a)\n        return ans\n"
-  code: "\nimport cp_library.ds.__header__\nfrom math import ceil, sqrt\nfrom bisect\
-    \ import bisect_left, bisect_right\nfrom typing import Iterable, Iterator, MutableSet\n\
-    from cp_library.misc.typing import _T\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py\n\
+  code: "import cp_library.__header__\nfrom math import ceil, sqrt\nfrom bisect import\
+    \ bisect_left, bisect_right\nfrom typing import Iterable, Iterator, MutableSet\n\
+    from cp_library.misc.typing import _T\nimport cp_library.ds.__header__\n\n# https://github.com/tatyam-prime/SortedSet/blob/main/SortedSet.py\n\
     \nclass SortedSet(MutableSet[_T]):\n    BUCKET_RATIO = 16\n    SPLIT_RATIO = 24\n\
     \    \n    def __init__(self, a: Iterable[_T] = []) -> None:\n        \"Make a\
     \ new SortedSet from iterable. / O(N) if sorted and unique / O(N log N)\"\n  \
@@ -151,7 +151,7 @@ data:
   isVerificationFile: false
   path: cp_library/ds/sorted_set_cls.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/ds/sorted_set_cls.py

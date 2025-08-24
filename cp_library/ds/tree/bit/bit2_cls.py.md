@@ -84,7 +84,10 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n           Data Structure -\
-    \ Tree - Binary Index Tree            \n'''\n\n\n\n\ndef argsort(A: list[int],\
+    \ Tree - Binary Index Tree            \n'''\nfrom typing import Generic\nfrom\
+    \ typing import TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U');\
+    \ _T1 = TypeVar('T1'); _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4');\
+    \ _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\n\n\n\ndef argsort(A: list[int],\
     \ reverse=False):\n    P = Packer(len(I := list(A))-1); P.ienumerate(I, reverse);\
     \ I.sort(); P.iindices(I)\n    return I\n\n\n\nclass Packer:\n    __slots__ =\
     \ 's', 'm'\n    def __init__(P, mx: int): P.s = mx.bit_length(); P.m = (1 << P.s)\
@@ -98,13 +101,10 @@ data:
     \ list, reverse=False):\n    inv, order = [0]*len(L[0]), argsort(L[0], reverse=reverse)\n\
     \    for i, j in enumerate(order): inv[j] = i\n    for i, j in enumerate(order):\n\
     \        for A in L: A[i], A[j] = A[j], A[i]\n        order[inv[i]], inv[j] =\
-    \ j, inv[i]\n    return L\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
-    \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
-    \ _T6 = TypeVar('T6')\n\n\nclass list2(Generic[_T1, _T2]):\n    __slots__ = 'A1',\
-    \ 'A2'\n    def __init__(lst, A1: list[_T1], A2: list[_T2]): lst.A1, lst.A2 =\
-    \ A1, A2\n    def __len__(lst): return len(lst.A1)\n    def __getitem__(lst, i:\
-    \ int): return lst.A1[i], lst.A2[i]\n    def __setitem__(lst, i: int, v: tuple[_T1,\
+    \ j, inv[i]\n    return L\n\n\nclass list2(Generic[_T1, _T2]):\n    __slots__\
+    \ = 'A1', 'A2'\n    def __init__(lst, A1: list[_T1], A2: list[_T2]): lst.A1, lst.A2\
+    \ = A1, A2\n    def __len__(lst): return len(lst.A1)\n    def __getitem__(lst,\
+    \ i: int): return lst.A1[i], lst.A2[i]\n    def __setitem__(lst, i: int, v: tuple[_T1,\
     \ _T2]): lst.A1[i], lst.A2[i] = v\n    def __contains__(lst, v: tuple[_T1, _T2]):\
     \ raise NotImplementedError\n    def index(lst, v: tuple[_T1, _T2]): raise NotImplementedError\n\
     \    def reverse(lst): lst.A1.reverse(); lst.A2.reverse()\n    def sort(lst, reverse=False):\
@@ -174,7 +174,7 @@ data:
   path: cp_library/ds/tree/bit/bit2_cls.py
   requiredBy:
   - perf/bit2.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/unittests/ds/tree/bit/bit2_cls_test.py

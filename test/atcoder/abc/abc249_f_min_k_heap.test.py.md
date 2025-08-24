@@ -83,7 +83,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Type, Union, overload\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
     def read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U,\
@@ -93,8 +93,8 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
-    \ > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    from __pypy__.builders import StringBuilder\n\n\n\ndef max2(a, b): return a if\
+    \ a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
     \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
     \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
     \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
@@ -196,16 +196,16 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    from typing import Reversible\n\n\ndef rev_enumerate(A: Reversible, start: int\
-    \ = 0):\n    start += (N := len(A))\n    for i in range(N-1,-1,-1):\n        yield\
-    \ (start:=start-1), A[i]\n\nfrom typing import Iterable\n\n\ndef heapsiftup_max(heap:\
-    \ list, pos: int):\n    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while\
-    \ c < n and item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos], pos, c = heap[c],\
-    \ c, c<<1|1\n    if c == n and item < heap[c]: heap[pos], pos = heap[c], c\n \
-    \   heap[pos] = item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\nfrom typing\
+    \ import Reversible\n\n\ndef rev_enumerate(A: Reversible, start: int = 0):\n \
+    \   start += (N := len(A))\n    for i in range(N-1,-1,-1):\n        yield (start:=start-1),\
+    \ A[i]\nfrom typing import Iterable\n\n\n\ndef heapsiftup_max(heap: list, pos:\
+    \ int):\n    n, item, c = len(heap)-1, heap[pos], pos<<1|1\n    while c < n and\
+    \ item < heap[c := c+(heap[c]<heap[c+1])]: heap[pos], pos, c = heap[c], c, c<<1|1\n\
+    \    if c == n and item < heap[c]: heap[pos], pos = heap[c], c\n    heap[pos]\
+    \ = item\n\ndef heapify_max(x: list):\n    for i in reversed(range(len(x)//2)):\
     \ heapsiftup_max(x, i)\n\ndef heappop_max(heap: list):\n    item = heap.pop()\n\
     \    if heap: item, heap[0] = heap[0], item; heapsiftup_max(heap, 0)\n    return\
     \ item\n\ndef heapsiftdown_max(heap: list, root: int, pos: int):\n    item = heap[pos]\n\
@@ -288,7 +288,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc249_f_min_k_heap.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc249_f_min_k_heap.test.py

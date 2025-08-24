@@ -23,27 +23,27 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    \nimport sys\nsys.setrecursionlimit(10**6)\nimport pypyjit\npypyjit.set_param(\"\
+    import sys\nimport pypyjit\n\n\nsys.setrecursionlimit(10**6)\npypyjit.set_param(\"\
     max_unroll_recursion=-1\")\n"
-  code: 'import cp_library.misc.__header__
-
+  code: 'import cp_library.__header__
 
     import sys
 
-    sys.setrecursionlimit(10**6)
-
     import pypyjit
 
-    pypyjit.set_param("max_unroll_recursion=-1")
+    import cp_library.misc.__header__
 
-    '
+
+    sys.setrecursionlimit(10**6)
+
+    pypyjit.set_param("max_unroll_recursion=-1")'
   dependsOn: []
   isVerificationFile: false
   path: cp_library/misc/setrecursionlimit.py
   requiredBy:
-  - cp_library/alg/tree/find_centroid_recursive_fn.py
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/alg/tree/find_centroid_recursive_fn.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/aoj/grl/grl_5_c_lca_table_recursive.test.py

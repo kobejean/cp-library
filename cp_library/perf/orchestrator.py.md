@@ -69,6 +69,9 @@ data:
     path: perf/segtree6.py
     title: perf/segtree6.py
   - icon: ':warning:'
+    path: perf/stack_operations.py
+    title: perf/stack_operations.py
+  - icon: ':warning:'
     path: perf/view2.py
     title: perf/view2.py
   - icon: ':warning:'
@@ -93,42 +96,43 @@ data:
     , line 418, in visit\n    return visitor(node)\n  File \"/opt/hostedtoolcache/PyPy/3.10.16/x64/lib/pypy3.10/site-packages/onlinejudge_verify/languages/python_bundle.py\"\
     , line 64, in visit_ImportFrom\n    raise NotImplementedError(\"Relative imports\
     \ are not supported\")\nNotImplementedError: Relative imports are not supported\n"
-  code: "\"\"\"\nBenchmark orchestrator implementation following Single Responsibility\
-    \ Principle.\n\"\"\"\n\nimport sys\nfrom typing import List\nfrom .interfaces\
-    \ import (\n    BenchmarkOrchestrator, BenchmarkRegistry, BenchmarkResult, \n\
-    \    TimerInterface, OutputManager\n)\n\n\nclass BenchmarkOrchestratorImpl(BenchmarkOrchestrator):\n\
-    \    \"\"\"Implementation of benchmark execution orchestration\"\"\"\n    \n \
-    \   def __init__(self, \n                 registry: BenchmarkRegistry,\n     \
-    \            timer: TimerInterface,\n                 output_manager: OutputManager\
-    \ = None):\n        self.registry = registry\n        self.timer = timer\n   \
-    \     self.output_manager = output_manager\n        self.results: List[BenchmarkResult]\
-    \ = []\n    \n    def run_benchmarks(self, operations: List[str], sizes: List[int])\
-    \ -> List[BenchmarkResult]:\n        \"\"\"Execute benchmarks and return results\"\
-    \"\"\n        self.results = []\n        \n        for operation in operations:\n\
-    \            for size in sizes:\n                self._run_single(operation, size)\n\
-    \        \n        if self.output_manager:\n            self.output_manager.save_results(self.results,\
-    \ None)\n        \n        return self.results\n    \n    def _run_single(self,\
-    \ operation: str, size: int) -> None:\n        \"\"\"Run a single operation/size\
-    \ combination\"\"\"\n        print(f\"\\nOperation: {operation}, Size: {size}\"\
-    )\n        print(\"-\" * 50)\n        sys.stdout.flush()\n        \n        #\
-    \ Generate test data\n        generator = self.registry.get_data_generator(operation)\n\
-    \        if not generator:\n            raise ValueError(f\"No data generator\
-    \ for operation: {operation}\")\n        \n        test_data = generator.generate(size,\
-    \ operation)\n        \n        # Get implementations for this operation\n   \
-    \     impls = self.registry.get_implementations(operation)\n        if not impls:\n\
-    \            print(f\"No implementations for operation: {operation}\")\n     \
-    \       return\n        \n        # Run reference implementation first (find first\
-    \ non-skipped implementation)\n        expected_result = None\n        ref_name\
-    \ = None\n        for impl_name, impl_func in impls.items():\n            setup_func\
-    \ = self.registry.get_setup(operation, impl_name)\n            result, _ = self.timer.measure_time(impl_func,\
-    \ test_data, setup_func)\n            if result is not None:\n               \
-    \ expected_result = result\n                ref_name = impl_name\n           \
-    \     break\n        \n        # If all implementations return None, skip this\
-    \ operation/size combination\n        if expected_result is None:\n          \
-    \  print(\"  All implementations skipped\")\n            return\n        \n  \
-    \      # Get validator for this operation\n        validator = self.registry.get_validator(operation)\n\
-    \        \n        # Run all implementations\n        for impl_name, impl_func\
-    \ in impls.items():\n            try:\n                setup_func = self.registry.get_setup(operation,\
+  code: "import cp_library.__header__\n\"\"\"\nBenchmark orchestrator implementation\
+    \ following Single Responsibility Principle.\n\"\"\"\n\nimport sys\nfrom typing\
+    \ import List\nfrom .interfaces import (\n    BenchmarkOrchestrator, BenchmarkRegistry,\
+    \ BenchmarkResult, \n    TimerInterface, OutputManager\n)\nimport cp_library.perf.__header__\n\
+    \n\nclass BenchmarkOrchestratorImpl(BenchmarkOrchestrator):\n    \"\"\"Implementation\
+    \ of benchmark execution orchestration\"\"\"\n    \n    def __init__(self, \n\
+    \                 registry: BenchmarkRegistry,\n                 timer: TimerInterface,\n\
+    \                 output_manager: OutputManager = None):\n        self.registry\
+    \ = registry\n        self.timer = timer\n        self.output_manager = output_manager\n\
+    \        self.results: List[BenchmarkResult] = []\n    \n    def run_benchmarks(self,\
+    \ operations: List[str], sizes: List[int]) -> List[BenchmarkResult]:\n       \
+    \ \"\"\"Execute benchmarks and return results\"\"\"\n        self.results = []\n\
+    \        \n        for operation in operations:\n            for size in sizes:\n\
+    \                self._run_single(operation, size)\n        \n        if self.output_manager:\n\
+    \            self.output_manager.save_results(self.results, None)\n        \n\
+    \        return self.results\n    \n    def _run_single(self, operation: str,\
+    \ size: int) -> None:\n        \"\"\"Run a single operation/size combination\"\
+    \"\"\n        print(f\"\\nOperation: {operation}, Size: {size}\")\n        print(\"\
+    -\" * 50)\n        sys.stdout.flush()\n        \n        # Generate test data\n\
+    \        generator = self.registry.get_data_generator(operation)\n        if not\
+    \ generator:\n            raise ValueError(f\"No data generator for operation:\
+    \ {operation}\")\n        \n        test_data = generator.generate(size, operation)\n\
+    \        \n        # Get implementations for this operation\n        impls = self.registry.get_implementations(operation)\n\
+    \        if not impls:\n            print(f\"No implementations for operation:\
+    \ {operation}\")\n            return\n        \n        # Run reference implementation\
+    \ first (find first non-skipped implementation)\n        expected_result = None\n\
+    \        ref_name = None\n        for impl_name, impl_func in impls.items():\n\
+    \            setup_func = self.registry.get_setup(operation, impl_name)\n    \
+    \        result, _ = self.timer.measure_time(impl_func, test_data, setup_func)\n\
+    \            if result is not None:\n                expected_result = result\n\
+    \                ref_name = impl_name\n                break\n        \n     \
+    \   # If all implementations return None, skip this operation/size combination\n\
+    \        if expected_result is None:\n            print(\"  All implementations\
+    \ skipped\")\n            return\n        \n        # Get validator for this operation\n\
+    \        validator = self.registry.get_validator(operation)\n        \n      \
+    \  # Run all implementations\n        for impl_name, impl_func in impls.items():\n\
+    \            try:\n                setup_func = self.registry.get_setup(operation,\
     \ impl_name)\n                result, time_ms = self.timer.measure_time(impl_func,\
     \ test_data, setup_func)\n                \n                # Check if implementation\
     \ returned None to skip\n                if result is None:\n                \
@@ -155,30 +159,31 @@ data:
   isVerificationFile: false
   path: cp_library/perf/orchestrator.py
   requiredBy:
-  - cp_library/perf/benchmark.py
-  - perf/bool_list.py
-  - perf/view2.py
-  - perf/heap_view.py
-  - perf/list_view.py
-  - perf/mlist.py
+  - perf/list2.py
   - perf/que.py
   - perf/list6.py
-  - perf/grid.py
-  - perf/edge_list.py
-  - perf/csr.py
-  - perf/bit6.py
-  - perf/deque.py
-  - perf/segtree2.py
-  - perf/view6.py
-  - perf/csr6.py
-  - perf/segtree6.py
-  - perf/csr2.py
-  - perf/bit2.py
-  - perf/rank.py
-  - perf/list2.py
   - perf/heap_csr.py
+  - perf/mlist.py
+  - perf/bit6.py
+  - perf/view6.py
+  - perf/stack_operations.py
+  - perf/csr.py
+  - perf/edge_list.py
+  - perf/rank.py
+  - perf/bool_list.py
+  - perf/heap_view.py
+  - perf/segtree2.py
+  - perf/view2.py
+  - perf/csr2.py
+  - perf/grid.py
+  - perf/list_view.py
+  - perf/segtree6.py
+  - perf/bit2.py
+  - perf/deque.py
+  - perf/csr6.py
   - perf/bytearray_decode.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/perf/benchmark.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/orchestrator.py

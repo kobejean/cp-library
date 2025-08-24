@@ -69,6 +69,9 @@ data:
     path: perf/segtree6.py
     title: perf/segtree6.py
   - icon: ':warning:'
+    path: perf/stack_operations.py
+    title: perf/stack_operations.py
+  - icon: ':warning:'
     path: perf/view2.py
     title: perf/view2.py
   - icon: ':warning:'
@@ -80,42 +83,48 @@ data:
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
-  bundledCode: "\"\"\"\nBenchmark registry implementation following Single Responsibility\
-    \ Principle.\n\"\"\"\n\nfrom typing import Callable, Dict, List, Union\n\"\"\"\
-    \nInterfaces for the benchmark framework following SOLID principles.\n\"\"\"\n\
-    \nfrom abc import ABC, abstractmethod\nfrom typing import Any, Callable, Dict,\
-    \ List, Optional, Union\nfrom dataclasses import dataclass\n\n\n@dataclass\nclass\
-    \ BenchmarkResult:\n    \"\"\"Immutable benchmark result value object\"\"\"\n\
-    \    operation: str\n    size: int\n    implementation: str\n    time_ms: float\n\
-    \    correct: bool\n    error: Optional[str] = None\n\n\nclass TimerInterface(ABC):\n\
-    \    \"\"\"Interface for timing implementations\"\"\"\n    \n    @abstractmethod\n\
-    \    def measure_time(self, func: Callable, data: Any, setup_func: Callable =\
-    \ None) -> tuple[Any, float]:\n        \"\"\"Measure execution time of a function\"\
-    \"\"\n        pass\n\n\nclass PlotRenderer(ABC):\n    \"\"\"Interface for plot\
-    \ rendering implementations\"\"\"\n    \n    @abstractmethod\n    def can_render(self)\
-    \ -> bool:\n        \"\"\"Check if this renderer is available\"\"\"\n        pass\n\
-    \    \n    @abstractmethod\n    def create_plots(self, results: List[BenchmarkResult],\
-    \ config: Any) -> None:\n        \"\"\"Create plots from benchmark results\"\"\
-    \"\n        pass\n\n\nclass ResultValidator(ABC):\n    \"\"\"Interface for result\
-    \ validation strategies\"\"\"\n    \n    @abstractmethod\n    def validate(self,\
-    \ expected: Any, actual: Any) -> bool:\n        \"\"\"Validate benchmark result\"\
-    \"\"\n        pass\n\n\nclass DataGenerator(ABC):\n    \"\"\"Interface for data\
-    \ generation strategies\"\"\"\n    \n    @abstractmethod\n    def generate(self,\
-    \ size: int, operation: str) -> Any:\n        \"\"\"Generate test data for given\
-    \ size and operation\"\"\"\n        pass\n\n\nclass OutputManager(ABC):\n    \"\
-    \"\"Interface for output management\"\"\"\n    \n    @abstractmethod\n    def\
-    \ save_results(self, results: List[BenchmarkResult], config: Any) -> None:\n \
-    \       \"\"\"Save benchmark results\"\"\"\n        pass\n\n\nclass BenchmarkRegistry(ABC):\n\
-    \    \"\"\"Interface for benchmark component registration\"\"\"\n    \n    @abstractmethod\n\
-    \    def register_implementation(self, name: str, func: Callable, operations:\
-    \ List[str]) -> None:\n        \"\"\"Register a benchmark implementation\"\"\"\
-    \n        pass\n    \n    @abstractmethod\n    def register_data_generator(self,\
-    \ name: str, generator: DataGenerator) -> None:\n        \"\"\"Register a data\
-    \ generator\"\"\"\n        pass\n    \n    @abstractmethod\n    def register_validator(self,\
-    \ operation: str, validator: ResultValidator) -> None:\n        \"\"\"Register\
-    \ a result validator\"\"\"\n        pass\n    \n    @abstractmethod\n    def register_setup(self,\
-    \ name: str, setup_func: Callable, operations: List[str]) -> None:\n        \"\
-    \"\"Register a setup function\"\"\"\n        pass\n\n\nclass BenchmarkOrchestrator(ABC):\n\
+  bundledCode: "'''\n\u257A\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
+    \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
+    \"\"\"\nBenchmark registry implementation following Single Responsibility Principle.\n\
+    \"\"\"\nfrom typing import Callable, Dict, List, Union\n\n\"\"\"\nInterfaces for\
+    \ the benchmark framework following SOLID principles.\n\"\"\"\nfrom abc import\
+    \ ABC, abstractmethod\nfrom typing import Any, Callable, Dict, List, Optional,\
+    \ Union\nfrom dataclasses import dataclass\n\n@dataclass\nclass BenchmarkResult:\n\
+    \    \"\"\"Immutable benchmark result value object\"\"\"\n    operation: str\n\
+    \    size: int\n    implementation: str\n    time_ms: float\n    correct: bool\n\
+    \    error: Optional[str] = None\n\n\nclass TimerInterface(ABC):\n    \"\"\"Interface\
+    \ for timing implementations\"\"\"\n    \n    @abstractmethod\n    def measure_time(self,\
+    \ func: Callable, data: Any, setup_func: Callable = None) -> tuple[Any, float]:\n\
+    \        \"\"\"Measure execution time of a function\"\"\"\n        pass\n\n\n\
+    class PlotRenderer(ABC):\n    \"\"\"Interface for plot rendering implementations\"\
+    \"\"\n    \n    @abstractmethod\n    def can_render(self) -> bool:\n        \"\
+    \"\"Check if this renderer is available\"\"\"\n        pass\n    \n    @abstractmethod\n\
+    \    def create_plots(self, results: List[BenchmarkResult], config: Any) -> None:\n\
+    \        \"\"\"Create plots from benchmark results\"\"\"\n        pass\n\n\nclass\
+    \ ResultValidator(ABC):\n    \"\"\"Interface for result validation strategies\"\
+    \"\"\n    \n    @abstractmethod\n    def validate(self, expected: Any, actual:\
+    \ Any) -> bool:\n        \"\"\"Validate benchmark result\"\"\"\n        pass\n\
+    \n\nclass DataGenerator(ABC):\n    \"\"\"Interface for data generation strategies\"\
+    \"\"\n    \n    @abstractmethod\n    def generate(self, size: int, operation:\
+    \ str) -> Any:\n        \"\"\"Generate test data for given size and operation\"\
+    \"\"\n        pass\n\n\nclass OutputManager(ABC):\n    \"\"\"Interface for output\
+    \ management\"\"\"\n    \n    @abstractmethod\n    def save_results(self, results:\
+    \ List[BenchmarkResult], config: Any) -> None:\n        \"\"\"Save benchmark results\"\
+    \"\"\n        pass\n\n\nclass BenchmarkRegistry(ABC):\n    \"\"\"Interface for\
+    \ benchmark component registration\"\"\"\n    \n    @abstractmethod\n    def register_implementation(self,\
+    \ name: str, func: Callable, operations: List[str]) -> None:\n        \"\"\"Register\
+    \ a benchmark implementation\"\"\"\n        pass\n    \n    @abstractmethod\n\
+    \    def register_data_generator(self, name: str, generator: DataGenerator) ->\
+    \ None:\n        \"\"\"Register a data generator\"\"\"\n        pass\n    \n \
+    \   @abstractmethod\n    def register_validator(self, operation: str, validator:\
+    \ ResultValidator) -> None:\n        \"\"\"Register a result validator\"\"\"\n\
+    \        pass\n    \n    @abstractmethod\n    def register_setup(self, name: str,\
+    \ setup_func: Callable, operations: List[str]) -> None:\n        \"\"\"Register\
+    \ a setup function\"\"\"\n        pass\n\n\nclass BenchmarkOrchestrator(ABC):\n\
     \    \"\"\"Interface for benchmark execution orchestration\"\"\"\n    \n    @abstractmethod\n\
     \    def run_benchmarks(self, operations: List[str], sizes: List[int]) -> List[BenchmarkResult]:\n\
     \        \"\"\"Execute benchmarks and return results\"\"\"\n        pass\n\n\n\
@@ -176,8 +185,9 @@ data:
     \        operations = [operations]\n            \n        def decorator(func):\n\
     \            self.register_setup(name, func, operations)\n            return func\n\
     \        return decorator\n"
-  code: "\"\"\"\nBenchmark registry implementation following Single Responsibility\
-    \ Principle.\n\"\"\"\n\nfrom typing import Callable, Dict, List, Union\nfrom cp_library.perf.interfaces\
+  code: "import cp_library.__header__\n\"\"\"\nBenchmark registry implementation following\
+    \ Single Responsibility Principle.\n\"\"\"\nfrom typing import Callable, Dict,\
+    \ List, Union\nimport cp_library.perf.__header__\nfrom cp_library.perf.interfaces\
     \ import BenchmarkRegistry, DataGenerator, ResultValidator\n\n\nclass DefaultResultValidator(ResultValidator):\n\
     \    \"\"\"Default validator that uses equality comparison\"\"\"\n    \n    def\
     \ validate(self, expected, actual) -> bool:\n        return expected == actual\n\
@@ -240,30 +250,31 @@ data:
   isVerificationFile: false
   path: cp_library/perf/registry.py
   requiredBy:
-  - cp_library/perf/benchmark.py
-  - perf/bool_list.py
-  - perf/view2.py
-  - perf/heap_view.py
-  - perf/list_view.py
-  - perf/mlist.py
+  - perf/list2.py
   - perf/que.py
   - perf/list6.py
-  - perf/grid.py
-  - perf/edge_list.py
-  - perf/csr.py
-  - perf/bit6.py
-  - perf/deque.py
-  - perf/segtree2.py
-  - perf/view6.py
-  - perf/csr6.py
-  - perf/segtree6.py
-  - perf/csr2.py
-  - perf/bit2.py
-  - perf/rank.py
-  - perf/list2.py
   - perf/heap_csr.py
+  - perf/mlist.py
+  - perf/bit6.py
+  - perf/view6.py
+  - perf/stack_operations.py
+  - perf/csr.py
+  - perf/edge_list.py
+  - perf/rank.py
+  - perf/bool_list.py
+  - perf/heap_view.py
+  - perf/segtree2.py
+  - perf/view2.py
+  - perf/csr2.py
+  - perf/grid.py
+  - perf/list_view.py
+  - perf/segtree6.py
+  - perf/bit2.py
+  - perf/deque.py
+  - perf/csr6.py
   - perf/bytearray_decode.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  - cp_library/perf/benchmark.py
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: cp_library/perf/registry.py

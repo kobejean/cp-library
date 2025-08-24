@@ -54,7 +54,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\nfrom typing import Type, Union, overload\nfrom typing import\
-    \ TypeVar\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \ TypeVar\n\n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\n\n\n@overload\ndef read() -> list[int]: ...\n@overload\n\
     def read(spec: Type[_T], char=False) -> _T: ...\n@overload\ndef read(spec: _U,\
@@ -64,8 +64,8 @@ data:
     \ = char\n    if not specs: return IO.stdin.readnumsinto([])\n    parser: _T =\
     \ Parser.compile(specs[0] if len(specs) == 1 else specs)\n    return parser(IO.stdin)\n\
     from os import read as os_read, write as os_write, fstat as os_fstat\nimport sys\n\
-    from __pypy__.builders import StringBuilder\n\n\ndef max2(a, b): return a if a\
-    \ > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
+    from __pypy__.builders import StringBuilder\n\n\n\ndef max2(a, b): return a if\
+    \ a > b else b\n\nclass IOBase:\n    @property\n    def char(io) -> bool: ...\n\
     \    @property\n    def writable(io) -> bool: ...\n    def __next__(io) -> str:\
     \ ...\n    def write(io, s: str) -> None: ...\n    def readline(io) -> str: ...\n\
     \    def readtoken(io) -> str: ...\n    def readtokens(io) -> list[str]: ...\n\
@@ -167,11 +167,11 @@ data:
     \        else:\n            raise NotImplementedError()\n\ndef write(*args, **kwargs):\n\
     \    '''Prints the values to a stream, or to stdout_fast by default.'''\n    sep,\
     \ file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", IO.stdout)\n    at_start\
-    \ = True\n    for x in args:\n        if not at_start:\n            file.write(sep)\n\
-    \        file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
-    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False):\n        file.flush()\n\
-    from typing import Optional\nfrom collections import Counter, deque\n\n\n\nclass\
-    \ Trie:\n    __slots__ = 'sub', 'par', 'chr', 'cnt', 'word'\n\n    def __init__(T):\n\
+    \ = True\n    for x in args:\n        if not at_start: file.write(sep)\n     \
+    \   file.write(str(x))\n        at_start = False\n    file.write(kwargs.pop(\"\
+    end\", \"\\n\"))\n    if kwargs.pop(\"flush\", False): file.flush()\nfrom typing\
+    \ import Optional\nfrom collections import Counter, deque\n\n\n\nclass Trie:\n\
+    \    __slots__ = 'sub', 'par', 'chr', 'cnt', 'word'\n\n    def __init__(T):\n\
     \        T.sub: dict[str, Trie] = {}\n        T.par: Optional[Trie] = None\n \
     \       T.chr: str = \"\"\n        T.cnt: int = 0\n        T.word: bool = False\n\
     \n    def add(T, word: str):\n        (node := T).cnt += 1\n        for chr in\
@@ -196,27 +196,27 @@ data:
     \ que.h) + 1; return que.q[h]\n    def extend(que, items): que.q.extend(items)\n\
     \    def __getitem__(que, i: int): return que.q[que.h+i]\n    def __setitem__(que,\
     \ i: int, v): que.q[que.h+i] = v\n    def __len__(que): return que.q.__len__()\
-    \ - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\n\ndef elist(est_len:\
+    \ - que.h\n    def __hash__(que): return hash(tuple(que.q[que.h:]))\n\n\ndef elist(hint:\
     \ int) -> list: ...\ntry:\n    from __pypy__ import newlist_hint\nexcept:\n  \
-    \  def newlist_hint(hint):\n        return []\nelist = newlist_hint\n    \n\n\
-    class AhoCorasick(Trie):\n    __slots__ = 'failed', 'freq'\n\n    def __init__(T):\n\
-    \        super().__init__()\n        T.failed: Optional['AhoCorasick'] = None\n\
-    \        T.freq: int = 0\n\n    def build(T):\n        order: list[AhoCorasick]\
-    \ = T.bfs()\n        for node in order:\n            now: AhoCorasick = node.par\n\
-    \            chr = node.chr\n            while now.failed:\n                if\
-    \ chr in now.failed.sub:\n                    node.failed = now.failed.sub[chr]\n\
-    \                    break\n                now = now.failed\n            else:\n\
-    \                node.failed = T\n        T.failed = T\n        return order\n\
-    \n    def freq_table(T, text: str) -> Counter[str, int]:\n        order = T.build()\n\
-    \        order.reverse()\n        node: AhoCorasick = T\n        for chr in text:\n\
-    \            while node != T and chr not in node.sub:\n                node =\
-    \ node.failed\n            node = node.sub.get(chr, T)\n            node.freq\
-    \ += 1\n\n        output = Counter()\n        for node in order:\n           \
-    \ node.failed.freq += node.freq\n            if node.word:\n                output[str(node)]\
-    \ = node.freq\n        return output\n\n    def bfs(T) -> list['Trie']:\n    \
-    \    order, que = [], Que([T])\n        while que:\n            order.extend(sub\
-    \ := que.pop().sub.values())\n            que.extend(sub)\n        return order\n\
-    \nif __name__ == '__main__':\n    main()\n"
+    \  def newlist_hint(hint): return []\nelist = newlist_hint\n    \n\nclass AhoCorasick(Trie):\n\
+    \    __slots__ = 'failed', 'freq'\n\n    def __init__(T):\n        super().__init__()\n\
+    \        T.failed: Optional['AhoCorasick'] = None\n        T.freq: int = 0\n\n\
+    \    def build(T):\n        order: list[AhoCorasick] = T.bfs()\n        for node\
+    \ in order:\n            now: AhoCorasick = node.par\n            chr = node.chr\n\
+    \            while now.failed:\n                if chr in now.failed.sub:\n  \
+    \                  node.failed = now.failed.sub[chr]\n                    break\n\
+    \                now = now.failed\n            else:\n                node.failed\
+    \ = T\n        T.failed = T\n        return order\n\n    def freq_table(T, text:\
+    \ str) -> Counter[str, int]:\n        order = T.build()\n        order.reverse()\n\
+    \        node: AhoCorasick = T\n        for chr in text:\n            while node\
+    \ != T and chr not in node.sub:\n                node = node.failed\n        \
+    \    node = node.sub.get(chr, T)\n            node.freq += 1\n\n        output\
+    \ = Counter()\n        for node in order:\n            node.failed.freq += node.freq\n\
+    \            if node.word:\n                output[str(node)] = node.freq\n  \
+    \      return output\n\n    def bfs(T) -> list['Trie']:\n        order, que =\
+    \ [], Que([T])\n        while que:\n            order.extend(sub := que.pop().sub.values())\n\
+    \            que.extend(sub)\n        return order\n\nif __name__ == '__main__':\n\
+    \    main()\n"
   code: "# verification-helper: PROBLEM https://atcoder.jp/contests/abc362/tasks/abc362_g\n\
     \ndef main():\n    S = read(str)\n    Q = read(int)\n    A = AhoCorasick()\n \
     \   queries = []\n    for _ in range(Q):\n        T = input()\n        A.add(T)\n\
@@ -239,7 +239,7 @@ data:
   isVerificationFile: true
   path: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/atcoder/abc/abc362_g_count_substring_query_ahocorasick.test.py

@@ -23,7 +23,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Generic, Callable\nfrom typing import TypeVar\n_S = TypeVar('S');\
+    from typing import Generic, Callable\nfrom typing import TypeVar\n\n_S = TypeVar('S');\
     \ _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\nclass SparseTable(Generic[_T]):\n    def __init__(st, op: Callable[[_T,_T],_T],\
@@ -46,7 +46,7 @@ data:
   path: cp_library/ds/sparse_table_cls.py
   requiredBy:
   - cp_library/alg/tree/lca_table_recursive_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/library-checker/data-structure/staticrmq_general.test.py

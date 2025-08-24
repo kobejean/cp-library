@@ -126,15 +126,14 @@ data:
     \    x = ((x >> 2)  & 0x33333333) + (x & 0x33333333)\n    x = ((x >> 4)  & 0x0f0f0f0f)\
     \ + (x & 0x0f0f0f0f)\n    x = ((x >> 8)  & 0x00ff00ff) + (x & 0x00ff00ff)\n  \
     \  x = ((x >> 16) & 0x0000ffff) + (x & 0x0000ffff)\n    return x\nif hasattr(int,\
-    \ 'bit_count'):\n    popcnt32 = int.bit_count\n\nfrom array import array\ndef\
-    \ u32f(N: int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\
-    \nclass WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int,\
-    \ H: int):\n            super().__init__(N)\n            L.H = H\n        def\
-    \ build(L):\n            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1],\
-    \ L.cnt[-1]\n        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if\
-    \ bit else L.count0(i)\n        def pos2(L, bit: int, i: int, j: int): return\
-    \ (L.T0+L.count1(i), L.T0+L.count1(j)) if bit else (L.count0(i), L.count0(j))\n\
-    \    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
+    \ 'bit_count'): popcnt32 = int.bit_count\nfrom array import array\n\ndef u32f(N:\
+    \ int, elm: int = 0):     return array('I', (elm,))*N  # unsigned int\n\nclass\
+    \ WMStatic:\n    class Level(BitArray):\n        def __init__(L, N: int, H: int):\n\
+    \            super().__init__(N)\n            L.H = H\n        def build(L):\n\
+    \            super().build()\n            L.T0, L.T1 = L.N-L.cnt[-1], L.cnt[-1]\n\
+    \        def pos(L, bit: int, i: int): return L.T0+L.count1(i) if bit else L.count0(i)\n\
+    \        def pos2(L, bit: int, i: int, j: int): return (L.T0+L.count1(i), L.T0+L.count1(j))\
+    \ if bit else (L.count0(i), L.count0(j))\n    def __init__(wm,A,Amax:int=None):wm._build(A,[0]*len(A),max(A,default=0)if\
     \ Amax is None else Amax)\n    def _build(wm, A, nA, Amax):wm.N,wm.H=len(A),Amax.bit_length();wm._build_levels(A,nA)\n\
     \    def _build_levels(wm, A, nA):\n        wm.up=[wm.Level(wm.N,H) for H in range(wm.H)];wm.down=wm.up[::-1]\n\
     \        for L in wm.down:\n            x,y,i=-1,wm.N-1,wm.N\n            while\
@@ -166,10 +165,10 @@ data:
     \            if u>>L.H&1:cnt+=r-l;l,r=L.T0+l1,L.T0+r1\n        return cnt\n  \
     \  def prev_val(wm,u:int,l:int,r:int):return wm.kth(cnt-1, l, r)if(cnt:=wm._cnt(u,l,r))else-1\n\
     \    def next_val(wm,d:int,l:int,r:int):return wm.kth(cnt, l, r)if(cnt:=wm._cnt(d,l,r))<r-l\
-    \ else-1\n\nif __name__ == '__main__':\n    \"\"\"\n    Helper for making unittest\
-    \ files compatible with verification-helper.\n    \n    This module provides a\
-    \ helper function to run a dummy Library Checker test\n    so that unittest files\
-    \ can be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
+    \ else-1\n\nif __name__ == '__main__':\n    \n    \"\"\"\n    Helper for making\
+    \ unittest files compatible with verification-helper.\n    \n    This module provides\
+    \ a helper function to run a dummy Library Checker test\n    so that unittest\
+    \ files can be verified by oj-verify.\n    \"\"\"\n    \n    def run_verification_helper_unittest():\n\
     \        \"\"\"\n        Run a dummy AOJ ITP1_1_A test for verification-helper\
     \ compatibility.\n        \n        This function should be called in the __main__\
     \ block of unittest files\n        that need to be compatible with verification-helper.\n\
@@ -264,7 +263,7 @@ data:
   isVerificationFile: true
   path: test/unittests/ds/wavelet/wm_static_cls_test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/unittests/ds/wavelet/wm_static_cls_test.py

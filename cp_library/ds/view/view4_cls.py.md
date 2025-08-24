@@ -32,7 +32,7 @@ data:
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\
     \u2578\n             https://kobejean.github.io/cp-library               \n'''\n\
-    from typing import Generic\nfrom typing import TypeVar\n_S = TypeVar('S'); _T\
+    from typing import Generic\nfrom typing import TypeVar\n\n_S = TypeVar('S'); _T\
     \ = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1'); _T2 = TypeVar('T2');\
     \ _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5'); _T6 = TypeVar('T6')\n\
     \n\n\n\ndef argsort_ranged(A: list[int], l: int, r: int, reverse=False):\n   \
@@ -104,11 +104,11 @@ data:
   path: cp_library/ds/view/view4_cls.py
   requiredBy:
   - cp_library/ds/view/csr4_cls.py
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/unittests/ds/view/csr4_cls_test.py
   - test/unittests/ds/view/view4_cls_test.py
+  - test/unittests/ds/view/csr4_cls_test.py
 documentation_of: cp_library/ds/view/view4_cls.py
 layout: document
 redirect_from:

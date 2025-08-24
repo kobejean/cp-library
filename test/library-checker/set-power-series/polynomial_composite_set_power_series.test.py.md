@@ -53,10 +53,10 @@ data:
     \u2501\u2501\u2501\u2501\u2578\n             https://kobejean.github.io/cp-library\
     \               \n'''\n\n\ndef popcnts(N):\n    P = [0]*(1 << N)\n    for i in\
     \ range(N):\n        for m in range(b := 1<<i):\n            P[m^b] = P[m] + 1\n\
-    \    return P\n\n\ndef elist(est_len: int) -> list: ...\ntry:\n    from __pypy__\
-    \ import newlist_hint\nexcept:\n    def newlist_hint(hint):\n        return []\n\
-    elist = newlist_hint\n    \n\nfrom typing import Generic\nfrom typing import TypeVar\n\
-    _S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
+    \    return P\n\n\n\ndef elist(hint: int) -> list: ...\ntry:\n    from __pypy__\
+    \ import newlist_hint\nexcept:\n    def newlist_hint(hint): return []\nelist =\
+    \ newlist_hint\n    \n\nfrom typing import Generic\nfrom typing import TypeVar\n\
+    \n_S = TypeVar('S'); _T = TypeVar('T'); _U = TypeVar('U'); _T1 = TypeVar('T1');\
     \ _T2 = TypeVar('T2'); _T3 = TypeVar('T3'); _T4 = TypeVar('T4'); _T5 = TypeVar('T5');\
     \ _T6 = TypeVar('T6')\nimport sys\n\ndef list_find(lst: list, value, start = 0,\
     \ stop = sys.maxsize):\n    try:\n        return lst.index(value, start, stop)\n\
@@ -158,7 +158,7 @@ data:
     \ range(1<<n): Cr[k] = B0[~n]\n    ior_mobius_ranked(Cr, N, M, Z)\n    for i,\
     \ p in enumerate(pcnt): C[i] = Cr[p<<N|i] % mod\n    return C\n\nfrom os import\
     \ read as os_read, write as os_write, fstat as os_fstat\nfrom __pypy__.builders\
-    \ import StringBuilder\n\n\ndef max2(a, b): return a if a > b else b\n\nclass\
+    \ import StringBuilder\n\n\n\ndef max2(a, b): return a if a > b else b\n\nclass\
     \ IOBase:\n    @property\n    def char(io) -> bool: ...\n    @property\n    def\
     \ writable(io) -> bool: ...\n    def __next__(io) -> str: ...\n    def write(io,\
     \ s: str) -> None: ...\n    def readline(io) -> str: ...\n    def readtoken(io)\
@@ -241,7 +241,7 @@ data:
   isVerificationFile: true
   path: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
   requiredBy: []
-  timestamp: '2025-07-28 19:59:52+09:00'
+  timestamp: '2025-08-24 20:27:05+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/library-checker/set-power-series/polynomial_composite_set_power_series.test.py
